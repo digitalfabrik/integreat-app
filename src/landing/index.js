@@ -1,36 +1,44 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import Layout from '../../components/Layout';
-import s from './styles.css';
+import {connect} from "react-redux";
 
-
+import {fetchLocationsIfNeeded} from "../actions";
 import Location from "../../components/Location/Location";
+
+import s from './styles.css';
 
 class LandingPage extends React.Component {
 
+  static propTypes = {
+    locations: PropTypes.object.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      locations: [],
-    };
   }
 
   componentWillMount() {
-    fetch('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
-      .then(response => response.json()).then(json => this.setState({locations: json}))
-      .catch(ex => {
-        throw ex
-      });
+    this.props.dispatch(fetchLocationsIfNeeded());
   }
 
   render() {
     return (
-
       <Layout className={s.content}>
-        <Location locations={this.state.locations}/>
+        <Location locations={this.props.locations}/>
       </Layout>
     );
   }
 }
 
 
-export default LandingPage;
+function mapStateToProps(state) {
+  return {
+    locations: state.fetchLocations.locations,
+    isFetching: state.fetchLocations.isFetching
+  }
+}
+
+export default connect(mapStateToProps)(LandingPage)

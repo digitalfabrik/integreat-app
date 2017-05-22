@@ -1,7 +1,28 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux'
 
+import thunkMiddleware from 'redux-thunk'
+import {createLogger} from 'redux-logger'
+import rootReducer from './reducers'
 
-const store = createStore(() => {
-});
+// import {persistStore, autoRehydrate} from 'redux-persist'
 
-export default store;
+const loggerMiddleware = createLogger();
+
+let configureStore = function configureStore(preloadedState) {
+  return createStore(
+    rootReducer,
+    preloadedState,
+    compose(
+      applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware
+      ),
+      // autoRehydrate()
+    )
+  )
+};
+
+let store = configureStore();
+// persistStore(store);
+
+export default store
