@@ -90,7 +90,3 @@ fabric.properties
 public/dist
 public/index.html
 public/sitemap.xml
-
-# Yarn
-
-yarn.lock
