@@ -19,6 +19,7 @@
     "react-search-input": "^0.11.2",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^4.8.0",
     "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   },
@@ -45,6 +46,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.2",
     "file-loader": "^0.10.1",
+    "firebase-tools": "^3.9.0",
     "front-matter": "^2.1.2",
     "highlight.js": "^9.10.0",
     "html-loader": "^0.4.5",
