@@ -1,27 +1,26 @@
-import React from 'react';
-import s from './styles.css';
+import React from 'react'
+import s from './styles.css'
 
 import history from '../main'
-import Layout from "../../components/Layout";
+import Layout from '../../components/Layout'
 
 class ErrorPage extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
 
   }
 
   goBack = (event) => {
-    event.preventDefault();
-    history.goBack();
-  };
+    event.preventDefault()
+    history.goBack()
+  }
 
-  render() {
+  render () {
     return (
       <Layout className={s.content}>
         <a href="/" onClick={this.goBack}>Go back</a>
       </Layout>
-    );
+    )
   }
-
 }
 
-export default ErrorPage;
+export default ErrorPage

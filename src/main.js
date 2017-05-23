@@ -1,9 +1,8 @@
-import 'babel-polyfill';
-import 'whatwg-fetch';
+import 'babel-polyfill'
+import 'whatwg-fetch'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import {
   Router,
   Route,
@@ -11,17 +10,17 @@ import {
 } from 'react-router-dom'
 
 import createBrowserHistory from 'history/createBrowserHistory'
-import store from './store';
+import store from './store'
 
 import LandingPage from './landing'
 import LocationPage from './location'
 import ErrorPage from './error'
 
-const container = document.getElementById('container');
+const container = document.getElementById('container')
 
-const history = createBrowserHistory();
+const history = createBrowserHistory()
 
-export default history;
+export default history
 
 ReactDOM.render(
   <Provider store={store}>
@@ -33,8 +32,8 @@ ReactDOM.render(
       </Switch>
     </Router>
   </Provider>,
-  container);
+  container)
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept()
 }

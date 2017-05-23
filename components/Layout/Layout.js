@@ -1,24 +1,23 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames';
-import Header from './Header';
-import s from './Layout.css';
+import cx from 'classnames'
+import Header from './Header'
+import s from './Layout.css'
 
 class Layout extends React.Component {
-
   static propTypes = {
-    className: PropTypes.string,
-  };
+    className: PropTypes.string
+  }
 
-  componentDidMount() {
+  componentDidMount () {
 
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
 
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Header/>
@@ -26,8 +25,8 @@ class Layout extends React.Component {
           <div {...this.props} className={cx(s.content, this.props.className)}/>
         </main>
       </div>
-    );
+    )
   }
 }
 
-export default Layout;
+export default Layout

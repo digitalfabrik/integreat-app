@@ -1,19 +1,18 @@
-import React from 'react';
+import React from 'react'
 
 import LocationBig from './assets/LocationBig.png'
 import content from './Heading.pcss'
 
 class Header extends React.Component {
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
+  componentDidMount () {
 
   }
 
-  render() {
+  componentWillUnmount () {
+
+  }
+
+  render () {
     return (
       <div>
         <div className="row">
@@ -23,8 +22,8 @@ class Header extends React.Component {
           <h1 className={content.heading}>Where are you?</h1>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Header;
+export default Header

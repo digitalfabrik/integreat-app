@@ -1,23 +1,21 @@
-import React from 'react';
+import React from 'react'
 
 class Navigation extends React.Component {
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
+  componentDidMount () {
 
   }
 
-  render() {
+  componentWillUnmount () {
+
+  }
+
+  render () {
     return (
       <nav>
 
       </nav>
-    );
+    )
   }
-
 }
 
-export default Navigation;
+export default Navigation

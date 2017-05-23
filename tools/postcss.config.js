@@ -1,5 +1,4 @@
 /* eslint-disable global-require */
-
 module.exports = () => ({
   plugins: [
     // Transfer @import rule by inlining content, e.g. @import 'normalize.css'
@@ -43,6 +42,6 @@ module.exports = () => ({
     require('postcss-flexbugs-fixes')(),
     // Add vendor prefixes to CSS rules using values from caniuse.com
     // https://github.com/postcss/autoprefixer
-    require('autoprefixer')(),
-  ],
-});
+    require('autoprefixer')()
+  ]
+})

@@ -1,25 +1,22 @@
-import React from 'react';
-import Navigation from './Navigation';
-import s from './Header.css';
+import React from 'react'
+import Navigation from './Navigation'
 
 class Header extends React.Component {
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
+  componentDidMount () {
 
   }
 
-  render() {
+  componentWillUnmount () {
+
+  }
+
+  render () {
     return (
       <header>
         <Navigation/>
       </header>
-    );
+    )
   }
-
 }
 
-export default Header;
+export default Header
