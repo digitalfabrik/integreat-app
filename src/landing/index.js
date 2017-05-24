@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Layout from '../../components/Layout'
 import { connect } from 'react-redux'
 
-import { fetchDataIfNeeded } from '../actions'
+import Layout from '../../components/Layout'
 import Location from '../../components/Location/Location'
+
+import fetchEndpoint from '../endpoint'
+import { LOCATION_ENDPOINT } from '../endpoints'
 
 import s from './styles.css'
 
@@ -15,7 +17,7 @@ class LandingPage extends React.Component {
   }
 
   componentWillMount () {
-    this.props.dispatch(fetchDataIfNeeded())
+    this.props.dispatch(fetchEndpoint(LOCATION_ENDPOINT))
   }
 
   render () {
@@ -29,7 +31,7 @@ class LandingPage extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    locations: state.restData.data
+    locations: state.locations.data
   }
 }
 
