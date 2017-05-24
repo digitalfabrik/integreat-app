@@ -6,7 +6,7 @@ import Layout from '../../components/Layout'
 import Location from '../../components/Location/Location'
 
 import fetchEndpoint from '../endpoint'
-import { LOCATION_ENDPOINT } from '../endpoints'
+import { LOCATION_ENDPOINT, LANGUAGE_ENDPOINT } from '../endpoints'
 
 import s from './styles.css'
 
@@ -18,6 +18,7 @@ class LandingPage extends React.Component {
 
   componentWillMount () {
     this.props.dispatch(fetchEndpoint(LOCATION_ENDPOINT))
+    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT))
   }
 
   render () {
