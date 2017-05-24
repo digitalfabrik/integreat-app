@@ -1,13 +1,30 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
 import Layout from '../../components/Layout'
+
+import fetchEndpoint from '../endpoint'
+import { LANGUAGE_ENDPOINT } from '../endpoints'
+
 import s from './styles.css'
+
 class LocationPage extends React.Component {
+  static propTypes = {
+    languages: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired
+  }
+
+  componentWillMount () {
+    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{lang}', 'en')))
+  }
+
   render () {
     return (
       <Layout className={s.content}>
-        {this.props.match.params.location}
+        {JSON.stringify(this.props.languages)}
       </Layout>
     )
   }
 }
-export default LocationPage
+export default connect(state => ({languages: state.languages.data}))(LocationPage)
