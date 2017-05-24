@@ -1,26 +1,13 @@
 import { combineReducers } from 'redux'
-import {
-  REQUEST_LOCATIONS, RECEIVE_LOCATIONS
-} from './actions'
+import { handleActions } from 'redux-actions'
 
-function fetchLocations (state = {isFetching: false, locations: {}}, action) {
-  switch (action.type) {
-    case REQUEST_LOCATIONS:
-      return Object.assign({}, state, {
-        isFetching: true
-      })
-    case RECEIVE_LOCATIONS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        locations: action.locations
-      })
-    default:
-      return state
-  }
-}
+const restData = handleActions({
+  REQUEST_DATA: (state, action) => ({...state, isFetching: action.payload.isFetching}),
+  RECEIVE_DATA: (state, action) => ({...state, isFetching: action.payload.isFetching, data: action.payload.data})
+}, {isFetching: false})
 
 const rootReducer = combineReducers({
-  fetchLocations
+  restData
 })
 
 export default rootReducer

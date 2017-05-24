@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import rootReducer from './reducers'
 
-// import {persistStore, autoRehydrate} from 'redux-persist'
+//import {persistStore, autoRehydrate} from 'redux-persist'
 
 const loggerMiddleware = createLogger()
 
@@ -17,12 +17,12 @@ let configureStore = function configureStore (preloadedState) {
         thunkMiddleware,
         loggerMiddleware
       )
-      // autoRehydrate()
+      //autoRehydrate()
     )
   )
 }
 
 let store = configureStore()
-// persistStore(store);
+//persistStore(store);
 
 export default store
