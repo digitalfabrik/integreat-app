@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions'
 
-export default function fetchEndpoint (endpoint) {
+export default function fetchEndpoint (endpoint, formatURL = url => url) {
   return function (dispatch, getState) {
     if (getState()[endpoint.name].isFetching) {
       return
@@ -8,7 +8,7 @@ export default function fetchEndpoint (endpoint) {
 
     dispatch(endpoint.requestAction())
 
-    return fetch(endpoint.url)
+    return fetch(formatURL(endpoint.url))
       .then(response => response.json())
       .then(json => dispatch(endpoint.receiveAction(json)))
       .catch((ex) => {
@@ -24,10 +24,10 @@ export class Endpoint {
 
     let actionName = this.name.toUpperCase()
 
-    this.receiveAction = createAction('RECEIVE_DATA' + actionName, json => ({
+    this.receiveAction = createAction('RECEIVE_DATA_' + actionName, json => ({
       isFetching: false,
       data: transform(json)
     }))
-    this.requestAction = createAction('REQUEST_DATA' + actionName, {isFetching: true})
+    this.requestAction = createAction('REQUEST_DATA_' + actionName, () => ({isFetching: true}))
   }
 }

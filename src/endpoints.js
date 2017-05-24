@@ -5,7 +5,7 @@ import { Endpoint } from './endpoint'
 
 export const LANGUAGE_ENDPOINT = new Endpoint(
   'languages',
-  'http://cms.integreat-app.de/augsburg/en/wp-json/extensions/v0/languages/wpml',
+  'https://cms.integreat-app.de/{location}/{lang}/wp-json/extensions/v0/languages/wpml',
   json => {
     return json
   }
