@@ -4,6 +4,10 @@
   }
 }
 
-html {
-  overflow-y: scroll;
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+@media screen and (min-width: 960px) {
+  html {
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+  }
 }
