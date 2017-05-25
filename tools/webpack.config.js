@@ -92,7 +92,7 @@ const config = {
             loader: 'style-loader'
           },
           {
-            loader: 'css-loader',
+            loader: 'css-loader'
           }
         ]
       },
