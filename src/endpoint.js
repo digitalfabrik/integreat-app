@@ -29,5 +29,6 @@ export class Endpoint {
       data: transform(json)
     }))
     this.requestAction = createAction('REQUEST_DATA_' + actionName, () => ({isFetching: true}))
+    this.invalidateAction = createAction('INVALIDATE_DATA_' + actionName, () => ({isFetching: false, data: null}))
   }
 }

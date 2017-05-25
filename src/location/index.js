@@ -19,6 +19,11 @@ class LocationPage extends React.Component {
     dispatch: PropTypes.func.isRequired
   }
 
+  componentWillUnmount () {
+    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
+    this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
+  }
+
   componentWillMount () {
     this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', 'en')))
     this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
@@ -37,7 +42,8 @@ class LocationPage extends React.Component {
         {/* We can insert our html here directly since we trust our backend cms */}
         {
           isEmpty(this.props.pages) ?
-            <Spinner className={style.loading} name='line-scale-party'/> : values(this.props.pages).map((value) => <div className={style.remoteContent} dangerouslySetInnerHTML={this.toHtml(value.content)}/>)
+            <Spinner className={style.loading} name='line-scale-party'/> : values(this.props.pages).map((value) => <div
+            className={style.remoteContent} dangerouslySetInnerHTML={this.toHtml(value.content)}/>)
         }
       </Layout>
     )

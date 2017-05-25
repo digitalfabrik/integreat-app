@@ -16,6 +16,10 @@ class LandingPage extends React.Component {
     dispatch: PropTypes.func.isRequired
   }
 
+  componentWillUnmount () {
+    this.props.dispatch(LOCATION_ENDPOINT.invalidateAction())
+  }
+
   componentWillMount () {
     this.props.dispatch(fetchEndpoint(LOCATION_ENDPOINT))
   }
