@@ -35,6 +35,8 @@ ReactDOM.render(
   </Provider>,
   container)
 
+document.getElementById('splash').className += ' splash-hidden'
+
 if (module.hot) {
   module.hot.accept()
 }
