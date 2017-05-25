@@ -18,12 +18,11 @@ class FilterableLocation extends React.Component {
   }
 
   render () {
-    let that = this
     return (
       <div>
         <Heading/>
         <Search filterText={this.state.filterText}
-                onFilterTextChange={(filterText) => that.setState({filterText: (filterText)})}/>
+                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
         <Location locations={this.props.locations} filterText={this.state.filterText}/>
       </div>
     )

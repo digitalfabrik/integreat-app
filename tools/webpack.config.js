@@ -85,7 +85,20 @@ const config = {
         }]
       },
       {
+        test: /\.css$/,
+        include: /node_modules/,
+        loaders: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+          }
+        ]
+      },
+      {
         test: /\.(css|pcss)/,
+        include: [/components/, /src/],
         use: [
           {
             loader: 'style-loader'

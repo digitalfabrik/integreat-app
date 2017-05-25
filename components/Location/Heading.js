@@ -4,13 +4,6 @@ import LocationBig from './assets/LocationBig.png'
 import content from './Heading.pcss'
 
 class Header extends React.Component {
-  componentDidMount () {
-
-  }
-
-  componentWillUnmount () {
-
-  }
 
   render () {
     return (

@@ -16,7 +16,7 @@ class LocationPage extends React.Component {
   }
 
   componentWillMount () {
-    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{lang}', 'en')))
+    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', 'en')))
   }
 
   render () {
