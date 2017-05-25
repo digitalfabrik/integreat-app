@@ -41,8 +41,7 @@ class LocationPage extends React.Component {
       <Layout className={style.content}>
         {/* We can insert our html here directly since we trust our backend cms */}
         {
-          isEmpty(this.props.pages) ?
-            <Spinner className={style.loading} name='line-scale-party'/> : values(this.props.pages).map((value) => <div
+          isEmpty(this.props.pages) ? <Spinner className={style.loading} name='line-scale-party'/> : values(this.props.pages).map((value) => <div
             className={style.remoteContent} dangerouslySetInnerHTML={this.toHtml(value.content)}/>)
         }
       </Layout>
