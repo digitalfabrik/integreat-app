@@ -5,7 +5,23 @@ import { Endpoint } from './endpoint'
 
 export const LANGUAGE_ENDPOINT = new Endpoint(
   'languages',
-  'https://cms.integreat-app.de/{location}/{lang}/wp-json/extensions/v0/languages/wpml',
+  'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/languages/wpml',
+  json => {
+    return json
+  }
+)
+
+export const EVENT_ENDPOINT = new Endpoint(
+  'languages',
+  'http://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}',
+  json => {
+    return json
+  }
+)
+
+export const PAGE_ENDPOINT = new Endpoint(
+  'languages',
+  'http://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
   json => {
     return json
   }

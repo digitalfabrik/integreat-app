@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from '../../components/Layout'
-import Location from '../../components/Location/Location'
+import FilterableLocation from '../../components/Location/FilterableLocation'
 
 import fetchEndpoint from '../endpoint'
 import { LOCATION_ENDPOINT } from '../endpoints'
@@ -23,7 +23,7 @@ class LandingPage extends React.Component {
   render () {
     return (
       <Layout className={s.content}>
-        <Location locations={this.props.locations}/>
+        <FilterableLocation locations={this.props.locations}/>
       </Layout>
     )
   }

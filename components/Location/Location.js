@@ -7,46 +7,58 @@ import { isEmpty } from 'lodash/lang'
 import { Link } from 'react-router-dom'
 
 import content from './Location.pcss'
-import Search from './Search'
-import Header from './Heading'
 
-class Location extends React.Component {
+class LocationParentEntry extends React.Component {
   static propTypes = {
-    locations: PropTypes.object
-  }
-
-  componentDidMount () {
-
-  }
-
-  componentWillUnmount () {
-
+    name: PropTypes.string
   }
 
   render () {
     return (
-      <div>
-        <Header/>
-        <Search/>
-        <div className={cx(content.languageList, 'row')}>
-          {
-            transform(this.props.locations, (result, locations, key) => {
-              if (isEmpty(locations)) {
-                return
-              }
+      <div className={content.languageListParent}>{this.props.name}</div>
+    )
+  }
+}
 
-              result.push(<div key={key} className={content.languageListParent}>{key}</div>)
+class LocationEntry extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    to: PropTypes.string
+  }
 
-              locations.forEach(function (location, index) {
-                result.push(<Link to={{
-                  pathname: '/location' + location.path
-                }} key={key + index} className={content.languageListItem}>
-                  <div>{location.name}</div>
-                </Link>)
-              })
-            }, [])
-          }
-        </div>
+  render () {
+    return (
+      <Link to={{pathname: this.props.to}} className={content.languageListItem}>
+        <div>{this.props.name}</div>
+      </Link>
+    )
+  }
+}
+
+class Location extends React.Component {
+  static propTypes = {
+    locations: PropTypes.object,
+    filterText: PropTypes.string
+  }
+
+  render () {
+    let that = this
+    return (
+      <div className={cx(content.languageList, 'row')}>
+        {
+          transform(this.props.locations, (result, locations, key) => {
+            locations = locations.filter((location) => location.name.toLowerCase().includes(that.props.filterText.toLowerCase()))
+            if (isEmpty(locations)) {
+              return
+            }
+
+            result.push(<LocationParentEntry key={key} name={key}/>)
+
+            locations.forEach((location, index) => result.push(<LocationEntry name={location.name}
+                                                                              to={'/location' + location.path}
+                                                                              key={key + index}/>))
+          }, [])
+        }
       </div>
     )
   }
