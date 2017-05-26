@@ -16,7 +16,7 @@ class ErrorPage extends React.Component {
 
   render () {
     return (
-      <Layout className={s.content}>
+      <Layout languageTo='/' className={s.content}>
         <a href="/" onClick={this.goBack}>Go back</a>
       </Layout>
     )

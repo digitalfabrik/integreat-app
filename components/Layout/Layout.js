@@ -6,23 +6,16 @@ import s from './Layout.css'
 
 class Layout extends React.Component {
   static propTypes = {
-    className: PropTypes.string
-  }
-
-  componentDidMount () {
-
-  }
-
-  componentWillUnmount () {
-
+    className: PropTypes.string,
+    languageTo: PropTypes.string.isRequired
   }
 
   render () {
     return (
       <div>
-        <Header/>
+        <Header languageTo={this.props.languageTo}/>
         <main className={s.topSpacing}>
-          <div {...this.props} className={cx(s.content, this.props.className)}/>
+          <div className={cx(s.content, this.props.className)}>{this.props.children}</div>
         </main>
       </div>
     )
