@@ -27,22 +27,14 @@
     <link rel="apple-touch-icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 
     <style>
-      @keyframes hide {
-        from {
-          visibility: visible;
-          opacity: 1
-        }
-        to {
-          visibility: hidden;
-          opacity: 0
-        }
-
-      }
       @keyframes show {
-        from {
+        0% {
           visibility: hidden;
         }
-        to {
+        99% {
+          visibility: hidden;
+        }
+        100% {
           visibility: visible;
         }
       }
@@ -57,7 +49,9 @@
         height: 100vh;
         width: 100vw;
 
-        animation: 1s show;
+
+        animation-name: show;
+        animation-duration: 1s;
         animation-fill-mode: forwards;
 
         display: flex;
@@ -66,8 +60,9 @@
       }
 
       .splash-hidden {
-        animation: .2s hide;
-        animation-fill-mode: forwards;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .2s, visibility .2s;
       }
 
       .splash-logo {
