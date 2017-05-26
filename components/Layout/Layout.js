@@ -21,7 +21,7 @@ class Layout extends React.Component {
     return (
       <div>
         <Header/>
-        <main>
+        <main className={s.topSpacing}>
           <div {...this.props} className={cx(s.content, this.props.className)}/>
         </main>
       </div>
