@@ -23,7 +23,8 @@
   height: 100%;
 }
 
-.item-active,.item:hover {
+.item-active,
+.item:hover {
   background-color: #fbda16;
 }
 

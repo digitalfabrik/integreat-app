@@ -8,7 +8,6 @@ import style from './Header.css'
 import logo from './assets/integreat-app-logo.png'
 
 class Header extends React.Component {
-
   static propTypes = {
     languageTo: PropTypes.string.isRequired
   }
