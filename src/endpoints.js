@@ -1,4 +1,4 @@
-import { groupBy, sortBy } from 'lodash/collection'
+import { forEach, groupBy, sortBy } from 'lodash/collection'
 import { isEmpty } from 'lodash/lang'
 
 import { Endpoint } from './endpoint'
@@ -20,23 +20,71 @@ export const EVENT_ENDPOINT = new Endpoint(
   }
 )
 
+class Page {
+  constructor (id, title, parent, content, thumbnail) {
+    this._id = id
+    this._title = title
+    this._content = content
+    this.children = []
+    this._parent = parent
+    this._thumbnail = thumbnail
+  }
+
+  get thumbnail () {
+    return this._thumbnail
+  }
+
+  addChild (page) {
+    this.children.push(page)
+  }
+
+  get id () {
+    return this._id
+  }
+
+  get title () {
+    return this._title
+  }
+
+  get content () {
+    return this._content
+  }
+
+  get parent () {
+    return this._parent
+  }
+}
+
 export const PAGE_ENDPOINT = new Endpoint(
   'pages',
   'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
   json => {
-    json = transform(json, (result, page) => {
+    let pages = transform(json, (result, page) => {
       if (page.status !== 'publish') {
         return
       }
-      page = {
-        id: page.id,
-        name: page.name,
-        parent: page.parent,
-        content: page.content
-      }
-      result[page.id] = page
+      result[page.id] = new Page(
+        page.id,
+        page.title,
+        page.parent,
+        page.content,
+        page.thumbnail
+      )
     }, {})
-    return json
+
+    forEach(pages, page => {
+      let parent = pages[page.parent]
+      if (!parent) {
+        return
+      }
+      parent.addChild(page)
+    })
+
+    return transform(pages, (result, page) => {
+      if (page.parent === 0) {
+        result.push(page)
+      }
+    }, [])
   }
 )
 

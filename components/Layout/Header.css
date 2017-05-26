@@ -12,6 +12,7 @@
   width: 100%;
   padding: 0 100px;
   background-color: #fafafa;
+  z-index: 1000;
 }
 
 .logo {
