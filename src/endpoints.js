@@ -21,11 +21,11 @@ export const EVENT_ENDPOINT = new Endpoint(
 )
 
 export class PageModel {
-  constructor (id, title, parent, content, thumbnail) {
+  constructor (id = 0, title = '', parent = 0, content = '', thumbnail = null, children = []) {
     this._id = id
     this._title = title
     this._content = content
-    this._children = []
+    this._children = children
     this._parent = parent
     this._thumbnail = thumbnail
   }
@@ -86,11 +86,12 @@ export const PAGE_ENDPOINT = new Endpoint(
     })
 
     // Filter parents
-    return transform(pages, (result, page) => {
+    let children = transform(pages, (result, page) => {
       if (page.parent === 0) {
         result[page.id] = page
       }
     }, {})
+    return new PageModel(0, 'root', 0, '', null, children)
   }
 )
 

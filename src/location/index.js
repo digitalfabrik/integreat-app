@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from '../../components/Layout'
-import Content from '../../components/Content/ContentContainer'
+import Content from '../../components/Content/Content'
 
 import fetchEndpoint from '../endpoint'
 import { LANGUAGE_ENDPOINT, PAGE_ENDPOINT, PageModel } from '../endpoints'
@@ -11,7 +11,7 @@ import { LANGUAGE_ENDPOINT, PAGE_ENDPOINT, PageModel } from '../endpoints'
 class LocationPage extends React.Component {
   static propTypes = {
     languages: PropTypes.array.isRequired,
-    pages: PropTypes.objectOf(PropTypes.instanceOf(PageModel)).isRequired,
+    page: PropTypes.instanceOf(PageModel).isRequired,
     path: PropTypes.arrayOf(PropTypes.string),
     dispatch: PropTypes.func.isRequired
   }
@@ -30,10 +30,25 @@ class LocationPage extends React.Component {
       .replace('{since}', new Date(0).toISOString().split('.')[0] + 'Z')))
   }
 
+  page () {
+    let currentPage = this.props.page
+
+    this.props.path.forEach(id => {
+      currentPage = currentPage.children[id]
+
+      if (!currentPage) {
+        throw new Error('Page not found!')
+      }
+    })
+
+    return currentPage
+  }
+
   render () {
+    let path = this.props.match.params.path
     return (
       <Layout languageTo='/'>
-        <Content title={'Augsburg'} path={this.props.path} pages={this.props.pages}/>
+        <Content title={'Augsburg'} url={ path || ''} root={true} page={this.page()}/>
       </Layout>
     )
   }
@@ -43,6 +58,6 @@ export default connect(state => {
   let pages = state.pages.data
   return ({
     languages: languages || [],
-    pages: pages || {}
+    page: pages || new PageModel()
   })
 })(LocationPage)
