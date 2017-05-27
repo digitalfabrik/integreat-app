@@ -33,7 +33,7 @@ class LocationPage extends React.Component {
   render () {
     return (
       <Layout languageTo='/' className={style.content}>
-        <Page pages={this.props.pages}/>
+        <Page title={'Augsburg'} pages={this.props.pages}/>
       </Layout>
     )
   }

@@ -3,11 +3,11 @@ import React from 'react'
 import LocationBig from './assets/LocationBig.png'
 import content from './Heading.pcss'
 
-class Header extends React.Component {
+class Heading extends React.Component {
   render () {
     return (
       <div>
-        <div className="row">
+       Q <div className="row">
           <img className={content.logo} src={LocationBig}/>
         </div>
         <div className="row">
@@ -18,4 +18,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default Heading
