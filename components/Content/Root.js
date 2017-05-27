@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { chunk } from 'lodash/array'
 import { values } from 'lodash/object'
 
-import style from './Overview.pcss'
+import style from './Root.pcss'
 import { Link } from 'react-router-dom'
 import { PageModel } from '../../src/endpoints'
 
@@ -25,7 +25,7 @@ class OverviewTile extends React.Component {
   }
 }
 
-class Overview extends React.Component {
+class Root extends React.Component {
   static propTypes = {
     pages: PropTypes.objectOf(PropTypes.instanceOf(PageModel)).isRequired
   }
@@ -49,4 +49,4 @@ class Overview extends React.Component {
   }
 }
 
-export default Overview
+export default Root

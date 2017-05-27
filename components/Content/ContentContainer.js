@@ -8,7 +8,7 @@ import Spinner from 'react-spinkit'
 import style from './ContentContainer.pcss'
 
 import Heading from './Heading'
-import TopLevelPage from './Overview'
+import TopLevelPage from './Root'
 import ContentPage from './Content'
 import { size } from 'lodash/collection'
 import { PageModel } from '../../src/endpoints'
