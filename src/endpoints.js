@@ -25,7 +25,7 @@ class Page {
     this._id = id
     this._title = title
     this._content = content
-    this.children = []
+    this._children = []
     this._parent = parent
     this._thumbnail = thumbnail
   }
@@ -35,7 +35,7 @@ class Page {
   }
 
   addChild (page) {
-    this.children.push(page)
+    this._children.push(page)
   }
 
   get id () {
@@ -52,6 +52,10 @@ class Page {
 
   get parent () {
     return this._parent
+  }
+
+  get children () {
+    return this._children
   }
 }
 
@@ -88,14 +92,33 @@ export const PAGE_ENDPOINT = new Endpoint(
   }
 )
 
+class Location {
+  constructor (name, path) {
+    this._name = name
+    this._path = path
+  }
+
+  get name () {
+    return this._name
+  }
+
+  get path () {
+    return this._path
+  }
+
+  get category () {
+    return isEmpty(this._name) ? '?' : this._name[0].toUpperCase();
+  }
+}
+
 export const LOCATION_ENDPOINT = new Endpoint(
   'locations',
   'https://cms.integreat-app.de/wp-json/extensions/v1/multisites',
   json => {
-    let data = json.map((location) => ({name: location.name, path: location.path}))
-    data = sortBy(data, ['name'])
-    data = groupBy(data, location => isEmpty(location.name) ? '?' : location.name[0].toUpperCase())
-    return data
+    let locations = json.map((location) => new Location(location.name, location.path))
+    locations = sortBy(locations, location => location.name)
+    let groups = groupBy(locations, location => location.category)
+    return groups
   }
 )
 
