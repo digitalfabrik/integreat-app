@@ -28,7 +28,12 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={LandingPage}/>
-        <Route path="/location/:location" component={LocationPage}/>
+        <Route path="/location/:location/:path*" render={props => {
+          let path = props.match.params.path
+          return (
+            <LocationPage {...props} path={path ? path.split('/') : 0}/>
+          )
+        }}/>
         <Route component={ErrorPage}/>
       </Switch>
     </Router>

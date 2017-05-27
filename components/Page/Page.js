@@ -9,18 +9,22 @@ import style from './Page.pcss'
 
 import Heading from './Heading'
 import TopLevelPage from './TopLevelPage'
+import ContentPage from './ContentPage'
 
 class Page extends React.Component {
   static propTypes = {
     pages: PropTypes.array.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    path: PropTypes.array
   }
 
   renderPages () {
     if (isEmpty(this.props.pages)) {
       return <Spinner className={style.loading} name='line-scale-party'/>
-    } else {
+    } else if (isEmpty(this.props.path)) {
       return <TopLevelPage pages={this.props.pages}/>
+    } else {
+      return <ContentPage page={this.props.pages[0]}/>
     }
   }
 

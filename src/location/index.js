@@ -14,16 +14,18 @@ class LocationPage extends React.Component {
   static propTypes = {
     languages: PropTypes.array.isRequired,
     pages: PropTypes.array.isRequired,
+    path: PropTypes.array,
     dispatch: PropTypes.func.isRequired
   }
 
   componentWillUnmount () {
-    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
+    // todo only do this if necessary
+    // this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
   }
 
   componentWillMount () {
-    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', 'en')))
+    // this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', 'en')))
     this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
       .replace('{location}', this.props.match.params.location)
       .replace('{language}', 'en')
@@ -33,7 +35,7 @@ class LocationPage extends React.Component {
   render () {
     return (
       <Layout languageTo='/' className={style.content}>
-        <Page title={'Augsburg'} pages={this.props.pages}/>
+        <Page title={'Augsburg'} path={this.props.path} pages={this.props.pages}/>
       </Layout>
     )
   }
