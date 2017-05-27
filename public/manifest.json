@@ -2,7 +2,7 @@
   "name": "Integreat",
   "lang": "en-US",
   "start_url": "/",
-  "display": "minimal-ui",
+  "display": "standalone",
   "theme_color": "#fbda16",
   "icons": [
     {
