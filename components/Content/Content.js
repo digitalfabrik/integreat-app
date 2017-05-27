@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './ContentPage.pcss'
+import style from './Content.pcss'
 
-class ContentPage extends React.Component {
+class Content extends React.Component {
   static propTypes = {
     page: PropTypes.object.isRequired
   }
@@ -15,4 +15,4 @@ class ContentPage extends React.Component {
   }
 }
 
-export default ContentPage
+export default Content

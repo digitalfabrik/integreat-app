@@ -5,10 +5,10 @@ import cx from 'classnames'
 import { chunk } from 'lodash/array'
 import { values } from 'lodash/object'
 
-import style from './TopLevelPage.pcss'
+import style from './Overview.pcss'
 import { Link } from 'react-router-dom'
 
-class TopLevelTile extends React.Component {
+class OverviewTile extends React.Component {
   static propTypes = {
     page: PropTypes.object.isRequired
   }
@@ -24,7 +24,7 @@ class TopLevelTile extends React.Component {
   }
 }
 
-class TopLevelPage extends React.Component {
+class Overview extends React.Component {
   static propTypes = {
     pages: PropTypes.array.isRequired
   }
@@ -38,8 +38,8 @@ class TopLevelPage extends React.Component {
             let b = pages[1]
             let key = a.id + ':' + (b ? b.id : '-')
             return <div key={key} className={cx(style.row, 'row')}>
-              <TopLevelTile page={a}/>
-              {b ? <TopLevelTile page={b}/> : null}
+              <OverviewTile page={a}/>
+              {b ? <OverviewTile page={b}/> : null}
             </div>
           })
         }
@@ -48,4 +48,4 @@ class TopLevelPage extends React.Component {
   }
 }
 
-export default TopLevelPage
+export default Overview

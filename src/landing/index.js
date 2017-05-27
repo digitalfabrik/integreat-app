@@ -6,13 +6,11 @@ import Layout from '../../components/Layout'
 import FilterableLocation from '../../components/Location/FilterableLocation'
 
 import fetchEndpoint from '../endpoint'
-import { LOCATION_ENDPOINT } from '../endpoints'
-
-import s from './styles.css'
+import { LOCATION_ENDPOINT, LocationModel } from '../endpoints'
 
 class LandingPage extends React.Component {
   static propTypes = {
-    locations: PropTypes.object.isRequired,
+    locations: PropTypes.objectOf(LocationModel).isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -26,7 +24,7 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <Layout languageTo='/' className={s.content}>
+      <Layout languageTo='/'>
         <FilterableLocation locations={this.props.locations}/>
       </Layout>
     )

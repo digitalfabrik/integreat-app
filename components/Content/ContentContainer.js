@@ -5,13 +5,13 @@ import { isEmpty } from 'lodash/lang'
 
 import Spinner from 'react-spinkit'
 
-import style from './Page.pcss'
+import style from './index.pcss'
 
 import Heading from './Heading'
-import TopLevelPage from './TopLevelPage'
-import ContentPage from './ContentPage'
+import TopLevelPage from './Overview'
+import ContentPage from './Content'
 
-class Page extends React.Component {
+class ContentContainer extends React.Component {
   static propTypes = {
     pages: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
@@ -23,8 +23,10 @@ class Page extends React.Component {
       return <Spinner className={style.loading} name='line-scale-party'/>
     } else if (isEmpty(this.props.path)) {
       return <TopLevelPage pages={this.props.pages}/>
-    } else {
+    } else if (this.props.pages.length === 1) {
       return <ContentPage page={this.props.pages[0]}/>
+    } else {
+      throw new Error('The pages ' + this.props.pages + ' is not renderable!')
     }
   }
 
@@ -38,4 +40,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page
+export default ContentContainer
