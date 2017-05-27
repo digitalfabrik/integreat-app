@@ -5,25 +5,28 @@ import { isEmpty } from 'lodash/lang'
 
 import Spinner from 'react-spinkit'
 
-import style from './index.pcss'
+import style from './ContentContainer.pcss'
 
 import Heading from './Heading'
 import TopLevelPage from './Overview'
 import ContentPage from './Content'
+import { size } from 'lodash/collection'
+import { PageModel } from '../../src/endpoints'
 
 class ContentContainer extends React.Component {
   static propTypes = {
-    pages: PropTypes.array.isRequired,
+    pages: PropTypes.objectOf(PropTypes.instanceOf(PageModel)).isRequired,
     title: PropTypes.string.isRequired,
-    path: PropTypes.array
+    path: PropTypes.arrayOf(PropTypes.string)
   }
 
   renderPages () {
+    let pages = size(this.props.pages)
     if (isEmpty(this.props.pages)) {
       return <Spinner className={style.loading} name='line-scale-party'/>
-    } else if (isEmpty(this.props.path)) {
+    } else if (pages > 0 && isEmpty(this.props.path)) {
       return <TopLevelPage pages={this.props.pages}/>
-    } else if (this.props.pages.length === 1) {
+    } else if (pages === 1) {
       return <ContentPage page={this.props.pages[0]}/>
     } else {
       throw new Error('The pages ' + this.props.pages + ' is not renderable!')

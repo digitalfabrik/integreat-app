@@ -10,7 +10,7 @@ import { LOCATION_ENDPOINT, LocationModel } from '../endpoints'
 
 class LandingPage extends React.Component {
   static propTypes = {
-    locations: PropTypes.objectOf(LocationModel).isRequired,
+    locations: PropTypes.objectOf(PropTypes.instanceOf(LocationModel)).isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -31,4 +31,9 @@ class LandingPage extends React.Component {
   }
 }
 
-export default connect(state => ({locations: state.locations.data}))(LandingPage)
+export default connect(state => {
+  let locations = state.locations.data
+  return ({
+    locations: locations || {}
+  })
+})(LandingPage)

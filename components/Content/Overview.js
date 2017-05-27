@@ -7,10 +7,11 @@ import { values } from 'lodash/object'
 
 import style from './Overview.pcss'
 import { Link } from 'react-router-dom'
+import { PageModel } from '../../src/endpoints'
 
 class OverviewTile extends React.Component {
   static propTypes = {
-    page: PropTypes.object.isRequired
+    page: PropTypes.instanceOf(PageModel).isRequired
   }
 
   render () {
@@ -26,7 +27,7 @@ class OverviewTile extends React.Component {
 
 class Overview extends React.Component {
   static propTypes = {
-    pages: PropTypes.array.isRequired
+    pages: PropTypes.objectOf(PropTypes.instanceOf(PageModel)).isRequired
   }
 
   render () {

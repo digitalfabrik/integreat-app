@@ -31,7 +31,7 @@ ReactDOM.render(
         <Route path="/location/:location/:path*" render={props => {
           let path = props.match.params.path
           return (
-            <LocationPage {...props} path={path ? path.split('/') : 0}/>
+            <LocationPage {...props} path={path ? path.split('/') : []}/>
           )
         }}/>
         <Route component={ErrorPage}/>

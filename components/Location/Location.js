@@ -10,7 +10,7 @@ import { transform } from 'lodash/object'
 
 class LocationParentEntry extends React.Component {
   static propTypes = {
-    name: PropTypes.string
+    name: PropTypes.string.isRequired
   }
 
   render () {

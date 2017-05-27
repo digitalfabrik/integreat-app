@@ -10,8 +10,8 @@ import { LANGUAGE_ENDPOINT, PAGE_ENDPOINT, PageModel } from '../endpoints'
 
 class LocationPage extends React.Component {
   static propTypes = {
-    languages: PropTypes.object.isRequired,
-    pages: PropTypes.objectOf(PageModel).isRequired,
+    languages: PropTypes.array.isRequired,
+    pages: PropTypes.objectOf(PropTypes.instanceOf(PageModel)).isRequired,
     path: PropTypes.arrayOf(PropTypes.string),
     dispatch: PropTypes.func.isRequired
   }
@@ -38,4 +38,11 @@ class LocationPage extends React.Component {
     )
   }
 }
-export default connect(state => ({languages: state.languages.data, pages: state.pages.data}))(LocationPage)
+export default connect(state => {
+  let languages = state.languages.data
+  let pages = state.pages.data
+  return ({
+    languages: languages || [],
+    pages: pages || {}
+  })
+})(LocationPage)
