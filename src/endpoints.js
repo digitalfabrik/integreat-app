@@ -20,7 +20,7 @@ export const EVENT_ENDPOINT = new Endpoint(
   }
 )
 
-class Page {
+export class PageModel {
   constructor (id, title, parent, content, thumbnail) {
     this._id = id
     this._title = title
@@ -67,7 +67,7 @@ export const PAGE_ENDPOINT = new Endpoint(
       if (page.status !== 'publish') {
         return
       }
-      result[page.id] = new Page(
+      result[page.id] = new PageModel(
         page.id,
         page.title,
         page.parent,
@@ -76,6 +76,7 @@ export const PAGE_ENDPOINT = new Endpoint(
       )
     }, {})
 
+    // Set children
     forEach(pages, page => {
       let parent = pages[page.parent]
       if (!parent) {
@@ -84,15 +85,16 @@ export const PAGE_ENDPOINT = new Endpoint(
       parent.addChild(page)
     })
 
+    // Filter parents
     return transform(pages, (result, page) => {
       if (page.parent === 0) {
-        result.push(page)
+        result[page.id] = page
       }
-    }, [])
+    }, {})
   }
 )
 
-class Location {
+export class LocationModel {
   constructor (name, path) {
     this._name = name
     this._path = path
@@ -107,7 +109,7 @@ class Location {
   }
 
   get category () {
-    return isEmpty(this._name) ? '?' : this._name[0].toUpperCase();
+    return isEmpty(this._name) ? '?' : this._name[0].toUpperCase()
   }
 }
 
@@ -115,10 +117,9 @@ export const LOCATION_ENDPOINT = new Endpoint(
   'locations',
   'https://cms.integreat-app.de/wp-json/extensions/v1/multisites',
   json => {
-    let locations = json.map((location) => new Location(location.name, location.path))
+    let locations = json.map((location) => new LocationModel(location.name, location.path))
     locations = sortBy(locations, location => location.name)
-    let groups = groupBy(locations, location => location.category)
-    return groups
+    return groupBy(locations, location => location.category)
   }
 )
 
