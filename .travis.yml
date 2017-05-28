@@ -10,7 +10,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
-after_install:
+before_install:
   - npm install -g firebase-tools
 script:
   - npm run lint
