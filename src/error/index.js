@@ -1,6 +1,6 @@
 import React from 'react'
 
-import history from '../main'
+import { history } from '../main'
 import Layout from '../../components/Layout'
 
 class ErrorPage extends React.Component {
@@ -8,6 +8,10 @@ class ErrorPage extends React.Component {
 
   }
 
+  /**
+   * Go back in history!!
+   * @param event The click event
+   */
   goBack = (event) => {
     event.preventDefault()
     history.goBack()

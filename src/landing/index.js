@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Layout from '../../components/Layout'
 import FilterableLocation from '../../components/Location/FilterableLocation'
 
-import fetchEndpoint from '../endpoints/endpoint'
+import { fetchEndpoint } from '../endpoints/endpoint'
 import LOCATION_ENDPOINT, { LocationModel } from '../endpoints/location'
 
 class LandingPage extends React.Component {
@@ -31,9 +31,15 @@ class LandingPage extends React.Component {
   }
 }
 
-export default connect(state => {
+/**
+ * @param state The current app state
+ * @return {{locations: {}}}  The endpoint values from the state mapped to props
+ */
+function mapStateToProps (state) {
   let locations = state.locations.data
   return ({
     locations: locations || {}
   })
-})(LandingPage)
+}
+
+export default connect(mapStateToProps)(LandingPage)

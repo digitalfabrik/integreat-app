@@ -39,9 +39,7 @@ class Content extends React.Component {
   render () {
     return <div>
       <Heading title={this.props.title}/>
-      <div className="row">
-        {this.renderPages()}
-      </div>
+      {this.renderPages()}
     </div>
   }
 }

@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
 import { values } from 'lodash/object'
 
-import style from './ContentList.pcss'
 import { PageModel } from '../../src/endpoints/page'
 import { Link } from 'react-router-dom'
 

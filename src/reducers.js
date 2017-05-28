@@ -6,10 +6,16 @@ import { transform } from 'lodash/object'
 
 import ENDPOINTS from './endpoints/'
 
-let reducers = transform(ENDPOINTS, (result, endpoint) => {
+/**
+ * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
+ */
+let endpointReducers = transform(ENDPOINTS, (result, endpoint) => {
   let defaultState = {data: null, isFetching: false}
+  // Changes isFetching state
   let requestReducer = (state, action) => ({...state, isFetching: action.payload.isFetching})
+  // Changes isFetching state and sets the received data
   let receiveReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: action.payload.data})
+  // Changes isFetching state and sets the received data to null
   let invalidateReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: null})
 
   result[endpoint.name] = reduceReducers(
@@ -19,6 +25,4 @@ let reducers = transform(ENDPOINTS, (result, endpoint) => {
   )
 }, {})
 
-const rootReducer = combineReducers(reducers)
-
-export default rootReducer
+export default combineReducers(endpointReducers)
