@@ -17,7 +17,7 @@ class RootTile extends React.Component {
 
   render () {
     return (<div className="col-xs-6">
-        <Link to={this.props.url + (this.props.url.length === 0 ? '' : '/') + this.props.page.id}>
+        <Link to={this.props.url + '/' + this.props.page.id}>
           <img className={cx('center-block', style.thumbnail)} src={this.props.page.thumbnail}/>
           <div className={style.caption}>{this.props.page.title}</div>
         </Link>

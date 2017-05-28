@@ -6,10 +6,12 @@ import { values } from 'lodash/object'
 
 import style from './ContentList.pcss'
 import { PageModel } from '../../src/endpoints'
+import { Link } from 'react-router-dom'
 
 class ContentList extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired
+    page: PropTypes.instanceOf(PageModel).isRequired,
+    url: PropTypes.string
   }
 
   render () {
@@ -17,9 +19,9 @@ class ContentList extends React.Component {
       <div>
         {
           values(this.props.page.children).map(page => {
-            return <div key={page.id}>
+            return <Link key={page.id} to={this.props.url + (this.props.url.length === 0 ? '' : '/') + page.id}>
               {page.title}
-            </div>
+            </Link>
           })
         }
       </div>

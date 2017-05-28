@@ -21,7 +21,7 @@ export const EVENT_ENDPOINT = new Endpoint(
 )
 
 export class PageModel {
-  constructor (id = 0, title = '', parent = 0, content = '', thumbnail = null, children = []) {
+  constructor (id = 0, title = '', parent = 0, content = '', thumbnail = null, children = {}) {
     this._id = id
     this._title = title
     this._content = content
@@ -35,7 +35,7 @@ export class PageModel {
   }
 
   addChild (page) {
-    this._children.push(page)
+    this._children[page.id] = page
   }
 
   get id () {

@@ -30,7 +30,7 @@ class Content extends React.Component {
     } else if (children === 0) {
       return <ContentElement page={page}/>
     } else if (children > 0) {
-      return <ContentList page={page}/>
+      return <ContentList url={this.props.url} page={page}/>
     } else {
       throw new Error('The page ' + page + ' is not renderable!')
     }

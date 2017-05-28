@@ -33,6 +33,11 @@ class LocationPage extends React.Component {
   page () {
     let currentPage = this.props.page
 
+    // fixme if empty page
+    if (currentPage.title === '') {
+      return currentPage
+    }
+
     this.props.path.forEach(id => {
       currentPage = currentPage.children[id]
 
@@ -45,10 +50,13 @@ class LocationPage extends React.Component {
   }
 
   render () {
-    let path = this.props.match.params.path
+    let url = this.props.match.url
+    if (url.endsWith('/')) {
+      url = url.substr(0, url.length - 1)
+    }
     return (
       <Layout languageTo='/'>
-        <Content title={'Augsburg'} url={ path || ''} root={true} page={this.page()}/>
+        <Content title={'Augsburg'} url={ url } root={!this.props.match.params.path} page={this.page()}/>
       </Layout>
     )
   }
