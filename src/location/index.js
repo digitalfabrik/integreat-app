@@ -90,4 +90,3 @@ function mapeStateToProps (state) {
 }
 
 export default connect(mapeStateToProps)(LocationPage)
-
