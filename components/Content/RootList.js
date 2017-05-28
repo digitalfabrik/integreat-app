@@ -7,7 +7,7 @@ import { values } from 'lodash/object'
 
 import style from './RootList.pcss'
 import { Link } from 'react-router-dom'
-import { PageModel } from '../../src/endpoints'
+import { PageModel } from '../../src/endpoints/page'
 
 class RootTile extends React.Component {
   static propTypes = {

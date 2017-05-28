@@ -4,9 +4,9 @@ import reduceReducers from 'reduce-reducers'
 
 import { transform } from 'lodash/object'
 
-import { endpoints } from './endpoints'
+import ENDPOINTS from './endpoints/'
 
-let reducers = transform(endpoints, (result, endpoint) => {
+let reducers = transform(ENDPOINTS, (result, endpoint) => {
   let defaultState = {data: null, isFetching: false}
   let requestReducer = (state, action) => ({...state, isFetching: action.payload.isFetching})
   let receiveReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: action.payload.data})

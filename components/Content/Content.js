@@ -9,7 +9,7 @@ import Heading from './Heading'
 import RootList from './RootList'
 import ContentElement from './ContentElement'
 import { values } from 'lodash/object'
-import { PageModel } from '../../src/endpoints'
+import { PageModel } from '../../src/endpoints/page'
 import ContentList from './ContentList'
 
 class Content extends React.Component {

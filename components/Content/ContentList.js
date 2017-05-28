@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { values } from 'lodash/object'
 
 import style from './ContentList.pcss'
-import { PageModel } from '../../src/endpoints'
+import { PageModel } from '../../src/endpoints/page'
 import { Link } from 'react-router-dom'
 
 class ContentList extends React.Component {

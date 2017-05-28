@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions'
 
-export default function fetchEndpoint (endpoint, formatURL = url => url) {
+export function fetchEndpoint (endpoint, formatURL = url => url) {
   return function (dispatch, getState) {
     if (getState()[endpoint.name].isFetching) {
       return
@@ -17,7 +17,7 @@ export default function fetchEndpoint (endpoint, formatURL = url => url) {
   }
 }
 
-export class Endpoint {
+export default class Endpoint {
   constructor (name, url, transform) {
     this.name = name
     this.url = url

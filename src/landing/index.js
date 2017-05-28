@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import Layout from '../../components/Layout'
 import FilterableLocation from '../../components/Location/FilterableLocation'
 
-import fetchEndpoint from '../endpoint'
-import { LOCATION_ENDPOINT, LocationModel } from '../endpoints'
+import fetchEndpoint from '../endpoints/endpoint'
+import LOCATION_ENDPOINT, { LocationModel } from '../endpoints/location'
 
 class LandingPage extends React.Component {
   static propTypes = {

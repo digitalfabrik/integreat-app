@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import Layout from '../../components/Layout'
 import Content from '../../components/Content/Content'
 
-import fetchEndpoint from '../endpoint'
-import { LANGUAGE_ENDPOINT, PAGE_ENDPOINT, PageModel } from '../endpoints'
+import fetchEndpoint from '../endpoints/endpoint'
+import PAGE_ENDPOINT, { PageModel } from '../endpoints/page'
+import LANGUAGE_ENDPOINT from '../endpoints/language'
 
 class LocationPage extends React.Component {
   static propTypes = {
