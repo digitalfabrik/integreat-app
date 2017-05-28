@@ -16,9 +16,5 @@ script:
   - npm run lint
   - npm run test
   - npm run build
-deploy:
-  provider: firebase
-  token:
-    secure: "jxoiZ4omioP/P6eNgszcTdnWtlZ6+z8233v1mPc3N377o/UUZq7RywtmOPsHQKCG+uiVSIncgHkS1KTykYUzVKMGa09NeSSomGfkopokRjtYD4nI4OheU17EZ6c0/w/94tx6smXD20ytp5k31RacDYFBlJqkO4HwEjGbSy88V45qvYAYkccP03qZyT56MVfVBJPX9WLR2zmQG526tJd3st+XYM4nqbDCLHytFWYpgMBGFiUSrvlRtLre32BWCj7NDetzlOs0RNwELqUhx8xVlwE1BZFKXKNyQw/K4bqDHqB/vlLzS81PzG+RUCJTuNiNTHs3TukPOvA1WXD/YyBd+72l3wJllfGqva/pV2ZynGOz6P61idpr9JCDsy3qsecIzyNF8l2TQ4y2R8EmneQpJDCEkjc7VJLyiPc9qbHJ8Q3g3/p3Ec/8Infb7QuVYWmg3G+ZC4nATqgYl1Q38J9PgXm7NLhywJAuNCxCtueZnQinkiPV6dkgwc2MnWJQX6vP/sztjSgjjMh+D6Xy3Ex0LBTMDKkZ3U0TOd9JHTnR9JmFvWCZE7eAeSCwGbCuG0irikABYS4erFYJ43wo4ZRHkGwSVZQNwWSz2DPMSH9AVokfYfUxHjNkciOdUHgNAsjroPT9s8ZCbjqQPW6fwqCPWac5yLFJkFCXFkibsNH2inc="
-  on:
-    all_branches: true
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
