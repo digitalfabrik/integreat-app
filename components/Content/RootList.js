@@ -34,7 +34,7 @@ class RootList extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='container'>
         {
           chunk(values(this.props.page.children), 2).map(pages => {
             let a = pages[0]
