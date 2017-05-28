@@ -1,3 +1,6 @@
+![dependencies](https://img.shields.io/librariesio/github/Integreat/integreat-webapp.svg)
+develop: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=develop)
+master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=master)
 # integreat-webapp
 
 ## Technology stack
@@ -18,14 +21,14 @@ Currently we do not use TypeScript but plan to look into Flow.
 ### CSS processor
 [PostCSS](http://postcss.org/) allows to extend the current CSS3 feature set by using several plugins:
 * postcss-calc
-* postcss-color-function
+* postcss-color-function - To calculate and modify colors
 * postcss-custom-media
 * postcss-custom-properties
 * postcss-custom-selectors
 * postcss-flexbugs-fixes
 * postcss-import
 * postcss-media-minmax
-* postcss-nesting
+* postcss-nesting - To nest styles
 * postcss-selector-matches
 * postcss-selector-not
 
