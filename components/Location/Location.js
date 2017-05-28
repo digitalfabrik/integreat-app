@@ -59,7 +59,7 @@ class Location extends React.Component {
 
   render () {
     return (
-      <div className="container">
+      <div>
         <div className={cx(content.languageList, 'row')}>
           {
             isEmpty(this.props.locations) ? <Spinner className={content.loading} name='line-scale-party'/>
