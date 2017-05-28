@@ -6,7 +6,8 @@ import { values } from 'lodash/object'
 import { PageModel } from '../../src/endpoints/page'
 import { Link } from 'react-router-dom'
 
-import style from './ContentList.pcss'
+import style from './ContentList.css'
+import helper from '../Helper/Helper.css'
 
 class ContentListElement extends React.Component {
   static propTypes = {
@@ -16,7 +17,7 @@ class ContentListElement extends React.Component {
 
   render () {
     return (
-      <Link to={this.props.url + '/' + this.props.page.id}>
+      <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
         <div className={style.element}>
           <img className={style.elementImage} src={this.props.page.thumbnail}/>
           {this.props.page.title}

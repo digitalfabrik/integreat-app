@@ -1,7 +1,7 @@
 import React from 'react'
 
 import LocationBig from './assets/LocationBig.png'
-import content from './Heading.pcss'
+import content from './Heading.css'
 
 class Heading extends React.Component {
   render () {

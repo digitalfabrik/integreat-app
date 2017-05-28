@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 import cx from 'classnames'
 
-import content from './Location.pcss'
+import content from './Location.css'
 import { transform } from 'lodash/object'
 
 class LocationParentEntry extends React.Component {

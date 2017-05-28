@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import Spinner from 'react-spinkit'
 
-import style from './Content.pcss'
+import { values } from 'lodash/object'
+
+import { PageModel } from '../../src/endpoints/page'
 
 import Heading from './Heading'
 import RootList from './RootList'
-import ContentElement from './ContentElement'
-import { values } from 'lodash/object'
-import { PageModel } from '../../src/endpoints/page'
+import Page from './Page'
 import ContentList from './ContentList'
+
+import style from './Content.css'
 
 class Content extends React.Component {
   static propTypes = {
@@ -28,7 +29,7 @@ class Content extends React.Component {
     } else if (children > 0 && this.props.root) {
       return <RootList url={this.props.url} page={page}/>
     } else if (children === 0) {
-      return <ContentElement page={page}/>
+      return <Page page={page}/>
     } else if (children > 0) {
       return <ContentList url={this.props.url} page={page}/>
     } else {

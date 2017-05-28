@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { chunk } from 'lodash/array'
 import { values } from 'lodash/object'
 
-import style from './RootList.pcss'
+import style from './RootList.css'
 import { Link } from 'react-router-dom'
 import { PageModel } from '../../src/endpoints/page'
 

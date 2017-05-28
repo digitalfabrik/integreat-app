@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import content from './Search.pcss'
+import content from './Search.css'
 
 class Search extends React.Component {
   static propTypes = {
