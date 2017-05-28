@@ -10,7 +10,7 @@ import LOCATION_ENDPOINT, { LocationModel } from '../endpoints/location'
 
 class LandingPage extends React.Component {
   static propTypes = {
-    locations: PropTypes.objectOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    locations: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.instanceOf(LocationModel))).isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
