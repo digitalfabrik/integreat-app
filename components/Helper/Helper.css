@@ -1,14 +1,4 @@
-.remove-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.remove-a:hover {
-  text-decoration: none;
-  color: inherit;
-}
-
-.remove-a:active {
+.remove-a:link {
   text-decoration: none;
   color: inherit;
 }

@@ -6,7 +6,6 @@ import { values } from 'lodash/object'
 
 import { PageModel } from '../../src/endpoints/page'
 
-import Heading from './Heading'
 import RootList from './RootList'
 import Page from './Page'
 import ContentList from './ContentList'
@@ -39,7 +38,6 @@ class Content extends React.Component {
 
   render () {
     return <div>
-      <Heading title={this.props.title}/>
       {this.renderPages()}
     </div>
   }

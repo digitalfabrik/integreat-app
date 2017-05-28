@@ -5,6 +5,7 @@ import cx from 'classnames'
 
 import Navigation from './Navigation'
 import style from './Header.css'
+import helper from '../Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
 
 class Header extends React.Component {
@@ -20,13 +21,13 @@ class Header extends React.Component {
             <img src={logo}/>
           </div>
           <div className={cx(style.item, style.itemHome)}>
-            <span className="glyphicon glyphicon-home"/>
+            <span className='glyphicon glyphicon-home'/>
           </div>
           <div className={cx(style.item, style.itemLanguage)}>
-            <span className="glyphicon glyphicon-globe"/>
+            <span className='glyphicon glyphicon-globe'/>
           </div>
-          <NavLink exact to={this.props.languageTo} activeClassName={style.itemActive} className={cx(style.item, style.itemLocation)}>
-            <span className="glyphicon glyphicon-map-marker"/>
+          <NavLink exact to={this.props.languageTo} activeClassName={style.itemActive} className={cx(style.item, style.itemLocation, helper.removeA)}>
+            <span className='glyphicon glyphicon-map-marker'/>
           </NavLink>
           <Navigation/>
         </div>

@@ -1,10 +1,29 @@
 .element {
   height: 50px;
-  border-bottom: 1px solid #fbda16;
+}
+
+.element-text {
+  height: 100%;
+  line-height: 50px;
+  border-bottom: 2px solid #fbda16;
+}
+
+.horizontal-line {
+  height: 100%;
+  border-bottom: 2px solid #fbda16;
+  margin-bottom: 10px;
+}
+
+.row {
+  margin-bottom: 10px;
 }
 
 .element-image {
   height: 100%;
+}
+
+.heading {
+  margin-bottom: 20px;
 }
 
 .heading-text {

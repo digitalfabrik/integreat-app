@@ -14,13 +14,11 @@
 }
 
 .search-input {
-  border-width: 0 0 1px 0;
+  border-width: 0 0 1px;
   border-color: black;
   width: calc(100% - var(--search-logo-width) - 5px);
   height: 25px;
-
   margin-left: 5px;
-
   outline: none;
   border-radius: 0;
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import { values } from 'lodash/object'
 
@@ -17,12 +18,14 @@ class ContentListElement extends React.Component {
 
   render () {
     return (
-      <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
-        <div className={style.element}>
-          <img className={style.elementImage} src={this.props.page.thumbnail}/>
-          {this.props.page.title}
-        </div>
-      </Link>
+      <div className={cx(style.row, 'row')}>
+        <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
+          <div className={cx(style.element, 'col-xs-1')}>
+            <img className={style.elementImage} src={this.props.page.thumbnail}/>
+          </div>
+          <div className={cx(style.elementText, 'col-xs-11')}>{this.props.page.title}</div>
+        </Link>
+      </div>
     )
   }
 }
@@ -36,11 +39,12 @@ class ContentList extends React.Component {
   render () {
     return (
       <div>
-        <div>
+        <div className={style.heading}>
           <img className={style.headingImage} src={this.props.page.thumbnail}/>
           <div className={style.headingText}>{this.props.page.title}</div>
         </div>
-        <div>
+        <div className='container-fluid'>
+          <div className={cx(style.horizontalLine, 'row')}/>
           {values(this.props.page.children).map(page => {
             return <ContentListElement key={page.id} url={this.props.url} page={page}/>
           })}

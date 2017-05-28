@@ -19,7 +19,7 @@ class FilterableLocation extends React.Component {
 
   render () {
     return (
-      <div className="container">
+      <div className='container-fluid'>
         <Heading/>
         <Search filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
