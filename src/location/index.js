@@ -9,7 +9,10 @@ import Content from '../../components/Content/Content'
 
 import { fetchEndpoint } from '../endpoints/endpoint'
 import PAGE_ENDPOINT, { PageModel } from '../endpoints/page'
+
 import LANGUAGE_ENDPOINT from '../endpoints/language'
+
+import NAVIGATION from '../navigation'
 
 class LocationPage extends React.Component {
   static propTypes = {
@@ -17,6 +20,11 @@ class LocationPage extends React.Component {
     page: PropTypes.instanceOf(PageModel).isRequired,
     path: PropTypes.arrayOf(PropTypes.string),
     dispatch: PropTypes.func.isRequired
+  }
+
+  componentDidUpdate () {
+// eslint-disable-next-line indent
+    window.scrollTo(0, 0)
   }
 
   componentWillUnmount () {
@@ -69,7 +77,7 @@ class LocationPage extends React.Component {
     let url = LocationPage.normalizeURL(this.props.match.url)
     let isRoot = isEmpty(this.props.path)
     return (
-      <Layout languageTo='/'>
+      <Layout navigation={NAVIGATION}>
         <Content title={'Augsburg'} url={ url } root={ isRoot } page={this.page()}/>
       </Layout>
     )

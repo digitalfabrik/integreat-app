@@ -3,6 +3,8 @@ import React from 'react'
 import { history } from '../main'
 import Layout from '../../components/Layout'
 
+import NAVIGATION from '../navigation'
+
 class ErrorPage extends React.Component {
   componentDidMount () {
 
@@ -19,7 +21,7 @@ class ErrorPage extends React.Component {
 
   render () {
     return (
-      <Layout languageTo='/'>
+      <Layout navigation={NAVIGATION}>
         <a href="/" onClick={this.goBack}>Go back</a>
       </Layout>
     )

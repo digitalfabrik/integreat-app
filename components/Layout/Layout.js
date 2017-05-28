@@ -4,17 +4,18 @@ import cx from 'classnames'
 
 import Header from './Header'
 import s from './Layout.css'
+import Navigation from './Navigation'
 
 class Layout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    languageTo: PropTypes.string.isRequired
+    navigation: PropTypes.instanceOf(Navigation).isRequired
   }
 
   render () {
     return (
       <div>
-        <Header languageTo={this.props.languageTo}/>
+        <Header navigation={this.props.navigation}/>
         <main className={s.topSpacing}>
           <div className={cx(s.content, this.props.className)}>{this.props.children}</div>
         </main>
