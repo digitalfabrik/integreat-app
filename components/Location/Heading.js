@@ -7,7 +7,7 @@ class Heading extends React.Component {
   render () {
     return (
       <div>
-       Q <div className="row">
+        <div className="row">
           <img className={content.logo} src={LocationBig}/>
         </div>
         <div className="row">
