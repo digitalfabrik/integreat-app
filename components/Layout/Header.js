@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import Navigation from './Navigation'
 import style from './Header.css'
 import helper from '../Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
