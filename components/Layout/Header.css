@@ -10,9 +10,20 @@
   left: 0;
   height: 100px;
   width: 100%;
-  padding: 0 100px;
   background-color: #fafafa;
   z-index: 1000;
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header {
+    padding: 0 100px;
+  }
 }
 
 .logo {
