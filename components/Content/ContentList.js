@@ -20,10 +20,10 @@ class ContentListElement extends React.Component {
     return (
       <div className={cx(style.row, 'row')}>
         <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
-          <div className={cx(style.element, 'col-xs-1')}>
+          <div className={cx(style.element, 'col-xs-2 col-sm-1')}>
             <img className={style.elementImage} src={this.props.page.thumbnail}/>
           </div>
-          <div className={cx(style.elementText, 'col-xs-11')}>{this.props.page.title}</div>
+          <div className={cx(style.elementText, 'col-xs-10 col-sm-11')}>{this.props.page.title}</div>
         </Link>
       </div>
     )
