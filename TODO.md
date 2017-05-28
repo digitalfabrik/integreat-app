@@ -7,6 +7,7 @@
 * Message which suggests the native app
 * Route state transitions
 * Footer/impressum/backlink to main page
+* License
 
 ## Future...
 * Events
