@@ -25,7 +25,8 @@ export default new Endpoint(
   'locations',
   'https://cms.integreat-app.de/wp-json/extensions/v1/multisites',
   json => {
-    let locations = json.map((location) => new LocationModel(location.name, location.path))
+    let locations = json.filter((location) => location.live)
+      .map((location) => new LocationModel(location.name, location.path))
     locations = sortBy(locations, location => location.name)
     return groupBy(locations, location => location.category)
   }
