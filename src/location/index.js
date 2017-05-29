@@ -58,6 +58,7 @@ class LocationPage extends React.Component {
   }
 
   reload (code) {
+    // todo make dynamic
     history.push('/location/augsburg')
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     this.fetchData(code)
@@ -113,7 +114,7 @@ class LocationPage extends React.Component {
         />
 
         { /* Content */ }
-        <Content title={'Augsburg'} url={ url } root={ isRoot } page={last(hierarchy)}/>
+        <Content url={ url } root={ isRoot } page={last(hierarchy)}/>
       </Layout>
     )
   }

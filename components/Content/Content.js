@@ -15,7 +15,6 @@ import style from './Content.css'
 class Content extends React.Component {
   static propTypes = {
     page: PropTypes.instanceOf(PageModel).isRequired,
-    title: PropTypes.string.isRequired,
     root: PropTypes.bool,
     url: PropTypes.string
   }

@@ -11,11 +11,12 @@ export default class Breadcrumb extends React.Component {
   }
 
   render () {
+    /* fixme make dynamic */
     return <div className={this.props.className}>{this.props.hierarchy.map(page => {
       return (
         <span key={page.id}>
           <span className={style.separator}/>
-          <span className={style.level}>{page.title === 'root' ? 'Augsburg' : page.title}</span> {/* fixme make dynamic */ }
+          <span className={style.level}>{ page.title === 'root' ? 'Augsburg' : page.title}</span>
         </span>
       )
     })}</div>
