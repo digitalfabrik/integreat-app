@@ -116,7 +116,6 @@ class LocationPage extends React.Component {
         <Content title={'Augsburg'} url={ url } root={ isRoot } page={last(hierarchy)}/>
       </Layout>
     )
-
   }
 }
 

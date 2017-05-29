@@ -4,19 +4,19 @@
   height: 0;
   overflow: hidden;
   text-align: center;
-  transition: height 0.3s ease-in
+  transition: height 0.3s ease-in;
 }
 
 /* We want to separate the border style and the flyout to we can set a specific z-index */
 .language-flyout::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  box-shadow: inset -1px -8px 10px -7px #B0B0B0;
+  box-shadow: inset -1px -8px 10px -7px #b0b0b0;
   z-index: 10;
   pointer-events: none;
 }
