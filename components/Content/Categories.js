@@ -5,13 +5,13 @@ import cx from 'classnames'
 import { chunk } from 'lodash/array'
 import { values } from 'lodash/object'
 
-import style from './RootList.css'
+import style from './Categories.css'
 import helper from '../Helper/Helper.css'
 
 import { Link } from 'react-router-dom'
 import { PageModel } from '../../src/endpoints/page'
 
-class RootTile extends React.Component {
+class Category extends React.Component {
   static propTypes = {
     page: PropTypes.instanceOf(PageModel).isRequired,
     url: PropTypes.string.isRequired
@@ -29,7 +29,7 @@ class RootTile extends React.Component {
   }
 }
 
-class RootList extends React.Component {
+export default class Categories extends React.Component {
   static propTypes = {
     page: PropTypes.instanceOf(PageModel).isRequired,
     url: PropTypes.string.isRequired
@@ -44,8 +44,8 @@ class RootList extends React.Component {
             let b = pages[1]
             let key = a.id + ':' + (b ? b.id : '-')
             return <div key={key} className={cx(style.row, 'row')}>
-              <RootTile url={this.props.url} page={a}/>
-              {b ? <RootTile url={this.props.url} page={b}/> : null}
+              <Category url={this.props.url} page={a}/>
+              {b ? <Category url={this.props.url} page={b}/> : null}
             </div>
           })
         }
@@ -53,5 +53,3 @@ class RootList extends React.Component {
     )
   }
 }
-
-export default RootList

@@ -6,7 +6,7 @@ import { values } from 'lodash/object'
 
 import { PageModel } from '../../src/endpoints/page'
 
-import RootList from './RootList'
+import Categories from './Categories'
 import Page from './Page'
 import ContentList from './ContentList'
 
@@ -26,7 +26,7 @@ class Content extends React.Component {
     if (page.title === '') {
       return <Spinner className={style.loading} name='line-scale-party'/>
     } else if (children > 0 && this.props.root) {
-      return <RootList url={this.props.url} page={page}/>
+      return <Categories url={this.props.url} page={page}/>
     } else if (children === 0) {
       return <Page page={page}/>
     } else if (children > 0) {
