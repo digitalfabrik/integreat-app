@@ -6,10 +6,9 @@
   margin-top: 5px;
 }
 
-.element:after {
+.element::after {
   display: block;
   height: 1px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(147, 147, 147, 1) 50%, rgba(0, 0, 0, 0) 100%);
-
   content: '';
 }
