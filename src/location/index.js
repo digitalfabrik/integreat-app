@@ -42,6 +42,7 @@ class LocationPage extends React.Component {
   componentWillUnmount () {
     // todo only do this if necessary
     this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
+    this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
   }
 
   componentWillMount () {
