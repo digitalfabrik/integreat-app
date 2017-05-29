@@ -7,6 +7,8 @@ import style from './Header.css'
 import helper from '../Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
 import Navigation from './Navigation'
+import LanguageFlyout from '../Language/LanguageFlyout'
+import { LanguageModel } from '../../src/endpoints/language'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -26,26 +28,49 @@ class NavElement extends React.Component {
 
 class Header extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired
+    navigation: PropTypes.instanceOf(Navigation).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languageCallback: PropTypes.func.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+    this.onLanguageCLick = this.onLanguageCLick.bind(this)
+  }
+
+  onLanguageCLick (event) {
+    event.preventDefault()
+    this.languageFlyout.toggle()
   }
 
   render () {
     return (
-      <header className={style.spacer}>
-        <div className={style.header}>
-          <div className={style.logo}>
-            <img src={logo}/>
+      <header >
+        <div className={style.spacer}>
+          <div className={style.header}>
+            { /* Logo */}
+            <div className={style.logo}>
+              <img src={logo}/>
+            </div>
+            { /* Home */}
+            <NavElement to={this.props.navigation.home} className={style.itemHome}>
+              <span className='glyphicon glyphicon-home'/>
+            </NavElement>
+            { /* Location */}
+            <NavElement to={this.props.navigation.location} className={style.itemLocation}>
+              <span className='glyphicon glyphicon-map-marker'/>
+            </NavElement>
+            { /* Language */}
+            <span className={cx(style.item, style.itemLanguage, 'glyphicon glyphicon-globe')}
+                  onClick={this.onLanguageCLick}/>
           </div>
-          <NavElement to={this.props.navigation.home} className={style.itemHome}>
-            <span className='glyphicon glyphicon-home'/>
-          </NavElement>
-          <NavElement to={this.props.navigation.location} className={style.itemLocation}>
-            <span className='glyphicon glyphicon-globe'/>
-          </NavElement>
-          <NavElement to={this.props.navigation.language} className={style.itemLanguage}>
-            <span className='glyphicon glyphicon-map-marker'/>
-          </NavElement>
         </div>
+
+        <LanguageFlyout
+          ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
+          languageCallback={this.props.languageCallback}
+          languages={this.props.languages}
+        />
       </header>
     )
   }

@@ -8,3 +8,10 @@
   max-width: 1000px;
   width: 100%;
 }
+
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+.layout {
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
+}
+
