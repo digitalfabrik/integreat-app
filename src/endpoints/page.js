@@ -10,6 +10,7 @@ export default new Endpoint(
       if (page.status !== 'publish') {
         return
       }
+
       result[page.id] = new PageModel(
         page.id,
         page.title,
