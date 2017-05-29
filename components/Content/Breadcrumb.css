@@ -1,4 +1,4 @@
-.separator:after {
+.separator::after {
   content: ' > ';
   font-size: 22px;
   color: #e8e8e8;
