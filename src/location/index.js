@@ -13,6 +13,10 @@ import PAGE_ENDPOINT, { PageModel } from '../endpoints/page'
 import LANGUAGE_ENDPOINT from '../endpoints/language'
 
 import NAVIGATION from '../navigation'
+import { last } from 'lodash/array'
+import Breadcrumb from '../../components/Content/Breadcrumb'
+
+import style from './styles.css'
 
 class LocationPage extends React.Component {
   static propTypes = {
@@ -44,14 +48,15 @@ class LocationPage extends React.Component {
 
   /**
    * Finds the current page which should be rendered based on {@link this.path}
-   * @return {PageModel} The model to renders
+   * @return {*} The model to renders
    */
   page () {
     let currentPage = this.props.page
+    let hierarchy = [currentPage]
 
-    // fixme if empty page
+    // fixme if empty page: no data
     if (currentPage.title === '') {
-      return currentPage
+      return hierarchy
     }
 
     this.props.path.forEach(id => {
@@ -60,9 +65,11 @@ class LocationPage extends React.Component {
       if (!currentPage) {
         throw new Error('Page not found!')
       }
+
+      hierarchy.push(currentPage)
     })
 
-    return currentPage
+    return hierarchy
   }
 
   static normalizeURL (url) {
@@ -76,9 +83,11 @@ class LocationPage extends React.Component {
   render () {
     let url = LocationPage.normalizeURL(this.props.match.url)
     let isRoot = isEmpty(this.props.path)
+    let hierarchy = this.page()
     return (
       <Layout navigation={NAVIGATION}>
-        <Content title={'Augsburg'} url={ url } root={ isRoot } page={this.page()}/>
+        <Breadcrumb className={style.breadcrumbSpacing} hierarchy={hierarchy}/>
+        <Content title={'Augsburg'} url={ url } root={ isRoot } page={last(hierarchy)}/>
       </Layout>
     )
   }
