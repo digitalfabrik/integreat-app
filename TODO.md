@@ -10,6 +10,7 @@
 * License
 * Icon for missing thumbnails
 * Search
+* More intelligent caching and refetching of content
 
 ## Future...
 * Events
