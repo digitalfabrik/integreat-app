@@ -1,0 +1,15 @@
+.element {
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.element:after {
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(147, 147, 147, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
+  content: '';
+}
