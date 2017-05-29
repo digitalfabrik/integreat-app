@@ -4,20 +4,20 @@ import Endpoint from './endpoint'
 
 export class LocationModel {
   constructor (name, path) {
-    this._name = name
-    this._path = path
+    this._code = name
+    this._name = path
   }
 
   get name () {
-    return this._name
+    return this._code
   }
 
   get path () {
-    return this._path
+    return this._name
   }
 
   get category () {
-    return isEmpty(this._name) ? '?' : this._name[0].toUpperCase()
+    return isEmpty(this._code) ? '?' : this._code[0].toUpperCase()
   }
 }
 

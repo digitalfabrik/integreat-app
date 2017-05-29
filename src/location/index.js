@@ -10,17 +10,18 @@ import Content from '../../components/Content/Content'
 import { fetchEndpoint } from '../endpoints/endpoint'
 import PAGE_ENDPOINT, { PageModel } from '../endpoints/page'
 
-import LANGUAGE_ENDPOINT from '../endpoints/language'
+import LANGUAGE_ENDPOINT, { LanguageModel } from '../endpoints/language'
 
 import NAVIGATION from '../navigation'
 import { last } from 'lodash/array'
 import Breadcrumb from '../../components/Content/Breadcrumb'
 
 import style from './styles.css'
+import Language from '../../components/Language/Language'
 
 class LocationPage extends React.Component {
   static propTypes = {
-    languages: PropTypes.array.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     page: PropTypes.instanceOf(PageModel).isRequired,
     path: PropTypes.arrayOf(PropTypes.string),
     dispatch: PropTypes.func.isRequired
@@ -86,6 +87,7 @@ class LocationPage extends React.Component {
     let hierarchy = this.page()
     return (
       <Layout navigation={NAVIGATION}>
+        <Language languages={this.props.languages}/>
         <Breadcrumb className={style.breadcrumbSpacing} hierarchy={hierarchy}/>
         <Content title={'Augsburg'} url={ url } root={ isRoot } page={last(hierarchy)}/>
       </Layout>
