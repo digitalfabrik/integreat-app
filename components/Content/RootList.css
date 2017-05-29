@@ -1,6 +1,7 @@
 .thumbnail {
   width: 100%;
   max-width: 150px;
+  max-height: 150px;
 }
 
 .thumbnail:hover {
