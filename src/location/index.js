@@ -16,8 +16,9 @@ import NAVIGATION from '../navigation'
 import { last } from 'lodash/array'
 import Breadcrumb from '../../components/Content/Breadcrumb'
 
+import { history } from '../main'
+
 import style from './styles.css'
-import Language from '../../components/Language/Language'
 
 class LocationPage extends React.Component {
   static propTypes = {
@@ -25,6 +26,12 @@ class LocationPage extends React.Component {
     page: PropTypes.instanceOf(PageModel).isRequired,
     path: PropTypes.arrayOf(PropTypes.string),
     dispatch: PropTypes.func.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.reload = this.reload.bind(this)
   }
 
   componentDidUpdate () {
@@ -35,23 +42,32 @@ class LocationPage extends React.Component {
   componentWillUnmount () {
     // todo only do this if necessary
     this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
-    this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
   }
 
   componentWillMount () {
+    this.fetchData('en')
+  }
+
+  fetchData (languageCode) {
     // todo make location and language dynamic
-    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', 'en')))
+    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', languageCode)))
     this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
       .replace('{location}', this.props.match.params.location)
-      .replace('{language}', 'en')
+      .replace('{language}', languageCode)
       .replace('{since}', new Date(0).toISOString().split('.')[0] + 'Z')))
+  }
+
+  reload (code) {
+    history.push('/location/augsburg')
+    this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
+    this.fetchData(code)
   }
 
   /**
    * Finds the current page which should be rendered based on {@link this.path}
    * @return {*} The model to renders
    */
-  page () {
+  hierarchy () {
     let currentPage = this.props.page
     let hierarchy = [currentPage]
 
@@ -84,14 +100,23 @@ class LocationPage extends React.Component {
   render () {
     let url = LocationPage.normalizeURL(this.props.match.url)
     let isRoot = isEmpty(this.props.path)
-    let hierarchy = this.page()
+    let hierarchy = this.hierarchy()
+
     return (
-      <Layout navigation={NAVIGATION}>
-        <Language languages={this.props.languages}/>
-        <Breadcrumb className={style.breadcrumbSpacing} hierarchy={hierarchy}/>
+      <Layout
+        languageCallback={this.reload}
+        languages={this.props.languages} navigation={NAVIGATION}>
+
+        { /* Breadcrumb */ }
+        <Breadcrumb className={style.breadcrumbSpacing}
+                    hierarchy={hierarchy}
+        />
+
+        { /* Content */ }
         <Content title={'Augsburg'} url={ url } root={ isRoot } page={last(hierarchy)}/>
       </Layout>
     )
+
   }
 }
 

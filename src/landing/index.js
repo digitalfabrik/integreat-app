@@ -26,7 +26,9 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <Layout navigation={NAVIGATION}>
+      <Layout languageCallback={(code) => { /* todo */ }}
+              languages={[ /* todo */ ]}
+              navigation={NAVIGATION}>
         <FilterableLocation locations={this.props.locations}/>
       </Layout>
     )
