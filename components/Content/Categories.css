@@ -1,5 +1,5 @@
 .thumbnail {
-  width: 100%;
+  height: 100%;
   max-width: 150px;
   max-height: 150px;
 }
@@ -9,12 +9,18 @@
   transition-duration: 0.3s;
 }
 
-.row {
-  margin-bottom: 22px;
-}
-
 .caption {
   margin-top: 5px;
   text-align: center;
   font-weight: bold;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category {
+  flex-basis: 33.3%;
+  padding: 10px;
 }
