@@ -1,6 +1,5 @@
 ## TODO
 * Language switching for content and static text
-* Filter location list
 * RTL support
 * Design for header
 * Error message when a fetch fails
