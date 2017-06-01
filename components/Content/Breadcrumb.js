@@ -16,7 +16,7 @@ export default class Breadcrumb extends React.Component {
       return (
         <span key={page.id}>
           <span className={style.separator}/>
-          <span className={style.level}>{ page.title === 'root' ? 'Augsburg' : page.title}</span>
+          <span className={style.level}>{ page.title }</span>
         </span>
       )
     })}</div>

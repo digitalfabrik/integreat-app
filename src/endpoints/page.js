@@ -5,7 +5,7 @@ import Endpoint from './endpoint'
 export default new Endpoint(
   'pages',
   'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
-  json => {
+  (json, options) => {
     let pages = transform(json, (result, page) => {
       if (page.status !== 'publish') {
         return
@@ -35,12 +35,12 @@ export default new Endpoint(
         result[page.id] = page
       }
     }, {})
-    return new PageModel(0, 'root', 0, '', null, children)
+    return new PageModel(0, options.location, 0, '', null, children)
   }
 )
 
 export class PageModel {
-  constructor (id = 0, title = '', parent = 0, content = '', thumbnail = null, children = {}) {
+  constructor (id = -1, title = '', parent = 0, content = '', thumbnail = null, children = {}) {
     this._id = id
     this._title = title
     this._content = content
@@ -77,3 +77,5 @@ export class PageModel {
     return this._children
   }
 }
+
+export const EMPTY_PAGE = new PageModel()

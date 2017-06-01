@@ -8,7 +8,7 @@ import Layout from '../../components/Layout'
 import Content from '../../components/Content/Content'
 
 import { fetchEndpoint } from '../endpoints/endpoint'
-import PAGE_ENDPOINT, { PageModel } from '../endpoints/page'
+import PAGE_ENDPOINT, { EMPTY_PAGE, PageModel } from '../endpoints/page'
 
 import LANGUAGE_ENDPOINT, { LanguageModel } from '../endpoints/language'
 
@@ -55,7 +55,7 @@ class LocationPage extends React.Component {
     this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
       .replace('{location}', this.props.match.params.location)
       .replace('{language}', languageCode)
-      .replace('{since}', new Date(0).toISOString().split('.')[0] + 'Z')))
+      .replace('{since}', new Date(0).toISOString().split('.')[0] + 'Z'), {location: 'Augsburg'}))
   }
 
   reload (code) {
@@ -71,12 +71,13 @@ class LocationPage extends React.Component {
    */
   hierarchy () {
     let currentPage = this.props.page
-    let hierarchy = [currentPage]
 
     // fixme if empty page: no data
-    if (currentPage.title === '') {
-      return hierarchy
+    if (currentPage === EMPTY_PAGE) {
+      return []
     }
+
+    let hierarchy = [currentPage]
 
     this.props.path.forEach(id => {
       currentPage = currentPage.children[id]
@@ -130,7 +131,7 @@ function mapeStateToProps (state) {
   let pages = state.pages.data
   return ({
     languages: languages || [],
-    page: pages || new PageModel()
+    page: pages || EMPTY_PAGE
   })
 }
 

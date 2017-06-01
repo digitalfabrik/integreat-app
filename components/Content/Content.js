@@ -14,25 +14,29 @@ import style from './Content.css'
 
 class Content extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
+    page: PropTypes.instanceOf(PageModel),
     root: PropTypes.bool,
-    url: PropTypes.string
+    url: PropTypes.string.isRequired
   }
 
   renderPages () {
     let page = this.props.page
-    let children = values(page.children).length
-    if (page.title === '') {
+
+    if (!page || page.title === '') {
       return <Spinner className={style.loading} name='line-scale-party'/>
-    } else if (children > 0 && this.props.root) {
-      return <Categories url={this.props.url} page={page}/>
-    } else if (children === 0) {
-      return <Page page={page}/>
-    } else if (children > 0) {
-      return <ContentList url={this.props.url} page={page}/>
     } else {
-      throw new Error('The page ' + page + ' is not renderable!')
+      let children = values(page.children).length
+
+      if (children > 0 && this.props.root) {
+        return <Categories url={this.props.url} page={page}/>
+      } else if (children === 0) {
+        return <Page page={page}/>
+      } else if (children > 0) {
+        return <ContentList url={this.props.url} page={page}/>
+      }
     }
+
+    throw new Error('The page ' + page + ' is not renderable!')
   }
 
   render () {
