@@ -18,14 +18,14 @@ class ContentListElement extends React.Component {
 
   render () {
     return (
-      <div className={cx(style.row, 'row')}>
-        <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
-          <div className={cx(style.element, 'col-xs-2 col-sm-1')}>
-            <img className={style.elementImage} src={this.props.page.thumbnail}/>
+      <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
+        <div className={style.row}>
+          <div className={cx(style.elementImage, style.element)}>
+            <img className={style.image} src={this.props.page.thumbnail}/>
           </div>
-          <div className={cx(style.elementText, 'col-xs-10 col-sm-11')}>{this.props.page.title}</div>
-        </Link>
-      </div>
+          <div className={style.elementText}>{this.props.page.title}</div>
+        </div>
+      </Link>
     )
   }
 }
@@ -43,8 +43,8 @@ class ContentList extends React.Component {
           <img className={style.headingImage} src={this.props.page.thumbnail}/>
           <div className={style.headingText}>{this.props.page.title}</div>
         </div>
-        <div className='container-fluid'>
-          <div className={cx(style.horizontalLine, 'row')}/>
+        <div>
+          <div className={style.horizontalLine}/>
           {values(this.props.page.children).map(page => {
             return <ContentListElement key={page.id} url={this.props.url} page={page}/>
           })}

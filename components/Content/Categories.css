@@ -1,7 +1,10 @@
 .thumbnail {
-  height: 100%;
-  max-width: 150px;
-  max-height: 150px;
+  width: 150px;
+  max-width: 100%;
+  max-height: 100%;
+
+  display: block;
+  margin: 0 auto;
 }
 
 .thumbnail:hover {
@@ -12,15 +15,9 @@
 .caption {
   margin-top: 5px;
   text-align: center;
-  font-weight: bold;
-}
-
-.categories {
-  display: flex;
-  flex-wrap: wrap;
+  font-weight: lighter;
 }
 
 .category {
-  flex-basis: 33.3%;
   padding: 10px;
 }

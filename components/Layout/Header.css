@@ -21,8 +21,7 @@
 }
 
 @media screen and (min-width: 600px) {
-  .header {
-    padding: 0 100px;
+  .logo {
   }
 }
 

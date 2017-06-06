@@ -7,6 +7,8 @@
   padding: 0 16px;
   max-width: 1000px;
   width: 100%;
+
+  font-family: 'Raleway', 'El Messiri', sans-serif;
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */

@@ -11,6 +11,7 @@
 * Search
 * More intelligent caching and refetching of content
 * Scroll to search field
+* Text-to-speach for content
 
 ## Future...
 * Events

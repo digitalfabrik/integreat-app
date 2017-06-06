@@ -12,7 +12,7 @@ class Search extends React.Component {
 
   render () {
     return (
-      <div className='row'>
+      <div>
         <div className={content.search}>
           <span className={cx(content.searchIcon, 'glyphicon glyphicon-search')}/>
           <input type='text' placeholder='Search' className={content.searchInput} defaultValue={this.props.filterText}

@@ -60,7 +60,7 @@ class Location extends React.Component {
   render () {
     return (
       <div>
-        <div className={cx(content.languageList, 'row')}>
+        <div className={content.languageList}>
           {
             isEmpty(this.props.locations) ? <Spinner className={content.loading} name='line-scale-party'/>
               : this.renderList(this.props.locations, this.props.filterText)

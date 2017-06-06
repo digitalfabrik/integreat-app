@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import FontAwesome from 'react-fontawesome'
 
 import style from './Header.css'
 import helper from '../Helper/Helper.css'
@@ -54,15 +55,15 @@ class Header extends React.Component {
             </div>
             { /* Home */}
             <NavElement to={this.props.navigation.home} className={style.itemHome}>
-              <span className='glyphicon glyphicon-home'/>
+              <FontAwesome name='home'/>
             </NavElement>
             { /* Location */}
             <NavElement to={this.props.navigation.location} className={style.itemLocation}>
-              <span className='glyphicon glyphicon-map-marker'/>
+              <FontAwesome name='map-marker'/>
             </NavElement>
             { /* Language */}
-            <span className={cx(style.item, style.itemLanguage, 'glyphicon glyphicon-globe')}
-                  onClick={this.onLanguageCLick}/>
+            <FontAwesome name='globe' className={cx(style.item, style.itemLanguage)}
+                         onClick={this.onLanguageCLick}/>
           </div>
         </div>
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import { values } from 'lodash/object'
 
 import style from './Categories.css'
@@ -8,6 +7,7 @@ import helper from '../Helper/Helper.css'
 
 import { Link } from 'react-router-dom'
 import { PageModel } from '../../src/endpoints/page'
+import { Col, Row } from 'react-flexbox-grid'
 
 class Category extends React.Component {
   static propTypes = {
@@ -17,12 +17,12 @@ class Category extends React.Component {
 
   render () {
     return (
-      <div className={style.category}>
+      <Col xs={6} sm={4} className={style.category}>
         <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
-          <img className={cx('center-block', style.thumbnail)} src={this.props.page.thumbnail}/>
+          <img className={style.thumbnail} src={this.props.page.thumbnail}/>
           <div className={style.caption}>{this.props.page.title}</div>
         </Link>
-      </div>
+      </Col>
     )
   }
 }
@@ -35,13 +35,13 @@ export default class Categories extends React.Component {
 
   render () {
     return (
-      <div className={style.categories}>
+      <Row>
         {
           values(this.props.page.children).map(page => {
             return <Category key={page.id} url={this.props.url} page={page}/>
           })
         }
-      </div>
+      </Row>
     )
   }
 }

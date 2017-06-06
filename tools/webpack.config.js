@@ -18,7 +18,7 @@ const config = {
   context: path.resolve(__dirname, '../src'),
   // The entry point for the bundle
   entry: [
-    '!!style-loader!css-loader!bootstrap/dist/css/bootstrap.css',
+    '!!style-loader!css-loader!font-awesome/css/font-awesome.min.css',
     /* The main entry point of your JavaScript application */
     './main.js'
   ],
@@ -86,6 +86,21 @@ const config = {
       },
       {
         test: /\.css$/,
+        loaders: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }
+        ],
+        include: /flexboxgrid/
+      },
+      {
+        test: /\.css$/,
         include: /node_modules/,
         loaders: [
           {
@@ -94,7 +109,8 @@ const config = {
           {
             loader: 'css-loader'
           }
-        ]
+        ],
+        exclude: /flexboxgrid/
       },
       {
         test: /\.(css|pcss)/,
