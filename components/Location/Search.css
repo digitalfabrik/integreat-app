@@ -21,4 +21,10 @@
   margin-left: 5px;
   outline: none;
   border-radius: 0;
+  background: transparent;
+  color: black;
+
+  &::placeholder {
+    color: black;
+  }
 }
