@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Spinner from 'react-spinkit'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
-import cx from 'classnames'
 
 import content from './Location.css'
 import { transform } from 'lodash/object'
