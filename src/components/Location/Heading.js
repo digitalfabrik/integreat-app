@@ -1,17 +1,17 @@
 import React from 'react'
 
 import LocationBig from './assets/LocationBig.png'
-import content from './Heading.css'
+import style from './Heading.css'
 
 class Heading extends React.Component {
   render () {
     return (
       <div>
         <div>
-          <img className={content.logo} src={LocationBig}/>
+          <img className={style.logo} src={LocationBig}/>
         </div>
         <div>
-          <h1 className={content.heading}>Where are you?</h1>
+          <h1 className={style.heading}>Where are you?</h1>
         </div>
       </div>
     )

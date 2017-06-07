@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 
-import content from './Location.css'
+import style from './Location.css'
 import { transform } from 'lodash/object'
 
 class LocationParentEntry extends React.Component {
@@ -14,7 +14,7 @@ class LocationParentEntry extends React.Component {
 
   render () {
     return (
-      <div className={content.languageListParent}>{this.props.name}</div>
+      <div className={style.languageListParent}>{this.props.name}</div>
     )
   }
 }
@@ -27,7 +27,7 @@ class LocationEntry extends React.Component {
 
   render () {
     return (
-      <Link to={{pathname: this.props.to}} className={content.languageListItem}>
+      <Link to={{pathname: this.props.to}} className={style.languageListItem}>
         <div>{this.props.name}</div>
       </Link>
     )
@@ -59,9 +59,9 @@ class Location extends React.Component {
   render () {
     return (
       <div>
-        <div className={content.languageList}>
+        <div className={style.languageList}>
           {
-            isEmpty(this.props.locations) ? <Spinner className={content.loading} name='line-scale-party'/>
+            isEmpty(this.props.locations) ? <Spinner className={style.loading} name='line-scale-party'/>
               : this.renderList(this.props.locations, this.props.filterText)
           }
         </div>
