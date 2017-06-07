@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
+import FontAwesome from 'react-fontawesome'
 
 import content from './Search.css'
 
@@ -14,7 +14,7 @@ class Search extends React.Component {
     return (
       <div>
         <div className={content.search}>
-          <span className={cx(content.searchIcon, 'glyphicon glyphicon-search')}/>
+          <FontAwesome className={content.searchIcon} name='search'/>
           <input type='text' placeholder='Search' className={content.searchInput} defaultValue={this.props.filterText}
                  onChange={(event) => this.props.onFilterTextChange(event.target.value)} autoFocus/>
         </div>
