@@ -66,7 +66,7 @@ class LocationPage extends React.Component {
   }
 
   /**
-   * Finds the current page which should be rendered based on {@link this.path}
+   * Finds the current page which should be rendered based on {@link this.props.path}
    * @return {*} The model to renders
    */
   hierarchy () {

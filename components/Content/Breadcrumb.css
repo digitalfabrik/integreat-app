@@ -1,12 +1,12 @@
 .separator::after {
-  content: ' > ';
-  font-size: 22px;
   color: #e8e8e8;
+  font-size: 22px;
+  content: ' > ';
   user-select: none;
 }
 
 .level {
-  font-size: 20px;
   color: #9c9c9c;
+  font-size: 20px;
   user-select: none;
 }

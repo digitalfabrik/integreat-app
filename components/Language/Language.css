@@ -1,9 +1,9 @@
 .element {
-  text-align: center;
   height: 40px;
-  line-height: 40px;
-  margin-bottom: 5px;
   margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 40px;
+  text-align: center;
 }
 
 .element::after {

@@ -3,21 +3,22 @@
   width: 100%;
   height: 0;
   overflow: hidden;
+  font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
   transition: height 0.3s ease-in;
 }
 
 /* We want to separate the border style and the flyout to we can set a specific z-index */
 .language-flyout::after {
-  content: '';
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  box-shadow: inset -1px -8px 10px -7px #b0b0b0;
   z-index: 10;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset -1px -8px 10px -7px #b0b0b0;
+  content: '';
   pointer-events: none;
 }
 
@@ -31,11 +32,11 @@
 }
 
 .element {
-  text-align: center;
-  height: 100%;
-  line-height: 100px;
-  font-size: 20px;
   width: 100px;
+  height: 100%;
+  font-size: 20px;
+  line-height: 100px;
+  text-align: center;
 }
 
 .element-active,

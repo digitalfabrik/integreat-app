@@ -3,15 +3,15 @@
 }
 
 .header {
-  display: flex;
-  align-items: center;
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
+  display: flex;
   height: 100px;
-  background-color: #fafafa;
+  align-items: center;
   z-index: 1000;
+  background-color: #fafafa;
 }
 
 @media screen and (max-width: 600px) {
@@ -21,8 +21,8 @@
 }
 
 .logo {
-  padding: 20px;
   height: 100%;
+  padding: 20px;
 }
 
 .logo > img {
@@ -36,12 +36,12 @@
 
 .item {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  text-align: center;
   max-width: 100px;
   height: 100%;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
   margin: 0 10px;
   font-size: 3rem;
 }
