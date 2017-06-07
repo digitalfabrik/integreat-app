@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 
 import { isEmpty } from 'lodash/lang'
 
-import Layout from 'components/Layout'
+import normalizeUrl from 'normalize-url'
+
+import Layout from 'components/Layout/Layout'
 import Content from 'components/Content/Content'
 
 import { fetchEndpoint } from 'endpoints/endpoint'
@@ -92,16 +94,8 @@ class LocationPage extends React.Component {
     return hierarchy
   }
 
-  static normalizeURL (url) {
-    if (url.endsWith('/')) {
-      return url.substr(0, url.length - 1)
-    }
-
-    return url
-  }
-
   render () {
-    let url = LocationPage.normalizeURL(this.props.match.url)
+    let url = normalizeUrl(this.props.match.url, {removeTrailingSlash: true})
     let isRoot = isEmpty(this.props.path)
     let hierarchy = this.hierarchy()
 
