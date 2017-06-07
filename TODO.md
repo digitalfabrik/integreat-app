@@ -6,7 +6,6 @@
 * Message which suggests the native app
 * Route state transitions
 * Footer/impressum/backlink to main page
-* License
 * Icon for missing thumbnails
 * Search
 * More intelligent caching and refetching of content
