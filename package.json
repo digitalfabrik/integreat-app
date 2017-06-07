@@ -128,8 +128,8 @@
     }
   },
   "scripts": {
-    "eslint": "eslint components src test tools postcss.config.js webpack.config.js",
-    "stylelint": "stylelint \"components/**/*.css\" \"src/**/*.css\"",
+    "eslint": "eslint src test tools postcss.config.js webpack.config.js",
+    "stylelint": "stylelint \"src/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "mocha --compilers js:babel-register --reporter min --watch",
