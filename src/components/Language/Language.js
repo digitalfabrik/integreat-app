@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { LanguageModel } from '../../endpoints/language'
+import { LanguageModel } from 'endpoints/language'
 
 import style from './Language.css'
 

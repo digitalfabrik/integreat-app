@@ -4,19 +4,19 @@ import { connect } from 'react-redux'
 
 import { isEmpty } from 'lodash/lang'
 
-import Layout from '../components/Layout'
-import Content from '../components/Content/Content'
+import Layout from 'components/Layout'
+import Content from 'components/Content/Content'
 
-import { fetchEndpoint } from '../endpoints/endpoint'
-import PAGE_ENDPOINT, { EMPTY_PAGE, PageModel } from '../endpoints/page'
+import { fetchEndpoint } from 'endpoints/endpoint'
+import PAGE_ENDPOINT, { EMPTY_PAGE, PageModel } from 'endpoints/page'
 
-import LANGUAGE_ENDPOINT, { LanguageModel } from '../endpoints/language'
+import LANGUAGE_ENDPOINT, { LanguageModel } from 'endpoints/language'
 
-import NAVIGATION from '../navigation'
+import NAVIGATION from 'navigation'
 import { last } from 'lodash/array'
-import Breadcrumb from '../components/Content/Breadcrumb'
+import Breadcrumb from 'components/Content/Breadcrumb'
 
-import { history } from '../main'
+import { history } from 'main'
 
 import style from './styles.css'
 

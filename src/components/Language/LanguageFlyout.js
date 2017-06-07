@@ -3,7 +3,7 @@ import React from 'react'
 import cx from 'classnames'
 
 import PropTypes from 'prop-types'
-import { LanguageModel } from '../../endpoints/language'
+import { LanguageModel } from 'endpoints/language'
 
 class LanguageElement extends React.Component {
   static propTypes = {

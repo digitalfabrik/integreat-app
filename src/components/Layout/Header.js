@@ -5,11 +5,11 @@ import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
 
 import style from './Header.css'
-import helper from '../Helper/Helper.css'
+import helper from 'components/Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
 import Navigation from './Navigation'
-import LanguageFlyout from '../Language/LanguageFlyout'
-import { LanguageModel } from '../../endpoints/language'
+import LanguageFlyout from 'components/Language/LanguageFlyout'
+import { LanguageModel } from 'endpoints/language'
 
 class NavElement extends React.Component {
   static propTypes = {

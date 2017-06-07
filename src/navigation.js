@@ -1,3 +1,3 @@
-import Navigation from './components/Layout/Navigation'
+import Navigation from 'components/Layout/Navigation'
 
 export default new Navigation('/', '/', '/')

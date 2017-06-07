@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit'
 
 import { values } from 'lodash/object'
 
-import { PageModel } from '../../endpoints/page'
+import { PageModel } from 'endpoints/page'
 
 import Categories from './Categories'
 import Page from './Page'

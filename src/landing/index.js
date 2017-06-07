@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from '../components/Layout'
-import FilterableLocation from '../components/Location/FilterableLocation'
+import Layout from 'components/Layout'
+import FilterableLocation from 'components/Location/FilterableLocation'
 
-import { fetchEndpoint } from '../endpoints/endpoint'
-import LOCATION_ENDPOINT, { LocationModel } from '../endpoints/location'
+import { fetchEndpoint } from 'endpoints/endpoint'
+import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
 
 import NAVIGATION from '../navigation'
 

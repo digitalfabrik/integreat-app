@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { values } from 'lodash/object'
 
 import style from './Categories.css'
-import helper from '../Helper/Helper.css'
+import helper from 'components/Helper/Helper.css'
 
 import { Link } from 'react-router-dom'
-import { PageModel } from '../../endpoints/page'
+import { PageModel } from 'endpoints/page'
 import { Col, Row } from 'react-flexbox-grid'
 
 class Category extends React.Component {

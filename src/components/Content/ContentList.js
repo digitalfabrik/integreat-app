@@ -4,11 +4,11 @@ import cx from 'classnames'
 
 import { values } from 'lodash/object'
 
-import { PageModel } from '../../endpoints/page'
+import { PageModel } from 'endpoints/page'
 import { Link } from 'react-router-dom'
 
 import style from './ContentList.css'
-import helper from '../Helper/Helper.css'
+import helper from 'components/Helper/Helper.css'
 
 class ContentListElement extends React.Component {
   static propTypes = {
