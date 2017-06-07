@@ -9,7 +9,7 @@ import helper from '../Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
 import Navigation from './Navigation'
 import LanguageFlyout from '../Language/LanguageFlyout'
-import { LanguageModel } from '../../src/endpoints/language'
+import { LanguageModel } from '../../endpoints/language'
 
 class NavElement extends React.Component {
   static propTypes = {

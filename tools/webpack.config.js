@@ -69,8 +69,7 @@ const config = {
       {
         test: /\.jsx?$/,
         include: [
-          path.resolve(__dirname, '../src'),
-          path.resolve(__dirname, '../components')
+          path.resolve(__dirname, '../src')
         ],
         loader: 'babel-loader',
         options: babelConfig
@@ -114,7 +113,7 @@ const config = {
       },
       {
         test: /\.(css|pcss)/,
-        include: [/components/, /src/],
+        include: [/src/],
         use: [
           {
             loader: 'style-loader'

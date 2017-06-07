@@ -9,20 +9,20 @@
 
 .search-icon {
   width: var(--search-logo-width);
-  text-align: center;
   font-size: 1.2em;
+  text-align: center;
 }
 
 .search-input {
-  border-width: 0 0 1px;
-  border-color: black;
   width: calc(100% - var(--search-logo-width) - 5px);
   height: 25px;
   margin-left: 5px;
-  outline: none;
-  border-radius: 0;
-  background: transparent;
   color: black;
+  background: transparent;
+  border-width: 0 0 1px;
+  border-color: black;
+  border-radius: 0;
+  outline: none;
 
   &::placeholder {
     color: black;

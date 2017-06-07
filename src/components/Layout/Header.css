@@ -7,10 +7,10 @@
   top: 0;
   right: 0;
   left: 0;
+  z-index: 1000;
   display: flex;
   height: 100px;
   align-items: center;
-  z-index: 1000;
   background-color: #fafafa;
 }
 
@@ -36,34 +36,34 @@
 
 .item {
   display: flex;
-  max-width: 100px;
   height: 100%;
+  max-width: 100px;
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  text-align: center;
   margin: 0 10px;
   font-size: 3rem;
+  text-align: center;
 }
 
 .item:hover {
-  text-decoration: inherit;
   color: inherit;
+  text-decoration: inherit;
   cursor: auto;
 }
 
 .item-home {
-  order: 1;
   flex-grow: 1;
+  order: 1;
   margin-right: auto;
 }
 
 .item-language {
-  order: 3;
   flex-grow: 1;
+  order: 3;
 }
 
 .item-location {
-  order: 2;
   flex-grow: 1;
+  order: 2;
 }

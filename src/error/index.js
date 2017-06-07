@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { history } from '../main'
-import Layout from '../../components/Layout'
+import Layout from '../components/Layout'
 
 import NAVIGATION from '../navigation'
 

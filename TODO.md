@@ -12,6 +12,7 @@
 * More intelligent caching and refetching of content
 * Scroll to search field
 * Text-to-speach for content
+* Add PDF generation
 
 ## Future...
 * Events

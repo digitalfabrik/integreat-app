@@ -6,7 +6,7 @@ import WebFont from 'webfontloader'
 import Header from './Header'
 import style from './Layout.css'
 import Navigation from './Navigation'
-import { LanguageModel } from '../../src/endpoints/language'
+import { LanguageModel } from '../../endpoints/language'
 
 class Layout extends React.Component {
   static propTypes = {

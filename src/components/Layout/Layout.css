@@ -3,9 +3,9 @@
 }
 
 .content {
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 16px;
-  max-width: 1000px;
   font-family: 'Raleway', 'El Messiri', sans-serif;
 }
 
