@@ -51,6 +51,11 @@ Used Redux extensions:
 
 You can run the linter by calling **npm run lint**.
 
+## IDE
+Just import this project (from existing sources). Run **yarn** and right-click on package.json to show the npm scripts. 
+Also mark the *src* and *public* folder as *Source directory*. In IntelliJ no other plugins are needed. 
+
+
 # Publishing
 
 You can login though the firebase cli and then run **npm run publish**.
