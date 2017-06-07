@@ -83,7 +83,7 @@
     "s3": "^4.4.0",
     "style-loader": "^0.14.1",
     "stylelint": "^7.9.0",
-    "stylelint-config-standard": "^16.0.0",
+    "stylelint-config-anfema": "^4.3.1",
     "stylelint-order": "^0.4.4",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
@@ -122,70 +122,9 @@
     ]
   },
   "stylelint": {
-    "plugins": [
-      "stylelint-order"
-    ],
-    "extends": "stylelint-config-standard",
+    "extends": "stylelint-config-anfema",
     "rules": {
-      "string-quotes": "single",
-      "order/properties-order": [
-        [
-          "position",
-          "top",
-          "right",
-          "bottom",
-          "left",
-          "z-index",
-          "display",
-          "width",
-          "height",
-          "min-width",
-          "min-height",
-          "max-width",
-          "max-height",
-          "transform",
-          "float",
-          "clear",
-          "overflow",
-          "flex",
-          "flex-basis",
-          "flex-direction",
-          "flex-flow",
-          "flex-grow",
-          "flex-shrink",
-          "flex-wrap",
-          "align-content",
-          "align-items",
-          "align-self",
-          "justify-content",
-          "order",
-          "margin",
-          "padding",
-          "color",
-          "background",
-          "border",
-          "outline",
-          "box-shadow",
-          "font",
-          "line-height",
-          "letter-spacing",
-          "text-align",
-          "text-decoration",
-          "text-indent",
-          "text-rendering",
-          "text-shadow",
-          "text-transform",
-          "vertical-align",
-          "white-space",
-          "overflow-wrap",
-          "animation",
-          "transition",
-          "src"
-        ],
-        {
-          "unspecified": "bottomAlphabetical"
-        }
-      ]
+      "indentation": 2
     }
   },
   "scripts": {

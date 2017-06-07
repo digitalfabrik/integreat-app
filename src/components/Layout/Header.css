@@ -8,10 +8,11 @@
   right: 0;
   left: 0;
   z-index: 1000;
+
   display: flex;
   height: 100px;
   align-items: center;
-  background-color: #fafafa;
+  background-color: #FAFAFA;
 }
 
 @media screen and (max-width: 600px) {
@@ -31,7 +32,7 @@
 
 .item-active,
 .item:hover {
-  background-color: #fbda16;
+  background-color: #FBDA16;
 }
 
 .item {
@@ -42,6 +43,7 @@
   align-content: center;
   justify-content: center;
   margin: 0 10px;
+
   font-size: 3rem;
   text-align: center;
 }

@@ -2,6 +2,7 @@
   height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
+
   line-height: 40px;
   text-align: center;
 }
@@ -10,5 +11,6 @@
   display: block;
   height: 1px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(147, 147, 147, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
   content: '';
 }

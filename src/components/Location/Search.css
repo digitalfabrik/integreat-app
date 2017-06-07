@@ -17,6 +17,7 @@
   width: calc(100% - var(--search-logo-width) - 5px);
   height: 25px;
   margin-left: 5px;
+
   color: black;
   background: transparent;
   border-width: 0 0 1px;
