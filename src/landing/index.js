@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout'
+import Layout from 'components/Layout/Layout'
 import FilterableLocation from 'components/Location/FilterableLocation'
 
 import { fetchEndpoint } from 'endpoints/endpoint'

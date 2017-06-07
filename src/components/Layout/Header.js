@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
+import { isEmpty } from 'lodash/lang'
 
 import style from './Header.css'
 import helper from 'components/Helper/Helper.css'
@@ -62,16 +63,20 @@ class Header extends React.Component {
               <FontAwesome name='map-marker'/>
             </NavElement>
             { /* Language */}
+            {!isEmpty(this.props.languages) &&
             <FontAwesome name='globe' className={cx(style.item, style.itemLanguage)}
                          onClick={this.onLanguageCLick}/>
+            }
           </div>
         </div>
 
+        {!isEmpty(this.props.languages) &&
         <LanguageFlyout
           ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
           languageCallback={this.props.languageCallback}
           languages={this.props.languages}
         />
+        }
       </header>
     )
   }
