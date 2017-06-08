@@ -8,7 +8,7 @@ import FilterableLocation from 'components/Location/FilterableLocation'
 import { fetchEndpoint } from 'endpoints/endpoint'
 import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
 
-import NAVIGATION from '../navigation'
+import NAVIGATION from 'navigation'
 
 class LandingPage extends React.Component {
   static propTypes = {

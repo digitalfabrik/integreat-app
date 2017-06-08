@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { handleAction } from 'redux-actions'
 import reduceReducers from 'reduce-reducers'
 
-import ENDPOINTS from './endpoints/'
+import ENDPOINTS from './endpoints'
 
 /**
  * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}

@@ -1,4 +1,4 @@
-![dependencies](https://img.shields.io/librariesio/github/Integreat/integreat-webapp.svg)
+[![Dependency Status](https://gemnasium.com/badges/github.com/Integreat/integreat-webapp.svg)](https://gemnasium.com/github.com/Integreat/integreat-webapp)
 develop: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=develop)
 master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=master)
 # integreat-webapp

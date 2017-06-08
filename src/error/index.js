@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { history } from '../main'
+import { history } from 'main'
 
 class ErrorPage extends React.Component {
   componentDidMount () {

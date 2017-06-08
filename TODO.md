@@ -1,4 +1,5 @@
 ## TODO
+* Save location and language in state
 * Language switching for content and static text
 * RTL support
 * Design for header
