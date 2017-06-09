@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import normalizeUrl from 'normalize-url'
-
 import Layout from 'components/Layout/Layout'
 import Content from 'components/Content/Content'
 
@@ -66,7 +64,6 @@ class LocationPage extends React.Component {
   }
 
   render () {
-    let url = normalizeUrl(this.props.match.url, {removeTrailingSlash: true})
     let hierarchy = this.props.hierarchy
     hierarchy.build(this.props.page)
 
@@ -81,7 +78,7 @@ class LocationPage extends React.Component {
         />
 
         { /* Content */ }
-        <Content url={ url } root={ hierarchy.isRoot() } page={hierarchy.top()}/>
+        <Content url={ this.props.match.url } root={ hierarchy.isRoot() } page={hierarchy.top()}/>
       </Layout>
     )
   }

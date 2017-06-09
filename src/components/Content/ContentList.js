@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import normalizeUrl from 'normalize-url'
 
 import { values } from 'lodash/object'
 
@@ -17,8 +18,9 @@ class ContentListElement extends React.Component {
   }
 
   render () {
+    let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
     return (
-      <Link className={helper.removeA} to={this.props.url + '/' + this.props.page.id}>
+      <Link className={helper.removeA} to={url + '/' + this.props.page.id}>
         <div className={style.row}>
           <div className={cx(style.elementImage, style.element)}>
             <img className={style.image} src={this.props.page.thumbnail}/>
