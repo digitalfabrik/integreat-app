@@ -40,6 +40,18 @@ ReactDOM.render(
 // Sets the splash to hidden when the page is rendered
 document.getElementById('splash').className += ' splash-hidden'
 
+function handleLanguageChange () {
+  let state = store.getState()
+  let lang = state.language.language
+  if (lang === 'ar' || lang === 'fa') {
+    document.body.style.direction = 'rtl'
+  } else {
+    document.body.style.direction = 'ltr'
+  }
+}
+
+store.subscribe(handleLanguageChange)
+
 // Enables hot-module-reloading if it's enabled
 if (module.hot) {
   module.hot.accept()
