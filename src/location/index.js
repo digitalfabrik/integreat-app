@@ -17,11 +17,15 @@ import { history } from 'main'
 
 import style from './styles.css'
 import Hierarchy from './hierarchy'
+import { setLanguage } from '../actions'
+
+const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
 class LocationPage extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     page: PropTypes.instanceOf(PageModel).isRequired,
+    language: PropTypes.string.isRequired,
     hierarchy: PropTypes.instanceOf(Hierarchy).isRequired,
     dispatch: PropTypes.func.isRequired
   }
@@ -29,11 +33,11 @@ class LocationPage extends React.Component {
   constructor (props) {
     super(props)
 
-    this.reload = this.reload.bind(this)
+    this.changeLanguage = this.changeLanguage.bind(this)
   }
 
   componentDidUpdate () {
-// eslint-disable-next-line indent
+// eslint-disable-next-line
     window.scrollTo(0, 0)
   }
 
@@ -44,21 +48,24 @@ class LocationPage extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchData('en')
+    this.fetchData(this.props.language)
   }
 
   fetchData (languageCode) {
-    // todo make location and language dynamic
-    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url.replace('{location}', 'augsburg').replace('{language}', languageCode)))
+    let location = this.props.match.params.location
+    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url
+      .replace('{location}', location)
+      .replace('{language}', languageCode)))
     this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
-      .replace('{location}', this.props.match.params.location)
+      .replace('{location}', location)
       .replace('{language}', languageCode)
-      .replace('{since}', new Date(0).toISOString().split('.')[0] + 'Z'), {location: 'Augsburg'}))
+      .replace('{since}', BIRTH_OF_UNIVERSE), {location: location}))
   }
 
-  reload (code) {
-    // todo make dynamic
-    history.push('/location/augsburg')
+  changeLanguage (code) {
+    this.props.dispatch(setLanguage(code))
+    // beautify
+    history.push('/location/' + this.props.match.params.location)
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     this.fetchData(code)
   }
@@ -69,13 +76,11 @@ class LocationPage extends React.Component {
 
     return (
       <Layout
-        languageCallback={this.reload}
+        languageCallback={this.changeLanguage}
         languages={this.props.languages} navigation={NAVIGATION}>
 
         { /* Breadcrumb */ }
-        <Breadcrumb className={style.breadcrumbSpacing}
-                    hierarchy={hierarchy}
-        />
+        <Breadcrumb className={style.breadcrumbSpacing} hierarchy={hierarchy}/>
 
         { /* Content */ }
         <Content url={ this.props.match.url } root={ hierarchy.isRoot() } page={hierarchy.top()}/>
@@ -93,7 +98,8 @@ function mapeStateToProps (state) {
   let pages = state.pages.data
   return ({
     languages: languages || [],
-    page: pages || EMPTY_PAGE
+    page: pages || EMPTY_PAGE,
+    language: state.language.language
   })
 }
 

@@ -1,13 +1,14 @@
+/**
+ * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
+ */
 import { combineReducers } from 'redux'
 import { handleAction } from 'redux-actions'
 import reduceReducers from 'reduce-reducers'
 
 import ENDPOINTS from './endpoints'
+import { DEFAULT_LANGUAGE, setLanguage } from './actions'
 
-/**
- * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
- */
-let endpointReducers = ENDPOINTS.reduce((result, endpoint) => {
+let reducers = ENDPOINTS.reduce((result, endpoint) => {
   let defaultState = {data: null, isFetching: false}
   // Changes isFetching state
   let requestReducer = (state, action) => ({...state, isFetching: action.payload.isFetching})
@@ -25,4 +26,8 @@ let endpointReducers = ENDPOINTS.reduce((result, endpoint) => {
   return result
 }, {})
 
-export default combineReducers(endpointReducers)
+reducers['language'] = handleAction(setLanguage,
+  (state, action) => ({...state, language: action.payload.language}),
+  {language: DEFAULT_LANGUAGE})
+
+export default combineReducers(reducers)

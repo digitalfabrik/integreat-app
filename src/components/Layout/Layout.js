@@ -12,8 +12,8 @@ class Layout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
+    languageCallback: PropTypes.func,
     noHeader: PropTypes.bool
   }
 
@@ -31,8 +31,8 @@ class Layout extends React.Component {
         {!this.props.noHeader &&
         <Header
           languageCallback={this.props.languageCallback}
-          languages={this.props.languages}
-          navigation={this.props.navigation}
+          languages={this.props.languages || []}
+          navigation={this.props.navigation || (() => {})}
         />
         }
         <main className={cx(style.topSpacing, style.layout)}>
