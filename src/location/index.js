@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { isEmpty } from 'lodash/lang'
-
 import normalizeUrl from 'normalize-url'
 
 import Layout from 'components/Layout/Layout'
@@ -15,18 +13,18 @@ import PAGE_ENDPOINT, { EMPTY_PAGE, PageModel } from 'endpoints/page'
 import LANGUAGE_ENDPOINT, { LanguageModel } from 'endpoints/language'
 
 import NAVIGATION from 'navigation'
-import { last } from 'lodash/array'
 import Breadcrumb from 'components/Content/Breadcrumb'
 
 import { history } from 'main'
 
 import style from './styles.css'
+import Hierarchy from './hierarchy'
 
 class LocationPage extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     page: PropTypes.instanceOf(PageModel).isRequired,
-    path: PropTypes.arrayOf(PropTypes.string),
+    hierarchy: PropTypes.instanceOf(Hierarchy).isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -67,37 +65,10 @@ class LocationPage extends React.Component {
     this.fetchData(code)
   }
 
-  /**
-   * Finds the current page which should be rendered based on {@link this.props.path}
-   * @return {*} The model to renders
-   */
-  hierarchy () {
-    let currentPage = this.props.page
-
-    // fixme if empty page: no data
-    if (currentPage === EMPTY_PAGE) {
-      return []
-    }
-
-    let hierarchy = [currentPage]
-
-    this.props.path.forEach(id => {
-      currentPage = currentPage.children[id]
-
-      if (!currentPage) {
-        throw new Error('Page not found!')
-      }
-
-      hierarchy.push(currentPage)
-    })
-
-    return hierarchy
-  }
-
   render () {
     let url = normalizeUrl(this.props.match.url, {removeTrailingSlash: true})
-    let isRoot = isEmpty(this.props.path)
-    let hierarchy = this.hierarchy()
+    let hierarchy = this.props.hierarchy
+    hierarchy.build(this.props.page)
 
     return (
       <Layout
@@ -110,7 +81,7 @@ class LocationPage extends React.Component {
         />
 
         { /* Content */ }
-        <Content url={ url } root={ isRoot } page={last(hierarchy)}/>
+        <Content url={ url } root={ hierarchy.isRoot() } page={hierarchy.top()}/>
       </Layout>
     )
   }

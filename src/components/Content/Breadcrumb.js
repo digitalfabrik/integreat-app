@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './Breadcrumb.css'
-import { PageModel } from 'endpoints/page'
+import Hierarchy from 'location/hierarchy'
 
 export default class Breadcrumb extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    hierarchy: PropTypes.arrayOf(PropTypes.instanceOf(PageModel)).isRequired
+    hierarchy: PropTypes.instanceOf(Hierarchy).isRequired
   }
 
   render () {
     /* fixme make dynamic */
-    return <div className={this.props.className}>{this.props.hierarchy.map(page => {
+    return <div className={this.props.className}>{this.props.hierarchy.pages.map(page => {
       return (
         <span key={page.id}>
           <span className={style.separator}/>

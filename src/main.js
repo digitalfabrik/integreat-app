@@ -11,6 +11,7 @@ import store from './store'
 
 import LandingPage from './landing'
 import LocationPage from './location'
+import Hierarchy from './location/hierarchy'
 import ErrorPage from './error'
 
 const container = document.getElementById('container')
@@ -28,7 +29,7 @@ ReactDOM.render(
         <Route path="/" exact component={LandingPage}/>
         <Route path="/location/:location/:path*" render={props => {
           let path = props.match.params.path
-          return <LocationPage {...props} path={path ? path.split('/') : []}/>
+          return <LocationPage {...props} hierarchy={new Hierarchy(path)}/>
         }}/>
         <Route component={ErrorPage}/>
       </Switch>
