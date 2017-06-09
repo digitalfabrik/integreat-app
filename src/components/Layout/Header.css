@@ -1,3 +1,7 @@
+:root {
+  --logo-padding: 10px;
+}
+
 .spacer {
   margin-bottom: 100px;
 }
@@ -27,7 +31,8 @@
 }
 
 .logo > img {
-  height: 100%;
+  height: calc(100% - 2 * var(--logo-padding));
+  padding: var(--logo-padding);
 }
 
 .item-active,
