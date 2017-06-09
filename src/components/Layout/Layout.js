@@ -13,7 +13,8 @@ class Layout extends React.Component {
     className: PropTypes.string,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func.isRequired
+    languageCallback: PropTypes.func.isRequired,
+    noHeader: PropTypes.bool
   }
 
   componentWillMount () {
@@ -27,11 +28,13 @@ class Layout extends React.Component {
   render () {
     return (
       <div>
+        {!this.props.noHeader &&
         <Header
           languageCallback={this.props.languageCallback}
           languages={this.props.languages}
           navigation={this.props.navigation}
         />
+        }
         <main className={cx(style.topSpacing, style.layout)}>
           <div className={cx(style.content, this.props.className)}>{this.props.children}</div>
         </main>
