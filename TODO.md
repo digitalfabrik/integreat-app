@@ -1,5 +1,4 @@
 ## TODO
-* Language switching for static text (react-intl)
 * Error message if page is not found
 * RTL support
 * Design for header
