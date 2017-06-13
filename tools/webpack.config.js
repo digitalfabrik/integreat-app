@@ -186,6 +186,10 @@ const config = {
       {
         test: /\.(eot|ttf|wav|mp3)$/,
         loader: 'file-loader'
+      },
+      {
+        test: /locales/,
+        loader: 'i18next-resource-store-loader'
       }
     ]
   }
