@@ -4,38 +4,37 @@ import Spinner from 'react-spinkit'
 
 import { values } from 'lodash/object'
 
-import { PageModel } from 'endpoints/page'
-
 import Categories from './Categories'
 import Page from './Page'
 import ContentList from './ContentList'
 
 import style from './Content.css'
+import Hierarchy from 'location/hierarchy'
+import { EMPTY_PAGE } from '../../endpoints/page'
 
 class Content extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel),
-    pageError: PropTypes.string,
-    root: PropTypes.bool,
+    hierarchy: PropTypes.instanceOf(Hierarchy),
     url: PropTypes.string.isRequired
   }
 
   renderPages () {
-    let page = this.props.page
+    let hierarchy = this.props.hierarchy
 
-    if (this.props.pageError) {
-      return <span>{ this.props.pageError }</span>
-    } else if (!page || page.title === '') {
+    let page = hierarchy.top()
+
+    if (hierarchy.error()) {
+      return <span>{ hierarchy.error() }</span>
+    } else if (!page || page === EMPTY_PAGE) {
       return <Spinner className={style.loading} name='line-scale-party'/>
     } else {
       let children = values(page.children).length
 
-      if (children > 0 && this.props.root) {
-        return <Categories url={this.props.url} page={page}/>
-      } else if (children === 0) {
+      if (children === 0) {
         return <Page page={page}/>
       } else if (children > 0) {
-        return <ContentList url={this.props.url} page={page}/>
+        return hierarchy.isRoot() ? <Categories url={this.props.url} page={page}/>
+          : <ContentList url={this.props.url} page={page}/>
       }
     }
 

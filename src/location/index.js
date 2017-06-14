@@ -24,8 +24,8 @@ const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 class LocationPage extends React.Component {
   static propTypes = {
     languageModels: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    pageModels: PropTypes.instanceOf(PageModel).isRequired,
-    pageError: PropTypes.string.isRequired,
+    pageModel: PropTypes.instanceOf(PageModel).isRequired,
+    pageError: PropTypes.string,
     language: PropTypes.string.isRequired,
     hierarchy: PropTypes.instanceOf(Hierarchy).isRequired,
     dispatch: PropTypes.func.isRequired
@@ -65,7 +65,7 @@ class LocationPage extends React.Component {
 
   changeLanguage (code) {
     this.props.dispatch(setLanguage(code))
-    // beautify
+    // fixme
     history.push('/location/' + this.props.match.params.location)
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     this.fetchData(code)
@@ -73,7 +73,10 @@ class LocationPage extends React.Component {
 
   render () {
     let hierarchy = this.props.hierarchy
-    hierarchy.build(this.props.pageModels)
+    hierarchy = hierarchy.build(this.props.pageModel)
+    if (this.props.pageError) {
+      hierarchy = hierarchy.error(this.props.pageError)
+    }
 
     return (
       <Layout
@@ -81,12 +84,15 @@ class LocationPage extends React.Component {
         languages={this.props.languageModels} navigation={NAVIGATION}>
 
         { /* Breadcrumb */ }
-        <Breadcrumb className={style.breadcrumbSpacing} hierarchy={hierarchy}/>
+        <Breadcrumb
+          className={style.breadcrumbSpacing}
+          hierarchy={ hierarchy }
+        />
 
         { /* Content */ }
-        <Content url={ this.props.match.url } root={ hierarchy.isRoot() }
-                 page={hierarchy.top()}
-                 pageError={this.props.pageError}/>
+        <Content url={ this.props.match.url }
+                 hierarchy={ hierarchy }
+        />
       </Layout>
     )
   }
@@ -99,7 +105,7 @@ class LocationPage extends React.Component {
 function mapeStateToProps (state) {
   return ({
     languageModels: state.languages.data || [],
-    pageModels: state.pages.data || EMPTY_PAGE,
+    pageModel: state.pages.data || EMPTY_PAGE,
     pageError: state.pages.error,
     language: state.language.language
   })

@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash/lang'
 export default class Hierarchy {
   constructor (path) {
     this.path = path ? path.split('/') : []
+    this._error = null
   }
 
   /**
@@ -17,7 +18,7 @@ export default class Hierarchy {
     // fixme if empty page: no data
     if (currentPage === EMPTY_PAGE) {
       this.pages_ = []
-      return
+      return this
     }
 
     let pages = [currentPage]
@@ -26,13 +27,23 @@ export default class Hierarchy {
       currentPage = currentPage.children[id]
 
       if (!currentPage) {
-        throw new Error('Page not found!')
+        return this.error('Page not found')
       }
 
       pages.push(currentPage)
     })
 
     this.pages_ = pages
+    return this
+  }
+
+  error (error = undefined) {
+    if (error === undefined) {
+      return this._error
+    }
+
+    this._error = error
+    return this
   }
 
   get pages () {

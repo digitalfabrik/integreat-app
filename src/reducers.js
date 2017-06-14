@@ -11,11 +11,11 @@ import { DEFAULT_LANGUAGE, setLanguage } from './actions'
 let reducers = ENDPOINTS.reduce((result, endpoint) => {
   let defaultState = {data: null, isFetching: false}
   // Changes isFetching state
-  let requestReducer = (state, action) => ({...state, isFetching: action.payload.isFetching})
+  let requestReducer = (state, action) => ({...state, ...action.payload})
   // Changes isFetching state and sets the received data
-  let receiveReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: action.payload.data, error: action.payload.error})
+  let receiveReducer = (state, action) => ({...state, ...action.payload})
   // Changes isFetching state and sets the received data to null
-  let invalidateReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: null})
+  let invalidateReducer = (state, action) => ({...state, ...action.payload, data: null})
 
   result[endpoint.name] = reduceReducers(
     handleAction(endpoint.receiveAction, receiveReducer, defaultState),
