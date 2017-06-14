@@ -15,6 +15,7 @@ import style from './Content.css'
 class Content extends React.Component {
   static propTypes = {
     page: PropTypes.instanceOf(PageModel),
+    pageError: PropTypes.string,
     root: PropTypes.bool,
     url: PropTypes.string.isRequired
   }
@@ -22,7 +23,9 @@ class Content extends React.Component {
   renderPages () {
     let page = this.props.page
 
-    if (!page || page.title === '') {
+    if (this.props.pageError) {
+      return <span>{ this.props.pageError }</span>
+    } else if (!page || page.title === '') {
       return <Spinner className={style.loading} name='line-scale-party'/>
     } else {
       let children = values(page.children).length

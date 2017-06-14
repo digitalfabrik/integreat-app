@@ -23,8 +23,9 @@ const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
 class LocationPage extends React.Component {
   static propTypes = {
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    page: PropTypes.instanceOf(PageModel).isRequired,
+    languageModels: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    pageModels: PropTypes.instanceOf(PageModel).isRequired,
+    pageError: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     hierarchy: PropTypes.instanceOf(Hierarchy).isRequired,
     dispatch: PropTypes.func.isRequired
@@ -72,18 +73,20 @@ class LocationPage extends React.Component {
 
   render () {
     let hierarchy = this.props.hierarchy
-    hierarchy.build(this.props.page)
+    hierarchy.build(this.props.pageModels)
 
     return (
       <Layout
         languageCallback={this.changeLanguage}
-        languages={this.props.languages} navigation={NAVIGATION}>
+        languages={this.props.languageModels} navigation={NAVIGATION}>
 
         { /* Breadcrumb */ }
         <Breadcrumb className={style.breadcrumbSpacing} hierarchy={hierarchy}/>
 
         { /* Content */ }
-        <Content url={ this.props.match.url } root={ hierarchy.isRoot() } page={hierarchy.top()}/>
+        <Content url={ this.props.match.url } root={ hierarchy.isRoot() }
+                 page={hierarchy.top()}
+                 pageError={this.props.pageError}/>
       </Layout>
     )
   }
@@ -94,11 +97,10 @@ class LocationPage extends React.Component {
  * @return {{languages: Array, page: PageModel}} The endpoint values from the state mapped to props
  */
 function mapeStateToProps (state) {
-  let languages = state.languages.data
-  let pages = state.pages.data
   return ({
-    languages: languages || [],
-    page: pages || EMPTY_PAGE,
+    languageModels: state.languages.data || [],
+    pageModels: state.pages.data || EMPTY_PAGE,
+    pageError: state.pages.error,
     language: state.language.language
   })
 }

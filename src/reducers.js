@@ -13,7 +13,7 @@ let reducers = ENDPOINTS.reduce((result, endpoint) => {
   // Changes isFetching state
   let requestReducer = (state, action) => ({...state, isFetching: action.payload.isFetching})
   // Changes isFetching state and sets the received data
-  let receiveReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: action.payload.data})
+  let receiveReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: action.payload.data, error: action.payload.error})
   // Changes isFetching state and sets the received data to null
   let invalidateReducer = (state, action) => ({...state, isFetching: action.payload.isFetching, data: null})
 
