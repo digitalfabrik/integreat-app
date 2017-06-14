@@ -12,7 +12,8 @@ i18n
     ns: ['common', 'Location'],
     defaultNS: 'common',
     load: 'languageOnly',
-    debug: true
+    // eslint-disable-next-line no-undef
+    debug: __DEV__
   })
 
 // Set app language to primary language of i18next
