@@ -6,14 +6,16 @@ import Layout from 'components/Layout/Layout'
 import Content from 'components/Content/Content'
 
 import { fetchEndpoint } from 'endpoints/endpoint'
-import PAGE_ENDPOINT, { EMPTY_PAGE, PageModel } from 'endpoints/page'
+import PAGE_ENDPOINT from 'endpoints/page'
 
-import LANGUAGE_ENDPOINT, { LanguageModel } from 'endpoints/language'
+import LANGUAGE_ENDPOINT from 'endpoints/language'
 
 import NAVIGATION from 'navigation'
 import Breadcrumb from 'components/Content/Breadcrumb'
 
 import { history } from 'main'
+
+import Payload from 'payload'
 
 import style from './styles.css'
 import Hierarchy from './hierarchy'
@@ -23,9 +25,8 @@ const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
 class LocationPage extends React.Component {
   static propTypes = {
-    languageModels: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    pageModel: PropTypes.instanceOf(PageModel).isRequired,
-    pageError: PropTypes.string,
+    pagePayload: PropTypes.instanceOf(Payload).isRequired,
+    languagePayload: PropTypes.instanceOf(Payload).isRequired,
     language: PropTypes.string.isRequired,
     hierarchy: PropTypes.instanceOf(Hierarchy).isRequired,
     dispatch: PropTypes.func.isRequired
@@ -73,15 +74,17 @@ class LocationPage extends React.Component {
 
   render () {
     let hierarchy = this.props.hierarchy
-    hierarchy = hierarchy.build(this.props.pageModel)
-    if (this.props.pageError) {
-      hierarchy = hierarchy.error(this.props.pageError)
+    let payload = this.props.pagePayload
+
+    hierarchy = hierarchy.build(payload.data)
+    if (payload.hasError()) {
+      hierarchy = hierarchy.error(payload.error)
     }
 
     return (
       <Layout
         languageCallback={this.changeLanguage}
-        languages={this.props.languageModels} navigation={NAVIGATION}>
+        languagePayload={this.props.languagePayload} navigation={NAVIGATION}>
 
         { /* Breadcrumb */ }
         <Breadcrumb
@@ -104,9 +107,8 @@ class LocationPage extends React.Component {
  */
 function mapeStateToProps (state) {
   return ({
-    languageModels: state.languages.data || [],
-    pageModel: state.pages.data || EMPTY_PAGE,
-    pageError: state.pages.error,
+    languagePayload: state.languages,
+    pagePayload: state.pages,
     language: state.language.language
   })
 }

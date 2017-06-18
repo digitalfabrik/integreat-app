@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import Payload from './payload'
+import Payload from 'payload'
 
 export function fetchEndpoint (endpoint, formatURL = (url => url), jsonTransformOptions = {}) {
   return function (dispatch, getState) {

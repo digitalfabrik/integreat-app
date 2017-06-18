@@ -6,13 +6,13 @@ import WebFont from 'webfontloader'
 import Header from './Header'
 import style from './Layout.css'
 import Navigation from './Navigation'
-import { LanguageModel } from 'endpoints/language'
+import Payload from 'payload'
 
 class Layout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
+    languagePayload: PropTypes.instanceOf(Payload).isRequired,
     languageCallback: PropTypes.func,
     noHeader: PropTypes.bool
   }
@@ -31,7 +31,7 @@ class Layout extends React.Component {
         {!this.props.noHeader &&
         <Header
           languageCallback={this.props.languageCallback}
-          languages={this.props.languages || []}
+          languages={this.props.languagePayload.data || []}
           navigation={this.props.navigation || (() => {})}
         />
         }

@@ -6,6 +6,7 @@ export default class Hierarchy {
   constructor (path) {
     this.path = path ? path.split('/') : []
     this._error = null
+    this._pages = []
   }
 
   /**
@@ -13,15 +14,17 @@ export default class Hierarchy {
    * @return {*} The model to renders
    */
   build (rootPage) {
+    if (!rootPage) {
+      return this
+    }
     let currentPage = rootPage
 
     // fixme if empty page: no data
     if (currentPage === EMPTY_PAGE) {
-      this.pages_ = []
       return this
     }
 
-    let pages = [currentPage]
+    this._pages.push(currentPage)
 
     this.path.forEach(id => {
       currentPage = currentPage.children[id]
@@ -30,10 +33,9 @@ export default class Hierarchy {
         return this.error('Page not found')
       }
 
-      pages.push(currentPage)
+      this._pages.push(currentPage)
     })
 
-    this.pages_ = pages
     return this
   }
 
@@ -47,11 +49,11 @@ export default class Hierarchy {
   }
 
   get pages () {
-    return this.pages_
+    return this._pages
   }
 
   top () {
-    return last(this.pages_)
+    return last(this._pages)
   }
 
   isRoot () {

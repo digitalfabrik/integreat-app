@@ -7,10 +7,11 @@ import reduceReducers from 'reduce-reducers'
 
 import ENDPOINTS from './endpoints'
 import { DEFAULT_LANGUAGE, setLanguage } from './actions'
+import Payload from './payload'
 
 let reducers = ENDPOINTS.reduce((result, endpoint) => {
-  let defaultState = {data: null, isFetching: false}
-  let reducer = (state, action) => ({...state, ...action.payload})
+  let defaultState = new Payload(false)
+  let reducer = (state, action) => action.payload
 
   result[endpoint.name] = reduceReducers(
     handleAction(endpoint.receiveAction, reducer, defaultState),

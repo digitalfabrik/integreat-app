@@ -9,6 +9,7 @@ import { fetchEndpoint } from 'endpoints/endpoint'
 import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
 
 import NAVIGATION from 'navigation'
+import Payload from 'payload'
 
 class LandingPage extends React.Component {
   static propTypes = {
@@ -27,7 +28,7 @@ class LandingPage extends React.Component {
   render () {
     return (
       <Layout languageCallback={(code) => { /* todo */ }}
-              languages={[/* todo */]}
+              languagePayload={new Payload()}
               navigation={NAVIGATION}
               noHeader={true}>
         <FilterableLocation locations={this.props.locations}/>
