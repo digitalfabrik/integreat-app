@@ -6,7 +6,7 @@ import { handleAction } from 'redux-actions'
 import reduceReducers from 'reduce-reducers'
 
 import ENDPOINTS from './endpoints'
-import { DEFAULT_LANGUAGE, setLanguage } from './actions'
+import { DEFAULT_LANGUAGE, setLanguage, setLocation } from './actions'
 import Payload from './payload'
 
 let reducers = ENDPOINTS.reduce((result, endpoint) => {
@@ -23,7 +23,11 @@ let reducers = ENDPOINTS.reduce((result, endpoint) => {
 }, {})
 
 reducers['language'] = handleAction(setLanguage,
-  (state, action) => ({...state, language: action.payload.language}),
+  (state, action) => ({...state, ...action.payload.language}),
   {language: DEFAULT_LANGUAGE})
+
+reducers['location'] = handleAction(setLocation,
+  (state, action) => ({...state, ...action.payload}),
+  {locationCode: 'undefined', locationName: 'undefined'})
 
 export default combineReducers(reducers)
