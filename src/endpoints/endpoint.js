@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions'
+import Payload from './payload'
 
 export function fetchEndpoint (endpoint, formatURL = url => url, jsonOptions = {}) {
   return function (dispatch, getState) {
@@ -25,12 +26,9 @@ export default class Endpoint {
 
     let actionName = this.name.toUpperCase()
 
-    this.receiveAction = createAction('RECEIVE_DATA_' + actionName, (json, options, error) => ({
-      isFetching: false,
-      error: error,
-      data: transform(json, options)
-    }))
-    this.requestAction = createAction('REQUEST_DATA_' + actionName, () => ({isFetching: true}))
-    this.invalidateAction = createAction('INVALIDATE_DATA_' + actionName, () => ({isFetching: false, data: null}))
+    this.receiveAction = createAction('RECEIVE_DATA_' + actionName, (json, options, error) =>
+      new Payload(false, transform(json, options), error))
+    this.requestAction = createAction('REQUEST_DATA_' + actionName, () => new Payload(true))
+    this.invalidateAction = createAction('INVALIDATE_DATA_' + actionName, () => new Payload(false))
   }
 }
