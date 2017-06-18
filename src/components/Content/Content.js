@@ -25,7 +25,7 @@ class Content extends React.Component {
 
     if (hierarchy.error()) {
       return <span>{ hierarchy.error() }</span>
-    } else if (!page || page === EMPTY_PAGE) {
+    } else if (!page) {
       return <Spinner className={style.loading} name='line-scale-party'/>
     } else {
       let children = values(page.children).length

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import style from './Breadcrumb.css'
 import Hierarchy from 'location/hierarchy'
+import { Link } from 'react-router-dom'
+import helper from 'components/Helper/Helper.css'
 
 export default class Breadcrumb extends React.Component {
   static propTypes = {
@@ -11,13 +13,13 @@ export default class Breadcrumb extends React.Component {
   }
 
   render () {
-    /* fixme make dynamic */
-    return <div className={this.props.className}>{this.props.hierarchy.pages.map(page => {
+    let hierarchy = this.props.hierarchy
+    return <div className={this.props.className}>{hierarchy.map((page, path) => {
       return (
-        <span key={page.id}>
+        <Link className={helper.removeA} key={page.id} to={'/location/augsburg' + path /* todo make dynamic */}>
           <span className={style.separator}/>
           <span className={style.level}>{ page.title }</span>
-        </span>
+        </Link>
       )
     })}</div>
   }

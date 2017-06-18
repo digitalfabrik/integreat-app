@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash/lang'
 
 export default class Hierarchy {
   constructor (path) {
-    this.path = path ? path.split('/') : []
+    this._path = path ? path.split('/') : []
     this._error = null
     this._pages = []
   }
@@ -26,7 +26,7 @@ export default class Hierarchy {
 
     this._pages.push(currentPage)
 
-    this.path.forEach(id => {
+    this._path.forEach(id => {
       currentPage = currentPage.children[id]
 
       if (!currentPage) {
@@ -37,6 +37,16 @@ export default class Hierarchy {
     })
 
     return this
+  }
+
+  map (fn) {
+    let path = ''
+    return this.pages.map((page) => {
+      if (page.id !== 0) {
+        path += '/' + page.id
+      }
+      return fn(page, path)
+    })
   }
 
   error (error = undefined) {
@@ -57,6 +67,6 @@ export default class Hierarchy {
   }
 
   isRoot () {
-    return isEmpty(this.path)
+    return isEmpty(this._path)
   }
 }
