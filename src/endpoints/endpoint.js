@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions'
 import Payload from './payload'
 
-export function fetchEndpoint (endpoint, formatURL = url => url, jsonOptions = {}) {
+export function fetchEndpoint (endpoint, formatURL = (url => url), jsonTransformOptions = {}) {
   return function (dispatch, getState) {
     if (getState()[endpoint.name].isFetching) {
       return
@@ -11,9 +11,9 @@ export function fetchEndpoint (endpoint, formatURL = url => url, jsonOptions = {
 
     return fetch(formatURL(endpoint.url))
       .then(response => response.json())
-      .then(json => dispatch(endpoint.receiveAction(json, jsonOptions, undefined)))
+      .then(json => dispatch(endpoint.receiveAction(json, jsonTransformOptions, undefined)))
       .catch(ex => {
-        return dispatch(endpoint.receiveAction(endpoint.defaultValue, jsonOptions, ex.message))
+        return dispatch(endpoint.receiveAction(endpoint.defaultValue, jsonTransformOptions, ex.message))
       })
   }
 }
