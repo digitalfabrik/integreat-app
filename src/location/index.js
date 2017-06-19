@@ -54,7 +54,7 @@ class LocationPage extends React.Component {
   }
 
   fetchData (languageCode) {
-    let location = this.props.match.params.location
+    let location = this.getLocation()
     this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url
       .replace('{location}', location)
       .replace('{language}', languageCode)))
@@ -65,11 +65,18 @@ class LocationPage extends React.Component {
   }
 
   changeLanguage (code) {
+    // Set new language through redux
     this.props.dispatch(setLanguage(code))
-    // fixme use store location
-    history.push('/location/' + this.props.match.params.location)
+    // Go to back to parent page
+    history.push('/location/' + this.getLocation())
+    // Invalidate
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
+    // Re-fetch
     this.fetchData(code)
+  }
+
+  getLocation () {
+    return this.props.match.params.location
   }
 
   render () {
@@ -91,6 +98,7 @@ class LocationPage extends React.Component {
         <Breadcrumb
           className={style.breadcrumbSpacing}
           hierarchy={ hierarchy }
+          location={ this.getLocation() }
         />
 
         { /* Content */ }

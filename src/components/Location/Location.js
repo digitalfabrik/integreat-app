@@ -28,7 +28,7 @@ class LocationEntry extends React.Component {
   render () {
     let location = this.props.location
     return (
-      <Link to={'/location' + this.props.path}
+      <Link to={'/location' + location.path}
             className={style.languageListItem}
             onClick={() => this.props.locationCallback(location.path, location.name)}>
         <div>{location.name}</div>
