@@ -9,7 +9,7 @@ i18n
   .init({
     resources: resources,
     fallbackLng: 'en',
-    ns: ['common', 'Location'],
+    ns: ['common', 'errors', 'Location'],
     defaultNS: 'common',
     load: 'languageOnly',
     // eslint-disable-next-line no-undef

@@ -30,7 +30,7 @@ export default class Hierarchy {
       currentPage = currentPage.children[id]
 
       if (!currentPage) {
-        return this.error('Page not found')
+        return this.error('errors:page.notFound')
       }
 
       this._pages.push(currentPage)

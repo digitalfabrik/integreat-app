@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Spinner from 'react-spinkit'
+import { translate } from 'react-i18next'
+import FontAwesome from 'react-fontawesome'
 
 import { values } from 'lodash/object'
 
@@ -10,7 +12,6 @@ import ContentList from './ContentList'
 
 import style from './Content.css'
 import Hierarchy from 'location/hierarchy'
-import { EMPTY_PAGE } from '../../endpoints/page'
 
 class Content extends React.Component {
   static propTypes = {
@@ -19,12 +20,16 @@ class Content extends React.Component {
   }
 
   renderPages () {
+    const {t} = this.props
     let hierarchy = this.props.hierarchy
 
     let page = hierarchy.top()
 
     if (hierarchy.error()) {
-      return <span>{ hierarchy.error() }</span>
+      return <div>
+        <div className={style.centerText}>{ t(hierarchy.error()) }</div>
+        <div className={style.centerText}><FontAwesome name='frown-o' size="5x"/></div>
+      </div>
     } else if (!page) {
       return <Spinner className={style.loading} name='line-scale-party'/>
     } else {
@@ -48,4 +53,4 @@ class Content extends React.Component {
   }
 }
 
-export default Content
+export default translate('errors')(Content)

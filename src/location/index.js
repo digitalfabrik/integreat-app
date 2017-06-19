@@ -100,10 +100,9 @@ class LocationPage extends React.Component {
     )
   }
 }
-
 /**
  * @param state The current app state
- * @return {{languages: Array, page: PageModel}} The endpoint values from the state mapped to props
+ * @returns {{languagePayload: Payload, pagePayload: Payload, language: string}} The endpoint values from the state mapped to props
  */
 function mapeStateToProps (state) {
   return ({
