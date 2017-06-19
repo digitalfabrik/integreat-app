@@ -26,8 +26,10 @@
 }
 
 .logo {
+  flex-grow: 1;
   height: 100%;
   padding: 20px;
+  order: 0;
 }
 
 .logo > img {
@@ -60,5 +62,4 @@
 .item-location {
   flex-grow: 1;
   order: 1;
-  margin-left: auto;
 }

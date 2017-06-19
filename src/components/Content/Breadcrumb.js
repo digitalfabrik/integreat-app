@@ -18,7 +18,7 @@ export default class Breadcrumb extends React.Component {
     return <div className={this.props.className}>{hierarchy.map((page, path) => {
       return (
         <Link className={helper.removeA} key={page.id}
-              to={'/location/' + this.props.location + '/' + path}>
+              to={'/location/' + this.props.location + path}>
           <span className={style.separator}/>
           <span className={style.level}>{ page.title }</span>
         </Link>

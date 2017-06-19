@@ -25,7 +25,7 @@ let reducers = ENDPOINTS.reduce((result, endpoint) => {
 // Additional reducers
 
 reducers['language'] = handleAction(setLanguage,
-  (state, action) => ({...state, ...action.payload.language}),
+  (state, action) => ({...state, ...action.payload}),
   {language: DEFAULT_LANGUAGE})
 
 export default combineReducers(reducers)
