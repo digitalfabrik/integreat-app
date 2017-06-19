@@ -13,10 +13,6 @@ export default class {
     return this._data
   }
 
-  hasError () {
-    return !!this.error
-  }
-
   get error () {
     return this._error
   }

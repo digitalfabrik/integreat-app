@@ -14,17 +14,12 @@ export default class Hierarchy {
    * @return {*} The model to renders
    */
   build (rootPage) {
-    if (!rootPage) {
+    if (!rootPage || rootPage === EMPTY_PAGE) {
       return this
     }
     let currentPage = rootPage
 
-    // fixme if empty page: no data
-    if (currentPage === EMPTY_PAGE) {
-      return this
-    }
-
-    this._pages = [currentPage]
+    let pages = [currentPage]
 
     this._path.forEach(id => {
       currentPage = currentPage.children[id]
@@ -33,8 +28,10 @@ export default class Hierarchy {
         return this.error('errors:page.notFound')
       }
 
-      this._pages.push(currentPage)
+      pages.push(currentPage)
     })
+
+    this._pages = pages
 
     return this
   }

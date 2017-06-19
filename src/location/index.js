@@ -66,7 +66,7 @@ class LocationPage extends React.Component {
 
   changeLanguage (code) {
     this.props.dispatch(setLanguage(code))
-    // fixme
+    // fixme use store location
     history.push('/location/' + this.props.match.params.location)
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     this.fetchData(code)
@@ -76,8 +76,9 @@ class LocationPage extends React.Component {
     let hierarchy = this.props.hierarchy
     let payload = this.props.pagePayload
 
+    // Pass data to hierarchy
     hierarchy = hierarchy.build(payload.data)
-    if (payload.hasError()) {
+    if (payload.error) {
       hierarchy = hierarchy.error(payload.error)
     }
 

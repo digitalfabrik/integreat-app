@@ -31,7 +31,7 @@ class LandingPage extends React.Component {
               languagePayload={new Payload()}
               navigation={NAVIGATION}
               noHeader={true}>
-        <FilterableLocation locations={this.props.locations}/>
+        <FilterableLocation locations={this.props.locations} locationCallback={(location) => console.log(location)}/>
       </Layout>
     )
   }

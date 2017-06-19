@@ -21,14 +21,17 @@ class LocationParentEntry extends React.Component {
 
 class LocationEntry extends React.Component {
   static propTypes = {
-    name: PropTypes.string,
-    to: PropTypes.string
+    location: PropTypes.object,
+    locationCallback: PropTypes.func
   }
 
   render () {
+    let location = this.props.location
     return (
-      <Link to={{pathname: this.props.to}} className={style.languageListItem}>
-        <div>{this.props.name}</div>
+      <Link to={'/location' + this.props.path}
+            className={style.languageListItem}
+            onClick={() => this.props.locationCallback(location.path, location.name)}>
+        <div>{location.name}</div>
       </Link>
     )
   }
@@ -37,22 +40,30 @@ class LocationEntry extends React.Component {
 class Location extends React.Component {
   static propTypes = {
     locations: PropTypes.object,
-    filterText: PropTypes.string
+    filterText: PropTypes.string,
+    locationCallback: PropTypes.func
   }
 
-  renderList (locations, filterText) {
+  filter (locations) {
+    let filter = this.props.filterText.toLowerCase()
+    return locations.filter((location) => location.name.toLowerCase().includes(filter))
+  }
+
+  renderList (locations) {
     return transform(locations, (result, locations, key) => {
-      let filter = filterText.toLowerCase()
-      locations = locations.filter((location) => location.name.toLowerCase().includes(filter))
+      locations = this.filter(locations)
+
       if (isEmpty(locations)) {
         return
       }
 
-      result.push(<LocationParentEntry key={key} name={key}/>)
+      let parent = <LocationParentEntry key={key} name={key}/>
+      let locationEntries = locations.map((location, index) => <LocationEntry location={location}
+                                                                              key={key + index}
+                                                                              locationCallback={this.props.locationCallback}/>)
 
-      result.push(locations.map((location, index) => <LocationEntry name={location.name}
-                                                                    to={'/location' + location.path}
-                                                                    key={key + index}/>))
+      result.push(parent)
+      result.push(locationEntries)
     }, [])
   }
 
@@ -62,7 +73,7 @@ class Location extends React.Component {
         <div className={style.languageList}>
           {
             isEmpty(this.props.locations) ? <Spinner className={style.loading} name='line-scale-party'/>
-              : this.renderList(this.props.locations, this.props.filterText)
+              : this.renderList(this.props.locations)
           }
         </div>
       </div>
