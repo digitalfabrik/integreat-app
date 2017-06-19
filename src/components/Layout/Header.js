@@ -38,11 +38,20 @@ class Header extends React.Component {
   constructor (props) {
     super(props)
     this.onLanguageCLick = this.onLanguageCLick.bind(this)
+    this.state = {languageActive: false}
   }
 
   onLanguageCLick (event) {
     event.preventDefault()
-    this.languageFlyout.toggle()
+
+    let newState = this.languageFlyout.toggle()
+
+    // todo redesign
+    if (newState) {
+      // eslint-disable-next-line
+      window.scrollTo(0, 0)
+    }
+    this.setState({languageActive: !newState})
   }
 
   render () {
@@ -60,7 +69,8 @@ class Header extends React.Component {
             </NavElement>
             { /* Language */}
             {!isEmpty(this.props.languages) &&
-            <FontAwesome name='globe' className={cx(style.item, style.itemLanguage)}
+            <FontAwesome name='globe'
+                         className={cx(style.item, style.itemLanguage, this.state.languageActive ? style.itemActive : '')}
                          onClick={this.onLanguageCLick}/>
             }
           </div>

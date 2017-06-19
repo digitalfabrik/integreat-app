@@ -47,6 +47,7 @@ export default class LanguageFlyout extends React.Component {
 
   toggle () {
     this.setState({open: !this.state.open})
+    return this.state.open
   }
 
   render () {

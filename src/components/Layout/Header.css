@@ -35,8 +35,7 @@
   padding: var(--logo-padding);
 }
 
-.item-active,
-.item:hover {
+.item-active {
   background-color: #FBDA16;
 }
 
@@ -51,12 +50,6 @@
 
   font-size: 3rem;
   text-align: center;
-}
-
-.item:hover {
-  color: inherit;
-  text-decoration: inherit;
-  cursor: auto;
 }
 
 .item-language {

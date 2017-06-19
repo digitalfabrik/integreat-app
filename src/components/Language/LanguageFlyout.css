@@ -8,7 +8,7 @@
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 
-  transition: height 0.3s ease-in;
+  transition: height 0.1s ease;
 }
 
 /* We want to separate the border style and the flyout to we can set a specific z-index */
