@@ -59,18 +59,13 @@
   cursor: auto;
 }
 
-.item-home {
-  flex-grow: 1;
-  order: 1;
-  margin-right: auto;
-}
-
 .item-language {
   flex-grow: 1;
-  order: 3;
+  order: 2;
 }
 
 .item-location {
   flex-grow: 1;
-  order: 2;
+  order: 1;
+  margin-left: auto;
 }

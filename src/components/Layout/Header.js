@@ -21,7 +21,7 @@ class NavElement extends React.Component {
   render () {
     return (
       <NavLink exact to={this.props.to} activeClassName={style.itemActive}
-               className={cx(style.item, this.props.className, helper.removeA)}>
+               className={cx(this.props.className, helper.removeA)}>
         {this.props.children}
       </NavLink>
     )
@@ -51,15 +51,11 @@ class Header extends React.Component {
         <div className={style.spacer}>
           <div className={style.header}>
             { /* Logo */}
-            <div className={style.logo}>
+            <NavElement to={this.props.navigation.home} className={style.logo}>
               <img src={logo}/>
-            </div>
-            { /* Home */}
-            <NavElement to={this.props.navigation.home} className={style.itemHome}>
-              <FontAwesome name='home'/>
             </NavElement>
             { /* Location */}
-            <NavElement to={this.props.navigation.location} className={style.itemLocation}>
+            <NavElement to={this.props.navigation.location} className={cx(style.item, style.itemLocation)}>
               <FontAwesome name='map-marker'/>
             </NavElement>
             { /* Language */}
