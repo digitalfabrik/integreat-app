@@ -1,0 +1,15 @@
+.separator::after {
+  color: #E8E8E8;
+  font-size: 22px;
+
+  content: ' > ';
+
+  user-select: none;
+}
+
+.level {
+  color: #9C9C9C;
+  font-size: 20px;
+
+  user-select: none;
+}

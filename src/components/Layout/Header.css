@@ -1,0 +1,66 @@
+:root {
+  --logo-padding: 10px;
+}
+
+.spacer {
+  margin-bottom: 100px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+
+  display: flex;
+  height: 100px;
+  align-items: center;
+  background-color: #FAFAFA;
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+}
+
+.logo {
+  height: 100%;
+  flex-grow: 1;
+  order: 0;
+
+  padding: 20px;
+}
+
+.logo > img {
+  height: calc(100% - 2 * var(--logo-padding));
+  padding: var(--logo-padding);
+}
+
+.item-active {
+  background-color: #FBDA16;
+}
+
+.item {
+  display: flex;
+  height: 100%;
+  max-width: 100px;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin: 0 10px;
+
+  font-size: 3rem;
+  text-align: center;
+}
+
+.item-language {
+  flex-grow: 1;
+  order: 2;
+}
+
+.item-location {
+  flex-grow: 1;
+  order: 1;
+}

@@ -1,6 +1,7 @@
 language: node_js
+cache: yarn
 node_js:
-  - '6'
+  - "6"
 env:
   - CXX=g++-4.8
 addons:
@@ -9,6 +10,11 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+before_install:
+  - npm install -g firebase-tools
 script:
   - npm run lint
   - npm run test
+  - npm run build
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN

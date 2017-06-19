@@ -1,36 +1,51 @@
-import React from 'react';
-import Layout from '../../components/Layout';
-import s from './styles.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
+import Layout from 'components/Layout/Layout'
+import FilterableLocation from 'components/Location/FilterableLocation'
 
-import Location from "../../components/Location/Location";
+import { fetchEndpoint } from 'endpoints/endpoint'
+import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
+
+import NAVIGATION from 'navigation'
+import Payload from 'payload'
 
 class LandingPage extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      locations: [],
-    };
+  static propTypes = {
+    locations: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.instanceOf(LocationModel))).isRequired,
+    dispatch: PropTypes.func.isRequired
   }
 
-  componentWillMount() {
-    fetch('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
-      .then(response => response.json()).then(json => this.setState({locations: json}))
-      .catch(ex => {
-        throw ex
-      });
+  componentWillUnmount () {
+    this.props.dispatch(LOCATION_ENDPOINT.invalidateAction())
   }
 
-  render() {
+  componentWillMount () {
+    this.props.dispatch(fetchEndpoint(LOCATION_ENDPOINT))
+  }
+
+  render () {
     return (
-
-      <Layout className={s.content}>
-        <Location locations={this.state.locations}/>
+      <Layout languageCallback={(code) => { /* todo */ }}
+              languagePayload={new Payload()}
+              navigation={NAVIGATION}
+              noHeader={true}>
+        <FilterableLocation locations={this.props.locations}/>
       </Layout>
-    );
+    )
   }
 }
 
+/**
+ * @param state The current app state
+ * @return {{locations: {}}}  The endpoint values from the state mapped to props
+ */
+function mapStateToProps (state) {
+  let locations = state.locations.data
+  return ({
+    locations: locations || {}
+  })
+}
 
-export default LandingPage;
+export default connect(mapStateToProps)(LandingPage)

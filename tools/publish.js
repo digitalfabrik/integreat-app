@@ -1,10 +1,10 @@
-const path = require('path');
-const build = require('./build');
-const task = require('./task');
-const config = require('./config');
+const firebase = require('firebase-tools')
+const build = require('./build')
+const task = require('./task')
 
 module.exports = task('deploy', () => Promise.resolve()
   .then(() => build())
+  .then(() => firebase.deploy())
   .then(() => {
-    setTimeout(() => process.exit());
-  }));
+    setTimeout(() => process.exit())
+  }))

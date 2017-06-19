@@ -1,0 +1,19 @@
+.remote-content img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.remote-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.remote-content table,
+.remote-content th,
+.remote-content td {
+  border: 1px solid #DDDDDD;
+}
+
+.remote-content a {
+  overflow-wrap: break-word;
+}
