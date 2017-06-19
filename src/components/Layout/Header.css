@@ -26,10 +26,11 @@
 }
 
 .logo {
-  flex-grow: 1;
   height: 100%;
-  padding: 20px;
+  flex-grow: 1;
   order: 0;
+
+  padding: 20px;
 }
 
 .logo > img {
