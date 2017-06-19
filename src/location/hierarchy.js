@@ -24,7 +24,7 @@ export default class Hierarchy {
       return this
     }
 
-    this._pages.push(currentPage)
+    this._pages = [currentPage]
 
     this._path.forEach(id => {
       currentPage = currentPage.children[id]
