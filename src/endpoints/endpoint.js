@@ -13,8 +13,8 @@ export function fetchEndpoint (endpoint, formatURL = (url => url), jsonTransform
       .then(response => response.json())
       .then(json => dispatch(endpoint.receiveAction(json, jsonTransformOptions, undefined)))
       .catch(ex => {
-        console.err('Failed to load the endpoint request: ' + endpoint.name)
-        console.err(ex.message)
+        console.error('Failed to load the endpoint request: ' + endpoint.name)
+        console.error(ex.message)
         return dispatch(endpoint.receiveAction(endpoint.defaultValue, jsonTransformOptions, 'errors:page.loadingFailed'))
       })
   }
