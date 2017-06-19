@@ -6,8 +6,7 @@ import PropTypes from 'prop-types'
 
 class FilterableLocation extends React.Component {
   static propTypes = {
-    locations: PropTypes.object,
-    locationCallback: PropTypes.func
+    locations: PropTypes.object
   }
 
   constructor (props) {
@@ -24,7 +23,7 @@ class FilterableLocation extends React.Component {
         <Heading/>
         <Search filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-        <Location locations={this.props.locations} filterText={this.state.filterText} locationCallback={this.props.locationCallback}/>
+        <Location locations={this.props.locations} filterText={this.state.filterText}/>
       </div>
     )
   }
