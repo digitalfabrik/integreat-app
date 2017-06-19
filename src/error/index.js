@@ -1,26 +1,18 @@
 import React from 'react'
 
-import { history } from 'main'
+import NAVIGATION from 'navigation'
+import Payload from 'payload'
+import Layout from 'components/Layout/Layout'
+import Error from 'components/Error/Error'
 
 class ErrorPage extends React.Component {
-  componentDidMount () {
-
-  }
-
-  /**
-   * Go back in history!!
-   * @param event The click event
-   */
-  goBack = (event) => {
-    event.preventDefault()
-    history.goBack()
-  }
-
   render () {
     return (
-      <div>
-        <a href="/" onClick={this.goBack}>Go back</a>
-      </div>
+      <Layout languageCallback={(code) => { /* todo */ }}
+              languagePayload={new Payload()}
+              navigation={NAVIGATION}>
+        <Error error="errors:page.notFound"/>
+      </Layout>
     )
   }
 }

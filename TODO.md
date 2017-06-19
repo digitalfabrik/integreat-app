@@ -1,8 +1,5 @@
 ## TODO
-* Error message if page is not found
-* RTL support
 * Design for header
-* Error message when a fetch fails
 * Message which suggests the native app
 * Footer/impressum/backlink to main page
 * Icon for missing thumbnails
