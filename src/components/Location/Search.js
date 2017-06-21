@@ -18,7 +18,7 @@ class Search extends React.Component {
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search'/>
           <input type='text' placeholder={t('Location:search')} className={style.searchInput} defaultValue={this.props.filterText}
-                 onChange={(event) => this.props.onFilterTextChange(event.target.value)} autoFocus/>
+                 onChange={(event) => this.props.onFilterTextChange(event.target.value)}/>
         </div>
       </div>
     )
