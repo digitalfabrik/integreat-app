@@ -1,4 +1,6 @@
 {
-  "pageNotFound": "todo",
-  "loadingFailed": "todo"
+  "page": {
+    "notFound": "todo",
+    "loadingFailed": "todo"
+  }
 }
