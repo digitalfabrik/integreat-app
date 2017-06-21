@@ -4,7 +4,8 @@ import { isEmpty } from 'lodash/lang'
 
 export default class Hierarchy {
   constructor (path) {
-    this._path = path ? path.split('/') : []
+    this._path = path ? path.split('/').filter((path) => path !== '') : []
+    console.log(this._path)
     this._error = null
     this._pages = []
   }
@@ -24,7 +25,7 @@ export default class Hierarchy {
     this._path.forEach(id => {
       currentPage = currentPage.children[id]
 
-      if (!currentPage) {
+      if (!currentPage || currentPage === undefined) {
         return this.error('errors:page.notFound')
       }
 
