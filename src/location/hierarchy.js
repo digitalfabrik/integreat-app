@@ -18,6 +18,7 @@ export default class Hierarchy {
     if (!rootPage || rootPage === EMPTY_PAGE) {
       return this
     }
+
     let currentPage = rootPage
 
     let pages = [currentPage]

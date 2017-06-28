@@ -4,6 +4,8 @@ import resources from '../locales/'
 import { setLanguage } from './actions'
 import store from './store'
 
+const RTL_LANGUAGES = ['ar', 'fa']
+
 i18n
   .use(LanguageDetector)
   .init({
@@ -23,7 +25,7 @@ function handleLanguageChange () {
   let state = store.getState()
   let lang = state.language.language
   // Handle ltr/rtl
-  if (lang === 'ar' || lang === 'fa') {
+  if (RTL_LANGUAGES.includes(lang)) {
     document.body.style.direction = 'rtl'
   } else {
     document.body.style.direction = 'ltr'

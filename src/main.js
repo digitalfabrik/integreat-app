@@ -1,6 +1,3 @@
-/**
- * Holds the current history implementation
- */
 import 'babel-polyfill'
 import 'whatwg-fetch'
 
@@ -21,6 +18,9 @@ import i18n from './i18n'
 
 const container = document.getElementById('container')
 
+/**
+ * Holds the current history implementation
+ */
 export const history = createBrowserHistory()
 
 ReactDOM.render(
@@ -30,10 +30,12 @@ ReactDOM.render(
         <Switch>
           {/* The root page */}
           <Route path="/" exact component={LandingPage}/>
+          {/* The location page */}
           <Route path="/location/:location/:path*" render={props => {
             let path = props.match.params.path
             return <LocationPage {...props} hierarchy={new Hierarchy(path)}/>
           }}/>
+          {/* The error page */}
           <Route component={ErrorPage}/>
         </Switch>
       </Router>
