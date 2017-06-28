@@ -20,10 +20,11 @@
 
   color: black;
   background: transparent;
+
   border-width: 0 0 1px;
   border-color: black;
-  border-radius: 0;
   outline: none;
+  border-radius: 0;
 
   &::placeholder {
     color: black;

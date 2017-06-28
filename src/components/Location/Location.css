@@ -21,18 +21,16 @@
 
   &:hover {
     color: inherit;
-    background-color: var(--hover-color);
-
     text-decoration: inherit;
-
     transition: background-color 0.5s ease;
+
+    background-color: var(--hover-color);
   }
 }
 
 .language-list-parent {
   height: var(--item-height);
   padding-left: calc(var(--list-margin) + 30px);
-  border-bottom: 1px solid rgba(255, 165, 0, 0.42);
-
   line-height: var(--item-height);
+  border-bottom: 1px solid rgba(255, 165, 0, 0.42);
 }

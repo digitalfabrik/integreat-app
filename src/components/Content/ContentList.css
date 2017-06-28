@@ -5,8 +5,8 @@
 .element-text {
   height: 100%;
   flex-basis: 100%;
-  border-bottom: 2px solid #FBDA16;
   line-height: 50px;
+  border-bottom: 2px solid #FBDA16;
 }
 
 .horizontal-line {
