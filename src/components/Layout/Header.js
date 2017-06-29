@@ -45,12 +45,6 @@ class Header extends React.Component {
     event.preventDefault()
 
     let newState = this.languageFlyout.toggle()
-
-    // todo redesign
-    if (newState) {
-      // eslint-disable-next-line
-      window.scrollTo(0, 0)
-    }
     this.setState({languageActive: !newState})
   }
 
