@@ -43,6 +43,13 @@ class Location extends React.Component {
 
   filter (locations) {
     let filter = this.props.filterText.toLowerCase()
+
+    if (filter === 'wirschaffendas') {
+      return locations.filter((location) => !location.live)
+    }
+
+    locations = locations.filter((location) => location.live)
+
     return locations.filter((location) => location.name.toLowerCase().includes(filter))
   }
 
