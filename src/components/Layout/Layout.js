@@ -13,6 +13,7 @@ class Layout extends React.Component {
     className: PropTypes.string,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     languagePayload: PropTypes.instanceOf(Payload).isRequired,
+    currentLanguage: PropTypes.string.isRequired,
     languageCallback: PropTypes.func,
     noHeader: PropTypes.bool
   }
@@ -33,6 +34,7 @@ class Layout extends React.Component {
           languageCallback={this.props.languageCallback}
           languages={this.props.languagePayload.data || []}
           navigation={this.props.navigation || (() => {})}
+          currentLanguage={this.props.currentLanguage}
         />
         }
         <main className={cx(style.topSpacing, style.layout)}>

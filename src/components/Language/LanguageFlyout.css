@@ -6,37 +6,41 @@
   width: 100%;
   height: 100px;
 
-  transform: scale(0);
+  transform: scale(0.9);
   transform-origin: center top;
-
   justify-content: center;
+  background-color: white;
 
   box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.2);
 
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
-  transition: transform 0.2s;
-
-  background-color: white;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0;
 
   pointer-events: none;
+
 }
 
 .language-flyout-show {
   transform: scale(1);
+  opacity: 1;
   pointer-events: auto;
 }
 
 .element {
   width: 100px;
   height: 100%;
-
   font-size: 20px;
   line-height: 100px;
   text-align: center;
+  user-select: none;
 }
 
-.element-active,
+.elementActive {
+  font-weight: 900;
+}
+
 .element:hover {
-  background-color: #FBDA16;
+  background-color: #FBDA1699;
 }
