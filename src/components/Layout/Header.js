@@ -37,20 +37,14 @@ class Header extends React.Component {
 
   constructor (props) {
     super(props)
-    this.onLanguageCLick = this.onLanguageCLick.bind(this)
+    this.onLanguageClick = this.onLanguageClick.bind(this)
     this.state = {languageActive: false}
   }
 
-  onLanguageCLick (event) {
+  onLanguageClick (event) {
     event.preventDefault()
 
     let newState = this.languageFlyout.toggle()
-
-    // todo redesign
-    if (newState) {
-      // eslint-disable-next-line
-      window.scrollTo(0, 0)
-    }
     this.setState({languageActive: !newState})
   }
 
@@ -71,7 +65,7 @@ class Header extends React.Component {
             {!isEmpty(this.props.languages) &&
             <FontAwesome name='globe'
                          className={cx(style.item, style.itemLanguage, this.state.languageActive ? style.itemActive : '')}
-                         onClick={this.onLanguageCLick}/>
+                         onClick={this.onLanguageClick}/>
             }
           </div>
         </div>
