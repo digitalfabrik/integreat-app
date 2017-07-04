@@ -21,7 +21,8 @@ class LocationParentEntry extends React.Component {
 
 class LocationEntry extends React.Component {
   static propTypes = {
-    location: PropTypes.object
+    location: PropTypes.object,
+    locationCallback: PropTypes.func
   }
 
   render () {
@@ -38,11 +39,19 @@ class LocationEntry extends React.Component {
 class Location extends React.Component {
   static propTypes = {
     locations: PropTypes.object,
-    filterText: PropTypes.string
+    filterText: PropTypes.string,
+    locationCallback: PropTypes.func
   }
 
   filter (locations) {
     let filter = this.props.filterText.toLowerCase()
+
+    if (filter === 'wirschaffendas') {
+      return locations.filter((location) => !location.live)
+    }
+
+    locations = locations.filter((location) => location.live)
+
     return locations.filter((location) => location.name.toLowerCase().includes(filter))
   }
 
@@ -56,7 +65,8 @@ class Location extends React.Component {
 
       let parent = <LocationParentEntry key={key} name={key}/>
       let locationEntries = locations.map((location, index) => <LocationEntry location={location}
-                                                                              key={key + index}/>)
+                                                                              key={key + index}
+                                                                              locationCallback={this.props.locationCallback}/>)
 
       result.push(parent)
       result.push(locationEntries)

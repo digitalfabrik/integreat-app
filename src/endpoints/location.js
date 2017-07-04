@@ -3,9 +3,14 @@ import { isEmpty } from 'lodash/lang'
 import Endpoint from './endpoint'
 
 export class LocationModel {
-  constructor (name, path) {
+  constructor (name, path, live) {
     this._code = name
     this._name = path
+    this._live = live
+  }
+
+  get live () {
+    return this._live
   }
 
   get name () {
@@ -25,8 +30,8 @@ export default new Endpoint(
   'locations',
   'https://cms.integreat-app.de/wp-json/extensions/v1/multisites',
   json => {
-    let locations = json.filter((location) => location.live)
-      .map((location) => new LocationModel(location.name, location.path))
+    let locations = json
+      .map((location) => new LocationModel(location.name, location.path, location.live))
     locations = sortBy(locations, location => location.name)
     return groupBy(locations, location => location.category)
   }

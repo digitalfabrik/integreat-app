@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import Layout from 'components/Layout/Layout'
 import Content from 'components/Content/Content'
 
-import { fetchEndpoint } from 'endpoints/endpoint'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import LANGUAGE_ENDPOINT from 'endpoints/language'
@@ -55,13 +54,15 @@ class LocationPage extends React.Component {
 
   fetchData (languageCode) {
     let location = this.getLocation()
-    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url
-      .replace('{location}', location)
-      .replace('{language}', languageCode)))
-    this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
-      .replace('{location}', location)
-      .replace('{language}', languageCode)
-      .replace('{since}', BIRTH_OF_UNIVERSE), {location: location}))
+    this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
+      location: location,
+      language: languageCode
+    }))
+    this.props.dispatch(PAGE_ENDPOINT.fetchEndpointAction({
+      location: location,
+      language: languageCode,
+      since: BIRTH_OF_UNIVERSE
+    }, {location: location}))
   }
 
   changeLanguage (code) {

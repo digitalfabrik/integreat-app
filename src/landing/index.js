@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import Layout from 'components/Layout/Layout'
 import FilterableLocation from 'components/Location/FilterableLocation'
 
-import { fetchEndpoint } from 'endpoints/endpoint'
 import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
 
 import NAVIGATION from 'navigation'
@@ -22,7 +21,7 @@ class LandingPage extends React.Component {
   }
 
   componentWillMount () {
-    this.props.dispatch(fetchEndpoint(LOCATION_ENDPOINT))
+    this.props.dispatch(LOCATION_ENDPOINT.fetchEndpointAction())
   }
 
   render () {
@@ -31,7 +30,9 @@ class LandingPage extends React.Component {
               languagePayload={new Payload()}
               navigation={NAVIGATION}
               noHeader={true}>
-        <FilterableLocation locations={this.props.locations}/>
+        <FilterableLocation locations={this.props.locations} locationCallback={(location) => {
+
+        }}/>
       </Layout>
     )
   }
