@@ -32,6 +32,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.0",
     "redux-thunk": "^2.2.0",
+    "string-template": "^1.0.0",
     "webfontloader": "^1.6.28",
     "whatwg-fetch": "^2.0.3"
   },
