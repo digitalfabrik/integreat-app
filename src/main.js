@@ -11,6 +11,7 @@ import store from './store'
 
 import LandingPage from './landing'
 import LocationPage from './location'
+import SearchPage from './location/search'
 import Hierarchy from './location/hierarchy'
 import ErrorPage from './error'
 import { I18nextProvider } from 'react-i18next'
@@ -31,6 +32,7 @@ ReactDOM.render(
           {/* The root page */}
           <Route path="/" exact component={LandingPage}/>
           {/* The location page */}
+          <Route path="/location/:location/search" exact component={SearchPage}/>
           <Route path="/location/:location/:path*" render={props => {
             let path = props.match.params.path
             return <LocationPage {...props} hierarchy={new Hierarchy(path)}/>
