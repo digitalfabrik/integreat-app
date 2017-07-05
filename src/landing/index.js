@@ -7,9 +7,6 @@ import FilterableLocation from 'components/Location/FilterableLocation'
 
 import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
 
-import NAVIGATION from 'navigation'
-import Payload from 'payload'
-
 class LandingPage extends React.Component {
   static propTypes = {
     locations: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.instanceOf(LocationModel))).isRequired,
@@ -26,10 +23,7 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <Layout languageCallback={(code) => { /* todo */ }}
-              languagePayload={new Payload()}
-              navigation={NAVIGATION}
-              noHeader={true}>
+      <Layout noHeader={true}>
         <FilterableLocation locations={this.props.locations} locationCallback={(location) => {
 
         }}/>

@@ -8,8 +8,6 @@ import Content from 'components/Content/Content'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import LANGUAGE_ENDPOINT from 'endpoints/language'
-
-import NAVIGATION from 'navigation'
 import Breadcrumb from 'components/Content/Breadcrumb'
 
 import { history } from 'main'
@@ -91,9 +89,7 @@ class LocationPage extends React.Component {
     }
 
     return (
-      <Layout
-        languageCallback={this.changeLanguage}
-        languagePayload={this.props.languagePayload} navigation={NAVIGATION}>
+      <Layout languageCallback={this.changeLanguage}>
 
         { /* Breadcrumb */ }
         <Breadcrumb
