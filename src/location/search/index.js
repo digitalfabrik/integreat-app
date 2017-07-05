@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'layout/Layout'
+import Layout from 'Layout/Layout'
 
 class SearchPage extends React.Component {
   static propTypes = {

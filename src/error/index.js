@@ -2,7 +2,7 @@ import React from 'react'
 
 import NAVIGATION from 'navigation'
 import Payload from 'payload'
-import Layout from 'layout/Layout'
+import Layout from 'Layout/Layout'
 import Error from 'components/Error/Error'
 
 class ErrorPage extends React.Component {

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'layout/Layout'
+import Layout from 'Layout/Layout'
 import Content from 'components/Content/Content'
 
 import PAGE_ENDPOINT from 'endpoints/page'
