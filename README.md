@@ -3,6 +3,11 @@ develop: ![develop build state](https://api.travis-ci.org/Integreat/integreat-we
 master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=master)
 # integreat-webapp
 
+## Conventions
+
+For naming things we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
+For the JavasScript code style we use the standard style: https://standardjs.com/
+
 ## Technology stack
 
 ### Build tools
