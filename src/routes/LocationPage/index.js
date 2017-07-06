@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout/index'
-import Content from 'components/Content/index'
+import Layout from 'components/Layout'
+import Content from 'components/Content'
 
 import PAGE_ENDPOINT from 'endpoints/page'
 

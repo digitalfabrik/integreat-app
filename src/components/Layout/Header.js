@@ -9,7 +9,7 @@ import style from './Header.css'
 import helper from 'components/Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
 import { DEFAULT_NAVIGATION } from 'Navigation'
-import LanguageFlyout from 'components/LanguageFlyout/index'
+import LanguageFlyout from 'components/LanguageFlyout'
 import { connect } from 'react-redux'
 
 class NavElement extends React.Component {

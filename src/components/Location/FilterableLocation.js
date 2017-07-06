@@ -1,7 +1,7 @@
 import React from 'react'
 import Heading from './Heading'
 import Search from './Search'
-import Location from './index'
+import Location from '.'
 import PropTypes from 'prop-types'
 
 class FilterableLocation extends React.Component {

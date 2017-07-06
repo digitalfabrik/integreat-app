@@ -11,7 +11,7 @@ import ContentList from './ContentList'
 
 import style from './style.css'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
-import Error from 'components/Error/index'
+import Error from 'components/Error'
 
 class Content extends React.Component {
   static propTypes = {
