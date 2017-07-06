@@ -8,12 +8,10 @@ import { Provider } from 'react-redux'
 import { Route, Router, Switch } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 
-import PropTypes from 'prop-types'
-
 // Pages
 import LandingPage from './routes/LandingPage'
 import LocationPage from './routes/LocationPage'
-import SearchPage from './routes/LocationPage/SearchPage'
+import SearchPage from './routes/SearchPage'
 import Hierarchy from './routes/LocationPage/Hierarchy'
 import ErrorPage from './routes/ErrorPage'
 
