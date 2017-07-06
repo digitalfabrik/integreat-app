@@ -10,7 +10,7 @@ import Page from './Page'
 import ContentList from './ContentList'
 
 import style from './Content.css'
-import Hierarchy from 'LocationPage/Hierarchy'
+import Hierarchy from 'routes/LocationPage/Hierarchy'
 import Error from 'components/Error/Error'
 
 class Content extends React.Component {
