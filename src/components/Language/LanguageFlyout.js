@@ -53,7 +53,6 @@ export default class LanguageFlyout extends React.Component {
   }
 
   render () {
-    console.log(this.props.currentLanguage)
     return (
       <div className={cx(style.languageFlyout, this.state.open ? style.languageFlyoutShow : '')}>
           {this.props.languages.map(language => <LanguageElement
