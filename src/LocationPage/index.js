@@ -66,7 +66,7 @@ class LocationPage extends React.Component {
     // Invalidate
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     // Go to back to parent page
-    history.push('/LocationPage/' + this.getLocation())
+    history.push('/location/' + this.getLocation())
     // Re-fetch
     this.fetchData(code)
   }

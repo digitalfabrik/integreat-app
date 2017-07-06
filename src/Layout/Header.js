@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
 import { isEmpty } from 'lodash/lang'
-import Payload from 'endpoints/Payload'
 
 import style from './Header.css'
 import helper from 'components/Helper/Helper.css'
@@ -31,8 +30,7 @@ class NavElement extends React.Component {
 
 class Header extends React.Component {
   static propTypes = {
-    languagePayload: PropTypes.instanceOf(Payload).isRequired,
-    languageCallback: PropTypes.func.isRequired,
+    languageCallback: PropTypes.func,
     currentLanguage: PropTypes.string.isRequired
   }
 

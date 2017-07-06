@@ -10,6 +10,7 @@ import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
 class LandingPage extends React.Component {
   static propTypes = {
     locations: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.instanceOf(LocationModel))).isRequired,
+    language: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -23,10 +24,8 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <Layout noHeader={true}>
-        <FilterableLocation locations={this.props.locations} locationCallback={(location) => {
-
-        }}/>
+      <Layout noHeader={true} currentLanguage={this.props.language}>
+        <FilterableLocation locations={this.props.locations} locationCallback={(location) => {}}/>
       </Layout>
     )
   }
@@ -39,7 +38,8 @@ class LandingPage extends React.Component {
 function mapStateToProps (state) {
   let locations = state.locations.data
   return ({
-    locations: locations || {}
+    locations: locations || {},
+    language: state.language.language
   })
 }
 
