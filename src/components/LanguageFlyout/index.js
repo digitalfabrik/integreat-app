@@ -1,11 +1,13 @@
-import style from './LanguageFlyout.css'
+import style from './style.css'
 import React from 'react'
 import cx from 'classnames'
 
 import PropTypes from 'prop-types'
 import { LanguageModel } from 'endpoints/language'
+import { setLanguage } from 'actions'
+import { connect } from 'react-redux'
 
-class LanguageElement extends React.Component {
+let LanguageElement = connect()(class extends React.Component {
   static propTypes = {
     flyout: PropTypes.any.isRequired,
     language: PropTypes.instanceOf(LanguageModel).isRequired,
@@ -20,7 +22,9 @@ class LanguageElement extends React.Component {
   }
 
   handleClick () {
-    this.props.languageCallback(this.props.language.code)
+    let languageCode = this.props.language.code
+    this.props.dispatch(setLanguage(languageCode))
+    this.props.languageCallback(languageCode)
     this.props.flyout.toggle()
   }
 
@@ -33,12 +37,12 @@ class LanguageElement extends React.Component {
       </div>
     )
   }
-}
+})
 
 export default class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func.isRequired,
+    languageCallback: PropTypes.func,
     currentLanguage: PropTypes.string.isRequired
   }
 
@@ -58,7 +62,7 @@ export default class LanguageFlyout extends React.Component {
           {this.props.languages.map(language => <LanguageElement
             key={language.code}
             flyout={this}
-            languageCallback={this.props.languageCallback}
+            languageCallback={this.props.languageCallback || (() => {})}
             active={this.props.currentLanguage === language.code}
             language={language}/>)}
         </div>

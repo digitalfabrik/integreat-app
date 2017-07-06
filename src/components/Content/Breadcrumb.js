@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './Breadcrumb.css'
-import Hierarchy from 'location/hierarchy'
+import Hierarchy from 'routes/LocationPage/Hierarchy'
 import { Link } from 'react-router-dom'
 import helper from 'components/Helper/Helper.css'
 

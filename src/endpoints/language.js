@@ -1,4 +1,4 @@
-import Endpoint from './endpoint'
+import Endpoint from './Endpoint'
 
 export class LanguageModel {
   constructor (code, name) {

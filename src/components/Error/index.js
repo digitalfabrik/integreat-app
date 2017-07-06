@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome'
 
 import { history } from 'main'
 
-import style from './Error.css'
+import style from './style.css'
 
 export default translate('errors')(class Language extends React.Component {
   static propTypes = {

@@ -2,24 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout/Layout'
-import Content from 'components/Content/Content'
+import Layout from 'components/Layout'
+import Content from 'components/Content'
 
-import { fetchEndpoint } from 'endpoints/endpoint'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import LANGUAGE_ENDPOINT from 'endpoints/language'
-
-import NAVIGATION from 'navigation'
 import Breadcrumb from 'components/Content/Breadcrumb'
 
 import { history } from 'main'
 
-import Payload from 'payload'
+import Payload from 'endpoints/Payload'
 
-import style from './styles.css'
-import Hierarchy from './hierarchy'
-import { setLanguage } from '../actions'
+import style from './style.css'
+import Hierarchy from './Hierarchy'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
@@ -55,22 +51,22 @@ class LocationPage extends React.Component {
 
   fetchData (languageCode) {
     let location = this.getLocation()
-    this.props.dispatch(fetchEndpoint(LANGUAGE_ENDPOINT, url => url
-      .replace('{location}', location)
-      .replace('{language}', languageCode)))
-    this.props.dispatch(fetchEndpoint(PAGE_ENDPOINT, url => url
-      .replace('{location}', location)
-      .replace('{language}', languageCode)
-      .replace('{since}', BIRTH_OF_UNIVERSE), {location: location}))
+    this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
+      location: location,
+      language: languageCode
+    }))
+    this.props.dispatch(PAGE_ENDPOINT.fetchEndpointAction({
+      location: location,
+      language: languageCode,
+      since: BIRTH_OF_UNIVERSE
+    }, {location: location}))
   }
 
   changeLanguage (code) {
-    // Set new language through redux
-    this.props.dispatch(setLanguage(code))
-    // Go to back to parent page
-    history.push('/location/' + this.getLocation())
     // Invalidate
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
+    // Go to back to parent page
+    history.push('/location/' + this.getLocation())
     // Re-fetch
     this.fetchData(code)
   }
@@ -90,11 +86,8 @@ class LocationPage extends React.Component {
     }
 
     return (
-      <Layout
-        languageCallback={this.changeLanguage}
-        languagePayload={this.props.languagePayload}
-        navigation={NAVIGATION}
-        currentLanguage={this.props.language}>
+      <Layout languageCallback={this.changeLanguage}
+              currentLanguage={this.props.language}>
 
         { /* Breadcrumb */ }
         <Breadcrumb

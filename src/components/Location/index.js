@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 
-import style from './Location.css'
+import style from './style.css'
 import { transform } from 'lodash/object'
 
 class LocationParentEntry extends React.Component {
@@ -21,7 +21,8 @@ class LocationParentEntry extends React.Component {
 
 class LocationEntry extends React.Component {
   static propTypes = {
-    location: PropTypes.object
+    location: PropTypes.object,
+    locationCallback: PropTypes.func
   }
 
   render () {
@@ -38,7 +39,8 @@ class LocationEntry extends React.Component {
 class Location extends React.Component {
   static propTypes = {
     locations: PropTypes.object,
-    filterText: PropTypes.string
+    filterText: PropTypes.string,
+    locationCallback: PropTypes.func
   }
 
   filter (locations) {
@@ -63,7 +65,8 @@ class Location extends React.Component {
 
       let parent = <LocationParentEntry key={key} name={key}/>
       let locationEntries = locations.map((location, index) => <LocationEntry location={location}
-                                                                              key={key + index}/>)
+                                                                              key={key + index}
+                                                                              locationCallback={this.props.locationCallback}/>)
 
       result.push(parent)
       result.push(locationEntries)

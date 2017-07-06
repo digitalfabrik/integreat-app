@@ -9,9 +9,9 @@ import Categories from './Categories'
 import Page from './Page'
 import ContentList from './ContentList'
 
-import style from './Content.css'
-import Hierarchy from 'location/hierarchy'
-import Error from 'components/Error/Error'
+import style from './style.css'
+import Hierarchy from 'routes/LocationPage/Hierarchy'
+import Error from 'components/Error'
 
 class Content extends React.Component {
   static propTypes = {

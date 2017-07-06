@@ -1,8 +1,8 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import resources from '../locales/'
-import { setLanguage } from './actions'
-import store from './store'
+import resources from '../../locales'
+import { setLanguage } from '../actions'
+import store from '../store'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 

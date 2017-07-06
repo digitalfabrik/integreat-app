@@ -1,6 +1,6 @@
 import { transform } from 'lodash/object'
 import { forEach } from 'lodash/collection'
-import Endpoint from './endpoint'
+import Endpoint from './Endpoint'
 
 export default new Endpoint(
   'pages',
