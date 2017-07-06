@@ -12,10 +12,10 @@ import Breadcrumb from 'components/Content/Breadcrumb'
 
 import { history } from 'main'
 
-import Payload from 'payload'
+import Payload from 'endpoints/Payload'
 
 import style from './styles.css'
-import Hierarchy from './hierarchy'
+import Hierarchy from './Hierarchy'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
@@ -66,7 +66,7 @@ class LocationPage extends React.Component {
     // Invalidate
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     // Go to back to parent page
-    history.push('/location/' + this.getLocation())
+    history.push('/LocationPage/' + this.getLocation())
     // Re-fetch
     this.fetchData(code)
   }

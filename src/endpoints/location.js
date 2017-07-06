@@ -1,6 +1,6 @@
 import { groupBy, sortBy } from 'lodash/collection'
 import { isEmpty } from 'lodash/lang'
-import Endpoint from './endpoint'
+import Endpoint from './Endpoint'
 
 export class LocationModel {
   constructor (name, path, live) {

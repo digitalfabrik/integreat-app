@@ -1,7 +1,7 @@
 import React from 'react'
 
-import NAVIGATION from 'navigation'
-import Payload from 'payload'
+import NAVIGATION from 'Navigation'
+import Payload from 'endpoints/Payload'
 import Layout from 'Layout/Layout'
 import Error from 'components/Error/Error'
 

@@ -7,7 +7,7 @@ import reduceReducers from 'reduce-reducers'
 
 import ENDPOINTS from './endpoints'
 import { DEFAULT_LANGUAGE, setLanguage } from './actions'
-import Payload from './payload'
+import Payload from './endpoints/Payload'
 
 let reducers = ENDPOINTS.reduce((result, endpoint) => {
   let defaultState = new Payload(false)

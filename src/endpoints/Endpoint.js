@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import Payload from 'payload'
+import Payload from 'endpoints/Payload'
 import format from 'string-template'
 
 export default class Endpoint {

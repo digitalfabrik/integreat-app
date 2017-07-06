@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import Hierarchy from 'location/hierarchy'
+import Hierarchy from 'LocationPage/Hierarchy'
 import { PageModel } from 'endpoints/page'
 
 describe('hierarchy', () => {
