@@ -92,7 +92,9 @@ class LocationPage extends React.Component {
     return (
       <Layout
         languageCallback={this.changeLanguage}
-        languagePayload={this.props.languagePayload} navigation={NAVIGATION}>
+        languagePayload={this.props.languagePayload}
+        navigation={NAVIGATION}
+        currentLanguage={this.props.language}>
 
         { /* Breadcrumb */ }
         <Breadcrumb

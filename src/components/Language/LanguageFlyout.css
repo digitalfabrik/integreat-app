@@ -1,52 +1,46 @@
 .language-flyout {
-  position: relative;
+  position: fixed;
+  z-index: 1000;
 
+  display: flex;
   width: 100%;
-  height: 0;
-  overflow: hidden;
+  height: 100px;
+
+  transform: scale(0.9);
+  transform-origin: center top;
+
+  justify-content: center;
+  box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.2);
+  opacity: 0;
 
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 
-  transition: height 0.1s ease;
-}
-
-/* We want to separate the border style and the flyout to we can set a specific z-index */
-.language-flyout::after {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  box-shadow: inset -1px -8px 10px -7px #B0B0B0;
-
-  content: '';
+  transition: transform 0.2s, opacity 0.2s;
+  background-color: white;
 
   pointer-events: none;
 }
 
 .language-flyout-show {
-  height: 100px;
-}
-
-.elements {
-  display: flex;
-  justify-content: center;
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .element {
   width: 100px;
   height: 100%;
-
   font-size: 20px;
   line-height: 100px;
   text-align: center;
+  user-select: none;
 }
 
-.element-active,
+.elementActive {
+  font-weight: 900;
+}
+
 .element:hover {
-  background-color: #FBDA16;
+  background-color: #FBDA1699;
 }

@@ -50,9 +50,9 @@
   align-content: center;
   justify-content: center;
   margin: 0 10px;
-
   font-size: 3rem;
   text-align: center;
+  transition: background-color 0.2s;
 }
 
 .item-language {

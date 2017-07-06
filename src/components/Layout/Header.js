@@ -32,12 +32,14 @@ class Header extends React.Component {
   static propTypes = {
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func.isRequired
+    languageCallback: PropTypes.func.isRequired,
+    currentLanguage: PropTypes.string.isRequired
   }
 
   constructor (props) {
     super(props)
     this.onLanguageCLick = this.onLanguageCLick.bind(this)
+    this.onLanguageElementClick = this.onLanguageElementClick.bind(this)
     this.state = {languageActive: false}
   }
 
@@ -45,13 +47,12 @@ class Header extends React.Component {
     event.preventDefault()
 
     let newState = this.languageFlyout.toggle()
-
-    // todo redesign
-    if (newState) {
-      // eslint-disable-next-line
-      window.scrollTo(0, 0)
-    }
     this.setState({languageActive: !newState})
+  }
+
+  onLanguageElementClick (code) {
+    this.setState({languageActive: !this.state.languageActive})
+    this.props.languageCallback(code)
   }
 
   render () {
@@ -79,8 +80,9 @@ class Header extends React.Component {
         {!isEmpty(this.props.languages) &&
         <LanguageFlyout
           ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
-          languageCallback={this.props.languageCallback}
+          languageCallback={this.onLanguageElementClick}
           languages={this.props.languages}
+          currentLanguage={this.props.currentLanguage}
         />
         }
       </header>
