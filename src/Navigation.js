@@ -20,4 +20,8 @@ class Navigation {
 
 export default Navigation
 
+/**
+ * This object holds the configured paths for navigation. This can be used e.g. in the Header
+ * @type {Navigation}
+ */
 export const DEFAULT_NAVIGATION = new Navigation('/', '/', '/')
