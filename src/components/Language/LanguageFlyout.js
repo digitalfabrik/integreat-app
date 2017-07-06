@@ -11,7 +11,8 @@ let LanguageElement = connect()(class extends React.Component {
   static propTypes = {
     flyout: PropTypes.any.isRequired,
     language: PropTypes.instanceOf(LanguageModel).isRequired,
-    languageCallback: PropTypes.func.isRequired
+    languageCallback: PropTypes.func.isRequired,
+    active: PropTypes.bool.isRequired
   }
 
   constructor (props) {
@@ -30,7 +31,7 @@ let LanguageElement = connect()(class extends React.Component {
   render () {
     return (
       <div
-        className={style.element}
+        className={cx(style.element, this.props.active ? style.elementActive : '')}
         onClick={this.handleClick}>
         {this.props.language.name}
       </div>
@@ -41,7 +42,8 @@ let LanguageElement = connect()(class extends React.Component {
 export default class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func.isRequired
+    languageCallback: PropTypes.func.isRequired,
+    currentLanguage: PropTypes.string.isRequired
   }
 
   constructor (props) {
@@ -55,16 +57,16 @@ export default class LanguageFlyout extends React.Component {
   }
 
   render () {
+    console.log(this.props.currentLanguage)
     return (
       <div className={cx(style.languageFlyout, this.state.open ? style.languageFlyoutShow : '')}>
-        <div className={style.elements}>
           {this.props.languages.map(language => <LanguageElement
             key={language.code}
             flyout={this}
             languageCallback={this.props.languageCallback}
+            active={this.props.currentLanguage === language.code}
             language={language}/>)}
         </div>
-      </div>
     )
   }
 }

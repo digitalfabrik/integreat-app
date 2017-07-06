@@ -32,12 +32,14 @@ class NavElement extends React.Component {
 class Header extends React.Component {
   static propTypes = {
     languagePayload: PropTypes.instanceOf(Payload).isRequired,
-    languageCallback: PropTypes.func.isRequired
+    languageCallback: PropTypes.func.isRequired,
+    currentLanguage: PropTypes.string.isRequired
   }
 
   constructor (props) {
     super(props)
     this.onLanguageClick = this.onLanguageClick.bind(this)
+    this.onLanguageElementClick = this.onLanguageElementClick.bind(this)
     this.state = {languageActive: false}
   }
 
@@ -46,6 +48,11 @@ class Header extends React.Component {
 
     let newState = this.languageFlyout.toggle()
     this.setState({languageActive: !newState})
+  }
+
+  onLanguageElementClick (code) {
+    this.setState({languageActive: !this.state.languageActive})
+    this.props.languageCallback(code)
   }
 
   render () {
@@ -75,6 +82,7 @@ class Header extends React.Component {
           ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
           languageCallback={this.props.languageCallback}
           languages={this.props.languagePayload.data}
+          currentLanguage={this.props.currentLanguage}
         />
         }
       </header>

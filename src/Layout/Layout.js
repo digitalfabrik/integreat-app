@@ -9,6 +9,7 @@ import style from './Layout.css'
 class Layout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    currentLanguage: PropTypes.string.isRequired,
     languageCallback: PropTypes.func,
     noHeader: PropTypes.bool
   }
@@ -27,6 +28,7 @@ class Layout extends React.Component {
         {!this.props.noHeader &&
         <Header
           languageCallback={this.props.languageCallback}
+          currentLanguage={this.props.currentLanguage}
         />
         }
         <main className={cx(style.topSpacing, style.layout)}>
