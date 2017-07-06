@@ -5,7 +5,6 @@ import { isEmpty } from 'lodash/lang'
 export default class Hierarchy {
   constructor (path) {
     this._path = path ? path.split('/').filter((path) => path !== '') : []
-    console.log(this._path)
     this._error = null
     this._pages = []
   }
