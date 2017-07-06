@@ -4,7 +4,7 @@ import cx from 'classnames'
 import WebFont from 'webfontloader'
 
 import Header from './Header'
-import style from './Layout.css'
+import style from './style.css'
 
 class Layout extends React.Component {
   static propTypes = {

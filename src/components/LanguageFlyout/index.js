@@ -1,4 +1,4 @@
-import style from './LanguageFlyout.css'
+import style from './style.css'
 import React from 'react'
 import cx from 'classnames'
 

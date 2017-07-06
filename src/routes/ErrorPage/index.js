@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout/Layout'
-import Error from 'components/Error/Error'
+import Layout from 'components/Layout/index'
+import Error from 'components/Error/index'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 
 class ErrorPage extends React.Component {

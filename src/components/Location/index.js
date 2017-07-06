@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 
-import style from './Location.css'
+import style from './style.css'
 import { transform } from 'lodash/object'
 
 class LocationParentEntry extends React.Component {

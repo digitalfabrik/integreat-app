@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout/Layout'
+import Layout from 'components/Layout/index'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 
 class SearchPage extends React.Component {

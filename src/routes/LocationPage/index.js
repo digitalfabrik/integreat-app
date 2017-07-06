@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout/Layout'
-import Content from 'components/Content/Content'
+import Layout from 'components/Layout/index'
+import Content from 'components/Content/index'
 
 import PAGE_ENDPOINT from 'endpoints/page'
 
@@ -14,7 +14,7 @@ import { history } from 'main'
 
 import Payload from 'endpoints/Payload'
 
-import style from './styles.css'
+import style from './style.css'
 import Hierarchy from './Hierarchy'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
