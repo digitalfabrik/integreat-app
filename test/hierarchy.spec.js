@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
-import { PageModel } from 'endpoints/page'
+import PageModel from '../src/endpoints/models/PageModel'
 
 describe('hierarchy', () => {
   let hierarchy = new Hierarchy('/123/456')
