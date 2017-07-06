@@ -42,7 +42,7 @@ let LanguageElement = connect()(class extends React.Component {
 export default class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func.isRequired,
+    languageCallback: PropTypes.func,
     currentLanguage: PropTypes.string.isRequired
   }
 
@@ -63,7 +63,7 @@ export default class LanguageFlyout extends React.Component {
           {this.props.languages.map(language => <LanguageElement
             key={language.code}
             flyout={this}
-            languageCallback={this.props.languageCallback}
+            languageCallback={this.props.languageCallback || (() => {})}
             active={this.props.currentLanguage === language.code}
             language={language}/>)}
         </div>
