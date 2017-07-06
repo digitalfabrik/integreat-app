@@ -7,8 +7,8 @@ import style from './Categories.css'
 import helper from 'components/Helper/Helper.css'
 
 import { Link } from 'react-router-dom'
-import { PageModel } from 'endpoints/page'
 import { Col, Row } from 'react-flexbox-grid'
+import PageModel from 'endpoints/models/PageModel'
 
 class Category extends React.Component {
   static propTypes = {

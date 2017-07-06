@@ -5,11 +5,11 @@ import normalizeUrl from 'normalize-url'
 
 import { values } from 'lodash/object'
 
-import { PageModel } from 'endpoints/page'
 import { Link } from 'react-router-dom'
 
 import style from './ContentList.css'
 import helper from 'components/Helper/Helper.css'
+import PageModel from 'endpoints/models/PageModel'
 
 class ContentListElement extends React.Component {
   static propTypes = {

@@ -1,3 +1,7 @@
+/**
+ * @param state The current app state
+ * @return {{locations: {}}}  The endpoint values from the state mapped to props
+ */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -5,7 +9,8 @@ import { connect } from 'react-redux'
 import Layout from 'components/Layout'
 import FilterableLocation from 'components/Location/FilterableLocation'
 
-import LOCATION_ENDPOINT, { LocationModel } from 'endpoints/location'
+import LOCATION_ENDPOINT from 'endpoints/location'
+import LocationModel from 'endpoints/models/LocationModel'
 
 class LandingPage extends React.Component {
   static propTypes = {
@@ -31,10 +36,6 @@ class LandingPage extends React.Component {
   }
 }
 
-/**
- * @param state The current app state
- * @return {{locations: {}}}  The endpoint values from the state mapped to props
- */
 function mapStateToProps (state) {
   let locations = state.locations.data
   return ({

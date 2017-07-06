@@ -3,9 +3,9 @@ import React from 'react'
 import cx from 'classnames'
 
 import PropTypes from 'prop-types'
-import { LanguageModel } from 'endpoints/language'
 import { setLanguage } from 'actions'
 import { connect } from 'react-redux'
+import LanguageModel from 'endpoints/models/LanguageModel'
 
 let LanguageElement = connect()(class extends React.Component {
   static propTypes = {
@@ -59,13 +59,19 @@ export default class LanguageFlyout extends React.Component {
   render () {
     return (
       <div className={cx(style.languageFlyout, this.state.open ? style.languageFlyoutShow : '')}>
-          {this.props.languages.map(language => <LanguageElement
-            key={language.code}
-            flyout={this}
-            languageCallback={this.props.languageCallback || (() => {})}
-            active={this.props.currentLanguage === language.code}
-            language={language}/>)}
-        </div>
+        {
+          this.props.languages.map(language => (
+              <LanguageElement
+                key={language.code}
+                flyout={this}
+                languageCallback={this.props.languageCallback || (() => {})}
+                active={this.props.currentLanguage === language.code}
+                language={language}
+              />
+            )
+          )
+        }
+      </div>
     )
   }
 }

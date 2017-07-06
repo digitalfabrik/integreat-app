@@ -1,4 +1,4 @@
-export default class {
+export default class Payload {
   constructor (isFetching, data = null, error = null) {
     this._isFetching = isFetching
     this._data = data
