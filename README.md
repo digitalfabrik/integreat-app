@@ -7,6 +7,7 @@ master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-web
 
 For naming things we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
 For the JavasScript code style we use the standard style: https://standardjs.com/
+For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-messages
 
 ## Technology stack
 
