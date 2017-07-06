@@ -78,7 +78,7 @@ class Header extends React.Component {
         {!isEmpty(this.props.languagePayload.data) &&
         <LanguageFlyout
           ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
-          languageCallback={this.props.languageCallback}
+          languageCallback={this.onLanguageElementClick}
           languages={this.props.languagePayload.data}
           currentLanguage={this.props.currentLanguage}
         />
