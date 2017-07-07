@@ -50,7 +50,7 @@ class Header extends React.Component {
             </NavElement>
             { /* Language */}
             {!isEmpty(this.props.languagePayload.data) &&
-            <HeaderDropDown className={style.itemLanguage} name="globe">
+            <HeaderDropDown className={style.itemLanguage} fontAwesome="globe">
               <LanguageFlyout
                   languageCallback={this.props.languageCallback}
                   languages={this.props.languagePayload.data}
