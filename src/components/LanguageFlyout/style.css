@@ -1,16 +1,16 @@
 .language-flyout {
   display: flex;
-  flex-flow: row wrap;
   width: 100%;
+  flex-flow: row wrap;
   justify-content: center;
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 }
 
 .element {
+  height: 100px;
   min-width: 90px;
   max-width: 120px;
-  height: 100%;
   flex: 1 1 80px;
   font-size: 20px;
   line-height: 100px;
