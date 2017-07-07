@@ -25,7 +25,6 @@ let LanguageElement = connect()(class extends React.Component {
     let languageCode = this.props.language.code
     this.props.dispatch(setLanguage(languageCode))
     this.props.languageCallback(languageCode)
-    this.props.flyout.toggle()
   }
 
   render () {
@@ -42,29 +41,19 @@ let LanguageElement = connect()(class extends React.Component {
 export default class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    languageCallback: PropTypes.func,
+    languageCallback: PropTypes.func.isRequired,
     currentLanguage: PropTypes.string.isRequired
-  }
-
-  constructor (props) {
-    super(props)
-    this.state = {open: false}
-  }
-
-  toggle () {
-    this.setState({open: !this.state.open})
-    return this.state.open
   }
 
   render () {
     return (
-      <div className={cx(style.languageFlyout, this.state.open ? style.languageFlyoutShow : '')}>
+      <div className={style.languageFlyout}>
         {
           this.props.languages.map(language => (
               <LanguageElement
                 key={language.code}
                 flyout={this}
-                languageCallback={this.props.languageCallback || (() => {})}
+                languageCallback={this.props.languageCallback}
                 active={this.props.currentLanguage === language.code}
                 language={language}
               />
