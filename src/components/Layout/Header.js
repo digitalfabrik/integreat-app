@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
+import HeaderDropDown from './HeaderDropDown'
 import { isEmpty } from 'lodash/lang'
 
 import style from './Header.css'
@@ -34,25 +35,6 @@ class Header extends React.Component {
     currentLanguage: PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.onLanguageClick = this.onLanguageClick.bind(this)
-    this.onLanguageElementClick = this.onLanguageElementClick.bind(this)
-    this.state = {languageActive: false}
-  }
-
-  onLanguageClick (event) {
-    event.preventDefault()
-
-    let newState = this.languageFlyout.toggle()
-    this.setState({languageActive: !newState})
-  }
-
-  onLanguageElementClick (code) {
-    this.setState({languageActive: !this.state.languageActive})
-    this.props.languageCallback(code)
-  }
-
   render () {
     return (
       <header >
@@ -68,21 +50,15 @@ class Header extends React.Component {
             </NavElement>
             { /* Language */}
             {!isEmpty(this.props.languagePayload.data) &&
-            <FontAwesome name='globe'
-                         className={cx(style.item, style.itemLanguage, this.state.languageActive ? style.itemActive : '')}
-                         onClick={this.onLanguageClick}/>
-            }
+            <HeaderDropDown className={style.itemLanguage} name="globe">
+              <LanguageFlyout
+                  languageCallback={this.props.languageCallback}
+                  languages={this.props.languagePayload.data}
+                  currentLanguage={this.props.currentLanguage}
+              />
+            </HeaderDropDown>}
           </div>
         </div>
-
-        {!isEmpty(this.props.languagePayload.data) &&
-        <LanguageFlyout
-          ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
-          languageCallback={this.onLanguageElementClick}
-          languages={this.props.languagePayload.data}
-          currentLanguage={this.props.currentLanguage}
-        />
-        }
       </header>
     )
   }
