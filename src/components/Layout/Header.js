@@ -37,14 +37,14 @@ class Header extends React.Component {
 
   render () {
     return (
-      <header >
-        <div className={style.spacer}>
-          <div className={style.header}>
-            { /* Logo */}
-            <NavElement to={DEFAULT_NAVIGATION.home} className={style.logo}>
-              <img src={logo}/>
-            </NavElement>
-            { /* Location */}
+      <header className={style.spacer}>
+        <div className={style.header}>
+          { /* Logo */}
+          <NavElement to={DEFAULT_NAVIGATION.home} className={style.logo}>
+            <img src={logo}/>
+          </NavElement>
+          <div className={style.itemsContainer}>
+          { /* Location */}
             <NavElement to={DEFAULT_NAVIGATION.location} className={cx(style.item, style.itemLocation)}>
               <FontAwesome name='map-marker'/>
             </NavElement>
@@ -68,10 +68,10 @@ class Header extends React.Component {
  * @param state The current app state
  * @returns {{languagePayload: Payload}} The endpoint values from the state mapped to props
  */
-function mapeStateToProps (state) {
+function mapStateToProps (state) {
   return ({
     languagePayload: state.languages
   })
 }
 
-export default connect(mapeStateToProps)(Header)
+export default connect(mapStateToProps)(Header)
