@@ -19,7 +19,7 @@ script:
 deploy:
   provider: firebase
   on:
-    branch: master
-    tags: develop
+    branch: develop
+    tags: true
   token:
     secure: $FIREBASE_TOKEN
