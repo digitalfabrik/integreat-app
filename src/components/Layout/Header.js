@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
+import HeaderDropDown from './HeaderDropDown'
 import { isEmpty } from 'lodash/lang'
 
 import style from './Header.css'
@@ -31,58 +32,33 @@ class NavElement extends React.Component {
 class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
-    currentLanguage: PropTypes.string.isRequired
-  }
-
-  constructor (props) {
-    super(props)
-    this.onLanguageClick = this.onLanguageClick.bind(this)
-    this.onLanguageElementClick = this.onLanguageElementClick.bind(this)
-    this.state = {languageActive: false}
-  }
-
-  onLanguageClick (event) {
-    event.preventDefault()
-
-    let newState = this.languageFlyout.toggle()
-    this.setState({languageActive: !newState})
-  }
-
-  onLanguageElementClick (code) {
-    this.setState({languageActive: !this.state.languageActive})
-    this.props.languageCallback(code)
+    currentLanguage: PropTypes.string
   }
 
   render () {
     return (
-      <header >
-        <div className={style.spacer}>
-          <div className={style.header}>
-            { /* Logo */}
-            <NavElement to={DEFAULT_NAVIGATION.home} className={style.logo}>
-              <img src={logo}/>
-            </NavElement>
-            { /* Location */}
+      <header className={style.spacer}>
+        <div className={style.header}>
+          { /* Logo */}
+          <NavElement to={DEFAULT_NAVIGATION.home} className={style.logo}>
+            <img src={logo}/>
+          </NavElement>
+          <div className={style.itemsContainer}>
+          { /* Location */}
             <NavElement to={DEFAULT_NAVIGATION.location} className={cx(style.item, style.itemLocation)}>
               <FontAwesome name='map-marker'/>
             </NavElement>
             { /* Language */}
             {!isEmpty(this.props.languagePayload.data) &&
-            <FontAwesome name='globe'
-                         className={cx(style.item, style.itemLanguage, this.state.languageActive ? style.itemActive : '')}
-                         onClick={this.onLanguageClick}/>
-            }
+            <HeaderDropDown className={style.itemLanguage} fontAwesome="globe">
+              <LanguageFlyout
+                  languageCallback={this.props.languageCallback}
+                  languages={this.props.languagePayload.data}
+                  currentLanguage={this.props.currentLanguage}
+              />
+            </HeaderDropDown>}
           </div>
         </div>
-
-        {!isEmpty(this.props.languagePayload.data) &&
-        <LanguageFlyout
-          ref={(languageFlyout) => { this.languageFlyout = languageFlyout }}
-          languageCallback={this.onLanguageElementClick}
-          languages={this.props.languagePayload.data}
-          currentLanguage={this.props.currentLanguage}
-        />
-        }
       </header>
     )
   }
@@ -92,10 +68,10 @@ class Header extends React.Component {
  * @param state The current app state
  * @returns {{languagePayload: Payload}} The endpoint values from the state mapped to props
  */
-function mapeStateToProps (state) {
+function mapStateToProps (state) {
   return ({
     languagePayload: state.languages
   })
 }
 
-export default connect(mapeStateToProps)(Header)
+export default connect(mapStateToProps)(Header)
