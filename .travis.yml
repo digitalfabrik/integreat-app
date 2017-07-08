@@ -20,6 +20,5 @@ deploy:
   provider: firebase
   on:
     branch: develop
-    tags: true
   token:
     secure: $FIREBASE_TOKEN
