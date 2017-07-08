@@ -11,7 +11,7 @@ let LanguageElement = connect()(class extends React.Component {
   static propTypes = {
     flyout: PropTypes.any.isRequired,
     language: PropTypes.instanceOf(LanguageModel).isRequired,
-    languageCallback: PropTypes.func.isRequired,
+    languageCallback: PropTypes.func,
     active: PropTypes.bool.isRequired
   }
 

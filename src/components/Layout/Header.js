@@ -32,7 +32,7 @@ class NavElement extends React.Component {
 class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
-    currentLanguage: PropTypes.string.isRequired
+    currentLanguage: PropTypes.string
   }
 
   render () {
