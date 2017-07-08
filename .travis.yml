@@ -16,5 +16,10 @@ script:
   - npm run lint
   - npm run test
   - npm run build
-after_success:
-  - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+deploy:
+  provider: firebase
+  on:
+    branch: master
+    tags: develop
+  token:
+    secure: $FIREBASE_TOKEN
