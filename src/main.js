@@ -14,6 +14,7 @@ import LocationPage from './routes/LocationPage'
 import SearchPage from './routes/SearchPage'
 import Hierarchy from './routes/LocationPage/Hierarchy'
 import ErrorPage from './routes/ErrorPage'
+import DisclaimerPage from './routes/DisclaimerPage'
 
 // Local imports
 import store from './store'
@@ -35,6 +36,7 @@ let App = <I18nextProvider i18n={ i18n }>
         <Route path="/" exact component={LandingPage}/>
         {/* The location page */}
         <Route path="/location/:location/search" exact component={SearchPage}/>
+        <Route path="/location/:location/disclaimer" exact component={DisclaimerPage}/>
         <Route path="/location/:location/:path*" render={props => {
           let path = props.match.params.path
           return <LocationPage {...props} hierarchy={new Hierarchy(path)}/>
