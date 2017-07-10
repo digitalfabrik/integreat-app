@@ -50,7 +50,7 @@ Used Redux extensions:
 
 ### Testing
 [Mocha](https://mochajs.org/) is used for testing. Currently not actively though..
-[![Browserstack](https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg)](https://www.browserstack.com) is used for testing cross-browser compatibility
+[![Browserstack](https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg | width=100)](https://www.browserstack.com) is used for testing cross-browser compatibility
 
 ### Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
