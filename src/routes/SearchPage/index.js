@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import normalizeUrl from 'normalize-url'
+
 import Layout from 'components/Layout'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 import Payload from 'endpoints/Payload'
 import ContentList from 'components/Content/ContentList'
-import PageModel from 'endpoints/models/PageModel'
 import PAGE_ENDPOINT from 'endpoints/page'
 import { forEach } from 'lodash/collection'
+import Hierarchy from 'routes/LocationPage/Hierarchy'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
@@ -36,31 +38,37 @@ class SearchPage extends React.Component {
     }, {location: location}))
   }
 
+  getParentPath () {
+    return '/location/' + this.getLocation()
+  }
+
   getLocation () {
     return this.props.match.params.location
   }
 
   flattenPages () {
-    let pages = {}
+    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
     let page = this.props.pagePayload.data
     if (!page) {
-      return
+      return {}
     }
-    this._flattenPages(pages, page)
+    let pages = {}
+    this._flattenPages(url, new Hierarchy(), page, pages)
     return pages
   }
 
-  _flattenPages (pages, page) {
-    forEach(page.children, page => {
-      pages[page.id] = page
-      this._flattenPages(pages, page)
+  _flattenPages (url, hierarchy, root, result) {
+    forEach(root.children, page => {
+      let nextHierarchy = hierarchy.push(page)
+      result[url + nextHierarchy.path()] = page
+      this._flattenPages(url, nextHierarchy, page, result)
     })
   }
 
   render () {
     return (
       <Layout currentLanguage={this.props.language}>
-        <ContentList page={new PageModel(0, '', 0, '', null, this.flattenPages())} url={ this.props.match.url.replace('/search', '') }/>
+        <ContentList pages={this.flattenPages()}/>
       </Layout>
     )
   }
