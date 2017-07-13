@@ -37,7 +37,7 @@ class Content extends React.Component {
         let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
         let base = url + hierarchy.path()
 
-        let pages = transform(page.children, (result, page, id) => { result[base + '/' + id] = page})
+        let pages = transform(page.children, (result, page, id) => { result[base + '/' + id] = page })
 
         return hierarchy.isRoot() ? <Categories pages={pages}/>
           : <TitledContentList pages={pages} parentPage={page}/>
