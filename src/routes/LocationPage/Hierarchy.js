@@ -1,9 +1,12 @@
 import { EMPTY_PAGE } from 'endpoints/page'
+
+import normalizeUrl from 'normalize-url'
+
 import { last } from 'lodash/array'
 import { isEmpty } from 'lodash/lang'
 
 export default class Hierarchy {
-  constructor (path) {
+  constructor (path = '') {
     this._path = path ? path.split('/').filter((path) => path !== '') : []
     this._error = null
     this._pages = []
@@ -45,6 +48,10 @@ export default class Hierarchy {
       }
       return fn(page, path)
     })
+  }
+
+  path () {
+    return normalizeUrl('/' + this._path.join('/'), {removeTrailingSlash: true})
   }
 
   error (error = undefined) {

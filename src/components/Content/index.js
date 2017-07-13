@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Spinner from 'react-spinkit'
 import { translate } from 'react-i18next'
 
-import { values } from 'lodash/object'
+import { transform, values } from 'lodash/object'
 
 import Categories from './Categories'
 import Page from './Page'
@@ -12,6 +12,7 @@ import ContentList from './ContentList'
 import style from './style.css'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
 import Error from 'components/Error'
+import normalizeUrl from 'normalize-url'
 
 class Content extends React.Component {
   static propTypes = {
@@ -34,8 +35,13 @@ class Content extends React.Component {
       if (children === 0) {
         return <Page page={page}/>
       } else if (children > 0) {
-        return hierarchy.isRoot() ? <Categories url={this.props.url} page={page}/>
-          : <ContentList url={this.props.url} page={page}/>
+        let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
+        let base = url + hierarchy.path()
+
+        let pages = transform(page.children, (result, page, id) => { result[base + '/' + id] = page})
+
+        return hierarchy.isRoot() ? <Categories pages={pages}/>
+          : <ContentList pages={pages} parentPage={page}/>
       }
     }
 
