@@ -2,17 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Spinner from 'react-spinkit'
 import { translate } from 'react-i18next'
-
+import normalizeUrl from 'normalize-url'
 import { transform, values } from 'lodash/object'
 
 import Categories from './Categories'
 import Page from './Page'
-import ContentList from './ContentList'
 
 import style from './style.css'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
 import Error from 'components/Error'
-import normalizeUrl from 'normalize-url'
+import TitledContentList from './TitledContentList'
 
 class Content extends React.Component {
   static propTypes = {
@@ -41,7 +40,7 @@ class Content extends React.Component {
         let pages = transform(page.children, (result, page, id) => { result[base + '/' + id] = page})
 
         return hierarchy.isRoot() ? <Categories pages={pages}/>
-          : <ContentList pages={pages} parentPage={page}/>
+          : <TitledContentList pages={pages} parentPage={page}/>
       }
     }
 

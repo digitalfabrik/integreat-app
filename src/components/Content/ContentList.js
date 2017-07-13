@@ -32,23 +32,17 @@ class ContentListElement extends React.Component {
 
 class ContentList extends React.Component {
   static propTypes = {
-    parentPage: PropTypes.instanceOf(PageModel),
     pages: PropTypes.object.isRequired
   }
 
   render () {
     return (
       <div>
-        <div className={style.heading}>
-          <img className={style.headingImage} src={this.props.parentPage.thumbnail}/>
-          <div className={style.headingText}>{this.props.parentPage.title}</div>
-        </div>
-        <div>
-          <div className={style.horizontalLine}/>
-          {map(this.props.pages, (page, url) => {
+        {
+          map(this.props.pages, (page, url) => {
             return <ContentListElement key={url} url={url} page={page}/>
-          })}
-        </div>
+          })
+        }
       </div>
     )
   }
