@@ -3,13 +3,22 @@ import { EMPTY_PAGE } from 'endpoints/page'
 import normalizeUrl from 'normalize-url'
 
 import { last } from 'lodash/array'
-import { isEmpty } from 'lodash/lang'
+import { clone, isEmpty } from 'lodash/lang'
 
 export default class Hierarchy {
   constructor (path = '') {
     this._path = path ? path.split('/').filter((path) => path !== '') : []
     this._error = null
     this._pages = []
+  }
+
+  push (page) {
+    let newHierarchy = new Hierarchy()
+    newHierarchy._path = clone(this._path)
+    newHierarchy._pages = clone(this._pages)
+    newHierarchy._pages.push(page)
+    newHierarchy._path.push(page.id)
+    return newHierarchy
   }
 
   /**
