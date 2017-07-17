@@ -62,7 +62,7 @@ class DisclaimerPage extends React.Component {
     return (
       <Layout languageCallback={this.changeLanguage}
               currentLanguage={this.props.language}>
-        { this.props.disclaimerPayload.data !== null ? <Page page={this.props.disclaimerPayload.data}/> : null }
+        { this.props.disclaimerPayload.data ? <Page page={this.props.disclaimerPayload.data}/> : null }
       </Layout>
     )
   }
