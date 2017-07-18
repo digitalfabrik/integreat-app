@@ -108,7 +108,7 @@ class LocationPage extends React.Component {
  * @param state The current app state
  * @returns {{languagePayload: Payload, pagePayload: Payload, language: string}} The endpoint values from the state mapped to props
  */
-function mapeStateToProps (state) {
+function mapStateToProps (state) {
   return ({
     languagePayload: state.languages,
     pagePayload: state.pages,
@@ -116,4 +116,4 @@ function mapeStateToProps (state) {
   })
 }
 
-export default connect(mapeStateToProps)(LocationPage)
+export default connect(mapStateToProps)(LocationPage)
