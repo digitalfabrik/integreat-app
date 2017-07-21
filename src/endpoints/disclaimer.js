@@ -4,7 +4,7 @@ import PageModel from './models/PageModel'
 
 export default new Endpoint(
   'disclaimer',
-  'http://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
+  'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
   (json) => {
     return reduce(json, (result, page) => {
       if (page.status !== 'publish') {
