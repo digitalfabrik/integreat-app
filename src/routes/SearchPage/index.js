@@ -12,6 +12,8 @@ import PAGE_ENDPOINT from 'endpoints/page'
 import { forEach } from 'lodash/collection'
 import Search from '../../components/Search/Search'
 
+import style from './style.css'
+
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
 class SearchPage extends React.Component {
@@ -54,6 +56,21 @@ class SearchPage extends React.Component {
     return this.props.match.params.location
   }
 
+  acceptPage (page) {
+    let title = page.title.toLowerCase()
+    let content = page.content
+    let filterText = this.state.filterText.toLowerCase()
+    // todo:  comparing the content like this is quite in-efficient and can cause lags
+    // todo:  1) Do this work in an other thread 2) create an index
+    return title.includes(filterText) || content.toLowerCase().includes(filterText)
+  }
+
+  /**
+   * @param url The base url
+   * @param page The page
+   * @param pages The result, can already contain some pages
+   * @returns {{url: PageModel}, {}} All sub-pages of page in one map from url -> page
+   */
   findPages (url, page, pages = {}) {
     if (!page) {
       return {}
@@ -61,7 +78,9 @@ class SearchPage extends React.Component {
 
     forEach(page.children, page => {
       let nextUrl = url + '/' + page.id
-      pages[nextUrl] = page
+      if (this.acceptPage(page)) {
+        pages[nextUrl] = page
+      }
       this.findPages(nextUrl, page, pages)
     })
     return pages
@@ -73,7 +92,7 @@ class SearchPage extends React.Component {
 
     return (
       <Layout currentLanguage={this.props.language}>
-        <Search filterText={this.state.filterText}
+        <Search className={style.searchSpacing} filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
         <ContentList pages={this.findPages(url, page)}/>
       </Layout>

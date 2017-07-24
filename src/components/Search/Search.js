@@ -14,7 +14,7 @@ class Search extends React.Component {
   render () {
     const {t} = this.props
     return (
-      <div>
+      <div className={this.props.className}>
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search'/>
           <input type='text' placeholder={t('Search:search')} className={style.searchInput} defaultValue={this.props.filterText}
