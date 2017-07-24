@@ -10,7 +10,6 @@ import Payload from 'endpoints/Payload'
 import ContentList from 'components/Content/ContentList'
 import PAGE_ENDPOINT from 'endpoints/page'
 import { forEach } from 'lodash/collection'
-import Hierarchy from 'routes/LocationPage/Hierarchy'
 import Search from '../../components/Search/Search'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
@@ -55,31 +54,28 @@ class SearchPage extends React.Component {
     return this.props.match.params.location
   }
 
-  findPages () {
-    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
-    let page = this.props.pagePayload.data
+  findPages (url, page, pages = {}) {
     if (!page) {
       return {}
     }
 
-    return this._findPages(url, new Hierarchy(), page, {})
-  }
-
-  _findPages (url, hierarchy, root, result) {
-    forEach(root.children, page => {
-      let nextHierarchy = hierarchy.push(page)
-      result[url + nextHierarchy.path()] = page
-      this._findPages(url, nextHierarchy, page, result)
+    forEach(page.children, page => {
+      let nextUrl = url + '/' + page.id
+      pages[nextUrl] = page
+      this.findPages(nextUrl, page, pages)
     })
-    return result
+    return pages
   }
 
   render () {
+    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
+    let page = this.props.pagePayload.data
+
     return (
       <Layout currentLanguage={this.props.language}>
         <Search filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-        <ContentList pages={this.findPages()}/>
+        <ContentList pages={this.findPages(url, page)}/>
       </Layout>
     )
   }

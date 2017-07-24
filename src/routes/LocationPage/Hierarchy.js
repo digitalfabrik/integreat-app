@@ -3,7 +3,7 @@ import { EMPTY_PAGE } from 'endpoints/page'
 import normalizeUrl from 'normalize-url'
 
 import { last } from 'lodash/array'
-import { clone, isEmpty } from 'lodash/lang'
+import { isEmpty } from 'lodash/lang'
 
 export default class Hierarchy {
   constructor (path = '') {
@@ -12,17 +12,9 @@ export default class Hierarchy {
     this._pages = []
   }
 
-  push (page) {
-    let newHierarchy = new Hierarchy()
-    newHierarchy._path = clone(this._path)
-    newHierarchy._pages = clone(this._pages)
-    newHierarchy._pages.push(page)
-    newHierarchy._path.push(page.id)
-    return newHierarchy
-  }
-
   /**
    * Finds the current page which should be rendered based on {@link this.props.path}
+   * The page can be accessed by calling {@link Hierarchy.top()}
    * @return {*} The model to renders
    */
   build (rootPage) {
@@ -38,7 +30,8 @@ export default class Hierarchy {
       currentPage = currentPage.children[id]
 
       if (!currentPage || currentPage === undefined) {
-        return this.error('errors:page.notFound')
+        this.error('errors:page.notFound')
+        return this
       }
 
       pages.push(currentPage)
@@ -49,6 +42,11 @@ export default class Hierarchy {
     return this
   }
 
+  /**
+   * Maps the pages which represent this hierarchy
+   *
+   * @param fn The mapper function which takes the page and the path
+   */
   map (fn) {
     let path = ''
     return this.pages.map((page) => {
@@ -63,24 +61,35 @@ export default class Hierarchy {
     return normalizeUrl('/' + this._path.join('/'), {removeTrailingSlash: true})
   }
 
+  /**
+   * @param error The error to set
+   * @returns {*} The error which currently is set
+   */
   error (error = undefined) {
     if (error === undefined) {
       return this._error
     }
 
     this._error = error
-    return this
+    return this._error
   }
 
   get pages () {
     return this._pages
   }
 
+  /**
+   * If the path is "/1/5/6", then the page with the id 6 is returned
+   * @returns {*} The top element in this hierarchy
+   */
   top () {
     return last(this._pages)
   }
 
-  isRoot () {
+  /**
+   * @returns {*} true if this hierarchy is empty
+   */
+  root () {
     return isEmpty(this._path)
   }
 }

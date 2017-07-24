@@ -39,7 +39,7 @@ class Content extends React.Component {
 
         let pages = transform(page.children, (result, page, id) => { result[base + '/' + id] = page })
 
-        return hierarchy.isRoot() ? <Categories pages={pages}/>
+        return hierarchy.root() ? <Categories pages={pages}/>
           : <TitledContentList pages={pages} parentPage={page}/>
       }
     }
