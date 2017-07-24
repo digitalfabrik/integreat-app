@@ -23,8 +23,8 @@
 
   border-width: 0 0 1px;
   border-color: black;
-  outline: none;
   border-radius: 0;
+  outline: none;
 
   &::placeholder {
     color: black;

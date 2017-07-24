@@ -10,14 +10,14 @@
   transform-origin: center top;
 
   justify-content: center;
+  background-color: white;
   box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 
   transition: transform 0.2s, opacity 0.2s;
-  background-color: white;
+
+  opacity: 0;
 
   pointer-events: none;
 }
