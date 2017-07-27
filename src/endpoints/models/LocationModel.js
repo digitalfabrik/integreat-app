@@ -1,5 +1,7 @@
 import { isEmpty } from 'lodash/lang'
 
+const IGNORE_PREFIXES = ['stadt', 'kreis', 'landkreis']
+
 export default class LocationModel {
   constructor (name, path, live) {
     this._code = name
@@ -20,6 +22,12 @@ export default class LocationModel {
   }
 
   get category () {
-    return isEmpty(this._code) ? '?' : this._code[0].toUpperCase()
+    let key = this._code.toLowerCase()
+    for (let i = 0; i < IGNORE_PREFIXES.length; i++) {
+      if (key.startsWith(IGNORE_PREFIXES[i] + ' ')) {
+        key = key.substring(IGNORE_PREFIXES[i].length + 1)
+      }
+    }
+    return isEmpty(key) ? '?' : key[0].toUpperCase()
   }
 }
