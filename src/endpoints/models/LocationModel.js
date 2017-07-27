@@ -31,6 +31,7 @@ export default class LocationModel {
     for (let i = 0; i < IGNORE_PREFIXES.length; i++) {
       if (key.startsWith(IGNORE_PREFIXES[i] + ' ')) {
         key = key.substring(IGNORE_PREFIXES[i].length + 1)
+        break
       }
     }
     this._category = isEmpty(key) ? '?' : key[0].toUpperCase()
