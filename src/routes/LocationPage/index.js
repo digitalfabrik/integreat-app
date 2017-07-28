@@ -66,9 +66,13 @@ class LocationPage extends React.Component {
     // Invalidate
     this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
     // Go to back to parent page
-    history.push('/location/' + this.getLocation())
+    history.push(this.getParentPath())
     // Re-fetch
     this.fetchData(code)
+  }
+
+  getParentPath () {
+    return '/location/' + this.getLocation()
   }
 
   getLocation () {
@@ -97,7 +101,7 @@ class LocationPage extends React.Component {
         />
 
         { /* Content */ }
-        <Content url={ this.props.match.url }
+        <Content url={ this.getParentPath() }
                  hierarchy={ hierarchy }
         />
       </Layout>

@@ -2,12 +2,32 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import normalizeUrl from 'normalize-url'
+
 import Layout from 'components/Layout'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
+import Payload from 'endpoints/Payload'
+import ContentList from 'components/Content/ContentList'
+import PAGE_ENDPOINT from 'endpoints/page'
+import { forEach } from 'lodash/collection'
+import Search from '../../components/Search/Search'
+
+import style from './style.css'
+
+const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
 class SearchPage extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    pagePayload: PropTypes.instanceOf(Payload).isRequired
+  }
+
+  constructor () {
+    super()
+
+    this.state = {
+      filterText: ''
+    }
   }
 
   componentWillUnmount () {
@@ -16,20 +36,65 @@ class SearchPage extends React.Component {
 
   componentWillMount () {
     let location = this.getLocation()
+    let languageCode = this.props.language
     this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
       location: location,
-      language: this.props.language
+      language: languageCode
     }))
+    this.props.dispatch(PAGE_ENDPOINT.fetchEndpointAction({
+      location: location,
+      language: languageCode,
+      since: BIRTH_OF_UNIVERSE
+    }, {location: location}))
+  }
+
+  getParentPath () {
+    return '/location/' + this.getLocation()
   }
 
   getLocation () {
     return this.props.match.params.location
   }
 
+  acceptPage (page) {
+    let title = page.title.toLowerCase()
+    let content = page.content
+    let filterText = this.state.filterText.toLowerCase()
+    // todo:  comparing the content like this is quite in-efficient and can cause lags
+    // todo:  1) Do this work in an other thread 2) create an index
+    return title.includes(filterText) || content.toLowerCase().includes(filterText)
+  }
+
+  /**
+   * @param url The base url
+   * @param page The page
+   * @param pages The result, can already contain some pages
+   * @returns {{url: PageModel}, {}} All sub-pages of page in one map from url -> page
+   */
+  findPages (url, page, pages = {}) {
+    if (!page) {
+      return {}
+    }
+
+    forEach(page.children, page => {
+      let nextUrl = url + '/' + page.id
+      if (this.acceptPage(page)) {
+        pages[nextUrl] = page
+      }
+      this.findPages(nextUrl, page, pages)
+    })
+    return pages
+  }
+
   render () {
+    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
+    let page = this.props.pagePayload.data
+
     return (
       <Layout currentLanguage={this.props.language}>
-        TODO
+        <Search className={style.searchSpacing} filterText={this.state.filterText}
+                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
+        <ContentList pages={this.findPages(url, page)}/>
       </Layout>
     )
   }
@@ -41,7 +106,8 @@ class SearchPage extends React.Component {
  */
 function mapStateToProps (state) {
   return ({
-    language: state.language.language
+    language: state.language.language,
+    pagePayload: state.pages
   })
 }
 
