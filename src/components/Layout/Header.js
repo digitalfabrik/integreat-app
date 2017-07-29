@@ -4,14 +4,13 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
 import HeaderDropDown from './HeaderDropDown'
-import { isEmpty } from 'lodash/lang'
 
 import style from './Header.css'
 import helper from 'components/Helper/Helper.css'
 import logo from './assets/integreat-app-logo.png'
 import { DEFAULT_NAVIGATION } from 'Navigation'
 import LanguageFlyout from 'components/LanguageFlyout'
-import { connect } from 'react-redux'
+import LanguageModel from 'endpoints/models/LanguageModel'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -31,6 +30,7 @@ class NavElement extends React.Component {
 
 class Header extends React.Component {
   static propTypes = {
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     languageCallback: PropTypes.func,
     currentLanguage: PropTypes.string
   }
@@ -44,19 +44,18 @@ class Header extends React.Component {
             <img src={logo}/>
           </NavElement>
           <div className={style.itemsContainer}>
-          { /* Location */}
+            { /* Location */}
             <NavElement to={DEFAULT_NAVIGATION.location} className={cx(style.item, style.itemLocation)}>
               <FontAwesome name='map-marker'/>
             </NavElement>
             { /* Language */}
-            {!isEmpty(this.props.languagePayload.data) &&
             <HeaderDropDown className={style.itemLanguage} fontAwesome="globe">
               <LanguageFlyout
-                  languageCallback={this.props.languageCallback}
-                  languages={this.props.languagePayload.data}
-                  currentLanguage={this.props.currentLanguage}
+                languageCallback={this.props.languageCallback}
+                languages={this.props.languages}
+                currentLanguage={this.props.currentLanguage}
               />
-            </HeaderDropDown>}
+            </HeaderDropDown>
           </div>
         </div>
       </header>
@@ -64,14 +63,4 @@ class Header extends React.Component {
   }
 }
 
-/**
- * @param state The current app state
- * @returns {{languagePayload: Payload}} The endpoint values from the state mapped to props
- */
-function mapStateToProps (state) {
-  return ({
-    languagePayload: state.languages
-  })
-}
-
-export default connect(mapStateToProps)(Header)
+export default Header

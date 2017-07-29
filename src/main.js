@@ -38,8 +38,7 @@ let App = <I18nextProvider i18n={ i18n }>
         <Route path="/location/:location/search" exact component={SearchPage}/>
         <Route path="/location/:location/disclaimer" exact component={DisclaimerPage}/>
         <Route path="/location/:location/:path*" render={props => {
-          let path = props.match.params.path
-          return <LocationPage {...props} hierarchy={new Hierarchy(path)}/>
+          return <LocationPage {...props} />
         }}/>
         {/* The error page */}
         <Route component={ErrorPage}/>

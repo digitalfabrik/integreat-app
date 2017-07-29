@@ -5,10 +5,12 @@ import WebFont from 'webfontloader'
 
 import Header from './Header'
 import style from './style.css'
+import LanguageModel from 'endpoints/models/LanguageModel'
 
 class Layout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     currentLanguage: PropTypes.string.isRequired,
     languageCallback: PropTypes.func,
     noHeader: PropTypes.bool
@@ -27,6 +29,7 @@ class Layout extends React.Component {
       <div>
         {!this.props.noHeader &&
         <Header
+          languages={this.props.languages}
           languageCallback={this.props.languageCallback}
           currentLanguage={this.props.currentLanguage}
         />
