@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Error from 'components/Error'
-import PageLayout from 'components/PageLayout'
+import HeaderLayout from 'components/HeaderLayout'
 
 class ErrorPage extends React.Component {
 
@@ -11,9 +11,9 @@ class ErrorPage extends React.Component {
 
   render () {
     return (
-      <PageLayout location={this.getLocation()}>
+      <HeaderLayout location={this.getLocation()}>
         <Error error="errors:page.notFound"/>
-      </PageLayout>
+      </HeaderLayout>
     )
   }
 }

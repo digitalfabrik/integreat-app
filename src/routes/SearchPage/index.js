@@ -2,11 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import normalizeUrl from 'normalize-url'
-import Payload from 'endpoints/Payload'
-import ContentList from 'components/Content/ContentList'
 import { forEach } from 'lodash/collection'
+import normalizeUrl from 'normalize-url'
+
+import Payload from 'endpoints/Payload'
+
+import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
+import PageLayout from 'components/PageLayout'
 
 import style from './style.css'
 

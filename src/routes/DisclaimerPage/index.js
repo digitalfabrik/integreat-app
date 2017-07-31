@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import DISCLAIMER_ENDPOINT from 'endpoints/disclaimer'
 import Payload from '../../endpoints/Payload'
 import Page from 'components/Content/Page'
-import PageLayout from 'components/PageLayout'
+import HeaderLayout from 'components/HeaderLayout'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
@@ -37,9 +37,9 @@ class DisclaimerPage extends React.Component {
 
   render () {
     return (
-      <PageLayout location={this.getLocation()}>
+      <HeaderLayout location={this.getLocation()}>
         { this.props.disclaimerPayload.data ? <Page page={this.props.disclaimerPayload.data}/> : null }
-      </PageLayout>
+      </HeaderLayout>
     )
   }
 }

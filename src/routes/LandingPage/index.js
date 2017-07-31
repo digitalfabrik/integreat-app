@@ -29,7 +29,7 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <Layout noHeader={true} currentLanguage={this.props.language}>
+      <Layout>
         <FilterableLocation locations={this.props.locations} locationCallback={(location) => {}}/>
       </Layout>
     )

@@ -13,11 +13,6 @@ class LocationPage extends React.Component {
     hierarchy: PropTypes.instanceOf(Hierarchy)
   }
 
-  componentDidUpdate () {
-// eslint-disable-next-line
-    window.scrollTo(0, 0)
-  }
-
   getParentPath () {
     return '/location/' + this.getLocation()
   }
@@ -29,7 +24,6 @@ class LocationPage extends React.Component {
   render () {
     return (
       <PageLayout location={this.getLocation()}>
-
         {this.props.hierarchy &&
         <div>
           <Breadcrumb
