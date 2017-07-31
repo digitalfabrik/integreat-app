@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 import Endpoint from 'endpoints/Endpoint'
-import { connect } from 'react-redux'
 
-class EndpointFetcher extends React.Component {
+class Fetcher extends React.Component {
   static propTypes = {
     endpoint: PropTypes.instanceOf(Endpoint).isRequired,
-    urlOptions: PropTypes.object.isRequired,
+    urlOptions: PropTypes.object,
     transformOptions: PropTypes.object
   }
 
@@ -21,8 +21,10 @@ class EndpointFetcher extends React.Component {
   }
 
   render () {
+    // todo render children only if endpoint is finished with fetching
+    // return React.Children.only(this.props.children)
     return <div>{this.props.children}</div>
   }
 }
 
-export default connect()(EndpointFetcher)
+export default connect()(Fetcher)

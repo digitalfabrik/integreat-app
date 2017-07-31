@@ -1,12 +1,9 @@
-/**
- * @param state The current app state
- * @return {{locations: {}}}  The endpoint values from the state mapped to props
- */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from 'components/Layout'
+import Fetcher from 'components/Fetcher'
 import FilterableLocation from 'components/Location/FilterableLocation'
 
 import LOCATION_ENDPOINT from 'endpoints/location'
@@ -19,23 +16,21 @@ class LandingPage extends React.Component {
     dispatch: PropTypes.func.isRequired
   }
 
-  componentWillUnmount () {
-    this.props.dispatch(LOCATION_ENDPOINT.invalidateAction())
-  }
-
-  componentWillMount () {
-    this.props.dispatch(LOCATION_ENDPOINT.fetchEndpointAction())
-  }
-
   render () {
     return (
       <Layout>
-        <FilterableLocation locations={this.props.locations} locationCallback={(location) => {}}/>
+        <Fetcher endpoint={LOCATION_ENDPOINT}>
+          <FilterableLocation locations={this.props.locations} locationCallback={(location) => {}}/>
+        </Fetcher>
       </Layout>
     )
   }
 }
 
+/**
+ * @param state The current app state
+ * @return {{locations: {}}}  The endpoint values from the state mapped to props
+ */
 function mapStateToProps (state) {
   let locations = state.locations.data
   return ({

@@ -10,11 +10,16 @@ class ErrorPage extends React.Component {
   }
 
   render () {
-    return (
-      <HeaderLayout location={this.getLocation()}>
-        <Error error="errors:page.notFound"/>
-      </HeaderLayout>
-    )
+    if (this.getLocation()) {
+      // Location can be undefined if the url does not contain a location
+      return (
+        <HeaderLayout location={this.getLocation()}>
+          <Error error="errors:page.notFound"/>
+        </HeaderLayout>
+      )
+    } else {
+      return <Error error="errors:page.notFound"/>
+    }
   }
 }
 

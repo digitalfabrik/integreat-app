@@ -14,31 +14,36 @@ class DisclaimerPage extends React.Component {
     disclaimerPayload: PropTypes.instanceOf(Payload).isRequired
   }
 
-  componentWillUnmount () {
-    this.props.dispatch(DISCLAIMER_ENDPOINT.invalidateAction())
-  }
-
-  componentWillMount () {
-    this.fetchData(this.props.language)
-  }
-
-  fetchData (language) {
-    let location = this.getLocation()
-    this.props.dispatch(DISCLAIMER_ENDPOINT.fetchEndpointAction({
-      location: location,
-      language: language,
-      since: BIRTH_OF_UNIVERSE
-    }, {Location: location}))
-  }
-
   getLocation () {
     return this.props.match.params.location
+  }
+
+  getUrlOptions () {
+    return {
+      location: this.getLocation(),
+      language: this.props.language,
+      since: BIRTH_OF_UNIVERSE
+    }
+  }
+
+  getTransformOptions () {
+    return {
+      location: this.getLocation()
+    }
   }
 
   render () {
     return (
       <HeaderLayout location={this.getLocation()}>
-        { this.props.disclaimerPayload.data ? <Page page={this.props.disclaimerPayload.data}/> : null }
+        <Fetcher endpoint={DISCLAIMER_ENDPOINT}
+                 urlOptions={this.getUrlOptions()}
+                 transformOptions={this.getTransformOptions()}>
+
+          { this.props.disclaimerPayload.data &&
+          <Page page={this.props.disclaimerPayload.data}/>
+          }
+
+        </Fetcher>
       </HeaderLayout>
     )
   }
