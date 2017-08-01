@@ -28,6 +28,16 @@ class SearchPage extends React.Component {
     this.state = {
       filterText: ''
     }
+    this.changeLanguage = this.changeLanguage.bind(this)
+    this.fetchData = this.fetchData.bind(this)
+  }
+
+  changeLanguage (language) {
+    // Invalidate
+    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
+
+    // Re-fetch
+    this.fetchData(language)
   }
 
   componentWillUnmount () {
@@ -35,8 +45,11 @@ class SearchPage extends React.Component {
   }
 
   componentWillMount () {
+    this.fetchData(this.props.language)
+  }
+
+  fetchData (languageCode) {
     let location = this.getLocation()
-    let languageCode = this.props.language
     this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
       location: location,
       language: languageCode
@@ -91,7 +104,9 @@ class SearchPage extends React.Component {
     let page = this.props.pagePayload.data
 
     return (
-      <Layout currentLanguage={this.props.language}>
+      <Layout currentLanguage={this.props.language}
+              currentLocation={this.getLocation()}
+              languageCallback={this.changeLanguage}>
         <Search className={style.searchSpacing} filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
         <ContentList pages={this.findPages(url, page)}/>
