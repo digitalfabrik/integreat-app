@@ -43,13 +43,17 @@ class Header extends React.Component {
         <div className={style.header}>
           { /* Logo */}
           <NavElement to={this.props.navigation.home} className={style.logo} disableActiveStyle={true}>
-            <img className={style.logo_wide}
+            <img className={style.logoWide}
                  src={logoWide}/>
-            <img className={style.logo_square}
+            <img className={style.logoSquare}
                  src={logoSquare}/>
           </NavElement>
           <div className={style.itemsContainer}>
-          { /* Location */}
+            { /* Home for small devices */}
+            <NavElement to={this.props.navigation.home} className={cx(style.item, style.itemHome)}>
+              <FontAwesome name='home'/>
+            </NavElement>
+            { /* Location */}
             <NavElement to={this.props.navigation.search} className={cx(style.item, style.itemSearch)}>
               <FontAwesome name='search'/>
             </NavElement>
