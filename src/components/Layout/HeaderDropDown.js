@@ -30,7 +30,7 @@ class HeaderDropDown extends React.Component {
 
   render () {
     return (
-      <a className={cx(this.props.className, style.dropDownItem)}>
+      <span className={cx(this.props.className, style.dropDownItem)}>
         <FontAwesome name={this.props.fontAwesome}
                      className={cx(this.state.dropDownActive ? style.itemActive : '', style.item)}
                      onClick={this.toggleDropDown}/>
@@ -42,7 +42,7 @@ class HeaderDropDown extends React.Component {
               }))
           }
         </div>
-      </a>
+      </span>
     )
   }
 }
