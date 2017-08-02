@@ -4,11 +4,11 @@
 
 .content {
   max-width: 1000px;
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0 16px;
-  box-sizing: border-box;
-  word-wrap: break-word;
   font-family: 'Raleway', 'El Messiri', sans-serif;
+  word-wrap: break-word;
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
