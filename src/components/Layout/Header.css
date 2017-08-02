@@ -48,8 +48,7 @@
 .drop-down-item {
   display: flex;
   height: 100%;
-  max-width: 100px;
-  flex-basis: 100px;
+  flex-basis: var(--header-height);
   flex-shrink: 0.5;
   align-items: center;
   justify-content: center;
@@ -135,8 +134,8 @@
 
   .item,
   .drop-down-item {
-    margin: 0;
     font-size: 2.7rem;
+    flex-basis: var(--header-height-small);
   }
 }
 
@@ -151,5 +150,10 @@
 
   .item-home {
     display: flex;
+  }
+
+  .item,
+  .drop-down-item {
+    margin: 0;
   }
 }
