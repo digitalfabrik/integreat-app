@@ -134,8 +134,8 @@
 
   .item,
   .drop-down-item {
-    font-size: 2.7rem;
     flex-basis: var(--header-height-small);
+    font-size: 2.7rem;
   }
 }
 
