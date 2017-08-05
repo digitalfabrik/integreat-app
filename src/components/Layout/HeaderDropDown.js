@@ -36,6 +36,7 @@ class HeaderDropDown extends React.Component {
                      onClick={this.toggleDropDown}/>
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>
           {
+            // Pass DropDownCallback as prop to children
             React.Children.map(this.props.children,
               child => React.cloneElement(child, {
                 closeDropDownCallback: this.handleClickOutside
