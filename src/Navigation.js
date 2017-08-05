@@ -1,27 +1,22 @@
 class Navigation {
-  constructor (home, location, language) {
-    this._home = home
+  constructor (location) {
     this._location = location
-    this._language = language
   }
 
   get home () {
-    return this._home
+    if (this._location) {
+      return '/location/' + this._location
+    }
+    return this.locationSelection
   }
 
-  get location () {
-    return this._location
+  get locationSelection () {
+    return '/'
   }
 
-  get language () {
-    return this._language
+  get search () {
+    return '/location/' + this._location + '/search'
   }
 }
 
 export default Navigation
-
-/**
- * This object holds the configured paths for navigation. This can be used e.g. in the Header
- * @type {Navigation}
- */
-export const DEFAULT_NAVIGATION = new Navigation('/', '/', '/')
