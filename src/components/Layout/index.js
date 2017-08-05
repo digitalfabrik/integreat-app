@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import WebFont from 'webfontloader'
 
+import Navigation from 'Navigation'
 import Header from './Header'
 import style from './style.css'
 
 class Layout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    currentLanguage: PropTypes.string.isRequired,
+    currentLanguage: PropTypes.string,
+    currentLocation: PropTypes.string,
     languageCallback: PropTypes.func,
     noHeader: PropTypes.bool
   }
@@ -29,6 +31,7 @@ class Layout extends React.Component {
         <Header
           languageCallback={this.props.languageCallback}
           currentLanguage={this.props.currentLanguage}
+          navigation={new Navigation(this.props.currentLocation)}
         />
         }
         <main className={cx(style.topSpacing, style.layout)}>
