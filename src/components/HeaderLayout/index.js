@@ -2,11 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import LANGUAGE_ENDPOINT from 'endpoints/language'
-
 import Layout from 'components/Layout'
-import Fetcher from 'components/Fetcher'
+import LanguageFetcher from 'components/Fetcher/LanguageFetcher'
 import Header from './Header'
+
+class HeaderAdapter extends React.Component {
+  static propTypes = {
+
+  }
+
+  render () {
+    return <Header
+      languages={this.props.languagePayload.data}
+      languageCallback={this.props.languageCallback}
+      currentLanguage={this.props.language}
+    />
+  }
+}
 
 class HeaderLayout extends React.Component {
   static propTypes = {
@@ -31,17 +43,9 @@ class HeaderLayout extends React.Component {
 
   render () {
     return (<div>
-        <Fetcher endpoint={LANGUAGE_ENDPOINT}
-                 urlOptions={{location: this.props.location, language: this.props.language}}>
-          {
-            this.props.languagePayload.data &&
-            <Header
-              languages={this.props.languagePayload.data}
-              languageCallback={this.changeLanguage}
-              currentLanguage={this.props.language}
-            />
-          }
-        </Fetcher>
+        <LanguageFetcher location={this.props.location}>
+          <HeaderAdapter languageCallback={this.changeLanguage} language={this.props.language}/>
+        </LanguageFetcher>
 
         <Layout className={this.props.className}>
           {this.props.children}
