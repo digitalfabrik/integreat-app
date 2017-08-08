@@ -31,22 +31,17 @@ class RichLayout extends React.Component {
   constructor (props) {
     super(props)
 
-    this.changeLanguage = this.changeLanguage.bind(this)
+    this.gotoParent = this.gotoParent.bind(this)
   }
 
-  changeLanguage (code) {
-    // Invalidate
-    // this.props.dispatch(PAGE_ENDPOINT.invalidateAction()) //fixme
-    // Go to back to parent page
-    // history.push(this.getParentPath())
-    // Re-fetch
-    // this.fetchData(code)
+  gotoParent () {
+    // history.push(this.getParentPath()) fixme
   }
 
   render () {
     return (<div>
         <LanguageFetcher location={this.props.location} hideError={true}>
-          <HeaderAdapter languageCallback={this.changeLanguage} language={this.props.language} location={this.props.location}/>
+          <HeaderAdapter languageCallback={this.gotoParent} language={this.props.language} location={this.props.location}/>
         </LanguageFetcher>
 
         <Layout className={this.props.className}>

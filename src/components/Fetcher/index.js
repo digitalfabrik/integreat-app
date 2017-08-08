@@ -12,29 +12,37 @@ import Error from 'components/Error'
 
 import style from './style.css'
 
-function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions) {
+function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions, mapStateToProps = () => { return {} },
+                        shouldUpdate = () => false) {
   let statePayloadName = endpoint.name
   let payloadName = statePayloadName + 'Payload'
 
-  function mapStateToProps (state) {
-    let props = {
-      language: state.language.language
-    }
-    props[payloadName] = state[statePayloadName]
-    return props
-  }
-
-  let Fetcher = class extends React.Component {
+  let Fetcher = class extends React.PureComponent {
     static propTypes = {
       hideError: PropTypes.bool
     }
 
-    componentWillUnmount () {
+    fetch (props) {
+      this.props.dispatch(endpoint.fetchEndpointAction(createUrlOptions(props), createUrlTransformOptions(props)))
+    }
+
+    invalidate () {
       this.props.dispatch(endpoint.invalidateAction())
     }
 
+    componentWillUnmount () {
+      this.invalidate()
+    }
+
     componentWillMount () {
-      this.props.dispatch(endpoint.fetchEndpointAction(createUrlOptions(this.props), createUrlTransformOptions(this.props)))
+      this.fetch(this.props)
+    }
+
+    componentWillUpdate (nextProps) {
+      if (shouldUpdate(this.props, nextProps)) {  // todo: this will need some more work to test -> an other issue as
+                                                  // this is getting too big
+        this.fetch(nextProps)
+      }
     }
 
     render () {
@@ -60,8 +68,16 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions) {
     }
   }
 
-  return connect(mapStateToProps)(Fetcher)
+  return connect((state) => {
+    let props = mapStateToProps(state)
+
+    props[payloadName] = state[statePayloadName]
+    return props
+  })(Fetcher)
 }
+
+// todo: this section contains a lot of duplicate code which can be simplified
+// difficult part: find good names :P
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 export const PageFetcher = createFetcher(PAGE_ENDPOINT, (props) => {
@@ -74,6 +90,12 @@ export const PageFetcher = createFetcher(PAGE_ENDPOINT, (props) => {
   return {
     location: props.location
   }
+}, (state) => {
+  return {
+    language: state.language.language
+  }
+}, (props, nextProps) => {
+  return props.language !== nextProps.language
 })
 
 export const DisclaimerFetcher = createFetcher(DISCLAIMER_FETCHER, (props) => {
@@ -86,6 +108,12 @@ export const DisclaimerFetcher = createFetcher(DISCLAIMER_FETCHER, (props) => {
   return {
     location: props.location
   }
+}, (state) => {
+  return {
+    language: state.language.language
+  }
+}, (props, nextProps) => {
+  return props.language !== nextProps.language
 })
 
 export const LanguageFetcher = createFetcher(LANGUAGE_FETCHER, (props) => {
@@ -93,6 +121,12 @@ export const LanguageFetcher = createFetcher(LANGUAGE_FETCHER, (props) => {
     location: props.location,
     language: props.language
   }
-}, () => { return {} })
+}, () => { return {} }, (state) => {
+  return {
+    language: state.language.language
+  }
+}, (props, nextProps) => {
+  return props.language !== nextProps.language
+})
 
 export const LocationFetcher = createFetcher(LOCATION_FETCHER, () => { return {} }, () => { return {} })
