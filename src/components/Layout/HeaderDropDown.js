@@ -32,7 +32,9 @@ class HeaderDropDown extends React.Component {
     return (
       <span className={cx(this.props.className, style.dropDownItem)}>
         <FontAwesome name={this.props.fontAwesome}
-                     className={cx(this.state.dropDownActive ? style.itemActive : '', style.item)}
+                     className={cx(this.state.dropDownActive ? style.itemActive : '',
+                       style.item,
+                       style.fontAwesome)}
                      onClick={this.toggleDropDown}/>
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>
           {
