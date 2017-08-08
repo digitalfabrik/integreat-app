@@ -29,7 +29,6 @@ export default class Hierarchy {
     let pages = [currentPage]
 
     forEach(this._path, (id) => {
-
       currentPage = currentPage.children[id]
 
       if (!currentPage) {
