@@ -28,6 +28,10 @@ export default class Hierarchy {
     let pages = [currentPage]
 
     for (let id in this._path) {
+      if (!this._path.hasOwnProperty(id)) {
+        continue
+      }
+
       currentPage = currentPage.children[id]
 
       if (!currentPage || currentPage === undefined) {
