@@ -6,10 +6,10 @@ import PropTypes from 'prop-types'
 import { setLanguage } from 'actions'
 import { connect } from 'react-redux'
 import LanguageModel from 'endpoints/models/LanguageModel'
+import { isEmpty } from 'lodash/lang'
 
 let LanguageElement = connect()(class extends React.Component {
   static propTypes = {
-    flyout: PropTypes.any.isRequired,
     language: PropTypes.instanceOf(LanguageModel).isRequired,
     languageCallback: PropTypes.func,
     active: PropTypes.bool.isRequired
@@ -40,20 +40,32 @@ let LanguageElement = connect()(class extends React.Component {
 
 export default class LanguageFlyout extends React.Component {
   static propTypes = {
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     languageCallback: PropTypes.func.isRequired,
+    closeDropDownCallback: PropTypes.func,
     currentLanguage: PropTypes.string.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+    this.handleLanguageCallback = this.handleLanguageCallback.bind(this)
+  }
+
+  handleLanguageCallback (languageCode) {
+    if (this.props.closeDropDownCallback) {
+      this.props.closeDropDownCallback()
+    }
+    this.props.languageCallback(languageCode)
   }
 
   render () {
     return (
       <div className={style.languageFlyout}>
-        {
+        {!isEmpty(this.props.languages) &&
           this.props.languages.map(language => (
               <LanguageElement
                 key={language.code}
-                flyout={this}
-                languageCallback={this.props.languageCallback}
+                languageCallback={this.handleLanguageCallback}
                 active={this.props.currentLanguage === language.code}
                 language={language}
               />
