@@ -1,18 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+
 import Content from 'components/Content'
-import PageLayout from 'components/PageLayout'
 import Breadcrumb from 'components/Content/Breadcrumb'
+import HeaderLayout from 'components/HeaderLayout'
+import PageFetcher from 'components/Fetcher/PageFetcher'
 
 import style from './style.css'
 import Hierarchy from './Hierarchy'
 
-class LocationPage extends React.Component {
+class PageAdapter extends React.Component {
   static propTypes = {
-    hierarchy: PropTypes.instanceOf(Hierarchy)
+    url: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    location: PropTypes.string.isRequired
   }
 
+  render () {
+    let hierarchy = new Hierarchy(this.props.path)
+
+    // Pass data to hierarchy
+    hierarchy.build(this.props.page)
+    if (this.props.pagePayload.error) {
+      hierarchy.error(this.props.pagePayload.error)
+    }
+
+    return <div>
+      <Breadcrumb
+        className={style.breadcrumbSpacing}
+        hierarchy={hierarchy}
+        location={this.props.location}
+      />
+      <Content url={this.props.url} hierarchy={hierarchy}/></div>
+  }
+}
+
+class LocationPage extends React.Component {
   getParentPath () {
     return '/location/' + this.getLocation()
   }
@@ -23,45 +46,13 @@ class LocationPage extends React.Component {
 
   render () {
     return (
-      <PageLayout location={this.getLocation()}>
-        {this.props.hierarchy &&
-        <div>
-          <Breadcrumb
-            className={style.breadcrumbSpacing}
-            hierarchy={ this.props.hierarchy }
-            location={ this.getLocation() }
-          />
-          <Content url={ this.getParentPath() }
-                   hierarchy={ this.props.hierarchy }
-          />
-        </div>
-        }
-      </PageLayout>
+      <HeaderLayout location={this.getLocation()}>
+        <PageFetcher location={this.getLocation()}>
+          <PageAdapter location={this.getLocation()} url={this.getParentPath()} path={this.props.match.params.path}/>
+        </PageFetcher>
+      </HeaderLayout>
     )
   }
 }
-/**
- * @param state The current app state
- * @param ownProps
- * @returns {{}}
- */
-function mapStateToProps (state, ownProps) {
-  let path = ownProps.match.params.path
-  let hierarchy = new Hierarchy(path)
-  let payload = state.pages
 
-  if (!payload.data) {
-    return {}
-  }
-
-  // Pass data to hierarchy
-  hierarchy.build(payload.data)
-  if (payload.error) {
-    hierarchy.error(payload.error)
-  }
-  return {
-    hierarchy: hierarchy
-  }
-}
-
-export default connect(mapStateToProps)(LocationPage)
+export default LocationPage

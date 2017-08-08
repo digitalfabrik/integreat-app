@@ -8,15 +8,10 @@ import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
 import HeaderLayout from 'components/HeaderLayout'
 import DisclaimerFetcher from 'components/Fetcher/DisclaimerFetcher'
-import Payload from 'endpoints/Payload'
 
 class PageAdapter extends React.Component {
-  static propTypes = {
-    disclaimerPayload: PropTypes.instanceOf(Payload).isRequired
-  }
-
   render () {
-    return <Page page={this.props.disclaimerPayload.data}/>
+    return <Page page={this.props.disclaimer}/>
   }
 }
 
@@ -33,7 +28,7 @@ class DisclaimerPage extends React.Component {
     return (
       <HeaderLayout location={this.getLocation()}>
         <DisclaimerFetcher location={this.getLocation()}>
-
+          <PageAdapter/>
         </DisclaimerFetcher>
       </HeaderLayout>
     )

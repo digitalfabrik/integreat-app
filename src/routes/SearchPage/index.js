@@ -9,35 +9,21 @@ import Payload from 'endpoints/Payload'
 
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
-import PageLayout from 'components/PageLayout'
+import HeaderLayout from 'components/HeaderLayout'
+import PageFetcher from 'components/Fetcher/PageFetcher'
 
 import style from './style.css'
 
-class SearchPage extends React.Component {
+class ContentListAdapter extends React.Component {
   static propTypes = {
-    pagePayload: PropTypes.instanceOf(Payload).isRequired
-  }
-
-  constructor () {
-    super()
-
-    this.state = {
-      filterText: ''
-    }
-  }
-
-  getParentPath () {
-    return '/location/' + this.getLocation()
-  }
-
-  getLocation () {
-    return this.props.match.params.location
+    path: PropTypes.string.isRequired,
+    filterText: PropTypes.string.isRequired
   }
 
   acceptPage (page) {
     let title = page.title.toLowerCase()
     let content = page.content
-    let filterText = this.state.filterText.toLowerCase()
+    let filterText = this.props.filterText.toLowerCase()
     // todo:  comparing the content like this is quite in-efficient and can cause lags
     // todo:  1) Do this work in an other thread 2) create an index
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
@@ -65,27 +51,40 @@ class SearchPage extends React.Component {
   }
 
   render () {
-    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
-    let page = this.props.pagePayload.data
+    let url = normalizeUrl(this.props.path, {removeTrailingSlash: true})
 
+    return <ContentList pages={this.findPages(url, this.props.page)}/>
+  }
+}
+
+class SearchPage extends React.Component {
+  constructor () {
+    super()
+
+    this.state = {
+      filterText: ''
+    }
+  }
+
+  getParentPath () {
+    return '/location/' + this.getLocation()
+  }
+
+  getLocation () {
+    return this.props.match.params.location
+  }
+
+  render () {
     return (
-      <PageLayout location={this.getLocation()}>
-        <Search className={style.searchSpacing} filterText={this.state.filterText}
-                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-        <ContentList pages={this.findPages(url, page)}/>
-      </PageLayout>
+      <HeaderLayout location={this.getLocation()}>
+        <PageFetcher location={this.getLocation()}>
+          <Search className={style.searchSpacing} filterText={this.state.filterText}
+                  onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
+          <ContentListAdapter path={this.getParentPath()} filterText={this.state.filterText}/>
+        </PageFetcher>
+      </HeaderLayout>
     )
   }
 }
 
-/**
- * @param state The current app state
- * @return {{locations: {}}}  The endpoint values from the state mapped to props
- */
-function mapStateToProps (state) {
-  return ({
-    pagePayload: state.pages
-  })
-}
-
-export default connect(mapStateToProps)(SearchPage)
+export default SearchPage
