@@ -21,7 +21,7 @@ class Footer extends React.Component {
         {!isEmpty(this.props.navigation.disclaimer) &&
         <NavLink className={cx(style.item, helper.removeA)}
                  exact to={this.props.navigation.disclaimer}>
-          {t('ImprintAndContact')}
+          {t('imprintAndContact')}
         </NavLink>
         }
       </div>
@@ -29,4 +29,4 @@ class Footer extends React.Component {
   }
 }
 
-export default translate('common')(Footer)
+export default translate('Footer')(Footer)
