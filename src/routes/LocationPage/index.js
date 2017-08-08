@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import HeaderLayout from 'components/HeaderLayout'
-import PageFetcher from 'components/Fetcher/PageFetcher'
+import { PageFetcher } from 'components/Fetcher'
 
 import style from './style.css'
 import Hierarchy from './Hierarchy'
@@ -24,9 +24,9 @@ class PageAdapter extends React.Component {
     let hierarchy = new Hierarchy(this.props.path)
 
     // Pass data to hierarchy
-    hierarchy.build(this.props.page)
-    if (this.props.pagePayload.error) {
-      hierarchy.error(this.props.pagePayload.error)
+    hierarchy.build(this.props.pages)
+    if (this.props.pagesPayload.error) {
+      hierarchy.error(this.props.pagesPayload.error)
     }
 
     return <div>

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
 import HeaderLayout from 'components/HeaderLayout'
-import DisclaimerFetcher from 'components/Fetcher/DisclaimerFetcher'
+import { DisclaimerFetcher } from 'components/Fetcher'
 
 class PageAdapter extends React.Component {
   render () {

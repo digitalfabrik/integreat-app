@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Layout from 'components/Layout'
-import LocationFetcher from 'components/Fetcher/LocationFetcher'
+import { LocationFetcher } from 'components/Fetcher'
 import FilterableLocation from 'components/Location/FilterableLocation'
 
 class LandingPage extends React.Component {

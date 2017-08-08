@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from 'components/Layout'
-import LanguageFetcher from 'components/Fetcher/LanguagesFetcher'
+import { LanguageFetcher } from 'components/Fetcher'
 import Header from './Header'
 
 class HeaderAdapter extends React.Component {
@@ -50,6 +50,7 @@ class HeaderLayout extends React.Component {
     )
   }
 }
+
 /**
  * @param state The current app state
  * @returns {{languagePayload: Payload, language: string}} The endpoint values from the state mapped to props

@@ -7,7 +7,7 @@ import normalizeUrl from 'normalize-url'
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
 import HeaderLayout from 'components/HeaderLayout'
-import PageFetcher from 'components/Fetcher/PageFetcher'
+import { PageFetcher } from 'components/Fetcher'
 
 import style from './style.css'
 
@@ -54,7 +54,7 @@ class ContentListAdapter extends React.Component {
   render () {
     let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
 
-    return <ContentList pages={this.findPages(url, this.props.page)}/>
+    return <ContentList pages={this.findPages(url, this.props.pages)}/>
   }
 }
 
