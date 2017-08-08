@@ -5,6 +5,7 @@ import WebFont from 'webfontloader'
 
 import Navigation from 'Navigation'
 import Header from './Header'
+import Footer from './Footer'
 import style from './style.css'
 
 class Layout extends React.Component {
@@ -13,7 +14,8 @@ class Layout extends React.Component {
     currentLanguage: PropTypes.string,
     currentLocation: PropTypes.string,
     languageCallback: PropTypes.func,
-    noHeader: PropTypes.bool
+    noHeader: PropTypes.bool,
+    noFooter: PropTypes.bool
   }
 
   componentWillMount () {
@@ -25,18 +27,22 @@ class Layout extends React.Component {
   }
 
   render () {
+    let nav = new Navigation(this.props.currentLocation)
     return (
       <div>
         {!this.props.noHeader &&
         <Header
           languageCallback={this.props.languageCallback}
           currentLanguage={this.props.currentLanguage}
-          navigation={new Navigation(this.props.currentLocation)}
+          navigation={nav}
         />
         }
         <main className={cx(style.topSpacing, style.layout)}>
           <div className={cx(style.content, this.props.className)}>{this.props.children}</div>
         </main>
+        {!this.props.noFooter &&
+        <Footer navigation={nav}/>
+        }
       </div>
     )
   }

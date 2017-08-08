@@ -11,7 +11,7 @@ i18n
   .init({
     resources: resources,
     fallbackLng: 'en',
-    ns: ['common', 'errors', 'Location'],
+    ns: ['common', 'errors', 'Location', 'Search', 'Footer'],
     defaultNS: 'common',
     load: 'languageOnly',
     // eslint-disable-next-line no-undef
