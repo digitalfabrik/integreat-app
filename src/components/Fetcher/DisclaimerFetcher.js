@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Spinner from 'react-spinkit'
 
 import DISCLAIMER_ENDPOINT from 'endpoints/disclaimer'
 
@@ -26,8 +27,12 @@ class DisclaimerFetcher extends React.Component {
   }
 
   render () {
-    return React.cloneElement(React.Children.only(this.props.children), {disclaimerPayload: this.props.disclaimerPayload})
+    if (this.props.disclaimerPayload.ready()) {
+      return React.cloneElement(React.Children.only(this.props.children), {disclaimer: this.props.disclaimerPayload.data})
+    } else {
+      return <Spinner name='line-scale-party'/>
+    }
   }
 }
 
-export default connect((state) => { return {disclaimerPayload: state.disclaimer} })(DisclaimerFetcher)
+export default connect((state) => { return {disclaimerPayload: state.disclaimer, language: state.language.language} })(DisclaimerFetcher)

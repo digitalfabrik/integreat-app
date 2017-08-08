@@ -1,4 +1,5 @@
 import React from 'react'
+import Spinner from 'react-spinkit'
 import { connect } from 'react-redux'
 
 import LOCATION_FETCHER from 'endpoints/location'
@@ -13,7 +14,11 @@ class LocationFetcher extends React.Component {
   }
 
   render () {
-    return React.cloneElement(React.Children.only(this.props.children), {locations: this.props.locationPayload.data})
+    if (this.props.locationPayload.ready()) {
+      return React.cloneElement(React.Children.only(this.props.children), {locations: this.props.locationPayload.data})
+    } else {
+      return <Spinner name='line-scale-party'/>
+    }
   }
 }
 

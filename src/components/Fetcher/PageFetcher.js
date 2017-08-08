@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Spinner from 'react-spinkit'
 import { connect } from 'react-redux'
 
 import PAGE_ENDPOINT from 'endpoints/page'
@@ -29,8 +30,15 @@ class PageFetcher extends React.Component {
   }
 
   render () {
-    return React.cloneElement(React.Children.only(this.props.children), {pagePayload: this.props.pagePayload})
+    if (this.props.pagePayload.ready()) {
+      return <div>{React.Children.map(this.props.children, (child) => React.cloneElement(child, {
+        page: this.props.pagePayload.data,
+        pagePayload: this.props.pagePayload
+      }))}</div>
+    } else {
+      return <Spinner name='line-scale-party'/>
+    }
   }
 }
 
-export default connect((state) => { return {pagePayload: state.pages} })(PageFetcher)
+export default connect((state) => { return {pagePayload: state.pages, language: state.language.language} })(PageFetcher)
