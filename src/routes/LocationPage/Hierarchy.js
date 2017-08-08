@@ -4,6 +4,7 @@ import normalizeUrl from 'normalize-url'
 
 import { last } from 'lodash/array'
 import { isEmpty } from 'lodash/lang'
+import { forEach } from 'lodash/collection'
 
 export default class Hierarchy {
   constructor (path = '') {
@@ -27,20 +28,17 @@ export default class Hierarchy {
 
     let pages = [currentPage]
 
-    for (let id in this._path) {
-      if (!this._path.hasOwnProperty(id)) {
-        continue
-      }
+    forEach(this._path, (id) => {
 
       currentPage = currentPage.children[id]
 
-      if (!currentPage || currentPage === undefined) {
+      if (!currentPage) {
         error = 'errors:page.notFound'
-        break
+        return false
       }
 
       pages.push(currentPage)
-    }
+    })
 
     this._pages = pages
 
