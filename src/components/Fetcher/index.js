@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Spinner from 'react-spinkit'
 import { connect } from 'react-redux'
 
@@ -6,6 +7,10 @@ import LANGUAGE_FETCHER from 'endpoints/language'
 import PAGE_ENDPOINT from 'endpoints/page'
 import DISCLAIMER_FETCHER from 'endpoints/disclaimer'
 import LOCATION_FETCHER from 'endpoints/location'
+
+import Error from 'components/Error'
+
+import style from './style.css'
 
 function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions) {
   let statePayloadName = endpoint.name
@@ -20,6 +25,10 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions) {
   }
 
   let Fetcher = class extends React.Component {
+    static propTypes = {
+      hideError: PropTypes.bool
+    }
+
     componentWillUnmount () {
       this.props.dispatch(endpoint.invalidateAction())
     }
@@ -30,6 +39,10 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions) {
 
     render () {
       let payload = this.props[payloadName]
+
+      if (!this.props.hideError && payload.error) {
+        return <Error error={payload.error}/>
+      }
 
       if (payload.ready()) {
         let newProps = {}
@@ -42,7 +55,7 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions) {
           </div>
         )
       } else {
-        return <Spinner name='line-scale-party'/>
+        return <Spinner className={style.loading} name='line-scale-party'/>
       }
     }
   }

@@ -45,7 +45,7 @@ class HeaderLayout extends React.Component {
 
   render () {
     return (<div>
-        <LanguageFetcher location={this.props.location}>
+        <LanguageFetcher location={this.props.location} hideError={true}>
           <HeaderAdapter languageCallback={this.changeLanguage} language={this.props.language} location={this.props.location}/>
         </LanguageFetcher>
 
