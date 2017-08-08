@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
 import { forEach } from 'lodash/collection'
 import normalizeUrl from 'normalize-url'
-
-import Payload from 'endpoints/Payload'
 
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
@@ -16,8 +13,12 @@ import style from './style.css'
 
 class ContentListAdapter extends React.Component {
   static propTypes = {
-    path: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
     filterText: PropTypes.string.isRequired
+  }
+
+  getParentPath () {
+    return '/location/' + this.props.location
   }
 
   acceptPage (page) {
@@ -51,7 +52,7 @@ class ContentListAdapter extends React.Component {
   }
 
   render () {
-    let url = normalizeUrl(this.props.path, {removeTrailingSlash: true})
+    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
 
     return <ContentList pages={this.findPages(url, this.props.page)}/>
   }
@@ -60,14 +61,7 @@ class ContentListAdapter extends React.Component {
 class SearchPage extends React.Component {
   constructor () {
     super()
-
-    this.state = {
-      filterText: ''
-    }
-  }
-
-  getParentPath () {
-    return '/location/' + this.getLocation()
+    this.state = {filterText: ''}
   }
 
   getLocation () {
@@ -78,9 +72,11 @@ class SearchPage extends React.Component {
     return (
       <HeaderLayout location={this.getLocation()}>
         <PageFetcher location={this.getLocation()}>
-          <Search className={style.searchSpacing} filterText={this.state.filterText}
-                  onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-          <ContentListAdapter path={this.getParentPath()} filterText={this.state.filterText}/>
+          <Search className={style.searchSpacing}
+                  filterText={this.state.filterText}
+                  onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
+          />
+          <ContentListAdapter location={this.getLocation()} filterText={this.state.filterText}/>
         </PageFetcher>
       </HeaderLayout>
     )

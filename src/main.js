@@ -12,7 +12,6 @@ import { I18nextProvider } from 'react-i18next'
 import LandingPage from './routes/LandingPage'
 import LocationPage from './routes/LocationPage'
 import SearchPage from './routes/SearchPage'
-import Hierarchy from './routes/LocationPage/Hierarchy'
 import ErrorPage from './routes/ErrorPage'
 import DisclaimerPage from './routes/DisclaimerPage'
 
@@ -37,9 +36,7 @@ let App = <I18nextProvider i18n={ i18n }>
         {/* The location page */}
         <Route path="/location/:location/search" exact component={SearchPage}/>
         <Route path="/location/:location/disclaimer" exact component={DisclaimerPage}/>
-        <Route path="/location/:location/:path*" render={props => {
-          return <LocationPage {...props} />
-        }}/>
+        <Route path="/location/:location/:path*" component={LocationPage}/>
         {/* The error page */}
         <Route component={ErrorPage}/>
       </Switch>

@@ -11,12 +11,16 @@ import Hierarchy from './Hierarchy'
 
 class PageAdapter extends React.Component {
   static propTypes = {
-    url: PropTypes.string.isRequired,
-    path: PropTypes.string,
-    location: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired,
+    path: PropTypes.string
+  }
+
+  getParentPath () {
+    return '/location/' + this.props.location
   }
 
   render () {
+    let url = this.getParentPath()
     let hierarchy = new Hierarchy(this.props.path)
 
     // Pass data to hierarchy
@@ -31,15 +35,11 @@ class PageAdapter extends React.Component {
         hierarchy={hierarchy}
         location={this.props.location}
       />
-      <Content url={this.props.url} hierarchy={hierarchy}/></div>
+      <Content url={url} hierarchy={hierarchy}/></div>
   }
 }
 
 class LocationPage extends React.Component {
-  getParentPath () {
-    return '/location/' + this.getLocation()
-  }
-
   getLocation () {
     return this.props.match.params.location
   }
@@ -48,7 +48,7 @@ class LocationPage extends React.Component {
     return (
       <HeaderLayout location={this.getLocation()}>
         <PageFetcher location={this.getLocation()}>
-          <PageAdapter location={this.getLocation()} url={this.getParentPath()} path={this.props.match.params.path}/>
+          <PageAdapter location={this.getLocation()} path={this.props.match.params.path}/>
         </PageFetcher>
       </HeaderLayout>
     )

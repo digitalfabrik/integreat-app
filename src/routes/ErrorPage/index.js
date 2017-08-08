@@ -4,7 +4,6 @@ import Error from 'components/Error'
 import HeaderLayout from 'components/HeaderLayout'
 
 class ErrorPage extends React.Component {
-
   getLocation () {
     return this.props.match.params.location
   }
