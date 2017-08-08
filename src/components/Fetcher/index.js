@@ -28,7 +28,8 @@ function createFetcher (endpoint,
 
   let Fetcher = class extends React.PureComponent {
     static propTypes = {
-      hideError: PropTypes.bool
+      hideError: PropTypes.bool,
+      hideSpinner: PropTypes.bool
     }
 
     fetch (props) {
@@ -71,8 +72,10 @@ function createFetcher (endpoint,
             {React.Children.map(this.props.children, (child) => React.cloneElement(child, newProps))}
           </div>
         )
-      } else {
+      } else if (!this.props.hideSpinner) {
         return <Spinner className={style.loading} name='line-scale-party'/>
+      } else {
+        return <div/>
       }
     }
   }
