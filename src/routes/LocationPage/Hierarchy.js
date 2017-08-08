@@ -8,7 +8,6 @@ import { isEmpty } from 'lodash/lang'
 export default class Hierarchy {
   constructor (path = '') {
     this._path = path ? path.split('/').filter((path) => path !== '') : []
-    this._error = null
     this._pages = []
   }
 
@@ -18,8 +17,10 @@ export default class Hierarchy {
    * @return {*} The model to renders
    */
   build (rootPage) {
+    let error = null
+
     if (!rootPage || rootPage === EMPTY_PAGE) {
-      return this
+      return error
     }
 
     let currentPage = rootPage
@@ -30,8 +31,8 @@ export default class Hierarchy {
       currentPage = currentPage.children[id]
 
       if (!currentPage || currentPage === undefined) {
-        this._error = 'errors:page.notFound'
-        return this
+        error = 'errors:page.notFound'
+        return false
       }
 
       pages.push(currentPage)
@@ -39,7 +40,7 @@ export default class Hierarchy {
 
     this._pages = pages
 
-    return this
+    return error
   }
 
   /**
@@ -59,13 +60,6 @@ export default class Hierarchy {
 
   path () {
     return normalizeUrl('/' + this._path.join('/'), {removeTrailingSlash: true})
-  }
-
-  /**
-   * @returns {*} The error which currently is set
-   */
-  error () {
-    return this._error
   }
 
   get pages () {

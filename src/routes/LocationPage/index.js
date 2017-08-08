@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
+import Error from 'components/Error'
 import { PageFetcher } from 'components/Fetcher'
 
 import style from './style.css'
@@ -24,7 +25,10 @@ class PageAdapter extends React.Component {
     let hierarchy = new Hierarchy(this.props.path)
 
     // Pass data to hierarchy
-    hierarchy.build(this.props.pages)
+    let error = hierarchy.build(this.props.pages)
+    if (error) {
+      return <Error error={error}/>
+    }
 
     return <div>
       <Breadcrumb
