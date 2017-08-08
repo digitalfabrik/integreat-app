@@ -3,14 +3,19 @@ import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
+
+import Navigation from 'Navigation'
+
+import LanguageFlyout from 'components/LanguageFlyout'
+import helper from 'components/Helper/Helper.css'
+
+import LanguageModel from 'endpoints/models/LanguageModel'
+
 import HeaderDropDown from './HeaderDropDown'
 
 import style from './Header.css'
-import helper from 'components/Helper/Helper.css'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
-import LanguageFlyout from 'components/LanguageFlyout'
-import Navigation from 'Navigation'
 
 class NavElement extends React.Component {
   static propTypes = {

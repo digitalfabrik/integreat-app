@@ -5,13 +5,19 @@ import { connect } from 'react-redux'
 import Layout from 'components/Layout'
 import { LanguageFetcher } from 'components/Fetcher'
 import Header from './Header'
+import Navigation from 'Navigation'
 
 class HeaderAdapter extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired
+  }
+
   render () {
     return <Header
       languages={this.props.languages}
       languageCallback={this.props.languageCallback}
       currentLanguage={this.props.language}
+      navigation={new Navigation(this.props.location)}
     />
   }
 }
@@ -40,7 +46,7 @@ class HeaderLayout extends React.Component {
   render () {
     return (<div>
         <LanguageFetcher location={this.props.location}>
-          <HeaderAdapter languageCallback={this.changeLanguage} language={this.props.language}/>
+          <HeaderAdapter languageCallback={this.changeLanguage} language={this.props.language} location={this.props.location}/>
         </LanguageFetcher>
 
         <Layout className={this.props.className}>
