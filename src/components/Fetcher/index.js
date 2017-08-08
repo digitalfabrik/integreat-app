@@ -69,7 +69,10 @@ function createFetcher (endpoint,
 
         return (
           <div>
-            {React.Children.map(this.props.children, (child) => React.cloneElement(child, newProps))}
+            {
+              React.Children.map(this.props.children,
+                (child) => React.cloneElement(child, Object.assign({}, this.props, newProps)))
+            }
           </div>
         )
       } else if (!this.props.hideSpinner) {
