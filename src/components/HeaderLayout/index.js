@@ -3,17 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from 'components/Layout'
-import LanguageFetcher from 'components/Fetcher/LanguageFetcher'
+import LanguageFetcher from 'components/Fetcher/LanguagesFetcher'
 import Header from './Header'
 
 class HeaderAdapter extends React.Component {
-  static propTypes = {
-
-  }
-
   render () {
     return <Header
-      languages={this.props.languagePayload.data}
+      languages={this.props.languages}
       languageCallback={this.props.languageCallback}
       currentLanguage={this.props.language}
     />
