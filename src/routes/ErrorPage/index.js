@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Error from 'components/Error'
-import HeaderLayout from 'components/HeaderLayout'
+import RichLayout from 'components/RichLayout'
 
 class ErrorPage extends React.Component {
   getLocation () {
@@ -12,9 +12,9 @@ class ErrorPage extends React.Component {
     if (this.getLocation()) {
       // Location can be undefined if the url does not contain a location
       return (
-        <HeaderLayout location={this.getLocation()}>
+        <RichLayout location={this.getLocation()}>
           <Error error="errors:page.notFound"/>
-        </HeaderLayout>
+        </RichLayout>
       )
     } else {
       return <Error error="errors:page.notFound"/>

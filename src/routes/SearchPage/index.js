@@ -6,7 +6,7 @@ import normalizeUrl from 'normalize-url'
 
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
-import HeaderLayout from 'components/HeaderLayout'
+import RichLayout from 'components/RichLayout'
 import { PageFetcher } from 'components/Fetcher'
 
 import style from './style.css'
@@ -70,7 +70,7 @@ class SearchPage extends React.Component {
 
   render () {
     return (
-      <HeaderLayout location={this.getLocation()}>
+      <RichLayout location={this.getLocation()}>
         <PageFetcher location={this.getLocation()}>
           <Search className={style.searchSpacing}
                   filterText={this.state.filterText}
@@ -78,7 +78,7 @@ class SearchPage extends React.Component {
           />
           <ContentListAdapter location={this.getLocation()} filterText={this.state.filterText}/>
         </PageFetcher>
-      </HeaderLayout>
+      </RichLayout>
     )
   }
 }

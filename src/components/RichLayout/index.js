@@ -22,7 +22,7 @@ class HeaderAdapter extends React.Component {
   }
 }
 
-class HeaderLayout extends React.Component {
+class RichLayout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     location: PropTypes.string.isRequired
@@ -63,9 +63,8 @@ class HeaderLayout extends React.Component {
  */
 function mapStateToProps (state) {
   return ({
-    languagePayload: state.languages,
     language: state.language.language
   })
 }
 
-export default connect(mapStateToProps)(HeaderLayout)
+export default connect(mapStateToProps)(RichLayout)

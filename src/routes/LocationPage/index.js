@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
-import HeaderLayout from 'components/HeaderLayout'
+import RichLayout from 'components/RichLayout'
 import { PageFetcher } from 'components/Fetcher'
 
 import style from './style.css'
@@ -43,11 +43,11 @@ class LocationPage extends React.Component {
 
   render () {
     return (
-      <HeaderLayout location={this.getLocation()}>
+      <RichLayout location={this.getLocation()}>
         <PageFetcher location={this.getLocation()}>
           <PageAdapter location={this.getLocation()} path={this.props.match.params.path}/>
         </PageFetcher>
-      </HeaderLayout>
+      </RichLayout>
     )
   }
 }

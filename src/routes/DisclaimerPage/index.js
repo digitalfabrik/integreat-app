@@ -6,7 +6,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
-import HeaderLayout from 'components/HeaderLayout'
+import RichLayout from 'components/RichLayout'
 import { DisclaimerFetcher } from 'components/Fetcher'
 
 class PageAdapter extends React.Component {
@@ -26,11 +26,11 @@ class DisclaimerPage extends React.Component {
 
   render () {
     return (
-      <HeaderLayout location={this.getLocation()}>
+      <RichLayout location={this.getLocation()}>
         <DisclaimerFetcher location={this.getLocation()}>
           <PageAdapter/>
         </DisclaimerFetcher>
-      </HeaderLayout>
+      </RichLayout>
     )
   }
 }
