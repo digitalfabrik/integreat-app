@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
 const pkg = require('../package.json')
+const getVersion = require('git-repo-version')
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
@@ -56,7 +57,8 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-      __DEV__: isDebug
+      __DEV__: isDebug,
+      __VERSION__: JSON.stringify(getVersion())
     }),
     // Emit a JSON file with assets paths
     // https://github.com/sporto/assets-webpack-plugin#options
