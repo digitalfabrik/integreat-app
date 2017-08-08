@@ -5,5 +5,6 @@ export default new Endpoint(
   'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}',
   json => {
     return json
-  }
+  },
+  []
 )

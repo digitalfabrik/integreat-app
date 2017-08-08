@@ -10,5 +10,6 @@ export default new Endpoint(
       .map((location) => new LocationModel(location.name, location.path, location.live))
     locations = sortBy(locations, location => location.name)
     return groupBy(locations, location => location.category)
-  }
+  },
+  []
 )

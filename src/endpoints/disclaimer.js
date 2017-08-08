@@ -18,5 +18,6 @@ export default new Endpoint(
         page.thumbnail
       )
     })
-  }
+  },
+  []
 )

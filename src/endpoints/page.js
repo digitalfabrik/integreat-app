@@ -37,7 +37,8 @@ export default new Endpoint(
       }
     }, {})
     return new PageModel(0, options.location, 0, '', null, children)
-  }
+  },
+  []
 )
 
 export const EMPTY_PAGE = new PageModel()

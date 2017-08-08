@@ -3,10 +3,10 @@ import Payload from 'endpoints/Payload'
 import format from 'string-template'
 
 export default class Endpoint {
-  constructor (name, url, transform, defaultValue = {}) {
+  constructor (name, url, transform, defaultJsonValue = {}) {
     this.name = name
     this.url = url
-    this.defaultValue = defaultValue
+    this.defaultJsonValue = defaultJsonValue
 
     let actionName = this.name.toUpperCase()
 
@@ -37,7 +37,7 @@ export default class Endpoint {
         .catch(ex => {
           console.error('Failed to load the endpoint request: ' + that.name)
           console.error(ex.message)
-          return dispatch(that.receiveAction(that.defaultValue, jsonTransformOptions, 'errors:page.loadingFailed'))
+          return dispatch(that.receiveAction(that.defaultJsonValue, jsonTransformOptions, 'errors:page.loadingFailed'))
         })
     }
   }
