@@ -27,16 +27,16 @@ export default class Hierarchy {
 
     let pages = [currentPage]
 
-    this._path.forEach(id => {
+    for (let id in this._path) {
       currentPage = currentPage.children[id]
 
       if (!currentPage || currentPage === undefined) {
         error = 'errors:page.notFound'
-        return false
+        break
       }
 
       pages.push(currentPage)
-    })
+    }
 
     this._pages = pages
 
