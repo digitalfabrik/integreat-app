@@ -25,9 +25,6 @@ class PageAdapter extends React.Component {
 
     // Pass data to hierarchy
     hierarchy.build(this.props.pages)
-    if (this.props.pagesPayload.error) {
-      hierarchy.error(this.props.pagesPayload.error)
-    }
 
     return <div>
       <Breadcrumb

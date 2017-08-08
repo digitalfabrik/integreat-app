@@ -30,7 +30,7 @@ export default class Hierarchy {
       currentPage = currentPage.children[id]
 
       if (!currentPage || currentPage === undefined) {
-        this.error('errors:page.notFound')
+        this._error = 'errors:page.notFound'
         return this
       }
 
@@ -62,15 +62,9 @@ export default class Hierarchy {
   }
 
   /**
-   * @param error The error to set
    * @returns {*} The error which currently is set
    */
-  error (error = undefined) {
-    if (error === undefined) {
-      return this._error
-    }
-
-    this._error = error
+  error () {
     return this._error
   }
 
