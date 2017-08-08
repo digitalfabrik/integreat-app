@@ -12,10 +12,19 @@ import Error from 'components/Error'
 
 import style from './style.css'
 
-function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions, mapStateToProps = () => { return {} },
+function createFetcher (endpoint,
+                        createUrlOptions, createUrlTransformOptions,
+                        mapStateToProps = () => { return {} },
                         shouldUpdate = () => false) {
-  let statePayloadName = endpoint.name
-  let payloadName = statePayloadName + 'Payload'
+  let stateName = endpoint.name
+  let payloadName = stateName + 'Payload'
+
+  function mapStateToFetcherProps (state) {
+    let props = mapStateToProps(state)
+
+    props[payloadName] = state[stateName]
+    return props
+  }
 
   let Fetcher = class extends React.PureComponent {
     static propTypes = {
@@ -40,7 +49,7 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions, m
 
     componentWillUpdate (nextProps) {
       if (shouldUpdate(this.props, nextProps)) {  // todo: this will need some more work to test -> an other issue as
-                                                  // this is getting too big
+        // this is getting too big
         this.fetch(nextProps)
       }
     }
@@ -54,7 +63,7 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions, m
 
       if (payload.ready()) {
         let newProps = {}
-        newProps[statePayloadName] = payload.data
+        newProps[stateName] = payload.data
         newProps[payloadName] = payload
 
         return (
@@ -68,65 +77,51 @@ function createFetcher (endpoint, createUrlOptions, createUrlTransformOptions, m
     }
   }
 
-  return connect((state) => {
-    let props = mapStateToProps(state)
-
-    props[payloadName] = state[statePayloadName]
-    return props
-  })(Fetcher)
+  return connect(mapStateToFetcherProps)(Fetcher)
 }
 
 // todo: this section contains a lot of duplicate code which can be simplified
 // difficult part: find good names :P
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
-export const PageFetcher = createFetcher(PAGE_ENDPOINT, (props) => {
-  return {
-    location: props.location,
-    language: props.language,
-    since: BIRTH_OF_UNIVERSE
-  }
-}, (props) => {
-  return {
-    location: props.location
-  }
-}, (state) => {
-  return {
-    language: state.language.language
-  }
-}, (props, nextProps) => {
-  return props.language !== nextProps.language
+
+let pagesUrlOptions = (props) => ({
+  location: props.location,
+  language: props.language,
+  since: BIRTH_OF_UNIVERSE
 })
 
-export const DisclaimerFetcher = createFetcher(DISCLAIMER_FETCHER, (props) => {
-  return {
-    location: props.location,
-    language: props.language,
-    since: BIRTH_OF_UNIVERSE
-  }
-}, (props) => {
-  return {
-    location: props.location
-  }
-}, (state) => {
-  return {
-    language: state.language.language
-  }
-}, (props, nextProps) => {
-  return props.language !== nextProps.language
-})
+let locationTransformOptions = (props) => ({location: props.location})
 
-export const LanguageFetcher = createFetcher(LANGUAGE_FETCHER, (props) => {
-  return {
-    location: props.location,
-    language: props.language
-  }
-}, () => { return {} }, (state) => {
-  return {
-    language: state.language.language
-  }
-}, (props, nextProps) => {
-  return props.language !== nextProps.language
-})
+let noOptions = () => { return {} }
 
-export const LocationFetcher = createFetcher(LOCATION_FETCHER, () => { return {} }, () => { return {} })
+let updateOnLanguageChange = (props, nextProps) => props.language !== nextProps.language
+
+let mapLanguageToProps = (state) => ({language: state.language.language})
+
+export const PageFetcher = createFetcher(PAGE_ENDPOINT,
+  pagesUrlOptions, locationTransformOptions,
+  mapLanguageToProps,
+  updateOnLanguageChange
+)
+
+export const DisclaimerFetcher = createFetcher(DISCLAIMER_FETCHER,
+  pagesUrlOptions, locationTransformOptions,
+  mapLanguageToProps,
+  updateOnLanguageChange
+)
+
+export const LanguageFetcher = createFetcher(LANGUAGE_FETCHER,
+  (props) => {
+    return {
+      location: props.location,
+      language: props.language
+    }
+  }, noOptions,
+  mapLanguageToProps,
+  updateOnLanguageChange
+)
+
+export const LocationFetcher = createFetcher(LOCATION_FETCHER,
+  noOptions, noOptions
+)
