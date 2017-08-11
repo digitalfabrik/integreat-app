@@ -55,7 +55,7 @@
   margin: 0 10px;
   color: #555 !important; /* helperclass :( */
   font-size: 3rem;
-  transition: background-color 0.2s, border-radius 0.2s;
+  transition: color 0.2s, border-radius 0.2s;
   border-radius: 40px;
 }
 
@@ -70,14 +70,14 @@
 }
 
 .item:hover {
-  background-color: rgba(251, 218, 24, 0.5);
+  color: black !important;
   border-radius: 0;
   cursor: pointer;
 }
 
 .item-active,
 .item-active:hover {
-  color: black;
+  color: black !important;
   border-radius: 0;
 }
 
