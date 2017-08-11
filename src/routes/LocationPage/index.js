@@ -14,7 +14,6 @@ import { history } from 'main'
 
 import Payload from 'endpoints/Payload'
 
-import style from './style.css'
 import Hierarchy from './Hierarchy'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
@@ -96,7 +95,6 @@ class LocationPage extends React.Component {
 
         { /* Breadcrumb */ }
         <Breadcrumb
-          className={style.breadcrumbSpacing}
           hierarchy={ hierarchy }
           location={ this.getLocation() }
         />
