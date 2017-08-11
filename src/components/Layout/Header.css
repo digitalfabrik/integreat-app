@@ -58,6 +58,10 @@
   border-radius: 40px;
 }
 
+.font-awesome {
+  line-height: var(--header-height);
+}
+
 .drop-down-item > .item {
   flex-shrink: unset;
   margin: 0;
@@ -132,6 +136,10 @@
     top: var(--header-height-small);
   }
 
+  .font-awesome {
+    line-height: var(--header-height-small);
+  }
+
   .item,
   .drop-down-item {
     flex-basis: var(--header-height-small);
@@ -145,7 +153,7 @@
   }
 
   .items-container {
-    justify-content: center;
+    justify-content: space-around;
   }
 
   .item-home {

@@ -51,14 +51,14 @@ class Header extends React.Component {
           <div className={style.itemsContainer}>
             { /* Home for small devices */}
             <NavElement to={this.props.navigation.home} className={cx(style.item, style.itemHome)}>
-              <FontAwesome name='home'/>
+              <FontAwesome className={style.fontAwesome} name='home'/>
             </NavElement>
             { /* Location */}
             <NavElement to={this.props.navigation.search} className={cx(style.item, style.itemSearch)}>
-              <FontAwesome name='search'/>
+              <FontAwesome className={style.fontAwesome} name='search'/>
             </NavElement>
             <NavElement to={this.props.navigation.locationSelection} className={cx(style.item, style.itemLocation)}>
-              <FontAwesome name='map-marker'/>
+              <FontAwesome className={style.fontAwesome} name='map-marker'/>
             </NavElement>
             { /* Language */}
             <HeaderDropDown className={style.itemLanguage} fontAwesome="globe">
