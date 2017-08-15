@@ -1,7 +1,7 @@
 import { transform } from 'lodash/object'
 import { forEach } from 'lodash/collection'
 import Endpoint from './Endpoint'
-import PageModel from './models/PageModel'
+import PageModel, { EMPTY_PAGE } from './models/PageModel'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
