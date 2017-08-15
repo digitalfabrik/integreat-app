@@ -6,6 +6,7 @@ import Layout from 'components/Layout'
 import { LanguageFetcher } from 'components/Fetcher'
 import Header from './Header'
 import Navigation from 'Navigation'
+import Footer from './Footer'
 
 class HeaderAdapter extends React.Component {
   static propTypes = {
@@ -47,6 +48,8 @@ class RichLayout extends React.Component {
         <Layout className={this.props.className}>
           {this.props.children}
         </Layout>
+
+        <Footer navigation={new Navigation(this.props.location)}/>
       </div>
     )
   }

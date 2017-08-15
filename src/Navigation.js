@@ -17,6 +17,13 @@ class Navigation {
   get search () {
     return '/location/' + this._location + '/search'
   }
+
+  get disclaimer () {
+    if (!this._location) {
+      return null
+    }
+    return '/location/' + this._location + '/disclaimer'
+  }
 }
 
 export default Navigation
