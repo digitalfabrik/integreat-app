@@ -1,12 +1,15 @@
-import { createAction } from 'redux-actions'
-import Payload from 'endpoints/Payload'
-import format from 'string-template'
 import React from 'react'
-import PropTypes from 'prop-types'
-import Spinner from 'react-spinkit'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { createAction } from 'redux-actions'
+import Spinner from 'react-spinkit'
+
+import format from 'string-template'
+import cx from 'classnames'
 
 import Error from 'components/Error'
+
+import Payload from 'endpoints/Payload'
 
 import style from './Fetcher.css'
 
@@ -102,7 +105,8 @@ export default class Endpoint {
     let Fetcher = class extends React.Component {
       static propTypes = {
         hideError: PropTypes.bool,
-        hideSpinner: PropTypes.bool
+        hideSpinner: PropTypes.bool,
+        className: PropTypes.string
       }
 
       fetch (props) {
@@ -135,11 +139,11 @@ export default class Endpoint {
         let payload = this.props[endpoint.payloadName]
 
         if (!this.props.hideError && payload.error) {
-          return <Error error={payload.error}/>
+          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
         }
 
         if (!this.props.hideSpinner && !payload.ready()) {
-          return <Spinner className={style.loading} name='line-scale-party'/>
+          return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
         } else if (payload.ready()) {
           const newProps = {
             [endpoint.stateName]: payload.data,  // The actual Payload data
@@ -147,7 +151,7 @@ export default class Endpoint {
           }
 
           return (
-            <div>
+            <div className={this.props.className}>
               {
                 React.Children.map(this.props.children,
                   (child) => React.cloneElement(child, Object.assign({}, this.props, newProps)))
@@ -155,7 +159,7 @@ export default class Endpoint {
             </div>
           )
         } else {
-          return <div/>
+          return <div className={this.props.className}/>
         }
       }
     }
