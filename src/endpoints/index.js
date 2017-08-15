@@ -11,3 +11,8 @@ export default [
   EVENT_ENDPOINT,
   DISCLAIMER_ENDPOINT
 ]
+
+export const PageFetcher = PAGE_ENDPOINT.withFetcher()
+export const DisclaimerFetcher = DISCLAIMER_ENDPOINT.withFetcher()
+export const LanguageFetcher = LANGUAGE_ENDPOINT.withFetcher()
+export const LocationFetcher = LOCATION_ENDPOINT.withFetcher()

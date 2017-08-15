@@ -5,7 +5,7 @@ import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
-import { PageFetcher } from 'components/Fetcher'
+import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
 import Hierarchy from './Hierarchy'

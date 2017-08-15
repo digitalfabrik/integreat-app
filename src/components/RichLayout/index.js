@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from 'components/Layout'
-import { LanguageFetcher } from 'components/Fetcher'
+import { LanguageFetcher } from 'endpoints'
 import Header from './Header'
 import Navigation from 'Navigation'
 import Footer from './Footer'

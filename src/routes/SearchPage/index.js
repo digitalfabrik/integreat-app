@@ -7,7 +7,7 @@ import normalizeUrl from 'normalize-url'
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
 import RichLayout from 'components/RichLayout'
-import { PageFetcher } from 'components/Fetcher'
+import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
 

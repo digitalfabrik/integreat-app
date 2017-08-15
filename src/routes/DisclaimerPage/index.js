@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
 import RichLayout from 'components/RichLayout'
-import { DisclaimerFetcher } from 'components/Fetcher'
+import { DisclaimerFetcher } from 'endpoints'
 
 class PageAdapter extends React.Component {
   render () {
