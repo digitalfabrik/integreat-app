@@ -121,7 +121,8 @@ export const LanguageFetcher = createFetcher(LANGUAGE_FETCHER,
   (props) => {
     return {
       location: props.location,
-      language: props.language
+      language: 'de'  // todo:  This forces that the languages are always fetched in german language. German always
+                      //        exists in the backend -> a langauge switch always works
     }
   }, noOptions,
   mapLanguageToProps,
