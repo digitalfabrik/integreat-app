@@ -9,6 +9,9 @@ export default new Endpoint(
   'pages',
   'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
   (json, options) => {
+    if (!json) {
+      return EMPTY_PAGE
+    }
     let pages = transform(json, (result, page) => {
       if (page.status !== 'publish') {
         return
@@ -40,7 +43,6 @@ export default new Endpoint(
     }, {})
     return new PageModel(0, options.location, 0, '', null, children)
   },
-  [],
   (state) => ({language: state.language.language}),
   (props) => ({
     location: props.location,

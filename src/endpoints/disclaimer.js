@@ -8,6 +8,9 @@ export default new Endpoint(
   'disclaimer',
   'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
   (json) => {
+    if (!json) {
+      return {}
+    }
     return reduce(json, (result, page) => {
       if (page.status !== 'publish') {
         return
@@ -21,7 +24,6 @@ export default new Endpoint(
       )
     })
   },
-  [],
   (state) => ({language: state.language.language}),
   (props) => ({
     location: props.location,

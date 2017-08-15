@@ -21,7 +21,6 @@ const DUMMY = () => { return {} }
 export default class Endpoint {
   name
   url
-  defaultJsonValue
   receiveAction
   requestAction
   invalidateAction
@@ -35,14 +34,12 @@ export default class Endpoint {
    * The Payload name is name + 'Paylaod'
    * @param url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
    * @param jsonToAny Transforms the json input to a result
-   * @param defaultJsonValue Used as input for jsonToAny if the fetch fails
    */
   constructor (stateName, url,
-               jsonToAny, defaultJsonValue = {},
+               jsonToAny,
                mapStateToProps = DUMMY, mapPropsToUrlOptions = DUMMY, mapPropsToTransformOptions = DUMMY, shouldUpdate = () => false) {
     this.name = stateName
     this.url = url
-    this.defaultJsonValue = defaultJsonValue
     this.mapPropsToUrlOptions = mapPropsToUrlOptions
     this.mapPropsToTransformOptions = mapPropsToTransformOptions
     this.mapStateToProps = mapStateToProps
@@ -85,7 +82,7 @@ export default class Endpoint {
         .then(json => dispatch(that.receiveAction(json, jsonTransformOptions, undefined)))
         .catch(ex => {
           console.error('Failed to load the endpoint request: ' + that.name, ex.message)
-          return dispatch(that.receiveAction(that.defaultJsonValue, jsonTransformOptions, 'errors:page.loadingFailed'))
+          return dispatch(that.receiveAction(null, jsonTransformOptions, 'errors:page.loadingFailed'))
         })
     }
   }
