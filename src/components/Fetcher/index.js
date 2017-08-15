@@ -26,7 +26,7 @@ function createFetcher (endpoint,
     return props
   }
 
-  let Fetcher = class extends React.PureComponent {
+  let Fetcher = class extends React.Component {
     static propTypes = {
       hideError: PropTypes.bool,
       hideSpinner: PropTypes.bool
