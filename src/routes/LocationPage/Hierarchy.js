@@ -1,4 +1,4 @@
-import { EMPTY_PAGE } from 'endpoints/page'
+import { EMPTY_PAGE } from 'endpoints/models/PageModel'
 
 import normalizeUrl from 'normalize-url'
 

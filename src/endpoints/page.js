@@ -52,5 +52,3 @@ export default new Endpoint(
   (props) => ({location: props.location}),
   (props, nextProps) => props.language !== nextProps.language
 )
-
-export const EMPTY_PAGE = new PageModel()
