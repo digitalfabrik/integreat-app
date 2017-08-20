@@ -1,17 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { createAction } from 'redux-actions'
-import Spinner from 'react-spinkit'
-
 import format from 'string-template'
-import cx from 'classnames'
-
-import Error from 'components/Error'
+import PropTypes from 'prop-types'
 
 import Payload from 'endpoints/Payload'
-
-import style from './Fetcher.css'
 
 class ActionType {
   static RECEIVE = 'RECEIVE_DATA'
@@ -30,21 +21,18 @@ export default class Endpoint {
    * @type string
    */
   url
+  optionsPropType
   receiveAction
   requestAction
   invalidateAction
   /**
    * @type propsToOptionsCallback
    */
-  mapPropsToUrlOptions
-  /**
-   * @type propsToOptionsCallback
-   */
-  mapPropsToTransformOptions
+  mapOptionsToUrlParams
   /**
    * @type stateToPropsCallback
    */
-  mapStateToProps
+  mapStateToOptions
   /**
    * @type shouldRefetchCallback
    */
@@ -70,22 +58,20 @@ export default class Endpoint {
    */
 
   /**
-   * @param {string} stateName The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
+   * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
-   * @param {string} jsonToAny Transforms the json input to a result
-   * @param {stateToPropsCallback} mapStateToProps Maps the state to the props which are needed in the Fetcher component ({@link mapPropsToUrlOptions} and {@link mapPropsToTransformOptions})
-   * @param {propsToOptionsCallback} mapPropsToUrlOptions Maps the properties of the Fetcher component to the url options needed in {@link url}
-   * @param {propsToOptionsCallback} mapPropsToTransformOptions Maps the properties of the Fetcher component to the transform options needed by {@link jsonToAny}
+   * @param {*} optionsType the propType with all endpoint options. Non-required proptypes only for 'state' options
+   * @param {function} jsonToAny Transforms the json input to a result
+   * @param {stateToPropsCallback} mapStateToOptions Maps the state to the props which are needed in the Fetcher component ({@link mapOptionsToUrlParams})
+   * @param {propsToOptionsCallback} mapOptionsToUrlParams Maps the properties of the Fetcher component to the url options needed in {@link url}
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor (stateName, url,
-               jsonToAny,
-               mapStateToProps = DUMMY, mapPropsToUrlOptions = DUMMY, mapPropsToTransformOptions = DUMMY, shouldRefetch = () => false) {
-    this.name = stateName
+  constructor ({name, url, optionsPropType = PropTypes.object, jsonToAny, mapStateToOptions = DUMMY, mapOptionsToUrlParams = DUMMY, shouldRefetch = () => false}) {
+    this.name = name
     this.url = url
-    this.mapPropsToUrlOptions = mapPropsToUrlOptions
-    this.mapPropsToTransformOptions = mapPropsToTransformOptions
-    this.mapStateToProps = mapStateToProps
+    this.optionsPropType = optionsPropType
+    this.mapOptionsToUrlParams = mapOptionsToUrlParams
+    this.mapStateToOptions = mapStateToOptions
     this.shouldRefetch = shouldRefetch
 
     let actionName = this.name.toUpperCase()
@@ -94,7 +80,7 @@ export default class Endpoint {
       new Payload(false, jsonToAny(json, options), error))
     this.requestAction = createAction(`${ActionType.REQUEST}_${actionName}`, () => new Payload(true))
     this.invalidateAction = createAction(`${ActionType.INVALIDATE}_${actionName}`, () => new Payload(false))
-    this._stateName = stateName
+    this._stateName = name
   }
 
   /**
@@ -111,116 +97,26 @@ export default class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlOptions = {}, jsonTransformOptions = {}) {
-    let that = this
-    return function (dispatch, getState) {
-      if (getState()[that.name].isFetching) {
+  fetchEndpointAction (urlParams = {}, endpointOptions = {}) {
+    return (dispatch, getState) => {
+      if (getState()[this.name].isFetching) {
         return
       }
 
-      dispatch(that.requestAction())
+      dispatch(this.requestAction())
 
-      let formattedURL = format(that.url, urlOptions)
-
+      let formattedURL = format(this.url, urlParams)
       /*
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
       return fetch(formattedURL)
         .then(response => response.json())
-        .then(json => dispatch(that.receiveAction(json, jsonTransformOptions, undefined)))
+        .then(json => dispatch(this.receiveAction(json, endpointOptions, undefined)))
         .catch(ex => {
-          console.error('Failed to load the endpoint request: ' + that.name, ex.message)
-          return dispatch(that.receiveAction(null, jsonTransformOptions, 'errors:page.loadingFailed'))
+          console.error('Failed to load the endpoint request: ' + this.name, ex.message)
+          return dispatch(this.receiveAction(null, endpointOptions, 'errors:page.loadingFailed'))
         })
     }
-  }
-
-  createStateToPropsMapper () {
-    return function (state) {
-      let props = this.mapStateToProps(state)
-
-      if (!props) {
-        throw new Error('mapStateToProps(state) returned nothing')
-      }
-
-      props[this.payloadName] = state[this.stateName]
-      return props
-    }.bind(this)
-  }
-
-  withFetcher () {
-    const endpoint = this
-
-    let Fetcher = class extends React.Component {
-      static propTypes = {
-        hideError: PropTypes.bool,
-        hideSpinner: PropTypes.bool,
-        className: PropTypes.string
-      }
-
-      fetch (props) {
-        const url = endpoint.mapPropsToUrlOptions(props)
-        if (!url) {
-          throw new Error('mapPropsToUrlOptions(props) returned nothing')
-        }
-
-        const transform = endpoint.mapPropsToTransformOptions(props)
-        if (!transform) {
-          throw new Error('mapPropsToTransformOptions(props) returned nothing')
-        }
-
-        this.props.dispatch(endpoint.fetchEndpointAction(url, transform))
-      }
-
-      invalidate () {
-        this.props.dispatch(endpoint.invalidateAction())
-      }
-
-      componentWillUnmount () {
-        this.invalidate()
-      }
-
-      componentWillMount () {
-        this.fetch(this.props)
-      }
-
-      componentWillUpdate (nextProps) {
-        if (endpoint.shouldRefetch(this.props, nextProps)) {   // todo:  this will need some more work to test -> an other issue as
-          //        this is getting too big
-          this.fetch(nextProps)
-        }
-      }
-
-      render () {
-        let payload = this.props[endpoint.payloadName]
-
-        if (!this.props.hideError && payload.error) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
-        }
-
-        if (!this.props.hideSpinner && !payload.ready()) {
-          return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
-        } else if (payload.ready()) {
-          const newProps = {
-            [endpoint.stateName]: payload.data,  // The actual Payload data
-            [endpoint.payloadName]: payload      // The actual Payload, called: `${stateName}Payload`
-          }
-
-          return (
-            <div className={this.props.className}>
-              {
-                React.Children.map(this.props.children,
-                  (child) => React.cloneElement(child, Object.assign({}, this.props, newProps)))
-              }
-            </div>
-          )
-        } else {
-          return <div className={this.props.className}/>
-        }
-      }
-    }
-
-    return connect(this.createStateToPropsMapper())(Fetcher)
   }
 }
