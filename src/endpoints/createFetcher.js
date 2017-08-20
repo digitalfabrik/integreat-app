@@ -9,8 +9,8 @@ import style from './Fetcher.css'
 
 function createStateToPropsMapper (endpoint) {
   return (state, prevProps) => {
-    const newOptions = Object.assign({}, prevProps.endpointOptions, endpoint.mapStateToOptions(state))
-    const props = {endpointOptions: newOptions}
+    const newOptions = Object.assign({}, prevProps.options, endpoint.mapStateToOptions(state))
+    const props = {options: newOptions}
     props[endpoint.payloadName] = state[endpoint.stateName]
     return props
   }
@@ -19,25 +19,25 @@ function createStateToPropsMapper (endpoint) {
 function createFetcher (endpoint) {
   let Fetcher = class extends React.Component {
     static propTypes = {
-      endpointOptions: endpoint.optionsPropType.isRequired,
+      options: endpoint.optionsPropType.isRequired,
       hideError: PropTypes.bool,
       hideSpinner: PropTypes.bool,
       className: PropTypes.string
     }
 
     static defaultProps = {
-      endpointOptions: {}
+      options: {}
     }
 
     static displayName = endpoint.name + 'Fetcher'
 
     fetch () {
-      const urlParams = endpoint.mapOptionsToUrlParams(this.props.endpointOptions)
+      const urlParams = endpoint.mapOptionsToUrlParams(this.props.options)
       if (!urlParams) {
         throw new Error('mapOptionsToUrlParams(options) returned nothing')
       }
 
-      this.props.dispatch(endpoint.fetchEndpointAction(urlParams, this.props.endpointOptions))
+      this.props.dispatch(endpoint.fetchEndpointAction(urlParams, this.props.options))
     }
 
     invalidate () {
@@ -88,7 +88,7 @@ function createFetcher (endpoint) {
     }
   }
 
-  connect(createStateToPropsMapper(endpoint))(Fetcher)
+  return connect(createStateToPropsMapper(endpoint))(Fetcher)
 }
 
-export default {createFetcher}
+export default createFetcher

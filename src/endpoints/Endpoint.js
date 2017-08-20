@@ -97,7 +97,7 @@ export default class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlParams = {}, endpointOptions = {}) {
+  fetchEndpointAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
         return
@@ -112,10 +112,10 @@ export default class Endpoint {
        */
       return fetch(formattedURL)
         .then(response => response.json())
-        .then(json => dispatch(this.receiveAction(json, endpointOptions, undefined)))
+        .then(json => dispatch(this.receiveAction(json, options, undefined)))
         .catch(ex => {
           console.error('Failed to load the endpoint request: ' + this.name, ex.message)
-          return dispatch(this.receiveAction(null, endpointOptions, 'errors:page.loadingFailed'))
+          return dispatch(this.receiveAction(null, options, 'errors:page.loadingFailed'))
         })
     }
   }

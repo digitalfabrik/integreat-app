@@ -2,7 +2,7 @@ import LANGUAGE_ENDPOINT from './language'
 import LOCATION_ENDPOINT from './location'
 import PAGE_ENDPOINT from './page'
 import DISCLAIMER_ENDPOINT from './disclaimer'
-import Fetcher from './Fetcher'
+import createFetcher from './createFetcher'
 
 export default [
   LANGUAGE_ENDPOINT,
@@ -11,7 +11,7 @@ export default [
   DISCLAIMER_ENDPOINT
 ]
 
-export const PageFetcher = Fetcher.createFetcher(PAGE_ENDPOINT)
-export const DisclaimerFetcher = Fetcher.createFetcher(DISCLAIMER_ENDPOINT)
-export const LanguageFetcher = Fetcher.createFetcher(LANGUAGE_ENDPOINT)
-export const LocationFetcher = Fetcher.createFetcher(LOCATION_ENDPOINT)
+export const PageFetcher = createFetcher(PAGE_ENDPOINT)
+export const DisclaimerFetcher = createFetcher(DISCLAIMER_ENDPOINT)
+export const LanguageFetcher = createFetcher(LANGUAGE_ENDPOINT)
+export const LocationFetcher = createFetcher(LOCATION_ENDPOINT)
