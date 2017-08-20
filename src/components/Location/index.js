@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Spinner from 'react-spinkit'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 
@@ -78,8 +77,7 @@ class Location extends React.Component {
       <div>
         <div className={style.languageList}>
           {
-            isEmpty(this.props.locations) ? <Spinner className={style.loading} name='line-scale-party'/>
-              : this.renderList(this.props.locations)
+            this.renderList(this.props.locations)
           }
         </div>
       </div>

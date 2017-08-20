@@ -1,53 +1,25 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
-import Layout from 'components/Layout'
 import Error from 'components/Error'
-import LANGUAGE_ENDPOINT from 'endpoints/language'
+import RichLayout from 'components/RichLayout'
 
 class ErrorPage extends React.Component {
-  static propTypes = {
-    language: PropTypes.string.isRequired
-  }
-
-  componentWillUnmount () {
-    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
-  }
-
-  componentWillMount () {
-    let location = this.getLocation()
-    if (!location) {
-      // Don't fetch language options if we have an invalid URL for example
-      return
-    }
-    this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
-      location: location,
-      language: this.props.language
-    }))
-  }
-
   getLocation () {
     return this.props.match.params.location
   }
 
   render () {
-    return (
-      <Layout currentLanguage={this.props.language}>
-        <Error error="errors:page.notFound"/>
-      </Layout>
-    )
+    if (this.getLocation()) {
+      // Location can be undefined if the url does not contain a location
+      return (
+        <RichLayout location={this.getLocation()}>
+          <Error error="errors:page.notFound"/>
+        </RichLayout>
+      )
+    } else {
+      return <Error error="errors:page.notFound"/>
+    }
   }
 }
 
-/**
- * @param state The current app state
- * @return {{locations: {}}}  The endpoint values from the state mapped to props
- */
-function mapStateToProps (state) {
-  return ({
-    language: state.language.language
-  })
-}
-
-export default connect(mapStateToProps)(ErrorPage)
+export default ErrorPage
