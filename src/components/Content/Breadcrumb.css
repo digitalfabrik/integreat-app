@@ -1,3 +1,5 @@
+@import url('../Helper/Helper.css');
+
 .breadcrumbs {
   margin-bottom: 20px;
 }
@@ -16,6 +18,10 @@
   font-size: 20px;
 
   user-select: none;
+}
+
+.breadcrumb {
+  @mixin remove-a;
 }
 
 .breadcrumb:last-child .level {

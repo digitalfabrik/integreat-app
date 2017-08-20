@@ -1,3 +1,5 @@
+@import url('../Helper/Helper.css');
+
 :root {
   --logo-padding: 10px;
   --header-height: 85px;
@@ -46,6 +48,7 @@
 
 .item,
 .drop-down-item {
+  @mixin remove-a;
   display: flex;
   height: 100%;
   flex-basis: var(--header-height);
@@ -53,7 +56,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 10px;
-  color: #555 !important; /* helperclass :( */
+  color: #555;
   font-size: 3rem;
   transition: color 0.2s, border-radius 0.2s;
   border-radius: 40px;
@@ -70,14 +73,14 @@
 }
 
 .item:hover {
-  color: black !important;
+  color: black;
   border-radius: 0;
   cursor: pointer;
 }
 
 .item-active,
 .item-active:hover {
-  color: black !important;
+  color: black;
   border-radius: 0;
 }
 

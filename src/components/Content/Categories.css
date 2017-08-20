@@ -1,3 +1,5 @@
+@import url('../Helper/Helper.css');
+
 .thumbnail {
   display: block;
   width: 150px;
@@ -18,4 +20,8 @@
 
 .category {
   padding-bottom: 10px;
+}
+
+.category a {
+  @mixin remove-a;
 }

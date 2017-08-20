@@ -6,7 +6,6 @@ import FontAwesome from 'react-fontawesome'
 import HeaderDropDown from './HeaderDropDown'
 
 import style from './Header.css'
-import helper from 'components/Helper/Helper.css'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
 import LanguageFlyout from 'components/LanguageFlyout'
@@ -23,7 +22,7 @@ class NavElement extends React.Component {
   render () {
     return (
       <NavLink exact to={this.props.to} activeClassName={this.props.disableActiveStyle ? '' : style.itemActive}
-               className={cx(this.props.className, helper.removeA)}>
+               className={this.props.className}>
         {this.props.children}
       </NavLink>
     )

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 import style from './Breadcrumb.css'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
 import { Link } from 'react-router-dom'
-import helper from 'components/Helper/Helper.css'
-import cx from 'classnames'
 
 export default class Breadcrumb extends React.Component {
   static propTypes = {
@@ -17,7 +15,7 @@ export default class Breadcrumb extends React.Component {
     let hierarchy = this.props.hierarchy
     return <div className={style.breadcrumbs}>{hierarchy.map((page, path) => {
       return (
-        <Link className={cx(helper.removeA, style.breadcrumb)} key={page.id}
+        <Link className={style.breadcrumb} key={page.id}
               to={'/location/' + this.props.location + path}>
           <span className={style.separator}/>
           <span className={style.level}>{ page.title }</span>

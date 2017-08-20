@@ -1,3 +1,9 @@
+@import url('../Helper/Helper.css');
+
+.list a {
+  @mixin remove-a;
+}
+
 .element {
   height: 50px;
 }

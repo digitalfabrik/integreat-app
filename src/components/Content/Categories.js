@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './Categories.css'
-import helper from 'components/Helper/Helper.css'
 
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-flexbox-grid'
@@ -17,7 +16,7 @@ class Category extends React.Component {
   render () {
     return (
       <Col xs={6} sm={4} className={style.category}>
-        <Link className={helper.removeA} to={this.props.url}>
+        <Link to={this.props.url}>
           <img className={style.thumbnail} src={this.props.page.thumbnail}/>
           <div className={style.caption}>{this.props.page.title}</div>
         </Link>

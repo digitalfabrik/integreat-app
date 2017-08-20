@@ -1,9 +1,4 @@
-.remove-a:link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.remove-a:visited {
+@define-mixin remove-a {
   color: inherit;
   text-decoration: none;
 }
