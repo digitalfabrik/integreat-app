@@ -10,7 +10,7 @@ import style from './Fetcher.css'
 function createStateToPropsMapper (endpoint) {
   return (state, prevProps) => {
     const newOptions = Object.assign({}, prevProps.endpointOptions, endpoint.mapStateToOptions(state))
-    const props = { endpointOptions: newOptions }
+    const props = {endpointOptions: newOptions}
     props[endpoint.payloadName] = state[endpoint.stateName]
     return props
   }
@@ -24,6 +24,12 @@ function createFetcher (endpoint) {
       hideSpinner: PropTypes.bool,
       className: PropTypes.string
     }
+
+    static defaultProps = {
+      endpointOptions: {}
+    }
+
+    static displayName = endpoint.name + 'Fetcher'
 
     fetch () {
       const urlParams = endpoint.mapOptionsToUrlParams(this.props.endpointOptions)
@@ -81,11 +87,8 @@ function createFetcher (endpoint) {
       }
     }
   }
-  Fetcher.defaultProps = {
-    endpointOptions: {}
-  }
-  Fetcher.displayName = endpoint.name + 'Fetcher'
-  return connect(createStateToPropsMapper(endpoint))(Fetcher)
+
+  connect(createStateToPropsMapper(endpoint))(Fetcher)
 }
 
-export default { createFetcher }
+export default {createFetcher}
