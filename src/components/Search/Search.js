@@ -7,8 +7,8 @@ import style from './Search.css'
 
 class Search extends React.Component {
   static propTypes = {
-    filterText: PropTypes.string,
-    onFilterTextChange: PropTypes.any
+    filterText: PropTypes.string.isRequired,
+    onFilterTextChange: PropTypes.func.isRequired
   }
 
   render () {

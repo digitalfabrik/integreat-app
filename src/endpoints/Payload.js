@@ -13,6 +13,10 @@ export default class Payload {
     return this._data
   }
 
+  ready () {
+    return !!this._data
+  }
+
   get error () {
     return this._error
   }
