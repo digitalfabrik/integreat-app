@@ -27,7 +27,7 @@ class DisclaimerPage extends React.Component {
   render () {
     return (
       <RichLayout location={this.getLocation()}>
-        <DisclaimerFetcher location={this.getLocation()}>
+        <DisclaimerFetcher endpointOptions={{location: this.getLocation()}}>
           <PageAdapter/>
         </DisclaimerFetcher>
       </RichLayout>

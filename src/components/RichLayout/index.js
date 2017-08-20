@@ -41,7 +41,7 @@ class RichLayout extends React.Component {
 
   render () {
     return (<div>
-        <LanguageFetcher location={this.props.location} hideError={true} hideSpinner={true}>
+        <LanguageFetcher endpointOptions={{location: this.props.location}} hideError={true} hideSpinner={true}>
           <HeaderAdapter languageCallback={this.gotoParent} language={this.props.language} location={this.props.location}/>
         </LanguageFetcher>
 

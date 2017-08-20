@@ -48,7 +48,7 @@ class LocationPage extends React.Component {
   render () {
     return (
       <RichLayout location={this.getLocation()}>
-        <PageFetcher location={this.getLocation()}>
+        <PageFetcher endpointOptions={{location: this.getLocation()}}>
           <PageAdapter location={this.getLocation()} path={this.props.match.params.path}/>
         </PageFetcher>
       </RichLayout>

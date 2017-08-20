@@ -71,7 +71,7 @@ class SearchPage extends React.Component {
   render () {
     return (
       <RichLayout location={this.getLocation()}>
-        <PageFetcher location={this.getLocation()}>
+        <PageFetcher endpointOptions={{location: this.getLocation()}}>
           <Search className={style.searchSpacing}
                   filterText={this.state.filterText}
                   onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
