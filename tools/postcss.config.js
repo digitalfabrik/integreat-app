@@ -15,6 +15,7 @@ module.exports = () => ({
     require('postcss-media-minmax')(),
     // W3C CSS Custom Selectors, e.g. @custom-selector :--heading h1, h2, h3, h4, h5, h6;
     // https://github.com/postcss/postcss-custom-selectors
+    require('postcss-mixins')(),
     require('postcss-custom-selectors')(),
     // W3C calc() function, e.g. div { height: calc(100px - 2em); }
     // https://github.com/postcss/postcss-calc

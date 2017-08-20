@@ -83,6 +83,7 @@
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.5",
     "postcss-media-minmax": "^3.0.0",
+    "postcss-mixins": "^6.1.0",
     "postcss-nesting": "^4.0.1",
     "postcss-selector-matches": "^3.0.1",
     "postcss-selector-not": "^3.0.1",
