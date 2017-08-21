@@ -54,5 +54,7 @@ export default new Endpoint({
     language: options.language,
     since: BIRTH_OF_UNIVERSE
   }),
-  shouldRefetch: (options, nextOptions) => (options.language !== nextOptions.language)
+  shouldRefetch: (options, nextOptions) => {
+    return (options.language !== nextOptions.language)
+  }
 })

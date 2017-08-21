@@ -35,14 +35,19 @@ class RichLayout extends React.Component {
     this.gotoParent = this.gotoParent.bind(this)
   }
 
+  getParentPath () {
+    return '/location/' + this.props.location
+  }
+
   gotoParent () {
-    // history.push(this.getParentPath()) fixme
+    history.push(this.getParentPath())
   }
 
   render () {
     return (<div>
         <LanguageFetcher options={{location: this.props.location}} hideError={true} hideSpinner={true}>
-          <HeaderAdapter languageCallback={this.gotoParent} language={this.props.language} location={this.props.location}/>
+          <HeaderAdapter languageCallback={this.gotoParent} language={this.props.language}
+                         location={this.props.location}/>
         </LanguageFetcher>
 
         <Layout className={this.props.className}>
