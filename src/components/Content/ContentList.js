@@ -7,7 +7,6 @@ import { map } from 'lodash/collection'
 import { Link } from 'react-router-dom'
 
 import style from './ContentList.css'
-import helper from 'components/Helper/Helper.css'
 import PageModel from 'endpoints/models/PageModel'
 
 class ContentListElement extends React.Component {
@@ -18,7 +17,7 @@ class ContentListElement extends React.Component {
 
   render () {
     return (
-      <Link className={helper.removeA} to={this.props.url}>
+      <Link to={this.props.url}>
         <div className={style.row}>
           <div className={cx(style.elementImage, style.element)}>
             <img className={style.image} src={this.props.page.thumbnail}/>
@@ -37,7 +36,7 @@ class ContentList extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={style.list}>
         {
           map(this.props.pages, (page, url) => {
             return <ContentListElement key={url} url={url} page={page}/>

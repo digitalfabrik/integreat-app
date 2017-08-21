@@ -7,7 +7,6 @@ import FontAwesome from 'react-fontawesome'
 import Navigation from 'Navigation'
 
 import LanguageFlyout from 'components/LanguageFlyout'
-import helper from 'components/Helper/Helper.css'
 
 import LanguageModel from 'endpoints/models/LanguageModel'
 
@@ -27,7 +26,7 @@ class NavElement extends React.Component {
   render () {
     return (
       <NavLink exact to={this.props.to} activeClassName={this.props.disableActiveStyle ? '' : style.itemActive}
-               className={cx(this.props.className, helper.removeA)}>
+               className={this.props.className}>
         {this.props.children}
       </NavLink>
     )

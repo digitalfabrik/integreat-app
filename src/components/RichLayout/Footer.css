@@ -1,3 +1,5 @@
+@import url('../Helper/Helper.css');
+
 .footer {
   display: flex;
   justify-content: center;
@@ -8,6 +10,6 @@
 }
 
 .item {
+  @mixin remove-a;
   font-family: 'Raleway', 'El Messiri', sans-serif;
-  font-weight: 300;
 }

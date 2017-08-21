@@ -1,7 +1,9 @@
+@import url('../Helper/Helper.css');
+
 :root {
   --logo-padding: 10px;
-  --header-height: 100px;
-  --header-height-small: 85px;
+  --header-height: 85px;
+  --header-height-small: 70px;
 }
 
 .spacer {
@@ -46,6 +48,7 @@
 
 .item,
 .drop-down-item {
+  @mixin remove-a;
   display: flex;
   height: 100%;
   flex-basis: var(--header-height);
@@ -53,12 +56,14 @@
   align-items: center;
   justify-content: center;
   margin: 0 10px;
+  color: #888;
   font-size: 3rem;
-  transition: background-color 0.2s, border-radius 0.2s;
+  transition: color 0.2s, border-radius 0.2s;
   border-radius: 40px;
 }
 
 .font-awesome {
+  color: inherit;
   line-height: var(--header-height);
 }
 
@@ -68,14 +73,14 @@
 }
 
 .item:hover {
-  background-color: rgba(251, 218, 24, 0.5);
+  color: black;
   border-radius: 0;
   cursor: pointer;
 }
 
 .item-active,
 .item-active:hover {
-  background-color: #FBDA16;
+  color: black;
   border-radius: 0;
 }
 
@@ -104,6 +109,7 @@
   display: none;
 }
 
+/* smaller home-icon */
 @media screen and (max-width: 700px) {
   .logo {
     padding: 0 5px;
@@ -123,6 +129,7 @@
   }
 }
 
+/* landscape mobile / nottablet */
 @media screen and (orientation:landscape) and (max-width: 800px), screen and (max-width: 425px) {
   .header {
     height: var(--header-height-small);
@@ -143,10 +150,11 @@
   .item,
   .drop-down-item {
     flex-basis: var(--header-height-small);
-    font-size: 2.7rem;
+    font-size: 2.3rem;
   }
 }
 
+/* mobile portrait / desktop small window / ... */
 @media screen and (max-width: 425px) {
   .logo {
     display: none;

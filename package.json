@@ -83,6 +83,7 @@
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.5",
     "postcss-media-minmax": "^3.0.0",
+    "postcss-mixins": "^6.1.0",
     "postcss-nesting": "^4.0.1",
     "postcss-selector-matches": "^3.0.1",
     "postcss-selector-not": "^3.0.1",
@@ -94,6 +95,7 @@
     "stylelint": "^7.9.0",
     "stylelint-config-anfema": "^4.3.1",
     "stylelint-order": "^0.5.0",
+    "stylelint-webpack-plugin": "^0.9.0",
     "url-loader": "^0.5.8",
     "webpack": "^3.0.0",
     "webpack-dev-middleware": "^1.10.1",
@@ -130,15 +132,9 @@
       "react"
     ]
   },
-  "stylelint": {
-    "extends": "stylelint-config-anfema",
-    "rules": {
-      "indentation": 2
-    }
-  },
   "scripts": {
     "eslint": "eslint src test tools postcss.config.js webpack.config.js",
-    "stylelint": "stylelint \"src/**/*.css\"",
+    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint",
     "test": "env NODE_PATH=$NODE_PATH:$PWD/src mocha --compilers js:babel-register",
     "test:watch": "env NODE_PATH=$NODE_PATH:$PWD/src mocha --compilers js:babel-register --reporter min --watch",
