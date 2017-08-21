@@ -7,7 +7,6 @@ import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import { PageFetcher } from 'endpoints'
 
-import style from './style.css'
 import Hierarchy from './Hierarchy'
 
 class PageAdapter extends React.Component {

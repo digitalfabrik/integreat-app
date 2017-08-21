@@ -7,7 +7,6 @@ import FontAwesome from 'react-fontawesome'
 import Navigation from 'Navigation'
 
 import LanguageFlyout from 'components/LanguageFlyout'
-import helper from 'components/Helper/Helper.css'
 
 import LanguageModel from 'endpoints/models/LanguageModel'
 
