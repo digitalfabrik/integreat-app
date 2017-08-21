@@ -36,3 +36,5 @@ export default class PageModel {
     return this._children
   }
 }
+
+export const EMPTY_PAGE = new PageModel()

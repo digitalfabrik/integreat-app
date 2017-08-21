@@ -1,11 +1,21 @@
 import Endpoint from './Endpoint'
 import { reduce } from 'lodash'
+import PropTypes from 'prop-types'
 import PageModel from './models/PageModel'
 
-export default new Endpoint(
-  'disclaimer',
-  'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
-  (json) => {
+const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
+
+export default new Endpoint({
+  name: 'disclaimer',
+  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
+  optionsPropType: PropTypes.shape({
+    location: PropTypes.string.isRequired,
+    language: PropTypes.string
+  }),
+  jsonToAny: (json) => {
+    if (!json) {
+      return {}
+    }
     return reduce(json, (result, page) => {
       if (page.status !== 'publish') {
         return
@@ -18,5 +28,12 @@ export default new Endpoint(
         page.thumbnail
       )
     })
-  }
-)
+  },
+  mapStateToOptions: (state) => ({language: state.language.language}),
+  mapOptionsToUrlParams: (options) => ({
+    location: options.location,
+    language: options.language,
+    since: BIRTH_OF_UNIVERSE
+  }),
+  shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
+})

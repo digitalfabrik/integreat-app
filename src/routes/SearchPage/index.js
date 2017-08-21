@@ -1,78 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
+import { forEach } from 'lodash/collection'
 import normalizeUrl from 'normalize-url'
 
-import Layout from 'components/Layout'
-import LANGUAGE_ENDPOINT from 'endpoints/language'
-import Payload from 'endpoints/Payload'
 import ContentList from 'components/Content/ContentList'
-import PAGE_ENDPOINT from 'endpoints/page'
-import { forEach } from 'lodash/collection'
-import Search from '../../components/Search/Search'
+import Search from 'components/Search/Search'
+import RichLayout from 'components/RichLayout'
+import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
 
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
-
-class SearchPage extends React.Component {
+class ContentListAdapter extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired,
-    pagePayload: PropTypes.instanceOf(Payload).isRequired
-  }
-
-  constructor () {
-    super()
-
-    this.state = {
-      filterText: ''
-    }
-    this.changeLanguage = this.changeLanguage.bind(this)
-    this.fetchData = this.fetchData.bind(this)
-  }
-
-  changeLanguage (language) {
-    // Invalidate
-    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
-
-    // Re-fetch
-    this.fetchData(language)
-  }
-
-  componentWillUnmount () {
-    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
-  }
-
-  componentWillMount () {
-    this.fetchData(this.props.language)
-  }
-
-  fetchData (languageCode) {
-    let location = this.getLocation()
-    this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
-      location: location,
-      language: languageCode
-    }))
-    this.props.dispatch(PAGE_ENDPOINT.fetchEndpointAction({
-      location: location,
-      language: languageCode,
-      since: BIRTH_OF_UNIVERSE
-    }, {location: location}))
+    location: PropTypes.string.isRequired,
+    filterText: PropTypes.string.isRequired
   }
 
   getParentPath () {
-    return '/location/' + this.getLocation()
-  }
-
-  getLocation () {
-    return this.props.match.params.location
+    return '/location/' + this.props.location
   }
 
   acceptPage (page) {
     let title = page.title.toLowerCase()
     let content = page.content
-    let filterText = this.state.filterText.toLowerCase()
+    let filterText = this.props.filterText.toLowerCase()
     // todo:  comparing the content like this is quite in-efficient and can cause lags
     // todo:  1) Do this work in an other thread 2) create an index
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
@@ -101,29 +53,34 @@ class SearchPage extends React.Component {
 
   render () {
     let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
-    let page = this.props.pagePayload.data
 
+    return <ContentList pages={this.findPages(url, this.props.pages)}/>
+  }
+}
+
+class SearchPage extends React.Component {
+  constructor () {
+    super()
+    this.state = {filterText: ''}
+  }
+
+  getLocation () {
+    return this.props.match.params.location
+  }
+
+  render () {
     return (
-      <Layout currentLanguage={this.props.language}
-              currentLocation={this.getLocation()}
-              languageCallback={this.changeLanguage}>
-        <Search className={style.searchSpacing} filterText={this.state.filterText}
-                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-        <ContentList pages={this.findPages(url, page)}/>
-      </Layout>
+      <RichLayout location={this.getLocation()}>
+        <PageFetcher options={{location: this.getLocation()}}>
+          <Search className={style.searchSpacing}
+                  filterText={this.state.filterText}
+                  onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
+          />
+          <ContentListAdapter location={this.getLocation()} filterText={this.state.filterText}/>
+        </PageFetcher>
+      </RichLayout>
     )
   }
 }
 
-/**
- * @param state The current app state
- * @return {{locations: {}}}  The endpoint values from the state mapped to props
- */
-function mapStateToProps (state) {
-  return ({
-    language: state.language.language,
-    pagePayload: state.pages
-  })
-}
-
-export default connect(mapStateToProps)(SearchPage)
+export default SearchPage
