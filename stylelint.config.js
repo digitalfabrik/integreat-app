@@ -6,15 +6,8 @@ module.exports = {
       true,
       {
         ignoreAtRules: [
-          'else',
-          'for',
-          'function',
-          'if',
-          'include',
           'mixin',
-          'define-mixin',
-          'return',
-          'while'
+          'define-mixin'
         ]
       }
     ]
