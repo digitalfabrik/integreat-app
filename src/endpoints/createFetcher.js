@@ -31,13 +31,13 @@ function createFetcher (endpoint) {
 
     static displayName = endpoint.name + 'Fetcher'
 
-    fetch () {
-      const urlParams = endpoint.mapOptionsToUrlParams(this.props.options)
+    fetch (props) {
+      const urlParams = endpoint.mapOptionsToUrlParams(props.options)
       if (!urlParams) {
         throw new Error('mapOptionsToUrlParams(options) returned nothing')
       }
 
-      this.props.dispatch(endpoint.fetchEndpointAction(urlParams, this.props.options))
+      this.props.dispatch(endpoint.fetchEndpointAction(urlParams, props.options))
     }
 
     invalidate () {
@@ -49,11 +49,11 @@ function createFetcher (endpoint) {
     }
 
     componentWillMount () {
-      this.fetch()
+      this.fetch(this.props)
     }
 
     componentWillUpdate (nextProps) {
-      if (endpoint.shouldRefetch(this.props, nextProps)) {   // todo: this will need some more work to test -> an other issue as
+      if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {  // todo: this will need some more work to test -> an other issue as
         // this is getting too big
         this.fetch(nextProps)
       }
