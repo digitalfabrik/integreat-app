@@ -10,6 +10,28 @@ import Page from './Page'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
 import Error from 'components/Error'
 import TitledContentList from './TitledContentList'
+import { forEach } from 'lodash/collection'
+
+function processChunkedResponse (response) {
+  let text = ''
+  const reader = response.body.getReader()
+  const decoder = new TextDecoder()
+
+  return readChunk()
+
+  function readChunk () {
+    return reader.read().then(appendChunks)
+  }
+
+  function appendChunks (result) {
+    text += decoder.decode(result.value || new Uint8Array(), {stream: !result.done})
+    if (result.done) {
+      return text
+    } else {
+      return readChunk()
+    }
+  }
+}
 
 class Content extends React.Component {
   static propTypes = {
@@ -17,10 +39,53 @@ class Content extends React.Component {
     url: PropTypes.string.isRequired
   }
 
-  renderPages () {
-    let hierarchy = this.props.hierarchy
+  constructor (params) {
+    super(params)
+    this.state = {pdf: ''}
+  }
 
-    let page = hierarchy.top()
+  componentDidMount () {
+    const hierarchy = this.props.hierarchy
+    const page = hierarchy.top()
+    this.fetchUrl(page)
+  }
+
+  fetchUrl (page) {
+    const url = 'https://cms.integreat-app.de/augsburg/wp-admin/admin-ajax.php'
+
+    const params = {
+      action: 'frontEndDownloadPDF',
+      requestType: 'page',
+      myContent: `${page.id}`,
+      pdfOptions: `,,${page.id}_file,,`,
+      'ajaxVars[ajaxurl]': 'https://cms.integreat-app.de/ahaus/wp-admin/admin-ajax.php',
+      font: '',
+      fontcolor: '',
+      bgcolor: '',
+      linkcolor: '',
+    }
+
+    let body = new URLSearchParams(params)
+    forEach(params, (value, key) => body.append(key, value))
+
+    let requestParams = {
+      method: 'POST',
+      mode: 'cors',
+      body
+    }
+    fetch(url, requestParams)
+      .then(processChunkedResponse)
+      .then((text) => {
+        return text.match(/(https?:\/\/)cms\.integreat-app\.de\/augsburg\/wp-content\/uploads\/[/\w-]*\.pdf/)[0]
+      })
+      .then((url) => {
+        return this.setState({pdf: url})
+      })
+  }
+
+  renderPages () {
+    const hierarchy = this.props.hierarchy
+    const page = hierarchy.top()
 
     let children = values(page.children).length
 
@@ -41,6 +106,7 @@ class Content extends React.Component {
 
   render () {
     return <div>
+      {this.state.pdf}
       {this.renderPages()}
     </div>
   }
