@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import normalizeUrl from 'normalize-url'
 import { transform, values } from 'lodash/object'
-
+import FontAwesome from 'react-fontawesome'
 import Categories from './Categories'
 import Page from './Page'
 
@@ -11,6 +11,8 @@ import Hierarchy from 'routes/LocationPage/Hierarchy'
 import Error from 'components/Error'
 import TitledContentList from './TitledContentList'
 import { forEach } from 'lodash/collection'
+
+import style from './index.css'
 
 function processChunkedResponse (response) {
   let text = ''
@@ -41,16 +43,14 @@ class Content extends React.Component {
 
   constructor (params) {
     super(params)
-    this.state = {pdf: ''}
+    this.state = {pdf: '', loading: false}
   }
 
-  componentDidMount () {
+  fetchUrl () {
+    this.setState(Object.assign({}, this.state, {loading: true}))
+
     const hierarchy = this.props.hierarchy
     const page = hierarchy.top()
-    this.fetchUrl(page)
-  }
-
-  fetchUrl (page) {
     const url = 'https://cms.integreat-app.de/augsburg/wp-admin/admin-ajax.php'
 
     const params = {
@@ -79,7 +79,10 @@ class Content extends React.Component {
         return text.match(/(https?:\/\/)cms\.integreat-app\.de\/augsburg\/wp-content\/uploads\/[/\w-]*\.pdf/)[0]
       })
       .then((url) => {
-        return this.setState({pdf: url})
+        this.setState({pdf: url, loading: false})
+      })
+      .catch(() => {
+        this.setState({loading: false})
       })
   }
 
@@ -104,10 +107,22 @@ class Content extends React.Component {
     throw new Error('The page ' + page + ' is not renderable!')
   }
 
+  getCurrentPDFOption () {
+    if (this.state.loading) {
+      return <FontAwesome name='spinner'/>
+    } else if (this.state.pdf) {
+      return <FontAwesome name='file-pdf-o' onClick={() => window.open(this.state.pdf, '_blank')}/>
+    } else {
+      return <FontAwesome name='download' onClick={() => this.fetchUrl()}/>
+    }
+  }
+
   render () {
     return <div>
-      {this.state.pdf}
       {this.renderPages()}
+      <div className={style.pdfWrapper}>
+        {this.getCurrentPDFOption()}
+      </div>
     </div>
   }
 }
