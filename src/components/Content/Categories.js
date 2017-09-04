@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-flexbox-grid'
 import PageModel from 'endpoints/models/PageModel'
 import { map } from 'lodash/collection'
+import PDFButton from './PDFButton'
 
 class Category extends React.Component {
   static propTypes = {
@@ -27,18 +28,22 @@ class Category extends React.Component {
 
 export default class Categories extends React.Component {
   static propTypes = {
-    pages: PropTypes.object.isRequired
+    parentPage: PropTypes.instanceOf(PageModel).isRequired,
+    children: PropTypes.object.isRequired
   }
 
   render () {
     return (
-      <Row>
-        {
-          map(this.props.pages, (page, url) => {
-            return <Category key={page.id} url={url} page={page}/>
-          })
-        }
-      </Row>
+      <div>
+        <Row>
+          {
+            map(this.props.children, (page, url) => {
+              return <Category key={page.id} url={url} page={page}/>
+            })
+          }
+        </Row>
+        <PDFButton requestType="allpages" parentPage={this.props.parentPage} pages={[]}/>
+      </div>
     )
   }
 }

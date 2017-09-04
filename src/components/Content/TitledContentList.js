@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import style from './TitledContentList.css'
 import PageModel from 'endpoints/models/PageModel'
 import ContentList from './ContentList'
+import PDFButton from './PDFButton'
+import { values } from 'lodash/object'
 
 class TitledContentList extends React.Component {
   static propTypes = {
@@ -21,6 +23,7 @@ class TitledContentList extends React.Component {
           </div>
         </div>
         <ContentList pages={this.props.pages}/>
+        <PDFButton requestType="page" parentPage={this.props.parentPage} pages={values(this.props.pages)}/>
       </div>
     )
   }
