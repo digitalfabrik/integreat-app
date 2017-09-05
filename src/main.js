@@ -39,11 +39,19 @@ let App = (
       <Fragment forRoute="/">
         <div>
           <Fragment forRoute="/"><LandingPage/></Fragment>
-          <Fragment forRoute="/:language/landing"><LandingPage/></Fragment>
-          <Fragment forRoute="/:language/:location/location(/*)"><LocationPage/></Fragment>
-          <Fragment forRoute="/:language/:location/search"><SearchPage/></Fragment>
-          <Fragment forRoute="/:language/:location/disclaimer"><DisclaimerPage/></Fragment>
-          <Fragment forNoMatch><ErrorPage/></Fragment>
+          <Fragment forRoute="/:language">
+              <div>
+                <Fragment forRoute="/:location">
+                  <div>
+                    <Fragment forRoute="/location(/*)"><LocationPage/></Fragment>
+                    <Fragment forRoute="/search"><SearchPage/></Fragment>
+                    <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
+                    <Fragment forRoute="/(*)"><LocationPage/></Fragment>
+                  </div>
+                </Fragment>
+                <Fragment forRoute="/"><LandingPage/></Fragment>
+              </div>
+          </Fragment>
         </div>
       </Fragment>
     </Provider>
