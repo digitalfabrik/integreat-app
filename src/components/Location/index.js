@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 
 import style from './style.css'
 import { transform } from 'lodash/object'
+import { Link } from 'redux-little-router'
 
 class LocationParentEntry extends React.Component {
   static propTypes = {
@@ -20,15 +20,14 @@ class LocationParentEntry extends React.Component {
 
 class LocationEntry extends React.Component {
   static propTypes = {
-    location: PropTypes.object,
-    locationCallback: PropTypes.func
+    language: PropTypes.string,
+    location: PropTypes.object.isRequired
   }
 
   render () {
     let location = this.props.location
     return (
-      <Link to={'/location' + location.path}
-            className={style.languageListItem}>
+      <Link href={`/location${location.path}${this.props.language}`} className={style.languageListItem}>
         <div>{location.name}</div>
       </Link>
     )
@@ -38,8 +37,8 @@ class LocationEntry extends React.Component {
 class Location extends React.Component {
   static propTypes = {
     locations: PropTypes.object,
-    filterText: PropTypes.string,
-    locationCallback: PropTypes.func
+    filterText: PropTypes.string.isRequired,
+    language: PropTypes.string
   }
 
   filter (locations) {
@@ -65,7 +64,7 @@ class Location extends React.Component {
       let parent = <LocationParentEntry key={key} name={key}/>
       let locationEntries = locations.map((location, index) => <LocationEntry location={location}
                                                                               key={key + index}
-                                                                              locationCallback={this.props.locationCallback}/>)
+                                                                              language={this.props.language}/>)
 
       result.push(parent)
       result.push(locationEntries)

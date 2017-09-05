@@ -4,10 +4,9 @@ import cx from 'classnames'
 
 import { map } from 'lodash/collection'
 
-import { Link } from 'react-router-dom'
-
 import style from './ContentList.css'
 import PageModel from 'endpoints/models/PageModel'
+import { Link } from 'redux-little-router'
 
 class ContentListElement extends React.Component {
   static propTypes = {
@@ -17,7 +16,7 @@ class ContentListElement extends React.Component {
 
   render () {
     return (
-      <Link to={this.props.url}>
+      <Link href={this.props.url}>
         <div className={style.row}>
           <div className={cx(style.elementImage, style.element)}>
             <img className={style.image} src={this.props.page.thumbnail}/>

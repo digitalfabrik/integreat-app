@@ -9,10 +9,7 @@ const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 export default new Endpoint({
   name: 'pages',
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
-  optionsPropType: PropTypes.shape({
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string
-  }),
+  optionsPropType: PropTypes.shape({}),
   jsonToAny: (json, options) => {
     if (!json) {
       return EMPTY_PAGE
@@ -48,7 +45,7 @@ export default new Endpoint({
     }, {})
     return new PageModel(0, options.location, 0, '', null, children)
   },
-  mapStateToOptions: (state) => ({language: state.language.language}),
+  mapStateToOptions: (state) => ({language: state.language.language, location: state.router.params.location}),
   mapOptionsToUrlParams: (options) => ({
     location: options.location,
     language: options.language,

@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
 import RichLayout from 'components/RichLayout'
 import { DisclaimerFetcher } from 'endpoints'
+import { setLanguage } from '../../actions'
 
 class PageAdapter extends React.Component {
   render () {
@@ -21,7 +22,7 @@ class DisclaimerPage extends React.Component {
   }
 
   getLocation () {
-    return this.props.match.params.location
+    return 'augsburg'
   }
 
   render () {

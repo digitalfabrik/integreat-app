@@ -8,6 +8,7 @@ import Error from 'components/Error'
 import { PageFetcher } from 'endpoints'
 
 import Hierarchy from './Hierarchy'
+import { setLanguage } from '../../actions'
 
 class PageAdapter extends React.Component {
   static propTypes = {
@@ -39,15 +40,11 @@ class PageAdapter extends React.Component {
 }
 
 class LocationPage extends React.Component {
-  getLocation () {
-    return this.props.match.params.location
-  }
-
   render () {
     return (
-      <RichLayout location={this.getLocation()}>
-        <PageFetcher options={{location: this.getLocation()}}>
-          <PageAdapter location={this.getLocation()} path={this.props.match.params.path}/>
+      <RichLayout location={'augsburg'}>
+        <PageFetcher options={{}}>
+          <PageAdapter location={'augsburg'} path={'/'}/>
         </PageFetcher>
       </RichLayout>
     )

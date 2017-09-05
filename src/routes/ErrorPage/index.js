@@ -4,15 +4,11 @@ import Error from 'components/Error'
 import RichLayout from 'components/RichLayout'
 
 class ErrorPage extends React.Component {
-  getLocation () {
-    return this.props.match.params.location
-  }
-
   render () {
-    if (this.getLocation()) {
+    if ('augsburg') {
       // Location can be undefined if the url does not contain a location
       return (
-        <RichLayout location={this.getLocation()}>
+        <RichLayout location={'augsburg'}>
           <Error error="errors:page.notFound"/>
         </RichLayout>
       )

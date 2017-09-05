@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 import style from './Categories.css'
 
-import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-flexbox-grid'
 import PageModel from 'endpoints/models/PageModel'
 import { map } from 'lodash/collection'
 import PDFButton from './PDFButton'
+import { Link } from 'redux-little-router'
 
 class Category extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ class Category extends React.Component {
   render () {
     return (
       <Col xs={6} sm={4} className={style.category}>
-        <Link to={this.props.url}>
+        <Link href={this.props.url}>
           <img className={style.thumbnail} src={this.props.page.thumbnail}/>
           <div className={style.caption}>{this.props.page.title}</div>
         </Link>

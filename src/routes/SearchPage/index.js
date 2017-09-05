@@ -10,6 +10,7 @@ import RichLayout from 'components/RichLayout'
 import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
+import { setLanguage } from '../../actions'
 
 class ContentListAdapter extends React.Component {
   static propTypes = {
@@ -65,7 +66,7 @@ class SearchPage extends React.Component {
   }
 
   getLocation () {
-    return this.props.match.params.location
+    return 'augsburg'
   }
 
   render () {

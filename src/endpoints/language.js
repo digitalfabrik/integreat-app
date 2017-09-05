@@ -5,9 +5,7 @@ import PropTypes from 'prop-types'
 export default new Endpoint({
   name: 'languages',
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/languages/wpml',
-  optionsPropType: PropTypes.shape({
-    location: PropTypes.string.isRequired
-  }),
+  optionsPropType: PropTypes.shape({}),
   jsonToAny: json => {
     if (!json) {
       return []

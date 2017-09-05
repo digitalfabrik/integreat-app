@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import FontAwesome from 'react-fontawesome'
@@ -15,6 +14,7 @@ import HeaderDropDown from './HeaderDropDown'
 import style from './Header.css'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
+import { Link } from 'redux-little-router'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -25,10 +25,10 @@ class NavElement extends React.Component {
 
   render () {
     return (
-      <NavLink exact to={this.props.to} activeClassName={this.props.disableActiveStyle ? '' : style.itemActive}
-               className={this.props.className}>
+      <Link href={this.props.to} activeProps={{className: this.props.disableActiveStyle ? '' : style.itemActive}}
+        className={this.props.className}>
         {this.props.children}
-      </NavLink>
+      </Link>
     )
   }
 }
@@ -45,7 +45,7 @@ class Header extends React.Component {
     return (
       <header className={style.spacer}>
         <div className={style.header}>
-          { /* Logo */}
+          {/* Logo */}
           <NavElement to={this.props.navigation.home} className={style.logo} disableActiveStyle={true}>
             <img className={style.logoWide}
                  src={logoWide}/>
@@ -53,18 +53,18 @@ class Header extends React.Component {
                  src={logoSquare}/>
           </NavElement>
           <div className={style.itemsContainer}>
-            { /* Home for small devices */}
+            {/* Home for small devices */}
             <NavElement to={this.props.navigation.home} className={cx(style.item, style.itemHome)}>
               <FontAwesome className={style.fontAwesome} name='home'/>
             </NavElement>
-            { /* Location */}
+            {/* Location */}
             <NavElement to={this.props.navigation.search} className={cx(style.item, style.itemSearch)}>
               <FontAwesome className={style.fontAwesome} name='search'/>
             </NavElement>
             <NavElement to={this.props.navigation.locationSelection} className={cx(style.item, style.itemLocation)}>
               <FontAwesome className={style.fontAwesome} name='map-marker'/>
             </NavElement>
-            { /* Language */}
+            {/* Language */}
             <HeaderDropDown className={style.itemLanguage} fontAwesome="globe">
               <LanguageFlyout
                 languageCallback={this.props.languageCallback}

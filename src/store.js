@@ -1,14 +1,53 @@
-import { applyMiddleware, compose, createStore } from 'redux'
+import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
 
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import rootReducer from './reducers'
+
+import { handleAction } from 'redux-actions'
+import reduceReducers from 'reduce-reducers'
+import { routerForBrowser } from 'redux-little-router'
+
+import ENDPOINTS from './endpoints'
+import { DEFAULT_LANGUAGE, setLanguage } from './actions'
+import Payload from './endpoints/Payload'
+import routes from './routes'
+
+/**
+ * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
+ */
+let reducers = ENDPOINTS.reduce((result, endpoint) => {
+  let defaultState = new Payload(false)
+  let reducer = (state, action) => action.payload
+
+  result[endpoint.name] = reduceReducers(
+    handleAction(endpoint.receiveAction, reducer, defaultState),
+    handleAction(endpoint.requestAction, reducer, defaultState),
+    handleAction(endpoint.invalidateAction, reducer, defaultState)
+  )
+
+  return result
+}, {})
+
+// Additional reducers
+/**
+ * The reducer to store the current language
+ */
+reducers['language'] = handleAction(setLanguage,
+  (state, action) => ({...state, ...action.payload}),
+  {language: DEFAULT_LANGUAGE})
+
+const {
+  enhancer,
+  reducer,
+  middleware
+} = routerForBrowser({routes})
 
 /**
  * The middlewares of this app, add additional middlewares here
  * @type {[*]}
  */
 let middlewares = [
+  middleware,
   thunkMiddleware // Allows to return functions in actions
 ]
 
@@ -25,9 +64,9 @@ if (__DEV__) {
  */
 let configureStore = function configureStore (preloadedState) {
   return createStore(
-    rootReducer,
+    combineReducers({...reducers, router: reducer}),
     preloadedState,
-    compose(applyMiddleware(...middlewares))
+    compose(enhancer, applyMiddleware(...middlewares))
   )
 }
 
