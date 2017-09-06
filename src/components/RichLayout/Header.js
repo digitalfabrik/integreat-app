@@ -25,8 +25,9 @@ class NavElement extends React.Component {
 
   render () {
     return (
-      <Link href={this.props.to} activeProps={{className: this.props.disableActiveStyle ? '' : style.itemActive}}
-        className={this.props.className}>
+      <Link href={this.props.to}
+            activeProps={{className: this.props.disableActiveStyle ? this.props.className : cx(this.props.className, style.itemActive)}}
+            className={this.props.className}>
         {this.props.children}
       </Link>
     )

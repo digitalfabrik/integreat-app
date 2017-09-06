@@ -8,7 +8,6 @@ import reduceReducers from 'reduce-reducers'
 import { routerForBrowser } from 'redux-little-router'
 
 import ENDPOINTS from './endpoints'
-import { DEFAULT_LANGUAGE, setLanguage } from './actions'
 import Payload from './endpoints/Payload'
 import routes from './routes'
 
@@ -29,13 +28,6 @@ let reducers = ENDPOINTS.reduce((result, endpoint) => {
 }, {})
 
 // Additional reducers
-/**
- * The reducer to store the current language
- */
-reducers['language'] = handleAction(setLanguage,
-  (state, action) => ({...state, ...action.payload}),
-  {language: DEFAULT_LANGUAGE})
-
 const {
   enhancer,
   reducer,

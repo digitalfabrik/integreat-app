@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'redux-little-router'
 
 import Layout from 'components/Layout'
 import { LanguageFetcher } from 'endpoints'
@@ -10,7 +11,8 @@ import Footer from './Footer'
 
 class HeaderAdapter extends React.Component {
   static propTypes = {
-    location: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired
   }
 
   render () {
@@ -18,7 +20,7 @@ class HeaderAdapter extends React.Component {
       languages={this.props.languages}
       languageCallback={this.props.languageCallback}
       currentLanguage={this.props.language}
-      navigation={new Navigation(this.props.location)}
+      navigation={new Navigation(this.props.location, this.props.language)}
     />
   }
 }
@@ -26,7 +28,8 @@ class HeaderAdapter extends React.Component {
 class RichLayout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    location: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired
   }
 
   constructor (props) {
@@ -35,12 +38,12 @@ class RichLayout extends React.Component {
     this.gotoParent = this.gotoParent.bind(this)
   }
 
-  getParentPath () {
-    return '/location/' + this.props.location
+  getParentPath (newLanguage) {
+    return `/${newLanguage}/${this.props.location}/location`
   }
 
-  gotoParent () {
-    history.push(this.getParentPath()) // fixme
+  gotoParent (newLanguage) {
+    this.props.dispatch(push(this.getParentPath(newLanguage)))
   }
 
   render () {
@@ -54,7 +57,7 @@ class RichLayout extends React.Component {
           {this.props.children}
         </Layout>
 
-        <Footer navigation={new Navigation(this.props.location)}/>
+        <Footer navigation={new Navigation(this.props.location, this.props.language)}/>
       </div>
     )
   }

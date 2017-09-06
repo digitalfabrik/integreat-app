@@ -1,28 +1,23 @@
 class Navigation {
-  constructor (location) {
+  constructor (location, language) {
     this._location = location
+    this._language = language
   }
 
   get home () {
-    if (this._location) {
-      return '/location/' + this._location
-    }
-    return this.locationSelection
+    return `/${this._language}/${this._location}/location`
   }
 
   get locationSelection () {
-    return '/'
+    return `/${this._language}`
   }
 
   get search () {
-    return '/location/' + this._location + '/search'
+    return `/${this._language}/${this._location}/search`
   }
 
   get disclaimer () {
-    if (!this._location) {
-      return null
-    }
-    return '/location/' + this._location + '/disclaimer'
+    return `/${this._language}/${this._location}/disclaimer`
   }
 }
 

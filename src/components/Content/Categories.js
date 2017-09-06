@@ -11,7 +11,8 @@ import { Link } from 'redux-little-router'
 
 class Category extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired
+    page: PropTypes.instanceOf(PageModel).isRequired,
+    url: PropTypes.string.isRequired
   }
 
   render () {

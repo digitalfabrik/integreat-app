@@ -8,17 +8,17 @@ import Error from 'components/Error'
 import { PageFetcher } from 'endpoints'
 
 import Hierarchy from './Hierarchy'
-import { setLanguage } from '../../actions'
 import { connect } from 'react-redux'
 
 class PageAdapter extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     path: PropTypes.string
   }
 
   getParentPath () {
-    return '/location/' + this.props.location
+    return `/${this.props.language}/${this.props.location}/location`
   }
 
   render () {
@@ -34,6 +34,7 @@ class PageAdapter extends React.Component {
     return <div>
       <Breadcrumb
         hierarchy={hierarchy}
+        language={this.props.language}
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/></div>
@@ -42,22 +43,30 @@ class PageAdapter extends React.Component {
 
 class LocationPage extends React.Component {
   static propTypes = {
-    location: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    language: PropTypes.string.isRequired
   }
 
   render () {
     return (
       <RichLayout location={this.props.location}>
         <PageFetcher options={{}}>
-          <PageAdapter location={this.props.location} path={'/'}/>
+          <PageAdapter
+            location={this.props.location}
+            language={this.props.language}
+            path={this.props.path}/>
         </PageFetcher>
       </RichLayout>
     )
   }
 }
+
 function mapStateToProps (state) {
   return {
-    location: state.router.params.location
+    location: state.router.params.location,
+    language: state.router.params.language,
+    path: state.router.params['_'] // _ contains all the values from *
   }
 }
 

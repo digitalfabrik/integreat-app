@@ -3,12 +3,10 @@ import React from 'react'
 import cx from 'classnames'
 
 import PropTypes from 'prop-types'
-import { setLanguage } from 'actions'
-import { connect } from 'react-redux'
 import LanguageModel from 'endpoints/models/LanguageModel'
 import { isEmpty } from 'lodash/lang'
 
-let LanguageElement = connect()(class extends React.Component {
+class LanguageElement extends React.Component {
   static propTypes = {
     language: PropTypes.instanceOf(LanguageModel).isRequired,
     languageCallback: PropTypes.func,
@@ -23,7 +21,6 @@ let LanguageElement = connect()(class extends React.Component {
 
   handleClick () {
     let languageCode = this.props.language.code
-    this.props.dispatch(setLanguage(languageCode))
     this.props.languageCallback(languageCode)
   }
 
@@ -36,7 +33,7 @@ let LanguageElement = connect()(class extends React.Component {
       </div>
     )
   }
-})
+}
 
 export default class LanguageFlyout extends React.Component {
   static propTypes = {
