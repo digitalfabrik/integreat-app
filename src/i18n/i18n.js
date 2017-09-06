@@ -22,7 +22,14 @@ i18n
 
 function handleLanguageChange () {
   const state = store.getState()
-  const lang = state.router.params.language
+
+  let lang = i18n.languages[0]  // Use language from browser detection if it is not available in url
+                                // todo: redirect to correct url
+
+  if (state.router.params) {
+    lang = state.router.params.language
+  }
+
   // Handle ltr/rtl
   if (RTL_LANGUAGES.includes(lang)) {
     document.body.style.direction = 'rtl'

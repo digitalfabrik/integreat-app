@@ -63,10 +63,10 @@ class Header extends React.Component {
               <FontAwesome className={style.fontAwesome} name='search'/>
             </NavElement>
             <NavElement to={this.props.navigation.locationSelection} className={cx(style.item, style.itemLocation)}>
-              <FontAwesome className={style.fontAwesome} name='map-marker'/>
+              <FontAwesome className={style.fontAwesome} name='globe'/>
             </NavElement>
             {/* Language */}
-            <HeaderDropDown className={style.itemLanguage} fontAwesome="globe">
+            <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
               <LanguageFlyout
                 languageCallback={this.props.languageCallback}
                 languages={this.props.languages}

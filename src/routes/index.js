@@ -3,6 +3,9 @@ export default {
     title: 'Landing',
     '/:language': {
       title: 'Landing',
+      '/': {
+        title: 'Landing'
+      },
       '/:location': {
         '/(*)': {
           title: 'Search page'
