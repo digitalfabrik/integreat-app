@@ -9,6 +9,7 @@ import { PageFetcher } from 'endpoints'
 
 import Hierarchy from './Hierarchy'
 import { setLanguage } from '../../actions'
+import { connect } from 'react-redux'
 
 class PageAdapter extends React.Component {
   static propTypes = {
@@ -40,15 +41,24 @@ class PageAdapter extends React.Component {
 }
 
 class LocationPage extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired
+  }
+
   render () {
     return (
-      <RichLayout location={'augsburg'}>
+      <RichLayout location={this.props.location}>
         <PageFetcher options={{}}>
-          <PageAdapter location={'augsburg'} path={'/'}/>
+          <PageAdapter location={this.props.location} path={'/'}/>
         </PageFetcher>
       </RichLayout>
     )
   }
 }
+function mapStateToProps (state) {
+  return {
+    location: state.router.params.location
+  }
+}
 
-export default LocationPage
+export default connect(mapStateToProps)(LocationPage)

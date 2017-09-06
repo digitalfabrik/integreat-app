@@ -40,12 +40,12 @@ class RichLayout extends React.Component {
   }
 
   gotoParent () {
-    history.push(this.getParentPath())
+    history.push(this.getParentPath()) // fixme
   }
 
   render () {
     return (<div>
-        <LanguageFetcher options={{location: this.props.location}} hideError={true} hideSpinner={true}>
+        <LanguageFetcher options={{}} hideError={true} hideSpinner={true}>
           <HeaderAdapter languageCallback={this.gotoParent} language={this.props.language}
                          location={this.props.location}/>
         </LanguageFetcher>
@@ -65,9 +65,9 @@ class RichLayout extends React.Component {
  * @returns {{languagePayload: Payload, language: string}} The endpoint values from the state mapped to props
  */
 function mapStateToProps (state) {
-  return ({
-    language: state.language.language
-  })
+  return {
+    language: state.router.params.language
+  }
 }
 
 export default connect(mapStateToProps)(RichLayout)

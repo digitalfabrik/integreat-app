@@ -11,6 +11,7 @@ import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
 import { setLanguage } from '../../actions'
+import { connect } from 'react-redux'
 
 class ContentListAdapter extends React.Component {
   static propTypes = {
@@ -60,28 +61,33 @@ class ContentListAdapter extends React.Component {
 }
 
 class SearchPage extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired
+  }
+
   constructor () {
     super()
     this.state = {filterText: ''}
   }
 
-  getLocation () {
-    return 'augsburg'
-  }
-
   render () {
     return (
-      <RichLayout location={this.getLocation()}>
-        <PageFetcher options={{location: this.getLocation()}}>
+      <RichLayout location={this.props.location}>
+        <PageFetcher options={{}}>
           <Search className={style.searchSpacing}
                   filterText={this.state.filterText}
                   onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
           />
-          <ContentListAdapter location={this.getLocation()} filterText={this.state.filterText}/>
+          <ContentListAdapter location={this.props.location} filterText={this.state.filterText}/>
         </PageFetcher>
       </RichLayout>
     )
   }
 }
+function mapStateToProps (state) {
+  return {
+    location: state.router.params.location
+  }
+}
 
-export default SearchPage
+export default connect(mapStateToProps)(SearchPage)

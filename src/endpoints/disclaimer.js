@@ -26,7 +26,7 @@ export default new Endpoint({
       )
     })
   },
-  mapStateToOptions: (state) => ({language: state.language.language}),
+  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
   mapOptionsToUrlParams: (options) => ({
     location: options.location,
     language: options.language,

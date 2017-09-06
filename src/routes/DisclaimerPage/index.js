@@ -1,14 +1,10 @@
-/**
- * @param state The current app state
- * @return {{language}}  The endpoint values from the state mapped to props
- */
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
 import RichLayout from 'components/RichLayout'
 import { DisclaimerFetcher } from 'endpoints'
-import { setLanguage } from '../../actions'
 
 class PageAdapter extends React.Component {
   render () {
@@ -18,17 +14,14 @@ class PageAdapter extends React.Component {
 
 class DisclaimerPage extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired
-  }
-
-  getLocation () {
-    return 'augsburg'
+    language: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired
   }
 
   render () {
     return (
-      <RichLayout location={this.getLocation()}>
-        <DisclaimerFetcher options={{location: this.getLocation()}}>
+      <RichLayout location={this.props.location}>
+        <DisclaimerFetcher options={{}}>
           <PageAdapter/>
         </DisclaimerFetcher>
       </RichLayout>
@@ -38,7 +31,8 @@ class DisclaimerPage extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    language: state.language.language
+    language: state.router.params.language,
+    location: state.router.params.location
   }
 }
 

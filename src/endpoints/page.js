@@ -45,7 +45,7 @@ export default new Endpoint({
     }, {})
     return new PageModel(0, options.location, 0, '', null, children)
   },
-  mapStateToOptions: (state) => ({language: state.language.language, location: state.router.params.location}),
+  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
   mapOptionsToUrlParams: (options) => ({
     location: options.location,
     language: options.language,
