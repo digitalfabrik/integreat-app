@@ -5,7 +5,7 @@ class Navigation {
   }
 
   get home () {
-    return `/${this._language}/${this._location}/location`
+    return `/${this._language}/${this._location}`
   }
 
   get locationSelection () {

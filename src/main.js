@@ -43,10 +43,10 @@ let App = (
             <div>
               <Fragment forRoute="/:location">
                 <div>
-                  <Fragment forRoute="/location(/*)"><LocationPage/></Fragment>
                   <Fragment forRoute="/search"><SearchPage/></Fragment>
                   <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
                   <Fragment forRoute="/(*)"><LocationPage/></Fragment>
+                  <Fragment forRoute="/"><LocationPage/></Fragment>
                 </div>
               </Fragment>
               <Fragment forRoute="/"><LandingPage/></Fragment>

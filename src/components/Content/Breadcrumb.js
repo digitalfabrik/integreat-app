@@ -18,7 +18,7 @@ export default class Breadcrumb extends React.Component {
       return (
         <Link key={page.id}
               className={style.breadcrumb}
-              href={`/${this.props.language}/${this.props.location}/location${path}`}>
+              href={`/${this.props.language}/${this.props.location}${path}`}>
           <span className={style.separator}/>
           <span className={style.level}>{page.title}</span>
         </Link>

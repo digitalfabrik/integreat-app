@@ -39,7 +39,7 @@ class RichLayout extends React.Component {
   }
 
   getParentPath (newLanguage) {
-    return `/${newLanguage}/${this.props.location}/location`
+    return `/${newLanguage}/${this.props.location}`
   }
 
   gotoParent (newLanguage) {

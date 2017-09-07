@@ -7,17 +7,17 @@ export default {
         title: 'Landing'
       },
       '/:location': {
+        '/': {
+          title: 'Location page'
+        },
         '/(*)': {
-          title: 'Search page'
+          title: 'Location page'
         },
         '/search': {
           title: 'Search page'
         },
         '/disclaimer': {
           title: 'Disclaimer page'
-        },
-        '/location(/*)': {
-          title: 'Location page'
         }
       }
     }

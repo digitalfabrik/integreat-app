@@ -18,7 +18,7 @@ class PageAdapter extends React.Component {
   }
 
   getParentPath () {
-    return `/${this.props.language}/${this.props.location}/location`
+    return `/${this.props.language}/${this.props.location}`
   }
 
   render () {
