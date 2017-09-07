@@ -2,5 +2,8 @@
   "page": {
     "notFound": "todo",
     "loadingFailed": "todo"
+  },
+  "disclaimer": {
+    "notAvailable": "todo"
   }
 }

@@ -39,6 +39,11 @@ export default class Endpoint {
   shouldRefetch
 
   /**
+   * Converts a json document to any object
+   */
+  jsonToAny
+
+  /**
    * @callback stateToPropsCallback
    * @param {object} state
    * @return {object} The params
@@ -73,11 +78,11 @@ export default class Endpoint {
     this.mapOptionsToUrlParams = mapOptionsToUrlParams
     this.mapStateToOptions = mapStateToOptions
     this.shouldRefetch = shouldRefetch
+    this.jsonToAny = jsonToAny
 
     let actionName = this.name.toUpperCase()
 
-    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (json, options, error) =>
-      new Payload(false, jsonToAny(json, options), error))
+    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, options, error) => new Payload(false, value, error))
     this.requestAction = createAction(`${ActionType.REQUEST}_${actionName}`, () => new Payload(true))
     this.invalidateAction = createAction(`${ActionType.INVALIDATE}_${actionName}`, () => new Payload(false))
     this._stateName = name
@@ -112,7 +117,17 @@ export default class Endpoint {
        */
       return fetch(formattedURL)
         .then(response => response.json())
-        .then(json => dispatch(this.receiveAction(json, options, undefined)))
+        .then(json => {
+          let error
+          let value
+          try {
+            value = this.jsonToAny(json, options)
+          } catch (e) {
+            error = e.message
+          }
+
+          return dispatch(this.receiveAction(value, options, error))
+        })
         .catch(ex => {
           console.error('Failed to load the endpoint request: ' + this.name, ex.message)
           return dispatch(this.receiveAction(null, options, 'errors:page.loadingFailed'))
