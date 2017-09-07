@@ -2,6 +2,7 @@ import Endpoint from './Endpoint'
 import { reduce } from 'lodash'
 import PropTypes from 'prop-types'
 import PageModel from './models/PageModel'
+import { isEmpty } from 'lodash/lang'
 
 const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
@@ -10,7 +11,7 @@ export default new Endpoint({
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
   optionsPropType: PropTypes.shape({}),
   jsonToAny: (json) => {
-    if (!json || _.isEmpty(json)) {
+    if (!json || isEmpty(json)) {
       throw new Error('disclaimer.notAvailable')
     }
     return reduce(json, (result, page) => {
