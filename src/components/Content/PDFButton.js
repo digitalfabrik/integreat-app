@@ -1,31 +1,11 @@
+import URLSearchParams from 'url-search-params'
 import React from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
-
 import { forEach } from 'lodash/collection'
 import PageModel from '../../endpoints/models/PageModel'
 import style from './PDFButton.css'
-
-function processChunkedResponse (response) {
-  let text = ''
-  const reader = response.body.getReader()
-  const decoder = new TextDecoder()
-
-  return readChunk()
-
-  function readChunk () {
-    return reader.read().then(appendChunks)
-  }
-
-  function appendChunks (result) {
-    text += decoder.decode(result.value || new Uint8Array(), {stream: !result.done})
-    if (result.done) {
-      return text
-    } else {
-      return readChunk()
-    }
-  }
-}
+import chunkedRequest from 'chunked-request'
 
 class PDFButton extends React.Component {
   static propTypes = {
@@ -60,23 +40,22 @@ class PDFButton extends React.Component {
 
     let body = new URLSearchParams(params)
     forEach(params, (value, key) => body.append(key, value))
-
-    let requestParams = {
+    let text = ''
+    let decoder = new TextDecoder()
+    chunkedRequest({
+      url,
       method: 'POST',
-      mode: 'cors',
-      body
-    }
-    fetch(url, requestParams)
-      .then(processChunkedResponse)
-      .then((text) => {
-        return text.match(/(https?:\/\/)cms\.integreat-app\.de\/augsburg\/wp-content\/uploads\/[/\w-]*\.pdf/)[0]
-      })
-      .then((url) => {
-        this.setState({pdf: url, loading: false})
-      })
-      .catch(() => {
-        this.setState({loading: false})
-      })
+      body,
+      chunkParser: (bytes) => { text += decoder.decode(bytes) },
+      onComplete: () => {
+        try {
+          const url = text.match(/(https?:\/\/)cms\.integreat-app\.de\/augsburg\/wp-content\/uploads\/[/\w-]*\.pdf/)[0]
+          this.setState({pdf: url, loading: false})
+        } catch (e) {
+          this.setState({loading: false})
+        }
+      }
+    })
   }
 
   getCurrentButton () {
