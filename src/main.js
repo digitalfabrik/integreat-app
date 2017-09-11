@@ -18,6 +18,7 @@ import DisclaimerPage from './routes/DisclaimerPage'
 import store from './store'
 import i18n from './i18n/i18n'
 import { Fragment, initializeCurrentLocation } from 'redux-little-router'
+import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
 
 /**
  * Holds the current history implementation
@@ -38,6 +39,7 @@ let App = (
     <Provider store={store}>
       <Fragment forRoute="/">
         <div>
+          <Fragment forRoute="/disclaimer"><MainDisclaimerPage/></Fragment>
           <Fragment forRoute="/"><LandingPage/></Fragment>
           <Fragment forRoute="/:language">
             <div>

@@ -21,5 +21,8 @@ export default {
         }
       }
     }
+  },
+  '/disclaimer': {
+    title: 'Disclaimer'
   }
 }

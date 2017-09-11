@@ -9,27 +9,11 @@ import Header from './Header'
 import Navigation from 'Navigation'
 import Footer from './Footer'
 
-class HeaderAdapter extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
-  }
-
-  render () {
-    return <Header
-      languages={this.props.languages}
-      languageCallback={this.props.languageCallback}
-      currentLanguage={this.props.language}
-      navigation={new Navigation(this.props.location, this.props.language)}
-    />
-  }
-}
-
 class RichLayout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
+    location: PropTypes.string,
+    language: PropTypes.string
   }
 
   constructor (props) {
@@ -39,6 +23,9 @@ class RichLayout extends React.Component {
   }
 
   getParentPath (newLanguage) {
+    if (!this.props.language) {
+      return '/'
+    }
     return `/${newLanguage}/${this.props.location}`
   }
 
@@ -48,16 +35,13 @@ class RichLayout extends React.Component {
 
   render () {
     return (<div>
-        <LanguageFetcher options={{}} hideError={true} hideSpinner={true}>
-          <HeaderAdapter languageCallback={this.gotoParent} language={this.props.language}
-                         location={this.props.location}/>
-        </LanguageFetcher>
+        <Header languageCallback={this.gotoParent}/>
 
         <Layout className={this.props.className}>
           {this.props.children}
         </Layout>
 
-        <Footer navigation={new Navigation(this.props.location, this.props.language)}/>
+        <Footer/>
       </div>
     )
   }

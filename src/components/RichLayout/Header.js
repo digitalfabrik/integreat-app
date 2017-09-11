@@ -7,14 +7,14 @@ import Navigation from 'Navigation'
 
 import LanguageFlyout from 'components/LanguageFlyout'
 
-import LanguageModel from 'endpoints/models/LanguageModel'
-
 import HeaderDropDown from './HeaderDropDown'
 
 import style from './Header.css'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
 import { Link } from 'redux-little-router'
+import { LanguageFetcher } from '../../endpoints'
+import { connect } from 'react-redux'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -36,10 +36,10 @@ class NavElement extends React.Component {
 
 class Header extends React.Component {
   static propTypes = {
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    currentLanguage: PropTypes.string
+    language: PropTypes.string,
+    location: PropTypes.string
   }
 
   render () {
@@ -59,20 +59,26 @@ class Header extends React.Component {
               <FontAwesome className={style.fontAwesome} name='home'/>
             </NavElement>
             {/* Location */}
+            {this.props.location &&
             <NavElement to={this.props.navigation.search} className={cx(style.item, style.itemSearch)}>
               <FontAwesome className={style.fontAwesome} name='search'/>
             </NavElement>
+            }
             <NavElement to={this.props.navigation.locationSelection} className={cx(style.item, style.itemLocation)}>
               <FontAwesome className={style.fontAwesome} name='map-marker'/>
             </NavElement>
             {/* Language */}
+            {this.props.location &&
             <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-              <LanguageFlyout
-                languageCallback={this.props.languageCallback}
-                languages={this.props.languages}
-                currentLanguage={this.props.currentLanguage}
-              />
+              <LanguageFetcher options={{}} hideError={true} hideSpinner={true}>
+                <LanguageFlyout
+                  languageCallback={this.props.languageCallback}
+                  languages={this.props.languages}
+                  currentLanguage={this.props.language}
+                />
+              </LanguageFetcher>
             </HeaderDropDown>
+            }
           </div>
         </div>
       </header>
@@ -80,4 +86,14 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+function mapStateToProps (state) {
+  const location = state.router.params.location
+  const language = state.router.params.language
+  return {
+    location,
+    language,
+    navigation: new Navigation(location, language)
+  }
+}
+
+export default connect(mapStateToProps)(Header)
