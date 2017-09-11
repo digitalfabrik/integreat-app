@@ -1,9 +1,9 @@
 {
   "page": {
-    "notFound": "todo",
-    "loadingFailed": "todo"
+    "notFound": "با عرض پوزش، اما صفحه درخواستی یافت نشد",
+    "loadingFailed": "با عرض پوزش، اما صفحه درخواستی بارگیری نشد"
   },
   "disclaimer": {
-    "notAvailable": "todo"
+    "notAvailable": "با عرض پوزش، اما سلب مسئولیت در این شهر در دسترس نیست."
   }
 }
