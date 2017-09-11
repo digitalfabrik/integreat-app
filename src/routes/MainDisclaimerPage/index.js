@@ -6,8 +6,10 @@ class MainDisclaimerPage extends React.Component {
   render () {
     return (<RichLayout>
         <div>
-          <h3>Angaben gemäß § 5 TMG:</h3><p>Tür an Tür – Digital Factory gGmbH<br/> Wertachstr. 29<br/>
-          86153 Augsburg</p><p>vertreten durch Herrn Daniel Kehne, Herrn Fritjof Knier</p><p>Aufsichtsbehörde: Finanzamt
+          <h3>Angaben gemäß § 5 TMG:</h3>
+          <p>Tür an Tür – Digital Factory gGmbH<br/> Wertachstr. 29<br/>
+            86153 Augsburg</p><p>vertreten durch Herrn Daniel Kehne, Herrn Fritjof Knier</p><p>Aufsichtsbehörde:
+          Finanzamt
           Augsburg-Stadt<br/> Sitz der Gesellschaft: Augsburg<br/> Handelsregister und Registernummer: HRB30759<br/>
           Umsatzsteuer-Identifikationsnummer: DE307491397</p><h3>Kontakt:</h3>
           <table>

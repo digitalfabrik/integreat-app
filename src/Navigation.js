@@ -1,3 +1,4 @@
+// todo add logic for correct hrefs here
 class Navigation {
   constructor (location, language) {
     this._location = location

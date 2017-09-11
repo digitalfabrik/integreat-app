@@ -5,6 +5,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import LanguageModel from 'endpoints/models/LanguageModel'
 import { isEmpty } from 'lodash/lang'
+import { connect } from 'react-redux'
 
 class LanguageElement extends React.Component {
   static propTypes = {
@@ -35,12 +36,12 @@ class LanguageElement extends React.Component {
   }
 }
 
-export default class LanguageFlyout extends React.Component {
+class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     languageCallback: PropTypes.func.isRequired,
     closeDropDownCallback: PropTypes.func,
-    currentLanguage: PropTypes.string.isRequired
+    language: PropTypes.string
   }
 
   constructor (props) {
@@ -59,17 +60,24 @@ export default class LanguageFlyout extends React.Component {
     return (
       <div className={style.languageFlyout}>
         {!isEmpty(this.props.languages) &&
-          this.props.languages.map(language => (
-              <LanguageElement
-                key={language.code}
-                languageCallback={this.handleLanguageCallback}
-                active={this.props.currentLanguage === language.code}
-                language={language}
-              />
-            )
+        this.props.languages.map(language => (
+            <LanguageElement
+              key={language.code}
+              languageCallback={this.handleLanguageCallback}
+              active={this.props.language === language.code}
+              language={language}
+            />
           )
+        )
         }
       </div>
     )
   }
 }
+
+function mapStateToProps (state) {
+  const language = state.router.params.language
+  return {language}
+}
+
+export default connect(mapStateToProps)(LanguageFlyout)

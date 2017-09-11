@@ -38,7 +38,6 @@ class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    language: PropTypes.string,
     location: PropTypes.string
   }
 
@@ -74,7 +73,6 @@ class Header extends React.Component {
                 <LanguageFlyout
                   languageCallback={this.props.languageCallback}
                   languages={this.props.languages}
-                  currentLanguage={this.props.language}
                 />
               </LanguageFetcher>
             </HeaderDropDown>
@@ -91,7 +89,6 @@ function mapStateToProps (state) {
   const language = state.router.params.language
   return {
     location,
-    language,
     navigation: new Navigation(location, language)
   }
 }

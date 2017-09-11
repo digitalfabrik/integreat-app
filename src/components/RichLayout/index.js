@@ -12,8 +12,7 @@ import Footer from './Footer'
 class RichLayout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    location: PropTypes.string,
-    language: PropTypes.string
+    location: PropTypes.string
   }
 
   constructor (props) {
@@ -23,7 +22,7 @@ class RichLayout extends React.Component {
   }
 
   getParentPath (newLanguage) {
-    if (!this.props.language) {
+    if (!this.props.location) {
       return '/'
     }
     return `/${newLanguage}/${this.props.location}`
@@ -47,13 +46,9 @@ class RichLayout extends React.Component {
   }
 }
 
-/**
- * @param state The current app state
- * @returns {{languagePayload: Payload, language: string}} The endpoint values from the state mapped to props
- */
 function mapStateToProps (state) {
   return {
-    language: state.router.params.language
+    location: state.router.params.location
   }
 }
 
