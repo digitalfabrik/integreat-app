@@ -24,7 +24,7 @@ class PDFButton extends React.Component {
 
     const page = this.props.parentPage
     const url = 'https://cms.integreat-app.de/augsburg/wp-admin/admin-ajax.php'
-    const pageIds = Object.assign([page.id], this.props.pages.map((page) => page.id))
+    const pageIds = Object.assign([page.numericId], this.props.pages.map((page) => page.numericId))
 
     const params = {
       action: 'frontEndDownloadPDF',
