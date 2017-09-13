@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import { push } from 'redux-little-router'
 
 import Layout from 'components/Layout'
-import { LanguageFetcher } from 'endpoints'
 import Header from './Header'
-import Navigation from 'Navigation'
 import Footer from './Footer'
 
 class RichLayout extends React.Component {

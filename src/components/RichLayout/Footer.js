@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
-import { isEmpty } from 'lodash/lang'
 
 import Navigation from 'Navigation'
 import style from './Footer.css'
