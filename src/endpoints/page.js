@@ -19,8 +19,12 @@ export default new Endpoint({
         return
       }
 
-      result[page.id] = new PageModel(
-        page.id,
+      const id = page.permalink.url_page.split('/').pop()
+      const numericId = page.id
+
+      result[numericId] = new PageModel(
+        id,
+        numericId,
         page.title,
         page.parent,
         page.content,
@@ -30,7 +34,7 @@ export default new Endpoint({
 
     // Set children
     forEach(pages, page => {
-      let parent = pages[page.parent]
+      const parent = pages[page.parent]
       if (!parent) {
         return
       }
@@ -38,12 +42,12 @@ export default new Endpoint({
     })
 
     // Filter parents
-    let children = transform(pages, (result, page) => {
+    const children = transform(pages, (result, page) => {
       if (page.parent === 0) {
         result[page.id] = page
       }
     }, {})
-    return new PageModel(0, options.location, 0, '', null, children)
+    return new PageModel(0, 'rootId', options.location, 0, '', null, children)
   },
   mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
   mapOptionsToUrlParams: (options) => ({

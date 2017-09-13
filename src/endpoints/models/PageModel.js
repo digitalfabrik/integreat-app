@@ -1,6 +1,8 @@
 export default class PageModel {
-  constructor (id = -1, title = '', parent = 0, content = '', thumbnail = null, children = {}) {
+  // todo: rename id and numericId
+  constructor (id, numericId, title = '', parent = 0, content = '', thumbnail = null, children = {}) {
     this._id = id
+    this._numericId = numericId
     this._title = title
     this._content = content
     this._children = children
@@ -18,6 +20,10 @@ export default class PageModel {
 
   get id () {
     return this._id
+  }
+
+  get numericId () {
+    return this._numericId
   }
 
   get title () {

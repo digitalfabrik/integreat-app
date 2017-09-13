@@ -18,8 +18,13 @@ export default new Endpoint({
       if (page.status !== 'publish') {
         return result
       }
+
+      const id = page.permalink.url_page.split('/').pop()
+      const numericId = page.id
+
       return new PageModel(
-        page.id,
+        id,
+        numericId,
         page.title,
         page.parent,
         page.content,
