@@ -9,7 +9,7 @@ class Navigation {
     if (!this._language || !this._location) {
       return '/'
     }
-    return `/${this._language}/${this._location}`
+    return `/${this._location}/${this._language}`
   }
 
   get locationSelection () {
@@ -23,14 +23,14 @@ class Navigation {
     if (!this._language || !this._location) {
       return '/'
     }
-    return `/${this._language}/${this._location}/search`
+    return `/${this._location}/${this._language}/search`
   }
 
   get disclaimer () {
     if (!this._language || !this._location) {
       return '/'
     }
-    return `/${this._language}/${this._location}/disclaimer`
+    return `/${this._location}/${this._language}/disclaimer`
   }
 }
 

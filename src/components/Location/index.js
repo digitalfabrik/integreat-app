@@ -27,7 +27,7 @@ class LocationEntry extends React.Component {
   render () {
     let location = this.props.location
     return (
-      <Link href={`/${this.props.language}${location.path}`} className={style.languageListItem}>
+      <Link href={`${location.path}${this.props.language}`} className={style.languageListItem}>
         <div>{location.name}</div>
       </Link>
     )
