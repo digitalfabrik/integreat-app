@@ -1,28 +1,25 @@
 export default {
   '/': {
     title: 'Landing',
-    '/:language': {
-      title: 'Landing',
+    '/:location/:language': {
       '/': {
-        title: 'Landing'
+        title: 'Location page'
       },
-      '/:location': {
-        '/': {
-          title: 'Location page'
-        },
-        '/(*)': {
-          title: 'Location page'
-        },
-        '/search': {
-          title: 'Search page'
-        },
-        '/disclaimer': {
-          title: 'Disclaimer page'
-        }
+      '/(*)': {
+        title: 'Location page'
+      },
+      '/search': {
+        title: 'Search page'
+      },
+      '/disclaimer': {
+        title: 'Disclaimer page'
       }
+    },
+    '/:language': {
+      title: 'Landing'
     }
   },
   '/disclaimer': {
-    title: 'Disclaimer'
+    title: 'Static disclaimer'
   }
 }

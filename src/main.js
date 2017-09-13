@@ -37,23 +37,37 @@ if (initialLocation) {
 let App = (
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
+      {/*
+         For routes inside a <div/> the priority decreases with each element
+         So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
+      */}
       <Fragment forRoute="/">
+        {/* Routes */}
         <div>
+          {/* Matches /disclaimer */}
           <Fragment forRoute="/disclaimer"><MainDisclaimerPage/></Fragment>
+          {/* Matches / */}
           <Fragment forRoute="/"><LandingPage/></Fragment>
-          <Fragment forRoute="/:language">
+
+          {/* Matches /augsburg/de */}
+          <Fragment forRoute="/:location/:language">
             <div>
-              <Fragment forRoute="/:location">
-                <div>
-                  <Fragment forRoute="/search"><SearchPage/></Fragment>
-                  <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
-                  <Fragment forRoute="/(*)"><LocationPage/></Fragment>
-                  <Fragment forRoute="/"><LocationPage/></Fragment>
-                </div>
-              </Fragment>
-              <Fragment forRoute="/"><LandingPage/></Fragment>
+              {/* Matches /augsburg/de/search -> Search */}
+              <Fragment forRoute="/search"><SearchPage/></Fragment>
+              {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
+              <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
+              {/* Matches /augsburg/de/* -> Location */}
+              <Fragment forRoute="/(*)"><LocationPage/></Fragment>
+              {/* Matches /augsburg/de -> Location */}
+              <Fragment forRoute="/"><LocationPage/></Fragment>
             </div>
           </Fragment>
+
+          {/* Matches /de */}
+          <Fragment forRoute="/:language">
+            <LandingPage/>
+          </Fragment>
+
           <Fragment forNoRoute><ErrorPage/></Fragment>
         </div>
       </Fragment>
