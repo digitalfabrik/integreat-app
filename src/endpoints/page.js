@@ -19,7 +19,7 @@ export default new Endpoint({
         return
       }
 
-      const id = page.permalink.url_page.split('/').pop()
+      const id = decodeURIComponent(page.permalink.url_page).split('/').pop()
       const numericId = page.id
 
       result[numericId] = new PageModel(
