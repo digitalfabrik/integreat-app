@@ -5,7 +5,7 @@ export default {
       '/': {
         title: 'Location page'
       },
-      '/(*)': {
+      '/*': {
         title: 'Location page'
       },
       '/search': {

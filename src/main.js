@@ -57,9 +57,7 @@ let App = (
               {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
               <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
               {/* Matches /augsburg/de/* -> Location */}
-              <Fragment forRoute="/(*)"><LocationPage/></Fragment>
-              {/* Matches /augsburg/de -> Location */}
-              <Fragment forRoute="/"><LocationPage/></Fragment>
+              <Fragment forRoute="*"><LocationPage/></Fragment>
             </div>
           </Fragment>
 
