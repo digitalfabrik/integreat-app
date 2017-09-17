@@ -115,6 +115,7 @@ export default class Endpoint {
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
+
       return fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
