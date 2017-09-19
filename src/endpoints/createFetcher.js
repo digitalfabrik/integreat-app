@@ -16,7 +16,7 @@ function createStateToPropsMapper (endpoint) {
   }
 }
 
-function createFetcher(endpoint) {
+function createFetcher (endpoint) {
   let Fetcher = class extends React.Component {
     static propTypes = {
       options: endpoint.optionsPropType.isRequired,
