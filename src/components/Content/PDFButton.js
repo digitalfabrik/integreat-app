@@ -1,13 +1,15 @@
-import URLSearchParams from 'url-search-params'
 import React from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { forEach } from 'lodash/collection'
-import PageModel from '../../endpoints/models/PageModel'
-import style from './PDFButton.css'
+import URLSearchParams from 'url-search-params'
 import chunkedRequest from 'chunked-request'
 import { connect } from 'react-redux'
 import escapeRegExp from 'escape-string-regexp'
+import { TextDecoder } from 'text-encoding'
+
+import PageModel from '../../endpoints/models/PageModel'
+import style from './PDFButton.css'
 
 class PDFButton extends React.Component {
   static propTypes = {
