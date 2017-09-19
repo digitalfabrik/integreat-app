@@ -90,3 +90,4 @@ fabric.properties
 public/dist
 public/index.html
 public/sitemap.xml
+public/sw.js
