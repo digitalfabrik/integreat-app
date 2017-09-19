@@ -30,18 +30,17 @@ class Category extends React.Component {
 export default class Categories extends React.Component {
   static propTypes = {
     parentPage: PropTypes.instanceOf(PageModel).isRequired,
-    children: PropTypes.object.isRequired
+    categories: PropTypes.arrayOf(PropTypes.shape({
+      page: PropTypes.instanceOf(PageModel).isRequired,
+      url: PropTypes.string.isRequired
+    })).isRequired
   }
 
   render () {
     return (
       <div>
         <Row>
-          {
-            map(this.props.children, (page, url) => {
-              return <Category key={page.id} url={url} page={page}/>
-            })
-          }
+          { map(this.props.categories, ({ page, url }) => <Category key={page.id} url={url} page={page} />) }
         </Row>
         <PDFButton requestType="allpages" parentPage={this.props.parentPage} pages={[]}/>
       </div>

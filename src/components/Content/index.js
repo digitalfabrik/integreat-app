@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import normalizeUrl from 'normalize-url'
-import { transform, values } from 'lodash/object'
+import { isEmpty } from 'lodash/lang'
 
 import Categories from './Categories'
 import Page from './Page'
 
 import Hierarchy from 'routes/LocationPage/Hierarchy'
-import Error from 'components/Error'
 import TitledContentList from './TitledContentList'
 
 class Content extends React.Component {
@@ -21,21 +20,18 @@ class Content extends React.Component {
     const hierarchy = this.props.hierarchy
     const page = hierarchy.top()
 
-    let children = values(page.children).length
-
-    if (children === 0) {
-      return <Page page={page}/>
-    } else if (children > 0) {
-      let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
-      let base = url + hierarchy.path()
-
-      let pages = transform(page.children, (result, page, id) => { result[base + '/' + id] = page })
-
-      return hierarchy.root() ? <Categories parentPage={page} children={pages}/>
-        : <TitledContentList pages={pages} parentPage={page}/>
+    if (isEmpty(page.children)) {
+      return <Page page={ page }/>
     }
 
-    throw new Error('The page ' + page + ' is not renderable!')
+    let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
+    let base = url + hierarchy.path()
+
+    let pages = page.children.map((page) => ({ page, url: `${base}/${page.id}` }))
+
+    return hierarchy.root()
+      ? <Categories parentPage={ page } categories={ pages } />
+      : <TitledContentList parentPage={ page } pages={ pages } />
   }
 
   render () {

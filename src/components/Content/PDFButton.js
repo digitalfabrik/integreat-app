@@ -6,12 +6,14 @@ import { forEach } from 'lodash/collection'
 import PageModel from '../../endpoints/models/PageModel'
 import style from './PDFButton.css'
 import chunkedRequest from 'chunked-request'
+import { connect } from 'react-redux'
+import escapeRegExp from 'escape-string-regexp'
 
 class PDFButton extends React.Component {
   static propTypes = {
     parentPage: PropTypes.instanceOf(PageModel).isRequired,
-    pages: PropTypes.arrayOf(PropTypes.instanceOf(PageModel)).isRequired,
-    requestType: PropTypes.string.isRequired
+    requestType: PropTypes.string.isRequired,
+    locationCode: PropTypes.string.isRequired
   }
 
   constructor (params) {
@@ -19,19 +21,27 @@ class PDFButton extends React.Component {
     this.state = {pdf: '', loading: false}
   }
 
+  buildPageIds (pageIds, parentPage) {
+    pageIds.push(parentPage.numericId)
+    parentPage.children.forEach((page) => this.buildPageIds(pageIds, page))
+  }
+
   fetchUrl () {
     this.setState(Object.assign({}, this.state, {loading: true}))
 
     const page = this.props.parentPage
-    const url = 'https://cms.integreat-app.de/augsburg/wp-admin/admin-ajax.php'
-    const pageIds = Object.assign([page.numericId], this.props.pages.map((page) => page.numericId))
+    const url = `https://cms.integreat-app.de/${this.props.locationCode}/wp-admin/admin-ajax.php`
+    const pageIds = []
+    if (this.props.requestType === 'page') {
+      this.buildPageIds(pageIds, this.props.parentPage)
+    }
 
     const params = {
       action: 'frontEndDownloadPDF',
       requestType: this.props.requestType,
       myContent: pageIds.join(','),
       pdfOptions: `,,${page.id}_file,,`,
-      'ajaxVars[ajaxurl]': 'https://cms.integreat-app.de/ahaus/wp-admin/admin-ajax.php',
+      'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.locationCode}/wp-admin/admin-ajax.php`,
       font: '',
       fontcolor: '',
       bgcolor: '',
@@ -49,7 +59,8 @@ class PDFButton extends React.Component {
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
         try {
-          const url = text.match(/(https?:\/\/)cms\.integreat-app\.de\/augsburg\/wp-content\/uploads\/[/\w-]*\.pdf/)[0]
+          const regex = escapeRegExp(`https://cms.integreat-app.de/${this.props.locationCode}/wp-content/uploads/`) + '[\\w|/|-]*\\.pdf'
+          const url = text.match(new RegExp(regex))[0]
           this.setState({pdf: url, loading: false})
         } catch (e) {
           this.setState({loading: false})
@@ -73,4 +84,6 @@ class PDFButton extends React.Component {
   }
 }
 
-export default PDFButton
+const mapStateToProps = (state) => { return { locationCode: state.router.params.location } }
+
+export default connect(mapStateToProps)(PDFButton)
