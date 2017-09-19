@@ -6,6 +6,7 @@ import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import { PageFetcher } from 'endpoints'
+import PageModel from 'endpoints/models/PageModel'
 
 import Hierarchy from './Hierarchy'
 import { connect } from 'react-redux'
@@ -14,7 +15,8 @@ class PageAdapter extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    path: PropTypes.string
+    path: PropTypes.string,
+    pages: PropTypes.instanceOf(PageModel)
   }
 
   getParentPath () {
@@ -51,11 +53,11 @@ class LocationPage extends React.Component {
   render () {
     return (
       <RichLayout location={this.props.location}>
-        <PageFetcher options={{}}>
+        <PageFetcher>
           <PageAdapter
             location={this.props.location}
             language={this.props.language}
-            path={this.props.path}/>
+            path={this.props.path} />
         </PageFetcher>
       </RichLayout>
     )

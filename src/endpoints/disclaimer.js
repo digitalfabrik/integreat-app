@@ -22,14 +22,15 @@ export default new Endpoint({
       const id = page.permalink.url_page.split('/').pop()
       const numericId = page.id
 
-      return new PageModel(
+      return new PageModel({
         id,
         numericId,
-        page.title,
-        page.parent,
-        page.content,
-        page.thumbnail
-      )
+        title: page.title,
+        parent: page.parent,
+        content: page.content,
+        thumbnail: page.thumbnail,
+        order: page.order
+      })
     }, null)
   },
   mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
