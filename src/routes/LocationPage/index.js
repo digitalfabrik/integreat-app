@@ -6,17 +6,21 @@ import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import { PageFetcher } from 'endpoints'
+import PageModel from 'endpoints/models/PageModel'
 
 import Hierarchy from './Hierarchy'
+import { connect } from 'react-redux'
 
 class PageAdapter extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
-    path: PropTypes.string
+    language: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    pages: PropTypes.instanceOf(PageModel)
   }
 
   getParentPath () {
-    return '/location/' + this.props.location
+    return `/${this.props.location}/${this.props.language}`
   }
 
   render () {
@@ -32,6 +36,7 @@ class PageAdapter extends React.Component {
     return <div>
       <Breadcrumb
         hierarchy={hierarchy}
+        language={this.props.language}
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/></div>
@@ -39,19 +44,32 @@ class PageAdapter extends React.Component {
 }
 
 class LocationPage extends React.Component {
-  getLocation () {
-    return this.props.match.params.location
+  static propTypes = {
+    location: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    language: PropTypes.string.isRequired
   }
 
   render () {
     return (
-      <RichLayout location={this.getLocation()}>
-        <PageFetcher options={{location: this.getLocation()}}>
-          <PageAdapter location={this.getLocation()} path={this.props.match.params.path}/>
+      <RichLayout location={this.props.location}>
+        <PageFetcher>
+          <PageAdapter
+            location={this.props.location}
+            language={this.props.language}
+            path={this.props.path} />
         </PageFetcher>
       </RichLayout>
     )
   }
 }
 
-export default LocationPage
+function mapStateToProps (state) {
+  return {
+    location: state.router.params.location,
+    language: state.router.params.language,
+    path: state.router.params['_'] // _ contains all the values from *
+  }
+}
+
+export default connect(mapStateToProps)(LocationPage)

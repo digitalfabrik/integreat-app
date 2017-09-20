@@ -1,7 +1,6 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import resources from '../../locales'
-import { setLanguage } from '../actions'
 import store from '../store'
 
 const RTL_LANGUAGES = ['ar', 'fa']
@@ -19,11 +18,18 @@ i18n
   })
 
 // Set app language to primary language of i18next
-store.dispatch(setLanguage(i18n.languages[0]))
+// store.dispatch(setLanguage(i18n.languages[0])) // fixme
 
 function handleLanguageChange () {
-  let state = store.getState()
-  let lang = state.language.language
+  const state = store.getState()
+
+  let lang = i18n.languages[0]  // Use language from browser detection if it is not available in url
+                                // todo: redirect to correct url
+
+  if (state.router.params) {
+    lang = state.router.params.language
+  }
+
   // Handle ltr/rtl
   if (RTL_LANGUAGES.includes(lang)) {
     document.body.style.direction = 'rtl'

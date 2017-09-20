@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash/lang'
 
 import style from './style.css'
 import { transform } from 'lodash/object'
+import { Link } from 'redux-little-router'
+import { groupBy, filter } from 'lodash/collection'
+import LocationModel from '../../endpoints/models/LocationModel'
 
 class LocationParentEntry extends React.Component {
   static propTypes = {
@@ -20,15 +22,14 @@ class LocationParentEntry extends React.Component {
 
 class LocationEntry extends React.Component {
   static propTypes = {
-    location: PropTypes.object,
-    locationCallback: PropTypes.func
+    language: PropTypes.string,
+    location: PropTypes.object.isRequired
   }
 
   render () {
     let location = this.props.location
     return (
-      <Link to={'/location' + location.path}
-            className={style.languageListItem}>
+      <Link href={`/${location.code}/${this.props.language}`} className={style.languageListItem}>
         <div>{location.name}</div>
       </Link>
     )
@@ -37,27 +38,26 @@ class LocationEntry extends React.Component {
 
 class Location extends React.Component {
   static propTypes = {
-    locations: PropTypes.object,
-    filterText: PropTypes.string,
-    locationCallback: PropTypes.func
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
+    filterText: PropTypes.string.isRequired,
+    language: PropTypes.string
   }
 
   filter (locations) {
-    let filter = this.props.filterText.toLowerCase()
+    let filterText = this.props.filterText.toLowerCase()
 
-    if (filter === 'wirschaffendas') {
-      return locations.filter((location) => !location.live)
+    if (filterText === 'wirschaffendas') {
+      return filter(locations, (location) => !location.live)
     }
 
-    locations = locations.filter((location) => location.live)
+    locations = filter(locations, (location) => location.live)
 
-    return locations.filter((location) => location.name.toLowerCase().includes(filter))
+    return filter(locations, (location) => location.name.toLowerCase().includes(filterText))
   }
 
   renderList (locations) {
-    return transform(locations, (result, locations, key) => {
-      locations = this.filter(locations)
-
+    const groups = groupBy(locations, location => location.sortCategory)
+    return transform(groups, (result, locations, key) => {
       if (isEmpty(locations)) {
         return
       }
@@ -65,7 +65,7 @@ class Location extends React.Component {
       let parent = <LocationParentEntry key={key} name={key}/>
       let locationEntries = locations.map((location, index) => <LocationEntry location={location}
                                                                               key={key + index}
-                                                                              locationCallback={this.props.locationCallback}/>)
+                                                                              language={this.props.language}/>)
 
       result.push(parent)
       result.push(locationEntries)
@@ -77,7 +77,7 @@ class Location extends React.Component {
       <div>
         <div className={style.languageList}>
           {
-            this.renderList(this.props.locations)
+            this.renderList(this.filter(this.props.locations))
           }
         </div>
       </div>

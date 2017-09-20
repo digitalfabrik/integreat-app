@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { forEach } from 'lodash/collection'
 import normalizeUrl from 'normalize-url'
 
 import ContentList from 'components/Content/ContentList'
@@ -10,15 +9,17 @@ import RichLayout from 'components/RichLayout'
 import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
+import { connect } from 'react-redux'
 
 class ContentListAdapter extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     filterText: PropTypes.string.isRequired
   }
 
   getParentPath () {
-    return '/location/' + this.props.location
+    return `/${this.props.location}/${this.props.language}`
   }
 
   acceptPage (page) {
@@ -31,56 +32,57 @@ class ContentListAdapter extends React.Component {
   }
 
   /**
-   * @param url The base url
-   * @param page The page
    * @param pages The result, can already contain some pages
-   * @returns {{url: PageModel}, {}} All sub-pages of page in one map from url -> page
+   * @param baseUrl The base url
+   * @param page The page
    */
-  findPages (url, page, pages = {}) {
-    if (!page) {
-      return {}
+  findPages (pages, baseUrl, page) {
+    const url = baseUrl + '/' + page.id
+    if (this.acceptPage(page)) {
+      pages.push({ url, page })
     }
-
-    forEach(page.children, page => {
-      let nextUrl = url + '/' + page.id
-      if (this.acceptPage(page)) {
-        pages[nextUrl] = page
-      }
-      this.findPages(nextUrl, page, pages)
-    })
-    return pages
+    page.children.forEach(page => this.findPages(pages, url, page))
   }
 
   render () {
-    let url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
-
-    return <ContentList pages={this.findPages(url, this.props.pages)}/>
+    const url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
+    const pages = []
+    this.props.pages.children.forEach(page => this.findPages(pages, url, page))
+    return <ContentList pages={pages}/>
   }
 }
 
 class SearchPage extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired
+  }
+
   constructor () {
     super()
     this.state = {filterText: ''}
   }
 
-  getLocation () {
-    return this.props.match.params.location
-  }
-
   render () {
     return (
-      <RichLayout location={this.getLocation()}>
-        <PageFetcher options={{location: this.getLocation()}}>
+      <RichLayout location={this.props.location}>
+        <PageFetcher>
           <Search className={style.searchSpacing}
                   filterText={this.state.filterText}
                   onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
           />
-          <ContentListAdapter location={this.getLocation()} filterText={this.state.filterText}/>
+          <ContentListAdapter location={this.props.location} language={this.props.language} filterText={this.state.filterText}/>
         </PageFetcher>
       </RichLayout>
     )
   }
 }
 
-export default SearchPage
+function mapStateToProps (state) {
+  return {
+    location: state.router.params.location,
+    language: state.router.params.language
+  }
+}
+
+export default connect(mapStateToProps)(SearchPage)

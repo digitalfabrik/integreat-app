@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-
-import { map } from 'lodash/collection'
-
-import { Link } from 'react-router-dom'
+import { Link } from 'redux-little-router'
 
 import style from './ContentList.css'
 import PageModel from 'endpoints/models/PageModel'
@@ -17,7 +14,7 @@ class ContentListElement extends React.Component {
 
   render () {
     return (
-      <Link to={this.props.url}>
+      <Link href={this.props.url}>
         <div className={style.row}>
           <div className={cx(style.elementImage, style.element)}>
             <img className={style.image} src={this.props.page.thumbnail}/>
@@ -31,17 +28,16 @@ class ContentListElement extends React.Component {
 
 class ContentList extends React.Component {
   static propTypes = {
-    pages: PropTypes.object.isRequired
+    pages: PropTypes.arrayOf(PropTypes.shape({
+      page: PropTypes.instanceOf(PageModel).isRequired,
+      url: PropTypes.string.isRequired
+    })).isRequired
   }
 
   render () {
     return (
       <div className={style.list}>
-        {
-          map(this.props.pages, (page, url) => {
-            return <ContentListElement key={url} url={url} page={page}/>
-          })
-        }
+        { this.props.pages.map(({ page, url }) => <ContentListElement key={url} url={url} page={page} />) }
       </div>
     )
   }

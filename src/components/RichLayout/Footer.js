@@ -1,30 +1,47 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom'
 import { translate } from 'react-i18next'
-import { isEmpty } from 'lodash/lang'
 
 import Navigation from 'Navigation'
 import style from './Footer.css'
+import { Link } from 'redux-little-router'
+import { connect } from 'react-redux'
 
 class Footer extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired
+    navigation: PropTypes.instanceOf(Navigation).isRequired,
+    location: PropTypes.string
+  }
+
+  getDisclaimerLink () {
+    const {t} = this.props
+    if (this.props.location) {
+      return <Link className={style.item} href={this.props.navigation.disclaimer}>
+        {t('imprintAndContact')}
+      </Link>
+    } else {
+      return <Link className={style.item} href='/disclaimer'>
+        {t('imprintAndContact')}
+      </Link>
+    }
   }
 
   render () {
-    let {t} = this.props
     return (
       <div className={style.footer}>
-        {!isEmpty(this.props.navigation.disclaimer) &&
-        <NavLink className={style.item}
-                 exact to={this.props.navigation.disclaimer}>
-          {t('imprintAndContact')}
-        </NavLink>
-        }
+        {this.getDisclaimerLink()}
       </div>
     )
   }
 }
 
-export default translate('Footer')(Footer)
+function mapStateToProps (state) {
+  const location = state.router.params.location
+  const language = state.router.params.language
+  return {
+    location,
+    navigation: new Navigation(location, language)
+  }
+}
+
+export default connect(mapStateToProps)(translate('Footer')(Footer))

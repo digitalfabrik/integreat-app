@@ -1,28 +1,36 @@
+// todo add logic for correct hrefs here
 class Navigation {
-  constructor (location) {
+  constructor (location, language) {
     this._location = location
+    this._language = language
   }
 
   get home () {
-    if (this._location) {
-      return '/location/' + this._location
+    if (!this._language || !this._location) {
+      return '/'
     }
-    return this.locationSelection
+    return `/${this._location}/${this._language}`
   }
 
   get locationSelection () {
-    return '/'
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._language}`
   }
 
   get search () {
-    return '/location/' + this._location + '/search'
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._location}/${this._language}/search`
   }
 
   get disclaimer () {
-    if (!this._location) {
-      return null
+    if (!this._language || !this._location) {
+      return '/'
     }
-    return '/location/' + this._location + '/disclaimer'
+    return `/${this._location}/${this._language}/disclaimer`
   }
 }
 

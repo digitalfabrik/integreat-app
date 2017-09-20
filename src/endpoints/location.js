@@ -1,17 +1,27 @@
-import { groupBy, sortBy } from 'lodash/collection'
+import { sortBy } from 'lodash/collection'
 import Endpoint from './Endpoint'
 import LocationModel from './models/LocationModel'
+
+function stripSlashes (path) {
+  if (path.startsWith('/')) {
+    path = path.substr(1)
+  }
+  if (path.endsWith('/')) {
+    path = path.substr(0, path.length - 1)
+  }
+  return path
+}
 
 export default new Endpoint({
   name: 'locations',
   url: 'https://cms.integreat-app.de/wp-json/extensions/v1/multisites',
   jsonToAny: json => {
     if (!json) {
-      return {}
+      return []
     }
     let locations = json
-      .map((location) => new LocationModel(location.name, location.path, location.live))
-    locations = sortBy(locations, location => location.name)
-    return groupBy(locations, location => location.category)
+      .map((location) => new LocationModel(location.name, stripSlashes(location.path), location.live))
+    locations = sortBy(locations, location => location.sortKey)
+    return locations
   }
 })

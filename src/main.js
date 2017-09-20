@@ -5,7 +5,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { Provider } from 'react-redux'
-import { Route, Router, Switch } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 
 // Pages
@@ -18,31 +17,61 @@ import DisclaimerPage from './routes/DisclaimerPage'
 // Local imports
 import store from './store'
 import i18n from './i18n/i18n'
+import { Fragment, initializeCurrentLocation } from 'redux-little-router'
+import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
 
 /**
  * Holds the current history implementation
  */
 export const history = createBrowserHistory()
 
+const initialLocation = store.getState().router
+
+if (initialLocation) {
+  store.dispatch(initializeCurrentLocation(initialLocation))
+}
+
 /**
  * The root component of our app
  */
-let App = <I18nextProvider i18n={ i18n }>
-  <Provider store={store}>
-    <Router history={history}>
-      <Switch>
-        {/* The root page */}
-        <Route path="/" exact component={LandingPage}/>
-        {/* The location page */}
-        <Route path="/location/:location/search" exact component={SearchPage}/>
-        <Route path="/location/:location/disclaimer" exact component={DisclaimerPage}/>
-        <Route path="/location/:location/:path*" component={LocationPage}/>
-        {/* The error page */}
-        <Route component={ErrorPage}/>
-      </Switch>
-    </Router>
-  </Provider>
-</I18nextProvider>
+let App = (
+  <I18nextProvider i18n={i18n}>
+    <Provider store={store}>
+      {/*
+         For routes inside a <div/> the priority decreases with each element
+         So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
+      */}
+      <Fragment forRoute="/">
+        {/* Routes */}
+        <div>
+          {/* Matches /disclaimer */}
+          <Fragment forRoute="/disclaimer"><MainDisclaimerPage/></Fragment>
+          {/* Matches / */}
+          <Fragment forRoute="/"><LandingPage/></Fragment>
+
+          {/* Matches /augsburg/de */}
+          <Fragment forRoute="/:location/:language">
+            <div>
+              {/* Matches /augsburg/de/search -> Search */}
+              <Fragment forRoute="/search"><SearchPage/></Fragment>
+              {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
+              <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
+              {/* Matches /augsburg/de/* -> Location */}
+              <Fragment forRoute="*"><LocationPage/></Fragment>
+            </div>
+          </Fragment>
+
+          {/* Matches /de */}
+          <Fragment forRoute="/:language">
+            <LandingPage/>
+          </Fragment>
+
+          <Fragment forNoRoute><ErrorPage/></Fragment>
+        </div>
+      </Fragment>
+    </Provider>
+  </I18nextProvider>
+)
 
 const container = document.getElementById('container')
 

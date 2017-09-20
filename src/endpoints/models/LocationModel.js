@@ -4,11 +4,11 @@ import { find } from 'lodash/collection'
 const IGNORE_PREFIXES = ['stadt', 'kreis', 'landkreis']
 
 export default class LocationModel {
-  constructor (name, path, live) {
-    this._code = name
-    this._name = path
+  constructor (name, code, live) {
+    this._name = name
+    this._code = code
     this._live = live
-    this.setCategory()
+    this.initializeSorting()
   }
 
   get live () {
@@ -16,21 +16,25 @@ export default class LocationModel {
   }
 
   get name () {
-    return this._code
-  }
-
-  get path () {
     return this._name
   }
 
-  get category () {
-    return this._category
+  get code () {
+    return this._code
   }
 
-  setCategory () {
-    let key = this._code.toLowerCase().trim()
-    let prefix = find(IGNORE_PREFIXES, (pre) => key.startsWith(pre + ' '))
-    key = prefix ? key.substring(prefix.length).trimStart() : key
-    this._category = isEmpty(key) ? '?' : key[0].toUpperCase()
+  get sortKey () {
+    return this._sortKey
+  }
+
+  get sortCategory () {
+    return this._sortCategory
+  }
+
+  initializeSorting () {
+    this._sortKey = this._name.toLowerCase().trim()
+    let prefix = find(IGNORE_PREFIXES, (pre) => this._sortKey.startsWith(pre + ' '))
+    this._sortKey = prefix ? this._sortKey.substring(prefix.length).trimStart() : this._sortKey
+    this._sortCategory = isEmpty(this._sortKey) ? '?' : this._sortKey[0].toUpperCase()
   }
 }
