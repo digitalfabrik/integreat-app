@@ -6,9 +6,9 @@ import { describe, it } from 'mocha'
 describe('hierarchy', () => {
   const hierarchy = new Hierarchy('/123/456')
 
-  const child2 = new PageModel(456, '456', 'Another Simple Page', 0)
-  const child1 = new PageModel(123, '123', 'Simple Page', 0, 'Content', null, {456: child2})
-  const root = new PageModel(0, '0', 'Augsburg', 0, 'Content', null, {123: child1})
+  const child2 = new PageModel({ numericId: 456, id: '456', title: 'Another Simple Page', parent: 0 })
+  const child1 = new PageModel({ numericId: 123, id: '123', title: 'Simple Page', parent: 0, content: 'Content', children: [ child2 ] })
+  const root = new PageModel({ numericId: 0, id: '0', title: 'Augsburg', parent: 0, content: 'Content', children: [ child1 ] })
 
   hierarchy.build(root)
 
