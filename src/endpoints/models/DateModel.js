@@ -27,22 +27,28 @@ export default class DateModel {
     return this._allDay
   }
 
-  toString () {
-    if (this.allDay) {
+  toLocaleString (locale) {
+    const locales = [ locale, 'en', 'de' ]
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+    const oclock = locale === 'de' ? ' Uhr' : ''
+    if (this.allDay !== '0') {
       if (this.endDate && this.endDate !== this.startDate) {
-        return `Von ${this.startDate} bis ${this.endDate}`
+        return new Date(this.startDate).toLocaleDateString(locales, options) + ' - ' + new Date(this.endDate).toLocaleDateString(locales, options)
       } else {
-        return `Am ${this.startDate}`
+        return new Date(this.startDate).toLocaleDateString(locales, options)
       }
     } else {
       if (this.endDate && this.endDate !== this.startDate) {
-        return `Von ${this.startDate} um ${this.startTime} bis ${this.endDate} um ${this.endTime}`
+        return new Date(this.startDate + ' ' + this.startTime).toLocaleString(locales, options) +
+          ' - ' + new Date(this.startDate + ' ' + this.startTime).toLocaleString(locales, options) + oclock
       } else if (this.endDate === this.startDate && this.endTime !== this.startTime) {
-        return `Am ${this.startDate} von ${this.startTime} bis ${this.endTime}`
+        return new Date(this.startDate).toLocaleDateString(locales, options) + ', ' +
+          new Date(this.startDate + ' ' + this.startTime).toLocaleTimeString(locales, options) + ' - ' +
+          new Date(this.endDate + ' ' + this.endTime).toLocaleTimeString(locales, options) + oclock
       } else if (this.startTime) {
-        return `Am ${this.startDate} um ${this.startTime}`
+        return new Date(this.startDate + ' ' + this.startTime).toLocaleString(locales, options) + oclock
       } else {
-        return `Am ${this.startDate}`
+        return new Date(this.startDate).toLocaleDateString(locales, options)
       }
     }
   }

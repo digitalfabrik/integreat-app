@@ -1,31 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Col, Row } from 'react-flexbox-grid'
 import { connect } from 'react-redux'
 import RichLayout from 'components/RichLayout'
 import { EventsFetcher } from 'endpoints'
-
-class PageAdapter extends React.Component {
-  render () {
-    return <div>
-      { this.props.events.map(event => (
-        <div key={event.id}>
-          <Row>
-            <Col sm={8}>
-              <h2>{event.title}</h2>
-              <h3>{event.date.toString()}</h3>
-              <h3>{`${event.town} ${event.address}`}</h3>
-            </Col>
-            <Col sm={4}>
-              <img src={event.thumbnail} />
-            </Col>
-          </Row>
-          <div dangerouslySetInnerHTML={{__html: event.content}} />
-        </div>))
-      }
-    </div>
-  }
-}
+import Events from '../../components/Content/Events'
 
 class EventsPage extends React.Component {
   static propTypes = {
@@ -37,7 +15,7 @@ class EventsPage extends React.Component {
     return (
       <RichLayout location={this.props.location}>
         <EventsFetcher>
-          <PageAdapter/>
+          <Events />
         </EventsFetcher>
       </RichLayout>
     )

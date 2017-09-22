@@ -1,0 +1,12 @@
+.eventContainer {
+  margin: 10px 0;
+}
+
+.eventTitle {
+  margin: 10px 0;
+  font-size: 22px;
+}
+
+.eventThumbnail {
+  float: right;
+}

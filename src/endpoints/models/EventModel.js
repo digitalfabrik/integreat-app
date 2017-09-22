@@ -26,14 +26,10 @@ export default class EventModel {
   }
 
   get address () {
-    return this._address
+    return this._address + ', ' + this._town
   }
 
-  get town () {
-    return this._town
-  }
-
-  get date () {
-    return this._date
+  getDate (locale) {
+    return this._date.toLocaleString(locale)
   }
 }
