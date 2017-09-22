@@ -32,6 +32,13 @@ class Navigation {
     }
     return `/${this._location}/${this._language}/disclaimer`
   }
+
+  get events () {
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._location}/${this._language}/events`
+  }
 }
 
 export default Navigation
