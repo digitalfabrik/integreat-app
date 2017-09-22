@@ -15,7 +15,6 @@ class Page extends React.Component {
       <div>
         <div className={style.remoteContent}
              dangerouslySetInnerHTML={{__html: (this.props.page.content)}}/>
-        <PDFButton requestType="page" parentPage={this.props.page} pages={[this.props.page]}/>
       </div>
     )
   }

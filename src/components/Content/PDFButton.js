@@ -13,9 +13,9 @@ import style from './PDFButton.css'
 
 class PDFButton extends React.Component {
   static propTypes = {
-    parentPage: PropTypes.instanceOf(PageModel).isRequired,
-    requestType: PropTypes.string.isRequired,
-    locationCode: PropTypes.string.isRequired
+    page: PropTypes.instanceOf(PageModel).isRequired,
+    locationCode: PropTypes.string.isRequired,
+    languageCode: PropTypes.string.isRequired
   }
 
   constructor (params) {
@@ -28,19 +28,25 @@ class PDFButton extends React.Component {
     parentPage.children.forEach((page) => this.buildPageIds(pageIds, page))
   }
 
-  fetchUrl () {
-    this.setState(Object.assign({}, this.state, {loading: true}))
+  componentWillUpdate (nextProps, nextState) {
+    if (this.props.page !== nextProps.page || this.props.locationCode !== nextProps.locationCode) {
+      Object.assign(nextState, { pdf: false, loading: false })
+    }
+  }
 
-    const page = this.props.parentPage
+  fetchUrl () {
+    let page = this.props.page
+    this.setState(Object.assign({}, this.state, {loading: page}))
     const url = `https://cms.integreat-app.de/${this.props.locationCode}/wp-admin/admin-ajax.php`
     const pageIds = []
-    if (this.props.requestType === 'page') {
-      this.buildPageIds(pageIds, this.props.parentPage)
+    const requestType = page.numericId === 0 ? 'allpages' : 'page'
+    if (requestType === 'page') {
+      this.buildPageIds(pageIds, page)
     }
 
     const params = {
       action: 'frontEndDownloadPDF',
-      requestType: this.props.requestType,
+      requestType: requestType,
       myContent: pageIds.join(','),
       pdfOptions: `,,${page.id}_file,,`,
       'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.locationCode}/wp-admin/admin-ajax.php`,
@@ -52,14 +58,23 @@ class PDFButton extends React.Component {
 
     let body = new URLSearchParams(params)
     forEach(params, (value, key) => body.append(key, value))
+    const headers = {
+      'Access-Control-Allow-Credentials': 'true',
+      'Accept-Language': this.props.languageCode,
+      'Cookie': `_icl_current_language=${this.props.languageCode}; integreat_lang=${this.props.languageCode}`
+    }
     let text = ''
     let decoder = new TextDecoder()
     chunkedRequest({
       url,
       method: 'POST',
       body,
+      headers,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
+        if (!page === this.state.loading) {
+          return
+        }
         try {
           const regex = escapeRegExp(`https://cms.integreat-app.de/${this.props.locationCode}/wp-content/uploads/`) + '[\\w|/|-]*\\.pdf'
           const url = text.match(new RegExp(regex))[0]

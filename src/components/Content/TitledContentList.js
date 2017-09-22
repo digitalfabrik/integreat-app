@@ -8,7 +8,7 @@ import PDFButton from './PDFButton'
 
 class TitledContentList extends React.Component {
   static propTypes = {
-    parentPage: PropTypes.instanceOf(PageModel),
+    parentPage: PropTypes.instanceOf(PageModel).isRequired,
     pages: PropTypes.arrayOf(PropTypes.shape({
       page: PropTypes.instanceOf(PageModel).isRequired,
       url: PropTypes.string.isRequired
@@ -28,7 +28,6 @@ class TitledContentList extends React.Component {
           </div>
         </div>
         <ContentList pages={this.props.pages}/>
-        <PDFButton requestType="page" parentPage={this.props.parentPage}/>
       </div>
     )
   }
