@@ -70,7 +70,7 @@ function createFetcher (endpoint) {
 
       if (!payload.ready()) {
         if (!this.props.hideSpinner) {
-          return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
+          return <Spinner className={cx(style.loading, this.props.className)} fadeIn="quarter" name='line-scale-party'/>
         } else {
           return <div/>
         }
