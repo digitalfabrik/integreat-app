@@ -7,7 +7,7 @@ const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 export default new Endpoint({
   name: 'events',
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}',
-  jsonToAny: (json, options) => {
+  jsonToAny: (json) => {
     if (!json) {
       return []
     }
@@ -22,8 +22,11 @@ export default new Endpoint({
         address: event.location.address,
         town: event.location.town,
         date: new DateModel({
-          startDate: event.event.start_date, startTime: event.event.start_time,
-          endDate: event.event.end_date, endTime: event.event.end_time, allDay: event.event.all_day
+          startDate: event.event.start_date,
+          startTime: event.event.start_time,
+          endDate: event.event.end_date,
+          endTime: event.event.end_time,
+          allDay: event.event.all_day
         })
       }))
   },

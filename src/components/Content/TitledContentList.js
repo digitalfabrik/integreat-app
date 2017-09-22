@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import style from './TitledContentList.css'
 import PageModel from 'endpoints/models/PageModel'
 import ContentList from './ContentList'
-import PDFButton from './PDFButton'
 
 class TitledContentList extends React.Component {
   static propTypes = {

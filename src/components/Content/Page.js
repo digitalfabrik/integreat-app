@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './Page.css'
-import PDFButton from './PDFButton'
 
 class Page extends React.Component {
   static propTypes = {
