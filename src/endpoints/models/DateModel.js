@@ -49,21 +49,21 @@ export default class DateModel {
     const oClock = locale === 'de' ? ' Uhr' : ''
     if (this.allDay !== '0') {
       if (this.endDate && this.endDate !== this.startDate) {
-        return this.toLocaleDate(this.startDate, locale) + ' - ' + this.toLocaleDate(this.endDate, locale)
+        return DateModel.toLocaleDate(this.startDate, locale) + ' - ' + this.toLocaleDate(this.endDate, locale)
       } else {
-        return this.toLocaleDate(this.startDate, locale)
+        return DateModel.toLocaleDate(this.startDate, locale)
       }
     } else {
       if (this.endDate && this.endDate !== this.startDate) {
-        return this.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock +
-          ' - ' + this.toLocaleDateTime(this.endDate + ' ' + this.endTime) + oClock
+        return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock +
+          ' - ' + DateModel.toLocaleDateTime(this.endDate + ' ' + this.endTime) + oClock
       } else if (this.endDate === this.startDate && this.endTime !== this.startTime) {
-        return this.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + ' - ' +
-          this.toLocaleTime(this.endDate + ' ' + this.endTime, locale) + oClock
-      } else if (this.startTime) {
-        return this.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock
+        return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + ' - ' +
+          DateModel.toLocaleTime(this.endDate + ' ' + this.endTime, locale) + oClock
+      } else if (DateModel.startTime) {
+        return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock
       } else {
-        return this.toLocaleDate(this.startDate, locale)
+        return DateModel.toLocaleDate(this.startDate, locale)
       }
     }
   }
