@@ -2,5 +2,6 @@
   "address": "Address",
   "date": "Date",
   "currentEvents": "Current events",
-  "thereAreCurrentlyNoEvents": "There are currently no events."
+  "thereAreCurrentlyNoEvents": "There are currently no events.",
+  "AndMore": "And more..."
 }

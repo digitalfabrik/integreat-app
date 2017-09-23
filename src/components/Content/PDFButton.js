@@ -58,18 +58,16 @@ class PDFButton extends React.Component {
 
     let body = new URLSearchParams(params)
     forEach(params, (value, key) => body.append(key, value))
-    const headers = {
-      'Access-Control-Allow-Credentials': 'true',
-      'Accept-Language': this.props.languageCode,
-      'Cookie': `_icl_current_language=${this.props.languageCode}; integreat_lang=${this.props.languageCode}`
-    }
+    // const headers = {
+    //  'Cookie': `_icl_current_language=${this.props.languageCode}; integreat_lang=${this.props.languageCode}`
+    // }
     let text = ''
     let decoder = new TextDecoder()
     chunkedRequest({
       url,
       method: 'POST',
       body,
-      headers,
+      // headers,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
         if (!page === this.state.loading) {

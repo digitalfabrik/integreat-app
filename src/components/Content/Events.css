@@ -1,5 +1,8 @@
 .eventContainer {
-  margin: 10px 0;
+  min-height: 150px;
+  box-sizing: content-box;
+  margin-top: 15px;
+  margin-bottom: 40px;
 }
 
 .eventTitle {
@@ -8,5 +11,9 @@
 }
 
 .eventThumbnail {
+  width: 150px;
+  max-width: 25vw;
   float: right;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }

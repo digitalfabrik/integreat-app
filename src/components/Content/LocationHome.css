@@ -20,8 +20,12 @@
   padding: 15px;
 }
 
+.event {
+  margin: 3px 0;
+}
+
 .no-events {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 60px;
 }

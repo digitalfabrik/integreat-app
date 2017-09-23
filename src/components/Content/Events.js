@@ -20,10 +20,10 @@ class Events extends React.Component {
         map(this.props.events, event => (
           <div key={event.id} className={style.eventContainer}>
             <div>
+              { !isEmpty(event.thumbnail) ? <img className={style.eventThumbnail} src={event.thumbnail} /> : '' }
               <div className={style.eventTitle}>{event.title}</div>
               <div><strong>{t('common:date')}: </strong>{event.getDate(this.props.language)}</div>
               <div><strong>{t('common:address')}: </strong>{event.address}</div>
-              { !isEmpty(event.thumbnail) ? <img className={style.eventThumbnail} src={event.thumbnail} /> : '' }
             </div>
             <div dangerouslySetInnerHTML={{__html: event.content}}/>
           </div>))

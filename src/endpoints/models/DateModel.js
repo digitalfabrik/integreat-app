@@ -27,28 +27,43 @@ export default class DateModel {
     return this._allDay
   }
 
-  toLocaleString (locale) {
+  static toLocaleDateTime (value, locale) {
     const locales = [ locale, 'en', 'de' ]
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
-    const oclock = locale === 'de' ? ' Uhr' : ''
+    return new Date(value).toLocaleString(locales, options)
+  }
+
+  static toLocaleDate (value, locale) {
+    const locales = [ locale, 'en', 'de' ]
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(value).toLocaleDateString(locales, options)
+  }
+
+  static toLocaleTime (value, locale) {
+    const locales = [ locale, 'en', 'de' ]
+    const options = { hour: '2-digit', minute: '2-digit' }
+    return new Date(value).toLocaleTimeString(locales, options)
+  }
+
+  toLocaleString (locale) {
+    const oClock = locale === 'de' ? ' Uhr' : ''
     if (this.allDay !== '0') {
       if (this.endDate && this.endDate !== this.startDate) {
-        return new Date(this.startDate).toLocaleDateString(locales, options) + ' - ' + new Date(this.endDate).toLocaleDateString(locales, options)
+        return this.toLocaleDate(this.startDate, locale) + ' - ' + this.toLocaleDate(this.endDate, locale)
       } else {
-        return new Date(this.startDate).toLocaleDateString(locales, options)
+        return this.toLocaleDate(this.startDate, locale)
       }
     } else {
       if (this.endDate && this.endDate !== this.startDate) {
-        return new Date(this.startDate + ' ' + this.startTime).toLocaleString(locales, options) +
-          ' - ' + new Date(this.startDate + ' ' + this.startTime).toLocaleString(locales, options) + oclock
+        return this.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock +
+          ' - ' + this.toLocaleDateTime(this.endDate + ' ' + this.endTime) + oClock
       } else if (this.endDate === this.startDate && this.endTime !== this.startTime) {
-        return new Date(this.startDate).toLocaleDateString(locales, options) + ', ' +
-          new Date(this.startDate + ' ' + this.startTime).toLocaleTimeString(locales, options) + ' - ' +
-          new Date(this.endDate + ' ' + this.endTime).toLocaleTimeString(locales, options) + oclock
+        return this.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + ' - ' +
+          this.toLocaleTime(this.endDate + ' ' + this.endTime, locale) + oClock
       } else if (this.startTime) {
-        return new Date(this.startDate + ' ' + this.startTime).toLocaleString(locales, options) + oclock
+        return this.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock
       } else {
-        return new Date(this.startDate).toLocaleDateString(locales, options)
+        return this.toLocaleDate(this.startDate, locale)
       }
     }
   }

@@ -13,7 +13,8 @@ export default new Endpoint({
     }
 
     return json.filter(event => event.status === 'publish')
-      .filter(event => new Date(event.event.start_date) > Date.now() - 1000 * 60 * 60 * 24)
+      .filter(event => new Date(event.event.start_date) > Date.now() - 0.5 * 1000 * 60 * 60 * 24)
+      .sort((event1, event2) => new Date(event1.event.start_date + ' ' + event1.event.start_time) - new Date(event2.event.start_date + ' ' + event2.event.start_time))
       .map(event => new EventModel({
         id: event.id,
         title: event.title,
