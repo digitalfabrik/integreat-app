@@ -16,17 +16,17 @@ export default new Endpoint({
 
     json = json.filter(event => event.status === 'publish')
     json = json.map(event => new EventModel({
-        id: event.id,
-        title: event.title,
-        content: event.content,
-        thumbnail: event.thumbnail,
-        address: event.location.address,
-        town: event.location.town,
-        date: new DateModel({
-          startDate: parseDate(event.event.start_date, event.event.start_time),
-          endDate: parseDate(event.event.end_date, event.event.end_time),
-          allDay: event.event.all_day === '0'
-        })
+      id: event.id,
+      title: event.title,
+      content: event.content,
+      thumbnail: event.thumbnail,
+      address: event.location.address,
+      town: event.location.town,
+      date: new DateModel({
+        startDate: parseDate(event.event.start_date, event.event.start_time),
+        endDate: parseDate(event.event.end_date, event.event.end_time),
+        allDay: event.event.all_day === '0'
+      })
     }))
     json = json.filter(event => !event.date.startDate || event.date.startDate > Date.now() - 1000 * 60 * 60 * 24)
     json = json.sort((event1, event2) => event1.date.startDate - event2.date.startDate)
