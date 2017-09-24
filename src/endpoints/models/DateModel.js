@@ -5,6 +5,8 @@ export default class DateModel {
     this._allDay = allDay
   }
 
+  // (!) startDate and endDate are not in German, but UTC TimeZone. They are sent in German timezone by Server, but without any
+  // timezone declaration, so we don't know if it's DaylightSavingTime or not. So we parse it in UTC and display it in UTC.
   get startDate () {
     return this._startDate
   }
@@ -35,7 +37,8 @@ export default class DateModel {
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+        timeZone: 'UTC'
       })
     } else {
       return date.toDateString() + ', ' + date.toTimeString()
@@ -48,7 +51,8 @@ export default class DateModel {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        timeZone: 'UTC'
       })
     } else {
       return date.toDateString()
@@ -57,7 +61,7 @@ export default class DateModel {
 
   static toTimeString (date, locale) {
     if (DateModel.toLocaleStringSupportsLocales()) {
-      return date.toLocaleTimeString([locale, 'en-US'], {hour: '2-digit', minute: '2-digit'})
+      return date.toLocaleTimeString([locale, 'en-US'], {hour: '2-digit', minute: '2-digit', timeZone: 'UTC'})
     } else {
       return date.toTimeString()
     }

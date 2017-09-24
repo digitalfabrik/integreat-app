@@ -12,7 +12,7 @@ export default new Endpoint({
       return []
     }
 
-    const parseDate = (date, time) => date ? new Date(date + 'T' + (time || '00:00:00')) : null
+    const parseDate = (date, time) => date ? new Date(date + 'T' + (time || '00:00:00') + 'Z') : null
 
     json = json.filter(event => event.status === 'publish')
     json = json.map(event => new EventModel({
@@ -27,8 +27,8 @@ export default new Endpoint({
           endDate: parseDate(event.event.end_date, event.event.end_time),
           allDay: event.event.all_day === '0'
         })
-      }))
-    json = json.filter(event => !event.date.startDate || event.date.startDate > Date.now() - 0.5 * 1000 * 60 * 60 * 24)
+    }))
+    json = json.filter(event => !event.date.startDate || event.date.startDate > Date.now() - 1000 * 60 * 60 * 24)
     json = json.sort((event1, event2) => event1.date.startDate - event2.date.startDate)
     return json
   },
