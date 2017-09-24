@@ -56,7 +56,7 @@ export default class DateModel {
     } else {
       if (this.endDate && this.endDate !== this.startDate) {
         return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock +
-          ' - ' + DateModel.toLocaleDateTime(this.endDate + ' ' + this.endTime) + oClock
+          ' - ' + DateModel.toLocaleDateTime(this.endDate + ' ' + this.endTime, locale) + oClock
       } else if (this.endDate === this.startDate && this.endTime !== this.startTime) {
         return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + ' - ' +
           DateModel.toLocaleTime(this.endDate + ' ' + this.endTime, locale) + oClock
