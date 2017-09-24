@@ -81,8 +81,23 @@ const config = {
     }),
     new WorkBoxPlugin({
       globDirectory: 'public',
+      clientsClaim: true,
+      skipWaiting: true,
+      globPatterns: ['**/*.{js,css,html,png,jpg,woff}'],
       swDest: 'public/sw.js',
-      swSrc: 'tools/sw.config.js'
+      modifyUrlPrefix: {
+        '/public': '/'
+      },
+      runtimeCaching: [{
+        urlPattern: /.*cms.integreat-app.de\/.*/,
+        handler: 'cacheFirst',
+        options: {
+          cache: {
+            name: 'cms-cache',
+            maxAgeSeconds: 60 * 60 * 24 * 2
+          }
+        }
+      }]
     })
   ],
   // Options affecting the normal modules
