@@ -1,9 +1,7 @@
 export default class DateModel {
-  constructor ({ startDate, startTime = '00:00:00', endDate, endTime, allDay = false }) {
+  constructor ({ startDate, endDate, allDay }) {
     this._startDate = startDate
-    this._startTime = startTime
     this._endDate = endDate
-    this._endTime = endTime
     this._allDay = allDay
   }
 
@@ -11,60 +9,74 @@ export default class DateModel {
     return this._startDate
   }
 
-  get startTime () {
-    return this._startTime
-  }
-
   get endDate () {
     return this._endDate
-  }
-
-  get endTime () {
-    return this._endTime
   }
 
   get allDay () {
     return this._allDay
   }
 
-  static toLocaleDateTime (value, locale) {
-    const locales = [ locale, 'en', 'de' ]
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
-    return new Date(value).toLocaleString(locales, options)
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Checking_for_support_for_locales_and_options_arguments
+  static toLocaleStringSupportsLocales () {
+    try {
+      new Date().toLocaleTimeString('i')
+    } catch (e) {
+      return e.name === 'RangeError'
+    }
+    return false
   }
 
-  static toLocaleDate (value, locale) {
-    const locales = [ locale, 'en', 'de' ]
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-    return new Date(value).toLocaleDateString(locales, options)
+  static toDateTimeString (date, locale) {
+    if (DateModel.toLocaleStringSupportsLocales()) {
+      return date.toLocaleString([locale, 'en-US'], {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    } else {
+      return date.toDateString() + ', ' + date.toTimeString()
+    }
   }
 
-  static toLocaleTime (value, locale) {
-    const locales = [ locale, 'en', 'de' ]
-    const options = { hour: '2-digit', minute: '2-digit' }
-    return new Date(value).toLocaleTimeString(locales, options)
+  static toDateString (date, locale) {
+    if (DateModel.toLocaleStringSupportsLocales()) {
+      return date.toLocaleDateString([locale, 'en-US'], {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    } else {
+      return date.toDateString()
+    }
+  }
+
+  static toTimeString (date, locale) {
+    if (DateModel.toLocaleStringSupportsLocales()) {
+      return date.toLocaleTimeString([locale, 'en-US'], {hour: '2-digit', minute: '2-digit'})
+    } else {
+      return date.toTimeString()
+    }
   }
 
   toLocaleString (locale) {
     const oClock = locale === 'de' ? ' Uhr' : ''
-    if (this.allDay !== '0') {
+    if (!this.allDay) {
       if (this.endDate && this.endDate !== this.startDate) {
-        return DateModel.toLocaleDate(this.startDate, locale) + ' - ' + this.toLocaleDate(this.endDate, locale)
+        return DateModel.toDateString(this.startDate, locale) + ' - ' + this.toDateString(this.endDate, locale)
       } else {
-        return DateModel.toLocaleDate(this.startDate, locale)
+        return DateModel.toDateString(this.startDate, locale)
       }
+    } else if (!this.endDate || this.endDate.toString() === this.startDate.toString()) {
+      return DateModel.toDateTimeString(this.startDate, locale)
+    } else if (this.startDate.toDateString() === this.endDate.toDateString()) {
+      return DateModel.toDateTimeString(this.startDate, locale) + ' - ' + DateModel.toTimeString(this.endDate, locale) + oClock
     } else {
-      if (this.endDate && this.endDate !== this.startDate) {
-        return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock +
-          ' - ' + DateModel.toLocaleDateTime(this.endDate + ' ' + this.endTime, locale) + oClock
-      } else if (this.endDate === this.startDate && this.endTime !== this.startTime) {
-        return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + ' - ' +
-          DateModel.toLocaleTime(this.endDate + ' ' + this.endTime, locale) + oClock
-      } else if (DateModel.startTime) {
-        return DateModel.toLocaleDateTime(this.startDate + ' ' + this.startTime, locale) + oClock
-      } else {
-        return DateModel.toLocaleDate(this.startDate, locale)
-      }
+      return DateModel.toDateTimeString(this.startDate, locale) + oClock + ' - ' + DateModel.toDateTimeString(this.endDate, locale) + oClock
     }
   }
 }

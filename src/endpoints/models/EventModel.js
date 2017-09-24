@@ -37,6 +37,10 @@ export default class EventModel {
     }
   }
 
+  get date () {
+    return this._date
+  }
+
   getDate (locale) {
     return this._date.toLocaleString(locale)
   }

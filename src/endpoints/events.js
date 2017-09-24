@@ -12,10 +12,10 @@ export default new Endpoint({
       return []
     }
 
-    return json.filter(event => event.status === 'publish')
-      .filter(event => new Date(event.event.start_date) > Date.now() - 0.5 * 1000 * 60 * 60 * 24)
-      .sort((event1, event2) => new Date(event1.event.start_date + ' ' + event1.event.start_time) - new Date(event2.event.start_date + ' ' + event2.event.start_time))
-      .map(event => new EventModel({
+    const parseDate = (date, time) => date ? new Date(date + 'T' + (time || '00:00:00')) : null
+
+    json = json.filter(event => event.status === 'publish')
+    json = json.map(event => new EventModel({
         id: event.id,
         title: event.title,
         content: event.content,
@@ -23,13 +23,14 @@ export default new Endpoint({
         address: event.location.address,
         town: event.location.town,
         date: new DateModel({
-          startDate: event.event.start_date,
-          startTime: event.event.start_time,
-          endDate: event.event.end_date,
-          endTime: event.event.end_time,
-          allDay: event.event.all_day
+          startDate: parseDate(event.event.start_date, event.event.start_time),
+          endDate: parseDate(event.event.end_date, event.event.end_time),
+          allDay: event.event.all_day === '0'
         })
       }))
+    json = json.filter(event => !event.date.startDate || event.date.startDate > Date.now() - 0.5 * 1000 * 60 * 60 * 24)
+    json = json.sort((event1, event2) => event1.date.startDate - event2.date.startDate)
+    return json
   },
   mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
   mapOptionsToUrlParams: (options) => ({
