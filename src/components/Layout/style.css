@@ -10,3 +10,11 @@
   font-family: 'Raleway', 'El Messiri', sans-serif;
   word-wrap: break-word;
 }
+
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+@media screen and (min-width: 1000px) {
+  .layout {
+    margin-right: 0;
+    margin-left: calc(100vw - 100%);
+  }
+}

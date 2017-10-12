@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Link } from 'redux-little-router'
 import { Row } from 'react-flexbox-grid'
+import { isEmpty } from 'lodash/lang'
 import FontAwesome from 'react-fontawesome'
 
 import PageModel from '../../endpoints/models/PageModel'
@@ -23,19 +24,30 @@ const LocationHomeAdapter = connect((state) => ({ language: state.router.params.
       })).isRequired,
       events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired
     }
+
+    hasEvents () {
+      return !isEmpty(this.props.events)
+    }
+
+    getEventSnippet () {
+      const nav = new Navigation(this.props.location, this.props.language)
+      const t = this.props.t
+      return <Link className={style.events} href={nav.events}>
+          <FontAwesome name="calendar" className={style.calendarIcon}/>
+          <div className={style.eventsContainer}>
+            <div><strong>{t('common:currentEvents')}:</strong></div>
+            { this.props.events.slice(0, 2).map((event) => <div key={event.id} className={style.event}>{ event.title }</div>) }
+            { this.props.events.length > 2 ? <div className={style.event}><em>{t('common:AndMore')}</em></div> : '' }
+          </div>
+      </Link>
+    }
+
     render () {
       const t = this.props.t
       return <div>
-        { this.props.events.length !== 0 ? <Link className={style.events} href={new Navigation(this.props.location, this.props.language).events}>
-              <FontAwesome name="calendar" className={style.calendarIcon}/>
-              <div className={style.eventsContainer}>
-                <div><strong>{t('common:currentEvents')}:</strong></div>
-                { this.props.events.slice(0, 2).map((event) => <div key={event.id} className={style.event}>{ event.title }</div>) }
-                { this.props.events.length > 2 ? <div className={style.event}><em>{t('common:AndMore')}</em></div> : '' }
-              </div>
-            </Link> : '' }
+        { this.hasEvents() ? this.getEventSnippet() : '' }
         <Categories categories={this.props.categories}/>
-        { this.props.events.length === 0 ? <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row> : '' }
+        { !this.hasEvents() ? <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row> : '' }
       </div>
     }
   }))

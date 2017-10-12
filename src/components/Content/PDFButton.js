@@ -23,9 +23,9 @@ class PDFButton extends React.Component {
     this.state = {pdf: '', loading: false}
   }
 
-  buildPageIds (pageIds, parentPage) {
+  addPageIdsRecursively (pageIds, parentPage) {
     pageIds.push(parentPage.numericId)
-    parentPage.children.forEach((page) => this.buildPageIds(pageIds, page))
+    parentPage.children.forEach((page) => this.addPageIdsRecursively(pageIds, page))
   }
 
   componentWillUpdate (nextProps, nextState) {
@@ -41,7 +41,7 @@ class PDFButton extends React.Component {
     const pageIds = []
     const requestType = page.numericId === 0 ? 'allpages' : 'page'
     if (requestType === 'page') {
-      this.buildPageIds(pageIds, page)
+      this.addPageIdsRecursively(pageIds, page)
     }
 
     const params = {
@@ -58,16 +58,16 @@ class PDFButton extends React.Component {
 
     let body = new URLSearchParams(params)
     forEach(params, (value, key) => body.append(key, value))
-    // const headers = {
-    //  'Cookie': `_icl_current_language=${this.props.languageCode}; integreat_lang=${this.props.languageCode}`
-    // }
+    // Currently the backend can only use the 'Referer' header, to determine which language the PDF should have (not sure).
+    // We cannot modify the 'Referer'-header and we are just lucky that it works I think.
+    // The old JQuery webapp also sended following cookies to the backend which it maybe used to determine the language.
+    // 'Cookie': `_icl_current_language=${this.props.languageCode}; integreat_lang=${this.props.languageCode}`
     let text = ''
     let decoder = new TextDecoder()
     chunkedRequest({
       url,
       method: 'POST',
       body,
-      // headers,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
         if (!page === this.state.loading) {
