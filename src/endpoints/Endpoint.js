@@ -71,8 +71,7 @@ export default class Endpoint {
    * @param {propsToOptionsCallback} mapOptionsToUrlParams Maps the properties of the Fetcher component to the url options needed in {@link url}
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, optionsPropType = PropTypes.object, jsonToAny, mapStateToOptions = DUMMY,
-                 mapOptionsToUrlParams = DUMMY, shouldRefetch = () => false, beforeFetch = () => Promise.resolve({})}) {
+  constructor ({name, url, optionsPropType = PropTypes.object, jsonToAny, mapStateToOptions = DUMMY, mapOptionsToUrlParams = DUMMY, shouldRefetch = () => false}) {
     this.name = name
     this.url = url
     this.optionsPropType = optionsPropType
@@ -80,7 +79,7 @@ export default class Endpoint {
     this.mapStateToOptions = mapStateToOptions
     this.shouldRefetch = shouldRefetch
     this.jsonToAny = jsonToAny
-    this.beforeFetch = beforeFetch
+
     let actionName = this.name.toUpperCase()
 
     this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, options, error) => new Payload(false, value, error))
@@ -116,13 +115,11 @@ export default class Endpoint {
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
-
-      return this.beforeFetch()
-        .then(extraOptions => Object.assign(options, extraOptions))
-        .then(() => fetch(formattedURL))
+      return fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
-          let error, value
+          let error
+          let value
           try {
             value = this.jsonToAny(json, options)
           } catch (e) {

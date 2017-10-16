@@ -7,9 +7,6 @@ const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 export default new Endpoint({
   name: 'pages',
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
-  beforeFetch: () => fetch('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
-    .then(response => response.json())
-    .then(locations => ({ locations })),
   jsonToAny: (json, options) => {
     if (!json) {
       return EMPTY_PAGE
@@ -37,21 +34,8 @@ export default new Endpoint({
       }
     })
 
-    // Get Location Title
-    const stripSlashes = (path) => {
-      if (path.startsWith('/')) {
-        path = path.substr(1)
-      }
-      if (path.endsWith('/')) {
-        path = path.substr(0, path.length - 1)
-      }
-      return path
-    }
-
-    const title = find(options.locations, (loc) => stripSlashes(loc.path) === options.location).name || options.location
-
     const children = filter(pages, (page) => page.parent === 0)
-    return new PageModel({ numericId: 0, id: 'rootId', title, children })
+    return new PageModel({ numericId: 0, id: 'rootId', title: options.location, children })
   },
   mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
   mapOptionsToUrlParams: (options) => ({
