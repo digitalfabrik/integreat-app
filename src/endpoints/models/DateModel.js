@@ -79,7 +79,7 @@ export default class DateModel {
   /**
    * Returns a nicely formatted, localized string containing start and - if available - endDate.
    * Times are included if allDay is false.
-   * @param(locale) The localization to be used in formatting.
+   * @param{string} locale The localization to be used in formatting.
    */
   toLocaleString (locale) {
     const oClock = locale === 'de' ? ' Uhr' : ''
