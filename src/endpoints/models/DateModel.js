@@ -5,7 +5,7 @@ export default class DateModel {
     this._allDay = allDay
   }
 
-  /*
+  /**
   * (!) startDate and endDate are not in German, but UTC TimeZone. They are sent in German timezone by Server, but without any
   * timezone declaration, so we don't know if it's DaylightSavingTime or not. So we parse it in UTC and display it in UTC.
   */
@@ -13,7 +13,7 @@ export default class DateModel {
     return this._startDate
   }
 
-  /*
+  /**
   * (!) startDate and endDate are not in German, but UTC TimeZone. They are sent in German timezone by Server, but without any
   * timezone declaration, so we don't know if it's DaylightSavingTime or not. So we parse it in UTC and display it in UTC.
   */
@@ -25,7 +25,10 @@ export default class DateModel {
     return this._allDay
   }
 
-  /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Checking_for_support_for_locales_and_options_arguments */
+  /**
+   * Indicates, if toLocaleString is supported on the Date Prototype. See also:
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Checking_for_support_for_locales_and_options_arguments
+   */
   static isToLocaleStringSupported () {
     try {
       new Date().toLocaleTimeString('i')
@@ -73,6 +76,11 @@ export default class DateModel {
     }
   }
 
+  /**
+   * Returns a nicely formatted, localized string containing start and - if available - endDate.
+   * Times are included if allDay is false.
+   * @param(locale) The localization to be used in formatting.
+   */
   toLocaleString (locale) {
     const oClock = locale === 'de' ? ' Uhr' : ''
     if (!this.allDay) {
