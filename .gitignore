@@ -90,3 +90,6 @@ fabric.properties
 public/dist
 public/index.html
 public/sitemap.xml
+
+# VPN config
+/tools/deploy/openconnect.*.config
