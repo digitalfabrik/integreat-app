@@ -29,5 +29,5 @@ node tools/run                  # Compiles the app and opens it in a browser wit
 ### [`publish.js`](./publish.js) — deployment
 
 ```bash
-node tools/publish.js           # Compiles the app and deployes it to Firebase
+node tools/publish.js           # Compiles the app and deployes
 ```

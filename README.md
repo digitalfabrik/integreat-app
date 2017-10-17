@@ -65,5 +65,4 @@ Also mark the *src* and *public* folder as *Source directory*. In IntelliJ no ot
 
 # Publishing
 
-You can login though the firebase cli and then run **npm run publish**.
-A live preview of this app is available [here](https://integreat-1173.firebaseapp.com/).
+A live preview of this app is available [here](https://webnext.integreat-app.de/).
