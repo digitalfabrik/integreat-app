@@ -4,11 +4,11 @@ import { translate } from 'react-i18next'
 import normalizeUrl from 'normalize-url'
 import { isEmpty } from 'lodash/lang'
 
-import Categories from './Categories'
 import Page from './Page'
 
 import Hierarchy from 'routes/LocationPage/Hierarchy'
 import TitledContentList from './TitledContentList'
+import LocationHome from './LocationHome'
 
 class Content extends React.Component {
   static propTypes = {
@@ -30,7 +30,7 @@ class Content extends React.Component {
     let pages = page.children.map((page) => ({ page, url: `${base}/${page.id}` }))
 
     return hierarchy.root()
-      ? <Categories parentPage={ page } categories={ pages } />
+      ? <LocationHome parentPage={ page } categories={ pages } />
       : <TitledContentList parentPage={ page } pages={ pages } />
   }
 

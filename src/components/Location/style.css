@@ -6,18 +6,15 @@
 
 .language-list-item {
   display: block;
-  height: var(--item-height);
-  margin-left: var(--list-margin);
+  padding: 7px;
 
   color: inherit;
-  line-height: var(--item-height);
   text-decoration: inherit;
 
   &:hover {
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-
     background-color: var(--hover-color);
   }
 }
