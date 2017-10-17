@@ -22,7 +22,7 @@
   box-sizing: border-box;
   padding: 0 calc((100% - 1000px) / 2);
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
@@ -137,7 +137,7 @@
 }
 
 /* landscape mobile / nottablet */
-@media screen and (orientation:landscape) and (max-width: 800px), screen and (max-width: 425px) {
+@media screen and (orientation: landscape) and (max-width: 800px), screen and (max-width: 425px) {
   .header {
     height: var(--header-height-small);
   }

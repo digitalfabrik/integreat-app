@@ -1,12 +1,12 @@
 .heading {
   margin-bottom: 30px;
-
   text-align: center;
   vertical-align: middle;
 }
 
 .logo {
   display: block;
-  width: 15%;
+  width: auto;
+  height: 70px;
   margin: auto;
 }
