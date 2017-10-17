@@ -6,6 +6,7 @@
 
 .logo {
   display: block;
-  width: 15%;
+  width: auto;
+  height: 70px;
   margin: auto;
 }
