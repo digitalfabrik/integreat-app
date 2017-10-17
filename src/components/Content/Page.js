@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './Page.css'
-import PDFButton from './PDFButton'
 
 class Page extends React.Component {
   static propTypes = {
@@ -15,7 +14,6 @@ class Page extends React.Component {
       <div>
         <div className={style.remoteContent}
              dangerouslySetInnerHTML={{__html: (this.props.page.content)}}/>
-        <PDFButton requestType="page" parentPage={this.props.page} pages={[this.props.page]}/>
       </div>
     )
   }

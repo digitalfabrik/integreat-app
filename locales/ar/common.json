@@ -1,1 +1,6 @@
-{}
+{
+  "address": "الموقع",
+  "date": "تاريخ",
+  "currentEvents": "الأحداث الجارية",
+  "thereAreCurrentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
+}

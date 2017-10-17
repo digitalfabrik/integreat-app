@@ -1,0 +1,31 @@
+@import url('../Helper/Helper.css');
+
+.calendar-icon {
+  float: left;
+  padding: 10px;
+  font-size: 50px;
+}
+
+.events-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.events {
+  @mixin remove-a;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.event {
+  margin: 3px 0;
+}
+
+.no-events {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
