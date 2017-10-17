@@ -1,11 +1,13 @@
 export default class PageModel {
-  constructor (id = -1, title = '', parent = 0, content = '', thumbnail = null, children = {}) {
+  constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [] }) {
     this._id = id
+    this._numericId = numericId
     this._title = title
     this._content = content
-    this._children = children
     this._parent = parent
     this._thumbnail = thumbnail
+    this._order = order
+    this._children = children
   }
 
   get thumbnail () {
@@ -13,11 +15,15 @@ export default class PageModel {
   }
 
   addChild (page) {
-    this._children[page.id] = page
+    this._children.push(page)
   }
 
   get id () {
     return this._id
+  }
+
+  get numericId () {
+    return this._numericId
   }
 
   get title () {
@@ -33,6 +39,12 @@ export default class PageModel {
   }
 
   get children () {
-    return this._children
+    return this._children.sort((page1, page2) => page1.order - page2.order)
+  }
+
+  get order () {
+    return this._order
   }
 }
+
+export const EMPTY_PAGE = new PageModel({})

@@ -3,17 +3,18 @@
   width: 100%;
   flex-flow: row wrap;
   justify-content: center;
+  color: black;
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 }
 
 .element {
-  height: 100px;
+  height: 85px;
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
   font-size: 20px;
-  line-height: 100px;
+  line-height: 85px;
   text-align: center;
   transition: background-color 0.2s, border-radius 0.2s;
   border-radius: 30px;

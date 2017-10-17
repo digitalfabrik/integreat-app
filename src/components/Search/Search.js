@@ -7,17 +7,17 @@ import style from './Search.css'
 
 class Search extends React.Component {
   static propTypes = {
-    filterText: PropTypes.string,
-    onFilterTextChange: PropTypes.any
+    filterText: PropTypes.string.isRequired,
+    onFilterTextChange: PropTypes.func.isRequired
   }
 
   render () {
     const {t} = this.props
     return (
-      <div>
+      <div className={this.props.className}>
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search'/>
-          <input type='text' placeholder={t('Location:search')} className={style.searchInput} defaultValue={this.props.filterText}
+          <input type='text' placeholder={t('Search:search')} className={style.searchInput} defaultValue={this.props.filterText}
                  onChange={(event) => this.props.onFilterTextChange(event.target.value)}/>
         </div>
       </div>
@@ -25,4 +25,4 @@ class Search extends React.Component {
   }
 }
 
-export default translate('Location')(Search)
+export default translate('Search')(Search)

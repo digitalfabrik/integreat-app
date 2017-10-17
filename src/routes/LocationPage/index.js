@@ -1,119 +1,75 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import Content from 'components/Content'
+import Breadcrumb from 'components/Content/Breadcrumb'
+import RichLayout from 'components/RichLayout'
+import Error from 'components/Error'
+import { PageFetcher } from 'endpoints'
+import PageModel from 'endpoints/models/PageModel'
+
+import Hierarchy from './Hierarchy'
 import { connect } from 'react-redux'
 
-import Layout from 'components/Layout'
-import Content from 'components/Content'
-
-import PAGE_ENDPOINT from 'endpoints/page'
-
-import LANGUAGE_ENDPOINT from 'endpoints/language'
-import Breadcrumb from 'components/Content/Breadcrumb'
-
-import { history } from 'main'
-
-import Payload from 'endpoints/Payload'
-
-import style from './style.css'
-import Hierarchy from './Hierarchy'
-
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
-
-class LocationPage extends React.Component {
+class PageAdapter extends React.Component {
   static propTypes = {
-    pagePayload: PropTypes.instanceOf(Payload).isRequired,
-    languagePayload: PropTypes.instanceOf(Payload).isRequired,
+    location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    hierarchy: PropTypes.instanceOf(Hierarchy).isRequired,
-    dispatch: PropTypes.func.isRequired
+    path: PropTypes.string,
+    pages: PropTypes.instanceOf(PageModel)
   }
 
-  constructor (props) {
-    super(props)
-
-    this.changeLanguage = this.changeLanguage.bind(this)
-  }
-
-  componentDidUpdate () {
-// eslint-disable-next-line
-    window.scrollTo(0, 0)
-  }
-
-  componentWillUnmount () {
-    // todo only do this if necessary
-    this.props.dispatch(LANGUAGE_ENDPOINT.invalidateAction())
-    this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
-  }
-
-  componentWillMount () {
-    this.fetchData(this.props.language)
-  }
-
-  fetchData (languageCode) {
-    let location = this.getLocation()
-    this.props.dispatch(LANGUAGE_ENDPOINT.fetchEndpointAction({
-      location: location,
-      language: languageCode
-    }))
-    this.props.dispatch(PAGE_ENDPOINT.fetchEndpointAction({
-      location: location,
-      language: languageCode,
-      since: BIRTH_OF_UNIVERSE
-    }, {location: location}))
-  }
-
-  changeLanguage (code) {
-    // Invalidate
-    this.props.dispatch(PAGE_ENDPOINT.invalidateAction())
-    // Go to back to parent page
-    history.push('/location/' + this.getLocation())
-    // Re-fetch
-    this.fetchData(code)
-  }
-
-  getLocation () {
-    return this.props.match.params.location
+  getParentPath () {
+    return `/${this.props.location}/${this.props.language}`
   }
 
   render () {
-    let hierarchy = this.props.hierarchy
-    let payload = this.props.pagePayload
+    let url = this.getParentPath()
+    let hierarchy = new Hierarchy(this.props.path)
 
     // Pass data to hierarchy
-    hierarchy = hierarchy.build(payload.data)
-    if (payload.error) {
-      hierarchy = hierarchy.error(payload.error)
+    let error = hierarchy.build(this.props.pages)
+    if (error) {
+      return <Error error={error}/>
     }
 
+    return <div>
+      <Breadcrumb
+        hierarchy={hierarchy}
+        language={this.props.language}
+        location={this.props.location}
+      />
+      <Content url={url} hierarchy={hierarchy}/></div>
+  }
+}
+
+class LocationPage extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    language: PropTypes.string.isRequired
+  }
+
+  render () {
     return (
-      <Layout languageCallback={this.changeLanguage}
-              currentLanguage={this.props.language}>
-
-        { /* Breadcrumb */ }
-        <Breadcrumb
-          className={style.breadcrumbSpacing}
-          hierarchy={ hierarchy }
-          location={ this.getLocation() }
-        />
-
-        { /* Content */ }
-        <Content url={ this.props.match.url }
-                 hierarchy={ hierarchy }
-        />
-      </Layout>
+      <RichLayout location={this.props.location}>
+        <PageFetcher>
+          <PageAdapter
+            location={this.props.location}
+            language={this.props.language}
+            path={this.props.path} />
+        </PageFetcher>
+      </RichLayout>
     )
   }
 }
-/**
- * @param state The current app state
- * @returns {{languagePayload: Payload, pagePayload: Payload, language: string}} The endpoint values from the state mapped to props
- */
-function mapeStateToProps (state) {
-  return ({
-    languagePayload: state.languages,
-    pagePayload: state.pages,
-    language: state.language.language
-  })
+
+function mapStateToProps (state) {
+  return {
+    location: state.router.params.location,
+    language: state.router.params.language,
+    path: state.router.params['_'] // _ contains all the values from *
+  }
 }
 
-export default connect(mapeStateToProps)(LocationPage)
+export default connect(mapStateToProps)(LocationPage)

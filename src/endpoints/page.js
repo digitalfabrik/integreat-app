@@ -1,43 +1,63 @@
-import { transform } from 'lodash/object'
-import { forEach } from 'lodash/collection'
+import { forEach, find, filter } from 'lodash/collection'
 import Endpoint from './Endpoint'
-import PageModel from './models/PageModel'
+import PageModel, { EMPTY_PAGE } from './models/PageModel'
 
-export default new Endpoint(
-  'pages',
-  'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
-  (json, options) => {
-    let pages = transform(json, (result, page) => {
-      if (page.status !== 'publish') {
-        return
-      }
+const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 
-      result[page.id] = new PageModel(
-        page.id,
-        page.title,
-        page.parent,
-        page.content,
-        page.thumbnail
-      )
-    }, {})
+export default new Endpoint({
+  name: 'pages',
+  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
+  beforeFetch: () => fetch('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
+    .then(response => response.json())
+    .then(locations => ({ locations })),
+  jsonToAny: (json, options) => {
+    if (!json) {
+      return EMPTY_PAGE
+    }
+    let pages = json.filter((page) => page.status === 'publish')
+      .map((page) => {
+        const id = decodeURIComponent(page.permalink.url_page).split('/').pop()
+        const numericId = page.id
+        return new PageModel({
+          id,
+          numericId,
+          title: page.title,
+          parent: page.parent,
+          content: page.content,
+          thumbnail: page.thumbnail,
+          order: page.order
+        })
+      })
 
     // Set children
     forEach(pages, page => {
-      let parent = pages[page.parent]
-      if (!parent) {
-        return
+      const parent = find(pages, p => p.numericId === page.parent)
+      if (parent) {
+        parent.addChild(page)
       }
-      parent.addChild(page)
     })
 
-    // Filter parents
-    let children = transform(pages, (result, page) => {
-      if (page.parent === 0) {
-        result[page.id] = page
+    // Get Location Title
+    const stripSlashes = (path) => {
+      if (path.startsWith('/')) {
+        path = path.substr(1)
       }
-    }, {})
-    return new PageModel(0, options.location, 0, '', null, children)
-  }
-)
+      if (path.endsWith('/')) {
+        path = path.substr(0, path.length - 1)
+      }
+      return path
+    }
 
-export const EMPTY_PAGE = new PageModel()
+    const title = find(options.locations, (loc) => stripSlashes(loc.path) === options.location).name || options.location
+
+    const children = filter(pages, (page) => page.parent === 0)
+    return new PageModel({ numericId: 0, id: 'rootId', title, children })
+  },
+  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
+  mapOptionsToUrlParams: (options) => ({
+    location: options.location,
+    language: options.language,
+    since: BIRTH_OF_UNIVERSE
+  }),
+  shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
+})

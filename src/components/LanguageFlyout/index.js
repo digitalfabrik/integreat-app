@@ -3,13 +3,12 @@ import React from 'react'
 import cx from 'classnames'
 
 import PropTypes from 'prop-types'
-import { setLanguage } from 'actions'
-import { connect } from 'react-redux'
 import LanguageModel from 'endpoints/models/LanguageModel'
+import { isEmpty } from 'lodash/lang'
+import { connect } from 'react-redux'
 
-let LanguageElement = connect()(class extends React.Component {
+class LanguageElement extends React.Component {
   static propTypes = {
-    flyout: PropTypes.any.isRequired,
     language: PropTypes.instanceOf(LanguageModel).isRequired,
     languageCallback: PropTypes.func,
     active: PropTypes.bool.isRequired
@@ -23,7 +22,6 @@ let LanguageElement = connect()(class extends React.Component {
 
   handleClick () {
     let languageCode = this.props.language.code
-    this.props.dispatch(setLanguage(languageCode))
     this.props.languageCallback(languageCode)
   }
 
@@ -36,31 +34,50 @@ let LanguageElement = connect()(class extends React.Component {
       </div>
     )
   }
-})
+}
 
-export default class LanguageFlyout extends React.Component {
+class LanguageFlyout extends React.Component {
   static propTypes = {
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     languageCallback: PropTypes.func.isRequired,
-    currentLanguage: PropTypes.string.isRequired
+    closeDropDownCallback: PropTypes.func,
+    language: PropTypes.string
+  }
+
+  constructor (props) {
+    super(props)
+    this.handleLanguageCallback = this.handleLanguageCallback.bind(this)
+  }
+
+  handleLanguageCallback (languageCode) {
+    if (this.props.closeDropDownCallback) {
+      this.props.closeDropDownCallback()
+    }
+    this.props.languageCallback(languageCode)
   }
 
   render () {
     return (
       <div className={style.languageFlyout}>
-        {
-          this.props.languages.map(language => (
-              <LanguageElement
-                key={language.code}
-                flyout={this}
-                languageCallback={this.props.languageCallback}
-                active={this.props.currentLanguage === language.code}
-                language={language}
-              />
-            )
+        {!isEmpty(this.props.languages) &&
+        this.props.languages.map(language => (
+            <LanguageElement
+              key={language.code}
+              languageCallback={this.handleLanguageCallback}
+              active={this.props.language === language.code}
+              language={language}
+            />
           )
+        )
         }
       </div>
     )
   }
 }
+
+function mapStateToProps (state) {
+  const language = state.router.params.language
+  return {language}
+}
+
+export default connect(mapStateToProps)(LanguageFlyout)

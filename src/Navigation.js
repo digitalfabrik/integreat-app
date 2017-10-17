@@ -1,27 +1,37 @@
+// todo add logic for correct hrefs here
 class Navigation {
-  constructor (home, location, language) {
-    this._home = home
+  constructor (location, language) {
     this._location = location
     this._language = language
   }
 
   get home () {
-    return this._home
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._location}/${this._language}`
   }
 
-  get location () {
-    return this._location
+  get locationSelection () {
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._language}`
   }
 
-  get language () {
-    return this._language
+  get search () {
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._location}/${this._language}/search`
+  }
+
+  get disclaimer () {
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._location}/${this._language}/disclaimer`
   }
 }
 
 export default Navigation
-
-/**
- * This object holds the configured paths for navigation. This can be used e.g. in the Header
- * @type {Navigation}
- */
-export const DEFAULT_NAVIGATION = new Navigation('/', '/', '/')

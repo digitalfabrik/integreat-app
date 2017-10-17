@@ -1,17 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Spinner from 'react-spinkit'
 import { translate } from 'react-i18next'
-
-import { values } from 'lodash/object'
+import normalizeUrl from 'normalize-url'
+import { isEmpty } from 'lodash/lang'
 
 import Categories from './Categories'
 import Page from './Page'
-import ContentList from './ContentList'
 
-import style from './style.css'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
-import Error from 'components/Error'
+import TitledContentList from './TitledContentList'
 
 class Content extends React.Component {
   static propTypes = {
@@ -20,26 +17,21 @@ class Content extends React.Component {
   }
 
   renderPages () {
-    let hierarchy = this.props.hierarchy
+    const hierarchy = this.props.hierarchy
+    const page = hierarchy.top()
 
-    let page = hierarchy.top()
-
-    if (hierarchy.error()) {
-      return <Error error={hierarchy.error()}/>
-    } else if (!page) {
-      return <Spinner className={style.loading} name='line-scale-party'/>
-    } else {
-      let children = values(page.children).length
-
-      if (children === 0) {
-        return <Page page={page}/>
-      } else if (children > 0) {
-        return hierarchy.isRoot() ? <Categories url={this.props.url} page={page}/>
-          : <ContentList url={this.props.url} page={page}/>
-      }
+    if (isEmpty(page.children)) {
+      return <Page page={ page }/>
     }
 
-    throw new Error('The page ' + page + ' is not renderable!')
+    let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
+    let base = url + hierarchy.path()
+
+    let pages = page.children.map((page) => ({ page, url: `${base}/${page.id}` }))
+
+    return hierarchy.root()
+      ? <Categories parentPage={ page } categories={ pages } />
+      : <TitledContentList parentPage={ page } pages={ pages } />
   }
 
   render () {

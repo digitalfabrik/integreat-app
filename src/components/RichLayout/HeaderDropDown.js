@@ -30,14 +30,22 @@ class HeaderDropDown extends React.Component {
 
   render () {
     return (
-      <div className={cx(this.props.className, style.dropDownItem)}>
+      <span className={cx(this.props.className, style.dropDownItem)}>
         <FontAwesome name={this.props.fontAwesome}
-                     className={cx(this.state.dropDownActive ? style.itemActive : '', style.item)}
+                     className={cx(this.state.dropDownActive ? style.itemActive : '',
+                       style.item,
+                       style.fontAwesome)}
                      onClick={this.toggleDropDown}/>
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>
-          {this.props.children}
+          {
+            // Pass DropDownCallback as prop to children
+            React.Children.map(this.props.children,
+              child => React.cloneElement(child, {
+                closeDropDownCallback: this.handleClickOutside
+              }))
+          }
         </div>
-      </div>
+      </span>
     )
   }
 }
