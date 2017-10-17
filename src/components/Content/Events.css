@@ -1,16 +1,16 @@
-.eventContainer {
+.event-container {
   min-height: 150px;
   box-sizing: content-box;
   margin-top: 15px;
   margin-bottom: 40px;
 }
 
-.eventTitle {
+.event-title {
   margin: 10px 0;
   font-size: 22px;
 }
 
-.eventThumbnail {
+.event-thumbnail {
   width: 150px;
   max-width: 25vw;
   float: right;
