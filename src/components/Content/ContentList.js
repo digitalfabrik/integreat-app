@@ -1,15 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import normalizeUrl from 'normalize-url'
-
-import { values } from 'lodash/object'
-
-import { PageModel } from 'endpoints/page'
-import { Link } from 'react-router-dom'
+import { Link } from 'redux-little-router'
 
 import style from './ContentList.css'
-import helper from 'components/Helper/Helper.css'
+import PageModel from 'endpoints/models/PageModel'
 
 class ContentListElement extends React.Component {
   static propTypes = {
@@ -18,9 +13,8 @@ class ContentListElement extends React.Component {
   }
 
   render () {
-    let url = normalizeUrl(this.props.url, {removeTrailingSlash: true})
     return (
-      <Link className={helper.removeA} to={url + '/' + this.props.page.id}>
+      <Link href={this.props.url}>
         <div className={style.row}>
           <div className={cx(style.elementImage, style.element)}>
             <img className={style.image} src={this.props.page.thumbnail}/>
@@ -34,23 +28,16 @@ class ContentListElement extends React.Component {
 
 class ContentList extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
-    url: PropTypes.string.isRequired
+    pages: PropTypes.arrayOf(PropTypes.shape({
+      page: PropTypes.instanceOf(PageModel).isRequired,
+      url: PropTypes.string.isRequired
+    })).isRequired
   }
 
   render () {
     return (
-      <div>
-        <div className={style.heading}>
-          <img className={style.headingImage} src={this.props.page.thumbnail}/>
-          <div className={style.headingText}>{this.props.page.title}</div>
-        </div>
-        <div>
-          <div className={style.horizontalLine}/>
-          {values(this.props.page.children).map(page => {
-            return <ContentListElement key={page.id} url={this.props.url} page={page}/>
-          })}
-        </div>
+      <div className={style.list}>
+        { this.props.pages.map(({ page, url }) => <ContentListElement key={url} url={url} page={page} />) }
       </div>
     )
   }

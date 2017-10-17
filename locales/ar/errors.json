@@ -1,4 +1,9 @@
 {
-  "pageNotFound": "عذرا، لكن الصفحة المطلوبة غير موجودة.",
-  "loadingFailed": "عذرا، تعذر تحميل الصفحة المطلوبة."
+  "page": {
+    "notFound": "لا يوجد سجَّلات جديدة",
+    "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات"
+  },
+  "disclaimer": {
+    "notAvailable": "todo"
+  }
 }

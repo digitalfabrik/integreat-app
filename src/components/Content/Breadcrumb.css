@@ -1,3 +1,9 @@
+@import url('../Helper/Helper.css');
+
+.breadcrumbs {
+  margin-bottom: 20px;
+}
+
 .separator::after {
   color: #E8E8E8;
   font-size: 22px;
@@ -12,4 +18,12 @@
   font-size: 20px;
 
   user-select: none;
+}
+
+.breadcrumb {
+  @mixin remove-a;
+}
+
+.breadcrumb:last-child .level {
+  color: black;
 }

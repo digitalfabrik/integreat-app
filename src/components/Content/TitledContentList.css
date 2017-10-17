@@ -1,0 +1,23 @@
+.horizontal-line {
+  height: 100%;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #FBDA16;
+}
+
+.heading {
+  margin-bottom: 20px;
+}
+
+.heading-text {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.heading-image {
+  display: block;
+  margin: 0 auto;
+}
+
+.short-text {
+  text-align: center;
+}

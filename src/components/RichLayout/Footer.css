@@ -1,0 +1,15 @@
+@import url('../Helper/Helper.css');
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border-top: 1px solid #FBDA16;
+}
+
+.item {
+  @mixin remove-a;
+  font-family: 'Raleway', 'El Messiri', sans-serif;
+}

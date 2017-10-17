@@ -2,5 +2,8 @@
   "page": {
     "notFound": "Seite wurde leider nicht gefunden.",
     "loadingFailed": "Seite konnte leider nicht geladen werden."
+  },
+  "disclaimer": {
+    "notAvailable": "Impressum ist leider für diese Stadt nicht verfügbar."
   }
 }
