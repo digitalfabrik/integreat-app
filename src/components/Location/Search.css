@@ -1,5 +1,5 @@
 :root {
-  --search-logo-width: 20px;
+  --search-logo-width: 25px;
 }
 
 .search {
@@ -8,6 +8,7 @@
 }
 
 .search-icon {
+  width: 25px;
   font-size: 1.2em;
   text-align: center;
 }
@@ -15,6 +16,7 @@
 .search-input {
   width: calc(100% - var(--search-logo-width) - 5px);
   height: 25px;
+  box-sizing: border-box;
   margin-left: 5px;
 
   color: black;
