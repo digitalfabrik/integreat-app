@@ -12,8 +12,9 @@
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-.layout {
-  margin-right: 0;
-  margin-left: calc(100vw - 100%);
+@media screen and (min-width: 1000px) {
+  .layout {
+    margin-right: 0;
+    margin-left: calc(100vw - 100%);
+  }
 }
-
