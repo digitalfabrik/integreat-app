@@ -1,30 +1,26 @@
 :root {
   --hover-color: rgba(0, 0, 0, 0.1);
   --item-height: 30px;
-  --list-margin: 10px;
+  --list-margin: 30px;
 }
 
 .language-list-item {
   display: block;
-  height: var(--item-height);
-  margin-left: var(--list-margin);
+  padding: 7px;
 
   color: inherit;
-  line-height: var(--item-height);
   text-decoration: inherit;
 
   &:hover {
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-
     background-color: var(--hover-color);
   }
 }
 
 .language-list-parent {
   height: var(--item-height);
-  padding-left: calc(var(--list-margin) + 30px);
   line-height: var(--item-height);
   border-bottom: 1px solid rgba(255, 165, 0, 0.42);
 }

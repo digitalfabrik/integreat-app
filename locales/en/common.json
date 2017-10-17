@@ -1,1 +1,7 @@
-{}
+{
+  "address": "Location",
+  "date": "Date",
+  "currentEvents": "Recent events",
+  "thereAreCurrentlyNoEvents": "No recent events available.",
+  "AndMore": "And more..."
+}
