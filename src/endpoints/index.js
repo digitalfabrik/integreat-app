@@ -3,7 +3,7 @@ import LOCATION_ENDPOINT from './location'
 import PAGE_ENDPOINT from './page'
 import EVENTS_ENDPOINT from './events'
 import DISCLAIMER_ENDPOINT from './disclaimer'
-import createFetcher from './createFetcher'
+import createFetcher from './withFetcher'
 
 export default [
   LANGUAGE_ENDPOINT,
