@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions'
 import format from 'string-template'
-import PropTypes from 'prop-types'
 
 import Payload from 'endpoints/Payload'
 
