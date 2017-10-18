@@ -29,13 +29,15 @@ class BreadcrumbAdapter extends React.Component {
     const hierarchy = this.props.hierarchy
     return (
       <div className={style.breadcrumbs}>{hierarchy.map((page, path) => {
-        return (
-          <Link key={page.id} className={style.breadcrumb}
-                href={`/${this.props.location}/${this.props.language}${path}`}>
-            <span className={style.separator}/>
-            <span className={style.level}>{this.getFormattedTitle(page) || page.title}</span>
-          </Link>
-        )
+        if (page !== hierarchy.top()) {
+          return (
+            <Link key={page.id} className={style.breadcrumb}
+                  href={`/${this.props.location}/${this.props.language}${path}`}>
+              <span className={style.separator}/>
+              <span className={style.level}>{this.getFormattedTitle(page) || page.title}</span>
+            </Link>
+          )
+        }
       })}
       </div>
     )
