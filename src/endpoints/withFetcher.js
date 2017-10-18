@@ -16,7 +16,7 @@ function createStateToPropsMapper (endpoint) {
   }
 }
 
-function createFetcher (endpoint) {
+function withFetcher (WrappedComponent, endpoint) {
   let Fetcher = class extends React.Component {
     static propTypes = {
       options: endpoint.optionsPropType.isRequired,
@@ -78,10 +78,7 @@ function createFetcher (endpoint) {
 
       return (
         <div className={this.props.className}>
-          {
-            React.Children.map(this.props.children,
-              (child) => (React.cloneElement(child, Object.assign({}, this.props, { [endpoint.stateName]: payload.data }))))
-          }
+          <WrappedComponent props={Object.assign({}, this.props, {[endpoint.stateName]: payload.data})}/>
         </div>
       )
     }
@@ -90,4 +87,4 @@ function createFetcher (endpoint) {
   return connect(createStateToPropsMapper(endpoint))(Fetcher)
 }
 
-export default createFetcher
+export default withFetcher

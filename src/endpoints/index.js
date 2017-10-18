@@ -13,8 +13,8 @@ export default [
   EVENTS_ENDPOINT
 ]
 
-export const EventsFetcher = createFetcher(EVENTS_ENDPOINT)
-export const PageFetcher = createFetcher(PAGE_ENDPOINT)
-export const DisclaimerFetcher = createFetcher(DISCLAIMER_ENDPOINT)
-export const LanguageFetcher = createFetcher(LANGUAGE_ENDPOINT)
-export const LocationFetcher = createFetcher(LOCATION_ENDPOINT)
+export const EventsFetcher = withFetcher(EVENTS_ENDPOINT)
+export const PageFetcher = withFetcher(PAGE_ENDPOINT)
+export const DisclaimerFetcher = withFetcher(DISCLAIMER_ENDPOINT)
+export const LanguageFetcher = withFetcher(LANGUAGE_ENDPOINT)
+export const LocationFetcher = withFetcher(LOCATION_ENDPOINT)
