@@ -3,11 +3,9 @@ import { reduce } from 'lodash'
 import PageModel from './models/PageModel'
 import { isEmpty } from 'lodash/lang'
 
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
-
 export default new Endpoint({
   name: 'disclaimer',
-  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
+  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z',
   jsonToAny: (json) => {
     if (!json || isEmpty(json)) {
       throw new Error('disclaimer.notAvailable')
@@ -33,8 +31,7 @@ export default new Endpoint({
   },
   mapStateToStateOptions: (state) => ({
     language: state.router.params.language,
-    location: state.router.params.location,
-    since: BIRTH_OF_UNIVERSE
+    location: state.router.params.location
   }),
   shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
 })

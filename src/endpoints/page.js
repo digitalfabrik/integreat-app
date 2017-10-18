@@ -2,11 +2,9 @@ import { filter, find, forEach } from 'lodash/collection'
 import Endpoint from './Endpoint'
 import PageModel, { EMPTY_PAGE } from './models/PageModel'
 
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
-
 export default new Endpoint({
   name: 'pages',
-  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
+  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z',
   jsonToAny: (json, options) => { // fixme
     if (!json) {
       return EMPTY_PAGE
@@ -39,8 +37,7 @@ export default new Endpoint({
   },
   mapStateToStateOptions: (state) => ({
     language: state.router.params.language,
-    location: state.router.params.location,
-    since: BIRTH_OF_UNIVERSE
+    location: state.router.params.location
   }),
   shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
 })

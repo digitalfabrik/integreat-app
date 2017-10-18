@@ -2,12 +2,11 @@ import Endpoint from './Endpoint'
 import EventModel from './models/EventModel'
 import DateModel from './models/DateModel'
 
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
 const MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24
 
 export default new Endpoint({
   name: 'events',
-  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since={since}',
+  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z',
   jsonToAny: (json) => {
     if (!json) {
       return []
@@ -35,8 +34,7 @@ export default new Endpoint({
   },
   mapStateToStateOptions: (state) => ({
     language: state.router.params.language,
-    location: state.router.params.location,
-    since: BIRTH_OF_UNIVERSE
+    location: state.router.params.location
   }),
   shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
 })
