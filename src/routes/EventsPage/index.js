@@ -9,7 +9,6 @@ import withFetcher from '../../endpoints/withFetcher'
 
 class EventsPage extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired // From withFetcher
   }
@@ -24,10 +23,7 @@ class EventsPage extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location
-  }
+  return {location: state.router.params.location}
 }
 
 export default connect(mapStateToProps)(withFetcher(EVENTS_ENDPOINT)(EventsPage))

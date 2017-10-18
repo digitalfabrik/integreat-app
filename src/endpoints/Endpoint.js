@@ -11,7 +11,7 @@ class ActionType {
 
 const DUMMY = () => { return {} }
 
-export default class Endpoint {
+class Endpoint {
   /**
    * @type string
    */
@@ -120,3 +120,5 @@ export default class Endpoint {
     }
   }
 }
+
+export default Endpoint

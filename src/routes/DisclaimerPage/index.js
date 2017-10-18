@@ -11,7 +11,6 @@ import DISCLAIMER_ENDPOINT from 'endpoints/events'
 
 class DisclaimerPage extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     disclaimer: PropTypes.instanceOf(PageModel)
   }
@@ -26,10 +25,7 @@ class DisclaimerPage extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location
-  }
+  return {location: state.router.params.location}
 }
 
 export default connect(mapStateToProps)(withFetcher(DISCLAIMER_ENDPOINT)(DisclaimerPage))

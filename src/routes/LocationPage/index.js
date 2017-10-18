@@ -15,8 +15,8 @@ import PAGE_ENDPOINT from 'endpoints/page'
 class LocationPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
-    path: PropTypes.string,
     language: PropTypes.string.isRequired,
+    path: PropTypes.string,
     pages: PropTypes.instanceOf(PageModel)
   }
 
