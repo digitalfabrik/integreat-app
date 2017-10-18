@@ -6,7 +6,7 @@ import { last } from 'lodash/array'
 import { isEmpty } from 'lodash/lang'
 import { forEach } from 'lodash/collection'
 
-export default class Hierarchy {
+class Hierarchy {
   constructor (path = '') {
     this._code = path ? path.split('/').filter((path) => path !== '') : []
     this._pages = []
@@ -82,3 +82,5 @@ export default class Hierarchy {
     return isEmpty(this._code)
   }
 }
+
+export default Hierarchy

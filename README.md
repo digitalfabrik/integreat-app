@@ -62,8 +62,10 @@ You can run the linter by calling **npm run lint**.
 Just import this project (from existing sources). Run **yarn** and right-click on package.json to show the npm scripts. 
 Also mark the *src* and *public* folder as *Source directory*. In IntelliJ no other plugins are needed. 
 
+# Bug Tracker
+
+You can [view our bugs](https://integreat.atlassian.net/secure/Dashboard.jspa) or [create new ones](https://integreat.atlassian.net/secure/CreateIssue!default.jspa) on our jira.
 
 # Publishing
 
-You can login though the firebase cli and then run **npm run publish**.
-A live preview of this app is available [here](https://integreat-1173.firebaseapp.com/).
+A live preview of this app is available [here](https://webnext.integreat-app.de/).

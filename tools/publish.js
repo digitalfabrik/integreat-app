@@ -1,10 +1,9 @@
-const firebase = require('firebase-tools')
 const build = require('./build')
 const task = require('./task')
 
 module.exports = task('deploy', () => Promise.resolve()
   .then(() => build())
-  .then(() => firebase.deploy())
+  .then(() => { throw new Error('Not yet implemented.') })
   .then(() => {
     setTimeout(() => process.exit())
   }))
