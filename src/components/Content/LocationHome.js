@@ -12,7 +12,7 @@ import { EventsFetcher } from '../../endpoints'
 import EventModel from '../../endpoints/models/EventModel'
 import Navigation from '../../Navigation'
 import style from './LocationHome.css'
-import Categories from './Categories'
+import TitledCategoriesTable from './TitledCategoriesTable'
 
 const LocationHomeAdapter = connect((state) => ({ language: state.router.params.language, location: state.router.params.location }))(translate('common')(
   class extends React.Component {
@@ -46,7 +46,7 @@ const LocationHomeAdapter = connect((state) => ({ language: state.router.params.
       const t = this.props.t
       return <div>
         { this.hasEvents() ? this.getEventSnippet() : '' }
-        <Categories categories={this.props.categories}/>
+        <TitledCategoriesTable parentPage={this.props.parentPage} categories={this.props.categories}/>
         { !this.hasEvents() ? <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row> : '' }
       </div>
     }
