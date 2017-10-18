@@ -37,7 +37,7 @@ export default new Endpoint({
     const children = filter(pages, (page) => page.parent === 0)
     return new PageModel({numericId: 0, id: 'rootId', title: options.location, children})
   },
-  mapStateToUrlParams: (state) => ({
+  mapStateToStateOptions: (state) => ({
     language: state.router.params.language,
     location: state.router.params.location,
     since: BIRTH_OF_UNIVERSE

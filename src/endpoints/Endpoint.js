@@ -25,9 +25,9 @@ export default class Endpoint {
   requestAction
   invalidateAction
   /**
-   * @type stateToUrlParamsCallback
+   * @type mapStateToStateOptionsCallback
    */
-  mapStateToUrlParams
+  mapStateToStateOptions
   /**
    * @type shouldRefetchCallback
    */
@@ -39,7 +39,7 @@ export default class Endpoint {
   jsonToAny
 
   /**
-   * @callback stateToUrlParamsCallback
+   * @callback mapStateToStateOptionsCallback
    * @param {object} state
    * @return {object} The url params
    */
@@ -55,13 +55,13 @@ export default class Endpoint {
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
    * @param {function} jsonToAny Transforms the json input to a result
-   * @param {stateToUrlParamsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
+   * @param {mapStateToStateOptionsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, optionsPropType = PropTypes.object, jsonToAny, mapStateToUrlParams = DUMMY, shouldRefetch = () => false}) {
+  constructor ({name, url, jsonToAny, mapStateToStateOptions = DUMMY, shouldRefetch = () => false}) {
     this.name = name
     this.url = url
-    this.mapStateToUrlParams = mapStateToUrlParams
+    this.mapStateToStateOptions = mapStateToStateOptions
     this.shouldRefetch = shouldRefetch
     this.jsonToAny = jsonToAny
 
@@ -87,7 +87,7 @@ export default class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlParams = {}) {
+  fetchEndpointAction (urlParams = {}, stateOptions = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
         return
@@ -106,7 +106,7 @@ export default class Endpoint {
           let error
           let value
           try {
-            value = this.jsonToAny(json, urlParams)
+            value = this.jsonToAny(json, stateOptions)
           } catch (e) {
             error = e.message
             console.error(error)

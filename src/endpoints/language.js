@@ -12,7 +12,7 @@ export default new Endpoint({
     }
     return json.map(language => new LanguageModel(language.code, language.native_name))
   },
-  mapStateToUrlParams: (state) => ({
+  mapStateToStateOptions: (state) => ({
     location: state.router.params.location,
     language: 'de'  // todo:  This forces that the languages are always fetched in german language. German always
                     //        exists in the backend -> a langauge switch always works}),

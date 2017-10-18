@@ -9,7 +9,7 @@ import style from './Fetcher.css'
 function createStateToPropsMapper (endpoint) {
   return (state) => ({
     [endpoint.payloadName]: state[endpoint.stateName],
-    urlParams: endpoint.mapStateToUrlParams(state)
+    stateOptions: endpoint.mapStateToStateOptions(state)
   })
 }
 
@@ -19,12 +19,13 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       static displayName = endpoint.name + 'Fetcher'
 
       fetch () {
-        const urlParams = this.props.urlParams
-        if (!urlParams) {
-          throw new Error('mapStateToUrlParams(options) returned nothing')
+        const stateOptions = this.props.stateOptions
+        if (!stateOptions) {
+          throw new Error('stateOptions are not valid! This could mean your mapStateToStateOptions() returns ' +
+            'a undefined value!')
         }
 
-        this.props.dispatch(endpoint.fetchEndpointAction(urlParams))
+        this.props.dispatch(endpoint.fetchEndpointAction(stateOptions))
       }
 
       invalidate () {
@@ -40,7 +41,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillUpdate (nextProps) {
-        if (endpoint.shouldRefetch(this.props.urlParams, nextProps.urlParams)) {
+        if (endpoint.shouldRefetch(this.props.stateOptions, nextProps.stateOptions)) {
           // todo: this will need some more work to test -> another issue as this is getting too big
           this.fetch()
         }

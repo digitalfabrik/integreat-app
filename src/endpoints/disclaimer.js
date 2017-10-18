@@ -31,7 +31,7 @@ export default new Endpoint({
       })
     }, null)
   },
-  mapStateToUrlParams: (state) => ({
+  mapStateToStateOptions: (state) => ({
     language: state.router.params.language,
     location: state.router.params.location,
     since: BIRTH_OF_UNIVERSE
