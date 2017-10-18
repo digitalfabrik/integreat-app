@@ -1,3 +1,8 @@
+.remote-heading {
+  margin: 30px 0 50px;
+  font-size: 40px;
+}
+
 .remote-content img {
   max-width: 100%;
   max-height: 100%;
