@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './Categories.css'
+import style from './CategoriesTable.css'
 
 import { Col, Row } from 'react-flexbox-grid'
 import PageModel from 'endpoints/models/PageModel'
@@ -25,7 +25,7 @@ class Category extends React.Component {
   }
 }
 
-export default class Categories extends React.Component {
+export default class CategoriesTable extends React.Component {
   static propTypes = {
     categories: PropTypes.arrayOf(PropTypes.shape({
       page: PropTypes.instanceOf(PageModel).isRequired,
