@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import { Link } from 'redux-little-router'
 import { Row } from 'react-flexbox-grid'
 import { isEmpty } from 'lodash/lang'
-import FontAwesome from 'react-fontawesome'
 import normalizeUrl from 'normalize-url'
+import compose from 'lodash/fp/compose'
 
 import EventModel from 'endpoints/models/EventModel'
-import Navigation from 'Navigation'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
 
 import EVENTS_ENDPOINT from 'endpoints/events'
@@ -19,6 +17,8 @@ import Page from './Page'
 import Categories from './Categories'
 import style from './index.css'
 import TitledContentList from './TitledContentList'
+import EventSnippet from './EventSnippet'
+import Navigation from '../../Navigation'
 
 class Content extends React.Component {
   static propTypes = {
@@ -31,23 +31,10 @@ class Content extends React.Component {
     return !isEmpty(this.props.events)
   }
 
-  // TODO: Refactor this to event component...
-  getEventSnippet () {
-    const nav = new Navigation(this.props.location, this.props.language)
-    const t = this.props.t
-    return <Link className={style.events} href={nav.events}>
-      <FontAwesome name="calendar" className={style.calendarIcon}/>
-      <div className={style.eventsContainer}>
-        <div><strong>{t('common:currentEvents')}:</strong></div>
-        {this.props.events.slice(0, 2).map((event) => <div key={event.id} className={style.event}>{event.title}</div>)}
-        {this.props.events.length > 2 ? <div className={style.event}><em>{t('common:AndMore')}</em></div> : ''}
-      </div>
-    </Link>
-  }
-
   render () {
-    const t = this.props.t
+    const {t} = this.props
     const hierarchy = this.props.hierarchy
+    const navigation = new Navigation(this.props.location, this.props.language)
     const page = hierarchy.top()
 
     if (isEmpty(page.children)) {
@@ -61,9 +48,9 @@ class Content extends React.Component {
 
     if (hierarchy.root()) {
       return <div>
-        {this.hasEvents() ? this.getEventSnippet() : ''}
+        {this.hasEvents() && <EventSnippet events={this.props.events} navigation={navigation}/>}
         <Categories pages={pages}/>
-        {!this.hasEvents() ? <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row> : ''}
+        {!this.hasEvents() && <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row>}
       </div>
     } else {
       return <TitledContentList parentPage={page} pages={pages}/>
@@ -78,4 +65,8 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(translate('common', 'errors')(withFetcher(EVENTS_ENDPOINT)(Content)))
+export default compose(
+  connect(mapStateToProps),
+  translate('common'),
+  withFetcher(EVENTS_ENDPOINT)
+)(Content)

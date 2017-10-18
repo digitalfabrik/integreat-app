@@ -1,23 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Hierarchy from './Hierarchy'
+
 import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import PageModel from 'endpoints/models/PageModel'
-import PDFButton from '../../components/Content/PDFButton'
-import withFetcher from '../../endpoints/withFetcher'
+import PDFButton from 'components/Content/PDFButton'
+import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
-class LocationPage extends React.Component {
+import Hierarchy from './Hierarchy'
+
+class ContentWrapper extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     path: PropTypes.string,
-    pages: PropTypes.instanceOf(PageModel)
+    pages: PropTypes.instanceOf(PageModel).isRequired
   }
 
   getParentPath () {
@@ -34,28 +37,44 @@ class LocationPage extends React.Component {
       return <Error error={error}/>
     }
 
-    return (
-      <RichLayout location={this.props.location}>
-        <div>
-          <Breadcrumb
-            hierarchy={hierarchy}
-            language={this.props.language}
-            location={this.props.location}
-          />
-          <Content url={url} hierarchy={hierarchy}/>
-          <PDFButton languageCode={this.props.language} locationCode={this.props.location} page={hierarchy.top()}/>
-        </div>
-      </RichLayout>
-    )
+    return <div>
+      <Breadcrumb
+        hierarchy={hierarchy}
+        language={this.props.language}
+        location={this.props.location}
+      />
+      <Content url={url} hierarchy={hierarchy}/>
+      <PDFButton languageCode={this.props.language}
+                 locationCode={this.props.location}
+                 page={hierarchy.top()}/>
+    </div>
   }
 }
 
 function mapStateToProps (state) {
   return {
-    location: state.router.params.location,
     language: state.router.params.language,
     path: state.router.params['_'] // _ contains all the values from *
   }
 }
 
-export default connect(mapStateToProps)(withFetcher(PAGE_ENDPOINT)(LocationPage))
+const FetchingContentWrapper = compose(
+  connect(mapStateToProps),
+  withFetcher(PAGE_ENDPOINT)
+)(ContentWrapper)
+
+class LocationPage extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired
+  }
+
+  render () {
+    return (
+      <RichLayout location={this.props.location}>
+        <FetchingContentWrapper location={this.props.location}/>
+      </RichLayout>
+    )
+  }
+}
+
+export default connect((state) => ({location: state.router.params.location}))(LocationPage)

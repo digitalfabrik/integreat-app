@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 import Layout from 'components/Layout'
 import LOCATIONS_ENDPOINT from 'endpoints/location'
@@ -33,4 +34,7 @@ function mapStateToProps (state) {
   return {language}
 }
 
-export default connect(mapStateToProps)(withFetcher(LOCATIONS_ENDPOINT)(LandingPage))
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(LOCATIONS_ENDPOINT)
+)(LandingPage)

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 import Page from 'components/Content/Page'
 import RichLayout from 'components/RichLayout'
@@ -28,4 +29,7 @@ function mapStateToProps (state) {
   return {location: state.router.params.location}
 }
 
-export default connect(mapStateToProps)(withFetcher(DISCLAIMER_ENDPOINT)(DisclaimerPage))
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(DISCLAIMER_ENDPOINT)
+)(DisclaimerPage)

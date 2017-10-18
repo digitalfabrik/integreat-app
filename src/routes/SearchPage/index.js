@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import normalizeUrl from 'normalize-url'
+import compose from 'lodash/fp/compose'
 
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
@@ -14,16 +15,12 @@ import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 import PageModel from '../../endpoints/models/PageModel'
 
-class SearchPage extends React.Component {
+class ContentWrapper extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    pages: PropTypes.instanceOf(PageModel)
-  }
-
-  constructor () {
-    super()
-    this.state = {filterText: ''}
+    filterText: PropTypes.string.isRequired,
+    pages: PropTypes.instanceOf(PageModel).isRequired
   }
 
   getParentPath () {
@@ -33,7 +30,7 @@ class SearchPage extends React.Component {
   acceptPage (page) {
     let title = page.title.toLowerCase()
     let content = page.content
-    let filterText = this.state.filterText.toLowerCase()
+    let filterText = this.props.filterText.toLowerCase()
     // todo:  comparing the content like this is quite in-efficient and can cause lags
     // todo:  1) Do this work in an other thread 2) create an index
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
@@ -57,23 +54,43 @@ class SearchPage extends React.Component {
     const pages = []
     this.props.pages.children.forEach(page => this.findPages(pages, url, page))
 
+    return <ContentList pages={pages}/>
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    language: state.router.params.language,
+    path: state.router.params['_'] // _ contains all the values from *
+  }
+}
+
+const FetchingContentWrapper = compose(
+  connect(mapStateToProps),
+  withFetcher(PAGE_ENDPOINT)
+)(ContentWrapper)
+
+class SearchPage extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired
+  }
+
+  constructor () {
+    super()
+    this.state = {filterText: ''}
+  }
+
+  render () {
     return (
       <RichLayout location={this.props.location}>
         <Search className={style.searchSpacing}
                 filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
         />
-        <ContentList pages={pages}/>
+        <FetchingContentWrapper filterText={this.state.filterText} location={this.props.location}/>
       </RichLayout>
     )
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    location: state.router.params.location,
-    language: state.router.params.language
-  }
-}
-
-export default connect(mapStateToProps)(withFetcher(PAGE_ENDPOINT)(SearchPage))
+export default connect((state) => ({location: state.router.params.location}))(SearchPage)

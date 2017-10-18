@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+
+import compose from 'lodash/fp/compose'
+
 import RichLayout from 'components/RichLayout'
 import Events from '../../components/Content/Events'
 import EventModel from 'endpoints/models/EventModel'
@@ -26,4 +29,7 @@ function mapStateToProps (state) {
   return {location: state.router.params.location}
 }
 
-export default connect(mapStateToProps)(withFetcher(EVENTS_ENDPOINT)(EventsPage))
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(EVENTS_ENDPOINT)
+)(EventsPage)

@@ -36,12 +36,31 @@ class NavElement extends React.Component {
   }
 }
 
+class LanguageElementWrapper extends React.Component {
+  static propTypes = {
+    location: PropTypes.string.isRequired,
+    languageCallback: PropTypes.func,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)) // From withFetcher
+  }
+
+  render () {
+    return this.props.location &&
+      <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
+        <LanguageFlyout
+          languageCallback={this.props.languageCallback}
+          languages={this.props.languages}
+        />
+      </HeaderDropDown>
+  }
+}
+
+const FetchingLanguageElementWrapper = withFetcher(LANGUAGE_ENDPOINT, true, true)(LanguageElementWrapper)
+
 class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    location: PropTypes.string,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)) // From withFetcher
+    location: PropTypes.string
   }
 
   render () {
@@ -70,14 +89,8 @@ class Header extends React.Component {
               <FontAwesome className={style.fontAwesome} name='map-marker'/>
             </NavElement>
             {/* Language */}
-            {this.props.location &&
-            <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-              <LanguageFlyout
-                languageCallback={this.props.languageCallback}
-                languages={this.props.languages}
-              />
-            </HeaderDropDown>
-            }
+            <FetchingLanguageElementWrapper languageCallback={this.props.languageCallback}
+                                            location={this.props.location}/>
           </div>
         </div>
       </header>
@@ -94,4 +107,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(withFetcher(LANGUAGE_ENDPOINT, true, true)(Header))
+export default connect(mapStateToProps)(Header)
