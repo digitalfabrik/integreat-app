@@ -19,9 +19,8 @@ export default new Endpoint({
     if (!json) {
       return []
     }
-    let locations = json
+    const locations = json
       .map((location) => new LocationModel(location.name, stripSlashes(location.path), location.live))
-    locations = sortBy(locations, location => location.sortKey)
-    return locations
+    return sortBy(locations, location => location.sortKey)
   }
 })

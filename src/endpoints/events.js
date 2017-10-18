@@ -33,10 +33,9 @@ export default new Endpoint({
       .filter(event => event.date.startDate > Date.now() - MILLISECONDS_IN_A_DAY)
       .sort((event1, event2) => event1.date.startDate - event2.date.startDate)
   },
-  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
-  mapOptionsToUrlParams: (options) => ({
-    location: options.location,
-    language: options.language,
+  mapStateToUrlParams: (state) => ({
+    language: state.router.params.language,
+    location: state.router.params.location,
     since: BIRTH_OF_UNIVERSE
   }),
   shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
