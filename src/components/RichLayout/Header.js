@@ -13,8 +13,10 @@ import style from './Header.css'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
 import { Link } from 'redux-little-router'
-import { LanguageFetcher } from '../../endpoints'
+import LANGUAGE_ENDPOINT from 'endpoints/language'
 import { connect } from 'react-redux'
+import LanguageModel from '../../endpoints/models/LanguageModel'
+import withFetcher from '../../endpoints/withFetcher'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -38,7 +40,8 @@ class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    location: PropTypes.string
+    location: PropTypes.string,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)) // From withFetcher
   }
 
   render () {
@@ -69,12 +72,10 @@ class Header extends React.Component {
             {/* Language */}
             {this.props.location &&
             <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-              <LanguageFetcher hideError={true} hideSpinner={true}>
-                <LanguageFlyout
-                  languageCallback={this.props.languageCallback}
-                  languages={this.props.languages}
-                />
-              </LanguageFetcher>
+              <LanguageFlyout
+                languageCallback={this.props.languageCallback}
+                languages={this.props.languages}
+              />
             </HeaderDropDown>
             }
           </div>
@@ -93,4 +94,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps)(withFetcher(LANGUAGE_ENDPOINT, true, true)(Header))

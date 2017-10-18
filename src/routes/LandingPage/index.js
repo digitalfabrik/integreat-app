@@ -3,21 +3,24 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Layout from 'components/Layout'
-import { LocationFetcher } from 'endpoints'
+import LOCATIONS_ENDPOINT from 'endpoints/location'
 import FilterableLocation from 'components/Location/FilterableLocation'
 import Footer from 'components/RichLayout/Footer'
+import withFetcher from 'endpoints/withFetcher'
+import LocationModel from 'endpoints/models/LocationModel'
 
 class LandingPage extends React.Component {
   static propTypes = {
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     language: PropTypes.string
   }
 
   render () {
     return (<div>
         <Layout>
-          <LocationFetcher>
-            <FilterableLocation language={this.props.language}/>
-          </LocationFetcher>
+          <FilterableLocation
+            language={this.props.language}
+            locations={this.props.locations}/>
         </Layout>
         <Footer/>
       </div>
@@ -30,4 +33,4 @@ function mapStateToProps (state) {
   return {language}
 }
 
-export default connect(mapStateToProps)(LandingPage)
+export default connect(mapStateToProps)(withFetcher(LOCATIONS_ENDPOINT)(LandingPage))

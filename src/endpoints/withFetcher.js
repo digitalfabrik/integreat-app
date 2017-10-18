@@ -16,75 +16,75 @@ function createStateToPropsMapper (endpoint) {
   }
 }
 
-function withFetcher (WrappedComponent, endpoint) {
-  let Fetcher = class extends React.Component {
-    static propTypes = {
-      options: endpoint.optionsPropType.isRequired,
-      hideError: PropTypes.bool,
-      hideSpinner: PropTypes.bool,
-      className: PropTypes.string
-    }
-
-    static defaultProps = {options: {}}
-
-    static displayName = endpoint.name + 'Fetcher'
-
-    fetch (props) {
-      const urlParams = endpoint.mapOptionsToUrlParams(props.options)
-      if (!urlParams) {
-        throw new Error('mapOptionsToUrlParams(options) returned nothing')
+function withFetcher (endpoint, hideError = false, hideSpinner = false) {
+  return (WrappedComponent) => {
+    let Fetcher = class extends React.Component {
+      static propTypes = {
+        options: endpoint.optionsPropType.isRequired,
+        className: PropTypes.string
       }
 
-      this.props.dispatch(endpoint.fetchEndpointAction(urlParams, props.options))
-    }
+      static defaultProps = {options: {}}
 
-    invalidate () {
-      this.props.dispatch(endpoint.invalidateAction())
-    }
+      static displayName = endpoint.name + 'Fetcher'
 
-    componentWillUnmount () {
-      this.invalidate()
-    }
+      fetch (props) {
+        const urlParams = endpoint.mapOptionsToUrlParams(props.options)
+        if (!urlParams) {
+          throw new Error('mapOptionsToUrlParams(options) returned nothing')
+        }
 
-    componentWillMount () {
-      this.fetch(this.props)
-    }
-
-    componentWillUpdate (nextProps) {
-      if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
-        // todo: this will need some more work to test -> another issue as this is getting too big
-        this.fetch(nextProps)
-      }
-    }
-
-    errorVisible () {
-      return !this.props.hideError && this.props[endpoint.payloadName].error
-    }
-
-    render () {
-      const payload = this.props[endpoint.payloadName]
-
-      if (this.errorVisible()) {
-        return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
+        this.props.dispatch(endpoint.fetchEndpointAction(urlParams, props.options))
       }
 
-      if (!payload.ready()) {
-        if (!this.props.hideSpinner) {
-          return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
-        } else {
-          return <div/>
+      invalidate () {
+        this.props.dispatch(endpoint.invalidateAction())
+      }
+
+      componentWillUnmount () {
+        this.invalidate()
+      }
+
+      componentWillMount () {
+        this.fetch(this.props)
+      }
+
+      componentWillUpdate (nextProps) {
+        if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
+          // todo: this will need some more work to test -> another issue as this is getting too big
+          this.fetch(nextProps)
         }
       }
 
-      return (
-        <div className={this.props.className}>
-          <WrappedComponent props={Object.assign({}, this.props, {[endpoint.stateName]: payload.data})}/>
-        </div>
-      )
-    }
-  }
+      errorVisible () {
+        return !hideError && this.props[endpoint.payloadName].error
+      }
 
-  return connect(createStateToPropsMapper(endpoint))(Fetcher)
+      render () {
+        const payload = this.props[endpoint.payloadName]
+
+        if (this.errorVisible()) {
+          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
+        }
+
+        if (!payload.ready()) {
+          if (!hideSpinner) {
+            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
+          } else {
+            return <div/>
+          }
+        }
+
+        return (
+          <div className={this.props.className}>
+            <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})}/>
+          </div>
+        )
+      }
+    }
+
+    return connect(createStateToPropsMapper(endpoint))(Fetcher)
+  }
 }
 
 export default withFetcher

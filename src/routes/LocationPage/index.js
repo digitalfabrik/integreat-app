@@ -7,15 +7,16 @@ import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
-import { PageFetcher } from 'endpoints'
 import PageModel from 'endpoints/models/PageModel'
 import PDFButton from '../../components/Content/PDFButton'
+import withFetcher from '../../endpoints/withFetcher'
+import PAGE_ENDPOINT from 'endpoints/page'
 
-class PageAdapter extends React.Component {
+class LocationPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
     path: PropTypes.string,
+    language: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel)
   }
 
@@ -24,43 +25,26 @@ class PageAdapter extends React.Component {
   }
 
   render () {
-    let url = this.getParentPath()
-    let hierarchy = new Hierarchy(this.props.path)
+    const url = this.getParentPath()
+    const hierarchy = new Hierarchy(this.props.path)
 
     // Pass data to hierarchy
-    let error = hierarchy.build(this.props.pages)
+    const error = hierarchy.build(this.props.pages)
     if (error) {
       return <Error error={error}/>
     }
 
-    return <div>
-      <Breadcrumb
-        hierarchy={hierarchy}
-        language={this.props.language}
-        location={this.props.location}
-      />
-      <Content url={url} hierarchy={hierarchy}/>
-      <PDFButton languageCode={this.props.language} locationCode={this.props.location} page={hierarchy.top()} />
-    </div>
-  }
-}
-
-class LocationPage extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    path: PropTypes.string,
-    language: PropTypes.string.isRequired
-  }
-
-  render () {
     return (
       <RichLayout location={this.props.location}>
-        <PageFetcher>
-          <PageAdapter
-            location={this.props.location}
+        <div>
+          <Breadcrumb
+            hierarchy={hierarchy}
             language={this.props.language}
-            path={this.props.path} />
-        </PageFetcher>
+            location={this.props.location}
+          />
+          <Content url={url} hierarchy={hierarchy}/>
+          <PDFButton languageCode={this.props.language} locationCode={this.props.location} page={hierarchy.top()}/>
+        </div>
       </RichLayout>
     )
   }
@@ -74,4 +58,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(LocationPage)
+export default connect(mapStateToProps)(withFetcher(PAGE_ENDPOINT)(LocationPage))
