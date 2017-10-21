@@ -1,4 +1,4 @@
-export default class DateModel {
+class DateModel {
   constructor ({ startDate, endDate, allDay }) {
     this._startDate = startDate
     this._endDate = endDate
@@ -115,3 +115,5 @@ export default class DateModel {
     }
   }
 }
+
+export default DateModel

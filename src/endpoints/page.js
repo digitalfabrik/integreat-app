@@ -1,16 +1,11 @@
-import { forEach, find, filter } from 'lodash/collection'
+import { filter, find, forEach } from 'lodash/collection'
 import Endpoint from './Endpoint'
-import PageModel, { EMPTY_PAGE } from './models/PageModel'
-
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
+import PageModel from './models/PageModel'
 
 export default new Endpoint({
   name: 'pages',
-  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
+  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z',
   jsonToAny: (json, options) => {
-    if (!json) {
-      return EMPTY_PAGE
-    }
     let pages = json.filter((page) => page.status === 'publish')
       .map((page) => {
         const id = decodeURIComponent(page.permalink.url_page).split('/').pop()
@@ -35,13 +30,11 @@ export default new Endpoint({
     })
 
     const children = filter(pages, (page) => page.parent === 0)
-    return new PageModel({ numericId: 0, id: 'rootId', title: options.location, children })
+    return new PageModel({numericId: 0, id: 'rootId', title: options.location, children})
   },
-  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
-  mapOptionsToUrlParams: (options) => ({
-    location: options.location,
-    language: options.language,
-    since: BIRTH_OF_UNIVERSE
+  mapStateToOptions: (state) => ({
+    language: state.router.params.language,
+    location: state.router.params.location
   }),
   shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
 })

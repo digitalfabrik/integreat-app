@@ -1,4 +1,4 @@
-export default class PageModel {
+class PageModel {
   constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [] }) {
     this._id = id
     this._numericId = numericId
@@ -48,3 +48,4 @@ export default class PageModel {
 }
 
 export const EMPTY_PAGE = new PageModel({})
+export default PageModel

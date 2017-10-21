@@ -1,4 +1,4 @@
-export default class EventModel {
+class EventModel {
   constructor ({ id, title = '', content = '', thumbnail = '', address = '', town = '', date = {} }) {
     this._id = id
     this._title = title
@@ -45,3 +45,5 @@ export default class EventModel {
     return this._date.toLocaleString(locale)
   }
 }
+
+export default EventModel
