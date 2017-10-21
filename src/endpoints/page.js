@@ -36,8 +36,5 @@ export default new Endpoint({
     language: state.router.params.language,
     location: state.router.params.location
   }),
-  shouldRefetch: (options, nextOptions) => {
-
-    return options.language !== nextOptions.language
-  }
+  shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
 })
