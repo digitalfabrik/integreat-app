@@ -83,7 +83,7 @@ const config = {
       globDirectory: 'public',
       clientsClaim: true,
       skipWaiting: true,
-      globPatterns: ['**/*.{js,css,html,png,jpg,woff}'],
+      globPatterns: ['**/*.{js,css,png,jpg,html,woff}'],
       swDest: 'public/sw.js',
       modifyUrlPrefix: {
         '/public': '/'
