@@ -2,11 +2,12 @@ import React from 'react'
 import Heading from './Heading'
 import Search from 'components/Search/Search'
 import Location from '.'
+import LocationModel from '../../endpoints/models/LocationModel'
 import PropTypes from 'prop-types'
 
 class FilterableLocation extends React.Component {
   static propTypes = {
-    locations: PropTypes.object,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     language: PropTypes.string
   }
 

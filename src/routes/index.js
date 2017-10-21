@@ -13,6 +13,9 @@ export default {
       },
       '/disclaimer': {
         title: 'Disclaimer page'
+      },
+      '/events': {
+        title: 'Events page'
       }
     },
     '/:language': {

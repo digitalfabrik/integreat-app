@@ -13,6 +13,7 @@ import LocationPage from './routes/LocationPage'
 import SearchPage from './routes/SearchPage'
 import ErrorPage from './routes/ErrorPage'
 import DisclaimerPage from './routes/DisclaimerPage'
+import EventsPage from './routes/EventsPage'
 
 // Local imports
 import store from './store'
@@ -56,6 +57,8 @@ let App = (
               <Fragment forRoute="/search"><SearchPage/></Fragment>
               {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
               <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
+              {/* Matches /augsburg/de/events -> Events */}
+              <Fragment forRoute="/events"><EventsPage/></Fragment>
               {/* Matches /augsburg/de/* -> Location */}
               <Fragment forRoute="*"><LocationPage/></Fragment>
             </div>

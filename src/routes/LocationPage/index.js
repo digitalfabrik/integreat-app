@@ -1,20 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Hierarchy from './Hierarchy'
+import { connect } from 'react-redux'
 
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import { PageFetcher } from 'endpoints'
-
-import Hierarchy from './Hierarchy'
-import { connect } from 'react-redux'
+import PageModel from 'endpoints/models/PageModel'
+import PDFButton from '../../components/Content/PDFButton'
 
 class PageAdapter extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    path: PropTypes.string
+    path: PropTypes.string,
+    pages: PropTypes.instanceOf(PageModel)
   }
 
   getParentPath () {
@@ -37,7 +39,9 @@ class PageAdapter extends React.Component {
         language={this.props.language}
         location={this.props.location}
       />
-      <Content url={url} hierarchy={hierarchy}/></div>
+      <Content url={url} hierarchy={hierarchy}/>
+      <PDFButton languageCode={this.props.language} locationCode={this.props.location} page={hierarchy.top()} />
+    </div>
   }
 }
 
@@ -51,11 +55,11 @@ class LocationPage extends React.Component {
   render () {
     return (
       <RichLayout location={this.props.location}>
-        <PageFetcher options={{}}>
+        <PageFetcher>
           <PageAdapter
             location={this.props.location}
             language={this.props.language}
-            path={this.props.path}/>
+            path={this.props.path} />
         </PageFetcher>
       </RichLayout>
     )

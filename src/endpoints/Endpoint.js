@@ -6,8 +6,8 @@ import Payload from 'endpoints/Payload'
 
 class ActionType {
   static RECEIVE = 'RECEIVE_DATA'
-  static REQUEST = 'REQUEST_DATA_'
-  static INVALIDATE = 'INVALIDATE_DATA_'
+  static REQUEST = 'REQUEST_DATA'
+  static INVALIDATE = 'INVALIDATE_DATA'
 }
 
 const DUMMY = () => { return {} }

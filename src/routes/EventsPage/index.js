@@ -1,18 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import { connect } from 'react-redux'
-import Page from 'components/Content/Page'
 import RichLayout from 'components/RichLayout'
-import { DisclaimerFetcher } from 'endpoints'
+import { EventsFetcher } from 'endpoints'
+import Events from '../../components/Content/Events'
 
-class PageAdapter extends React.Component {
-  render () {
-    return <Page page={this.props.disclaimer}/>
-  }
-}
-
-class DisclaimerPage extends React.Component {
+class EventsPage extends React.Component {
   static propTypes = {
     language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired
@@ -21,9 +14,9 @@ class DisclaimerPage extends React.Component {
   render () {
     return (
       <RichLayout location={this.props.location}>
-        <DisclaimerFetcher>
-          <PageAdapter/>
-        </DisclaimerFetcher>
+        <EventsFetcher>
+          <Events />
+        </EventsFetcher>
       </RichLayout>
     )
   }
@@ -36,4 +29,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(DisclaimerPage)
+export default connect(mapStateToProps)(EventsPage)

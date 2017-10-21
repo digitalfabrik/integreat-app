@@ -5,8 +5,6 @@ import style from './Categories.css'
 
 import { Col, Row } from 'react-flexbox-grid'
 import PageModel from 'endpoints/models/PageModel'
-import { map } from 'lodash/collection'
-import PDFButton from './PDFButton'
 import { Link } from 'redux-little-router'
 
 class Category extends React.Component {
@@ -29,22 +27,15 @@ class Category extends React.Component {
 
 export default class Categories extends React.Component {
   static propTypes = {
-    parentPage: PropTypes.instanceOf(PageModel).isRequired,
-    children: PropTypes.object.isRequired
+    categories: PropTypes.arrayOf(PropTypes.shape({
+      page: PropTypes.instanceOf(PageModel).isRequired,
+      url: PropTypes.string.isRequired
+    })).isRequired
   }
 
   render () {
-    return (
-      <div>
-        <Row>
-          {
-            map(this.props.children, (page, url) => {
-              return <Category key={page.id} url={url} page={page}/>
-            })
-          }
-        </Row>
-        <PDFButton requestType="allpages" parentPage={this.props.parentPage} pages={[]}/>
-      </div>
-    )
+    return <Row>
+      { this.props.categories.map(({ page, url }) => <Category key={page.id} url={url} page={page} />) }
+    </Row>
   }
 }

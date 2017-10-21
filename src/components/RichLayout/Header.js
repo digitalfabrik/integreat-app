@@ -69,7 +69,7 @@ class Header extends React.Component {
             {/* Language */}
             {this.props.location &&
             <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-              <LanguageFetcher options={{}} hideError={true} hideSpinner={true}>
+              <LanguageFetcher hideError={true} hideSpinner={true}>
                 <LanguageFlyout
                   languageCallback={this.props.languageCallback}
                   languages={this.props.languages}

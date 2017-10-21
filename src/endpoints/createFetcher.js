@@ -25,9 +25,7 @@ function createFetcher (endpoint) {
       className: PropTypes.string
     }
 
-    static defaultProps = {
-      options: {}
-    }
+    static defaultProps = {options: {}}
 
     static displayName = endpoint.name + 'Fetcher'
 
@@ -53,38 +51,39 @@ function createFetcher (endpoint) {
     }
 
     componentWillUpdate (nextProps) {
-      if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {  // todo: this will need some more work to test -> an other issue as
-        // this is getting too big
+      if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
+        // todo: this will need some more work to test -> another issue as this is getting too big
         this.fetch(nextProps)
       }
     }
 
-    render () {
-      let payload = this.props[endpoint.payloadName]
+    errorVisible () {
+      return !this.props.hideError && this.props[endpoint.payloadName].error
+    }
 
-      if (!this.props.hideError && payload.error) {
+    render () {
+      const payload = this.props[endpoint.payloadName]
+
+      if (this.errorVisible()) {
         return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
       }
 
-      if (!this.props.hideSpinner && !payload.ready()) {
-        return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
-      } else if (payload.ready()) {
-        const newProps = {
-          [endpoint.stateName]: payload.data,  // The actual Payload data
-          [endpoint.payloadName]: payload      // The actual Payload, called: `${stateName}Payload`
+      if (!payload.ready()) {
+        if (!this.props.hideSpinner) {
+          return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
+        } else {
+          return <div/>
         }
-
-        return (
-          <div className={this.props.className}>
-            {
-              React.Children.map(this.props.children,
-                (child) => React.cloneElement(child, Object.assign({}, this.props, newProps)))
-            }
-          </div>
-        )
-      } else {
-        return <div className={this.props.className}/>
       }
+
+      return (
+        <div className={this.props.className}>
+          {
+            React.Children.map(this.props.children,
+              (child) => (React.cloneElement(child, Object.assign({}, this.props, { [endpoint.stateName]: payload.data }))))
+          }
+        </div>
+      )
     }
   }
 

@@ -6,9 +6,9 @@ import { last } from 'lodash/array'
 import { isEmpty } from 'lodash/lang'
 import { forEach } from 'lodash/collection'
 
-export default class Hierarchy {
+class Hierarchy {
   constructor (path = '') {
-    this._path = path ? path.split('/').filter((path) => path !== '') : []
+    this._code = path ? path.split('/').filter((path) => path !== '') : []
     this._pages = []
   }
 
@@ -28,8 +28,8 @@ export default class Hierarchy {
 
     let pages = [currentPage]
 
-    forEach(this._path, (id) => {
-      currentPage = currentPage.children[id]
+    forEach(this._code, (id) => {
+      currentPage = currentPage.children.find((page) => page.id === id)
 
       if (!currentPage) {
         error = 'errors:page.notFound'
@@ -52,7 +52,7 @@ export default class Hierarchy {
   map (fn) {
     let path = ''
     return this.pages.map((page) => {
-      if (page.id !== 0) {
+      if (page.numericId !== 0) {
         path += '/' + page.id
       }
       return fn(page, path)
@@ -60,7 +60,7 @@ export default class Hierarchy {
   }
 
   path () {
-    return normalizeUrl('/' + this._path.join('/'), {removeTrailingSlash: true})
+    return normalizeUrl('/' + this._code.join('/'), {removeTrailingSlash: true})
   }
 
   get pages () {
@@ -79,6 +79,8 @@ export default class Hierarchy {
    * @returns {*} true if this hierarchy is empty
    */
   root () {
-    return isEmpty(this._path)
+    return isEmpty(this._code)
   }
 }
+
+export default Hierarchy
