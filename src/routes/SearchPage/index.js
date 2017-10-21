@@ -72,10 +72,6 @@ const FetchingContentWrapper = compose(
 )(ContentWrapper)
 
 class SearchPage extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired
-  }
-
   constructor () {
     super()
     this.state = {filterText: ''}
