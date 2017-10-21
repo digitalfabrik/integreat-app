@@ -90,3 +90,11 @@ fabric.properties
 public/dist
 public/index.html
 public/sitemap.xml
+public/sw.js
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+public/workbox-sw.prod.v*.js
+public/workbox-sw.prod.v*.js.map
