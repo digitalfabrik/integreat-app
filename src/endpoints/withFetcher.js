@@ -9,7 +9,7 @@ import style from './Fetcher.css'
 function createStateToPropsMapper (endpoint) {
   return (state) => ({
     [endpoint.payloadName]: state[endpoint.stateName],
-    stateOptions: endpoint.mapStateToStateOptions(state)
+    options: endpoint.mapStateToOptions(state)
   })
 }
 
@@ -18,13 +18,13 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
     let Fetcher = class extends React.Component {
       static displayName = endpoint.name + 'Fetcher'
 
-      fetch (stateOptions) {
-        if (!stateOptions) {
-          throw new Error('stateOptions are not valid! This could mean your mapStateToStateOptions() returns ' +
+      fetch (options) {
+        if (!options) {
+          throw new Error('options are not valid! This could mean your mapStateToOptions() returns ' +
             'a undefined value!')
         }
 
-        this.props.dispatch(endpoint.fetchEndpointAction(stateOptions))
+        this.props.dispatch(endpoint.fetchEndpointAction(options, options))
       }
 
       invalidate () {
@@ -36,13 +36,13 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillMount () {
-        this.fetch(this.props.stateOptions)
+        this.fetch(this.props.options)
       }
 
       componentWillUpdate (nextProps) {
-        if (endpoint.shouldRefetch(this.props.stateOptions, nextProps.stateOptions)) {
+        if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
           // todo: this will need some more work to test -> another issue as this is getting too big
-          this.fetch(nextProps.stateOptions)
+          this.fetch(nextProps.options)
         }
       }
 

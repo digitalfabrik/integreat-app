@@ -24,9 +24,9 @@ class Endpoint {
   requestAction
   invalidateAction
   /**
-   * @type mapStateToStateOptionsCallback
+   * @type mapStateToOptionsCallback
    */
-  mapStateToStateOptions
+  mapStateToOptions
   /**
    * @type shouldRefetchCallback
    */
@@ -38,7 +38,7 @@ class Endpoint {
   jsonToAny
 
   /**
-   * @callback mapStateToStateOptionsCallback
+   * @callback mapStateToOptionsCallback
    * @param {object} state
    * @return {object} The url params
    */
@@ -54,13 +54,13 @@ class Endpoint {
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
    * @param {function} jsonToAny Transforms the json input to a result
-   * @param {mapStateToStateOptionsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
+   * @param {mapStateToOptionsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, jsonToAny, mapStateToStateOptions = DUMMY, shouldRefetch = () => false}) {
+  constructor ({name, url, jsonToAny, mapStateToOptions = DUMMY, shouldRefetch = () => false}) {
     this.name = name
     this.url = url
-    this.mapStateToStateOptions = mapStateToStateOptions
+    this.mapStateToOptions = mapStateToOptions
     this.shouldRefetch = shouldRefetch
     this.jsonToAny = jsonToAny
 
@@ -86,7 +86,7 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlParams = {}, stateOptions = {}) {
+  fetchEndpointAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
         return
@@ -105,7 +105,7 @@ class Endpoint {
           let error
           let value
           try {
-            value = this.jsonToAny(json, stateOptions)
+            value = this.jsonToAny(json, options)
           } catch (e) {
             error = e.message
             console.error(error)

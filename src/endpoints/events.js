@@ -28,7 +28,7 @@ export default new Endpoint({
       .filter(event => event.date.startDate > Date.now() - MILLISECONDS_IN_A_DAY)
       .sort((event1, event2) => event1.date.startDate - event2.date.startDate)
   },
-  mapStateToStateOptions: (state) => ({
+  mapStateToOptions: (state) => ({
     language: state.router.params.language,
     location: state.router.params.location
   }),
