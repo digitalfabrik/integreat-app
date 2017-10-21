@@ -18,8 +18,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
     let Fetcher = class extends React.Component {
       static displayName = endpoint.name + 'Fetcher'
 
-      fetch () {
-        const stateOptions = this.props.stateOptions
+      fetch (stateOptions) {
         if (!stateOptions) {
           throw new Error('stateOptions are not valid! This could mean your mapStateToStateOptions() returns ' +
             'a undefined value!')
@@ -37,13 +36,13 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillMount () {
-        this.fetch(this.props)
+        this.fetch(this.props.stateOptions)
       }
 
       componentWillUpdate (nextProps) {
         if (endpoint.shouldRefetch(this.props.stateOptions, nextProps.stateOptions)) {
           // todo: this will need some more work to test -> another issue as this is getting too big
-          this.fetch()
+          this.fetch(nextProps.stateOptions)
         }
       }
 
