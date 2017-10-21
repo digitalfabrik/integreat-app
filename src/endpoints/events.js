@@ -8,10 +8,6 @@ export default new Endpoint({
   name: 'events',
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z',
   jsonToAny: (json) => {
-    if (!json) {
-      return []
-    }
-
     const parseDate = (date, time) => date ? new Date(date + 'T' + (time || '00:00:00') + 'Z') : null
 
     return json.filter(event => event.status === 'publish')

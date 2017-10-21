@@ -22,7 +22,10 @@ import Navigation from '../../Navigation'
 
 class Content extends React.Component {
   static propTypes = {
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)), // From withFetcher
+    /**
+     * from withFetcher HOC which provides data from EVENTS_ENDPOINT
+     */
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
     hierarchy: PropTypes.instanceOf(Hierarchy),
     url: PropTypes.string.isRequired
   }

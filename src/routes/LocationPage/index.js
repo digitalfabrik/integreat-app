@@ -54,6 +54,7 @@ class ContentWrapper extends React.Component {
 function mapStateToProps (state) {
   return {
     language: state.router.params.language,
+    location: state.router.params.location,
     path: state.router.params['_'] // _ contains all the values from *
   }
 }
@@ -64,17 +65,13 @@ const FetchingContentWrapper = compose(
 )(ContentWrapper)
 
 class LocationPage extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired
-  }
-
   render () {
     return (
-      <RichLayout location={this.props.location}>
-        <FetchingContentWrapper location={this.props.location}/>
+      <RichLayout>
+        <FetchingContentWrapper/>
       </RichLayout>
     )
   }
 }
 
-export default connect((state) => ({location: state.router.params.location}))(LocationPage)
+export default LocationPage

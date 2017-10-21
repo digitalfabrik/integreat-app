@@ -61,6 +61,7 @@ class ContentWrapper extends React.Component {
 function mapStateToProps (state) {
   return {
     language: state.router.params.language,
+    location: state.router.params.location,
     path: state.router.params['_'] // _ contains all the values from *
   }
 }
@@ -82,15 +83,15 @@ class SearchPage extends React.Component {
 
   render () {
     return (
-      <RichLayout location={this.props.location}>
+      <RichLayout>
         <Search className={style.searchSpacing}
                 filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
         />
-        <FetchingContentWrapper filterText={this.state.filterText} location={this.props.location}/>
+        <FetchingContentWrapper filterText={this.state.filterText}/>
       </RichLayout>
     )
   }
 }
 
-export default connect((state) => ({location: state.router.params.location}))(SearchPage)
+export default SearchPage

@@ -12,8 +12,8 @@ import LocationModel from 'endpoints/models/LocationModel'
 
 class LandingPage extends React.Component {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
-    language: PropTypes.string
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    language: PropTypes.string.isRequired
   }
 
   render () {

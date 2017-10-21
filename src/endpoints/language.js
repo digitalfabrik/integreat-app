@@ -15,6 +15,6 @@ export default new Endpoint({
   mapStateToStateOptions: (state) => ({
     location: state.router.params.location,
     language: 'de'  // todo:  This forces that the languages are always fetched in german language. German always
-                    //        exists in the backend -> a langauge switch always works}),
+                    //        exists in the backend -> a langauge switch always works
   })
 })

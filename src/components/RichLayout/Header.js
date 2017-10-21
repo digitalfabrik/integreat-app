@@ -40,7 +40,10 @@ class LanguageElementWrapper extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languageCallback: PropTypes.func,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)) // From withFetcher
+    /**
+     * from withFetcher HOC which provides data from LANGUAGE_ENDPOINT
+     */
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel))
   }
 
   render () {
