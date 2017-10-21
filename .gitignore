@@ -98,3 +98,6 @@ public/sw.js
 !.vscode/extensions.json
 public/workbox-sw.prod.v*.js
 public/workbox-sw.prod.v*.js.map
+
+# VPN config
+/tools/deploy/openconnect.*.config
