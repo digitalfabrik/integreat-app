@@ -7,9 +7,6 @@ export default new Endpoint({
   url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/languages/wpml',
   optionsPropType: PropTypes.shape({}),
   jsonToAny: json => {
-    if (!json) {
-      return []
-    }
     return json.map(language => new LanguageModel(language.code, language.native_name))
   },
   mapStateToStateOptions: (state) => ({
