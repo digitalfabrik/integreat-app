@@ -91,6 +91,10 @@ public/dist
 public/index.html
 public/sitemap.xml
 public/sw.js
-.vscode/
-public/workbox-sw.prod.v2.0.1.js
-public/workbox-sw.prod.v2.0.1.js.map
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+public/workbox-sw.prod.v*.js
+public/workbox-sw.prod.v*.js.map
