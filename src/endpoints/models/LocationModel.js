@@ -3,7 +3,7 @@ import { find } from 'lodash/collection'
 
 const IGNORED_PREFIXES = ['stadt', 'kreis', 'landkreis']
 
-export default class LocationModel {
+class LocationModel {
   constructor (name, code, live) {
     this._name = name
     this._code = code
@@ -43,3 +43,5 @@ export default class LocationModel {
     this._sortCategory = isEmpty(name) ? '?' : name[0].toUpperCase()
   }
 }
+
+export default LocationModel

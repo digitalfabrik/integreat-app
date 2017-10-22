@@ -25,9 +25,9 @@ class Category extends React.Component {
   }
 }
 
-export default class Categories extends React.Component {
+class Categories extends React.Component {
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.shape({
+    pages: PropTypes.arrayOf(PropTypes.shape({
       page: PropTypes.instanceOf(PageModel).isRequired,
       url: PropTypes.string.isRequired
     })).isRequired
@@ -35,7 +35,9 @@ export default class Categories extends React.Component {
 
   render () {
     return <Row>
-      { this.props.categories.map(({ page, url }) => <Category key={page.id} url={url} page={page} />) }
+      {this.props.pages.map(({page, url}) => <Category key={page.id} url={url} page={page}/>)}
     </Row>
   }
 }
+
+export default Categories

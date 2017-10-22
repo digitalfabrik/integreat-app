@@ -1,4 +1,4 @@
-export default class LanguageModel {
+class LanguageModel {
   constructor (code, name) {
     this._name = code
     this._code = name
@@ -12,3 +12,5 @@ export default class LanguageModel {
     return this._code
   }
 }
+
+export default LanguageModel

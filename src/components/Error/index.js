@@ -7,7 +7,7 @@ import { history } from 'main'
 
 import style from './style.css'
 
-export default translate('errors')(class Language extends React.Component {
+class Error extends React.Component {
   static propTypes = {
     error: PropTypes.string.isRequired
   }
@@ -29,4 +29,6 @@ export default translate('errors')(class Language extends React.Component {
       <a className={style.centerText} href="/" onClick={this.goBack}>Go back</a>
     </div>
   }
-})
+}
+
+export default translate('errors')(Error)
