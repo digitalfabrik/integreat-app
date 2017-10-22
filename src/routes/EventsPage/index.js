@@ -1,32 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import RichLayout from 'components/RichLayout'
-import { EventsFetcher } from 'endpoints'
-import Events from '../../components/Content/Events'
 
-class EventsPage extends React.Component {
+import RichLayout from 'components/RichLayout'
+import Events from '../../components/Content/Events'
+import EventModel from 'endpoints/models/EventModel'
+import EVENTS_ENDPOINT from 'endpoints/events'
+import withFetcher from '../../endpoints/withFetcher'
+
+class ContentWrapper extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired
+    /**
+     * from withFetcher HOC which provides data from EVENTS_ENDPOINT
+     */
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired
   }
 
   render () {
+    return <Events events={this.props.events}/>
+  }
+}
+
+const FetchingContentWrapper = withFetcher(EVENTS_ENDPOINT)(ContentWrapper)
+
+class EventsPage extends React.Component {
+  render () {
     return (
-      <RichLayout location={this.props.location}>
-        <EventsFetcher>
-          <Events />
-        </EventsFetcher>
+      <RichLayout>
+        <FetchingContentWrapper/>
       </RichLayout>
     )
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location
-  }
-}
-
-export default connect(mapStateToProps)(EventsPage)
+export default EventsPage

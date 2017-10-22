@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions'
 import format from 'string-template'
-import PropTypes from 'prop-types'
 
 import Payload from 'endpoints/Payload'
 
@@ -12,7 +11,7 @@ class ActionType {
 
 const DUMMY = () => { return {} }
 
-export default class Endpoint {
+class Endpoint {
   /**
    * @type string
    */
@@ -21,16 +20,11 @@ export default class Endpoint {
    * @type string
    */
   url
-  optionsPropType
   receiveAction
   requestAction
   invalidateAction
   /**
-   * @type propsToOptionsCallback
-   */
-  mapOptionsToUrlParams
-  /**
-   * @type stateToPropsCallback
+   * @type mapStateToOptionsCallback
    */
   mapStateToOptions
   /**
@@ -44,15 +38,9 @@ export default class Endpoint {
   jsonToAny
 
   /**
-   * @callback stateToPropsCallback
+   * @callback mapStateToOptionsCallback
    * @param {object} state
-   * @return {object} The params
-   */
-
-  /**
-   * @callback propsToOptionsCallback
-   * @param {object} params
-   * @return {object} The options
+   * @return {object} The url params
    */
 
   /**
@@ -65,24 +53,20 @@ export default class Endpoint {
   /**
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
-   * @param {*} optionsType the propType with all endpoint options. Non-required proptypes only for 'state' options
    * @param {function} jsonToAny Transforms the json input to a result
-   * @param {stateToPropsCallback} mapStateToOptions Maps the state to the props which are needed in the Fetcher component ({@link mapOptionsToUrlParams})
-   * @param {propsToOptionsCallback} mapOptionsToUrlParams Maps the properties of the Fetcher component to the url options needed in {@link url}
+   * @param {mapStateToOptionsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, optionsPropType = PropTypes.object, jsonToAny, mapStateToOptions = DUMMY, mapOptionsToUrlParams = DUMMY, shouldRefetch = () => false}) {
+  constructor ({name, url, jsonToAny, mapStateToOptions = DUMMY, shouldRefetch = () => false}) {
     this.name = name
     this.url = url
-    this.optionsPropType = optionsPropType
-    this.mapOptionsToUrlParams = mapOptionsToUrlParams
     this.mapStateToOptions = mapStateToOptions
     this.shouldRefetch = shouldRefetch
     this.jsonToAny = jsonToAny
 
-    let actionName = this.name.toUpperCase()
+    const actionName = this.name.toUpperCase()
 
-    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, options, error) => new Payload(false, value, error))
+    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, error) => new Payload(false, value, error))
     this.requestAction = createAction(`${ActionType.REQUEST}_${actionName}`, () => new Payload(true))
     this.invalidateAction = createAction(`${ActionType.INVALIDATE}_${actionName}`, () => new Payload(false))
     this._stateName = name
@@ -115,6 +99,7 @@ export default class Endpoint {
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
+
       return fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
@@ -124,14 +109,17 @@ export default class Endpoint {
             value = this.jsonToAny(json, options)
           } catch (e) {
             error = e.message
+            console.error(error)
           }
 
-          return dispatch(this.receiveAction(value, options, error))
+          return dispatch(this.receiveAction(value, error))
         })
         .catch(ex => {
           console.error('Failed to load the endpoint request: ' + this.name, ex.message)
-          return dispatch(this.receiveAction(null, options, 'errors:page.loadingFailed'))
+          return dispatch(this.receiveAction(null, 'errors:page.loadingFailed'))
         })
     }
   }
 }
+
+export default Endpoint

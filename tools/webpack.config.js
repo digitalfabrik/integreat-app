@@ -2,10 +2,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
+const WorkBoxPlugin = require('workbox-webpack-plugin')
 const pkg = require('../package.json')
 const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
+const DIST = '../public/dist'
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
@@ -34,7 +36,7 @@ const config = {
   ],
   // Options affecting the output of the compilation
   output: {
-    path: path.resolve(__dirname, '../public/dist'),
+    path: path.resolve(__dirname, DIST),
     publicPath: isDebug ? `http://localhost:${process.env.PORT || 3000}/dist/` : '/dist/',
     filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
     chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
@@ -69,13 +71,33 @@ const config = {
     // Emit a JSON file with assets paths
     // https://github.com/sporto/assets-webpack-plugin#options
     new AssetsPlugin({
-      path: path.resolve(__dirname, '../public/dist'),
+      path: path.resolve(__dirname, DIST),
       filename: 'assets.json',
       prettyPrint: true
     }),
     new webpack.LoaderOptionsPlugin({
       debug: isDebug,
       minimize: !isDebug
+    }),
+    new WorkBoxPlugin({
+      globDirectory: 'public',
+      clientsClaim: true,
+      skipWaiting: true,
+      globPatterns: ['**/*.{js,css,png,jpg,html,woff}'],
+      swDest: 'public/sw.js',
+      modifyUrlPrefix: {
+        '/public': '/'
+      },
+      runtimeCaching: [{
+        urlPattern: /.*cms.integreat-app.de\/.*/,
+        handler: 'cacheFirst',
+        options: {
+          cache: {
+            name: 'cms-cache',
+            maxAgeSeconds: 60 * 60 * 24 * 2
+          }
+        }
+      }]
     })
   ],
   // Options affecting the normal modules

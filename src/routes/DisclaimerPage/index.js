@@ -1,39 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux'
 import Page from 'components/Content/Page'
 import RichLayout from 'components/RichLayout'
-import { DisclaimerFetcher } from 'endpoints'
+import PageModel from 'endpoints/models/PageModel'
+import withFetcher from 'endpoints/withFetcher'
+import DISCLAIMER_ENDPOINT from 'endpoints/disclaimer'
 
-class PageAdapter extends React.Component {
+class ContentWrapper extends React.Component {
+  static propTypes = {
+    /**
+     * from withFetcher HOC which provides data from DISCLAIMER_ENDPOINT
+     */
+    disclaimer: PropTypes.instanceOf(PageModel)
+  }
+
   render () {
     return <Page page={this.props.disclaimer}/>
   }
 }
 
-class DisclaimerPage extends React.Component {
-  static propTypes = {
-    language: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired
-  }
+const FetchingContentWrapper = withFetcher(DISCLAIMER_ENDPOINT)(ContentWrapper)
 
+class DisclaimerPage extends React.Component {
   render () {
     return (
-      <RichLayout location={this.props.location}>
-        <DisclaimerFetcher>
-          <PageAdapter/>
-        </DisclaimerFetcher>
+      <RichLayout>
+        <FetchingContentWrapper/>
       </RichLayout>
     )
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location
-  }
-}
-
-export default connect(mapStateToProps)(DisclaimerPage)
+export default DisclaimerPage
