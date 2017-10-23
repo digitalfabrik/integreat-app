@@ -1,6 +1,7 @@
 import 'babel-polyfill'
 import 'whatwg-fetch'
-
+import 'url-search-params-polyfill'
+import {TextDecoder, TextEncoder} from 'text-encoding'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
@@ -20,6 +21,9 @@ import store from './store'
 import i18n from './i18n/i18n'
 import { Fragment, initializeCurrentLocation } from 'redux-little-router'
 import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
+
+window.TextDecoder = TextDecoder
+window.TextEncoder = TextEncoder
 
 /**
  * Holds the current history implementation
