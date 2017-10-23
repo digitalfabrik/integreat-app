@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome'
 import chunkedRequest from 'chunked-request'
 import { connect } from 'react-redux'
 import escapeRegExp from 'escape-string-regexp'
+import { isEmpty } from 'lodash/lang'
 
 import PageModel from '../../endpoints/models/PageModel'
 import style from './PDFButton.css'
@@ -27,7 +28,7 @@ class PDFButton extends React.Component {
 
   componentWillUpdate (nextProps, nextState) {
     if (this.props.page !== nextProps.page || this.props.locationCode !== nextProps.locationCode) {
-      Object.assign(nextState, { pdf: false, loading: false })
+      Object.assign(nextState, {pdf: false, loading: false})
     }
   }
 
@@ -72,14 +73,14 @@ class PDFButton extends React.Component {
         if (!page === this.state.loading) {
           return
         }
-        try {
-          const regex = escapeRegExp(`https://cms.integreat-app.de/${this.props.locationCode}/wp-content/uploads/`) + '[\\w|/|-]*\\.pdf'
-          const url = text.match(new RegExp(regex))[0]
-          this.setState({pdf: url, loading: false})
-        } catch (e) {
-          console.error(e)
+
+        const regex = escapeRegExp(`https://cms.integreat-app.de/${this.props.locationCode}/wp-content/uploads/`) + '[\\w|/|-]*\\.pdf'
+        const match = text.match(new RegExp(regex))
+        if (isEmpty(regex)) {
           this.setState({loading: false})
         }
+
+        this.setState({pdf: match[0], loading: false})
       }
     })
   }
@@ -99,6 +100,6 @@ class PDFButton extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => { return { locationCode: state.router.params.location } }
+const mapStateToProps = (state) => { return {locationCode: state.router.params.location} }
 
 export default connect(mapStateToProps)(PDFButton)
