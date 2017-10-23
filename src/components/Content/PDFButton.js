@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
-import { forEach } from 'lodash/collection'
-import URLSearchParams from 'url-search-params'
 import chunkedRequest from 'chunked-request'
 import { connect } from 'react-redux'
 import escapeRegExp from 'escape-string-regexp'
-import { TextDecoder } from 'text-encoding'
 
 import PageModel from '../../endpoints/models/PageModel'
 import style from './PDFButton.css'
@@ -57,7 +54,6 @@ class PDFButton extends React.Component {
     }
 
     let body = new URLSearchParams(params)
-    forEach(params, (value, key) => body.append(key, value))
     // Currently the backend can only use the 'Referer' header, to determine which language the PDF should have (not sure).
     // We cannot modify the 'Referer'-header and we are just lucky that it works I think.
     // The old JQuery webapp also sended following cookies to the backend which it maybe used to determine the language.
@@ -67,6 +63,9 @@ class PDFButton extends React.Component {
     chunkedRequest({
       url,
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       body,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
@@ -78,6 +77,7 @@ class PDFButton extends React.Component {
           const url = text.match(new RegExp(regex))[0]
           this.setState({pdf: url, loading: false})
         } catch (e) {
+          console.error(e)
           this.setState({loading: false})
         }
       }
