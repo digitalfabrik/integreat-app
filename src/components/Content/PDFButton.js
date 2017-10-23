@@ -66,7 +66,8 @@ class PDFButton extends React.Component {
       url,
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded' // Currently IE11 does another request which fails because it appends a \n before Content-Type
+                                                            // But other request succeeds so let's ignore it
       },
       body,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
