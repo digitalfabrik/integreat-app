@@ -10,6 +10,6 @@ if (!window.TextDecoder) {
   window.TextDecoder = TextDecoder
 }
 
-if (!window.TextDecoder) {
+if (!window.TextEncoder) {
   window.TextEncoder = TextEncoder
 }
