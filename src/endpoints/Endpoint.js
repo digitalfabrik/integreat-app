@@ -4,9 +4,8 @@ import format from 'string-template'
 import Payload from 'endpoints/Payload'
 
 class ActionType {
-  static RECEIVE = 'RECEIVE_DATA'
-  static REQUEST = 'REQUEST_DATA'
-  static INVALIDATE = 'INVALIDATE_DATA'
+  static FINISH_FETCH = 'FINISH_FETCH_DATA'
+  static START_FETCH = 'START_FETCH_DATA'
 }
 
 const DUMMY = () => { return {} }
@@ -20,9 +19,8 @@ class Endpoint {
    * @type string
    */
   url
-  receiveAction
-  requestAction
-  invalidateAction
+  finishFetchAction
+  startFetchAction
   /**
    * @type mapStateToOptionsCallback
    */
@@ -66,9 +64,8 @@ class Endpoint {
 
     const actionName = this.name.toUpperCase()
 
-    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, error) => new Payload(false, value, error))
-    this.requestAction = createAction(`${ActionType.REQUEST}_${actionName}`, () => new Payload(true))
-    this.invalidateAction = createAction(`${ActionType.INVALIDATE}_${actionName}`, () => new Payload(false))
+    this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => new Payload(false, value, error, requestUrl))
+    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
     this._stateName = name
   }
 
@@ -86,19 +83,27 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlParams = {}, options = {}) {
+  requestAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
         return
       }
 
-      dispatch(this.requestAction())
-
-      let formattedURL = format(this.url, urlParams)
+      const formattedURL = format(this.url, urlParams)
       /*
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
+
+      const lastUrl = getState()[this.name].requestUrl
+
+      if (lastUrl && lastUrl === formattedURL) {
+        // fixme: Use "cached"
+        return
+      }
+
+      // Refetch if url changes or we don't have a lastUrl
+      dispatch(this.startFetchAction())
 
       return fetch(formattedURL)
         .then(response => response.json())
@@ -109,14 +114,14 @@ class Endpoint {
             value = this.jsonToAny(json, options)
           } catch (e) {
             error = e.message
-            console.error(error)
+            console.error('Failed to parse the json: ' + this.name, e.message)
           }
 
-          return dispatch(this.receiveAction(value, error))
+          return dispatch(this.finishFetchAction(value, error, formattedURL))
         })
-        .catch(ex => {
-          console.error('Failed to load the endpoint request: ' + this.name, ex.message)
-          return dispatch(this.receiveAction(null, 'errors:page.loadingFailed'))
+        .catch(e => {
+          console.error('Failed to load the endpoint request: ' + this.name, e.message)
+          return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
         })
     }
   }

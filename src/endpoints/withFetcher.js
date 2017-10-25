@@ -24,15 +24,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
             'a undefined value!')
         }
 
-        this.props.dispatch(endpoint.fetchEndpointAction(options, options))
-      }
-
-      invalidate () {
-        this.props.dispatch(endpoint.invalidateAction())
-      }
-
-      componentWillUnmount () {
-        this.invalidate()
+        this.props.dispatch(endpoint.requestAction(options, options))
       }
 
       componentWillMount () {
