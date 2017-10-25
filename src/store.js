@@ -19,9 +19,8 @@ let reducers = ENDPOINTS.reduce((result, endpoint) => {
   let reducer = (state, action) => action.payload
 
   result[endpoint.name] = reduceReducers(
-    handleAction(endpoint.receiveAction, reducer, defaultState),
-    handleAction(endpoint.requestAction, reducer, defaultState),
-    handleAction(endpoint.invalidateAction, reducer, defaultState)
+    handleAction(endpoint.startFetchAction, reducer, defaultState),
+    handleAction(endpoint.finishFetchAction, reducer, defaultState)
   )
 
   return result
