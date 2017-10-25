@@ -34,7 +34,7 @@
     "redux-thunk": "^2.2.0",
     "string-template": "^1.0.0",
     "text-encoding": "^0.6.4",
-    "url-search-params": "^0.10.0",
+    "url-search-params-polyfill": "^2.0.1",
     "webfontloader": "^1.6.28",
     "whatwg-fetch": "^2.0.3"
   },
@@ -98,11 +98,11 @@
     "stylelint": "^8.2.0",
     "stylelint-order": "^0.7.0",
     "stylelint-webpack-plugin": "^0.9.0",
-    "workbox-webpack-plugin": "^2.0.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.7.1",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.19.1"
+    "webpack-hot-middleware": "^2.19.1",
+    "workbox-webpack-plugin": "^2.0.1"
   },
   "babel": {
     "presets": [
