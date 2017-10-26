@@ -45,4 +45,3 @@ class EndpointBuilder {
 export default EndpointBuilder
 
 export const endpoint = (name) => new EndpointBuilder(name)
-
