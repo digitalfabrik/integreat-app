@@ -33,7 +33,6 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
 
       componentWillUpdate (nextProps) {
         if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
-          // todo: this will need some more work to test -> another issue as this is getting too big
           this.fetch(nextProps.options)
         }
       }
