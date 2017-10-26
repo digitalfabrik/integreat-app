@@ -8,8 +8,6 @@ class ActionType {
   static START_FETCH = 'START_FETCH_DATA'
 }
 
-const DUMMY = () => { return {} }
-
 class Endpoint {
   /**
    * @type string
@@ -52,10 +50,10 @@ class Endpoint {
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
    * @param {function} jsonToAny Transforms the json input to a result
-   * @param {mapStateToOptionsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
+   * @param {mapStateToOptionsCallback} mapStateToOptions Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, jsonToAny, mapStateToOptions = DUMMY, shouldRefetch = () => false}) {
+  constructor (name, url, jsonToAny, mapStateToOptions, shouldRefetch) {
     this.name = name
     this.url = url
     this.mapStateToOptions = mapStateToOptions
@@ -64,7 +62,9 @@ class Endpoint {
 
     const actionName = this.name.toUpperCase()
 
-    this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => new Payload(false, value, error, requestUrl))
+    this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
+      return new Payload(false, value, error, requestUrl)
+    })
     this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
     this._stateName = name
   }
