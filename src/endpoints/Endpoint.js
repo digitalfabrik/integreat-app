@@ -98,7 +98,7 @@ class Endpoint {
       const lastUrl = getState()[this.name].requestUrl
 
       if (lastUrl && lastUrl === formattedURL) {
-        // fixme: Use "cached"
+        // Use "cached"
         return
       }
 
