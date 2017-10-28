@@ -1,11 +1,12 @@
 import { filter, find, forEach } from 'lodash/collection'
 
-import { endpoint } from './EndpointBuilder'
+import EndpointBuilder from './EndpointBuilder'
 
 import PageModel from './models/PageModel'
 
-export default endpoint('pages')
+export default new EndpointBuilder('pages')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z')
+  .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
   .withMapper((json, options) => {
     const pages = json.filter((page) => page.status === 'publish')
       .map((page) => {

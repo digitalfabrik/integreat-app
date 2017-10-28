@@ -1,6 +1,6 @@
 import { sortBy } from 'lodash/collection'
 
-import { endpoint } from './EndpointBuilder'
+import EndpointBuilder from './EndpointBuilder'
 
 import LocationModel from './models/LocationModel'
 
@@ -14,7 +14,7 @@ function stripSlashes (path) {
   return path
 }
 
-export default endpoint('locations')
+export default new EndpointBuilder('locations')
   .withUrl('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
   .withMapper(json => {
     const locations = json
