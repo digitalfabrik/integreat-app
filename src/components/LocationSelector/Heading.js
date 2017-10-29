@@ -13,7 +13,7 @@ class Heading extends React.Component {
           <img className={style.logo} src={LocationBig}/>
         </div>
         <div>
-          <h1 className={style.heading}>{t('Location:where')}</h1>
+          <h1 className={style.heading}>{t('LocationSelector:where')}</h1>
         </div>
       </div>
     )
