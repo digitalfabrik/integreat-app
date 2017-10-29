@@ -55,16 +55,14 @@ class ContentWrapper extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location,
-    path: state.router.params['_'] // _ contains all the values from *
-  }
-}
+const mapStateToWrapperProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location,
+  path: state.router.params['_'] // _ contains all the values from *
+})
 
 const FetchingContentWrapper = compose(
-  connect(mapStateToProps),
+  connect(mapStateToWrapperProps),
   withFetcher(PAGE_ENDPOINT)
 )(ContentWrapper)
 
@@ -84,4 +82,6 @@ class LocationPage extends React.Component {
   }
 }
 
-export default connect((state) => ({isPdfDownload: state.router.query.pdf !== undefined}))(LocationPage)
+const mapStateToProps = (state) => ({ isPdfDownload: !!state.router.query.pdf })
+
+export default connect(mapStateToProps)(LocationPage)

@@ -75,9 +75,6 @@ class LanguageFlyout extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  const language = state.router.params.language
-  return {language}
-}
+const mapStateToProps = (state) => ({language: state.router.params.language})
 
 export default connect(mapStateToProps)(LanguageFlyout)

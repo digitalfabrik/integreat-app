@@ -44,10 +44,6 @@ class RichLayout extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    location: state.router.params.location
-  }
-}
+const mapStateToProps = (state) => ({ location: state.router.params.location })
 
 export default connect(mapStateToProps)(RichLayout)

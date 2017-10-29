@@ -149,12 +149,10 @@ class PdfFetcher extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    location: state.router.params.location,
-    language: state.router.params.language
-  }
-}
+const mapStateToProps = (state) => ({
+  location: state.router.params.location,
+  language: state.router.params.language
+})
 
 export default compose(
   connect(mapStateToProps),
