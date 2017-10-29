@@ -26,10 +26,21 @@ class Footer extends React.Component {
     }
   }
 
+  getVersion () {
+    // eslint-disable-next-line no-undef
+    if (__DEV__) {
+      // eslint-disable-next-line no-undef
+      return <div className={style.item}>{__VERSION__}</div>
+    }
+
+    return null
+  }
+
   render () {
     return (
       <div className={style.footer}>
         {this.getDisclaimerLink()}
+        {this.getVersion()}
       </div>
     )
   }
