@@ -52,11 +52,11 @@ class PdfFetcher extends React.Component {
   }
 
   getLocationTitle (page) {
-    try {
-      const location = this.props.locations.find((location) => location.code === page.title)
+    const location = this.props.locations.find((location) => location.code === page.title)
+    if (location) {
       return location.name
-    } catch (e) {
-      console.error('Couldn\'t find the corresponding LocationModel. Using the page title instead...')
+    } else {
+      console.warn('Couldn\'t find the corresponding LocationModel. Using the page title instead...')
       return page.title
     }
   }
