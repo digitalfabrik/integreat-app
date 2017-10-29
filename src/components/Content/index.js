@@ -53,7 +53,7 @@ class Content extends React.Component {
       return <div>
         {this.hasEvents() && <EventSnippet events={this.props.events} navigation={navigation}/>}
         <Categories pages={pages}/>
-        {!this.hasEvents() && <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row>}
+        {!this.hasEvents() && <Row className={style.noEvents}>{t('common:currentlyNoEvents')}</Row>}
       </div>
     } else {
       return <TitledContentList parentPage={page} pages={pages}/>
