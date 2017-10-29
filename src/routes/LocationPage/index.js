@@ -9,7 +9,7 @@ import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import PageModel from 'endpoints/models/PageModel'
-import PDFButton from 'components/Content/PDFButton'
+import PdfButton from 'components/Content/PdfButton'
 import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
@@ -50,7 +50,7 @@ class ContentWrapper extends React.Component {
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/>
-      <PDFButton />
+      <PdfButton />
     </div>
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
 
-import style from './PDFButton.css'
+import style from './PdfButton.css'
 
-class PDFButton extends React.Component {
+class PdfButton extends React.Component {
   render () {
     return <a className={style.pdfWrapper} href="?pdf" target="_blank">
       <FontAwesome name='file-pdf-o'/>
@@ -11,4 +11,4 @@ class PDFButton extends React.Component {
   }
 }
 
-export default PDFButton
+export default PdfButton
