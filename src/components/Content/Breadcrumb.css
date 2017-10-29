@@ -1,7 +1,9 @@
 @import url('../Helper/Helper.css');
 
 .breadcrumbs {
-  margin-bottom: 10px;
+  overflow: scroll;
+  margin-bottom: 20px;
+  white-space: nowrap;
 }
 
 .separator::after {
@@ -19,7 +21,6 @@
 
 .breadcrumb {
   @mixin remove-a;
-  padding: 10px 0;
 }
 
 .breadcrumb:last-child .level {
