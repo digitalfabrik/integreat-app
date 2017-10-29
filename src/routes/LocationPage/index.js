@@ -82,6 +82,6 @@ class LocationPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ isPdfDownload: !!state.router.query.pdf })
+const mapStateToProps = (state) => ({ isPdfDownload: state.router.query.pdf !== undefined })
 
 export default connect(mapStateToProps)(LocationPage)
