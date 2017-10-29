@@ -1,5 +1,4 @@
-import 'babel-polyfill'
-import 'whatwg-fetch'
+import 'polyfills'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
