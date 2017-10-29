@@ -24,7 +24,9 @@ class TitledCategoriesTable extends React.Component {
   render () {
     return (
       <div>
-        <div className={style.title}>{this.getTitle()}</div>
+        <div>
+          <h1 className={style.title}>{this.getTitle()}</h1>
+        </div>
         <CategoriesTable pages={this.props.pages}/>
       </div>
     )

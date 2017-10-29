@@ -12,8 +12,9 @@ class Page extends React.Component {
     /* We can insert our html here directly since we trust our backend cms */
     return (
       <div>
-        <div className={style.remoteHeading}
-             dangerouslySetInnerHTML={{__html: (this.props.page.title)}}/>
+        <div>
+          <h1 className={style.heading}>{this.props.page.title}</h1>
+        </div>
         <div className={style.remoteContent}
              dangerouslySetInnerHTML={{__html: (this.props.page.content)}}/>
       </div>

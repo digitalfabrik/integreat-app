@@ -1,6 +1,6 @@
-.remote-heading {
-  margin: 30px 0 50px;
-  font-size: 40px;
+.heading {
+  margin: 50px 0;
+  text-align: center;
 }
 
 .remote-content img {
