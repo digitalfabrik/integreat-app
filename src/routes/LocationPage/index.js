@@ -14,11 +14,13 @@ import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import Hierarchy from './Hierarchy'
+import PdfFetcher from 'components/PdfFetcher'
 
 class ContentWrapper extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
+    isPdfDownload: PropTypes.bool.isRequired,
     path: PropTypes.string,
     pages: PropTypes.instanceOf(PageModel).isRequired
   }
@@ -37,6 +39,10 @@ class ContentWrapper extends React.Component {
       return <Error error={error}/>
     }
 
+    if (this.props.isPdfDownload) {
+      return <PdfFetcher page={hierarchy.top()} />
+    }
+
     return <div>
       <Breadcrumb
         hierarchy={hierarchy}
@@ -44,9 +50,7 @@ class ContentWrapper extends React.Component {
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/>
-      <PDFButton languageCode={this.props.language}
-                 locationCode={this.props.location}
-                 page={hierarchy.top()}/>
+      <PDFButton />
     </div>
   }
 }
@@ -65,13 +69,19 @@ const FetchingContentWrapper = compose(
 )(ContentWrapper)
 
 class LocationPage extends React.Component {
+  static propTypes = {
+    isPdfDownload: PropTypes.bool.isRequired
+  }
+
   render () {
-    return (
-      <RichLayout>
-        <FetchingContentWrapper/>
+    if (this.props.isPdfDownload) {
+      return <FetchingContentWrapper isPdfDownload={true}/>
+    } else {
+      return <RichLayout>
+        <FetchingContentWrapper isPdfDownload={false}/>
       </RichLayout>
-    )
+    }
   }
 }
 
-export default LocationPage
+export default connect((state) => ({isPdfDownload: state.router.query.pdf !== undefined}))(LocationPage)
