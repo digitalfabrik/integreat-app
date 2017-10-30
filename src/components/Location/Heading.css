@@ -1,12 +1,11 @@
-.heading {
-  margin-bottom: 30px;
-  text-align: center;
-  vertical-align: middle;
-}
-
 .logo {
   display: block;
   width: auto;
   height: 70px;
   margin: auto;
+}
+
+.caption {
+  margin: 0 0 30px;
+  vertical-align: middle;
 }

@@ -5,8 +5,7 @@ import PageModel from 'endpoints/models/PageModel'
 import CategoriesTable from './CategoriesTable'
 import LOCATIONS_ENDPOINT from 'endpoints/location'
 import withFetcher from 'endpoints/withFetcher'
-
-import style from './TitledCategoriesTable.css'
+import Caption from './Caption'
 
 class TitledCategoriesTable extends React.Component {
   static propTypes = {
@@ -24,9 +23,7 @@ class TitledCategoriesTable extends React.Component {
   render () {
     return (
       <div>
-        <div>
-          <h1 className={style.title}>{this.getTitle()}</h1>
-        </div>
+        <Caption title={this.getTitle()}/>
         <CategoriesTable pages={this.props.pages}/>
       </div>
     )
