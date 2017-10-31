@@ -1,5 +1,5 @@
 class PageModel {
-  constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [] }) {
+  constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [], availableLanguages = {} }) {
     this._id = id
     this._numericId = numericId
     this._title = title
@@ -8,6 +8,7 @@ class PageModel {
     this._thumbnail = thumbnail
     this._order = order
     this._children = children
+    this._availableLanguages = availableLanguages
   }
 
   get thumbnail () {
@@ -44,6 +45,10 @@ class PageModel {
 
   get order () {
     return this._order
+  }
+
+  get availableLanguages () {
+    return this._availableLanguages
   }
 }
 

@@ -19,7 +19,8 @@ export default new EndpointBuilder('pages')
           parent: page.parent,
           content: page.content,
           thumbnail: page.thumbnail,
-          order: page.order
+          order: page.order,
+          availableLanguages: page.available_languages
         })
       })
 
