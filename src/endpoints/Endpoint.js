@@ -4,12 +4,9 @@ import format from 'string-template'
 import Payload from 'endpoints/Payload'
 
 class ActionType {
-  static RECEIVE = 'RECEIVE_DATA'
-  static REQUEST = 'REQUEST_DATA'
-  static INVALIDATE = 'INVALIDATE_DATA'
+  static FINISH_FETCH = 'FINISH_FETCH_DATA'
+  static START_FETCH = 'START_FETCH_DATA'
 }
-
-const DUMMY = () => { return {} }
 
 class Endpoint {
   /**
@@ -20,9 +17,8 @@ class Endpoint {
    * @type string
    */
   url
-  receiveAction
-  requestAction
-  invalidateAction
+  finishFetchAction
+  startFetchAction
   /**
    * @type mapStateToOptionsCallback
    */
@@ -33,9 +29,9 @@ class Endpoint {
   shouldRefetch
 
   /**
-   * Converts a json document to any object
+   * Converts a json document to an object
    */
-  jsonToAny
+  mapData
 
   /**
    * @callback mapStateToOptionsCallback
@@ -53,22 +49,23 @@ class Endpoint {
   /**
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
-   * @param {function} jsonToAny Transforms the json input to a result
-   * @param {mapStateToOptionsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
+   * @param {function} mapData Transforms the json input to a result
+   * @param {mapStateToOptionsCallback} mapStateToOptions Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, jsonToAny, mapStateToOptions = DUMMY, shouldRefetch = () => false}) {
+  constructor (name, url, mapData, mapStateToOptions, shouldRefetch) {
     this.name = name
     this.url = url
     this.mapStateToOptions = mapStateToOptions
     this.shouldRefetch = shouldRefetch
-    this.jsonToAny = jsonToAny
+    this.mapData = mapData
 
     const actionName = this.name.toUpperCase()
 
-    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, error) => new Payload(false, value, error))
-    this.requestAction = createAction(`${ActionType.REQUEST}_${actionName}`, () => new Payload(true))
-    this.invalidateAction = createAction(`${ActionType.INVALIDATE}_${actionName}`, () => new Payload(false))
+    this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
+      return new Payload(false, value, error, requestUrl)
+    })
+    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
     this._stateName = name
   }
 
@@ -86,19 +83,27 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlParams = {}, options = {}) {
+  requestAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
         return
       }
 
-      dispatch(this.requestAction())
-
-      let formattedURL = format(this.url, urlParams)
+      const formattedURL = format(this.url, urlParams)
       /*
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
+
+      const lastUrl = getState()[this.name].requestUrl
+
+      if (lastUrl && lastUrl === formattedURL) {
+        // Use "cached"
+        return
+      }
+
+      // Refetch if url changes or we don't have a lastUrl
+      dispatch(this.startFetchAction())
 
       return fetch(formattedURL)
         .then(response => response.json())
@@ -106,17 +111,17 @@ class Endpoint {
           let error
           let value
           try {
-            value = this.jsonToAny(json, options)
+            value = this.mapData(json, options)
           } catch (e) {
             error = e.message
-            console.error(error)
+            console.error('Failed to parse the json: ' + this.name, e.message)
           }
 
-          return dispatch(this.receiveAction(value, error))
+          return dispatch(this.finishFetchAction(value, error, formattedURL))
         })
-        .catch(ex => {
-          console.error('Failed to load the endpoint request: ' + this.name, ex.message)
-          return dispatch(this.receiveAction(null, 'errors:page.loadingFailed'))
+        .catch(e => {
+          console.error('Failed to load the endpoint request: ' + this.name, e.message)
+          return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
         })
     }
   }
