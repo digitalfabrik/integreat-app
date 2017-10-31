@@ -58,13 +58,11 @@ class ContentWrapper extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location,
-    path: state.router.params['_'] // _ contains all the values from *
-  }
-}
+const mapStateToProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location,
+  path: state.router.params['_'] // _ contains all the values from *
+})
 
 const FetchingContentWrapper = compose(
   connect(mapStateToProps),

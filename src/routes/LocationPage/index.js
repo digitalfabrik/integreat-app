@@ -9,16 +9,18 @@ import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import PageModel from 'endpoints/models/PageModel'
-import PDFButton from 'components/Content/PDFButton'
+import PdfButton from 'components/Content/PdfButton'
 import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import Hierarchy from './Hierarchy'
+import PdfFetcher from 'components/PdfFetcher'
 
 class ContentWrapper extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
+    isPdfDownload: PropTypes.bool.isRequired,
     path: PropTypes.string,
     pages: PropTypes.instanceOf(PageModel).isRequired
   }
@@ -37,6 +39,10 @@ class ContentWrapper extends React.Component {
       return <Error error={error}/>
     }
 
+    if (this.props.isPdfDownload) {
+      return <PdfFetcher page={hierarchy.top()} />
+    }
+
     return <div>
       <Breadcrumb
         hierarchy={hierarchy}
@@ -44,34 +50,38 @@ class ContentWrapper extends React.Component {
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/>
-      <PDFButton languageCode={this.props.language}
-                 locationCode={this.props.location}
-                 page={hierarchy.top()}/>
+      <PdfButton />
     </div>
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location,
-    path: state.router.params['_'] // _ contains all the values from *
-  }
-}
+const mapStateToWrapperProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location,
+  path: state.router.params['_'] // _ contains all the values from *
+})
 
 const FetchingContentWrapper = compose(
-  connect(mapStateToProps),
+  connect(mapStateToWrapperProps),
   withFetcher(PAGE_ENDPOINT)
 )(ContentWrapper)
 
 class LocationPage extends React.Component {
+  static propTypes = {
+    isPdfDownload: PropTypes.bool.isRequired
+  }
+
   render () {
-    return (
-      <RichLayout>
-        <FetchingContentWrapper/>
+    if (this.props.isPdfDownload) {
+      return <FetchingContentWrapper isPdfDownload={true}/>
+    } else {
+      return <RichLayout>
+        <FetchingContentWrapper isPdfDownload={false}/>
       </RichLayout>
-    )
+    }
   }
 }
 
-export default LocationPage
+const mapStateToProps = (state) => ({ isPdfDownload: state.router.query.pdf !== undefined })
+
+export default connect(mapStateToProps)(LocationPage)

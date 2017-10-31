@@ -101,13 +101,10 @@ class Header extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  const location = state.router.params.location
-  const language = state.router.params.language
-  return {
-    location,
-    navigation: new Navigation(location, language)
-  }
-}
+const mapStateToProps = (state) => ({
+  location: state.router.params.location,
+  language: state.router.params.language,
+  navigation: new Navigation(state.router.params.location, state.router.params.language)
+})
 
 export default connect(mapStateToProps)(Header)
