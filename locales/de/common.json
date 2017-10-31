@@ -3,5 +3,7 @@
   "date": "Datum",
   "currentEvents": "Aktuelle Veranstaltungen",
   "thereAreCurrentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
-  "AndMore": "Und noch weitere..."
+  "AndMore": "Und noch weitere...",
+  "creatingPdf": "Ihre PDF wird erstellt...",
+  "downloadPdfAt": "Sie können PDF hier herunterladen:"
 }
