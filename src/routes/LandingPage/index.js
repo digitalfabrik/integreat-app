@@ -5,7 +5,7 @@ import compose from 'lodash/fp/compose'
 
 import Layout from 'components/Layout'
 import LOCATIONS_ENDPOINT from 'endpoints/location'
-import FilterableLocation from 'components/Location/FilterableLocation'
+import FilterableLocationSelector from 'components/LocationSelector/FilterableLocationSelector'
 import Footer from 'components/RichLayout/Footer'
 import withFetcher from 'endpoints/withFetcher'
 import LocationModel from 'endpoints/models/LocationModel'
@@ -19,7 +19,7 @@ class LandingPage extends React.Component {
   render () {
     return (<div>
         <Layout>
-          <FilterableLocation
+          <FilterableLocationSelector
             language={this.props.language}
             locations={this.props.locations}/>
         </Layout>
@@ -29,10 +29,9 @@ class LandingPage extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  const language = state.router.params && state.router.params.language ? state.router.params.language : 'de'
-  return {language}
-}
+const mapStateToProps = (state) => ({
+  language: state.router.params && state.router.params.language ? state.router.params.language : 'de'
+})
 
 export default compose(
   connect(mapStateToProps),
