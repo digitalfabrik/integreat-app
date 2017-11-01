@@ -61,12 +61,10 @@ class Content extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location
-  }
-}
+const mapStateToProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location
+})
 
 export default compose(
   connect(mapStateToProps),
