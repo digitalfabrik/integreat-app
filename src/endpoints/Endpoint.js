@@ -8,6 +8,9 @@ class ActionType {
   static START_FETCH = 'START_FETCH_DATA'
 }
 
+/**
+ * A Endpoint holds all the relevant information to fetch data form it
+ */
 class Endpoint {
   /**
    * @type string
@@ -83,6 +86,11 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
+  /**
+   * @param urlParams The params for the url of the endpoint
+   * @param options The options get passed to the {@link mapResponse} function when fetching
+   * @return {function(*, *)} The Action for the redux store which can initiate a fetch
+   */
   requestAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
