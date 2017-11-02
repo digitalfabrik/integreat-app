@@ -25,10 +25,10 @@ class EventSnippet extends React.Component {
       <FontAwesome name="calendar" className={style.calendarIcon}/>
       <div className={style.eventsContainer}>
         <div>
-          <strong>{t('common:currentEvents')}:</strong>
+          <strong>{t('common:recentEvents')}:</strong>
         </div>
         {firstEvents.map((event) => <div key={event.id} className={style.event}>{event.title}</div>)}
-        {showMore ? <div className={style.event}>{t('common:AndMore')}</div> : ''}
+        {showMore ? <div className={style.event}>{t('common:andMore')}</div> : ''}
       </div>
     </Link>
   }
