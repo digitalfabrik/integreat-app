@@ -27,6 +27,13 @@ class RichLayout extends React.Component {
     this.gotoNewPath = this.gotoNewPath.bind(this)
   }
 
+  /**
+   * searches for the pageId of a page in pages
+   * @param page the root page (containig the other pages as children)
+   * @param pageId of the page to be searched for
+   * @param path string array to store the path of the found page
+   * @returns {*} path with the absolute path of the found page as string array
+   */
   findPage (page, pageId, path) {
     path.push(page.id)
     console.log('page' + page.numericId)
@@ -44,6 +51,11 @@ class RichLayout extends React.Component {
     return null
   }
 
+  /**
+   * gets the path of the current page in the new Language
+   * @param newLanguage the language to change to
+   * @returns {*} new Path to goto
+   */
   getNewPath (newLanguage) {
     let pageId = this.props.hierarchy.top().availableLanguages[newLanguage]
 
