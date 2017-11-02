@@ -2,10 +2,8 @@ import 'polyfills'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/createBrowserHistory'
 import { Provider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-
 // Pages
 import LandingPage from './routes/LandingPage'
 import LocationPage from './routes/LocationPage'
@@ -13,17 +11,11 @@ import SearchPage from './routes/SearchPage'
 import ErrorPage from './routes/ErrorPage'
 import DisclaimerPage from './routes/DisclaimerPage'
 import EventsPage from './routes/EventsPage'
-
 // Local imports
 import store from './store'
 import i18n from './i18n/i18n'
 import { Fragment, initializeCurrentLocation } from 'redux-little-router'
 import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
-
-/**
- * Holds the current history implementation
- */
-export const history = createBrowserHistory()
 
 const initialLocation = store.getState().router
 

@@ -3,16 +3,35 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { routerForBrowser } from 'redux-little-router'
+import createBrowserHistory from 'history/createBrowserHistory'
 
 import routes from './routes'
 import endpointReducers from 'endpoints/reducers'
+
+/**
+ * Holds the current history implementation
+ */
+export const history = createBrowserHistory()
+
+history.listen((location, action) => {
+  // Keep default behavior of restoring scroll position when user:
+  // - clicked back button
+  // - clicked on a link that programmatically calls `history.goBack()`
+  // - manually changed the URL in the address bar (here we might want
+  // to scroll to top, but we can't differentiate it from the others)
+  if (action === 'POP') {
+    return
+  }
+  // In all other cases, scroll to top
+  window.scrollTo(0, 0)
+})
 
 // Additional reducers
 const {
   enhancer,
   reducer,
   middleware
-} = routerForBrowser({routes})
+} = routerForBrowser({routes, basename: '', history})
 
 /**
  * The middlewares of this app, add additional middlewares here

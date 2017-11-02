@@ -1,11 +1,11 @@
 import React from 'react'
 import Heading from './Heading'
 import Search from 'components/Search/Search'
-import Location from '.'
+import LocationSelector from '.'
 import LocationModel from '../../endpoints/models/LocationModel'
 import PropTypes from 'prop-types'
 
-class FilterableLocation extends React.Component {
+class FilterableLocationSelector extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     language: PropTypes.string
@@ -25,10 +25,10 @@ class FilterableLocation extends React.Component {
         <Heading/>
         <Search filterText={this.state.filterText}
                 onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-        <Location locations={this.props.locations} filterText={this.state.filterText} language={this.props.language}/>
+        <LocationSelector locations={this.props.locations} filterText={this.state.filterText} language={this.props.language}/>
       </div>
     )
   }
 }
 
-export default FilterableLocation
+export default FilterableLocationSelector
