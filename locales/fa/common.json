@@ -1,1 +1,7 @@
-{}
+{
+  "location": "موقعیت مکانی",
+  "date": "تاریخ",
+  "recentEvents": "Recent events",
+  "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست.",
+  "andMore": "And more..."
+}

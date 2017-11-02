@@ -1,0 +1,7 @@
+@import url('../Helper/Helper.css');
+
+.pdf-wrapper {
+  @mixin remove-a;
+  display: block;
+  text-align: right;
+}

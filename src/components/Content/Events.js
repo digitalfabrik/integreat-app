@@ -23,7 +23,7 @@ class Events extends React.Component {
               { !isEmpty(event.thumbnail) ? <img className={style.eventThumbnail} src={event.thumbnail} /> : '' }
               <div className={style.eventTitle}>{event.title}</div>
               <div><strong>{t('common:date')}: </strong>{event.getDate(this.props.language)}</div>
-              { !isEmpty(event.address) ? <div><strong>{t('common:address')}: </strong>{event.address}</div> : '' }
+              { !isEmpty(event.address) ? <div><strong>{t('common:location')}: </strong>{event.address}</div> : '' }
             </div>
             <div dangerouslySetInnerHTML={{__html: event.content}}/>
           </div>))

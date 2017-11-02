@@ -26,22 +26,29 @@ class Footer extends React.Component {
     }
   }
 
+  getVersion () {
+    // eslint-disable-next-line no-undef
+    if (__DEV__) {
+      // eslint-disable-next-line no-undef
+      return <div className={style.item}>{__VERSION__}</div>
+    }
+
+    return null
+  }
+
   render () {
     return (
       <div className={style.footer}>
         {this.getDisclaimerLink()}
+        {this.getVersion()}
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
-  const location = state.router.params.location
-  const language = state.router.params.language
-  return {
-    location,
-    navigation: new Navigation(location, language)
-  }
-}
+const mapStateToProps = (state) => ({
+  location: state.router.params.location,
+  navigation: new Navigation(state.router.params.location, state.router.params.language)
+})
 
 export default connect(mapStateToProps)(translate('Footer')(Footer))

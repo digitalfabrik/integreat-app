@@ -53,7 +53,7 @@ class Content extends React.Component {
       return <div>
         {this.hasEvents() && <EventSnippet events={this.props.events} navigation={navigation}/>}
         <TitledCategoriesTable pages={pages} parentPage={page}/>
-        {!this.hasEvents() && <Row className={style.noEvents}>{t('common:thereAreCurrentlyNoEvents')}</Row>}
+        {!this.hasEvents() && <Row className={style.noEvents}>{t('common:currentlyNoEvents')}</Row>}
       </div>
     } else {
       return <TitledContentList parentPage={page} pages={pages}/>
@@ -61,12 +61,10 @@ class Content extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    language: state.router.params.language,
-    location: state.router.params.location
-  }
-}
+const mapStateToProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location
+})
 
 export default compose(
   connect(mapStateToProps),

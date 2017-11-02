@@ -11,5 +11,6 @@
 
 .item {
   @mixin remove-a;
+  margin: 5px;
   font-family: 'Raleway', 'El Messiri', sans-serif;
 }
