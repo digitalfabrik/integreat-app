@@ -2,11 +2,19 @@
  * The payload gets stored in the redux store and holds the information about a etch
  */
 class Payload {
-  constructor (isFetching, data = null, error = null, requestUrl = null) {
+  constructor (isFetching, data = null, error = null, requestUrl = null, fetchDate = null) {
     this._isFetching = isFetching
+    this._fetchDate = fetchDate
     this._data = data
     this._error = error
     this._requestUrl = requestUrl
+  }
+
+  /**
+   * @return {Date} The date the fetch was initiated
+   */
+  get fetchDate () {
+    return this._fetchDate
   }
 
   /**
@@ -24,14 +32,7 @@ class Payload {
   }
 
   /**
-   * @return {boolean} If the {@link data} is ready to be used
-   */
-  ready () {
-    return !!this._data
-  }
-
-  /**
-   * @return {string} The error message if the fetch failed
+   * @return {string} The error message if the fetch failed or null
    */
   get error () {
     return this._error
@@ -42,6 +43,16 @@ class Payload {
    */
   get requestUrl () {
     return this._requestUrl
+  }
+
+  toNativeObject () {
+    return {
+      isFetching: this._isFetching,
+      fetchDate: this._fetchDate,
+      data: this._data,
+      error: this._error,
+      requestUrl: this._requestUrl
+    }
   }
 }
 

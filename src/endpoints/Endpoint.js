@@ -66,9 +66,9 @@ class Endpoint {
     const actionName = this.name.toUpperCase()
 
     this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
-      return new Payload(false, value, error, requestUrl)
+      return new Payload(false, value, error, requestUrl, new Date().getTime()).toNativeObject()
     })
-    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
+    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true).toNativeObject())
     this._stateName = name
   }
 
@@ -93,7 +93,8 @@ class Endpoint {
    */
   requestAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
-      if (getState()[this.name].isFetching) {
+      const endpointData = getState()[this.name]
+      if (endpointData.isFetching) {
         return
       }
 
@@ -103,10 +104,13 @@ class Endpoint {
        currently this does not work as unused paramaters are just removed from the url
        */
 
-      const lastUrl = getState()[this.name].requestUrl
+      const lastUrl = endpointData.requestUrl
+      const lastFetchedDate = endpointData.fetchDate
 
-      if (lastUrl && lastUrl === formattedURL) {
-        // Use "cached"
+      const canCacheByTime = !!lastFetchedDate && new Date().getTime() - 1000 * 60 * 60 <= lastFetchedDate
+      const urlNotChanged = !!lastUrl && lastUrl === formattedURL
+
+      if (urlNotChanged && canCacheByTime) {
         return
       }
 
