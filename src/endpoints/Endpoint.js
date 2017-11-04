@@ -66,9 +66,9 @@ class Endpoint {
     const actionName = this.name.toUpperCase()
 
     this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
-      return new Payload(false, value, error, requestUrl, new Date().getTime()).toNativeObject()
+      return new Payload(false, value, error, requestUrl, new Date().getTime())
     })
-    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true).toNativeObject())
+    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
     this._stateName = name
   }
 

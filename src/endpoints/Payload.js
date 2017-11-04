@@ -32,6 +32,13 @@ class Payload {
   }
 
   /**
+   * @return {boolean} If the {@link data} is ready to be used
+   */
+  ready () {
+    return !!this._data
+  }
+
+  /**
    * @return {string} The error message if the fetch failed or null
    */
   get error () {
@@ -43,16 +50,6 @@ class Payload {
    */
   get requestUrl () {
     return this._requestUrl
-  }
-
-  toNativeObject () {
-    return {
-      isFetching: this._isFetching,
-      fetchDate: this._fetchDate,
-      data: this._data,
-      error: this._error,
-      requestUrl: this._requestUrl
-    }
   }
 }
 
