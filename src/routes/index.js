@@ -14,6 +14,9 @@ export default {
       '/disclaimer': {
         title: 'Disclaimer page'
       },
+      '/redirect': {
+        title: 'Redirect page'
+      },
       '/events': {
         title: 'Events page'
       }

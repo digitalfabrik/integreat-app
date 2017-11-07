@@ -16,7 +16,7 @@ import store from './store'
 import i18n from './i18n/i18n'
 import { Fragment, initializeCurrentLocation } from 'redux-little-router'
 import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
-import { setAvailablePageLanguages } from './actions'
+import PageRedirector from './components/PageRedirector'
 
 const initialLocation = store.getState().router
 
@@ -51,6 +51,8 @@ let App = (
               <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
               {/* Matches /augsburg/de/events -> Events */}
               <Fragment forRoute="/events"><EventsPage/></Fragment>
+              {/* Matches /augsburg/de/redirect/ -> Redirect */}
+              <Fragment forRoute="/redirect/"><PageRedirector/></Fragment>
               {/* Matches /augsburg/de/* -> Location */}
               <Fragment forRoute="*"><LocationPage/></Fragment>
             </div>
