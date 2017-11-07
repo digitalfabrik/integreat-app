@@ -1,3 +1,5 @@
 import { createAction } from 'redux-actions'
 
-export const setAvailablePageLanguages = createAction('SET_AVAILABLE_PAGE_LANGUAGES', (availablePageLanguages) => availablePageLanguages)
+export const setCurrentAvailableLanguages = createAction('SET_CURRENT_AVAILABLE_LANGUAGES',
+  (page) => page.availableLanguages
+)

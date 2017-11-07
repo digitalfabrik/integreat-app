@@ -24,9 +24,6 @@ if (initialLocation) {
   store.dispatch(initializeCurrentLocation(initialLocation))
 }
 
-store.dispatch(setAvailablePageLanguages({'en': 4}))
-store.dispatch(setAvailablePageLanguages({'de': 2}))
-
 /**
  * The root component of our app
  */
