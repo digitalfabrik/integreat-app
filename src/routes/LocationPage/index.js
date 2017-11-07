@@ -8,13 +8,14 @@ import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
-import PageModel from 'endpoints/models/PageModel'
+import PageModel, { EMPTY_PAGE } from 'endpoints/models/PageModel'
 import PdfButton from 'components/Content/PdfButton'
 import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import Hierarchy from './Hierarchy'
 import PdfFetcher from 'components/PdfFetcher'
+import { setCurrentAvailableLanguages } from 'actions'
 
 class ContentWrapper extends React.Component {
   static propTypes = {
@@ -29,6 +30,22 @@ class ContentWrapper extends React.Component {
     return `/${this.props.location}/${this.props.language}`
   }
 
+  componentWillUpdate (nextProps) {
+    const hierarchy = new Hierarchy(nextProps.path)
+
+    // Pass data to hierarchy
+    const error = hierarchy.build(this.props.pages)
+    if (error) {
+      return
+    }
+
+    this.props.dispatch(setCurrentAvailableLanguages(hierarchy.top()))
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(setCurrentAvailableLanguages(EMPTY_PAGE))
+  }
+
   render () {
     const url = this.getParentPath()
     const hierarchy = new Hierarchy(this.props.path)
@@ -40,7 +57,7 @@ class ContentWrapper extends React.Component {
     }
 
     if (this.props.isPdfDownload) {
-      return <PdfFetcher page={hierarchy.top()} />
+      return <PdfFetcher page={hierarchy.top()}/>
     }
 
     return <div>
@@ -50,7 +67,7 @@ class ContentWrapper extends React.Component {
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/>
-      <PdfButton />
+      <PdfButton/>
     </div>
   }
 }
@@ -82,6 +99,6 @@ class LocationPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ isPdfDownload: state.router.query.pdf !== undefined })
+const mapStateToProps = (state) => ({isPdfDownload: state.router.query.pdf !== undefined})
 
 export default connect(mapStateToProps)(LocationPage)

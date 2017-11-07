@@ -16,6 +16,7 @@ import store from './store'
 import i18n from './i18n/i18n'
 import { Fragment, initializeCurrentLocation } from 'redux-little-router'
 import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
+import { setAvailablePageLanguages } from './actions'
 
 const initialLocation = store.getState().router
 
