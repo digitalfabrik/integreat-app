@@ -40,6 +40,7 @@ class PageModel {
   }
 
   get children () {
+    // TODO move this to addChild
     return this._children.sort((page1, page2) => page1.order - page2.order)
   }
 
