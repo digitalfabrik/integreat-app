@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { push } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
+import { forEach } from 'lodash/collection'
 
 import PageModel from '../endpoints/models/PageModel'
 import withFetcher from '../endpoints/withFetcher'
@@ -25,30 +26,34 @@ class PageRedirector extends React.Component {
     this.getUrl = this.getUrl.bind(this)
   }
 
+  /**
+   * Redirect to the new Page
+   */
   componentDidMount () {
     this.props.dispatch(push(this.getUrl()))
   }
 
+  acceptPage (page) {
+    return page.numericId.toString() === this.props.pageId
+  }
+
   /**
-   * Search recursively for the page with pageId from props
-   * @param page root page with all pages as children
-   * @param path array to put the ids
-   * @returns {*} the path of the found page as array
+   * Search recursively for the page with the pageId in props
+   * @param baseUrl the baseUrl to append to
+   * @param page the page to start the search with
+   * @param out an object containing the full url
+   * @returns {boolean} to break the forEach
    */
-  findPage (page, path) {
-    if (page.id !== 'rootId') path.push(page.id)
-    if (page.numericId.toString() === this.props.pageId) {
-      return path
-    } else if (page.children) {
-      for (let i = 0; i < page.children.length; i++) {
-        let result = this.findPage(page.children[i], path)
-        if (result !== null) return result
-      }
-      path.pop(page.id)
-      return null
+  findPage (baseUrl, page, out) {
+    let url = baseUrl
+    if (page.id !== 'rootId') {
+      url += '/' + page.id
     }
-    path.pop(page.id)
-    return null
+    if (this.acceptPage(page)) {
+      out.url = url
+      return false
+    }
+    forEach(page.children, page => this.findPage(url, page, out))
   }
 
   /**
@@ -56,9 +61,9 @@ class PageRedirector extends React.Component {
    * @returns {string} url
    */
   getUrl () {
-    let url = []
-    url = this.findPage(this.props.pages, url)
-    return `/${this.props.location}/${this.props.language}/${url.join('/')}/`
+    const out = {}
+    this.findPage('', this.props.pages, out)
+    return `/${this.props.location}/${this.props.language}${out.url}/`
   }
 
   render () {
