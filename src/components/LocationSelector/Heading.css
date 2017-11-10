@@ -1,8 +1,7 @@
 .logo {
   display: block;
-  width: auto;
   height: 70px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .caption {
