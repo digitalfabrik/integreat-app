@@ -54,7 +54,6 @@ class RichLayout extends React.Component {
    * @param newLanguage the new language
    */
   gotoNewPath (newLanguage) {
-    this.props.dispatch(PAGE_ENDPOINT.requestAction({location: this.props.location, language: newLanguage}, {location: this.props.location}))
     this.props.dispatch(push(this.getNewUrl(newLanguage)))
   }
 

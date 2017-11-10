@@ -18,13 +18,24 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
     let Fetcher = class extends React.Component {
       static displayName = endpoint.name + 'Fetcher'
 
+      constructor () {
+        super()
+        this.state = { requesting: false }
+      }
+
       fetch (options) {
         if (!options) {
           throw new Error('options are not valid! This could mean your mapStateToOptions() returns ' +
             'a undefined value!')
         }
 
+        this.setRequesting(true)
         this.props.dispatch(endpoint.requestAction(options, options))
+          .then(() => { this.setRequesting(false) })
+      }
+
+      setRequesting (requesting) {
+        this.setState({ requesting })
       }
 
       componentWillMount () {
@@ -48,7 +59,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
           return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
         }
 
-        if (!payload.ready()) {
+        if (!payload.ready() || this.state.requesting) {
           if (!hideSpinner) {
             return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
           } else {

@@ -86,7 +86,7 @@ class Endpoint {
   requestAction (urlParams = {}, options = {}) {
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
-        return
+        return Promise.resolve()
       }
 
       const formattedURL = format(this.url, urlParams)
@@ -99,13 +99,13 @@ class Endpoint {
 
       if (lastUrl && lastUrl === formattedURL) {
         // Use "cached"
-        return
+        return Promise.resolve()
       }
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
 
-      return fetch(formattedURL)
+      fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
           let error
@@ -123,6 +123,8 @@ class Endpoint {
           console.error('Failed to load the endpoint request: ' + this.name, e.message)
           return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
         })
+
+      return Promise.resolve()
     }
   }
 }
