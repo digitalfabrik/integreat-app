@@ -13,10 +13,7 @@ class RichLayout extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     location: PropTypes.string,
-    availableLanguages: PropTypes.arrayOf(PropTypes.shape({
-      language: PropTypes.string.isRequired,
-      pageId: PropTypes.number.isRequired
-    })).isRequired
+    availableLanguages: PropTypes.objectOf(PropTypes.number).isRequired
   }
 
   constructor (props) {

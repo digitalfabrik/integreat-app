@@ -1,5 +1,5 @@
 class PageModel {
-  constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [], availableLanguages = [] }) {
+  constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [], availableLanguages = {} }) {
     this._id = id
     this._numericId = numericId
     this._title = title

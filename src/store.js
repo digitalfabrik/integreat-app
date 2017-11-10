@@ -53,7 +53,7 @@ if (__DEV__) {
  * The reducer to store the current language
  */
 const setCurrentAvailableLanguagesReducers = handleAction(setCurrentAvailableLanguages,
-  (state, action) => action.payload, []
+  (state, action) => action.payload, {}
 )
 
 /**
