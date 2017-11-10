@@ -53,7 +53,7 @@ if (__DEV__) {
  * The reducer to store the current language
  */
 const setCurrentAvailableLanguagesReducers = handleAction(setCurrentAvailableLanguages,
-  (state, action) => action.payload, {}
+  (state, action) => action.payload, []
 )
 
 /**
@@ -62,7 +62,7 @@ const setCurrentAvailableLanguagesReducers = handleAction(setCurrentAvailableLan
  * @param preloadedState
  * @returns {*} A configured store
  */
-let configureStore = function configureStore (preloadedState) {
+const configureStore = function configureStore (preloadedState) {
   return createStore(
     combineReducers({
       ...endpointReducers,
