@@ -50,7 +50,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         // Dispatch new RequestAction to ask the endpoint whether the fetcher can display the data, if
         // (a) the endpoint properties change or
         // (b) the fetcher receives new payload information from the store (e.g. because a payload has been fetched)
-        if (endpoint.shouldRefetch(this.props.options, nextProps.options) || !isEqual(this.props[endpoint.payloadName], nextProps[endpoint.payloadName])) {
+        if (endpoint.shouldRefetch(this.props.options, nextProps.options) || this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
           this.fetch(nextProps.options)
         }
       }
