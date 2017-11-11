@@ -16,6 +16,7 @@ import PAGE_ENDPOINT from 'endpoints/page'
 import Hierarchy from './Hierarchy'
 import PdfFetcher from 'components/PdfFetcher'
 import { setCurrentAvailableLanguages } from 'actions'
+import {reduce} from 'lodash/collection'
 
 class ContentWrapper extends React.Component {
   static propTypes = {
@@ -30,8 +31,18 @@ class ContentWrapper extends React.Component {
     return `/${this.props.location}/${this.props.language}`
   }
 
+  componentDidMount () {
+    this.updateAvailableLanguages(this.props.path)
+  }
+
   componentWillUpdate (nextProps) {
-    const hierarchy = new Hierarchy(nextProps.path)
+    if(nextProps.path !== this.props.path) {
+      this.updateAvailableLanguages(nextProps.path)
+    }
+  }
+
+  updateAvailableLanguages (path) {
+    const hierarchy = new Hierarchy(path)
 
     // Pass data to hierarchy
     const error = hierarchy.build(this.props.pages)
@@ -39,7 +50,13 @@ class ContentWrapper extends React.Component {
       return
     }
 
-    this.props.dispatch(setCurrentAvailableLanguages(hierarchy.top()))
+    const currentPage = hierarchy.top()
+    const redirect = (id, language) => `/${this.props.location}/${language}/redirect?id=${id}`
+    const currentAvailableLanguages = reduce(currentPage.availableLanguages, (acc, id, language) => {
+      acc[language] = redirect(id, language)
+      return acc
+    }, {})
+    this.props.dispatch(setCurrentAvailableLanguages(currentAvailableLanguages))
   }
 
   componentWillUnmount () {

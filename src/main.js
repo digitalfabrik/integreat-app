@@ -52,7 +52,7 @@ let App = (
               {/* Matches /augsburg/de/events -> Events */}
               <Fragment forRoute="/events"><EventsPage/></Fragment>
               {/* Matches /augsburg/de/redirect/ -> Redirect */}
-              <Fragment forRoute="/redirect/"><PageRedirector/></Fragment>
+              <Fragment forRoute="/redirect"><PageRedirector/></Fragment>
               {/* Matches /augsburg/de/* -> Location */}
               <Fragment forRoute="*"><LocationPage/></Fragment>
             </div>

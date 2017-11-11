@@ -6,32 +6,28 @@ import PropTypes from 'prop-types'
 import LanguageModel from 'endpoints/models/LanguageModel'
 import { isEmpty } from 'lodash/lang'
 import { connect } from 'react-redux'
+import {compose} from 'redux'
+
+import withFetcher from 'endpoints/withFetcher'
+import LANGUAGE_ENDPOINT from 'endpoints/language'
+import {Link} from 'redux-little-router'
 
 class LanguageElement extends React.Component {
   static propTypes = {
     language: PropTypes.instanceOf(LanguageModel).isRequired,
-    languageCallback: PropTypes.func,
-    active: PropTypes.bool.isRequired
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick () {
-    let languageCode = this.props.language.code
-    this.props.languageCallback(languageCode)
+    active: PropTypes.bool.isRequired,
+    path: PropTypes.string.isRequired,
+    onClick: PropTypes.func
   }
 
   render () {
     return (
-      <div
+      <Link
+        href={this.props.active ? '#' : this.props.path}
         className={cx(style.element, this.props.active ? style.elementActive : '')}
-        onClick={this.handleClick}>
+        onClick={this.props.onClick}>
         {this.props.language.name}
-      </div>
+      </Link>
     )
   }
 }
@@ -39,21 +35,12 @@ class LanguageElement extends React.Component {
 class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
-    languageCallback: PropTypes.func.isRequired,
     closeDropDownCallback: PropTypes.func,
     language: PropTypes.string
   }
 
-  constructor (props) {
-    super(props)
-    this.handleLanguageCallback = this.handleLanguageCallback.bind(this)
-  }
-
-  handleLanguageCallback (languageCode) {
-    if (this.props.closeDropDownCallback) {
-      this.props.closeDropDownCallback()
-    }
-    this.props.languageCallback(languageCode)
+  getPathForLanguage (languageCode) {
+    return this.props.availableLanguages[languageCode] || `/${this.props.location}/${languageCode}`
   }
 
   render () {
@@ -63,9 +50,10 @@ class LanguageFlyout extends React.Component {
         this.props.languages.map(language => (
             <LanguageElement
               key={language.code}
-              languageCallback={this.handleLanguageCallback}
+              onClick={this.props.closeDropDownCallback}
               active={this.props.language === language.code}
               language={language}
+              path={this.getPathForLanguage(language.code)}
             />
           )
         )
@@ -75,6 +63,13 @@ class LanguageFlyout extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({language: state.router.params.language})
+const mapStateToProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location,
+  availableLanguages: state.currentAvailableLanguages
+})
 
-export default connect(mapStateToProps)(LanguageFlyout)
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(LANGUAGE_ENDPOINT, true, true)
+)(LanguageFlyout)
