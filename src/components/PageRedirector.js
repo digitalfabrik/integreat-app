@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { push } from 'redux-little-router'
+import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import { forEach } from 'lodash/collection'
@@ -21,17 +21,11 @@ class ContentWrapper extends React.Component {
     location: PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props)
-
-    this.getUrl = this.getUrl.bind(this)
-  }
-
   /**
    * Redirect to the new Page
    */
   componentDidMount () {
-    this.props.dispatch(push(this.getUrl()))
+    this.props.dispatch(replace(this.getUrl()))
   }
 
   acceptPage (page) {
@@ -64,7 +58,7 @@ class ContentWrapper extends React.Component {
   getUrl () {
     const out = {}
     this.findPage('', this.props.pages, out)
-    return `/${this.props.location}/${this.props.language}${out.url}/`
+    return `/${this.props.location}/${this.props.language}${out.url || ''}`
   }
 
   render () {
