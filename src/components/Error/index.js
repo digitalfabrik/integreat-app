@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
 
-import { history } from 'main'
+import { history } from 'store'
 
 import style from './style.css'
 

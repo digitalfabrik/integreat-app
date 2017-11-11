@@ -69,7 +69,9 @@
     "highlight.js": "^9.10.0",
     "html-loader": "^0.5.1",
     "i18next-resource-store-loader": "^0.1.1",
+    "identity-obj-proxy": "^3.0.0",
     "img-loader": "^2.0.0",
+    "jest": "^21.2.1",
     "json-loader": "^0.5.7",
     "mocha": "^4.0.1",
     "path-to-regexp": "^2.0.0",
@@ -91,6 +93,7 @@
     "postcss-selector-not": "^3.0.1",
     "prop-types": "^15.6.0",
     "react-hot-loader": "^3.0.0",
+    "react-test-renderer": "^16.0.0",
     "rimraf": "^2.6.2",
     "s3": "^4.4.0",
     "style-loader": "^0.19.0",
@@ -147,6 +150,7 @@
     "build:debug": "node tools/build.js --debug",
     "publish": "node tools/publish.js",
     "publish:debug": "node tools/publish.js --debug",
-    "start": "node tools/run.js"
+    "start": "node tools/run.js",
+    "jest": "jest"
   }
 }
