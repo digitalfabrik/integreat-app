@@ -5,7 +5,6 @@ import Spinner from 'react-spinkit'
 
 import Error from 'components/Error'
 import style from './Fetcher.css'
-import {isEqual} from 'lodash/lang'
 
 function createStateToPropsMapper (endpoint) {
   return (state) => ({
