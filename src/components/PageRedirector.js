@@ -8,11 +8,12 @@ import { forEach } from 'lodash/collection'
 import PageModel from '../endpoints/models/PageModel'
 import withFetcher from '../endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
+import RichLayout from 'components/RichLayout'
 
 /**
  * Component to handle redirecting to the page which id is given as a query parameter
  */
-class PageRedirector extends React.Component {
+class ContentWrapper extends React.Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired,
@@ -77,4 +78,14 @@ class PageRedirector extends React.Component {
 
 const mapStateToProps = (state) => ({pageId: state.router.query.id, location: state.router.params.location, language: state.router.params.language})
 
-export default compose(connect(mapStateToProps), withFetcher(PAGE_ENDPOINT))(PageRedirector)
+const FetchingContentWrapper = compose(connect(mapStateToProps), withFetcher(PAGE_ENDPOINT))(ContentWrapper)
+
+class PageRedirector extends React.Component {
+  render () {
+    return <RichLayout>
+      <FetchingContentWrapper/>
+    </RichLayout>
+  }
+}
+
+export default PageRedirector
