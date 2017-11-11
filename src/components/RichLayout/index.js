@@ -1,9 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { push } from 'redux-little-router'
-import { isEmpty } from 'lodash/lang'
-
 import Layout from 'components/Layout'
 import Header from './Header'
 import Footer from './Footer'

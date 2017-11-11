@@ -62,7 +62,7 @@ const setCurrentAvailableLanguagesReducers = handleAction(setCurrentAvailableLan
  * @param preloadedState
  * @returns {*} A configured store
  */
-let configureStore = function configureStore (preloadedState) {
+const configureStore = function configureStore (preloadedState) {
   return createStore(
     combineReducers({
       ...endpointReducers,
