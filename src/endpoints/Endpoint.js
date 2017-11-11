@@ -104,8 +104,7 @@ class Endpoint {
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
-
-      fetch(formattedURL)
+      return fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
           let error
@@ -123,8 +122,6 @@ class Endpoint {
           console.error('Failed to load the endpoint request: ' + this.name, e.message)
           return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
         })
-
-      return Promise.resolve()
     }
   }
 }

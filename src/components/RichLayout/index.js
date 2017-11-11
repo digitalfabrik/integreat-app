@@ -7,7 +7,6 @@ import { isEmpty } from 'lodash/lang'
 import Layout from 'components/Layout'
 import Header from './Header'
 import Footer from './Footer'
-import PAGE_ENDPOINT from '../../endpoints/page'
 
 class RichLayout extends React.Component {
   static propTypes = {
