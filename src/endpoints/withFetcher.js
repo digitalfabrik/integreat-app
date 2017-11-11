@@ -38,6 +38,9 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillMount () {
+        // We need to have this discussion in mind, when building the fetcher architecture
+        // Because a store dispatch in the componentWillMount has no immediate effect on the props for the first render.
+        // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
         this.fetch(this.props.options)
       }
 
