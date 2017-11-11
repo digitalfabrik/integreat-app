@@ -38,8 +38,10 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillMount () {
-        // We need to have this discussion in mind, when building the fetcher architecture
-        // Because a store dispatch in the componentWillMount has no immediate effect on the props for the first render.
+        // We need to have this discussion in mind, when building the fetcher architecture,
+        // because a store dispatch in the componentWillMount has no immediate effect on the props from connect() for
+        // the first call of render() (and therefore the <WrappedComponent> would have been mounted for one moment, if
+        // we just checked to the payload.ready() prop)
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
         this.fetch(this.props.options)
       }
@@ -60,16 +62,16 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       render () {
         const payload = this.props[endpoint.payloadName]
 
-        if (this.errorVisible()) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
-        }
-
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
             return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
           } else {
             return <div/>
           }
+        }
+
+        if (this.errorVisible()) {
+          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
         }
 
         return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})}/>
