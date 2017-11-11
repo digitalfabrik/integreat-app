@@ -84,9 +84,12 @@ class Endpoint {
   }
 
   requestAction (urlParams = {}, options = {}) {
+    /*
+      Returns whether the correct data is available and ready for the fetcher to be displayed.
+     */
     return (dispatch, getState) => {
       if (getState()[this.name].isFetching) {
-        return Promise.resolve()
+        return false
       }
 
       const formattedURL = format(this.url, urlParams)
@@ -98,13 +101,13 @@ class Endpoint {
       const lastUrl = getState()[this.name].requestUrl
 
       if (lastUrl && lastUrl === formattedURL) {
-        // Use "cached"
-        return Promise.resolve()
+        // Correct payload has been loaded and can now be used by the fetcher(s)
+        return true
       }
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
-      return fetch(formattedURL)
+      fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
           let error
@@ -122,6 +125,8 @@ class Endpoint {
           console.error('Failed to load the endpoint request: ' + this.name, e.message)
           return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
         })
+      // Fetchers cannot display payload yet, since it's currently fetching
+      return false
     }
   }
 }

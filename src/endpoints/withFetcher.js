@@ -5,6 +5,7 @@ import Spinner from 'react-spinkit'
 
 import Error from 'components/Error'
 import style from './Fetcher.css'
+import {isEqual} from 'lodash/lang'
 
 function createStateToPropsMapper (endpoint) {
   return (state) => ({
@@ -20,7 +21,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
 
       constructor () {
         super()
-        this.state = { requesting: false }
+        this.state = { isDataAvailable: false }
       }
 
       fetch (options) {
@@ -28,14 +29,12 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
           throw new Error('options are not valid! This could mean your mapStateToOptions() returns ' +
             'a undefined value!')
         }
-
-        this.setRequesting(true)
-        this.props.dispatch(endpoint.requestAction(options, options))
-          .then(() => { this.setRequesting(false) })
+        const isDataAvailable = this.props.dispatch(endpoint.requestAction(options, options))
+        this.setIsDataAvailable(isDataAvailable)
       }
 
-      setRequesting (requesting) {
-        this.setState({ requesting })
+      setIsDataAvailable (isDataAvailable) {
+        this.setState({ isDataAvailable })
       }
 
       componentWillMount () {
@@ -43,7 +42,10 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillUpdate (nextProps) {
-        if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
+        // Dispatch new RequestAction to ask the endpoint whether the fetcher can display the data, if
+        // (a) the endpoint properties change or
+        // (b) the fetcher receives new payload information from the store (e.g. because a payload has been fetched)
+        if (endpoint.shouldRefetch(this.props.options, nextProps.options) || !isEqual(this.props[endpoint.payloadName], nextProps[endpoint.payloadName])) {
           this.fetch(nextProps.options)
         }
       }
@@ -59,7 +61,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
           return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
         }
 
-        if (!payload.ready() || this.state.requesting) {
+        if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
             return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
           } else {
