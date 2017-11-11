@@ -8,7 +8,6 @@ import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
 import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
-import PageModel, { EMPTY_PAGE } from 'endpoints/models/PageModel'
 import PdfButton from 'components/Content/PdfButton'
 import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
@@ -17,6 +16,7 @@ import Hierarchy from './Hierarchy'
 import PdfFetcher from 'components/PdfFetcher'
 import { setCurrentAvailableLanguages } from 'actions'
 import {reduce} from 'lodash/collection'
+import PageModel from 'endpoints/models/PageModel'
 
 class ContentWrapper extends React.Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class ContentWrapper extends React.Component {
   }
 
   componentWillUpdate (nextProps) {
-    if(nextProps.path !== this.props.path) {
+    if (nextProps.path !== this.props.path) {
       this.updateAvailableLanguages(nextProps.path)
     }
   }
@@ -60,7 +60,7 @@ class ContentWrapper extends React.Component {
   }
 
   componentWillUnmount () {
-    this.props.dispatch(setCurrentAvailableLanguages(EMPTY_PAGE))
+    this.props.dispatch(setCurrentAvailableLanguages({}))
   }
 
   render () {
