@@ -17,5 +17,10 @@
   ],
   "globals": {
     "__DEV__": false
-  }
+  },
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "**/*.{js,jsx}"
+  ],
+  "coverageDirectory": "__converage__"
 }
