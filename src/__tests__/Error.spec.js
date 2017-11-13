@@ -13,7 +13,7 @@ jest.mock('react-i18next', () => ({
 }))
 
 describe('Error', () => {
-  test('should match should', () => {
+  test('should match snapshot', () => {
     const component = renderer.create(
       <Error error="Error Message"/>
     )
