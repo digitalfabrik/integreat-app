@@ -1,32 +1,12 @@
-import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-
-import { handleAction } from 'redux-actions'
-import reduceReducers from 'reduce-reducers'
 import { routerForBrowser } from 'redux-little-router'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-import ENDPOINTS from './endpoints'
-import Payload from './endpoints/Payload'
 import routes from './routes'
-
-/**
- * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
- */
-let reducers = ENDPOINTS.reduce((result, endpoint) => {
-  let defaultState = new Payload(false)
-  let reducer = (state, action) => action.payload
-
-  result[endpoint.name] = reduceReducers(
-    handleAction(endpoint.receiveAction, reducer, defaultState),
-    handleAction(endpoint.requestAction, reducer, defaultState),
-    handleAction(endpoint.invalidateAction, reducer, defaultState)
-  )
-
-  return result
-}, {})
+import endpointReducers from 'endpoints/reducers'
 
 /**
  * Holds the current history implementation
@@ -75,7 +55,7 @@ if (__DEV__) {
  */
 let configureStore = function configureStore (preloadedState) {
   return createStore(
-    combineReducers({...reducers, router: reducer}),
+    combineReducers({...endpointReducers, router: reducer}),
     preloadedState,
     compose(enhancer, applyMiddleware(...middlewares))
   )

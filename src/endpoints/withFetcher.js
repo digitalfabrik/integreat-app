@@ -13,6 +13,20 @@ function createStateToPropsMapper (endpoint) {
   })
 }
 
+/**
+ * This function builds a HOC from a component
+ * @function buildHOC
+ * @param {React.Component} WrappedComponent
+ * @return {React.Component} The HOC
+ */
+
+/**
+ * This creates a factory for a Higher-Order-Component. The HOC attaches a fetcher to the supplied component.
+ * @param endpoint {Endpoint} The endpoint to fetch from
+ * @param hideError {boolean} If you want to hide errors in the render() method
+ * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
+ * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
+ */
 function withFetcher (endpoint, hideError = false, hideSpinner = false) {
   return (WrappedComponent) => {
     let Fetcher = class extends React.Component {
@@ -24,15 +38,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
             'a undefined value!')
         }
 
-        this.props.dispatch(endpoint.fetchEndpointAction(options, options))
-      }
-
-      invalidate () {
-        this.props.dispatch(endpoint.invalidateAction())
-      }
-
-      componentWillUnmount () {
-        this.invalidate()
+        this.props.dispatch(endpoint.requestAction(options, options))
       }
 
       componentWillMount () {
@@ -41,7 +47,6 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
 
       componentWillUpdate (nextProps) {
         if (endpoint.shouldRefetch(this.props.options, nextProps.options)) {
-          // todo: this will need some more work to test -> another issue as this is getting too big
           this.fetch(nextProps.options)
         }
       }
