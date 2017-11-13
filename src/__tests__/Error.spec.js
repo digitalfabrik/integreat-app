@@ -27,7 +27,7 @@ describe('Error', () => {
 
     wrapper.instance().goBack({preventDefault})
 
-    expect(history.goBack.mock.calls.length).toBe(1)
-    expect(preventDefault.mock.calls.length).toBe(1)
+    expect(history.goBack.mock.calls).toHaveLength(1)
+    expect(preventDefault.mock.calls).toHaveLength(1)
   })
 })
