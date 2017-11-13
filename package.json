@@ -155,6 +155,6 @@
     "publish": "node tools/publish.js",
     "publish:debug": "node tools/publish.js --debug",
     "start": "node tools/run.js",
-    "test": "node $NODE_DEBUG_OPTION node_modules/.bin/jest"
+    "test": "node $NODE_DEBUG_OPTION node_modules/.bin/jest --config jest.config.json"
   }
 }
