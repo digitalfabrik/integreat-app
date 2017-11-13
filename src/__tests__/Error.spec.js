@@ -2,6 +2,8 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
+import { history } from '../__mocks__/store'
+
 import Error from '../components/Error'
 
 jest.mock('store')
@@ -21,8 +23,6 @@ describe('Error', () => {
 
   test('call history when onBack is called', () => {
     const preventDefault = jest.fn()
-    const history = require('store').history
-
     const wrapper = shallow(<Error error="Error Message"/>).dive()
 
     wrapper.instance().goBack({preventDefault})
