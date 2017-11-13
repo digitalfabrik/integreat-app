@@ -16,7 +16,7 @@ class Error extends React.Component {
    * Go back in history!!
    * @param event The click event
    */
-  goBack = (event) => {
+  goBack (event) {
     event.preventDefault()
     history.goBack()
   }
@@ -24,7 +24,7 @@ class Error extends React.Component {
   render () {
     const {t} = this.props
     return <div>
-      <div className={style.centerText}>{ t(this.props.error) }</div>
+      <div className={style.centerText}>{t(this.props.error)}</div>
       <div className={style.centerText}><FontAwesome name='frown-o' size="5x"/></div>
       <a className={style.centerText} href="/" onClick={this.goBack}>Go back</a>
     </div>
