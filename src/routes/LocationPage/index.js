@@ -63,6 +63,14 @@ class LocationPage extends React.Component {
     this.props.dispatch(setLanguageChangeUrls({}))
   }
 
+  getPdfFetchPath () {
+    let path = `/${this.props.location}/${this.props.language}/fetchPdf/`
+    if (this.props.path) {
+      path += this.props.path
+    }
+    return path
+  }
+
   render () {
     const url = this.getParentPath()
     const hierarchy = new Hierarchy(this.props.path)
@@ -80,7 +88,7 @@ class LocationPage extends React.Component {
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/>
-      <PdfButton href={`/${this.props.location}/${this.props.language}/fetchPdf/${this.props.path}`}/>
+      <PdfButton href={this.getPdfFetchPath()}/>
     </div>
   }
 }
