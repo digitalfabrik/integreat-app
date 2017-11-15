@@ -17,12 +17,11 @@ class LandingPage extends React.Component {
   }
 
   render () {
-    return (<div>
-        <Layout>
-          <FilterableLocationSelector
-            language={this.props.language}
-            locations={this.props.locations}/>
-        </Layout>
+    return (
+      <div>
+        <FilterableLocationSelector
+          language={this.props.language}
+          locations={this.props.locations}/>
         <Footer/>
       </div>
     )

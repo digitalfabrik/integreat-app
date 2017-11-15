@@ -19,6 +19,9 @@ export default {
       },
       '/events': {
         title: 'Events page'
+      },
+      '/fetchPdf/*': {
+        title: 'FetchPdf page'
       }
     },
     '/:language': {

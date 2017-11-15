@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Spinner from 'react-spinkit'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
@@ -61,7 +62,7 @@ class PageRedirector extends React.Component {
   }
 
   render () {
-    return <Spinner name='line-scale-party' />
+    return <Spinner name='line-scale-party'/>
   }
 }
 
@@ -71,4 +72,7 @@ const mapStateToProps = (state) => ({
   language: state.router.params.language
 })
 
-export default compose(connect(mapStateToProps), withFetcher(PAGE_ENDPOINT))(PageRedirector)
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(PAGE_ENDPOINT)
+)(PageRedirector)
