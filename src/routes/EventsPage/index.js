@@ -7,7 +7,7 @@ import EventModel from 'endpoints/models/EventModel'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 import EVENTS_ENDPOINT from 'endpoints/events'
 import LanguageModel from '../../endpoints/models/LanguageModel'
-import { setCurrentAvailableLanguages } from 'actions'
+import { setLanguageChangeUrls } from 'actions'
 import withFetcher from 'endpoints/withFetcher'
 import compose from 'redux/es/compose'
 import connect from 'react-redux/es/connect/connect'
@@ -23,13 +23,13 @@ class ContentWrapper extends React.Component {
   }
 
   componentDidMount () {
-    this.updateAvailableLanguages()
+    this.updateLanguageChangeUrls()
   }
 
-  updateAvailableLanguages () {
+  updateLanguageChangeUrls () {
     const redirect = (language) => `/${this.props.location}/${language}/events`
-    const currentAvailableLanguages = this.props.languages.reduce((acc, language) => Object.assign(acc, { [language.code]: redirect(language.code) }), {})
-    this.props.dispatch(setCurrentAvailableLanguages(currentAvailableLanguages))
+    const languageChangeUrls = this.props.languages.reduce((acc, language) => Object.assign(acc, { [language.code]: redirect(language.code) }), {})
+    this.props.dispatch(setLanguageChangeUrls(languageChangeUrls))
   }
 
   render () {

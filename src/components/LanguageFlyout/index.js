@@ -36,11 +36,12 @@ class LanguageFlyout extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     closeDropDownCallback: PropTypes.func,
-    language: PropTypes.string
+    language: PropTypes.string,
+    languageChangeUrls: PropTypes.object.isRequired
   }
 
   getPathForLanguage (languageCode) {
-    return this.props.availableLanguages[languageCode] || `/${this.props.location}/${languageCode}`
+    return this.props.languageChangeUrls[languageCode] || `/${this.props.location}/${languageCode}`
   }
 
   render () {
@@ -66,7 +67,7 @@ class LanguageFlyout extends React.Component {
 const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
-  availableLanguages: state.currentAvailableLanguages
+  languageChangeUrls: state.languageChangeUrls
 })
 
 export default compose(

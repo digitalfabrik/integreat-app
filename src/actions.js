@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
 
-export const setCurrentAvailableLanguages = createAction('SET_CURRENT_AVAILABLE_LANGUAGES',
-  (availableLanguages) => (availableLanguages)
+export const setLanguageChangeUrls = createAction('SET_LANGUAGE_CHANGE_URLS',
+  (languageChangeUrls) => (languageChangeUrls)
 )

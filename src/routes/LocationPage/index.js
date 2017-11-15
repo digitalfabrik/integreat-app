@@ -14,7 +14,7 @@ import PAGE_ENDPOINT from 'endpoints/page'
 
 import Hierarchy from './Hierarchy'
 import PdfFetcher from 'components/PdfFetcher'
-import { setCurrentAvailableLanguages } from 'actions'
+import { setLanguageChangeUrls } from 'actions'
 import {reduce} from 'lodash/collection'
 import PageModel from 'endpoints/models/PageModel'
 
@@ -32,16 +32,20 @@ class ContentWrapper extends React.Component {
   }
 
   componentDidMount () {
-    this.updateAvailableLanguages(this.props.path)
+    this.updateLanguageChangeUrls(this.props.path)
   }
 
   componentWillUpdate (nextProps) {
     if (nextProps.path !== this.props.path) {
-      this.updateAvailableLanguages(nextProps.path)
+      this.updateLanguageChangeUrls(nextProps.path)
     }
   }
 
-  updateAvailableLanguages (path) {
+  /**
+   * Creates and stores the urls that are used to redirect on a language change
+   * @param {string} path The current path
+   */
+  updateLanguageChangeUrls (path) {
     const hierarchy = new Hierarchy(path)
 
     // Pass data to hierarchy
@@ -52,15 +56,15 @@ class ContentWrapper extends React.Component {
 
     const currentPage = hierarchy.top()
     const redirect = (id, language) => `/${this.props.location}/${language}/redirect?id=${id}`
-    const currentAvailableLanguages = reduce(currentPage.availableLanguages, (acc, id, language) => {
+    const languageChangeUrls = reduce(currentPage.availableLanguages, (acc, id, language) => {
       acc[language] = redirect(id, language)
       return acc
     }, {})
-    this.props.dispatch(setCurrentAvailableLanguages(currentAvailableLanguages))
+    this.props.dispatch(setLanguageChangeUrls(languageChangeUrls))
   }
 
   componentWillUnmount () {
-    this.props.dispatch(setCurrentAvailableLanguages({}))
+    this.props.dispatch(setLanguageChangeUrls({}))
   }
 
   render () {
