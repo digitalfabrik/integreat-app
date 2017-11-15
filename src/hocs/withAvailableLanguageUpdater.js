@@ -17,41 +17,43 @@ const mapStateToProps = (state) => ({location: state.router.params.location})
  * @returns {function(*)} The a function which taskes a component and returns a wrapped component
  */
 function withAvailableLanguageUpdater (mapLanguageToUrl) {
-  class AvailableLanguageUpdater extends React.Component {
-    static propTypes = {
-      /**
-       * from withFetcher HOC which provides data from LANGUAGE_ENDPOINT
-       */
-      languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
-      location: PropTypes.string
+  return WrappedComponent => {
+    class AvailableLanguageUpdater extends React.Component {
+      static propTypes = {
+        /**
+         * from withFetcher HOC which provides data from LANGUAGE_ENDPOINT
+         */
+        languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
+        location: PropTypes.string
+      }
+
+      componentDidMount () {
+        const urls = this.props.languages
+          .reduce((accumulator, language) => (
+            {
+              ...accumulator,
+              [language.code]: mapLanguageToUrl(this.props.location, language.code)
+            }
+          ), {})
+        this.props.dispatch(setLanguageChangeUrls(urls))
+      }
+
+      componentWillUnmount () {
+        this.props.dispatch(setLanguageChangeUrls({}))
+      }
+
+      render () {
+        // ... and renders the wrapped component with the fresh data!
+        // Notice that we pass through any additional props
+        return <WrappedComponent {...this.props} />
+      }
     }
 
-    componentDidMount () {
-      const urls = this.props.languages
-        .reduce((accumulator, language) => (
-          {
-            ...accumulator,
-            [language.code]: mapLanguageToUrl(this.props.location, language.code)
-          }
-        ), {})
-      this.props.dispatch(setLanguageChangeUrls(urls))
-    }
-
-    componentWillUnmount () {
-      this.props.dispatch(setLanguageChangeUrls({}))
-    }
-
-    render () {
-      // ... and renders the wrapped component with the fresh data!
-      // Notice that we pass through any additional props
-      return <WrappedComponent {...this.props} />
-    }
+    return compose(
+      withFetcher(LANGUAGE_ENDPOINT),
+      connect(mapStateToProps)
+    )(AvailableLanguageUpdater)
   }
-
-  return (WrappedComponent) => compose(
-    withFetcher(LANGUAGE_ENDPOINT),
-    connect(mapStateToProps)
-  )(AvailableLanguageUpdater)
 }
 
 export default withAvailableLanguageUpdater

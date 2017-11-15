@@ -6,7 +6,6 @@ import compose from 'lodash/fp/compose'
 
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
-import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import PdfButton from 'components/Content/PdfButton'
 import withFetcher from 'endpoints/withFetcher'
@@ -18,7 +17,7 @@ import { setLanguageChangeUrls } from 'actions'
 import { reduce } from 'lodash/collection'
 import PageModel from 'endpoints/models/PageModel'
 
-class ContentWrapper extends React.Component {
+class LocationPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
@@ -93,32 +92,13 @@ class ContentWrapper extends React.Component {
 }
 
 const mapStateToWrapperProps = (state) => ({
+  isPdfDownload: state.router.query.pdf !== undefined,
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.params['_'] // _ contains all the values from *
 })
 
-const FetchingContentWrapper = compose(
+export default compose(
   connect(mapStateToWrapperProps),
   withFetcher(PAGE_ENDPOINT)
-)(ContentWrapper)
-
-class LocationPage extends React.Component {
-  static propTypes = {
-    isPdfDownload: PropTypes.bool.isRequired
-  }
-
-  render () {
-    if (this.props.isPdfDownload) {
-      return <FetchingContentWrapper isPdfDownload={true}/>
-    } else {
-      return <RichLayout>
-        <FetchingContentWrapper isPdfDownload={false}/>
-      </RichLayout>
-    }
-  }
-}
-
-const mapStateToProps = (state) => ({isPdfDownload: state.router.query.pdf !== undefined})
-
-export default connect(mapStateToProps)(LocationPage)
+)(LocationPage)

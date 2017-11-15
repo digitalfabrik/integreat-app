@@ -16,12 +16,16 @@ import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 import PageModel from 'endpoints/models/PageModel'
 
-class ContentWrapper extends React.Component {
+class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    filterText: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired
+  }
+
+  constructor () {
+    super()
+    this.state = {filterText: ''}
   }
 
   getParentPath () {
@@ -31,7 +35,7 @@ class ContentWrapper extends React.Component {
   acceptPage (page) {
     let title = page.title.toLowerCase()
     let content = page.content
-    let filterText = this.props.filterText.toLowerCase()
+    let filterText = this.state.filterText.toLowerCase()
     // todo:  comparing the content like this is quite in-efficient and can cause lags
     // todo:  1) Do this work in an other thread 2) create an index
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
@@ -55,7 +59,15 @@ class ContentWrapper extends React.Component {
     const pages = []
     this.props.pages.children.forEach(page => this.findPages(pages, url, page))
 
-    return <ContentList pages={pages}/>
+    return (
+      <div>
+        <Search className={style.searchSpacing}
+                filterText={this.state.filterText}
+                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
+        />
+        <ContentList pages={pages}/>
+      </div>
+    )
   }
 }
 
@@ -65,29 +77,8 @@ const mapStateToProps = (state) => ({
   path: state.router.params['_'] // _ contains all the values from *
 })
 
-const FetchingContentWrapper = compose(
+export default compose(
   connect(mapStateToProps),
   withFetcher(PAGE_ENDPOINT),
   withAvailableLanguageUpdater((location, language) => `/${location}/${language}/search`)
-)(ContentWrapper)
-
-class SearchPage extends React.Component {
-  constructor () {
-    super()
-    this.state = {filterText: ''}
-  }
-
-  render () {
-    return (
-      <RichLayout>
-        <Search className={style.searchSpacing}
-                filterText={this.state.filterText}
-                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
-        />
-        <FetchingContentWrapper filterText={this.state.filterText}/>
-      </RichLayout>
-    )
-  }
-}
-
-export default SearchPage
+)(SearchPage)
