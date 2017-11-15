@@ -7,7 +7,7 @@ import PageModel from './models/PageModel'
 export default new EndpointBuilder('pages')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z')
   .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
-  .withMapper((json, options) => {
+  .withMapper((json, urlParams) => {
     const pages = json.filter((page) => page.status === 'publish')
       .map((page) => {
         const id = decodeURIComponent(page.permalink.url_page).split('/').pop()
@@ -33,6 +33,6 @@ export default new EndpointBuilder('pages')
     })
 
     const children = filter(pages, (page) => page.parent === 0)
-    return new PageModel({numericId: 0, id: 'rootId', title: options.location, children})
+    return new PageModel({numericId: 0, id: 'rootId', title: urlParams.location, children})
   })
   .build()

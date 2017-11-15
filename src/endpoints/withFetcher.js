@@ -9,7 +9,7 @@ import style from './Fetcher.css'
 function createStateToPropsMapper (endpoint) {
   return (state) => ({
     [endpoint.payloadName]: state[endpoint.stateName],
-    options: endpoint.mapStateToOptions(state)
+    urlParams: endpoint.mapStateToUrlParams(state)
   })
 }
 
@@ -23,35 +23,31 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         this.state = { isDataAvailable: false }
       }
 
-      fetch (options) {
-        if (!options) {
-          throw new Error('options are not valid! This could mean your mapStateToOptions() returns ' +
-            'a undefined value!')
-        }
-        const isDataAvailable = this.props.dispatch(endpoint.requestAction(options, options))
-        this.setIsDataAvailable(isDataAvailable)
-      }
-
-      setIsDataAvailable (isDataAvailable) {
-        this.setState({ isDataAvailable })
-      }
-
       componentWillMount () {
         // We need to have this discussion in mind, when building the fetcher architecture,
         // because a store dispatch in the componentWillMount has no immediate effect on the props from connect() for
         // the first call of render() (and therefore the <WrappedComponent> would have been mounted for one moment, if
         // we just checked to the payload.ready() prop)
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
-        this.fetch(this.props.options)
+        this.fetch(this.props.urlParams)
       }
 
       componentWillUpdate (nextProps) {
         // Dispatch new RequestAction to ask the endpoint whether the fetcher can display the data, if
         // (a) the endpoint properties change or
         // (b) the fetcher receives new payload information from the store (e.g. because a payload has been fetched)
-        if (endpoint.shouldRefetch(this.props.options, nextProps.options) || this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
-          this.fetch(nextProps.options)
+        if (endpoint.shouldRefetch(this.props.urlParams, nextProps.urlParams) || this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
+          this.fetch(nextProps.urlParams)
         }
+      }
+
+      fetch (urlParams) {
+        if (!urlParams) {
+          throw new Error('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
+            'a undefined value!')
+        }
+        const isDataAvailable = this.props.dispatch(endpoint.requestAction(urlParams))
+        this.setState({ isDataAvailable })
       }
 
       errorVisible () {
