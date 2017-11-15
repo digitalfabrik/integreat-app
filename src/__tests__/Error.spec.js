@@ -7,10 +7,7 @@ import { history } from '../__mocks__/store'
 import Error from '../components/Error'
 
 jest.mock('store')
-jest.mock('react-i18next', () => ({
-  // this mock makes sure any components using the translate HoC receive the t function as a prop
-  translate: () => Component => props => <Component t={() => ''} {...props} />
-}))
+jest.mock('react-i18next')
 
 describe('Error', () => {
   test('should match snapshot', () => {
