@@ -2,9 +2,9 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
-import { history } from '../__mocks__/store'
+import { history } from '__mocks__/store'
 
-import Error from '../components/Error'
+import Error from '../Error'
 
 jest.mock('store')
 jest.mock('react-i18next')
