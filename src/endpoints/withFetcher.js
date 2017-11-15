@@ -15,7 +15,7 @@ function createStateToPropsMapper (endpoint) {
 
 function withFetcher (endpoint, hideError = false, hideSpinner = false) {
   return (WrappedComponent) => {
-    let Fetcher = class extends React.Component {
+    const Fetcher = class extends React.Component {
       static displayName = endpoint.name + 'Fetcher'
 
       constructor () {
@@ -24,10 +24,9 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
       }
 
       componentWillMount () {
-        // We need to have this discussion in mind, when building the fetcher architecture,
-        // because a store dispatch in the componentWillMount has no immediate effect on the props from connect() for
-        // the first call of render() (and therefore the <WrappedComponent> would have been mounted for one moment, if
-        // we just checked to the payload.ready() prop) todo @markl clarify what this sentence means :P
+        // A store dispatch in the componentWillMount (and therefore a state update) does not cause the props to update
+        // before render() in the Fetcher component is called the first time.
+        // This causes the <WrappedComponent> to be displayed with outdated props.
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
         this.fetch(this.props.urlParams)
       }
