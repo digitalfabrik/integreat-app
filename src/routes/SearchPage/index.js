@@ -11,9 +11,10 @@ import RichLayout from 'components/RichLayout'
 
 import style from './style.css'
 
+import withAvailableLanguageUpdater from 'hocs/withAvailableLanguageUpdater'
 import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
-import PageModel from '../../endpoints/models/PageModel'
+import PageModel from 'endpoints/models/PageModel'
 
 class ContentWrapper extends React.Component {
   static propTypes = {
@@ -66,7 +67,8 @@ const mapStateToProps = (state) => ({
 
 const FetchingContentWrapper = compose(
   connect(mapStateToProps),
-  withFetcher(PAGE_ENDPOINT)
+  withFetcher(PAGE_ENDPOINT),
+  withAvailableLanguageUpdater((location, language) => `/${location}/${language}/search`)
 )(ContentWrapper)
 
 class SearchPage extends React.Component {
