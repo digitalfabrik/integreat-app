@@ -9,7 +9,7 @@ import DISCLAIMER_ENDPOINT from 'endpoints/disclaimer'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 import LanguageModel from '../../endpoints/models/LanguageModel'
 import { setLanguageChangeUrls } from 'actions'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import compose from 'redux/es/compose'
 
 class ContentWrapper extends React.Component {
@@ -28,8 +28,9 @@ class ContentWrapper extends React.Component {
 
   updateLanguageChangeUrls () {
     const redirect = (language) => `/${this.props.location}/${language}/disclaimer`
-    const languageChangeUrls = this.props.languages.reduce((acc, language) => Object.assign(acc, { [language.code]: redirect(language.code) }), {})
-    this.props.dispatch(setLanguageChangeUrls(languageChangeUrls))
+    const urls = this.props.languages
+      .reduce((accumulator, language) => ({...accumulator, [language.code]: redirect(language.code)}))
+    this.props.dispatch(setLanguageChangeUrls(urls))
   }
 
   componentWillUnmount () {
@@ -41,7 +42,7 @@ class ContentWrapper extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ location: state.router.params.location })
+const mapStateToProps = (state) => ({location: state.router.params.location})
 
 const FetchingContentWrapper = compose(
   withFetcher(DISCLAIMER_ENDPOINT),
