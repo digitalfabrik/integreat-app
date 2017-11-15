@@ -27,20 +27,24 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         // We need to have this discussion in mind, when building the fetcher architecture,
         // because a store dispatch in the componentWillMount has no immediate effect on the props from connect() for
         // the first call of render() (and therefore the <WrappedComponent> would have been mounted for one moment, if
-        // we just checked to the payload.ready() prop)
+        // we just checked to the payload.ready() prop) todo @markl clarify what this sentence means :P
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
         this.fetch(this.props.urlParams)
       }
 
       componentWillUpdate (nextProps) {
-        // Dispatch new RequestAction to ask the endpoint whether the fetcher can display the data, if
-        // (a) the endpoint properties change or
-        // (b) the fetcher receives new payload information from the store (e.g. because a payload has been fetched)
+        // Dispatch new requestAction to ask the endpoint whether data is available, if:
+        // (a) the Fetcher urlParams prop changed or
+        // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
         if (endpoint.shouldRefetch(this.props.urlParams, nextProps.urlParams) || this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
           this.fetch(nextProps.urlParams)
         }
       }
 
+      /**
+       * Triggers a new fetch if available
+       * @param {object} urlParams The params to use
+       */
       fetch (urlParams) {
         if (!urlParams) {
           throw new Error('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
