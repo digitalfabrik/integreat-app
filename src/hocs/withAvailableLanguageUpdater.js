@@ -13,12 +13,15 @@ const mapStateToProps = (state) => ({location: state.router.params.location})
 /**
  * A HOC to dispatch {@link setLanguageChangeUrls} actions automatically
  *
- * @param {function(location, language)} mapLanguageToUrl A function which maps location and language to a url
+ * @param {function(string, string)} mapLanguageToUrl A function which maps location and language to a url
  * @returns {function(*)} The a function which taskes a component and returns a wrapped component
  */
 function withAvailableLanguageUpdater (mapLanguageToUrl) {
   class AvailableLanguageUpdater extends React.Component {
     static propTypes = {
+      /**
+       * from withFetcher HOC which provides data from LANGUAGE_ENDPOINT
+       */
       languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
       location: PropTypes.string
     }

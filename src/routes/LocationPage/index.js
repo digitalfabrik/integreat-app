@@ -15,7 +15,7 @@ import PAGE_ENDPOINT from 'endpoints/page'
 import Hierarchy from './Hierarchy'
 import PdfFetcher from 'components/PdfFetcher'
 import { setLanguageChangeUrls } from 'actions'
-import {reduce} from 'lodash/collection'
+import { reduce } from 'lodash/collection'
 import PageModel from 'endpoints/models/PageModel'
 
 class ContentWrapper extends React.Component {
@@ -47,10 +47,9 @@ class ContentWrapper extends React.Component {
    */
   updateLanguageChangeUrls (path) {
     const hierarchy = new Hierarchy(path)
-
-    // Pass data to hierarchy
     const error = hierarchy.build(this.props.pages)
     if (error) {
+      // todo handle this error
       return
     }
 
