@@ -7,7 +7,6 @@ import compose from 'lodash/fp/compose'
 
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
-import RichLayout from 'components/RichLayout'
 
 import style from './style.css'
 

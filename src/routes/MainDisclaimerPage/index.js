@@ -1,7 +1,5 @@
 import React from 'react'
 
-import RichLayout from 'components/RichLayout'
-
 class MainDisclaimerPage extends React.Component {
   render () {
     return (

@@ -25,4 +25,3 @@ export default compose(
   withFetcher(EVENTS_ENDPOINT),
   withAvailableLanguageUpdater((location, language) => `/${location}/${language}/events`)
 )(EventsPage)
-
