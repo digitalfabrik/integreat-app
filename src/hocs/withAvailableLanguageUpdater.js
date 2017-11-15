@@ -6,11 +6,18 @@ import { setLanguageChangeUrls } from 'actions'
 import LanguageModel from 'endpoints/models/LanguageModel'
 import withFetcher from 'endpoints/withFetcher'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
+import compose from 'redux/es/compose'
 
 const mapStateToProps = (state) => ({location: state.router.params.location})
 
+/**
+ * A HOC to dispatch {@link setLanguageChangeUrls} actions automatically
+ *
+ * @param {function(location, language)} mapLanguageToUrl A function which maps location and language to a url
+ * @returns {function(*)} The a function which taskes a component and returns a wrapped component
+ */
 function withAvailableLanguageUpdater (mapLanguageToUrl) {
-  return (WrappedComponent) => withFetcher(LANGUAGE_ENDPOINT)(connect(mapStateToProps)(class extends React.Component {
+  class AvailableLanguageUpdater extends React.Component {
     static propTypes = {
       languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
       location: PropTypes.string
@@ -36,7 +43,12 @@ function withAvailableLanguageUpdater (mapLanguageToUrl) {
       // Notice that we pass through any additional props
       return <WrappedComponent {...this.props} />
     }
-  }))
+  }
+
+  return (WrappedComponent) => compose(
+    withFetcher(LANGUAGE_ENDPOINT),
+    connect(mapStateToProps)
+  )(AvailableLanguageUpdater)
 }
 
 export default withAvailableLanguageUpdater
