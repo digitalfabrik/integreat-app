@@ -20,7 +20,7 @@ export default {
       '/events': {
         title: 'Events page'
       },
-      '/fetchPdf/*': {
+      '/fetch-pdf/*': {
         title: 'FetchPdf page'
       }
     },

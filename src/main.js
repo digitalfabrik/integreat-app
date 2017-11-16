@@ -68,8 +68,8 @@ let App = (
               <Fragment forRoute="/redirect">
                 <RichLayout><PageRedirector/></RichLayout>
               </Fragment>
-              {/* Matches /augsburg/de/fetchPdf/* -> Redirect */}
-              <Fragment forRoute="/fetchPdf/*">
+              {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
+              <Fragment forRoute="/fetch-pdf/*">
                 <Layout><PdfFetcherPage/></Layout>
               </Fragment>
               {/* Matches /augsburg/de/* -> Location */}
