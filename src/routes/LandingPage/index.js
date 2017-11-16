@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import Layout from 'components/Layout'
 import LOCATIONS_ENDPOINT from 'endpoints/location'
 import FilterableLocationSelector from 'components/LocationSelector/FilterableLocationSelector'
 import Footer from 'components/RichLayout/Footer'
@@ -17,12 +16,11 @@ class LandingPage extends React.Component {
   }
 
   render () {
-    return (<div>
-        <Layout>
-          <FilterableLocationSelector
-            language={this.props.language}
-            locations={this.props.locations}/>
-        </Layout>
+    return (
+      <div>
+        <FilterableLocationSelector
+          language={this.props.language}
+          locations={this.props.locations}/>
         <Footer/>
       </div>
     )

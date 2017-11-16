@@ -15,7 +15,7 @@ function createStateToPropsMapper (endpoint) {
 
 function withFetcher (endpoint, hideError = false, hideSpinner = false) {
   return (WrappedComponent) => {
-    const Fetcher = class extends React.Component {
+    class Fetcher extends React.Component {
       static displayName = endpoint.name + 'Fetcher'
 
       constructor () {

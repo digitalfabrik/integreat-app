@@ -6,23 +6,20 @@ import compose from 'lodash/fp/compose'
 
 import Content from 'components/Content'
 import Breadcrumb from 'components/Content/Breadcrumb'
-import RichLayout from 'components/RichLayout'
 import Error from 'components/Error'
 import PdfButton from 'components/Content/PdfButton'
 import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import Hierarchy from './Hierarchy'
-import PdfFetcher from 'components/PdfFetcher'
 import { setLanguageChangeUrls } from 'actions'
-import {reduce} from 'lodash/collection'
+import { reduce } from 'lodash/collection'
 import PageModel from 'endpoints/models/PageModel'
 
-class ContentWrapper extends React.Component {
+class LocationPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    isPdfDownload: PropTypes.bool.isRequired,
     path: PropTypes.string,
     pages: PropTypes.instanceOf(PageModel).isRequired
   }
@@ -47,10 +44,9 @@ class ContentWrapper extends React.Component {
    */
   updateLanguageChangeUrls (path) {
     const hierarchy = new Hierarchy(path)
-
-    // Pass data to hierarchy
     const error = hierarchy.build(this.props.pages)
     if (error) {
+      // todo handle this error
       return
     }
 
@@ -67,6 +63,14 @@ class ContentWrapper extends React.Component {
     this.props.dispatch(setLanguageChangeUrls({}))
   }
 
+  getPdfFetchPath () {
+    let path = `/${this.props.location}/${this.props.language}/fetchPdf/`
+    if (this.props.path) {
+      path += this.props.path
+    }
+    return path
+  }
+
   render () {
     const url = this.getParentPath()
     const hierarchy = new Hierarchy(this.props.path)
@@ -77,10 +81,6 @@ class ContentWrapper extends React.Component {
       return <Error error={error}/>
     }
 
-    if (this.props.isPdfDownload) {
-      return <PdfFetcher page={hierarchy.top()}/>
-    }
-
     return <div>
       <Breadcrumb
         hierarchy={hierarchy}
@@ -88,7 +88,7 @@ class ContentWrapper extends React.Component {
         location={this.props.location}
       />
       <Content url={url} hierarchy={hierarchy}/>
-      <PdfButton/>
+      <PdfButton href={this.getPdfFetchPath()}/>
     </div>
   }
 }
@@ -99,27 +99,7 @@ const mapStateToWrapperProps = (state) => ({
   path: state.router.params['_'] // _ contains all the values from *
 })
 
-const FetchingContentWrapper = compose(
+export default compose(
   connect(mapStateToWrapperProps),
   withFetcher(PAGE_ENDPOINT)
-)(ContentWrapper)
-
-class LocationPage extends React.Component {
-  static propTypes = {
-    isPdfDownload: PropTypes.bool.isRequired
-  }
-
-  render () {
-    if (this.props.isPdfDownload) {
-      return <FetchingContentWrapper isPdfDownload={true}/>
-    } else {
-      return <RichLayout>
-        <FetchingContentWrapper isPdfDownload={false}/>
-      </RichLayout>
-    }
-  }
-}
-
-const mapStateToProps = (state) => ({isPdfDownload: state.router.query.pdf !== undefined})
-
-export default connect(mapStateToProps)(LocationPage)
+)(LocationPage)

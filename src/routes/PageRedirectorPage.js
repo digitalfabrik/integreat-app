@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Spinner from 'react-spinkit'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
@@ -8,12 +9,11 @@ import { forEach } from 'lodash/collection'
 import PageModel from '../endpoints/models/PageModel'
 import withFetcher from '../endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
-import RichLayout from 'components/RichLayout'
 
 /**
  * Component to handle redirecting to the page which id is given as a query parameter
  */
-class ContentWrapper extends React.Component {
+class PageRedirector extends React.Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired,
@@ -62,24 +62,17 @@ class ContentWrapper extends React.Component {
   }
 
   render () {
-    return (
-      <div>
-        {'redirecting'}
-      </div>
-    )
+    return <Spinner name='line-scale-party'/>
   }
 }
 
-const mapStateToProps = (state) => ({pageId: state.router.query.id, location: state.router.params.location, language: state.router.params.language})
+const mapStateToProps = (state) => ({
+  pageId: state.router.query.id,
+  location: state.router.params.location,
+  language: state.router.params.language
+})
 
-const FetchingContentWrapper = compose(connect(mapStateToProps), withFetcher(PAGE_ENDPOINT))(ContentWrapper)
-
-class PageRedirector extends React.Component {
-  render () {
-    return <RichLayout>
-      <FetchingContentWrapper/>
-    </RichLayout>
-  }
-}
-
-export default PageRedirector
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(PAGE_ENDPOINT)
+)(PageRedirector)

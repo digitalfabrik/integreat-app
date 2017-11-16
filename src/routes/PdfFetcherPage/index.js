@@ -6,19 +6,21 @@ import { connect } from 'react-redux'
 import escapeRegExp from 'escape-string-regexp'
 import { isEmpty } from 'lodash/lang'
 import compose from 'lodash/fp/compose'
-import {translate} from 'react-i18next'
+import { translate } from 'react-i18next'
 
 import withFetcher from 'endpoints/withFetcher'
 import LOCATIONS_ENDPOINT from 'endpoints/location'
-import PageModel from 'endpoints/models/PageModel'
+import PAGE_ENDPOINT from 'endpoints/page'
 import LocationModel from 'endpoints/models/LocationModel'
 import style from './index.css'
 import Error from 'components/Error'
+import Hierarchy from 'routes/LocationPage/Hierarchy'
+import PageModel from 'endpoints/models/PageModel'
 
-class PdfFetcher extends React.Component {
+class PdfFetcherPage extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    pages: PropTypes.instanceOf(PageModel).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired
   }
@@ -29,7 +31,14 @@ class PdfFetcher extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchUrl()
+    const hierarchy = new Hierarchy(this.props.path)
+
+    const error = hierarchy.build(this.props.pages)
+    if (error) {
+      return <Error error={error}/>
+    }
+
+    this.fetchUrl(hierarchy.top())
   }
 
   addPageIdsRecursively (pageIds, parentPage) {
@@ -61,23 +70,22 @@ class PdfFetcher extends React.Component {
     }
   }
 
-  isRootPage (page) {
+  static isRootPage (page) {
     return page.numericId === 0
   }
 
-  fetchUrl () {
-    const page = this.props.page
+  fetchUrl (page) {
     const url = `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`
     const pageIds = []
     const requestType = 'page' // 'allpages' is available for the root page, but 'allpages' doesn't work with all
                                // languages, so we just always use 'page' as requestType.
     const font = this.getFont()
-    const title = this.isRootPage(page) ? this.getLocationTitle(page) : page.title
+    const title = PdfFetcherPage.isRootPage(page) ? this.getLocationTitle(page) : page.title
     const toc = isEmpty(page.children) ? 'false' : 'true'
 
     this.setState(Object.assign({}, this.state, {loading: page}))
 
-    if (!this.isRootPage(page)) {
+    if (!PdfFetcherPage.isRootPage(page)) {
       pageIds.push(page.numericId)
     }
     this.addPageIdsRecursively(pageIds, page)
@@ -106,7 +114,7 @@ class PdfFetcher extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;' // Currently IE11 does another request which fails because it appends a \n before Content-Type
-                                                            // But other request succeeds so let's ignore it
+        // But other request succeeds so let's ignore it
       },
       body,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
@@ -132,14 +140,14 @@ class PdfFetcher extends React.Component {
   }
 
   render () {
-    const t = this.props.t
+    const {t} = this.props
     if (this.state.loading) {
       return <div className={style.pdfFetcher}>
         <p>{t('common:creatingPdf')}</p>
-        <Spinner name='line-scale-party' />
+        <Spinner name='line-scale-party'/>
       </div>
     } else if (!this.state.pdf) {
-      return <Error error="errors:page.loadingFailed" />
+      return <Error error="errors:page.loadingFailed"/>
     } else {
       return <div className={style.pdfFetcher}>
         <p>{t('common:downloadPdfAt')}</p>
@@ -151,11 +159,13 @@ class PdfFetcher extends React.Component {
 
 const mapStateToProps = (state) => ({
   location: state.router.params.location,
-  language: state.router.params.language
+  language: state.router.params.language,
+  path: state.router.params['_'] // _ contains all the values from *
 })
 
 export default compose(
   connect(mapStateToProps),
   withFetcher(LOCATIONS_ENDPOINT),
+  withFetcher(PAGE_ENDPOINT),
   translate('common')
-)(PdfFetcher)
+)(PdfFetcherPage)
