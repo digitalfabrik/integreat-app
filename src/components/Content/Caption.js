@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import style from './Caption.css'
 
 export default class Caption extends React.Component {
-  propTypes = {
+  static propTypes = {
     title: PropTypes.string.isRequired
   }
 
