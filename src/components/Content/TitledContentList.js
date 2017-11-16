@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import style from './TitledContentList.css'
 import PageModel from 'endpoints/models/PageModel'
 import ContentList from './ContentList'
+import RemoteContent from './RemoteContent'
 
 class TitledContentList extends React.Component {
   static propTypes = {
@@ -22,8 +23,7 @@ class TitledContentList extends React.Component {
             <img className={style.headingImage} src={this.props.parentPage.thumbnail}/>
             <div className={style.headingText}>{this.props.parentPage.title}</div>
 
-            <div className={style.shortText}
-                 dangerouslySetInnerHTML={{__html: (this.props.parentPage.content)}}/>
+            <RemoteContent className={style.shortText} content={this.props.parentPage.content}/>
           </div>
         </div>
         <ContentList pages={this.props.pages}/>

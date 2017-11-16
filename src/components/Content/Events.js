@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash'
 
 import EventModel from '../../endpoints/models/EventModel'
 import style from './Events.css'
+import RemoteContent from './RemoteContent'
 
 class Events extends React.Component {
   static propTypes = {
@@ -25,7 +26,7 @@ class Events extends React.Component {
               <div><strong>{t('common:date')}: </strong>{event.getDate(this.props.language)}</div>
               { !isEmpty(event.address) ? <div><strong>{t('common:location')}: </strong>{event.address}</div> : '' }
             </div>
-            <div dangerouslySetInnerHTML={{__html: event.content}}/>
+            <RemoteContent content={event.content}/>
           </div>))
       }
     </div>
