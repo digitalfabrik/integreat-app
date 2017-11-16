@@ -7,6 +7,8 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 import routes from './routes'
 import endpointReducers from 'endpoints/reducers'
+import { setLanguageChangeUrls } from './actions'
+import { handleAction } from 'redux-actions'
 
 /**
  * Holds the current history implementation
@@ -48,14 +50,25 @@ if (__DEV__) {
 }
 
 /**
+ * The reducer to store the current language
+ */
+const setLanguageChangeUrlsReducer = handleAction(setLanguageChangeUrls,
+  (state, action) => action.payload, {}
+)
+
+/**
  * Configures the main store which holds the global state of the app
  *
  * @param preloadedState
  * @returns {*} A configured store
  */
-let configureStore = function configureStore (preloadedState) {
+const configureStore = function configureStore (preloadedState) {
   return createStore(
-    combineReducers({...endpointReducers, router: reducer}),
+    combineReducers({
+      ...endpointReducers,
+      router: reducer,
+      languageChangeUrls: setLanguageChangeUrlsReducer
+    }),
     preloadedState,
     compose(enhancer, applyMiddleware(...middlewares))
   )

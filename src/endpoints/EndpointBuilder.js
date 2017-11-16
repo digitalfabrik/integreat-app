@@ -21,7 +21,7 @@ class EndpointBuilder {
     this._name = name
     this._stateMapperBuilder = new StateMapperBuilder(this)
 
-    this._refetchLogic = (options, nextOptions) => !isEqual(options, nextOptions)
+    this._refetchLogic = (urlParams, nextUrlParams) => !isEqual(urlParams, nextUrlParams)
   }
 
   /**

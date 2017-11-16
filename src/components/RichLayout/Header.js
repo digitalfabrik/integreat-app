@@ -13,10 +13,7 @@ import style from './Header.css'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
 import { Link } from 'redux-little-router'
-import LANGUAGE_ENDPOINT from 'endpoints/language'
 import { connect } from 'react-redux'
-import LanguageModel from '../../endpoints/models/LanguageModel'
-import withFetcher from '../../endpoints/withFetcher'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -35,29 +32,6 @@ class NavElement extends React.Component {
     )
   }
 }
-
-class LanguageElementWrapper extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    languageCallback: PropTypes.func,
-    /**
-     * from withFetcher HOC which provides data from LANGUAGE_ENDPOINT
-     */
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel))
-  }
-
-  render () {
-    return this.props.location &&
-      <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-        <LanguageFlyout
-          languageCallback={this.props.languageCallback}
-          languages={this.props.languages}
-        />
-      </HeaderDropDown>
-  }
-}
-
-const FetchingLanguageElementWrapper = withFetcher(LANGUAGE_ENDPOINT, true, true)(LanguageElementWrapper)
 
 class Header extends React.Component {
   static propTypes = {
@@ -92,8 +66,11 @@ class Header extends React.Component {
               <FontAwesome className={style.fontAwesome} name='map-marker'/>
             </NavElement>
             {/* Language */}
-            <FetchingLanguageElementWrapper languageCallback={this.props.languageCallback}
-                                            location={this.props.location}/>
+            {this.props.location &&
+            <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
+              <LanguageFlyout />
+            </HeaderDropDown>
+            }
           </div>
         </div>
       </header>

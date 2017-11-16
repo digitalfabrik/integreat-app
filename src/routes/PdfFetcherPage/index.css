@@ -1,4 +1,4 @@
-@import url('../Helper/Helper.css');
+@import url('../../components/Helper/Helper.css');
 
 .pdf-fetcher {
   margin-top: 100px;
