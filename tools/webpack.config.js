@@ -1,4 +1,3 @@
-/* eslint-disable global-require, no-confusing-arrow, max-len */
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
@@ -16,6 +15,7 @@ const babelConfig = Object.assign({}, pkg.babel, {
   cacheDirectory: useHMR,
   presets: pkg.babel.presets.map(x => x === 'latest' ? ['latest', {es2015: {modules: false}}] : x)
 })
+
 // Webpack configuration (main.js => public/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
 const config = {
