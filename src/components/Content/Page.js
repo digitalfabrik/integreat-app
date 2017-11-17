@@ -13,7 +13,7 @@ class Page extends React.Component {
     return (
       <div>
         <Caption title={this.props.page.title}/>
-        <RemoteContent content={this.props.page.content}/>
+        <RemoteContent dangerousHtmlContent={this.props.page.content}/>
       </div>
     )
   }
