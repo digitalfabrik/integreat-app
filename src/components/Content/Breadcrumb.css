@@ -1,29 +1,23 @@
 @import url('../Helper/Helper.css');
 
 .breadcrumbs {
-  margin-bottom: 20px;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .separator::after {
-  color: #E8E8E8;
-  font-size: 22px;
-
+  color: #e8e8e8;
+  font-size: 16px;
   content: ' > ';
-
   user-select: none;
 }
 
 .level {
-  color: #9C9C9C;
-  font-size: 20px;
-
+  color: #9c9c9c;
+  font-size: 15px;
   user-select: none;
 }
 
 .breadcrumb {
   @mixin remove-a;
-}
-
-.breadcrumb:last-child .level {
-  color: black;
 }

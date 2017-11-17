@@ -1,29 +1,25 @@
-import 'babel-polyfill'
-import 'whatwg-fetch'
+import 'polyfills'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/createBrowserHistory'
 import { Provider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-
+import i18n from './i18n/i18n'
+import { Fragment, initializeCurrentLocation } from 'redux-little-router'
 // Pages
 import LandingPage from './routes/LandingPage'
 import LocationPage from './routes/LocationPage'
 import SearchPage from './routes/SearchPage'
 import ErrorPage from './routes/ErrorPage'
 import DisclaimerPage from './routes/DisclaimerPage'
-
+import EventsPage from './routes/EventsPage'
+import PdfFetcherPage from './routes/PdfFetcherPage'
+import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
+import PageRedirector from './routes/PageRedirectorPage'
 // Local imports
 import store from './store'
-import i18n from './i18n/i18n'
-import { Fragment, initializeCurrentLocation } from 'redux-little-router'
-import MainDisclaimerPage from './routes/MainDisclaimerPage/index'
-
-/**
- * Holds the current history implementation
- */
-export const history = createBrowserHistory()
+import RichLayout from './components/RichLayout/index'
+import Layout from './components/Layout/index'
 
 const initialLocation = store.getState().router
 
@@ -45,28 +41,52 @@ let App = (
         {/* Routes */}
         <div>
           {/* Matches /disclaimer */}
-          <Fragment forRoute="/disclaimer"><MainDisclaimerPage/></Fragment>
+          <Fragment forRoute="/disclaimer">
+            <RichLayout><MainDisclaimerPage/></RichLayout>
+          </Fragment>
           {/* Matches / */}
-          <Fragment forRoute="/"><LandingPage/></Fragment>
+          <Fragment forRoute="/">
+            <Layout><LandingPage/></Layout>
+          </Fragment>
 
           {/* Matches /augsburg/de */}
           <Fragment forRoute="/:location/:language">
             <div>
               {/* Matches /augsburg/de/search -> Search */}
-              <Fragment forRoute="/search"><SearchPage/></Fragment>
+              <Fragment forRoute="/search">
+                <RichLayout><SearchPage/></RichLayout>
+              </Fragment>
               {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
-              <Fragment forRoute="/disclaimer"><DisclaimerPage/></Fragment>
+              <Fragment forRoute="/disclaimer">
+                <RichLayout><DisclaimerPage/></RichLayout>
+              </Fragment>
+              {/* Matches /augsburg/de/events -> Events */}
+              <Fragment forRoute="/events">
+                <RichLayout><EventsPage/></RichLayout>
+              </Fragment>
+              {/* Matches /augsburg/de/redirect -> Redirect */}
+              <Fragment forRoute="/redirect">
+                <RichLayout><PageRedirector/></RichLayout>
+              </Fragment>
+              {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
+              <Fragment forRoute="/fetch-pdf/*">
+                <Layout><PdfFetcherPage/></Layout>
+              </Fragment>
               {/* Matches /augsburg/de/* -> Location */}
-              <Fragment forRoute="*"><LocationPage/></Fragment>
+              <Fragment forRoute="*">
+                <RichLayout><LocationPage/></RichLayout>
+              </Fragment>
             </div>
           </Fragment>
 
           {/* Matches /de */}
           <Fragment forRoute="/:language">
-            <LandingPage/>
+            <Layout><LandingPage/></Layout>
           </Fragment>
 
-          <Fragment forNoRoute><ErrorPage/></Fragment>
+          <Fragment forNoRoute>
+            <RichLayout><ErrorPage/></RichLayout>
+          </Fragment>
         </div>
       </Fragment>
     </Provider>
@@ -79,6 +99,11 @@ ReactDOM.render(App, container)
 
 // Sets the splash to hidden when the page is rendered
 document.getElementById('splash').className += ' splash-hidden'
+
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('/sw.js', {scope: '/'})
+    .catch((err) => console.error('Unable to register service worker.', err))
+}
 
 // Enables hot-module-reloading if it's enabled
 if (module.hot) {

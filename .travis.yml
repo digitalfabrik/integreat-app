@@ -11,13 +11,6 @@ addons:
     packages:
       - g++-4.8
 script:
-  - npm run lint
-  - npm run test
-  - npm run build
-deploy:
-  provider: firebase
-  skip_cleanup: true
-  on:
-    branch: develop
-  token:
-    secure: $FIREBASE_TOKEN
+  - yarn run lint
+  - yarn run test
+  - yarn run build

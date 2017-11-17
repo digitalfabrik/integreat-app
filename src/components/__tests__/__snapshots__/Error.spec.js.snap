@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error should match snapshot 1`] = `
+<div>
+  <div
+    className="centerText"
+  >
+    errors
+  </div>
+  <div
+    className="centerText"
+  >
+    <span
+      aria-hidden={true}
+      className="fa fa-frown-o fa-5x"
+    />
+  </div>
+  <a
+    className="centerText"
+    href="/"
+    onClick={[Function]}
+  >
+    Go back
+  </a>
+</div>
+`;

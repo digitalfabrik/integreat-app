@@ -1,38 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { push } from 'redux-little-router'
-
 import Layout from 'components/Layout'
 import Header from './Header'
 import Footer from './Footer'
 
 class RichLayout extends React.Component {
   static propTypes = {
-    className: PropTypes.string,
-    location: PropTypes.string
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.gotoParent = this.gotoParent.bind(this)
-  }
-
-  getParentPath (newLanguage) {
-    if (!this.props.location) {
-      return '/'
-    }
-    return `/${this.props.location}/${newLanguage}`
-  }
-
-  gotoParent (newLanguage) {
-    this.props.dispatch(push(this.getParentPath(newLanguage)))
+    className: PropTypes.string
   }
 
   render () {
     return (<div>
-        <Header languageCallback={this.gotoParent}/>
+        <Header />
 
         <Layout className={this.props.className}>
           {this.props.children}
@@ -44,10 +23,4 @@ class RichLayout extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    location: state.router.params.location
-  }
-}
-
-export default connect(mapStateToProps)(RichLayout)
+export default RichLayout

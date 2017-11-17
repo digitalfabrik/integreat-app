@@ -1,5 +1,7 @@
 import { sortBy } from 'lodash/collection'
-import Endpoint from './Endpoint'
+
+import EndpointBuilder from './EndpointBuilder'
+
 import LocationModel from './models/LocationModel'
 
 function stripSlashes (path) {
@@ -12,16 +14,11 @@ function stripSlashes (path) {
   return path
 }
 
-export default new Endpoint({
-  name: 'locations',
-  url: 'https://cms.integreat-app.de/wp-json/extensions/v1/multisites',
-  jsonToAny: json => {
-    if (!json) {
-      return []
-    }
-    let locations = json
+export default new EndpointBuilder('locations')
+  .withUrl('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
+  .withMapper(json => {
+    const locations = json
       .map((location) => new LocationModel(location.name, stripSlashes(location.path), location.live))
-    locations = sortBy(locations, location => location.sortKey)
-    return locations
-  }
-})
+    return sortBy(locations, location => location.sortKey)
+  })
+  .build()

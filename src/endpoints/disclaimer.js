@@ -1,19 +1,18 @@
-import Endpoint from './Endpoint'
 import { reduce } from 'lodash'
-import PropTypes from 'prop-types'
-import PageModel from './models/PageModel'
 import { isEmpty } from 'lodash/lang'
 
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
+import EndpointBuilder from './EndpointBuilder'
 
-export default new Endpoint({
-  name: 'disclaimer',
-  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since={since}',
-  optionsPropType: PropTypes.shape({}),
-  jsonToAny: (json) => {
-    if (!json || isEmpty(json)) {
+import PageModel from './models/PageModel'
+
+export default new EndpointBuilder('disclaimer')
+  .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z')
+  .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
+  .withMapper((json) => {
+    if (isEmpty(json)) {
       throw new Error('disclaimer.notAvailable')
     }
+
     return reduce(json, (result, page) => {
       if (page.status !== 'publish') {
         return result
@@ -32,12 +31,5 @@ export default new Endpoint({
         order: page.order
       })
     }, null)
-  },
-  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
-  mapOptionsToUrlParams: (options) => ({
-    location: options.location,
-    language: options.language,
-    since: BIRTH_OF_UNIVERSE
-  }),
-  shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
-})
+  })
+  .build()

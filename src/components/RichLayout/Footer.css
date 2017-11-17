@@ -6,10 +6,11 @@
   margin-top: 20px;
   padding: 20px;
   background-color: white;
-  border-top: 1px solid #FBDA16;
+  border-top: 1px solid #fbda16;
 }
 
 .item {
   @mixin remove-a;
+  margin: 5px;
   font-family: 'Raleway', 'El Messiri', sans-serif;
 }

@@ -1,20 +1,14 @@
-import { forEach, find, filter } from 'lodash/collection'
-import Endpoint from './Endpoint'
-import PageModel, { EMPTY_PAGE } from './models/PageModel'
+import { filter, find, forEach } from 'lodash/collection'
 
-const BIRTH_OF_UNIVERSE = new Date(0).toISOString().split('.')[0] + 'Z'
+import EndpointBuilder from './EndpointBuilder'
 
-export default new Endpoint({
-  name: 'pages',
-  url: 'https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since={since}',
-  beforeFetch: () => fetch('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
-    .then(response => response.json())
-    .then(locations => ({ locations })),
-  jsonToAny: (json, options) => {
-    if (!json) {
-      return EMPTY_PAGE
-    }
-    let pages = json.filter((page) => page.status === 'publish')
+import PageModel from './models/PageModel'
+
+export default new EndpointBuilder('pages')
+  .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z')
+  .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
+  .withMapper((json, urlParams) => {
+    const pages = json.filter((page) => page.status === 'publish')
       .map((page) => {
         const id = decodeURIComponent(page.permalink.url_page).split('/').pop()
         const numericId = page.id
@@ -25,7 +19,8 @@ export default new Endpoint({
           parent: page.parent,
           content: page.content,
           thumbnail: page.thumbnail,
-          order: page.order
+          order: page.order,
+          availableLanguages: page.available_languages
         })
       })
 
@@ -37,27 +32,7 @@ export default new Endpoint({
       }
     })
 
-    // Get Location Title
-    const stripSlashes = (path) => {
-      if (path.startsWith('/')) {
-        path = path.substr(1)
-      }
-      if (path.endsWith('/')) {
-        path = path.substr(0, path.length - 1)
-      }
-      return path
-    }
-
-    const title = find(options.locations, (loc) => stripSlashes(loc.path) === options.location).name || options.location
-
     const children = filter(pages, (page) => page.parent === 0)
-    return new PageModel({ numericId: 0, id: 'rootId', title, children })
-  },
-  mapStateToOptions: (state) => ({language: state.router.params.language, location: state.router.params.location}),
-  mapOptionsToUrlParams: (options) => ({
-    location: options.location,
-    language: options.language,
-    since: BIRTH_OF_UNIVERSE
-  }),
-  shouldRefetch: (options, nextOptions) => options.language !== nextOptions.language
-})
+    return new PageModel({numericId: 0, id: 'rootId', title: urlParams.location, children})
+  })
+  .build()

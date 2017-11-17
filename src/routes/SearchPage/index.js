@@ -1,21 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import normalizeUrl from 'normalize-url'
+import compose from 'lodash/fp/compose'
 
 import ContentList from 'components/Content/ContentList'
 import Search from 'components/Search/Search'
-import RichLayout from 'components/RichLayout'
-import { PageFetcher } from 'endpoints'
 
 import style from './style.css'
-import { connect } from 'react-redux'
 
-class ContentListAdapter extends React.Component {
+import withAvailableLanguageUpdater from 'hocs/withAvailableLanguageUpdater'
+import withFetcher from 'endpoints/withFetcher'
+import PAGE_ENDPOINT from 'endpoints/page'
+import PageModel from 'endpoints/models/PageModel'
+
+class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    filterText: PropTypes.string.isRequired
+    pages: PropTypes.instanceOf(PageModel).isRequired
+  }
+
+  constructor () {
+    super()
+    this.state = {filterText: ''}
   }
 
   getParentPath () {
@@ -25,7 +34,7 @@ class ContentListAdapter extends React.Component {
   acceptPage (page) {
     let title = page.title.toLowerCase()
     let content = page.content
-    let filterText = this.props.filterText.toLowerCase()
+    let filterText = this.state.filterText.toLowerCase()
     // todo:  comparing the content like this is quite in-efficient and can cause lags
     // todo:  1) Do this work in an other thread 2) create an index
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
@@ -39,7 +48,7 @@ class ContentListAdapter extends React.Component {
   findPages (pages, baseUrl, page) {
     const url = baseUrl + '/' + page.id
     if (this.acceptPage(page)) {
-      pages.push({ url, page })
+      pages.push({url, page})
     }
     page.children.forEach(page => this.findPages(pages, url, page))
   }
@@ -48,41 +57,27 @@ class ContentListAdapter extends React.Component {
     const url = normalizeUrl(this.getParentPath(), {removeTrailingSlash: true})
     const pages = []
     this.props.pages.children.forEach(page => this.findPages(pages, url, page))
-    return <ContentList pages={pages}/>
-  }
-}
 
-class SearchPage extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
-  }
-
-  constructor () {
-    super()
-    this.state = {filterText: ''}
-  }
-
-  render () {
     return (
-      <RichLayout location={this.props.location}>
-        <PageFetcher>
-          <Search className={style.searchSpacing}
-                  filterText={this.state.filterText}
-                  onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
-          />
-          <ContentListAdapter location={this.props.location} language={this.props.language} filterText={this.state.filterText}/>
-        </PageFetcher>
-      </RichLayout>
+      <div>
+        <Search className={style.searchSpacing}
+                filterText={this.state.filterText}
+                onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
+        />
+        <ContentList pages={pages}/>
+      </div>
     )
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    location: state.router.params.location,
-    language: state.router.params.language
-  }
-}
+const mapStateToProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location,
+  path: state.router.params['_'] // _ contains all the values from *
+})
 
-export default connect(mapStateToProps)(SearchPage)
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(PAGE_ENDPOINT),
+  withAvailableLanguageUpdater((location, language) => `/${location}/${language}/search`)
+)(SearchPage)

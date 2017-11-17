@@ -1,6 +1,7 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/Integreat/integreat-webapp.svg)](https://gemnasium.com/github.com/Integreat/integreat-webapp)
 develop: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=develop)
 master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-webapp.svg?branch=master)
+versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
 # integreat-webapp
 
 ## Conventions
@@ -8,6 +9,13 @@ master: ![develop build state](https://api.travis-ci.org/Integreat/integreat-web
 For naming things we follow the airbnb style: https://github.com/airbnb/javascript/tree/master/react
 For the JavasScript code style we use the standard style: https://standardjs.com/
 For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-messages
+
+## Versioning
+![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg) with:
+* **`YYYY`** - Full year - 2006, 2016
+* **`MM`** - Short month - 1, 2 ... 11, 12
+* **`PATCH`** - The third and usually final number in the version. Sometimes
+  referred to as the "patch" segment.
 
 ## Technology stack
 
@@ -62,8 +70,10 @@ You can run the linter by calling **npm run lint**.
 Just import this project (from existing sources). Run **yarn** and right-click on package.json to show the npm scripts. 
 Also mark the *src* and *public* folder as *Source directory*. In IntelliJ no other plugins are needed. 
 
+# Bug Tracker
+
+You can [view our bugs](https://integreat.atlassian.net/secure/Dashboard.jspa) or [create new ones](https://integreat.atlassian.net/secure/CreateIssue!default.jspa) on our jira.
 
 # Publishing
 
-You can login though the firebase cli and then run **npm run publish**.
-A live preview of this app is available [here](https://integreat-1173.firebaseapp.com/).
+A live preview of this app is available [here](https://webnext.integreat-app.de/).

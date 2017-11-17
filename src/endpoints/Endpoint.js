@@ -1,18 +1,17 @@
 import { createAction } from 'redux-actions'
 import format from 'string-template'
-import PropTypes from 'prop-types'
 
 import Payload from 'endpoints/Payload'
 
 class ActionType {
-  static RECEIVE = 'RECEIVE_DATA'
-  static REQUEST = 'REQUEST_DATA'
-  static INVALIDATE = 'INVALIDATE_DATA'
+  static FINISH_FETCH = 'FINISH_FETCH_DATA'
+  static START_FETCH = 'START_FETCH_DATA'
 }
 
-const DUMMY = () => { return {} }
-
-export default class Endpoint {
+/**
+ * A Endpoint holds all the relevant information to fetch data form it
+ */
+class Endpoint {
   /**
    * @type string
    */
@@ -21,38 +20,33 @@ export default class Endpoint {
    * @type string
    */
   url
-  optionsPropType
-  receiveAction
-  requestAction
-  invalidateAction
+  finishFetchAction
+  startFetchAction
   /**
-   * @type propsToOptionsCallback
+   * @type mapStateToUrlParamsCallback
    */
-  mapOptionsToUrlParams
-  /**
-   * @type stateToPropsCallback
-   */
-  mapStateToOptions
+  mapStateToUrlParams
   /**
    * @type shouldRefetchCallback
    */
   shouldRefetch
 
   /**
-   * Converts a json document to any object
+   * Converts a fetched response to an object
    */
-  jsonToAny
+  mapResponse
 
   /**
-   * @callback stateToPropsCallback
+   * @callback mapDataCallback
+   * @param {object} data The data which has been fetched (Possibly a plain js object)
+   * @param {object} urlParams The params which were used in the fetch url
+   * @return {object} The mapped data
+   */
+
+  /**
+   * @callback mapStateToUrlParamsCallback
    * @param {object} state
-   * @return {object} The params
-   */
-
-  /**
-   * @callback propsToOptionsCallback
-   * @param {object} params
-   * @return {object} The options
+   * @return {object} The url params
    */
 
   /**
@@ -65,27 +59,23 @@ export default class Endpoint {
   /**
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
-   * @param {*} optionsType the propType with all endpoint options. Non-required proptypes only for 'state' options
-   * @param {function} jsonToAny Transforms the json input to a result
-   * @param {stateToPropsCallback} mapStateToOptions Maps the state to the props which are needed in the Fetcher component ({@link mapOptionsToUrlParams})
-   * @param {propsToOptionsCallback} mapOptionsToUrlParams Maps the properties of the Fetcher component to the url options needed in {@link url}
+   * @param {function} mapResponse Transforms the response from the fetch to a result
+   * @param {mapStateToUrlParamsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
-  constructor ({name, url, optionsPropType = PropTypes.object, jsonToAny, mapStateToOptions = DUMMY,
-                 mapOptionsToUrlParams = DUMMY, shouldRefetch = () => false, beforeFetch = () => Promise.resolve({})}) {
+  constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch) {
     this.name = name
     this.url = url
-    this.optionsPropType = optionsPropType
-    this.mapOptionsToUrlParams = mapOptionsToUrlParams
-    this.mapStateToOptions = mapStateToOptions
+    this.mapStateToUrlParams = mapStateToUrlParams
     this.shouldRefetch = shouldRefetch
-    this.jsonToAny = jsonToAny
-    this.beforeFetch = beforeFetch
-    let actionName = this.name.toUpperCase()
+    this.mapResponse = mapResponse
 
-    this.receiveAction = createAction(`${ActionType.RECEIVE}_${actionName}`, (value, options, error) => new Payload(false, value, error))
-    this.requestAction = createAction(`${ActionType.REQUEST}_${actionName}`, () => new Payload(true))
-    this.invalidateAction = createAction(`${ActionType.INVALIDATE}_${actionName}`, () => new Payload(false))
+    const actionName = this.name.toUpperCase()
+
+    this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
+      return new Payload(false, value, error, requestUrl, new Date().getTime())
+    })
+    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
     this._stateName = name
   }
 
@@ -103,38 +93,62 @@ export default class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  fetchEndpointAction (urlParams = {}, options = {}) {
+  requestAction (urlParams = {}) {
+    /*
+      Returns whether the correct data is available and ready for the fetcher to be displayed.
+     */
+  /**
+   * @param urlParams The params for the url of the endpoint
+   * @param options The options get passed to the {@link mapResponse} function when fetching
+   * @return {function(*, *)} The Action for the redux store which can initiate a fetch
+   */
     return (dispatch, getState) => {
-      if (getState()[this.name].isFetching) {
-        return
+      const endpointData = getState()[this.name]
+      if (endpointData.isFetching) {
+        return false
       }
 
-      dispatch(this.requestAction())
-
-      let formattedURL = format(this.url, urlParams)
+      const formattedURL = format(this.url, urlParams)
       /*
        todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
 
-      return this.beforeFetch()
-        .then(extraOptions => Object.assign(options, extraOptions))
-        .then(() => fetch(formattedURL))
+      const lastUrl = endpointData.requestUrl
+      const lastFetchedDate = endpointData.fetchDate
+
+      const canCacheByTime = !!lastFetchedDate && new Date().getTime() - 1000 * 60 * 60 <= lastFetchedDate
+      const urlNotChanged = !!lastUrl && lastUrl === formattedURL
+
+      if (urlNotChanged && canCacheByTime) {
+        // Correct payload has been loaded and can now be used by the fetcher(s)
+        return true
+      }
+
+      // Refetch if url changes or we don't have a lastUrl
+      dispatch(this.startFetchAction())
+      fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
-          let error, value
+          let error
+          let value
           try {
-            value = this.jsonToAny(json, options)
+            value = this.mapResponse(json, urlParams)
           } catch (e) {
             error = e.message
+            console.error('Failed to parse the json: ' + this.name, e.message)
           }
 
-          return dispatch(this.receiveAction(value, options, error))
+          return dispatch(this.finishFetchAction(value, error, formattedURL))
         })
-        .catch(ex => {
-          console.error('Failed to load the endpoint request: ' + this.name, ex.message)
-          return dispatch(this.receiveAction(null, options, 'errors:page.loadingFailed'))
+        .catch(e => {
+          console.error('Failed to load the endpoint request: ' + this.name, e.message)
+          return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
         })
+      // Fetchers cannot display payload yet, since it's currently fetching
+      return false
     }
   }
 }
+
+export default Endpoint
