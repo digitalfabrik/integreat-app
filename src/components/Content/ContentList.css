@@ -4,11 +4,20 @@
   @mixin remove-a;
 }
 
-.element {
-  height: 50px;
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.element-text {
+.image {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  padding: 5px;
+}
+
+.caption {
   height: 100%;
   min-width: 1px; /* exact value doesn't matter, but this lets long words wrap */
   flex-grow: 1;
@@ -16,22 +25,4 @@
   padding: 15px 0;
   border-bottom: 2px solid #fbda16;
   word-wrap: break-word;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.element-image {
-  width: 50px;
-  flex-shrink: 0;
-  padding: 5px;
-}
-
-.image {
-  width: 50px;
-  max-width: 100%;
-  max-height: 100%;
 }
