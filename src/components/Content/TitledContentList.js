@@ -22,8 +22,7 @@ class TitledContentList extends React.Component {
           <div className={style.heading}>
             <img className={style.headingImage} src={this.props.parentPage.thumbnail}/>
             <div className={style.headingText}>{this.props.parentPage.title}</div>
-
-            <RemoteContent className={style.shortText} dangerousHtmlContent={this.props.parentPage.content}/>
+            <RemoteContent className={style.shortText} dangerouslySetInnerHTML={{__html: this.props.parentPage.content}}/>
           </div>
         </div>
         <ContentList pages={this.props.pages}/>

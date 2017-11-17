@@ -6,12 +6,16 @@ import style from './RemoteContent.css'
 
 class RemoteContent extends React.Component {
   static propTypes = {
-    dangerousHtmlContent: PropTypes.string.isRequired
+    dangerouslySetInnerHTML: PropTypes.shape(
+      PropTypes.shape({
+        __html: PropTypes.string.isRequired
+      }).isRequired
+    ).isRequired
   }
 
   render () {
     return <div className={cx(style.remoteContent, this.props.className)}
-                dangerouslySetInnerHTML={{__html: (this.props.dangerousHtmlContent)}} />
+                dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
   }
 }
 

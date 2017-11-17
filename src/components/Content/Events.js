@@ -26,7 +26,7 @@ class Events extends React.Component {
               <div><strong>{t('common:date')}: </strong>{event.getDate(this.props.language)}</div>
               { !isEmpty(event.address) ? <div><strong>{t('common:location')}: </strong>{event.address}</div> : '' }
             </div>
-            <RemoteContent dangerousHtmlContent={event.content}/>
+            <RemoteContent dangerouslySetInnerHTML={{__html: event.content}}/>
           </div>))
       }
     </div>
