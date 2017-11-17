@@ -1,4 +1,3 @@
-/* eslint-disable no-console, global-require */
 const fs = require('fs')
 const rimraf = require('rimraf')
 const ejs = require('ejs')

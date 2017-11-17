@@ -1,6 +1,6 @@
 {
   "name": "integreat-webapp",
-  "version": "0.2.0",
+  "version": "2017.11.0",
   "private": true,
   "engines": {
     "node": ">=6",
@@ -47,17 +47,18 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-1": "^6.22.0",
-    "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "browser-sync": "^2.18.13",
-    "chai": "^4.1.2",
     "connect-history-api-fallback": "^1.4.0",
     "css-loader": "^0.28.7",
     "ejs": "^2.5.7",
+    "enzyme": "^3.1.1",
+    "enzyme-adapter-react-16": "^1.0.4",
     "escape-string-regexp": "^1.0.5",
     "eslint": "^3.18.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^21.3.2",
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.4.0",
@@ -68,9 +69,10 @@
     "highlight.js": "^9.10.0",
     "html-loader": "^0.5.1",
     "i18next-resource-store-loader": "^0.1.1",
+    "identity-obj-proxy": "^3.0.0",
     "img-loader": "^2.0.0",
+    "jest": "^21.3.0-beta.8",
     "json-loader": "^0.5.7",
-    "mocha": "^4.0.1",
     "path-to-regexp": "^2.0.0",
     "pixrem": "^4.0.1",
     "pleeease-filters": "^4.0.0",
@@ -90,6 +92,7 @@
     "postcss-selector-not": "^3.0.1",
     "prop-types": "^15.6.0",
     "react-hot-loader": "^3.1.1",
+    "react-test-renderer": "^16.0.0",
     "rimraf": "^2.6.2",
     "s3": "^4.4.0",
     "style-loader": "^0.19.0",
@@ -118,7 +121,8 @@
     "parser": "babel-eslint",
     "extends": "standard",
     "env": {
-      "browser": true
+      "browser": true,
+      "jest": true
     },
     "parserOptions": {
       "ecmaVersion": 6,
@@ -129,23 +133,30 @@
     },
     "rules": {
       "react/jsx-uses-react": "error",
-      "react/jsx-uses-vars": "error"
+      "react/jsx-uses-vars": "error",
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error"
     },
     "plugins": [
-      "react"
+      "react",
+      "jest"
     ]
   },
   "scripts": {
-    "eslint": "eslint src test tools postcss.config.js webpack.config.js",
+    "eslint": "eslint src tools",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint",
     "lintfix": "npm run eslint --fix && stylefmt -r \"src/**/*.css\"",
-    "test": "env NODE_PATH=$NODE_PATH:$PWD/src mocha --compilers js:babel-register",
-    "test:watch": "env NODE_PATH=$NODE_PATH:$PWD/src mocha --compilers js:babel-register --reporter min --watch",
     "build": "node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "publish": "node tools/publish.js",
     "publish:debug": "node tools/publish.js --debug",
-    "start": "node tools/run.js"
+    "start": "node tools/run.js",
+    "test": "node $NODE_DEBUG_OPTION node_modules/.bin/jest --config jest.config.json",
+    "test:coverage": "node node_modules/.bin/jest --config jest.config.json --coverage",
+    "test:update": "node node_modules/.bin/jest --config jest.config.json -u"
   }
 }

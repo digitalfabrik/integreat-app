@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 module.exports = () => ({
   plugins: [
     // Transfer @import rule by inlining content, e.g. @import 'normalize.css'
