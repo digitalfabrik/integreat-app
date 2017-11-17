@@ -6,12 +6,10 @@ exports[`Heading should match snapshot 1`] = `
     className="logo"
     src="test-file-stub"
   />
-  <div>
-    <h1
-      className="heading"
-    >
-      Location
-    </h1>
-  </div>
+  <h1
+    className="caption"
+  >
+    Location
+  </h1>
 </div>
 `;
