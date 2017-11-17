@@ -21,5 +21,5 @@
   "collectCoverageFrom": [
     "**/*.{js,jsx}"
   ],
-  "coverageDirectory": "__converage__"
+  "coverageDirectory": "../__coverage__"
 }
