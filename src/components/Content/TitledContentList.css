@@ -5,7 +5,7 @@
 }
 
 .heading {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .heading-text {
@@ -20,4 +20,5 @@
 
 .short-text {
   text-align: center;
+  list-style-position: inside;
 }
