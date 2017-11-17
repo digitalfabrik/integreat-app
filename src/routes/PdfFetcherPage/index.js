@@ -94,7 +94,7 @@ class PdfFetcherPage extends React.Component {
       action: 'frontEndDownloadPDF',
       requestType: requestType,
       myContent: pageIds.join(','),
-      pdfOptions: `${toc},${title},${page.id}_file,,`,
+      pdfOptions: `${toc},${title},${page.numericId}_file,,`,
       'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`,
       font,
       fontcolor: '',
