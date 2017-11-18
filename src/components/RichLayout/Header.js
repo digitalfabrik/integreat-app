@@ -10,10 +10,13 @@ import LanguageFlyout from 'components/LanguageFlyout'
 import HeaderDropDown from './HeaderDropDown'
 
 import style from './Header.css'
+import searchIcon from './assets/magnifier.svg'
+import locationIcon from './assets/location-icon.svg'
+import languageIcon from './assets/language-icon.svg'
 import logoWide from './assets/integreat-app-logo.png'
 import logoSquare from './assets/integreat-logo-square.png'
-import { Link } from 'redux-little-router'
-import { connect } from 'react-redux'
+import {Link} from 'redux-little-router'
+import {connect} from 'react-redux'
 
 class NavElement extends React.Component {
   static propTypes = {
@@ -22,7 +25,7 @@ class NavElement extends React.Component {
     disableActiveStyle: PropTypes.bool
   }
 
-  render () {
+  render() {
     return (
       <Link href={this.props.to}
             activeProps={{className: this.props.disableActiveStyle ? this.props.className : cx(this.props.className, style.itemActive)}}
@@ -44,33 +47,22 @@ class Header extends React.Component {
     return (
       <header className={style.spacer}>
         <div className={style.header}>
-          {/* Logo */}
-          <NavElement to={this.props.navigation.home} className={style.logo} disableActiveStyle={true}>
-            <img className={style.logoWide}
-                 src={logoWide}/>
-            <img className={style.logoSquare}
-                 src={logoSquare}/>
-          </NavElement>
-          <div className={style.itemsContainer}>
-            {/* Home for small devices */}
-            <NavElement to={this.props.navigation.home} className={cx(style.item, style.itemHome)}>
-              <FontAwesome className={style.fontAwesome} name='home'/>
-            </NavElement>
-            {/* Location */}
-            {this.props.location &&
-            <NavElement to={this.props.navigation.search} className={cx(style.item, style.itemSearch)}>
-              <FontAwesome className={style.fontAwesome} name='search'/>
-            </NavElement>
+          <img src={logoWide} className={style.logoWide}/>
+          {
+            this.props.location &&
+            <div className={style.menuItems}>
+              <NavElement to={this.props.navigation.home}>{'EXTRAS'}</NavElement>
+              <NavElement to={this.props.navigation.home}>{'KATEGORIEN'}</NavElement>
+              <NavElement to={this.props.navigation.events}>{'NEWS'}</NavElement>
+            </div>
+          }
+          <div className={style.actionItems}>
+            {
+              this.props.location &&
+              <NavElement to={this.props.navigation.search}><img src={searchIcon}/></NavElement>
             }
-            <NavElement to={this.props.navigation.locationSelection} className={cx(style.item, style.itemLocation)}>
-              <FontAwesome className={style.fontAwesome} name='map-marker'/>
-            </NavElement>
-            {/* Language */}
-            {this.props.location &&
-            <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-              <LanguageFlyout />
-            </HeaderDropDown>
-            }
+            <NavElement to={'/'}><img src={locationIcon}/></NavElement>
+            <NavElement to={'#'}><img src={languageIcon}/></NavElement>
           </div>
         </div>
       </header>
