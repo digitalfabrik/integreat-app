@@ -1,6 +1,6 @@
 @import url('../Helper/Helper.css');
 
-.thumbnail {
+.categoryThumbnail {
   display: block;
   width: 150px;
   height: 150px;
@@ -12,7 +12,7 @@
   transform: scale(1.01);
 }
 
-.caption {
+.categoryCaption {
   margin-top: 5px;
   text-align: center;
 }

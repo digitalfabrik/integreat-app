@@ -7,7 +7,7 @@ import { Col, Row } from 'react-flexbox-grid'
 import PageModel from 'endpoints/models/PageModel'
 import { Link } from 'redux-little-router'
 
-class Category extends React.Component {
+class FirstOrderCategory extends React.Component {
   static propTypes = {
     page: PropTypes.instanceOf(PageModel).isRequired,
     url: PropTypes.string.isRequired
@@ -17,8 +17,8 @@ class Category extends React.Component {
     return (
       <Col xs={6} sm={4} className={style.category}>
         <Link href={this.props.url}>
-          <img className={style.thumbnail} src={this.props.page.thumbnail}/>
-          <div className={style.caption}>{this.props.page.title}</div>
+          <img className={style.categoryThumbnail} src={this.props.page.thumbnail}/>
+          <div className={style.categoryCaption}>{this.props.page.title}</div>
         </Link>
       </Col>
     )
@@ -35,7 +35,7 @@ class CategoriesTable extends React.Component {
 
   render () {
     return <Row>
-      {this.props.pages.map(({page, url}) => <Category key={page.id} url={url} page={page}/>)}
+      {this.props.pages.map(({page, url}) => <FirstOrderCategory key={page.id} url={url} page={page}/>)}
     </Row>
   }
 }
