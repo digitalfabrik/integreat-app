@@ -7,7 +7,7 @@
 }
 
 .spacer {
-  margin-bottom: var(--header-height);
+  padding-bottom: var(--header-height);
 }
 
 .header {
