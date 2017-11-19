@@ -20,20 +20,12 @@
   width: 100%;
   height: var(--header-height);
   box-sizing: border-box;
+  align-items: center;
   padding: 0 calc((100% - 1000px) / 2);
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+  font-family: 'Raleway', 'El Messiri', sans-serif;
   background-color: #fafafa;
-
   grid-template: 'logo menu-items action-items' var(--header-height) / 30% 40% 30%;
-
-}
-
-/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-@media screen and (min-width: 1000px) {
-  .header {
-    padding-right: calc((200% - 100vw - 1000px) / 2);
-    padding-left: calc((100vw - 1000px) / 2);
-  }
 }
 
 .logo-wide {
@@ -46,15 +38,14 @@
 .menu-items {
   display: flex;
   grid-area: menu-items;
-
   align-items: center;
+
   justify-content: center;
 }
 
 .menu-items a {
   @mixin remove-a;
   flex: 1;
-  font-family: 'Raleway', 'El Messiri', sans-serif;
   font-size: 1.2em;
   font-weight: 500;
   text-align: center;
@@ -62,19 +53,37 @@
 
 .action-items {
   display: flex;
-
+  height: 40%;
   grid-area: action-items;
-  align-items: center;
   justify-content: flex-end;
 }
 
 .action-items > a {
-  display: inline-block;
-  height: 40%;
-  flex: 0;
+  height: 100%;
   margin: 0 10px;
 }
 
 .action-items > a > img {
   height: 100%;
+}
+
+@media screen and (max-width: 750px) {
+  .header {
+    height: calc(2 * var(--header-height-small));
+    grid-template:
+      'logo action-items' var(--header-height-small)
+      'menu-items menu-items' var(--header-height-small) / 40% 60%;
+  }
+
+  .menu-items a {
+    font-size: 1.1em;
+  }
+}
+
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+@media screen and (min-width: 1000px) {
+  .header {
+    padding-right: calc((200% - 100vw - 1000px) / 2);
+    padding-left: calc((100vw - 1000px) / 2);
+  }
 }
