@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
-import FontAwesome from 'react-fontawesome'
 
 import Navigation from 'Navigation'
 
@@ -14,27 +12,8 @@ import searchIcon from './assets/magnifier.svg'
 import locationIcon from './assets/location-icon.svg'
 import languageIcon from './assets/language-icon.svg'
 import logoWide from './assets/integreat-app-logo.png'
-import logoSquare from './assets/integreat-logo-square.png'
 import {Link} from 'redux-little-router'
 import {connect} from 'react-redux'
-
-class NavElement extends React.Component {
-  static propTypes = {
-    to: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    disableActiveStyle: PropTypes.bool
-  }
-
-  render() {
-    return (
-      <Link href={this.props.to}
-            activeProps={{className: this.props.disableActiveStyle ? this.props.className : cx(this.props.className, style.itemActive)}}
-            className={this.props.className}>
-        {this.props.children}
-      </Link>
-    )
-  }
-}
 
 class Header extends React.Component {
   static propTypes = {
@@ -51,18 +30,18 @@ class Header extends React.Component {
           {
             this.props.location &&
             <div className={style.menuItems}>
-              <NavElement to={this.props.navigation.home}>{'EXTRAS'}</NavElement>
-              <NavElement to={this.props.navigation.home}>{'KATEGORIEN'}</NavElement>
-              <NavElement to={this.props.navigation.events}>{'NEWS'}</NavElement>
+              <Link href={this.props.navigation.home}>{'EXTRAS'}</Link>
+              <Link href={this.props.navigation.home}>{'KATEGORIEN'}</Link>
+              <Link href={this.props.navigation.events}>{'NEWS'}</Link>
             </div>
           }
           <div className={style.actionItems}>
             {
               this.props.location &&
-              <NavElement to={this.props.navigation.search}><img src={searchIcon}/></NavElement>
+              <Link href={this.props.navigation.search}><img src={searchIcon}/></Link>
             }
-            <NavElement to={'/'}><img src={locationIcon}/></NavElement>
-            <NavElement to={'#'}><img src={languageIcon}/></NavElement>
+            <Link href={'/'}><img src={locationIcon}/></Link>
+            <Link href={'#'}><img src={languageIcon}/></Link>
           </div>
         </div>
       </header>
