@@ -27,22 +27,23 @@ class LocationEntry extends React.Component {
   }
 
   render () {
-    let location = this.props.location
+    const location = this.props.location
     return (
       <Link href={`/${location.code}/${this.props.language}`} className={style.languageListItem}>{location.name}</Link>
     )
   }
 }
 
-class Location extends React.Component {
+class LocationSelector extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     filterText: PropTypes.string.isRequired,
     language: PropTypes.string
   }
 
-  filter (locations) {
-    let filterText = this.props.filterText.toLowerCase()
+  filter () {
+    const filterText = this.props.filterText.toLowerCase()
+    let locations = this.props.locations
 
     if (filterText === 'wirschaffendas') {
       return filter(locations, (location) => !location.live)
@@ -59,14 +60,10 @@ class Location extends React.Component {
       if (isEmpty(locations)) {
         return
       }
-
-      let parent = <LocationParentEntry key={key} name={key}/>
-      let locationEntries = locations.map((location, index) => <LocationEntry location={location}
-                                                                              key={key + index}
-                                                                              language={this.props.language}/>)
-
-      result.push(parent)
-      result.push(locationEntries)
+      result.push(<LocationParentEntry key={key} name={key}/>)
+      result.push(locations.map((location, index) => <LocationEntry key={key + index}
+                                                                    location={location}
+                                                                    language={this.props.language}/>))
     }, [])
   }
 
@@ -75,7 +72,7 @@ class Location extends React.Component {
       <div>
         <div className={style.languageList}>
           {
-            this.renderList(this.filter(this.props.locations))
+            this.renderList(this.filter())
           }
         </div>
       </div>
@@ -83,4 +80,4 @@ class Location extends React.Component {
   }
 }
 
-export default Location
+export default LocationSelector

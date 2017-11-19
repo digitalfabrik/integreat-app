@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import LOCATIONS_ENDPOINT from 'endpoints/location'
-import FilterableLocationSelector from 'components/LocationSelector/FilterableLocationSelector'
+import FilterableLocationSelector from 'components/FilterableLocationSelector/index'
 import Footer from 'components/RichLayout/Footer'
 import withFetcher from 'endpoints/withFetcher'
 import LocationModel from 'endpoints/models/LocationModel'
