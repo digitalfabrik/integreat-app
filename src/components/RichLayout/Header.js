@@ -1,19 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'redux-little-router'
+import {connect} from 'react-redux'
 
 import Navigation from 'Navigation'
 
 import LanguageFlyout from 'components/LanguageFlyout'
-
 import HeaderDropDown from './HeaderDropDown'
-
 import style from './Header.css'
 import searchIcon from './assets/magnifier.svg'
 import locationIcon from './assets/location-icon.svg'
 import languageIcon from './assets/language-icon.svg'
 import logoWide from './assets/integreat-app-logo.png'
-import {Link} from 'redux-little-router'
-import {connect} from 'react-redux'
 
 class Header extends React.Component {
   static propTypes = {
@@ -32,10 +30,12 @@ class Header extends React.Component {
             <div className={style.actionItems}>
             {
               this.props.location &&
-              <Link href={this.props.navigation.search}><img src={searchIcon}/></Link>
+              <Link href={this.props.navigation.search} className={style.actionItem}><img src={searchIcon}/></Link>
             }
-            <Link href={'/'}><img src={locationIcon}/></Link>
-            <Link href={'#'}><img src={languageIcon}/></Link>
+            <Link href={'/'} className={style.actionItem}><img src={locationIcon}/></Link>
+            <HeaderDropDown iconSrc={languageIcon}>
+              <LanguageFlyout/>
+            </HeaderDropDown>
           </div>
           {
             this.props.location &&
