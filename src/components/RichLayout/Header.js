@@ -26,7 +26,17 @@ class Header extends React.Component {
     return (
       <header className={style.spacer}>
         <div className={style.header}>
-          <img src={logoWide} className={style.logoWide}/>
+          <div className={style.logoWide}>
+            <img src={logoWide}/>
+          </div>
+            <div className={style.actionItems}>
+            {
+              this.props.location &&
+              <Link href={this.props.navigation.search}><img src={searchIcon}/></Link>
+            }
+            <Link href={'/'}><img src={locationIcon}/></Link>
+            <Link href={'#'}><img src={languageIcon}/></Link>
+          </div>
           {
             this.props.location &&
             <div className={style.menuItems}>
@@ -35,14 +45,6 @@ class Header extends React.Component {
               <Link href={this.props.navigation.events}>{'NEWS'}</Link>
             </div>
           }
-          <div className={style.actionItems}>
-            {
-              this.props.location &&
-              <Link href={this.props.navigation.search}><img src={searchIcon}/></Link>
-            }
-            <Link href={'/'}><img src={locationIcon}/></Link>
-            <Link href={'#'}><img src={languageIcon}/></Link>
-          </div>
         </div>
       </header>
     )
