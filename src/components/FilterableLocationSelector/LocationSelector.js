@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isEmpty } from 'lodash/lang'
 
 import style from './style.css'
 import { transform } from 'lodash/object'
