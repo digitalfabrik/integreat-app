@@ -14,12 +14,10 @@ class RichLayout extends React.Component {
   render () {
     return (
       <div className={style.richLayout}>
-        <Header />
-
-        <Layout className={this.props.className}>
-          {this.props.children}
-        </Layout>
-
+        <div>
+          <Header />
+          <Layout className={this.props.className}>{this.props.children}</Layout>
+        </div>
         <Footer/>
       </div>
     )
