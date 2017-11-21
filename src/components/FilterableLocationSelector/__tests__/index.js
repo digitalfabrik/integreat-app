@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import LocationModel from 'endpoints/models/LocationModel'
 import FilterableLocationSelector from '../index'
 import store from 'store'
-import { mount, shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import LocationSelector from 'components/FilterableLocationSelector/LocationSelector'
 import Search from 'components/Search/Search'
 
@@ -40,7 +40,7 @@ describe('FilterableLocationSelector', () => {
       </Provider>
     )
 
-    const search = wrapper.find('Search')
+    const search = wrapper.find(Search)
     search.prop('onFilterTextChange')('City')
 
     const selector = wrapper.find(LocationSelector)

@@ -57,9 +57,6 @@ class LocationSelector extends React.Component {
   renderList (locations) {
     const groups = groupBy(locations, location => location.sortCategory)
     return transform(groups, (result, locations, key) => {
-      if (isEmpty(locations)) {
-        return
-      }
       result.push(<LocationParentEntry key={key} name={key}/>)
       result.push(locations.map((location, index) => <LocationEntry key={key + index}
                                                                     location={location}
