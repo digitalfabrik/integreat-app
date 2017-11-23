@@ -100,11 +100,6 @@ ReactDOM.render(App, container)
 // Sets the splash to hidden when the page is rendered
 document.getElementById('splash').className += ' splash-hidden'
 
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('/sw.js', {scope: '/'})
-    .catch((err) => console.error('Unable to register service worker.', err))
-}
-
 // Enables hot-module-reloading if it's enabled
 if (module.hot) {
   module.hot.accept()
