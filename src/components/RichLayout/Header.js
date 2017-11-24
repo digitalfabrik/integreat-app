@@ -4,6 +4,7 @@ import {Link} from 'redux-little-router'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import Headroom from 'react-headroom'
+import {translate} from 'react-i18next'
 
 import Navigation from 'Navigation'
 
@@ -49,6 +50,7 @@ class Header extends React.Component {
   }
 
   render () {
+    const {t} = this.props
     return (
       <Headroom>
         <div className={style.header}>
@@ -68,9 +70,9 @@ class Header extends React.Component {
           {
             this.isMenuEnabled() &&
             <div className={style.menuItems}>
-              { this.isExtrasEnabled() && <Link href={this.props.navigation.home}>{'EXTRAS'}</Link> }
-              <Link href={this.props.navigation.home}>{'KATEGORIEN'}</Link>
-              { this.isEventsEnabled() && <Link href={this.props.navigation.events}>{'NEWS'}</Link> }
+              { this.isExtrasEnabled() && <Link href={this.props.navigation.home}>{t('common:extras')}</Link> }
+              <Link href={this.props.navigation.home}>{t('common:categories')}</Link>
+              { this.isEventsEnabled() && <Link href={this.props.navigation.events}>{t('common:news')}</Link> }
             </div>
           }
         </div>
@@ -87,5 +89,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATION_ENDPOINT, true, true)
+  withFetcher(LOCATION_ENDPOINT, true, true),
+  translate('common')
 )(Header)
