@@ -24,7 +24,7 @@
   background-color: #fafafa;
 }
 
-.header div {
+.header > div {
   display: flex;
   height: var(--header-height);
   align-items: center;
@@ -77,34 +77,6 @@
   height: 100%;
 }
 
-@media screen and (max-width: 750px) {
-  .header {
-    flex-wrap: wrap;
-  }
-
-  .header div {
-    height: var(--header-height-small);
-  }
-
-  .header .action-items,
-  .header .logo-wide {
-    flex: 1 1 100px;
-  }
-
-  .menu-items {
-    flex: 1 0 100%;
-    order: 3;
-  }
-
-  .menu-items a {
-    font-size: 1em;
-  }
-
-  .spacer {
-    margin-bottom: calc(2 * var(--header-height-small));
-  }
-}
-
 .drop-down {
   position: absolute;
   top: var(--header-height);
@@ -124,6 +96,42 @@
   transform: scale(1);
   opacity: 1;
   pointer-events: auto;
+}
+
+@media screen and (max-width: 750px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .header > div {
+    height: var(--header-height-small);
+  }
+
+  .header .action-items,
+  .header .logo-wide {
+    flex: 1 1 100px;
+  }
+
+  .menu-items {
+    flex: 1 0 100%;
+    order: 3;
+  }
+
+  .menu-items a {
+    font-size: 1em;
+  }
+
+  .drop-down {
+    top: var(--header-height-small);
+  }
+
+  .spacer {
+    margin-bottom: var(--header-height-small);
+  }
+
+  .menu-enabled.spacer {
+    margin-bottom: calc(2 * var(--header-height-small));
+  }
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
