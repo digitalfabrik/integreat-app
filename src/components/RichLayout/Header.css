@@ -5,16 +5,7 @@
   --header-height-small: 70px;
 }
 
-.spacer {
-  margin-bottom: var(--header-height);
-}
-
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1000;
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -32,7 +23,6 @@
 
 .logo-wide {
   box-sizing: border-box;
-
   flex: 1 1 100px;
   order: 0;
   padding-left: 10px;
@@ -123,14 +113,6 @@
 
   .drop-down {
     top: var(--header-height-small);
-  }
-
-  .spacer {
-    margin-bottom: var(--header-height-small);
-  }
-
-  .menu-enabled.spacer {
-    margin-bottom: calc(2 * var(--header-height-small));
   }
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'redux-little-router'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import cx from 'classnames'
+import Headroom from 'react-headroom'
 
 import Navigation from 'Navigation'
 
@@ -50,7 +50,7 @@ class Header extends React.Component {
 
   render () {
     return (
-      <header className={cx(style.spacer, this.isMenuEnabled() ? style.menuEnabled : '')}>
+      <Headroom>
         <div className={style.header}>
           <div className={style.logoWide}>
             <img src={logoWide}/>
@@ -74,7 +74,7 @@ class Header extends React.Component {
             </div>
           }
         </div>
-      </header>
+      </Headroom>
     )
   }
 }
