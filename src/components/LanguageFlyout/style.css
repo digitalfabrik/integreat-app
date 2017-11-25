@@ -36,10 +36,10 @@
 
 @media screen and (max-width: 750px) {
   .element {
-    height: 70px;
-    min-width: 70px;
-    flex: 1 1 70px;
+    height: 60px;
+    min-width: 60px;
+    flex: 1 1 60px;
     font-size: 1em;
-    line-height: 70px;
+    line-height: 60px;
   }
 }
