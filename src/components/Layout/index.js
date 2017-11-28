@@ -12,7 +12,7 @@ class Layout extends React.Component {
   componentWillMount () {
     WebFont.load({
       google: {
-        families: ['El Messiri:300,400,700', 'Raleway:300,400,400i,700,700i']
+        families: ['El Messiri:300,400,700', 'Raleway:300,400,400i,600,700,700i,800']
       }
     })
   }
