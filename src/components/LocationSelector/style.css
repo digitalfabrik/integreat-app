@@ -1,3 +1,5 @@
+@import url('../Common/Colors.css');
+
 :root {
   --hover-color: rgba(0, 0, 0, 0.1);
   --item-height: 30px;
@@ -22,5 +24,5 @@
 .language-list-parent {
   height: var(--item-height);
   line-height: var(--item-height);
-  border-bottom: 1px solid rgba(255, 165, 0, 0.42);
+  border-bottom: 1px solid var(--theme-color);
 }

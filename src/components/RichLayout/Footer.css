@@ -1,11 +1,12 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 .footer {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   padding: 20px;
-  background-color: #fafafa;
+  background-color: var(--light-gray);
 }
 
 .item {

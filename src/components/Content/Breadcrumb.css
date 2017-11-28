@@ -1,4 +1,5 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 .breadcrumbs {
   white-space: nowrap;
@@ -6,13 +7,13 @@
 }
 
 .separator::after {
-  color: #e8e8e8;
+  color: var(--light-gray);
   font-size: 16px;
   content: ' > ';
 }
 
 .level {
-  color: #9c9c9c;
+  color: var(--medium-gray);
   font-size: 15px;
 }
 

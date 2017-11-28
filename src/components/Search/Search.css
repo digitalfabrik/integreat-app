@@ -1,3 +1,5 @@
+@import url('../Common/Colors.css');
+
 :root {
   --search-logo-width: 25px;
 }
@@ -18,14 +20,14 @@
   height: 25px;
   box-sizing: border-box;
   margin-left: 5px;
-  color: black;
+  color: var(--black);
   background: transparent;
   border-width: 0 0 1px;
-  border-color: black;
+  border-color: var(--black);
   outline: none;
   border-radius: 0;
 
   &::placeholder {
-    color: black;
+    color: var(--black);
   }
 }

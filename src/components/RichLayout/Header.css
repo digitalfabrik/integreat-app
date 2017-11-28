@@ -1,4 +1,5 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 :root {
   --logo-padding: 10px;
@@ -22,7 +23,7 @@
   box-sizing: border-box;
   padding: 0 calc((100% - 1000px) / 2);
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  background-color: #fafafa;
+  background-color: var(--light-gray);
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
@@ -63,7 +64,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 10px;
-  color: #888;
+  color: var(--medium-gray);
   font-size: 3rem;
   transition: color 0.2s, border-radius 0.2s;
   border-radius: 40px;
@@ -80,14 +81,14 @@
 }
 
 .item:hover {
-  color: black;
+  color: var(--black);
   border-radius: 0;
   cursor: pointer;
 }
 
 .item-active,
 .item-active:hover {
-  color: black;
+  color: var(--black);
   border-radius: 0;
 }
 
@@ -102,7 +103,7 @@
   box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transition: transform 0.2s, opacity 0.2s;
-  background-color: white;
+  background-color: var(--white);
   pointer-events: none;
 }
 

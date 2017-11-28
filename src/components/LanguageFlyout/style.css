@@ -1,11 +1,12 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 .language-flyout {
   display: flex;
   width: 100%;
   flex-flow: row wrap;
   justify-content: center;
-  color: black;
+  color: var(--black);
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 }
