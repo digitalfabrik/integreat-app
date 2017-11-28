@@ -35,8 +35,6 @@
 
 .menu-items {
   display: flex;
-
-  grid-area: menu-items;
   flex: 2 1 100px;
   align-items: center;
   justify-content: center;
