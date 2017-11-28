@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {compose} from 'redux'
 import Headroom from 'react-headroom'
 import {translate} from 'react-i18next'
+import cx from 'classnames'
 
 import Navigation from 'Navigation'
 
@@ -19,12 +20,26 @@ import LocationModel from 'endpoints/models/LocationModel'
 import withFetcher from 'endpoints/withFetcher'
 import LOCATION_ENDPOINT from 'endpoints/location'
 
+class MenuItem extends React.Component {
+  static propTypes = {
+    href: PropTypes.string.isRequired,
+    active: PropTypes.bool
+  }
+
+  render () {
+    return <Link href={this.props.href} className={cx(style.menuItem, this.props.active ? style.activeMenuItem : '')}>
+      {this.props.children}
+    </Link>
+  }
+}
+
 class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.string,
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel))
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
+    route: PropTypes.string.isRequired
   }
 
   getCurrentLocation () {
@@ -49,6 +64,18 @@ class Header extends React.Component {
     return location && location.eventsEnabled
   }
 
+  isExtrasSelected () {
+    return this.props.route === '/:location/:language/extras'
+  }
+
+  isEventsSelected () {
+    return this.props.route === '/:location/:language/events'
+  }
+
+  isCategoriesSelected () {
+    return !this.isExtrasSelected() && !this.isEventsSelected()
+  }
+
   render () {
     const {t} = this.props
     return (
@@ -70,9 +97,13 @@ class Header extends React.Component {
           {
             this.isMenuEnabled() &&
             <div className={style.menuItems}>
-              { this.isExtrasEnabled() && <Link href={this.props.navigation.home}>{t('common:extras')}</Link> }
-              <Link href={this.props.navigation.home}>{t('common:categories')}</Link>
-              { this.isEventsEnabled() && <Link href={this.props.navigation.events}>{t('common:news')}</Link> }
+              { this.isExtrasEnabled() &&
+                <MenuItem href={this.props.navigation.extras} active={this.isExtrasSelected()}>{t('common:extras')}</MenuItem>
+              }
+              <MenuItem href={this.props.navigation.home} active={this.isCategoriesSelected()}>{t('common:categories')}</MenuItem>
+              { this.isEventsEnabled() &&
+                <MenuItem href={this.props.navigation.events} active={this.isEventsSelected()}>{t('common:news')}</MenuItem>
+              }
             </div>
           }
         </div>
@@ -84,6 +115,7 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
+  route: state.router.route,
   navigation: new Navigation(state.router.params.location, state.router.params.language)
 })
 
