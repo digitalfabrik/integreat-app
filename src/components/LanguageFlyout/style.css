@@ -29,7 +29,12 @@
 }
 
 .element:hover {
-  background-color: rgba(251, 218, 24, 0.5);
+  font-size: 21px;
+  font-weight: 900;
   border-radius: 0;
   cursor: pointer;
+}
+
+.element-active:hover {
+  font-size: 21px;
 }
