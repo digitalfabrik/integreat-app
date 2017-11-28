@@ -16,5 +16,6 @@
   .layout {
     margin-right: 0;
     margin-left: calc(100vw - 100%);
+    background-color: #ffffff;
   }
 }
