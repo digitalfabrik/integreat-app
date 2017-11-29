@@ -18,7 +18,13 @@ export default new EndpointBuilder('locations')
   .withUrl('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
   .withMapper(json => {
     const locations = json
-      .map((location) => new LocationModel(location.name, stripSlashes(location.path), location.live))
+      .map((location) => new LocationModel({
+        name: location.name,
+        code: stripSlashes(location.path),
+        live: location.live,
+        eventsEnabled: location['ige-evts'] === '1',
+        extrasEnabled: true // todo: Adjust this in WEBAPP-64
+      }))
     return sortBy(locations, location => location.sortKey)
   })
   .build()

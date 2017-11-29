@@ -39,6 +39,13 @@ class Navigation {
     }
     return `/${this._location}/${this._language}/events`
   }
+
+  get extras () {
+    if (!this._language || !this._location) {
+      return '/'
+    }
+    return `/${this._location}/${this._language}/extras`
+  }
 }
 
 export default Navigation
