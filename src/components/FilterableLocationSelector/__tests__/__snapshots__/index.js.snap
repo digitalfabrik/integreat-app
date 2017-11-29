@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterableLocationSelector should render 1`] = `
+<div>
+  <div>
+    <img
+      className="logo"
+      src="test-file-stub"
+    />
+    <h1
+      className="caption"
+    >
+      Location
+    </h1>
+  </div>
+  <div
+    className={undefined}
+  >
+    <div
+      className="search"
+    >
+      <span
+        aria-hidden={true}
+        className="fa fa-search searchIcon"
+      />
+      <input
+        className="searchInput"
+        defaultValue=""
+        onChange={[Function]}
+        placeholder="Search"
+        type="text"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="languageList"
+    >
+      <div
+        className="languageListParent"
+      >
+        C
+      </div>
+      <a
+        className="languageListItem"
+        href="/city/de"
+        onClick={[Function]}
+        target={undefined}
+      >
+        City
+      </a>
+      <div
+        className="languageListParent"
+      >
+        O
+      </div>
+      <a
+        className="languageListItem"
+        href="/otherCity/de"
+        onClick={[Function]}
+        target={undefined}
+      >
+        Other city
+      </a>
+      <div
+        className="languageListParent"
+      >
+        Y
+      </div>
+      <a
+        className="languageListItem"
+        href="/yetanothercity/de"
+        onClick={[Function]}
+        target={undefined}
+      >
+        Yet another city
+      </a>
+    </div>
+  </div>
+</div>
+`;
