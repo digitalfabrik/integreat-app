@@ -8,10 +8,34 @@ import LocationSelector from '../LocationSelector'
 
 describe('LocationSelector', () => {
   const locations = [
-    new LocationModel('Kreis City', 'city', true),
-    new LocationModel('Other city', 'otherCity', true),
-    new LocationModel('Not-live', 'nonlive', false),
-    new LocationModel('Yet another city', 'yetanothercity', true)
+    new LocationModel({
+      name: 'City',
+      code: 'city',
+      live: true,
+      eventsEnabled: false,
+      extrasEnabled: false
+    }),
+    new LocationModel({
+      name: 'Other city',
+      code: 'otherCity',
+      live: true,
+      eventsEnabled: false,
+      extrasEnabled: false
+    }),
+    new LocationModel({
+      name: 'Not-live',
+      code: 'nonlive',
+      live: false,
+      eventsEnabled: false,
+      extrasEnabled: false
+    }),
+    new LocationModel({
+      name: 'Yet another city',
+      code: 'yetanothercity',
+      live: true,
+      eventsEnabled: false,
+      extrasEnabled: false
+    })
   ]
 
   test('should render', () => {
