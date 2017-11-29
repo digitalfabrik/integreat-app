@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import FontAwesome from 'react-fontawesome'
 import style from './Header.css'
 import onClickOutside from 'react-onclickoutside'
 
 class HeaderDropDown extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    fontAwesome: PropTypes.string.isRequired
+    iconSrc: PropTypes.string.isRequired
   }
 
   constructor (props) {
@@ -30,12 +29,9 @@ class HeaderDropDown extends React.Component {
 
   render () {
     return (
-      <span className={cx(this.props.className, style.dropDownItem)}>
-        <FontAwesome name={this.props.fontAwesome}
-                     className={cx(this.state.dropDownActive ? style.itemActive : '',
-                       style.item,
-                       style.fontAwesome)}
-                     onClick={this.toggleDropDown}/>
+      <span className={cx(this.props.className, style.actionItem)}>
+        <img src={this.props.iconSrc}
+             onClick={this.toggleDropDown}/>
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>
           {
             // Pass DropDownCallback as prop to children

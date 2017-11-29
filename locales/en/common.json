@@ -1,6 +1,9 @@
 {
   "location": "Location",
   "date": "Date",
+  "extras": "Extras",
+  "categories": "Categories",
+  "news": "News",
   "recentEvents": "Recent events",
   "currentlyNoEvents": "No recent events available.",
   "andMore": "And more...",

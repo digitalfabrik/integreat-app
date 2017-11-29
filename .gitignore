@@ -103,4 +103,4 @@ public/workbox-sw.prod.v*.js.map
 /tools/deploy/openconnect.*.config
 
 # Jest testing
-/src/__converage__/
+/__coverage__/
