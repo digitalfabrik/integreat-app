@@ -1,3 +1,10 @@
 .caption {
+  margin: 25px 0;
   text-align: center;
+}
+
+@media screen and (max-width: 750px) {
+  .caption {
+    margin: 10px 0;
+  }
 }
