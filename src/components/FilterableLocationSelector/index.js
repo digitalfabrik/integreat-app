@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import Heading from './Heading'
 import Search from 'components/Search/Search'
-import LocationSelector from '.'
-import LocationModel from '../../endpoints/models/LocationModel'
-import PropTypes from 'prop-types'
+import LocationSelector from './LocationSelector'
+import LocationModel from 'endpoints/models/LocationModel'
 
 class FilterableLocationSelector extends React.Component {
   static propTypes = {
