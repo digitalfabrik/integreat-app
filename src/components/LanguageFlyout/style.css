@@ -16,8 +16,8 @@
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
+  font-size: 1.2em;
   color: #888;
-  font-size: 20px;
   line-height: 85px;
   text-align: center;
   transition: background-color 0.2s, border-radius 0.2s;
@@ -35,4 +35,14 @@
   font-weight: 600;
   border-radius: 0;
   cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+  .element {
+    height: 60px;
+    min-width: 60px;
+    flex: 1 1 60px;
+    font-size: 1em;
+    line-height: 60px;
+  }
 }
