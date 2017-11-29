@@ -16,8 +16,8 @@
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
-  font-size: 1.2em;
   color: #888;
+  font-size: 1.2em;
   line-height: 85px;
   text-align: center;
   transition: background-color 0.2s, border-radius 0.2s;
