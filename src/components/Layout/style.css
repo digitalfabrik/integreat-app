@@ -18,6 +18,6 @@
   .layout {
     margin-right: 0;
     margin-left: calc(100vw - 100%);
-    background-color: var(--white);
+    background-color: var(--background-color);
   }
 }

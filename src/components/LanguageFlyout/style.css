@@ -6,7 +6,7 @@
   width: 100%;
   flex-flow: row wrap;
   justify-content: center;
-  color: var(--black);
+  color: var(--text-color);
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 }

@@ -20,14 +20,14 @@
   height: 25px;
   box-sizing: border-box;
   margin-left: 5px;
-  color: var(--black);
+  color: var(--text-color);
   background: transparent;
   border-width: 0 0 1px;
-  border-color: var(--black);
+  border-color: var(--text-secondary-color);
   outline: none;
   border-radius: 0;
 
   &::placeholder {
-    color: var(--black);
+    color: var(--text-color);
   }
 }
