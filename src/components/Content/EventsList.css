@@ -1,0 +1,39 @@
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
+
+.list a {
+  @mixin remove-a;
+}
+
+.event {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.event-thumbnail {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  padding: 5px;
+}
+
+.event-description {
+  height: 100%;
+  min-width: 1px; /* needed to enabled line breaks for to long words, exact value doesn't matter, @Max: DO NOT CHANGE */
+  flex-grow: 1;
+  margin-left: 15px;
+  padding: 15px 0;
+  border-bottom: 2px solid var(--theme-color);
+  border-top: 2px solid var(--theme-color);
+  word-wrap: break-word;
+}
+
+.event-title {
+  font-weight: 900;
+}
+
+.event-date {
+  padding-bottom: 20px;
+  font-weight: 200;
+}
