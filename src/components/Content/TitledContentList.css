@@ -1,7 +1,9 @@
+@import url('../Common/Colors.css');
+
 .horizontal-line {
   height: 100%;
   margin-bottom: 10px;
-  border-bottom: 2px solid #fbda16;
+  border-bottom: 2px solid var(--theme-color);
 }
 
 .heading {
@@ -21,4 +23,8 @@
 .short-text {
   text-align: center;
   list-style-position: inside;
+}
+
+.short-text * {
+  text-align: center !important;
 }

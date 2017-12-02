@@ -1,35 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'redux-little-router'
+import {connect} from 'react-redux'
+import {compose} from 'redux'
+import Headroom from 'react-headroom'
+import {translate} from 'react-i18next'
 import cx from 'classnames'
-import FontAwesome from 'react-fontawesome'
 
 import Navigation from 'Navigation'
 
 import LanguageFlyout from 'components/LanguageFlyout'
-
 import HeaderDropDown from './HeaderDropDown'
-
 import style from './Header.css'
+import searchIcon from './assets/magnifier.svg'
+import locationIcon from './assets/location-icon.svg'
+import languageIcon from './assets/language-icon.svg'
 import logoWide from './assets/integreat-app-logo.png'
-import logoSquare from './assets/integreat-logo-square.png'
-import { Link } from 'redux-little-router'
-import { connect } from 'react-redux'
+import LocationModel from 'endpoints/models/LocationModel'
+import withFetcher from 'endpoints/withFetcher'
+import LOCATION_ENDPOINT from 'endpoints/location'
 
-class NavElement extends React.Component {
+class MenuItem extends React.Component {
   static propTypes = {
-    to: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    disableActiveStyle: PropTypes.bool
+    href: PropTypes.string.isRequired,
+    active: PropTypes.bool
   }
 
   render () {
-    return (
-      <Link href={this.props.to}
-            activeProps={{className: this.props.disableActiveStyle ? this.props.className : cx(this.props.className, style.itemActive)}}
-            className={this.props.className}>
-        {this.props.children}
-      </Link>
-    )
+    return <Link href={this.props.href} className={cx(style.menuItem, this.props.active ? style.activeMenuItem : '')}>
+      {this.props.children}
+    </Link>
   }
 }
 
@@ -37,51 +37,90 @@ class Header extends React.Component {
   static propTypes = {
     languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
-    location: PropTypes.string
+    location: PropTypes.string,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
+    route: PropTypes.string.isRequired
+  }
+
+  getCurrentLocation () {
+    return this.props.locations.find((location) => location.code === this.props.location)
+  }
+
+  /**
+   * @returns {boolean} True, if there's a location available with events or extras enabled.
+   */
+  isMenuEnabled () {
+    const location = this.getCurrentLocation()
+    return !!location && (location.extrasEnabled || location.eventsEnabled)
+  }
+
+  isExtrasEnabled () {
+    const location = this.getCurrentLocation()
+    return location && location.extrasEnabled
+  }
+
+  isEventsEnabled () {
+    const location = this.getCurrentLocation()
+    return location && location.eventsEnabled
+  }
+
+  isExtrasSelected () {
+    return this.props.route === '/:location/:language/extras'
+  }
+
+  isEventsSelected () {
+    return this.props.route === '/:location/:language/events'
+  }
+
+  isCategoriesSelected () {
+    return !this.isExtrasSelected() && !this.isEventsSelected()
   }
 
   render () {
+    const {t} = this.props
     return (
-      <header className={style.spacer}>
+      <Headroom>
         <div className={style.header}>
-          {/* Logo */}
-          <NavElement to={this.props.navigation.home} className={style.logo} disableActiveStyle={true}>
-            <img className={style.logoWide}
-                 src={logoWide}/>
-            <img className={style.logoSquare}
-                 src={logoSquare}/>
-          </NavElement>
-          <div className={style.itemsContainer}>
-            {/* Home for small devices */}
-            <NavElement to={this.props.navigation.home} className={cx(style.item, style.itemHome)}>
-              <FontAwesome className={style.fontAwesome} name='home'/>
-            </NavElement>
-            {/* Location */}
-            {this.props.location &&
-            <NavElement to={this.props.navigation.search} className={cx(style.item, style.itemSearch)}>
-              <FontAwesome className={style.fontAwesome} name='search'/>
-            </NavElement>
-            }
-            <NavElement to={this.props.navigation.locationSelection} className={cx(style.item, style.itemLocation)}>
-              <FontAwesome className={style.fontAwesome} name='map-marker'/>
-            </NavElement>
-            {/* Language */}
-            {this.props.location &&
-            <HeaderDropDown className={style.itemLanguage} fontAwesome="language">
-              <LanguageFlyout />
-            </HeaderDropDown>
-            }
+          <div className={style.logoWide}>
+            <img src={logoWide}/>
           </div>
+            <div className={style.actionItems}>
+            {
+              this.props.location &&
+              <Link href={this.props.navigation.search} className={style.actionItem}><img src={searchIcon}/></Link>
+            }
+            <Link href={'/'} className={style.actionItem}><img src={locationIcon}/></Link>
+            <HeaderDropDown iconSrc={languageIcon}>
+              <LanguageFlyout/>
+            </HeaderDropDown>
+          </div>
+          {
+            this.isMenuEnabled() &&
+            <div className={style.menuItems}>
+              { this.isExtrasEnabled() &&
+                <MenuItem href={this.props.navigation.extras} active={this.isExtrasSelected()}>{t('common:extras')}</MenuItem>
+              }
+              <MenuItem href={this.props.navigation.home} active={this.isCategoriesSelected()}>{t('common:categories')}</MenuItem>
+              { this.isEventsEnabled() &&
+                <MenuItem href={this.props.navigation.events} active={this.isEventsSelected()}>{t('common:news')}</MenuItem>
+              }
+            </div>
+          }
         </div>
-      </header>
+      </Headroom>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  location: state.router.params.location,
   language: state.router.params.language,
+  location: state.router.params.location,
+  route: state.router.route,
   navigation: new Navigation(state.router.params.location, state.router.params.language)
 })
 
-export default connect(mapStateToProps)(Header)
+export default compose(
+  connect(mapStateToProps),
+  withFetcher(LOCATION_ENDPOINT, true, true),
+  translate('common')
+)(Header)

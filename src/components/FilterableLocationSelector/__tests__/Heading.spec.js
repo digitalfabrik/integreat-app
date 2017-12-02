@@ -7,11 +7,7 @@ jest.mock('store')
 jest.mock('react-i18next')
 
 describe('Heading', () => {
-  test('should match snapshot', () => {
-    const component = renderer.create(
-      <Heading/>
-    )
-
-    expect(component.toJSON()).toMatchSnapshot()
+  test('should render', () => {
+    renderer.create(<Heading/>)
   })
 })

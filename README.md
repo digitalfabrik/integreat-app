@@ -14,8 +14,7 @@ For git commit messages: https://github.com/erlang/otp/wiki/Writing-good-commit-
 ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg) with:
 * **`YYYY`** - Full year - 2006, 2016
 * **`MM`** - Short month - 1, 2 ... 11, 12
-* **`PATCH`** - The third and usually final number in the version. Sometimes
-  referred to as the "patch" segment.
+* **`Minor`** - The third number in the version. For feature and bugfix releases.
 
 ## Technology stack
 

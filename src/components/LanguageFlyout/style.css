@@ -1,11 +1,12 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 .language-flyout {
   display: flex;
   width: 100%;
   flex-flow: row wrap;
   justify-content: center;
-  color: black;
+  color: var(--text-color);
   font-family: 'Raleway', 'El Messiri', sans-serif;
   text-align: center;
 }
@@ -16,7 +17,7 @@
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
-  font-size: 20px;
+  font-size: 1.2em;
   line-height: 85px;
   text-align: center;
   transition: background-color 0.2s, border-radius 0.2s;
@@ -32,4 +33,14 @@
   background-color: rgba(251, 218, 24, 0.5);
   border-radius: 0;
   cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+  .element {
+    height: 60px;
+    min-width: 60px;
+    flex: 1 1 60px;
+    font-size: 1em;
+    line-height: 60px;
+  }
 }

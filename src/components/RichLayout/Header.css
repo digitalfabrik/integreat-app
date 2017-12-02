@@ -1,94 +1,74 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 :root {
-  --logo-padding: 10px;
   --header-height: 85px;
-  --header-height-small: 70px;
-}
-
-.spacer {
-  margin-bottom: var(--header-height);
+  --header-height-small: 60px;
 }
 
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1000;
   display: flex;
   width: 100%;
-  height: var(--header-height);
   box-sizing: border-box;
-  padding: 0 calc((100% - 1000px) / 2);
+  align-items: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  background-color: #fafafa;
+  font-family: 'Raleway', 'El Messiri', sans-serif;
+  background-color: var(--background-accent-color);
 }
 
-/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-@media screen and (min-width: 1000px) {
-  .header {
-    padding-right: calc((200% - 100vw - 1000px) / 2);
-    padding-left: calc((100vw - 1000px) / 2);
-  }
+.header > div {
+  display: flex;
+  height: var(--header-height);
+  align-items: center;
 }
 
-.logo-square {
-  display: none;
-}
-
-.logo {
-  height: 100%;
+.logo-wide {
+  box-sizing: border-box;
+  flex: 1 1 100px;
   order: 0;
+  padding: 0 10px;
 }
 
-.logo > img {
-  height: calc(100% - 2 * var(--logo-padding));
-  padding: var(--logo-padding);
+.logo-wide img {
+  max-width: 100%;
+  max-height: 60%;
 }
 
-.items-container {
+.menu-items {
   display: flex;
-  flex-grow: 1;
-  justify-content: flex-end;
-}
-
-.item,
-.drop-down-item {
-  @mixin remove-a;
-  display: flex;
-  height: 100%;
-  flex-basis: var(--header-height);
-  flex-shrink: 0.5;
+  flex: 2 1 100px;
   align-items: center;
   justify-content: center;
-  margin: 0 10px;
-  color: #888;
-  font-size: 3rem;
-  transition: color 0.2s, border-radius 0.2s;
-  border-radius: 40px;
+  order: 1;
 }
 
-.font-awesome {
-  color: inherit;
-  line-height: var(--header-height);
+.menu-item {
+  @mixin remove-a;
+  flex: 1;
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
 }
 
-.drop-down-item > .item {
-  flex-shrink: unset;
-  margin: 0;
+.menu-item.active-menu-item {
+  font-weight: 700;
 }
 
-.item:hover {
-  color: black;
-  border-radius: 0;
+.action-items {
+  flex: 1 1 100px;
+  justify-content: flex-end;
+  order: 2;
+}
+
+.action-item {
+  height: 80%;
   cursor: pointer;
 }
 
-.item-active,
-.item-active:hover {
-  color: black;
-  border-radius: 0;
+.action-item img {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20%;
 }
 
 .drop-down {
@@ -99,10 +79,10 @@
   transform: scale(0.9);
   transform-origin: center top;
   justify-content: center;
-  box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transition: transform 0.2s, opacity 0.2s;
-  background-color: white;
+  background-color: var(--background-color);
   pointer-events: none;
 }
 
@@ -112,71 +92,42 @@
   pointer-events: auto;
 }
 
-.item-home {
-  display: none;
-}
-
-/* smaller home-icon */
-@media screen and (max-width: 700px) {
-  .logo {
-    padding: 0 5px;
-  }
-
-  .logo-wide {
-    display: none;
-  }
-
-  .logo-square {
-    display: block;
-  }
-
-  .item,
-  .drop-down-item {
-    margin: 0 5px;
-  }
-}
-
-/* landscape mobile / nottablet */
-@media screen and (orientation: landscape) and (max-width: 800px), screen and (max-width: 425px) {
+@media screen and (max-width: 750px) {
   .header {
+    flex-wrap: wrap;
+  }
+
+  .header > div {
     height: var(--header-height-small);
   }
 
-  .spacer {
-    margin-bottom: var(--header-height-small);
+  .header .action-items,
+  .header .logo-wide {
+    flex: 1 1 100px;
+  }
+
+  .menu-items {
+    flex: 1 0 100%;
+    order: 3;
+  }
+
+  .menu-item {
+    font-size: 1em;
   }
 
   .drop-down {
     top: var(--header-height-small);
   }
 
-  .font-awesome {
-    line-height: var(--header-height-small);
-  }
-
-  .item,
-  .drop-down-item {
-    flex-basis: var(--header-height-small);
-    font-size: 2.3rem;
+  .logo-wide img {
+    max-height: 75%;
   }
 }
 
-/* mobile portrait / desktop small window / ... */
-@media screen and (max-width: 425px) {
-  .logo {
-    display: none;
-  }
-
-  .items-container {
-    justify-content: space-around;
-  }
-
-  .item-home {
-    display: flex;
-  }
-
-  .item,
-  .drop-down-item {
-    margin: 0;
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+@media screen and (min-width: 1000px) {
+  .header {
+    padding-right: calc((200% - 100vw - 1000px) / 2);
+    padding-left: calc((100vw - 1000px) / 2);
   }
 }

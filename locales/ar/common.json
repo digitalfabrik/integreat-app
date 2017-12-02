@@ -1,6 +1,9 @@
 {
   "location": "الموقع",
   "date": "تاريخ",
+  "extras": "إضافات",
+  "categories": "الفئات",
+  "news": "الأخبار",
   "recentEvents": "Recent events",
   "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً",
   "andMore": "And more..."
