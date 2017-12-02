@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import { Row } from 'react-flexbox-grid'
 import { isEmpty } from 'lodash/lang'
 import normalizeUrl from 'normalize-url'
 import compose from 'lodash/fp/compose'
@@ -15,10 +14,7 @@ import withFetcher from 'endpoints/withFetcher'
 
 import Page from './Page'
 import TitledCategoriesTable from './TitledCategoriesTable'
-import style from './index.css'
 import TitledContentList from './TitledContentList'
-import EventSnippet from './EventSnippet'
-import Navigation from '../../Navigation'
 
 class Content extends React.Component {
   static propTypes = {
@@ -30,14 +26,8 @@ class Content extends React.Component {
     url: PropTypes.string.isRequired
   }
 
-  hasEvents () {
-    return !isEmpty(this.props.events)
-  }
-
   render () {
-    const {t} = this.props
     const hierarchy = this.props.hierarchy
-    const navigation = new Navigation(this.props.location, this.props.language)
     const page = hierarchy.top()
 
     if (isEmpty(page.children)) {
@@ -50,11 +40,7 @@ class Content extends React.Component {
     const pages = page.children.map((page) => ({page, url: `${base}/${page.id}`}))
 
     if (hierarchy.root()) {
-      return <div>
-        {this.hasEvents() && <EventSnippet events={this.props.events} navigation={navigation}/>}
-        <TitledCategoriesTable pages={pages} parentPage={page}/>
-        {!this.hasEvents() && <Row className={style.noEvents}>{t('common:currentlyNoEvents')}</Row>}
-      </div>
+      return <TitledCategoriesTable pages={pages} parentPage={page}/>
     } else {
       return <TitledContentList parentPage={page} pages={pages}/>
     }
