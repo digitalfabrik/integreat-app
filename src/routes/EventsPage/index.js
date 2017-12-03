@@ -8,13 +8,10 @@ import withFetcher from 'endpoints/withFetcher'
 import withAvailableLanguageUpdater from 'hocs/withAvailableLanguageUpdater'
 import compose from 'redux/es/compose'
 import EventList from '../../components/Content/EventsList'
-import Events from '../../components/Content/Events'
+import Event from '../../components/Content/Event'
 
 class EventsPage extends React.Component {
   static propTypes = {
-    /**
-     * from withFetcher HOC which provides data from EVENTS_ENDPOINT
-     */
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
@@ -26,11 +23,14 @@ class EventsPage extends React.Component {
   }
 
   render () {
+    // todo make this more elegant
+    let events = this.props.events.map((event, index) => ({event: event, thumbnailPlaceholder: index % 3}))
+
     if (this.props.path) {
-      // todo change this to one element
-      return <Events events={this.props.events}/>
+      // todo replace remove /events/ from this.props.path with a better solution
+      return <Event event={events.find((event) => event.event.id.toString() === this.props.path.slice(7))}/>
     }
-    return <EventList events={this.props.events} url={this.getPath()}/>
+    return <EventList events={events} url={this.getPath()}/>
   }
 }
 

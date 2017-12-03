@@ -8,24 +8,23 @@
 .event {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
 }
 
 .event-thumbnail {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   flex-shrink: 0;
   padding: 5px;
 }
 
 .event-description {
   height: 100%;
-  min-width: 1px; /* needed to enabled line breaks for to long words, exact value doesn't matter, @Max: DO NOT CHANGE */
+  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   margin-left: 15px;
   padding: 15px 0;
   border-bottom: 2px solid var(--theme-color);
-  border-top: 2px solid var(--theme-color);
   word-wrap: break-word;
 }
 
@@ -34,6 +33,10 @@
 }
 
 .event-date {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   font-weight: 200;
+}
+
+.horizontal-line {
+  border-bottom: 2px solid var(--theme-color);
 }
