@@ -15,7 +15,8 @@ class Event extends React.Component {
   static propTypes = {
     event: PropTypes.instanceOf(EventModel).isRequired,
     parentUrl: PropTypes.string.isRequired,
-    thumbnailPlaceholder: PropTypes.number.isRequired
+    thumbnailPlaceholder: PropTypes.number.isRequired,
+    language: PropTypes.string.isRequired
   }
 
   getUrl () {
@@ -37,7 +38,7 @@ class Event extends React.Component {
           <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
           <div className={style.eventDescription}>
             <div className={style.eventTitle}>{this.props.event.title}</div>
-            <div className={style.eventDate}>{this.props.event.getDate('de')}, {this.props.event.address}</div>
+            <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
             <div className={style.eventExcerpt}>{this.props.event.excerpt}</div>
           </div>
         </div>
@@ -52,7 +53,8 @@ class EventList extends React.Component {
       event: PropTypes.instanceOf(EventModel).isRequired,
       thumbnailPlaceholder: PropTypes.number.isRequired
     })).isRequired,
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired
   }
 
   render () {
@@ -65,7 +67,8 @@ class EventList extends React.Component {
             <Event key={event.event.id}
                    event={event.event}
                    parentUrl={this.props.url}
-                   thumbnailPlaceholder={event.thumbnailPlaceholder}/>)
+                   thumbnailPlaceholder={event.thumbnailPlaceholder}
+                   language={this.props.language}/>)
           : <div>Currently there are no events</div>
         }
       </div>

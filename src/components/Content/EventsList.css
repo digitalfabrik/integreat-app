@@ -15,6 +15,7 @@
   width: 100px;
   height: 100px;
   flex-shrink: 0;
+  align-self: flex-start;
   padding: 5px;
 }
 
