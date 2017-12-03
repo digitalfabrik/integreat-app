@@ -1,4 +1,5 @@
-@import url('../Helper/Helper.css');
+@import url('../Common/Helper.css');
+@import url('../Common/Colors.css');
 
 :root {
   --header-height: 85px;
@@ -12,7 +13,7 @@
   align-items: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   font-family: 'Raleway', 'El Messiri', sans-serif;
-  background-color: #fafafa;
+  background-color: var(--background-accent-color);
 }
 
 .header > div {
@@ -81,7 +82,7 @@
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transition: transform 0.2s, opacity 0.2s;
-  background-color: white;
+  background-color: var(--background-color);
   pointer-events: none;
 }
 
