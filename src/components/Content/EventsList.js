@@ -10,6 +10,7 @@ import style from './EventsList.css'
 import EventPlaceholder1 from '../../components/Content/assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../../components/Content/assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../components/Content/assets/EventPlaceholder3.jpg'
+import RemoteContent from './RemoteContent'
 
 class Event extends React.Component {
   static propTypes = {
@@ -39,7 +40,7 @@ class Event extends React.Component {
           <div className={style.eventDescription}>
             <div className={style.eventTitle}>{this.props.event.title}</div>
             <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
-            <div className={style.eventExcerpt}>{this.props.event.excerpt}</div>
+            <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt}}/>
           </div>
         </div>
       </Link>
