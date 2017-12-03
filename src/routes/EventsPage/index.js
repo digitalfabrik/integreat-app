@@ -23,12 +23,10 @@ class EventsPage extends React.Component {
   }
 
   render () {
-    // todo make this more elegant
     let events = this.props.events.map((event, index) => ({event: event, thumbnailPlaceholder: index % 3}))
 
     if (this.props.path) {
-      // todo replace remove /events/ from this.props.path with a better solution
-      return <Event event={events.find((event) => event.event.id.toString() === this.props.path.slice(7))}
+      return <Event event={events.find((event) => event.event.id.toString() === this.props.path.replace('/', ''))}
                     language={this.props.language}/>
     }
     return <EventList events={events} url={this.getPath()} language={this.props.language}/>

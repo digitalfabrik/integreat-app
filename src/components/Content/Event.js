@@ -24,8 +24,8 @@ class Event extends React.Component {
 
   getEventPlaceholder () {
     return (
-      this.props.thumbnailPlaceholder === 0 ? EventPlaceholder1
-        : this.props.thumbnailPlaceholder === 1 ? EventPlaceholder2
+      this.props.event.thumbnailPlaceholder % 3 === 0 ? EventPlaceholder1
+        : this.props.event.thumbnailPlaceholder % 3 === 1 ? EventPlaceholder2
         : EventPlaceholder3
     )
   }
