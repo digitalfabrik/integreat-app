@@ -17,7 +17,7 @@
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
-  color: #888;
+  color: var(--text-secondary-color);
   font-size: 1.2em;
   line-height: 85px;
   text-align: center;
@@ -27,12 +27,12 @@
 }
 
 .element-active {
-  color: #000;
+  color: var(--text-color);
   font-weight: 700;
 }
 
 .element:hover {
-  color: #000;
+  color: var(--text-color);
   font-weight: 600;
   border-radius: 0;
   cursor: pointer;
