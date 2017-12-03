@@ -5,19 +5,38 @@ import EventModel from '../../endpoints/models/EventModel'
 import RemoteContent from './RemoteContent'
 
 import style from './Event.css'
+import EventPlaceholder1 from '../../components/Content/assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from '../../components/Content/assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from '../../components/Content/assets/EventPlaceholder3.jpg'
+import Caption from './Caption'
 
+/**
+ *
+ */
 class Event extends React.Component {
   static propTypes = {
-    event: PropTypes.instanceOf(EventModel).isRequired
+    event: PropTypes.shape({
+      event: PropTypes.instanceOf(EventModel).isRequired,
+      thumbnailPlaceholder: PropTypes.number.isRequired
+    }).isRequired,
+    language: PropTypes.string.isRequired
+  }
+
+  getEventPlaceholder () {
+    return (
+      this.props.thumbnailPlaceholder === 0 ? EventPlaceholder1
+        : this.props.thumbnailPlaceholder === 1 ? EventPlaceholder2
+        : EventPlaceholder3
+    )
   }
 
   render () {
     return (
       <div>
-        <img className={style.eventThumbnail} src={this.props.event.thumbnail}/>
-        <div className={style.eventTitle}>{this.props.event.title}</div>
-        <div className={style.eventDateAdress}>{this.props.event.getDate('de')}, {this.props.event.address}</div>
-        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.content}}/>
+        <img className={style.thumbnail} src={this.props.event.event.thumbnail || this.getEventPlaceholder()}/>
+        <Caption title={this.props.event.event.title}/>
+        <div className={style.date}>{this.props.event.event.getDate(this.props.language)}, {this.props.event.event.address}</div>
+        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.event.content}}/>
       </div>
     )
   }
