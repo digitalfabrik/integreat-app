@@ -11,6 +11,7 @@ import EventPlaceholder1 from '../../components/Content/assets/EventPlaceholder1
 import EventPlaceholder2 from '../../components/Content/assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../components/Content/assets/EventPlaceholder3.jpg'
 import RemoteContent from './RemoteContent'
+import { translate } from 'react-i18next'
 
 class Event extends React.Component {
   static propTypes = {
@@ -59,9 +60,10 @@ class EventList extends React.Component {
   }
 
   render () {
+    const {t} = this.props
     return (
       <div className={style.list}>
-        <Caption title={'Events'}/>
+        <Caption title={t('common:news')}/>
         <div className={style.horizontalLine}/>
         { this.props.events
           ? this.props.events.map((event) =>
@@ -70,11 +72,11 @@ class EventList extends React.Component {
                    parentUrl={this.props.url}
                    thumbnailPlaceholder={event.thumbnailPlaceholder}
                    language={this.props.language}/>)
-          : <div>Currently there are no events</div>
+          : <div>{t('common:currentlyNoEvents')}</div>
         }
       </div>
     )
   }
 }
 
-export default EventList
+export default translate('common')(EventList)

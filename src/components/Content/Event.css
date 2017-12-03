@@ -11,7 +11,14 @@
   padding-bottom: 10px;
 }
 
+.identifier {
+  font-weight: 900;
+}
+
 .date {
-  padding-bottom: 10px;
+  font-weight: 200;
+}
+
+.location {
   font-weight: 200;
 }

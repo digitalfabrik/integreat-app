@@ -9,6 +9,7 @@ import EventPlaceholder1 from '../../components/Content/assets/EventPlaceholder1
 import EventPlaceholder2 from '../../components/Content/assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../components/Content/assets/EventPlaceholder3.jpg'
 import Caption from './Caption'
+import { translate } from 'react-i18next'
 
 /**
  *
@@ -31,15 +32,23 @@ class Event extends React.Component {
   }
 
   render () {
+    const {t} = this.props
     return (
       <div>
         <img className={style.thumbnail} src={this.props.event.event.thumbnail || this.getEventPlaceholder()}/>
         <Caption title={this.props.event.event.title}/>
-        <div className={style.date}>{this.props.event.event.getDate(this.props.language)}, {this.props.event.event.address}</div>
+        <div>
+          <span className={style.identifier}>{t('common:date')}: </span>
+          <span className={style.date}>{this.props.event.event.getDate(this.props.language)}</span>
+        </div>
+        <div>
+          <span className={style.identifier}>{t('common:location')}: </span>
+          <span className={style.date}>{this.props.event.event.address}</span>
+        </div>
         <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.event.content}}/>
       </div>
     )
   }
 }
 
-export default Event
+export default translate('common')(Event)
