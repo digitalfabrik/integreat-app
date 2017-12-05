@@ -7,16 +7,17 @@
 
 .event {
   display: flex;
-  align-items: center;
-  margin-bottom: 1px;
 }
 
 .event-thumbnail {
   width: 100px;
   height: 100px;
   flex-shrink: 0;
-  align-self: flex-start;
-  padding: 5px;
+  padding: 15px 5px;
+}
+
+.first-description {
+  border-top: 2px solid var(--theme-color);
 }
 
 .event-description {
@@ -40,4 +41,10 @@
 
 .horizontal-line {
   border-bottom: 2px solid var(--theme-color);
+}
+
+.no-events {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
 }

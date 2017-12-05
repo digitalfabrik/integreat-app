@@ -5,6 +5,7 @@ import { Link } from 'redux-little-router'
 import EventModel from '../../endpoints/models/EventModel'
 import Caption from './Caption'
 
+import cx from 'classnames'
 import style from './EventsList.css'
 
 import EventPlaceholder1 from '../../components/Content/assets/EventPlaceholder1.jpg'
@@ -18,7 +19,8 @@ class Event extends React.Component {
     event: PropTypes.instanceOf(EventModel).isRequired,
     parentUrl: PropTypes.string.isRequired,
     thumbnailPlaceholder: PropTypes.number.isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    isFirst: PropTypes.bool.isRequired
   }
 
   getUrl () {
@@ -38,7 +40,7 @@ class Event extends React.Component {
       <Link href={this.getUrl()}>
         <div className={style.event}>
           <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
-          <div className={style.eventDescription}>
+          <div className={this.props.isFirst ? cx(style.firstDescription, style.eventDescription) : style.eventDescription}>
             <div className={style.eventTitle}>{this.props.event.title}</div>
             <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
             <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt}}/>
@@ -64,15 +66,15 @@ class EventList extends React.Component {
     return (
       <div className={style.list}>
         <Caption title={t('common:news')}/>
-        <div className={style.horizontalLine}/>
-        { this.props.events
-          ? this.props.events.map((event) =>
+        { this.props.events && this.props.events.length !== 0
+          ? this.props.events.map((event, index) =>
             <Event key={event.event.id}
                    event={event.event}
                    parentUrl={this.props.url}
                    thumbnailPlaceholder={event.thumbnailPlaceholder}
-                   language={this.props.language}/>)
-          : <div>{t('common:currentlyNoEvents')}</div>
+                   language={this.props.language}
+                   isFirst={index === 0}/>)
+          : <div className={style.noEvents}>{t('common:currentlyNoEvents')}</div>
         }
       </div>
     )
