@@ -1,0 +1,16 @@
+@import url('../../../common/constants/helpers.css');
+@import url('../../../common/constants/colors.css');
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--background-accent-color);
+}
+
+.item {
+  @mixin remove-a;
+  margin: 5px;
+  font-family: 'Raleway', 'El Messiri', sans-serif;
+}
