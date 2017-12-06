@@ -1,8 +1,13 @@
 @import url('../Common/Colors.css');
+@import url('../Common/Helper.css');
 
 .remote-content img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.remote-content {
+  font-family: var(--content-fonts);
 }
 
 .remote-content table {
