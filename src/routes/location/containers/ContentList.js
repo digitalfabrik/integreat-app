@@ -5,7 +5,7 @@ import { Link } from 'redux-little-router'
 import style from './ContentList.css'
 import PageModel from 'modules/endpoint/models/PageModel'
 
-import IconPlaceholder from './assets/IconPlaceholder.svg'
+import IconPlaceholder from '../../events/components/assets/IconPlaceholder.svg'
 
 class SecondOrderCategory extends React.Component {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import LocationBig from './assets/LocationBig.svg'
-import style from './Heading.css'
+import style from './style.css'
 import { translate } from 'react-i18next'
 import Caption from 'modules/common/components/Caption'
 

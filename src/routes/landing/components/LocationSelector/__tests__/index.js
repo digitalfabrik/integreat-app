@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
-import LocationSelector from '../LocationSelector'
+import LocationSelector from '../index'
 
 describe('LocationSelector', () => {
   const locations = [

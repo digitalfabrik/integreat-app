@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Heading from '../Heading'
+import Heading from '../index'
 
 jest.mock('store')
 jest.mock('react-i18next')

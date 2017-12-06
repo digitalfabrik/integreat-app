@@ -7,7 +7,7 @@ import normalizeUrl from 'normalize-url'
 import compose from 'lodash/fp/compose'
 
 import EventModel from 'modules/endpoint/models/EventModel'
-import Hierarchy from 'routes/location/containers/LocationPage/Hierarchy'
+import Hierarchy from 'routes/location/Hierarchy'
 
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
 import withFetcher from 'modules/endpoint/hocs/withFetcher/index'

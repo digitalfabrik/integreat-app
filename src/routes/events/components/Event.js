@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import EventModel from '../../../modules/endpoint/models/EventModel'
-import RemoteContent from '../../../modules/common/components/RemoteContent'
+import EventModel from '/modules/endpoint/models/EventModel'
+import RemoteContent from '/modules/common/components/RemoteContent'
 
 import style from './Event.css'
-import EventPlaceholder1 from '../../location/containers/assets/EventPlaceholder1.jpg'
-import EventPlaceholder2 from '../../location/containers/assets/EventPlaceholder2.jpg'
-import EventPlaceholder3 from '../../location/containers/assets/EventPlaceholder3.jpg'
-import Caption from '../../../modules/common/components/Caption'
+import EventPlaceholder1 from './assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from './assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from './assets/EventPlaceholder3.jpg'
+import Caption from '/modules/common/components/Caption'
 import { translate } from 'react-i18next'
 
 /**

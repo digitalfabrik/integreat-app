@@ -11,7 +11,7 @@ import PdfButton from 'routes/location/components/PdfButton'
 import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
-import Hierarchy from './Hierarchy'
+import Hierarchy from '../../Hierarchy'
 import { setLanguageChangeUrls } from 'modules/app/actions/set-language'
 import { reduce } from 'lodash/collection'
 import PageModel from 'modules/endpoint/models/PageModel'
