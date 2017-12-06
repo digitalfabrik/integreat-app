@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
-import { goBack } from 'redux-little-router';
+import { goBack } from 'redux-little-router'
 
 import style from './style.css'
 import { connect } from 'react-redux'
