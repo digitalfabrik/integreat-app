@@ -13,7 +13,7 @@ import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './style.css'
-import Error from 'modules/common/components/Error'
+import Error from 'modules/common/containers/Error'
 import Hierarchy from 'routes/location/Hierarchy'
 import PageModel from 'modules/endpoint/models/PageModel'
 

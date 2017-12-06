@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
-
-import { history } from 'modules/app/Store'
+import { goBack } from 'redux-little-router';
 
 import style from './style.css'
+import { connect } from 'react-redux'
 
 class Error extends React.Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class Error extends React.Component {
    */
   goBack (event) {
     event.preventDefault()
-    history.goBack()
+    this.props.dispatch(goBack())
   }
 
   render () {
@@ -31,4 +31,4 @@ class Error extends React.Component {
   }
 }
 
-export default translate('errors')(Error)
+export default connect()(translate('errors')(Error))

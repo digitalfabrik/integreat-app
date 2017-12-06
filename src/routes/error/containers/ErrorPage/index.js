@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Error from 'modules/common/components/Error'
+import Error from 'modules/common/containers/Error'
 
 class ErrorPage extends React.Component {
   render () {

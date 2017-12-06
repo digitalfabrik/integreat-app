@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer'
 
 import Heading from '..'
 
-jest.mock('store')
 jest.mock('react-i18next')
 
 describe('Heading', () => {
