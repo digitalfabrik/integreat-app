@@ -1,5 +1,5 @@
-@import url('/modules/common/constants/helpers.css');
-@import url('/modules/common/constants/colors.css');
+@import url('../../../modules/common/constants/helpers.css');
+@import url('../../../modules/common/constants/colors.css');
 
 .list a {
   @mixin remove-a;

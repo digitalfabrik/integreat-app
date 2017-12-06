@@ -2,15 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
 
-import EventModel from '/modules/endpoint/models/EventModel'
-import Caption from '/modules/common/components/Caption'
+import EventModel from 'modules/endpoint/models/EventModel'
+import Caption from 'modules/common/components/Caption'
 
 import style from './EventsList.css'
 
 import EventPlaceholder1 from './assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from './assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from './assets/EventPlaceholder3.jpg'
-import RemoteContent from '/modules/common/components/RemoteContent'
+import RemoteContent from 'modules/common/components/RemoteContent'
 import { translate } from 'react-i18next'
 
 class Event extends React.Component {
