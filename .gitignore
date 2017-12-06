@@ -87,17 +87,17 @@ fabric.properties
 
 # Webpack
 
-public/dist
-public/index.html
-public/sitemap.xml
-public/sw.js
+www/dist
+www/index.html
+www/sitemap.xml
+www/sw.js
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-public/workbox-sw.prod.v*.js
-public/workbox-sw.prod.v*.js.map
+www/workbox-sw.prod.v*.js
+www/workbox-sw.prod.v*.js.map
 
 # VPN config
 /tools/deploy/openconnect.*.config
