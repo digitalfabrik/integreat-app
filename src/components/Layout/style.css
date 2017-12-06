@@ -9,7 +9,8 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0 16px;
-  font-family: 'Raleway', 'El Messiri', sans-serif;
+  font-family: 'Raleway', 'Lateef', 'El Messiri', sans-serif;
+  font-size-adjust: 0.55;
   word-wrap: break-word;
 }
 
