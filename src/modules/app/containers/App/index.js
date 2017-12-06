@@ -10,8 +10,8 @@ import ErrorPage from 'routes/error/containers/ErrorPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
-import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage/index'
-import PageRedirector from 'routes/redirect/containers/PageRedirectorPage'
+import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
+import PageRedirectorPage from 'routes/redirect/containers/PageRedirectorPage'
 import { Fragment } from 'redux-little-router'
 import RichLayout from '../RichLayout'
 import Layout from '../../components/Layout'
@@ -53,7 +53,7 @@ class App extends React.Component {
                 </Fragment>
                 {/* Matches /augsburg/de/redirect -> Redirect */}
                 <Fragment forRoute="/redirect">
-                  <RichLayout><PageRedirector/></RichLayout>
+                  <RichLayout><PageRedirectorPage/></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
                 <Fragment forRoute="/fetch-pdf/*">

@@ -1,6 +1,6 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import resources from '../../../locales/index'
+import resources from '../../../locales'
 
 class I18n {
   init (store) {

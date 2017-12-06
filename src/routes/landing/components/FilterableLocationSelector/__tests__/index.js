@@ -3,10 +3,10 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import FilterableLocationSelector from '../index'
+import FilterableLocationSelector from '..'
 import store from 'modules/app/Store'
 import { mount } from 'enzyme'
-import LocationSelector from 'routes/landing/components/LocationSelector/index'
+import LocationSelector from 'routes/landing/components/LocationSelector'
 import Search from 'modules/common/components/Search/Search'
 
 jest.mock('react-i18next')

@@ -5,7 +5,7 @@ import { Link } from 'redux-little-router'
 
 import Hierarchy from 'routes/location/Hierarchy'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import style from './Breadcrumb.css'
 

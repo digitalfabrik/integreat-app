@@ -6,7 +6,7 @@ import compose from 'lodash/fp/compose'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
 import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
 import Footer from 'modules/app/containers/RichLayout/Footer'
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
 class LandingPage extends React.Component {

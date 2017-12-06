@@ -10,7 +10,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import Hierarchy from 'routes/location/Hierarchy'
 
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import Page from '../components/Page'
 import TitledCategoriesTable from './TitledCategoriesTable'

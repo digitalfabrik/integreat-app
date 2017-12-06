@@ -11,7 +11,7 @@ import Search from 'modules/common/components/Search/Search'
 import style from './style.css'
 
 import withAvailableLanguageUpdater from 'modules/app/hocs/withAvailableLanguageUpdater'
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 import PageModel from 'modules/endpoint/models/PageModel'
 

@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const task = require('./task')
 const config = require('./config')
 
-// Copy ./index.html into the /public folder
+// Copy ..html into the /public folder
 const html = task('html', () => {
   const webpackConfig = require('./webpack.config')
   const assets = JSON.parse(fs.readFileSync('./public/dist/assets.json', 'utf8'))

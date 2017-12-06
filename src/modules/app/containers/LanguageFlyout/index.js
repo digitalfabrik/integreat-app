@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash/lang'
 import { connect } from 'react-redux'
 import {compose} from 'redux'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
 import {Link} from 'redux-little-router'
 

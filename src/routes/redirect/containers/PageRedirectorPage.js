@@ -6,14 +6,14 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import { forEach } from 'lodash/collection'
 
-import PageModel from '../../../modules/endpoint/models/PageModel'
-import withFetcher from '../../../modules/endpoint/hocs/withFetcher/index'
+import PageModel from 'modules/endpoint/models/PageModel'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
 /**
  * Component to handle redirecting to the page which id is given as a query parameter
  */
-class PageRedirector extends React.Component {
+class PageRedirectorPage extends React.Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired,
@@ -75,4 +75,4 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   withFetcher(PAGE_ENDPOINT)
-)(PageRedirector)
+)(PageRedirectorPage)

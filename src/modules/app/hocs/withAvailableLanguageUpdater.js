@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { setLanguageChangeUrls } from 'modules/app/actions/set-language'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
 import compose from 'redux/es/compose'
 

@@ -17,7 +17,7 @@ import locationIcon from './assets/location-icon.svg'
 import languageIcon from './assets/language-icon.svg'
 import logoWide from './assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher/index'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
 
 class MenuItem extends React.Component {
