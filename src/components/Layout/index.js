@@ -10,7 +10,7 @@ class Layout extends React.Component {
     className: PropTypes.string
   }
 
-  componentWillMount () {
+  componentWillUpdate () {
     const arabicFonts = ['Lateef:400']
     const latinFonts = ['Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
     const families = {

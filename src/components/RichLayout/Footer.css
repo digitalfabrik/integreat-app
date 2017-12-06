@@ -1,5 +1,5 @@
-@import url('../Common/Helper.css');
 @import url('../Common/Colors.css');
+@import url('../Common/Helper.css');
 
 .footer {
   display: flex;
@@ -12,6 +12,4 @@
 .item {
   @mixin remove-a;
   margin: 5px;
-  font-family: var(--standard-fonts);
-  font-size-adjust: var(--standard-fonts-size-adjust);
 }

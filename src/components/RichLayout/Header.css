@@ -1,6 +1,5 @@
 @import url('../Common/Helper.css');
 @import url('../Common/Colors.css');
-@import url('../Common/Helper.css');
 
 :root {
   --header-height: 85px;
@@ -13,8 +12,6 @@
   box-sizing: border-box;
   align-items: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  font-family: var(--standard-fonts);
-  font-size-adjust: var(--standard-fonts-size-adjust);
   background-color: var(--background-accent-color);
 }
 
