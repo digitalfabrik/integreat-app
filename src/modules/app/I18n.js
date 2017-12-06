@@ -1,6 +1,6 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import resources from '../../../locales'
+import resources from './locales'
 
 class I18n {
   init (store) {
@@ -20,7 +20,6 @@ class I18n {
 
     // Set app language to primary language of i18next
     // store.dispatch(setLanguage(i18n.languages[0])) // fixme
-
     function handleLanguageChange () {
       const state = store.getState()
 
