@@ -2,18 +2,13 @@ import 'polyfills'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import App from 'modules/app/containers/App'
-import { initializeCurrentLocation } from 'redux-little-router'
 import Store from 'modules/app/Store'
 import I18n from 'modules/app/I18n'
 
 const store = new Store()
 store.init()
-const initialLocation = store.getState().router
-
-if (initialLocation) {
-  store.dispatch(initializeCurrentLocation(initialLocation))
-}
 
 const i18n = new I18n()
 i18n.init(store)

@@ -1,10 +1,10 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 
 import thunkMiddleware from 'redux-thunk'
-import { routerForBrowser } from 'redux-little-router'
+import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-import routes from '../../routes'
+import routes from 'routes'
 import endpointReducers from 'modules/endpoint/reducers'
 import { setLanguageChangeUrls } from './actions/set-language'
 import { handleAction } from 'redux-actions'
@@ -74,6 +74,12 @@ class Store {
     }
 
     this._store = configureStore()
+
+    const initialLocation = this.getState().router
+
+    if (initialLocation) {
+      this.dispatch(initializeCurrentLocation(initialLocation))
+    }
   }
 
   /**
