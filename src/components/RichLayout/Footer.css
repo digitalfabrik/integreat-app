@@ -12,5 +12,6 @@
 .item {
   @mixin remove-a;
   margin: 5px;
-  font-family: 'Raleway', 'El Messiri', sans-serif;
+  font-family: var(--standard-fonts);
+  font-size-adjust: var(--standard-fonts-size-adjust);
 }

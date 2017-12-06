@@ -11,33 +11,21 @@ class Layout extends React.Component {
   }
 
   componentWillMount () {
-    switch (i18next.language) {
-      case 'ar':
-      case 'fa':
-      case 'ku': {
-        WebFont.load({
-          google: {
-            families: ['Lateef:400']
-          }
-        })
-        break
-      }
-      case 'ti': {
-        WebFont.load({
-          google: {
-            families: ['El Messiri:300,400,700']
-          }
-        })
-        break
-      }
-      default: {
-        WebFont.load({
-          google: {
-            families: ['Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
-          }
-        })
-      }
+    const arabicFonts = ['Lateef:400']
+    const latinFonts = ['Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
+    const families = {
+      de: latinFonts,
+      ar: arabicFonts,
+      fa: arabicFonts,
+      ku: arabicFonts,
+      ti: ['El Messiri:300,400,700']
     }
+
+    WebFont.load({
+      google: {
+        families: families[i18next.language] || latinFonts
+      }
+    })
   }
 
   render () {
