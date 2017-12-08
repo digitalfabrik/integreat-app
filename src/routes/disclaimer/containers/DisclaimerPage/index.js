@@ -6,7 +6,7 @@ import Page from 'routes/content/components/Page'
 import PageModel from 'modules/endpoint/models/PageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
-import withAvailableLanguageUpdater from 'modules/app/hocs/withAvailableLanguageUpdater'
+import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
 
 class DisclaimerPage extends React.Component {
   static propTypes = {

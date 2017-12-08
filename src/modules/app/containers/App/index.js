@@ -16,7 +16,7 @@ import PageRedirectorPage from 'routes/redirect/containers/PageRedirectorPage'
 import { Fragment } from 'redux-little-router'
 import RichLayout from 'modules/app/containers/RichLayout'
 import Layout from 'modules/app/components/Layout'
-import Store from 'modules/app/Store'
+import Store from 'Store'
 
 class App extends React.Component {
   static propTypes = {

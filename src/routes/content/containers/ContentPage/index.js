@@ -12,9 +12,9 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
 import Hierarchy from '../../Hierarchy'
-import withAvailableLanguageUpdater from 'modules/app/hocs/withAvailableLanguageUpdater'
+import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
 import PageModel from 'modules/endpoint/models/PageModel'
-import { setAvailableLanguages } from 'modules/app/actions/setAvailableLanguages'
+import { setAvailableLanguages } from 'modules/language/actions/setAvailableLanguages'
 
 /**
  * Matching the route /<location>/<language>*

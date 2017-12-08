@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import { isEmpty } from 'lodash/lang'
 
-import { setLanguageChangeUrls } from 'modules/app/actions/setLanguageChangeUrls'
+import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'

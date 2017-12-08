@@ -10,7 +10,7 @@ import SearchInput from 'modules/common/components/SearchInput'
 
 import style from './style.css'
 
-import withAvailableLanguageUpdater from 'modules/app/hocs/withAvailableLanguageUpdater'
+import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 import PageModel from 'modules/endpoint/models/PageModel'
