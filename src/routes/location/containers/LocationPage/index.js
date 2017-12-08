@@ -12,9 +12,9 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
 import Hierarchy from '../../Hierarchy'
-import { setLanguageChangeUrls } from 'modules/app/actions/set-language'
 import withAvailableLanguageUpdater from 'modules/app/hocs/withAvailableLanguageUpdater'
 import PageModel from 'modules/endpoint/models/PageModel'
+import { setAvailableLanguages } from 'modules/app/actions/set-languages'
 
 /**
  * Matching the route /<location>/<language>*
@@ -52,11 +52,11 @@ class LocationPage extends React.Component {
       // todo handle this error
       return
     }
-    this.props.dispatch(setLanguageChangeUrls(hierarchy.top().availableLanguages))
+    this.props.dispatch(setAvailableLanguages(hierarchy.top().availableLanguages))
   }
 
   componentWillUnmount () {
-    this.props.dispatch(setLanguageChangeUrls({}))
+    this.props.dispatch(setAvailableLanguages({}))
   }
 
   getPdfFetchPath () {
