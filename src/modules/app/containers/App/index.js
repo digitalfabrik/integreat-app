@@ -7,7 +7,7 @@ import { I18nextProvider } from 'react-i18next'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import LocationPage from 'routes/location/containers/LocationPage'
 import SearchPage from 'routes/search/containers/SearchPage'
-import ErrorPage from 'routes/error/components/ErrorPage/index'
+import NotFoundPage from 'routes/not-found/components/NotFoundPage/index'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
@@ -79,7 +79,7 @@ class App extends React.Component {
             </Fragment>
 
             <Fragment forNoRoute>
-              <RichLayout><ErrorPage/></RichLayout>
+              <RichLayout><NotFoundPage/></RichLayout>
             </Fragment>
           </div>
         </Fragment>
