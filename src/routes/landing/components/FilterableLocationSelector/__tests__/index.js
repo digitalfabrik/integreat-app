@@ -6,7 +6,7 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import FilterableLocationSelector from '..'
 import { mount } from 'enzyme'
 import LocationSelector from 'routes/landing/components/LocationSelector'
-import Search from 'modules/common/components/Search/Search'
+import SearchInput from 'modules/common/components/SearchInput/index'
 import mockStore from '__mocks__/store'
 
 jest.mock('react-i18next')
@@ -64,7 +64,7 @@ describe('FilterableLocationSelector', () => {
       </Provider>
     )
 
-    const search = wrapper.find(Search)
+    const search = wrapper.find(SearchInput)
     search.prop('onFilterTextChange')('City')
 
     const selector = wrapper.find(LocationSelector)

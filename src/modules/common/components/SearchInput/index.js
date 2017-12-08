@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { translate } from 'react-i18next'
 
-import style from './Search.css'
+import style from './style.css'
 
-class Search extends React.Component {
+class SearchInput extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired
@@ -25,4 +25,4 @@ class Search extends React.Component {
   }
 }
 
-export default translate('Search')(Search)
+export default translate('Search')(SearchInput)

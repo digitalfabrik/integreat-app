@@ -8,7 +8,7 @@ import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import Caption from 'modules/common/components/Caption'
 
-import style from './TitledCategoriesTable.css'
+import style from './CategoryTiles.css'
 
 class Category extends React.Component {
   static propTypes = {

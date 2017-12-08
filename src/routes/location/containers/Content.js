@@ -10,7 +10,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import Hierarchy from 'routes/location/Hierarchy'
 
 import Page from '../components/Page'
-import TitledCategoriesTable from './TitledCategoriesTable'
+import CategoryTiles from './CategoryTiles'
 import TitledContentList from './TitledContentList'
 
 class Content extends React.Component {
@@ -37,7 +37,7 @@ class Content extends React.Component {
     const pages = page.children.map((page) => ({page, url: `${base}/${page.id}`}))
 
     if (hierarchy.root()) {
-      return <TitledCategoriesTable pages={pages} parentPage={page}/>
+      return <CategoryTiles pages={pages} parentPage={page}/>
     } else {
       return <TitledContentList parentPage={page} pages={pages}/>
     }
