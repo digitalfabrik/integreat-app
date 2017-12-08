@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 
 import LandingPage from 'routes/landing/containers/LandingPage'
-import LocationPage from 'routes/location/containers/LocationPage'
+import ContentPage from 'routes/content/containers/ContentPage'
 import SearchPage from 'routes/search/containers/SearchPage'
 import NotFoundPage from 'routes/not-found/components/NotFoundPage/index'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
@@ -66,9 +66,9 @@ class App extends React.Component {
                 <Fragment forRoute="/fetch-pdf/*">
                   <Layout><PdfFetcherPage/></Layout>
                 </Fragment>
-                {/* Matches /augsburg/de/* -> Location */}
+                {/* Matches /augsburg/de/* -> Content */}
                 <Fragment forRoute="*">
-                  <RichLayout><LocationPage/></RichLayout>
+                  <RichLayout><ContentPage/></RichLayout>
                 </Fragment>
               </div>
             </Fragment>

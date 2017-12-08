@@ -1,4 +1,4 @@
-import Hierarchy from 'routes/location/Hierarchy'
+import Hierarchy from 'routes/content/Hierarchy'
 import PageModel from 'modules/endpoint/models/PageModel'
 
 describe('Hierarchy', () => {

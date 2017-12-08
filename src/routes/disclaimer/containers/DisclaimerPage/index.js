@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/fp/compose'
 
-import Page from 'routes/location/components/Page'
+import Page from 'routes/content/components/Page'
 import PageModel from 'modules/endpoint/models/PageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
