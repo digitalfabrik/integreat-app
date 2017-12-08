@@ -10,7 +10,7 @@ exports[`FilterableLocationSelector should render 1`] = `
     <h1
       className="caption"
     >
-      Location
+      landing
     </h1>
   </div>
   <div
