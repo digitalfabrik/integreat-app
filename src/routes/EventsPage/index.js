@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
+import Spinner from 'react-spinkit'
 
 import EventModel from 'endpoints/models/EventModel'
 import EVENTS_ENDPOINT from 'endpoints/events'

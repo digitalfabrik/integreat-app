@@ -43,7 +43,7 @@ class Event extends React.Component {
           <div className={this.props.isFirst ? cx(style.firstDescription, style.eventDescription) : style.eventDescription}>
             <div className={style.eventTitle}>{this.props.event.title}</div>
             <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
-            <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt}}/>
+            <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt.slice(0, 70) + '...'}}/>
           </div>
         </div>
       </Link>
