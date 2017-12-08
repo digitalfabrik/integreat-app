@@ -1,14 +1,14 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { handleAction } from 'redux-actions'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { routerForBrowser } from 'redux-little-router'
 import createBrowserHistory from 'history/createBrowserHistory'
+import compose from 'lodash/fp/compose'
 
 import routes from './routes'
 import endpointReducers from 'endpoints/reducers'
-import { setLanguageChangeUrls } from './actions'
-import { handleAction } from 'redux-actions'
+import { setAvailableLanguages, setLanguageChangeUrls } from './actions'
 
 /**
  * Holds the current history implementation
@@ -50,9 +50,16 @@ if (__DEV__) {
 }
 
 /**
- * The reducer to store the current language
+ * The reducer to store the urls for language change
  */
 const setLanguageChangeUrlsReducer = handleAction(setLanguageChangeUrls,
+  (state, action) => action.payload, {}
+)
+
+/**
+ * The reducer to store the ids of the available languages
+ */
+const setAvailableLanguagesReducer = handleAction(setAvailableLanguages,
   (state, action) => action.payload, {}
 )
 
@@ -67,7 +74,8 @@ const configureStore = function configureStore (preloadedState) {
     combineReducers({
       ...endpointReducers,
       router: reducer,
-      languageChangeUrls: setLanguageChangeUrlsReducer
+      languageChangeUrls: setLanguageChangeUrlsReducer,
+      availableLanguages: setAvailableLanguagesReducer
     }),
     preloadedState,
     compose(enhancer, applyMiddleware(...middlewares))

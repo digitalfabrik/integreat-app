@@ -12,10 +12,13 @@ import withFetcher from 'endpoints/withFetcher'
 import PAGE_ENDPOINT from 'endpoints/page'
 
 import Hierarchy from './Hierarchy'
-import { setLanguageChangeUrls } from 'actions'
-import { reduce } from 'lodash/collection'
 import PageModel from 'endpoints/models/PageModel'
+import { setAvailableLanguages } from '../../actions'
+import withAvailableLanguageUpdater from '../../hocs/withAvailableLanguageUpdater'
 
+/**
+ * Matching the route /<location>/<language>*
+ */
 class LocationPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
@@ -29,38 +32,31 @@ class LocationPage extends React.Component {
   }
 
   componentDidMount () {
-    this.updateLanguageChangeUrls(this.props.path)
+    this.setAvailableLanguages(this.props.path)
   }
 
   componentWillUpdate (nextProps) {
     if (nextProps.path !== this.props.path) {
-      this.updateLanguageChangeUrls(nextProps.path)
+      this.setAvailableLanguages(nextProps.path)
     }
   }
 
   /**
-   * Creates and stores the urls that are used to redirect on a language change
+   * Gets and stores the available languages for the current page
    * @param {string} path The current path
    */
-  updateLanguageChangeUrls (path) {
+  setAvailableLanguages (path) {
     const hierarchy = new Hierarchy(path)
     const error = hierarchy.build(this.props.pages)
     if (error) {
       // todo handle this error
       return
     }
-
-    const currentPage = hierarchy.top()
-    const redirect = (id, language) => `/${this.props.location}/${language}/redirect?id=${id}`
-    const languageChangeUrls = reduce(currentPage.availableLanguages, (acc, id, language) => {
-      acc[language] = redirect(id, language)
-      return acc
-    }, {})
-    this.props.dispatch(setLanguageChangeUrls(languageChangeUrls))
+    this.props.dispatch(setAvailableLanguages(hierarchy.top().availableLanguages))
   }
 
   componentWillUnmount () {
-    this.props.dispatch(setLanguageChangeUrls({}))
+    this.props.dispatch(setAvailableLanguages({}))
   }
 
   getPdfFetchPath () {
@@ -93,6 +89,10 @@ class LocationPage extends React.Component {
   }
 }
 
+const mapLanguageToUrl = (location, language, id) => (
+  id ? `/${location}/${language}/redirect?id=${id}` : `/${location}/${language}`
+)
+
 const mapStateToWrapperProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
@@ -100,6 +100,7 @@ const mapStateToWrapperProps = (state) => ({
 })
 
 export default compose(
+  withAvailableLanguageUpdater(mapLanguageToUrl),
   connect(mapStateToWrapperProps),
   withFetcher(PAGE_ENDPOINT)
 )(LocationPage)

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'lodash/fp/compose'
 
 import Page from 'components/Content/Page'
 import PageModel from 'endpoints/models/PageModel'
 import withFetcher from 'endpoints/withFetcher'
 import DISCLAIMER_ENDPOINT from 'endpoints/disclaimer'
-import compose from 'redux/es/compose'
 import withAvailableLanguageUpdater from 'hocs/withAvailableLanguageUpdater'
 
 class DisclaimerPage extends React.Component {
@@ -21,7 +21,9 @@ class DisclaimerPage extends React.Component {
   }
 }
 
+const mapLanguageToUrl = (location, language) => `/${location}/${language}/disclaimer`
+
 export default compose(
   withFetcher(DISCLAIMER_ENDPOINT),
-  withAvailableLanguageUpdater((location, language) => `/${location}/${language}/disclaimer`)
+  withAvailableLanguageUpdater(mapLanguageToUrl)
 )(DisclaimerPage)

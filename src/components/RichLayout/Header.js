@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'redux-little-router'
-import {connect} from 'react-redux'
-import {compose} from 'redux'
 import Headroom from 'react-headroom'
 import {translate} from 'react-i18next'
+import {connect} from 'react-redux'
+import {Link} from 'redux-little-router'
 import cx from 'classnames'
+import compose from 'lodash/fp/compose'
 
 import Navigation from 'Navigation'
 
@@ -69,7 +69,7 @@ class Header extends React.Component {
   }
 
   isEventsSelected () {
-    return this.props.route === '/:location/:language/events'
+    return this.props.route === '/:location/:language/events*'
   }
 
   isCategoriesSelected () {
