@@ -1,4 +1,5 @@
-@import url('../constants/colors.css');
+@import url('../../common/constants/colors.css');
+@import url('../../common/constants/fonts.css');
 
 .remote-content img {
   max-width: 100%;

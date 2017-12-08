@@ -7,8 +7,6 @@
   flex-flow: row wrap;
   justify-content: center;
   color: var(--text-color);
-  font-family: var(--standard-fonts);
-  font-size-adjust: var(--standard-fonts-size-adjust);
   text-align: center;
 }
 

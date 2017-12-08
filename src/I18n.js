@@ -1,6 +1,8 @@
 import i18n from 'i18next'
 import { reduce, forEach } from 'lodash/collection'
+import WebFont from 'webfontloader'
 import LanguageDetector from 'i18next-browser-languagedetector'
+
 import resources from './locales'
 
 class I18n {
@@ -31,7 +33,7 @@ class I18n {
 
     // Set app language to primary language of i18next
     // store.dispatch(setLanguage(i18n.languages[0])) // fixme
-    function handleLanguageChange () {
+    const handleLanguageChange = () => {
       const state = store.getState()
 
       let lang = i18n.languages[0]  // Use language from browser detection if it is not available in url
@@ -52,6 +54,31 @@ class I18n {
     }
 
     store.subscribe(handleLanguageChange)
+
+    const loadFonts = () => {
+      const state = store.getState()
+      const language = state.router.params.language || 'de'
+
+      const arabicFonts = ['Lateef:400']
+      const latinFonts = ['Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
+      const families = {
+        de: latinFonts,
+        ar: arabicFonts,
+        fa: arabicFonts,
+        ku: arabicFonts,
+        ti: ['El Messiri:300,400,700']
+      }
+
+      WebFont.load({
+        google: {
+          families: families[language] || latinFonts
+        }
+      })
+    }
+
+    loadFonts()
+
+    store.subscribe(loadFonts)
   }
 
   /**

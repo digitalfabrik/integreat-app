@@ -17,4 +17,4 @@ class Heading extends React.Component {
   }
 }
 
-export default translate('Location')(Heading)
+export default translate('landing')(Heading)

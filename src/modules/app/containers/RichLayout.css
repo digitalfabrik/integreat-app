@@ -1,4 +1,5 @@
-@import url('../Common/Helper.css');
+@import url('../../common/constants/helpers.css');
+@import url('../../common/constants/fonts.css');
 
 .rich-layout {
   position: relative;
