@@ -5,18 +5,20 @@
   @mixin remove-a;
 }
 
+.first-event {
+  border-top: 2px solid var(--theme-color);
+}
+
 .event {
   display: flex;
-  align-items: center;
-  margin-bottom: 1px;
+  border-bottom: 2px solid var(--theme-color);
 }
 
 .event-thumbnail {
   width: 100px;
   height: 100px;
   flex-shrink: 0;
-  align-self: flex-start;
-  padding: 5px;
+  padding: 15px 5px;
 }
 
 .event-description {
@@ -25,7 +27,6 @@
   flex-grow: 1;
   margin-left: 15px;
   padding: 15px 0;
-  border-bottom: 2px solid var(--theme-color);
   word-wrap: break-word;
 }
 
@@ -40,4 +41,10 @@
 
 .horizontal-line {
   border-bottom: 2px solid var(--theme-color);
+}
+
+.no-events {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
 }

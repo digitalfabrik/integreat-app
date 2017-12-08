@@ -22,7 +22,8 @@ export default new EndpointBuilder('events')
         endDate: parseDate(event.event.end_date, event.event.end_time),
         allDay: event.event.all_day === '0'
       }),
-      excerpt: event.excerpt
+      excerpt: event.excerpt,
+      availableLanguages: event.available_languages
     }))
     .filter(event => event.date.startDate)
     .filter(event => event.date.startDate > Date.now() - MILLISECONDS_IN_A_DAY)

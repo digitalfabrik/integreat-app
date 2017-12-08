@@ -1,16 +1,18 @@
-import style from './style.css'
+
 import React from 'react'
 import cx from 'classnames'
 
 import PropTypes from 'prop-types'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import { isEmpty } from 'lodash/lang'
 import { connect } from 'react-redux'
-import {compose} from 'redux'
+import {Link} from 'redux-little-router'
+import compose from 'lodash/fp/compose'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
-import {Link} from 'redux-little-router'
+import LanguageModel from 'modules/endpoint/models/LanguageModel'
+
+import style from './style.css'
 
 class LanguageElement extends React.Component {
   static propTypes = {

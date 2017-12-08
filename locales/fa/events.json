@@ -1,8 +1,6 @@
 {
   "location": "موقعیت مکانی",
   "date": "تاریخ",
-  "extras": "اضافات",
-  "categories": "دسته​ها",
   "news": "تازه​ها",
-  "andMore": "And more..."
+  "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
 }
