@@ -59,14 +59,15 @@ class I18n {
       const state = store.getState()
       const language = state.router.params.language || 'de'
 
-      const arabicFonts = ['Lateef:400']
+      // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
+      const arabicFonts = ['Lateef:400', 'Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
+      // We do not need an arabic font
       const latinFonts = ['Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
       const families = {
         de: latinFonts,
         ar: arabicFonts,
         fa: arabicFonts,
-        ku: arabicFonts,
-        ti: ['El Messiri:300,400,700']
+        ku: arabicFonts
       }
 
       WebFont.load({
