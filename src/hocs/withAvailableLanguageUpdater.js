@@ -36,13 +36,21 @@ function withAvailableLanguageUpdater (mapLanguageToUrl) {
       createUrls (availableLanguages) {
         if (!isEmpty(availableLanguages)) {
           // languageChange of a specific page/event with ids in availableLanguages
-          return this.availableLanguages.map((language) => mapLanguageToUrl(
-            this.props.location,
-            language.code,
-            availableLanguages[language.code]
-          ))
+          return this.props.languages
+            .reduce((accumulator, language) => ({
+              ...accumulator,
+              [language.code]: mapLanguageToUrl(
+                  this.props.location,
+                  language.code,
+                  availableLanguages[language.code]
+              )}), {})
         } else {
-          return this.props.languages((language) => mapLanguageToUrl(this.props.location, language.code, ''))
+          //
+          return this.props.languages
+            .reduce((accumulator, language) => ({
+              ...accumulator,
+              [language.code]: mapLanguageToUrl(this.props.location, language.code, undefined)
+            }), {})
         }
       }
 

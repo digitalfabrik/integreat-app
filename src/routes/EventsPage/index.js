@@ -51,9 +51,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapLanguageToUrl = (location, language, id) => (
-  id !== undefined
-  ? `/${location}/${language}/events/${id}`
-  : `/${location}/${language}/events`
+  id ? `/${location}/${language}/events/${id}` : `/${location}/${language}/events`
 )
 
 export default compose(
