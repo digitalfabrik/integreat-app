@@ -8,9 +8,9 @@ import Caption from 'modules/common/components/Caption'
 import cx from 'classnames'
 import style from './EventsList.css'
 
-import EventPlaceholder1 from './assets/EventPlaceholder1.jpg'
-import EventPlaceholder2 from './assets/EventPlaceholder2.jpg'
-import EventPlaceholder3 from './assets/EventPlaceholder3.jpg'
+import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import { translate } from 'react-i18next'
 

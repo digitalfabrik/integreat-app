@@ -7,7 +7,7 @@ import compose from 'lodash/fp/compose'
 import { forEach } from 'lodash/collection'
 
 import PageModel from 'modules/endpoint/models/PageModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
+import withFetcher from 'modules/endpoint/hocs'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
 /**

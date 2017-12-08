@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash/lang'
 
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
+import withFetcher from 'modules/endpoint/hocs'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
 
 const mapStateToProps = (state) => ({

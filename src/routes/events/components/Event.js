@@ -8,9 +8,9 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
 
 import style from './Event.css'
-import EventPlaceholder1 from './assets/EventPlaceholder1.jpg'
-import EventPlaceholder2 from './assets/EventPlaceholder2.jpg'
-import EventPlaceholder3 from './assets/EventPlaceholder3.jpg'
+import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
 import { setAvailableLanguages } from 'modules/language/actions/setAvailableLanguages'
 

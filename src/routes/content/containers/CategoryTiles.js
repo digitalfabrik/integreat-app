@@ -5,7 +5,7 @@ import { Link } from 'redux-little-router'
 
 import PageModel from 'modules/endpoint/models/PageModel'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
+import withFetcher from 'modules/endpoint/hocs'
 import Caption from 'modules/common/components/Caption'
 
 import style from './CategoryTiles.css'

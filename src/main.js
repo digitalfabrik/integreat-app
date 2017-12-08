@@ -3,7 +3,7 @@ import 'polyfills'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from 'modules/app/containers/App'
+import App from 'modules/app/containers'
 import Store from 'Store'
 import I18n from 'I18n'
 
