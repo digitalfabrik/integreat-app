@@ -5,6 +5,10 @@
   max-height: 100%;
 }
 
+.remote-content {
+  font-family: var(--content-fonts);
+}
+
 .remote-content table {
   display: block;
   width: 100% !important;

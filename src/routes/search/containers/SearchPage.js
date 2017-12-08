@@ -76,7 +76,7 @@ const mapStateToProps = (state) => ({
   path: state.router.params['_'] // _ contains all the values from *
 })
 
-const mapLanguageToUrl = (location, language, id) => `/${location}/${language}/search`
+const mapLanguageToUrl = (location, language) => `/${location}/${language}/search`
 
 export default compose(
   connect(mapStateToProps),

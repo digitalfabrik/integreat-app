@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
 /**
  * A HOC to dispatch {@link setLanguageChangeUrls} actions automatically
  *
- * @param {function(string, string, string)} mapLanguageToUrl A function which maps location, language
+ * @param {function(string, string, string|undefined)} mapLanguageToUrl A function which maps location, language
  * and a optional id to a url
  * @returns {function(*)} The a function which takes a component and returns a wrapped component
  */
@@ -35,22 +35,24 @@ function withAvailableLanguageUpdater (mapLanguageToUrl) {
       }
 
       createUrls (availableLanguages) {
-        let url
         if (!isEmpty(availableLanguages)) {
           // languageChange of a specific page/event with ids in availableLanguages
-          url = (language) => mapLanguageToUrl(
-            this.props.location,
-            language.code,
-            availableLanguages[language.code]
-          )
+          return this.props.languages
+            .reduce((accumulator, language) => ({
+              ...accumulator,
+              [language.code]: mapLanguageToUrl(
+                  this.props.location,
+                  language.code,
+                  availableLanguages[language.code]
+              )}), {})
         } else {
-          url = (language) => mapLanguageToUrl(this.props.location, language.code, '')
+          //
+          return this.props.languages
+            .reduce((accumulator, language) => ({
+              ...accumulator,
+              [language.code]: mapLanguageToUrl(this.props.location, language.code, undefined)
+            }), {})
         }
-
-        return this.props.languages.reduce((accumulator, language) => ({
-          ...accumulator,
-          [language.code]: url(language)
-        }), {})
       }
 
       componentDidMount () {

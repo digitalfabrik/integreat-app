@@ -90,7 +90,7 @@ class ContentPage extends React.Component {
 }
 
 const mapLanguageToUrl = (location, language, id) => (
-  id !== '' ? `/${location}/${language}/redirect?id=${id}` : `/${location}/${language}`
+  id ? `/${location}/${language}/redirect?id=${id}` : `/${location}/${language}`
 )
 
 const mapStateToWrapperProps = (state) => ({

@@ -7,7 +7,8 @@
   flex-flow: row wrap;
   justify-content: center;
   color: var(--text-color);
-  font-family: 'Raleway', 'El Messiri', sans-serif;
+  font-family: var(--standard-fonts);
+  font-size-adjust: var(--standard-fonts-size-adjust);
   text-align: center;
 }
 
@@ -17,6 +18,7 @@
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
+  color: var(--text-secondary-color);
   font-size: 1.2em;
   line-height: 85px;
   text-align: center;
@@ -26,11 +28,13 @@
 }
 
 .element-active {
-  font-weight: 900;
+  color: var(--text-color);
+  font-weight: 700;
 }
 
 .element:hover {
-  background-color: rgba(251, 218, 24, 0.5);
+  color: var(--text-color);
+  font-weight: 600;
   border-radius: 0;
   cursor: pointer;
 }
