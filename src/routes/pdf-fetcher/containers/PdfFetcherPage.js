@@ -143,14 +143,14 @@ class PdfFetcherPage extends React.Component {
     const {t} = this.props
     if (this.state.loading) {
       return <div className={style.pdfFetcher}>
-        <p>{t('common:creatingPdf')}</p>
+        <p>{t('creatingPdf')}</p>
         <Spinner name='line-scale-party'/>
       </div>
     } else if (!this.state.pdf) {
       return <Error error="errors:page.loadingFailed"/>
     } else {
       return <div className={style.pdfFetcher}>
-        <p>{t('common:downloadPdfAt')}</p>
+        <p>{t('downloadPdfAt')}</p>
         <p><a href={this.state.pdf}>{this.state.pdf}</a></p>
       </div>
     }
@@ -167,5 +167,5 @@ export default compose(
   connect(mapStateToProps),
   withFetcher(LOCATIONS_ENDPOINT),
   withFetcher(PAGE_ENDPOINT),
-  translate('common')
+  translate('pdf-fetcher')
 )(PdfFetcherPage)

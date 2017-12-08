@@ -98,11 +98,11 @@ class Header extends React.Component {
             this.isMenuEnabled() &&
             <div className={style.menuItems}>
               { this.isExtrasEnabled() &&
-                <MenuItem href={this.props.navigation.extras} active={this.isExtrasSelected()}>{t('common:extras')}</MenuItem>
+                <MenuItem href={this.props.navigation.extras} active={this.isExtrasSelected()}>{t('extras')}</MenuItem>
               }
-              <MenuItem href={this.props.navigation.home} active={this.isCategoriesSelected()}>{t('common:categories')}</MenuItem>
+              <MenuItem href={this.props.navigation.home} active={this.isCategoriesSelected()}>{t('categories')}</MenuItem>
               { this.isEventsEnabled() &&
-                <MenuItem href={this.props.navigation.events} active={this.isEventsSelected()}>{t('common:news')}</MenuItem>
+                <MenuItem href={this.props.navigation.events} active={this.isEventsSelected()}>{t('news')}</MenuItem>
               }
             </div>
           }
@@ -122,5 +122,5 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   withFetcher(LOCATION_ENDPOINT, true, true),
-  translate('common')
+  translate('app')
 )(Header)

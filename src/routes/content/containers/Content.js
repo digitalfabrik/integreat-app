@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import normalizeUrl from 'normalize-url'
 import { isEmpty } from 'lodash/lang'
@@ -50,6 +49,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  connect(mapStateToProps),
-  translate('common')
+  connect(mapStateToProps)
 )(Content)

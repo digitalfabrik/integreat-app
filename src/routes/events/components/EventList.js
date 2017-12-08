@@ -65,7 +65,7 @@ class EventList extends React.Component {
     const {t} = this.props
     return (
       <div className={style.list}>
-        <Caption title={t('events:news')}/>
+        <Caption title={t('news')}/>
         { this.props.events && this.props.events.length !== 0
           ? this.props.events.map((event, index) =>
             <Event key={event.event.id}
@@ -74,7 +74,7 @@ class EventList extends React.Component {
                    thumbnailPlaceholder={event.thumbnailPlaceholder}
                    language={this.props.language}
                    isFirst={index === 0}/>)
-          : <div className={style.noEvents}>{t('events:currentlyNoEvents')}</div>
+          : <div className={style.noEvents}>{t('currentlyNoEvents')}</div>
         }
       </div>
     )

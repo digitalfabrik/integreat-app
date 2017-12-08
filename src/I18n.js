@@ -1,15 +1,26 @@
 import i18n from 'i18next'
+import { reduce, forEach } from 'lodash/collection'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import resources from './modules/app/locales'
+import resources from './locales'
 
 class I18n {
   init (store) {
+    // Transfrom locale resources so the structure is: languageCode -> namespace -> key:value
+    // And not: : namespace -> languageCode -> key:value
+    const i18nextResources = reduce(resources, (accumulator, namespace, namespaceName) => {
+      forEach(namespace, (language, languageCode) => {
+        accumulator[languageCode] = {...accumulator[languageCode], [namespaceName]: language}
+      })
+
+      return accumulator
+    }, {})
+
     const RTL_LANGUAGES = ['ar', 'fa']
 
     i18n
       .use(LanguageDetector)
       .init({
-        resources: resources,
+        resources: i18nextResources,
         fallbackLng: 'en',
         ns: ['common', 'errors', 'Location', 'Search', 'Footer'],
         defaultNS: 'common',

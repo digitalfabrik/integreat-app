@@ -51,11 +51,11 @@ class Event extends React.Component {
         <img className={style.thumbnail} src={this.props.event.event.thumbnail || this.getEventPlaceholder()}/>
         <Caption title={this.props.event.event.title}/>
         <div>
-          <span className={style.identifier}>{t('events:date')}: </span>
+          <span className={style.identifier}>{t('date')}: </span>
           <span className={style.date}>{this.props.event.event.getDate(this.props.language)}</span>
         </div>
         <div>
-          <span className={style.identifier}>{t('events:location')}: </span>
+          <span className={style.identifier}>{t('location')}: </span>
           <span className={style.date}>{this.props.event.event.address}</span>
         </div>
         <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.event.content}}/>

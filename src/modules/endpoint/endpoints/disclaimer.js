@@ -1,4 +1,4 @@
-import { reduce } from 'lodash'
+import { reduce } from 'lodash/collection'
 import { isEmpty } from 'lodash/lang'
 
 import EndpointBuilder from '../EndpointBuilder'
@@ -10,7 +10,7 @@ export default new EndpointBuilder('disclaimer')
   .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
   .withMapper((json) => {
     if (isEmpty(json)) {
-      throw new Error('disclaimer.notAvailable')
+      throw new Error('disclaimer:notAvailable')
     }
 
     return reduce(json, (result, page) => {

@@ -17,7 +17,7 @@ class SearchInput extends React.Component {
       <div className={this.props.className}>
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search'/>
-          <input type='text' placeholder={t('Search:search')} className={style.searchInput} defaultValue={this.props.filterText}
+          <input type='text' placeholder={t('search')} className={style.searchInput} defaultValue={this.props.filterText}
                  onChange={(event) => this.props.onFilterTextChange(event.target.value)}/>
         </div>
       </div>
@@ -25,4 +25,4 @@ class SearchInput extends React.Component {
   }
 }
 
-export default translate('Search')(SearchInput)
+export default translate('common')(SearchInput)

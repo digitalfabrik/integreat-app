@@ -143,7 +143,7 @@ class Endpoint {
         })
         .catch(e => {
           console.error('Failed to load the endpoint request: ' + this.name, e.message)
-          return dispatch(this.finishFetchAction(null, 'errors:page.loadingFailed', formattedURL))
+          return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
         })
       // Fetchers cannot display payload yet, since it's currently fetching
       return false

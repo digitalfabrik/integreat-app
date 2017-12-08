@@ -11,7 +11,7 @@ class Heading extends React.Component {
     return (
       <div>
         <img className={style.logo} src={LocationBig}/>
-        <Caption className={style.caption} title={t('Location:where')}/>
+        <Caption className={style.caption} title={t('where')}/>
       </div>
     )
   }

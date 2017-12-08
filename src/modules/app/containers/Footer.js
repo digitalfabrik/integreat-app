@@ -51,4 +51,4 @@ const mapStateToProps = (state) => ({
   navigation: new Navigation(state.router.params.location, state.router.params.language)
 })
 
-export default connect(mapStateToProps)(translate('Footer')(Footer))
+export default connect(mapStateToProps)(translate('app')(Footer))

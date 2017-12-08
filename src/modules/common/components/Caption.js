@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import style from './Caption.css'
 
-export default class Caption extends React.Component {
+class Caption extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired
   }
@@ -14,3 +14,5 @@ export default class Caption extends React.Component {
     )
   }
 }
+
+export default Caption
