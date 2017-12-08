@@ -38,9 +38,9 @@ class Event extends React.Component {
   render () {
     return (
       <Link href={this.getUrl()}>
-        <div className={style.event}>
+        <div className={this.props.isFirst ? cx(style.firstEvent, style.event) : style.event}>
           <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
-          <div className={this.props.isFirst ? cx(style.firstDescription, style.eventDescription) : style.eventDescription}>
+          <div className={style.eventDescription}>
             <div className={style.eventTitle}>{this.props.event.title}</div>
             <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
             <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt.slice(0, 70) + '...'}}/>
