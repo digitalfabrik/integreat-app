@@ -17,11 +17,12 @@ import { Fragment } from 'redux-little-router'
 import RichLayout from 'modules/app/containers/RichLayout'
 import Layout from 'modules/app/components/Layout'
 import Store from 'Store'
+import I18n from 'I18n'
 
 class App extends React.Component {
   static propTypes = {
     store: PropTypes.instanceOf(Store),
-    i18n: PropTypes.instanceOf(Store)
+    i18n: PropTypes.instanceOf(I18n)
   }
 
   render () {
