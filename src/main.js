@@ -60,7 +60,7 @@ let App = (
               <Fragment forRoute="/disclaimer">
                 <RichLayout><DisclaimerPage/></RichLayout>
               </Fragment>
-              {/* Matches /augsburg/de/events -> Events */}
+              {/* Matches /augsburg/de/events* -> Events */}
               <Fragment forRoute="/events*">
                 <RichLayout><EventsPage/></RichLayout>
               </Fragment>

@@ -5,11 +5,14 @@ import EventModel from '../../endpoints/models/EventModel'
 import RemoteContent from './RemoteContent'
 
 import style from './Event.css'
-import EventPlaceholder1 from '../../components/Content/assets/EventPlaceholder1.jpg'
-import EventPlaceholder2 from '../../components/Content/assets/EventPlaceholder2.jpg'
-import EventPlaceholder3 from '../../components/Content/assets/EventPlaceholder3.jpg'
+import EventPlaceholder1 from './assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from './assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from './assets/EventPlaceholder3.jpg'
 import Caption from './Caption'
 import { translate } from 'react-i18next'
+import { setAvailableLanguages } from '../../actions'
+import { connect } from 'react-redux'
+import compose from 'redux/es/compose'
 
 /**
  *
@@ -21,6 +24,16 @@ class Event extends React.Component {
       thumbnailPlaceholder: PropTypes.number.isRequired
     }).isRequired,
     language: PropTypes.string.isRequired
+  }
+
+  componentDidMount () {
+    if (this.props.event.event.availableLanguages) {
+      this.props.dispatch(setAvailableLanguages(this.props.event.event.availableLanguages))
+    }
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(setAvailableLanguages({}))
   }
 
   getEventPlaceholder () {
@@ -51,4 +64,7 @@ class Event extends React.Component {
   }
 }
 
-export default translate('common')(Event)
+export default compose(
+  connect(),
+  translate('common')
+)(Event)

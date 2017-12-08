@@ -7,14 +7,19 @@ import LanguageModel from 'endpoints/models/LanguageModel'
 import withFetcher from 'endpoints/withFetcher'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
 import compose from 'redux/es/compose'
+import { isEmpty } from 'lodash/lang'
 
-const mapStateToProps = (state) => ({location: state.router.params.location})
+const mapStateToProps = (state) => ({
+  location: state.router.params.location,
+  route: state.router.route,
+  availableLanguages: state.availableLanguages})
 
 /**
  * A HOC to dispatch {@link setLanguageChangeUrls} actions automatically
  *
- * @param {function(string, string)} mapLanguageToUrl A function which maps location and language to a url
- * @returns {function(*)} The a function which taskes a component and returns a wrapped component
+ * @param {function(string, string, string)} mapLanguageToUrl A function which maps location, language
+ * and a optional id to a url
+ * @returns {function(*)} The a function which takes a component and returns a wrapped component
  */
 function withAvailableLanguageUpdater (mapLanguageToUrl) {
   return WrappedComponent => {
@@ -24,18 +29,43 @@ function withAvailableLanguageUpdater (mapLanguageToUrl) {
          * from withFetcher HOC which provides data from LANGUAGE_ENDPOINT
          */
         languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
-        location: PropTypes.string
+        location: PropTypes.string,
+        availableLanguages: PropTypes.object
+      }
+
+      createLanguageChangeUrls (availableLanguages) {
+        if (!isEmpty(availableLanguages)) {
+          // languageChange of a specific page/event with ids in availableLanguages
+          return this.props.languages
+            .reduce((accumulator, language) => (
+              {
+                ...accumulator,
+                [language.code]: mapLanguageToUrl(
+                  this.props.location,
+                  language.code,
+                  availableLanguages[language.code]
+                )}
+            ), {})
+        } else {
+          //
+          return this.props.languages
+            .reduce((accumulator, language) => (
+              {
+                ...accumulator,
+                [language.code]: mapLanguageToUrl(this.props.location, language.code, '')
+              }
+            ), {})
+        }
       }
 
       componentDidMount () {
-        const urls = this.props.languages
-          .reduce((accumulator, language) => (
-            {
-              ...accumulator,
-              [language.code]: mapLanguageToUrl(this.props.location, language.code)
-            }
-          ), {})
-        this.props.dispatch(setLanguageChangeUrls(urls))
+        this.props.dispatch(setLanguageChangeUrls(this.createLanguageChangeUrls(this.props.availableLanguages)))
+      }
+
+      componentWillUpdate (nextProps) {
+        if (nextProps.availableLanguages !== this.props.availableLanguages) {
+          this.props.dispatch(setLanguageChangeUrls(this.createLanguageChangeUrls(nextProps.availableLanguages)))
+        }
       }
 
       componentWillUnmount () {

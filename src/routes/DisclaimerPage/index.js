@@ -21,7 +21,9 @@ class DisclaimerPage extends React.Component {
   }
 }
 
+const mapLanguageToUrl = (location, language, id) => `/${location}/${language}/disclaimer`
+
 export default compose(
   withFetcher(DISCLAIMER_ENDPOINT),
-  withAvailableLanguageUpdater((location, language) => `/${location}/${language}/disclaimer`)
+  withAvailableLanguageUpdater(mapLanguageToUrl)
 )(DisclaimerPage)
