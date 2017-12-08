@@ -27,7 +27,7 @@ exports[`FilterableLocationSelector should render 1`] = `
         className="searchInput"
         defaultValue=""
         onChange={[Function]}
-        placeholder="Search"
+        placeholder="common"
         type="text"
       />
     </div>

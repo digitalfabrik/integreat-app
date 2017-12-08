@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import Error from '..'
+import Error from '../Error'
 import mockStore from '__mocks__/store'
 
 jest.mock('react-i18next')
