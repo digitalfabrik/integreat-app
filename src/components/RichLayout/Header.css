@@ -12,7 +12,6 @@
   box-sizing: border-box;
   align-items: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  font-family: 'Raleway', 'El Messiri', sans-serif;
   background-color: var(--background-accent-color);
 }
 
