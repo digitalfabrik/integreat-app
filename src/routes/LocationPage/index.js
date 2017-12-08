@@ -90,7 +90,7 @@ class LocationPage extends React.Component {
 }
 
 const mapLanguageToUrl = (location, language, id) => (
-  id !== '' ? `/${location}/${language}/redirect?id=${id}` : `/${location}/${language}`
+  id !== undefined ? `/${location}/${language}/redirect?id=${id}` : `/${location}/${language}`
 )
 
 const mapStateToWrapperProps = (state) => ({

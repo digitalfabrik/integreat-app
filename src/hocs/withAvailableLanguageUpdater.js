@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
 /**
  * A HOC to dispatch {@link setLanguageChangeUrls} actions automatically
  *
- * @param {function(string, string, string)} mapLanguageToUrl A function which maps location, language
+ * @param {function(string, string, string|undefined)} mapLanguageToUrl A function which maps location, language
  * and a optional id to a url
  * @returns {function(*)} The a function which takes a component and returns a wrapped component
  */
@@ -33,38 +33,26 @@ function withAvailableLanguageUpdater (mapLanguageToUrl) {
         availableLanguages: PropTypes.object
       }
 
-      createLanguageChangeUrls (availableLanguages) {
+      createUrls (availableLanguages) {
         if (!isEmpty(availableLanguages)) {
           // languageChange of a specific page/event with ids in availableLanguages
-          return this.props.languages
-            .reduce((accumulator, language) => (
-              {
-                ...accumulator,
-                [language.code]: mapLanguageToUrl(
-                  this.props.location,
-                  language.code,
-                  availableLanguages[language.code]
-                )}
-            ), {})
+          return this.availableLanguages.map((language) => mapLanguageToUrl(
+            this.props.location,
+            language.code,
+            availableLanguages[language.code]
+          ))
         } else {
-          //
-          return this.props.languages
-            .reduce((accumulator, language) => (
-              {
-                ...accumulator,
-                [language.code]: mapLanguageToUrl(this.props.location, language.code, '')
-              }
-            ), {})
+          return this.props.languages((language) => mapLanguageToUrl(this.props.location, language.code, ''))
         }
       }
 
       componentDidMount () {
-        this.props.dispatch(setLanguageChangeUrls(this.createLanguageChangeUrls(this.props.availableLanguages)))
+        this.props.dispatch(setLanguageChangeUrls(this.createUrls(this.props.availableLanguages)))
       }
 
       componentWillUpdate (nextProps) {
         if (nextProps.availableLanguages !== this.props.availableLanguages) {
-          this.props.dispatch(setLanguageChangeUrls(this.createLanguageChangeUrls(nextProps.availableLanguages)))
+          this.props.dispatch(setLanguageChangeUrls(this.createUrls(nextProps.availableLanguages)))
         }
       }
 
