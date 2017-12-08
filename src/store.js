@@ -1,14 +1,14 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { handleAction } from 'redux-actions'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { routerForBrowser } from 'redux-little-router'
 import createBrowserHistory from 'history/createBrowserHistory'
+import compose from 'lodash/fp/compose'
 
 import routes from './routes'
 import endpointReducers from 'endpoints/reducers'
 import { setAvailableLanguages, setLanguageChangeUrls } from './actions'
-import { handleAction } from 'redux-actions'
 
 /**
  * Holds the current history implementation

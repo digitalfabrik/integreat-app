@@ -2,15 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import { isEmpty } from 'lodash/lang'
 import normalizeUrl from 'normalize-url'
+import { isEmpty } from 'lodash/lang'
 import compose from 'lodash/fp/compose'
 
 import EventModel from 'endpoints/models/EventModel'
 import Hierarchy from 'routes/LocationPage/Hierarchy'
-
-import EVENTS_ENDPOINT from 'endpoints/events'
-import withFetcher from 'endpoints/withFetcher'
 
 import Page from './Page'
 import TitledCategoriesTable from './TitledCategoriesTable'
@@ -54,6 +51,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  translate('common'),
-  withFetcher(EVENTS_ENDPOINT)
+  translate('common')
 )(Content)

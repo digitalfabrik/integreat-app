@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 
 import EventModel from '../../endpoints/models/EventModel'
 import RemoteContent from './RemoteContent'
+import Caption from './Caption'
+import { setAvailableLanguages } from '../../actions'
 
 import style from './Event.css'
 import EventPlaceholder1 from './assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from './assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from './assets/EventPlaceholder3.jpg'
-import Caption from './Caption'
-import { translate } from 'react-i18next'
-import { setAvailableLanguages } from '../../actions'
-import { connect } from 'react-redux'
-import compose from 'redux/es/compose'
 
 /**
  *

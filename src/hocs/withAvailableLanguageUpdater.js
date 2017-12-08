@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
+import { isEmpty } from 'lodash/lang'
 
 import { setLanguageChangeUrls } from 'actions'
 import LanguageModel from 'endpoints/models/LanguageModel'
 import withFetcher from 'endpoints/withFetcher'
 import LANGUAGE_ENDPOINT from 'endpoints/language'
-import compose from 'redux/es/compose'
-import { isEmpty } from 'lodash/lang'
 
 const mapStateToProps = (state) => ({
   location: state.router.params.location,
