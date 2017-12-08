@@ -6,10 +6,10 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 import routes from 'routes'
 import endpointReducers from 'modules/endpoint/reducers'
-import { setLanguageChangeUrls } from './actions/set-language-urls'
-import { handleAction } from 'redux-actions'
 import { createLogger } from 'redux-logger'
-import { setAvailableLanguages } from './actions/set-languages'
+
+import setLanguageChangeUrlsReducer from './reducers/setLanguageChangeUrls'
+import setAvailableLanguagesReducer from './reducers/setAvailableLanguages'
 
 class Store {
   init () {
@@ -48,20 +48,6 @@ class Store {
     if (__DEV__) {
       middlewares.push(createLogger()) // Logs all state changes in console
     }
-
-    /**
-     * The reducer to store the urls for language change
-     */
-    const setLanguageChangeUrlsReducer = handleAction(setLanguageChangeUrls,
-      (state, action) => action.payload, {}
-    )
-
-    /**
-     * The reducer to store the ids of the available languages
-     */
-    const setAvailableLanguagesReducer = handleAction(setAvailableLanguages,
-      (state, action) => action.payload, {}
-    )
 
     /**
      * Configures the main store which holds the global state of the app

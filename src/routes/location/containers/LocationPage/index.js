@@ -14,7 +14,7 @@ import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 import Hierarchy from '../../Hierarchy'
 import withAvailableLanguageUpdater from 'modules/app/hocs/withAvailableLanguageUpdater'
 import PageModel from 'modules/endpoint/models/PageModel'
-import { setAvailableLanguages } from 'modules/app/actions/set-languages'
+import { setAvailableLanguages } from 'modules/app/actions/setAvailableLanguages'
 
 /**
  * Matching the route /<location>/<language>*
