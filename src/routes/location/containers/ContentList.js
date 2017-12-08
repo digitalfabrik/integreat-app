@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import style from './ContentList.css'
 import PageModel from 'modules/endpoint/models/PageModel'
-import CategoryListItem from '../components/CategoryListItem/index'
+import CategoryListItem from '../components/CategoryListItem'
 
 class ContentList extends React.Component {
   static propTypes = {

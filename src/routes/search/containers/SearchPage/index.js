@@ -6,7 +6,7 @@ import normalizeUrl from 'normalize-url'
 import compose from 'lodash/fp/compose'
 
 import ContentList from 'routes/location/containers/ContentList'
-import SearchInput from 'modules/common/components/SearchInput/index'
+import SearchInput from 'modules/common/components/SearchInput'
 
 import style from './style.css'
 

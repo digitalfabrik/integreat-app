@@ -5,6 +5,7 @@ import { Link } from 'redux-little-router'
 import style from './style.css'
 
 import IconPlaceholder from './assets/IconPlaceholder.svg'
+import PageModel from 'modules/endpoint/models/PageModel'
 
 class CategoryListItem extends React.Component {
   static propTypes = {

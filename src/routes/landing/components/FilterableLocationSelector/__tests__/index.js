@@ -6,7 +6,7 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import FilterableLocationSelector from '..'
 import { mount } from 'enzyme'
 import LocationSelector from 'routes/landing/components/LocationSelector'
-import SearchInput from 'modules/common/components/SearchInput/index'
+import SearchInput from 'modules/common/components/SearchInput'
 import mockStore from '__mocks__/store'
 
 jest.mock('react-i18next')
