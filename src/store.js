@@ -7,7 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 import routes from './routes'
 import endpointReducers from 'endpoints/reducers'
-import { setLanguageChangeUrls } from './actions'
+import { setAvailableLanguages, setLanguageChangeUrls } from './actions'
 import { handleAction } from 'redux-actions'
 
 /**
@@ -50,9 +50,16 @@ if (__DEV__) {
 }
 
 /**
- * The reducer to store the current language
+ * The reducer to store the urls for language change
  */
 const setLanguageChangeUrlsReducer = handleAction(setLanguageChangeUrls,
+  (state, action) => action.payload, {}
+)
+
+/**
+ * The reducer to store the ids of the available languages
+ */
+const setAvailableLanguagesReducer = handleAction(setAvailableLanguages,
   (state, action) => action.payload, {}
 )
 
@@ -67,7 +74,8 @@ const configureStore = function configureStore (preloadedState) {
     combineReducers({
       ...endpointReducers,
       router: reducer,
-      languageChangeUrls: setLanguageChangeUrlsReducer
+      languageChangeUrls: setLanguageChangeUrlsReducer,
+      availableLanguages: setAvailableLanguagesReducer
     }),
     preloadedState,
     compose(enhancer, applyMiddleware(...middlewares))
