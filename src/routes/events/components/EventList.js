@@ -6,7 +6,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import Caption from 'modules/common/components/Caption'
 
 import cx from 'classnames'
-import style from './EventsList.css'
+import style from './EventList.css'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'

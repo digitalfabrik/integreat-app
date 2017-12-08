@@ -6,9 +6,9 @@ import compose from 'lodash/fp/compose'
 
 import Content from 'routes/content/containers/Content'
 import Breadcrumb from 'routes/content/containers/Breadcrumb'
-import Error from 'modules/common/containers'
+import Error from 'modules/common/containers/Error'
 import PdfButton from 'routes/content/components/PdfButton'
-import withFetcher from 'modules/endpoint/hocs'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
 import Hierarchy from '../Hierarchy'

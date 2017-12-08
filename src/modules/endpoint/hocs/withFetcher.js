@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
-import Error from 'modules/common/containers'
+import Error from 'modules/common/containers/Error'
 import style from './withFetcher.css'
 
 function createStateToPropsMapper (endpoint) {

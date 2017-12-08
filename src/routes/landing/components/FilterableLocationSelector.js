@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Heading from './Heading'
-import SearchInput from 'modules/common/components'
+import SearchInput from 'modules/common/components/SearchInput'
 import LocationSelector from './LocationSelector'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 

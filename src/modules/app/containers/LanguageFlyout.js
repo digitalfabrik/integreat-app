@@ -1,4 +1,3 @@
-
 import React from 'react'
 import cx from 'classnames'
 
@@ -8,7 +7,7 @@ import { connect } from 'react-redux'
 import {Link} from 'redux-little-router'
 import compose from 'lodash/fp/compose'
 
-import withFetcher from 'modules/endpoint/hocs'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 

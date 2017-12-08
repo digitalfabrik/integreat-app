@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Layout from 'modules/app/components'
+import Layout from 'modules/app/components/Layout'
 import Header from './Header'
 import Footer from './Footer'
 

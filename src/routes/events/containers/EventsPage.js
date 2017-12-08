@@ -6,10 +6,10 @@ import Spinner from 'react-spinkit'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
-import withFetcher from 'modules/endpoint/hocs'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
-import EventList from '../../components/EventsList'
-import Event from '../../components/Event'
+import Event from '../components/Event'
+import EventList from '../components/EventList'
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events*

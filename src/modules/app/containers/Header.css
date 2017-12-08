@@ -1,5 +1,5 @@
-@import url('../../../common/constants/helpers.css');
-@import url('../../../common/constants/colors.css');
+@import url('../../common/constants/helpers.css');
+@import url('../../common/constants/colors.css');
 
 :root {
   --header-height: 85px;

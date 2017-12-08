@@ -1,4 +1,4 @@
-@import url('../../../common/constants/colors.css');
+@import url('../../common/constants/colors.css');
 
 :root {
   --search-logo-width: 25px;

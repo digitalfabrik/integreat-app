@@ -9,15 +9,15 @@ import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
 
-import LanguageFlyout from 'modules/app/containers'
+import LanguageFlyout from 'modules/app/containers/LanguageFlyout'
 import HeaderDropDown from './HeaderDropDown'
 import style from './Header.css'
-import searchIcon from '../../assets/magnifier.svg'
-import locationIcon from '../../assets/location-icon.svg'
-import languageIcon from '../../assets/language-icon.svg'
-import logoWide from '../../assets/integreat-app-logo.png'
+import searchIcon from '../assets/magnifier.svg'
+import locationIcon from '../assets/location-icon.svg'
+import languageIcon from '../assets/language-icon.svg'
+import logoWide from '../assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import withFetcher from 'modules/endpoint/hocs'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
 
 class MenuItem extends React.Component {

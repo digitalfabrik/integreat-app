@@ -6,12 +6,12 @@ import normalizeUrl from 'normalize-url'
 import compose from 'lodash/fp/compose'
 
 import ContentList from 'routes/content/containers/ContentList'
-import SearchInput from 'modules/common/components'
+import SearchInput from 'modules/common/components/SearchInput'
 
 import style from './SearchPage.css'
 
 import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
-import withFetcher from 'modules/endpoint/hocs'
+import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 import PageModel from 'modules/endpoint/models/PageModel'
 
