@@ -8,7 +8,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import Caption from 'modules/common/components/Caption'
 import CategoryTile from '../components/CategoryTile'
 
-class TitledCategoriesTable extends React.Component {
+class CategoryTiles extends React.Component {
   static propTypes = {
     parentPage: PropTypes.instanceOf(PageModel).isRequired,
     pages: PropTypes.arrayOf(PropTypes.shape({
@@ -33,4 +33,4 @@ class TitledCategoriesTable extends React.Component {
   }
 }
 
-export default withFetcher(LOCATIONS_ENDPOINT, true, true)(TitledCategoriesTable)
+export default withFetcher(LOCATIONS_ENDPOINT, true, true)(CategoryTiles)

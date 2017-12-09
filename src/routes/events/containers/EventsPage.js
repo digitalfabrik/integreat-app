@@ -8,7 +8,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
-import Event from '../components/Event'
+import EventDetail from './EventDetail'
 import EventList from '../components/EventList'
 
 /**
@@ -34,7 +34,7 @@ class EventsPage extends React.Component {
       const event = events.find((event) => event.event.id.toString() === this.props.path.replace('/', ''))
 
       if (event) {
-        return <Event event={event} language={this.props.language}/>
+        return <EventDetail event={event} language={this.props.language}/>
       } else {
         // events in new language haven't been fetched yet
         return <Spinner name='line-scale-party'/>

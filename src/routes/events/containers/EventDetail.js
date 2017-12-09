@@ -7,7 +7,7 @@ import compose from 'lodash/fp/compose'
 import EventModel from 'modules/endpoint/models/EventModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
 
-import style from './Event.css'
+import style from './EventDetail.css'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
@@ -17,7 +17,7 @@ import { setAvailableLanguages } from 'modules/language/actions/setAvailableLang
 /**
  * Display a single event
  */
-class Event extends React.Component {
+class EventDetail extends React.Component {
   static propTypes = {
     event: PropTypes.shape({
       event: PropTypes.instanceOf(EventModel).isRequired,
@@ -67,4 +67,4 @@ class Event extends React.Component {
 export default compose(
   connect(),
   translate('events')
-)(Event)
+)(EventDetail)
