@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import style from './Header.css'
+import style from '../containers/Header.css'
 import onClickOutside from 'react-onclickoutside'
 
 class HeaderDropDown extends React.Component {

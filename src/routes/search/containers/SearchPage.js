@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import normalizeUrl from 'normalize-url'
 import compose from 'lodash/fp/compose'
 
-import ContentList from 'routes/content/containers/ContentList'
+import ContentList from 'routes/content/components/ContentList'
 import SearchInput from 'modules/common/components/SearchInput'
 
 import style from './SearchPage.css'

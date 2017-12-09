@@ -10,7 +10,7 @@ import compose from 'lodash/fp/compose'
 import Navigation from 'modules/app/Navigation'
 
 import LanguageFlyout from 'modules/app/containers/LanguageFlyout'
-import HeaderDropDown from './HeaderDropDown'
+import HeaderDropDown from '../components/HeaderDropDown'
 import style from './Header.css'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'

@@ -10,7 +10,7 @@ import Hierarchy from 'routes/content/Hierarchy'
 
 import Page from '../components/Page'
 import CategoryTiles from './CategoryTiles'
-import TitledContentList from './TitledContentList'
+import TitledContentList from '../components/TitledContentList'
 
 class Content extends React.Component {
   static propTypes = {
