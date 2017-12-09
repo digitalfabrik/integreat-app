@@ -1,32 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Col, Row } from 'react-flexbox-grid'
-import { Link } from 'redux-little-router'
+import { Row } from 'react-flexbox-grid'
 
 import PageModel from 'modules/endpoint/models/PageModel'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import Caption from 'modules/common/components/Caption'
-
-import style from './CategoryTiles.css'
-
-class Category extends React.Component {
-  static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
-    url: PropTypes.string.isRequired
-  }
-
-  render () {
-    return (
-      <Col xs={6} sm={4} className={style.category}>
-        <Link href={this.props.url}>
-          <img className={style.categoryThumbnail} src={this.props.page.thumbnail}/>
-          <div className={style.categoryTitle}>{this.props.page.title}</div>
-        </Link>
-      </Col>
-    )
-  }
-}
+import CategoryTile from '../components/CategoryTile'
 
 class TitledCategoriesTable extends React.Component {
   static propTypes = {
@@ -46,7 +26,7 @@ class TitledCategoriesTable extends React.Component {
       <div>
         <Caption title={this.getTitle()}/>
         <Row>
-          {this.props.pages.map(({page, url}) => <Category key={page.id} url={url} page={page}/>)}
+          {this.props.pages.map(({page, url}) => <CategoryTile key={page.id} url={url} page={page}/>)}
         </Row>
       </div>
     )
