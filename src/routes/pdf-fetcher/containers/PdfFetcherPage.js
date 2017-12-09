@@ -14,7 +14,7 @@ import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
-import Hierarchy from 'routes/content/Hierarchy'
+import Hierarchy from 'routes/categories/Hierarchy'
 import PageModel from 'modules/endpoint/models/PageModel'
 
 class PdfFetcherPage extends React.Component {

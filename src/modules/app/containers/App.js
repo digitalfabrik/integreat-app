@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 
 import LandingPage from 'routes/landing/containers/LandingPage'
-import ContentPage from 'routes/content/containers/ContentPage'
+import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import SearchPage from 'routes/search/containers/SearchPage'
 import NotFoundPage from 'routes/not-found/containers/NotFoundPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
@@ -69,7 +69,7 @@ class App extends React.Component {
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}
                 <Fragment forRoute="*">
-                  <RichLayout><ContentPage/></RichLayout>
+                  <RichLayout><CategoriesPage/></RichLayout>
                 </Fragment>
               </div>
             </Fragment>

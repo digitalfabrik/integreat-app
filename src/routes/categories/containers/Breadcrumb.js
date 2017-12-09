@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { Link } from 'redux-little-router'
 
-import Hierarchy from 'routes/content/Hierarchy'
+import Hierarchy from 'routes/categories/Hierarchy'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 

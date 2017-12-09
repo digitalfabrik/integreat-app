@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash/lang'
 import compose from 'lodash/fp/compose'
 
 import EventModel from 'modules/endpoint/models/EventModel'
-import Hierarchy from 'routes/content/Hierarchy'
+import Hierarchy from 'routes/categories/Hierarchy'
 
 import Page from '../components/Page'
 import CategoryTiles from './CategoryTiles'

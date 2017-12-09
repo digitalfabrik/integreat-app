@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import Content from 'routes/content/containers/Content'
-import Breadcrumb from 'routes/content/containers/Breadcrumb'
+import Content from 'routes/categories/containers/Content'
+import Breadcrumb from 'routes/categories/containers/Breadcrumb'
 import Error from 'modules/common/containers/Error'
-import PdfButton from 'routes/content/components/PdfButton'
+import PdfButton from 'routes/categories/components/PdfButton'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
 
@@ -19,7 +19,7 @@ import { setAvailableLanguages } from 'modules/language/actions/setAvailableLang
 /**
  * Matching the route /<location>/<language>*
  */
-class ContentPage extends React.Component {
+class CategoriesPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
@@ -103,4 +103,4 @@ export default compose(
   withAvailableLanguageUpdater(mapLanguageToUrl),
   connect(mapStateToWrapperProps),
   withFetcher(PAGE_ENDPOINT)
-)(ContentPage)
+)(CategoriesPage)
