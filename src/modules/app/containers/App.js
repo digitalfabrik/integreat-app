@@ -32,55 +32,55 @@ class App extends React.Component {
          For routes inside a <div/> the priority decreases with each element
          So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
       */}
-        <Fragment forRoute="/">
+        <Fragment forRoute='/'>
           {/* Routes */}
           <div>
             {/* Matches /disclaimer */}
-            <Fragment forRoute="/disclaimer">
-              <RichLayout><MainDisclaimerPage/></RichLayout>
+            <Fragment forRoute='/disclaimer'>
+              <RichLayout><MainDisclaimerPage /></RichLayout>
             </Fragment>
             {/* Matches / */}
-            <Fragment forRoute="/">
-              <Layout><LandingPage/></Layout>
+            <Fragment forRoute='/'>
+              <Layout><LandingPage /></Layout>
             </Fragment>
 
             {/* Matches /augsburg/de */}
-            <Fragment forRoute="/:location/:language">
+            <Fragment forRoute='/:location/:language'>
               <div>
                 {/* Matches /augsburg/de/search -> Search */}
-                <Fragment forRoute="/search">
-                  <RichLayout><SearchPage/></RichLayout>
+                <Fragment forRoute='/search'>
+                  <RichLayout><SearchPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
-                <Fragment forRoute="/disclaimer">
-                  <RichLayout><DisclaimerPage/></RichLayout>
+                <Fragment forRoute='/disclaimer'>
+                  <RichLayout><DisclaimerPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/events* -> Events */}
-                <Fragment forRoute="/events*">
-                  <RichLayout><EventsPage/></RichLayout>
+                <Fragment forRoute='/events*'>
+                  <RichLayout><EventsPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/redirect -> Redirect */}
-                <Fragment forRoute="/redirect">
-                  <RichLayout><RedirectPage/></RichLayout>
+                <Fragment forRoute='/redirect'>
+                  <RichLayout><RedirectPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
-                <Fragment forRoute="/fetch-pdf/*">
-                  <Layout><PdfFetcherPage/></Layout>
+                <Fragment forRoute='/fetch-pdf/*'>
+                  <Layout><PdfFetcherPage /></Layout>
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}
-                <Fragment forRoute="*">
-                  <RichLayout><CategoriesPage/></RichLayout>
+                <Fragment forRoute='*'>
+                  <RichLayout><CategoriesPage /></RichLayout>
                 </Fragment>
               </div>
             </Fragment>
 
             {/* Matches /de */}
-            <Fragment forRoute="/:language">
-              <Layout><LandingPage/></Layout>
+            <Fragment forRoute='/:language'>
+              <Layout><LandingPage /></Layout>
             </Fragment>
 
             <Fragment forNoRoute>
-              <RichLayout><NotFoundPage/></RichLayout>
+              <RichLayout><NotFoundPage /></RichLayout>
             </Fragment>
           </div>
         </Fragment>

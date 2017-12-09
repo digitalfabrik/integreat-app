@@ -40,7 +40,7 @@ class EventDetail extends React.Component {
     return (
       this.props.event.thumbnailPlaceholder % 3 === 0 ? EventPlaceholder1
         : this.props.event.thumbnailPlaceholder % 3 === 1 ? EventPlaceholder2
-        : EventPlaceholder3
+          : EventPlaceholder3
     )
   }
 

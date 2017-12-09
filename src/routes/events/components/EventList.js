@@ -31,7 +31,7 @@ class Event extends React.Component {
     return (
       this.props.thumbnailPlaceholder === 0 ? EventPlaceholder1
         : this.props.thumbnailPlaceholder === 1 ? EventPlaceholder2
-        : EventPlaceholder3
+          : EventPlaceholder3
     )
   }
 
