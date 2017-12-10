@@ -3,7 +3,7 @@ const task = require('./task')
 const http = require('http')
 const createHandler = require('github-webhook-handler')
 const simpleGit = require('simple-git')()
-const { exec } = require('child_process')
+const {execSync} = require('child_process')
 
 module.exports = task('build-webhook',
   () => Promise.resolve()
@@ -31,7 +31,7 @@ module.exports = task('build-webhook',
         simpleGit.stash(['save', 'Reason: webhook'], () => console.log('Stashed changes'))
         simpleGit.reset('hard', [event.payload.after], () => console.log(`Reset to ${event.payload.after}`))
         console.log('Update dependencies...')
-        exec('yarn')
+        execSync('/usr/bin/yarn', {stdio: [0, 1, 2]})
         console.log('Building...')
         build()
       })
