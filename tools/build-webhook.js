@@ -29,7 +29,7 @@ module.exports = task('build-webhook',
         console.log('Received a push event for %s to %s', event.payload.repository.name, event.payload.ref)
         simpleGit.fetch(() => console.log('Fetched from remote'))
         simpleGit.stash(['save', 'Reason: webhook'], () => console.log('Stashed changes'))
-        simpleGit.reset('hard', [event.payload.after], () => console.log(`Reset to ${event.payload.ref}`))
+        simpleGit.reset('hard', [event.payload.after], () => console.log(`Reset to ${event.payload.after}`))
         console.log('Update dependencies...')
         exec('yarn')
         console.log('Building...')
