@@ -1,0 +1,28 @@
+@import url('../../common/constants/colors.css');
+@import url('../../common/constants/fonts.css');
+
+.top-spacing {
+  padding-top: 22px;
+}
+
+.content {
+  max-width: 1000px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 16px;
+  word-wrap: break-word;
+}
+
+.layout {
+  font-family: var(--standard-fonts);
+  font-size-adjust: var(--standard-fonts-size-adjust);
+}
+
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+@media screen and (min-width: 1000px) {
+  .layout {
+    margin-right: 0;
+    margin-left: calc(100vw - 100%);
+    background-color: var(--background-color);
+  }
+}

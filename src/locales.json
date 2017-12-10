@@ -1,0 +1,168 @@
+{
+  "app": {
+    "ar": {
+      "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+      "extras": "إضافات",
+      "categories": "الفئات",
+      "news": "الأخبار"
+    },
+    "de": {
+      "imprintAndContact": "Impressum und Kontakt",
+      "extras": "Extras",
+      "categories": "Kategorien",
+      "news": "News"
+    },
+    "en": {
+      "imprintAndContact": "Imprint and contact",
+      "extras": "Extras",
+      "categories": "Categories",
+      "news": "News"
+    },
+    "fa": {
+      "imprintAndContact": "مجوز ‎و اطلاعات تماس",
+      "extras": "اضافات",
+      "categories": "دسته​ها",
+      "news": "تازه​ها"
+    }
+  },
+  "common": {
+    "ar": {
+      "search": "البحث"
+    },
+    "de": {
+      "search": "Suchen"
+    },
+    "en": {
+      "search": "Search"
+    },
+    "fa": {
+      "search": "جستجو"
+    }
+  },
+  "endpoint": {
+    "ar": {
+      "page": {
+        "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات"
+      }
+    },
+    "de": {
+      "page": {
+        "loadingFailed": "Seite konnte leider nicht geladen werden."
+      }
+    },
+    "en": {
+      "page": {
+        "loadingFailed": "Sorry, but the requested page could not be loaded."
+      }
+    },
+    "fa": {
+      "page": {
+        "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
+      }
+    }
+  },
+  "events": {
+    "ar": {
+      "location": "الموقع",
+      "date": "تاريخ",
+      "news": "الأخبار",
+      "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
+    },
+    "de": {
+      "location": "Standort",
+      "date": "Datum",
+      "news": "News",
+      "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
+    },
+    "en": {
+      "location": "Location",
+      "date": "Date",
+      "news": "News",
+      "currentlyNoEvents": "No recent events available."
+    },
+    "fa": {
+      "location": "موقعیت مکانی",
+      "date": "تاریخ",
+      "news": "تازه​ها",
+      "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
+    }
+  },
+  "landing": {
+    "ar": {
+      "where": "أين أنت؟"
+    },
+    "de": {
+      "where": "Wo bist du?"
+    },
+    "en": {
+      "where": "Where are you?"
+    },
+    "fa": {
+      "where": "تو کجایی؟"
+    }
+  },
+  "not-found": {
+    "page": {
+      "notFound": "لا يوجد سجَّلات جديدة"
+    }
+  },
+  "de": {
+    "page": {
+      "notFound": "Seite wurde leider nicht gefunden."
+    }
+  },
+  "en": {
+    "page": {
+      "notFound": "Sorry, but the requested page was not found."
+    }
+  },
+  "fa": {
+    "page": {
+      "notFound": "مدخل مورد نظر ‎یافت نشد."
+    }
+  },
+  "pdf-fetcher": {
+    "ar": {
+      "creatingPdf": null,
+      "downloadPdfAt": null,
+      "page": {
+        "loadingFailed": null
+      }
+    },
+    "de": {
+      "creatingPdf": "Ihre PDF wird erstellt...",
+      "downloadPdfAt": "Sie können PDF hier herunterladen:",
+      "page": {
+        "loadingFailed": "Seite konnte leider nicht geladen werden."
+      }
+    },
+    "en": {
+      "creatingPdf": "Your PDF is being created...",
+      "downloadPdfAt": "You can download the PDF at:",
+      "page": {
+        "loadingFailed": "Sorry, but the requested page could not be loaded."
+      }
+    },
+    "fa": {
+      "creatingPdf": null,
+      "downloadPdfAt": null,
+      "page": {
+        "loadingFailed": null
+      }
+    }
+  },
+  "disclaimer": {
+    "ar": {
+      "notAvailable": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
+    },
+    "de": {
+      "notAvailable": "Impressum ist leider für diese Stadt nicht verfügbar."
+    },
+    "en": {
+      "notAvailable": "Sorry, but the disclaimer is not available for this city."
+    },
+    "fa": {
+      "notAvailable": "متاسفانه برای این شهر مجوزی وجود ندارد."
+    }
+  }
+}

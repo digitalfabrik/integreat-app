@@ -1,0 +1,22 @@
+@import url('../../../modules/common/constants/helpers.css');
+@import url('../../../modules/common/constants/colors.css');
+
+.breadcrumbs {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.separator::after {
+  color: var(--text-decoration-color);
+  font-size: 16px;
+  content: ' > ';
+}
+
+.level {
+  color: var(--text-secondary-color);
+  font-size: 15px;
+}
+
+.breadcrumb {
+  @mixin remove-a;
+}
