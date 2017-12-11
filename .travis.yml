@@ -7,6 +7,9 @@ script:
 - yarn run test
 - yarn run build
 before_deploy:
+  - git config --local user.name "travis"
+  - git config --local user.email "ammann@integreat-app.de"
+  - git tag "travis-$TRAVIS_COMMIT" $TRAVIS_COMMIT
   - tar cf www.tar -C www .
 deploy:
   provider: releases
