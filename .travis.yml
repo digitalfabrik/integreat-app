@@ -9,7 +9,7 @@ script:
 before_deploy:
   - git config --local user.name "travis"
   - git config --local user.email "ammann@integreat-app.de"
-  - git tag "travis-$TRAVIS_COMMIT" $TRAVIS_COMMIT
+  - git tag "travis-$TRAVIS_COMMIT-$(date +'%Y%m%d%H%M%S')" $TRAVIS_COMMIT
   - tar cf www.tar -C www .
 deploy:
   provider: releases
@@ -22,4 +22,4 @@ deploy:
   body: Automated release from Travis CI
   on:
     repo: Integreat/integreat-webapp
-    branch: WEBAPP-105
+    branch: develop
