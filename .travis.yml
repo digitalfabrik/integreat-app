@@ -9,6 +9,14 @@ script:
 before_deploy:
   - git config --local user.name "travis"
   - git config --local user.email "ammann@integreat-app.de"
+  - |
+    # Check commit matches expected commit (because of Travis bug)
+    ( set -euo pipefail
+      if [[ "${TRAVIS_COMMIT}" != "$(git rev-parse HEAD)" ]]; then
+        echo "Commit $(git rev-parse HEAD) doesn't match expected commit ${TRAVIS_COMMIT}"
+        git checkout "${TRAVIS_COMMIT}"
+      fi
+    )
   - git tag "travis-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
   - tar cf www.tar -C www .
 deploy:
