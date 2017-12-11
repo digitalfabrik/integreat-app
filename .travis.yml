@@ -16,8 +16,8 @@ deploy:
   overwrite: true
   skip_cleanup: true
   target_commitish: $TRAVIS_COMMIT
-  tag_name: $TRAVIS_TAG
-  name: travis-$TRAVIS_TAG
+  tag_name: $TRAVIS_COMMIT
+  name: travis-$TRAVIS_COMMIT
   body: Automated release from Travis CI
   on:
     repo: Integreat/integreat-webapp
