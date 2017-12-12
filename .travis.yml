@@ -5,7 +5,7 @@ node_js:
 script:
 - yarn run lint
 - yarn run test
-- yarn run build --debug
+- yarn run build:debug
 before_deploy:
   - git config --local user.name "travis"
   - git config --local user.email "ammann@integreat-app.de"
