@@ -59,7 +59,7 @@ class Store {
         combineReducers({
           ...endpointReducers,
           router: reducer,
-          languageChangeUrls: setLanguageChangeUrlsReducer,
+          languageChangeUrls: setLanguageChangeUrlsReducer
         }),
         preloadedState,
         compose(enhancer, applyMiddleware(...middlewares))
