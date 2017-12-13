@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
@@ -53,7 +51,4 @@ class EventDetail extends React.Component {
   }
 }
 
-export default compose(
-  connect(),
-  translate('events')
-)(EventDetail)
+export default translate('events')(EventDetail)
