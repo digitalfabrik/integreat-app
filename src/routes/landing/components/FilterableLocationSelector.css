@@ -1,27 +1,10 @@
-@import url('../../../modules/common/constants/colors.css');
-
 :root {
   --hover-color: rgba(0, 0, 0, 0.1);
   --item-height: 30px;
   --list-margin: 30px;
 }
 
-.language-list-item {
-  display: block;
-  padding: 7px;
-  color: inherit;
-  text-decoration: inherit;
-
-  &:hover {
-    color: inherit;
-    text-decoration: inherit;
-    transition: background-color 0.5s ease;
-    background-color: var(--hover-color);
-  }
+.top-spacing {
+  padding-top: 22px;
 }
 
-.language-list-parent {
-  height: var(--item-height);
-  line-height: var(--item-height);
-  border-bottom: 1px solid var(--theme-color);
-}

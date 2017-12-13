@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './FilterableLocationSelector.css'
+import style from './LocationSelector.css'
 import { transform } from 'lodash/object'
 import { Link } from 'redux-little-router'
 import { groupBy, filter } from 'lodash/collection'
