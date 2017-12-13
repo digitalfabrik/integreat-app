@@ -9,7 +9,6 @@ import endpointReducers from 'modules/endpoint/reducers/index'
 import { createLogger } from 'redux-logger'
 
 import setLanguageChangeUrlsReducer from 'modules/language/reducers/setLanguageChangeUrls'
-import setAvailableLanguagesReducer from 'modules/language/reducers/setAvailableLanguages'
 
 class Store {
   init () {
@@ -61,7 +60,6 @@ class Store {
           ...endpointReducers,
           router: reducer,
           languageChangeUrls: setLanguageChangeUrlsReducer,
-          availableLanguages: setAvailableLanguagesReducer
         }),
         preloadedState,
         compose(enhancer, applyMiddleware(...middlewares))
