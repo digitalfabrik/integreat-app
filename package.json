@@ -71,6 +71,7 @@
     "identity-obj-proxy": "^3.0.0",
     "img-loader": "^2.0.0",
     "jest": "^21.3.0-beta.8",
+    "jest-fetch-mock": "^1.4.0",
     "json-loader": "^0.5.7",
     "path-to-regexp": "^2.0.0",
     "pixrem": "^4.0.1",
@@ -143,6 +144,12 @@
     "plugins": [
       "react",
       "jest"
+    ]
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./src/setupTest.js"
     ]
   },
   "scripts": {

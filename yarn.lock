@@ -4436,7 +4436,7 @@ isobject@^2.0.0:
   dependencies:
     isarray "1.0.0"
 
-isomorphic-fetch@^2.1.1:
+isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
   dependencies:
@@ -4595,6 +4595,12 @@ jest-environment-node@21.3.0-beta.8:
   dependencies:
     jest-mock "21.3.0-beta.8"
     jest-util "21.3.0-beta.8"
+
+jest-fetch-mock@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/jest-fetch-mock/-/jest-fetch-mock-1.4.0.tgz#ca4e0e911cdc6f7b5b4e4bd707296b66f82d5a21"
+  dependencies:
+    isomorphic-fetch "^2.2.1"
 
 jest-get-type@21.3.0-beta.8:
   version "21.3.0-beta.8"

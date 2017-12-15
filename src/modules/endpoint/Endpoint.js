@@ -1,7 +1,9 @@
-import { createAction } from 'redux-actions'
+import { createAction, handleAction } from 'redux-actions'
 import format from 'string-template'
 
-import Payload from 'modules/endpoint/Payload'
+import reduceReducers from 'reduce-reducers'
+import Payload from './Payload'
+import StoreResponse from './StoreResponse'
 
 class ActionType {
   static FINISH_FETCH = 'FINISH_FETCH_DATA'
@@ -12,10 +14,6 @@ class ActionType {
  * A Endpoint holds all the relevant information to fetch data form it
  */
 class Endpoint {
-  /**
-   * @type string
-   */
-  name
   /**
    * @type string
    */
@@ -64,13 +62,12 @@ class Endpoint {
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    */
   constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch) {
-    this.name = name
     this.url = url
     this.mapStateToUrlParams = mapStateToUrlParams
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
 
-    const actionName = this.name.toUpperCase()
+    const actionName = name.toUpperCase()
 
     this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
       return new Payload(false, value, error, requestUrl, new Date().getTime())
@@ -97,15 +94,15 @@ class Endpoint {
     /*
       Returns whether the correct data is available and ready for the fetcher to be displayed.
      */
-  /**
-   * @param urlParams The params for the url of the endpoint
-   * @param options The options get passed to the {@link mapResponse} function when fetching
-   * @return {function(*, *)} The Action for the redux store which can initiate a fetch
-   */
+    /**
+     * @param urlParams The params for the url of the endpoint
+     * @param options The options get passed to the {@link mapResponse} function when fetching
+     * @return {function(*, *)} The Action for the redux store which can initiate a fetch
+     */
     return (dispatch, getState) => {
-      const endpointData = getState()[this.name]
+      const endpointData = getState()[this.stateName]
       if (endpointData.isFetching) {
-        return false
+        return Promise.resolve(false)
       }
 
       const formattedURL = format(this.url, urlParams)
@@ -122,12 +119,12 @@ class Endpoint {
 
       if (urlNotChanged && canCacheByTime) {
         // Correct payload has been loaded and can now be used by the fetcher(s)
-        return true
+        return new StoreResponse(true)
       }
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
-      fetch(formattedURL)
+      return fetch(formattedURL)
         .then(response => response.json())
         .then(json => {
           let error
@@ -136,18 +133,28 @@ class Endpoint {
             value = this.mapResponse(json, urlParams)
           } catch (e) {
             error = e.message
-            console.error('Failed to parse the json: ' + this.name, e.message)
+            console.error('Failed to parse the json: ' + this.stateName, e.message)
           }
 
           return dispatch(this.finishFetchAction(value, error, formattedURL))
         })
         .catch(e => {
-          console.error('Failed to load the endpoint request: ' + this.name, e.message)
+          console.error('Failed to load the endpoint request: ' + this.stateName, e.message)
           return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
         })
       // Fetchers cannot display payload yet, since it's currently fetching
-      return false
+      // return Promise.resolve(false)
     }
+  }
+
+  createReducer () {
+    const defaultState = new Payload(false)
+    const reducer = (state, action) => action.payload
+
+    return reduceReducers(
+      handleAction(this.startFetchAction, reducer, defaultState),
+      handleAction(this.finishFetchAction, reducer, defaultState)
+    )
   }
 }
 

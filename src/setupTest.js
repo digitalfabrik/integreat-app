@@ -7,3 +7,6 @@ configure({adapter: new Adapter()})
 console.error = message => {
   throw new Error(message)
 }
+
+// Setup fetch mock
+global.fetch = require('jest-fetch-mock');
