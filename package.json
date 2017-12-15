@@ -91,6 +91,7 @@
     "postcss-selector-matches": "~3.0.1",
     "postcss-selector-not": "~3.0.1",
     "prop-types": "~15.6.0",
+    "raf": "^3.4.0",
     "react-headroom": "~2.2.2",
     "react-hot-loader": "~3.1.3",
     "react-test-renderer": "~16.2.0",
@@ -140,8 +141,16 @@
       "jest/no-identical-title": "error",
       "jest/prefer-to-have-length": "warn",
       "jest/valid-expect": "error",
-
-      "indent" : ["error", 2, { "SwitchCase": 1, "ignoredNodes": ["JSXElement *"] }],
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1,
+          "ignoredNodes": [
+            "JSXElement *"
+          ]
+        }
+      ],
       "react/jsx-indent": "off",
       "react/jsx-indent-props": "off",
       "react/prop-types": "warn",
