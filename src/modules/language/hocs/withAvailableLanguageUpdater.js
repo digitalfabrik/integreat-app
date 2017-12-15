@@ -41,9 +41,9 @@ function withAvailableLanguageUpdater (mapLanguageToUrl) {
             .reduce((accumulator, language) => ({
               ...accumulator,
               [language.code]: mapLanguageToUrl(
-                  this.props.location,
-                  language.code,
-                  availableLanguages[language.code]
+                this.props.location,
+                language.code,
+                availableLanguages[language.code]
               )}), {})
         } else {
           //
