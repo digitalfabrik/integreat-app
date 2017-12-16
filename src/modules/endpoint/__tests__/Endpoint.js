@@ -1,5 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import lolex from 'lolex'
 
 import Endpoint from '../Endpoint'
 import Payload from '../Payload'
@@ -15,10 +16,12 @@ describe('Endpoint', () => {
     return new Endpoint(name, fetchUrl, jsonMapper, (state) => ({}), false)
   }
 
-  const expectDispatchedActions = (dispatchResult, store, expectedActions) => {
-    return store.dispatch(dispatchResult)
-      .promise
-      .then(() => expect(store.getActions()).toEqual(expectedActions))
+  const expectActions = (dispatchResult, store, expectedActions) => {
+    const storeResponse = store.dispatch(dispatchResult)
+    return storeResponse.promise.then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+      return storeResponse
+    })
   }
 
   test('should have corrent names', () => {
@@ -29,8 +32,16 @@ describe('Endpoint', () => {
   })
 
   describe('Store interaction', () => {
+    let clock
+    const mockedTime = 0
+
     beforeEach(() => {
+      clock = lolex.install({now: mockedTime, toFake: []})
+    })
+
+    afterEach(() => {
       fetch.resetMocks()
+      clock.uninstall()
     })
 
     test('should create reducer correctly', () => {
@@ -60,12 +71,12 @@ describe('Endpoint', () => {
             json,
             null,
             'https://weird-endpoint/a/b/api.json',
-            expect.any(Number)
+            mockedTime
           )
         }
       ]
 
-      return expectDispatchedActions(endpoint.requestAction(urlParams), store, expectedActions)
+      return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
     })
 
     test('should fail if json is malformatted', () => {
@@ -74,8 +85,7 @@ describe('Endpoint', () => {
         jsonMapper: (json) => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
-      const reducer = endpoint.createReducer()
-      const store = mockStore({[endpoint.stateName]: reducer})
+      const store = mockStore({[endpoint.stateName]: new Payload(false)})
       const malformattedJson = 'I\'m so mean!'
       fetch.mockResponse(malformattedJson)
 
@@ -90,12 +100,12 @@ describe('Endpoint', () => {
             null,
             'endpoint:page.loadingFailed',
             'https://weird-endpoint/a/b/api.json',
-            expect.any(Number)
+            mockedTime
           )
         }
       ]
 
-      return expectDispatchedActions(endpoint.requestAction(urlParams), store, expectedActions)
+      return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
     })
 
     test('should fail if json transform is malformatted', () => {
@@ -105,8 +115,7 @@ describe('Endpoint', () => {
         jsonMapper: () => { throw new Error(errorMessage) },
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
-      const reducer = endpoint.createReducer()
-      const store = mockStore({[endpoint.stateName]: reducer})
+      const store = mockStore({[endpoint.stateName]: new Payload(false)})
       fetch.mockResponse(JSON.stringify({}))
 
       const expectedActions = [
@@ -120,12 +129,42 @@ describe('Endpoint', () => {
             null,
             errorMessage,
             'https://weird-endpoint/a/b/api.json',
-            expect.any(Number)
+            mockedTime
           )
         }
       ]
 
-      return expectDispatchedActions(endpoint.requestAction(urlParams), store, expectedActions)
+      return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
+    })
+
+    test('should not refetch if there is a recent one', () => {
+      const endpoint = createEndpoint({
+        name: 'endpoint',
+        jsonMapper: (json) => json,
+        fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
+      })
+      const json = {test: 'random'}
+      const store = mockStore({
+        [endpoint.stateName]: new Payload(
+          false,
+          json,
+          null,
+          'https://weird-endpoint/a/b/api.json',
+          mockedTime)
+      })
+
+      return expectActions(endpoint.requestAction(urlParams), store, [])
+        .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(true))
+    })
+
+    test('should not fetch while fetching', () => {
+      const endpoint = createEndpoint({})
+      const store = mockStore({
+        [endpoint.stateName]: new Payload(true)
+      })
+
+      return expectActions(endpoint.requestAction(urlParams), store, [])
+        .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(false))
     })
   })
 })

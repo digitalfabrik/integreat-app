@@ -113,8 +113,8 @@ class Endpoint {
       const lastUrl = endpointData.requestUrl
       const lastFetchedDate = endpointData.fetchDate
 
-      const canCacheByTime = !!lastFetchedDate && new Date().getTime() - 1000 * 60 * 60 <= lastFetchedDate
-      const urlNotChanged = !!lastUrl && lastUrl === formattedURL
+      const canCacheByTime = lastFetchedDate !== null && new Date().getTime() - 1000 * 60 * 60 <= lastFetchedDate
+      const urlNotChanged = lastUrl !== null && lastUrl === formattedURL
 
       if (urlNotChanged && canCacheByTime) {
         // Correct payload has been loaded and can now be used by the fetcher(s)
