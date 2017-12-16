@@ -63,8 +63,8 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
           throw new Error('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
             'a undefined value!')
         }
-        const isDataAvailable = this.props.dispatch(endpoint.requestAction(urlParams))
-        this.setState({ isDataAvailable })
+        const storeResponse = this.props.dispatch(endpoint.requestAction(urlParams))
+        this.setState({ isDataAvailable: storeResponse.dataAvailable })
       }
 
       errorVisible () {

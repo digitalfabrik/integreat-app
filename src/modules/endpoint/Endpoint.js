@@ -91,10 +91,9 @@ class Endpoint {
   }
 
   requestAction (urlParams = {}) {
-    /*
-      Returns whether the correct data is available and ready for the fetcher to be displayed.
-     */
     /**
+     * Returns whether the correct data is available and ready for the fetcher to be displayed.
+     *
      * @param urlParams The params for the url of the endpoint
      * @param options The options get passed to the {@link mapResponse} function when fetching
      * @return {function(*, *)} The Action for the redux store which can initiate a fetch
@@ -102,7 +101,7 @@ class Endpoint {
     return (dispatch, getState) => {
       const endpointData = getState()[this.stateName]
       if (endpointData.isFetching) {
-        return Promise.resolve(false)
+        return new StoreResponse(false)
       }
 
       const formattedURL = format(this.url, urlParams)
@@ -124,26 +123,29 @@ class Endpoint {
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
-      return fetch(formattedURL)
-        .then(response => response.json())
-        .then(json => {
-          let error
-          let value
-          try {
-            value = this.mapResponse(json, urlParams)
-          } catch (e) {
-            error = e.message
-            console.error('Failed to parse the json: ' + this.stateName, e.message)
-          }
-
-          return dispatch(this.finishFetchAction(value, error, formattedURL))
-        })
-        .catch(e => {
-          console.error('Failed to load the endpoint request: ' + this.stateName, e.message)
-          return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
-        })
       // Fetchers cannot display payload yet, since it's currently fetching
-      // return Promise.resolve(false)
+      return new StoreResponse(false,
+        fetch(formattedURL)
+          .then(response => response.json())
+          .then(json => {
+            let error
+            let value
+            try {
+              value = this.mapResponse(json, urlParams)
+            } catch (e) {
+              error = e.message
+              console.error('Failed to map the json: ' + this.stateName)
+              console.error(e)
+            }
+
+            return dispatch(this.finishFetchAction(value, error, formattedURL))
+          })
+          .catch(e => {
+            console.error('Failed to load the endpoint request: ' + this.stateName)
+            console.error(e)
+            return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
+          })
+      )
     }
   }
 

@@ -11,7 +11,7 @@ class Payload {
   }
 
   /**
-   * @return {Date} The date the fetch was initiated
+   * @return {number} The date the fetch was initiated as serializable number
    */
   get fetchDate () {
     return this._fetchDate
