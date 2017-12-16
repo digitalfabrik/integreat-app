@@ -55,8 +55,7 @@ describe('Endpoint', () => {
         jsonMapper: (json) => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
-      const reducer = endpoint.createReducer()
-      const store = mockStore({[endpoint.stateName]: reducer})
+      const store = mockStore({[endpoint.stateName]: new Payload(false)})
       const json = {test: 'random'}
       fetch.mockResponse(JSON.stringify(json))
 
