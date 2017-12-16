@@ -92,6 +92,18 @@ Also mark the *src* and *public* folder as *Source directory*. In IntelliJ no ot
 
 You can [view our bugs](https://integreat.atlassian.net/secure/Dashboard.jspa) or [create new ones](https://integreat.atlassian.net/secure/CreateIssue!default.jspa) on our jira.
 
-# Publishing
+# Deployment
+
+## Deployment to web.
+
+See instructions [here](tools/deploy/README.md).
+
+## Deployment to webnext.
+
+1.  When pushing to any branch a [travis](https://travis-ci.org/Integreat/integreat-webapp) build ist triggered. When 
+    pushing to **develop** the app also gets deployed to [Github Releases](https://help.github.com/articles/about-releases/).
+2.  The deployment task creates a Git tag and creates a release. A **www.tar** tarball is attached to the release as asset.
+3.  Github sends a release event to the Integreat servers where our [webhook server](https://github.com/Integreat/github-webhook-publish) is running.
+4. The webhook server makes the www.tar available to a web server.
 
 A live preview of this app is available [here](https://webnext.integreat-app.de/).
