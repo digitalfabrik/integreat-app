@@ -33,9 +33,9 @@ class StateMapperBuilder {
     return this._endpointBuilder
   }
 
-  fromArray (array, reducer = (state, element) => state[element]) {
+  fromArray (array, stateSelector = (state, element) => state[element]) {
     return this.fromFunction((state) => array.reduce((accumulator, currentValue) => {
-      accumulator[currentValue] = reducer(state, currentValue)
+      accumulator[currentValue] = stateSelector(state, currentValue)
       return accumulator
     }, {}))
   }
