@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
@@ -15,7 +16,7 @@ function createStateToPropsMapper (endpoint) {
 
 /**
  * This function builds a HOC from a component
- * @function buildHOC
+ * @callback buildHOC
  * @param {React.Component} WrappedComponent
  * @return {React.Component} The HOC
  */
@@ -31,6 +32,11 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
   return (WrappedComponent) => {
     class Fetcher extends React.Component {
       static displayName = endpoint.name + 'Fetcher'
+      static propTypes = {
+        urlParams: PropTypes.objectOf(PropTypes.string),
+        className: PropTypes.string,
+        dispatch: PropTypes.func.isRequired
+      }
 
       constructor () {
         super()
@@ -76,17 +82,17 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
 
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
-            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
+            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party' />
           } else {
-            return <div/>
+            return <div />
           }
         }
 
         if (this.errorVisible()) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
+          return <Error className={cx(style.loading, this.props.className)} error={payload.error} />
         }
 
-        return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})}/>
+        return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})} />
       }
     }
 

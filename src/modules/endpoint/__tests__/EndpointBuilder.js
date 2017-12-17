@@ -25,7 +25,7 @@ describe('EndpointBuilder', () => {
       .withUrl(url)
       .withRefetchLogic(refetchLogic)
       .withMapper(mapper)
-      .withStateMapper().fromFunction(() => ({}))
+      .withStateMapper().fromFunction((state) => ({}))
       .build()
 
     expect(endpoint.url).toBe(url)
@@ -35,7 +35,7 @@ describe('EndpointBuilder', () => {
   })
 
   test('should throw errors if used incorrectly', () => {
-    expect(() => new EndpointBuilder().build()).toThrow()
+    expect(() => new EndpointBuilder(undefined).build()).toThrow()
 
     const builder = new EndpointBuilder('endpoint')
     expect(() => builder.build()).toThrow()

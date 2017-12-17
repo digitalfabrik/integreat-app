@@ -7,7 +7,7 @@ class StateMapperBuilder {
 
   /**
    * This function maps as state to an object
-   * @function stateMapper
+   * @callback stateMapper
    * @param {object} state
    * @return {object} An object with transformed information from the state
    */
@@ -34,11 +34,10 @@ class StateMapperBuilder {
   }
 
   fromArray (array, reducer = (state, element) => state[element]) {
-    this._stateMapper = (state) => array.reduce((accumulator, currentValue) => {
+    return this.fromFunction((state) => array.reduce((accumulator, currentValue) => {
       accumulator[currentValue] = reducer(state, currentValue)
       return accumulator
-    }, {})
-    return this._endpointBuilder
+    }, {}))
   }
 
   /**
