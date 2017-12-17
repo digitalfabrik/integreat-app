@@ -79,14 +79,6 @@ class EndpointBuilder {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    if (!this._url) {
-      throw Error('You have to set a url to build an endpoint!')
-    }
-
-    if (!this._stateMapperBuilder) {
-      throw Error('You have to set a state mapper to build an endpoint!')
-    }
-
     if (!this._refetchLogic) {
       throw Error('You have to set a refetch logic to build an endpoint!')
     }
