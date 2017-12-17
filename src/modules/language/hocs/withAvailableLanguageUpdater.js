@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash/lang'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/languages'
 
 const mapStateToProps = (state) => ({
   location: state.router.params.location,

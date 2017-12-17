@@ -1,6 +1,6 @@
-import langaugeEndpoint from '../endpoints/language'
+import langaugeEndpoint from '../endpoints/languages'
 import locationEndpoint from '../endpoints/location'
-import pageEndpoint from '../endpoints/page'
+import pageEndpoint from '../endpoints/pages'
 import eventsEndpoint from '../endpoints/events'
 import disclaimerEndpoint from '../endpoints/disclaimer'
 

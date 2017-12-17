@@ -9,7 +9,7 @@ import Breadcrumb from 'routes/categories/containers/Breadcrumb'
 import Error from 'modules/common/containers/Error'
 import PdfButton from 'routes/categories/components/PdfButton'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
+import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 
 import Hierarchy from '../Hierarchy'
 import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'

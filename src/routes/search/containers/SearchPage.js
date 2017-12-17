@@ -12,7 +12,7 @@ import style from './SearchPage.css'
 
 import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
+import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 import PageModel from 'modules/endpoint/models/PageModel'
 
 class SearchPage extends React.Component {
