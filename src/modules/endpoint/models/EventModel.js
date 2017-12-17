@@ -1,5 +1,5 @@
 class EventModel {
-  constructor ({ id, title = '', content = '', thumbnail = '', address = '', town = '', date = {}, excerpt = '', availableLanguages = [] }) {
+  constructor ({id, title = '', content = '', thumbnail = '', address = '', town = '', date = {}, excerpt = '', availableLanguages = []}) {
     this._id = id
     this._title = title
     this._content = content
@@ -39,12 +39,8 @@ class EventModel {
     }
   }
 
-  get date () {
+  get dateModel () {
     return this._date
-  }
-
-  getDate (locale) {
-    return this._date.toLocaleString(locale)
   }
 
   get excerpt () {
