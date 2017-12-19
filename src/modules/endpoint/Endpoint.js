@@ -73,6 +73,7 @@ class Endpoint {
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
+    this._stateName = name
 
     const actionName = name.toUpperCase()
 
@@ -80,7 +81,6 @@ class Endpoint {
       return new Payload(false, value, error, requestUrl, new Date().getTime())
     })
     this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
-    this._stateName = name
   }
 
   /**
