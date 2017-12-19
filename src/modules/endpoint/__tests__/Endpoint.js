@@ -31,7 +31,50 @@ describe('Endpoint', () => {
     expect(endpoint.payloadName).toBe('endpointPayload')
   })
 
-  describe('Store interaction', () => {
+  describe('Reducer', () => {
+    let clock
+    const mockedTime = 0
+
+    beforeEach(() => {
+      clock = lolex.install({now: mockedTime, toFake: []})
+    })
+
+    afterEach(() => {
+      clock.uninstall()
+    })
+
+    test('should return the initial state', () => {
+      const reducer = createEndpoint({}).createReducer()
+      expect(reducer(undefined, {})).toEqual(new Payload(false))
+    })
+
+    test('should handle startFetchAction', () => {
+      const endpoint = createEndpoint({})
+      const reducer = endpoint.createReducer()
+      expect(reducer({}, endpoint.startFetchAction()))
+        .toEqual(new Payload(true))
+    })
+
+    test('should handle finishFetchAction if data was received', () => {
+      const endpoint = createEndpoint({})
+      const reducer = endpoint.createReducer()
+      const json = {data: 'test'}
+      const url = 'https://someurl/api.json'
+      expect(reducer({}, endpoint.finishFetchAction(json, null, url)))
+        .toEqual(new Payload(false, json, null, url, mockedTime))
+    })
+
+    test('should handle finishFetchAction if error occured', () => {
+      const endpoint = createEndpoint({})
+      const reducer = endpoint.createReducer()
+      const error = 'error'
+      const url = 'https://someurl/api.json'
+      expect(reducer({}, endpoint.finishFetchAction(null, error, url)))
+        .toEqual(new Payload(false, null, error, url, mockedTime))
+    })
+  })
+
+  describe('Actions', () => {
     let clock
     const mockedTime = 0
 
@@ -42,38 +85,6 @@ describe('Endpoint', () => {
     afterEach(() => {
       fetch.resetMocks()
       clock.uninstall()
-    })
-
-    describe('Reducer', () => {
-      test('should return the initial state', () => {
-        const reducer = createEndpoint({}).createReducer()
-        expect(reducer(undefined, {})).toEqual(new Payload(false))
-      })
-
-      test('should handle startFetchAction', () => {
-        const endpoint = createEndpoint({})
-        const reducer = endpoint.createReducer()
-        expect(reducer({}, endpoint.startFetchAction()))
-          .toEqual(new Payload(true))
-      })
-
-      test('should handle finishFetchAction if data was received', () => {
-        const endpoint = createEndpoint({})
-        const reducer = endpoint.createReducer()
-        const json = { data: 'test' }
-        const url = 'https://someurl/api.json'
-        expect(reducer({}, endpoint.finishFetchAction(json, null, url)))
-          .toEqual(new Payload(false, json, null, url, 0))
-      })
-
-      test('should handle finishFetchAction if error occured', () => {
-        const endpoint = createEndpoint({})
-        const reducer = endpoint.createReducer()
-        const error = 'error'
-        const url = 'https://someurl/api.json'
-        expect(reducer({}, endpoint.finishFetchAction(null, error, url)))
-          .toEqual(new Payload(false, null, error, url, 0))
-      })
     })
 
     test('should fetch correctly', () => {

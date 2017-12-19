@@ -166,12 +166,6 @@
       "jest"
     ]
   },
-  "jest": {
-    "automock": false,
-    "setupFiles": [
-      "./src/setupTest.js"
-    ]
-  },
   "scripts": {
     "eslint": "eslint src tools",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.css\"",
