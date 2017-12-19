@@ -34,35 +34,40 @@ class EventsPage extends React.Component {
       : `/${this.props.location}/${language}/events`
 
   componentDidMount () {
+    // all events
+    let availableLanguages = {}
+
     if (this.props.path && this.props.events) {
       // specific event
       const event = this.props.events.find(
         (event) => event.id.toString() === this.props.path.replace('/', '')
       )
-      this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, event.availableLanguages))
-    } else {
-      // all events
-      this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
+      availableLanguages = event.availableLanguages
     }
+    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages))
   }
 
+  // we must not call dispatch in componentWillUpdate or componentDidUpdate
   componentWillReceiveProps (nextProps) {
-    if (nextProps.events !== this.props.events || nextProps.path !== this.props.path) {
-      if (nextProps.path) {
-        // specific event
-        const event = nextProps.events.find(
-          (event) => event.id.toString() === nextProps.path.replace('/', '')
+    if (nextProps.events === this.props.events && nextProps.path === this.props.path) {
+      // no relevant prop changes
+      return
+    }
+
+    if (nextProps.path) {
+      // specific event
+      const event = nextProps.events.find(
+        (event) => event.id.toString() === nextProps.path.replace('/', '')
+      )
+      if (event) {
+        // events have been loaded in the new language
+        this.props.dispatch(setLanguageChangeUrls(
+          this.mapLanguageToUrl, nextProps.languages, event.availableLanguages)
         )
-        if (event) {
-          // events have been loaded in the new language
-          this.props.dispatch(setLanguageChangeUrls(
-            this.mapLanguageToUrl, nextProps.languages, event.availableLanguages)
-          )
-        }
-      } else {
-        // all events
-        this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages))
       }
+    } else {
+      // all events
+      this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages))
     }
   }
 

@@ -37,6 +37,7 @@ class CategoriesPage extends React.Component {
     this.setLanguageChangeUrls(this.props.path)
   }
 
+  // we must not call dispatch in componentWillUpdate or componentDidUpdate
   componentWillReceiveProps (nextProps) {
     if (nextProps.path !== this.props.path) {
       this.setLanguageChangeUrls(nextProps.path)
