@@ -1,5 +1,9 @@
 @import url('../../../modules/common/constants/colors.css');
 
+:root {
+  --item-height: 30px;
+}
+
 .language-list-item {
   display: block;
   padding: 7px;
@@ -10,7 +14,7 @@
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-    background-color: var(--hover-color);
+    background-color: var(--background-accent-color);
   }
 }
 
