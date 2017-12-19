@@ -37,7 +37,7 @@ class Endpoint {
   /**
    * Holds the override value for the response
    */
-  _responseOverride
+  responseOverride
 
   /**
    * @callback mapDataCallback
@@ -72,7 +72,7 @@ class Endpoint {
     this.mapStateToUrlParams = mapStateToUrlParams
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
-    this._responseOverride = responseOverride
+    this.responseOverride = responseOverride
 
     const actionName = name.toUpperCase()
 
@@ -98,6 +98,7 @@ class Endpoint {
   }
 
   requestAction (urlParams = {}) {
+    const responseOverride = this.responseOverride
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
      *
@@ -129,8 +130,8 @@ class Endpoint {
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
 
-      if (this._responseOverride) {
-        const value = this.mapResponse(this._responseOverride, urlParams)
+      if (responseOverride) {
+        const value = this.mapResponse(responseOverride, urlParams)
         dispatch(this.finishFetchAction(value, null, formattedURL))
         return new StoreResponse(false, Promise.resolve(value))
       }

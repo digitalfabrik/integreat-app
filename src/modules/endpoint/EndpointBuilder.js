@@ -94,7 +94,7 @@ class EndpointBuilder {
       throw Error('You have to set a refetch logic to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._url, this._mapper, this._stateMapperBuilder.build(), this._refetchLogic)
+    return new Endpoint(this._name, this._url, this._mapper, this._stateMapperBuilder.build(), this._refetchLogic, this._responseOverride)
   }
 }
 

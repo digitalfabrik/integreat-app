@@ -20,11 +20,13 @@ describe('EndpointBuilder', () => {
     const name = 'endpoint'
     const refetchLogic = () => false
     const mapper = (json) => json
+    const override = {test: 'random'}
 
     const endpoint = new EndpointBuilder(name)
       .withUrl(url)
       .withRefetchLogic(refetchLogic)
       .withMapper(mapper)
+      .withResponseOverride(override)
       .withStateMapper().fromFunction((state) => ({}))
       .build()
 
@@ -32,6 +34,7 @@ describe('EndpointBuilder', () => {
     expect(endpoint.stateName).toBe(name)
     expect(endpoint.shouldRefetch).toBe(refetchLogic)
     expect(endpoint.mapResponse).toBe(mapper)
+    expect(endpoint.responseOverride).toBe(override)
   })
 
   test('should throw errors if used incorrectly', () => {
