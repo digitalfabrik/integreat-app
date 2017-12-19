@@ -12,7 +12,7 @@ class HeaderDropDown extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = { dropDownActive: false }
+    this.state = {dropDownActive: false}
     this.toggleDropDown = this.toggleDropDown.bind(this)
     this.handleClickOutside = this.handleClickOutside.bind(this)
   }
