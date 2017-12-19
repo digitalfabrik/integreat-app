@@ -10,6 +10,7 @@ class EndpointBuilder {
   _name
   _url
   _mapper
+  _responseOverride
   _stateMapperBuilder
   _refetchLogic
 
@@ -55,10 +56,20 @@ class EndpointBuilder {
   /**
    * Adds refetch logic to this builder
    * @param refetchLogic The refetch logic
-   * @return {EndpointBuilder}  The builder itself
+   * @return {EndpointBuilder} The builder itself
    */
   withRefetchLogic (refetchLogic) {
     this._refetchLogic = refetchLogic
+    return this
+  }
+
+  /**
+   * Overrides value from the API response. Useful for testing.
+   * @param responseOverride {*} The response
+   * @return {EndpointBuilder} The builder itself
+   */
+  withResponseOverride (responseOverride) {
+    this._responseOverride = responseOverride
     return this
   }
 

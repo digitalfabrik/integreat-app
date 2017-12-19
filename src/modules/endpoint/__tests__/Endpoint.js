@@ -12,8 +12,8 @@ describe('Endpoint', () => {
   const defaultFetchUrl = 'https://weird-endpoint/{var1}/{var2}/api.json'
   const defaultJsonMapper = (json) => json
 
-  const createEndpoint = ({name = 'endpoint', fetchUrl = defaultFetchUrl, jsonMapper = defaultJsonMapper}) => {
-    return new Endpoint(name, fetchUrl, jsonMapper, (state) => ({}), false)
+  const createEndpoint = ({name = 'endpoint', fetchUrl = defaultFetchUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
+    return new Endpoint(name, fetchUrl, jsonMapper, (state) => ({}), false, responseOverride)
   }
 
   const expectActions = (dispatchResult, store, expectedActions) => {
@@ -202,6 +202,35 @@ describe('Endpoint', () => {
 
       return expectActions(endpoint.requestAction(urlParams), store, [])
         .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(false))
+    })
+
+    test('should use override correctly', () => {
+      const json = {test: 'random'}
+
+      const endpoint = createEndpoint({
+        name: 'endpoint',
+        jsonMapper: (json) => json,
+        fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json',
+        responseOverride: json
+      })
+      const store = mockStore({[endpoint.stateName]: new Payload(false)})
+      const expectedActions = [
+        {
+          type: 'START_FETCH_DATA_ENDPOINT',
+          payload: new Payload(true)
+        },
+        {
+          type: 'FINISH_FETCH_DATA_ENDPOINT',
+          payload: new Payload(false,
+            json,
+            null,
+            'https://weird-endpoint/a/b/api.json',
+            mockedTime
+          )
+        }
+      ]
+
+      return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
     })
   })
 })

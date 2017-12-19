@@ -35,6 +35,11 @@ class Endpoint {
   mapResponse
 
   /**
+   * Holds the override value for the response
+   */
+  _responseOverride
+
+  /**
    * @callback mapDataCallback
    * @param {object} data The data which has been fetched (Possibly a plain js object)
    * @param {object} urlParams The params which were used in the fetch url
@@ -60,12 +65,14 @@ class Endpoint {
    * @param {function} mapResponse Transforms the response from the fetch to a result
    * @param {mapStateToUrlParamsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
+   * @param responseOverride {*} An override value from the API response. Useful for testing.
    */
-  constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch) {
+  constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch, responseOverride) {
     this.url = url
     this.mapStateToUrlParams = mapStateToUrlParams
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
+    this._responseOverride = responseOverride
 
     const actionName = name.toUpperCase()
 
@@ -111,18 +118,23 @@ class Endpoint {
        */
 
       const lastUrl = endpointData.requestUrl
-      const lastFetchedDate = endpointData.fetchDate
-
-      const canCacheByTime = lastFetchedDate !== null && new Date().getTime() - 1000 * 60 * 60 <= lastFetchedDate
       const urlNotChanged = lastUrl !== null && lastUrl === formattedURL
 
-      if (urlNotChanged && canCacheByTime) {
+      // todo: currently once data has been fetched it stays in store forever
+      if (urlNotChanged) {
         // Correct payload has been loaded and can now be used by the fetcher(s)
         return new StoreResponse(true)
       }
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
+
+      if (this._responseOverride) {
+        const value = this.mapResponse(this._responseOverride, urlParams)
+        dispatch(this.finishFetchAction(value, null, formattedURL))
+        return new StoreResponse(false, Promise.resolve(value))
+      }
+
       // Fetchers cannot display payload yet, since it's currently fetching
       return new StoreResponse(false,
         fetch(formattedURL)
