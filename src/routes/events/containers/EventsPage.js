@@ -8,7 +8,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import EventDetail from './EventDetail'
+import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -72,11 +72,9 @@ class EventsPage extends React.Component {
   }
 
   render () {
-    let events = this.props.events.map((event, index) => ({event: event, thumbnailPlaceholder: index % 3}))
-
     if (this.props.path) {
       // event with the given id from this.props.path
-      const event = events.find((event) => event.event.id.toString() === this.props.path.replace('/', ''))
+      const event = this.props.events.find((event) => event.id.toString() === this.props.path.replace('/', ''))
 
       if (event) {
         return <EventDetail event={event} location={this.props.location} language={this.props.language}/>
@@ -85,7 +83,7 @@ class EventsPage extends React.Component {
         return <Spinner name='line-scale-party'/>
       }
     }
-    return <EventList events={events} url={this.getPath()} language={this.props.language}/>
+    return <EventList events={this.props.events} url={this.getPath()} language={this.props.language}/>
   }
 }
 

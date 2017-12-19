@@ -16,36 +16,30 @@ import Caption from 'modules/common/components/Caption'
  */
 class EventDetail extends React.Component {
   static propTypes = {
-    event: PropTypes.shape({
-      event: PropTypes.instanceOf(EventModel).isRequired,
-      thumbnailPlaceholder: PropTypes.number.isRequired
-    }).isRequired,
+    event: PropTypes.instanceOf(EventModel).isRequired,
     language: PropTypes.string.isRequired
   }
 
   getEventPlaceholder () {
-    return (
-      this.props.event.thumbnailPlaceholder % 3 === 0 ? EventPlaceholder1
-        : this.props.event.thumbnailPlaceholder % 3 === 1 ? EventPlaceholder2
-          : EventPlaceholder3
-    )
+    const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
+    return placeholders[this.props.event.id % 3]
   }
 
   render () {
     const {t} = this.props
     return (
       <div>
-        <img className={style.thumbnail} src={this.props.event.event.thumbnail || this.getEventPlaceholder()}/>
-        <Caption title={this.props.event.event.title}/>
+        <img className={style.thumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
+        <Caption title={this.props.event.title}/>
         <div>
           <span className={style.identifier}>{t('date')}: </span>
-          <span className={style.date}>{this.props.event.event.getDate(this.props.language)}</span>
+          <span className={style.date}>{this.props.event.getDate(this.props.language)}</span>
         </div>
         <div>
           <span className={style.identifier}>{t('location')}: </span>
-          <span className={style.date}>{this.props.event.event.address}</span>
+          <span className={style.date}>{this.props.event.address}</span>
         </div>
-        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.event.content}}/>
+        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.content}}/>
       </div>
     )
   }
