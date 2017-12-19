@@ -1,0 +1,5 @@
+describe('LocationModel', () => {
+  test('should ', () => {
+
+  })
+})
