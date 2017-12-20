@@ -8,7 +8,7 @@ describe('withFetcher', () => {
   const endpoint = new EndpointBuilder('endpoint')
     .withUrl('https://someendpoint/{var1}/{var2}/api.json')
     .withMapper((json) => json)
-    .withResponseOverride({test: 'random'})
+    .withResponseOverride({})
     .build()
 
   const shallowHOC = ({endpoint, hideError = false, hideSpinner = false, urlParams = {}, requestAction, classname, otherProps = {}}) => {
@@ -18,11 +18,15 @@ describe('withFetcher', () => {
     return shallow(<Hoced urlParams={urlParams} requestAction={requestAction} classname={classname} {...otherProps}/>)
   }
 
+  test('should should show error if there is one and it\'s not hidded', () => {
+
+  })
+
   test('should fetch when endpoint tells us', () => {
     const endpoint = new EndpointBuilder('endpoint')
       .withUrl('https://someendpoint/{var1}/{var2}/api.json')
       .withMapper((json) => json)
-      .withResponseOverride({test: 'random'})
+      .withResponseOverride({})
       .withRefetchLogic(() => true) // Refetch always
       .build()
 

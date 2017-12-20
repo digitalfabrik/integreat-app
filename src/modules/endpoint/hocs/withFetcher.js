@@ -44,7 +44,7 @@ export function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         this.fetch(this.props.urlParams)
       }
 
-      componentWillRecediveProps (nextProps) {
+      componentWillRecieveProps (nextProps) {
         // Dispatch new requestAction to ask the endpoint whether data is available, if:
         // (a) the Fetcher urlParams prop changed or
         // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
