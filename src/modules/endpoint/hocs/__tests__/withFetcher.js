@@ -15,7 +15,9 @@ describe('withFetcher', () => {
   // eslint-disable-next-line react/prop-types
   const createComponent = ({endpoint, hideError = false, hideSpinner = false, urlParams = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
     const HOC = withFetcher(endpoint, hideError, hideSpinner)
-    const Hoced = HOC(() => <span>WrappedComponent</span>)
+    const WrappedComponent = () => <span>WrappedComponent</span>
+    WrappedComponent.displayName = 'WrappedComponent'
+    const Hoced = HOC(WrappedComponent)
 
     return <Hoced urlParams={urlParams} requestAction={requestAction} classname={classname} {...otherProps}/>
   }
@@ -25,7 +27,39 @@ describe('withFetcher', () => {
       endpoint,
       hideError: false,
       requestAction: () => new StoreResponse(true),
-      otherProps: {[endpoint.payloadName]: {error: 'Yepp... Error time! Wuschhh!'}}
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wuschhh!')}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  test('should should show spinner if there is no data yet and it\'s not hidden', () => {
+    const hoc = createComponent({
+      endpoint,
+      hideSpinner: false,
+      requestAction: () => new StoreResponse(false),
+      otherProps: {[endpoint.payloadName]: new Payload(true)}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  test('should should show nothing if there is no data yet and spinner is hidden', () => {
+    const hoc = createComponent({
+      endpoint,
+      hideSpinner: true,
+      requestAction: () => new StoreResponse(false),
+      otherProps: {[endpoint.payloadName]: new Payload(true)}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  test('should should show wrapped component if there is data', () => {
+    const hoc = createComponent({
+      endpoint,
+      requestAction: () => new StoreResponse(true),
+      otherProps: {[endpoint.payloadName]: new Payload(false, {})}
     })
 
     expect(shallow(hoc)).toMatchSnapshot()
