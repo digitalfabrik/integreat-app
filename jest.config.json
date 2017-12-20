@@ -22,5 +22,8 @@
   "collectCoverageFrom": [
     "**/*.{js,jsx}"
   ],
-  "coverageDirectory": "../__coverage__"
+  "coverageDirectory": "../__coverage__",
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ]
 }
