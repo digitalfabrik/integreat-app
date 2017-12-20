@@ -44,7 +44,7 @@ export function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         this.fetch(this.props.urlParams)
       }
 
-      componentWillReceiveProps (nextProps) {
+      componentWillRecediveProps (nextProps) {
         // Dispatch new requestAction to ask the endpoint whether data is available, if:
         // (a) the Fetcher urlParams prop changed or
         // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
@@ -106,4 +106,10 @@ const createMapDispatchToProps = (endpoint) => {
   })
 }
 
-export default (endpoint, hideError, hideSpinner) => (WrappedComponent) => connect(createStateToPropsMapper(endpoint), createMapDispatchToProps(endpoint))(withFetcher(endpoint, hideError, hideSpinner)(WrappedComponent))
+export default (endpoint, hideError, hideSpinner) => {
+  const HOC = withFetcher(endpoint, hideError, hideSpinner)
+  return (WrappedComponent) => {
+    const AnotherWrappedComponent = HOC(WrappedComponent)
+    return connect(createStateToPropsMapper(endpoint), createMapDispatchToProps(endpoint))(AnotherWrappedComponent)
+  }
+}
