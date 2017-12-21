@@ -1,25 +1,39 @@
 import React from 'react'
-import { withFetcher } from '../withFetcher'
+
+import { mount, shallow } from 'enzyme'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+
 import EndpointBuilder from '../../EndpointBuilder'
 import StoreResponse from '../../StoreResponse'
-import { shallow } from 'enzyme'
 import Payload from '../../Payload'
+import connectedWithFetcher, { withFetcher } from '../withFetcher'
 
 describe('withFetcher', () => {
+  const urlParams = {var1: 'a', var2: 'b'}
   const endpoint = new EndpointBuilder('endpoint')
     .withUrl('https://someendpoint/{var1}/{var2}/api.json')
     .withMapper((json) => json)
+    .withStateMapper().fromFunction(() => (urlParams))
     .withResponseOverride({})
     .build()
 
   // eslint-disable-next-line react/prop-types
   const createComponent = ({endpoint, hideError = false, hideSpinner = false, urlParams = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
     const HOC = withFetcher(endpoint, hideError, hideSpinner)
-    const WrappedComponent = () => <span>WrappedComponent</span>
-    WrappedComponent.displayName = 'WrappedComponent'
+
+    class WrappedComponent extends React.Component {
+      static displayName = 'WrappedComponent'
+
+      render () {
+        return <span>WrappedComponent</span>
+      }
+    }
+
     const Hoced = HOC(WrappedComponent)
 
-    return <Hoced urlParams={urlParams} requestAction={requestAction} classname={classname} {...otherProps}/>
+    return <Hoced urlParams={urlParams} requestAction={requestAction} classname={classname} {...otherProps} />
   }
 
   test('should should show error if there is one and it\'s not hidded', () => {
@@ -121,5 +135,60 @@ describe('withFetcher', () => {
     expect(mockRequestAction).toBeCalledWith(otherUrlParams)
 
     expect(() => instance.fetch(undefined)).toThrow()
+  })
+
+  const mockStore = configureMockStore([thunk])
+
+  describe('connect()', () => {
+    test('should map dispatch to props', () => {
+      const payload = new Payload(false)
+      const store = mockStore({[endpoint.stateName]: payload})
+      const HOC = connectedWithFetcher(endpoint)
+      const Hoced = HOC(() => <span>WrappedComponent</span>)
+
+      const tree = mount(
+        <Provider store={store}>
+          <Hoced />
+        </Provider>
+      )
+
+      const wrappedHOCProps = tree.find(Hoced).childAt(0).props()
+
+      expect(store.getActions()).toHaveLength(2) // componntDidMount calls fetch
+      expect(store.getActions()).toContainEqual({
+        payload: new Payload(false, {}, null, 'https://someendpoint/a/b/api.json', expect.any(Number)),
+        type: 'FINISH_FETCH_DATA_ENDPOINT'
+      })
+      wrappedHOCProps.requestAction({var1: 'c', var2: 'd'})
+      expect(store.getActions()).not.toHaveLength(2) // should change after dispatch -> not 2 anymore
+      expect(store.getActions()).toContainEqual({
+        payload: new Payload(false, {}, null, 'https://someendpoint/c/d/api.json', expect.any(Number)),
+        type: 'FINISH_FETCH_DATA_ENDPOINT'
+      })
+    })
+
+    test('should map state to props', () => {
+      /*  The url from the last request. This tells the endpoint that we already have data and displays the wrapped
+      component instead of a spinner */
+      const requestUrl = 'https://someendpoint/a/b/api.json'
+      const payload = new Payload(false, {}, null, requestUrl)
+      const store = mockStore({[endpoint.stateName]: payload})
+      const HOC = connectedWithFetcher(endpoint)
+      const Hoced = HOC(() => <span>WrappedComponent</span>)
+
+      const tree = mount(
+        <Provider store={store}>
+          <Hoced />
+        </Provider>
+      )
+
+      const wrappedHOCProps = tree.find(Hoced).childAt(0).props()
+
+      expect(wrappedHOCProps).toEqual({
+        endpointPayload: payload,
+        requestAction: expect.any(Function),
+        urlParams
+      })
+    })
   })
 })
