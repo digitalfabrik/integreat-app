@@ -1,4 +1,3 @@
-import { reduce } from 'lodash/collection'
 import { isEmpty } from 'lodash/lang'
 
 import EndpointBuilder from '../EndpointBuilder'
