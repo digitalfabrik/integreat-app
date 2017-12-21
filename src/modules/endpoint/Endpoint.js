@@ -1,7 +1,9 @@
-import { createAction } from 'redux-actions'
+import { createAction, handleAction } from 'redux-actions'
 import format from 'string-template'
 
-import Payload from 'modules/endpoint/Payload'
+import reduceReducers from 'reduce-reducers'
+import Payload from './Payload'
+import StoreResponse from './StoreResponse'
 
 class ActionType {
   static FINISH_FETCH = 'FINISH_FETCH_DATA'
@@ -12,10 +14,6 @@ class ActionType {
  * A Endpoint holds all the relevant information to fetch data form it
  */
 class Endpoint {
-  /**
-   * @type string
-   */
-  name
   /**
    * @type string
    */
@@ -35,6 +33,11 @@ class Endpoint {
    * Converts a fetched response to an object
    */
   mapResponse
+
+  /**
+   * Holds the override value for the response
+   */
+  responseOverride
 
   /**
    * @callback mapDataCallback
@@ -62,21 +65,22 @@ class Endpoint {
    * @param {function} mapResponse Transforms the response from the fetch to a result
    * @param {mapStateToUrlParamsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
+   * @param responseOverride {*} An override value from the API response. Useful for testing.
    */
-  constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch) {
-    this.name = name
+  constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch, responseOverride) {
     this.url = url
     this.mapStateToUrlParams = mapStateToUrlParams
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
+    this.responseOverride = responseOverride
+    this._stateName = name
 
-    const actionName = this.name.toUpperCase()
+    const actionName = name.toUpperCase()
 
     this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
       return new Payload(false, value, error, requestUrl, new Date().getTime())
     })
     this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
-    this._stateName = name
   }
 
   /**
@@ -94,18 +98,18 @@ class Endpoint {
   }
 
   requestAction (urlParams = {}) {
-    /*
-      Returns whether the correct data is available and ready for the fetcher to be displayed.
+    const responseOverride = this.responseOverride
+    /**
+     * Returns whether the correct data is available and ready for the fetcher to be displayed.
+     *
+     * @param urlParams The params for the url of the endpoint
+     * @param options The options get passed to the {@link mapResponse} function when fetching
+     * @return {function(*, *)} The Action for the redux store which can initiate a fetch
      */
-  /**
-   * @param urlParams The params for the url of the endpoint
-   * @param options The options get passed to the {@link mapResponse} function when fetching
-   * @return {function(*, *)} The Action for the redux store which can initiate a fetch
-   */
     return (dispatch, getState) => {
-      const endpointData = getState()[this.name]
+      const endpointData = getState()[this.stateName]
       if (endpointData.isFetching) {
-        return false
+        return new StoreResponse(false)
       }
 
       const formattedURL = format(this.url, urlParams)
@@ -115,39 +119,57 @@ class Endpoint {
        */
 
       const lastUrl = endpointData.requestUrl
-      const lastFetchedDate = endpointData.fetchDate
+      const urlNotChanged = lastUrl !== null && lastUrl === formattedURL
 
-      const canCacheByTime = !!lastFetchedDate && new Date().getTime() - 1000 * 60 * 60 <= lastFetchedDate
-      const urlNotChanged = !!lastUrl && lastUrl === formattedURL
-
-      if (urlNotChanged && canCacheByTime) {
+      // todo: currently once data has been fetched it stays in store forever
+      if (urlNotChanged) {
         // Correct payload has been loaded and can now be used by the fetcher(s)
-        return true
+        return new StoreResponse(true)
       }
 
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
-      fetch(formattedURL)
-        .then(response => response.json())
-        .then(json => {
-          let error
-          let value
-          try {
-            value = this.mapResponse(json, urlParams)
-          } catch (e) {
-            error = e.message
-            console.error('Failed to parse the json: ' + this.name, e.message)
-          }
 
-          return dispatch(this.finishFetchAction(value, error, formattedURL))
-        })
-        .catch(e => {
-          console.error('Failed to load the endpoint request: ' + this.name, e.message)
-          return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
-        })
+      if (responseOverride) {
+        const value = this.mapResponse(responseOverride, urlParams)
+        dispatch(this.finishFetchAction(value, null, formattedURL))
+        return new StoreResponse(false, Promise.resolve(value))
+      }
+
       // Fetchers cannot display payload yet, since it's currently fetching
-      return false
+      return new StoreResponse(false,
+        fetch(formattedURL)
+          .then(response => response.json())
+          .then(json => {
+            let error
+            let value
+            try {
+              value = this.mapResponse(json, urlParams)
+            } catch (e) {
+              error = e.message
+              console.error('Failed to map the json: ' + this.stateName)
+              console.error(e)
+            }
+
+            return dispatch(this.finishFetchAction(value, error, formattedURL))
+          })
+          .catch(e => {
+            console.error('Failed to load the endpoint request: ' + this.stateName)
+            console.error(e)
+            return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
+          })
+      )
     }
+  }
+
+  createReducer () {
+    const defaultState = new Payload(false)
+    const reducer = (state, action) => action.payload
+
+    return reduceReducers(
+      handleAction(this.startFetchAction, reducer, defaultState),
+      handleAction(this.finishFetchAction, reducer, defaultState)
+    )
   }
 }
 

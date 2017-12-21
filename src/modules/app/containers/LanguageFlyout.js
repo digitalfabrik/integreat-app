@@ -8,7 +8,7 @@ import {Link} from 'redux-little-router'
 import compose from 'lodash/fp/compose'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 import style from './LanguageFlyout.css'

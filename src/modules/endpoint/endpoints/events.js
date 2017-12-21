@@ -25,8 +25,8 @@ export default new EndpointBuilder('events')
       excerpt: event.excerpt,
       availableLanguages: event.available_languages
     }))
-    .filter(event => event.date.startDate)
-    .filter(event => event.date.startDate > Date.now() - MILLISECONDS_IN_A_DAY)
-    .sort((event1, event2) => event1.date.startDate - event2.date.startDate)
+    .filter(event => event.dateModel.startDate)
+    .filter(event => event.dateModel.startDate > Date.now() - MILLISECONDS_IN_A_DAY)
+    .sort((event1, event2) => event1.dateModel.startDate - event2.dateModel.startDate)
   )
   .build()

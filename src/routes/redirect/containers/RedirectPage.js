@@ -8,7 +8,7 @@ import { forEach } from 'lodash/collection'
 
 import PageModel from 'modules/endpoint/models/PageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
+import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 
 /**
  * Component to handle redirecting to the page which id is given as a query parameter

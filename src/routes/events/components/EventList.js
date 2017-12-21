@@ -8,6 +8,54 @@ import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
 
+import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
+import RemoteContent from 'modules/common/components/RemoteContent'
+import Timespan from '../../../modules/common/components/Timespan'
+
+class Event extends React.Component {
+  static propTypes = {
+    event: PropTypes.instanceOf(EventModel).isRequired,
+    parentUrl: PropTypes.string.isRequired,
+    thumbnailPlaceholder: PropTypes.number.isRequired,
+    language: PropTypes.string.isRequired,
+    isFirst: PropTypes.bool.isRequired
+  }
+
+  getUrl () {
+    return `${this.props.parentUrl}/${this.props.event.id}`
+  }
+
+  getEventPlaceholder () {
+    return (
+      this.props.thumbnailPlaceholder === 0 ? EventPlaceholder1
+        : this.props.thumbnailPlaceholder === 1 ? EventPlaceholder2
+          : EventPlaceholder3
+    )
+  }
+
+  render () {
+    const dateModel = this.props.event.dateModel
+    return (
+      <Link href={this.getUrl()}>
+        <div className={this.props.isFirst ? cx(style.firstEvent, style.event) : style.event}>
+          <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
+          <div className={style.eventDescription}>
+            <div className={style.eventTitle}>{this.props.event.title}</div>
+            <div className={style.eventDate}>
+              <Timespan startDate={dateModel.startDate}
+                        endDate={dateModel.endDate}
+                        locale={this.props.language}/>
+              , {this.props.event.address}</div>
+            <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt.slice(0, 70) + '...'}}/>
+          </div>
+        </div>
+      </Link>
+    )
+  }
+}
+
 class EventList extends React.Component {
   static propTypes = {
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
@@ -20,7 +68,7 @@ class EventList extends React.Component {
     return (
       <div className={style.list}>
         <Caption title={t('news')}/>
-        { this.props.events && this.props.events.length !== 0
+        {this.props.events && this.props.events.length !== 0
           ? this.props.events.map((event, index) =>
             <EventListElement key={event.id}
                    event={event}
