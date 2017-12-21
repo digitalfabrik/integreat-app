@@ -12,11 +12,12 @@ import connectedWithFetcher, { withFetcher } from '../withFetcher'
 
 describe('withFetcher', () => {
   const urlParams = {var1: 'a', var2: 'b'}
+  const responseOverride = {data: 'random'}
   const endpoint = new EndpointBuilder('endpoint')
     .withUrl('https://someendpoint/{var1}/{var2}/api.json')
     .withMapper((json) => json)
     .withStateMapper().fromFunction(() => (urlParams))
-    .withResponseOverride({})
+    .withResponseOverride(responseOverride)
     .build()
 
   // eslint-disable-next-line react/prop-types
@@ -148,7 +149,7 @@ describe('withFetcher', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <Hoced />
+          <Hoced/>
         </Provider>
       )
 
@@ -156,13 +157,13 @@ describe('withFetcher', () => {
 
       expect(store.getActions()).toHaveLength(2) // componntDidMount calls fetch
       expect(store.getActions()).toContainEqual({
-        payload: new Payload(false, {}, null, 'https://someendpoint/a/b/api.json', expect.any(Number)),
+        payload: new Payload(false, responseOverride, null, 'https://someendpoint/a/b/api.json', expect.any(Number)),
         type: 'FINISH_FETCH_DATA_ENDPOINT'
       })
       wrappedHOCProps.requestAction({var1: 'c', var2: 'd'})
       expect(store.getActions()).not.toHaveLength(2) // should change after dispatch -> not 2 anymore
       expect(store.getActions()).toContainEqual({
-        payload: new Payload(false, {}, null, 'https://someendpoint/c/d/api.json', expect.any(Number)),
+        payload: new Payload(false, responseOverride, null, 'https://someendpoint/c/d/api.json', expect.any(Number)),
         type: 'FINISH_FETCH_DATA_ENDPOINT'
       })
     })
@@ -178,7 +179,7 @@ describe('withFetcher', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <Hoced />
+          <Hoced/>
         </Provider>
       )
 
