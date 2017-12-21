@@ -11,7 +11,7 @@ import SearchInput from 'modules/common/components/SearchInput'
 import style from './SearchPage.css'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 import PageModel from 'modules/endpoint/models/PageModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
@@ -21,6 +21,7 @@ class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    language: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired
   }
 
@@ -72,7 +73,7 @@ class SearchPage extends React.Component {
                      filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
         />
-        <ContentList pages={pages}/>
+        <ContentList pages={pages} />
       </div>
     )
   }

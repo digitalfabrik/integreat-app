@@ -6,7 +6,7 @@ import Spinner from 'react-spinkit'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
@@ -16,12 +16,13 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events*
  */
-class EventsPage extends React.Component {
+export class EventsPage extends React.Component {
   static propTypes = {
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
+    dispatchLanguageChangeUrls: PropTypes.func.isRequired,
     path: PropTypes.string
   }
 
@@ -42,9 +43,9 @@ class EventsPage extends React.Component {
       const event = this.props.events.find(
         (event) => event.id.toString() === this.props.path.replace('/', '')
       )
-      availableLanguages = event.availableLanguages
+      if (event) availableLanguages = event.availableLanguages
     }
-    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages))
+    this.props.dispatchLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
   }
 
   // we must not call dispatch in componentWillUpdate or componentDidUpdate
@@ -61,13 +62,13 @@ class EventsPage extends React.Component {
       )
       if (event) {
         // events have been loaded in the new language
-        this.props.dispatch(setLanguageChangeUrls(
-          this.mapLanguageToUrl, nextProps.languages, event.availableLanguages)
+        this.props.dispatchLanguageChangeUrls(
+          this.mapLanguageToUrl, nextProps.languages, event.availableLanguages
         )
       }
     } else {
       // all events
-      this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages))
+      this.props.dispatchLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages)
     }
   }
 
@@ -77,13 +78,13 @@ class EventsPage extends React.Component {
       const event = this.props.events.find((event) => event.id.toString() === this.props.path.replace('/', ''))
 
       if (event) {
-        return <EventDetail event={event} location={this.props.location} language={this.props.language}/>
+        return <EventDetail event={event} location={this.props.location} language={this.props.language} />
       } else {
         // events in new language haven't been fetched yet
-        return <Spinner name='line-scale-party'/>
+        return <Spinner name='line-scale-party' />
       }
     }
-    return <EventList events={this.props.events} url={this.getPath()} language={this.props.language}/>
+    return <EventList events={this.props.events} url={this.getPath()} language={this.props.language} />
   }
 }
 
@@ -93,8 +94,14 @@ const mapStateToProps = (state) => ({
   path: state.router.params['_'] // _ contains all the values from *
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
+    setLanguageChangeUrls(urls, languages, availableLanguages)
+  )
+})
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withFetcher(EVENTS_ENDPOINT),
   withFetcher(LANGUAGES_ENDPOINT)
 )(EventsPage)

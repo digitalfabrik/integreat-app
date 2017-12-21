@@ -11,6 +11,7 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
+import Timespan from '../../../modules/common/components/Timespan'
 
 class EventListElement extends React.Component {
   static propTypes = {
@@ -30,13 +31,20 @@ class EventListElement extends React.Component {
   }
 
   render () {
+    const dateModel = this.props.event.dateModel
+
     return (
       <Link href={this.getUrl()} className={this.props.isFirst ? cx(style.firstEvent, style.event) : style.event}>
-        <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
+        <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()} />
         <div className={style.eventDescription}>
           <div className={style.eventTitle}>{this.props.event.title}</div>
-          <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
-          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt()}}/>
+          <div className={style.eventDate}>
+            <Timespan startDate={dateModel.startDate}
+                      endDate={dateModel.endDate}
+                      locale={this.props.language} />
+            , {this.props.event.address}
+          </div>
+          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt()}} />
         </div>
       </Link>
     )

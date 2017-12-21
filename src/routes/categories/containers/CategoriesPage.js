@@ -9,7 +9,7 @@ import Breadcrumb from 'routes/categories/containers/Breadcrumb'
 import Error from 'modules/common/containers/Error'
 import PdfButton from 'routes/categories/components/PdfButton'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 
 import Hierarchy from '../Hierarchy'
@@ -79,7 +79,7 @@ class CategoriesPage extends React.Component {
     // Pass data to hierarchy
     const error = hierarchy.build(this.props.pages)
     if (error) {
-      return <Error error={error}/>
+      return <Error error={error} />
     }
 
     return <div>
@@ -88,8 +88,8 @@ class CategoriesPage extends React.Component {
         language={this.props.language}
         location={this.props.location}
       />
-      <Content url={url} hierarchy={hierarchy}/>
-      <PdfButton href={this.getPdfFetchPath()}/>
+      <Content url={url} hierarchy={hierarchy} />
+      <PdfButton href={this.getPdfFetchPath()} />
     </div>
   }
 }
