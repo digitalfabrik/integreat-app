@@ -9,5 +9,6 @@ export default new EndpointBuilder('languages')
     language: 'de' /* todo:  This forces that the languages are always fetched in german language. German always
                              exists in the backend -> a langauge switch always works */
   }))
-  .withMapper(json => json.map(language => new LanguageModel(language.code, language.native_name)))
+  .withMapper(json => json
+    .map(language => new LanguageModel(language.code, language.native_name)))
   .build()
