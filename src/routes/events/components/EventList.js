@@ -17,18 +17,22 @@ class EventList extends React.Component {
 
   render () {
     const {t} = this.props
+
+    if (!this.props.events || this.props.events.length === 0) {
+      return <div className={style.noEvents}>{t('currentlyNoEvents')} </div>
+    }
+
+    const elements = this.props.events.map((event, index) =>
+      <EventListElement key={event.id}
+                        event={event}
+                        parentUrl={this.props.url}
+                        language={this.props.language}
+                        isFirst={index === 0} />
+    )
     return (
       <div className={style.list}>
         <Caption title={t('news')} />
-        {this.props.events && this.props.events.length !== 0
-          ? this.props.events.map((event, index) =>
-            <EventListElement key={event.id}
-                   event={event}
-                   parentUrl={this.props.url}
-                   language={this.props.language}
-                   isFirst={index === 0} />)
-          : <div className={style.noEvents}>{t('currentlyNoEvents')}</div>
-        }
+        {elements}
       </div>
     )
   }

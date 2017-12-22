@@ -1,9 +1,19 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import ConnectedEventsPage, { EventsPage } from '../EventsPage'
+import EventModel from 'modules/endpoint/models/EventModel'
+import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import Payload from '../../../../modules/endpoint/Payload'
 
-import { EventsPage } from '../EventsPage'
-import EventModel from '../../../../modules/endpoint/models/EventModel'
-import LanguageModel from '../../../../modules/endpoint/models/LanguageModel'
+jest.mock('events', () => {'default': new EndpointBuilder('endpoint1')
+  .withUrl('https://someurl')
+  .withMapper(json => json)
+  .withResponseOverride({})
+  .build()})
+jest.mock('languages')
 
 describe('EventsPage', () => {
   const events = [
@@ -165,5 +175,20 @@ describe('EventsPage', () => {
 
     expect(mapLanguageToUrl('en')).toBe('/augsburg/en/events')
     expect(mapLanguageToUrl('en', 1234)).toBe('/augsburg/en/events/1234')
+  })
+
+  const mockStore = configureMockStore([thunk])
+
+  test('should map state to props', () => {
+    const store = mockStore({
+      'endpoint': new Payload(false),
+      endpoint1: new Payload(false),
+      router: {params: {location: 'augsburg', language: 'en', _: ''}}})
+
+    const wrapper = mount(
+      <Provider store={store}>
+        <ConnectedEventsPage />
+      </Provider>
+    )
   })
 })
