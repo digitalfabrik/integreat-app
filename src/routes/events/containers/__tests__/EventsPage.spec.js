@@ -8,13 +8,6 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Payload from '../../../../modules/endpoint/Payload'
 
-jest.mock('events', () => {'default': new EndpointBuilder('endpoint1')
-  .withUrl('https://someurl')
-  .withMapper(json => json)
-  .withResponseOverride({})
-  .build()})
-jest.mock('languages')
-
 describe('EventsPage', () => {
   const events = [
     new EventModel({
@@ -50,7 +43,7 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -64,7 +57,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -78,7 +71,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -92,7 +85,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     ).instance()
 
     expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
@@ -109,7 +102,7 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     ).instance()
 
     expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
@@ -125,7 +118,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     )
 
     expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
@@ -147,7 +140,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     )
 
     let mockCalls = mockDispatchLanguageChangeUrls.mock.calls
@@ -170,7 +163,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
     ).instance().mapLanguageToUrl
 
     expect(mapLanguageToUrl('en')).toBe('/augsburg/en/events')
@@ -181,13 +174,14 @@ describe('EventsPage', () => {
 
   test('should map state to props', () => {
     const store = mockStore({
-      'endpoint': new Payload(false),
+      endpoint: new Payload(false),
       endpoint1: new Payload(false),
-      router: {params: {location: 'augsburg', language: 'en', _: ''}}})
+      router: {params: {location: 'augsburg', language: 'en', _: ''}}
+    })
 
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedEventsPage />
+        <ConnectedEventsPage store={store}/>
       </Provider>
     )
   })
