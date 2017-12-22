@@ -85,6 +85,8 @@ Used Redux extensions:
 You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lintfix**
 
 ## IDE
+**Make sure you have at least [nodejs 6](https://nodejs.org/) installed**
+
 We suggest IntellJ IDEA Ultimate as IDE. Just import this project (from existing sources).
 Run **yarn** in Terminal and right-click on package.json to show the npm scripts. 
 Also mark the *src* and *public* folder as *Source directory*.
@@ -108,7 +110,7 @@ Go to:
 
 # Bug Tracker
 
-You can [view our bugs](https://integreat.atlassian.net/secure/Dashboard.jspa) or [create new ones](https://integreat.atlassian.net/secure/CreateIssue!default.jspa) on our jira.
+You can [view our bugs](https://integreat.atlassian.net/) or [create new ones](https://integreat.atlassian.net/secure/CreateIssue!default.jspa) on our jira.
 
 # Publishing
 
