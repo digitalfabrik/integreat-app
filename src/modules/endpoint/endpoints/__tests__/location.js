@@ -3,14 +3,12 @@ import LocationModel from '../../models/LocationModel'
 
 describe('location', () => {
   const location1 = {
-    id: '2',
     name: 'Augsburg',
     path: '/augsburg/',
     live: true,
     'ige-evts': '1'
   }
   const location2 = {
-    id: '10',
     name: 'Stadt Regensburg',
     path: '/regensburg/',
     live: true,
