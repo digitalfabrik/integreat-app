@@ -85,8 +85,26 @@ Used Redux extensions:
 You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lintfix**
 
 ## IDE
-Just import this project (from existing sources). Run **yarn** and right-click on package.json to show the npm scripts. 
-Also mark the *src* and *public* folder as *Source directory*. In IntelliJ no other plugins are needed. 
+We suggest IntellJ IDEA Ultimate as IDE. Just import this project (from existing sources).
+Run **yarn** in Terminal and right-click on package.json to show the npm scripts. 
+Also mark the *src* and *public* folder as *Source directory*.
+
+Install the following plugins:
+* PostCSS
+* EJS
+* ESLint
+
+Go to:
+* File > Settings > Editor > Code Style  
+   to import the code style **integreat-webapp** from **.intellij/code-style.xml**
+* File > Settings > Languages & Framworks > JavaScript  
+   to set **JavaScript language version** to **React JSX**
+* File > Settings > Languages & Framworks > JavaScript > Libraries  
+   to click **Download** and install **jest** typescript types
+* File > Settings > Languages & Framworks > Stylesheets > Dialects  
+   to set **Project CSS Dialect** to **PostCSS**
+* Run > Edit Configurations > Defaults > Jest  
+   to set **Configuration file** to **just.config.json**
 
 # Bug Tracker
 
