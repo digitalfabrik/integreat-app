@@ -149,7 +149,7 @@ describe('withFetcher', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <Hoced/>
+          <Hoced />
         </Provider>
       )
 
@@ -179,7 +179,7 @@ describe('withFetcher', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <Hoced/>
+          <Hoced />
         </Provider>
       )
 

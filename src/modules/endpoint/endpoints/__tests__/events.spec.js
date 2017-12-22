@@ -53,8 +53,7 @@ describe('events', () => {
     content: '',
     available_languages: [],
     thumbnail: null,
-    event: {
-    },
+    event: {},
     location: {
       address: '',
       town: ''
