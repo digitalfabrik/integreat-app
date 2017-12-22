@@ -35,8 +35,8 @@ describe('disclaimer', () => {
   })
 
   test('should map fetched data to models', () => {
-    const disclaimerPage = disclaimer.mapResponse([pageJson])
-    expect(disclaimerPage).toEqual(new PageModel({
+    const disclaimerModel = disclaimer.mapResponse([pageJson])
+    expect(disclaimerModel).toEqual(new PageModel({
       id: pageJson.permalink.url_page,
       numericId: pageJson.id,
       title: pageJson.title,

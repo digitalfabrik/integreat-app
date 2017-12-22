@@ -35,7 +35,7 @@ class CategoriesPage extends React.Component {
     this.setAvailableLanguages(this.props.path)
   }
 
-  componentWillUpdate (nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.path !== this.props.path) {
       this.setAvailableLanguages(nextProps.path)
     }

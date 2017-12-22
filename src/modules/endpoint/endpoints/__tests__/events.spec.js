@@ -88,12 +88,11 @@ describe('events', () => {
   ]
 
   describe('should map fetched data to models', () => {
-
     test('if one event has already passed', () => {
       const clock = lolex.install({now: Date.parse('2016-01-31')})
-      const eventsData = events.mapResponse(json)
+      const eventsModels = events.mapResponse(json)
 
-      expect(eventsData).toEqual([
+      expect(eventsModels).toEqual([
         toEventModel(eventPage1, new DateModel({
           startDate: new Date('2016-01-31T10:00:00Z'),
           endDate: new Date('2016-01-31T13:00:00Z'),
@@ -105,9 +104,9 @@ describe('events', () => {
     })
     test('if no event has passed', () => {
       const clock = lolex.install({now: Date.parse('2015-11-29')})
-      const eventsData = events.mapResponse(json)
+      const eventsModels = events.mapResponse(json)
 
-      expect(eventsData).toEqual([
+      expect(eventsModels).toEqual([
         toEventModel(eventPage2, new DateModel({
           startDate: new Date('2015-11-29T10:00:00Z'),
           endDate: new Date('2015-11-29T13:00:00Z'),
