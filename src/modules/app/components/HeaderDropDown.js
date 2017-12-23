@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import style from '../containers/Header.css'
+import style from './HeaderDropDown.css'
+import headerStyle from '../containers/Header.css'
 import onClickOutside from 'react-onclickoutside'
 
 class HeaderDropDown extends React.Component {
@@ -29,7 +30,7 @@ class HeaderDropDown extends React.Component {
 
   render () {
     return (
-      <span className={cx(this.props.className, style.actionItem)}>
+      <span className={cx(this.props.className, headerStyle.actionItem)}>
         <img src={this.props.iconSrc}
              onClick={this.toggleDropDown}/>
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>

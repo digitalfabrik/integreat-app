@@ -2,11 +2,6 @@
 @import url('../../common/constants/colors.css');
 @import url('../../common/constants/dimens.css');
 
-:root {
-  --header-height: 85px;
-  --header-height-small: 60px;
-}
-
 .header {
   display: flex;
   width: 100%;
@@ -56,27 +51,6 @@
   order: 1;
 }
 
-.drop-down {
-  position: absolute;
-  top: var(--header-height);
-  right: 0;
-  width: 100%;
-  transform: scale(0.9);
-  transform-origin: center top;
-  justify-content: center;
-  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  transition: transform 0.2s, opacity 0.2s;
-  background-color: var(--background-color);
-  pointer-events: none;
-}
-
-.drop-down-active {
-  transform: scale(1);
-  opacity: 1;
-  pointer-events: auto;
-}
-
 @media (--small-viewport) {
   .header {
     flex-wrap: wrap;
@@ -94,10 +68,6 @@
   .menu-bar {
     flex: 1 0 100%;
     order: 3;
-  }
-
-  .drop-down {
-    top: var(--header-height-small);
   }
 
   .logo-wide img {
