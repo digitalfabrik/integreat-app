@@ -1,5 +1,6 @@
 @import url('../../common/constants/helpers.css');
 @import url('../../common/constants/colors.css');
+@import url('../../common/constants/dimens.css');
 
 :root {
   --header-height: 85px;
@@ -33,26 +34,6 @@
   max-height: 60%;
 }
 
-.menu-items {
-  display: flex;
-  flex: 2 1 100px;
-  align-items: center;
-  justify-content: center;
-  order: 1;
-}
-
-.menu-item {
-  @mixin remove-a;
-  flex: 1;
-  font-size: 1.2em;
-  font-weight: 500;
-  text-align: center;
-}
-
-.menu-item.active-menu-item {
-  font-weight: 700;
-}
-
 .action-items {
   flex: 1 1 100px;
   justify-content: flex-end;
@@ -68,6 +49,11 @@
   height: 100%;
   box-sizing: border-box;
   padding: 20%;
+}
+
+.menu-bar {
+  flex: 2 1 100px;
+  order: 1;
 }
 
 .drop-down {
@@ -91,7 +77,7 @@
   pointer-events: auto;
 }
 
-@media screen and (max-width: 750px) {
+@media (--small-viewport) {
   .header {
     flex-wrap: wrap;
   }
@@ -105,13 +91,9 @@
     flex: 1 1 100px;
   }
 
-  .menu-items {
+  .menu-bar {
     flex: 1 0 100%;
     order: 3;
-  }
-
-  .menu-item {
-    font-size: 1em;
   }
 
   .drop-down {
@@ -124,7 +106,7 @@
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-@media screen and (min-width: 1000px) {
+@media (--small-viewport) {
   .header {
     padding-right: calc((200% - 100vw - 1000px) / 2);
     padding-left: calc((100vw - 1000px) / 2);

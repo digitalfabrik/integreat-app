@@ -4,12 +4,11 @@ import Headroom from 'react-headroom'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Link} from 'redux-little-router'
-import cx from 'classnames'
 import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
 
-import LanguageFlyout from 'modules/app/containers/LanguageFlyout'
+import LanguageFlyout from './LanguageFlyout'
 import HeaderDropDown from '../components/HeaderDropDown'
 import style from './Header.css'
 import searchIcon from '../assets/magnifier.svg'
@@ -19,19 +18,7 @@ import logoWide from '../assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
-
-class MenuItem extends React.Component {
-  static propTypes = {
-    href: PropTypes.string.isRequired,
-    active: PropTypes.bool
-  }
-
-  render () {
-    return <Link href={this.props.href} className={cx(style.menuItem, this.props.active ? style.activeMenuItem : '')}>
-      {this.props.children}
-    </Link>
-  }
-}
+import HeaderMenuBar from '../components/HeaderMenuBar'
 
 class Header extends React.Component {
   static propTypes = {
@@ -76,36 +63,45 @@ class Header extends React.Component {
     return !this.isExtrasSelected() && !this.isEventsSelected()
   }
 
+  getActionBar () {
+    return <div className={style.actionItems}>
+      {
+        this.props.location &&
+        <Link href={this.props.navigation.search} className={style.actionItem}><img src={searchIcon}/></Link>
+      }
+      <Link href={'/'} className={style.actionItem}><img src={locationIcon}/></Link>
+      <HeaderDropDown iconSrc={languageIcon}>
+        <LanguageFlyout/>
+      </HeaderDropDown>
+    </div>
+  }
+
+  getMenuItems () {
+    const {t, navigation} = this.props
+    if(!this.isMenuEnabled())
+      return
+    const items = []
+
+    if(this.isExtrasEnabled())
+      items.push({href: navigation.extras, active: this.isExtrasSelected(), text: t('extras')})
+
+    items.push({href: navigation.home, active: this.isCategoriesSelected(), text: t('categories')})
+
+    if(this.isEventsEnabled())
+      items.push({href: navigation.events, active: this.isEventsSelected(), text: t('news')})
+
+    return items
+  }
+
   render () {
-    const {t} = this.props
     return (
       <Headroom>
         <div className={style.header}>
           <div className={style.logoWide}>
             <img src={logoWide}/>
           </div>
-            <div className={style.actionItems}>
-            {
-              this.props.location &&
-              <Link href={this.props.navigation.search} className={style.actionItem}><img src={searchIcon}/></Link>
-            }
-            <Link href={'/'} className={style.actionItem}><img src={locationIcon}/></Link>
-            <HeaderDropDown iconSrc={languageIcon}>
-              <LanguageFlyout/>
-            </HeaderDropDown>
-          </div>
-          {
-            this.isMenuEnabled() &&
-            <div className={style.menuItems}>
-              { this.isExtrasEnabled() &&
-                <MenuItem href={this.props.navigation.extras} active={this.isExtrasSelected()}>{t('extras')}</MenuItem>
-              }
-              <MenuItem href={this.props.navigation.home} active={this.isCategoriesSelected()}>{t('categories')}</MenuItem>
-              { this.isEventsEnabled() &&
-                <MenuItem href={this.props.navigation.events} active={this.isEventsSelected()}>{t('news')}</MenuItem>
-              }
-            </div>
-          }
+          { this.getActionBar() }
+          <HeaderMenuBar className={style.menuBar} items={this.getMenuItems()}/>
         </div>
       </Headroom>
     )

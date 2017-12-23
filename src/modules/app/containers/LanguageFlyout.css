@@ -1,5 +1,6 @@
 @import url('../../common/constants/helpers.css');
 @import url('../../common/constants/colors.css');
+@import url('../../common/constants/dimens.css');
 
 .language-flyout {
   display: flex;
@@ -34,14 +35,13 @@
   color: var(--text-color);
   font-weight: 600;
   border-radius: 0;
-  cursor: pointer;
 }
 
-@media screen and (max-width: 750px) {
+@media (--small-viewport) {
   .element {
     height: 60px;
-    min-width: 60px;
-    flex: 1 1 60px;
+    min-width: 70px;
+    flex: 1 1 70px;
     font-size: 1em;
     line-height: 60px;
   }
