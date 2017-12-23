@@ -171,9 +171,9 @@
     "build": "node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "start": "node tools/run.js",
-    "test": "node $NODE_DEBUG_OPTION node_modules/.bin/jest --config jest.config.json",
-    "test:coverage": "node node_modules/.bin/jest --config jest.config.json --coverage",
-    "test:watch": "node node_modules/.bin/jest --config jest.config.json --watchAll",
-    "test:update": "node node_modules/.bin/jest --config jest.config.json -u"
+    "test": "jest --config jest.config.json",
+    "test:coverage": "jest --config jest.config.json --coverage",
+    "test:watch": "jest --config jest.config.json --watchAll",
+    "test:update": "jest --config jest.config.json -u"
   }
 }
