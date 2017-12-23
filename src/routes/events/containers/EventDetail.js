@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
@@ -12,7 +10,6 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
-import { setAvailableLanguages } from 'modules/language/actions/setAvailableLanguages'
 
 /**
  * Display a single event
@@ -26,21 +23,11 @@ class EventDetail extends React.Component {
     language: PropTypes.string.isRequired
   }
 
-  componentDidMount () {
-    if (this.props.event.event.availableLanguages) {
-      this.props.dispatch(setAvailableLanguages(this.props.event.event.availableLanguages))
-    }
-  }
-
-  componentWillUnmount () {
-    this.props.dispatch(setAvailableLanguages({}))
-  }
-
   getEventPlaceholder () {
     return (
       this.props.event.thumbnailPlaceholder % 3 === 0 ? EventPlaceholder1
         : this.props.event.thumbnailPlaceholder % 3 === 1 ? EventPlaceholder2
-        : EventPlaceholder3
+          : EventPlaceholder3
     )
   }
 
@@ -64,7 +51,4 @@ class EventDetail extends React.Component {
   }
 }
 
-export default compose(
-  connect(),
-  translate('events')
-)(EventDetail)
+export default translate('events')(EventDetail)

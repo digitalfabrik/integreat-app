@@ -10,11 +10,12 @@ import Error from 'modules/common/containers/Error'
 import PdfButton from 'routes/categories/components/PdfButton'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/page'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
 
 import Hierarchy from '../Hierarchy'
-import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
 import PageModel from 'modules/endpoint/models/PageModel'
-import { setAvailableLanguages } from 'modules/language/actions/setAvailableLanguages'
+import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 /**
  * Matching the route /<location>/<language>*
@@ -22,6 +23,7 @@ import { setAvailableLanguages } from 'modules/language/actions/setAvailableLang
 class CategoriesPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
     path: PropTypes.string,
     pages: PropTypes.instanceOf(PageModel).isRequired
@@ -32,31 +34,34 @@ class CategoriesPage extends React.Component {
   }
 
   componentDidMount () {
-    this.setAvailableLanguages(this.props.path)
+    this.setLanguageChangeUrls(this.props.path)
   }
 
-  componentWillUpdate (nextProps) {
+  // we must not call dispatch in componentWillUpdate or componentDidUpdate
+  componentWillReceiveProps (nextProps) {
     if (nextProps.path !== this.props.path) {
-      this.setAvailableLanguages(nextProps.path)
+      this.setLanguageChangeUrls(nextProps.path)
     }
   }
+
+  mapLanguageToUrl = (language, id) => (
+    id ? `/${this.props.location}/${language}/redirect?id=${id}` : `/${this.props.location}/${language}`
+  )
 
   /**
    * Gets and stores the available languages for the current page
    * @param {string} path The current path
    */
-  setAvailableLanguages (path) {
+  setLanguageChangeUrls (path) {
     const hierarchy = new Hierarchy(path)
     const error = hierarchy.build(this.props.pages)
     if (error) {
       // todo handle this error
       return
     }
-    this.props.dispatch(setAvailableLanguages(hierarchy.top().availableLanguages))
-  }
-
-  componentWillUnmount () {
-    this.props.dispatch(setAvailableLanguages({}))
+    this.props.dispatch(setLanguageChangeUrls(
+      this.mapLanguageToUrl, this.props.languages, hierarchy.top().availableLanguages)
+    )
   }
 
   getPdfFetchPath () {
@@ -89,18 +94,14 @@ class CategoriesPage extends React.Component {
   }
 }
 
-const mapLanguageToUrl = (location, language, id) => (
-  id ? `/${location}/${language}/redirect?id=${id}` : `/${location}/${language}`
-)
-
-const mapStateToWrapperProps = (state) => ({
+const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.params['_'] // _ contains all the values from *
 })
 
 export default compose(
-  withAvailableLanguageUpdater(mapLanguageToUrl),
-  connect(mapStateToWrapperProps),
-  withFetcher(PAGE_ENDPOINT)
+  connect(mapStateToProps),
+  withFetcher(PAGE_ENDPOINT),
+  withFetcher(LANGUAGES_ENDPOINT)
 )(CategoriesPage)

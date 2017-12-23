@@ -1,15 +1,15 @@
 class LanguageModel {
   constructor (code, name) {
-    this._name = code
-    this._code = name
+    this._code = code
+    this._name = name
   }
 
   get code () {
-    return this._name
+    return this._code
   }
 
   get name () {
-    return this._code
+    return this._name
   }
 }
 
