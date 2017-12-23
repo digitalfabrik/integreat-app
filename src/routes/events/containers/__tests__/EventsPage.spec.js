@@ -33,7 +33,7 @@ describe('EventsPage', () => {
     new LanguageModel('ar', 'Arabic')
   ]
   const language = 'en'
-  const path = '/1235'
+  const id = '1235'
 
   test('should render EventList', () => {
     const mockDispatchLanguageChangeUrls = jest.fn()
@@ -43,7 +43,7 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -56,8 +56,8 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  id={id}
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -70,8 +70,8 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  id={id}
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -84,8 +84,8 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  id={id}
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     ).instance()
 
     expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
@@ -102,7 +102,7 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     ).instance()
 
     expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
@@ -117,8 +117,8 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  id={id}
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     )
 
     expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
@@ -139,8 +139,8 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  id={id}
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     )
 
     let mockCalls = mockDispatchLanguageChangeUrls.mock.calls
@@ -162,8 +162,8 @@ describe('EventsPage', () => {
                   location={location}
                   languages={languages}
                   language={language}
-                  path={path}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls}/>
+                  id={id}
+                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
     ).instance().mapLanguageToUrl
 
     expect(mapLanguageToUrl('en')).toBe('/augsburg/en/events')
@@ -172,17 +172,67 @@ describe('EventsPage', () => {
 
   const mockStore = configureMockStore([thunk])
 
-  test('should map state to props', () => {
-    const store = mockStore({
-      endpoint: new Payload(false),
-      endpoint1: new Payload(false),
-      router: {params: {location: 'augsburg', language: 'en', _: ''}}
+  describe('connect', () => {
+    test('should map state to props', () => {
+      const store = mockStore({
+        events: new Payload(false),
+        languages: new Payload(false),
+        router: {params: {location: 'augsburg', language: 'en', id: '1234'}}
+      })
+
+      const tree = mount(
+        <Provider store={store}>
+          <ConnectedEventsPage />
+        </Provider>
+      )
+
+      const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
+
+      expect(eventsPageProps).toEqual({
+        location: 'augsburg',
+        language: 'en',
+        id: '1234',
+        dispatchLanguageChangeUrls: expect.any(Function)
+      })
     })
 
-    const wrapper = mount(
-      <Provider store={store}>
-        <ConnectedEventsPage store={store}/>
-      </Provider>
-    )
+    test('should map dispatch to props', () => {
+      const store = mockStore({
+        events: new Payload(false),
+        languages: new Payload(false),
+        router: {params: {location: location, language: language}}
+      })
+
+      const mapLanguageToUrl = (language, id) => 'test' + language + id
+
+      const testUrls = {
+        en: 'testenundefined',
+        de: 'testde1235',
+        ar: 'testar1236'
+      }
+
+      const availableLanguages = {
+        de: '1235',
+        ar: '1236'
+      }
+
+      const tree = mount(
+        <Provider store={store}>
+          <ConnectedEventsPage />
+        </Provider>
+      )
+
+      const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
+
+      let countActions = store.getActions().length
+
+      eventsPageProps.dispatchLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
+      expect(store.getActions()).toHaveLength(countActions + 1)
+
+      expect(store.getActions()).toContainEqual({
+        payload: testUrls,
+        type: 'SET_LANGUAGE_CHANGE_URLS'
+      })
+    })
   })
 })
