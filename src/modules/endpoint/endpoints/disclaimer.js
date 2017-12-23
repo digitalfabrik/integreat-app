@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash/lang'
 
 import EndpointBuilder from '../EndpointBuilder'
 
-import PageModel from '../models/PageModel'
+import PageModel from '../models/CategoryModel'
 
 export default new EndpointBuilder('disclaimer')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z')

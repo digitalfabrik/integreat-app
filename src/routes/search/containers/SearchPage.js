@@ -11,9 +11,9 @@ import SearchInput from 'modules/common/components/SearchInput'
 import style from './SearchPage.css'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
-import PageModel from 'modules/endpoint/models/PageModel'
+import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
@@ -21,8 +21,7 @@ class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    language: PropTypes.string.isRequired,
-    pages: PropTypes.instanceOf(PageModel).isRequired
+    pages: PropTypes.instanceOf(CategoryModel).isRequired
   }
 
   mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
@@ -73,7 +72,7 @@ class SearchPage extends React.Component {
                      filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
         />
-        <ContentList pages={pages} />
+        <ContentList pages={pages}/>
       </div>
     )
   }
@@ -82,11 +81,12 @@ class SearchPage extends React.Component {
 const mapStateToProps = (state) => ({
   languages: state.languages,
   language: state.router.params.language,
-  location: state.router.params.location
+  location: state.router.params.location,
+  path: state.router.params['_'] // _ contains all the values from *
 })
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(PAGE_ENDPOINT),
+  withFetcher(CATEGORIES_ENDPOINT),
   withFetcher(LANGUAGES_ENDPOINT)
 )(SearchPage)

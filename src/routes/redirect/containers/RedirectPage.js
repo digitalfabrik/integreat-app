@@ -6,9 +6,9 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import { forEach } from 'lodash/collection'
 
-import PageModel from 'modules/endpoint/models/PageModel'
+import PageModel from 'modules/endpoint/models/CategoryModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
+import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 
 /**
  * Component to handle redirecting to the page which id is given as a query parameter
@@ -74,5 +74,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(PAGE_ENDPOINT)
+  withFetcher(CATEGORIES_ENDPOINT)
 )(PageRedirectorPage)

@@ -10,17 +10,17 @@ import { translate } from 'react-i18next'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
+import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
 import Hierarchy from 'routes/categories/Hierarchy'
-import PageModel from 'modules/endpoint/models/PageModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    pages: PropTypes.instanceOf(PageModel).isRequired,
+    pages: PropTypes.instanceOf(CategoryModel).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired
   }
@@ -166,6 +166,6 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   withFetcher(LOCATIONS_ENDPOINT),
-  withFetcher(PAGE_ENDPOINT),
+  withFetcher(CATEGORIES_ENDPOINT),
   translate('pdf-fetcher')
 )(PdfFetcherPage)

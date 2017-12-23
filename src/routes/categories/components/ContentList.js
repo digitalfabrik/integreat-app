@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './ContentList.css'
-import PageModel from 'modules/endpoint/models/PageModel'
+import PageModel from 'modules/endpoint/models/CategoryModel'
 import CategoryListItem from './CategoryListItem'
 
 class ContentList extends React.Component {

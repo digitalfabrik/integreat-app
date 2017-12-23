@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Col } from 'react-flexbox-grid'
 import { Link } from 'redux-little-router'
 import style from './CategoryTile.css'
-import PageModel from 'modules/endpoint/models/PageModel'
+import PageModel from 'modules/endpoint/models/CategoryModel'
 
 class CategoryTile extends React.Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './TitledContentList.css'
-import PageModel from 'modules/endpoint/models/PageModel'
+import PageModel from 'modules/endpoint/models/CategoryModel'
 import ContentList from './ContentList'
 import RemoteContent from 'modules/common/components/RemoteContent'
 

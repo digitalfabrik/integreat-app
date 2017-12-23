@@ -1,4 +1,4 @@
-import { EMPTY_PAGE } from 'modules/endpoint/models/PageModel'
+import { EMPTY_PAGE } from 'modules/endpoint/models/CategoryModel'
 
 import normalizeUrl from 'normalize-url'
 
