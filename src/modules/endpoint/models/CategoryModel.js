@@ -1,13 +1,13 @@
 class PageModel {
-  constructor ({ id, numericId, title = '', parent = 0, content = '', thumbnail = null, order = 0, children = [], availableLanguages = {} }) {
+  constructor ({ id, url, title = '', parent = 0, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
     this._id = id
-    this._numericId = numericId
+    this._url = url
     this._title = title
     this._content = content
     this._parent = parent
     this._thumbnail = thumbnail
     this._order = order
-    this._children = children
+    this._children = []
     this._availableLanguages = availableLanguages
   }
 
@@ -15,16 +15,17 @@ class PageModel {
     return this._thumbnail
   }
 
-  addChild (page) {
-    this._children.push(page)
+  addChild (id) {
+    this._children.push(id)
+    this._children = this._children.sort((page1, page2) => page1.order - page2.order)
   }
 
   get id () {
     return this._id
   }
 
-  get numericId () {
-    return this._numericId
+  get url () {
+    return this._url
   }
 
   get title () {
@@ -40,8 +41,7 @@ class PageModel {
   }
 
   get children () {
-    // TODO move this to addChild
-    return this._children.sort((page1, page2) => page1.order - page2.order)
+    return this._children
   }
 
   get order () {
