@@ -83,7 +83,6 @@ const mapStateToProps = (state) => ({
   languages: state.languages,
   language: state.router.params.language,
   location: state.router.params.location,
-  path: state.router.params['_'] // _ contains all the values from *
 })
 
 export default compose(

@@ -14,7 +14,7 @@ import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChang
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 /**
- * Displays a list of events or a single event, matching the route /<location>/<language>/events*
+ * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export class EventsPage extends React.Component {
   static propTypes = {
@@ -23,7 +23,7 @@ export class EventsPage extends React.Component {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
     dispatchLanguageChangeUrls: PropTypes.func.isRequired,
-    path: PropTypes.string
+    id: PropTypes.string
   }
 
   getPath () {
@@ -34,15 +34,17 @@ export class EventsPage extends React.Component {
     id ? `/${this.props.location}/${language}/events/${id}`
       : `/${this.props.location}/${language}/events`
 
+  findEvent = ((events, id) => events.find(
+    (event) => event.id.toString() === id
+  ))
+
   componentDidMount () {
     // all events
     let availableLanguages = {}
 
-    if (this.props.path && this.props.events) {
+    if (this.props.id && this.props.events) {
       // specific event
-      const event = this.props.events.find(
-        (event) => event.id.toString() === this.props.path.replace('/', '')
-      )
+      const event = this.findEvent(this.props.events, this.props.id)
       if (event) availableLanguages = event.availableLanguages
     }
     this.props.dispatchLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
@@ -50,16 +52,14 @@ export class EventsPage extends React.Component {
 
   // we must not call dispatch in componentWillUpdate or componentDidUpdate
   componentWillReceiveProps (nextProps) {
-    if (nextProps.events === this.props.events && nextProps.path === this.props.path) {
+    if (nextProps.events === this.props.events && nextProps.id === this.props.id) {
       // no relevant prop changes
       return
     }
 
-    if (nextProps.path) {
+    if (nextProps.id) {
       // specific event
-      const event = nextProps.events.find(
-        (event) => event.id.toString() === nextProps.path.replace('/', '')
-      )
+      const event = this.findEvent(nextProps.events, nextProps.id)
       if (event) {
         // events have been loaded in the new language
         this.props.dispatchLanguageChangeUrls(
@@ -73,9 +73,9 @@ export class EventsPage extends React.Component {
   }
 
   render () {
-    if (this.props.path) {
+    if (this.props.id) {
       // event with the given id from this.props.path
-      const event = this.props.events.find((event) => event.id.toString() === this.props.path.replace('/', ''))
+      const event = this.findEvent(this.props.events, this.props.id)
 
       if (event) {
         return <EventDetail event={event} location={this.props.location} language={this.props.language} />
@@ -91,7 +91,7 @@ export class EventsPage extends React.Component {
 const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
-  path: state.router.params['_'] // _ contains all the values from *
+  id: state.router.params.id
 })
 
 const mapDispatchToProps = (dispatch) => ({
