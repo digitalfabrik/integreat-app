@@ -95,16 +95,9 @@ Install the following plugins:
 * PostCSS
 * EJS
 * ESLint
+* React CSS Modules
 
 Go to:
-* File > Settings > Editor > Code Style  
-   to import the code style **integreat-webapp** from **.intellij/code-style.xml**
-* File > Settings > Languages & Framworks > JavaScript  
-   to set **JavaScript language version** to **React JSX**
-* File > Settings > Languages & Framworks > JavaScript > Libraries  
-   to click **Download** and install **jest** typescript types
-* File > Settings > Languages & Framworks > Stylesheets > Dialects  
-   to set **Project CSS Dialect** to **PostCSS**
 * Run > Edit Configurations > Defaults > Jest  
    to set **Configuration file** to **just.config.json**
 
