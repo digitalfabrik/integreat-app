@@ -13,6 +13,9 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import Timespan from '../../../modules/common/components/Timespan'
 
+/**
+ * Display a element of the EventList
+ */
 class EventListElement extends React.Component {
   static propTypes = {
     event: PropTypes.instanceOf(EventModel).isRequired,
@@ -21,10 +24,18 @@ class EventListElement extends React.Component {
     isFirst: PropTypes.bool.isRequired
   }
 
+  /**
+   * Generates the url of the specific event represented by this EventListElement
+   * @returns {string} The url
+   */
   getUrl () {
     return `${this.props.parentUrl}/${this.props.event.id}`
   }
 
+  /**
+   * We have three placeholder thumbnails to display when cities don't provide a thumbnail
+   * @returns {*} The Placeholder Thumbnail
+   */
   getEventPlaceholder () {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
     return placeholders[this.props.event.id % 3]
@@ -44,14 +55,19 @@ class EventListElement extends React.Component {
                       locale={this.props.language} />
             , {this.props.event.address}
           </div>
-          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt()}} />
+          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(70)}} />
         </div>
       </Link>
     )
   }
 
-  formatExcerpt () {
-    return this.props.event.excerpt.slice(0, 70) + '...'
+  /**
+   * Formats the excerpt to a given length
+   * @param excerptLength The maximal length of the excerpt
+   * @returns {string} The formatted excerpt
+   */
+  formatExcerpt (excerptLength) {
+    return this.props.event.excerpt.slice(0, excerptLength) + '...'
   }
 }
 

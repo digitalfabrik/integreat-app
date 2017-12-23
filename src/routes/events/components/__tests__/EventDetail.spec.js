@@ -16,9 +16,4 @@ describe('EventDetail', () => {
   test('should render', () => {
     expect(shallow(<EventDetail event={event} language={language} />)).toMatchSnapshot()
   })
-
-  test('should have thumbnail', () => {
-    const eventDetail = shallow(<EventDetail event={event} language={language} />).instance()
-    expect(eventDetail.find('.thumbnail')).toHaveLength(1)
-  })
 })

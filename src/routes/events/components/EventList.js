@@ -8,6 +8,9 @@ import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
 
+/**
+ * Display a list of events
+ */
 class EventList extends React.Component {
   static propTypes = {
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
@@ -19,7 +22,14 @@ class EventList extends React.Component {
     const {t} = this.props
 
     if (!this.props.events || this.props.events.length === 0) {
-      return <div className={style.noEvents}>{t('currentlyNoEvents')} </div>
+      return (
+        <div>
+          <Caption title={t('news')} />
+          <div className={style.noEvents}>
+            {t('currentlyNoEvents')}
+          </div>
+        </div>
+      )
     }
 
     const elements = this.props.events.map((event, index) =>

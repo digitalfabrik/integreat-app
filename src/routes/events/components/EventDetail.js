@@ -13,7 +13,7 @@ import Caption from 'modules/common/components/Caption'
 import Timespan from '../../../modules/common/components/Timespan'
 
 /**
- * Display a single event
+ * Display a single event with all necessary information
  */
 class EventDetail extends React.Component {
   static propTypes = {

@@ -82,7 +82,7 @@ class SearchPage extends React.Component {
 const mapStateToProps = (state) => ({
   languages: state.languages,
   language: state.router.params.language,
-  location: state.router.params.location,
+  location: state.router.params.location
 })
 
 export default compose(

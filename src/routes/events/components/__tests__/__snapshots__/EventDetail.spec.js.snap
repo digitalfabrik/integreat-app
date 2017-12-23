@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventDetail should render 1`] = `
+<EventDetail
+  event={
+    EventModel {
+      "_address": "",
+      "_availableLanguages": Object {
+        "ar": "1236",
+        "de": "1235",
+      },
+      "_content": "",
+      "_date": Object {},
+      "_excerpt": "",
+      "_id": 1234,
+      "_thumbnail": "",
+      "_title": "first Event",
+      "_town": "",
+    }
+  }
+  language="en"
+  t={[Function]}
+/>
+`;
