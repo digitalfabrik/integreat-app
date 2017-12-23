@@ -1,6 +1,6 @@
 import langaugeEndpoint from '../endpoints/languages'
 import locationEndpoint from '../endpoints/location'
-import pageEndpoint from '../endpoints/pages'
+import categoriesEndpoint from '../endpoints/categories'
 import eventsEndpoint from '../endpoints/events'
 import disclaimerEndpoint from '../endpoints/disclaimer'
 
@@ -10,7 +10,7 @@ import disclaimerEndpoint from '../endpoints/disclaimer'
 const endpoints = [
   langaugeEndpoint,
   locationEndpoint,
-  pageEndpoint,
+  categoriesEndpoint,
   disclaimerEndpoint,
   eventsEndpoint
 ]

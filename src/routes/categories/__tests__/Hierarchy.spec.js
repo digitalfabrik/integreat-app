@@ -1,5 +1,5 @@
 import Hierarchy from 'routes/categories/Hierarchy'
-import PageModel from 'modules/endpoint/models/PageModel'
+import PageModel from 'modules/endpoint/models/CategoryModel'
 
 describe('Hierarchy', () => {
   const hierarchy = new Hierarchy('/123/456')
