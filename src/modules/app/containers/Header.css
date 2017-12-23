@@ -106,7 +106,7 @@
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-@media (--small-viewport) {
+@media screen and (min-width: 1000px) {
   .header {
     padding-right: calc((200% - 100vw - 1000px) / 2);
     padding-left: calc((100vw - 1000px) / 2);
