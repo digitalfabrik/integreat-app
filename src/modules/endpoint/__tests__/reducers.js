@@ -8,7 +8,7 @@ describe('reducers', () => {
       events: expect.any(Function),
       languages: expect.any(Function),
       locations: expect.any(Function),
-      pages: expect.any(Function)
+      categories: expect.any(Function)
     })
   })
 })
