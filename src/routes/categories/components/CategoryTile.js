@@ -7,14 +7,13 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 class CategoryTile extends React.Component {
   static propTypes = {
-    category: PropTypes.instanceOf(CategoryModel).isRequired,
-    url: PropTypes.string.isRequired
+    category: PropTypes.instanceOf(CategoryModel).isRequired
   }
 
   render () {
     return (
       <Col xs={6} sm={4} className={style.category}>
-        <Link href={this.props.url}>
+        <Link href={this.props.category.url}>
           <img className={style.categoryThumbnail} src={this.props.category.thumbnail}/>
           <div className={style.categoryTitle}>{this.props.category.title}</div>
         </Link>

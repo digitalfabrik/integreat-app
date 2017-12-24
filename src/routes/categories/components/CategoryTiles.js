@@ -10,13 +10,8 @@ import LocationModel from '../../../modules/endpoint/models/LocationModel'
 class CategoryTiles extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    baseUrl: PropTypes.string.isRequired,
     categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
-  }
-
-  static getUrl (baseUrl, path) {
-    return baseUrl + '/' + path
   }
 
   getTitle () {
@@ -30,7 +25,6 @@ class CategoryTiles extends React.Component {
         <Row>
           {this.props.categories.map(category =>
             <CategoryTile key={category.id}
-                          url={CategoryTiles.getUrl(this.props.baseUrl, category.url)}
                           category={category} />)}
         </Row>
       </div>

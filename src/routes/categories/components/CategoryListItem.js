@@ -9,13 +9,12 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 class CategoryListItem extends React.Component {
   static propTypes = {
-    category: PropTypes.instanceOf(CategoryModel).isRequired,
-    url: PropTypes.string.isRequired
+    category: PropTypes.instanceOf(CategoryModel).isRequired
   }
 
   render () {
     return (
-      <Link href={this.props.url}>
+      <Link href={this.props.category.url}>
         <div className={style.row}>
           <img className={style.categoryThumbnail} src={this.props.category.thumbnail || IconPlaceholder} />
           <div className={style.categoryCaption}>{this.props.category.title}</div>

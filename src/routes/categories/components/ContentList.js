@@ -7,18 +7,14 @@ import CategoryListItem from './CategoryListItem'
 
 class ContentList extends React.Component {
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
-    baseUrl: PropTypes.string.isRequired
+    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
   }
-
-  static getUrl = (baseUrl, path) => baseUrl + '/' + path
 
   render () {
     return (
       <div className={style.list}>
         {this.props.categories.map(category =>
           <CategoryListItem key={category.id}
-                            url={ContentList.getUrl(this.props.baseUrl, category.url)}
                             category={category} />)}
       </div>
     )

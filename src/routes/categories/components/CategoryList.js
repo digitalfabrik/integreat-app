@@ -9,8 +9,7 @@ import RemoteContent from 'modules/common/components/RemoteContent'
 class TitledContentList extends React.Component {
   static propTypes = {
     parentCategory: PropTypes.instanceOf(CategoryModel).isRequired,
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
-    baseUrl: PropTypes.string.isRequired
+    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
   }
 
   render () {
@@ -24,7 +23,7 @@ class TitledContentList extends React.Component {
                            dangerouslySetInnerHTML={{__html: this.props.parentCategory.content}} />
           </div>
         </div>
-        <ContentList categories={this.props.categories} baseUrl={this.props.baseUrl} />
+        <ContentList categories={this.props.categories} />
       </div>
     )
   }
