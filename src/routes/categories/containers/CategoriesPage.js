@@ -4,18 +4,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import Content from 'routes/categories/containers/Content'
-import Breadcrumb from 'routes/categories/containers/Breadcrumb'
-import Error from 'modules/common/containers/Error'
+import Breadcrumb from 'routes/categories/components/Breadcrumb'
 import PdfButton from 'routes/categories/components/PdfButton'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
+import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
+import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
 
-import Hierarchy from '../Hierarchy'
-import PageModel from 'modules/endpoint/models/PageModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import Page from '../components/Page'
+import CategoryTiles from '../components/CategoryTiles'
+import TitledContentList from '../components/CategoryList'
+import LocationModel from '../../../modules/endpoint/models/LocationModel'
+import { replace } from 'redux-little-router'
 
 /**
  * Matching the route /<location>/<language>*
@@ -26,15 +29,30 @@ class CategoriesPage extends React.Component {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
     path: PropTypes.string,
-    pages: PropTypes.instanceOf(PageModel).isRequired
+    categoryId: PropTypes.string,
+    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
-  getParentPath () {
+  getBaseUrl () {
     return `/${this.props.location}/${this.props.language}`
   }
 
   componentDidMount () {
+    console.log('id: ' + this.props.categoryId)
+    console.log('path' + this.props.path)
+    if (this.props.categoryId) {
+      this.props.dispatch(replace(this.getRedirectUrl(this.props.categoryId)))
+      return
+    }
     this.setLanguageChangeUrls(this.props.path)
+  }
+
+  getRedirectUrl = (id) => {
+    const path = CategoryModel.getCategoryById(this.props.categories, id).url
+    const url = `/${this.props.location}/${this.props.language}/${path}`
+    console.log(url)
+    return url
   }
 
   // we must not call dispatch in componentWillUpdate or componentDidUpdate
@@ -45,7 +63,7 @@ class CategoriesPage extends React.Component {
   }
 
   mapLanguageToUrl = (language, id) => (
-    id ? `/${this.props.location}/${language}/redirect?id=${id}` : `/${this.props.location}/${language}`
+    id ? `/${this.props.location}/${language}?id=${id}` : `/${this.props.location}/${language}`
   )
 
   /**
@@ -53,14 +71,8 @@ class CategoriesPage extends React.Component {
    * @param {string} path The current path
    */
   setLanguageChangeUrls (path) {
-    const hierarchy = new Hierarchy(path)
-    const error = hierarchy.build(this.props.pages)
-    if (error) {
-      // todo handle this error
-      return
-    }
     this.props.dispatch(setLanguageChangeUrls(
-      this.mapLanguageToUrl, this.props.languages, hierarchy.top().availableLanguages)
+      this.mapLanguageToUrl, this.props.languages, CategoryModel.getCategoryByPath(this.props.categories, path).availableLanguages)
     )
   }
 
@@ -73,22 +85,31 @@ class CategoriesPage extends React.Component {
   }
 
   render () {
-    const url = this.getParentPath()
-    const hierarchy = new Hierarchy(this.props.path)
+    const baseUrl = this.getBaseUrl()
+    const category = CategoryModel.getCategoryByPath(this.props.categories, this.props.path)
+    const children = this.props.categories.filter(_category => category.children.includes(_category.id))
 
-    // Pass data to hierarchy
-    const error = hierarchy.build(this.props.pages)
-    if (error) {
-      return <Error error={error} />
+    let Content
+    if (category.children.length === 0) {
+      Content = <Page page={category} />
+    } else if (category.id === 0) {
+      Content = <CategoryTiles categories={children}
+                               baseUrl={baseUrl}
+                               title={category.title}
+                               locations={this.props.locations} />
+    } else {
+      Content = <TitledContentList categories={children}
+                                   baseUrl={baseUrl}
+                                   parentCategory={category} />
     }
 
     return <div>
       <Breadcrumb
-        hierarchy={hierarchy}
-        language={this.props.language}
-        location={this.props.location}
-      />
-      <Content url={url} hierarchy={hierarchy} />
+        categories={this.props.categories}
+        category={category}
+        locations={this.props.locations}
+        baseUrl={baseUrl} />
+      {Content}
       <PdfButton href={this.getPdfFetchPath()} />
     </div>
   }
@@ -97,11 +118,13 @@ class CategoriesPage extends React.Component {
 const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
-  path: state.router.params['_'] // _ contains all the values from *
+  path: state.router.params['_'], // _ contains all the values from *
+  categoryId: state.router.query.id
 })
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(PAGE_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT)
+  withFetcher(CATEGORIES_ENDPOINT),
+  withFetcher(LANGUAGES_ENDPOINT),
+  withFetcher(LOCATION_ENDPOINT)
 )(CategoriesPage)

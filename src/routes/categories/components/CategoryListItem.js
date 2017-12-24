@@ -5,11 +5,11 @@ import { Link } from 'redux-little-router'
 import style from './CategoryListItem.css'
 
 import IconPlaceholder from '../assets/IconPlaceholder.svg'
-import PageModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 class CategoryListItem extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
+    category: PropTypes.instanceOf(CategoryModel).isRequired,
     url: PropTypes.string.isRequired
   }
 
@@ -17,8 +17,8 @@ class CategoryListItem extends React.Component {
     return (
       <Link href={this.props.url}>
         <div className={style.row}>
-          <img className={style.categoryThumbnail} src={this.props.page.thumbnail || IconPlaceholder}/>
-          <div className={style.categoryCaption}>{this.props.page.title}</div>
+          <img className={style.categoryThumbnail} src={this.props.category.thumbnail || IconPlaceholder} />
+          <div className={style.categoryCaption}>{this.props.category.title}</div>
         </div>
       </Link>
     )

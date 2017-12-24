@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { Col } from 'react-flexbox-grid'
 import { Link } from 'redux-little-router'
 import style from './CategoryTile.css'
-import PageModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 class CategoryTile extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
+    category: PropTypes.instanceOf(CategoryModel).isRequired,
     url: PropTypes.string.isRequired
   }
 
@@ -15,8 +15,8 @@ class CategoryTile extends React.Component {
     return (
       <Col xs={6} sm={4} className={style.category}>
         <Link href={this.props.url}>
-          <img className={style.categoryThumbnail} src={this.props.page.thumbnail}/>
-          <div className={style.categoryTitle}>{this.props.page.title}</div>
+          <img className={style.categoryThumbnail} src={this.props.category.thumbnail}/>
+          <div className={style.categoryTitle}>{this.props.category.title}</div>
         </Link>
       </Col>
     )

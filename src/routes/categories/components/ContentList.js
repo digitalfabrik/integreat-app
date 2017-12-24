@@ -2,21 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './ContentList.css'
-import PageModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryListItem from './CategoryListItem'
 
 class ContentList extends React.Component {
   static propTypes = {
-    pages: PropTypes.arrayOf(PropTypes.shape({
-      page: PropTypes.instanceOf(PageModel).isRequired,
-      url: PropTypes.string.isRequired
-    })).isRequired
+    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
+    baseUrl: PropTypes.string.isRequired
   }
+
+  static getUrl = (baseUrl, path) => baseUrl + '/' + path
 
   render () {
     return (
       <div className={style.list}>
-        { this.props.pages.map(({ page, url }) => <CategoryListItem key={url} url={url} page={page} />) }
+        {this.props.categories.map(category =>
+          <CategoryListItem key={category.id}
+                            url={ContentList.getUrl(this.props.baseUrl, category.url)}
+                            category={category} />)}
       </div>
     )
   }
