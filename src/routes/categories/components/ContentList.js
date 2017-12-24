@@ -1,10 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './ContentList.css'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryListItem from './CategoryListItem'
 
+import style from './ContentList.css'
+
+/**
+ * Displays a list of categories
+ */
 class ContentList extends React.Component {
   static propTypes = {
     categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired

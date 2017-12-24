@@ -3,17 +3,25 @@ import PropTypes from 'prop-types'
 
 import { Link } from 'redux-little-router'
 
-import style from './Breadcrumb.css'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import LocationModel from '../../../modules/endpoint/models/LocationModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import LocationModel from 'modules/endpoint/models/LocationModel'
 
-class Breadcrumb extends React.Component {
+import style from './Breadcrumbs.css'
+
+/**
+ * Displays breadcrumbs (Links) for lower category levels
+ */
+class Breadcrumbs extends React.Component {
   static propTypes = {
     categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
     category: PropTypes.instanceOf(CategoryModel).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
+  /**
+   *
+   * @param location
+   */
   getLocationTitle = (location) => (this.props.locations.find(_location => location === _location.code)).name
 
   getBreadcrumbs (categories, currentCategory) {
@@ -49,4 +57,4 @@ class Breadcrumb extends React.Component {
   }
 }
 
-export default Breadcrumb
+export default Breadcrumbs

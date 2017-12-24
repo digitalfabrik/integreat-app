@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './CategoryList.css'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import ContentList from './ContentList'
 import RemoteContent from 'modules/common/components/RemoteContent'
 
-class TitledContentList extends React.Component {
+import ContentList from './ContentList'
+
+import style from './CategoryList.css'
+
+/**
+ * Displays a ContentList which is a list of categories, a caption and a thumbnail
+ */
+class CategoryList extends React.Component {
   static propTypes = {
     parentCategory: PropTypes.instanceOf(CategoryModel).isRequired,
     categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
@@ -29,4 +34,4 @@ class TitledContentList extends React.Component {
   }
 }
 
-export default TitledContentList
+export default CategoryList

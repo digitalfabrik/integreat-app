@@ -13,7 +13,7 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 
-import Breadcrumb from 'routes/categories/components/Breadcrumb'
+import Breadcrumb from 'routes/categories/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
 import Page from '../components/Page'
 import CategoryTiles from '../components/CategoryTiles'

@@ -19,7 +19,6 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
   }
@@ -27,16 +26,12 @@ class SearchPage extends React.Component {
   mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
 
   componentDidMount () {
-    this.props.dispatch(setLanguageChangeUrls(this.testmapLanguageToUrl, this.props.languages))
+    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
   }
 
   constructor () {
     super()
     this.state = {filterText: ''}
-  }
-
-  getBaseUrl () {
-    return `/${this.props.location}/${this.props.language}`
   }
 
   acceptCategory (category) {
@@ -56,14 +51,13 @@ class SearchPage extends React.Component {
         <SearchInput className={style.searchSpacing}
                      filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: filterText})} />
-        <ContentList categories={categories} baseUrl={this.getBaseUrl()} />
+        <ContentList categories={categories} />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  language: state.router.params.language,
   location: state.router.params.location
 })
 
