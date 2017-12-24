@@ -9,16 +9,16 @@ export default new EndpointBuilder('categories')
   .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
   .withMapper((json, urlParams) => {
     let categories = json.filter((category) => category.status === 'publish')
-      .map((page) => {
+      .map((category) => {
         return new CategoryModel({
-          id: page.id,
-          url: page.permalink.url_page,
-          title: page.title,
-          parent: page.parent,
-          content: page.content,
-          thumbnail: page.thumbnail,
-          order: page.order,
-          availableLanguages: page.available_languages
+          id: category.id,
+          url: category.permalink.url_page,
+          title: category.title,
+          parent: category.parent,
+          content: category.content,
+          thumbnail: category.thumbnail,
+          order: category.order,
+          availableLanguages: category.available_languages
         })
       })
 

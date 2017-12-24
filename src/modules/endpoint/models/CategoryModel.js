@@ -1,5 +1,5 @@
-class PageModel {
-  constructor ({ id, url, title = '', parent = 0, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
+class CategoryModel {
+  constructor ({ id, url = '', title = '', parent = 0, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
     this._id = id
     this._url = url
     this._title = title
@@ -17,7 +17,7 @@ class PageModel {
 
   addChild (id) {
     this._children.push(id)
-    this._children = this._children.sort((page1, page2) => page1.order - page2.order)
+    this._children = this._children.sort((category1, category2) => category1.order - category2.order)
   }
 
   get id () {
@@ -51,7 +51,15 @@ class PageModel {
   get availableLanguages () {
     return this._availableLanguages
   }
+
+  static getCategoryByPath (categories, path = '') {
+    return categories.find(category => category.url === encodeURI(path).toLowerCase())
+  }
+
+  static getCategoryById (categories, id) {
+    return categories.find(category => category.id === Number(id))
+  }
 }
 
-export const EMPTY_PAGE = new PageModel({})
-export default PageModel
+export const EMPTY_PAGE = new CategoryModel({})
+export default CategoryModel
