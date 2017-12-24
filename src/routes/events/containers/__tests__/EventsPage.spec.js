@@ -192,6 +192,8 @@ describe('EventsPage', () => {
         location: 'augsburg',
         language: 'en',
         id: '1234',
+        events: events,
+        languages: languages,
         dispatchLanguageChangeUrls: expect.any(Function)
       })
     })
@@ -221,6 +223,9 @@ describe('EventsPage', () => {
           <ConnectedEventsPage />
         </Provider>
       )
+
+      // todo expect setLanguageChangeUrls action to be in store, but as we don't get events and languages from our
+      // mocked endpoint no action is dispatched
 
       const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
 
