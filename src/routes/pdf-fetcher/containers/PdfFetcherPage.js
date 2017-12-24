@@ -14,15 +14,15 @@ import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
-import Hierarchy from 'routes/categories/Hierarchy'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    pages: PropTypes.instanceOf(CategoryModel).isRequired,
+    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
     location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired
   }
 
   constructor (params) {
@@ -31,20 +31,14 @@ class PdfFetcherPage extends React.Component {
   }
 
   componentWillMount () {
-    const hierarchy = new Hierarchy(this.props.path)
-
-    const error = hierarchy.build(this.props.pages)
-    if (error) {
-      return <Error error={error}/>
-    }
-
-    this.fetchUrl(hierarchy.top())
+    this.fetchUrl(CategoryModel.getCategoryByPath(this.props.categories, this.props.path))
   }
 
-  addPageIdsRecursively (pageIds, parentPage) {
-    parentPage.children.forEach((page) => {
-      pageIds.push(page.numericId)
-      this.addPageIdsRecursively(pageIds, page)
+  addCategoryIdsRecursively (categoryIds, currentCategory) {
+    currentCategory.children.forEach((id) => {
+      const child = CategoryModel.getCategoryById(this.props.categories, id)
+      categoryIds.push(child.id)
+      this.addCategoryIdsRecursively(categoryIds, child)
     })
   }
 
@@ -60,41 +54,41 @@ class PdfFetcherPage extends React.Component {
     }
   }
 
-  getLocationTitle (page) {
-    const location = this.props.locations.find((location) => location.code === page.title)
+  getLocationTitle (category) {
+    const location = this.props.locations.find((location) => location.code === category.title)
     if (location) {
       return location.name
     } else {
-      console.warn('Couldn\'t find the corresponding LocationModel. Using the page title instead...')
-      return page.title
+      console.warn('Couldn\'t find the corresponding LocationModel. Using the category title instead...')
+      return category.title
     }
   }
 
-  static isRootPage (page) {
-    return page.numericId === 0
+  static isRootCategory (category) {
+    return category.id === 0
   }
 
-  fetchUrl (page) {
+  fetchUrl (category) {
     const url = `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`
-    const pageIds = []
+    const categoryIds = []
     const requestType = 'page' /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
                                   languages, so we just always use 'page' as requestType. */
     const font = this.getFont()
-    const title = PdfFetcherPage.isRootPage(page) ? this.getLocationTitle(page) : page.title
-    const toc = isEmpty(page.children) ? 'false' : 'true'
+    const title = PdfFetcherPage.isRootCategory(category) ? this.getLocationTitle(category) : category.title
+    const toc = isEmpty(category.children) ? 'false' : 'true'
 
-    this.setState(Object.assign({}, this.state, {loading: page}))
+    this.setState(Object.assign({}, this.state, {loading: category}))
 
-    if (!PdfFetcherPage.isRootPage(page)) {
-      pageIds.push(page.numericId)
+    if (!PdfFetcherPage.isRootCategory(category)) {
+      categoryIds.push(category.id)
     }
-    this.addPageIdsRecursively(pageIds, page)
+    this.addCategoryIdsRecursively(categoryIds, category)
 
     const params = {
       action: 'frontEndDownloadPDF',
       requestType: requestType,
-      myContent: pageIds.join(','),
-      pdfOptions: `${toc},${title},${page.numericId}_file,,`,
+      myContent: categoryIds.join(','),
+      pdfOptions: `${toc},${title},${category.id}_file,,`,
       'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`,
       font,
       fontcolor: '',
@@ -119,7 +113,7 @@ class PdfFetcherPage extends React.Component {
       body,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
-        if (!page === this.state.loading) {
+        if (!category === this.state.loading) {
           return
         }
 
@@ -144,10 +138,10 @@ class PdfFetcherPage extends React.Component {
     if (this.state.loading) {
       return <div className={style.pdfFetcher}>
         <p>{t('creatingPdf')}</p>
-        <Spinner name='line-scale-party'/>
+        <Spinner name='line-scale-party' />
       </div>
     } else if (!this.state.pdf) {
-      return <Error error="errors:page.loadingFailed"/>
+      return <Error error='errors:page.loadingFailed' />
     } else {
       return <div className={style.pdfFetcher}>
         <p>{t('downloadPdfAt')}</p>
