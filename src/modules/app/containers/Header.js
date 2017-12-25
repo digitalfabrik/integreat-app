@@ -73,7 +73,7 @@ class Header extends React.Component {
   }
 
   isCategoriesSelected () {
-    return this.props.route === '/:location/:language'
+    return this.props.route === '/:location/:language' || this.props.route === '/:location/:language/*'
   }
 
   render () {

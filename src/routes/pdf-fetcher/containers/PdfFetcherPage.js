@@ -31,12 +31,17 @@ class PdfFetcherPage extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchUrl(CategoryModel.getCategoryByPath(this.props.categories, this.props.path))
+    const category = CategoryModel.getCategoryByPath(this.props.categories, this.props.path)
+    if (category) {
+      this.fetchUrl(category)
+    } else {
+      // todo display an error
+    }
   }
 
   addCategoryIdsRecursively (categoryIds, currentCategory) {
-    currentCategory.children.forEach((id) => {
-      const child = CategoryModel.getCategoryById(this.props.categories, id)
+    const children = this.props.categories.filter(category => category.parent === currentCategory.id)
+    children.forEach((child) => {
       categoryIds.push(child.id)
       this.addCategoryIdsRecursively(categoryIds, child)
     })
@@ -75,7 +80,7 @@ class PdfFetcherPage extends React.Component {
                                   languages, so we just always use 'page' as requestType. */
     const font = this.getFont()
     const title = PdfFetcherPage.isRootCategory(category) ? this.getLocationTitle(category) : category.title
-    const toc = isEmpty(category.children) ? 'false' : 'true'
+    const toc = isEmpty(this.props.categories.filter(_category => _category.parent === category.id)) ? 'false' : 'true'
 
     this.setState(Object.assign({}, this.state, {loading: category}))
 

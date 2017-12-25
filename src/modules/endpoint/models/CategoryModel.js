@@ -1,5 +1,7 @@
+import normalizeUrl from 'normalize-url'
+
 class CategoryModel {
-  constructor ({ id, url = '', title = '', parent = 0, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
+  constructor ({ id, url = '', title = '', parent = -1, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
     this._id = id
     this._url = url
     this._title = title
@@ -7,17 +9,11 @@ class CategoryModel {
     this._parent = parent
     this._thumbnail = thumbnail
     this._order = order
-    this._children = []
     this._availableLanguages = availableLanguages
   }
 
   get thumbnail () {
     return this._thumbnail
-  }
-
-  addChild (id) {
-    this._children.push(id)
-    this._children = this._children.sort((category1, category2) => category1.order - category2.order)
   }
 
   get id () {
@@ -40,10 +36,6 @@ class CategoryModel {
     return this._parent
   }
 
-  get children () {
-    return this._children
-  }
-
   get order () {
     return this._order
   }
@@ -53,7 +45,7 @@ class CategoryModel {
   }
 
   static getCategoryByPath (categories, path = '') {
-    return categories.find(category => category.url === encodeURI(path).toLowerCase())
+    return categories.find(category => category.url === normalizeUrl(path))
   }
 
   static getCategoryById (categories, id) {

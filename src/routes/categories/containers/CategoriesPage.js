@@ -13,11 +13,11 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 
-import Breadcrumb from 'routes/categories/components/Breadcrumbs'
+import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
 import Page from '../components/Page'
 import CategoryTiles from '../components/CategoryTiles'
-import TitledContentList from '../components/CategoryList'
+import CategoryList from '../components/CategoryList'
 
 /**
  * Displays a CategoryTable, CategoryList or a single category matching the route /<location>/<language>*
@@ -31,8 +31,8 @@ class CategoriesPage extends React.Component {
     language: PropTypes.string.isRequired,
     path: PropTypes.string,
     categoryId: PropTypes.string,
-    dispatchLanguageChangeUrls: PropTypes.func.isRequired,
-    dispatchRedirectToUrl: PropTypes.func.isRequired
+    setLanguageChangeUrls: PropTypes.func.isRequired,
+    replaceUrl: PropTypes.func.isRequired
   }
 
   /**
@@ -41,24 +41,13 @@ class CategoriesPage extends React.Component {
    */
   componentDidMount () {
     if (this.props.categoryId) {
-      this.props.dispatchRedirectToUrl(this.getRedirectUrl(this.props.categories, this.props.categoryId))
-      return
+      const category = CategoryModel.getCategoryById(this.props.categories, this.props.categoryId)
+      if (!category) {
+        // todo show an error that the page has not been found, redirect to the notFound route
+      }
+      this.props.replaceUrl(category.url)
     }
     this.setLanguageChangeUrls(this.props.path)
-  }
-
-  /**
-   * Generates the url of the category with the given id
-   * @param categories The categories to search in
-   * @param id The id of the category to search for
-   * @returns {string} The url of the category
-   */
-  getRedirectUrl = (categories, id) => {
-    const category = CategoryModel.getCategoryById(categories, id)
-    if (!category) {
-      // todo show an error that the page has not been found, redirect to the notFound route
-    }
-    return `/${this.props.location}/${this.props.language}/${category.url}`
   }
 
   /**
@@ -88,7 +77,7 @@ class CategoriesPage extends React.Component {
    * @param {string} path The current path
    */
   setLanguageChangeUrls (path) {
-    this.props.dispatchLanguageChangeUrls(
+    this.props.setLanguageChangeUrls(
       this.mapLanguageToUrl, this.props.languages, CategoryModel.getCategoryByPath(this.props.categories, path).availableLanguages
     )
   }
@@ -106,10 +95,10 @@ class CategoriesPage extends React.Component {
     if (!category) {
       // todo show an error that the page has not been found, redirect to the notFound route
     }
-    const children = this.props.categories.filter(_category => category.children.includes(_category.id))
+    const children = this.props.categories.filter(_category => _category.parent === category.id)
 
     let Content
-    if (category.children.length === 0) {
+    if (children.length === 0) {
       // last level, our category is a simple page
       Content = <Page page={category} />
     } else if (category.id === 0) {
@@ -119,12 +108,12 @@ class CategoriesPage extends React.Component {
                                locations={this.props.locations} />
     } else {
       // some level between, we want to display a list
-      Content = <TitledContentList categories={children}
-                                   parentCategory={category} />
+      Content = <CategoryList categories={children}
+                              parentCategory={category} />
     }
 
     return <div>
-      <Breadcrumb
+      <Breadcrumbs
         categories={this.props.categories}
         category={category}
         locations={this.props.locations} />
@@ -135,16 +124,16 @@ class CategoriesPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
+  setLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
     setLanguageChangeUrls(urls, languages, availableLanguages)
   ),
-  dispatchRedirectToUrl: (url) => dispatch(replace(url))
+  replaceUrl: (url) => dispatch(replace(url))
 })
 
 const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
-  path: state.router.params['_'], // _ contains all the values from *
+  path: state.router.pathname, // _ contains all the values from *
   categoryId: state.router.query.id
 })
 

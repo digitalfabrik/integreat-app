@@ -18,11 +18,10 @@ class Breadcrumbs extends React.Component {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
-  /**
-   *
-   * @param location
-   */
-  getLocationTitle = (location) => (this.props.locations.find(_location => location === _location.code)).name
+  getLocationTitle (title) {
+    const location = this.props.locations.find(_location => title === _location.code)
+    return location ? location.name : title
+  }
 
   getBreadcrumbs (categories, currentCategory) {
     if (currentCategory.id === this.props.category.id && currentCategory.id === 0) return []
@@ -31,7 +30,7 @@ class Breadcrumbs extends React.Component {
       return [{title: this.getLocationTitle(currentCategory.title), url: currentCategory.url}]
     }
 
-    let breadcrumbs = this.getBreadcrumbs(categories, CategoryModel.getCategoryById(categories, currentCategory.parent))
+    const breadcrumbs = this.getBreadcrumbs(categories, CategoryModel.getCategoryById(categories, currentCategory.parent))
 
     if (currentCategory.id !== this.props.category.id) {
       breadcrumbs.push({title: currentCategory.title, url: currentCategory.url})
