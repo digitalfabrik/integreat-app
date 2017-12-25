@@ -9,7 +9,7 @@ import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'

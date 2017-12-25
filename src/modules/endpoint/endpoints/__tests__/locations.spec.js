@@ -1,7 +1,7 @@
-import location from '../location'
+import locations from '../locations'
 import LocationModel from '../../models/LocationModel'
 
-describe('location', () => {
+describe('locations', () => {
   const location1 = {
     name: 'Augsburg',
     path: '/augsburg/',
@@ -17,11 +17,11 @@ describe('location', () => {
   const locationJson = [location1, location2]
 
   test('should map state to urls', () => {
-    expect(location.mapStateToUrlParams({})).toEqual({})
+    expect(locations.mapStateToUrlParams({})).toEqual({})
   })
 
   test('should map fetched data to models', () => {
-    const locationModels = location.mapResponse(locationJson)
+    const locationModels = locations.mapResponse(locationJson)
     expect(locationModels).toEqual([
       new LocationModel({
         name: location1.name,
