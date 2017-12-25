@@ -99,7 +99,7 @@ Install the following plugins:
 
 Go to:
 * Run > Edit Configurations > Defaults > Jest  
-   to set **Configuration file** to **just.config.json**
+   to set **Configuration file** to **jest.config.json**
 
 # Bug Tracker
 
