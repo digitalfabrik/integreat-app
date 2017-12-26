@@ -59,7 +59,7 @@ class App extends React.Component {
                   <RichLayout><EventsPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
-                <Fragment forRoute='/fetch-pdf/*'>
+                <Fragment forRoute='/fetch-pdf'>
                   <Layout><PdfFetcherPage /></Layout>
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}

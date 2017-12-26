@@ -17,7 +17,7 @@ export default {
       '/events(/:id)': {
         title: 'Events page'
       },
-      '/fetch-pdf/*': {
+      '/fetch-pdf': {
         title: 'FetchPdf page'
       }
     },

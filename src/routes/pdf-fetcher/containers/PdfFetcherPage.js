@@ -14,15 +14,15 @@ import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoriesModel from 'modules/endpoint/models/CategoriesModel'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
+    categories: PropTypes.instanceOf(CategoriesModel).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired
+    fetchUrl: PropTypes.string.isRequired
   }
 
   constructor (params) {
@@ -31,7 +31,8 @@ class PdfFetcherPage extends React.Component {
   }
 
   componentWillMount () {
-    const category = CategoryModel.getCategoryByPath(this.props.categories, this.props.path)
+    console.log('fetchurl' +this.props.fetchUrl)
+    const category = this.props.categories.getCategoryByUrl(this.props.fetchUrl)
     if (category) {
       this.fetchUrl(category)
     } else {
@@ -39,11 +40,10 @@ class PdfFetcherPage extends React.Component {
     }
   }
 
-  addCategoryIdsRecursively (categoryIds, currentCategory) {
-    const children = this.props.categories.filter(category => category.parent === currentCategory.id)
+  addCategoryIdsRecursively (categoryIds, children) {
     children.forEach((child) => {
       categoryIds.push(child.id)
-      this.addCategoryIdsRecursively(categoryIds, child)
+      this.addCategoryIdsRecursively(categoryIds, this.props.categories.getChildren(child.url))
     })
   }
 
@@ -59,18 +59,9 @@ class PdfFetcherPage extends React.Component {
     }
   }
 
-  getLocationTitle (category) {
-    const location = this.props.locations.find((location) => location.code === category.title)
-    if (location) {
-      return location.name
-    } else {
-      console.warn('Couldn\'t find the corresponding LocationModel. Using the category title instead...')
-      return category.title
-    }
-  }
-
-  static isRootCategory (category) {
-    return category.id === 0
+  getTitle (title) {
+    const location = this.props.locations.find((location) => location.code === title)
+    return location ? location.name : title
   }
 
   fetchUrl (category) {
@@ -79,16 +70,18 @@ class PdfFetcherPage extends React.Component {
     const requestType = 'page' /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
                                   languages, so we just always use 'page' as requestType. */
     const font = this.getFont()
-    const title = PdfFetcherPage.isRootCategory(category) ? this.getLocationTitle(category) : category.title
-    const toc = isEmpty(this.props.categories.filter(_category => _category.parent === category.id)) ? 'false' : 'true'
+    const title = this.getTitle(category.title)
+    const children = this.props.categories.getChildren(category.url)
+    const toc = isEmpty(children)
 
     this.setState(Object.assign({}, this.state, {loading: category}))
 
-    if (!PdfFetcherPage.isRootCategory(category)) {
+    if (category.id !== 0) {
       categoryIds.push(category.id)
     }
-    this.addCategoryIdsRecursively(categoryIds, category)
-
+    this.addCategoryIdsRecursively(categoryIds, children)
+    console.log(categoryIds)
+    console.log(this.props.fetchUrl)
     const params = {
       action: 'frontEndDownloadPDF',
       requestType: requestType,
@@ -159,7 +152,7 @@ class PdfFetcherPage extends React.Component {
 const mapStateToProps = (state) => ({
   location: state.router.params.location,
   language: state.router.params.language,
-  path: state.router.params['_'] // _ contains all the values from *
+  fetchUrl: state.router.query.url
 })
 
 export default compose(

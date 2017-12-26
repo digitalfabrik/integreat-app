@@ -83,11 +83,7 @@ class CategoriesPage extends React.Component {
   }
 
   getPdfFetchPath () {
-    let path = `/${this.props.location}/${this.props.language}/fetch-pdf/`
-    if (this.props.path) {
-      path += this.props.path
-    }
-    return path
+    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.path}`
   }
 
   /**
