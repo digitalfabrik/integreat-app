@@ -13,8 +13,7 @@ import style from './Breadcrumbs.css'
  */
 class Breadcrumbs extends React.Component {
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
-    category: PropTypes.instanceOf(CategoryModel).isRequired,
+    parents: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
@@ -23,23 +22,12 @@ class Breadcrumbs extends React.Component {
     return location ? location.name : title
   }
 
-  getBreadcrumbs (categories, currentCategory) {
-    if (currentCategory.id === this.props.category.id && currentCategory.id === 0) return []
-
-    if (currentCategory.id === 0) {
-      return [{title: this.getLocationTitle(currentCategory.title), url: currentCategory.url}]
-    }
-
-    const breadcrumbs = this.getBreadcrumbs(categories, CategoryModel.getCategoryById(categories, currentCategory.parent))
-
-    if (currentCategory.id !== this.props.category.id) {
-      breadcrumbs.push({title: currentCategory.title, url: currentCategory.url})
-    }
-    return breadcrumbs
+  getBreadcrumbs () {
+    return this.props.parents.map(parent => ({title: this.getLocationTitle(parent.title), url: parent.url}))
   }
 
   render () {
-    const breadcrumbs = this.getBreadcrumbs(this.props.categories, this.props.category)
+    const breadcrumbs = this.getBreadcrumbs()
 
     return <div className={style.breadcrumbs}>
       {breadcrumbs.map(breadcrumb => {

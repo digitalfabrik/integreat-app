@@ -12,7 +12,7 @@ import style from './SearchPage.css'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoriesModel from 'modules/endpoint/models/CategoriesModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
@@ -20,7 +20,7 @@ class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
+    categories: PropTypes.instanceOf(CategoriesModel).isRequired
   }
 
   mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
@@ -44,7 +44,7 @@ class SearchPage extends React.Component {
   }
 
   render () {
-    const categories = this.props.categories.filter(category => this.acceptCategory(category))
+    const categories = this.props.categories.categories.filter(category => this.acceptCategory(category))
 
     return (
       <div>

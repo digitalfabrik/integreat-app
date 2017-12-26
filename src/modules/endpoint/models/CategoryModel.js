@@ -1,5 +1,3 @@
-import normalizeUrl from 'normalize-url'
-
 class CategoryModel {
   constructor ({ id, url = '', title = '', parent = -1, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
     this._id = id
@@ -36,6 +34,10 @@ class CategoryModel {
     return this._parent
   }
 
+  setParent (parent) {
+    this._parent = parent
+  }
+
   get order () {
     return this._order
   }
@@ -43,15 +45,6 @@ class CategoryModel {
   get availableLanguages () {
     return this._availableLanguages
   }
-
-  static getCategoryByPath (categories, path = '') {
-    return categories.find(category => category.url === normalizeUrl(path))
-  }
-
-  static getCategoryById (categories, id) {
-    return categories.find(category => category.id === Number(id))
-  }
 }
 
-export const EMPTY_PAGE = new CategoryModel({})
 export default CategoryModel

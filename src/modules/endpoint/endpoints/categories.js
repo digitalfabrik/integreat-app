@@ -1,6 +1,7 @@
 import EndpointBuilder from '../EndpointBuilder'
 
 import CategoryModel from '../models/CategoryModel'
+import CategoriesModel from '../models/CategoriesModel'
 
 export default new EndpointBuilder('categories')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z')
@@ -23,6 +24,6 @@ export default new EndpointBuilder('categories')
 
     categories.push(new CategoryModel({id: 0, url: baseUrl, title: urlParams.location}))
 
-    return categories
+    return new CategoriesModel(categories)
   })
   .build()

@@ -8,7 +8,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoriesModel from 'modules/endpoint/models/CategoriesModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
@@ -24,7 +24,7 @@ import CategoryList from '../components/CategoryList'
  */
 class CategoriesPage extends React.Component {
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
+    categories: PropTypes.instanceOf(CategoriesModel).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     location: PropTypes.string.isRequired,
@@ -41,7 +41,7 @@ class CategoriesPage extends React.Component {
    */
   componentDidMount () {
     if (this.props.categoryId) {
-      const category = CategoryModel.getCategoryById(this.props.categories, this.props.categoryId)
+      const category = this.props.categories.getCategoryById(this.props.categoryId)
       if (!category) {
         // todo show an error that the page has not been found, redirect to the notFound route
       }
@@ -78,7 +78,7 @@ class CategoriesPage extends React.Component {
    */
   setLanguageChangeUrls (path) {
     this.props.setLanguageChangeUrls(
-      this.mapLanguageToUrl, this.props.languages, CategoryModel.getCategoryByPath(this.props.categories, path).availableLanguages
+      this.mapLanguageToUrl, this.props.languages, this.props.categories.getCategoryByUrl(path).availableLanguages
     )
   }
 
@@ -90,34 +90,44 @@ class CategoriesPage extends React.Component {
     return path
   }
 
-  render () {
-    const category = CategoryModel.getCategoryByPath(this.props.categories, this.props.path)
+  /**
+   * Returns the content to be displayed, based on the current category, which is
+   * a) page with information
+   * b) table with categories
+   * c) list with categories
+   * @param category The current category
+   * @return {*} The content to be displayed
+   */
+  getContent (category) {
     if (!category) {
       // todo show an error that the page has not been found, redirect to the notFound route
+      return
     }
-    const children = this.props.categories.filter(_category => _category.parent === category.id)
 
-    let Content
+    const children = this.props.categories.getChildren(category.url)
+
     if (children.length === 0) {
       // last level, our category is a simple page
-      Content = <Page page={category} />
+      return <Page page={category} />
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
-      Content = <CategoryTiles categories={children}
-                               title={category.title}
-                               locations={this.props.locations} />
-    } else {
-      // some level between, we want to display a list
-      Content = <CategoryList categories={children}
-                              parentCategory={category} />
+      return <CategoryTiles categories={children}
+                            title={category.title}
+                            locations={this.props.locations} />
     }
+    // some level between, we want to display a list
+    return <CategoryList categories={children}
+                         parentCategory={category} />
+  }
+
+  render () {
+    const category = this.props.categories.getCategoryByUrl(this.props.path)
 
     return <div>
       <Breadcrumbs
-        categories={this.props.categories}
-        category={category}
+        parents={this.props.categories.getParents(category.url)}
         locations={this.props.locations} />
-      {Content}
+      {this.getContent(category)}
       <PdfButton href={this.getPdfFetchPath()} />
     </div>
   }
