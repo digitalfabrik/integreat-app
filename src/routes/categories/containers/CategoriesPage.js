@@ -130,9 +130,8 @@ class CategoriesPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
-    setLanguageChangeUrls(urls, languages, availableLanguages)
-  ),
+  setLanguageChangeUrls: (mapLanguageToUrl, languages, availableLanguages) =>
+    dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)),
   replaceUrl: (url) => dispatch(replace(url))
 })
 

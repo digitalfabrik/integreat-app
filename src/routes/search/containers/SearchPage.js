@@ -20,18 +20,19 @@ class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    categories: PropTypes.instanceOf(CategoriesModel).isRequired
-  }
-
-  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
-
-  componentDidMount () {
-    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
+    categories: PropTypes.instanceOf(CategoriesModel).isRequired,
+    setLanguageChangeUrls: PropTypes.func.isRequired
   }
 
   constructor () {
     super()
     this.state = {filterText: ''}
+  }
+
+  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
+
+  componentDidMount () {
+    this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages)
   }
 
   acceptCategory (category) {
@@ -61,8 +62,13 @@ const mapStateToProps = (state) => ({
   location: state.router.params.location
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  setLanguageChangeUrls: (mapLanguageToUrl, languages) =>
+    dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
+})
+
 export default compose(
   withFetcher(CATEGORIES_ENDPOINT),
   withFetcher(LANGUAGES_ENDPOINT),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(SearchPage)
