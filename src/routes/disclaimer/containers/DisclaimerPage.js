@@ -1,19 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import Page from 'routes/categories/components/Page'
 import PageModel from 'modules/endpoint/models/PageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
-import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+
+import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 class DisclaimerPage extends React.Component {
   static propTypes = {
-    /**
-     * from withFetcher HOC which provides data from DISCLAIMER_ENDPOINT
-     */
-    disclaimer: PropTypes.instanceOf(PageModel)
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    location: PropTypes.string.isRequired,
+    disclaimer: PropTypes.instanceOf(PageModel).isRequired
+  }
+
+  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/disclaimer`
+
+  componentDidMount () {
+    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
   }
 
   render () {
@@ -21,9 +30,12 @@ class DisclaimerPage extends React.Component {
   }
 }
 
-const mapLanguageToUrl = (location, language) => `/${location}/${language}/disclaimer`
+const mapStateToProps = (state) => ({
+  location: state.router.params.location
+})
 
 export default compose(
   withFetcher(DISCLAIMER_ENDPOINT),
-  withAvailableLanguageUpdater(mapLanguageToUrl)
+  withFetcher(LANGUAGES_ENDPOINT),
+  connect(mapStateToProps)
 )(DisclaimerPage)

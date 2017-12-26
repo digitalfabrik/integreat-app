@@ -2,6 +2,7 @@
 @import url('../../../modules/common/constants/colors.css');
 
 .breadcrumbs {
+  padding: 10px 0;
   white-space: nowrap;
   overflow-x: auto;
 }

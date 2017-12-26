@@ -10,16 +10,24 @@ import SearchInput from 'modules/common/components/SearchInput'
 
 import style from './SearchPage.css'
 
-import withAvailableLanguageUpdater from 'modules/language/hocs/withAvailableLanguageUpdater'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 import PageModel from 'modules/endpoint/models/PageModel'
+import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired
+  }
+
+  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
+
+  componentDidMount () {
+    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
   }
 
   constructor () {
@@ -71,15 +79,14 @@ class SearchPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  languages: state.languages,
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.params['_'] // _ contains all the values from *
 })
 
-const mapLanguageToUrl = (location, language) => `/${location}/${language}/search`
-
 export default compose(
   connect(mapStateToProps),
   withFetcher(PAGE_ENDPOINT),
-  withAvailableLanguageUpdater(mapLanguageToUrl)
+  withFetcher(LANGUAGES_ENDPOINT)
 )(SearchPage)
