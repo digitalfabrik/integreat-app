@@ -7,22 +7,35 @@ import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Payload from '../../../../modules/endpoint/Payload'
+import DateModel from '../../../../modules/endpoint/models/DateModel'
 
 describe('EventsPage', () => {
   const events = [
     new EventModel({
       id: 1234,
       title: 'first Event',
-      availableLanguages: {de: '1235', ar: '1236'}
+      availableLanguages: {de: '1235', ar: '1236'},
+      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
+        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
+        allDay: true
+      })
     }),
     new EventModel({
       id: 1235,
       title: 'erstes Event',
-      availableLanguages: {en: '1234', ar: '1236'}
+      availableLanguages: {en: '1234', ar: '1236'},
+      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
+        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
+        allDay: true
+      })
     }),
     new EventModel({
       id: 2,
-      title: 'second Event'
+      title: 'second Event',
+      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
+        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
+        allDay: true
+      })
     })
   ]
 
@@ -36,20 +49,20 @@ describe('EventsPage', () => {
   const id = '1235'
 
   test('should render EventList', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   test('should render EventDetail', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
       <EventsPage events={events}
@@ -57,13 +70,13 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   id={id}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   test('should render Spinner', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
       <EventsPage events={[]}
@@ -71,13 +84,13 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   id={id}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   test('should dispatch once on mount with availableLanguages', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const eventsPage = shallow(
       <EventsPage events={events}
@@ -85,32 +98,32 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   id={id}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     ).instance()
 
-    expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockDispatchLanguageChangeUrls).toBeCalledWith(
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(
       eventsPage.mapLanguageToUrl, languages, events[1].availableLanguages
     )
   })
 
   test('should dispatch once on mount without availableLanguages', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const eventsPage = shallow(
       <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     ).instance()
 
-    expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockDispatchLanguageChangeUrls).toBeCalledWith(eventsPage.mapLanguageToUrl, languages, {})
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(eventsPage.mapLanguageToUrl, languages, {})
   })
 
   test('should dispatch on prop update with availableLanguages', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
       <EventsPage events={[]}
@@ -118,21 +131,21 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   id={id}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
 
-    expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(1)
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
 
     wrapper.setProps({events: events, ...wrapper.props})
 
-    expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(2)
-    expect(mockDispatchLanguageChangeUrls).toBeCalledWith(
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(2)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(
       wrapper.instance().mapLanguageToUrl, languages, events[1].availableLanguages
     )
   })
 
   test('should not dispatch on prop update', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
       <EventsPage events={events}
@@ -140,22 +153,22 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   id={id}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
 
-    let mockCalls = mockDispatchLanguageChangeUrls.mock.calls
+    let mockCalls = mockSetLanguageChangeUrls.mock.calls
 
     wrapper.setProps({events: events, ...wrapper.props})
 
-    expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
 
     wrapper.setProps({...wrapper.props})
 
-    expect(mockDispatchLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
   test('mapLanguageToUrl', () => {
-    const mockDispatchLanguageChangeUrls = jest.fn()
+    const mockSetLanguageChangeUrls = jest.fn()
 
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
@@ -163,7 +176,7 @@ describe('EventsPage', () => {
                   languages={languages}
                   language={language}
                   id={id}
-                  dispatchLanguageChangeUrls={mockDispatchLanguageChangeUrls} />
+                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     ).instance().mapLanguageToUrl
 
     expect(mapLanguageToUrl('en')).toBe('/augsburg/en/events')
@@ -188,13 +201,12 @@ describe('EventsPage', () => {
 
       const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
 
+      // todo add events and languages
       expect(eventsPageProps).toEqual({
         location: 'augsburg',
         language: 'en',
         id: '1234',
-        events: events,
-        languages: languages,
-        dispatchLanguageChangeUrls: expect.any(Function)
+        setLanguageChangeUrls: expect.any(Function)
       })
     })
 
@@ -231,7 +243,7 @@ describe('EventsPage', () => {
 
       let countActions = store.getActions().length
 
-      eventsPageProps.dispatchLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
+      eventsPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
       expect(store.getActions()).toHaveLength(countActions + 1)
 
       expect(store.getActions()).toContainEqual({
