@@ -6,7 +6,7 @@ import Spinner from 'react-spinkit'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import EventDetail from './EventDetail'
 import EventList from '../components/EventList'

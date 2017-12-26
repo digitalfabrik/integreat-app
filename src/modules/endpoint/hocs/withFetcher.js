@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
@@ -6,16 +7,9 @@ import Spinner from 'react-spinkit'
 import Error from 'modules/common/containers/Error'
 import style from './withFetcher.css'
 
-function createStateToPropsMapper (endpoint) {
-  return (state) => ({
-    [endpoint.payloadName]: state[endpoint.stateName],
-    urlParams: endpoint.mapStateToUrlParams(state)
-  })
-}
-
 /**
  * This function builds a HOC from a component
- * @function buildHOC
+ * @callback buildHOC
  * @param {React.Component} WrappedComponent
  * @return {React.Component} The HOC
  */
@@ -27,14 +21,19 @@ function createStateToPropsMapper (endpoint) {
  * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
-function withFetcher (endpoint, hideError = false, hideSpinner = false) {
+export function withFetcher (endpoint, hideError = false, hideSpinner = false) {
   return (WrappedComponent) => {
     class Fetcher extends React.Component {
-      static displayName = endpoint.name + 'Fetcher'
+      static displayName = endpoint.stateName + 'Fetcher'
+      static propTypes = {
+        urlParams: PropTypes.objectOf(PropTypes.string),
+        className: PropTypes.string,
+        requestAction: PropTypes.func.isRequired
+      }
 
       constructor () {
         super()
-        this.state = { isDataAvailable: false }
+        this.state = {isDataAvailable: false}
       }
 
       componentWillMount () {
@@ -45,7 +44,7 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         this.fetch(this.props.urlParams)
       }
 
-      componentWillUpdate (nextProps) {
+      componentWillReceiveProps (nextProps) {
         // Dispatch new requestAction to ask the endpoint whether data is available, if:
         // (a) the Fetcher urlParams prop changed or
         // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
@@ -63,8 +62,8 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
           throw new Error('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
             'a undefined value!')
         }
-        const isDataAvailable = this.props.dispatch(endpoint.requestAction(urlParams))
-        this.setState({ isDataAvailable })
+        const storeResponse = this.props.requestAction(urlParams)
+        this.setState({isDataAvailable: storeResponse.dataAvailable})
       }
 
       errorVisible () {
@@ -76,22 +75,41 @@ function withFetcher (endpoint, hideError = false, hideSpinner = false) {
 
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
-            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
+            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party' />
           } else {
-            return <div/>
+            return <div />
           }
         }
 
         if (this.errorVisible()) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
+          return <Error className={cx(style.loading, this.props.className)} error={payload.error} />
         }
 
-        return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})}/>
+        return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})} />
       }
     }
 
-    return connect(createStateToPropsMapper(endpoint))(Fetcher)
+    return Fetcher
   }
 }
 
-export default withFetcher
+const createStateToPropsMapper = (endpoint) => {
+  return (state) => ({
+    [endpoint.payloadName]: state[endpoint.stateName],
+    urlParams: endpoint.mapStateToUrlParams(state)
+  })
+}
+
+const createMapDispatchToProps = (endpoint) => {
+  return (dispatch) => ({
+    requestAction: (urlParams) => dispatch(endpoint.requestAction(urlParams))
+  })
+}
+
+export default (endpoint, hideError, hideSpinner) => {
+  const HOC = withFetcher(endpoint, hideError, hideSpinner)
+  return (WrappedComponent) => {
+    const AnotherWrappedComponent = HOC(WrappedComponent)
+    return connect(createStateToPropsMapper(endpoint), createMapDispatchToProps(endpoint))(AnotherWrappedComponent)
+  }
+}

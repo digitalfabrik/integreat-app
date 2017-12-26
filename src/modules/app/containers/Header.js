@@ -18,7 +18,7 @@ import languageIcon from '../assets/language-icon.svg'
 import logoWide from '../assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/locations'
 
 class MenuItem extends React.Component {
   static propTypes = {

@@ -10,6 +10,7 @@ class EndpointBuilder {
   _name
   _url
   _mapper
+  _responseOverride
   _stateMapperBuilder
   _refetchLogic
 
@@ -55,10 +56,20 @@ class EndpointBuilder {
   /**
    * Adds refetch logic to this builder
    * @param refetchLogic The refetch logic
-   * @return {EndpointBuilder}  The builder itself
+   * @return {EndpointBuilder} The builder itself
    */
   withRefetchLogic (refetchLogic) {
     this._refetchLogic = refetchLogic
+    return this
+  }
+
+  /**
+   * Overrides value from the API response. Useful for testing.
+   * @param responseOverride {*} The response
+   * @return {EndpointBuilder} The builder itself
+   */
+  withResponseOverride (responseOverride) {
+    this._responseOverride = responseOverride
     return this
   }
 
@@ -79,19 +90,11 @@ class EndpointBuilder {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    if (!this._url) {
-      throw Error('You have to set a url to build an endpoint!')
-    }
-
-    if (!this._stateMapperBuilder) {
-      throw Error('You have to set a state mapper to build an endpoint!')
-    }
-
     if (!this._refetchLogic) {
       throw Error('You have to set a refetch logic to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._url, this._mapper, this._stateMapperBuilder.build(), this._refetchLogic)
+    return new Endpoint(this._name, this._url, this._mapper, this._stateMapperBuilder.build(), this._refetchLogic, this._responseOverride)
   }
 }
 

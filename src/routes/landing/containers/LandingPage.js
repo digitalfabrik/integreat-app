@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
 import Footer from 'modules/app/containers/Footer'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'

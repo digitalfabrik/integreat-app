@@ -13,6 +13,7 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import { translate } from 'react-i18next'
+import Timespan from '../../../modules/common/components/Timespan'
 
 class Event extends React.Component {
   static propTypes = {
@@ -36,13 +37,18 @@ class Event extends React.Component {
   }
 
   render () {
+    const dateModel = this.props.event.dateModel
     return (
       <Link href={this.getUrl()}>
         <div className={this.props.isFirst ? cx(style.firstEvent, style.event) : style.event}>
           <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()}/>
           <div className={style.eventDescription}>
             <div className={style.eventTitle}>{this.props.event.title}</div>
-            <div className={style.eventDate}>{this.props.event.getDate(this.props.language)}, {this.props.event.address}</div>
+            <div className={style.eventDate}>
+              <Timespan startDate={dateModel.startDate}
+                        endDate={dateModel.endDate}
+                        locale={this.props.language}/>
+              , {this.props.event.address}</div>
             <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.excerpt.slice(0, 70) + '...'}}/>
           </div>
         </div>
@@ -66,7 +72,7 @@ class EventList extends React.Component {
     return (
       <div className={style.list}>
         <Caption title={t('news')}/>
-        { this.props.events && this.props.events.length !== 0
+        {this.props.events && this.props.events.length !== 0
           ? this.props.events.map((event, index) =>
             <Event key={event.event.id}
                    event={event.event}

@@ -5,12 +5,15 @@ const IGNORED_PREFIXES = ['stadt', 'kreis', 'landkreis']
 
 class LocationModel {
   constructor ({name, code, live, eventsEnabled, extrasEnabled}) {
+    const {sortKey, sortCategory} = LocationModel.getSortingInformation(name)
+
     this._name = name
     this._code = code
     this._live = live
     this._eventsEnabled = eventsEnabled
     this._extrasEnabled = extrasEnabled
-    this.initializeSorting()
+    this._sortKey = sortKey
+    this._sortCategory = sortCategory
   }
 
   get live () {
@@ -41,16 +44,18 @@ class LocationModel {
     return this._extrasEnabled
   }
 
-  initializeSorting () {
-    let name = this._name.toLowerCase()
+  static getSortingInformation (name) {
+    name = name.toLowerCase()
     const prefix = find(IGNORED_PREFIXES, (pre) => name.startsWith(pre + ' '))
 
     if (prefix) {
       name = name.substring(prefix.length + 1).trim()
     }
 
-    this._sortKey = name
-    this._sortCategory = isEmpty(name) ? '?' : name[0].toUpperCase()
+    return {
+      sortKey: name,
+      sortCategory: isEmpty(name) ? '?' : name[0].toUpperCase()
+    }
   }
 }
 

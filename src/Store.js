@@ -4,8 +4,8 @@ import thunkMiddleware from 'redux-thunk'
 import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-import routes from 'routes/index'
-import endpointReducers from 'modules/endpoint/reducers/index'
+import routes from 'routes'
+import endpointReducers from 'modules/endpoint/reducers'
 import { createLogger } from 'redux-logger'
 
 import setLanguageChangeUrlsReducer from 'modules/language/reducers/setLanguageChangeUrls'
