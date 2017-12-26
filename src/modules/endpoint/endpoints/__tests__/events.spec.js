@@ -95,7 +95,7 @@ describe('events', () => {
         toEventModel(eventPage1, new DateModel({
           startDate: new Date('2016-01-31T10:00:00Z'),
           endDate: new Date('2016-01-31T13:00:00Z'),
-          allDay: true
+          allDay: false
         }))
       ])
 
