@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
 
 import Hierarchy from 'routes/categories/Hierarchy'
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import style from './Breadcrumb.css'

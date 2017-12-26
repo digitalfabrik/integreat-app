@@ -75,14 +75,14 @@ export function withFetcher (endpoint, hideError = false, hideSpinner = false) {
 
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
-            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party'/>
+            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party' />
           } else {
-            return <div/>
+            return <div />
           }
         }
 
         if (this.errorVisible()) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error}/>
+          return <Error className={cx(style.loading, this.props.className)} error={payload.error} />
         }
 
         return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})} />

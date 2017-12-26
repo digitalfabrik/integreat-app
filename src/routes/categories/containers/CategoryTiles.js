@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Row } from 'react-flexbox-grid'
 
 import PageModel from 'modules/endpoint/models/PageModel'
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import Caption from 'modules/common/components/Caption'
 import CategoryTile from '../components/CategoryTile'

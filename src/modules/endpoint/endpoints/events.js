@@ -18,10 +18,10 @@ export default new EndpointBuilder('events')
       thumbnail: event.thumbnail,
       address: event.location.address,
       town: event.location.town,
-      date: new DateModel({
+      dateModel: new DateModel({
         startDate: parseDate(event.event.start_date, event.event.start_time),
         endDate: parseDate(event.event.end_date, event.event.end_time),
-        allDay: event.event.all_day === '0'
+        allDay: event.event.all_day !== '0'
       }),
       excerpt: event.excerpt,
       availableLanguages: event.available_languages
