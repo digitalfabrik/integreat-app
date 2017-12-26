@@ -7,7 +7,9 @@ export default new EndpointBuilder('languages')
   .withStateMapper().fromFunction((state) => ({
     location: state.router.params.location,
     language: 'de' /* todo:  This forces that the languages are always fetched in german language. German always
-                             exists in the backend -> a langauge switch always works */
+                             exists in the backend -> a language switch always works */
   }))
-  .withMapper(json => json.map(language => new LanguageModel(language.code, language.native_name)))
+  .withMapper(json => json
+    .map(language => new LanguageModel(language.code, language.native_name))
+    .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code)))
   .build()

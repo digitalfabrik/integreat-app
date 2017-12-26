@@ -87,7 +87,7 @@ class Timespan extends React.Component {
     const startDate = this.props.startDate
     const endDate = this.props.endDate
     const oClock = locale === 'de' ? ' Uhr' : ''
-    if (!this.allDay) {
+    if (this.allDay) {
       if (endDate && endDate !== startDate) {
         return Timespan.toDateString(startDate, locale) + ' - ' + Timespan.toDateString(endDate, locale)
       } else {

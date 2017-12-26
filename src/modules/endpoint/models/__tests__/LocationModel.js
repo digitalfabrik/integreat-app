@@ -1,5 +1,0 @@
-describe('LocationModel', () => {
-  test('should ', () => {
-
-  })
-})
