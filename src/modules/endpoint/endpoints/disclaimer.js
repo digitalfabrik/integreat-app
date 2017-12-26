@@ -1,4 +1,3 @@
-import { reduce } from 'lodash/collection'
 import { isEmpty } from 'lodash/lang'
 
 import EndpointBuilder from '../EndpointBuilder'
@@ -13,23 +12,27 @@ export default new EndpointBuilder('disclaimer')
       throw new Error('disclaimer:notAvailable')
     }
 
-    return reduce(json, (result, page) => {
-      if (page.status !== 'publish') {
-        return result
-      }
+    const disclaimers = json
+      .filter((page) => page.status === 'publish')
+      .map((page) => {
+        const id = page.permalink.url_page.split('/').pop()
+        const numericId = page.id
 
-      const id = page.permalink.url_page.split('/').pop()
-      const numericId = page.id
-
-      return new PageModel({
-        id,
-        numericId,
-        title: page.title,
-        parent: page.parent,
-        content: page.content,
-        thumbnail: page.thumbnail,
-        order: page.order
+        return new PageModel({
+          id,
+          numericId,
+          title: page.title,
+          parent: page.parent,
+          content: page.content,
+          thumbnail: page.thumbnail,
+          order: page.order
+        })
       })
-    }, null)
+
+    if (disclaimers.length !== 1) {
+      throw new Error('There must be exactly one disclaimer!')
+    }
+
+    return disclaimers[0]
   })
   .build()

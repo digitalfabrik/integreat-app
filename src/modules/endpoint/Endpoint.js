@@ -18,6 +18,7 @@ class Endpoint {
    * @type string
    */
   url
+  _stateName
   finishFetchAction
   startFetchAction
   /**
