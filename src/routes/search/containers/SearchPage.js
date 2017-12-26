@@ -25,15 +25,16 @@ class SearchPage extends React.Component {
     pages: PropTypes.instanceOf(PageModel).isRequired
   }
 
-  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
-
-  componentDidMount () {
-    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
-  }
-
   constructor () {
     super()
     this.state = {filterText: ''}
+  }
+
+  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
+
+  componentDidMount () {
+    console.log(this.mapLanguageToUrl('abc'))
+    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
   }
 
   getParentPath () {
