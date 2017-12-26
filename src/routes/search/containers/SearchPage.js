@@ -11,7 +11,7 @@ import SearchInput from 'modules/common/components/SearchInput'
 import style from './SearchPage.css'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
 import PageModel from 'modules/endpoint/models/PageModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
