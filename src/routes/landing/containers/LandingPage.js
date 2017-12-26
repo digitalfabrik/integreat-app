@@ -9,6 +9,8 @@ import Footer from 'modules/app/containers/Footer'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
+import style from './LandingPage.css'
+
 class LandingPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
@@ -17,7 +19,7 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={style.landingPage}>
         <FilterableLocationSelector
           language={this.props.language}
           locations={this.props.locations}/>
