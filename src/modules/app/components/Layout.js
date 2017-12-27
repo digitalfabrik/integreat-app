@@ -10,7 +10,7 @@ class Layout extends React.Component {
 
   render () {
     return (
-      <main className={cx(style.topSpacing, style.layout)}>
+      <main className={style.layout}>
         <div className={cx(style.content, this.props.className)}>{this.props.children}</div>
       </main>
     )

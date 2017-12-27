@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilterableLocationSelector should render 1`] = `
-<div>
+<div
+  className="topSpacing"
+>
   <div>
     <img
       className="logo"

@@ -7,7 +7,7 @@ import Page from 'routes/categories/components/Page'
 import PageModel from 'modules/endpoint/models/PageModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/language'
+import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'

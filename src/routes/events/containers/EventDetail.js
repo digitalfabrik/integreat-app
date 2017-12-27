@@ -10,6 +10,7 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
+import Timespan from '../../../modules/common/components/Timespan'
 
 /**
  * Display a single event
@@ -33,13 +34,18 @@ class EventDetail extends React.Component {
 
   render () {
     const {t} = this.props
+    const dateModel = this.props.event.event.dateModel
     return (
       <div>
         <img className={style.thumbnail} src={this.props.event.event.thumbnail || this.getEventPlaceholder()}/>
         <Caption title={this.props.event.event.title}/>
         <div>
           <span className={style.identifier}>{t('date')}: </span>
-          <span className={style.date}>{this.props.event.event.getDate(this.props.language)}</span>
+          <span className={style.date}>
+            <Timespan
+              startDate={dateModel.startDate}
+              endDate={dateModel.endDate}
+              locale={this.props.language}/></span>
         </div>
         <div>
           <span className={style.identifier}>{t('location')}: </span>

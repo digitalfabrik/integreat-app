@@ -7,7 +7,8 @@ import FilterableLocationSelector from '../FilterableLocationSelector'
 import { mount } from 'enzyme'
 import LocationSelector from 'routes/landing/components/LocationSelector'
 import SearchInput from 'modules/common/components/SearchInput'
-import mockStore from '__mocks__/store'
+import configureMockStore from 'redux-mock-store'
+import { routerForBrowser } from 'redux-little-router'
 
 jest.mock('react-i18next')
 
@@ -43,9 +44,13 @@ describe('FilterableLocationSelector', () => {
     })
   ]
 
+  const router = routerForBrowser({routes: {}})
+  const mockStore = configureMockStore([router.middleware])
+
   test('should render', () => {
+    const store = mockStore({router: {}})
     const component = renderer.create(
-      <Provider store={mockStore}>
+      <Provider store={store}>
         <FilterableLocationSelector
           language="de"
           locations={locations}/>
@@ -56,8 +61,9 @@ describe('FilterableLocationSelector', () => {
   })
 
   test('should pass filterText to LocationSelector and filter', () => {
+    const store = mockStore({router: {}})
     const wrapper = mount(
-      <Provider store={mockStore}>
+      <Provider store={store}>
         <FilterableLocationSelector
           language="de"
           locations={locations}/>

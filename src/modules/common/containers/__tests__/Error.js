@@ -3,14 +3,18 @@ import { Provider } from 'react-redux'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 import Error from '../Error'
-import mockStore from '__mocks__/store'
+import configureMockStore from 'redux-mock-store'
+import { routerForBrowser } from 'redux-little-router'
 
 jest.mock('react-i18next')
 
 describe('Error', () => {
+  const router = routerForBrowser({routes: {}})
+  const mockStore = configureMockStore([router.middleware])
+
   test('should match snapshot', () => {
     const component = renderer.create(
-      <Provider store={mockStore}><Error error="Error Message"/></Provider>
+      <Provider store={mockStore()}><Error error="Error Message"/></Provider>
     )
 
     expect(component.toJSON()).toMatchSnapshot()
@@ -18,15 +22,16 @@ describe('Error', () => {
 
   test('call history when onBack is called', () => {
     const preventDefault = jest.fn()
+    const store = mockStore()
     const wrapper = mount(
-      <Provider store={mockStore}>
+      <Provider store={store}>
         <Error error="Error Message"/>
       </Provider>
     )
 
     wrapper.find('Error').instance().goBack({preventDefault})
 
-    expect(mockStore.getActions()).toEqual([{type: 'ROUTER_GO_BACK'}])
+    expect(store.getActions()).toEqual([{type: 'ROUTER_GO_BACK'}])
     expect(preventDefault.mock.calls).toHaveLength(1)
   })
 })
