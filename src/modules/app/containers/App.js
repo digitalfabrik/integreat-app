@@ -34,16 +34,8 @@ class App extends React.Component {
         <Fragment forRoute='/'>
           {/* Routes */}
           <React.Fragment>
-            {/* Matches /disclaimer */}
-            <Fragment forRoute='/disclaimer'>
-              <RichLayout><MainDisclaimerPage /></RichLayout>
-            </Fragment>
-            {/* Matches / */}
-            <Fragment forRoute='/'>
-              <Layout><LandingPage /></Layout>
-            </Fragment>
 
-            {/* Matches /augsburg/de */}
+            {/* Matches two or more arguments like /augsburg/de */}
             <Fragment forRoute='/:location/:language'>
               <React.Fragment>
                 {/* Matches /augsburg/de/search -> Search */}
@@ -73,15 +65,25 @@ class App extends React.Component {
               </React.Fragment>
             </Fragment>
 
-            {/* Matches /de */}
+            {/* Matches /disclaimer */}
+            <Fragment forRoute='/disclaimer'>
+              <RichLayout><MainDisclaimerPage /></RichLayout>
+            </Fragment>
+
+            {/* Matches one argument like /de */}
             <Fragment forRoute='/:language'>
               <Layout><LandingPage /></Layout>
             </Fragment>
 
+            {/* Matches zero arguments like / */}
+            <Fragment forRoute='/'>
+              <Layout><LandingPage /></Layout>
+            </Fragment>
+
             {/* There are no missing routes. Covered:
-              * No arguments (LandingPage)
-              * One argument (MainDisclaimer or LandingPage with language preselection)
               * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
+              * One argument (MainDisclaimer or LandingPage with language preselection)
+              * No arguments (LandingPage)
               */}
 
           </React.Fragment>
