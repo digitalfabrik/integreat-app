@@ -102,23 +102,25 @@
     }
   },
   "not-found": {
-    "page": {
-      "notFound": "لا يوجد سجَّلات جديدة"
-    }
-  },
-  "de": {
-    "page": {
-      "notFound": "Seite wurde leider nicht gefunden."
-    }
-  },
-  "en": {
-    "page": {
-      "notFound": "Sorry, but the requested page was not found."
-    }
-  },
-  "fa": {
-    "page": {
-      "notFound": "مدخل مورد نظر ‎یافت نشد."
+    "ar": {
+      "page": {
+        "notFound": "لا يوجد سجَّلات جديدة"
+      }
+    },
+    "de": {
+      "page": {
+        "notFound": "Seite wurde leider nicht gefunden."
+      }
+    },
+    "en": {
+      "page": {
+        "notFound": "Sorry, but the requested page was not found."
+      }
+    },
+    "fa": {
+      "page": {
+        "notFound": "مدخل مورد نظر ‎یافت نشد."
+      }
     }
   },
   "pdf-fetcher": {
