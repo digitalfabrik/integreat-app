@@ -37,12 +37,12 @@ describe('withFetcher', () => {
     return <Hoced urlParams={urlParams} requestAction={requestAction} classname={classname} {...otherProps} />
   }
 
-  test('should should show error if there is one and it\'s not hidded', () => {
+  test('should should show error if there is one and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideError: false,
       requestAction: () => new StoreResponse(true),
-      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wuschhh!')}
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
     })
 
     expect(shallow(hoc)).toMatchSnapshot()
