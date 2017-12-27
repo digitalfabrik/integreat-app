@@ -22,15 +22,15 @@ class LandingPage extends React.Component {
       <div className={style.landingPage}>
         <FilterableLocationSelector
           language={this.props.language}
-          locations={this.props.locations}/>
-        <Footer/>
+          locations={this.props.locations} />
+        <Footer />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  language: state.router.params && state.router.params.language ? state.router.params.language : 'de'
+  language: state.router.params.language || 'de'
 })
 
 export default compose(
