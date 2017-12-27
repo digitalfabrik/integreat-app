@@ -27,7 +27,7 @@ class Navigation {
 
   get disclaimer () {
     if (!this._language || !this._location) {
-      return '/'
+      return '/disclaimer'
     }
     return `/${this._location}/${this._language}/disclaimer`
   }

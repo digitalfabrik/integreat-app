@@ -9,16 +9,7 @@ import { connect } from 'react-redux'
 
 class Footer extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired,
-    location: PropTypes.string
-  }
-
-  getDisclaimerLink () {
-    const {t, location, navigation} = this.props
-    const href = location ? navigation.disclaimer : '/disclaimer'
-    return <Link className={style.item} href={href}>
-      {t('imprintAndContact')}
-    </Link>
+    navigation: PropTypes.instanceOf(Navigation).isRequired
   }
 
   getVersion () {
@@ -32,9 +23,10 @@ class Footer extends React.Component {
   }
 
   render () {
+    const {t, navigation} = this.props
     return (
       <div className={style.footer}>
-        {this.getDisclaimerLink()}
+        <Link className={style.item} href={navigation.disclaimer}>{t('imprintAndContact')}</Link>
         {this.getVersion()}
       </div>
     )
@@ -42,7 +34,6 @@ class Footer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  location: state.router.params.location,
   navigation: new Navigation(state.router.params.location, state.router.params.language)
 })
 

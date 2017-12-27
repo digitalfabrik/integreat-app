@@ -7,6 +7,10 @@
   justify-content: center;
 }
 
+.menu-bar.hidden {
+  display: none;
+}
+
 .menu-item {
   @mixin remove-a;
   flex: 1;

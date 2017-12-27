@@ -70,16 +70,19 @@ class Header extends React.Component {
         <Link href={navigation.search} className={style.actionItem}><img src={searchIcon} /></Link>
       }
       <Link href={navigation.locationSelector} className={style.actionItem}><img src={locationIcon} /></Link>
-      <HeaderDropDown iconSrc={languageIcon}>
-        <LanguageFlyout />
-      </HeaderDropDown>
+      {
+        location &&
+        <HeaderDropDown iconSrc={languageIcon}>
+          <LanguageFlyout />
+        </HeaderDropDown>
+      }
     </div>
   }
 
   getMenuItems () {
     const {t, navigation} = this.props
     if (!this.isMenuEnabled()) {
-      return
+      return []
     }
     const items = []
 
