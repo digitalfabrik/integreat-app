@@ -14,7 +14,7 @@ export default new EndpointBuilder('categories')
           id: category.id,
           url: baseUrl + '/' + decodeURI(category.permalink.url_page),
           title: category.title,
-          parent: category.parent,
+          parentId: category.parent,
           content: category.content,
           thumbnail: category.thumbnail,
           order: category.order,

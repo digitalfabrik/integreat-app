@@ -1,5 +1,5 @@
 import languagesEndpoint from '../endpoints/languages'
-import locationEndpoint from '../endpoints/location'
+import locationEndpoint from '../endpoints/locations'
 import categoriesEndpoint from '../endpoints/categories'
 import eventsEndpoint from '../endpoints/events'
 import disclaimerEndpoint from '../endpoints/disclaimer'

@@ -13,7 +13,7 @@ class CategoriesContainer {
     categories.forEach(category => {
       if (category.id !== 0) {
         // every category except from the root category should have a parent, so we don't have to check if it exists
-        const parentUrl = categories.find(_category => _category.id === category.parent).url
+        const parentUrl = categories.find(_category => _category.id === category.parentId).url
         category.setParentUrl(parentUrl)
       }
     })

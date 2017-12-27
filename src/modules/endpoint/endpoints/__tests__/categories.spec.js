@@ -44,7 +44,7 @@ describe('categories', () => {
       url: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
-      parent: 0,
+      parentId: 0,
       order: 75,
       availableLanguages: {
         en: 4361, ar: 4367, fa: 4368
@@ -56,7 +56,7 @@ describe('categories', () => {
       url: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
-      parent: 0,
+      parentId: 0,
       order: 11,
       availableLanguages: {
         en: 4804, ar: 4819, fa: 4827

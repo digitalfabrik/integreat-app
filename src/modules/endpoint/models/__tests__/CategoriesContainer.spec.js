@@ -3,10 +3,10 @@ import CategoryModel from '../CategoryModel'
 
 describe('CategoriesContainer', () => {
   const categories = [
-    new CategoryModel({id: 0, url: '/augsburg/de'}),
-    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parent: 0}),
-    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parent: 0}),
-    new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parent: 21})
+    new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
+    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, title: 'willkommen'}),
+    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, title: 'erste-schritte'}),
+    new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, title: 'asylantrag'})
   ]
 
   const categoriesContainer = new CategoriesContainer(categories)
@@ -25,9 +25,9 @@ describe('CategoriesContainer', () => {
   })
 
   test('should have the right parent attributes', () => {
-    expect(category2.parent).toBe(category1.url)
-    expect(category3.parent).toBe(category1.url)
-    expect(category4.parent).toBe(category3.url)
+    expect(category2.parentUrl).toBe(category1.url)
+    expect(category3.parentUrl).toBe(category1.url)
+    expect(category4.parentUrl).toBe(category3.url)
   })
 
   test('should return all (mediate) parents in right order', () => {
