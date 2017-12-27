@@ -7,7 +7,6 @@ import { I18nextProvider } from 'react-i18next'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import SearchPage from 'routes/search/containers/SearchPage'
-import NotFoundPage from 'routes/not-found/containers/NotFoundPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
@@ -29,12 +28,12 @@ class App extends React.Component {
     return <I18nextProvider i18n={this.props.i18n.i18next}>
       <Provider store={this.props.store.redux}>
         {/*
-         For routes inside a <div/> the priority decreases with each element
-         So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
-      */}
+          * For routes inside a <React.Fragment /> the priority decreases with each element
+          * So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
+          */}
         <Fragment forRoute='/'>
           {/* Routes */}
-          <div>
+          <React.Fragment>
             {/* Matches /disclaimer */}
             <Fragment forRoute='/disclaimer'>
               <RichLayout><MainDisclaimerPage /></RichLayout>
@@ -46,7 +45,7 @@ class App extends React.Component {
 
             {/* Matches /augsburg/de */}
             <Fragment forRoute='/:location/:language'>
-              <div>
+              <React.Fragment>
                 {/* Matches /augsburg/de/search -> Search */}
                 <Fragment forRoute='/search'>
                   <RichLayout><SearchPage /></RichLayout>
@@ -68,10 +67,10 @@ class App extends React.Component {
                   <Layout><PdfFetcherPage /></Layout>
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}
-                <Fragment forRoute='*'>
+                <Fragment forNoMatch>
                   <RichLayout><CategoriesPage /></RichLayout>
                 </Fragment>
-              </div>
+              </React.Fragment>
             </Fragment>
 
             {/* Matches /de */}
@@ -79,10 +78,13 @@ class App extends React.Component {
               <Layout><LandingPage /></Layout>
             </Fragment>
 
-            <Fragment forNoRoute>
-              <RichLayout><NotFoundPage /></RichLayout>
-            </Fragment>
-          </div>
+            {/* There are no missing routes. Covered:
+              * No arguments (LandingPage)
+              * One argument (MainDisclaimer or LandingPage with language preselection)
+              * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
+              */}
+
+          </React.Fragment>
         </Fragment>
       </Provider>
     </I18nextProvider>
