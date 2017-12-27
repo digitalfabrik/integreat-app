@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Headroom from 'react-headroom'
-import {translate} from 'react-i18next'
-import {connect} from 'react-redux'
-import {Link} from 'redux-little-router'
+import { translate } from 'react-i18next'
+import { connect } from 'react-redux'
+import { Link } from 'redux-little-router'
 import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
@@ -17,12 +17,11 @@ import languageIcon from '../assets/language-icon.svg'
 import logoWide from '../assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import HeaderMenuBar from '../components/HeaderMenuBar'
 
 class Header extends React.Component {
   static propTypes = {
-    languageCallback: PropTypes.func,
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.string,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
@@ -64,31 +63,35 @@ class Header extends React.Component {
   }
 
   getActionBar () {
+    const {location, navigation} = this.props
     return <div className={style.actionItems}>
       {
-        this.props.location &&
-        <Link href={this.props.navigation.search} className={style.actionItem}><img src={searchIcon}/></Link>
+        location &&
+        <Link href={navigation.search} className={style.actionItem}><img src={searchIcon} /></Link>
       }
-      <Link href={'/'} className={style.actionItem}><img src={locationIcon}/></Link>
+      <Link href={navigation.locationSelector} className={style.actionItem}><img src={locationIcon} /></Link>
       <HeaderDropDown iconSrc={languageIcon}>
-        <LanguageFlyout/>
+        <LanguageFlyout />
       </HeaderDropDown>
     </div>
   }
 
   getMenuItems () {
     const {t, navigation} = this.props
-    if(!this.isMenuEnabled())
+    if (!this.isMenuEnabled()) {
       return
+    }
     const items = []
 
-    if(this.isExtrasEnabled())
+    if (this.isExtrasEnabled()) {
       items.push({href: navigation.extras, active: this.isExtrasSelected(), text: t('extras')})
+    }
 
     items.push({href: navigation.home, active: this.isCategoriesSelected(), text: t('categories')})
 
-    if(this.isEventsEnabled())
+    if (this.isEventsEnabled()) {
       items.push({href: navigation.events, active: this.isEventsSelected(), text: t('news')})
+    }
 
     return items
   }
@@ -98,10 +101,10 @@ class Header extends React.Component {
       <Headroom>
         <div className={style.header}>
           <div className={style.logoWide}>
-            <img src={logoWide}/>
+            <img src={logoWide} />
           </div>
-          { this.getActionBar() }
-          <HeaderMenuBar className={style.menuBar} items={this.getMenuItems()}/>
+          {this.getActionBar()}
+          <HeaderMenuBar className={style.menuBar} items={this.getMenuItems()} />
         </div>
       </Headroom>
     )
@@ -117,6 +120,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATION_ENDPOINT, true, true),
+  withFetcher(LOCATIONS_ENDPOINT, true, true),
   translate('app')
 )(Header)

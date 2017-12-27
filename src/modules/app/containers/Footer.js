@@ -14,16 +14,11 @@ class Footer extends React.Component {
   }
 
   getDisclaimerLink () {
-    const {t} = this.props
-    if (this.props.location) {
-      return <Link className={style.item} href={this.props.navigation.disclaimer}>
-        {t('imprintAndContact')}
-      </Link>
-    } else {
-      return <Link className={style.item} href='/disclaimer'>
-        {t('imprintAndContact')}
-      </Link>
-    }
+    const {t, location, navigation} = this.props
+    const href = location ? navigation.disclaimer : '/disclaimer'
+    return <Link className={style.item} href={href}>
+      {t('imprintAndContact')}
+    </Link>
   }
 
   getVersion () {

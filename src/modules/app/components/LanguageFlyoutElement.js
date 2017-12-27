@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 import React from 'react'
 import cx from 'classnames'
-import {Link} from 'redux-little-router'
+import { Link } from 'redux-little-router'
 
 import style from '../containers/LanguageFlyout.css'
 

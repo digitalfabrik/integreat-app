@@ -27,14 +27,14 @@ class LanguageFlyout extends React.Component {
       <div className={style.languageFlyout}>
         {!isEmpty(this.props.languages) &&
         this.props.languages.map(language => (
-            <LanguageFlyoutElement
-              key={language.code}
-              onClick={this.props.closeDropDownCallback}
-              active={this.props.language === language.code}
-              language={language}
-              path={this.getPathForLanguage(language.code)}
-            />
-          ))
+          <LanguageFlyoutElement
+            key={language.code}
+            onClick={this.props.closeDropDownCallback}
+            active={this.props.language === language.code}
+            language={language}
+            path={this.getPathForLanguage(language.code)}
+          />
+        ))
         }
       </div>
     )

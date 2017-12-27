@@ -18,7 +18,7 @@ class RichLayout extends React.Component {
           <Header />
           <Layout className={this.props.className}>{this.props.children}</Layout>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     )
   }

@@ -32,7 +32,7 @@ class HeaderDropDown extends React.Component {
     return (
       <span className={cx(this.props.className, headerStyle.actionItem)}>
         <img src={this.props.iconSrc}
-             onClick={this.toggleDropDown}/>
+             onClick={this.toggleDropDown} />
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>
           {
             // Pass DropDownCallback as prop to children

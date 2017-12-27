@@ -1,4 +1,3 @@
-// todo add logic for correct hrefs here
 class Navigation {
   constructor (location, language) {
     this._location = location
@@ -6,14 +5,14 @@ class Navigation {
   }
 
   get home () {
-    if (!this._language || !this._location) {
-      return '/'
+    if (!this._location) {
+      return '/' + (this._language || '')
     }
     return `/${this._location}/${this._language}`
   }
 
-  get locationSelection () {
-    if (!this._language || !this._location) {
+  get locationSelector () {
+    if (!this._language) {
       return '/'
     }
     return `/${this._language}`
