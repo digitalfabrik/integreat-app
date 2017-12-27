@@ -10,7 +10,11 @@ exports[`EventDetail should render 1`] = `
         "de": "1235",
       },
       "_content": "",
-      "_date": Object {},
+      "_dateModel": DateModel {
+        "_allDay": undefined,
+        "_endDate": undefined,
+        "_startDate": undefined,
+      },
       "_excerpt": "",
       "_id": 1234,
       "_thumbnail": "",

@@ -12,8 +12,8 @@ describe('EventDetail', () => {
     availableLanguages: {de: '1235', ar: '1236'},
     date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
       endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-      allDay: true})
-
+      allDay: true
+    })
   })
 
   const url = `/augsburg/en/events`

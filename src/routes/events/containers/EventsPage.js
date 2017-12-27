@@ -22,7 +22,7 @@ export class EventsPage extends React.Component {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
-    dispatchLanguageChangeUrls: PropTypes.func.isRequired,
+    setLanguageChangeUrls: PropTypes.func.isRequired,
     id: PropTypes.string
   }
 
@@ -65,7 +65,7 @@ export class EventsPage extends React.Component {
       const event = this.findEvent(this.props.events, this.props.id)
       if (event) availableLanguages = event.availableLanguages
     }
-    this.props.dispatchLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
+    this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
   }
 
   /**
@@ -86,13 +86,13 @@ export class EventsPage extends React.Component {
       const event = this.findEvent(nextProps.events, nextProps.id)
       if (event) {
         // events have been loaded in the new language
-        this.props.dispatchLanguageChangeUrls(
+        this.props.setLanguageChangeUrls(
           this.mapLanguageToUrl, nextProps.languages, event.availableLanguages
         )
       }
     } else {
       // all events
-      this.props.dispatchLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages)
+      this.props.setLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages)
     }
   }
 
@@ -119,7 +119,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
+  setLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
     setLanguageChangeUrls(urls, languages, availableLanguages)
   )
 })
