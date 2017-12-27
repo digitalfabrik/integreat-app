@@ -9,17 +9,17 @@ import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/location'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
-import CategoriesModel from 'modules/endpoint/models/CategoriesModel'
+import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    categories: PropTypes.instanceOf(CategoriesModel).isRequired,
+    categories: PropTypes.instanceOf(CategoriesContainer).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     fetchUrl: PropTypes.string.isRequired
@@ -34,15 +34,13 @@ class PdfFetcherPage extends React.Component {
     const category = this.props.categories.getCategoryByUrl(this.props.fetchUrl)
     if (category) {
       this.fetchUrl(category)
-    } else {
-      // todo display an error
     }
   }
 
   addCategoryIdsRecursively (categoryIds, children) {
     children.forEach((child) => {
       categoryIds.push(child.id)
-      this.addCategoryIdsRecursively(categoryIds, this.props.categories.getChildren(child.url))
+      this.addCategoryIdsRecursively(categoryIds, this.props.categories.getChildren(child))
     })
   }
 
@@ -70,7 +68,7 @@ class PdfFetcherPage extends React.Component {
                                   languages, so we just always use 'page' as requestType. */
     const font = this.getFont()
     const title = this.getTitle(category.title)
-    const children = this.props.categories.getChildren(category.url)
+    const children = this.props.categories.getChildren(category)
     const toc = isEmpty(children)
 
     this.setState(Object.assign({}, this.state, {loading: category}))
@@ -79,8 +77,7 @@ class PdfFetcherPage extends React.Component {
       categoryIds.push(category.id)
     }
     this.addCategoryIdsRecursively(categoryIds, children)
-    console.log(categoryIds)
-    console.log(this.props.fetchUrl)
+
     const params = {
       action: 'frontEndDownloadPDF',
       requestType: requestType,
@@ -138,7 +135,7 @@ class PdfFetcherPage extends React.Component {
         <Spinner name='line-scale-party' />
       </div>
     } else if (!this.state.pdf) {
-      return <Error error='errors:page.loadingFailed' />
+      return <Error error='pdf-fetcher:page.loadingFailed' />
     } else {
       return <div className={style.pdfFetcher}>
         <p>{t('downloadPdfAt')}</p>

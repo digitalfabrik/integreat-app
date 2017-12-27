@@ -7,8 +7,8 @@ import compose from 'lodash/fp/compose'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
-import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/location'
-import CategoriesModel from 'modules/endpoint/models/CategoriesModel'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
+import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
@@ -24,7 +24,7 @@ import CategoryList from '../components/CategoryList'
  */
 class CategoriesPage extends React.Component {
   static propTypes = {
-    categories: PropTypes.instanceOf(CategoriesModel).isRequired,
+    categories: PropTypes.instanceOf(CategoriesContainer).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     location: PropTypes.string.isRequired,
@@ -100,7 +100,7 @@ class CategoriesPage extends React.Component {
       return
     }
 
-    const children = this.props.categories.getChildren(category.url)
+    const children = this.props.categories.getChildren(category)
 
     if (children.length === 0) {
       // last level, our category is a simple page
@@ -121,7 +121,7 @@ class CategoriesPage extends React.Component {
 
     return <div>
       <Breadcrumbs
-        parents={this.props.categories.getParents(category.url)}
+        parents={this.props.categories.getAncestors(category)}
         locations={this.props.locations} />
       {this.getContent(category)}
       <PdfButton href={this.getPdfFetchPath()} />
@@ -146,5 +146,5 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher(CATEGORIES_ENDPOINT),
   withFetcher(LANGUAGES_ENDPOINT),
-  withFetcher(LOCATION_ENDPOINT)
+  withFetcher(LOCATIONS_ENDPOINT)
 )(CategoriesPage)

@@ -1,5 +1,5 @@
 import categories from '../categories'
-import CategoriesModel from '../../models/CategoriesModel'
+import CategoriesContainer from '../../models/CategoriesContainer'
 import CategoryModel from '../../models/CategoryModel'
 
 describe('categories', () => {
@@ -76,7 +76,7 @@ describe('categories', () => {
 
   test('should map fetched data to models', () => {
     const response = categories.mapResponse(categoriesJSON, urlParams)
-    const categoriesModel = new CategoriesModel(categoryModels)
-    expect(response).toEqual(categoriesModel)
+    const categoriesContainer = new CategoriesContainer(categoryModels)
+    expect(response).toEqual(categoriesContainer)
   })
 })

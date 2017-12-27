@@ -3,7 +3,7 @@ import normalizeUrl from 'normalize-url'
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
  */
-class CategoriesModel {
+class CategoriesContainer {
   /**
    * Creates a Map [url -> category] from the categories provided,
    * whose parent attributes are first changed from id to url
@@ -14,7 +14,7 @@ class CategoriesModel {
       if (category.id !== 0) {
         // every category except from the root category should have a parent, so we don't have to check if it exists
         const parentUrl = categories.find(_category => _category.id === category.parent).url
-        category.setParent(parentUrl)
+        category.setParentUrl(parentUrl)
       }
     })
     this._categories = new Map(categories.map(category => ([category.url, category])))
@@ -32,7 +32,7 @@ class CategoriesModel {
    * @param url The url
    * @return {CategoryModel | undefined} The category
    */
-  getCategoryByUrl (url = '') {
+  getCategoryByUrl (url) {
     return this._categories.get(normalizeUrl(url))
   }
 
@@ -46,29 +46,27 @@ class CategoriesModel {
   }
 
   /**
-   * Returns all children of the category with the given url
-   * @param url The url
+   * Returns all children of the given category
+   * @param category The category
    * @return {CategoryModel[] | undefined} The children
    */
-  getChildren (url = '') {
-    const category = this.getCategoryByUrl(url)
+  getChildren (category) {
     if (category) {
-      return this.categories.filter(_category => _category.parent === category.url)
+      return this.categories.filter(_category => _category.parentUrl === category.url)
     }
   }
 
   /**
-   * Returns all (mediate) parents of the category with the given url
-   * @param url The url
+   * Returns all (mediate) parents of the given category
+   * @param category The category
    * @return {CategoryModel[]} The parents, with the immediate parent last
    */
-  getParents (url = '') {
+  getAncestors (category) {
     const parents = []
-    let category = this.getCategoryByUrl(url)
 
     if (category) {
       while (category.id !== 0) {
-        category = this.getCategoryByUrl(category.parent)
+        category = this.getCategoryByUrl(category.parentUrl)
         parents.unshift(category)
       }
     }
@@ -76,4 +74,4 @@ class CategoriesModel {
   }
 }
 
-export default CategoriesModel
+export default CategoriesContainer
