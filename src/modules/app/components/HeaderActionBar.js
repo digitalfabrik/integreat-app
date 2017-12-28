@@ -5,14 +5,14 @@ import { Link } from 'redux-little-router'
 import HeaderDropDown from './HeaderDropDown'
 import style from './Header.css'
 
+export const ACTION_ITEMS_PROP_TYPE = PropTypes.arrayOf(PropTypes.shape({
+  iconSrc: PropTypes.string.isRequired,
+  href: PropTypes.string,
+  dropDownNode: PropTypes.node
+}))
+
 class HeaderActionBar extends React.Component {
-  static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({
-      iconSrc: PropTypes.string.isRequired,
-      href: PropTypes.string,
-      dropDownNode: PropTypes.node
-    })).isRequired
-  }
+  static propTypes = { items: ACTION_ITEMS_PROP_TYPE.isRequired }
 
   render () {
     return <div className={style.actionItems}>

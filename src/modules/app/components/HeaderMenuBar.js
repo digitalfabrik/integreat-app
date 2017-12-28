@@ -6,14 +6,16 @@ import { Link } from 'redux-little-router'
 
 import style from './HeaderMenuBar.css'
 
+export const MENU_ITEMS_PROP_TYPE = PropTypes.arrayOf(PropTypes.shape({
+  text: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired
+}))
+
 class HeaderMenuBar extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      href: PropTypes.string.isRequired,
-      active: PropTypes.bool.isRequired
-    }))
+    items: MENU_ITEMS_PROP_TYPE.isRequired
   }
 
   render () {
