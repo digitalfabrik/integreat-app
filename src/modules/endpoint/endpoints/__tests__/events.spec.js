@@ -3,6 +3,8 @@ import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import lolex from 'lolex'
 
+jest.unmock('modules/endpoint/endpoints/events')
+
 describe('events', () => {
   const eventPage1 = {
     id: 2730,
