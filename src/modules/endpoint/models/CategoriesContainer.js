@@ -47,7 +47,7 @@ class CategoriesContainer {
     if (category) {
       return this.toArray()
         .filter(_category => _category.parentUrl === category.url)
-        .sortBy(_category => _category.order)
+        .sort((category1, category2) => category1.order - category2.order)
     }
   }
 
