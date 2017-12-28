@@ -16,9 +16,9 @@ import { Fragment } from 'redux-little-router'
 import Layout from 'modules/app/components/Layout'
 import Store from 'Store'
 import I18n from 'I18n'
-import AutoFooter from './LocationFooter'
 import GeneralHeader from '../components/GeneralHeader'
 import LocationLayout from './LocationLayout'
+import GeneralFooter from '../components/GeneralFooter'
 
 class App extends React.Component {
   static propTypes = {
@@ -27,8 +27,6 @@ class App extends React.Component {
   }
 
   render () {
-    const LandingLayout = ({children}) => <Layout footer={<AutoFooter />}>{children}</Layout>
-
     return <I18nextProvider i18n={this.props.i18n.i18next}>
       <Provider store={this.props.store.redux}>
         {/*
@@ -76,12 +74,12 @@ class App extends React.Component {
 
             {/* Matches one argument like /de */}
             <Fragment forRoute='/:language'>
-              <LandingLayout><LandingPage /></LandingLayout>
+              <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
             </Fragment>
 
             {/* Matches zero arguments like / */}
             <Fragment forRoute='/'>
-              <LandingLayout><LandingPage /></LandingLayout>
+              <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
             </Fragment>
 
             {/* There are no missing routes. Covered:
