@@ -13,10 +13,11 @@ import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
 import RedirectPage from 'routes/redirect/containers/RedirectPage'
 import { Fragment } from 'redux-little-router'
-import RichLayout from 'modules/app/containers/RichLayout'
 import Layout from 'modules/app/components/Layout'
 import Store from 'Store'
 import I18n from 'I18n'
+import Footer from './Footer'
+import AutoHeader from './AutoHeader'
 
 class App extends React.Component {
   static propTypes = {
@@ -25,6 +26,9 @@ class App extends React.Component {
   }
 
   render () {
+    const LandingLayout = ({children}) => <Layout footer={<Footer />}>{children}</Layout>
+    const RichLayout = ({children}) => <Layout footer={<Footer />} header={<AutoHeader />}>{children}</Layout>
+
     return <I18nextProvider i18n={this.props.i18n.i18next}>
       <Provider store={this.props.store.redux}>
         {/*
@@ -72,12 +76,12 @@ class App extends React.Component {
 
             {/* Matches one argument like /de */}
             <Fragment forRoute='/:language'>
-              <Layout><LandingPage /></Layout>
+              <LandingLayout><LandingPage /></LandingLayout>
             </Fragment>
 
             {/* Matches zero arguments like / */}
             <Fragment forRoute='/'>
-              <Layout><LandingPage /></Layout>
+              <LandingLayout><LandingPage /></LandingLayout>
             </Fragment>
 
             {/* There are no missing routes. Covered:
