@@ -1,26 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Headroom from 'react-headroom'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
-import { Link } from 'redux-little-router'
 import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
 
 import LanguageFlyout from './LanguageFlyout'
-import HeaderDropDown from '../components/HeaderDropDown'
-import style from './Header.css'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
-import logoWide from '../assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
-import HeaderMenuBar from '../components/HeaderMenuBar'
+import Header from '../components/Header'
 
-class Header extends React.Component {
+class AutoHeader extends React.Component {
   static propTypes = {
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.string,
@@ -62,21 +57,17 @@ class Header extends React.Component {
     return !this.isExtrasSelected() && !this.isEventsSelected()
   }
 
-  getActionBar () {
+  getActionItems () {
     const {location, navigation} = this.props
-    return <div className={style.actionItems}>
-      {
-        location &&
-        <Link href={navigation.search} className={style.actionItem}><img src={searchIcon} /></Link>
-      }
-      <Link href={navigation.locationSelector} className={style.actionItem}><img src={locationIcon} /></Link>
-      {
-        location &&
-        <HeaderDropDown iconSrc={languageIcon}>
-          <LanguageFlyout />
-        </HeaderDropDown>
-      }
-    </div>
+    return location
+      ? [
+        {href: navigation.search, iconSrc: searchIcon},
+        {href: navigation.locationSelector, iconSrc: locationIcon},
+        {dropDownNode: <LanguageFlyout />, iconSrc: languageIcon}
+      ]
+      : [
+        {href: navigation.locationSelector, iconSrc: locationIcon}
+      ]
   }
 
   getMenuItems () {
@@ -100,17 +91,7 @@ class Header extends React.Component {
   }
 
   render () {
-    return (
-      <Headroom>
-        <div className={style.header}>
-          <div className={style.logoWide}>
-            <img src={logoWide} />
-          </div>
-          {this.getActionBar()}
-          <HeaderMenuBar className={style.menuBar} items={this.getMenuItems()} />
-        </div>
-      </Headroom>
-    )
+    return <Header actionItems={this.getActionItems()} menuItems={this.getMenuItems()} />
   }
 }
 
@@ -125,4 +106,4 @@ export default compose(
   connect(mapStateToProps),
   withFetcher(LOCATIONS_ENDPOINT, true, true),
   translate('app')
-)(Header)
+)(AutoHeader)
