@@ -30,9 +30,9 @@ class LocationHeader extends React.Component {
 
   isExtrasSelected = () => this.props.route === '/:location/:language/extras'
 
-  isCategoriesSelected = () => !this.isExtrasSelected() && !this.isEventsSelected()
+  isCategoriesSelected = () => ['/:location/:language', '/:location/:language/*'].includes(this.props.route)
 
-  isEventsSelected = () => this.props.route === '/:location/:language/events*'
+  isEventsSelected = () => this.props.route === '/:location/:language/events(/:id)'
 
   getActionItems () {
     const {navigation} = this.props
