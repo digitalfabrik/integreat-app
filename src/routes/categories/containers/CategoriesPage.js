@@ -115,7 +115,7 @@ class CategoriesPage extends React.Component {
   render () {
     const category = this.props.categories.getCategoryByUrl(this.props.path)
 
-    if(!category) {
+    if (!category) {
       return <Error error="not-found:page.notFound"/>
     }
 
