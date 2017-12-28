@@ -24,7 +24,7 @@ describe('Endpoint', () => {
     })
   }
 
-  test('should have corrent names', () => {
+  test('should have correct names', () => {
     const endpoint = createEndpoint({name: 'endpoint'})
 
     expect(endpoint.stateName).toBe('endpoint')
@@ -64,7 +64,7 @@ describe('Endpoint', () => {
         .toEqual(new Payload(false, json, null, url, mockedTime))
     })
 
-    test('should handle finishFetchAction if error occured', () => {
+    test('should handle finishFetchAction if error occurred', () => {
       const endpoint = createEndpoint({})
       const reducer = endpoint.createReducer()
       const error = 'error'

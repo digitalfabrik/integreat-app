@@ -89,7 +89,7 @@ You can run the linter by calling **yarn run lint**. Some issues can be fixed au
 
 We suggest IntellJ IDEA Ultimate as IDE. Just import this project (from existing sources).
 Run **yarn** in Terminal and right-click on package.json to show the npm scripts. 
-Also mark the *src* and *public* folder as *Source directory*.
+Also mark the *src* and *www* folder as *Source directory*.
 
 Install the following plugins:
 * PostCSS

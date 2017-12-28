@@ -3,6 +3,8 @@ import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import lolex from 'lolex'
 
+jest.unmock('modules/endpoint/endpoints/events')
+
 describe('events', () => {
   const eventPage1 = {
     id: 2730,
@@ -95,7 +97,7 @@ describe('events', () => {
         toEventModel(eventPage1, new DateModel({
           startDate: new Date('2016-01-31T10:00:00Z'),
           endDate: new Date('2016-01-31T13:00:00Z'),
-          allDay: true
+          allDay: false
         }))
       ])
 
