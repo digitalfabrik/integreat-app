@@ -45,7 +45,9 @@ class CategoriesContainer {
    */
   getChildren (category) {
     if (category) {
-      return this.toArray().filter(_category => _category.parentUrl === category.url)
+      return this.toArray()
+        .filter(_category => _category.parentUrl === category.url)
+        .sortBy(_category => _category.order)
     }
   }
 
