@@ -4,9 +4,8 @@ class Navigation {
     this._language = language
   }
 
-  get home () {
+  get categories () {
     if (!this._location) {
-      return '/' + (this._language || '')
     }
     return `/${this._location}/${this._language}`
   }

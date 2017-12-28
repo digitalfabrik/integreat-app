@@ -16,8 +16,9 @@ import { Fragment } from 'redux-little-router'
 import Layout from 'modules/app/components/Layout'
 import Store from 'Store'
 import I18n from 'I18n'
-import Footer from './Footer'
-import AutoHeader from './AutoHeader'
+import AutoFooter from './LocationFooter'
+import GeneralHeader from '../components/GeneralHeader'
+import LocationLayout from './LocationLayout'
 
 class App extends React.Component {
   static propTypes = {
@@ -26,8 +27,7 @@ class App extends React.Component {
   }
 
   render () {
-    const LandingLayout = ({children}) => <Layout footer={<Footer />}>{children}</Layout>
-    const RichLayout = ({children}) => <Layout footer={<Footer />} header={<AutoHeader />}>{children}</Layout>
+    const LandingLayout = ({children}) => <Layout footer={<AutoFooter />}>{children}</Layout>
 
     return <I18nextProvider i18n={this.props.i18n.i18next}>
       <Provider store={this.props.store.redux}>
@@ -44,19 +44,19 @@ class App extends React.Component {
               <React.Fragment>
                 {/* Matches /augsburg/de/search -> Search */}
                 <Fragment forRoute='/search'>
-                  <RichLayout><SearchPage /></RichLayout>
+                  <LocationLayout><SearchPage /></LocationLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
                 <Fragment forRoute='/disclaimer'>
-                  <RichLayout><DisclaimerPage /></RichLayout>
+                  <LocationLayout><DisclaimerPage /></LocationLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/events* -> Events */}
                 <Fragment forRoute='/events*'>
-                  <RichLayout><EventsPage /></RichLayout>
+                  <LocationLayout><EventsPage /></LocationLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/redirect -> Redirect */}
                 <Fragment forRoute='/redirect'>
-                  <RichLayout><RedirectPage /></RichLayout>
+                  <LocationLayout><RedirectPage /></LocationLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
                 <Fragment forRoute='/fetch-pdf/*'>
@@ -64,14 +64,14 @@ class App extends React.Component {
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}
                 <Fragment forNoMatch>
-                  <RichLayout><CategoriesPage /></RichLayout>
+                  <LocationLayout><CategoriesPage /></LocationLayout>
                 </Fragment>
               </React.Fragment>
             </Fragment>
 
             {/* Matches /disclaimer */}
             <Fragment forRoute='/disclaimer'>
-              <RichLayout><MainDisclaimerPage /></RichLayout>
+              <Layout header={<GeneralHeader />}><MainDisclaimerPage /></Layout>
             </Fragment>
 
             {/* Matches one argument like /de */}

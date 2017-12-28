@@ -8,7 +8,8 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import style from './LanguageFlyout.css'
-import LanguageFlyoutElement from '../components/LanguageFlyoutElement'
+import cx from 'classnames'
+import { Link } from 'redux-little-router'
 
 class LanguageFlyout extends React.Component {
   static propTypes = {
@@ -26,16 +27,13 @@ class LanguageFlyout extends React.Component {
     return (
       <div className={style.languageFlyout}>
         {!isEmpty(this.props.languages) &&
-        this.props.languages.map(language => (
-          <LanguageFlyoutElement
+        this.props.languages.map(language => <Link
             key={language.code}
+            className={cx(style.element, this.props.language === language.code ? style.elementActive : '')}
             onClick={this.props.closeDropDownCallback}
-            active={this.props.language === language.code}
-            language={language}
-            path={this.getPathForLanguage(language.code)}
-          />
-        ))
-        }
+            href={this.getPathForLanguage(language.code)}
+          >{language.name}</Link>
+        )}
       </div>
     )
   }
