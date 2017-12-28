@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import Store from 'Store'
+import I18n from 'I18n'
+import { Fragment } from 'redux-little-router'
 import { Provider } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 
@@ -12,13 +14,11 @@ import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
 import RedirectPage from 'routes/redirect/containers/RedirectPage'
-import { Fragment } from 'redux-little-router'
-import Layout from 'modules/app/components/Layout'
-import Store from 'Store'
-import I18n from 'I18n'
+
+import Layout from '../components/Layout'
 import GeneralHeader from '../components/GeneralHeader'
-import LocationLayout from './LocationLayout'
 import GeneralFooter from '../components/GeneralFooter'
+import LocationLayout from './LocationLayout'
 
 class App extends React.Component {
   static propTypes = {
