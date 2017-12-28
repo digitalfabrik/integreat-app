@@ -1,5 +1,5 @@
 import disclaimer from '../disclaimer'
-import PageModel from '../../models/PageModel'
+import CategoryModel from '../../models/CategoryModel'
 
 describe('disclaimer', () => {
   const pageJson = {
@@ -36,7 +36,7 @@ describe('disclaimer', () => {
 
   test('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse([pageJson])
-    expect(disclaimerModel).toEqual(new PageModel({
+    expect(disclaimerModel).toEqual(new CategoryModel({
       id: pageJson.permalink.url_page,
       numericId: pageJson.id,
       title: pageJson.title,

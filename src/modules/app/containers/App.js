@@ -13,7 +13,6 @@ import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
-import RedirectPage from 'routes/redirect/containers/RedirectPage'
 
 import Layout from '../components/Layout'
 import GeneralHeader from '../components/GeneralHeader'
@@ -49,15 +48,11 @@ class App extends React.Component {
                   <LocationLayout><DisclaimerPage /></LocationLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/events* -> Events */}
-                <Fragment forRoute='/events*'>
+                <Fragment forRoute='/events(/:id)'>
                   <LocationLayout><EventsPage /></LocationLayout>
                 </Fragment>
-                {/* Matches /augsburg/de/redirect -> Redirect */}
-                <Fragment forRoute='/redirect'>
-                  <LocationLayout><RedirectPage /></LocationLayout>
-                </Fragment>
                 {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
-                <Fragment forRoute='/fetch-pdf/*'>
+                <Fragment forRoute='/fetch-pdf'>
                   <Layout><PdfFetcherPage /></Layout>
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}

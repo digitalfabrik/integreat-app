@@ -3,10 +3,10 @@ export default {
     title: 'Landing',
     '/:location/:language': {
       '/': {
-        title: 'Location page'
+        title: 'Categories page'
       },
       '/*': {
-        title: 'Location page'
+        title: 'Categories page'
       },
       '/search': {
         title: 'Search page'
@@ -14,13 +14,10 @@ export default {
       '/disclaimer': {
         title: 'Disclaimer page'
       },
-      '/redirect': {
-        title: 'Redirect page'
-      },
-      '/events*': {
+      '/events(/:id)': {
         title: 'Events page'
       },
-      '/fetch-pdf/*': {
+      '/fetch-pdf': {
         title: 'FetchPdf page'
       }
     },

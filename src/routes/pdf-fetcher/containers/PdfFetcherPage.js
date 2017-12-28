@@ -10,19 +10,19 @@ import { translate } from 'react-i18next'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
-import PAGE_ENDPOINT from 'modules/endpoint/endpoints/pages'
+import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
-import Hierarchy from 'routes/categories/Hierarchy'
-import PageModel from 'modules/endpoint/models/PageModel'
+import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    pages: PropTypes.instanceOf(PageModel).isRequired,
+    categories: PropTypes.instanceOf(CategoriesContainer).isRequired,
     location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    fetchUrl: PropTypes.string.isRequired
   }
 
   constructor (params) {
@@ -31,20 +31,16 @@ class PdfFetcherPage extends React.Component {
   }
 
   componentWillMount () {
-    const hierarchy = new Hierarchy(this.props.path)
-
-    const error = hierarchy.build(this.props.pages)
-    if (error) {
-      return <Error error={error}/>
+    const category = this.props.categories.getCategoryByUrl(this.props.fetchUrl)
+    if (category) {
+      this.fetchUrl(category)
     }
-
-    this.fetchUrl(hierarchy.top())
   }
 
-  addPageIdsRecursively (pageIds, parentPage) {
-    parentPage.children.forEach((page) => {
-      pageIds.push(page.numericId)
-      this.addPageIdsRecursively(pageIds, page)
+  addCategoryIdsRecursively (categoryIds, children) {
+    children.forEach((child) => {
+      categoryIds.push(child.id)
+      this.addCategoryIdsRecursively(categoryIds, this.props.categories.getChildren(child))
     })
   }
 
@@ -60,41 +56,33 @@ class PdfFetcherPage extends React.Component {
     }
   }
 
-  getLocationTitle (page) {
-    const location = this.props.locations.find((location) => location.code === page.title)
-    if (location) {
-      return location.name
-    } else {
-      console.warn('Couldn\'t find the corresponding LocationModel. Using the page title instead...')
-      return page.title
-    }
+  getTitle (title) {
+    const location = this.props.locations.find((location) => location.code === title)
+    return location ? location.name : title
   }
 
-  static isRootPage (page) {
-    return page.numericId === 0
-  }
-
-  fetchUrl (page) {
+  fetchUrl (category) {
     const url = `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`
-    const pageIds = []
+    const categoryIds = []
     const requestType = 'page' /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
                                   languages, so we just always use 'page' as requestType. */
     const font = this.getFont()
-    const title = PdfFetcherPage.isRootPage(page) ? this.getLocationTitle(page) : page.title
-    const toc = isEmpty(page.children) ? 'false' : 'true'
+    const title = this.getTitle(category.title)
+    const children = this.props.categories.getChildren(category)
+    const toc = isEmpty(children)
 
-    this.setState(Object.assign({}, this.state, {loading: page}))
+    this.setState(Object.assign({}, this.state, {loading: category}))
 
-    if (!PdfFetcherPage.isRootPage(page)) {
-      pageIds.push(page.numericId)
+    if (category.id !== 0) {
+      categoryIds.push(category.id)
     }
-    this.addPageIdsRecursively(pageIds, page)
+    this.addCategoryIdsRecursively(categoryIds, children)
 
     const params = {
       action: 'frontEndDownloadPDF',
       requestType: requestType,
-      myContent: pageIds.join(','),
-      pdfOptions: `${toc},${title},${page.numericId}_file,,`,
+      myContent: categoryIds.join(','),
+      pdfOptions: `${toc},${title},${category.id}_file,,`,
       'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`,
       font,
       fontcolor: '',
@@ -119,7 +107,7 @@ class PdfFetcherPage extends React.Component {
       body,
       chunkParser: (bytes) => { text += decoder.decode(bytes) },
       onComplete: () => {
-        if (!page === this.state.loading) {
+        if (!category === this.state.loading) {
           return
         }
 
@@ -144,10 +132,10 @@ class PdfFetcherPage extends React.Component {
     if (this.state.loading) {
       return <div className={style.pdfFetcher}>
         <p>{t('creatingPdf')}</p>
-        <Spinner name='line-scale-party'/>
+        <Spinner name='line-scale-party' />
       </div>
     } else if (!this.state.pdf) {
-      return <Error error="errors:page.loadingFailed"/>
+      return <Error error='pdf-fetcher:page.loadingFailed' />
     } else {
       return <div className={style.pdfFetcher}>
         <p>{t('downloadPdfAt')}</p>
@@ -160,12 +148,12 @@ class PdfFetcherPage extends React.Component {
 const mapStateToProps = (state) => ({
   location: state.router.params.location,
   language: state.router.params.language,
-  path: state.router.params['_'] // _ contains all the values from *
+  fetchUrl: state.router.query.url
 })
 
 export default compose(
   connect(mapStateToProps),
   withFetcher(LOCATIONS_ENDPOINT),
-  withFetcher(PAGE_ENDPOINT),
+  withFetcher(CATEGORIES_ENDPOINT),
   translate('pdf-fetcher')
 )(PdfFetcherPage)

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import Page from 'routes/categories/components/Page'
-import PageModel from 'modules/endpoint/models/PageModel'
+import PageModel from 'modules/endpoint/models/CategoryModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
@@ -26,7 +26,7 @@ class DisclaimerPage extends React.Component {
   }
 
   render () {
-    return <Page page={this.props.disclaimer}/>
+    return <Page page={this.props.disclaimer} />
   }
 }
 
