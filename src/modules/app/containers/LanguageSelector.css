@@ -2,7 +2,7 @@
 @import url('../../common/constants/colors.css');
 @import url('../../common/constants/dimens.css');
 
-.language-flyout {
+.language-selector {
   display: flex;
   width: 100%;
   flex-flow: row wrap;

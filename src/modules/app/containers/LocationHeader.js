@@ -6,7 +6,7 @@ import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
 
-import LanguageFlyout from './LanguageFlyout'
+import LanguageSelector from './LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
@@ -39,7 +39,7 @@ class LocationHeader extends React.Component {
     return [
       {href: navigation.search, iconSrc: searchIcon},
       {href: navigation.locationSelector, iconSrc: locationIcon},
-      {dropDownNode: <LanguageFlyout />, iconSrc: languageIcon}
+      {dropDownNode: <LanguageSelector />, iconSrc: languageIcon}
     ]
   }
 

@@ -7,15 +7,16 @@ import compose from 'lodash/fp/compose'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import style from './LanguageFlyout.css'
+import style from './LanguageSelector.css'
 import cx from 'classnames'
 import { Link } from 'redux-little-router'
 
-class LanguageFlyout extends React.Component {
+class LanguageSelector extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     closeDropDownCallback: PropTypes.func,
     language: PropTypes.string,
+    location: PropTypes.string.isRequired,
     languageChangeUrls: PropTypes.object.isRequired
   }
 
@@ -25,7 +26,7 @@ class LanguageFlyout extends React.Component {
 
   render () {
     return (
-      <div className={style.languageFlyout}>
+      <div className={style.languageSelector}>
         {!isEmpty(this.props.languages) &&
         this.props.languages.map(language => <Link
             key={language.code}
@@ -48,4 +49,4 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   withFetcher(LANGUAGE_ENDPOINT, true, true)
-)(LanguageFlyout)
+)(LanguageSelector)
