@@ -9,7 +9,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 
 import GeneralHeader from '../components/GeneralHeader'
-import Layout from '../components/Layout'
+import Layout from '../../layout/components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 
 import LocationHeader from './LocationHeader'

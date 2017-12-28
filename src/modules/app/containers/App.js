@@ -14,7 +14,7 @@ import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
 
-import Layout from '../components/Layout'
+import Layout from 'modules/layout/components/Layout'
 import GeneralHeader from '../components/GeneralHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationLayout from './LocationLayout'

@@ -13,7 +13,7 @@ import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
-import Header from '../components/Header'
+import Header from '../../layout/components/Header'
 
 class LocationHeader extends React.Component {
   static propTypes = {
