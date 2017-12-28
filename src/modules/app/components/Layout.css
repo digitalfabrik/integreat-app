@@ -1,5 +1,7 @@
 @import url('../../common/constants/colors.css');
 @import url('../../common/constants/fonts.css');
+@import url('../../common/constants/helpers.css');
+@import url('../../common/constants/fonts.css');
 
 .content {
   max-width: 1000px;
@@ -10,6 +12,16 @@
 }
 
 .layout {
+  font-family: var(--standard-fonts);
+  font-size-adjust: var(--standard-fonts-size-adjust);
+}
+
+.rich-layout {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: var(--standard-fonts);
   font-size-adjust: var(--standard-fonts-size-adjust);
 }

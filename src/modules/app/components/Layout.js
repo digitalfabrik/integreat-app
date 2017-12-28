@@ -5,14 +5,22 @@ import style from './Layout.css'
 
 class Layout extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    header: PropTypes.node,
+    footer: PropTypes.node
   }
 
   render () {
     return (
-      <main className={style.layout}>
-        <div className={cx(style.content, this.props.className)}>{this.props.children}</div>
-      </main>
+      <div className={style.richLayout}>
+        <div>
+          {this.props.header}
+          <main className={style.layout}>
+            <div className={cx(style.content, this.props.className)}>{this.props.children}</div>
+          </main>
+        </div>
+        {this.props.footer}
+      </div>
     )
   }
 }
