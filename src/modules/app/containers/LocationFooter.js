@@ -13,9 +13,8 @@ class LocationFooter extends React.Component {
   }
 
   render () {
-    const text = this.props.t('imprintAndContact')
-    const href = this.props.navigation.disclaimer
-    return <Footer items={[{text, href}]} />
+    const {t, navigation} = this.props
+    return <Footer items={[{text: t('imprintAndContact'), href: navigation.disclaimer}]} />
   }
 }
 
