@@ -1,0 +1,25 @@
+@import url('../../../modules/common/constants/colors.css');
+
+:root {
+  --item-height: 30px;
+}
+
+.language-list-item {
+  display: block;
+  padding: 7px;
+  color: inherit;
+  text-decoration: inherit;
+
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+    transition: background-color 0.5s ease;
+    background-color: var(--background-accent-color);
+  }
+}
+
+.language-list-parent {
+  height: var(--item-height);
+  line-height: var(--item-height);
+  border-bottom: 1px solid var(--theme-color);
+}

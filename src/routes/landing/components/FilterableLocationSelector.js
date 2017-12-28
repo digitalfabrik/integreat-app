@@ -6,6 +6,8 @@ import SearchInput from 'modules/common/components/SearchInput'
 import LocationSelector from './LocationSelector'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
+import style from './FilterableLocationSelector.css'
+
 class FilterableLocationSelector extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
@@ -22,7 +24,7 @@ class FilterableLocationSelector extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={style.topSpacing}>
         <Heading/>
         <SearchInput filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
