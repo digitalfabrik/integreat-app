@@ -18,6 +18,7 @@ import PdfButton from 'routes/categories/components/PdfButton'
 import Page from '../components/Page'
 import CategoryTiles from '../components/CategoryTiles'
 import CategoryList from '../components/CategoryList'
+import Error from '../../../modules/common/containers/Error'
 
 /**
  * Displays a CategoryTable, CategoryList or a single category matching the route /<location>/<language>*
@@ -95,11 +96,6 @@ class CategoriesPage extends React.Component {
    * @return {*} The content to be displayed
    */
   getContent (category) {
-    if (!category) {
-      // todo show an error that the page has not been found, redirect to the notFound route
-      return
-    }
-
     const children = this.props.categories.getChildren(category)
 
     if (children.length === 0) {
@@ -118,6 +114,10 @@ class CategoriesPage extends React.Component {
 
   render () {
     const category = this.props.categories.getCategoryByUrl(this.props.path)
+
+    if(!category) {
+      return <Error error="not-found:page.notFound"/>
+    }
 
     return <div>
       <Breadcrumbs

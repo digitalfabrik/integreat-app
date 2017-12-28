@@ -1,11 +1,11 @@
 class CategoryModel {
-  constructor ({ id, url, title, parentId = -1, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
+  constructor ({ id, url, title, parentId = -1, parentUrl = null, content = '', thumbnail = null, order = 0, availableLanguages = {} }) {
     this._id = id
     this._url = url
     this._title = title
     this._content = content
     this._parentId = parentId
-    this._parentUrl = null
+    this._parentUrl = parentUrl
     this._thumbnail = thumbnail
     this._order = order
     this._availableLanguages = availableLanguages

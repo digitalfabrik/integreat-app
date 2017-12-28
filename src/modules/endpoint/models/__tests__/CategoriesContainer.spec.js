@@ -4,9 +4,9 @@ import CategoryModel from '../CategoryModel'
 describe('CategoriesContainer', () => {
   const categories = [
     new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
-    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, title: 'willkommen'}),
-    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, title: 'erste-schritte'}),
-    new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, title: 'asylantrag'})
+    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen'}),
+    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte'}),
+    new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'})
   ]
 
   const categoriesContainer = new CategoriesContainer(categories)

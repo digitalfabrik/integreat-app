@@ -7,23 +7,16 @@ class CategoriesContainer {
   /**
    * Creates a Map [url -> category] from the categories provided,
    * whose parent attributes are first changed from id to url
-   * @param categories
+   * @param categories CategoryModels as array
    */
   constructor (categories = []) {
-    categories.forEach(category => {
-      if (category.id !== 0) {
-        // every category except from the root category should have a parent, so we don't have to check if it exists
-        const parentUrl = categories.find(_category => _category.id === category.parentId).url
-        category.setParentUrl(parentUrl)
-      }
-    })
     this._categories = new Map(categories.map(category => ([category.url, category])))
   }
 
   /**
    * @return {CategoryModel[]} categories The categories as array
    */
-  get categories () {
+  toArray () {
     return Array.from(this._categories.values())
   }
 
@@ -42,7 +35,7 @@ class CategoriesContainer {
    * @return {CategoryModel | undefined} The category
    */
   getCategoryById (id) {
-    return this.categories.find(category => category.id === Number(id))
+    return this.toArray().find(category => category.id === Number(id))
   }
 
   /**
@@ -52,7 +45,7 @@ class CategoriesContainer {
    */
   getChildren (category) {
     if (category) {
-      return this.categories.filter(_category => _category.parentUrl === category.url)
+      return this.toArray().filter(_category => _category.parentUrl === category.url)
     }
   }
 

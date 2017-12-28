@@ -6,6 +6,7 @@ describe('CategoryModel', () => {
       id: 1,
       url: '/test/url',
       parentId: 40,
+      parentUrl: 'random parent url',
       content: 'test content blablabla',
       thumbnail: '/test/url/thumbnail',
       order: 5,
@@ -14,6 +15,7 @@ describe('CategoryModel', () => {
     expect(category.id).toBe(props.id)
     expect(category.url).toBe(props.url)
     expect(category.parentId).toBe(props.parentId)
+    expect(category.parentUrl).toBe(props.parentUrl)
     expect(category.content).toBe(props.content)
     expect(category.thumbnail).toBe(props.thumbnail)
     expect(category.order).toBe(props.order)
