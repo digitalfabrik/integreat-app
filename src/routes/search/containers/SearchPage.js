@@ -21,18 +21,20 @@ class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    language: PropTypes.string.isRequired,
     pages: PropTypes.instanceOf(PageModel).isRequired
-  }
-
-  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
-
-  componentDidMount () {
-    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
   }
 
   constructor () {
     super()
     this.state = {filterText: ''}
+  }
+
+  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/search`
+
+  componentDidMount () {
+    console.log(this.mapLanguageToUrl('abc'))
+    this.props.dispatch(setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages))
   }
 
   getParentPath () {
@@ -72,7 +74,7 @@ class SearchPage extends React.Component {
                      filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}
         />
-        <ContentList pages={pages}/>
+        <ContentList pages={pages} />
       </div>
     )
   }
@@ -81,8 +83,7 @@ class SearchPage extends React.Component {
 const mapStateToProps = (state) => ({
   languages: state.languages,
   language: state.router.params.language,
-  location: state.router.params.location,
-  path: state.router.params['_'] // _ contains all the values from *
+  location: state.router.params.location
 })
 
 export default compose(

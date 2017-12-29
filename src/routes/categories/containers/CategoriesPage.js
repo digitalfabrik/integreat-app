@@ -79,7 +79,7 @@ class CategoriesPage extends React.Component {
     // Pass data to hierarchy
     const error = hierarchy.build(this.props.pages)
     if (error) {
-      return <Error error={error}/>
+      return <Error error={error} />
     }
 
     return <div>
@@ -88,8 +88,8 @@ class CategoriesPage extends React.Component {
         language={this.props.language}
         location={this.props.location}
       />
-      <Content url={url} hierarchy={hierarchy}/>
-      <PdfButton href={this.getPdfFetchPath()}/>
+      <Content url={url} hierarchy={hierarchy} />
+      <PdfButton href={this.getPdfFetchPath()} />
     </div>
   }
 }

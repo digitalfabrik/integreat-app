@@ -56,7 +56,7 @@ class App extends React.Component {
                   <RichLayout><DisclaimerPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/events* -> Events */}
-                <Fragment forRoute='/events*'>
+                <Fragment forRoute='/events(/:id)'>
                   <RichLayout><EventsPage /></RichLayout>
                 </Fragment>
                 {/* Matches /augsburg/de/redirect -> Redirect */}

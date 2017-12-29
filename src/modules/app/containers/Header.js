@@ -73,7 +73,7 @@ class Header extends React.Component {
   }
 
   isCategoriesSelected () {
-    return !this.isExtrasSelected() && !this.isEventsSelected()
+    return this.props.route === '/:location/:language'
   }
 
   render () {

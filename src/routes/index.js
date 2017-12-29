@@ -17,7 +17,7 @@ export default {
       '/redirect': {
         title: 'Redirect page'
       },
-      '/events*': {
+      '/events(/:id)': {
         title: 'Events page'
       },
       '/fetch-pdf/*': {

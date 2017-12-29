@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventDetail should render 1`] = `
+<Connect(Link)
+  className="event"
+  href="/augsburg/en/events/1234"
+>
+  <img
+    className="eventThumbnail"
+    src="test-file-stub"
+  />
+  <div
+    className="eventDescription"
+  >
+    <div
+      className="eventTitle"
+    >
+      first Event
+    </div>
+    <div
+      className="eventDate"
+    >
+      <Timespan
+        locale="en"
+      />
+      , 
+    </div>
+    <RemoteContent
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "...",
+        }
+      }
+    />
+  </div>
+</Connect(Link)>
+`;

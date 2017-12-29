@@ -1,6 +1,8 @@
 import languages from '../languages'
 import LanguageModel from '../../models/LanguageModel'
 
+jest.unmock('modules/endpoint/endpoints/languages')
+
 describe('languages', () => {
   const languagesJson = [
     {
