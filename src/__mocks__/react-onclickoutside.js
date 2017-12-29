@@ -1,6 +1,8 @@
 import React from 'react'
 
 const onClickOutside = (WrappedComponent) => class extends React.Component {
+  static displayName = `OnClickOutside(${WrappedComponent.displayName || WrappedComponent.name})`
+
   render () {
     const component = <WrappedComponent {...this.props} />
     if (typeof component.type.prototype.handleClickOutside !== 'function') {
