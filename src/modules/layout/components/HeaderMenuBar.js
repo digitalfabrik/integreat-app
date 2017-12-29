@@ -12,6 +12,10 @@ export const MENU_ITEMS_PROP_TYPE = PropTypes.arrayOf(PropTypes.shape({
   active: PropTypes.bool.isRequired
 }))
 
+/**
+ * Designed to work with Header. In the MenuBar you can display textual links. Should be used for navigating as a
+ * main menu.
+ */
 class HeaderMenuBar extends React.Component {
   static propTypes = {
     className: PropTypes.string,
