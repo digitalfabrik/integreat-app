@@ -1,0 +1,14 @@
+.action-items {
+  justify-content: flex-end;
+}
+
+.action-items > * {
+  height: 80%;
+  cursor: pointer;
+}
+
+.action-items img {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20%;
+}

@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import style from './HeaderDropDown.css'
-import headerStyle from './Header.css'
 import onClickOutside from 'react-onclickoutside'
 
 class HeaderDropDown extends React.Component {
   static propTypes = {
-    className: PropTypes.string,
-    iconSrc: PropTypes.string.isRequired
+    iconSrc: PropTypes.string.isRequired,
+    children: PropTypes.element.isRequired
   }
 
   constructor (props) {
@@ -30,17 +29,12 @@ class HeaderDropDown extends React.Component {
 
   render () {
     return (
-      <span className={cx(this.props.className, headerStyle.actionItem)}>
+      <span>
         <img src={this.props.iconSrc}
              onClick={this.toggleDropDown} />
         <div className={cx(style.dropDown, this.state.dropDownActive ? style.dropDownActive : '')}>
-          {
-            // Pass DropDownCallback as prop to children
-            React.Children.map(this.props.children,
-              child => React.cloneElement(child, {
-                closeDropDownCallback: this.handleClickOutside
-              }))
-          }
+          { /* Pass dropDownCallback to child element */ }
+          { React.cloneElement(this.props.children, { closeDropDownCallback: this.handleClickOutside }) }
         </div>
       </span>
     )

@@ -19,13 +19,13 @@ class Header extends React.Component {
   render () {
     return (
       <Headroom>
-        <div className={style.header}>
+        <header className={style.header}>
           <div className={style.logoWide}>
             <img src={logoWide} />
           </div>
-          <HeaderActionBar items={this.props.actionItems} />
+          <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
           <HeaderMenuBar className={style.menuBar} items={this.props.menuItems} />
-        </div>
+        </header>
       </Headroom>
     )
   }
