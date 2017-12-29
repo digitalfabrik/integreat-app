@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
 
-import cx from 'classnames'
-
 import EventModel from '../../../modules/endpoint/models/EventModel'
 
 import style from './EventListElement.css'
