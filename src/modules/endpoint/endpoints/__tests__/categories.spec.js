@@ -36,6 +36,14 @@ describe('categories', () => {
       fa: 4827
     },
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+  },
+  {
+    id: 1234,
+    permalink: {
+      url_page: 'trash'
+    },
+    title: 'Trash',
+    status: 'trash'
   }]
 
   const categoryModels = [

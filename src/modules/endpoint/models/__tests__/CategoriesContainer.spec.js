@@ -4,8 +4,8 @@ import CategoryModel from '../CategoryModel'
 describe('CategoriesContainer', () => {
   const categories = [
     new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
-    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen'}),
-    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte'}),
+    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1}),
+    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2}),
     new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'})
   ]
 
@@ -16,8 +16,12 @@ describe('CategoriesContainer', () => {
   const category3 = categoriesContainer.getCategoryByUrl('/augsburg/de/erste-schritte')
   const category4 = categoriesContainer.getCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
 
-  test('should normalize urls', () => {
-    expect(category1).not.toBe(undefined)
+  test('should get the right categories and normalize urls', () => {
+    expect(category1).toEqual(categories[0])
+    expect(category2).toEqual(categories[1])
+    expect(category3).toEqual(categories[2])
+    expect(category4).toEqual(categories[3])
+    expect(categoriesContainer.getCategoryByUrl('/test/url')).toBe(undefined)
   })
 
   test('should find category by id', () => {
@@ -35,8 +39,8 @@ describe('CategoriesContainer', () => {
     expect(categoriesContainer.getAncestors(category4)[1]).toEqual(category3)
   })
 
-  test('should return all immediate children', () => {
-    expect(categoriesContainer.getChildren(category1)).toContainEqual(category2)
-    expect(categoriesContainer.getChildren(category1)).toContainEqual(category3)
+  test('should return all immediate children in the right order', () => {
+    expect(categoriesContainer.getChildren(category1)[0]).toEqual(category2)
+    expect(categoriesContainer.getChildren(category1)[1]).toEqual(category3)
   })
 })

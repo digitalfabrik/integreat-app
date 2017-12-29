@@ -45,7 +45,7 @@ class SearchPage extends React.Component {
   }
 
   render () {
-    const categories = this.props.categories.categories.filter(category => this.acceptCategory(category))
+    const categories = this.props.categories.toArray().filter(category => this.acceptCategory(category))
 
     return (
       <div>
