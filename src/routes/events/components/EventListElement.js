@@ -20,8 +20,7 @@ class EventListElement extends React.Component {
   static propTypes = {
     event: PropTypes.instanceOf(EventModel).isRequired,
     parentUrl: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    isFirst: PropTypes.bool.isRequired
+    language: PropTypes.string.isRequired
   }
 
   /**
@@ -45,7 +44,7 @@ class EventListElement extends React.Component {
     const dateModel = this.props.event.dateModel
 
     return (
-      <Link href={this.getUrl()} className={this.props.isFirst ? cx(style.firstEvent, style.event) : style.event}>
+      <Link href={this.getUrl()} className={style.event}>
         <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()} />
         <div className={style.eventDescription}>
           <div className={style.eventTitle}>{this.props.event.title}</div>
