@@ -12,4 +12,9 @@ describe('HeaderMenuBar', () => {
     )
     expect(component).toMatchSnapshot()
   })
+
+  test('should add a class when no items supplied', () => {
+    const component = shallow(<HeaderMenuBar items={[]} />)
+    expect(component.find('div').prop('className')).toEqual('menuBar hidden')
+  })
 })
