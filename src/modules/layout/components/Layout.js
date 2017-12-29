@@ -5,8 +5,8 @@ import style from './Layout.css'
 
 /**
  * The standard Layout, used for any view in this app as a container.
- * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox,
- * the footer will always stick to the bottom of the viewbox.
+ * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
+ * always stick to the bottom of the viewbox.
  */
 class Layout extends React.Component {
   static propTypes = {
