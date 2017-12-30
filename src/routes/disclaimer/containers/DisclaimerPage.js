@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import Page from 'routes/categories/components/Page'
+import Page from 'modules/common/components/Page'
 import PageModel from 'modules/endpoint/models/CategoryModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
@@ -26,7 +26,8 @@ class DisclaimerPage extends React.Component {
   }
 
   render () {
-    return <Page page={this.props.disclaimer} />
+    return <Page title={this.props.disclaimer.title}
+                 content={this.props.disclaimer.title} />
   }
 }
 
