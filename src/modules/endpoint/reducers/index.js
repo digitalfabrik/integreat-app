@@ -1,6 +1,6 @@
-import langaugeEndpoint from '../endpoints/languages'
-import locationsEndpoint from '../endpoints/locations'
-import pageEndpoint from '../endpoints/pages'
+import languagesEndpoint from '../endpoints/languages'
+import locationEndpoint from '../endpoints/locations'
+import categoriesEndpoint from '../endpoints/categories'
 import eventsEndpoint from '../endpoints/events'
 import disclaimerEndpoint from '../endpoints/disclaimer'
 
@@ -8,9 +8,9 @@ import disclaimerEndpoint from '../endpoints/disclaimer'
  * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
  */
 const endpoints = [
-  langaugeEndpoint,
-  locationsEndpoint,
-  pageEndpoint,
+  languagesEndpoint,
+  locationEndpoint,
+  categoriesEndpoint,
   disclaimerEndpoint,
   eventsEndpoint
 ]

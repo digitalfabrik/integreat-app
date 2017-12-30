@@ -12,7 +12,6 @@ import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
-import RedirectPage from 'routes/redirect/containers/RedirectPage'
 import { Fragment } from 'redux-little-router'
 import RichLayout from 'modules/app/containers/RichLayout'
 import Layout from 'modules/app/components/Layout'
@@ -59,12 +58,8 @@ class App extends React.Component {
                 <Fragment forRoute='/events(/:id)'>
                   <RichLayout><EventsPage /></RichLayout>
                 </Fragment>
-                {/* Matches /augsburg/de/redirect -> Redirect */}
-                <Fragment forRoute='/redirect'>
-                  <RichLayout><RedirectPage /></RichLayout>
-                </Fragment>
                 {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
-                <Fragment forRoute='/fetch-pdf/*'>
+                <Fragment forRoute='/fetch-pdf'>
                   <Layout><PdfFetcherPage /></Layout>
                 </Fragment>
                 {/* Matches /augsburg/de/* -> Content */}

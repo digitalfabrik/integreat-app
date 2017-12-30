@@ -18,7 +18,7 @@ import languageIcon from '../assets/language-icon.svg'
 import logoWide from '../assets/integreat-app-logo.png'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATION_ENDPOINT from 'modules/endpoint/endpoints/locations'
+import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 
 class MenuItem extends React.Component {
   static propTypes = {
@@ -73,7 +73,7 @@ class Header extends React.Component {
   }
 
   isCategoriesSelected () {
-    return this.props.route === '/:location/:language'
+    return this.props.route === '/:location/:language' || this.props.route === '/:location/:language/*'
   }
 
   render () {
@@ -121,6 +121,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATION_ENDPOINT, true, true),
+  withFetcher(LOCATIONS_ENDPOINT, true, true),
   translate('app')
 )(Header)
