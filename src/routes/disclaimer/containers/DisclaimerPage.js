@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import DisclaimerModel from 'modules/endpoint/models/CategoryModel'
+import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
@@ -15,7 +15,7 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 /**
  * Displays the locations disclaimer matching the route /<location>/<language>/disclaimer
  */
-class DisclaimerPage extends React.Component {
+export class DisclaimerPage extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     location: PropTypes.string.isRequired,
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
   withFetcher(DISCLAIMER_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT),
-  connect(mapStateToProps, mapDispatchToProps)
+  withFetcher(LANGUAGES_ENDPOINT)
 )(DisclaimerPage)

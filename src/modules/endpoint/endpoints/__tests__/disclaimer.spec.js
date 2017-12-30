@@ -1,6 +1,8 @@
 import disclaimer from '../disclaimer'
 import DisclaimerModel from '../../models/DisclaimerModel'
 
+jest.unmock('../disclaimer')
+
 describe('disclaimer', () => {
   const pageJson = {
     id: 1689,
