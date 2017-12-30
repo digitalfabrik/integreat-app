@@ -27,7 +27,7 @@ class DisclaimerPage extends React.Component {
 
   render () {
     return <Page title={this.props.disclaimer.title}
-                 content={this.props.disclaimer.title} />
+                 content={this.props.disclaimer.content} />
   }
 }
 
