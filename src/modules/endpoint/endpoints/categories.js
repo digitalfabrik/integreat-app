@@ -1,7 +1,7 @@
 import EndpointBuilder from '../EndpointBuilder'
 
 import CategoryModel from '../models/CategoryModel'
-import CategoriesContainer from '../models/CategoriesContainer'
+import CategoriesMapModel from '../models/CategoriesMapModel'
 
 export default new EndpointBuilder('categories')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z')
@@ -32,6 +32,6 @@ export default new EndpointBuilder('categories')
       }
     })
 
-    return new CategoriesContainer(categories)
+    return new CategoriesMapModel(categories)
   })
   .build()

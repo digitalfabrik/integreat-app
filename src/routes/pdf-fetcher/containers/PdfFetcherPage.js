@@ -14,12 +14,12 @@ import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Error from 'modules/common/containers/Error'
-import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
+import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    categories: PropTypes.instanceOf(CategoriesContainer).isRequired,
+    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     fetchUrl: PropTypes.string.isRequired
