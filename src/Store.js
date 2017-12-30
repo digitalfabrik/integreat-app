@@ -11,7 +11,7 @@ import { createLogger } from 'redux-logger'
 import setLanguageChangeUrlsReducer from 'modules/language/reducers/setLanguageChangeUrls'
 
 class Store {
-  init () {
+  init (initialState) {
     this._history = createBrowserHistory()
 
     this.history.listen((location, action) => {
@@ -66,7 +66,7 @@ class Store {
       )
     }
 
-    this._store = configureStore()
+    this._store = configureStore(initialState)
 
     const initialLocation = this.getState().router
 

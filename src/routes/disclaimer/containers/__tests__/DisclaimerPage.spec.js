@@ -8,6 +8,7 @@ import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Payload from 'modules/endpoint/Payload'
+import Store from '../../../../Store'
 
 const mockSetLanguageChangeUrls = jest.fn()
 
@@ -62,14 +63,15 @@ describe('DisclaimerPage', () => {
 
   describe('connect', () => {
     test('should map state to props', () => {
-      const store = mockStore({
+      const store = new Store()
+      store.init({
         disclaimer: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: 'augsburg'}}
+        router: {params: {location: location}}
       })
 
       const tree = mount(
-        <Provider store={store}>
+        <Provider store={store.redux}>
           <ConnectedDisclaimerPage />
         </Provider>
       )
@@ -99,7 +101,7 @@ describe('DisclaimerPage', () => {
       }
 
       const tree = mount(
-        <Provider store={store}>
+        <Provider store={Store}>
           <ConnectedDisclaimerPage />
         </Provider>
       )
