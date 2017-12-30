@@ -22,7 +22,7 @@ class CategoriesContainer {
 
   /**
    * Returns the category with the given url
-   * @param url The url
+   * @param {String} url The url
    * @return {CategoryModel | undefined} The category
    */
   getCategoryByUrl (url) {

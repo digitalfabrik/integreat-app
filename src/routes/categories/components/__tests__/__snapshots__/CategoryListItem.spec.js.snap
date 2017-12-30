@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryListItem should render and match snapshot 1`] = `
+<Connect(Link)
+  href="/augsburg/de/willkommen"
+>
+  <div
+    className="row"
+  >
+    <img
+      className="categoryThumbnail"
+      src="https://cms.integreat-ap…03/Beratung-150x150.png"
+    />
+    <div
+      className="categoryCaption"
+    >
+      Willkommen
+    </div>
+  </div>
+</Connect(Link)>
+`;

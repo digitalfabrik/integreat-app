@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import compose from 'lodash/fp/compose'
 
-import ContentList from 'routes/categories/components/ContentList'
 import SearchInput from 'modules/common/components/SearchInput'
 
 import style from './SearchPage.css'
@@ -15,6 +14,7 @@ import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import CategoryList from '../../categories/components/CategoryList'
 
 class SearchPage extends React.Component {
   static propTypes = {
@@ -52,7 +52,7 @@ class SearchPage extends React.Component {
         <SearchInput className={style.searchSpacing}
                      filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: filterText})} />
-        <ContentList categories={categories} />
+        <CategoryList categories={categories} />
       </div>
     )
   }
