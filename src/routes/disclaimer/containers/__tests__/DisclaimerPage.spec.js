@@ -86,7 +86,6 @@ describe('DisclaimerPage', () => {
     })
 
     test('should map dispatch to props', () => {
-      const mockStore = configureMockStore([thunk])
       const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),

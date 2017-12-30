@@ -18,7 +18,7 @@ export default new EndpointBuilder('disclaimer')
         return new DisclaimerModel({
           id: disclaimer.id,
           title: disclaimer.title,
-          content: disclaimer.content,
+          content: disclaimer.content
         })
       })
 
