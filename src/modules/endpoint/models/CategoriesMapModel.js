@@ -3,7 +3,7 @@ import normalizeUrl from 'normalize-url'
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
  */
-class CategoriesContainer {
+class CategoriesMapModel {
   /**
    * Creates a Map [url -> category] from the categories provided,
    * whose parent attributes are first changed from id to url
@@ -69,4 +69,4 @@ class CategoriesContainer {
   }
 }
 
-export default CategoriesContainer
+export default CategoriesMapModel

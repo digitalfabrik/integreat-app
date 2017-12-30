@@ -8,7 +8,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
-import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
+import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
@@ -25,7 +25,7 @@ import Error from '../../../modules/common/containers/Error'
  */
 class CategoriesPage extends React.Component {
   static propTypes = {
-    categories: PropTypes.instanceOf(CategoriesContainer).isRequired,
+    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     location: PropTypes.string.isRequired,
