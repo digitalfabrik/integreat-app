@@ -86,6 +86,7 @@ describe('DisclaimerPage', () => {
     })
 
     test('should map dispatch to props', () => {
+      const mockStore = configureMockStore([thunk])
       const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),
@@ -101,7 +102,7 @@ describe('DisclaimerPage', () => {
       }
 
       const tree = mount(
-        <Provider store={Store}>
+        <Provider store={store}>
           <ConnectedDisclaimerPage />
         </Provider>
       )
