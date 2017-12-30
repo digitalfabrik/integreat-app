@@ -44,11 +44,9 @@ class CategoriesMapModel {
    * @return {CategoryModel[] | undefined} The children
    */
   getChildren (category) {
-    if (category) {
-      return this.toArray()
-        .filter(_category => _category.parentUrl === category.url)
-        .sort((category1, category2) => (category1.order - category2.order))
-    }
+    return this.toArray()
+      .filter(_category => _category.parentUrl === category.url)
+      .sort((category1, category2) => (category1.order - category2.order))
   }
 
   /**
@@ -59,11 +57,9 @@ class CategoriesMapModel {
   getAncestors (category) {
     const parents = []
 
-    if (category) {
-      while (category.id !== 0) {
-        category = this.getCategoryByUrl(category.parentUrl)
-        parents.unshift(category)
-      }
+    while (category.id !== 0) {
+      category = this.getCategoryByUrl(category.parentUrl)
+      parents.unshift(category)
     }
     return parents
   }
