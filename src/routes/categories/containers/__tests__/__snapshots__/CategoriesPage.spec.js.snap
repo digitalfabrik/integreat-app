@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoriesPage should render CategoryTiles if the path is the root category 1`] = `
+<div>
+  <Breadcrumbs
+    locations={
+      Array [
+        LocationModel {
+          "_code": "augsburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Augsburg",
+          "_sortCategory": "A",
+          "_sortKey": "augsburg",
+        },
+        LocationModel {
+          "_code": "regensburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Stadt Regensburg",
+          "_sortCategory": "R",
+          "_sortKey": "regensburg",
+        },
+        LocationModel {
+          "_code": "werne",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Werne",
+          "_sortCategory": "W",
+          "_sortKey": "werne",
+        },
+      ]
+    }
+    parents={Array []}
+  />
+  <CategoryTiles
+    categories={
+      Array [
+        CategoryModel {
+          "_availableLanguages": Object {
+            "ar": 4819,
+            "en": 4804,
+            "fa": 4827,
+          },
+          "_content": "",
+          "_id": 3649,
+          "_order": 11,
+          "_parentId": 0,
+          "_parentUrl": "/augsburg/de",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
+          "_url": "/augsburg/de/willkommen",
+        },
+        CategoryModel {
+          "_availableLanguages": Object {
+            "ar": 4367,
+            "en": 4361,
+            "fa": 4368,
+          },
+          "_content": "",
+          "_id": 3650,
+          "_order": 75,
+          "_parentId": 0,
+          "_parentUrl": "/augsburg/de",
+          "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+          "_title": "Anlaufstellen zu sonstigen Themen",
+          "_url": "/augsburg/de/anlaufstellen",
+        },
+      ]
+    }
+    locations={
+      Array [
+        LocationModel {
+          "_code": "augsburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Augsburg",
+          "_sortCategory": "A",
+          "_sortKey": "augsburg",
+        },
+        LocationModel {
+          "_code": "regensburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Stadt Regensburg",
+          "_sortCategory": "R",
+          "_sortKey": "regensburg",
+        },
+        LocationModel {
+          "_code": "werne",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Werne",
+          "_sortCategory": "W",
+          "_sortKey": "werne",
+        },
+      ]
+    }
+    title="augsburg"
+  />
+  <PdfButton
+    href="/augsburg/en/fetch-pdf?url=/augsburg/de"
+  />
+</div>
+`;
+
+exports[`CategoriesPage should render a CategoryList if the path is neither root category nor a category with children 1`] = `
+<div>
+  <Breadcrumbs
+    locations={
+      Array [
+        LocationModel {
+          "_code": "augsburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Augsburg",
+          "_sortCategory": "A",
+          "_sortKey": "augsburg",
+        },
+        LocationModel {
+          "_code": "regensburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Stadt Regensburg",
+          "_sortCategory": "R",
+          "_sortKey": "regensburg",
+        },
+        LocationModel {
+          "_code": "werne",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Werne",
+          "_sortCategory": "W",
+          "_sortKey": "werne",
+        },
+      ]
+    }
+    parents={
+      Array [
+        CategoryModel {
+          "_availableLanguages": Object {},
+          "_content": "",
+          "_id": 0,
+          "_order": 0,
+          "_parentId": -1,
+          "_parentUrl": null,
+          "_thumbnail": null,
+          "_title": "augsburg",
+          "_url": "/augsburg/de",
+        },
+      ]
+    }
+  />
+  <CategoryList
+    categories={
+      Array [
+        CategoryModel {
+          "_availableLanguages": Object {
+            "ar": "397",
+            "de": "711",
+            "en": "390",
+          },
+          "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
+",
+          "_id": 35,
+          "_order": 1,
+          "_parentId": 3649,
+          "_parentUrl": "/augsburg/de/willkommen",
+          "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+          "_title": "Willkommen in Augsburg",
+          "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+        },
+      ]
+    }
+    content=""
+    title="Willkommen"
+  />
+  <PdfButton
+    href="/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen"
+  />
+</div>
+`;
+
+exports[`CategoriesPage should render a Page if page has no children 1`] = `
+<div>
+  <Breadcrumbs
+    locations={
+      Array [
+        LocationModel {
+          "_code": "augsburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Augsburg",
+          "_sortCategory": "A",
+          "_sortKey": "augsburg",
+        },
+        LocationModel {
+          "_code": "regensburg",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Stadt Regensburg",
+          "_sortCategory": "R",
+          "_sortKey": "regensburg",
+        },
+        LocationModel {
+          "_code": "werne",
+          "_eventsEnabled": undefined,
+          "_extrasEnabled": undefined,
+          "_live": undefined,
+          "_name": "Werne",
+          "_sortCategory": "W",
+          "_sortKey": "werne",
+        },
+      ]
+    }
+    parents={
+      Array [
+        CategoryModel {
+          "_availableLanguages": Object {},
+          "_content": "",
+          "_id": 0,
+          "_order": 0,
+          "_parentId": -1,
+          "_parentUrl": null,
+          "_thumbnail": null,
+          "_title": "augsburg",
+          "_url": "/augsburg/de",
+        },
+        CategoryModel {
+          "_availableLanguages": Object {
+            "ar": 4819,
+            "en": 4804,
+            "fa": 4827,
+          },
+          "_content": "",
+          "_id": 3649,
+          "_order": 11,
+          "_parentId": 0,
+          "_parentUrl": "/augsburg/de",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
+          "_url": "/augsburg/de/willkommen",
+        },
+      ]
+    }
+  />
+  <Page
+    content="<p>Willkommen in Augsbur…er Stadt Augsburg</p>
+"
+    title="Willkommen in Augsburg"
+  />
+  <PdfButton
+    href="/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen/willkommen-in-augsburg"
+  />
+</div>
+`;
+
+exports[`CategoriesPage should render an Error if path is not valid 1`] = `
+<Connect(Component)
+  error="not-found:page.notFound"
+/>
+`;

@@ -12,18 +12,18 @@ import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import Error from 'modules/common/containers/Error'
+import Page from 'modules/common/components/Page'
 
 import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
-import Page from '../components/Page'
 import CategoryTiles from '../components/CategoryTiles'
 import CategoryList from '../components/CategoryList'
-import Error from '../../../modules/common/containers/Error'
 
 /**
- * Displays a CategoryTable, CategoryList or a single category matching the route /<location>/<language>*
+ * Displays a CategoryTable, CategoryList or a single category as page matching the route /<location>/<language>*
  */
-class CategoriesPage extends React.Component {
+export class CategoriesPage extends React.Component {
   static propTypes = {
     categories: PropTypes.instanceOf(CategoriesContainer).isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
@@ -43,23 +43,25 @@ class CategoriesPage extends React.Component {
   componentDidMount () {
     if (this.props.categoryId) {
       const category = this.props.categories.getCategoryById(this.props.categoryId)
-      if (!category) {
-        // todo show an error that the page has not been found, redirect to the notFound route
+      if (category) {
+        this.props.replaceUrl(category.url)
       }
-      this.props.replaceUrl(category.url)
     }
-    this.setLanguageChangeUrls(this.props.path)
+    const category = this.props.categories.getCategoryByUrl(this.props.path)
+    this.setLanguageChangeUrls(category)
   }
 
   /**
-   * Dispatches the action to set the language change urls after a prop change (selection of a category)
+   * Dispatches the action to set the language change urls after a prop change
+   * (selection of a category or update of categories)
    * we must NOT call dispatch in componentWillUpdate or componentDidUpdate
    * @see https://reactjs.org/docs/react-component.html#componentwillupdate
    * @param nextProps The new props
    */
   componentWillReceiveProps (nextProps) {
-    if (nextProps.path !== this.props.path) {
-      this.setLanguageChangeUrls(nextProps.path)
+    if (nextProps.path !== this.props.path || nextProps.categories !== this.props.categories) {
+      const category = nextProps.categories.getCategoryByUrl(nextProps.path)
+      this.setLanguageChangeUrls(category)
     }
   }
 
@@ -75,12 +77,14 @@ class CategoriesPage extends React.Component {
 
   /**
    * Gets and stores the available languages for the current page
-   * @param {string} path The current path
+   * @param {CategoryModel | undefined} category The current category
    */
-  setLanguageChangeUrls (path) {
-    this.props.setLanguageChangeUrls(
-      this.mapLanguageToUrl, this.props.languages, this.props.categories.getCategoryByUrl(path).availableLanguages
-    )
+  setLanguageChangeUrls (category) {
+    if (category) {
+      this.props.setLanguageChangeUrls(
+        this.mapLanguageToUrl, this.props.languages, category.availableLanguages
+      )
+    }
   }
 
   getPdfFetchPath () {
@@ -100,7 +104,8 @@ class CategoriesPage extends React.Component {
 
     if (children.length === 0) {
       // last level, our category is a simple page
-      return <Page page={category} />
+      return <Page title={category.title}
+                   content={category.content} />
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
       return <CategoryTiles categories={children}
@@ -109,14 +114,15 @@ class CategoriesPage extends React.Component {
     }
     // some level between, we want to display a list
     return <CategoryList categories={children}
-                         parentCategory={category} />
+                         title={category.title}
+                         content={category.content} />
   }
 
   render () {
     const category = this.props.categories.getCategoryByUrl(this.props.path)
 
     if (!category) {
-      return <Error error="not-found:page.notFound"/>
+      return <Error error='not-found:page.notFound' />
     }
 
     return <div>
@@ -138,7 +144,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   language: state.router.params.language,
   location: state.router.params.location,
-  path: state.router.pathname, // _ contains all the values from *
+  path: state.router.pathname,
   categoryId: state.router.query.id
 })
 
