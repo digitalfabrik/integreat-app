@@ -10,8 +10,6 @@ import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Payload from 'modules/endpoint/Payload'
 import Store from '../../../../Store'
 
-const mockSetLanguageChangeUrls = jest.fn()
-
 const location = 'augsburg'
 const languages = [
   new LanguageModel('en', 'English'),
@@ -24,9 +22,7 @@ const disclaimer = new DisclaimerModel({
 })
 
 describe('DisclaimerPage', () => {
-  beforeEach(() => {
-    mockSetLanguageChangeUrls.mockClear()
-  })
+  const mockSetLanguageChangeUrls = jest.fn()
 
   test('should render', () => {
     const wrapper = shallow(
@@ -38,6 +34,8 @@ describe('DisclaimerPage', () => {
   })
 
   test('should dispatch once in componentDidMount', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const disclaimerPage = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
@@ -50,6 +48,8 @@ describe('DisclaimerPage', () => {
   })
 
   test('mapLanguageToUrl', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const disclaimerPage = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
