@@ -23,8 +23,7 @@ class CategoryList extends React.Component {
     return (
       <div>
         {this.props.title ? <Caption title={this.props.title} /> : null}
-        <RemoteContent className={style.shortText}
-                       dangerouslySetInnerHTML={{__html: this.props.content}} />
+        <RemoteContent isCentered dangerouslySetInnerHTML={{__html: this.props.content}} />
         <div className={style.list}>
           {this.props.categories.map(category =>
             <CategoryListItem key={category.id}
