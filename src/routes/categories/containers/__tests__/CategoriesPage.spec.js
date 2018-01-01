@@ -78,16 +78,11 @@ const languages = [
 
 const language = 'en'
 
-const mockSetLanguageChangeUrls = jest.fn()
-const mockReplaceUrl = jest.fn()
-
 describe('CategoriesPage', () => {
-  beforeEach(() => {
-    mockSetLanguageChangeUrls.mockClear()
-    mockReplaceUrl.mockClear()
-  })
-
   test('should render a Page if page has no children', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -103,6 +98,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should render a CategoryList if the path is neither root category nor a category with children', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -118,6 +116,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should render CategoryTiles if the path is the root category', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -133,6 +134,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should render an Error if path is not valid', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -148,6 +152,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should dispatch once in componentDidMount if the path is valid', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const categoriesPage = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -166,6 +173,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should not dispatch in componentDidMount if the path is invalid', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -181,6 +191,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should dispatch on prop update', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -203,6 +216,9 @@ describe('CategoriesPage', () => {
   })
 
   test('should not dispatch on prop update if neither path nor categories are updated', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -222,6 +238,9 @@ describe('CategoriesPage', () => {
   })
 
   test('mapLanguageToUrl', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const mapLanguageToUrl = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -239,6 +258,9 @@ describe('CategoriesPage', () => {
   })
 
   test('getPdfFetchPath', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+    const mockReplaceUrl = jest.fn()
+
     const categoriesPage = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
