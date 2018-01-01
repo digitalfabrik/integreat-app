@@ -1,7 +1,7 @@
-import CategoriesContainer from '../CategoriesContainer'
+import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
 
-describe('CategoriesContainer', () => {
+describe('CategoriesMapModel', () => {
   const categories = [
     new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
     new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1}),
@@ -9,23 +9,23 @@ describe('CategoriesContainer', () => {
     new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'})
   ]
 
-  const categoriesContainer = new CategoriesContainer(categories)
+  const categoriesMapModel = new CategoriesMapModel(categories)
 
-  const category1 = categoriesContainer.getCategoryByUrl('/augsburg/de/')
-  const category2 = categoriesContainer.getCategoryByUrl('/augsburg/de/willkommen')
-  const category3 = categoriesContainer.getCategoryByUrl('/augsburg/de/erste-schritte')
-  const category4 = categoriesContainer.getCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
+  const category1 = categoriesMapModel.getCategoryByUrl('/augsburg/de/')
+  const category2 = categoriesMapModel.getCategoryByUrl('/augsburg/de/willkommen')
+  const category3 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte')
+  const category4 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
 
   test('should get the right categories and normalize urls', () => {
     expect(category1).toEqual(categories[0])
     expect(category2).toEqual(categories[1])
     expect(category3).toEqual(categories[2])
     expect(category4).toEqual(categories[3])
-    expect(categoriesContainer.getCategoryByUrl('/test/url')).toBe(undefined)
+    expect(categoriesMapModel.getCategoryByUrl('/test/url')).toBe(undefined)
   })
 
   test('should find category by id', () => {
-    expect(categoriesContainer.getCategoryById(category1.id)).toBe(category1)
+    expect(categoriesMapModel.getCategoryById(category1.id)).toBe(category1)
   })
 
   test('should have the right parent attributes', () => {
@@ -35,12 +35,12 @@ describe('CategoriesContainer', () => {
   })
 
   test('should return all (mediate) parents in right order', () => {
-    expect(categoriesContainer.getAncestors(category4)[0]).toEqual(category1)
-    expect(categoriesContainer.getAncestors(category4)[1]).toEqual(category3)
+    expect(categoriesMapModel.getAncestors(category4)[0]).toEqual(category1)
+    expect(categoriesMapModel.getAncestors(category4)[1]).toEqual(category3)
   })
 
   test('should return all immediate children in the right order', () => {
-    expect(categoriesContainer.getChildren(category1)[0]).toEqual(category2)
-    expect(categoriesContainer.getChildren(category1)[1]).toEqual(category3)
+    expect(categoriesMapModel.getChildren(category1)[0]).toEqual(category2)
+    expect(categoriesMapModel.getChildren(category1)[1]).toEqual(category3)
   })
 })
