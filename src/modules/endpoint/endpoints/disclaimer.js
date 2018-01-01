@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash/lang'
 
 import EndpointBuilder from '../EndpointBuilder'
 
-import PageModel from '../models/CategoryModel'
+import DisclaimerModel from '../models/DisclaimerModel'
 
 export default new EndpointBuilder('disclaimer')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z')
@@ -13,19 +13,12 @@ export default new EndpointBuilder('disclaimer')
     }
 
     const disclaimers = json
-      .filter((page) => page.status === 'publish')
-      .map((page) => {
-        const id = page.permalink.url_page.split('/').pop()
-        const numericId = page.id
-
-        return new PageModel({
-          id,
-          numericId,
-          title: page.title,
-          parent: page.parent,
-          content: page.content,
-          thumbnail: page.thumbnail,
-          order: page.order
+      .filter((disclaimer) => disclaimer.status === 'publish')
+      .map((disclaimer) => {
+        return new DisclaimerModel({
+          id: disclaimer.id,
+          title: disclaimer.title,
+          content: disclaimer.content
         })
       })
 

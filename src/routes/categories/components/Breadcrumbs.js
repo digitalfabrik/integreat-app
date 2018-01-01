@@ -17,29 +17,34 @@ class Breadcrumbs extends React.Component {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
-  getLocationTitle (title) {
+  /**
+   * Our root categories don't have the right title (location code instead of location title), so we have to compare the
+   * title of the root category with the code of every location
+   * @param {String} title The title of the category to search for
+   * @return {String} The found name or the given title
+   */
+  getLocationName (title) {
     const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
 
   getBreadcrumbs () {
-    return this.props.parents.map(parent => ({title: this.getLocationTitle(parent.title), url: parent.url}))
+    return this.props.parents.map(parent => {
+      const title = parent.id === 0 ? this.getLocationName(parent.title) : parent.title
+      return (
+        <Link key={parent.url}
+              className={style.breadcrumb}
+              href={parent.url}>
+          <span className={style.separator} />
+          <span className={style.level}>{title}</span>
+        </Link>
+      )
+    })
   }
 
   render () {
-    const breadcrumbs = this.getBreadcrumbs()
-
     return <div className={style.breadcrumbs}>
-      {breadcrumbs.map(breadcrumb => {
-        return (
-          <Link key={breadcrumb.url}
-                className={style.breadcrumb}
-                href={breadcrumb.url}>
-            <span className={style.separator} />
-            <span className={style.level}>{breadcrumb.title}</span>
-          </Link>
-        )
-    })}
+      {this.getBreadcrumbs()}
     </div>
   }
 }

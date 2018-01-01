@@ -1,5 +1,7 @@
 import disclaimer from '../disclaimer'
-import CategoryModel from '../../models/CategoryModel'
+import DisclaimerModel from '../../models/DisclaimerModel'
+
+jest.unmock('../disclaimer')
 
 describe('disclaimer', () => {
   const pageJson = {
@@ -36,15 +38,10 @@ describe('disclaimer', () => {
 
   test('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse([pageJson])
-    expect(disclaimerModel).toEqual(new CategoryModel({
-      id: pageJson.permalink.url_page,
-      numericId: pageJson.id,
+    expect(disclaimerModel).toEqual(new DisclaimerModel({
+      id: pageJson.id,
       title: pageJson.title,
-      parent: pageJson.parent,
-      content: pageJson.content,
-      thumbnail: pageJson.thumbnail,
-      order: pageJson.order,
-      children: []
+      content: pageJson.content
     }))
   })
 })

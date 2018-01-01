@@ -2,6 +2,8 @@ import categories from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
 
+jest.unmock('../categories')
+
 describe('categories', () => {
   const categoriesJSON = [{
     id: 3650,

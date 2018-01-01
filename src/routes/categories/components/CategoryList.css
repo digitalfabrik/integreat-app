@@ -1,23 +1,12 @@
 @import url('../../../modules/common/constants/colors.css');
+@import url('../../../modules/common/constants/helpers.css');
 
-.horizontal-line {
-  height: 100%;
-  margin-bottom: 10px;
-  border-bottom: 2px solid var(--theme-color);
+.list a {
+  @mixin remove-a;
 }
 
-.heading {
-  margin: 20px 0;
-}
-
-.heading-text {
-  margin-top: 5px;
-  text-align: center;
-}
-
-.heading-image {
-  display: block;
-  margin: 0 auto;
+.list {
+  border-top: 2px solid var(--theme-color);
 }
 
 .short-text {

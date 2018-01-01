@@ -10,8 +10,8 @@ class PdfButton extends React.Component {
   }
 
   render () {
-    return <a className={style.pdfWrapper} href={this.props.href} target="_blank">
-      <FontAwesome name='file-pdf-o'/>
+    return <a className={style.pdfWrapper} href={this.props.href} target='_blank'>
+      <FontAwesome name='file-pdf-o' />
     </a>
   }
 }
