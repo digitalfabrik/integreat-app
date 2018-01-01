@@ -9,7 +9,7 @@ import Payload from 'modules/endpoint/Payload'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import CategoriesContainer from 'modules/endpoint/models/CategoriesContainer'
+import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
 const categoryModels = [
   new CategoryModel({
@@ -60,7 +60,7 @@ const categoryModels = [
   })
 ]
 
-const categories = new CategoriesContainer(categoryModels)
+const categories = new CategoriesMapModel(categoryModels)
 
 const locations = [
   new LocationModel({name: 'Augsburg', code: 'augsburg'}),
