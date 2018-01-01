@@ -5,7 +5,7 @@ import EndpointBuilder from './modules/endpoint/EndpointBuilder'
 import LanguageModel from './modules/endpoint/models/LanguageModel'
 import DisclaimerModel from './modules/endpoint/models/DisclaimerModel'
 import CategoryModel from './modules/endpoint/models/CategoryModel'
-import CategoriesContainer from './modules/endpoint/models/CategoriesContainer'
+import CategoriesMapModel from './modules/endpoint/models/CategoriesMapModel'
 
 configure({adapter: new Adapter()})
 
@@ -17,7 +17,7 @@ const languages = [
   new LanguageModel('en', 'English')
 ]
 
-const categories = new CategoriesContainer([
+const categories = new CategoriesMapModel([
   new CategoryModel({
     id: 3650,
     url: '/augsburg/de/anlaufstellen',
