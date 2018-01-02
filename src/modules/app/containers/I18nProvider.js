@@ -7,9 +7,10 @@ import WebFont from 'webfontloader'
 import PropTypes from 'prop-types'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import resources from '../../../locales.json'
+import localesResources from '../../../locales.json'
 
 const RTL_LANGUAGES = ['ar', 'fa']
+const FALLBACK_LANGUAGE = 'en'
 
 class I18nProvider extends React.Component {
   static propTypes = {
@@ -17,57 +18,59 @@ class I18nProvider extends React.Component {
     language: PropTypes.string
   }
 
-  constructor () {
-    super()
-
-    // Transform locale resources to the structure: languageCode -> namespace -> key:value
-    // And not: namespace -> languageCode -> key:value
-    const i18nextResources = reduce(resources, (accumulator, namespace, namespaceName) => {
+  /**
+   * Transform locale resources to the structure: languageCode -> namespace -> key:value
+   * And not: namespace -> languageCode -> key:value
+   */
+  transformResources (resources) {
+    return reduce(resources, (accumulator, namespace, namespaceName) => {
       forEach(namespace, (language, languageCode) => {
         accumulator[languageCode] = {...accumulator[languageCode], [namespaceName]: language}
       })
       return accumulator
     }, {})
+  }
 
-    i18n
+  constructor () {
+    super()
+
+    const i18nextResources = this.transformResources(localesResources)
+    this._i18n = i18n
       .use(LanguageDetector)
       .init({
         resources: i18nextResources,
-        fallbackLng: 'en',
-        ns: ['common', 'errors', 'Location', 'Search', 'Footer'],
-        defaultNS: 'common',
+        fallbackLng: FALLBACK_LANGUAGE,
         load: 'languageOnly',
         // eslint-disable-next-line no-undef
         debug: __DEV__
       })
+
+    this.state = {language: FALLBACK_LANGUAGE}
   }
 
-  // Set app language to primary language of i18next
-  // store.dispatch(setLanguage(i18n.languages[0])) // fixme
-  static handleLanguageChange (language) {
-    const lang = language || i18n.languages[0]
+  setLanguage (language) {
+    const targetLanguage = language || this._i18n.languages[0]
+    this.setState({language: targetLanguage})
     /* Use language from browser detection if it is not available in url
                                          todo: redirect to correct url */
-
-    // Handle ltr/rtl
-    document.body.style.direction = RTL_LANGUAGES.includes(lang) ? 'rtl' : 'ltr'
+    document.documentElement.lang = targetLanguage
 
     // Set i18n language to apps language
-    i18n.changeLanguage(lang)
-    I18nProvider.loadFonts(lang)
+    this._i18n.changeLanguage(targetLanguage)
+    this.loadFonts(targetLanguage)
   }
 
   componentWillMount () {
-    I18nProvider.handleLanguageChange(this.props.language)
+    this.setLanguage(this.props.language)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.language !== this.props.language) {
-      I18nProvider.handleLanguageChange(nextProps.language)
+      this.setLanguage(nextProps.language)
     }
   }
 
-  static loadFonts (language) {
+  loadFonts (language) {
     // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
     const arabicFonts = ['Lateef:400', 'Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
     // We do not need an arabic font
@@ -78,12 +81,14 @@ class I18nProvider extends React.Component {
       ku: arabicFonts
     }
 
-    WebFont.load({google: {families: families[language] || latinFonts}})
+    WebFont.load({google: {families: families[this.state.language] || latinFonts}})
   }
 
   render () {
-    return <I18nextProvider i18n={i18n}>
-      {this.props.children}
+    return <I18nextProvider i18n={this._i18n}>
+      <div style={{'direction': RTL_LANGUAGES.includes(this.state.language) ? 'rtl' : 'ltr'}}>
+        {this.props.children}
+      </div>
     </I18nextProvider>
   }
 }
