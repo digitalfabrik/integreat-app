@@ -63,15 +63,14 @@ describe('DisclaimerPage', () => {
 
   describe('connect', () => {
     test('should map state to props', () => {
-      const store = new Store()
-      store.init({
+      const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),
         router: {params: {location: location}}
       })
 
       const tree = mount(
-        <Provider store={store.redux}>
+        <Provider store={store}>
           <ConnectedDisclaimerPage />
         </Provider>
       )

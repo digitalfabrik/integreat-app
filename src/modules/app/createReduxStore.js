@@ -9,7 +9,7 @@ import endpointReducers from 'modules/endpoint/reducers'
 
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 
-const createReduxStore = (createHistory) => {
+const createReduxStore = (createHistory, initialState) => {
   const history = createHistory()
   const basename = ''
   console.log(routes)
@@ -42,7 +42,7 @@ const createReduxStore = (createHistory) => {
 
   const enhancer = compose(routerEnhancer, applyMiddleware(...middlewares))
 
-  const store = createStore(reducer, undefined, enhancer)
+  const store = createStore(reducer, initialState, enhancer)
 
   const initialLocation = store.router
   if (initialLocation) {
