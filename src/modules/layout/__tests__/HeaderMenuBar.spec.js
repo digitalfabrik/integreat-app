@@ -8,7 +8,7 @@ describe('HeaderMenuBar', () => {
       <HeaderMenuBar className='testClass' items={[
         {href: 'link1', text: 'text1'},
         {href: 'link2', text: 'text2'}
-      ]}/>
+      ]} />
     )
     expect(component).toMatchSnapshot()
   })

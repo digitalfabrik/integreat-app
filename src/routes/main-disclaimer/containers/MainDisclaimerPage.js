@@ -5,10 +5,10 @@ class MainDisclaimerPage extends React.Component {
     return (
       <div>
         <h3>Angaben gemäß § 5 TMG:</h3>
-        <p>Tür an Tür – Digital Factory gGmbH<br/> Wertachstr. 29<br/>
+        <p>Tür an Tür – Digital Factory gGmbH<br /> Wertachstr. 29<br />
           86153 Augsburg</p><p>vertreten durch Herrn Daniel Kehne, Herrn Fritjof Knier</p><p>Aufsichtsbehörde:
         Finanzamt
-        Augsburg-Stadt<br/> Sitz der Gesellschaft: Augsburg<br/> Handelsregister und Registernummer: HRB30759<br/>
+        Augsburg-Stadt<br /> Sitz der Gesellschaft: Augsburg<br /> Handelsregister und Registernummer: HRB30759<br />
         Umsatzsteuer-Identifikationsnummer: DE307491397</p><h3>Kontakt:</h3>
         <table>
           <tbody>
@@ -22,9 +22,9 @@ class MainDisclaimerPage extends React.Component {
           </tr>
           </tbody>
         </table>
-        <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h3><p>Tür an Tür – Digital Factory gGmbH<br/>
+        <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h3><p>Tür an Tür – Digital Factory gGmbH<br />
         Wertachstr.
-        29<br/> 86153 Augsburg</p><h3>Haftungsausschluss (Disclaimer)</h3><p><strong>Haftung für Inhalte</strong></p>
+        29<br /> 86153 Augsburg</p><h3>Haftungsausschluss (Disclaimer)</h3><p><strong>Haftung für Inhalte</strong></p>
         <p>
           Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
           Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet,
