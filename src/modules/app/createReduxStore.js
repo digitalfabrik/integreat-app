@@ -1,18 +1,15 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-
 import thunkMiddleware from 'redux-thunk'
 import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router'
 import { createLogger } from 'redux-logger'
 
 import routes from 'routes'
 import endpointReducers from 'modules/endpoint/reducers'
-
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 
 const createReduxStore = (createHistory, initialState) => {
   const history = createHistory()
   const basename = ''
-  console.log(routes)
 
   // Additional reducers
   const {enhancer: routerEnhancer, reducer: routerReducer, middleware: routerMiddleware} = routerForBrowser({
