@@ -62,7 +62,9 @@ class I18nProvider extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    I18nProvider.handleLanguageChange(nextProps.language)
+    if (nextProps.language !== this.props.language) {
+      I18nProvider.handleLanguageChange(nextProps.language)
+    }
   }
 
   static loadFonts (language) {
