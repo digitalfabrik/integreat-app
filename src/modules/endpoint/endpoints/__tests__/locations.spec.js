@@ -1,6 +1,8 @@
 import locations from '../locations'
 import LocationModel from '../../models/LocationModel'
 
+jest.unmock('../locations')
+
 describe('locations', () => {
   const location1 = {
     name: 'Augsburg',

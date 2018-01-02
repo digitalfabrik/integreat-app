@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
+import { isEmpty } from 'lodash/lang'
 
 import EventListElement from './EventListElement'
 import EventModel from 'modules/endpoint/models/EventModel'
@@ -21,7 +22,7 @@ class EventList extends React.Component {
   render () {
     const {t} = this.props
 
-    if (!this.props.events || this.props.events.length === 0) {
+    if (isEmpty(this.props.events)) {
       return (
         <div>
           <Caption title={t('news')} />
@@ -32,18 +33,20 @@ class EventList extends React.Component {
       )
     }
 
-    const elements = this.props.events.map((event, index) =>
+    const elements = this.props.events.map(event =>
       <EventListElement key={event.id}
                         event={event}
                         parentUrl={this.props.url}
-                        language={this.props.language}
-                        isFirst={index === 0} />
+                        language={this.props.language} />
     )
+
     return (
-      <div className={style.list}>
+      <React.Fragment>
         <Caption title={t('news')} />
-        {elements}
-      </div>
+        <div className={style.list}>
+          {elements}
+        </div>
+      </React.Fragment>
     )
   }
 }

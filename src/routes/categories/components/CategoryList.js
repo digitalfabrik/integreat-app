@@ -4,31 +4,32 @@ import PropTypes from 'prop-types'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
 
-import ContentList from './ContentList'
-
 import style from './CategoryList.css'
+import Caption from '../../../modules/common/components/Caption'
+import CategoryListItem from './CategoryListItem'
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.Component {
   static propTypes = {
-    parentCategory: PropTypes.instanceOf(CategoryModel).isRequired,
-    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
+    categories: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
+    title: PropTypes.string,
+    content: PropTypes.string
   }
 
+  // todo refactor design, will be done in WEBAPP-97
   render () {
     return (
       <div>
-        <div className={style.horizontalLine}>
-          <div className={style.heading}>
-            <img className={style.headingImage} src={this.props.parentCategory.thumbnail} />
-            <div className={style.headingText}>{this.props.parentCategory.title}</div>
-            <RemoteContent className={style.shortText}
-                           dangerouslySetInnerHTML={{__html: this.props.parentCategory.content}} />
-          </div>
+        {this.props.title ? <Caption title={this.props.title} /> : null}
+        <RemoteContent className={style.shortText}
+                       dangerouslySetInnerHTML={{__html: this.props.content}} />
+        <div className={style.list}>
+          {this.props.categories.map(category =>
+            <CategoryListItem key={category.id}
+                              category={category} />)}
         </div>
-        <ContentList categories={this.props.categories} />
       </div>
     )
   }

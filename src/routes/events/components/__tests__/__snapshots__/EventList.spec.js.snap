@@ -1,88 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventList should render a list of events 1`] = `
-<div
-  className="list"
->
+<React.Fragment>
   <Caption
     title="events"
   />
-  <EventListElement
-    event={
-      EventModel {
-        "_address": "",
-        "_availableLanguages": Object {
-          "ar": "1236",
-          "de": "1235",
-        },
-        "_content": "",
-        "_dateModel": DateModel {
-          "_allDay": undefined,
-          "_endDate": undefined,
-          "_startDate": undefined,
-        },
-        "_excerpt": "",
-        "_id": 1234,
-        "_thumbnail": "",
-        "_title": "first Event",
-        "_town": "",
+  <div
+    className="list"
+  >
+    <EventListElement
+      event={
+        EventModel {
+          "_address": "",
+          "_availableLanguages": Object {
+            "ar": "1236",
+            "de": "1235",
+          },
+          "_content": "",
+          "_dateModel": DateModel {
+            "_allDay": undefined,
+            "_endDate": undefined,
+            "_startDate": undefined,
+          },
+          "_excerpt": "",
+          "_id": 1234,
+          "_thumbnail": "",
+          "_title": "first Event",
+          "_town": "",
+        }
       }
-    }
-    isFirst={true}
-    key="1234"
-    language="en"
-    parentUrl="/augsburg/en/events"
-  />
-  <EventListElement
-    event={
-      EventModel {
-        "_address": "",
-        "_availableLanguages": Object {
-          "ar": "1236",
-          "en": "1234",
-        },
-        "_content": "",
-        "_dateModel": DateModel {
-          "_allDay": undefined,
-          "_endDate": undefined,
-          "_startDate": undefined,
-        },
-        "_excerpt": "",
-        "_id": 1235,
-        "_thumbnail": "",
-        "_title": "erstes Event",
-        "_town": "",
+      key="1234"
+      language="en"
+      parentUrl="/augsburg/en/events"
+    />
+    <EventListElement
+      event={
+        EventModel {
+          "_address": "",
+          "_availableLanguages": Object {
+            "ar": "1236",
+            "en": "1234",
+          },
+          "_content": "",
+          "_dateModel": DateModel {
+            "_allDay": undefined,
+            "_endDate": undefined,
+            "_startDate": undefined,
+          },
+          "_excerpt": "",
+          "_id": 1235,
+          "_thumbnail": "",
+          "_title": "erstes Event",
+          "_town": "",
+        }
       }
-    }
-    isFirst={false}
-    key="1235"
-    language="en"
-    parentUrl="/augsburg/en/events"
-  />
-  <EventListElement
-    event={
-      EventModel {
-        "_address": "",
-        "_availableLanguages": Array [],
-        "_content": "",
-        "_dateModel": DateModel {
-          "_allDay": undefined,
-          "_endDate": undefined,
-          "_startDate": undefined,
-        },
-        "_excerpt": "",
-        "_id": 2,
-        "_thumbnail": "",
-        "_title": "second Event",
-        "_town": "",
+      key="1235"
+      language="en"
+      parentUrl="/augsburg/en/events"
+    />
+    <EventListElement
+      event={
+        EventModel {
+          "_address": "",
+          "_availableLanguages": Array [],
+          "_content": "",
+          "_dateModel": DateModel {
+            "_allDay": undefined,
+            "_endDate": undefined,
+            "_startDate": undefined,
+          },
+          "_excerpt": "",
+          "_id": 2,
+          "_thumbnail": "",
+          "_title": "second Event",
+          "_town": "",
+        }
       }
-    }
-    isFirst={false}
-    key="2"
-    language="en"
-    parentUrl="/augsburg/en/events"
-  />
-</div>
+      key="2"
+      language="en"
+      parentUrl="/augsburg/en/events"
+    />
+  </div>
+</React.Fragment>
 `;
 
 exports[`EventList should render no events 1`] = `

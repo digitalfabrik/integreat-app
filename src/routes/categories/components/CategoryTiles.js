@@ -18,19 +18,20 @@ class CategoryTiles extends React.Component {
   }
 
   /**
-   * Since the title of our root category is not the real name of the location, we have to map it here
-   * @param locations The locations to search in for the title
-   * @param title The title to search for
-   * @return name The name of our location
+   * Our root categories don't have the right title (location code instead of location title), so we have to compare the
+   * title of the root category with the code of every location
+   * @param {String} title The title of the category to search for
+   * @return {String} The found name or the given title
    */
-  getLocationName (locations, title) {
-    return locations.find((location) => location.code === title).name
+  getLocationName (title) {
+    const location = this.props.locations.find(_location => title === _location.code)
+    return location ? location.name : title
   }
 
   render () {
     return (
       <div>
-        <Caption title={this.getLocationName(this.props.locations, this.props.title)} />
+        <Caption title={this.getLocationName(this.props.title)} />
         <Row>
           {this.props.categories.map(category =>
             <CategoryTile key={category.id}

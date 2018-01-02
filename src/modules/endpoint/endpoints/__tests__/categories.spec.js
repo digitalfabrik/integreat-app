@@ -1,6 +1,8 @@
 import categories from '../categories'
-import CategoriesContainer from '../../models/CategoriesContainer'
+import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
+
+jest.unmock('../categories')
 
 describe('categories', () => {
   const categoriesJSON = [{
@@ -36,6 +38,14 @@ describe('categories', () => {
       fa: 4827
     },
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+  },
+  {
+    id: 1234,
+    permalink: {
+      url_page: 'trash'
+    },
+    title: 'Trash',
+    status: 'trash'
   }]
 
   const categoryModels = [
@@ -78,7 +88,7 @@ describe('categories', () => {
 
   test('should map fetched data to models', () => {
     const response = categories.mapResponse(categoriesJSON, urlParams)
-    const categoriesContainer = new CategoriesContainer(categoryModels)
-    expect(response).toEqual(categoriesContainer)
+    const categoriesMapModel = new CategoriesMapModel(categoryModels)
+    expect(response).toEqual(categoriesMapModel)
   })
 })

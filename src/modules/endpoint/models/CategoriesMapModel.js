@@ -3,7 +3,7 @@ import normalizeUrl from 'normalize-url'
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
  */
-class CategoriesContainer {
+class CategoriesMapModel {
   /**
    * Creates a Map [url -> category] from the categories provided,
    * whose parent attributes are first changed from id to url
@@ -22,7 +22,7 @@ class CategoriesContainer {
 
   /**
    * Returns the category with the given url
-   * @param url The url
+   * @param {String} url The url
    * @return {CategoryModel | undefined} The category
    */
   getCategoryByUrl (url) {
@@ -44,11 +44,9 @@ class CategoriesContainer {
    * @return {CategoryModel[] | undefined} The children
    */
   getChildren (category) {
-    if (category) {
-      return this.toArray()
-        .filter(_category => _category.parentUrl === category.url)
-        .sort((category1, category2) => category1.order - category2.order)
-    }
+    return this.toArray()
+      .filter(_category => _category.parentUrl === category.url)
+      .sort((category1, category2) => (category1.order - category2.order))
   }
 
   /**
@@ -59,14 +57,12 @@ class CategoriesContainer {
   getAncestors (category) {
     const parents = []
 
-    if (category) {
-      while (category.id !== 0) {
-        category = this.getCategoryByUrl(category.parentUrl)
-        parents.unshift(category)
-      }
+    while (category.id !== 0) {
+      category = this.getCategoryByUrl(category.parentUrl)
+      parents.unshift(category)
     }
     return parents
   }
 }
 
-export default CategoriesContainer
+export default CategoriesMapModel

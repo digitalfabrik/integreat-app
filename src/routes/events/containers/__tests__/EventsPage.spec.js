@@ -3,13 +3,19 @@ import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import Payload from '../../../../modules/endpoint/Payload'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
+import DateModel from 'modules/endpoint/models/DateModel'
+import Payload from 'modules/endpoint/Payload'
+
+const mockSetLanguageChangeUrls = jest.fn()
 
 describe('EventsPage', () => {
+  beforeEach(() => {
+    mockSetLanguageChangeUrls.mockClear()
+  })
   const events = [
     new EventModel({
       id: 1234,
@@ -49,8 +55,6 @@ describe('EventsPage', () => {
   const id = '1235'
 
   test('should render EventList', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -62,8 +66,6 @@ describe('EventsPage', () => {
   })
 
   test('should render EventDetail', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -76,8 +78,6 @@ describe('EventsPage', () => {
   })
 
   test('should render Spinner', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={[]}
                   location={location}
@@ -90,8 +90,6 @@ describe('EventsPage', () => {
   })
 
   test('should dispatch once on mount with availableLanguages', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const eventsPage = shallow(
       <EventsPage events={events}
                   location={location}
@@ -108,8 +106,6 @@ describe('EventsPage', () => {
   })
 
   test('should dispatch once on mount without availableLanguages', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const eventsPage = shallow(
       <EventsPage events={events}
                   location={location}
@@ -123,8 +119,6 @@ describe('EventsPage', () => {
   })
 
   test('should dispatch on prop update with availableLanguages', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={[]}
                   location={location}
@@ -145,8 +139,6 @@ describe('EventsPage', () => {
   })
 
   test('should not dispatch on prop update', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -168,8 +160,6 @@ describe('EventsPage', () => {
   })
 
   test('mapLanguageToUrl', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
