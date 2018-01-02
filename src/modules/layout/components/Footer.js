@@ -16,7 +16,7 @@ class Footer extends React.Component {
     })).isRequired
   }
 
-  getVersion () {
+  static getVersion () {
     // eslint-disable-next-line no-undef
     if (__DEV__) {
       // eslint-disable-next-line no-undef
@@ -29,7 +29,7 @@ class Footer extends React.Component {
     const {items} = this.props
     return <footer className={style.footer}>
         {items.map(({text, href}, index) => <Link key={index} className={style.item} href={href}>{text}</Link>)}
-        {this.getVersion()}
+        {Footer.getVersion()}
       </footer>
   }
 }
