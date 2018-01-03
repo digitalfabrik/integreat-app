@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 
 import Navigation from 'modules/app/Navigation'
-import LanguageSelector from './LanguageSelector'
+import LanguageSelector from '../containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'

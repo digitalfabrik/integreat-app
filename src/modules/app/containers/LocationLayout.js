@@ -12,8 +12,8 @@ import GeneralHeader from '../components/GeneralHeader'
 import Layout from 'modules/layout/components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 
-import LocationHeader from './LocationHeader'
-import LocationFooter from './LocationFooter'
+import LocationHeader from '../components/LocationHeader'
+import LocationFooter from '../components/LocationFooter'
 import Navigation from '../Navigation'
 
 class LocationLayout extends React.Component {
