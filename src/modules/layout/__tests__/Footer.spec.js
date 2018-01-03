@@ -12,8 +12,10 @@ describe('Footer', () => {
   })
 
   test('should show Version on dev builds', () => {
-    global.__DEV__ = true
-    global.__VERSION__ = 'vX.X'
+    const preDev = global.__DEV__ = true
+    const preVersion = global.__VERSION__ = 'vX.X'
     expect(shallow(<Footer items={[]} />)).toMatchSnapshot()
+    global.__DEV__ = preDev
+    global.__VERSION__ = preVersion
   })
 })
