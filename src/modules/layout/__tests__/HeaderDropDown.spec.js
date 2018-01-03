@@ -12,10 +12,6 @@ describe('HeaderDropDown', () => {
     </HeaderDropDown>)
   })
 
-  test('should be wrapped by onClickOutside', () => {
-    // todo: ??
-  })
-
   test('should match snapshot', () => {
     expect(wrapperComponent.dive()).toMatchSnapshot()
   })
@@ -76,8 +72,8 @@ describe('HeaderDropDown', () => {
 
   test('should add class if active', () => {
     const component = wrapperComponent.dive()
-    expect(component.find('.dropDown').prop('className')).toEqual('dropDown')
+    expect(component.find('.dropDown').hasClass('dropDownActive')).toEqual(false)
     component.setState({dropDownActive: true})
-    expect(component.find('.dropDown').prop('className')).toEqual('dropDown dropDownActive')
+    expect(component.find('.dropDown').hasClass('dropDownActive')).toEqual(true)
   })
 })
