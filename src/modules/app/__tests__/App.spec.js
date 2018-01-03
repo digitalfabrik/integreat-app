@@ -17,7 +17,6 @@ describe('App', () => {
   })
 
   test('should create correct store and pass it to Provider', () => {
-
     const app = shallow(<App />)
 
     expect(createReduxStore).toHaveBeenCalledWith(createHistory)

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationFooter should match snapshot 1`] = `
+<Footer
+  items={
+    Array [
+      Object {
+        "href": "/location1/language1/disclaimer",
+        "text": "app:imprintAndContact",
+      },
+    ]
+  }
+/>
+`;
