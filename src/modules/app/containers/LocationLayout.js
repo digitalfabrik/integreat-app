@@ -17,6 +17,7 @@ import LocationFooter from './LocationFooter'
 
 class LocationLayout extends React.Component {
   static propTypes = {
+    language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     children: PropTypes.node
@@ -35,7 +36,10 @@ class LocationLayout extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({location: state.router.params.location})
+const mapStateToProps = (state) => ({
+  language: state.router.params.language,
+  location: state.router.params.location
+})
 
 export default compose(
   connect(mapStateToProps),

@@ -1,10 +1,7 @@
 export default {
   '/': {
-    title: 'Landing',
     '/:location/:language': {
-      '/': {
-        title: 'Categories page'
-      },
+      title: 'Categories page',
       '/*': {
         title: 'Categories page'
       },
@@ -21,11 +18,11 @@ export default {
         title: 'FetchPdf page'
       }
     },
-    '/:language': {
-      title: 'Landing'
+    '/(:language(/))': {
+      title: 'Landing page'
+    },
+    '/disclaimer': {
+      title: 'Static disclaimer'
     }
-  },
-  '/disclaimer': {
-    title: 'Static disclaimer'
   }
 }

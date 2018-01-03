@@ -25,7 +25,7 @@ class RouterFragment extends React.Component {
       <React.Fragment>
 
         {/* Matches two or more arguments like /augsburg/de */}
-        <Fragment forRoute='/:location/:language'>
+        <Fragment forRoute='/:location/:language(/*)'>
           <React.Fragment>
             {/* Matches /augsburg/de/search -> Search */}
             <Fragment forRoute='/search'>
@@ -55,13 +55,8 @@ class RouterFragment extends React.Component {
           <Layout header={<GeneralHeader />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
-        {/* Matches one argument like /de */}
-        <Fragment forRoute='/:language'>
-          <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
-        </Fragment>
-
-        {/* Matches zero arguments like / */}
-        <Fragment forRoute='/'>
+        {/* Matches one or zero arguments like /de */}
+        <Fragment forRoute='/(:language(/))'>
           <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
         </Fragment>
 
