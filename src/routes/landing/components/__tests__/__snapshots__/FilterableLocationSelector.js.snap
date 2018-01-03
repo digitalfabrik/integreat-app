@@ -12,7 +12,7 @@ exports[`FilterableLocationSelector should render 1`] = `
     <h1
       className="caption"
     >
-      landing
+      landing:where
     </h1>
   </div>
   <div
@@ -29,7 +29,7 @@ exports[`FilterableLocationSelector should render 1`] = `
         className="searchInput"
         defaultValue=""
         onChange={[Function]}
-        placeholder="common"
+        placeholder="common:search"
         type="text"
       />
     </div>
