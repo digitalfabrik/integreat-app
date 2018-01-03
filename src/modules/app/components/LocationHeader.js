@@ -23,7 +23,7 @@ class LocationHeader extends React.Component {
 
   isEventsEnabled = () => this.props.location.eventsEnabled
 
-  isExtrasSelected = () => this.props.route === '/:location/:language/extras'
+  isExtrasSelected = () => this.props.route === '/:location/:language/extras' // todo for WEBAPP-64: test and verify this
 
   isCategoriesSelected = () => ['/:location/:language', '/:location/:language/*'].includes(this.props.route)
 

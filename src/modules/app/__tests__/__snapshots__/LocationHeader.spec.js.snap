@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationHeader MenuItems should be empty, if extras and news are both disabled 1`] = `Array []`;
+
+exports[`LocationHeader MenuItems should highlight categories if route corresponds 1`] = `
+Array [
+  Object {
+    "active": false,
+    "href": "/location1/language1/extras",
+    "text": "app:extras",
+  },
+  Object {
+    "active": true,
+    "href": "/location1/language1",
+    "text": "app:categories",
+  },
+  Object {
+    "active": false,
+    "href": "/location1/language1/events",
+    "text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader MenuItems should highlight events if route corresponds 1`] = `
+Array [
+  Object {
+    "active": false,
+    "href": "/location1/language1/extras",
+    "text": "app:extras",
+  },
+  Object {
+    "active": false,
+    "href": "/location1/language1",
+    "text": "app:categories",
+  },
+  Object {
+    "active": true,
+    "href": "/location1/language1/events",
+    "text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader MenuItems should show categories, if extras or news are enabled 1`] = `
+Array [
+  Object {
+    "active": false,
+    "href": "/location1/language1/extras",
+    "text": "app:extras",
+  },
+  Object {
+    "active": false,
+    "href": "/location1/language1",
+    "text": "app:categories",
+  },
+]
+`;
+
+exports[`LocationHeader MenuItems should show categories, if extras or news are enabled 2`] = `
+Array [
+  Object {
+    "active": false,
+    "href": "/location1/language1",
+    "text": "app:categories",
+  },
+  Object {
+    "active": false,
+    "href": "/location1/language1/events",
+    "text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader MenuItems should show extras, categories, events in this order 1`] = `
+Array [
+  Object {
+    "active": false,
+    "href": "/location1/language1/extras",
+    "text": "app:extras",
+  },
+  Object {
+    "active": false,
+    "href": "/location1/language1",
+    "text": "app:categories",
+  },
+  Object {
+    "active": false,
+    "href": "/location1/language1/events",
+    "text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader should match snapshot 1`] = `
+<Header
+  actionItems={
+    Array [
+      Object {
+        "href": "/location1/language1/search",
+        "iconSrc": "test-file-stub",
+      },
+      Object {
+        "href": "/language1",
+        "iconSrc": "test-file-stub",
+      },
+      Object {
+        "dropDownNode": <Connect(Connect(languagesFetcher)) />,
+        "iconSrc": "test-file-stub",
+      },
+    ]
+  }
+  menuItems={
+    Array [
+      Object {
+        "active": false,
+        "href": "/location1/language1/extras",
+        "text": "app:extras",
+      },
+      Object {
+        "active": false,
+        "href": "/location1/language1",
+        "text": "app:categories",
+      },
+      Object {
+        "active": false,
+        "href": "/location1/language1/events",
+        "text": "app:news",
+      },
+    ]
+  }
+/>
+`;
