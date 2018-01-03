@@ -14,30 +14,36 @@ import GeneralFooter from '../components/GeneralFooter'
 
 import LocationHeader from './LocationHeader'
 import LocationFooter from './LocationFooter'
+import Navigation from '../Navigation'
 
 class LocationLayout extends React.Component {
   static propTypes = {
-    language: PropTypes.string.isRequired,
+    navigation: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    route: PropTypes.string.isRequired,
     children: PropTypes.node
   }
 
   getCurrentLocation = () => this.props.locations.find((location) => location.code === this.props.location)
 
   render () {
-    if (!this.getCurrentLocation()) {
+    const location = this.getCurrentLocation()
+    if (!location) {
       return <Layout header={<GeneralHeader />} footer={<GeneralFooter />}>{this.props.children}</Layout>
     }
 
-    return <Layout header={<LocationHeader location={this.getCurrentLocation()} />} footer={<LocationFooter />}>
+    const {route, navigation} = this.props
+    return <Layout header={<LocationHeader location={location} route={route} navigation={navigation} />}
+                   footer={<LocationFooter navigation={navigation} />}>
       {this.props.children}
     </Layout>
   }
 }
 
 const mapStateToProps = (state) => ({
-  language: state.router.params.language,
+  navigation: new Navigation(state.router.params.location, state.router.params.language),
+  route: state.router.route,
   location: state.router.params.location
 })
 

@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
-import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
 import LanguageSelector from './LanguageSelector'
@@ -10,8 +8,6 @@ import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import Header from 'modules/layout/components/Header'
 
 class LocationHeader extends React.Component {
@@ -61,13 +57,4 @@ class LocationHeader extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  route: state.router.route,
-  navigation: new Navigation(state.router.params.location, state.router.params.language)
-})
-
-export default compose(
-  connect(mapStateToProps),
-  withFetcher(LOCATIONS_ENDPOINT, true, true),
-  translate('app')
-)(LocationHeader)
+export default translate('app')(LocationHeader)
