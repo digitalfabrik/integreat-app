@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
-import Footer from '../../layout/components/Footer'
+import Footer from 'modules/layout/components/Footer'
 
 class LocationFooter extends React.Component {
   static propTypes = {

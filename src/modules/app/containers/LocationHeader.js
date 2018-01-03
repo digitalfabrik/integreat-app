@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import Navigation from 'modules/app/Navigation'
-
 import LanguageSelector from './LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
@@ -13,7 +12,7 @@ import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
-import Header from '../../layout/components/Header'
+import Header from 'modules/layout/components/Header'
 
 class LocationHeader extends React.Component {
   static propTypes = {

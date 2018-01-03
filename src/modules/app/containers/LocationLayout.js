@@ -9,7 +9,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 
 import GeneralHeader from '../components/GeneralHeader'
-import Layout from '../../layout/components/Layout'
+import Layout from 'modules/layout/components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 
 import LocationHeader from './LocationHeader'
@@ -17,8 +17,9 @@ import LocationFooter from './LocationFooter'
 
 class LocationLayout extends React.Component {
   static propTypes = {
-    location: PropTypes.string,
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel))
+    location: PropTypes.string.isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    children: PropTypes.node
   }
 
   getCurrentLocation = () => this.props.locations.find((location) => location.code === this.props.location)
@@ -27,13 +28,14 @@ class LocationLayout extends React.Component {
     if (!this.getCurrentLocation()) {
       return <Layout header={<GeneralHeader />} footer={<GeneralFooter />}>{this.props.children}</Layout>
     }
+
     return <Layout header={<LocationHeader location={this.getCurrentLocation()} />} footer={<LocationFooter />}>
       {this.props.children}
     </Layout>
   }
 }
 
-const mapStateToProps = (state) => ({ location: state.router.params.location })
+const mapStateToProps = (state) => ({location: state.router.params.location})
 
 export default compose(
   connect(mapStateToProps),
