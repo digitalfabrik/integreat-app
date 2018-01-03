@@ -65,7 +65,7 @@ describe('DisclaimerPage', () => {
       const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: location}}
+        router: {params: {location}}
       })
 
       const tree = mount(
@@ -87,7 +87,7 @@ describe('DisclaimerPage', () => {
       const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: location}}
+        router: {params: {location}}
       })
 
       const mapLanguageToUrl = (language) => language
@@ -109,7 +109,7 @@ describe('DisclaimerPage', () => {
 
       const disclaimerPageProps = tree.find(ConnectedDisclaimerPage).childAt(0).props()
 
-      let countActions = store.getActions().length
+      const countActions = store.getActions().length
 
       disclaimerPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages)
       expect(store.getActions()).toHaveLength(countActions + 1)
