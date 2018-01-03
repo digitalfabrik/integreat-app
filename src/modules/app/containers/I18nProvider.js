@@ -81,7 +81,7 @@ class I18nProvider extends React.Component {
       ku: arabicFonts
     }
 
-    WebFont.load({google: {families: families[this.state.language] || latinFonts}})
+    WebFont.load({google: {families: families[language] || latinFonts}})
   }
 
   render () {
