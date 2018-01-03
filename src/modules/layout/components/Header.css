@@ -1,6 +1,6 @@
 @import url('../../common/constants/helpers.css');
 @import url('../../common/constants/colors.css');
-@import url('../../common/constants/dimens.css');
+@import url('../../common/constants/dimensions.css');
 
 .header {
   display: flex;
