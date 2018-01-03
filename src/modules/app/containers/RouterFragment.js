@@ -14,6 +14,10 @@ import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimer
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 
+/**
+ * todo: Test and document in WEBAPP-90
+ * todo: Layouts should be set in each route
+ */
 class RouterFragment extends React.Component {
   render () {
     /*
@@ -52,7 +56,7 @@ class RouterFragment extends React.Component {
 
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
-          <Layout header={<GeneralHeader />}><MainDisclaimerPage /></Layout>
+          <Layout header={<GeneralHeader />} footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
         {/* Matches one or zero arguments like /de */}
