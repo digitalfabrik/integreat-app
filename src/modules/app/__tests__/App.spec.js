@@ -7,7 +7,8 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 
-jest.mock('../createReduxStore', () => jest.fn())
+const mockStore = configureMockStore([thunk])()
+jest.mock('../createReduxStore', () => jest.fn().mockImplementation(() => mockStore))
 
 describe('App', () => {
   test('should match snapshot', () => {
@@ -16,8 +17,6 @@ describe('App', () => {
   })
 
   test('should create correct store and pass it to Provider', () => {
-    const mockStore = configureMockStore([thunk])
-    createReduxStore.mockImplementation(() => mockStore)
 
     const app = shallow(<App />)
 
