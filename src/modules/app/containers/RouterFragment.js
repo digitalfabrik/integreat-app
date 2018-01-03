@@ -1,16 +1,18 @@
 import { Fragment } from 'redux-little-router'
-import LocationLayout from './LocationLayout'
 import React from 'react'
-import SearchPage from '../../../routes/search/containers/SearchPage'
-import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
-import EventsPage from '../../../routes/events/containers/EventsPage'
-import PdfFetcherPage from '../../../routes/pdf-fetcher/containers/PdfFetcherPage'
-import Layout from '../../layout/components/Layout'
+
+import Layout from 'modules/layout/components/Layout'
 import GeneralHeader from '../components/GeneralHeader'
-import MainDisclaimerPage from '../../../routes/main-disclaimer/containers/MainDisclaimerPage'
 import GeneralFooter from '../components/GeneralFooter'
-import LandingPage from '../../../routes/landing/containers/LandingPage'
-import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
+import LocationLayout from './LocationLayout'
+
+import SearchPage from 'routes/search/containers/SearchPage'
+import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
+import EventsPage from 'routes/events/containers/EventsPage'
+import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
+import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
+import LandingPage from 'routes/landing/containers/LandingPage'
+import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 
 class RouterFragment extends React.Component {
   render () {
