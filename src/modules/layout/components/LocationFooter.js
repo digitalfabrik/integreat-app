@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 
 import Navigation from 'modules/app/Navigation'
-import Footer from 'modules/layout/components/Footer'
+import Footer from './Footer'
 
 class LocationFooter extends React.Component {
   static propTypes = {

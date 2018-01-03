@@ -4,11 +4,12 @@ import React from 'react'
 import createReduxStore from '../createReduxStore'
 import createHistory from '../createHistory'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 
-const mockStore = configureMockStore([thunk])()
-jest.mock('../createReduxStore', () => jest.fn().mockImplementation(() => mockStore))
+const mockStore = configureMockStore()
+const mockedStore = mockStore()
+
+jest.mock('../createReduxStore', () => jest.fn().mockImplementation(() => mockedStore))
 
 describe('App', () => {
   test('should match snapshot', () => {
@@ -20,6 +21,6 @@ describe('App', () => {
     const app = shallow(<App />)
 
     expect(createReduxStore).toHaveBeenCalledWith(createHistory)
-    expect(app.find(Provider).prop('store')).toEqual(mockStore)
+    expect(app.find(Provider).prop('store')).toEqual(mockedStore)
   })
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'react-i18next'
-import Footer from 'modules/layout/components/Footer'
+import Footer from './Footer'
 
 class GeneralFooter extends React.Component {
   render () {

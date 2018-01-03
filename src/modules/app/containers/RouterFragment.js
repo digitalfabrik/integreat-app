@@ -2,8 +2,8 @@ import { Fragment } from 'redux-little-router'
 import React from 'react'
 
 import Layout from 'modules/layout/components/Layout'
-import GeneralHeader from '../components/GeneralHeader'
-import GeneralFooter from '../components/GeneralFooter'
+import GeneralHeader from '../../layout/components/GeneralHeader'
+import GeneralFooter from '../../layout/components/GeneralFooter'
 import LocationLayout from './LocationLayout'
 
 import SearchPage from 'routes/search/containers/SearchPage'
