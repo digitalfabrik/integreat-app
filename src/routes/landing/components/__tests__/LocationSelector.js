@@ -1,5 +1,4 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -39,18 +38,18 @@ describe('LocationSelector', () => {
   ]
 
   test('should render', () => {
-    renderer.create(
+    shallow(
       <LocationSelector
-        filterText="Text"
-        language="de"
+        filterText='Text'
+        language='de'
         locations={locations} />
     )
   })
 
   test('should filter for existing and live locations', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="city"
-      language="de"
+      filterText='city'
+      language='de'
       locations={locations} />
     )
 
@@ -61,8 +60,8 @@ describe('LocationSelector', () => {
 
   test('should exclude location if location does not exist', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="Does not exist"
-      language="de"
+      filterText='Does not exist'
+      language='de'
       locations={locations} />
     )
 
@@ -72,8 +71,8 @@ describe('LocationSelector', () => {
 
   test('should exclude location if location is not live', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="notlive"
-      language="de"
+      filterText='notlive'
+      language='de'
       locations={locations} />
     )
 
@@ -83,8 +82,8 @@ describe('LocationSelector', () => {
 
   test('should filter for all non-live locations if filterText is "wirschaffendas"', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="wirschaffendas"
-      language="de"
+      filterText='wirschaffendas'
+      language='de'
       locations={locations} />
     )
 
