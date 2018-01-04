@@ -1,12 +1,12 @@
-import renderer from 'react-test-renderer'
 import Layout from '../Layout'
 import React from 'react'
+import { shallow } from 'enzyme'
 
 describe('Layout', () => {
   test('should match snapshot', () => {
-    const component = renderer.create(
+    const component = shallow(
       <Layout header={<header />} footer={<footer />}>Here comes the main content.</Layout>
     )
-    expect(component.toJSON()).toMatchSnapshot()
+    expect(component).toMatchSnapshot()
   })
 })
