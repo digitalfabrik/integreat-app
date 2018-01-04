@@ -1,11 +1,11 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import HeaderMenuBar from '../components/HeaderMenuBar'
+import HeaderNavigationBar from '../components/HeaderNavigationBar'
 
-describe('HeaderMenuBar', () => {
+describe('HeaderNavigationBar', () => {
   test('should match snapshot', () => {
     const component = shallow(
-      <HeaderMenuBar className='testClass' items={[
+      <HeaderNavigationBar className='testClass' items={[
         {href: 'link1', text: 'text1'},
         {href: 'link2', text: 'text2'}
       ]} />
@@ -14,7 +14,7 @@ describe('HeaderMenuBar', () => {
   })
 
   test('should add a class when no items supplied', () => {
-    const component = shallow(<HeaderMenuBar items={[]} />)
-    expect(component.find('div').prop('className')).toEqual('menuBar hidden')
+    const component = shallow(<HeaderNavigationBar items={[]} />)
+    expect(component.find('div').prop('className')).toEqual('navigationBar hidden')
   })
 })

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LocationHeader MenuItems should be empty, if extras and news are both disabled 1`] = `Array []`;
+exports[`LocationHeader NavigationItems should be empty, if extras and news are both disabled 1`] = `Array []`;
 
-exports[`LocationHeader MenuItems should highlight categories if route corresponds 1`] = `
+exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
 Array [
   Object {
     "active": false,
@@ -22,7 +22,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader MenuItems should highlight events if route corresponds 1`] = `
+exports[`LocationHeader NavigationItems should highlight events if route corresponds 1`] = `
 Array [
   Object {
     "active": false,
@@ -42,7 +42,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader MenuItems should show categories, if extras or news are enabled 1`] = `
+exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
 Array [
   Object {
     "active": false,
@@ -57,7 +57,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader MenuItems should show categories, if extras or news are enabled 2`] = `
+exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 2`] = `
 Array [
   Object {
     "active": false,
@@ -72,7 +72,7 @@ Array [
 ]
 `;
 
-exports[`LocationHeader MenuItems should show extras, categories, events in this order 1`] = `
+exports[`LocationHeader NavigationItems should show extras, categories, events in this order 1`] = `
 Array [
   Object {
     "active": false,
@@ -110,7 +110,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       },
     ]
   }
-  menuItems={
+  navigationItems={
     Array [
       Object {
         "active": false,

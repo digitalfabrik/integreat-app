@@ -13,11 +13,11 @@ describe('LocationHeader', () => {
     extrasEnabled
   })
 
-  describe('MenuItems', () => {
+  describe('NavigationItems', () => {
     test('should be empty, if extras and news are both disabled', () => {
       const component = shallow(<LocationHeader navigation={navigation} location={createLocation(false, false)}
                                                 route='' />)
-      expect(component.dive().prop('menuItems')).toMatchSnapshot()
+      expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should show categories, if extras or news are enabled', () => {
@@ -26,14 +26,14 @@ describe('LocationHeader', () => {
       const eventsComp = shallow(<LocationHeader navigation={navigation} location={createLocation(false, true)}
                                                  route='' />)
 
-      expect(extrasComp.dive().prop('menuItems')).toMatchSnapshot()
-      expect(eventsComp.dive().prop('menuItems')).toMatchSnapshot()
+      expect(extrasComp.dive().prop('navigationItems')).toMatchSnapshot()
+      expect(eventsComp.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should show extras, categories, events in this order', () => {
       const component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
                                                 route='' />)
-      expect(component.dive().prop('menuItems')).toMatchSnapshot()
+      expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should highlight categories if route corresponds', () => {
@@ -41,15 +41,15 @@ describe('LocationHeader', () => {
                                                       route='/:location/:language' />)
       const route2Component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
                                                       route='/:location/:language/*' />)
-      expect(route1Component.dive().prop('menuItems')).toMatchSnapshot()
-      expect(route2Component.dive().prop('menuItems')).toEqual(route1Component.dive().prop('menuItems'))
+      expect(route1Component.dive().prop('navigationItems')).toMatchSnapshot()
+      expect(route2Component.dive().prop('navigationItems')).toEqual(route1Component.dive().prop('navigationItems'))
     })
 
     test('should highlight events if route corresponds', () => {
       const component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
                                                 route='/:location/:language/events(/:id)' />)
 
-      expect(component.dive().prop('menuItems')).toMatchSnapshot()
+      expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     // todo for WEBAPP-64: should highlight extras if route corresponds

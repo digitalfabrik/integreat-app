@@ -2,7 +2,7 @@ import React from 'react'
 import Headroom from 'react-headroom'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
-import HeaderMenuBar, { MENU_ITEMS_PROP_TYPE } from './HeaderMenuBar'
+import HeaderNavigationBar, { NAVIGATION_ITEMS_PROP_TYPE } from './HeaderNavigationBar'
 import HeaderActionBar, { ACTION_ITEMS_PROP_TYPE } from './HeaderActionBar'
 
 /**
@@ -13,12 +13,12 @@ import HeaderActionBar, { ACTION_ITEMS_PROP_TYPE } from './HeaderActionBar'
  */
 class Header extends React.Component {
   static propTypes = {
-    menuItems: MENU_ITEMS_PROP_TYPE.isRequired,
+    navigationItems: NAVIGATION_ITEMS_PROP_TYPE.isRequired,
     actionItems: ACTION_ITEMS_PROP_TYPE.isRequired
   }
 
   static defaultProps = {
-    menuItems: [],
+    navigationItems: [],
     actionItems: []
   }
 
@@ -30,7 +30,7 @@ class Header extends React.Component {
             <img src={logoWide} />
           </div>
           <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
-          <HeaderMenuBar className={style.menuBar} items={this.props.menuItems} />
+          <HeaderNavigationBar className={style.navigationBar} items={this.props.navigationItems} />
         </header>
       </Headroom>
     )

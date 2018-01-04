@@ -1,17 +1,17 @@
 @import url('../../common/constants/dimensions.css');
 @import url('../../common/constants/helpers.css');
 
-.menu-bar {
+.navigation-bar {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.menu-bar.hidden {
+.navigation-bar.hidden {
   display: none;
 }
 
-.menu-item {
+.navigation-item {
   @mixin remove-a;
   flex: 1;
   font-size: 1.2em;
@@ -19,12 +19,12 @@
   text-align: center;
 }
 
-.menu-item.active-menu-item {
+.navigation-item.active-navigation-item {
   font-weight: 700;
 }
 
 @media (--small-viewport) {
-  .menu-item {
+  .navigation-item {
     font-size: 1em;
   }
 }

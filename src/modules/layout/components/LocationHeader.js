@@ -53,7 +53,7 @@ class LocationHeader extends React.Component {
   }
 
   render () {
-    return <Header actionItems={this.getActionItems()} menuItems={this.getMenuItems()} />
+    return <Header actionItems={this.getActionItems()} navigationItems={this.getMenuItems()} />
   }
 }
 
