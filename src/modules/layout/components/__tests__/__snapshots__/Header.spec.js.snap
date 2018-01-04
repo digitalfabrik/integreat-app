@@ -29,7 +29,7 @@ exports[`Header should match snapshot 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownElement": undefined,
+            "_dropDownNode": undefined,
             "_href": "/action1",
             "_iconSrc": undefined,
           },

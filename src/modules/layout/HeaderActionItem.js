@@ -2,10 +2,10 @@
  * HeaderActionItem is the data class which needs to be supplied to HeaderActionBar.
  */
 class HeaderActionItem {
-  constructor ({iconSrc, href, dropDownElement}) {
+  constructor ({iconSrc, href, dropDownNode}) {
     this._iconSrc = iconSrc
     this._href = href
-    this._dropDownElement = dropDownElement
+    this._dropDownNode = dropDownNode
   }
 
   get iconSrc () {
@@ -16,8 +16,8 @@ class HeaderActionItem {
     return this._href
   }
 
-  get dropDownElement () {
-    return this._dropDownElement
+  get dropDownNode () {
+    return this._dropDownNode
   }
 }
 
