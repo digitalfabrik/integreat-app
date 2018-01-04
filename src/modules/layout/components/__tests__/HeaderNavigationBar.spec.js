@@ -1,13 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import HeaderNavigationBar from '../HeaderNavigationBar'
+import HeaderNavigationItem from '../../HeaderNavigationItem'
 
 describe('HeaderNavigationBar', () => {
   test('should match snapshot', () => {
     const component = shallow(
       <HeaderNavigationBar className='testClass' items={[
-        {href: 'link1', text: 'text1'},
-        {href: 'link2', text: 'text2'}
+        new HeaderNavigationItem({href: 'link1', text: 'text1'}),
+        new HeaderNavigationItem({href: 'link2', text: 'text2'})
       ]} />
     )
     expect(component).toMatchSnapshot()

@@ -10,6 +10,7 @@ import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Header from 'modules/layout/components/Header'
 import HeaderNavigationItem from '../HeaderNavigationItem'
+import HeaderActionItem from '../HeaderActionItem'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -33,9 +34,9 @@ class LocationHeader extends React.Component {
   getActionItems () {
     const {navigation} = this.props
     return [
-      {href: navigation.search, iconSrc: searchIcon},
-      {href: navigation.locationSelector, iconSrc: locationIcon},
-      {dropDownNode: <LanguageSelector />, iconSrc: languageIcon}
+      new HeaderActionItem({href: navigation.search, iconSrc: searchIcon}),
+      new HeaderActionItem({href: navigation.locationSelector, iconSrc: locationIcon}),
+      new HeaderActionItem({dropDownNode: <LanguageSelector />, iconSrc: languageIcon})
     ]
   }
 

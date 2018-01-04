@@ -96,17 +96,20 @@ exports[`LocationHeader should match snapshot 1`] = `
 <Header
   actionItems={
     Array [
-      Object {
-        "href": "/location1/language1/search",
-        "iconSrc": "test-file-stub",
+      HeaderActionItem {
+        "_dropDownElement": undefined,
+        "_href": "/location1/language1/search",
+        "_iconSrc": "test-file-stub",
       },
-      Object {
-        "href": "/language1",
-        "iconSrc": "test-file-stub",
+      HeaderActionItem {
+        "_dropDownElement": undefined,
+        "_href": "/language1",
+        "_iconSrc": "test-file-stub",
       },
-      Object {
-        "dropDownNode": <Connect(Connect(languagesFetcher)) />,
-        "iconSrc": "test-file-stub",
+      HeaderActionItem {
+        "_dropDownElement": undefined,
+        "_href": undefined,
+        "_iconSrc": "test-file-stub",
       },
     ]
   }

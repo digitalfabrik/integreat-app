@@ -12,21 +12,19 @@ exports[`HeaderActionBar should match snapshot 1`] = `
       src="icon1"
     />
   </Connect(Link)>
-  <OnClickOutside(HeaderDropDown)
-    iconSrc="icon2"
+  <Connect(Link)
     key="1"
   >
-    <div
-      id="2"
+    <img
+      src="icon2"
     />
-  </OnClickOutside(HeaderDropDown)>
-  <OnClickOutside(HeaderDropDown)
-    iconSrc="icon3"
+  </Connect(Link)>
+  <Connect(Link)
     key="2"
   >
-    <div
-      id="3"
+    <img
+      src="icon3"
     />
-  </OnClickOutside(HeaderDropDown)>
+  </Connect(Link)>
 </div>
 `;
