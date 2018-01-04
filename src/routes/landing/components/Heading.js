@@ -4,8 +4,13 @@ import LocationBig from '../assets/LocationBig.svg'
 import style from './Heading.css'
 import { translate } from 'react-i18next'
 import Caption from 'modules/common/components/Caption'
+import PropTypes from 'prop-types'
 
 class Heading extends React.Component {
+  static propTypes = {
+    t: PropTypes.func.isRequired
+  }
+
   render () {
     const {t} = this.props
     return (
