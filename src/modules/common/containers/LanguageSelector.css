@@ -1,6 +1,6 @@
-@import url('../../common/constants/helpers.css');
-@import url('../../common/constants/colors.css');
-@import url('../../common/constants/dimensions.css');
+@import url('../constants/helpers.css');
+@import url('../constants/colors.css');
+@import url('../constants/dimensions.css');
 
 .language-selector {
   display: flex;
