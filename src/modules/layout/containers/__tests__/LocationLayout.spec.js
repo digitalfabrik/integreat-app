@@ -29,8 +29,8 @@ describe('LocationLayout', () => {
       locations: new Payload(false),
       router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'}
     })
-    test('should map state to props', () => {
 
+    test('should map state to props', () => {
       const tree = mount(
         <Provider store={store}>
           <ConnectedLocationLayout><MockNode /></ConnectedLocationLayout>
@@ -62,5 +62,4 @@ describe('LocationLayout', () => {
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
-
 })
