@@ -7,16 +7,15 @@ import compose from 'lodash/fp/compose'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
+import Navigation from 'modules/app/Navigation'
 
-import GeneralHeader from '../../layout/components/GeneralHeader'
-import Layout from 'modules/layout/components/Layout'
-import GeneralFooter from '../../layout/components/GeneralFooter'
+import GeneralHeader from '../components/GeneralHeader'
+import Layout from '../components/Layout'
+import GeneralFooter from '../components/GeneralFooter'
+import LocationHeader from '../components/LocationHeader'
+import LocationFooter from '../components/LocationFooter'
 
-import LocationHeader from '../../layout/components/LocationHeader'
-import LocationFooter from '../../layout/components/LocationFooter'
-import Navigation from '../Navigation'
-
-class LocationLayout extends React.Component {
+export class LocationLayout extends React.Component {
   static propTypes = {
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.string.isRequired,
