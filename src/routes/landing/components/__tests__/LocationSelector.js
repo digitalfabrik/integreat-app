@@ -43,7 +43,7 @@ describe('LocationSelector', () => {
       <LocationSelector
         filterText="Text"
         language="de"
-        locations={locations}/>
+        locations={locations} />
     )
   })
 
@@ -51,7 +51,7 @@ describe('LocationSelector', () => {
     const wrapper = shallow(<LocationSelector
       filterText="city"
       language="de"
-      locations={locations}/>
+      locations={locations} />
     )
 
     const component = wrapper.instance()
@@ -63,7 +63,7 @@ describe('LocationSelector', () => {
     const wrapper = shallow(<LocationSelector
       filterText="Does not exist"
       language="de"
-      locations={locations}/>
+      locations={locations} />
     )
 
     const component = wrapper.instance()
@@ -74,7 +74,7 @@ describe('LocationSelector', () => {
     const wrapper = shallow(<LocationSelector
       filterText="notlive"
       language="de"
-      locations={locations}/>
+      locations={locations} />
     )
 
     const component = wrapper.instance()
@@ -85,7 +85,7 @@ describe('LocationSelector', () => {
     const wrapper = shallow(<LocationSelector
       filterText="wirschaffendas"
       language="de"
-      locations={locations}/>
+      locations={locations} />
     )
 
     const component = wrapper.instance()

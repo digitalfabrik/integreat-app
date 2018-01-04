@@ -53,7 +53,7 @@ describe('FilterableLocationSelector', () => {
       <Provider store={store}>
         <FilterableLocationSelector
           language="de"
-          locations={locations}/>
+          locations={locations} />
       </Provider>
     )
 
@@ -66,7 +66,7 @@ describe('FilterableLocationSelector', () => {
       <Provider store={store}>
         <FilterableLocationSelector
           language="de"
-          locations={locations}/>
+          locations={locations} />
       </Provider>
     )
 

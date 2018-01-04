@@ -7,6 +7,6 @@ jest.mock('react-i18next')
 
 describe('Heading', () => {
   test('should render', () => {
-    renderer.create(<Heading/>)
+    renderer.create(<Heading />)
   })
 })
