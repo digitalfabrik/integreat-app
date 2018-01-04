@@ -5,12 +5,7 @@ import { isEmpty } from 'lodash/lang'
 import { Link } from 'redux-little-router'
 
 import style from './HeaderNavigationBar.css'
-
-export const NAVIGATION_ITEMS_PROP_TYPE = PropTypes.arrayOf(PropTypes.shape({
-  text: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
-  active: PropTypes.bool.isRequired
-}))
+import HeaderNavigationItem from '../HeaderNavigationItem'
 
 /**
  * Designed to work with Header. In the MenuBar you can display textual links. Should be used for navigating as a
@@ -19,15 +14,16 @@ export const NAVIGATION_ITEMS_PROP_TYPE = PropTypes.arrayOf(PropTypes.shape({
 class HeaderMenuBar extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    items: NAVIGATION_ITEMS_PROP_TYPE.isRequired
+    items: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired
   }
 
   render () {
-    return <div className={cx(this.props.className, style.navigationBar, isEmpty(this.props.items) ? style.hidden : '')}>
-      {this.props.items.map(({href, active, text}) => (
-        <Link key={text}
-              className={cx(style.navigationItem, active ? style.activeNavigationItem : '')}
-              href={href}>{text}</Link>
+    return <div
+      className={cx(this.props.className, style.navigationBar, isEmpty(this.props.items) ? style.hidden : '')}>
+      {this.props.items.map(item => (
+        <Link key={item.text}
+              className={cx(style.navigationItem, item.active ? style.activeNavigationItem : '')}
+              href={item.href}>{item.text}</Link>
       ))}
     </div>
   }

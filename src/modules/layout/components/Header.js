@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import Headroom from 'react-headroom'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
-import HeaderNavigationBar, { NAVIGATION_ITEMS_PROP_TYPE } from './HeaderNavigationBar'
+import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
+import HeaderNavigationItem from '../HeaderNavigationItem'
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -15,7 +16,7 @@ import HeaderActionItem from '../HeaderActionItem'
  */
 class Header extends React.Component {
   static propTypes = {
-    navigationItems: NAVIGATION_ITEMS_PROP_TYPE.isRequired,
+    navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired
   }
 

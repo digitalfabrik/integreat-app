@@ -19,5 +19,6 @@ class HeaderActionItem {
   get dropDownElement () {
     return this._dropDownElement
   }
-
 }
+
+export default HeaderActionItem
