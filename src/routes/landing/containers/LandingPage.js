@@ -11,7 +11,7 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 
 import style from './LandingPage.css'
 
-class LandingPage extends React.Component {
+export class LandingPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     language: PropTypes.string.isRequired

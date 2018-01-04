@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage should match snapshot 1`] = `
+<div
+  className="landingPage"
+>
+  <FilterableLocationSelector
+    language="de"
+    locations={
+      Array [
+        LocationModel {
+          "_code": "city",
+          "_eventsEnabled": false,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "City",
+          "_sortCategory": "C",
+          "_sortKey": "city",
+        },
+      ]
+    }
+  />
+  <Connect(Component) />
+</div>
+`;
