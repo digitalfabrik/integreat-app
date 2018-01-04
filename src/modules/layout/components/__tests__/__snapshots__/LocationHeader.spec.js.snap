@@ -4,90 +4,90 @@ exports[`LocationHeader NavigationItems should be empty, if extras and news are 
 
 exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
 Array [
-  Object {
-    "active": false,
-    "href": "/location1/language1/extras",
-    "text": "app:extras",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
   },
-  Object {
-    "active": true,
-    "href": "/location1/language1",
-    "text": "app:categories",
+  HeaderNavigationItem {
+    "_active": true,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
   },
-  Object {
-    "active": false,
-    "href": "/location1/language1/events",
-    "text": "app:news",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
   },
 ]
 `;
 
 exports[`LocationHeader NavigationItems should highlight events if route corresponds 1`] = `
 Array [
-  Object {
-    "active": false,
-    "href": "/location1/language1/extras",
-    "text": "app:extras",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
   },
-  Object {
-    "active": false,
-    "href": "/location1/language1",
-    "text": "app:categories",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
   },
-  Object {
-    "active": true,
-    "href": "/location1/language1/events",
-    "text": "app:news",
+  HeaderNavigationItem {
+    "_active": true,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
   },
 ]
 `;
 
 exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
 Array [
-  Object {
-    "active": false,
-    "href": "/location1/language1/extras",
-    "text": "app:extras",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
   },
-  Object {
-    "active": false,
-    "href": "/location1/language1",
-    "text": "app:categories",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
   },
 ]
 `;
 
 exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 2`] = `
 Array [
-  Object {
-    "active": false,
-    "href": "/location1/language1",
-    "text": "app:categories",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
   },
-  Object {
-    "active": false,
-    "href": "/location1/language1/events",
-    "text": "app:news",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
   },
 ]
 `;
 
 exports[`LocationHeader NavigationItems should show extras, categories, events in this order 1`] = `
 Array [
-  Object {
-    "active": false,
-    "href": "/location1/language1/extras",
-    "text": "app:extras",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
   },
-  Object {
-    "active": false,
-    "href": "/location1/language1",
-    "text": "app:categories",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
   },
-  Object {
-    "active": false,
-    "href": "/location1/language1/events",
-    "text": "app:news",
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
   },
 ]
 `;
@@ -112,20 +112,20 @@ exports[`LocationHeader should match snapshot 1`] = `
   }
   navigationItems={
     Array [
-      Object {
-        "active": false,
-        "href": "/location1/language1/extras",
-        "text": "app:extras",
+      HeaderNavigationItem {
+        "_active": false,
+        "_href": "/location1/language1/extras",
+        "_text": "app:extras",
       },
-      Object {
-        "active": false,
-        "href": "/location1/language1",
-        "text": "app:categories",
+      HeaderNavigationItem {
+        "_active": false,
+        "_href": "/location1/language1",
+        "_text": "app:categories",
       },
-      Object {
-        "active": false,
-        "href": "/location1/language1/events",
-        "text": "app:news",
+      HeaderNavigationItem {
+        "_active": false,
+        "_href": "/location1/language1/events",
+        "_text": "app:news",
       },
     ]
   }

@@ -4,9 +4,10 @@ exports[`GeneralHeader should match snapshot 1`] = `
 <Header
   actionItems={
     Array [
-      Object {
-        "href": "/",
-        "iconSrc": "test-file-stub",
+      HeaderActionItem {
+        "_dropDownElement": undefined,
+        "_href": "/",
+        "_iconSrc": "test-file-stub",
       },
     ]
   }

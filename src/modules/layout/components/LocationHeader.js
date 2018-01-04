@@ -9,6 +9,7 @@ import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Header from 'modules/layout/components/Header'
+import HeaderNavigationItem from '../HeaderNavigationItem'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -38,22 +39,22 @@ class LocationHeader extends React.Component {
     ]
   }
 
-  getMenuItems () {
+  getNavigationItems () {
     const {t, navigation} = this.props
     const extras = this.isExtrasEnabled() &&
-      {href: navigation.extras, active: this.isExtrasSelected(), text: t('extras')}
+      new HeaderNavigationItem({href: navigation.extras, active: this.isExtrasSelected(), text: t('extras')})
 
     const categories = this.isCategoriesEnabled() &&
-      {href: navigation.categories, active: this.isCategoriesSelected(), text: t('categories')}
+      new HeaderNavigationItem({href: navigation.categories, active: this.isCategoriesSelected(), text: t('categories')})
 
     const events = this.isEventsEnabled() &&
-      {href: navigation.events, active: this.isEventsSelected(), text: t('news')}
+      new HeaderNavigationItem({href: navigation.events, active: this.isEventsSelected(), text: t('news')})
 
     return [extras, categories, events].filter(item => item)
   }
 
   render () {
-    return <Header actionItems={this.getActionItems()} navigationItems={this.getMenuItems()} />
+    return <Header actionItems={this.getActionItems()} navigationItems={this.getNavigationItems()} />
   }
 }
 
