@@ -267,7 +267,7 @@ exports[`CategoriesPage should render a Page if page has no children 1`] = `
 `;
 
 exports[`CategoriesPage should render an Error if path is not valid 1`] = `
-<Connect(Component)
+<Connect(Translate(Error))
   error="not-found:page.notFound"
 />
 `;
