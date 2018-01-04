@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import Navigation from '../../app/Navigation'
-import LocationHeader from '../components/LocationHeader'
+import Navigation from '../../../app/Navigation'
+import LocationHeader from '../LocationHeader'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
 describe('LocationHeader', () => {

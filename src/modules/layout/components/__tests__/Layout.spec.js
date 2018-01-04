@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer'
-import Layout from '../components/Layout'
+import Layout from '../Layout'
 import React from 'react'
 
 describe('Layout', () => {

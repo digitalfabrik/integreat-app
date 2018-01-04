@@ -1,5 +1,5 @@
 import React from 'react'
-import HeaderActionBar from '../components/HeaderActionBar'
+import HeaderActionBar from '../HeaderActionBar'
 import { shallow } from 'enzyme'
 
 describe('HeaderActionBar', () => {

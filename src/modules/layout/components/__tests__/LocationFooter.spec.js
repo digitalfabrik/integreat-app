@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import Navigation from '../../app/Navigation'
-import LocationFooter from '../components/LocationFooter'
+import Navigation from '../../../app/Navigation'
+import LocationFooter from '../LocationFooter'
 
 describe('LocationFooter', () => {
   test('should match snapshot', () => {

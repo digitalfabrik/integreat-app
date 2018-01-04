@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import HeaderDropDown from '../components/HeaderDropDown'
+import HeaderDropDown from '../HeaderDropDown'
 
 describe('HeaderDropDown', () => {
   const MockNode = () => <div>Here comes the DropDown</div>

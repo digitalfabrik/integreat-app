@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import HeaderNavigationBar from '../components/HeaderNavigationBar'
+import HeaderNavigationBar from '../HeaderNavigationBar'
 
 describe('HeaderNavigationBar', () => {
   test('should match snapshot', () => {
