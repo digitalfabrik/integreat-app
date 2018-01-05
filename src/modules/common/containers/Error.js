@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
 import { goBack } from 'redux-little-router'
+import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 import style from './Error.css'
-import { connect } from 'react-redux'
 
-class Error extends React.Component {
+export class Error extends React.Component {
   static propTypes = {
-    error: PropTypes.string.isRequired
+    error: PropTypes.string.isRequired,
+    goBack: PropTypes.func.isRequired
   }
 
   /**
@@ -18,17 +20,23 @@ class Error extends React.Component {
    */
   goBack (event) {
     event.preventDefault()
-    this.props.dispatch(goBack())
+    this.props.goBack()
   }
 
   render () {
-    const {t} = this.props
     return <div>
-      <div className={style.centerText}>{t(this.props.error)}</div>
-      <div className={style.centerText}><FontAwesome name='frown-o' size="5x"/></div>
-      <a className={style.centerText} href="/" onClick={this.goBack}>Go back</a>
+      <div className={style.centerText}>{this.props.t(this.props.error)}</div>
+      <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
+      <a className={style.centerText} href='/' onClick={this.goBack}>Go back</a>
     </div>
   }
 }
 
-export default connect()(translate('errors')(Error))
+const mapDispatchToProps = (dispatch) => ({
+  goBack: () => dispatch(goBack())
+})
+
+export default compose(
+  connect(() => {}, mapDispatchToProps),
+  translate('errors')
+)(Error)
