@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Error from 'modules/common/containers/Error'
+import Error from 'modules/common/components/Error'
 
 class NotFoundPage extends React.Component {
   render () {

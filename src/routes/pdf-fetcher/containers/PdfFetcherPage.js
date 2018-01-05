@@ -13,7 +13,7 @@ import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
-import Error from 'modules/common/containers/Error'
+import Error from 'modules/common/components/Error'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
 class PdfFetcherPage extends React.Component {

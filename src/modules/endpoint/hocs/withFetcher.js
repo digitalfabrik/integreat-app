@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
-import Error from 'modules/common/containers/Error'
+import Error from 'modules/common/components/Error'
 import style from './withFetcher.css'
 
 /**
