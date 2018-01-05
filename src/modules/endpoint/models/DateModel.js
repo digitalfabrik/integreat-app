@@ -25,6 +25,28 @@ class DateModel {
   get allDay () {
     return this._allDay
   }
+
+  toLocaleString (locale) {
+    this._startDate.locale(locale)
+    this._endDate.locale(locale)
+
+    let span = ''
+
+    if (this.allDay) {
+      span += this.startDate.format('LL')
+
+      if (!this.startDate.isSame(this.endDate)) {
+        span += ' - ' + this.endDate.format('LL')
+      }
+    } else {
+      span += this.startDate.format('LLL')
+
+      if (!this.startDate.isSame(this.endDate)) {
+        span += ' - ' + this.endDate.format('LLL')
+      }
+    }
+    return span
+  }
 }
 
 export default DateModel
