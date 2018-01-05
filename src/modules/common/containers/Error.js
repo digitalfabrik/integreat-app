@@ -2,25 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
-import { goBack } from 'redux-little-router'
-import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import style from './Error.css'
 
 export class Error extends React.Component {
   static propTypes = {
-    error: PropTypes.string.isRequired,
-    goBack: PropTypes.func.isRequired
-  }
-
-  /**
-   * Go back in history!!
-   * @param event The click event
-   */
-  goBack (event) {
-    event.preventDefault()
-    this.props.goBack()
+    error: PropTypes.string.isRequired
   }
 
   render () {
@@ -32,11 +19,4 @@ export class Error extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  goBack: () => dispatch(goBack())
-})
-
-export default compose(
-  connect(() => {}, mapDispatchToProps),
-  translate('errors')
-)(Error)
+export default translate('errors')(Error)
