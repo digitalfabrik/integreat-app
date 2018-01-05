@@ -9,16 +9,19 @@ export class SearchInput extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired,
-    spaceSearch: PropTypes.bool
+    spaceSearch: PropTypes.bool,
+    t: PropTypes.func.isRequired
   }
 
   render () {
-    const {t} = this.props
     return (
       <div className={this.props.spaceSearch ? style.searchSpacing : undefined}>
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search' />
-          <input type='text' placeholder={t('search')} className={style.searchInput} defaultValue={this.props.filterText}
+          <input type='text'
+                 placeholder={this.props.t('search')}
+                 className={style.searchInput}
+                 defaultValue={this.props.filterText}
                  onChange={(event) => this.props.onFilterTextChange(event.target.value)} />
         </div>
       </div>

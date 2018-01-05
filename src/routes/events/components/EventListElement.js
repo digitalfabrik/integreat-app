@@ -44,7 +44,7 @@ class EventListElement extends React.Component {
         <div className={style.eventDescription}>
           <div className={style.eventTitle}>{this.props.event.title}</div>
           <div className={style.eventDate}>
-            {this.props.event.dateModel.toLocaleString(this.props.language)}, {this.props.event.address}
+            {this.props.event.dateModel.toTimeSpanString(this.props.language)}, {this.props.event.address}
           </div>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(70)}} />
         </div>

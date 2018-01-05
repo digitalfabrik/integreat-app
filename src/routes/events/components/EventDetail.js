@@ -34,7 +34,7 @@ class EventDetail extends React.Component {
         <div>
           <span className={style.identifier}>{t('date')}: </span>
           <span className={style.date}>
-            {this.props.event.dateModel.toLocaleString(this.props.language)}
+            {this.props.event.dateModel.toTimeSpanString(this.props.language)}
           </span>
         </div>
         <div>

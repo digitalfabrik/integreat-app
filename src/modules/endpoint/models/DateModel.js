@@ -26,7 +26,12 @@ class DateModel {
     return this._allDay
   }
 
-  toLocaleString (locale) {
+  /**
+   * Returns a nicely formatted string containing all relevant start and end date and time information
+   * @param locale The locale to format the string in
+   * @return {String} The formatted span string
+   */
+  toTimeSpanString (locale) {
     this._startDate.locale(locale)
 
     // if allDay: only date, else: date + time
