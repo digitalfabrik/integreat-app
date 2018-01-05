@@ -6,8 +6,6 @@ import compose from 'lodash/fp/compose'
 
 import SearchInput from 'modules/common/components/SearchInput'
 
-import style from './SearchPage.css'
-
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
 import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
@@ -49,9 +47,9 @@ class SearchPage extends React.Component {
 
     return (
       <div>
-        <SearchInput className={style.searchSpacing}
-                     filterText={this.state.filterText}
-                     onFilterTextChange={(filterText) => this.setState({filterText: filterText})} />
+        <SearchInput filterText={this.state.filterText}
+                     onFilterTextChange={(filterText) => this.setState({filterText: filterText})}
+                     spaceSearch />
         <CategoryList categories={categories} />
       </div>
     )

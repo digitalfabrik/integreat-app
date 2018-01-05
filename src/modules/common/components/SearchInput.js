@@ -8,17 +8,18 @@ import style from './SearchInput.css'
 class SearchInput extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
-    onFilterTextChange: PropTypes.func.isRequired
+    onFilterTextChange: PropTypes.func.isRequired,
+    spaceSearch: PropTypes.bool
   }
 
   render () {
     const {t} = this.props
     return (
-      <div className={this.props.className}>
+      <div className={this.props.spaceSearch ? style.searchSpacing : undefined}>
         <div className={style.search}>
-          <FontAwesome className={style.searchIcon} name='search'/>
+          <FontAwesome className={style.searchIcon} name='search' />
           <input type='text' placeholder={t('search')} className={style.searchInput} defaultValue={this.props.filterText}
-                 onChange={(event) => this.props.onFilterTextChange(event.target.value)}/>
+                 onChange={(event) => this.props.onFilterTextChange(event.target.value)} />
         </div>
       </div>
     )
