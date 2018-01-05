@@ -9,8 +9,6 @@ import SearchInput from 'modules/common/components/SearchInput'
 import style from './SearchPage.css'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
