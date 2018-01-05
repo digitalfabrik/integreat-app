@@ -28,21 +28,25 @@ class DateModel {
 
   toLocaleString (locale) {
     this._startDate.locale(locale)
-    this._endDate.locale(locale)
 
-    let span = ''
+    // if allDay: only date, else: date + time
+    let span = this.allDay ? this.startDate.format('LL') : this.startDate.format('LLL')
 
-    if (this.allDay) {
-      span += this.startDate.format('LL')
+    if (this.endDate.isValid() && !this.startDate.isSame(this.endDate)) {
+      // endDate is valid and different from startDate
 
-      if (!this.startDate.isSame(this.endDate)) {
-        span += ' - ' + this.endDate.format('LL')
-      }
-    } else {
-      span += this.startDate.format('LLL')
+      this._endDate.locale(locale)
+      if (this.startDate.isSame(this.endDate, 'day')) {
+        // startDate and endDate are on the same day
 
-      if (!this.startDate.isSame(this.endDate)) {
-        span += ' - ' + this.endDate.format('LLL')
+        // if allDay: we don't need anything more, because we are on the same day, else: only time
+        span += this.allDay ? '' : ' - ' + this.endDate.format('LT')
+      } else {
+        // startDate and endDate are not on the same day
+
+        span += ' - '
+        // if allDay: only date, else: date + time
+        span += this.allDay ? this.endDate.format('LL') : this.endDate.format('LLL')
       }
     }
     return span
