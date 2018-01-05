@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RemoteContent should render and be centered 1`] = `
+exports[`RemoteContent should render 1`] = `
 <div
-  className="remoteContent centered"
+  className="remoteContent"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",
@@ -11,9 +11,9 @@ exports[`RemoteContent should render and be centered 1`] = `
 />
 `;
 
-exports[`RemoteContent should render and not be centered 1`] = `
+exports[`RemoteContent should render and have centered props 1`] = `
 <div
-  className="remoteContent"
+  className="remoteContent centered"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventDetail should render 1`] = `
+exports[`EventListElement should render 1`] = `
 <Connect(Link)
   className="event"
   href="/augsburg/en/events/1234"
@@ -20,9 +20,7 @@ exports[`EventDetail should render 1`] = `
     <div
       className="eventDate"
     >
-      <Timespan
-        locale="en"
-      />
+      November 27, 2017 7:30 PM - 9:30 PM
       , 
     </div>
     <RemoteContent

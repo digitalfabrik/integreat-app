@@ -2,6 +2,7 @@ import events from '../events'
 import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import lolex from 'lolex'
+import moment from 'moment'
 
 jest.unmock('modules/endpoint/endpoints/events')
 
@@ -95,8 +96,8 @@ describe('events', () => {
 
       expect(eventsModels).toEqual([
         toEventModel(eventPage1, new DateModel({
-          startDate: new Date('2016-01-31T10:00:00Z'),
-          endDate: new Date('2016-01-31T13:00:00Z'),
+          startDate: moment('2016-01-31 10:00:00'),
+          endDate: moment('2016-01-31 13:00:00'),
           allDay: false
         }))
       ])
@@ -109,13 +110,13 @@ describe('events', () => {
 
       expect(eventsModels).toEqual([
         toEventModel(eventPage2, new DateModel({
-          startDate: new Date('2015-11-29T10:00:00Z'),
-          endDate: new Date('2015-11-29T13:00:00Z'),
+          startDate: moment('2015-11-29 10:00:00'),
+          endDate: moment('2015-11-29 13:00:00'),
           allDay: false
         })),
         toEventModel(eventPage1, new DateModel({
-          startDate: new Date('2016-01-31T10:00:00Z'),
-          endDate: new Date('2016-01-31T13:00:00Z'),
+          startDate: moment('2016-01-31 10:00:00'),
+          endDate: moment('2016-01-31 13:00:00'),
           allDay: false
         }))
       ])

@@ -4,15 +4,17 @@ import { shallow } from 'enzyme'
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventListElement from '../EventListElement'
 import DateModel from '../../../../modules/endpoint/models/DateModel'
+import moment from 'moment/moment'
 
-describe('EventDetail', () => {
+describe('EventListElement', () => {
   const event = new EventModel({
     id: 1234,
     title: 'first Event',
     availableLanguages: {de: '1235', ar: '1236'},
-    date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-      endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-      allDay: true
+    dateModel: new DateModel({
+      startDate: moment('2017-11-27 19:30:00'),
+      endDate: moment('2017-11-27 21:30:00'),
+      allDay: false
     })
   })
 
