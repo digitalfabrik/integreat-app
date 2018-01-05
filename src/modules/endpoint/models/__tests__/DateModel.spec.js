@@ -25,6 +25,11 @@ describe('DateModel', () => {
 
     expect(dateModel.toTimeSpanString('de')).toBe('27. November 2017 19:30 - 21:30')
     expect(dateModel.toTimeSpanString('en')).toBe('November 27, 2017 7:30 PM - 9:30 PM')
+    expect(dateModel.toTimeSpanString('fr')).toBe('27 novembre 2017 19:30 - 21:30')
+    expect(dateModel.toTimeSpanString('ar')).toBe('٢٧ نوفمبر ٢٠١٧ ١٩:٣٠ - ٢١:٣٠')
+    // I don't now if it's correct that farsi and arabic nearly look the same
+    expect(dateModel.toTimeSpanString('fa')).toBe('۲۷ نوامبر ۲۰۱۷ ۱۹:۳۰ - ۲۱:۳۰')
+    expect(dateModel.toTimeSpanString('ru')).toBe('27 ноября 2017 г., 19:30 - 21:30')
   })
 
   test('toTimeSpanString() should return start date + time and end date + time', () => {
