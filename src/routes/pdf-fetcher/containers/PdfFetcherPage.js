@@ -11,7 +11,7 @@ import { translate } from 'react-i18next'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
-import Error from 'modules/common/containers/Error'
+import Failure from 'modules/common/containers/Failure'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
 class PdfFetcherPage extends React.Component {
@@ -134,7 +134,7 @@ class PdfFetcherPage extends React.Component {
         <Spinner name='line-scale-party' />
       </div>
     } else if (!this.state.pdf) {
-      return <Error error='pdf-fetcher:page.loadingFailed' />
+      return <Failure error='pdf-fetcher:page.loadingFailed' />
     } else {
       return <div className={style.pdfFetcher}>
         <p>{t('downloadPdfAt')}</p>

@@ -4,10 +4,10 @@ import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
 import { goBack } from 'redux-little-router'
 
-import style from './Error.css'
+import style from './Failure.css'
 import { connect } from 'react-redux'
 
-class Error extends React.Component {
+class Failure extends React.Component {
   static propTypes = {
     error: PropTypes.string.isRequired
   }
@@ -31,4 +31,4 @@ class Error extends React.Component {
   }
 }
 
-export default connect()(translate('errors')(Error))
+export default connect()(translate('errors')(Failure))

@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
-import Error from 'modules/common/containers/Error'
+import Failure from 'modules/common/containers/Failure'
 import style from './withFetcher.css'
 import { getContext } from 'recompose'
 
@@ -48,7 +48,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         } else if (context && context.getEndpoint) {
           this.endpoint = context.getEndpoint(endpointName)
         } else {
-          throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a <EndpointProvider />?')
+          throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
         }
       }
 
@@ -77,7 +77,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
        */
       fetch (urlParams) {
         if (!urlParams) {
-          throw new Error('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
+          throw new Failure('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
             'a undefined value!')
         }
         const storeResponse = this.props.requestAction(urlParams)
@@ -100,7 +100,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         }
 
         if (this.errorVisible()) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error} />
+          return <Failure className={cx(style.loading, this.props.className)} error={payload.error} />
         }
 
         const allProps = Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})

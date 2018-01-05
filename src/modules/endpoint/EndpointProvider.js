@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Endpoint from './Endpoint'
-import Error from '../common/containers/Error'
 
 class EndpointProvider extends React.Component {
   static propTypes = {
