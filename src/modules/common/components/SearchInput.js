@@ -5,7 +5,7 @@ import { translate } from 'react-i18next'
 
 import style from './SearchInput.css'
 
-class SearchInput extends React.Component {
+export class SearchInput extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired,
