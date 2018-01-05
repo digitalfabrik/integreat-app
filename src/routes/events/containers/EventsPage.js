@@ -126,6 +126,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher(EVENTS_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT)
+  withFetcher('events'),
+  withFetcher('languages')
 )(EventsPage)

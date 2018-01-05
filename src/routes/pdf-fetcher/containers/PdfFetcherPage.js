@@ -154,7 +154,7 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATIONS_ENDPOINT),
-  withFetcher(CATEGORIES_ENDPOINT),
+  withFetcher('locations'),
+  withFetcher('categories'),
   translate('pdf-fetcher')
 )(PdfFetcherPage)

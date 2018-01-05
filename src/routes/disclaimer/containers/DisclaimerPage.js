@@ -47,6 +47,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher(DISCLAIMER_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT)
+  withFetcher('disclaimer'),
+  withFetcher('languages')
 )(DisclaimerPage)

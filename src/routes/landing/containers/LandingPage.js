@@ -27,5 +27,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATIONS_ENDPOINT)
+  withFetcher('locations')
 )(LandingPage)

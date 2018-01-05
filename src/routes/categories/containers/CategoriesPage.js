@@ -150,7 +150,7 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher(CATEGORIES_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT),
-  withFetcher(LOCATIONS_ENDPOINT)
+  withFetcher('categories'),
+  withFetcher('languages'),
+  withFetcher('locations')
 )(CategoriesPage)

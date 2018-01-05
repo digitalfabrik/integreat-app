@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default compose(
-  withFetcher(CATEGORIES_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT),
+  withFetcher('categories'),
+  withFetcher('languages'),
   connect(mapStateToProps, mapDispatchToProps)
 )(SearchPage)
