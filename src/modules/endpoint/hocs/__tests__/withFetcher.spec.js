@@ -145,6 +145,13 @@ describe('withFetcher', () => {
 
   const mockStore = configureMockStore([thunk])
 
+  test('should throw error if there is no getEndpoint function', () => {
+    const HOC = withFetcher(endpoint.stateName)
+    const Hoced = HOC(() => <span>WrappedComponent</span>)
+
+    expect(() => shallow(<Hoced />)).toThrow()
+  })
+
   describe('connect()', () => {
     test('should map dispatch to props', () => {
       const payload = new Payload(false)
