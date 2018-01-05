@@ -45,8 +45,10 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
 
         if (props.getEndpoint) {
           this.endpoint = props.getEndpoint(endpointName)
-        } else {
+        } else if (context && context.getEndpoint) {
           this.endpoint = context.getEndpoint(endpointName)
+        } else {
+          throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a <EndpointProvider />?')
         }
       }
 

@@ -18,8 +18,7 @@ class EndpointProvider extends React.Component {
       getEndpoint: (endpointName) => {
         const endpoint = this.endpoints[endpointName]
         if (!endpoint) {
-          throw new Error('The endpoint ' + endpointName + ' was not found. Maybe you didn\'t wrap the ' +
-            'withFetcher(...) call in a <EndpointProvider /> or the endpoint is not registered')
+          throw new Error('The endpoint ' + endpointName + ' was not found. Maybe you forgot register the endpoint!')
         }
         return endpoint
       }
