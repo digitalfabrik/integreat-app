@@ -197,11 +197,7 @@ describe('withFetcher', () => {
       const wrappedHOCProps = tree.find(WrappedComponent).props()
 
       expect(wrappedHOCProps).toEqual({
-        endpoint: payload.data,
-        endpointPayload: payload,
-        requestAction: expect.any(Function),
-        getEndpoint: expect.any(Function),
-        urlParams
+        endpoint: payload.data
       })
     })
   })

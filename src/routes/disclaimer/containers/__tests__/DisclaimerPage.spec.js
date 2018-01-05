@@ -8,8 +8,11 @@ import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Payload from 'modules/endpoint/Payload'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
+import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
 
 const location = 'augsburg'
+
 const languages = [
   new LanguageModel('en', 'English'),
   new LanguageModel('de', 'Deutsch'),
@@ -19,6 +22,18 @@ const languages = [
 const disclaimer = new DisclaimerModel({
   id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
 })
+
+const disclaimerEndpoint = new EndpointBuilder('disclaimer')
+  .withUrl('https://weird-endpoint/api.json')
+  .withMapper(json => json)
+  .withResponseOverride(disclaimer)
+  .build()
+
+const languagesEndpoint = new EndpointBuilder('languages')
+  .withUrl('https://weird-endpoint/api.json')
+  .withMapper(json => json)
+  .withResponseOverride(languages)
+  .build()
 
 describe('DisclaimerPage', () => {
   const mockSetLanguageChangeUrls = jest.fn()
@@ -70,7 +85,9 @@ describe('DisclaimerPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedDisclaimerPage />
+          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
+            <ConnectedDisclaimerPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -100,7 +117,9 @@ describe('DisclaimerPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedDisclaimerPage />
+          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
+            <ConnectedDisclaimerPage />
+          </EndpointProvider>
         </Provider>
       )
 

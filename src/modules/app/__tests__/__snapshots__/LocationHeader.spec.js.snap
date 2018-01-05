@@ -105,7 +105,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         "iconSrc": "test-file-stub",
       },
       Object {
-        "dropDownNode": <Connect(Connect(languagesFetcher)) />,
+        "dropDownNode": <Connect(getContext(Connect([object Object]Fetcher))) />,
         "iconSrc": "test-file-stub",
       },
     ]

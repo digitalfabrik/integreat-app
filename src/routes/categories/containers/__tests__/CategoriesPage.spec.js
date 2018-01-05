@@ -10,75 +10,95 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-
-const categoryModels = [
-  new CategoryModel({
-    id: 0,
-    url: '/augsburg/de',
-    title: 'augsburg'
-  }),
-  new CategoryModel({
-    id: 3650,
-    url: '/augsburg/de/anlaufstellen',
-    title: 'Anlaufstellen zu sonstigen Themen',
-    content: '',
-    parentId: 0,
-    parentUrl: '/augsburg/de',
-    order: 75,
-    availableLanguages: {
-      en: 4361, ar: 4367, fa: 4368
-    },
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-  }),
-  new CategoryModel({
-    id: 3649,
-    url: '/augsburg/de/willkommen',
-    title: 'Willkommen',
-    content: '',
-    parentId: 0,
-    parentUrl: '/augsburg/de',
-    order: 11,
-    availableLanguages: {
-      en: 4804, ar: 4819, fa: 4827
-    },
-    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-  }),
-  new CategoryModel({
-    id: 35,
-    url: '/augsburg/de/willkommen/willkommen-in-augsburg',
-    title: 'Willkommen in Augsburg',
-    content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
-    parentId: 3649,
-    parentUrl: '/augsburg/de/willkommen',
-    order: 1,
-    availableLanguages: {
-      en: '390',
-      de: '711',
-      ar: '397'
-    },
-    thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
-  })
-]
-
-const categories = new CategoriesMapModel(categoryModels)
-
-const locations = [
-  new LocationModel({name: 'Augsburg', code: 'augsburg'}),
-  new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-  new LocationModel({name: 'Werne', code: 'werne'})
-]
-
-const location = 'augsburg'
-
-const languages = [
-  new LanguageModel('en', 'English'),
-  new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('ar', 'Arabic')
-]
-
-const language = 'en'
+import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
 
 describe('CategoriesPage', () => {
+  const categoryModels = [
+    new CategoryModel({
+      id: 0,
+      url: '/augsburg/de',
+      title: 'augsburg'
+    }),
+    new CategoryModel({
+      id: 3650,
+      url: '/augsburg/de/anlaufstellen',
+      title: 'Anlaufstellen zu sonstigen Themen',
+      content: '',
+      parentId: 0,
+      parentUrl: '/augsburg/de',
+      order: 75,
+      availableLanguages: {
+        en: 4361, ar: 4367, fa: 4368
+      },
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    }),
+    new CategoryModel({
+      id: 3649,
+      url: '/augsburg/de/willkommen',
+      title: 'Willkommen',
+      content: '',
+      parentId: 0,
+      parentUrl: '/augsburg/de',
+      order: 11,
+      availableLanguages: {
+        en: 4804, ar: 4819, fa: 4827
+      },
+      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+    }),
+    new CategoryModel({
+      id: 35,
+      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      title: 'Willkommen in Augsburg',
+      content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
+      parentId: 3649,
+      parentUrl: '/augsburg/de/willkommen',
+      order: 1,
+      availableLanguages: {
+        en: '390',
+        de: '711',
+        ar: '397'
+      },
+      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
+    })
+  ]
+
+  const categories = new CategoriesMapModel(categoryModels)
+
+  const locations = [
+    new LocationModel({name: 'Augsburg', code: 'augsburg'}),
+    new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
+    new LocationModel({name: 'Werne', code: 'werne'})
+  ]
+
+  const location = 'augsburg'
+
+  const languages = [
+    new LanguageModel('en', 'English'),
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('ar', 'Arabic')
+  ]
+
+  const language = 'en'
+
+  const categoriesEndpoint = new EndpointBuilder('categories')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(categories)
+    .build()
+
+  const locationsEndpoint = new EndpointBuilder('locations')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(locations)
+    .build()
+
+  const languagesEndpoint = new EndpointBuilder('languages')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(languages)
+    .build()
+
   test('should render a Page if page has no children', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
@@ -290,7 +310,9 @@ describe('CategoriesPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedCategoriesPage />
+          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
+            <ConnectedCategoriesPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -333,7 +355,9 @@ describe('CategoriesPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedCategoriesPage />
+          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
+            <ConnectedCategoriesPage />
+          </EndpointProvider>
         </Provider>
       )
 

@@ -101,7 +101,14 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
           return <Error className={cx(style.loading, this.props.className)} error={payload.error} />
         }
 
-        return <WrappedComponent {...Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})} /> //todo pass only props which are needed, no internal data
+        const allProps = Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})
+        // Strip all internal data
+        delete allProps[this.endpoint.payloadName]
+        delete allProps.getEndpoint
+        delete allProps.urlParams
+        delete allProps.className
+        delete allProps.requestAction
+        return <WrappedComponent {...allProps} />
       }
     }
 

@@ -9,6 +9,8 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DateModel from 'modules/endpoint/models/DateModel'
 import Payload from 'modules/endpoint/Payload'
+import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
+import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
 
 const mockSetLanguageChangeUrls = jest.fn()
 
@@ -16,12 +18,14 @@ describe('EventsPage', () => {
   beforeEach(() => {
     mockSetLanguageChangeUrls.mockClear()
   })
+
   const events = [
     new EventModel({
       id: 1234,
       title: 'first Event',
       availableLanguages: {de: '1235', ar: '1236'},
-      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
+      date: new DateModel({
+        startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
         endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
         allDay: true
       })
@@ -30,7 +34,8 @@ describe('EventsPage', () => {
       id: 1235,
       title: 'erstes Event',
       availableLanguages: {en: '1234', ar: '1236'},
-      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
+      date: new DateModel({
+        startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
         endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
         allDay: true
       })
@@ -38,7 +43,8 @@ describe('EventsPage', () => {
     new EventModel({
       id: 2,
       title: 'second Event',
-      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
+      date: new DateModel({
+        startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
         endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
         allDay: true
       })
@@ -53,6 +59,18 @@ describe('EventsPage', () => {
   ]
   const language = 'en'
   const id = '1235'
+
+  const eventsEndpoint = new EndpointBuilder('events')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(events)
+    .build()
+
+  const languagesEndpoint = new EndpointBuilder('languages')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(languages)
+    .build()
 
   test('should render EventList', () => {
     const wrapper = shallow(
@@ -185,7 +203,9 @@ describe('EventsPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedEventsPage />
+          <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
+            <ConnectedEventsPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -222,7 +242,9 @@ describe('EventsPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedEventsPage />
+          <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
+            <ConnectedEventsPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -231,7 +253,7 @@ describe('EventsPage', () => {
 
       const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
 
-      let countActions = store.getActions().length
+      const countActions = store.getActions().length
 
       eventsPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
       expect(store.getActions()).toHaveLength(countActions + 1)
