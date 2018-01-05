@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventsPage should render EventDetail 1`] = `
-<Component
+<Translate(EventDetail)
   event={
     EventModel {
       "_address": "",
@@ -28,7 +28,7 @@ exports[`EventsPage should render EventDetail 1`] = `
 `;
 
 exports[`EventsPage should render EventList 1`] = `
-<Component
+<Translate(EventList)
   events={
     Array [
       EventModel {

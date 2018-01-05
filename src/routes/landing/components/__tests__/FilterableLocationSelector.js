@@ -52,8 +52,8 @@ describe('FilterableLocationSelector', () => {
     const component = renderer.create(
       <Provider store={store}>
         <FilterableLocationSelector
-          language="de"
-          locations={locations}/>
+          language='de'
+          locations={locations} />
       </Provider>
     )
 
@@ -65,8 +65,8 @@ describe('FilterableLocationSelector', () => {
     const wrapper = mount(
       <Provider store={store}>
         <FilterableLocationSelector
-          language="de"
-          locations={locations}/>
+          language='de'
+          locations={locations} />
       </Provider>
     )
 

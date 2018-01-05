@@ -56,10 +56,10 @@ class LocationSelector extends React.Component {
   renderList (locations) {
     const groups = groupBy(locations, location => location.sortCategory)
     return transform(groups, (result, locations, key) => {
-      result.push(<LocationParentEntry key={key} name={key}/>)
+      result.push(<LocationParentEntry key={key} name={key} />)
       result.push(locations.map((location, index) => <LocationEntry key={key + index}
                                                                     location={location}
-                                                                    language={this.props.language}/>))
+                                                                    language={this.props.language} />))
     }, [])
   }
 

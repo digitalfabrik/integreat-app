@@ -3,7 +3,7 @@
 exports[`EventList should render a list of events 1`] = `
 <React.Fragment>
   <Caption
-    title="events"
+    title="events:news"
   />
   <div
     className="list"
@@ -87,12 +87,12 @@ exports[`EventList should render a list of events 1`] = `
 exports[`EventList should render no events 1`] = `
 <div>
   <Caption
-    title="events"
+    title="events:news"
   />
   <div
     className="noEvents"
   >
-    events
+    events:currentlyNoEvents
   </div>
 </div>
 `;

@@ -3,7 +3,7 @@
 exports[`withFetcher should should show error if there is one and it's not hidded 1`] = `
 <Component
   className="loading"
-  error="Yepp... Error time! Wuschhh!"
+  error="Yepp... Error time! Wushhh!"
 />
 `;
 

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderNavigationBar should match snapshot 1`] = `
+<div
+  className="testClass navigationBar"
+>
+  <Connect(Link)
+    className="navigationItem"
+    href="link1"
+    key="text1"
+  >
+    text1
+  </Connect(Link)>
+  <Connect(Link)
+    className="navigationItem"
+    href="link2"
+    key="text2"
+  >
+    text2
+  </Connect(Link)>
+</div>
+`;

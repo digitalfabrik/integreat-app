@@ -41,17 +41,17 @@ describe('LocationSelector', () => {
   test('should render', () => {
     renderer.create(
       <LocationSelector
-        filterText="Text"
-        language="de"
-        locations={locations}/>
+        filterText='Text'
+        language='de'
+        locations={locations} />
     )
   })
 
   test('should filter for existing and live locations', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="city"
-      language="de"
-      locations={locations}/>
+      filterText='city'
+      language='de'
+      locations={locations} />
     )
 
     const component = wrapper.instance()
@@ -61,9 +61,9 @@ describe('LocationSelector', () => {
 
   test('should exclude location if location does not exist', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="Does not exist"
-      language="de"
-      locations={locations}/>
+      filterText='Does not exist'
+      language='de'
+      locations={locations} />
     )
 
     const component = wrapper.instance()
@@ -72,9 +72,9 @@ describe('LocationSelector', () => {
 
   test('should exclude location if location is not live', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="notlive"
-      language="de"
-      locations={locations}/>
+      filterText='notlive'
+      language='de'
+      locations={locations} />
     )
 
     const component = wrapper.instance()
@@ -83,9 +83,9 @@ describe('LocationSelector', () => {
 
   test('should filter for all non-live locations if filterText is "wirschaffendas"', () => {
     const wrapper = shallow(<LocationSelector
-      filterText="wirschaffendas"
-      language="de"
-      locations={locations}/>
+      filterText='wirschaffendas'
+      language='de'
+      locations={locations} />
     )
 
     const component = wrapper.instance()

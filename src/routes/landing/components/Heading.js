@@ -10,8 +10,8 @@ class Heading extends React.Component {
     const {t} = this.props
     return (
       <div>
-        <img className={style.logo} src={LocationBig}/>
-        <Caption className={style.caption} title={t('where')}/>
+        <img className={style.logo} src={LocationBig} />
+        <Caption className={style.caption} title={t('where')} />
       </div>
     )
   }
