@@ -13,6 +13,7 @@ import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
+import RouterRedirect from 'modules/common/containers/RouterRedirect'
 
 /**
  * todo: Test and document in WEBAPP-90
@@ -27,6 +28,10 @@ class RouterFragment extends React.Component {
     return <Fragment forRoute='/'>
       {/* Routes */}
       <React.Fragment>
+        {/* No language was provided to redirect to a specific language (e.g. the browsers language) */}
+        <Fragment forRoute='/'>
+          <RouterRedirect />
+        </Fragment>
 
         {/* Matches two or more arguments like /augsburg/de */}
         <Fragment forRoute='/:location/:language(/*)'>
@@ -59,8 +64,14 @@ class RouterFragment extends React.Component {
           <Layout header={<GeneralHeader />} footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
+        {/* If language param is longer than 2, it is no language and is probably a location
+        -> redirect the language-specific location */}
+        <Fragment forRoute='/:language(/)' withConditions={location => location.params.language.length > 2}>
+          <RouterRedirect />
+        </Fragment>
+
         {/* Matches one or zero arguments like /de */}
-        <Fragment forRoute='/(:language(/))'>
+        <Fragment forRoute='/:language(/)'>
           <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
         </Fragment>
 

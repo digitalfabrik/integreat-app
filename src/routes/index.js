@@ -18,7 +18,7 @@ export default {
         title: 'FetchPdf page'
       }
     },
-    '/(:language(/))': {
+    '/:language(/)': {
       title: 'Landing page'
     },
     '/disclaimer': {
