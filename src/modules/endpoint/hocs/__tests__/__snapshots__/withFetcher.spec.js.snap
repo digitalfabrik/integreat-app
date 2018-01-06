@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`withFetcher should should show error if there is one and it's not hidded 1`] = `
-<Component
+exports[`withFetcher should should show error if there is one and it's not hidden 1`] = `
+<Translate(Error)
   className="loading"
   error="Yepp... Error time! Wushhh!"
 />

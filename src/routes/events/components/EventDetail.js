@@ -10,6 +10,7 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
+import TimeSpan from './TimeSpan'
 
 /**
  * Display a single event with all necessary information
@@ -17,7 +18,8 @@ import Caption from 'modules/common/components/Caption'
 class EventDetail extends React.Component {
   static propTypes = {
     event: PropTypes.instanceOf(EventModel).isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   getEventPlaceholder () {
@@ -26,22 +28,24 @@ class EventDetail extends React.Component {
   }
 
   render () {
-    const {t} = this.props
+    const event = this.props.event
     return (
       <div>
-        <img className={style.thumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()} />
-        <Caption title={this.props.event.title} />
+        <img className={style.thumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
+        <Caption title={event.title} />
         <div>
-          <span className={style.identifier}>{t('date')}: </span>
-          <span className={style.date}>
-            {this.props.event.dateModel.toTimeSpanString(this.props.language)}
-          </span>
+          <span className={style.identifier}>{this.props.t('date')}: </span>
+          <TimeSpan className={style.date}
+                    allDay={event}
+                    startDate={event.startDate}
+                    endDate={event.endDate}
+                    locale={this.props.language} />
         </div>
         <div>
-          <span className={style.identifier}>{t('location')}: </span>
-          <span className={style.date}>{this.props.event.address}</span>
+          <span className={style.identifier}>{this.props.t('location')}: </span>
+          <span className={style.date}>{event.address}</span>
         </div>
-        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.event.content}} />
+        <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} />
       </div>
     )
   }
