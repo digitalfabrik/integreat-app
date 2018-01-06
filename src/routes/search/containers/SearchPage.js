@@ -14,7 +14,7 @@ import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChang
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
 
-class SearchPage extends React.Component {
+export class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
