@@ -42,8 +42,12 @@ export class SearchPage extends React.Component {
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
   }
 
+  findCategories () {
+    return this.props.categories.toArray().filter(category => this.acceptCategory(category))
+  }
+
   render () {
-    const categories = this.props.categories.toArray().filter(category => this.acceptCategory(category))
+    const categories = this.findCategories()
 
     return (
       <div>

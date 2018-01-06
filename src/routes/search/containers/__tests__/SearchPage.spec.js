@@ -72,4 +72,27 @@ describe('SearchPage', () => {
                                         setLanguageChangeUrls={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
+
+  test('should dispatch once in componentDidMount', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
+    const searchPage = shallow(<SearchPage location={location}
+                                               languages={languages}
+                                               categories={categories}
+                                               setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+    ).instance()
+
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(searchPage.mapLanguageToUrl, languages)
+  })
+
+  test('should mapLanguageToUrl correctly', () => {
+    const searchPage = shallow(
+      <SearchPage location={location}
+                  languages={languages}
+                  categories={categories}
+                  setLanguageChangeUrls={() => {}} />
+    ).instance()
+    expect(searchPage.mapLanguageToUrl('en')).toBe('/augsburg/en/search')
+  })
 })
