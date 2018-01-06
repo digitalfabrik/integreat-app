@@ -11,39 +11,37 @@ import Payload from 'modules/endpoint/Payload'
 import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
 
-const location = 'augsburg'
-
-const languages = [
-  new LanguageModel('en', 'English'),
-  new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('ar', 'Arabic')
-]
-
-const disclaimer = new DisclaimerModel({
-  id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
-})
-
-const disclaimerEndpoint = new EndpointBuilder('disclaimer')
-  .withUrl('https://weird-endpoint/api.json')
-  .withMapper(json => json)
-  .withResponseOverride(disclaimer)
-  .build()
-
-const languagesEndpoint = new EndpointBuilder('languages')
-  .withUrl('https://weird-endpoint/api.json')
-  .withMapper(json => json)
-  .withResponseOverride(languages)
-  .build()
-
 describe('DisclaimerPage', () => {
-  const mockSetLanguageChangeUrls = jest.fn()
+  const location = 'augsburg'
 
-  test('should render', () => {
+  const languages = [
+    new LanguageModel('en', 'English'),
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('ar', 'Arabic')
+  ]
+
+  const disclaimer = new DisclaimerModel({
+    id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
+  })
+
+  const disclaimerEndpoint = new EndpointBuilder('disclaimer')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(disclaimer)
+    .build()
+
+  const languagesEndpoint = new EndpointBuilder('languages')
+    .withUrl('https://weird-endpoint/api.json')
+    .withMapper(json => json)
+    .withResponseOverride(languages)
+    .build()
+
+  test('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
                       disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />)
+                      setLanguageChangeUrls={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 
