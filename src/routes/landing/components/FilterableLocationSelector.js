@@ -17,18 +17,18 @@ class FilterableLocationSelector extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      filterText: ''
-    }
+    this.state = {filterText: ''}
   }
 
   render () {
     return (
       <div className={style.topSpacing}>
-        <Heading/>
+        <Heading />
         <SearchInput filterText={this.state.filterText}
-                     onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})}/>
-        <LocationSelector locations={this.props.locations} filterText={this.state.filterText} language={this.props.language}/>
+                     onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})} />
+        <LocationSelector locations={this.props.locations}
+                          filterText={this.state.filterText}
+                          language={this.props.language} />
       </div>
     )
   }
