@@ -13,7 +13,7 @@ import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
-import RouterRedirect from 'modules/common/containers/RouterRedirect'
+import I18nRedirect from 'modules/app/containers/I18nRedirect'
 
 /**
  * todo: Test and document in WEBAPP-90
@@ -30,7 +30,7 @@ class RouterFragment extends React.Component {
       <React.Fragment>
         {/* No language was provided to redirect to a specific language (e.g. the browsers language) */}
         <Fragment forRoute='/'>
-          <RouterRedirect />
+          <I18nRedirect />
         </Fragment>
 
         {/* Matches two or more arguments like /augsburg/de */}
@@ -67,7 +67,7 @@ class RouterFragment extends React.Component {
         {/* If language param is longer than 2, it is no language and is probably a location
         -> redirect the language-specific location */}
         <Fragment forRoute='/:language(/)' withConditions={location => location.params.language.length > 2}>
-          <RouterRedirect />
+          <I18nRedirect />
         </Fragment>
 
         {/* Matches one or zero arguments like /de */}

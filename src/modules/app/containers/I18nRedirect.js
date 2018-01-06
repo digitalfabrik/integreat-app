@@ -6,7 +6,7 @@ import normalizeUrl from 'normalize-url'
 import { connect } from 'react-redux'
 import { I18n } from 'react-i18next'
 
-class RouterRedirect extends React.Component {
+class I18nRedirect extends React.Component {
   static propTypes = {
     redirect: PropTypes.func.isRequired,
     currentPath: PropTypes.string.isRequired
@@ -33,4 +33,4 @@ const mapStateToProps = (state) => ({
   currentPath: state.router.pathname
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouterRedirect)
+export default connect(mapStateToProps, mapDispatchToProps)(I18nRedirect)

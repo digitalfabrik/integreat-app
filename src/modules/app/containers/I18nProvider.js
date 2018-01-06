@@ -51,8 +51,7 @@ class I18nProvider extends React.Component {
   setLanguage (language) {
     const targetLanguage = language || this._i18n.languages[0]
     this.setState({language: targetLanguage})
-    /* Use language from browser detection if it is not available in url
-                                         todo: redirect to correct url */
+
     document.documentElement.lang = targetLanguage
 
     // Set i18n language to apps language
