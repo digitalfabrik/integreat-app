@@ -22,9 +22,9 @@ exports[`EventListElement should render 1`] = `
     >
       <TimeSpan
         allDay={false}
-        endDate={"2017-11-27T20:30:00.000Z"}
+        endDate={"2017-11-27T21:30:00.000Z"}
         locale="en"
-        startDate={"2017-11-27T18:30:00.000Z"}
+        startDate={"2017-11-27T19:30:00.000Z"}
       />
       , 
     </div>

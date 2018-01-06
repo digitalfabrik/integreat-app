@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
@@ -13,6 +13,10 @@ import Payload from 'modules/endpoint/Payload'
 const mockSetLanguageChangeUrls = jest.fn()
 
 describe('EventsPage', () => {
+  // we need UTC here, see https://medium.com/front-end-hacking/jest-snapshot-testing-with-dates-and-times-f3badb8f1d87
+  // otherwise snapshot testing is not working
+  moment.tz.setDefault('UTC')
+
   beforeEach(() => {
     mockSetLanguageChangeUrls.mockClear()
   })

@@ -47,21 +47,6 @@ describe('events', () => {
     }
   }
 
-  const eventPage3 = {
-    id: 1889,
-    title: '',
-    status: 'publish',
-    excerpt: '',
-    content: '',
-    available_languages: [],
-    thumbnail: null,
-    event: {},
-    location: {
-      address: '',
-      town: ''
-    }
-  }
-
   test('should map state to urls', () => {
     expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg', language: 'de'}}}))
       .toEqual({location: 'augsburg', language: 'de'})
@@ -86,8 +71,7 @@ describe('events', () => {
       status: 'trash'
     },
     eventPage1,
-    eventPage2,
-    eventPage3
+    eventPage2
   ]
 
   describe('should map fetched data to models', () => {
