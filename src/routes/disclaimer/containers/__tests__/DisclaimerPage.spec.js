@@ -24,18 +24,6 @@ describe('DisclaimerPage', () => {
     id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
   })
 
-  const disclaimerEndpoint = new EndpointBuilder('disclaimer')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(disclaimer)
-    .build()
-
-  const languagesEndpoint = new EndpointBuilder('languages')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(languages)
-    .build()
-
   test('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage languages={languages}
@@ -59,21 +47,31 @@ describe('DisclaimerPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(disclaimerPage.mapLanguageToUrl, languages)
   })
 
-  test('mapLanguageToUrl', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
+  test('should mapLanguageToUrl correctly', () => {
     const disclaimerPage = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
                       disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                      setLanguageChangeUrls={() => {}} />
     ).instance()
     expect(disclaimerPage.mapLanguageToUrl('en')).toBe('/augsburg/en/disclaimer')
   })
 
-  const mockStore = configureMockStore([thunk])
+  describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
 
-  describe('connect', () => {
+    const disclaimerEndpoint = new EndpointBuilder('disclaimer')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(disclaimer)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const store = mockStore({
         disclaimer: new Payload(false),

@@ -60,18 +60,6 @@ describe('EventsPage', () => {
   const language = 'en'
   const id = '1235'
 
-  const eventsEndpoint = new EndpointBuilder('events')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(events)
-    .build()
-
-  const languagesEndpoint = new EndpointBuilder('languages')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(languages)
-    .build()
-
   test('should render EventList', () => {
     const wrapper = shallow(
       <EventsPage events={events}
@@ -177,7 +165,7 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
-  test('mapLanguageToUrl', () => {
+  test('should mapLanguageToUrl correctly', () => {
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
@@ -191,9 +179,21 @@ describe('EventsPage', () => {
     expect(mapLanguageToUrl('en', 1234)).toBe('/augsburg/en/events/1234')
   })
 
-  const mockStore = configureMockStore([thunk])
+  describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
 
-  describe('connect', () => {
+    const eventsEndpoint = new EndpointBuilder('events')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(events)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const store = mockStore({
         events: new Payload(false),

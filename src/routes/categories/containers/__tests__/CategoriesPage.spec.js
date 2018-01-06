@@ -81,24 +81,6 @@ describe('CategoriesPage', () => {
 
   const language = 'en'
 
-  const categoriesEndpoint = new EndpointBuilder('categories')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(categories)
-    .build()
-
-  const locationsEndpoint = new EndpointBuilder('locations')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(locations)
-    .build()
-
-  const languagesEndpoint = new EndpointBuilder('languages')
-    .withUrl('https://weird-endpoint/api.json')
-    .withMapper(json => json)
-    .withResponseOverride(languages)
-    .build()
-
   test('should render a Page if page has no children', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
@@ -257,7 +239,7 @@ describe('CategoriesPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount)
   })
 
-  test('mapLanguageToUrl', () => {
+  test('should mapLanguageToUrl correctly', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -277,7 +259,7 @@ describe('CategoriesPage', () => {
     expect(mapLanguageToUrl('en')).toBe('/augsburg/en')
   })
 
-  test('getPdfFetchPath', () => {
+  test('should have correct pdf fetch path', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -295,9 +277,27 @@ describe('CategoriesPage', () => {
     expect(categoriesPage.getPdfFetchPath()).toBe('/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen')
   })
 
-  const mockStore = configureMockStore([thunk])
+  describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
 
-  describe('connect', () => {
+    const categoriesEndpoint = new EndpointBuilder('categories')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(categories)
+      .build()
+
+    const locationsEndpoint = new EndpointBuilder('locations')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(locations)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const pathname = '/augsburg/de'
       const id = 1234
