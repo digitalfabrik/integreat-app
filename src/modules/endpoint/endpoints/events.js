@@ -21,11 +21,11 @@ export default new EndpointBuilder('events')
       excerpt: event.excerpt,
       availableLanguages: event.available_languages
     }))
-    .filter(event => event.dateModel.startDate.isValid())
-    .filter(event => event.dateModel.startDate.isAfter(moment()))
+    .filter(event => event.startDate.isValid())
+    .filter(event => event.startDate.isAfter(moment()))
     .sort((event1, event2) => {
-      if (event1.dateModel.startDate.isBefore(event2.dateModel.startDate)) return -1
-      if (event1.dateModel.startDate.isAfter(event2.dateModel.startDate)) return 1
+      if (event1.startDate.isBefore(event2.startDate)) return -1
+      if (event1.startDate.isAfter(event2.startDate)) return 1
       return 0
     })
   )

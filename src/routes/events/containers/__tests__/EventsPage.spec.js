@@ -3,11 +3,11 @@ import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import moment from 'moment'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import DateModel from 'modules/endpoint/models/DateModel'
 import Payload from 'modules/endpoint/Payload'
 
 const mockSetLanguageChangeUrls = jest.fn()
@@ -21,27 +21,24 @@ describe('EventsPage', () => {
       id: 1234,
       title: 'first Event',
       availableLanguages: {de: '1235', ar: '1236'},
-      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-        allDay: true
-      })
+      startDate: moment('2017-11-18 09:30:00'),
+      endDate: moment('2017-11-18 19:30:00'),
+      allDay: true
     }),
     new EventModel({
       id: 1235,
       title: 'erstes Event',
       availableLanguages: {en: '1234', ar: '1236'},
-      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-        allDay: true
-      })
+      tartDate: moment('2017-11-18 09:30:00'),
+      endDate: moment('2017-11-18 19:30:00'),
+      allDay: true
     }),
     new EventModel({
       id: 2,
       title: 'second Event',
-      date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-        allDay: true
-      })
+      startDate: moment('2017-11-18 09:30:00'),
+      endDate: moment('2017-11-18 19:30:00'),
+      allDay: true
     })
   ]
 

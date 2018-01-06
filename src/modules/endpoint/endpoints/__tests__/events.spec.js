@@ -1,6 +1,5 @@
 import events from '../events'
 import EventModel from '../../models/EventModel'
-import DateModel from '../../models/DateModel'
 import lolex from 'lolex'
 import moment from 'moment'
 
@@ -68,14 +67,16 @@ describe('events', () => {
       .toEqual({location: 'augsburg', language: 'de'})
   })
 
-  const toEventModel = (json, dateModel) => new EventModel({
+  const toEventModel = (json) => new EventModel({
     id: json.id,
     title: json.title,
     content: json.content,
     thumbnail: json.thumbnail,
     address: json.location.address,
     town: json.location.town,
-    dateModel,
+    startDate: moment(event.event.start_date + ' ' + event.event.start_time),
+    endDate: moment(event.event.end_date + ' ' + event.event.end_time),
+    allDay: event.event.all_day !== '0',
     excerpt: json.excerpt,
     availableLanguages: json.available_languages
   })
@@ -95,11 +96,7 @@ describe('events', () => {
       const eventsModels = events.mapResponse(json)
 
       expect(eventsModels).toEqual([
-        toEventModel(eventPage1, new DateModel({
-          startDate: moment('2016-01-31 10:00:00'),
-          endDate: moment('2016-01-31 13:00:00'),
-          allDay: false
-        }))
+        toEventModel(eventPage1)
       ])
 
       clock.uninstall()
@@ -109,16 +106,8 @@ describe('events', () => {
       const eventsModels = events.mapResponse(json)
 
       expect(eventsModels).toEqual([
-        toEventModel(eventPage2, new DateModel({
-          startDate: moment('2015-11-29 10:00:00'),
-          endDate: moment('2015-11-29 13:00:00'),
-          allDay: false
-        })),
-        toEventModel(eventPage1, new DateModel({
-          startDate: moment('2016-01-31 10:00:00'),
-          endDate: moment('2016-01-31 13:00:00'),
-          allDay: false
-        }))
+        toEventModel(eventPage2),
+        toEventModel(eventPage1)
       ])
       clock.uninstall()
     })

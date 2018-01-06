@@ -9,6 +9,7 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
+import TimeSpan from './TimeSpan'
 
 /**
  * Display a element of the EventList
@@ -38,13 +39,18 @@ class EventListElement extends React.Component {
   }
 
   render () {
+    const event = this.props.event
     return (
       <Link href={this.getUrl()} className={style.event}>
-        <img className={style.eventThumbnail} src={this.props.event.thumbnail || this.getEventPlaceholder()} />
+        <img className={style.eventThumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
         <div className={style.eventDescription}>
-          <div className={style.eventTitle}>{this.props.event.title}</div>
+          <div className={style.eventTitle}>{event.title}</div>
           <div className={style.eventDate}>
-            {this.props.event.dateModel.toTimeSpanString(this.props.language)}, {this.props.event.address}
+            <TimeSpan startDate={event.startDate}
+                      endDate={event.endDate}
+                      allDay={event.allDay}
+                      locale={this.props.language} />
+            , {event.address}
           </div>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(70)}} />
         </div>
