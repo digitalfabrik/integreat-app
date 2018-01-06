@@ -20,7 +20,12 @@ exports[`EventListElement should render 1`] = `
     <div
       className="eventDate"
     >
-      November 27, 2017 7:30 PM - 9:30 PM
+      <TimeSpan
+        allDay={false}
+        endDate={"2017-11-27T20:30:00.000Z"}
+        locale="en"
+        startDate={"2017-11-27T18:30:00.000Z"}
+      />
       , 
     </div>
     <RemoteContent

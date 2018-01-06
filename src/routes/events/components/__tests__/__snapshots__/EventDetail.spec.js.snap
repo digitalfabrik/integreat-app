@@ -5,18 +5,16 @@ exports[`EventDetail should render 1`] = `
   event={
     EventModel {
       "_address": "",
+      "_allDay": true,
       "_availableLanguages": Object {
         "ar": "1236",
         "de": "1235",
       },
       "_content": "",
-      "_dateModel": DateModel {
-        "_allDay": undefined,
-        "_endDate": undefined,
-        "_startDate": undefined,
-      },
+      "_endDate": 2017-11-18T18:30:00.000Z,
       "_excerpt": "",
       "_id": 1234,
+      "_startDate": 2017-11-18T08:30:00.000Z,
       "_thumbnail": "",
       "_title": "first Event",
       "_town": "",

@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateModel toTimeSpanString() should only return start date (+ time) if endDate is not valid 1`] = `
+exports[`TimeSpan should render 1`] = `
+<span>
+  27. November 2017 19:30 - 21:30
+</span>
+`;
+
+exports[`TimeSpan toTimeSpanString() should only return start date (+ time) if endDate is not valid 1`] = `
 Array [
   "de: 27. November 2017 19:30",
   "en: November 27, 2017 7:30 PM",
@@ -11,7 +17,7 @@ Array [
 ]
 `;
 
-exports[`DateModel toTimeSpanString() should return only start date + end date if allDay is true 1`] = `
+exports[`TimeSpan toTimeSpanString() should return only start date + end date if allDay is true 1`] = `
 Array [
   "de: 27. November 2017 - 28. November 2017",
   "en: November 27, 2017 - November 28, 2017",
@@ -22,7 +28,7 @@ Array [
 ]
 `;
 
-exports[`DateModel toTimeSpanString() should return only start date + time and end time if the dates are the same 1`] = `
+exports[`TimeSpan toTimeSpanString() should return only start date + time and end time if the dates are the same 1`] = `
 Array [
   "de: 27. November 2017 19:30 - 21:30",
   "en: November 27, 2017 7:30 PM - 9:30 PM",
@@ -33,7 +39,7 @@ Array [
 ]
 `;
 
-exports[`DateModel toTimeSpanString() should return only start date + time if start and end are the same 1`] = `
+exports[`TimeSpan toTimeSpanString() should return only start date + time if start and end are the same 1`] = `
 Array [
   "de: 27. November 2017 19:30",
   "en: November 27, 2017 7:30 PM",
@@ -44,7 +50,7 @@ Array [
 ]
 `;
 
-exports[`DateModel toTimeSpanString() should return only start date if allDay is true and the dates are the same 1`] = `
+exports[`TimeSpan toTimeSpanString() should return only start date if allDay is true and the dates are the same 1`] = `
 Array [
   "de: 27. November 2017",
   "en: November 27, 2017",
@@ -55,7 +61,7 @@ Array [
 ]
 `;
 
-exports[`DateModel toTimeSpanString() should return start date + time and end date + time 1`] = `
+exports[`TimeSpan toTimeSpanString() should return start date + time and end date + time 1`] = `
 Array [
   "de: 27. November 2017 19:30 - 28. November 2017 21:30",
   "en: November 27, 2017 7:30 PM - November 28, 2017 9:30 PM",

@@ -11,15 +11,15 @@ class TimeSpan extends React.Component {
   }
 
   /**
-   * Returns a nicely formatted string containing all relevant start and end date and time information formatted in
-   * the locale of the props
+   * Returns a formatted string containing all relevant start and end date and time information
+   * @param {String} locale The locale to format the span in
    * @return {String} The formatted span string
    */
-  toTimeSpanString () {
+  toTimeSpanString (locale) {
     const startDate = this.props.startDate
     const endDate = this.props.endDate
 
-    startDate.locale(this.props.locale)
+    startDate.locale(locale)
 
     // if allDay: only date, else: date + time
     let span = this.props.allDay ? startDate.format('LL') : startDate.format('LLL')
@@ -27,7 +27,7 @@ class TimeSpan extends React.Component {
     if (endDate.isValid() && !startDate.isSame(endDate)) {
       // endDate is valid and different from startDate
 
-      endDate.locale(this.props.locale)
+      endDate.locale(locale)
       if (startDate.isSame(endDate, 'day')) {
         // startDate and endDate are on the same day
 
@@ -45,7 +45,7 @@ class TimeSpan extends React.Component {
   }
 
   render () {
-    return <span>{this.toTimeSpanString()}</span>
+    return <span>{this.toTimeSpanString(this.props.locale)}</span>
   }
 }
 
