@@ -14,7 +14,8 @@ global.fetch = require('jest-fetch-mock')
 
 const languages = [
   new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('en', 'English')
+  new LanguageModel('en', 'English'),
+  new LanguageModel('ar', 'Arabic')
 ]
 
 const categories = new CategoriesMapModel([
