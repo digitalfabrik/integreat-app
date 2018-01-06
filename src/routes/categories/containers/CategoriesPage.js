@@ -12,7 +12,7 @@ import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
-import Error from 'modules/common/components/Error'
+import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 
 import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
@@ -122,7 +122,7 @@ export class CategoriesPage extends React.Component {
     const category = this.props.categories.getCategoryByUrl(this.props.path)
 
     if (!category) {
-      return <Error error='not-found:page.notFound' />
+      return <Failure error='not-found:page.notFound' />
     }
 
     return <div>

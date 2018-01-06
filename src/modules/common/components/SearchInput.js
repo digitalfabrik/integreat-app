@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { translate } from 'react-i18next'
+import cx from 'classnames'
 
 import style from './SearchInput.css'
 
@@ -15,7 +16,7 @@ export class SearchInput extends React.Component {
 
   render () {
     return (
-      <div className={this.props.spaceSearch ? style.searchSpacing : undefined}>
+      <div className={cx({ [style.searchSpacing]: this.props.spaceSearch })}>
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search' />
           <input type='text'

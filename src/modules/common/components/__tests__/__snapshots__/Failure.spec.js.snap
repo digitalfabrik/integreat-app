@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Failure should match snapshot 1`] = `
+<div>
+  <div
+    className="centerText"
+  >
+    Error Message
+  </div>
+  <div
+    className="centerText"
+  >
+    <FontAwesome
+      name="frown-o"
+      size="5x"
+    />
+  </div>
+  <Connect(Link)
+    clssName="centerText"
+    href="/"
+  >
+    Go Back
+  </Connect(Link)>
+</div>
+`;

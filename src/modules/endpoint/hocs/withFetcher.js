@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
-import Error from 'modules/common/components/Error'
+import Failure from 'modules/common/components/Failure'
 import style from './withFetcher.css'
 
 /**
@@ -82,7 +82,7 @@ export function withFetcher (endpoint, hideError = false, hideSpinner = false) {
         }
 
         if (this.errorVisible()) {
-          return <Error className={cx(style.loading, this.props.className)} error={payload.error} />
+          return <Failure className={cx(style.loading, this.props.className)} error={payload.error} />
         }
 
         return <WrappedComponent {...Object.assign({}, this.props, {[endpoint.stateName]: payload.data})} />
