@@ -11,11 +11,11 @@ class RemoteContent extends React.Component {
         __html: PropTypes.string.isRequired
       }).isRequired
     ).isRequired,
-    isCentered: PropTypes.bool
+    centered: PropTypes.bool
   }
 
   render () {
-    const className = this.props.isCentered ? cx(style.remoteContent, style.centered) : style.remoteContent
+    const className = this.props.centered ? cx(style.remoteContent, style.centered) : style.remoteContent
     return <div className={className} dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
   }
 }

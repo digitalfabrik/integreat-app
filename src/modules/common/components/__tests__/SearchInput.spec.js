@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { SearchInput } from '../SearchInput'
+import ConnectedSearchInput, { SearchInput } from '../SearchInput'
 
 describe('SearchInput', () => {
   test('should render', () => {
@@ -16,5 +16,12 @@ describe('SearchInput', () => {
                                 onFilterTextChange={() => {}}
                                 t={mockTranslate}
                                 spaceSearch />)).toMatchSnapshot()
+  })
+
+  describe('connect', () => {
+    test('should render', () => {
+      expect(shallow(<ConnectedSearchInput filterText={'Test'}
+                                  onFilterTextChange={() => {}} />)).toMatchSnapshot()
+    })
   })
 })

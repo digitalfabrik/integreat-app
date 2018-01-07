@@ -6,6 +6,9 @@ import FontAwesome from 'react-fontawesome'
 import style from './Failure.css'
 import { Link } from 'redux-little-router'
 
+/**
+ * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
+ */
 export class Failure extends React.Component {
   static propTypes = {
     error: PropTypes.string.isRequired,

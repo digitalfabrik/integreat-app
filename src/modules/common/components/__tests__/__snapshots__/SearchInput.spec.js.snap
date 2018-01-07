@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SearchInput connect should render 1`] = `
+<SearchInput
+  filterText="Test"
+  onFilterTextChange={[Function]}
+  t={[Function]}
+/>
+`;
+
 exports[`SearchInput should render 1`] = `
 <div
   className=""

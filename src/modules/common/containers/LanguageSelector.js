@@ -34,25 +34,27 @@ export class LanguageSelector extends React.Component {
 
   /**
    * Maps all languages to a Link, which are linking to the same page in a different language and closing the dropDown
-   * menu. For the current language we don't want to link anywhere, so we just close the dropDown menu and prevent the
-   * default behaviour
-   * @return {Link[]} The links for language change
+   * menu. For the current language we don't want to link anywhere
+   * @return The links for language change and a span for the current language
    */
   getLanguageLinks () {
-    const preventLink = (event) => {
-      event.preventDefault()
-      this.props.closeDropDownCallback()
-    }
-
-    return this.props.languages.map(language =>
-      <Link
-        key={language.code}
-        className={cx(style.element, this.props.language === language.code ? style.elementActive : '')}
-        onClick={language.code === this.props.language ? preventLink : this.props.closeDropDownCallback}
-        href={this.getPathForLanguage(language.code)}>
-        {language.name}
-      </Link>
-    )
+    return this.props.languages.map(language => {
+      if (language.code === this.props.language) {
+        return (
+          <span className={cx(style.element, style.elementActive)}>{language.name}</span>
+        )
+      } else {
+        return (
+          <Link
+            key={language.code}
+            className={style.element}
+            onClick={this.props.closeDropDownCallback}
+            href={this.getPathForLanguage(language.code)}>
+            {language.name}
+          </Link>
+        )
+      }
+    })
   }
 
   render () {

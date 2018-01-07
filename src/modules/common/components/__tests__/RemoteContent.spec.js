@@ -9,7 +9,7 @@ describe('RemoteContent', () => {
 
   test('should render and have centered props', () => {
     expect(shallow(
-      <RemoteContent isCentered dangerouslySetInnerHTML={{__html: '<div> Test html </div>'}} />
+      <RemoteContent centered dangerouslySetInnerHTML={{__html: '<div> Test html </div>'}} />
     )).toMatchSnapshot()
   })
 })
