@@ -6,6 +6,7 @@ exports[`LanguageSelector should match snapshot 1`] = `
 >
   <span
     className="element elementActive"
+    key="de"
   >
     Deutsch
   </span>
