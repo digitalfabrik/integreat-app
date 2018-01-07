@@ -41,15 +41,18 @@ export class LanguageSelector extends React.Component {
     return this.props.languages.map(language => {
       if (language.code === this.props.language) {
         return (
-          <span key={language.code} className={cx(style.element, style.elementActive)}>{language.name}</span>
+          <span key={language.code}
+                className={cx(style.element, style.elementActive)}
+                onClick={this.props.closeDropDownCallback}>
+            {language.name}
+            </span>
         )
       } else {
         return (
-          <Link
-            key={language.code}
-            className={style.element}
-            onClick={this.props.closeDropDownCallback}
-            href={this.getPathForLanguage(language.code)}>
+          <Link key={language.code}
+                className={style.element}
+                onClick={this.props.closeDropDownCallback}
+                href={this.getPathForLanguage(language.code)}>
             {language.name}
           </Link>
         )
