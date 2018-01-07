@@ -15,7 +15,7 @@ import style from './LanguageSelector.css'
  */
 export class LanguageSelector extends React.Component {
   static propTypes = {
-    closeDropDownCallback: PropTypes.func.isRequired,
+    closeDropDownCallback: PropTypes.func,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
