@@ -41,7 +41,7 @@ export class LanguageSelector extends React.Component {
     return this.props.languages.map(language => {
       if (language.code === this.props.language) {
         return (
-          <span className={cx(style.element, style.elementActive)}>{language.name}</span>
+          <span key={language.code} className={cx(style.element, style.elementActive)}>{language.name}</span>
         )
       } else {
         return (
