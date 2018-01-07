@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LANGUAGE_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import style from './LanguageSelector.css'
 import cx from 'classnames'
@@ -48,5 +47,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LANGUAGE_ENDPOINT, true, true)
+  withFetcher('languages', true, true)
 )(LanguageSelector)

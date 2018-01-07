@@ -6,7 +6,6 @@ import compose from 'lodash/fp/compose'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from 'modules/layout/components/Layout'
@@ -49,6 +48,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATIONS_ENDPOINT, true, true),
+  withFetcher('locations', true, true),
   translate('app')
 )(LocationLayout)
