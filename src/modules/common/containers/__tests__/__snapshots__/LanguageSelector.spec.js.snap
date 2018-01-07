@@ -4,14 +4,11 @@ exports[`LanguageSelector should match snapshot 1`] = `
 <div
   className="languageSelector"
 >
-  <Connect(Link)
+  <span
     className="element elementActive"
-    href="test/url/de"
-    key="de"
-    onClick={[Function]}
   >
     Deutsch
-  </Connect(Link)>
+  </span>
   <Connect(Link)
     className="element"
     href="test/url/en"
