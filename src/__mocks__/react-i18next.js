@@ -6,3 +6,5 @@ export const translate = (namespace) => Component => {
   Translated.displayName = `Translate(${Component.displayName || Component.name})`
   return Translated
 }
+
+export const I18nextProvider = ({children}) => children
