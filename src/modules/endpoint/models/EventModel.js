@@ -1,14 +1,14 @@
-import DateModel from './DateModel'
-
 class EventModel {
-  constructor ({id, title = '', content = '', thumbnail = '', address = '', town = '', dateModel = new DateModel({}), excerpt = '', availableLanguages = []}) {
+  constructor ({id, title = '', content = '', thumbnail = '', address = '', town = '', startDate = undefined, endDate = undefined, allDay = false, excerpt = '', availableLanguages = []}) {
     this._id = id
     this._title = title
     this._content = content
     this._thumbnail = thumbnail
     this._address = address
     this._town = town
-    this._dateModel = dateModel
+    this._startDate = startDate
+    this._endDate = endDate
+    this._allDay = allDay
     this._excerpt = excerpt
     this._availableLanguages = availableLanguages
   }
@@ -41,8 +41,16 @@ class EventModel {
     }
   }
 
-  get dateModel () {
-    return this._dateModel
+  get startDate () {
+    return this._startDate
+  }
+
+  get endDate () {
+    return this._endDate
+  }
+
+  get allDay () {
+    return this._allDay
   }
 
   get excerpt () {

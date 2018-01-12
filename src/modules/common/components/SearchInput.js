@@ -2,22 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { translate } from 'react-i18next'
+import cx from 'classnames'
 
 import style from './SearchInput.css'
 
-class SearchInput extends React.Component {
+export class SearchInput extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
-    onFilterTextChange: PropTypes.func.isRequired
+    onFilterTextChange: PropTypes.func.isRequired,
+    spaceSearch: PropTypes.bool,
+    t: PropTypes.func.isRequired
   }
 
   render () {
-    const {t} = this.props
     return (
-      <div className={this.props.className}>
+      <div className={cx({ [style.searchSpacing]: this.props.spaceSearch })}>
         <div className={style.search}>
           <FontAwesome className={style.searchIcon} name='search' />
-          <input type='text' placeholder={t('search')} className={style.searchInput}
+          <input type='text'
+                 placeholder={this.props.t('search')}
+                 className={style.searchInput}
                  defaultValue={this.props.filterText}
                  onChange={(event) => this.props.onFilterTextChange(event.target.value)} />
         </div>
