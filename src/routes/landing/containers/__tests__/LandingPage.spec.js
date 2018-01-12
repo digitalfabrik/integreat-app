@@ -2,10 +2,11 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
-import Store from 'Store'
 import Payload from 'modules/endpoint/Payload'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 import { mockLocations } from 'setupMocks'
+import createHistory from '../../../../modules/app/createHistory'
+import createReduxStore from '../../../../modules/app/createReduxStore'
 
 describe('LandingPage', () => {
   const locations = [
@@ -26,14 +27,13 @@ describe('LandingPage', () => {
     test('should map state to props', () => {
       const language = 'en'
 
-      const store = new Store()
-      store.init({
+      const store = createReduxStore(createHistory, {
         languages: new Payload(false),
         router: {params: {language}}
       })
 
       const tree = mount(
-        <Provider store={store.redux}>
+        <Provider store={store}>
           <ConnectedLandingPage />
         </Provider>
       )
@@ -51,12 +51,11 @@ describe('LandingPage', () => {
     })
 
     test('should fallback to "de" if state is empty', () => {
-      const store = new Store()
-      store.init({router: {params: {}}}) /* todo: this test should also succeed if there is no router. Currently it does
+      const store = createReduxStore(createHistory, {router: {params: {}}}) /* todo: this test should also succeed if there is no router. Currently it does
                                             todo: not because of a missing check in mapStateToProps of Footer.js */
 
       const tree = mount(
-        <Provider store={store.redux}>
+        <Provider store={store}>
           <ConnectedLandingPage />
         </Provider>
       )

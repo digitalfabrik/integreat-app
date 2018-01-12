@@ -10,7 +10,7 @@ import SearchPage from 'routes/search/containers/SearchPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
-import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
+import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 
