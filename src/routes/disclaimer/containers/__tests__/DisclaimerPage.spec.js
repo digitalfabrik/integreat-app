@@ -8,7 +8,6 @@ import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Payload from 'modules/endpoint/Payload'
-import Store from '../../../../Store'
 
 const location = 'augsburg'
 const languages = [
@@ -63,15 +62,14 @@ describe('DisclaimerPage', () => {
 
   describe('connect', () => {
     test('should map state to props', () => {
-      const store = new Store()
-      store.init({
+      const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: location}}
+        router: {params: {location}}
       })
 
       const tree = mount(
-        <Provider store={store.redux}>
+        <Provider store={store}>
           <ConnectedDisclaimerPage />
         </Provider>
       )
@@ -89,7 +87,7 @@ describe('DisclaimerPage', () => {
       const store = mockStore({
         disclaimer: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: location}}
+        router: {params: {location}}
       })
 
       const mapLanguageToUrl = (language) => language
@@ -111,7 +109,7 @@ describe('DisclaimerPage', () => {
 
       const disclaimerPageProps = tree.find(ConnectedDisclaimerPage).childAt(0).props()
 
-      let countActions = store.getActions().length
+      const countActions = store.getActions().length
 
       disclaimerPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages)
       expect(store.getActions()).toHaveLength(countActions + 1)

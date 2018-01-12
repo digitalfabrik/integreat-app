@@ -204,7 +204,7 @@ describe('EventsPage', () => {
       const store = mockStore({
         events: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: location, language: language}}
+        router: {params: {location, language}}
       })
 
       const mapLanguageToUrl = (language, id) => 'test' + language + id
@@ -231,7 +231,7 @@ describe('EventsPage', () => {
 
       const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
 
-      let countActions = store.getActions().length
+      const countActions = store.getActions().length
 
       eventsPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
       expect(store.getActions()).toHaveLength(countActions + 1)

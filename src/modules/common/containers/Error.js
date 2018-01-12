@@ -25,8 +25,8 @@ class Error extends React.Component {
     const {t} = this.props
     return <div>
       <div className={style.centerText}>{t(this.props.error)}</div>
-      <div className={style.centerText}><FontAwesome name='frown-o' size="5x"/></div>
-      <a className={style.centerText} href="/" onClick={this.goBack}>Go back</a>
+      <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
+      <a className={style.centerText} href='/' onClick={this.goBack}>Go back</a>
     </div>
   }
 }

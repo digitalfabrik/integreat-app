@@ -14,7 +14,7 @@ describe('Error', () => {
 
   test('should match snapshot', () => {
     const component = renderer.create(
-      <Provider store={mockStore()}><Error error="Error Message"/></Provider>
+      <Provider store={mockStore()}><Error error='ErrorMessage' /></Provider>
     )
 
     expect(component.toJSON()).toMatchSnapshot()
@@ -25,7 +25,7 @@ describe('Error', () => {
     const store = mockStore()
     const wrapper = mount(
       <Provider store={store}>
-        <Error error="Error Message"/>
+        <Error error='Error Message' />
       </Provider>
     )
 

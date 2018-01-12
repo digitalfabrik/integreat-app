@@ -64,8 +64,9 @@ class PdfFetcherPage extends React.Component {
   fetchUrl (category) {
     const url = `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`
     const categoryIds = []
-    const requestType = 'page' /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
-                                  languages, so we just always use 'page' as requestType. */
+    const requestType = 'page'
+    /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
+                                     languages, so we just always use 'page' as requestType. */
     const font = this.getFont()
     const title = this.getTitle(category.title)
     const children = this.props.categories.getChildren(category)

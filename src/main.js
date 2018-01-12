@@ -4,23 +4,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import App from 'modules/app/containers/App'
-import Store from 'Store'
-import I18n from 'I18n'
-
-const store = new Store()
-store.init()
-
-const i18n = new I18n()
-i18n.init(store)
 
 const container = document.getElementById('container')
 
-ReactDOM.render(<App store={store} i18n={i18n}/>, container)
+ReactDOM.render(<App />, container)
 
 // Sets the splash to hidden when the page is rendered
 document.getElementById('splash').className += ' splash-hidden'
 
-// Currently we do not have service workers to unregister all previous ones
+// Currently we do not have service workers. Unregister all previous ones:
 navigator.serviceWorker.getRegistrations().then(registrations => {
   registrations.forEach(registration => { registration.unregister() })
 })
