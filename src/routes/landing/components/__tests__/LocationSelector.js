@@ -1,5 +1,4 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -39,7 +38,7 @@ describe('LocationSelector', () => {
   ]
 
   test('should render', () => {
-    renderer.create(
+    shallow(
       <LocationSelector
         filterText='Text'
         language='de'

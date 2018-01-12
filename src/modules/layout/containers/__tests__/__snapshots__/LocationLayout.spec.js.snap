@@ -39,9 +39,9 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
       location={
         LocationModel {
           "_code": "location1",
-          "_eventsEnabled": undefined,
-          "_extrasEnabled": undefined,
-          "_live": undefined,
+          "_eventsEnabled": false,
+          "_extrasEnabled": false,
+          "_live": false,
           "_name": "Mambo No. 5",
           "_sortCategory": "M",
           "_sortKey": "mambo no. 5",

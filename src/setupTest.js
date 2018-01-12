@@ -6,6 +6,7 @@ import LanguageModel from './modules/endpoint/models/LanguageModel'
 import DisclaimerModel from './modules/endpoint/models/DisclaimerModel'
 import CategoryModel from './modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from './modules/endpoint/models/CategoriesMapModel'
+import { mockLocations } from './setupMocks'
 
 configure({adapter: new Adapter()})
 
@@ -78,7 +79,7 @@ jest.mock('modules/endpoint/endpoints/categories', () => mockCategoriesEndpoint)
 const mockLocationsEndpoint = new EndpointBuilder('locations')
   .withUrl('https://weird-endpoint/api.json')
   .withMapper(json => json)
-  .withResponseOverride({})
+  .withResponseOverride(mockLocations)
   .build()
 jest.mock('modules/endpoint/endpoints/locations', () => mockLocationsEndpoint)
 
