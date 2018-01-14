@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row } from 'react-flexbox-grid'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Caption from 'modules/common/components/Caption'
 import CategoryTile from './CategoryTile'
+import style from './CategoryTile.css'
 
 /**
  * Displays a table of CategoryTiles
@@ -32,11 +32,11 @@ class CategoryTiles extends React.Component {
     return (
       <div>
         <Caption title={this.getLocationName(this.props.title)} />
-        <Row>
+        <div className={style.categoryTiles}>
           {this.props.categories.map(category =>
             <CategoryTile key={category.id}
                           category={category} />)}
-        </Row>
+        </div>
       </div>
     )
   }

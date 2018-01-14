@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Col } from 'react-flexbox-grid'
 import { Link } from 'redux-little-router'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
@@ -17,12 +16,12 @@ class CategoryTile extends React.Component {
 
   render () {
     return (
-      <Col xs={6} sm={4} className={style.category}>
+      <div className={style.category}>
         <Link href={this.props.category.url}>
-          <img className={style.categoryThumbnail} src={this.props.category.thumbnail} />
+          <div className={style.categoryThumbnail}><img src={this.props.category.thumbnail} /></div>
           <div className={style.categoryTitle}>{this.props.category.title}</div>
         </Link>
-      </Col>
+      </div>
     )
   }
 }
