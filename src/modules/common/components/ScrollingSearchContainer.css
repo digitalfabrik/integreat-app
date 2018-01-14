@@ -1,0 +1,13 @@
+@import url('../../common/constants/colors.css');
+
+/* noinspection CssOverwrittenProperties */
+.search-bar {
+  position: relative;
+  position: sticky;
+  z-index: 1;
+}
+
+.searching {
+  position: relative;
+  z-index: 0;
+}

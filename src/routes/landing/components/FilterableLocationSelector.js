@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Heading from './Heading'
-import SearchInput from 'modules/common/components/SearchInput'
+import ScrollingSearchContainer from 'modules/common/components/ScrollingSearchContainer'
 import LocationSelector from './LocationSelector'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
@@ -16,7 +16,6 @@ class FilterableLocationSelector extends React.Component {
 
   constructor (props) {
     super(props)
-
     this.state = {filterText: ''}
   }
 
@@ -24,11 +23,12 @@ class FilterableLocationSelector extends React.Component {
     return (
       <div className={style.topSpacing}>
         <Heading />
-        <SearchInput filterText={this.state.filterText}
-                     onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})} />
-        <LocationSelector locations={this.props.locations}
-                          filterText={this.state.filterText}
-                          language={this.props.language} />
+        <ScrollingSearchContainer filterText={this.state.filterText}
+                                  onFilterTextChange={filterText => this.setState({filterText})}>
+          <LocationSelector locations={this.props.locations}
+                            filterText={this.state.filterText}
+                            language={this.props.language} />
+        </ScrollingSearchContainer>
       </div>
     )
   }
