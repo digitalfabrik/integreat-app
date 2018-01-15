@@ -34,7 +34,7 @@
   order: 2;
 }
 
-.menu-bar {
+.navigation-bar {
   flex: 2 1 100px;
   order: 1;
 }
@@ -53,7 +53,7 @@
     flex: 1 1 100px;
   }
 
-  .menu-bar {
+  .navigation-bar {
     flex: 1 0 100%;
     order: 3;
   }

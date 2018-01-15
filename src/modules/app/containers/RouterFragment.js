@@ -2,18 +2,22 @@ import { Fragment } from 'redux-little-router'
 import React from 'react'
 
 import Layout from 'modules/layout/components/Layout'
-import GeneralHeader from '../components/GeneralHeader'
-import GeneralFooter from '../components/GeneralFooter'
-import LocationLayout from './LocationLayout'
+import GeneralHeader from '../../layout/components/GeneralHeader'
+import GeneralFooter from '../../layout/components/GeneralFooter'
+import LocationLayout from '../../layout/containers/LocationLayout'
 
 import SearchPage from 'routes/search/containers/SearchPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
-import MainDisclaimerPage from 'routes/main-disclaimer/containers/MainDisclaimerPage'
+import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 
+/**
+ * todo: Test and document in WEBAPP-90
+ * todo: Layouts should be set in each route
+ */
 class RouterFragment extends React.Component {
   render () {
     /*
@@ -52,7 +56,7 @@ class RouterFragment extends React.Component {
 
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
-          <Layout header={<GeneralHeader />}><MainDisclaimerPage /></Layout>
+          <Layout header={<GeneralHeader />} footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
         {/* Matches one or zero arguments like /de */}

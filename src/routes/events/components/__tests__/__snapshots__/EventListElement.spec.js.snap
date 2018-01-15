@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventDetail should render 1`] = `
+exports[`EventListElement should render 1`] = `
 <Connect(Link)
   className="event"
   href="/augsburg/en/events/1234"
@@ -20,8 +20,11 @@ exports[`EventDetail should render 1`] = `
     <div
       className="eventDate"
     >
-      <Timespan
+      <TimeSpan
+        allDay={false}
+        endDate={"2017-11-27T21:30:00.000Z"}
         locale="en"
+        startDate={"2017-11-27T19:30:00.000Z"}
       />
       , 
     </div>

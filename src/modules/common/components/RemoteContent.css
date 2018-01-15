@@ -35,3 +35,8 @@
 .remote-content a {
   overflow-wrap: break-word;
 }
+
+.centered {
+  text-align: center;
+  list-style-position: inside;
+}

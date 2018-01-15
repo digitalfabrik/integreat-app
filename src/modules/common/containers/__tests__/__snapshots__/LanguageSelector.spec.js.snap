@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageSelector should match snapshot 1`] = `
+<div
+  className="languageSelector"
+>
+  <span
+    className="element elementActive"
+    key="de"
+    onClick={[Function]}
+  >
+    Deutsch
+  </span>
+  <Connect(Link)
+    className="element"
+    href="test/url/en"
+    key="en"
+    onClick={[Function]}
+  >
+    English
+  </Connect(Link)>
+  <Connect(Link)
+    className="element"
+    href="test/url/ar"
+    key="ar"
+    onClick={[Function]}
+  >
+    Arabic
+  </Connect(Link)>
+</div>
+`;

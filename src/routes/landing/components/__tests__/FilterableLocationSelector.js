@@ -1,10 +1,9 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import FilterableLocationSelector from '../FilterableLocationSelector'
-import { mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import LocationSelector from 'routes/landing/components/LocationSelector'
 import SearchInput from 'modules/common/components/SearchInput'
 import configureMockStore from 'redux-mock-store'
@@ -49,7 +48,7 @@ describe('FilterableLocationSelector', () => {
 
   test('should render', () => {
     const store = mockStore({router: {}})
-    const component = renderer.create(
+    const component = shallow(
       <Provider store={store}>
         <FilterableLocationSelector
           language='de'
@@ -57,7 +56,7 @@ describe('FilterableLocationSelector', () => {
       </Provider>
     )
 
-    expect(component.toJSON()).toMatchSnapshot()
+    expect(component).toMatchSnapshot()
   })
 
   test('should pass filterText to LocationSelector and filter', () => {

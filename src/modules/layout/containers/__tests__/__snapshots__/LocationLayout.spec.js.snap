@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationLayout connect should map state to props 1`] = `
+Object {
+  "children": <MockNode />,
+  "dispatch": [Function],
+  "location": "augsburg",
+  "navigation": Navigation {
+    "_language": "en",
+    "_location": "augsburg",
+  },
+  "route": "/:location/:language",
+}
+`;
+
+exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+  header={<GeneralHeader />}
+>
+  <MockNode />
+</Layout>
+`;
+
+exports[`LocationLayout should show LocationHeader and LocationFooter if LocationModel is available 1`] = `
+<Layout
+  footer={
+    <Translate(LocationFooter)
+      navigation={
+        Navigation {
+          "_language": "language1",
+          "_location": "location1",
+        }
+      }
+    />
+  }
+  header={
+    <Translate(LocationHeader)
+      location={
+        LocationModel {
+          "_code": "location1",
+          "_eventsEnabled": false,
+          "_extrasEnabled": false,
+          "_live": false,
+          "_name": "Mambo No. 5",
+          "_sortCategory": "M",
+          "_sortKey": "mambo no. 5",
+        }
+      }
+      navigation={
+        Navigation {
+          "_language": "language1",
+          "_location": "location1",
+        }
+      }
+      route="/:location/:language"
+    />
+  }
+>
+  <MockNode />
+</Layout>
+`;

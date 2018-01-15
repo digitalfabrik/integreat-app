@@ -3,11 +3,11 @@ import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import DateModel from 'modules/endpoint/models/DateModel'
 import Payload from 'modules/endpoint/Payload'
 import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
 import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
@@ -15,6 +15,10 @@ import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
 const mockSetLanguageChangeUrls = jest.fn()
 
 describe('EventsPage', () => {
+  // we need UTC here, see https://medium.com/front-end-hacking/jest-snapshot-testing-with-dates-and-times-f3badb8f1d87
+  // otherwise snapshot testing is not working
+  moment.tz.setDefault('UTC') // fixme: leaks test
+
   beforeEach(() => {
     mockSetLanguageChangeUrls.mockClear()
   })
@@ -24,30 +28,24 @@ describe('EventsPage', () => {
       id: 1234,
       title: 'first Event',
       availableLanguages: {de: '1235', ar: '1236'},
-      date: new DateModel({
-        startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-        allDay: true
-      })
+      startDate: moment('2017-11-18 09:30:00'),
+      endDate: moment('2017-11-18 19:30:00'),
+      allDay: true
     }),
     new EventModel({
       id: 1235,
       title: 'erstes Event',
       availableLanguages: {en: '1234', ar: '1236'},
-      date: new DateModel({
-        startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-        allDay: true
-      })
+      tartDate: moment('2017-11-18 09:30:00'),
+      endDate: moment('2017-11-18 19:30:00'),
+      allDay: true
     }),
     new EventModel({
       id: 2,
       title: 'second Event',
-      date: new DateModel({
-        startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-        endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-        allDay: true
-      })
+      startDate: moment('2017-11-18 09:30:00'),
+      endDate: moment('2017-11-18 19:30:00'),
+      allDay: true
     })
   ]
 
@@ -224,7 +222,7 @@ describe('EventsPage', () => {
       const store = mockStore({
         events: new Payload(false),
         languages: new Payload(false),
-        router: {params: {location: location, language: language}}
+        router: {params: {location, language}}
       })
 
       const mapLanguageToUrl = (language, id) => 'test' + language + id

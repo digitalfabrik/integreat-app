@@ -1,19 +1,22 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import moment from 'moment-timezone'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../EventDetail'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
 
 describe('EventDetail', () => {
+  // we need UTC here, see https://medium.com/front-end-hacking/jest-snapshot-testing-with-dates-and-times-f3badb8f1d87
+  // otherwise snapshot testing is not working
+  moment.tz.setDefault('UTC')
+
   const event = new EventModel({
     id: 1234,
     title: 'first Event',
     availableLanguages: {de: '1235', ar: '1236'},
-    date: new DateModel({startDate: new Date('2017-11-18' + 'T' + '09:30:00' + 'Z'),
-      endDate: new Date('2017-11-18' + 'T' + '19:30:00' + 'Z'),
-      allDay: true
-    })
+    startDate: moment('2017-11-18 09:30:00'),
+    endDate: moment('2017-11-18 19:30:00'),
+    allDay: true
   })
 
   const language = 'en'
