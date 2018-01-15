@@ -23,18 +23,6 @@ const disclaimer = new DisclaimerModel({
   id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
 })
 
-const disclaimerEndpoint = new EndpointBuilder('disclaimer')
-  .withUrl('https://weird-endpoint/api.json')
-  .withMapper(json => json)
-  .withResponseOverride(disclaimer)
-  .build()
-
-const languagesEndpoint = new EndpointBuilder('languages')
-  .withUrl('https://weird-endpoint/api.json')
-  .withMapper(json => json)
-  .withResponseOverride(languages)
-  .build()
-
 describe('DisclaimerPage', () => {
   const mockSetLanguageChangeUrls = jest.fn()
 
@@ -76,6 +64,18 @@ describe('DisclaimerPage', () => {
   const mockStore = configureMockStore([thunk])
 
   describe('connect', () => {
+    const disclaimerEndpoint = new EndpointBuilder('disclaimer')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(disclaimer)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const store = mockStore({
         disclaimer: new Payload(false),

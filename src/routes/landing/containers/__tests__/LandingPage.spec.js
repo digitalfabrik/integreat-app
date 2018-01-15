@@ -24,7 +24,7 @@ describe('LandingPage', () => {
     expect(shallow(<LandingPage locations={locations} language={'de'} />)).toMatchSnapshot()
   })
 
-  describe('connect', () => {
+  describe('connect()', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
       .withUrl('https://weird-endpoint/api.json')
       .withMapper(json => json)
