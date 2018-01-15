@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
 import Failure from 'modules/common/components/Failure'
-import Failure from 'modules/common/containers/Failure'
 import style from './withFetcher.css'
 import { getContext } from 'recompose'
 
@@ -120,6 +119,9 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
 }
 
 const createMapStateToProps = (endpointName) => (state, ownProps) => {
+  if (!ownProps.getEndpoint) {
+    throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
+  }
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
     [endpoint.payloadName]: state[endpoint.stateName],
@@ -128,6 +130,9 @@ const createMapStateToProps = (endpointName) => (state, ownProps) => {
 }
 
 const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
+  if (!ownProps.getEndpoint) {
+    throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
+  }
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
     requestAction: (urlParams) => dispatch(endpoint.requestAction(urlParams))

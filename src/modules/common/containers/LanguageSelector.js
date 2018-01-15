@@ -77,5 +77,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LANGUAGE_ENDPOINT, true, true)
+  withFetcher('languages', true, true)
 )(LanguageSelector)
