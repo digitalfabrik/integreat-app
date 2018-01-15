@@ -20,10 +20,9 @@
 
 /* noinspection CssOverwrittenProperties */
 .language-list-parent {
-  position: relative;
   position: sticky;
   height: var(--item-height);
-  margin-top: 10px;
+  padding-top: 10px;
   line-height: var(--item-height);
   background-color: white;
   border-bottom: 1px solid var(--theme-color);
