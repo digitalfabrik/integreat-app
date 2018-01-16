@@ -1,6 +1,5 @@
 @import url('../../common/constants/colors.css');
 
-/* noinspection CssOverwrittenProperties */
 .search-bar {
   position: sticky;
   z-index: 1;
