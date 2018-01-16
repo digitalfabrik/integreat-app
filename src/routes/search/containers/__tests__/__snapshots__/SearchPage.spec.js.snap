@@ -2,10 +2,10 @@
 
 exports[`SearchPage should match snapshot 1`] = `
 <div>
-  <Component
-    className="searchSpacing"
+  <Translate(SearchInput)
     filterText=""
     onFilterTextChange={[Function]}
+    spaceSearch={true}
   />
   <CategoryList
     categories={
