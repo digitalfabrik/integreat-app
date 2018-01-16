@@ -142,8 +142,6 @@ describe('SearchPage', () => {
 
     test('should map state to props', () => {
       const store = createReduxStore(createHistory, {
-        categories: new Payload(false),
-        languages: new Payload(false),
         router: {params: {location: location}}
       })
 
@@ -167,9 +165,6 @@ describe('SearchPage', () => {
 
     test('should map dispatch to props', () => {
       const store = createReduxStore(createHistory, {
-        categories: new Payload(false),
-        languages: new Payload(false),
-        languageChangeUrls: {},
         router: {params: {location: location}}
       })
 
