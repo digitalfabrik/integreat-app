@@ -171,6 +171,7 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
+  test('should mapLanguageToUrl correctly', () => {
   test('should map languages to url', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 

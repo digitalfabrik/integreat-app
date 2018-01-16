@@ -11,27 +11,25 @@ import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 
-const location = 'augsburg'
-
-const languages = [
-  new LanguageModel('en', 'English'),
-  new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('ar', 'Arabic')
-]
-
-const disclaimer = new DisclaimerModel({
-  id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
-})
-
 describe('DisclaimerPage', () => {
-  const mockSetLanguageChangeUrls = jest.fn()
+  const location = 'augsburg'
+
+  const languages = [
+    new LanguageModel('en', 'English'),
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('ar', 'Arabic')
+  ]
+
+  const disclaimer = new DisclaimerModel({
+    id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
+  })
 
   test('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
                       disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />)
+                      setLanguageChangeUrls={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -49,14 +47,12 @@ describe('DisclaimerPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(disclaimerPage.mapLanguageToUrl, languages)
   })
 
-  test('should map languages to url', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
+  test('should mapLanguageToUrl correctly', () => {
     const disclaimerPage = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
                       disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                      setLanguageChangeUrls={() => {}} />
     ).instance()
     expect(disclaimerPage.mapLanguageToUrl('en')).toBe('/augsburg/en/disclaimer')
   })

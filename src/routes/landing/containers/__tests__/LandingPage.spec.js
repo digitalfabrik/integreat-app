@@ -60,7 +60,7 @@ describe('LandingPage', () => {
       const store = createReduxStore(createHistory, {
         locations: new Payload(false),
         router: {params: {}} /* todo: this test should also succeed if there is no router. Currently it does
-                                 todo: not because of a missing check in mapStateToProps of Footer.js */
+                                todo: not because of a missing check in mapStateToProps of Footer.js */
       })
 
       const tree = mount(
