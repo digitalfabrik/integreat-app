@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import LOCATIONS_ENDPOINT from 'modules/endpoint/endpoints/locations'
 import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -27,5 +26,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher(LOCATIONS_ENDPOINT)
+  withFetcher('locations')
 )(LandingPage)

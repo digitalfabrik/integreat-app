@@ -8,8 +8,11 @@ import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Payload from 'modules/endpoint/Payload'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
+import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
 
 const location = 'augsburg'
+
 const languages = [
   new LanguageModel('en', 'English'),
   new LanguageModel('de', 'Deutsch'),
@@ -61,6 +64,18 @@ describe('DisclaimerPage', () => {
   const mockStore = configureMockStore([thunk])
 
   describe('connect', () => {
+    const disclaimerEndpoint = new EndpointBuilder('disclaimer')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(disclaimer)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const store = mockStore({
         disclaimer: new Payload(false),
@@ -70,7 +85,9 @@ describe('DisclaimerPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedDisclaimerPage />
+          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
+            <ConnectedDisclaimerPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -100,7 +117,9 @@ describe('DisclaimerPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedDisclaimerPage />
+          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
+            <ConnectedDisclaimerPage />
+          </EndpointProvider>
         </Provider>
       )
 

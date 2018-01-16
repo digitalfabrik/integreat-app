@@ -22,16 +22,5 @@ exports[`withFetcher should should show spinner if there is no data yet and it's
 exports[`withFetcher should should show wrapped component if there is data 1`] = `
 <WrappedComponent
   endpoint={Object {}}
-  endpointPayload={
-    Payload {
-      "_data": Object {},
-      "_error": null,
-      "_fetchDate": null,
-      "_isFetching": false,
-      "_requestUrl": null,
-    }
-  }
-  requestAction={[Function]}
-  urlParams={Object {}}
 />
 `;
