@@ -53,42 +53,36 @@ describe('EventsPage', () => {
   const id = '1235'
 
   test('should match snapshot and render EventList', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                  setLanguageChangeUrls={() => {}} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   test('should match snapshot and render EventDetail', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
                   id={id}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                  setLanguageChangeUrls={() => {}} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   test('should match snapshot and render Spinner', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const wrapper = shallow(
       <EventsPage events={[]}
                   location={location}
                   languages={languages}
                   language={language}
                   id={id}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                  setLanguageChangeUrls={() => {}} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -172,20 +166,17 @@ describe('EventsPage', () => {
   })
 
   test('should mapLanguageToUrl correctly', () => {
-  test('should map languages to url', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
                   id={id}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                  setLanguageChangeUrls={() => {}} />
     ).instance().mapLanguageToUrl
 
-    expect(mapLanguageToUrl('en')).toBe('/augsburg/en/events')
-    expect(mapLanguageToUrl('en', 1234)).toBe('/augsburg/en/events/1234')
+    expect(mapLanguageToUrl(language)).toBe(`/${location}/${language}/events`)
+    expect(mapLanguageToUrl(language, id)).toBe(`/${location}/${language}/events/${id}`)
   })
 
   describe('connect', () => {
