@@ -9,17 +9,20 @@ import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Payload from 'modules/endpoint/Payload'
+import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
+import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
 
 const mockSetLanguageChangeUrls = jest.fn()
 
 describe('EventsPage', () => {
   // we need UTC here, see https://medium.com/front-end-hacking/jest-snapshot-testing-with-dates-and-times-f3badb8f1d87
   // otherwise snapshot testing is not working
-  moment.tz.setDefault('UTC')
+  moment.tz.setDefault('UTC') // fixme: leaks test
 
   beforeEach(() => {
     mockSetLanguageChangeUrls.mockClear()
   })
+
   const events = [
     new EventModel({
       id: 1234,
@@ -160,7 +163,7 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
-  test('mapLanguageToUrl', () => {
+  test('should mapLanguageToUrl correctly', () => {
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
@@ -174,9 +177,21 @@ describe('EventsPage', () => {
     expect(mapLanguageToUrl('en', 1234)).toBe('/augsburg/en/events/1234')
   })
 
-  const mockStore = configureMockStore([thunk])
+  describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
 
-  describe('connect', () => {
+    const eventsEndpoint = new EndpointBuilder('events')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(events)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const store = mockStore({
         events: new Payload(false),
@@ -186,7 +201,9 @@ describe('EventsPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedEventsPage />
+          <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
+            <ConnectedEventsPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -223,7 +240,9 @@ describe('EventsPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedEventsPage />
+          <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
+            <ConnectedEventsPage />
+          </EndpointProvider>
         </Provider>
       )
 

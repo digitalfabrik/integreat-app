@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DisclaimerPage should render 1`] = `
+exports[`DisclaimerPage should match snapshot 1`] = `
 <Page
   content="this is a test content"
   title="Feedback, Kontakt und mögliches Engagement"

@@ -6,6 +6,8 @@ import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
+import EndpointBuilder from '../../../endpoint/EndpointBuilder'
+import EndpointProvider from '../../../endpoint/EndpointProvider'
 
 describe('LanguageSelector', () => {
   const location = 'augsburg'
@@ -37,6 +39,12 @@ describe('LanguageSelector', () => {
   })
 
   describe('connect', () => {
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should have correct props', () => {
       const mockCloseDropDownCallback = jest.fn()
 
@@ -47,7 +55,9 @@ describe('LanguageSelector', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
+          <EndpointProvider endpoints={[languagesEndpoint]}>
+            <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -59,11 +69,7 @@ describe('LanguageSelector', () => {
         language: language,
         location: location,
         languageChangeUrls: languageChangeUrls,
-        // props of withFetcher
-        dispatch: expect.any(Function),
-        languagesPayload: expect.any(Object),
-        requestAction: expect.any(Function),
-        urlParams: expect.any(Object)
+        dispatch: expect.any(Function)
       })
     })
   })

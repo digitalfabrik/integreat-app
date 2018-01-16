@@ -8,27 +8,28 @@ import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Payload from 'modules/endpoint/Payload'
-
-const location = 'augsburg'
-const languages = [
-  new LanguageModel('en', 'English'),
-  new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('ar', 'Arabic')
-]
-
-const disclaimer = new DisclaimerModel({
-  id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
-})
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
+import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
 
 describe('DisclaimerPage', () => {
-  const mockSetLanguageChangeUrls = jest.fn()
+  const location = 'augsburg'
 
-  test('should render', () => {
+  const languages = [
+    new LanguageModel('en', 'English'),
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('ar', 'Arabic')
+  ]
+
+  const disclaimer = new DisclaimerModel({
+    id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
+  })
+
+  test('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
                       disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />)
+                      setLanguageChangeUrls={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -46,21 +47,31 @@ describe('DisclaimerPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(disclaimerPage.mapLanguageToUrl, languages)
   })
 
-  test('mapLanguageToUrl', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
+  test('should mapLanguageToUrl correctly', () => {
     const disclaimerPage = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
                       disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />
+                      setLanguageChangeUrls={() => {}} />
     ).instance()
     expect(disclaimerPage.mapLanguageToUrl('en')).toBe('/augsburg/en/disclaimer')
   })
 
-  const mockStore = configureMockStore([thunk])
+  describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
 
-  describe('connect', () => {
+    const disclaimerEndpoint = new EndpointBuilder('disclaimer')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(disclaimer)
+      .build()
+
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
     test('should map state to props', () => {
       const store = mockStore({
         disclaimer: new Payload(false),
@@ -70,7 +81,9 @@ describe('DisclaimerPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedDisclaimerPage />
+          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
+            <ConnectedDisclaimerPage />
+          </EndpointProvider>
         </Provider>
       )
 
@@ -100,7 +113,9 @@ describe('DisclaimerPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedDisclaimerPage />
+          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
+            <ConnectedDisclaimerPage />
+          </EndpointProvider>
         </Provider>
       )
 

@@ -4,6 +4,12 @@ import RouterFragment from './RouterFragment'
 import createReduxStore from '../createReduxStore'
 import createHistory from '../createHistory'
 import I18nProvider from './I18nProvider'
+import EndpointProvider from '../../endpoint/EndpointProvider'
+import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
+import languagesEndpoint from '../../endpoint/endpoints/languages'
+import categoriesEndpoint from '../../endpoint/endpoints/categories'
+import locationEndpoint from '../../endpoint/endpoints/locations'
+import eventsEndpoint from '../../endpoint/endpoints/events'
 
 class App extends React.Component {
   componentWillMount () {
@@ -12,9 +18,12 @@ class App extends React.Component {
 
   render () {
     return <Provider store={this._store}>
-      <I18nProvider>
-        <RouterFragment />
-      </I18nProvider>
+      <EndpointProvider
+        endpoints={[languagesEndpoint, locationEndpoint, categoriesEndpoint, disclaimerEndpoint, eventsEndpoint]}>
+        <I18nProvider>
+          <RouterFragment />
+        </I18nProvider>
+      </EndpointProvider>
     </Provider>
   }
 }
