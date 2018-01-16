@@ -1,27 +1,21 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 import moment from 'moment-timezone'
+
+import createReduxStore from 'modules/app/createReduxStore'
+import createHistory from 'modules/app/createHistory'
+import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import Payload from 'modules/endpoint/Payload'
-import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
-import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
-
-const mockSetLanguageChangeUrls = jest.fn()
 
 describe('EventsPage', () => {
   // we need UTC here, see https://medium.com/front-end-hacking/jest-snapshot-testing-with-dates-and-times-f3badb8f1d87
   // otherwise snapshot testing is not working
   moment.tz.setDefault('UTC') // fixme: leaks test
-
-  beforeEach(() => {
-    mockSetLanguageChangeUrls.mockClear()
-  })
 
   const events = [
     new EventModel({
@@ -36,7 +30,7 @@ describe('EventsPage', () => {
       id: 1235,
       title: 'erstes Event',
       availableLanguages: {en: '1234', ar: '1236'},
-      tartDate: moment('2017-11-18 09:30:00'),
+      startDate: moment('2017-11-18 09:30:00'),
       endDate: moment('2017-11-18 19:30:00'),
       allDay: true
     }),
@@ -58,7 +52,9 @@ describe('EventsPage', () => {
   const language = 'en'
   const id = '1235'
 
-  test('should render EventList', () => {
+  test('should match snapshot and render EventList', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -69,7 +65,9 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should render EventDetail', () => {
+  test('should match snapshot and render EventDetail', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -81,7 +79,9 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should render Spinner', () => {
+  test('should match snapshot and render Spinner', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const wrapper = shallow(
       <EventsPage events={[]}
                   location={location}
@@ -94,6 +94,8 @@ describe('EventsPage', () => {
   })
 
   test('should dispatch once on mount with availableLanguages', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const eventsPage = shallow(
       <EventsPage events={events}
                   location={location}
@@ -110,6 +112,8 @@ describe('EventsPage', () => {
   })
 
   test('should dispatch once on mount without availableLanguages', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const eventsPage = shallow(
       <EventsPage events={events}
                   location={location}
@@ -123,6 +127,8 @@ describe('EventsPage', () => {
   })
 
   test('should dispatch on prop update with availableLanguages', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const wrapper = shallow(
       <EventsPage events={[]}
                   location={location}
@@ -142,7 +148,9 @@ describe('EventsPage', () => {
     )
   })
 
-  test('should not dispatch on prop update', () => {
+  test('should not dispatch on irrelevant prop update', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -152,7 +160,7 @@ describe('EventsPage', () => {
                   setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
 
-    let mockCalls = mockSetLanguageChangeUrls.mock.calls
+    const mockCalls = mockSetLanguageChangeUrls.mock.calls
 
     wrapper.setProps({events: events, ...wrapper.props})
 
@@ -163,7 +171,9 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
-  test('mapLanguageToUrl', () => {
+  test('should map languages to url', () => {
+    const mockSetLanguageChangeUrls = jest.fn()
+
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
@@ -176,8 +186,6 @@ describe('EventsPage', () => {
     expect(mapLanguageToUrl('en')).toBe('/augsburg/en/events')
     expect(mapLanguageToUrl('en', 1234)).toBe('/augsburg/en/events/1234')
   })
-
-  const mockStore = configureMockStore([thunk])
 
   describe('connect', () => {
     const eventsEndpoint = new EndpointBuilder('events')
@@ -192,74 +200,59 @@ describe('EventsPage', () => {
       .withResponseOverride(languages)
       .build()
 
-    test('should map state to props', () => {
-      const store = mockStore({
-        events: new Payload(false),
-        languages: new Payload(false),
-        router: {params: {location: 'augsburg', language: 'en', id: '1234'}}
+    test('should map state and fetched data to props', () => {
+      const store = createReduxStore(createHistory, {
+        router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
       })
 
-      const tree = mount(
+      const eventsPage = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
             <ConnectedEventsPage />
           </EndpointProvider>
         </Provider>
-      )
+      ).find(EventsPage)
 
-      const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
-
-      // todo add events and languages
-      expect(eventsPageProps).toEqual({
-        location: 'augsburg',
-        language: 'en',
-        id: '1234',
-        setLanguageChangeUrls: expect.any(Function)
+      expect(eventsPage.props()).toEqual({
+        location: location,
+        language: language,
+        id: id,
+        setLanguageChangeUrls: expect.any(Function),
+        events: events,
+        languages: languages
       })
     })
 
     test('should map dispatch to props', () => {
-      const store = mockStore({
-        events: new Payload(false),
-        languages: new Payload(false),
-        router: {params: {location, language}}
+      const store = createReduxStore(createHistory, {
+        router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
       })
 
-      const mapLanguageToUrl = (language, id) => 'test' + language + id
+      const mapLanguageToUrl = (language, id) => `/${language}/${id}`
 
-      const testUrls = {
-        en: 'testenundefined',
-        de: 'testde1235',
-        ar: 'testar1236'
+      const languageChangeUrls = {
+        en: '/en/1235',
+        de: '/de/undefined',
+        ar: '/ar/1236'
       }
 
       const availableLanguages = {
-        de: '1235',
+        en: '1235',
         ar: '1236'
       }
 
-      const tree = mount(
+      expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
+
+      const eventsPage = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
             <ConnectedEventsPage />
           </EndpointProvider>
         </Provider>
-      )
+      ).find(EventsPage)
 
-      // todo expect setLanguageChangeUrls action to be in store, but as we don't get events and languages from our
-      // mocked endpoint no action is dispatched
-
-      const eventsPageProps = tree.find(ConnectedEventsPage).childAt(0).props()
-
-      const countActions = store.getActions().length
-
-      eventsPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
-      expect(store.getActions()).toHaveLength(countActions + 1)
-
-      expect(store.getActions()).toContainEqual({
-        payload: testUrls,
-        type: 'SET_LANGUAGE_CHANGE_URLS'
-      })
+      eventsPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
+      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })
 })
