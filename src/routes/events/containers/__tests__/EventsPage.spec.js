@@ -163,7 +163,7 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
-  test('mapLanguageToUrl', () => {
+  test('should mapLanguageToUrl correctly', () => {
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
@@ -177,9 +177,9 @@ describe('EventsPage', () => {
     expect(mapLanguageToUrl('en', 1234)).toBe('/augsburg/en/events/1234')
   })
 
-  const mockStore = configureMockStore([thunk])
+  describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
 
-  describe('connect', () => {
     const eventsEndpoint = new EndpointBuilder('events')
       .withUrl('https://weird-endpoint/api.json')
       .withMapper(json => json)
