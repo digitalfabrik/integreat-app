@@ -29,7 +29,7 @@ export class ScrollingSearchContainer extends React.Component {
     animateScroll.scrollTo(this.state.top, {duration: 500})
   }
 
-  onChange = value => {
+  onFilterTextChange = value => {
     this.props.onFilterTextChange(value)
     this.scroll()
   }
@@ -45,7 +45,7 @@ export class ScrollingSearchContainer extends React.Component {
     return <React.Fragment>
       <div ref={this.setDimensions} className={style.searchBar}
            style={{'top': this.props.stickyTop + 'px'}}>
-        <SearchInput filterText={this.props.filterText} onFilterTextChange={this.onChange} onClick={this.onClick}
+        <SearchInput filterText={this.props.filterText} onFilterTextChange={this.onFilterTextChange} onClick={this.onClick}
                      spaceSearch={this.props.spaceSearch} />
       </div>
       <div className={style.searching}>
