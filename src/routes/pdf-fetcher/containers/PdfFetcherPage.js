@@ -11,7 +11,7 @@ import { translate } from 'react-i18next'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
-import Failure from 'modules/common/containers/Failure'
+import Failure from 'modules/common/components/Failure'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
 class PdfFetcherPage extends React.Component {

@@ -1,9 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Headroom from 'react-headroom'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
-import HeaderMenuBar, { MENU_ITEMS_PROP_TYPE } from './HeaderMenuBar'
-import HeaderActionBar, { ACTION_ITEMS_PROP_TYPE } from './HeaderActionBar'
+import HeaderNavigationBar from './HeaderNavigationBar'
+import HeaderActionBar from './HeaderActionBar'
+import HeaderActionItem from '../HeaderActionItem'
+import HeaderNavigationItem from '../HeaderNavigationItem'
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -13,12 +16,12 @@ import HeaderActionBar, { ACTION_ITEMS_PROP_TYPE } from './HeaderActionBar'
  */
 class Header extends React.Component {
   static propTypes = {
-    menuItems: MENU_ITEMS_PROP_TYPE.isRequired,
-    actionItems: ACTION_ITEMS_PROP_TYPE.isRequired
+    navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
+    actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired
   }
 
   static defaultProps = {
-    menuItems: [],
+    navigationItems: [],
     actionItems: []
   }
 
@@ -30,7 +33,7 @@ class Header extends React.Component {
             <img src={logoWide} />
           </div>
           <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
-          <HeaderMenuBar className={style.menuBar} items={this.props.menuItems} />
+          <HeaderNavigationBar className={style.navigationBar} items={this.props.navigationItems} />
         </header>
       </Headroom>
     )

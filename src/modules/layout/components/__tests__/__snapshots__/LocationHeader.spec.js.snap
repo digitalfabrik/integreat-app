@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationHeader NavigationItems should be empty, if extras and news are both disabled 1`] = `Array []`;
+
+exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
+  },
+  HeaderNavigationItem {
+    "_active": true,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader NavigationItems should highlight events if route corresponds 1`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+  HeaderNavigationItem {
+    "_active": true,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+]
+`;
+
+exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 2`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader NavigationItems should show extras, categories, events in this order 1`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader should match snapshot 1`] = `
+<Header
+  actionItems={
+    Array [
+      HeaderActionItem {
+        "_dropDownNode": undefined,
+        "_href": "/location1/language1/search",
+        "_iconSrc": "test-file-stub",
+      },
+      HeaderActionItem {
+        "_dropDownNode": undefined,
+        "_href": "/language1",
+        "_iconSrc": "test-file-stub",
+      },
+      HeaderActionItem {
+        "_dropDownNode": <Connect(getContext(Connect(languagesFetcher))) />,
+        "_href": undefined,
+        "_iconSrc": "test-file-stub",
+      },
+    ]
+  }
+  navigationItems={
+    Array [
+      HeaderNavigationItem {
+        "_active": false,
+        "_href": "/location1/language1/extras",
+        "_text": "app:extras",
+      },
+      HeaderNavigationItem {
+        "_active": false,
+        "_href": "/location1/language1",
+        "_text": "app:categories",
+      },
+      HeaderNavigationItem {
+        "_active": false,
+        "_href": "/location1/language1/events",
+        "_text": "app:news",
+      },
+    ]
+  }
+/>
+`;

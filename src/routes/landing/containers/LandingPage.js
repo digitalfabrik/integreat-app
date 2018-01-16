@@ -7,7 +7,7 @@ import FilterableLocationSelector from 'routes/landing/components/FilterableLoca
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
-class LandingPage extends React.Component {
+export class LandingPage extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     language: PropTypes.string.isRequired

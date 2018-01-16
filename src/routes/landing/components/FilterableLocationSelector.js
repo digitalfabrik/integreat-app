@@ -17,9 +17,7 @@ class FilterableLocationSelector extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      filterText: ''
-    }
+    this.state = {filterText: ''}
   }
 
   render () {
@@ -28,7 +26,8 @@ class FilterableLocationSelector extends React.Component {
         <Heading />
         <SearchInput filterText={this.state.filterText}
                      onFilterTextChange={(filterText) => this.setState({filterText: (filterText)})} />
-        <LocationSelector locations={this.props.locations} filterText={this.state.filterText}
+        <LocationSelector locations={this.props.locations}
+                          filterText={this.state.filterText}
                           language={this.props.language} />
       </div>
     )
