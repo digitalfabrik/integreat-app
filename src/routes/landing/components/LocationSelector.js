@@ -3,29 +3,15 @@ import PropTypes from 'prop-types'
 
 import style from './LocationSelector.css'
 import { transform } from 'lodash/object'
-import { Link } from 'redux-little-router'
 import { groupBy, filter } from 'lodash/collection'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-
-class LocationEntry extends React.Component {
-  static propTypes = {
-    language: PropTypes.string,
-    location: PropTypes.object.isRequired
-  }
-
-  render () {
-    const location = this.props.location
-    return (
-      <Link href={`/${location.code}/${this.props.language}`} className={style.languageListItem}>{location.name}</Link>
-    )
-  }
-}
+import LocationEntry from './LocationEntry'
 
 class LocationSelector extends React.Component {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     filterText: PropTypes.string.isRequired,
-    language: PropTypes.string,
+    language: PropTypes.string.isRequired,
     stickyTop: PropTypes.number.isRequired
   }
 

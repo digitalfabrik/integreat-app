@@ -10,8 +10,8 @@ import style from './FilterableLocationSelector.css'
 
 class FilterableLocationSelector extends React.Component {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
-    language: PropTypes.string
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    language: PropTypes.string.isRequired
   }
 
   constructor (props) {
