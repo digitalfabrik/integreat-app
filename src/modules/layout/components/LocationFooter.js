@@ -15,7 +15,6 @@ class LocationFooter extends React.Component {
   render () {
     return <Footer>
       <Link href={this.props.navigation.disclaimer}>{this.props.t('imprintAndContact')}</Link>
-      //todo translate Datenschutz
       <a href={'https://integreat-app.de/datenschutz/'}>Datenschutz</a>
     </Footer>
   }
