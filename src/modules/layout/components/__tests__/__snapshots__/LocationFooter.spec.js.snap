@@ -7,7 +7,6 @@ exports[`LocationFooter should match snapshot 1`] = `
   >
     app:imprintAndContact
   </Connect(Link)>
-  //todo translate Datenschutz
   <a
     href="https://integreat-app.de/datenschutz/"
   >
