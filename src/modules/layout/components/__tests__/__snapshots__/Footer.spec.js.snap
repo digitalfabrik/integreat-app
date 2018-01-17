@@ -3,22 +3,7 @@
 exports[`Footer should insert items 1`] = `
 <footer
   className="footer"
->
-  <Connect(Link)
-    className="item"
-    href="/link1"
-    key="0"
-  >
-    item1
-  </Connect(Link)>
-  <Connect(Link)
-    className="item"
-    href="/link2"
-    key="1"
-  >
-    item2
-  </Connect(Link)>
-</footer>
+/>
 `;
 
 exports[`Footer should show Version on dev builds 1`] = `

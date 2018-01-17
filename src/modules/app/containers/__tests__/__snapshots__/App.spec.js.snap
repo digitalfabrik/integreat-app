@@ -64,7 +64,7 @@ exports[`App should match snapshot 1`] = `
           "responseOverride": undefined,
           "shouldRefetch": [Function],
           "startFetchAction": [Function],
-          "url": "https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z",
+          "url": "https://cms.integreat-app.de/{location}/de/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z",
         },
       ]
     }

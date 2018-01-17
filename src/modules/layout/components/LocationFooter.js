@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 
 import Navigation from 'modules/app/Navigation'
 import Footer from './Footer'
+import { Link } from 'redux-little-router'
 
 class LocationFooter extends React.Component {
   static propTypes = {
@@ -12,8 +13,10 @@ class LocationFooter extends React.Component {
   }
 
   render () {
-    const {t, navigation} = this.props
-    return <Footer items={[{text: t('imprintAndContact'), href: navigation.disclaimer}]} />
+    return <Footer>
+      <Link href={this.props.navigation.disclaimer}>{this.props.t('imprintAndContact')}</Link>
+      <a href={'https://integreat-app.de/datenschutz/'}>Datenschutz</a>
+    </Footer>
   }
 }
 
