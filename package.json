@@ -161,10 +161,10 @@
       "react/jsx-indent": "off",
       "react/jsx-indent-props": "off",
       "react/prop-types": "error",
-      "jsx-quotes": "warn",
-      "react/jsx-tag-spacing": "warn",
-      "react/no-unused-prop-types": "warn",
-      "prefer-const": "warn"
+      "jsx-quotes": "error",
+      "react/jsx-tag-spacing": "error",
+      "react/no-unused-prop-types": "error",
+      "prefer-const": "error"
     },
     "plugins": [
       "react",
