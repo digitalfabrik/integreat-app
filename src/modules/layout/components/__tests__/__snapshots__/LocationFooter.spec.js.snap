@@ -1,14 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocationFooter should match snapshot 1`] = `
-<Footer
-  items={
-    Array [
-      Object {
-        "href": "/location1/language1/disclaimer",
-        "text": "app:imprintAndContact",
-      },
-    ]
-  }
-/>
+<Footer>
+  <Connect(Link)
+    href="/location1/language1/disclaimer"
+  >
+    app:imprintAndContact
+  </Connect(Link)>
+  //todo translate Datenschutz
+  <a
+    href="https://integreat-app.de/datenschutz/"
+  >
+    Datenschutz
+  </a>
+</Footer>
 `;
