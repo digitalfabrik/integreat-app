@@ -18,9 +18,9 @@
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  font-family: var(--content-font-family);
+  font-family: var(--decorative-font-family);
   font-size-adjust: var(--font-size-adjust);
-  line-height: var(--content-line-height)
+  line-height: var(--decorative-line-height)
 }
 
 .layout p {

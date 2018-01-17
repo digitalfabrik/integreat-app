@@ -15,7 +15,6 @@
 .navigation-item {
   @mixin remove-a;
   flex: 1;
-  font-family: var(--decorative-font-family);
   font-size: 1.1em;
   font-weight: 400;
   text-align: center;

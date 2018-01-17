@@ -3,9 +3,7 @@
 
 .caption {
   margin: 25px 0;
-  font-family: var(--decorative-font-family);
   font-size: 2rem;
-  line-height: var(--decorative-line-height);
   text-align: center;
 }
 
