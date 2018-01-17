@@ -13,32 +13,28 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 describe('EventsPage', () => {
-  // we need UTC here, see https://medium.com/front-end-hacking/jest-snapshot-testing-with-dates-and-times-f3badb8f1d87
-  // otherwise snapshot testing is not working
-  moment.tz.setDefault('UTC') // fixme: leaks test
-
   const events = [
     new EventModel({
       id: 1234,
       title: 'first Event',
       availableLanguages: {de: '1235', ar: '1236'},
-      startDate: moment('2017-11-18 09:30:00'),
-      endDate: moment('2017-11-18 19:30:00'),
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true
     }),
     new EventModel({
       id: 1235,
       title: 'erstes Event',
       availableLanguages: {en: '1234', ar: '1236'},
-      startDate: moment('2017-11-18 09:30:00'),
-      endDate: moment('2017-11-18 19:30:00'),
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true
     }),
     new EventModel({
       id: 2,
       title: 'second Event',
-      startDate: moment('2017-11-18 09:30:00'),
-      endDate: moment('2017-11-18 19:30:00'),
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true
     })
   ]
@@ -220,11 +216,11 @@ describe('EventsPage', () => {
         router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
       })
 
-      const mapLanguageToUrl = (language, id) => `/${language}/${id}`
+      const mapLanguageToUrl = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
 
       const languageChangeUrls = {
         en: '/en/1235',
-        de: '/de/undefined',
+        de: '/de',
         ar: '/ar/1236'
       }
 
@@ -247,4 +243,6 @@ describe('EventsPage', () => {
       expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })
+
+  moment.tz.setDefault()
 })

@@ -82,7 +82,6 @@ describe('CategoriesPage', () => {
   const language = 'en'
 
   test('should match snapshot and render a Page if page has no children', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -92,7 +91,7 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={categoryModels[3].url}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
@@ -100,7 +99,6 @@ describe('CategoriesPage', () => {
   })
 
   test('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -110,7 +108,7 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={categoryModels[2].url}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
@@ -118,7 +116,6 @@ describe('CategoriesPage', () => {
   })
 
   test('should match snapshot and render CategoryTiles if the path is the root category', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -128,7 +125,7 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={'/augsburg/de'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
@@ -136,7 +133,6 @@ describe('CategoriesPage', () => {
   })
 
   test('should match snapshot and render an Error if path is not valid', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -146,7 +142,7 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={'/augsburg/de/not/valid'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
@@ -240,7 +236,6 @@ describe('CategoriesPage', () => {
   })
 
   test('should map language to url', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
     const mapLanguageToUrl = shallow(
@@ -250,7 +245,7 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={categoryModels[2].url}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     ).instance().mapLanguageToUrl
 
@@ -261,7 +256,6 @@ describe('CategoriesPage', () => {
   })
 
   test('should get pdf fetch path', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
     const categoriesPage = shallow(
@@ -271,7 +265,7 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={categoryModels[2].url}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     ).instance()
 
@@ -337,11 +331,12 @@ describe('CategoriesPage', () => {
         languageChangeUrls: {}
       })
 
-      const mapLanguageToUrl = (language, id) => `/${language}/${id}`
+      const mapLanguageToUrl = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
+
       const languageChangeUrls = {
         en: '/en/1235',
-        de: '/de/undefined',
-        ar: '/ar/1236'
+        ar: '/ar/1236',
+        de: '/de'
       }
 
       const availableLanguages = {
