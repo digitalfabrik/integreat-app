@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './ScrollingSearchContainer.css'
+import style from './ScrollingSearchBox.css'
 import { animateScroll } from 'react-scroll/modules/index'
 import SearchInput from './SearchInput'
 
-export class ScrollingSearchContainer extends React.Component {
+export class ScrollingSearchBox extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired,
@@ -55,4 +55,4 @@ export class ScrollingSearchContainer extends React.Component {
   }
 }
 
-export default ScrollingSearchContainer
+export default ScrollingSearchBox
