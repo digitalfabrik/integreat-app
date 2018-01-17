@@ -36,7 +36,7 @@ class EventDetail extends React.Component {
         <div>
           <span className={style.identifier}>{this.props.t('date')}: </span>
           <TimeSpan className={style.date}
-                    allDay={event}
+                    allDay={event.allDay}
                     startDate={event.startDate}
                     endDate={event.endDate}
                     locale={this.props.language} />
