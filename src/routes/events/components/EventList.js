@@ -16,7 +16,8 @@ class EventList extends React.Component {
   static propTypes = {
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
     url: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   render () {

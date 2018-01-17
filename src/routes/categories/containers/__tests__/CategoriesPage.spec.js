@@ -366,7 +366,7 @@ describe('CategoriesPage', () => {
 
       const categoriesPageProps = tree.find(ConnectedCategoriesPage).childAt(0).props()
 
-      let countActions = store.getActions().length
+      const countActions = store.getActions().length
 
       categoriesPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
       expect(store.getActions()).toHaveLength(countActions + 1)

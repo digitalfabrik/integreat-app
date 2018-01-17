@@ -20,7 +20,8 @@ class PdfFetcherPage extends React.Component {
     categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    fetchUrl: PropTypes.string.isRequired
+    fetchUrl: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   constructor (params) {

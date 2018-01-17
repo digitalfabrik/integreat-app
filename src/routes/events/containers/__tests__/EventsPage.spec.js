@@ -152,7 +152,7 @@ describe('EventsPage', () => {
                   setLanguageChangeUrls={mockSetLanguageChangeUrls} />
     )
 
-    let mockCalls = mockSetLanguageChangeUrls.mock.calls
+    const mockCalls = mockSetLanguageChangeUrls.mock.calls
 
     wrapper.setProps({events: events, ...wrapper.props})
 

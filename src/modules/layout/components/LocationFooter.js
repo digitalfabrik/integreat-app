@@ -7,7 +7,8 @@ import Footer from './Footer'
 
 class LocationFooter extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired
+    navigation: PropTypes.instanceOf(Navigation).isRequired,
+    t: PropTypes.func.isRequired
   }
 
   render () {
