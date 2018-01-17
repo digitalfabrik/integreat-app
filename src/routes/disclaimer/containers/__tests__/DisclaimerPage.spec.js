@@ -1,15 +1,15 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+
+import createReduxStore from 'modules/app/createReduxStore'
+import createHistory from 'modules/app/createHistory'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
+import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
-import Payload from 'modules/endpoint/Payload'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
-import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
 
 describe('DisclaimerPage', () => {
   const location = 'augsburg'
@@ -33,7 +33,7 @@ describe('DisclaimerPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once in componentDidMount', () => {
+  test('should dispatch once on mount', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const disclaimerPage = shallow(
@@ -57,9 +57,7 @@ describe('DisclaimerPage', () => {
     expect(disclaimerPage.mapLanguageToUrl('en')).toBe('/augsburg/en/disclaimer')
   })
 
-  describe('connect()', () => {
-    const mockStore = configureMockStore([thunk])
-
+  describe('connect', () => {
     const disclaimerEndpoint = new EndpointBuilder('disclaimer')
       .withUrl('https://weird-endpoint/api.json')
       .withMapper(json => json)
@@ -72,67 +70,47 @@ describe('DisclaimerPage', () => {
       .withResponseOverride(languages)
       .build()
 
-    test('should map state to props', () => {
-      const store = mockStore({
-        disclaimer: new Payload(false),
-        languages: new Payload(false),
-        router: {params: {location}}
-      })
+    const store = createReduxStore(createHistory, {
+      router: {params: {location: location}}
+    })
 
-      const tree = mount(
+    test('should map state and fetched data to props', () => {
+      const disclaimerPage = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
             <ConnectedDisclaimerPage />
           </EndpointProvider>
         </Provider>
-      )
+      ).find(DisclaimerPage)
 
-      const disclaimerPageProps = tree.find(ConnectedDisclaimerPage).childAt(0).props()
-
-      // todo add disclaimer and languages, WEBAPP-167
-      expect(disclaimerPageProps).toEqual({
-        location: 'augsburg',
-        setLanguageChangeUrls: expect.any(Function)
+      expect(disclaimerPage.props()).toEqual({
+        location: location,
+        setLanguageChangeUrls: expect.any(Function),
+        disclaimer: disclaimer,
+        languages: languages
       })
     })
 
     test('should map dispatch to props', () => {
-      const store = mockStore({
-        disclaimer: new Payload(false),
-        languages: new Payload(false),
-        router: {params: {location}}
-      })
+      const mapLanguageToUrl = (language) => `/${language}`
 
-      const mapLanguageToUrl = (language) => language
-
-      const testUrls = {
-        en: 'en',
-        ar: 'ar',
-        de: 'de'
+      const languageChangeUrls = {
+        en: '/en',
+        ar: '/ar',
+        de: '/de'
       }
 
-      const tree = mount(
+      const disclaimerPage = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
             <ConnectedDisclaimerPage />
           </EndpointProvider>
         </Provider>
-      )
+      ).find(DisclaimerPage)
 
-      // todo expect setLanguageChangeUrls action to be in store, but as we don't get events and languages from our
-      // mocked endpoint no action is dispatched, WEBAPP-167
+      disclaimerPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages)
 
-      const disclaimerPageProps = tree.find(ConnectedDisclaimerPage).childAt(0).props()
-
-      const countActions = store.getActions().length
-
-      disclaimerPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages)
-      expect(store.getActions()).toHaveLength(countActions + 1)
-
-      expect(store.getActions()).toContainEqual({
-        payload: testUrls,
-        type: 'SET_LANGUAGE_CHANGE_URLS'
-      })
+      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })
 })
