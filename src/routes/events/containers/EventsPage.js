@@ -5,8 +5,6 @@ import compose from 'lodash/fp/compose'
 import Spinner from 'react-spinkit'
 
 import EventModel from 'modules/endpoint/models/EventModel'
-import EVENTS_ENDPOINT from 'modules/endpoint/endpoints/events'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
@@ -126,6 +124,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher(EVENTS_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT)
+  withFetcher('events'),
+  withFetcher('languages')
 )(EventsPage)

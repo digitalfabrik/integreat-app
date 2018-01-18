@@ -1,86 +1,87 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+
+import createHistory from 'modules/app/createHistory'
+import createReduxStore from 'modules/app/createReduxStore'
+import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import Payload from 'modules/endpoint/Payload'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
-const categoryModels = [
-  new CategoryModel({
-    id: 0,
-    url: '/augsburg/de',
-    title: 'augsburg'
-  }),
-  new CategoryModel({
-    id: 3650,
-    url: '/augsburg/de/anlaufstellen',
-    title: 'Anlaufstellen zu sonstigen Themen',
-    content: '',
-    parentId: 0,
-    parentUrl: '/augsburg/de',
-    order: 75,
-    availableLanguages: {
-      en: 4361, ar: 4367, fa: 4368
-    },
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-  }),
-  new CategoryModel({
-    id: 3649,
-    url: '/augsburg/de/willkommen',
-    title: 'Willkommen',
-    content: '',
-    parentId: 0,
-    parentUrl: '/augsburg/de',
-    order: 11,
-    availableLanguages: {
-      en: 4804, ar: 4819, fa: 4827
-    },
-    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-  }),
-  new CategoryModel({
-    id: 35,
-    url: '/augsburg/de/willkommen/willkommen-in-augsburg',
-    title: 'Willkommen in Augsburg',
-    content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
-    parentId: 3649,
-    parentUrl: '/augsburg/de/willkommen',
-    order: 1,
-    availableLanguages: {
-      en: '390',
-      de: '711',
-      ar: '397'
-    },
-    thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
-  })
-]
-
-const categories = new CategoriesMapModel(categoryModels)
-
-const locations = [
-  new LocationModel({name: 'Augsburg', code: 'augsburg'}),
-  new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-  new LocationModel({name: 'Werne', code: 'werne'})
-]
-
-const location = 'augsburg'
-
-const languages = [
-  new LanguageModel('en', 'English'),
-  new LanguageModel('de', 'Deutsch'),
-  new LanguageModel('ar', 'Arabic')
-]
-
-const language = 'en'
-
 describe('CategoriesPage', () => {
-  test('should render a Page if page has no children', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
+  const categoryModels = [
+    new CategoryModel({
+      id: 0,
+      url: '/augsburg/de',
+      title: 'augsburg'
+    }),
+    new CategoryModel({
+      id: 3650,
+      url: '/augsburg/de/anlaufstellen',
+      title: 'Anlaufstellen zu sonstigen Themen',
+      content: '',
+      parentId: 0,
+      parentUrl: '/augsburg/de',
+      order: 75,
+      availableLanguages: {
+        en: 4361, ar: 4367, fa: 4368
+      },
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    }),
+    new CategoryModel({
+      id: 3649,
+      url: '/augsburg/de/willkommen',
+      title: 'Willkommen',
+      content: '',
+      parentId: 0,
+      parentUrl: '/augsburg/de',
+      order: 11,
+      availableLanguages: {
+        en: 4804, ar: 4819, fa: 4827
+      },
+      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+    }),
+    new CategoryModel({
+      id: 35,
+      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      title: 'Willkommen in Augsburg',
+      content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
+      parentId: 3649,
+      parentUrl: '/augsburg/de/willkommen',
+      order: 1,
+      availableLanguages: {
+        en: '390',
+        de: '711',
+        ar: '397'
+      },
+      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
+    })
+  ]
+
+  const categories = new CategoriesMapModel(categoryModels)
+
+  const locations = [
+    new LocationModel({name: 'Augsburg', code: 'augsburg'}),
+    new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
+    new LocationModel({name: 'Werne', code: 'werne'})
+  ]
+
+  const location = 'augsburg'
+
+  const languages = [
+    new LanguageModel('en', 'English'),
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('ar', 'Arabic')
+  ]
+
+  const language = 'en'
+
+  test('should match snapshot and render a Page if page has no children', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -89,16 +90,15 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen/willkommen-in-augsburg'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      path={categoryModels[3].url}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should render a CategoryList if the path is neither root category nor a category with children', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
+  test('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -107,16 +107,15 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      path={categoryModels[2].url}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should render CategoryTiles if the path is the root category', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
+  test('should match snapshot and render CategoryTiles if the path is the root category', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -126,15 +125,14 @@ describe('CategoriesPage', () => {
                       location={location}
                       language={language}
                       path={'/augsburg/de'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should render an Error if path is not valid', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
+  test('should match snapshot and render an Error if path is not valid', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -143,15 +141,15 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen/willkommen-in-augsburg/test'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      path={'/augsburg/de/not/valid'}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once in componentDidMount if the path is valid', () => {
+  test('should dispatch once on mount if the path is valid', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -161,7 +159,7 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen'}
+                      path={categoryModels[2].url}
                       setLanguageChangeUrls={mockSetLanguageChangeUrls}
                       replaceUrl={mockReplaceUrl} />
     ).instance()
@@ -172,7 +170,7 @@ describe('CategoriesPage', () => {
     )
   })
 
-  test('should not dispatch in componentDidMount if the path is invalid', () => {
+  test('should not dispatch on mount if the path is invalid', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -182,7 +180,7 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen/willkommen-in-augsburg/test'}
+                      path={'/augsburg/de/not/valid'}
                       setLanguageChangeUrls={mockSetLanguageChangeUrls}
                       replaceUrl={mockReplaceUrl} />
     )
@@ -237,8 +235,7 @@ describe('CategoriesPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount)
   })
 
-  test('mapLanguageToUrl', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
+  test('should map language to url', () => {
     const mockReplaceUrl = jest.fn()
 
     const mapLanguageToUrl = shallow(
@@ -247,18 +244,18 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      path={categoryModels[2].url}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     ).instance().mapLanguageToUrl
 
-    expect(mapLanguageToUrl('en', categoryModels[3].availableLanguages['en']))
-      .toBe('/augsburg/en?id=' + categoryModels[3].availableLanguages['en'])
-    expect(mapLanguageToUrl('en')).toBe('/augsburg/en')
+    expect(mapLanguageToUrl(language, categoryModels[3].availableLanguages[language])).toBe(
+      `/${location}/${language}?id=${categoryModels[3].availableLanguages[language]}`
+    )
+    expect(mapLanguageToUrl(language)).toBe(`/${location}/${language}`)
   })
 
-  test('getPdfFetchPath', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
+  test('should get pdf fetch path', () => {
     const mockReplaceUrl = jest.fn()
 
     const categoriesPage = shallow(
@@ -267,90 +264,98 @@ describe('CategoriesPage', () => {
                       languages={languages}
                       location={location}
                       language={language}
-                      path={'/augsburg/de/willkommen'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
+                      path={categoryModels[2].url}
+                      setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
     ).instance()
 
-    expect(categoriesPage.getPdfFetchPath()).toBe('/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen')
+    expect(categoriesPage.getPdfFetchPath()).toBe(`/${location}/${language}/fetch-pdf?url=${categoryModels[2].url}`)
   })
 
-  const mockStore = configureMockStore([thunk])
-
   describe('connect', () => {
+    const languagesEndpoint = new EndpointBuilder('languages')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(languages)
+      .build()
+
+    const locationsEndpoint = new EndpointBuilder('locations')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(locations)
+      .build()
+
+    const categoriesEndpoint = new EndpointBuilder('categories')
+      .withUrl('https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(categories)
+      .build()
+
+    const pathname = '/augsburg/de/willkommen'
+    const id = '1234'
+
     test('should map state to props', () => {
-      const pathname = '/augsburg/de'
-      const id = 1234
-      const store = mockStore({
-        categories: new Payload(false),
-        languages: new Payload(false),
-        locations: new Payload(false),
-        router: {params: {location: location, language: language}, pathname: pathname, query: {id: id}}
+      const store = createReduxStore(createHistory, {
+        router: {params: {location: location, language: language},
+          pathname: pathname,
+          query: {id: id}},
+        languageChangeUrls: {}
       })
 
-      const tree = mount(
+      const categoriesPage = mount(
         <Provider store={store}>
-          <ConnectedCategoriesPage />
+          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
+            <ConnectedCategoriesPage />
+          </EndpointProvider>
         </Provider>
-      )
+      ).find(CategoriesPage)
 
-      const categoriesPageProps = tree.find(ConnectedCategoriesPage).childAt(0).props()
-
-      // todo add categories, locations and languages
-      expect(categoriesPageProps).toEqual({
+      expect(categoriesPage.props()).toEqual({
         location: location,
         language: language,
         path: pathname,
         categoryId: id,
         setLanguageChangeUrls: expect.any(Function),
-        replaceUrl: expect.any(Function)
+        replaceUrl: expect.any(Function),
+        categories: categories,
+        locations: locations,
+        languages: languages
       })
     })
 
-    // we don't have to test replaceUrl here, because it will be redundant after availableLanguages
-    // in the cms are changed to the path instead of the id
     test('should map dispatch to props', () => {
-      const pathname = '/augsburg/de'
-      const store = mockStore({
-        categories: new Payload(false),
-        languages: new Payload(false),
-        locations: new Payload(false),
-        router: {params: {location: location, language: language}, pathname: pathname, query: {}}
+      const store = createReduxStore(createHistory, {
+        router: {params: {location: location, language: language},
+          pathname: pathname,
+          query: {id: id}},
+        languageChangeUrls: {}
       })
 
-      const mapLanguageToUrl = (language, id) => 'test' + language + id
+      const mapLanguageToUrl = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
 
-      const testUrls = {
-        en: 'testenundefined',
-        de: 'testde1235',
-        ar: 'testar1236'
+      const languageChangeUrls = {
+        en: '/en/1235',
+        ar: '/ar/1236',
+        de: '/de'
       }
 
       const availableLanguages = {
-        de: '1235',
+        en: '1235',
         ar: '1236'
       }
 
-      const tree = mount(
+      expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
+
+      const categoriesPage = mount(
         <Provider store={store}>
-          <ConnectedCategoriesPage />
+          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
+            <ConnectedCategoriesPage />
+          </EndpointProvider>
         </Provider>
-      )
+      ).find(CategoriesPage)
 
-      // todo expect setLanguageChangeUrls action to be in store, but as we don't get categories, locations and
-      // languages from our mocked endpoint no action is dispatched
-
-      const categoriesPageProps = tree.find(ConnectedCategoriesPage).childAt(0).props()
-
-      let countActions = store.getActions().length
-
-      categoriesPageProps.setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
-      expect(store.getActions()).toHaveLength(countActions + 1)
-
-      expect(store.getActions()).toContainEqual({
-        payload: testUrls,
-        type: 'SET_LANGUAGE_CHANGE_URLS'
-      })
+      categoriesPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
+      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })
 })

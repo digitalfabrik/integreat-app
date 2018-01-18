@@ -107,7 +107,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         "_iconSrc": "test-file-stub",
       },
       HeaderActionItem {
-        "_dropDownNode": <Connect(Connect(languagesFetcher)) />,
+        "_dropDownNode": <Connect(getContext(Connect(languagesFetcher))) />,
         "_href": undefined,
         "_iconSrc": "test-file-stub",
       },

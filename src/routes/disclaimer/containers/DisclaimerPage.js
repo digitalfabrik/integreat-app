@@ -6,8 +6,6 @@ import compose from 'lodash/fp/compose'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import DISCLAIMER_ENDPOINT from 'modules/endpoint/endpoints/disclaimer'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -47,6 +45,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher(DISCLAIMER_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT)
+  withFetcher('disclaimer'),
+  withFetcher('languages')
 )(DisclaimerPage)

@@ -1,7 +1,7 @@
 import events from '../events'
 import EventModel from '../../models/EventModel'
-import DateModel from '../../models/DateModel'
 import lolex from 'lolex'
+import moment from 'moment'
 
 jest.unmock('modules/endpoint/endpoints/events')
 
@@ -47,34 +47,21 @@ describe('events', () => {
     }
   }
 
-  const eventPage3 = {
-    id: 1889,
-    title: '',
-    status: 'publish',
-    excerpt: '',
-    content: '',
-    available_languages: [],
-    thumbnail: null,
-    event: {},
-    location: {
-      address: '',
-      town: ''
-    }
-  }
-
   test('should map state to urls', () => {
-    expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg', language: 'de'}}}))
-      .toEqual({location: 'augsburg', language: 'de'})
+    expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg'}}}))
+      .toEqual({location: 'augsburg'})
   })
 
-  const toEventModel = (json, dateModel) => new EventModel({
+  const toEventModel = (json) => new EventModel({
     id: json.id,
     title: json.title,
     content: json.content,
     thumbnail: json.thumbnail,
     address: json.location.address,
     town: json.location.town,
-    dateModel,
+    startDate: moment(json.event.start_date + ' ' + json.event.start_time),
+    endDate: moment(json.event.end_date + ' ' + json.event.end_time),
+    allDay: json.event.all_day !== '0',
     excerpt: json.excerpt,
     availableLanguages: json.available_languages
   })
@@ -84,8 +71,7 @@ describe('events', () => {
       status: 'trash'
     },
     eventPage1,
-    eventPage2,
-    eventPage3
+    eventPage2
   ]
 
   describe('should map fetched data to models', () => {
@@ -94,11 +80,7 @@ describe('events', () => {
       const eventsModels = events.mapResponse(json)
 
       expect(eventsModels).toEqual([
-        toEventModel(eventPage1, new DateModel({
-          startDate: new Date('2016-01-31T10:00:00Z'),
-          endDate: new Date('2016-01-31T13:00:00Z'),
-          allDay: false
-        }))
+        toEventModel(eventPage1)
       ])
 
       clock.uninstall()
@@ -108,16 +90,8 @@ describe('events', () => {
       const eventsModels = events.mapResponse(json)
 
       expect(eventsModels).toEqual([
-        toEventModel(eventPage2, new DateModel({
-          startDate: new Date('2015-11-29T10:00:00Z'),
-          endDate: new Date('2015-11-29T13:00:00Z'),
-          allDay: false
-        })),
-        toEventModel(eventPage1, new DateModel({
-          startDate: new Date('2016-01-31T10:00:00Z'),
-          endDate: new Date('2016-01-31T13:00:00Z'),
-          allDay: false
-        }))
+        toEventModel(eventPage2),
+        toEventModel(eventPage1)
       ])
       clock.uninstall()
     })

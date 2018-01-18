@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`withFetcher should should show error if there is one and it's not hidden 1`] = `
-<Connect(Translate(Error))
+<Translate(Failure)
   className="loading"
   error="Yepp... Error time! Wushhh!"
 />
@@ -22,16 +22,5 @@ exports[`withFetcher should should show spinner if there is no data yet and it's
 exports[`withFetcher should should show wrapped component if there is data 1`] = `
 <WrappedComponent
   endpoint={Object {}}
-  endpointPayload={
-    Payload {
-      "_data": Object {},
-      "_error": null,
-      "_fetchDate": null,
-      "_isFetching": false,
-      "_requestUrl": null,
-    }
-  }
-  requestAction={[Function]}
-  urlParams={Object {}}
 />
 `;

@@ -13,8 +13,65 @@ exports[`App should match snapshot 1`] = `
     }
   }
 >
-  <Connect(I18nProvider)>
-    <RouterFragment />
-  </Connect(I18nProvider)>
+  <EndpointProvider
+    endpoints={
+      Array [
+        Endpoint {
+          "_stateName": "languages",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/languages/wpml",
+        },
+        Endpoint {
+          "_stateName": "locations",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "https://cms.integreat-app.de/wp-json/extensions/v1/multisites",
+        },
+        Endpoint {
+          "_stateName": "categories",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z",
+        },
+        Endpoint {
+          "_stateName": "disclaimer",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z",
+        },
+        Endpoint {
+          "_stateName": "events",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "https://cms.integreat-app.de/{location}/de/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z",
+        },
+      ]
+    }
+  >
+    <Connect(I18nProvider)>
+      <RouterFragment />
+    </Connect(I18nProvider)>
+  </EndpointProvider>
 </Provider>
 `;

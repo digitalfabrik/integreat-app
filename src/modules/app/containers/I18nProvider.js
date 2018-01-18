@@ -12,30 +12,17 @@ import localesResources from '../../../locales.json'
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGE = 'en'
 
-class I18nProvider extends React.Component {
+export class I18nProvider extends React.Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
     language: PropTypes.string
   }
 
-  /**
-   * Transform locale resources to the structure: languageCode -> namespace -> key:value
-   * And not: namespace -> languageCode -> key:value
-   */
-  transformResources (resources) {
-    return reduce(resources, (accumulator, namespace, namespaceName) => {
-      forEach(namespace, (language, languageCode) => {
-        accumulator[languageCode] = {...accumulator[languageCode], [namespaceName]: language}
-      })
-      return accumulator
-    }, {})
-  }
-
   constructor () {
     super()
 
-    const i18nextResources = this.transformResources(localesResources)
-    this._i18n = i18n
+    const i18nextResources = I18nProvider.transformResources(localesResources)
+    this._i18n = i18n.createInstance()
       .use(LanguageDetector)
       .init({
         resources: i18nextResources,
@@ -48,13 +35,28 @@ class I18nProvider extends React.Component {
     this.state = {language: FALLBACK_LANGUAGE}
   }
 
+  /**
+   * Transform locale resources to the structure: languageCode -> namespace -> key:value
+   * And not: namespace -> languageCode -> key:value
+   * @param {object} resources
+   * @returns {object} transformed resources suplliable to i18next instance
+   */
+  static transformResources (resources) {
+    return reduce(resources, (accumulator, namespace, namespaceName) => {
+      forEach(namespace, (language, languageCode) => {
+        accumulator[languageCode] = {...accumulator[languageCode], [namespaceName]: language}
+      })
+      return accumulator
+    }, {})
+  }
+
   setLanguage (language) {
     const targetLanguage = language || this._i18n.languages[0]
     this.setState({language: targetLanguage})
 
     document.documentElement.lang = targetLanguage
 
-    // Set i18n language to apps language
+    // Set i18next language to apps language
     this._i18n.changeLanguage(targetLanguage)
     this.loadFonts(targetLanguage)
   }

@@ -1,83 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilterableLocationSelector should render 1`] = `
-<div
-  className="topSpacing"
->
-  <div>
-    <img
-      className="logo"
-      src="test-file-stub"
-    />
-    <h1
-      className="caption"
-    >
-      landing:where
-    </h1>
-  </div>
-  <div
-    className={undefined}
-  >
-    <div
-      className="search"
-    >
-      <span
-        aria-hidden={true}
-        className="fa fa-search searchIcon"
-      />
-      <input
-        className="searchInput"
-        defaultValue=""
-        onChange={[Function]}
-        placeholder="common:search"
-        type="text"
-      />
-    </div>
-  </div>
-  <div>
-    <div
-      className="languageList"
-    >
-      <div
-        className="languageListParent"
-      >
-        C
-      </div>
-      <a
-        className="languageListItem"
-        href="/city/de"
-        onClick={[Function]}
-        target={undefined}
-      >
-        City
-      </a>
-      <div
-        className="languageListParent"
-      >
-        O
-      </div>
-      <a
-        className="languageListItem"
-        href="/otherCity/de"
-        onClick={[Function]}
-        target={undefined}
-      >
-        Other city
-      </a>
-      <div
-        className="languageListParent"
-      >
-        Y
-      </div>
-      <a
-        className="languageListItem"
-        href="/yetanothercity/de"
-        onClick={[Function]}
-        target={undefined}
-      >
-        Yet another city
-      </a>
-    </div>
-  </div>
-</div>
+<FilterableLocationSelector
+  language="de"
+  locations={
+    Array [
+      LocationModel {
+        "_code": "city",
+        "_eventsEnabled": false,
+        "_extrasEnabled": false,
+        "_live": true,
+        "_name": "City",
+        "_sortCategory": "C",
+        "_sortKey": "city",
+      },
+      LocationModel {
+        "_code": "otherCity",
+        "_eventsEnabled": false,
+        "_extrasEnabled": false,
+        "_live": true,
+        "_name": "Other city",
+        "_sortCategory": "O",
+        "_sortKey": "other city",
+      },
+      LocationModel {
+        "_code": "nonlive",
+        "_eventsEnabled": false,
+        "_extrasEnabled": false,
+        "_live": false,
+        "_name": "Not-live",
+        "_sortCategory": "N",
+        "_sortKey": "not-live",
+      },
+      LocationModel {
+        "_code": "yetanothercity",
+        "_eventsEnabled": false,
+        "_extrasEnabled": false,
+        "_live": true,
+        "_name": "Yet another city",
+        "_sortCategory": "Y",
+        "_sortKey": "yet another city",
+      },
+    ]
+  }
+/>
 `;

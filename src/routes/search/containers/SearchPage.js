@@ -6,17 +6,13 @@ import compose from 'lodash/fp/compose'
 
 import SearchInput from 'modules/common/components/SearchInput'
 
-import style from './SearchPage.css'
-
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import CATEGORIES_ENDPOINT from 'modules/endpoint/endpoints/categories'
-import LANGUAGES_ENDPOINT from 'modules/endpoint/endpoints/languages'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
 
-class SearchPage extends React.Component {
+export class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
@@ -44,14 +40,18 @@ class SearchPage extends React.Component {
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
   }
 
+  findCategories () {
+    return this.props.categories.toArray().filter(category => this.acceptCategory(category))
+  }
+
   render () {
-    const categories = this.props.categories.toArray().filter(category => this.acceptCategory(category))
+    const categories = this.findCategories()
 
     return (
       <div>
-        <SearchInput className={style.searchSpacing}
-                     filterText={this.state.filterText}
-                     onFilterTextChange={(filterText) => this.setState({filterText: filterText})} />
+        <SearchInput filterText={this.state.filterText}
+                     onFilterTextChange={(filterText) => this.setState({filterText: filterText})}
+                     spaceSearch />
         <CategoryList categories={categories} />
       </div>
     )
@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default compose(
-  withFetcher(CATEGORIES_ENDPOINT),
-  withFetcher(LANGUAGES_ENDPOINT),
+  withFetcher('categories'),
+  withFetcher('languages'),
   connect(mapStateToProps, mapDispatchToProps)
 )(SearchPage)
