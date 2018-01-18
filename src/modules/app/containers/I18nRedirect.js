@@ -4,7 +4,6 @@ import { replace } from 'redux-little-router'
 import normalizeUrl from 'normalize-url'
 
 import { connect } from 'react-redux'
-import { I18n } from 'react-i18next'
 
 class I18nRedirect extends React.Component {
   static propTypes = {
@@ -13,7 +12,7 @@ class I18nRedirect extends React.Component {
   }
 
   static contextTypes = {
-    i18n: PropTypes.instanceOf(I18n)
+    i18n: PropTypes.object
   }
 
   componentWillMount () {

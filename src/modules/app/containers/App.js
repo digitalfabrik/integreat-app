@@ -12,12 +12,14 @@ import locationEndpoint from '../../endpoint/endpoints/locations'
 import eventsEndpoint from '../../endpoint/endpoints/events'
 
 class App extends React.Component {
+  store
+
   componentWillMount () {
-    this._store = createReduxStore(createHistory)
+    this.store = createReduxStore(createHistory)
   }
 
   render () {
-    return <Provider store={this._store}>
+    return <Provider store={this.store}>
       <EndpointProvider
         endpoints={[languagesEndpoint, locationEndpoint, categoriesEndpoint, disclaimerEndpoint, eventsEndpoint]}>
         <I18nProvider>

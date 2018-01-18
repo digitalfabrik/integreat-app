@@ -66,7 +66,9 @@ class RouterFragment extends React.Component {
 
         {/* If language param is longer than 2, it is no language and is probably a location
         -> redirect the language-specific location */}
-        <Fragment forRoute='/:language(/)' withConditions={location => location.params.language.length > 2}>
+        <Fragment forRoute='/:unknown(/)' withConditions={
+          location => location.params.unknown && location.params.unknown.length > 2
+        }>
           <I18nRedirect />
         </Fragment>
 
