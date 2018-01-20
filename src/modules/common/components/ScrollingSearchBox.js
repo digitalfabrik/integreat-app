@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './ScrollingSearchBox.css'
-import { animateScroll } from 'react-scroll/modules/index'
+import { animateScroll } from 'react-scroll'
 import SearchInput from './SearchInput'
 
 export class ScrollingSearchBox extends React.Component {
@@ -11,41 +11,43 @@ export class ScrollingSearchBox extends React.Component {
     onFilterTextChange: PropTypes.func.isRequired,
     stickyTop: PropTypes.number.isRequired,
     spaceSearch: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.element.isRequired
   }
 
   static defaultProps = {
     stickyTop: 0
   }
 
-  onClick = () => {
-    const scrollTop = document.documentElement.scrollTop
-    if (scrollTop < this.state.top) {
+  onClick () {
+    const documentScroll = document.documentElement.scrollTop
+    const elementTop = this._node.getBoundingClientRect().top
+    if (documentScroll < elementTop) {
       this.scroll()
     }
   }
 
-  scroll = () => {
-    animateScroll.scrollTo(this.state.top, {duration: 500})
+  scroll () {
+    const elementTop = this._node.getBoundingClientRect().top
+    animateScroll.scrollTo(elementTop, {duration: 500})
   }
 
-  onFilterTextChange = value => {
+  onFilterTextChange (value) {
     this.props.onFilterTextChange(value)
     this.scroll()
   }
 
-  setDimensions = node => {
+  setReference (node) {
     if (node) {
-      const {top, height} = node.getBoundingClientRect()
-      this.setState(Object.assign({}, this.state, {top, height}))
+      this._node = node
     }
   }
 
   render () {
     return <React.Fragment>
-      <div ref={this.setDimensions} className={style.searchBar}
+      <div ref={node => this.setReference(node)} className={style.searchBar}
            style={{'top': this.props.stickyTop + 'px'}}>
-        <SearchInput filterText={this.props.filterText} onFilterTextChange={this.onFilterTextChange} onClick={this.onClick}
+        <SearchInput filterText={this.props.filterText} onFilterTextChange={value => this.onFilterTextChange(value)}
+                     onClick={() => this.onClick()}
                      spaceSearch={this.props.spaceSearch} />
       </div>
       <div className={style.searching}>

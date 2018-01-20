@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScrollingSearchBox should render 1`] = `
+<React.Fragment>
+  <div
+    className="searchBar"
+    style={
+      Object {
+        "top": "0px",
+      }
+    }
+  >
+    <Translate(SearchInput)
+      filterText="Test"
+      onClick={[Function]}
+      onFilterTextChange={[Function]}
+    />
+  </div>
+  <div
+    className="searching"
+  >
+    <MockNode
+      stickyTop={45}
+    />
+  </div>
+</React.Fragment>
+`;
+
+exports[`ScrollingSearchBox should space search 1`] = `
+<React.Fragment>
+  <div
+    className="searchBar"
+    style={
+      Object {
+        "top": "30px",
+      }
+    }
+  >
+    <Translate(SearchInput)
+      filterText="Test"
+      onClick={[Function]}
+      onFilterTextChange={[Function]}
+      spaceSearch={true}
+    />
+  </div>
+  <div
+    className="searching"
+  >
+    <MockNode
+      stickyTop={75}
+    />
+  </div>
+</React.Fragment>
+`;
