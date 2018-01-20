@@ -1,24 +1,24 @@
 @import url('../../../modules/common/constants/helpers.css');
 
 .category-tiles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
   padding: 10px 0;
 }
 
 .category {
-  min-width: 25%; /* max 4 columns per row */
   margin-bottom: 20px;
 }
 
 .category > a {
   @mixin remove-a;
   display: block;
-  width: 160px;
-  max-width: 35vw;
+  max-width: 170px;
   margin: 0 auto;
-  padding: 0 10px;
+}
+
+.thumbnail-sizer {
+  width: 160px;
+  max-width: 33.3vw;
+  margin: 0 auto;
 }
 
 .category-thumbnail {
