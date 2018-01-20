@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventsPage should render EventDetail 1`] = `
+exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 <Translate(EventDetail)
   event={
     EventModel {
@@ -14,7 +14,7 @@ exports[`EventsPage should render EventDetail 1`] = `
       "_endDate": "2017-11-18T19:30:00.000Z",
       "_excerpt": "",
       "_id": 1235,
-      "_startDate": undefined,
+      "_startDate": "2017-11-18T09:30:00.000Z",
       "_thumbnail": "",
       "_title": "erstes Event",
       "_town": "",
@@ -25,7 +25,7 @@ exports[`EventsPage should render EventDetail 1`] = `
 />
 `;
 
-exports[`EventsPage should render EventList 1`] = `
+exports[`EventsPage should match snapshot and render EventList 1`] = `
 <Translate(EventList)
   events={
     Array [
@@ -56,7 +56,7 @@ exports[`EventsPage should render EventList 1`] = `
         "_endDate": "2017-11-18T19:30:00.000Z",
         "_excerpt": "",
         "_id": 1235,
-        "_startDate": undefined,
+        "_startDate": "2017-11-18T09:30:00.000Z",
         "_thumbnail": "",
         "_title": "erstes Event",
         "_town": "",
@@ -81,7 +81,7 @@ exports[`EventsPage should render EventList 1`] = `
 />
 `;
 
-exports[`EventsPage should render Spinner 1`] = `
+exports[`EventsPage should match snapshot and render Spinner 1`] = `
 <Spinner
   fadeIn="full"
   name="line-scale-party"

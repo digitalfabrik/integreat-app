@@ -48,8 +48,8 @@ describe('events', () => {
   }
 
   test('should map state to urls', () => {
-    expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg', language: 'de'}}}))
-      .toEqual({location: 'augsburg', language: 'de'})
+    expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg'}}}))
+      .toEqual({location: 'augsburg'})
   })
 
   const toEventModel = (json) => new EventModel({
