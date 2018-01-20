@@ -5,7 +5,7 @@ exports[`CategoryList should render 1`] = `
   <Caption
     title="Augsburg"
   />
-  <div
+  <Row
     className="categoryTiles"
   >
     <CategoryTile
@@ -40,6 +40,6 @@ exports[`CategoryList should render 1`] = `
       }
       key="35"
     />
-  </div>
+  </Row>
 </div>
 `;

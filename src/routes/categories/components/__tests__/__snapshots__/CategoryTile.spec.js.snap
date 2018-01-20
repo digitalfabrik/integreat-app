@@ -1,18 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryTile should render and match snapshot 1`] = `
-<div
+<Col
   className="category"
+  md={3}
+  sm={4}
+  xs={6}
 >
   <Connect(Link)
     href="/augsburg/de/willkommen"
   >
     <div
-      className="categoryThumbnail"
+      className="thumbnailSizer"
     >
-      <img
-        src="https://cms.integreat-ap…03/Beratung-150x150.png"
-      />
+      <div
+        className="categoryThumbnail"
+      >
+        <img
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
+      </div>
     </div>
     <div
       className="categoryTitle"
@@ -20,5 +27,5 @@ exports[`CategoryTile should render and match snapshot 1`] = `
       Willkommen
     </div>
   </Connect(Link)>
-</div>
+</Col>
 `;
