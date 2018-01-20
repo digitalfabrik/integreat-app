@@ -20,14 +20,14 @@ export class ScrollingSearchBox extends React.Component {
 
   onClick () {
     const documentScroll = document.documentElement.scrollTop
-    const elementTop = this._node.getBoundingClientRect().top
+    const elementTop = this._node.offsetTop
     if (documentScroll < elementTop) {
       this.scroll()
     }
   }
 
   scroll () {
-    const elementTop = this._node.getBoundingClientRect().top
+    const elementTop = this._node.offsetTop
     animateScroll.scrollTo(elementTop, {duration: 500})
   }
 

@@ -64,7 +64,7 @@ describe('ScrollingSearchBox', () => {
       </ScrollingSearchBox>)
 
     component.instance().scroll = jest.fn()
-    component.instance()._node.getBoundingClientRect = () => ({top: 15})
+    component.instance()._node = {offsetTop: 15}
     document.documentElement.scrollTop = 15
 
     component.find(SearchInput).prop('onClick')()
@@ -78,7 +78,7 @@ describe('ScrollingSearchBox', () => {
       </ScrollingSearchBox>)
 
     component.instance().scroll = jest.fn()
-    component.instance()._node.getBoundingClientRect = () => ({top: 15})
+    component.instance()._node = {offsetTop: 15}
     document.documentElement.scrollTop = 0
 
     component.find(SearchInput).prop('onClick')()
@@ -91,7 +91,7 @@ describe('ScrollingSearchBox', () => {
         <MockNode />
       </ScrollingSearchBox>)
 
-    component.instance()._node.getBoundingClientRect = () => ({top: 15})
+    component.instance()._node = {offsetTop: 15}
     component.instance().scroll()
 
     expect(animateScroll.scrollTo).toHaveBeenCalledWith(15, {duration: 500})
