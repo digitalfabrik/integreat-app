@@ -10,7 +10,7 @@ export class SearchInput extends React.Component {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired,
     spaceSearch: PropTypes.bool,
-    onClick: PropTypes.func,
+    onClickInput: PropTypes.func,
     t: PropTypes.func.isRequired
   }
 
@@ -24,7 +24,7 @@ export class SearchInput extends React.Component {
                  className={style.searchInput}
                  defaultValue={this.props.filterText}
                  onChange={event => this.props.onFilterTextChange(event.target.value)}
-                 onClick={this.props.onClick} />
+                 onClick={this.props.onClickInput} />
         </div>
       </div>
     )
