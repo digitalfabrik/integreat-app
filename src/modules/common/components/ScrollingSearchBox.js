@@ -5,6 +5,9 @@ import style from './ScrollingSearchBox.css'
 import { animateScroll } from 'react-scroll'
 import SearchInput from './SearchInput'
 
+const SEARCH_INPUT_HEIGHT = 45
+const SCROLL_ANIMATION_DURATION = 500
+
 export class ScrollingSearchBox extends React.Component {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
@@ -28,7 +31,7 @@ export class ScrollingSearchBox extends React.Component {
 
   scroll () {
     const elementTop = this._node.offsetTop
-    animateScroll.scrollTo(elementTop, {duration: 500})
+    animateScroll.scrollTo(elementTop, {duration: SCROLL_ANIMATION_DURATION})
   }
 
   onFilterTextChange (value) {
@@ -51,7 +54,7 @@ export class ScrollingSearchBox extends React.Component {
                      spaceSearch={this.props.spaceSearch} />
       </div>
       <div className={style.searching}>
-        {React.cloneElement(this.props.children, {stickyTop: this.props.stickyTop + 45})}
+        {React.cloneElement(this.props.children, {stickyTop: this.props.stickyTop + SEARCH_INPUT_HEIGHT})}
       </div>
     </React.Fragment>
   }
