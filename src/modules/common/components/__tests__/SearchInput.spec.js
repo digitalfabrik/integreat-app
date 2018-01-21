@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import ConnectedSearchInput, { SearchInput } from '../SearchInput'
 
 describe('SearchInput', () => {
@@ -21,7 +21,19 @@ describe('SearchInput', () => {
   describe('connect', () => {
     test('should render', () => {
       expect(shallow(<ConnectedSearchInput filterText={'Test'}
-                                  onFilterTextChange={() => {}} />)).toMatchSnapshot()
+                                           onFilterTextChange={() => {}} />)).toMatchSnapshot()
     })
+  })
+
+  test('should pass onFilterTextChange and onClickInput', () => {
+    const outerFilterTextChange = jest.fn()
+    const onClickInput = jest.fn()
+    const component = mount(<ConnectedSearchInput filterText={'Test'}
+                                            onClickInput={onClickInput}
+                                            onFilterTextChange={outerFilterTextChange} />)
+    component.find('input').simulate('click')
+    expect(onClickInput).toHaveBeenCalled()
+    component.find('input').simulate('change', {target: {value: 'test'}})
+    expect(outerFilterTextChange).toHaveBeenCalledWith('test')
   })
 })
