@@ -7,7 +7,8 @@ import Headroom from 'react-headroom'
 
 /** This component wraps Headroom and so that it works with sticky elements:
  *  stickyNode can be any node which will stick to the top, while scrolling down it's hidden.
- *  children will get a stickyTop property with the dynamic offset of its viewport */
+ *  children will get a stickyTop property with the dynamic offset of its viewport
+ *  todo: test and refactor this in WEBAPP-169 */
 export class StickyHeadroom extends React.Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
