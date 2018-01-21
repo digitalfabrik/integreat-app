@@ -1,11 +1,19 @@
 @import url('../../common/constants/colors.css');
 
-.search-bar {
+.headroom {
   position: sticky;
+  top: 0;
   z-index: 1;
-}
+  transform: translateY(0%);
+  transition: transform 0.2s ease-in-out;
 
-.searching {
-  position: relative;
-  z-index: 0;
+  &.unfixed {
+    position: static;
+    transform: translateY(0%);
+    transition: none;
+  }
+
+  &.unpinned {
+    transform: translateY(-100%);
+  }
 }
