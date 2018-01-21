@@ -47,7 +47,7 @@ export class ScrollingSearchBox extends React.Component {
       <div ref={node => this.setReference(node)} className={style.searchBar}
            style={{'top': this.props.stickyTop + 'px'}}>
         <SearchInput filterText={this.props.filterText} onFilterTextChange={value => this.onFilterTextChange(value)}
-                     onClick={() => this.onClick()}
+                     onClickInput={() => this.onClick()}
                      spaceSearch={this.props.spaceSearch} />
       </div>
       <div className={style.searching}>
