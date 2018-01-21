@@ -12,7 +12,7 @@ exports[`ScrollingSearchBox should render 1`] = `
   >
     <Translate(SearchInput)
       filterText="Test"
-      onClick={[Function]}
+      onClickInput={[Function]}
       onFilterTextChange={[Function]}
     />
   </div>
@@ -38,7 +38,7 @@ exports[`ScrollingSearchBox should space search 1`] = `
   >
     <Translate(SearchInput)
       filterText="Test"
-      onClick={[Function]}
+      onClickInput={[Function]}
       onFilterTextChange={[Function]}
       spaceSearch={true}
     />

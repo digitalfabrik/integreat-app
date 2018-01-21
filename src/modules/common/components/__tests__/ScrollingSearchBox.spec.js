@@ -67,7 +67,7 @@ describe('ScrollingSearchBox', () => {
     component.instance()._node = {offsetTop: 15}
     document.documentElement.scrollTop = 15
 
-    component.find(SearchInput).prop('onClick')()
+    component.find(SearchInput).prop('onClickInput')()
     expect(component.instance().scroll).toHaveLength(0)
   })
 
@@ -81,7 +81,7 @@ describe('ScrollingSearchBox', () => {
     component.instance()._node = {offsetTop: 15}
     document.documentElement.scrollTop = 0
 
-    component.find(SearchInput).prop('onClick')()
+    component.find(SearchInput).prop('onClickInput')()
     expect(component.instance().scroll).toHaveBeenCalled()
   })
 
