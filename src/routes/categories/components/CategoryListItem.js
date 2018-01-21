@@ -5,24 +5,34 @@ import { Link } from 'redux-little-router'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
 import style from './CategoryListItem.css'
-import IconPlaceholder from '../assets/IconPlaceholder.svg'
+import iconPlaceholder from '../assets/IconPlaceholder.svg'
 
 /**
  * Displays a single CategoryListItem
  */
 class CategoryListItem extends React.Component {
   static propTypes = {
-    category: PropTypes.instanceOf(CategoryModel).isRequired
+    category: PropTypes.instanceOf(CategoryModel).isRequired,
+    children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
   }
 
   render () {
+    const {category, children} = this.props
     return (
-      <Link href={this.props.category.url}>
-        <div className={style.row}>
-          <img className={style.categoryThumbnail} src={this.props.category.thumbnail || IconPlaceholder} />
-          <div className={style.categoryCaption}>{this.props.category.title}</div>
-        </div>
-      </Link>
+      <div className={style.row}>
+        <Link href={category.url}>
+          <img className={style.categoryThumbnail} src={category.thumbnail || iconPlaceholder} />
+          <div className={style.categoryCaption}>{category.title}</div>
+        </Link>
+        {children.map(child =>
+          <div key={child.id} className={style.subRow}>
+            <Link href={child.url}>
+              <img src={child.thumbnail || iconPlaceholder} className={style.categoryThumbnail} />
+              <div className={style.categoryCaption}>{child.title}</div>
+            </Link>
+          </div>
+        )}
+      </div>
     )
   }
 }
