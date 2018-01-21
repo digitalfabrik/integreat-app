@@ -1,54 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ScrollingSearchBox should render 1`] = `
-<React.Fragment>
-  <div
-    className="searchBar"
-    style={
-      Object {
-        "top": "0px",
-      }
+<div>
+  <StickyHeadroom
+    pinStart={0}
+    stickyNode={
+      <Translate(SearchInput)
+        filterText="Test"
+        onClickInput={[Function]}
+        onFilterTextChange={[Function]}
+        spaceSearch={undefined}
+      />
     }
+    stickyTop={0}
   >
-    <Translate(SearchInput)
-      filterText="Test"
-      onClickInput={[Function]}
-      onFilterTextChange={[Function]}
-    />
-  </div>
+    <MockNode />
+  </StickyHeadroom>
+</div>
+`;
+
+exports[`ScrollingSearchBox should set correct reference 1`] = `
+<div>
   <div
-    className="searching"
+    class="headroom unfixed headroom-wrapper"
   >
-    <MockNode
-      stickyTop={45}
-    />
+    <div
+      class="headroom headroom--unfixed"
+    >
+      <div
+        class=""
+      >
+        <div
+          class="search"
+        >
+          <span
+            aria-hidden="true"
+            class="fa fa-search searchIcon"
+          />
+          <input
+            class="searchInput"
+            placeholder="common:search"
+            type="text"
+            value="Test"
+          />
+        </div>
+      </div>
+    </div>
   </div>
-</React.Fragment>
+  <div />
+</div>
 `;
 
 exports[`ScrollingSearchBox should space search 1`] = `
-<React.Fragment>
-  <div
-    className="searchBar"
-    style={
-      Object {
-        "top": "30px",
-      }
+<div>
+  <StickyHeadroom
+    pinStart={0}
+    stickyNode={
+      <Translate(SearchInput)
+        filterText="Test"
+        onClickInput={[Function]}
+        onFilterTextChange={[Function]}
+        spaceSearch={true}
+      />
     }
+    stickyTop={0}
   >
-    <Translate(SearchInput)
-      filterText="Test"
-      onClickInput={[Function]}
-      onFilterTextChange={[Function]}
-      spaceSearch={true}
-    />
-  </div>
-  <div
-    className="searching"
-  >
-    <MockNode
-      stickyTop={75}
-    />
-  </div>
-</React.Fragment>
+    <MockNode />
+  </StickyHeadroom>
+</div>
 `;

@@ -19,18 +19,7 @@ describe('ScrollingSearchBox', () => {
   test('should space search', () => {
     expect(shallow(<ScrollingSearchBox filterText={'Test'}
                                        onFilterTextChange={() => {}}
-                                       spaceSearch stickyTop={30}><MockNode /></ScrollingSearchBox>)).toMatchSnapshot()
-  })
-
-  test('should add stickyTop to containing Node', () => {
-    const component = shallow(
-      <ScrollingSearchBox filterText={'Test'}
-                          onFilterTextChange={() => {}}
-                          stickyTop={30}>
-        <MockNode />
-      </ScrollingSearchBox>)
-    expect(component.find(MockNode).prop('stickyTop')).toEqual(75)
-    expect(component.find('.searchBar').prop('style').top).toEqual('30px')
+                                       spaceSearch><MockNode /></ScrollingSearchBox>)).toMatchSnapshot()
   })
 
   test('should pass onFilterTextChange and call scroll()', () => {
@@ -54,7 +43,7 @@ describe('ScrollingSearchBox', () => {
         <MockNode />
       </ScrollingSearchBox>)
     const node = component.instance()._node
-    expect(node.className).toEqual('searchBar')
+    expect(node).toMatchSnapshot()
   })
 
   test('shouldnt call scroll() if user is already below searchInput onClick', () => {
