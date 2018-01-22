@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryListItem should render and match snapshot 1`] = `
-<Connect(Link)
-  href="/augsburg/de/willkommen"
+<div
+  className="row"
 >
-  <div
-    className="row"
+  <Connect(Link)
+    href="/augsburg/de/willkommen"
   >
     <img
       className="categoryThumbnail"
@@ -16,6 +16,6 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
     >
       Willkommen
     </div>
-  </div>
-</Connect(Link)>
+  </Connect(Link)>
+</div>
 `;

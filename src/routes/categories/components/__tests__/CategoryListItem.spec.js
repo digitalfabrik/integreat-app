@@ -21,7 +21,7 @@ const category = new CategoryModel({
 describe('CategoryListItem', () => {
   test('should render and match snapshot', () => {
     const wrapper = shallow(
-      <CategoryListItem category={category} />
+      <CategoryListItem category={category} children={[]} />
     )
     expect(wrapper).toMatchSnapshot()
   })
