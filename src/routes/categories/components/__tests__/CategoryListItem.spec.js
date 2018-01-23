@@ -17,11 +17,32 @@ const category = new CategoryModel({
   },
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
 })
+const childCategory = new CategoryModel({
+  id: 5234,
+  url: '/augsburg/de/test',
+  title: 'Child',
+  content: 'this is a test content',
+  parentId: 0,
+  parentUrl: '/augsburg/de',
+  order: 11,
+  availableLanguages: {
+    en: 4804, ar: 4819, fa: 4827
+  },
+  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+})
 
 describe('CategoryListItem', () => {
   test('should render and match snapshot', () => {
     const wrapper = shallow(
-      <CategoryListItem category={category} children={[]} />
+      <CategoryListItem category={category} children={[childCategory]} />
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  test('should replace empty thumbnail', () => {
+    const noThumbCategory = new CategoryModel(Object.assign({}, category, {thumbnail: ''}))
+    const wrapper = shallow(
+      <CategoryListItem category={noThumbCategory} children={[noThumbCategory]} />
     )
     expect(wrapper).toMatchSnapshot()
   })
