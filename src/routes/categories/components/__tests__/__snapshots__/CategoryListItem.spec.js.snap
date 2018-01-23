@@ -42,26 +42,35 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
 <div
   className="row"
 >
-  <Connect(Link)>
+  <Connect(Link)
+    href=""
+  >
     <img
       className="categoryThumbnail"
       src="test-file-stub"
     />
     <div
       className="categoryCaption"
-    />
+    >
+      GotNoThumb :O
+    </div>
   </Connect(Link)>
   <div
     className="subRow"
+    key="42"
   >
-    <Connect(Link)>
+    <Connect(Link)
+      href=""
+    >
       <img
         className="categoryThumbnail"
         src="test-file-stub"
       />
       <div
         className="categoryCaption"
-      />
+      >
+        GotNoThumb :O
+      </div>
     </Connect(Link)>
   </div>
 </div>
