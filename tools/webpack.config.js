@@ -59,7 +59,8 @@ const config = {
   plugins: [
     new StyleLintPlugin({
       files: '**/*.css',
-      configFile: 'stylelint.config.js'
+      configFile: 'stylelint.config.js',
+      emitErrors: !isDebug
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
