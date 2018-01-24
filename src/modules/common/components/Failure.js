@@ -19,7 +19,7 @@ export class Failure extends React.Component {
     return <div>
       <div className={style.centerText}>{this.props.t(this.props.error)}</div>
       <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
-      <Link clssName={style.centerText} href={'/'}>Go Back</Link>
+      <Link className={style.centerText} href={'/'}>Go Back</Link>
     </div>
   }
 }

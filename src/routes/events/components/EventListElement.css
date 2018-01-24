@@ -10,6 +10,7 @@
   height: 100px;
   flex-shrink: 0;
   padding: 15px 5px;
+  object-fit: contain;
 }
 
 .event-description {
@@ -22,12 +23,11 @@
 }
 
 .event-title {
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .event-date {
   padding-bottom: 10px;
-  font-weight: 200;
 }
 
 .horizontal-line {

@@ -15,8 +15,8 @@ class RemoteContent extends React.Component {
   }
 
   render () {
-    const className = this.props.centered ? cx(style.remoteContent, style.centered) : style.remoteContent
-    return <div className={className} dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
+    return <div className={cx({[style.centered]: this.props.centered, [style.remoteContent]: true})}
+                dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
   }
 }
 
