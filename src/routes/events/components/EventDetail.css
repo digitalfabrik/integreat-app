@@ -7,18 +7,11 @@
   display: flex;
   width: 300px;
   height: 300px;
-  margin: auto;
+  margin: 10px auto;
   padding-bottom: 10px;
+  object-fit: contain;
 }
 
 .identifier {
-  font-weight: 900;
-}
-
-.date {
-  font-weight: 200;
-}
-
-.location {
-  font-weight: 200;
+  font-weight: 700;
 }

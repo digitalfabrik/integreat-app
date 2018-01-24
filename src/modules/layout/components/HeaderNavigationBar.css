@@ -1,5 +1,6 @@
 @import url('../../common/constants/dimensions.css');
 @import url('../../common/constants/helpers.css');
+@import url('../../common/constants/fonts.css');
 
 .navigation-bar {
   display: flex;
@@ -14,9 +15,10 @@
 .navigation-item {
   @mixin remove-a;
   flex: 1;
-  font-size: 1.2em;
-  font-weight: 500;
+  font-size: 1.1em;
+  font-weight: 400;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .navigation-item.active-navigation-item {
@@ -25,6 +27,6 @@
 
 @media (--small-viewport) {
   .navigation-item {
-    font-size: 1em;
+    font-size: 0.9em;
   }
 }

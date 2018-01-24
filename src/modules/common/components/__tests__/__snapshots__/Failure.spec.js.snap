@@ -23,7 +23,7 @@ exports[`Failure should match snapshot 1`] = `
     />
   </div>
   <Connect(Link)
-    clssName="centerText"
+    className="centerText"
     href="/"
   >
     Go Back

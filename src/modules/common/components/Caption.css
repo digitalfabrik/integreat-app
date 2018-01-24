@@ -1,7 +1,9 @@
 @import url('../constants/dimensions.css');
+@import url('../constants/fonts.css');
 
 .caption {
   margin: 25px 0;
+  font-size: 2rem;
   text-align: center;
 }
 
