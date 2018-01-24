@@ -8,16 +8,27 @@ const title = 'Willkommen'
 const content = 'test content'
 
 const categories = [
-  new CategoryModel({
-    id: 35,
-    url: '/augsburg/de/willkommen/willkommen-in-augsburg',
-    title: 'Willkommen in Augsburg'
-  }),
-  new CategoryModel({
-    id: 35,
-    url: '/augsburg/de/willkommen/willkommen-in-augsburg',
-    title: 'Willkommen in Augsburg'
-  })
+  {
+    model: new CategoryModel({
+      id: 35,
+      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      title: 'Willkommen in Augsburg'
+    }),
+    children: [
+      new CategoryModel({
+        id: 35,
+        url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+        title: 'Willkommen in Augsburg'
+      })]
+  },
+  {
+    model: new CategoryModel({
+      id: 35,
+      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      title: 'Willkommen in Augsburg'
+    }),
+    children: []
+  }
 ]
 
 describe('CategoryList', () => {

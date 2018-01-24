@@ -245,21 +245,24 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
   <CategoryList
     categories={
       Array [
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": "397",
-            "de": "711",
-            "en": "390",
-          },
-          "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": "397",
+              "de": "711",
+              "en": "390",
+            },
+            "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
 ",
-          "_id": 35,
-          "_order": 1,
-          "_parentId": 3649,
-          "_parentUrl": "/augsburg/de/willkommen",
-          "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
-          "_title": "Willkommen in Augsburg",
-          "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_id": 35,
+            "_order": 1,
+            "_parentId": 3649,
+            "_parentUrl": "/augsburg/de/willkommen",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+            "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+          },
         },
       ]
     }
