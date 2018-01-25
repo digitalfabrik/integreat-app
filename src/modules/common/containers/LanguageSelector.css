@@ -13,13 +13,13 @@
 
 .element {
   @mixin remove-a;
-  height: 85px;
+  height: var(--header-height);
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
   color: var(--text-secondary-color);
   font-size: 1.2em;
-  line-height: 85px;
+  line-height: var(--header-height);
   text-align: center;
   transition: background-color 0.2s, border-radius 0.2s;
   border-radius: 30px;
@@ -33,16 +33,16 @@
 
 .element:hover {
   color: var(--text-color);
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 0;
 }
 
 @media (--small-viewport) {
   .element {
-    height: 60px;
+    height: var(--header-height-small);
     min-width: 70px;
     flex: 1 1 70px;
     font-size: 1em;
-    line-height: 60px;
+    line-height: var(--header-height-small);
   }
 }

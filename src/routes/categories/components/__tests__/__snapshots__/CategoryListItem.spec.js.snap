@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryListItem should render and match snapshot 1`] = `
-<Connect(Link)
-  href="/augsburg/de/willkommen"
+<div
+  className="row"
 >
-  <div
-    className="row"
+  <Connect(Link)
+    href="/augsburg/de/willkommen"
   >
     <img
       className="categoryThumbnail"
@@ -16,6 +16,62 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
     >
       Willkommen
     </div>
+  </Connect(Link)>
+  <div
+    className="subRow"
+    key="5234"
+  >
+    <Connect(Link)
+      href="/augsburg/de/test"
+    >
+      <img
+        className="categoryThumbnail"
+        src="https://cms.integreat-ap…03/Beratung-150x150.png"
+      />
+      <div
+        className="categoryCaption"
+      >
+        Child
+      </div>
+    </Connect(Link)>
   </div>
-</Connect(Link)>
+</div>
+`;
+
+exports[`CategoryListItem should replace empty thumbnail 1`] = `
+<div
+  className="row"
+>
+  <Connect(Link)
+    href=""
+  >
+    <img
+      className="categoryThumbnail"
+      src="test-file-stub"
+    />
+    <div
+      className="categoryCaption"
+    >
+      GotNoThumb :O
+    </div>
+  </Connect(Link)>
+  <div
+    className="subRow"
+    key="42"
+  >
+    <Connect(Link)
+      href=""
+    >
+      <img
+        className="categoryThumbnail"
+        src="test-file-stub"
+      />
+      <div
+        className="categoryCaption"
+      >
+        GotNoThumb :O
+      </div>
+    </Connect(Link)>
+  </div>
+</div>
 `;

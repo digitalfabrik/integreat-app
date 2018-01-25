@@ -73,9 +73,9 @@ export class I18nProvider extends React.Component {
 
   loadFonts (language) {
     // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
-    const arabicFonts = ['Lateef:400', 'Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
+    const arabicFonts = ['Lateef:400', 'Raleway:400,700', 'Open+Sans:400,700']
     // We do not need an arabic font
-    const latinFonts = ['Raleway:300,400,400i,600,700,700i', 'Open+Sans:400']
+    const latinFonts = ['Raleway:400,700', 'Open+Sans:400,700']
     const families = {
       ar: arabicFonts,
       fa: arabicFonts,

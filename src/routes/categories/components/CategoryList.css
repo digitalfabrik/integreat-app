@@ -4,7 +4,3 @@
 .list a {
   @mixin remove-a;
 }
-
-.list {
-  border-top: 2px solid var(--theme-color);
-}

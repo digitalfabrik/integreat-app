@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScrollingSearchBox should render 1`] = `
+<div>
+  <StickyHeadroom
+    pinStart={0}
+    stickyNode={
+      <Translate(SearchInput)
+        filterText="Test"
+        onClickInput={[Function]}
+        onFilterTextChange={[Function]}
+        spaceSearch={undefined}
+      />
+    }
+    stickyTop={0}
+  >
+    <MockNode />
+  </StickyHeadroom>
+</div>
+`;
+
+exports[`ScrollingSearchBox should set correct reference 1`] = `
+<div>
+  <div
+    class="headroom unfixed headroom-wrapper"
+  >
+    <div
+      class="headroom headroom--unfixed"
+    >
+      <div
+        class=""
+      >
+        <div
+          class="search"
+        >
+          <span
+            aria-hidden="true"
+            class="fa fa-search searchIcon"
+          />
+          <input
+            class="searchInput"
+            placeholder="common:search"
+            type="text"
+            value="Test"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div />
+</div>
+`;
+
+exports[`ScrollingSearchBox should space search 1`] = `
+<div>
+  <StickyHeadroom
+    pinStart={0}
+    stickyNode={
+      <Translate(SearchInput)
+        filterText="Test"
+        onClickInput={[Function]}
+        onFilterTextChange={[Function]}
+        spaceSearch={true}
+      />
+    }
+    stickyTop={0}
+  >
+    <MockNode />
+  </StickyHeadroom>
+</div>
+`;

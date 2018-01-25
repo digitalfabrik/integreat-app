@@ -13,9 +13,11 @@ ReactDOM.render(<App />, container)
 document.getElementById('splash').className += ' splash-hidden'
 
 // Currently we do not have service workers. Unregister all previous ones:
-navigator.serviceWorker.getRegistrations().then(registrations => {
-  registrations.forEach(registration => { registration.unregister() })
-})
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    registrations.forEach(registration => { registration.unregister() })
+  })
+}
 
 // Enables hot-module-reloading if it's enabled
 if (module.hot) {

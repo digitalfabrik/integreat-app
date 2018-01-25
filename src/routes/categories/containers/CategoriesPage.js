@@ -97,7 +97,8 @@ export class CategoriesPage extends React.Component {
    * @return {*} The content to be displayed
    */
   getContent (category) {
-    const children = this.props.categories.getChildren(category)
+    const {categories, locations} = this.props
+    const children = categories.getChildren(category)
 
     if (children.length === 0) {
       // last level, our category is a simple page
@@ -107,10 +108,10 @@ export class CategoriesPage extends React.Component {
       // first level, we want to display a table with all first order categories
       return <CategoryTiles categories={children}
                             title={category.title}
-                            locations={this.props.locations} />
+                            locations={locations} />
     }
     // some level between, we want to display a list
-    return <CategoryList categories={children}
+    return <CategoryList categories={children.map(model => ({model, children: categories.getChildren(model)}))}
                          title={category.title}
                          content={category.content} />
   }
