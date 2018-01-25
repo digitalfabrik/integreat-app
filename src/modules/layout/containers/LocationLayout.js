@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
@@ -47,6 +46,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations', true, true),
-  translate('app')
+  withFetcher('locations', true, true)
 )(LocationLayout)

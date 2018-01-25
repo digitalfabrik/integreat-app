@@ -12,7 +12,7 @@ import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChang
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
 
-class SearchPage extends React.Component {
+export class SearchPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
@@ -40,8 +40,14 @@ class SearchPage extends React.Component {
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
   }
 
+  findCategories () {
+    return this.props.categories.toArray()
+      .filter(category => this.acceptCategory(category))
+      .map(model => ({model, children: []}))
+  }
+
   render () {
-    const categories = this.props.categories.toArray().filter(category => this.acceptCategory(category))
+    const categories = this.findCategories()
 
     return (
       <div>
