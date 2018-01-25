@@ -143,10 +143,10 @@
     "rules": {
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
-      "jest/no-disabled-tests": "warn",
+      "jest/no-disabled-tests": "error",
       "jest/no-focused-tests": "error",
       "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "warn",
+      "jest/prefer-to-have-length": "error",
       "jest/valid-expect": "error",
       "indent": [
         "error",
@@ -160,11 +160,11 @@
       ],
       "react/jsx-indent": "off",
       "react/jsx-indent-props": "off",
-      "react/prop-types": "warn",
-      "jsx-quotes": "warn",
-      "react/jsx-tag-spacing": "warn",
-      "react/no-unused-prop-types": "warn",
-      "prefer-const": "warn"
+      "react/prop-types": "error",
+      "jsx-quotes": "error",
+      "react/jsx-tag-spacing": "error",
+      "react/no-unused-prop-types": "error",
+      "prefer-const": "error"
     },
     "plugins": [
       "react",
