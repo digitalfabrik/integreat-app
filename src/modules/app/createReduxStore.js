@@ -3,17 +3,17 @@ import thunkMiddleware from 'redux-thunk'
 import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router'
 import { createLogger } from 'redux-logger'
 
-import Routes from 'modules/app/Routes'
+import RouteConfig from 'modules/redux-little-router-config/RouteConfig'
 import endpointReducers from 'modules/endpoint/reducers'
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 
-const createReduxStore = (createHistory, initialState = {}, routes = new Routes()) => {
+const createReduxStore = (createHistory, initialState = {}, routes = new RouteConfig()) => {
   const history = createHistory()
   const basename = ''
 
   // Additional reducers
   const {enhancer: routerEnhancer, reducer: routerReducer, middleware: routerMiddleware} = routerForBrowser({
-    routes: routes.getLittleRouterConfig(),
+    routes: routes.getRouterConfig(),
     basename,
     history
   })
