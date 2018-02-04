@@ -15,6 +15,10 @@ class Route {
   stringify (params = {}) {
     return this.pattern.stringify(params)
   }
+
+  hasPath (path) {
+    return this.path === path
+  }
 }
 
 export default Route

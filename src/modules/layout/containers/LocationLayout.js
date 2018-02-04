@@ -5,21 +5,20 @@ import compose from 'lodash/fp/compose'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import Navigation from 'modules/app/Navigation'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from '../components/LocationHeader'
 import LocationFooter from '../components/LocationFooter'
-import withRouteConfig from 'modules/redux-little-router-config/hocs/withRouteConfig'
 
 export class LocationLayout extends React.Component {
   static propTypes = {
-    mathRoute: PropTypes.func.isRequired,
+    matchRoute: PropTypes.func.isRequired,
     location: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     route: PropTypes.string.isRequired,
+    currentParams: PropTypes.object.isRequired,
     children: PropTypes.node
   }
 
@@ -32,8 +31,10 @@ export class LocationLayout extends React.Component {
     }
 
     const {route, matchRoute} = this.props
-    return <Layout header={<LocationHeader location={location} route={route} mathRoute={matchRoute} />}
-                   footer={<LocationFooter matchRoute={matchRoute} />}>
+    return <Layout header={<LocationHeader location={location}
+                                           route={route} matchRoute={matchRoute}
+                                           currentParams={this.props.currentParams} />}
+                   footer={<LocationFooter matchRoute={matchRoute} currentParams={this.props.currentParams} />}>
       {this.props.children}
     </Layout>
   }
@@ -42,11 +43,10 @@ export class LocationLayout extends React.Component {
 const mapStateToProps = (state) => ({
   route: state.router.route,
   location: state.router.params.location,
-  language: state.router.params.language
+  currentParams: state.router.params
 })
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations', true, true),
-  withRouteConfig
+  withFetcher('locations', true, true)
 )(LocationLayout)

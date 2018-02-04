@@ -1,11 +1,12 @@
 import Route from './Route'
+import { isObject } from 'lodash/lang'
 
 export class RouteConfig {
   routes = []
 
-  constructor (routes = {}) {
+  constructor (routes = []) {
     this.routes = routes.map(route => {
-      if (typeof route === 'object') {
+      if (isObject(route)) {
         return new Route(route.id, route.path)
       }
 
@@ -25,7 +26,12 @@ export class RouteConfig {
    * @return {Route} The matched route
    */
   matchRoute (id) {
-    return this.routes.find(route => route.id && route.id === id)
+    const route = this.routes.find(route => route.id && route.id === id)
+    if (!route) {
+      throw Error(`Route ${id} was not found in RouteConfig!`)
+    }
+
+    return route
   }
 }
 

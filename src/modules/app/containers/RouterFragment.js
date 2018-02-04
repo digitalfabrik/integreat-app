@@ -14,18 +14,26 @@ import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimer
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import I18nRedirect from 'modules/app/containers/I18nRedirect'
+import PropTypes from 'prop-types'
+import RouteConfig from '../../redux-little-router-config/RouteConfig'
 
 /**
  * todo: Test and document in WEBAPP-90
  * todo: Layouts should be set in each route
  */
 class RouterFragment extends React.Component {
+  static propTypes = {
+    routerConfig: PropTypes.instanceOf(RouteConfig).isRequired
+  }
 
   static isLanguageCode (language) {
     return language && language.length === 2
   }
 
   render () {
+    const {routerConfig} = this.props
+    const matchRoute = (id) => routerConfig.matchRoute(id)
+
     /*
      * For routes inside a <React.Fragment /> the priority decreases with each element
      * So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
@@ -43,15 +51,15 @@ class RouterFragment extends React.Component {
           <React.Fragment>
             {/* Matches /augsburg/de/search -> Search */}
             <Fragment forRoute='/search'>
-              <LocationLayout><SearchPage /></LocationLayout>
+              <LocationLayout matchRoute={matchRoute}><SearchPage /></LocationLayout>
             </Fragment>
             {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
             <Fragment forRoute='/disclaimer'>
-              <LocationLayout><DisclaimerPage /></LocationLayout>
+              <LocationLayout matchRoute={matchRoute}><DisclaimerPage /></LocationLayout>
             </Fragment>
             {/* Matches /augsburg/de/events* -> Events */}
             <Fragment forRoute='/events(/:id)'>
-              <LocationLayout><EventsPage /></LocationLayout>
+              <LocationLayout matchRoute={matchRoute}><EventsPage /></LocationLayout>
             </Fragment>
             {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
             <Fragment forRoute='/fetch-pdf'>
@@ -59,7 +67,7 @@ class RouterFragment extends React.Component {
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}
             <Fragment forNoMatch>
-              <LocationLayout><CategoriesPage /></LocationLayout>
+              <LocationLayout matchRoute={matchRoute}><CategoriesPage /></LocationLayout>
             </Fragment>
           </React.Fragment>
         </Fragment>
