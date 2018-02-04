@@ -14,7 +14,7 @@ import HeaderActionItem from '../HeaderActionItem'
 
 class LocationHeader extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired,
+    matchRoute: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.instanceOf(LocationModel).isRequired,
     route: PropTypes.string.isRequired
   }

@@ -20,6 +20,11 @@ import I18nRedirect from 'modules/app/containers/I18nRedirect'
  * todo: Layouts should be set in each route
  */
 class RouterFragment extends React.Component {
+
+  static isLanguageCode (language) {
+    return language && language.length === 2
+  }
+
   render () {
     /*
      * For routes inside a <React.Fragment /> the priority decreases with each element
@@ -67,7 +72,7 @@ class RouterFragment extends React.Component {
         {/* If language param is longer than 2, it is no language and is probably a location
         -> redirect the language-specific location */}
         <Fragment forRoute='/:unknown(/)' withConditions={
-          location => location.params.unknown && location.params.unknown.length > 2
+          location => !RouterFragment.isLanguageCode(location.params.unknown)
         }>
           <I18nRedirect />
         </Fragment>

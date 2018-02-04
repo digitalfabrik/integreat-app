@@ -12,10 +12,11 @@ import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from '../components/LocationHeader'
 import LocationFooter from '../components/LocationFooter'
+import withRouteConfig from 'modules/redux-little-router-config/hocs/withRouteConfig'
 
 export class LocationLayout extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired,
+    mathRoute: PropTypes.func.isRequired,
     location: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     route: PropTypes.string.isRequired,
@@ -30,21 +31,22 @@ export class LocationLayout extends React.Component {
       return <Layout header={<GeneralHeader />} footer={<GeneralFooter />}>{this.props.children}</Layout>
     }
 
-    const {route, navigation} = this.props
-    return <Layout header={<LocationHeader location={location} route={route} navigation={navigation} />}
-                   footer={<LocationFooter navigation={navigation} />}>
+    const {route, matchRoute} = this.props
+    return <Layout header={<LocationHeader location={location} route={route} mathRoute={matchRoute} />}
+                   footer={<LocationFooter matchRoute={matchRoute} />}>
       {this.props.children}
     </Layout>
   }
 }
 
 const mapStateToProps = (state) => ({
-  navigation: new Navigation(state.router.params.location, state.router.params.language),
   route: state.router.route,
-  location: state.router.params.location
+  location: state.router.params.location,
+  language: state.router.params.language
 })
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations', true, true)
+  withFetcher('locations', true, true),
+  withRouteConfig
 )(LocationLayout)

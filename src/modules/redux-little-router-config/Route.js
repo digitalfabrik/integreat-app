@@ -4,14 +4,10 @@ class Route {
   id
   path
   pattern
-  renderComponent
-  condition
 
-  constructor (id, path, renderComponent, condition) {
+  constructor (id, path) {
     this.id = id
     this.path = path
-    this.renderComponent = renderComponent
-    this.condition = condition
 
     this.pattern = new UrlPattern(path)
   }
