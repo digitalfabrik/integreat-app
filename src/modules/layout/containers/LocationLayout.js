@@ -22,6 +22,10 @@ export class LocationLayout extends React.Component {
     children: PropTypes.node
   }
 
+  componentWillUnmount () {
+    console.log('LocationLayout unmounted')
+  }
+
   getCurrentLocation = () => this.props.locations.find((location) => location.code === this.props.location)
 
   render () {

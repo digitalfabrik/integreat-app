@@ -48,28 +48,28 @@ class RouterFragment extends React.Component {
 
         {/* Matches two or more arguments like /augsburg/de */}
         <Fragment forRoute='/:location/:language(/*)'>
-          <React.Fragment>
+          <LocationLayout matchRoute={matchRoute}>
             {/* Matches /augsburg/de/search -> Search */}
             <Fragment forRoute='/search'>
-              <LocationLayout matchRoute={matchRoute}><SearchPage /></LocationLayout>
+              <SearchPage />
             </Fragment>
             {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
             <Fragment forRoute='/disclaimer'>
-              <LocationLayout matchRoute={matchRoute}><DisclaimerPage /></LocationLayout>
+              <DisclaimerPage />
             </Fragment>
             {/* Matches /augsburg/de/events* -> Events */}
             <Fragment forRoute='/events(/:id)'>
-              <LocationLayout matchRoute={matchRoute}><EventsPage /></LocationLayout>
+              <EventsPage />
             </Fragment>
             {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
             <Fragment forRoute='/fetch-pdf'>
-              <Layout><PdfFetcherPage /></Layout>
+              <PdfFetcherPage />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}
             <Fragment forNoMatch>
-              <LocationLayout matchRoute={matchRoute}><CategoriesPage /></LocationLayout>
+              <CategoriesPage />
             </Fragment>
-          </React.Fragment>
+          </LocationLayout>
         </Fragment>
 
         {/* Matches /disclaimer */}
