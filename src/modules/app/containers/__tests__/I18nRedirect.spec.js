@@ -3,7 +3,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import ConnectedI18nRedirect, { I18nRedirect } from '../I18nRedirect'
-import { I18nProvider } from '../I18nProvider'
 import PropTypes from 'prop-types'
 
 describe('I18nRedirect', () => {
