@@ -1,12 +1,12 @@
 import Route from './Route'
-import { isObject } from 'lodash/lang'
+import { isPlainObject } from 'lodash/lang'
 
 export class RouteConfig {
   routes = []
 
   constructor (routes = []) {
     this.routes = routes.map(route => {
-      if (isObject(route)) {
+      if (isPlainObject(route)) {
         return new Route(route.id, route.path)
       }
 
