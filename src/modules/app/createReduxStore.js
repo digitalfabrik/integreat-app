@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router'
 import { createLogger } from 'redux-logger'
 
-import RouteConfig from 'modules/redux-little-router-config/RouteConfig'
+import RouteConfig from 'modules/app/RouteConfig'
 import endpointReducers from 'modules/endpoint/reducers'
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 

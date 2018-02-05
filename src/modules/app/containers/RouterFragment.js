@@ -15,7 +15,7 @@ import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import I18nRedirect from 'modules/app/containers/I18nRedirect'
 import PropTypes from 'prop-types'
-import RouteConfig from '../../redux-little-router-config/RouteConfig'
+import RouteConfig from '../RouteConfig'
 
 /**
  * todo: Test and document in WEBAPP-90

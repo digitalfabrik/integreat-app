@@ -16,7 +16,7 @@ import EventsPage from '../../../routes/events/containers/EventsPage'
 import PdfFetcherPage from '../../../routes/pdf-fetcher/containers/PdfFetcherPage'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
-import RouteConfig from '../../redux-little-router-config/RouteConfig'
+import RouteConfig from '../RouteConfig'
 import RouterFragment from './RouterFragment'
 
 class App extends React.Component {

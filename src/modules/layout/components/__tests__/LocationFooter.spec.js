@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import LocationFooter from '../LocationFooter'
-import Route from '../../../redux-little-router-config/Route'
+import Route from '../../../app/Route'
 
 describe('LocationFooter', () => {
   test('should match snapshot', () => {
