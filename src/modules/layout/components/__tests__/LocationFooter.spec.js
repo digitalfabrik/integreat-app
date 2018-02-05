@@ -1,11 +1,16 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import Navigation from '../../../app/Navigation'
 import LocationFooter from '../LocationFooter'
+import Route from '../../../redux-little-router-config/Route'
 
 describe('LocationFooter', () => {
   test('should match snapshot', () => {
-    const component = shallow(<LocationFooter navigation={new Navigation('location1', 'language1')} />)
+    const component = shallow(<LocationFooter
+      currentParams={{
+        location: 'augsburg',
+        language: 'de'
+      }}
+      matchRoute={(id) => new Route(id, '/:location/:language/disclaimer')} />)
     expect(component.dive()).toMatchSnapshot()
   })
 })

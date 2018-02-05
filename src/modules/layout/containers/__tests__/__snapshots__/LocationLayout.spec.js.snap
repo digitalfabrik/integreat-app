@@ -3,12 +3,13 @@
 exports[`LocationLayout connect should map state to props 1`] = `
 Object {
   "children": <MockNode />,
+  "currentParams": Object {
+    "id": "1234",
+    "language": "en",
+    "location": "augsburg",
+  },
   "dispatch": [Function],
   "location": "augsburg",
-  "navigation": Navigation {
-    "_language": "en",
-    "_location": "augsburg",
-  },
   "route": "/:location/:language",
 }
 `;
@@ -26,16 +27,23 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
 <Layout
   footer={
     <Translate(LocationFooter)
-      navigation={
-        Navigation {
-          "_language": "language1",
-          "_location": "location1",
+      currentParams={
+        Object {
+          "language": "de",
+          "location": "augsburg",
         }
       }
+      matchRoute={[Function]}
     />
   }
   header={
     <Translate(LocationHeader)
+      currentParams={
+        Object {
+          "language": "de",
+          "location": "augsburg",
+        }
+      }
       location={
         LocationModel {
           "_code": "location1",
@@ -47,12 +55,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
           "_sortKey": "mambo no. 5",
         }
       }
-      navigation={
-        Navigation {
-          "_language": "language1",
-          "_location": "location1",
-        }
-      }
+      matchRoute={[Function]}
       route="/:location/:language"
     />
   }

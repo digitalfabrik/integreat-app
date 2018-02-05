@@ -70,7 +70,298 @@ exports[`App should match snapshot 1`] = `
     }
   >
     <Connect(I18nProvider)>
-      <RouterFragment />
+      <RouterFragment
+        routerConfig={
+          RouteConfig {
+            "routes": Array [
+              Route {
+                "id": undefined,
+                "path": "/",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [],
+                  "regex": /\\^\\\\/\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/:location/:language/search",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "location",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "language",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/search",
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "location",
+                    "language",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/search\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/:location/:language/disclaimer",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "location",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "language",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/disclaimer",
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "location",
+                    "language",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/disclaimer\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/:location/:language/events(/:id)",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "location",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "language",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/events",
+                    },
+                     {
+                      "tag": "optional",
+                      "value": Array [
+                         {
+                          "tag": "static",
+                          "value": "/",
+                        },
+                         {
+                          "tag": "named",
+                          "value": "id",
+                        },
+                      ],
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "location",
+                    "language",
+                    "id",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/events\\(\\?:\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\)\\?\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/:location/:language/fetch-pdf",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "location",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "language",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/fetch-pdf",
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "location",
+                    "language",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/fetch\\\\-pdf\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/:location/:language(/*)",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "location",
+                    },
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "language",
+                    },
+                     {
+                      "tag": "optional",
+                      "value": Array [
+                         {
+                          "tag": "static",
+                          "value": "/",
+                        },
+                         {
+                          "tag": "wildcard",
+                          "value": "*",
+                        },
+                      ],
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "location",
+                    "language",
+                    "_",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\(\\?:\\\\/\\(\\.\\*\\?\\)\\)\\?\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/disclaimer",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/disclaimer",
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [],
+                  "regex": /\\^\\\\/disclaimer\\$/,
+                },
+              },
+              Route {
+                "id": undefined,
+                "path": "/:unknown(/)",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "unknown",
+                    },
+                     {
+                      "tag": "optional",
+                      "value": Array [
+                         {
+                          "tag": "static",
+                          "value": "/",
+                        },
+                      ],
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "unknown",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\(\\?:\\\\/\\)\\?\\$/,
+                },
+              },
+              Route {
+                "id": [Function],
+                "path": "/:language(/)",
+                "pattern": UrlPattern {
+                  "ast": Array [
+                     {
+                      "tag": "static",
+                      "value": "/",
+                    },
+                     {
+                      "tag": "named",
+                      "value": "language",
+                    },
+                     {
+                      "tag": "optional",
+                      "value": Array [
+                         {
+                          "tag": "static",
+                          "value": "/",
+                        },
+                      ],
+                    },
+                  ],
+                  "isRegex": false,
+                  "names": Array [
+                    "language",
+                  ],
+                  "regex": /\\^\\\\/\\(\\[a-zA-Z0-9-_~ %\\]\\+\\)\\(\\?:\\\\/\\)\\?\\$/,
+                },
+              },
+            ],
+          }
+        }
+      />
     </Connect(I18nProvider)>
   </EndpointProvider>
 </Provider>
