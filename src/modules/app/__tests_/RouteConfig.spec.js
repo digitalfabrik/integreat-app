@@ -1,7 +1,7 @@
 import Route from '../Route'
 import RouteConfig from '../RouteConfig'
 
-describe('Route', () => {
+describe('RouteConfig', () => {
   test('should build correct config for redux-little-router', () => {
     const routeConfig = new RouteConfig([{id: 'some-id', path: ':location/:language'}])
     const route = new Route('some-id', ':location/:language')
