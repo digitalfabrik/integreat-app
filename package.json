@@ -34,6 +34,7 @@
     "redux-little-router": "~14.2.1",
     "redux-logger": "~3.0.6",
     "redux-thunk": "~2.2.0",
+    "redux-responsive": "^4.3.5",
     "string-template": "~1.0.0",
     "text-encoding": "~0.6.4",
     "url-search-params-polyfill": "~2.0.1",
