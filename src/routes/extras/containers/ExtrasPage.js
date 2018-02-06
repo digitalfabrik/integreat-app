@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraTiles from '../components/ExtraTiles'
 
 export class ExtrasPage extends React.Component {
   static propTypes = {
@@ -10,9 +11,7 @@ export class ExtrasPage extends React.Component {
   }
 
   render () {
-    return <div>
-      {this.props.extras.map(extra => <div>{extra.name}</div>)}
-    </div>
+    return <ExtraTiles extras={this.props.extras} />
   }
 }
 
