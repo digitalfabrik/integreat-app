@@ -9,7 +9,7 @@ import HeaderNavigationItem from '../HeaderNavigationItem'
 import Headroom from '../../common/components/Headroom'
 import { connect } from 'react-redux'
 
-const HEADER_HEIGHT_LARGE = 110
+const HEADER_HEIGHT_LARGE = 85
 const HALF_HEADER_HEIGHT_SMALL = 55
 
 /**
