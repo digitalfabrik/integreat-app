@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Headroom from 'react-headroom'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
+import Headroom from '../../common/components/Headroom'
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -27,7 +27,7 @@ class Header extends React.Component {
 
   render () {
     return (
-      <Headroom>
+      <Headroom scrollHeight={55}>
         <header className={style.header}>
           <div className={style.logoWide}>
             <img src={logoWide} />
