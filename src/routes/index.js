@@ -16,6 +16,9 @@ export default {
       },
       '/fetch-pdf': {
         title: 'FetchPdf page'
+      },
+      '/extras': {
+        title: 'Extras page'
       }
     },
     '/(:language(/))': {
