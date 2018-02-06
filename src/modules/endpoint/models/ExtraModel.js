@@ -1,16 +1,11 @@
 class ExtraModel {
-  constructor ({name, type, url}) {
+  constructor ({name, url}) {
     this._name = name
-    this._type = type
     this._url = url
   }
 
   get name () {
     return this._name
-  }
-
-  get type () {
-    return this._type
   }
 
   get url () {
