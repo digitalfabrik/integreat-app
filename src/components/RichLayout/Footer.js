@@ -40,6 +40,7 @@ class Footer extends React.Component {
     return (
       <div className={style.footer}>
         {this.getDisclaimerLink()}
+		<a className={style.item} href='https://integreat-app.de/datenschutz' target='_blank' >Datenschutz</a>
         {this.getVersion()}
       </div>
     )
