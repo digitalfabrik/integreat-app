@@ -21,7 +21,7 @@
 .language-list-parent {
   position: sticky;
   height: var(--item-height);
-  padding-top: 10px;
+  margin-top: 10px;
   line-height: var(--item-height);
   background-color: white;
   border-bottom: 1px solid var(--theme-color);

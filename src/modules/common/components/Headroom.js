@@ -25,8 +25,7 @@ class Headroom extends React.PureComponent {
     this.lastScrollY = 0
     this.lastTransform = 0
     this.lastKnownScrollY = 0
-    this.currentScrollY = 0
-    this.direction = 'down'
+    this.direction = 'up'
     this.state = {transform: 0}
   }
 
@@ -49,10 +48,7 @@ class Headroom extends React.PureComponent {
   }
 
   truncate (transform, currentScrollY) {
-    if (transform + currentScrollY < this.props.pinStart) {
-      return 0
-    }
-    return Math.min(0, Math.max(-this.props.scrollHeight, transform))
+    return Math.min(0, Math.max(-this.props.scrollHeight, transform, this.props.pinStart - currentScrollY))
   }
 
   update () {
@@ -62,22 +58,22 @@ class Headroom extends React.PureComponent {
     // this.currentScrollY: Current ScrollTop
     // this.direction: 'up' || 'down'
 
-    this.currentScrollY = this.getScrollY()
-    if (this.lastKnownScrollY < this.currentScrollY) { // We're moving up
-      if (this.direction !== 'up') { // We've changed direction from down to up!
+    const currentScrollY = this.getScrollY()
+    if (this.lastKnownScrollY < currentScrollY) { // We're moving down
+      if (this.direction === 'up') { // We're changing direction from up to down!
         this.lastTransform = this.state.transform
         this.lastScrollY = this.lastKnownScrollY
         this.direction = 'down'
       }
-    } else if (this.lastKnownScrollY > this.currentScrollY) { // We're moving down
-      if (this.direction !== 'down') { // We've changed direction from up to down!
+    } else if (this.lastKnownScrollY > currentScrollY) { // We're moving up
+      if (this.direction === 'down') { // We're changing direction from down to up!
         this.lastTransform = this.state.transform
         this.lastScrollY = this.lastKnownScrollY
         this.direction = 'up'
       }
     }
-    this.lastKnownScrollY = this.currentScrollY
-    const newTransform = this.truncate(this.lastTransform + (this.lastScrollY - this.currentScrollY), this.currentScrollY)
+    this.lastKnownScrollY = currentScrollY
+    const newTransform = this.truncate(this.lastTransform + (this.lastScrollY - currentScrollY), currentScrollY)
     if (newTransform !== this.state.transform) {
       this.setState({transform: newTransform})
     }
