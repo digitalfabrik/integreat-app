@@ -4,7 +4,7 @@ import { Link } from 'redux-little-router'
 
 import style from './LocationSelector.css'
 
-class LocationEntry extends React.Component {
+class LocationEntry extends React.PureComponent {
   static propTypes = {
     language: PropTypes.string.isRequired,
     location: PropTypes.object.isRequired

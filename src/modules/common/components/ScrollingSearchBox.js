@@ -8,7 +8,7 @@ import Headroom from './Headroom'
 const SCROLL_ANIMATION_DURATION = 500
 const SEARCH_BAR_HEIGHT = 45
 
-export class ScrollingSearchBox extends React.Component {
+export class ScrollingSearchBox extends React.PureComponent {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired,
