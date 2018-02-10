@@ -116,7 +116,11 @@ describe('Headroom', () => {
       // Header is completely transformed to the top
       expect(component.state()).toEqual({transform: -scrollHeight, stickyTop: height - scrollHeight})
 
-      scrollTo(pinStart + scrollHeight - offset)
+      scrollTo(pinStart + scrollHeight + offset)
+      // Header doesn't transform any further
+      expect(component.state()).toEqual({transform: -scrollHeight, stickyTop: height - scrollHeight})
+
+      scrollTo(pinStart + scrollHeight)
       // Header is partially transformed
       expect(component.state()).toEqual({
         transform: -(scrollHeight - offset),
