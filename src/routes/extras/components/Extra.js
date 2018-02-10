@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 
 import PlaceholderIcon from 'routes/categories/assets/IconPlaceholder.svg'
+import style from './Extra.css'
+import { Col } from 'react-flexbox-grid'
 
 export default class ExtrasPage extends React.Component {
   static propTypes = {
@@ -13,9 +15,11 @@ export default class ExtrasPage extends React.Component {
   render () {
     const extra = this.props.extra
 
-    return <a href={extra.url}>
-      <img src={extra.thumbnail || PlaceholderIcon} />
-      {extra.name}
-    </a>
+    return <Col xs={6} sm={4} md={3} className={style.extra}>
+      <a href={extra.url}>
+        <img className={style.thumbnail} src={extra.thumbnail || PlaceholderIcon} />
+        <div className={style.title}>{extra.name}</div>
+      </a>
+    </Col>
   }
 }

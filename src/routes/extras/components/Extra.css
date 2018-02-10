@@ -1,0 +1,16 @@
+@import url('../../../modules/common/constants/helpers.css');
+
+.extra {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.extra > a {
+  @mixin remove-a;
+}
+
+.thumbnail {
+  width: 100px;
+  max-width: 33.3vw;
+  margin: 0 auto;
+}
