@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Headroom should render with no stickyAncestor supplied 1`] = `
+<React.Fragment>
+  <div
+    className="headroom"
+    style={
+      Object {
+        "transform": "translateY(0px)",
+      }
+    }
+  >
+    <MockNode />
+  </div>
+</React.Fragment>
+`;
+
+exports[`Headroom should render with values from its state 1`] = `
+<Headroom
+  height={100}
+  pinStart={0}
+  scrollHeight={50}
+  stickyAncestor={<MockAncestor />}
+>
+  <div
+    className="headroom"
+    style={
+      Object {
+        "transform": "translateY(42px)",
+      }
+    }
+  >
+    <MockNode>
+      <div />
+    </MockNode>
+  </div>
+  <MockAncestor
+    stickyTop={24}
+  >
+    <div />
+  </MockAncestor>
+</Headroom>
+`;

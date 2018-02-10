@@ -36,11 +36,10 @@ class Headroom extends React.PureComponent {
   constructor (props) {
     super(props)
     this.handleEvent = this.handleEvent.bind(this)
-    this.update = this.update.bind(this)
     this.ticking = false
     this.state = {
       transform: 0, // the current transform in px (between -scrollHeight and 0, 0: fully visible)
-      stickyTop: 0 // the current stickyTop position of the sticky ancestor
+      stickyTop: 0 // the current stickyTop position of the sticky ancestor (between height-scrollHeight and height)
     }
     this.lastKnownScrollTop = 0 // the very last scrollTop which we know about (to determine direction changes)
     this.direction = DOWNWARDS // the current direction that the user is scrolling into
@@ -53,7 +52,7 @@ class Headroom extends React.PureComponent {
   }
 
   componentWillUnmount () {
-    window.removeEventListener('scroll touchstart touchmove', this.handleEvent)
+    window.removeEventListener('scroll', this.handleEvent)
   }
 
   /**
@@ -72,12 +71,21 @@ class Headroom extends React.PureComponent {
     return Math.min(0, maxTransform)
   }
 
+  /**
+   * Calculates the new stickyTop position for the ancestor based on the currentScrollTop and the corresponding
+   * transform value of the
+   * @param currentScrollTop
+   * @param transform
+   * @returns {number}
+   */
   calcStickyTop (currentScrollTop, transform) {
     // Optimize glitching behaviour when scrolling down from the top of the page
     const shouldControlStickyAncestor = this.direction === DOWNWARDS
-      ? this.props.pinStart + this.props.height <= currentScrollTop
-      : this.props.pinStart <= currentScrollTop
-    return shouldControlStickyAncestor ? this.props.height + transform : 0
+      ? this.props.pinStart + this.props.scrollHeight < currentScrollTop
+      : this.props.pinStart < currentScrollTop
+    return shouldControlStickyAncestor
+      ? this.props.height + transform
+      : this.props.height - this.props.scrollHeight
   }
 
   /**
@@ -105,14 +113,15 @@ class Headroom extends React.PureComponent {
     this.setState({transform, stickyTop})
 
     this.lastKnownScrollTop = currentScrollTop
-    this.ticking = false
   }
 
   handleEvent () {
     if (!this.ticking) {
       this.ticking = true
-      // Request animation frame for dom changes to optimize performance
-      raf(this.update)
+      raf(() => { // Request animation frame to optimize performance for dom changes
+        this.update()
+        this.ticking = false
+      })
     }
   }
 
@@ -120,7 +129,7 @@ class Headroom extends React.PureComponent {
     const {stickyAncestor, children} = this.props
     const {transform, stickyTop} = this.state
     return <React.Fragment>
-      <div className={style.headroom2}
+      <div className={style.headroom}
            style={{transform: `translateY(${transform}px)`}}>
         {children}
       </div>
