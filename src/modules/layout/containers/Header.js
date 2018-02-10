@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
-import HeaderNavigationBar from './HeaderNavigationBar'
-import HeaderActionBar from './HeaderActionBar'
+import HeaderNavigationBar from '../components/HeaderNavigationBar'
+import HeaderActionBar from '../components/HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import Headroom from '../../common/components/Headroom'
@@ -18,7 +18,7 @@ const HALF_HEADER_HEIGHT_SMALL = 55
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-class Header extends React.Component {
+export class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
