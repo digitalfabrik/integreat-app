@@ -17,6 +17,8 @@ import I18nRedirect from 'modules/app/containers/I18nRedirect'
 import PropTypes from 'prop-types'
 import RouteConfig from '../RouteConfig'
 
+const LANGUAGE_CODE_LENGTH = 2
+
 /**
  * todo: Test and document in WEBAPP-90
  * todo: Layouts should be set in each route
@@ -27,18 +29,16 @@ class RouterFragment extends React.Component {
   }
 
   static isLanguageCode (language) {
-    return language && language.length === 2
+    return language && language.length === LANGUAGE_CODE_LENGTH
   }
 
   /**
    * This is the matchRoute from the supplied {@link routerConfig}
    *
-   * @returns {function(*): (Route)}
+   * @param id The id to look for
+   * @returns {*|Route}
    */
-  matchRoute = () => {
-    const {routerConfig} = this.props
-    return (id) => routerConfig.matchRoute(id)
-  }
+  matchRoute = (id) => this.props.routerConfig.matchRoute(id)
 
   render () {
     /*

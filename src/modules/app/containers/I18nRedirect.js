@@ -5,6 +5,9 @@ import normalizeUrl from 'normalize-url'
 
 import { connect } from 'react-redux'
 
+/**
+ * Adds the language code at the end of the current path
+ */
 export class I18nRedirect extends React.Component {
   static propTypes = {
     redirect: PropTypes.func.isRequired,
