@@ -13,7 +13,7 @@ const createReduxStore = (createHistory, initialState = {}, routes = new RouteCo
 
   // Additional reducers
   const {enhancer: routerEnhancer, reducer: routerReducer, middleware: routerMiddleware} = routerForBrowser({
-    routes: routes.getRouterConfig(),
+    routes: routes.toPlainObject(),
     basename,
     history
   })

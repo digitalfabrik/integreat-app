@@ -30,10 +30,17 @@ class RouterFragment extends React.Component {
     return language && language.length === 2
   }
 
-  render () {
+  /**
+   * This is the matchRoute from the supplied {@link routerConfig}
+   *
+   * @returns {function(*): (Route)}
+   */
+  matchRoute = () => {
     const {routerConfig} = this.props
-    const matchRoute = (id) => routerConfig.matchRoute(id)
+    return (id) => routerConfig.matchRoute(id)
+  }
 
+  render () {
     /*
      * For routes inside a <React.Fragment /> the priority decreases with each element
      * So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
@@ -48,7 +55,7 @@ class RouterFragment extends React.Component {
 
         {/* Matches two or more arguments like /augsburg/de */}
         <Fragment forRoute='/:location/:language(/*)'>
-          <LocationLayout matchRoute={matchRoute}>
+          <LocationLayout matchRoute={this.matchRoute}>
             {/* Matches /augsburg/de/search -> Search */}
             <Fragment forRoute='/search'>
               <SearchPage />

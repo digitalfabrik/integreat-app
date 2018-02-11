@@ -1,4 +1,3 @@
-import { clone } from 'lodash/lang'
 import Route from './Route'
 
 export class RouteConfig {
@@ -14,7 +13,11 @@ export class RouteConfig {
     })
   }
 
-  getRouterConfig () {
+  /**
+   * A plain object configuration (e.g. for redux-little-router)
+   * @returns {*|{}}
+   */
+  toPlainObject () {
     return this.routes.reduce((accumulator, route) => {
       accumulator[route.path] = route
       return accumulator
@@ -26,7 +29,7 @@ export class RouteConfig {
    * @return {Route} The matched route
    */
   matchRoute (id) {
-    const route = this.routes.find(route => route.id && route.id === id)
+    const route = this.routes.find(route => route.id === id)
     if (!route) {
       throw Error(`Route ${id} was not found in RouteConfig!`)
     }

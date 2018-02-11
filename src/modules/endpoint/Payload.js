@@ -12,7 +12,7 @@ class Payload {
    * @param error {string|null} The error message which has occurred or null
    * @param requestUrl {string|null} The url from which to fetch or null if we're not sure yet
    * @param fetchDate {number|null} The date when the last fetch has been started
-   * @throws {RouterRedirect} If you supply data and error or the url is invalid.
+   * @throws {Error} If you supply data and error or the url is invalid.
    */
   constructor (isFetching, data = null, error = null, requestUrl = null, fetchDate = null) {
     this._isFetching = isFetching

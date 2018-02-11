@@ -5,7 +5,7 @@ describe('RouteConfig', () => {
   test('should build correct config for redux-little-router', () => {
     const route = new Route({id: 'some-id', path: ':location/:language'})
     const routeConfig = new RouteConfig([route])
-    expect(routeConfig.getRouterConfig()).toEqual({':location/:language': route})
+    expect(routeConfig.toPlainObject()).toEqual({':location/:language': route})
   })
 
   test('should throw error if providing invalid config', () => {
