@@ -11,12 +11,12 @@ Array [
   },
   HeaderNavigationItem {
     "_active": true,
-    "_href": "/augsburg/de",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -31,12 +31,12 @@ Array [
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": true,
-    "_href": "/augsburg/de/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -51,7 +51,7 @@ Array [
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
 ]
@@ -61,12 +61,12 @@ exports[`LocationHeader NavigationItems should show categories, if extras or new
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -81,12 +81,12 @@ Array [
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/augsburg/de/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -98,7 +98,7 @@ exports[`LocationHeader should match snapshot 1`] = `
     Array [
       HeaderActionItem {
         "_dropDownNode": undefined,
-        "_href": "/augsburg/de/search",
+        "_href": "/location1/de/search",
         "_iconSrc": "test-file-stub",
       },
       HeaderActionItem {
@@ -122,12 +122,12 @@ exports[`LocationHeader should match snapshot 1`] = `
       },
       HeaderNavigationItem {
         "_active": false,
-        "_href": "/augsburg/de",
+        "_href": "/location1/de",
         "_text": "app:categories",
       },
       HeaderNavigationItem {
         "_active": false,
-        "_href": "/augsburg/de/events",
+        "_href": "/location1/de/events",
         "_text": "app:news",
       },
     ]

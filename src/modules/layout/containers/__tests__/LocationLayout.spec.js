@@ -12,10 +12,7 @@ import EndpointProvider from '../../../endpoint/EndpointProvider'
 describe('LocationLayout', () => {
   const matchRoute = (id) => {}
 
-  const currentParams = {
-    location: 'augsburg',
-    language: 'de'
-  }
+  const language = 'de'
 
   const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
 
@@ -23,10 +20,10 @@ describe('LocationLayout', () => {
 
   test('should show LocationHeader and LocationFooter if LocationModel is available', () => {
     const component = shallow(
-      <LocationLayout location='location1'
-                      matchRoute={matchRoute} currentParams={currentParams}
+      <LocationLayout location='location1' language={language}
+                      matchRoute={matchRoute}
                       locations={locations}
-                      route='/:location/:language'>
+                      path='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -34,10 +31,10 @@ describe('LocationLayout', () => {
 
   test('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
-      <LocationLayout location='unavailableLocation'
-                      matchRoute={matchRoute} currentParams={currentParams}
+      <LocationLayout location='unavailableLocation' language={language}
+                      matchRoute={matchRoute}
                       locations={locations}
-                      route='/:location/:language'>
+                      path='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()

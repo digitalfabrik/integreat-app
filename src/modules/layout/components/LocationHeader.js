@@ -18,14 +18,15 @@ import EventsPage from '../../../routes/events/containers/EventsPage'
 class LocationHeader extends React.Component {
   static propTypes = {
     matchRoute: PropTypes.func.isRequired,
-    currentParams: PropTypes.object.isRequired,
-    location: PropTypes.instanceOf(LocationModel).isRequired,
-    route: PropTypes.string.isRequired,
+    locationModel: PropTypes.instanceOf(LocationModel).isRequired,
+    language: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
   }
 
   getActionItems () {
-    const {matchRoute, currentParams} = this.props
+    const {matchRoute} = this.props
+    const currentParams = this.getCurrentParams()
     return [
       new HeaderActionItem({href: matchRoute(SearchPage).stringify(currentParams), iconSrc: searchIcon}),
       new HeaderActionItem({href: matchRoute(LandingPage).stringify(currentParams), iconSrc: locationIcon}),
@@ -33,16 +34,24 @@ class LocationHeader extends React.Component {
     ]
   }
 
-  getNavigationItems () {
-    const {t, matchRoute, currentParams, route} = this.props
+  getCurrentParams () {
+    return {
+      location: this.props.locationModel.code,
+      language: this.props.language
+    }
+  }
 
-    const isEventsEnabled = () => this.props.location.eventsEnabled
-    const isExtrasEnabled = () => this.props.location.extrasEnabled
+  getNavigationItems () {
+    const {t, matchRoute, path} = this.props
+    const currentParams = this.getCurrentParams()
+
+    const isEventsEnabled = () => this.props.locationModel.eventsEnabled
+    const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
     const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
     const isExtrasSelected = () => false // todo for WEBAPP-64: test and verify this
-    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(route)
-    const isEventsSelected = () => matchRoute(EventsPage).hasPath(route)
+    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(path)
+    const isEventsSelected = () => matchRoute(EventsPage).hasPath(path)
 
     const extras = isExtrasEnabled() &&
       new HeaderNavigationItem({

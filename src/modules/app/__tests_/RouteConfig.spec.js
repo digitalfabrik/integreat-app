@@ -3,8 +3,8 @@ import RouteConfig from '../RouteConfig'
 
 describe('RouteConfig', () => {
   test('should build correct config for redux-little-router', () => {
-    const routeConfig = new RouteConfig([{id: 'some-id', path: ':location/:language'}])
-    const route = new Route('some-id', ':location/:language')
+    const route = new Route({id: 'some-id', path: ':location/:language'})
+    const routeConfig = new RouteConfig([route])
     expect(routeConfig.getRouterConfig()).toEqual({':location/:language': route})
   })
 
@@ -13,8 +13,8 @@ describe('RouteConfig', () => {
   })
 
   test('should match routes', () => {
-    const routeConfig = new RouteConfig([{id: 'some-id', path: ':location/:language'}])
-    const route = new Route('some-id', ':location/:language')
+    const route = new Route({id: 'some-id', path: ':location/:language'})
+    const routeConfig = new RouteConfig([route])
     expect(routeConfig.matchRoute('some-id')).toEqual(route)
   })
 

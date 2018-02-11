@@ -1,16 +1,16 @@
+import { clone } from 'lodash/lang'
 import Route from './Route'
-import { isPlainObject } from 'lodash/lang'
 
 export class RouteConfig {
   routes = []
 
   constructor (routes = []) {
-    this.routes = routes.map(route => {
-      if (isPlainObject(route)) {
-        return new Route(route.id, route.path)
+    this.routes = routes.map((route) => {
+      if (!(route instanceof Route)) {
+        throw new Error('All values in the route config must be Routes!')
       }
 
-      throw new Error('Value if routes config is no object!')
+      return route
     })
   }
 

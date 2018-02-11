@@ -12,21 +12,18 @@ describe('LocationHeader', () => {
   const matchRoute = (id) => {
     switch (id) {
       case CategoriesPage:
-        return new Route(id, '/:location/:language(/*)')
+        return new Route({id, path: '/:location/:language(/*)'})
       case LandingPage:
-        return new Route(id, '/:language')
+        return new Route({id, path: '/:language'})
       case SearchPage:
-        return new Route(id, '/:location/:language/search')
+        return new Route({id, path: '/:location/:language/search'})
       case EventsPage:
-        return new Route(id, '/:location/:language/events(/:id)')
+        return new Route({id, path: '/:location/:language/events(/:id)'})
     }
     throw new Error(`Route ${id} not found!`)
   }
 
-  const currentParams = {
-    location: 'augsburg',
-    language: 'de'
-  }
+  const language = 'de'
 
   const createLocation = (extrasEnabled, eventsEnabled) => new LocationModel({
     name: 'Mambo Nr. 5',
@@ -37,42 +34,42 @@ describe('LocationHeader', () => {
 
   describe('NavigationItems', () => {
     test('should be empty, if extras and news are both disabled', () => {
-      const component = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                                location={createLocation(false, false)}
-                                                route='' />)
+      const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                locationModel={createLocation(false, false)}
+                                                path='' />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should show categories, if extras or news are enabled', () => {
-      const extrasComp = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                                 location={createLocation(true, false)}
-                                                 route='' />)
-      const eventsComp = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                                 location={createLocation(false, true)}
-                                                 route='' />)
+      const extrasComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                 locationModel={createLocation(true, false)}
+                                                 path='' />)
+      const eventsComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                 locationModel={createLocation(false, true)}
+                                                 path='' />)
 
       expect(extrasComp.dive().prop('navigationItems')).toMatchSnapshot()
       expect(eventsComp.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should show extras, categories, events in this order', () => {
-      const component = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                                location={createLocation(true, true)}
-                                                route='' />)
+      const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                locationModel={createLocation(true, true)}
+                                                path='' />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should highlight categories if route corresponds', () => {
-      const component = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                                      location={createLocation(true, true)}
-                                                      route='/:location/:language(/*)' />)
+      const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                locationModel={createLocation(true, true)}
+                                                path='/:location/:language(/*)' />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     test('should highlight events if route corresponds', () => {
-      const component = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                                location={createLocation(true, true)}
-                                                route='/:location/:language/events(/:id)' />)
+      const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                locationModel={createLocation(true, true)}
+                                                path='/:location/:language/events(/:id)' />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
@@ -81,8 +78,8 @@ describe('LocationHeader', () => {
   })
 
   test('should match snapshot', () => {
-    const component = shallow(<LocationHeader matchRoute={matchRoute} currentParams={currentParams}
-                                              location={createLocation(true, true)} route='' />)
+    const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                              locationModel={createLocation(true, true)} path='' />)
     expect(component.dive()).toMatchSnapshot()
   })
 })

@@ -9,13 +9,21 @@ import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage
 class LocationFooter extends React.Component {
   static propTypes = {
     matchRoute: PropTypes.func.isRequired,
-    currentParams: PropTypes.object.isRequired,
+    location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
+  }
+
+  getCurrentParams () {
+    return {
+      location: this.props.location,
+      language: this.props.language
+    }
   }
 
   render () {
     return <Footer>
-      <Link href={this.props.matchRoute(DisclaimerPage).stringify(this.props.currentParams)}>
+      <Link href={this.props.matchRoute(DisclaimerPage).stringify(this.getCurrentParams())}>
         {this.props.t('imprintAndContact')}
       </Link>
       <a href={'https://integreat-app.de/datenschutz/'}>Datenschutz</a>

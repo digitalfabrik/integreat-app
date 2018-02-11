@@ -5,7 +5,7 @@ class Route {
   path
   pattern
 
-  constructor (id, path) {
+  constructor ({id = null, path}) {
     this.id = id
     this.path = path
 

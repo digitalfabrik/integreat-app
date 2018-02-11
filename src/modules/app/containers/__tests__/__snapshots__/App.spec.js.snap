@@ -75,7 +75,7 @@ exports[`App should match snapshot 1`] = `
           RouteConfig {
             "routes": Array [
               Route {
-                "id": undefined,
+                "id": null,
                 "path": "/",
                 "pattern": UrlPattern {
                   "ast": Array [
@@ -299,7 +299,7 @@ exports[`App should match snapshot 1`] = `
                 },
               },
               Route {
-                "id": undefined,
+                "id": null,
                 "path": "/:unknown(/)",
                 "pattern": UrlPattern {
                   "ast": Array [

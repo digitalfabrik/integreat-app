@@ -16,38 +16,37 @@ export class LocationLayout extends React.Component {
   static propTypes = {
     matchRoute: PropTypes.func.isRequired,
     location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    route: PropTypes.string.isRequired,
-    currentParams: PropTypes.object.isRequired,
+    path: PropTypes.string.isRequired,
     children: PropTypes.node
   }
 
-  componentWillUnmount () {
-    console.log('LocationLayout unmounted')
+  getCurrentLocation () {
+    return this.props.locations.find((location) => location.code === this.props.location)
   }
 
-  getCurrentLocation = () => this.props.locations.find((location) => location.code === this.props.location)
-
   render () {
-    const location = this.getCurrentLocation()
-    if (!location) {
+    const locationModel = this.getCurrentLocation()
+    if (!locationModel) {
       return <Layout header={<GeneralHeader />} footer={<GeneralFooter />}>{this.props.children}</Layout>
     }
 
-    const {route, matchRoute} = this.props
-    return <Layout header={<LocationHeader location={location}
-                                           route={route} matchRoute={matchRoute}
-                                           currentParams={this.props.currentParams} />}
-                   footer={<LocationFooter matchRoute={matchRoute} currentParams={this.props.currentParams} />}>
+    const {path, matchRoute} = this.props
+    return <Layout header={<LocationHeader locationModel={locationModel}
+                                           path={path}
+                                           matchRoute={matchRoute} language={this.props.language} />}
+                   footer={<LocationFooter matchRoute={matchRoute} location={this.props.location}
+                                           language={this.props.language} />}>
       {this.props.children}
     </Layout>
   }
 }
 
 const mapStateToProps = (state) => ({
-  route: state.router.route,
+  path: state.router.route,
   location: state.router.params.location,
-  currentParams: state.router.params
+  language: state.router.params.language
 })
 
 export default compose(
