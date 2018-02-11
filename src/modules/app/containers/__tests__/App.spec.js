@@ -1,4 +1,10 @@
-import unnecessary
+import { shallow } from 'enzyme'
+import App from '../App'
+import React from 'react'
+import createReduxStore from '../../createReduxStore'
+import createHistory from '../../createHistory'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
 
 const mockStore = configureMockStore()
 const mockedStore = mockStore()
