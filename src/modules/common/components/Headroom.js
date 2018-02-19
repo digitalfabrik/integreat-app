@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import raf from 'raf'
+import cx from 'classnames'
 
 import style from './Headroom.css'
 
 const UPWARDS = 'up'
 const DOWNWARDS = 'down'
+
+const UNPINNED = 'unpinned'
+const PINNED = 'pinned'
+const STATIC = 'static'
 
 class Headroom extends React.PureComponent {
   static propTypes = {
@@ -36,15 +40,10 @@ class Headroom extends React.PureComponent {
   constructor (props) {
     super(props)
     this.handleEvent = this.handleEvent.bind(this)
-    this.ticking = false
-    this.state = {
-      transform: 0, // the current transform in px (between -scrollHeight and 0, 0: fully visible)
-      stickyTop: 0 // the current stickyTop position of the sticky ancestor (between height-scrollHeight and height)
-    }
+    this.update = this.update.bind(this)
+    this.state = {mode: STATIC, transition: false}
     this.lastKnownScrollTop = 0 // the very last scrollTop which we know about (to determine direction changes)
     this.direction = DOWNWARDS // the current direction that the user is scrolling into
-    this.lastTransform = 0 // the transform in px when the user last changed his scrolling direction
-    this.lastScrollTop = 0 // the scrollTop when the user last changed his scrolling direction
   }
 
   componentDidMount () {
@@ -55,48 +54,11 @@ class Headroom extends React.PureComponent {
     window.removeEventListener('scroll', this.handleEvent)
   }
 
-  /**
-   * Calculates the new transform value depending on the currentScrollTop position
-   * @param currentScrollTop
-   * @returns {number} the new transform value between -this.props.scrollHeight and 0
-   */
-  calcTransform (currentScrollTop) {
-    // Calculate new transform value while only regarding delta ScrollTop:
-    const scrolledTransform = this.lastTransform + (this.lastScrollTop - currentScrollTop)
-    // Transform should be at least:
-    // -this.props.scrollHeight, so we don't transform the header higher than we allow
-    // this.props.pinStart - currentScrollTop, so don't transform the header until we scrolled below this.props.pinStart
-    const maxTransform = Math.max(-this.props.scrollHeight, scrolledTransform, this.props.pinStart - currentScrollTop)
-    // Also we never want to translate the header down, so it should always be <= 0.
-    return Math.min(0, maxTransform)
-  }
-
-  /**
-   * Calculates the new stickyTop position for the ancestor based on the currentScrollTop and the corresponding
-   * transform value of the
-   * @param currentScrollTop
-   * @param transform
-   * @returns {number}
-   */
-  calcStickyTop (currentScrollTop, transform) {
-    // Optimize glitching behaviour when scrolling down from the top of the page
-    const shouldControlStickyAncestor = this.direction === DOWNWARDS
-      ? this.props.pinStart + this.props.scrollHeight < currentScrollTop
-      : this.props.pinStart < currentScrollTop
-    return shouldControlStickyAncestor
-      ? this.props.height + transform
-      : this.props.height - this.props.scrollHeight
-  }
-
-  /**
-   * Updates this.lastTranform and this.lastScrollTop if the direction has changed
-   * @param direction the new direction
-   */
-  setDirection (direction) {
-    if (this.direction !== direction) {
-      this.lastTransform = this.state.transform
-      this.lastScrollTop = this.lastKnownScrollTop
-      this.direction = direction
+  calcStatic (scrollTop) {
+    if (this.state.mode === STATIC) {
+      return this.props.pinStart + this.props.scrollHeight >= scrollTop
+    } else {
+      return this.props.pinStart >= scrollTop
     }
   }
 
@@ -105,32 +67,37 @@ class Headroom extends React.PureComponent {
    */
   update () {
     const currentScrollTop = Headroom.getScrollTop()
-    this.setDirection(this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS)
-
-    const transform = this.calcTransform(currentScrollTop)
-    const stickyTop = this.calcStickyTop(currentScrollTop, transform)
-
-    this.setState({transform, stickyTop})
+    if (this.lastKnownScrollTop === currentScrollTop) return
+    const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
+    if (this.calcStatic(currentScrollTop)) {
+      this.setState({transition: false, mode: STATIC})
+    } else {
+      const mode = direction === UPWARDS ? PINNED : UNPINNED
+      const transition = !(direction === DOWNWARDS && !this.state.transition)
+      this.setState({mode, transition})
+    }
 
     this.lastKnownScrollTop = currentScrollTop
   }
 
   handleEvent () {
-    if (!this.ticking) {
-      this.ticking = true
-      raf(() => { // Request animation frame to optimize performance for dom changes
-        this.update()
-        this.ticking = false
-      })
-    }
+    window.requestAnimationFrame(this.update)
   }
 
   render () {
     const {stickyAncestor, children} = this.props
-    const {transform, stickyTop} = this.state
+    const {mode, transition} = this.state
+    const stickyTop = mode === PINNED ? this.props.height : this.props.height - this.props.scrollHeight
+    const transform = mode === UNPINNED ? -this.props.scrollHeight : 0
+    const ownStickyTop = mode === STATIC ? -this.props.scrollHeight : 0
     return <React.Fragment>
-      <div className={style.headroom}
-           style={{transform: `translateY(${transform}px)`}}>
+      <div
+        style={{transform: `translateY(${transform}px)`, top: `${ownStickyTop}px`}}
+        className={cx({
+          [style.headroom]: true,
+          [style.transition]: transition,
+          [style.static]: mode === STATIC
+        })}>
         {children}
       </div>
       {stickyAncestor && React.cloneElement(stickyAncestor, {stickyTop})}
