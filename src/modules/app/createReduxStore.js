@@ -6,6 +6,7 @@ import { createLogger } from 'redux-logger'
 import routes from 'routes'
 import endpointReducers from 'modules/endpoint/reducers'
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
+import setSprungbrettUrl from '../sprungbrett/reducers/setSprungbrettUrl'
 
 const createReduxStore = (createHistory, initialState) => {
   const history = createHistory()
@@ -34,7 +35,8 @@ const createReduxStore = (createHistory, initialState) => {
   const reducer = combineReducers({
     ...endpointReducers,
     router: routerReducer,
-    languageChangeUrls: setLanguageChangeUrlsReducer
+    languageChangeUrls: setLanguageChangeUrlsReducer,
+    sprungbrettUrl: setSprungbrettUrl
   })
 
   const enhancer = compose(routerEnhancer, applyMiddleware(...middlewares))

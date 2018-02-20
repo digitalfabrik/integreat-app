@@ -6,11 +6,11 @@ import JobModel from 'modules/endpoint/models/JobModel'
 
 export class SprungbrettExtra extends React.Component {
   static propTypes = {
-    jobs: PropTypes.arrayOf(PropTypes.instanceOf(JobModel)).isRequired
+    jobs: PropTypes.arrayOf(PropTypes.instanceOf(JobModel))
   }
 
   render () {
-    return <div />
+    return this.props.jobs
   }
 }
 
