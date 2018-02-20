@@ -11,7 +11,7 @@ class ActionType {
 }
 
 /**
- * A Endpoint holds all the relevant information to fetch data form it
+ * A Endpoint holds all the relevant information to fetch data from it
  */
 class Endpoint {
   /**
@@ -115,7 +115,7 @@ class Endpoint {
 
       const formattedURL = format(this.url, urlParams)
       /*
-       todo:  check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
+       todo: check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
        currently this does not work as unused paramaters are just removed from the url
        */
 
@@ -142,11 +142,17 @@ class Endpoint {
         fetch(formattedURL)
           .then(response => response.json())
           .then(json => {
-            const value = this.mapResponse(json, urlParams)
-            return dispatch(this.finishFetchAction(value, null, formattedURL))
+            try {
+              const value = this.mapResponse(json, urlParams)
+              return dispatch(this.finishFetchAction(value, null, formattedURL))
+            } catch (e) {
+              console.error('Failed to map the json for the endpoint: ' + this.stateName)
+              console.error(e)
+              return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
+            }
           })
           .catch(e => {
-            console.error('Failed to load the endpoint request: ' + this.stateName)
+            console.error('Failed to load the request for the endpoint: ' + this.stateName)
             console.error(e)
             return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
           })
