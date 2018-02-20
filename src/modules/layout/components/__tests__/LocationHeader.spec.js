@@ -52,7 +52,19 @@ describe('LocationHeader', () => {
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    // todo for WEBAPP-64: should highlight extras if route corresponds
+    test('should highlight extras if extras route is selected', () => {
+      const component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
+                                                route='/:location/:language/extras' />)
+
+      expect(component.dive().prop('navigationItems')).toMatchSnapshot()
+    })
+
+    test('should highlight extras if sprungbrett route is selected', () => {
+      const component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
+                                                route='/:location/:language/extras/sprungbrett' />)
+
+      expect(component.dive().prop('navigationItems')).toMatchSnapshot()
+    })
   })
 
   test('should match snapshot', () => {

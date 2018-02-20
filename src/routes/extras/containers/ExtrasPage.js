@@ -19,9 +19,9 @@ export class ExtrasPage extends React.Component {
 
   componentWillMount () {
     if (this.props) {
-      const sprungbrettExtra = this.props.extras.find(extra => extra.type === 'ige-sbt')
-      if (sprungbrettExtra) {
-        this.props.setSprungbrettUrl(sprungbrettExtra.url)
+      const sprungbrett = this.props.extras.find(extra => extra.type === 'ige-sbt')
+      if (sprungbrett) {
+        this.props.setSprungbrettUrl(sprungbrett.url)
       }
     }
   }

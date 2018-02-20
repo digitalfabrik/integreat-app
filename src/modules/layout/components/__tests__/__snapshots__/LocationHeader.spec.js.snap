@@ -42,6 +42,46 @@ Array [
 ]
 `;
 
+exports[`LocationHeader NavigationItems should highlight extras if extras route is selected 1`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": true,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
+  },
+]
+`;
+
+exports[`LocationHeader NavigationItems should highlight extras if sprungbrett route is selected 1`] = `
+Array [
+  HeaderNavigationItem {
+    "_active": true,
+    "_href": "/location1/language1/extras",
+    "_text": "app:extras",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1",
+    "_text": "app:categories",
+  },
+  HeaderNavigationItem {
+    "_active": false,
+    "_href": "/location1/language1/events",
+    "_text": "app:news",
+  },
+]
+`;
+
 exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
 Array [
   HeaderNavigationItem {

@@ -14,7 +14,7 @@ import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimer
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import ExtrasPage from 'routes/extras/containers/ExtrasPage'
-import SprungbrettExtra from 'routes/extras/containers/SprungbrettExtra'
+import SprungbrettPage from 'routes/extras/containers/SprungbrettPage'
 
 /**
  * todo: Test and document in WEBAPP-90
@@ -50,7 +50,7 @@ class RouterFragment extends React.Component {
               <Layout><PdfFetcherPage /></Layout>
             </Fragment>
             <Fragment forRoute='/extras/sprungbrett'>
-              <LocationLayout><SprungbrettExtra /></LocationLayout>
+              <LocationLayout><SprungbrettPage /></LocationLayout>
             </Fragment>
             <Fragment forRoute='/extras'>
               <LocationLayout><ExtrasPage /></LocationLayout>

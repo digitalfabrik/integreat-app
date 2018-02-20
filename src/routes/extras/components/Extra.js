@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 
-import PlaceholderIcon from 'routes/categories/assets/IconPlaceholder.svg'
 import style from './Extra.css'
 import { Col } from 'react-flexbox-grid'
 import { Link } from 'redux-little-router'
@@ -23,11 +22,11 @@ export default class Extra extends React.Component {
     const extra = this.props.extra
     return extra.type === 'ige-sbt'
       ? <Link href={this.getSprungbrettUrl()}>
-        <img className={style.thumbnail} src={extra.thumbnail || PlaceholderIcon} />
+        <img className={style.thumbnail} src={extra.thumbnail} />
         <div className={style.title}>{extra.name}</div>
       </Link>
       : <a href={extra.url}>
-      <img className={style.thumbnail} src={extra.thumbnail || PlaceholderIcon} />
+      <img className={style.thumbnail} src={extra.thumbnail} />
       <div className={style.title}>{extra.name}</div>
     </a>
   }

@@ -35,8 +35,6 @@ export class SearchPage extends React.Component {
     const title = category.title.toLowerCase()
     const content = category.content
     const filterText = this.state.filterText.toLowerCase()
-    // todo:  comparing the content like this is quite in-efficient and can cause lags
-    // todo:  1) Do this work in an other thread 2) create an index
     return title.includes(filterText) || content.toLowerCase().includes(filterText)
   }
 

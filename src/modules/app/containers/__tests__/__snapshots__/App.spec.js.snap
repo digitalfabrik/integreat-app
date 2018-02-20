@@ -66,6 +66,26 @@ exports[`App should match snapshot 1`] = `
           "startFetchAction": [Function],
           "url": "https://cms.integreat-app.de/{location}/de/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z",
         },
+        Endpoint {
+          "_stateName": "extras",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v3/extras/",
+        },
+        Endpoint {
+          "_stateName": "jobs",
+          "finishFetchAction": [Function],
+          "mapResponse": [Function],
+          "mapStateToUrlParams": [Function],
+          "responseOverride": undefined,
+          "shouldRefetch": [Function],
+          "startFetchAction": [Function],
+          "url": "{url}",
+        },
       ]
     }
   >
