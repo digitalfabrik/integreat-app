@@ -54,7 +54,15 @@ class Headroom extends React.PureComponent {
     window.removeEventListener('scroll', this.handleEvent)
   }
 
-  calcStatic (scrollTop) {
+  /**
+   * If we're already static and pinStart + scrollHeight >= scrollTop, then we should stay static.
+   * If we're not already static, then we should set the header static, only when pinStart >= scrollTop (regardless of
+   * scrollHeight, so the header doesn't jump up, when scrolling upwards to the trigger).
+   * Else we shouldn't set it static.
+   * @param scrollTop the currentScrollTop position
+   * @returns {boolean} if we should set the header static
+   */
+  shouldSetStatic (scrollTop) {
     if (this.state.mode === STATIC) {
       return this.props.pinStart + this.props.scrollHeight >= scrollTop
     } else {
@@ -63,20 +71,36 @@ class Headroom extends React.PureComponent {
   }
 
   /**
-   * Calculates the new transform and stickyTop value and updates the state
+   *
+   * @param scrollTop
+   * @param direction
+   * @returns {string}
+   */
+  determineMode (scrollTop, direction) {
+    if (this.shouldSetStatic(scrollTop)) return STATIC
+    else return direction === UPWARDS ? PINNED : UNPINNED
+  }
+
+  /**
+   * @returns {boolean} if we should activate css transition animations for the transform property
+   */
+  shouldTransition (mode, direction) {
+    // If mode is static, then no transition, because we're already in the right spot
+    // (and want to change transform and top properties seamlessly)
+    if (mode === STATIC) return false
+    // mode is not static, transition when moving upwards or when we've lastly did the transition
+    return direction === UPWARDS || this.state.transition
+  }
+
+  /**
+   * Checks the current scrollTop position and updates the state accordingly
    */
   update () {
     const currentScrollTop = Headroom.getScrollTop()
-    if (this.lastKnownScrollTop === currentScrollTop) return
     const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
-    if (this.calcStatic(currentScrollTop)) {
-      this.setState({transition: false, mode: STATIC})
-    } else {
-      const mode = direction === UPWARDS ? PINNED : UNPINNED
-      const transition = !(direction === DOWNWARDS && !this.state.transition)
-      this.setState({mode, transition})
-    }
-
+    const mode = this.determineMode(currentScrollTop, direction)
+    const transition = this.shouldTransition(mode, direction)
+    this.setState({mode, transition})
     this.lastKnownScrollTop = currentScrollTop
   }
 
@@ -85,11 +109,11 @@ class Headroom extends React.PureComponent {
   }
 
   render () {
-    const {stickyAncestor, children} = this.props
+    const {stickyAncestor, children, height, scrollHeight} = this.props
     const {mode, transition} = this.state
-    const stickyTop = mode === PINNED ? this.props.height : this.props.height - this.props.scrollHeight
-    const transform = mode === UNPINNED ? -this.props.scrollHeight : 0
-    const ownStickyTop = mode === STATIC ? -this.props.scrollHeight : 0
+    const transform = mode === UNPINNED ? -scrollHeight : 0
+    const ownStickyTop = mode === STATIC ? -scrollHeight : 0
+    const stickyTop = mode === PINNED ? height : height - scrollHeight
     return <React.Fragment>
       <div
         style={{transform: `translateY(${transform}px)`, top: `${ownStickyTop}px`}}
