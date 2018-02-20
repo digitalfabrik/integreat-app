@@ -142,17 +142,8 @@ class Endpoint {
         fetch(formattedURL)
           .then(response => response.json())
           .then(json => {
-            let error
-            let value
-            try {
-              value = this.mapResponse(json, urlParams)
-            } catch (e) {
-              error = e.message
-              console.error('Failed to map the json: ' + this.stateName)
-              console.error(e)
-            }
-
-            return dispatch(this.finishFetchAction(value, error, formattedURL))
+            const value = this.mapResponse(json, urlParams)
+            return dispatch(this.finishFetchAction(value, null, formattedURL))
           })
           .catch(e => {
             console.error('Failed to load the endpoint request: ' + this.stateName)
