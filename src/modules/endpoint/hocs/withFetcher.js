@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
@@ -24,15 +23,15 @@ const contextTypes = {
  * @param endpointName {string} The name of the endpoint to fetch from
  * @param hideError {boolean} If you want to hide errors in the render() method
  * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
+ * @param FailureComponent {*} the component which is rendered in error-case if hideError is false
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
-export function withFetcher (endpointName, hideError = false, hideSpinner = false) {
+export function withFetcher (endpointName, hideError = false, hideSpinner = false, FailureComponent = Failure) {
   return (WrappedComponent) => {
     class Fetcher extends React.Component {
       static displayName = endpointName + 'Fetcher'
       static propTypes = {
         urlParams: PropTypes.objectOf(PropTypes.string),
-        className: PropTypes.string,
         requestAction: PropTypes.func.isRequired,
         getEndpoint: PropTypes.func
       }
@@ -77,7 +76,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
        */
       fetch (urlParams) {
         if (!urlParams) {
-          throw new Failure('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
+          throw new Error('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
             'a undefined value!')
         }
         const storeResponse = this.props.requestAction(urlParams)
@@ -93,14 +92,14 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
 
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
-            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party' />
+            return <Spinner className={style.loading} name='line-scale-party' />
           } else {
             return <div />
           }
         }
 
         if (this.errorVisible()) {
-          return <Failure className={cx(style.loading, this.props.className)} error={payload.error} />
+          return <FailureComponent error={payload.error} />
         }
 
         const allProps = Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})
@@ -108,7 +107,6 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         delete allProps[this.endpoint.payloadName]
         delete allProps.getEndpoint
         delete allProps.urlParams
-        delete allProps.className
         delete allProps.requestAction
         return <WrappedComponent {...allProps} />
       }
@@ -139,8 +137,8 @@ const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
   })
 }
 
-export default (endpointName, hideError, hideSpinner) => {
-  const HOC = withFetcher(endpointName, hideError, hideSpinner)
+export default (endpointName, hideError, hideSpinner, FailureComponent) => {
+  const HOC = withFetcher(endpointName, hideError, hideSpinner, FailureComponent)
   return (WrappedComponent) => {
     const AnotherWrappedComponent = HOC(WrappedComponent)
     return getContext(contextTypes)(
