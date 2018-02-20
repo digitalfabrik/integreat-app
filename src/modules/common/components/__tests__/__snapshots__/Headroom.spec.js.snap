@@ -1,11 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Headroom should render with no stickyAncestor supplied 1`] = `
-<React.Fragment>
+exports[`Headroom should render correct if state is pinned, transition 1`] = `
+<Headroom
+  height={100}
+  pinStart={10}
+  scrollHeight={50}
+  stickyAncestor={<MockAncestor />}
+>
+  <div
+    className="headroom transition"
+    style={
+      Object {
+        "top": "0px",
+        "transform": "translateY(0px)",
+      }
+    }
+  >
+    <MockNode>
+      <div />
+    </MockNode>
+  </div>
+  <MockAncestor
+    stickyTop={100}
+  >
+    <div />
+  </MockAncestor>
+</Headroom>
+`;
+
+exports[`Headroom should render correct if state is static, no transition 1`] = `
+<Headroom
+  height={100}
+  pinStart={10}
+  scrollHeight={50}
+  stickyAncestor={<MockAncestor />}
+>
+  <div
+    className="headroom static"
+    style={
+      Object {
+        "top": "-50px",
+        "transform": "translateY(0px)",
+      }
+    }
+  >
+    <MockNode>
+      <div />
+    </MockNode>
+  </div>
+  <MockAncestor
+    stickyTop={50}
+  >
+    <div />
+  </MockAncestor>
+</Headroom>
+`;
+
+exports[`Headroom should render correct if state is unpinned, no transition 1`] = `
+<Headroom
+  height={100}
+  pinStart={10}
+  scrollHeight={50}
+  stickyAncestor={<MockAncestor />}
+>
   <div
     className="headroom"
     style={
       Object {
+        "top": "0px",
+        "transform": "translateY(-50px)",
+      }
+    }
+  >
+    <MockNode>
+      <div />
+    </MockNode>
+  </div>
+  <MockAncestor
+    stickyTop={50}
+  >
+    <div />
+  </MockAncestor>
+</Headroom>
+`;
+
+exports[`Headroom should render correct if state is unpinned, transition 1`] = `
+<Headroom
+  height={100}
+  pinStart={10}
+  scrollHeight={50}
+  stickyAncestor={<MockAncestor />}
+>
+  <div
+    className="headroom transition"
+    style={
+      Object {
+        "top": "0px",
+        "transform": "translateY(-50px)",
+      }
+    }
+  >
+    <MockNode>
+      <div />
+    </MockNode>
+  </div>
+  <MockAncestor
+    stickyTop={50}
+  >
+    <div />
+  </MockAncestor>
+</Headroom>
+`;
+
+exports[`Headroom should render with no stickyAncestor supplied 1`] = `
+<React.Fragment>
+  <div
+    className="headroom static"
+    style={
+      Object {
+        "top": "-50px",
         "transform": "translateY(0px)",
       }
     }
@@ -23,10 +136,11 @@ exports[`Headroom should render with values from its state 1`] = `
   stickyAncestor={<MockAncestor />}
 >
   <div
-    className="headroom"
+    className="headroom static"
     style={
       Object {
-        "transform": "translateY(42px)",
+        "top": "-50px",
+        "transform": "translateY(0px)",
       }
     }
   >
@@ -35,7 +149,7 @@ exports[`Headroom should render with values from its state 1`] = `
     </MockNode>
   </div>
   <MockAncestor
-    stickyTop={24}
+    stickyTop={50}
   >
     <div />
   </MockAncestor>

@@ -1,9 +1,10 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import Headroom from '../Headroom'
-import raf from 'raf'
 
-jest.mock('raf', () => jest.fn())
+const pinStart = 10
+const height = 100
+const scrollHeight = 50
 
 describe('Headroom', () => {
   const MockNode = () => <div />
@@ -19,7 +20,7 @@ describe('Headroom', () => {
 
   test('should have correct default state', () => {
     const component = createComponent()
-    expect(component.state()).toEqual({transform: 0, stickyTop: 0})
+    expect(component.state()).toEqual({mode: 'static', transition: false})
     expect(component.prop('pinStart')).toEqual(0)
   })
 
@@ -51,33 +52,24 @@ describe('Headroom', () => {
     window.removeEventListener = originalRemove
   })
 
-  test('should lock, request animation frame and update, on handleEvent', () => {
+  test('should request animation frame and update, on handleEvent', () => {
+    const originalRaf = window.requestAnimationFrame
+    window.requestAnimationFrame = jest.fn()
     const component = mount(<Headroom scrollHeight={50}><MockNode /></Headroom>)
     component.instance().update = jest.fn()
 
     // Call first time
     component.instance().handleEvent()
-    expect(raf).toHaveBeenCalledTimes(1)
-    // Raf has not yet been performed
-    expect(component.instance().update).not.toHaveBeenCalled()
-
-    // Check that we cannot call Raf a second time (as long as it hasn't been performed)
-    component.instance().handleEvent()
-    expect(raf.mock.calls).toHaveLength(1)
-
+    expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1)
+    expect(component.instance().update).toHaveBeenCalledTimes(0)
     // Now perform the raf
-    raf.mock.calls[0][0]()
+    window.requestAnimationFrame.mock.calls[0][0]()
     expect(component.instance().update).toHaveBeenCalledTimes(1)
 
-    // Should have unlocked again
-    component.instance().handleEvent()
-    expect(raf).toHaveBeenCalledTimes(2)
+    window.requestAnimationFrame = originalRaf
   })
 
   describe('update', () => {
-    const pinStart = 10
-    const height = 100
-    const scrollHeight = 50
     test('should set correct state, if user hasn\'t scrolled beyond pinStart', () => {
       const component = createComponent({pinStart, height, scrollHeight})
       const scrollTo = (scrollTo) => {
@@ -86,7 +78,7 @@ describe('Headroom', () => {
       }
       scrollTo(0)
       scrollTo(pinStart / 2)
-      expect(component.state()).toEqual({transform: 0, stickyTop: height - scrollHeight})
+      expect(component.state()).toEqual({mode: 'static', transition: false})
     })
 
     test('should set correct state, if user has scrolled down to pinStart + scrollHeight/2', () => {
@@ -98,7 +90,7 @@ describe('Headroom', () => {
 
       scrollTo(0)
       scrollTo(pinStart + scrollHeight / 2)
-      expect(component.state()).toEqual({transform: -scrollHeight / 2, stickyTop: height - scrollHeight})
+      expect(component.state()).toEqual({mode: 'static', transition: false})
     })
 
     test('should set correct state, if user has scrolled down and back up again', () => {
@@ -109,26 +101,47 @@ describe('Headroom', () => {
       }
 
       scrollTo(pinStart)
-      expect(component.state()).toEqual({transform: 0, stickyTop: height - scrollHeight})
+      expect(component.state()).toEqual({mode: 'static', transition: false})
 
       const offset = 5
       scrollTo(pinStart + scrollHeight)
       // Header is completely transformed to the top
-      expect(component.state()).toEqual({transform: -scrollHeight, stickyTop: height - scrollHeight})
+      expect(component.state()).toEqual({mode: 'static', transition: false})
 
       scrollTo(pinStart + scrollHeight + offset)
-      // Header doesn't transform any further
-      expect(component.state()).toEqual({transform: -scrollHeight, stickyTop: height - scrollHeight})
+      // Header should be unpinned now, transitions should be off though
+      expect(component.state()).toEqual({mode: 'unpinned', transition: false})
 
       scrollTo(pinStart + scrollHeight)
-      // Header is partially transformed
-      expect(component.state()).toEqual({
-        transform: -(scrollHeight - offset),
-        stickyTop: height - scrollHeight + offset
-      })
+      // Header should be pinned with transition, because we're scrolling upwards
+      expect(component.state()).toEqual({mode: 'pinned', transition: true})
 
       scrollTo(pinStart)
-      expect(component.state()).toEqual({transform: 0, stickyTop: height - scrollHeight})
+      expect(component.state()).toEqual({mode: 'static', transition: false})
     })
+  })
+
+  test('should render correct if state is static, no transition', () => {
+    const component = createComponent({pinStart, height, scrollHeight})
+    component.setState({mode: 'static', transition: false})
+    expect(component).toMatchSnapshot()
+  })
+
+  test('should render correct if state is unpinned, no transition', () => {
+    const component = createComponent({pinStart, height, scrollHeight})
+    component.setState({mode: 'unpinned', transition: false})
+    expect(component).toMatchSnapshot()
+  })
+
+  test('should render correct if state is unpinned, transition', () => {
+    const component = createComponent({pinStart, height, scrollHeight})
+    component.setState({mode: 'unpinned', transition: true})
+    expect(component).toMatchSnapshot()
+  })
+
+  test('should render correct if state is pinned, transition', () => {
+    const component = createComponent({pinStart, height, scrollHeight})
+    component.setState({mode: 'pinned', transition: true})
+    expect(component).toMatchSnapshot()
   })
 })

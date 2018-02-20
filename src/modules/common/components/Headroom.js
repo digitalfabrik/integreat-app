@@ -111,9 +111,9 @@ class Headroom extends React.PureComponent {
   render () {
     const {stickyAncestor, children, height, scrollHeight} = this.props
     const {mode, transition} = this.state
+    const stickyTop = mode === PINNED ? height : height - scrollHeight
     const transform = mode === UNPINNED ? -scrollHeight : 0
     const ownStickyTop = mode === STATIC ? -scrollHeight : 0
-    const stickyTop = mode === PINNED ? height : height - scrollHeight
     return <React.Fragment>
       <div
         style={{transform: `translateY(${transform}px)`, top: `${ownStickyTop}px`}}
