@@ -4,6 +4,7 @@ import categoriesEndpoint from '../endpoints/categories'
 import eventsEndpoint from '../endpoints/events'
 import disclaimerEndpoint from '../endpoints/disclaimer'
 import extrasEndpoint from '../endpoints/extras'
+import jobEndpoint from '../endpoints/jobs'
 
 /**
  * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
@@ -14,7 +15,8 @@ const endpoints = [
   categoriesEndpoint,
   disclaimerEndpoint,
   eventsEndpoint,
-  extrasEndpoint
+  extrasEndpoint,
+  jobEndpoint
 ]
 const reducers = endpoints.reduce((result, endpoint) => {
   result[endpoint.stateName] = endpoint.createReducer()

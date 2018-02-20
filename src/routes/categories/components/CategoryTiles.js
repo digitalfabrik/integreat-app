@@ -5,8 +5,9 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Caption from 'modules/common/components/Caption'
 import CategoryTile from './CategoryTile'
-import style from './CategoryTile.css'
 import { Row } from 'react-flexbox-grid'
+
+import style from './CategoryTiles.css'
 
 /**
  * Displays a table of CategoryTiles

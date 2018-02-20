@@ -1,7 +1,13 @@
 class ExtraModel {
-  constructor ({name, url}) {
+  constructor ({name, type, url, icon = ''}) {
     this._name = name
+    this._type = type
     this._url = url
+    this._icon = icon
+  }
+
+  get type () {
+    return this._type
   }
 
   get name () {
@@ -10,6 +16,10 @@ class ExtraModel {
 
   get url () {
     return this._url
+  }
+
+  get icon () {
+    return this._icon
   }
 }
 

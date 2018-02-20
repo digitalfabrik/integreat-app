@@ -7,7 +7,7 @@ import PlaceholderIcon from 'routes/categories/assets/IconPlaceholder.svg'
 import style from './Extra.css'
 import { Col } from 'react-flexbox-grid'
 
-export default class ExtrasPage extends React.Component {
+export default class Extra extends React.Component {
   static propTypes = {
     extra: PropTypes.instanceOf(ExtraModel).isRequired
   }

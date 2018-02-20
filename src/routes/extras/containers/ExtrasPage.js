@@ -10,6 +10,19 @@ export class ExtrasPage extends React.Component {
     extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired
   }
 
+  componentWillMount () {
+    if (this.props.extras) {
+      const sprungbrettExtra = this.props.extras.filter(extra => extra.type === 'ige-sbt')
+      if (sprungbrettExtra) {
+
+      }
+    }
+  }
+
+  componentWillReceiveProps () {
+
+  }
+
   render () {
     return <ExtraTiles extras={this.props.extras} />
   }

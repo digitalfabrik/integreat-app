@@ -7,6 +7,7 @@ export default new EndpointBuilder('extras')
   .withMapper((json) => json
     .filter(extra => extra.enabled)
     .map(extra => new ExtraModel({
+      type: extra.alias,
       name: extra.alias,
       url: extra.url
     }))
