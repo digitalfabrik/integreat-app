@@ -8,7 +8,7 @@ import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import Header from 'modules/layout/components/Header'
+import Header from 'modules/layout/containers/Header'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 
@@ -16,7 +16,8 @@ class LocationHeader extends React.Component {
   static propTypes = {
     navigation: PropTypes.instanceOf(Navigation).isRequired,
     location: PropTypes.instanceOf(LocationModel).isRequired,
-    route: PropTypes.string.isRequired
+    route: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   isCategoriesEnabled = () => this.isExtrasEnabled() || this.isEventsEnabled()

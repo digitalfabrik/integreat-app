@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 
 import { animateScroll } from 'react-scroll'
 import SearchInput from './SearchInput'
-import StickyHeadroom from './StickyHeadroom'
+import Headroom from './Headroom'
 
 const SCROLL_ANIMATION_DURATION = 500
+const SEARCH_BAR_HEIGHT = 45
 
-export class ScrollingSearchBox extends React.Component {
+export class ScrollingSearchBox extends React.PureComponent {
   static propTypes = {
     filterText: PropTypes.string.isRequired,
     onFilterTextChange: PropTypes.func.isRequired,
@@ -50,13 +51,15 @@ export class ScrollingSearchBox extends React.Component {
 
   render () {
     return <div ref={node => this.setReference(node)}>
-      <StickyHeadroom pinStart={this._node ? this._node.offsetTop : 0}
-                      stickyNode={<SearchInput filterText={this.props.filterText}
-                                               onFilterTextChange={value => this.onFilterTextChange(value)}
-                                               onClickInput={() => this.onClick()}
-                                               spaceSearch={this.props.spaceSearch} />}>
-        {this.props.children}
-      </StickyHeadroom>
+      <Headroom pinStart={this._node ? this._node.offsetTop : 0}
+                scrollHeight={SEARCH_BAR_HEIGHT}
+                height={SEARCH_BAR_HEIGHT}
+                stickyAncestor={this.props.children}>
+        <SearchInput filterText={this.props.filterText}
+                     onFilterTextChange={value => this.onFilterTextChange(value)}
+                     onClickInput={() => this.onClick()}
+                     spaceSearch={this.props.spaceSearch} />
+      </Headroom>
     </div>
   }
 }
