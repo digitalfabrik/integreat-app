@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions'
 
-export const setLanguageChangeUrls = createAction('SET_LANGUAGE_CHANGE_URLS',
+export default createAction('SET_LANGUAGE_CHANGE_URLS',
   (mapLanguageToUrl, languages, availableLanguages = {}) => {
     const languageMapper = (language) => mapLanguageToUrl(language.code, availableLanguages[language.code])
 
