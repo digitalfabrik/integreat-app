@@ -47,7 +47,7 @@ export class LanguageFailure extends React.PureComponent {
       <p style={{
         textAlign: 'center',
         margin: '25px 0'
-      }}>{this.props.t('common:siteAvailableInTheFollowingLanguages')}</p>
+      }}>{this.props.t('common:chooseYourLanguage')}</p>
       <LanguageSelector verticalLayout />
     </React.Fragment>
   }

@@ -13,7 +13,7 @@ exports[`LanguageFailure should match snapshot 1`] = `
       }
     }
   >
-    common:siteAvailableInTheFollowingLanguages
+    common:chooseYourLanguage
   </p>
   <Connect(getContext(Connect(languagesFetcher)))
     verticalLayout={true}

@@ -14,6 +14,10 @@
 .vertical {
   flex-flow: column;
   align-items: center;
+
+  & .element {
+    flex: 1;
+  }
 }
 
 .element {

@@ -31,12 +31,12 @@
     },
     "de": {
       "search": "Suchen",
-      "siteAvailableInTheFollowingLanguages": "Diese Seite ist in den folgenden Sprachen verfügbar:",
+      "chooseYourLanguage": "Wähle deine Sprache:",
       "goToStart": "Zur Startseite"
     },
     "en": {
       "search": "Search",
-      "siteAvailableInTheFollowingLanguages": "This site is available in the following languages:",
+      "chooseYourLanguage": "Choose your language:",
       "goToStart": "Go to start"
     },
     "fa": {
