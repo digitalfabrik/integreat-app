@@ -149,7 +149,7 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('categories', false, true, LanguageFailure),
+  withFetcher('categories', false, false, LanguageFailure),
   withFetcher('languages'),
   withFetcher('locations')
 )(CategoriesPage)
