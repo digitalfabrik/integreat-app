@@ -13,16 +13,26 @@ const STATIC = 'static'
 
 class Headroom extends React.PureComponent {
   static propTypes = {
-    children: PropTypes.any.isRequired, // The child node to be displayed as a header
-    scrollHeight: PropTypes.number.isRequired, // The maximum amount of px the header should move up when scrolling
-    pinStart: PropTypes.number.isRequired, // The minimum scrollTop position where the transform should start
-    stickyAncestor: PropTypes.node, // Gets rendered with a corresponding stickyTop prop as an ancestor
-    height: PropTypes.number // Used for rendering stickyTop position of stickyAncestor
+    /** The child node to be displayed as a header */
+    children: PropTypes.any.isRequired,
+    /** The maximum amount of px the header should move up when scrolling */
+    scrollHeight: PropTypes.number.isRequired,
+    /** The minimum scrollTop position where the transform should start */
+    pinStart: PropTypes.number.isRequired,
+    /** Gets rendered with a corresponding stickyTop prop as an ancestor */
+    stickyAncestor: PropTypes.node,
+    /** Used for rendering stickyTop position of stickyAncestor */
+    height: PropTypes.number
   }
 
   static defaultProps = {
     pinStart: 0
   }
+
+  state = {mode: STATIC, transition: false}
+
+  /** the very last scrollTop which we know about (to determine direction changes) */
+  lastKnownScrollTop = 0
 
   /**
    * @returns {number} the current scrollTop position of the window
@@ -35,15 +45,6 @@ class Headroom extends React.PureComponent {
     } else {
       return (document.documentElement || document.body.parentNode || document.body).scrollTop
     }
-  }
-
-  constructor (props) {
-    super(props)
-    this.handleEvent = this.handleEvent.bind(this)
-    this.update = this.update.bind(this)
-    this.state = {mode: STATIC, transition: false}
-    this.lastKnownScrollTop = 0 // the very last scrollTop which we know about (to determine direction changes)
-    this.direction = DOWNWARDS // the current direction that the user is scrolling into
   }
 
   componentDidMount () {
@@ -71,10 +72,10 @@ class Headroom extends React.PureComponent {
   }
 
   /**
-   *
-   * @param scrollTop
-   * @param direction
-   * @returns {string}
+   * Determines the mode depending on the scrollTop position and the current direction
+   * @param {number} scrollTop
+   * @param {string} direction
+   * @returns {string} the next mode of Headroom
    */
   determineMode (scrollTop, direction) {
     if (this.shouldSetStatic(scrollTop)) return STATIC
@@ -95,7 +96,7 @@ class Headroom extends React.PureComponent {
   /**
    * Checks the current scrollTop position and updates the state accordingly
    */
-  update () {
+  update = () => {
     const currentScrollTop = Headroom.getScrollTop()
     if (currentScrollTop === this.lastKnownScrollTop) return
     const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
@@ -105,7 +106,7 @@ class Headroom extends React.PureComponent {
     this.lastKnownScrollTop = currentScrollTop
   }
 
-  handleEvent () {
+  handleEvent = () => {
     window.requestAnimationFrame(this.update)
   }
 
