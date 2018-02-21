@@ -3,7 +3,7 @@
 exports[`LocationFooter should match snapshot 1`] = `
 <Footer>
   <Connect(Link)
-    href="/location1/language1/disclaimer"
+    href="/augsburg/de/disclaimer"
   >
     app:imprintAndContact
   </Connect(Link)>

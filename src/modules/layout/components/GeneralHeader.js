@@ -1,6 +1,6 @@
 import React from 'react'
 import locationIcon from '../assets/location-icon.svg'
-import Header from './Header'
+import Header from '../containers/Header'
 import HeaderActionItem from '../HeaderActionItem'
 
 class GeneralHeader extends React.Component {

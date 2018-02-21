@@ -1,12 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Headroom from 'react-headroom'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
-import HeaderNavigationBar from './HeaderNavigationBar'
-import HeaderActionBar from './HeaderActionBar'
+import HeaderNavigationBar from '../components/HeaderNavigationBar'
+import HeaderActionBar from '../components/HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
+import Headroom from '../../common/components/Headroom'
+import { connect } from 'react-redux'
+
+const HEADER_HEIGHT_LARGE = 85
+const HALF_HEADER_HEIGHT_SMALL = 55
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -14,10 +18,11 @@ import HeaderNavigationItem from '../HeaderNavigationItem'
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-class Header extends React.Component {
+export class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
-    actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired
+    actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
+    smallViewport: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -26,8 +31,9 @@ class Header extends React.Component {
   }
 
   render () {
+    const scrollHeight = this.props.smallViewport ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
     return (
-      <Headroom>
+      <Headroom scrollHeight={scrollHeight}>
         <header className={style.header}>
           <div className={style.logoWide}>
             <img src={logoWide} />
@@ -40,4 +46,5 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+const mapStateToProps = state => ({smallViewport: state.viewport.is.small})
+export default connect(mapStateToProps)(Header)
