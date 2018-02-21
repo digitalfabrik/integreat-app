@@ -153,6 +153,20 @@ describe('withFetcher', () => {
   })
 
   describe('connect()', () => {
+    test('should throw if endpoint provider is missing', () => {
+      const payload = new Payload(false)
+      const store = mockStore({[endpoint.stateName]: payload})
+      const HOC = connectedWithFetcher(endpoint.stateName)
+      const WrappedComponent = () => <span>WrappedComponent</span>
+      const Hoced = HOC(WrappedComponent)
+
+      expect(() => mount(
+        <Provider store={store}>
+          <Hoced />
+        </Provider>
+      )).toThrow()
+    })
+
     test('should map dispatch to props', () => {
       const payload = new Payload(false)
       const store = mockStore({[endpoint.stateName]: payload})
