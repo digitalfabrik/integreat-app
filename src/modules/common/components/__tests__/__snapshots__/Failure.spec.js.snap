@@ -26,7 +26,7 @@ exports[`Failure should match snapshot 1`] = `
     className="centerText"
     href="/"
   >
-    goBack
+    goToStart
   </Connect(Link)>
 </div>
 `;
