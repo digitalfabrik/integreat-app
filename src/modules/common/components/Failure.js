@@ -20,7 +20,7 @@ export class Failure extends React.Component {
     return <div>
       <div className={style.centerText}>{t(error)}</div>
       <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
-      <Link className={style.centerText} href={'/'}>{t('goBack')}</Link>
+      <Link className={style.centerText} href={'/'}>{t('goToStart')}</Link>
     </div>
   }
 }

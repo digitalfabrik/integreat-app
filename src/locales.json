@@ -31,11 +31,11 @@
     },
     "de": {
       "search": "Suchen",
-      "goBack": "Gehe zurück"
+      "goToStart": "Zur Startseite"
     },
     "en": {
       "search": "Search",
-      "goBack": "Go back"
+      "goToStart": "Go to start"
     },
     "fa": {
       "search": "جستجو"
