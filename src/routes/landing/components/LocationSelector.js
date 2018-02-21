@@ -3,41 +3,20 @@ import PropTypes from 'prop-types'
 
 import style from './LocationSelector.css'
 import { transform } from 'lodash/object'
-import { Link } from 'redux-little-router'
 import { groupBy, filter } from 'lodash/collection'
 import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationEntry from './LocationEntry'
 
-class LocationParentEntry extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired
-  }
-
-  render () {
-    return (
-      <div className={style.languageListParent}>{this.props.name}</div>
-    )
-  }
-}
-
-class LocationEntry extends React.Component {
-  static propTypes = {
-    language: PropTypes.string,
-    location: PropTypes.object.isRequired
-  }
-
-  render () {
-    const location = this.props.location
-    return (
-      <Link href={`/${location.code}/${this.props.language}`} className={style.languageListItem}>{location.name}</Link>
-    )
-  }
-}
-
-class LocationSelector extends React.Component {
+class LocationSelector extends React.PureComponent {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     filterText: PropTypes.string.isRequired,
-    language: PropTypes.string
+    language: PropTypes.string.isRequired,
+    stickyTop: PropTypes.number.isRequired
+  }
+
+  static defaultProps = {
+    stickyTop: 0
   }
 
   filter () {
@@ -56,23 +35,22 @@ class LocationSelector extends React.Component {
   renderList (locations) {
     const groups = groupBy(locations, location => location.sortCategory)
     return transform(groups, (result, locations, key) => {
-      result.push(<LocationParentEntry key={key} name={key} />)
-      result.push(locations.map((location, index) => <LocationEntry key={key + index}
-                                                                    location={location}
-                                                                    language={this.props.language} />))
+      result.push(<div key={key}>
+        <div className={style.languageListParent} style={{top: this.props.stickyTop + 'px'}}>{key}</div>
+        {locations.map(location => <LocationEntry
+          key={location.code}
+          location={location}
+          language={this.props.language} />)}
+      </div>)
     }, [])
   }
 
   render () {
-    return (
-      <div>
-        <div className={style.languageList}>
-          {
-            this.renderList(this.filter())
-          }
-        </div>
-      </div>
-    )
+    return <React.Fragment>
+      {
+        this.renderList(this.filter())
+      }
+    </React.Fragment>
   }
 }
 

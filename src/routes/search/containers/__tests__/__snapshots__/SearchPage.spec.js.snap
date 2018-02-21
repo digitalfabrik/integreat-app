@@ -10,62 +10,74 @@ exports[`SearchPage should match snapshot 1`] = `
   <CategoryList
     categories={
       Array [
-        CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
-          "_id": 0,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
-          "_title": "augsburg",
-          "_url": "/augsburg/de",
-        },
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": 4367,
-            "en": 4361,
-            "fa": 4368,
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {},
+            "_content": "",
+            "_id": 0,
+            "_order": 0,
+            "_parentId": -1,
+            "_parentUrl": null,
+            "_thumbnail": null,
+            "_title": "augsburg",
+            "_url": "/augsburg/de",
           },
-          "_content": "",
-          "_id": 3650,
-          "_order": 75,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
-          "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
-          "_title": "Anlaufstellen zu sonstigen Themen",
-          "_url": "/augsburg/de/anlaufstellen",
         },
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": 4819,
-            "en": 4804,
-            "fa": 4827,
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": 4367,
+              "en": 4361,
+              "fa": 4368,
+            },
+            "_content": "",
+            "_id": 3650,
+            "_order": 75,
+            "_parentId": 0,
+            "_parentUrl": "/augsburg/de",
+            "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+            "_title": "Anlaufstellen zu sonstigen Themen",
+            "_url": "/augsburg/de/anlaufstellen",
           },
-          "_content": "",
-          "_id": 3649,
-          "_order": 11,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
-          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
-          "_title": "Willkommen",
-          "_url": "/augsburg/de/willkommen",
         },
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": "397",
-            "de": "711",
-            "en": "390",
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": 4819,
+              "en": 4804,
+              "fa": 4827,
+            },
+            "_content": "",
+            "_id": 3649,
+            "_order": 11,
+            "_parentId": 0,
+            "_parentUrl": "/augsburg/de",
+            "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+            "_title": "Willkommen",
+            "_url": "/augsburg/de/willkommen",
           },
-          "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
+        },
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": "397",
+              "de": "711",
+              "en": "390",
+            },
+            "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
 ",
-          "_id": 35,
-          "_order": 1,
-          "_parentId": 3649,
-          "_parentUrl": "/augsburg/de/willkommen",
-          "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
-          "_title": "Willkommen in Augsburg",
-          "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_id": 35,
+            "_order": 1,
+            "_parentId": 3649,
+            "_parentUrl": "/augsburg/de/willkommen",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+            "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+          },
         },
       ]
     }

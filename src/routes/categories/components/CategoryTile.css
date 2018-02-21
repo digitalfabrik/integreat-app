@@ -1,27 +1,47 @@
 @import url('../../../modules/common/constants/helpers.css');
 
-.category-thumbnail {
-  display: block;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-  transition: transform 0.2s;
+.category-tiles {
+  padding: 10px 0;
 }
 
-.category-thumbnail:hover {
+.category {
+  margin-bottom: 20px;
+}
+
+.category > a {
+  @mixin remove-a;
+  display: block;
+  max-width: 170px;
+  margin: 0 auto;
+}
+
+.thumbnail-sizer {
+  width: 160px;
+  max-width: 33.3vw;
+  margin: 0 auto;
+}
+
+.category-thumbnail {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 100%;
+}
+
+.category-thumbnail img {
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: -100%;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+
+.category-thumbnail img:hover {
   transform: scale(1.01);
 }
 
 .category-title {
-  margin-top: 5px;
+  margin: 5px 0;
   text-align: center;
-}
-
-.category {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.category a {
-  @mixin remove-a;
 }

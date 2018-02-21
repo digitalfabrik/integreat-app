@@ -16,12 +16,13 @@ export class Failure extends React.Component {
   }
 
   render () {
+    const {t, error} = this.props
     return <div>
-      <div className={style.centerText}>{this.props.t(this.props.error)}</div>
+      <div className={style.centerText}>{t(error)}</div>
       <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
-      <Link clssName={style.centerText} href={'/'}>Go Back</Link>
+      <Link className={style.centerText} href={'/'}>{t('goToStart')}</Link>
     </div>
   }
 }
 
-export default translate('errors')(Failure)
+export default translate('common')(Failure)

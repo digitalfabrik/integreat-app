@@ -1,12 +1,13 @@
 import React from 'react'
 
 import Heading from '../Heading'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 
 jest.mock('react-i18next')
 
 describe('Heading', () => {
   test('should render', () => {
-    shallow(<Heading />)
+    const component = mount(<Heading />)
+    expect(component).toMatchSnapshot()
   })
 })

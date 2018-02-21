@@ -2,6 +2,7 @@
 @import url('../../common/constants/fonts.css');
 @import url('../../common/constants/helpers.css');
 @import url('../../common/constants/fonts.css');
+@import url('../../common/constants/dimensions.css');
 
 .content {
   max-width: 1000px;
@@ -11,19 +12,19 @@
   word-wrap: break-word;
 }
 
-.layout {
-  font-family: var(--standard-fonts);
-  font-size-adjust: var(--standard-fonts-size-adjust);
-}
-
 .rich-layout {
   position: relative;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  font-family: var(--standard-fonts);
-  font-size-adjust: var(--standard-fonts-size-adjust);
+  font-family: var(--decorative-font-family);
+  font-size-adjust: var(--font-size-adjust);
+  line-height: var(--decorative-line-height)
+}
+
+.layout p {
+  margin: var(--standard-paragraph-margin) 0;
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */

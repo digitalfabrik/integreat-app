@@ -5,7 +5,9 @@ exports[`CategoryList should render 1`] = `
   <Caption
     title="Augsburg"
   />
-  <Row>
+  <Row
+    className="categoryTiles"
+  >
     <CategoryTile
       category={
         CategoryModel {

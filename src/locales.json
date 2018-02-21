@@ -30,10 +30,12 @@
       "search": "البحث"
     },
     "de": {
-      "search": "Suchen"
+      "search": "Suchen",
+      "goToStart": "Zur Startseite"
     },
     "en": {
-      "search": "Search"
+      "search": "Search",
+      "goToStart": "Go to start"
     },
     "fa": {
       "search": "جستجو"

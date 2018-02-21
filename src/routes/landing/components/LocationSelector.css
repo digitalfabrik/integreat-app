@@ -19,7 +19,11 @@
 }
 
 .language-list-parent {
+  position: sticky;
   height: var(--item-height);
+  margin-top: 10px;
   line-height: var(--item-height);
+  transition: top 0.2s ease-out;
+  background-color: white;
   border-bottom: 1px solid var(--theme-color);
 }

@@ -13,7 +13,7 @@ exports[`RemoteContent should render 1`] = `
 
 exports[`RemoteContent should render and have centered props 1`] = `
 <div
-  className="remoteContent centered"
+  className="centered remoteContent"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",
