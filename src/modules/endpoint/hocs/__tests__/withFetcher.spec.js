@@ -22,8 +22,8 @@ describe('withFetcher', () => {
     .build()
 
   // eslint-disable-next-line react/prop-types
-  const createComponent = ({endpoint, hideError = false, hideSpinner = false, urlParams = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
-    const HOC = withFetcher(endpoint.stateName, hideError, hideSpinner)
+  const createComponent = ({endpoint, hideError = false, hideSpinner = false, FailureComponent, urlParams = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
+    const HOC = withFetcher(endpoint.stateName, hideError, hideSpinner, FailureComponent)
 
     class WrappedComponent extends React.Component {
       static displayName = 'WrappedComponent'
@@ -42,10 +42,23 @@ describe('withFetcher', () => {
                   {...otherProps} />
   }
 
-  test('should should show error if there is one and it\'s not hidden', () => {
+  test('should should show default Failure if there is an error and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideError: false,
+      requestAction: () => new StoreResponse(true),
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  test('should should show custom FailureComponent if there is an error and it\'s not hidden', () => {
+    const MockedFailureComponent = () => <div />
+    const hoc = createComponent({
+      endpoint,
+      hideError: false,
+      FailureComponent: MockedFailureComponent,
       requestAction: () => new StoreResponse(true),
       otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
     })

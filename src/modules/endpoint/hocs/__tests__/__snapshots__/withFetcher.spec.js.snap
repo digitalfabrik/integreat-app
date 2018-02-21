@@ -1,8 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`withFetcher should should show error if there is one and it's not hidden 1`] = `
+exports[`withFetcher should should show custom FailureComponent if there is an error and it's not hidden 1`] = `
+<MockedFailureComponent
+  error="Yepp... Error time! Wushhh!"
+/>
+`;
+
+exports[`withFetcher should should show default Failure if there is an error and it's not hidden 1`] = `
 <Translate(Failure)
-  className="loading"
   error="Yepp... Error time! Wushhh!"
 />
 `;
