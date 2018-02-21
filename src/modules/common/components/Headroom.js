@@ -97,6 +97,7 @@ class Headroom extends React.PureComponent {
    */
   update () {
     const currentScrollTop = Headroom.getScrollTop()
+    if (currentScrollTop === this.lastKnownScrollTop) return
     const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
     const mode = this.determineMode(currentScrollTop, direction)
     const transition = this.shouldTransition(mode, direction)

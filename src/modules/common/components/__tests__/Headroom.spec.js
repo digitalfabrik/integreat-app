@@ -119,6 +119,19 @@ describe('Headroom', () => {
       scrollTo(pinStart)
       expect(component.state()).toEqual({mode: 'static', transition: false})
     })
+
+    test('shouldn\'t update state update is called with same scrollTop', () => {
+      const component = createComponent({pinStart, height, scrollHeight})
+      const scrollTo = (scrollTo) => {
+        window.pageYOffset = scrollTo
+        component.instance().update()
+      }
+      const offset = 5
+      scrollTo(pinStart + scrollHeight + offset)
+      expect(component.state()).toEqual({mode: 'unpinned', transition: false})
+      scrollTo(pinStart + scrollHeight + offset)
+      expect(component.state()).toEqual({mode: 'unpinned', transition: false})
+    })
   })
 
   test('should render correct if state is static, no transition', () => {
