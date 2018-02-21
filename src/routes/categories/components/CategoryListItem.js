@@ -27,8 +27,11 @@ class CategoryListItem extends React.Component {
         {children.map(child =>
           <div key={child.id} className={style.subRow}>
             <Link href={child.url}>
-              {(child.thumbnail && <img src={child.thumbnail} className={style.categoryThumbnail} />) ||
-              <div className={style.categoryThumbnail} />}
+              {
+                child.thumbnail
+                ? <img src={child.thumbnail} className={style.categoryThumbnail} />
+                : <div className={style.categoryThumbnail} />
+              }
               <div className={style.categoryCaption}>{child.title}</div>
             </Link>
           </div>
