@@ -8,7 +8,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
-import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 /**
