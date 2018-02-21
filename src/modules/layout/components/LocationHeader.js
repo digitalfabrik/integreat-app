@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 
-import Navigation from 'modules/app/Navigation'
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
@@ -11,48 +10,71 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import Header from 'modules/layout/containers/Header'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
+import SearchPage from '../../../routes/search/containers/SearchPage'
+import LandingPage from '../../../routes/landing/containers/LandingPage'
+import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
+import EventsPage from '../../../routes/events/containers/EventsPage'
 
 class LocationHeader extends React.Component {
   static propTypes = {
-    navigation: PropTypes.instanceOf(Navigation).isRequired,
-    location: PropTypes.instanceOf(LocationModel).isRequired,
-    route: PropTypes.string.isRequired,
+    matchRoute: PropTypes.func.isRequired,
+    locationModel: PropTypes.instanceOf(LocationModel).isRequired,
+    language: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
   }
 
-  isCategoriesEnabled = () => this.isExtrasEnabled() || this.isEventsEnabled()
-
-  isExtrasEnabled = () => this.props.location.extrasEnabled
-
-  isEventsEnabled = () => this.props.location.eventsEnabled
-
-  isExtrasSelected = () => this.props.route === '/:location/:language/extras' // todo for WEBAPP-64: test and verify this
-
-  isCategoriesSelected = () => ['/:location/:language', '/:location/:language/*'].includes(this.props.route)
-
-  isEventsSelected = () => this.props.route === '/:location/:language/events(/:id)'
-
   getActionItems () {
-    const {navigation} = this.props
+    const {matchRoute} = this.props
+    const currentParams = this.getCurrentParams()
     return [
-      new HeaderActionItem({href: navigation.search, iconSrc: searchIcon}),
-      new HeaderActionItem({href: navigation.locationSelector, iconSrc: locationIcon}),
+      new HeaderActionItem({href: matchRoute(SearchPage).stringify(currentParams), iconSrc: searchIcon}),
+      new HeaderActionItem({href: matchRoute(LandingPage).stringify(currentParams), iconSrc: locationIcon}),
       new HeaderActionItem({dropDownNode: <LanguageSelector />, iconSrc: languageIcon})
     ]
   }
 
+  getCurrentParams () {
+    return {
+      location: this.props.locationModel.code,
+      language: this.props.language
+    }
+  }
+
   getNavigationItems () {
-    const {t, navigation} = this.props
-    const extras = this.isExtrasEnabled() &&
-      new HeaderNavigationItem({href: navigation.extras, active: this.isExtrasSelected(), text: t('extras')})
+    const {t, matchRoute, path} = this.props
+    const currentParams = this.getCurrentParams()
 
-    const categories = this.isCategoriesEnabled() &&
-      new HeaderNavigationItem({href: navigation.categories, active: this.isCategoriesSelected(), text: t('categories')})
+    const isEventsEnabled = () => this.props.locationModel.eventsEnabled
+    const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
+    const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
-    const events = this.isEventsEnabled() &&
-      new HeaderNavigationItem({href: navigation.events, active: this.isEventsSelected(), text: t('news')})
+    const isExtrasSelected = () => false // todo for WEBAPP-64: test and verify this
+    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(path)
+    const isEventsSelected = () => matchRoute(EventsPage).hasPath(path)
 
-    return [extras, categories, events].filter(item => item)
+    const extras = isExtrasEnabled() &&
+      new HeaderNavigationItem({
+        href: '/',
+        active: isExtrasSelected(),
+        text: t('extras')
+      })
+
+    const categories = isCategoriesEnabled() &&
+      new HeaderNavigationItem({
+        href: matchRoute(CategoriesPage).stringify(currentParams),
+        active: isCategoriesSelected(),
+        text: t('categories')
+      })
+
+    const events = isEventsEnabled() &&
+      new HeaderNavigationItem({
+        href: matchRoute(EventsPage).stringify(currentParams),
+        active: isEventsSelected(),
+        text: t('news')
+      })
+
+    return [extras, categories, events].filter(isEnabled => isEnabled)
   }
 
   render () {

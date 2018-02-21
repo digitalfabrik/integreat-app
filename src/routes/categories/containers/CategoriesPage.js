@@ -8,7 +8,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 

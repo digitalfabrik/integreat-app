@@ -13,12 +13,33 @@ import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
+import I18nRedirect from 'modules/app/containers/I18nRedirect'
+import PropTypes from 'prop-types'
+import RouteConfig from '../RouteConfig'
+
+const LANGUAGE_CODE_LENGTH = 2
 
 /**
  * todo: Test and document in WEBAPP-90
  * todo: Layouts should be set in each route
  */
 class RouterFragment extends React.Component {
+  static propTypes = {
+    routerConfig: PropTypes.instanceOf(RouteConfig).isRequired
+  }
+
+  static isLanguageCode (language) {
+    return language && language.length === LANGUAGE_CODE_LENGTH
+  }
+
+  /**
+   * This is the matchRoute from the supplied {@link routerConfig}
+   *
+   * @param id The id to look for
+   * @returns {*|Route}
+   */
+  matchRoute = (id) => this.props.routerConfig.matchRoute(id)
+
   render () {
     /*
      * For routes inside a <React.Fragment /> the priority decreases with each element
@@ -27,31 +48,35 @@ class RouterFragment extends React.Component {
     return <Fragment forRoute='/'>
       {/* Routes */}
       <React.Fragment>
+        {/* No language was provided to redirect to a specific language (e.g. the browsers language) */}
+        <Fragment forRoute='/'>
+          <I18nRedirect />
+        </Fragment>
 
         {/* Matches two or more arguments like /augsburg/de */}
         <Fragment forRoute='/:location/:language(/*)'>
-          <React.Fragment>
+          <LocationLayout matchRoute={this.matchRoute}>
             {/* Matches /augsburg/de/search -> Search */}
             <Fragment forRoute='/search'>
-              <LocationLayout><SearchPage /></LocationLayout>
+              <SearchPage />
             </Fragment>
             {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
             <Fragment forRoute='/disclaimer'>
-              <LocationLayout><DisclaimerPage /></LocationLayout>
+              <DisclaimerPage />
             </Fragment>
             {/* Matches /augsburg/de/events* -> Events */}
             <Fragment forRoute='/events(/:id)'>
-              <LocationLayout><EventsPage /></LocationLayout>
+              <EventsPage />
             </Fragment>
             {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
             <Fragment forRoute='/fetch-pdf'>
-              <Layout><PdfFetcherPage /></Layout>
+              <PdfFetcherPage />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}
             <Fragment forNoMatch>
-              <LocationLayout><CategoriesPage /></LocationLayout>
+              <CategoriesPage />
             </Fragment>
-          </React.Fragment>
+          </LocationLayout>
         </Fragment>
 
         {/* Matches /disclaimer */}
@@ -59,8 +84,16 @@ class RouterFragment extends React.Component {
           <Layout header={<GeneralHeader />} footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
+        {/* If language param is longer than 2, it is no language and is probably a location
+        -> redirect the language-specific location */}
+        <Fragment forRoute='/:unknown(/)' withConditions={
+          location => !RouterFragment.isLanguageCode(location.params.unknown)
+        }>
+          <I18nRedirect />
+        </Fragment>
+
         {/* Matches one or zero arguments like /de */}
-        <Fragment forRoute='/(:language(/))'>
+        <Fragment forRoute='/:language(/)'>
           <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
         </Fragment>
 
