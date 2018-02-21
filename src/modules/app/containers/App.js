@@ -31,7 +31,7 @@ class App extends React.Component {
       <EndpointProvider
         endpoints={[languagesEndpoint, locationEndpoint, categoriesEndpoint, disclaimerEndpoint, eventsEndpoint]}>
         <I18nProvider>
-          <RouterFragment routerConfig={this.routeConfig} />
+          <RouterFragment routeConfig={this.routeConfig} />
         </I18nProvider>
       </EndpointProvider>
     </Provider>
