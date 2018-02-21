@@ -100,6 +100,8 @@ Install the following plugins:
 Go to:
 * Run > Edit Configurations > Defaults > Jest  
    to set **Configuration file** to **jest.config.json**
+   
+If you want you can associate the *.snap files with the file type JavaScript.
 
 # Bug Tracker
 

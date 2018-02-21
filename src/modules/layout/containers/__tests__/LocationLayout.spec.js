@@ -7,20 +7,23 @@ import configureMockStore from 'redux-mock-store'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import Payload from 'modules/endpoint/Payload'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import Navigation from 'modules/app/Navigation'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
 
 describe('LocationLayout', () => {
+  const matchRoute = (id) => {}
+
+  const language = 'de'
+
   const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
 
   const MockNode = () => <div />
 
   test('should show LocationHeader and LocationFooter if LocationModel is available', () => {
     const component = shallow(
-      <LocationLayout location='location1'
-                      navigation={new Navigation('location1', 'language1')}
+      <LocationLayout location='location1' language={language}
+                      matchRoute={matchRoute}
                       locations={locations}
-                      route='/:location/:language'>
+                      path='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -28,10 +31,10 @@ describe('LocationLayout', () => {
 
   test('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
-      <LocationLayout location='unavailableLocation'
-                      navigation={new Navigation('location1', 'language1')}
+      <LocationLayout location='unavailableLocation' language={language}
+                      matchRoute={matchRoute}
                       locations={locations}
-                      route='/:location/:language'>
+                      path='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
