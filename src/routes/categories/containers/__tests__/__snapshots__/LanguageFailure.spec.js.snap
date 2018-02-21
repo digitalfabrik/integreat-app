@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageFailure should match snapshot 1`] = `
+<React.Fragment>
+  <Caption
+    title="Augsburg"
+  />
+  <p
+    style={
+      Object {
+        "margin": "25px 0",
+        "textAlign": "center",
+      }
+    }
+  >
+    common:siteAvailableInTheFollowingLanguages
+  </p>
+  <Connect(getContext(Connect(languagesFetcher)))
+    verticalLayout={true}
+  />
+</React.Fragment>
+`;

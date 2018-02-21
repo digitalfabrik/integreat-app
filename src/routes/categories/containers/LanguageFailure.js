@@ -7,12 +7,15 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import LocationModel from '../../../modules/endpoint/models/LocationModel'
+import Caption from '../../../modules/common/components/Caption'
 
-class LanguageUnavailable extends React.PureComponent {
+export class LanguageFailure extends React.PureComponent {
   static propTypes = {
     setLanguageChangeUrls: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
     location: PropTypes.string.isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired
   }
 
@@ -34,13 +37,18 @@ class LanguageUnavailable extends React.PureComponent {
     this.setLanguageChangeUrls()
   }
 
+  getTitle () {
+    return this.props.locations.find(location => location.code === this.props.location).name
+  }
+
   render () {
     return <React.Fragment>
+      <Caption title={this.getTitle()} />
       <p style={{
         textAlign: 'center',
         margin: '25px 0'
       }}>{this.props.t('common:siteAvailableInTheFollowingLanguages')}</p>
-      <LanguageSelector />
+      <LanguageSelector verticalLayout />
     </React.Fragment>
   }
 }
@@ -55,6 +63,7 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
+  withFetcher('locations'),
   withFetcher('languages'),
   translate('common')
-)(LanguageUnavailable)
+)(LanguageFailure)

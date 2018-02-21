@@ -18,7 +18,8 @@ export class LanguageSelector extends React.Component {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    languageChangeUrls: PropTypes.object.isRequired
+    languageChangeUrls: PropTypes.object.isRequired,
+    verticalLayout: PropTypes.bool
   }
 
   /**
@@ -61,7 +62,7 @@ export class LanguageSelector extends React.Component {
 
   render () {
     return (
-      <div className={style.languageSelector}>
+      <div className={cx({[style.languageSelector]: true, [style.vertical]: this.props.verticalLayout})}>
         {this.getLanguageLinks()}
       </div>
     )
