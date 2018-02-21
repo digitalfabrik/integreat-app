@@ -164,7 +164,7 @@ describe('Endpoint', () => {
           type: 'FINISH_FETCH_DATA_ENDPOINT',
           payload: new Payload(false,
             null,
-            errorMessage,
+            'endpoint:page.loadingFailed',
             'https://weird-endpoint/a/b/api.json',
             mockedTime
           )
