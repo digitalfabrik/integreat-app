@@ -31,11 +31,13 @@
     },
     "de": {
       "search": "Suchen",
-      "siteAvailableInTheFollowingLanguages": "Diese Seite ist in den folgenden Sprachen verfügbar:"
+      "siteAvailableInTheFollowingLanguages": "Diese Seite ist in den folgenden Sprachen verfügbar:",
+      "goToStart": "Zur Startseite"
     },
     "en": {
       "search": "Search",
-      "siteAvailableInTheFollowingLanguages": "This site is available in the following languages:"
+      "siteAvailableInTheFollowingLanguages": "This site is available in the following languages:",
+      "goToStart": "Go to start"
     },
     "fa": {
       "search": "جستجو"

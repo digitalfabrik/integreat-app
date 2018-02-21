@@ -7,7 +7,7 @@ import { groupBy, filter } from 'lodash/collection'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import LocationEntry from './LocationEntry'
 
-class LocationSelector extends React.Component {
+class LocationSelector extends React.PureComponent {
   static propTypes = {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     filterText: PropTypes.string.isRequired,
