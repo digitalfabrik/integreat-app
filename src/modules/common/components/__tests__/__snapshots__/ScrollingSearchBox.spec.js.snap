@@ -20,7 +20,8 @@ exports[`ScrollingSearchBox should render 1`] = `
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="headroom"
+    class="headroom static"
+    style="top: -45px;"
   >
     <div
       class=""
