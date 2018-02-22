@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import JobModel from 'modules/endpoint/models/JobModel'
+import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
 export class SprungbrettPage extends React.Component {
   static propTypes = {
-    jobs: PropTypes.arrayOf(PropTypes.instanceOf(JobModel))
+    jobs: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel))
   }
 
   render () {
@@ -14,4 +14,4 @@ export class SprungbrettPage extends React.Component {
   }
 }
 
-export default withFetcher('jobs')(SprungbrettPage)
+export default withFetcher('sprungbrett')(SprungbrettPage)

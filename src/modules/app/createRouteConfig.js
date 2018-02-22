@@ -6,7 +6,7 @@ import EventsPage from '../../routes/events/containers/EventsPage'
 import SearchPage from '../../routes/search/containers/SearchPage'
 import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
 import Route from './Route'
-import SprungbrettPage from '../../routes/extras/containers/SprungbrettPage'
+import SprungbrettPage from '../../routes/sprungbrett/containers/SprungbrettPage'
 import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
 
 const createRouteConfig = () => [

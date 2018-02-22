@@ -15,7 +15,7 @@ import LandingPage from '../../../routes/landing/containers/LandingPage'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
-import SprungbrettPage from '../../../routes/extras/containers/SprungbrettPage'
+import SprungbrettPage from '../../../routes/sprungbrett/containers/SprungbrettPage'
 
 class LocationHeader extends React.Component {
   static propTypes = {
