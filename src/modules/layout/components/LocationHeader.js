@@ -14,6 +14,8 @@ import SearchPage from '../../../routes/search/containers/SearchPage'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
+import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
+import SprungbrettPage from '../../../routes/extras/containers/SprungbrettPage'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -49,13 +51,13 @@ class LocationHeader extends React.Component {
     const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
     const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
-    const isExtrasSelected = () => false // todo for WEBAPP-64: test and verify this
+    const isExtrasSelected = () => matchRoute(ExtrasPage).hasPath(path) || matchRoute(SprungbrettPage).hasPath(path)
     const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(path)
     const isEventsSelected = () => matchRoute(EventsPage).hasPath(path)
 
     const extras = isExtrasEnabled() &&
       new HeaderNavigationItem({
-        href: '/',
+        href: matchRoute(ExtrasPage).stringify(currentParams),
         active: isExtrasSelected(),
         text: t('extras')
       })

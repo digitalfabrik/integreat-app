@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger'
 import RouteConfig from 'modules/app/RouteConfig'
 import endpointReducers from 'modules/endpoint/reducers'
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
-import setSprungbrettUrl from '../sprungbrett/reducers/setSprungbrettUrl'
+import setSprungbrettUrlReducer from '../sprungbrett/reducers/setSprungbrettUrl'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 
 const createReduxStore = (createHistory, initialState = {}, routes = new RouteConfig()) => {
@@ -38,7 +38,7 @@ const createReduxStore = (createHistory, initialState = {}, routes = new RouteCo
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
     router: routerReducer,
     languageChangeUrls: setLanguageChangeUrlsReducer,
-    sprungbrettUrl: setSprungbrettUrl
+    sprungbrettUrl: setSprungbrettUrlReducer
   })
 
   const enhancer = compose(responsiveStoreEnhancer, routerEnhancer, applyMiddleware(...middlewares))

@@ -75,10 +75,10 @@ class RouterFragment extends React.Component {
               <PdfFetcherPage />
             </Fragment>
             <Fragment forRoute='/extras/sprungbrett'>
-              <LocationLayout><SprungbrettPage /></LocationLayout>
+              <SprungbrettPage />
             </Fragment>
             <Fragment forRoute='/extras'>
-              <LocationLayout><ExtrasPage /></LocationLayout>
+              <ExtrasPage />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}
             <Fragment forNoMatch>
