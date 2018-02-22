@@ -41,7 +41,7 @@ class Endpoint {
   /**
    * @callback mapDataCallback
    * @param {object} data The data which has been fetched (Possibly a plain js object)
-   * @param {object | {}} router The router which was used in the fetch url
+   * @param {object | undefined} router The router which was used in the fetch url
    * @return {object} The mapped data
    */
 
@@ -99,7 +99,7 @@ class Endpoint {
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
      *
-     * @param router The router for the url of the endpoint
+     * @param router The router with (hopefully) all relevant params
      * @param options The options get passed to the {@link mapResponse} function when fetching
      * @return {function(*, *)} The Action for the redux store which can initiate a fetch
      */
