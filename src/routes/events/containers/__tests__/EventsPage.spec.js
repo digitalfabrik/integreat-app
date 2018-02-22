@@ -136,6 +136,12 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
       wrapper.instance().mapLanguageToUrl, languages, events[1].availableLanguages
     )
+
+    wrapper.setProps({id: undefined, ...wrapper.props})
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(3)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(
+      wrapper.instance().mapLanguageToUrl, languages
+    )
   })
 
   test('should not dispatch on irrelevant prop update', () => {

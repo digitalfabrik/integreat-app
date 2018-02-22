@@ -126,9 +126,7 @@ const createMapStateToProps = (endpointName) => (state, ownProps) => {
 }
 
 const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
-  if (!ownProps.getEndpoint) {
-    throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
-  }
+  // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
     requestAction: (router) => dispatch(endpoint.requestAction(router))
