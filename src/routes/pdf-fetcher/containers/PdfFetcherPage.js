@@ -44,7 +44,6 @@ class PdfFetcherPage extends React.Component {
   }
 
   getFont () {
-    // todo: This still doesn't work perfect for ar. Improve this in WEBAPP-84
     switch (this.props.language) {
       case 'ar':
         return 'aefurat'

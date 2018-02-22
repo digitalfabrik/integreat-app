@@ -31,7 +31,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
     class Fetcher extends React.Component {
       static displayName = endpointName + 'Fetcher'
       static propTypes = {
-        urlParams: PropTypes.objectOf(PropTypes.string),
+        router: PropTypes.object.isRequired,
         className: PropTypes.string,
         requestAction: PropTypes.func.isRequired,
         getEndpoint: PropTypes.func
@@ -57,7 +57,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         // before render() in the Fetcher component is called the first time.
         // This causes the <WrappedComponent> to be displayed with outdated props.
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
-        this.fetch(this.props.urlParams)
+        this.fetch(this.props.router)
       }
 
       componentWillReceiveProps (nextProps) {
@@ -65,22 +65,18 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         // (a) the Fetcher urlParams prop changed or
         // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
         const endpoint = this.endpoint
-        if (endpoint.shouldRefetch(this.props.urlParams, nextProps.urlParams) ||
+        if (endpoint.shouldRefetch(this.props.router, nextProps.router) ||
           this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
-          this.fetch(nextProps.urlParams)
+          this.fetch(nextProps.router)
         }
       }
 
       /**
        * Triggers a new fetch if available
-       * @param {object} urlParams The params to use
+       * @param {object} router The params to use
        */
-      fetch (urlParams) {
-        if (!urlParams) {
-          throw new Failure('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
-            'a undefined value!')
-        }
-        const storeResponse = this.props.requestAction(urlParams)
+      fetch (router) {
+        const storeResponse = this.props.requestAction(router)
         this.setState({isDataAvailable: storeResponse.dataAvailable})
       }
 
@@ -107,7 +103,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         // Strip all internal data
         delete allProps[this.endpoint.payloadName]
         delete allProps.getEndpoint
-        delete allProps.urlParams
+        delete allProps.router
         delete allProps.className
         delete allProps.requestAction
         return <WrappedComponent {...allProps} />
@@ -125,7 +121,7 @@ const createMapStateToProps = (endpointName) => (state, ownProps) => {
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
     [endpoint.payloadName]: state[endpoint.stateName],
-    urlParams: endpoint.mapStateToUrlParams(state)
+    router: state.router
   })
 }
 
@@ -133,7 +129,7 @@ const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: (urlParams) => dispatch(endpoint.requestAction(urlParams))
+    requestAction: (router) => dispatch(endpoint.requestAction(router))
   })
 }
 

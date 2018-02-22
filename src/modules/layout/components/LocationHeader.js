@@ -49,7 +49,7 @@ class LocationHeader extends React.Component {
     const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
     const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
-    const isExtrasSelected = () => false // todo for WEBAPP-64: test and verify this
+    const isExtrasSelected = () => false
     const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(path)
     const isEventsSelected = () => matchRoute(EventsPage).hasPath(path)
 
