@@ -111,6 +111,10 @@ class Endpoint {
 
       const formattedURL = this.mapRouterToUrl(router)
 
+      if (formattedURL.includes('undefined')) {
+        throw new Error('Some necessary params in the router were undefined:' + formattedURL)
+      }
+
       const lastUrl = endpointData.requestUrl
       const urlNotChanged = lastUrl && lastUrl === formattedURL
 

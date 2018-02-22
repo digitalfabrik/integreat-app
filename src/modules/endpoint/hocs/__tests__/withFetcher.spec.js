@@ -137,8 +137,6 @@ describe('withFetcher', () => {
     instance.fetch(otherRouter)
 
     expect(mockRequestAction).toBeCalledWith(otherRouter)
-
-    expect(() => instance.fetch(undefined)).toThrow()
   })
 
   const mockStore = configureMockStore([thunk])

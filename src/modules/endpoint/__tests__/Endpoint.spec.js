@@ -32,6 +32,13 @@ describe('Endpoint', () => {
     expect(endpoint.payloadName).toBe('endpointPayload')
   })
 
+  test('should throw if needed router params are undefined', () => {
+    const endpoint = createEndpoint({name: 'endpoint'})
+
+    expect(endpoint.requestAction(undefined)).toThrow()
+    expect(endpoint.requestAction({var1: 'a'})).toThrow()
+  })
+
   describe('Reducer', () => {
     let clock
     const mockedTime = 0
