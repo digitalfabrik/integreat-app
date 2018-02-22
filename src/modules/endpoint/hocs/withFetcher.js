@@ -76,10 +76,6 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
        * @param {object} router The params to use
        */
       fetch (router) {
-        if (!router) {
-          throw new Failure('urlParams are not valid! This could mean your mapStateToUrlParams() returns ' +
-            'a undefined value!')
-        }
         const storeResponse = this.props.requestAction(router)
         this.setState({isDataAvailable: storeResponse.dataAvailable})
       }

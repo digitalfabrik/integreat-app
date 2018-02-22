@@ -112,9 +112,8 @@ class Endpoint {
       const formattedURL = this.mapRouterToUrl(router)
 
       const lastUrl = endpointData.requestUrl
-      const urlNotChanged = lastUrl !== null && lastUrl === formattedURL
+      const urlNotChanged = lastUrl && lastUrl === formattedURL
 
-      // todo: currently once data has been fetched it stays in store forever
       if (urlNotChanged) {
         // Correct payload has been loaded and can now be used by the fetcher(s)
         return new StoreResponse(true)

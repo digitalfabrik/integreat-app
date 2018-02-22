@@ -72,7 +72,7 @@ class EndpointBuilder {
     }
 
     if (!this._routerToUrlMapper) {
-      throw Error('You have to set a url to build an endpoint!')
+      throw Error('You have to set a url mapper to build an endpoint!')
     }
 
     if (!this._mapper) {

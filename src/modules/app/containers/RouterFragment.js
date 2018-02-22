@@ -19,10 +19,6 @@ import RouteConfig from '../RouteConfig'
 
 const LANGUAGE_CODE_LENGTH = 2
 
-/**
- * todo: Test and document in WEBAPP-90
- * todo: Layouts should be set in each route
- */
 class RouterFragment extends React.Component {
   static propTypes = {
     routerConfig: PropTypes.instanceOf(RouteConfig).isRequired
