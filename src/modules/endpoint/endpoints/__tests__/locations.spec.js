@@ -30,14 +30,14 @@ describe('locations', () => {
         code: 'augsburg',
         live: location1.live,
         eventsEnabled: true,
-        extrasEnabled: true // todo: Adjust this in WEBAPP-64
+        extrasEnabled: true
       }),
       new LocationModel({
         name: location2.name,
         code: 'regensburg',
         live: location2.live,
         eventsEnabled: false,
-        extrasEnabled: true // todo: Adjust this in WEBAPP-64
+        extrasEnabled: true
       })
     ])
   })
