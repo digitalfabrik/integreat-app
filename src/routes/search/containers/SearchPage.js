@@ -8,7 +8,7 @@ import SearchInput from 'modules/common/components/SearchInput'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
 

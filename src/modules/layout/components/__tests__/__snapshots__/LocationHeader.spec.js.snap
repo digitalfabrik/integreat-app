@@ -6,17 +6,17 @@ exports[`LocationHeader NavigationItems should highlight categories if route cor
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/extras",
+    "_href": "/",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
     "_active": true,
-    "_href": "/location1/language1",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -26,17 +26,17 @@ exports[`LocationHeader NavigationItems should highlight events if route corresp
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/extras",
+    "_href": "/",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": true,
-    "_href": "/location1/language1/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -86,12 +86,12 @@ exports[`LocationHeader NavigationItems should show categories, if extras or new
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/extras",
+    "_href": "/",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
 ]
@@ -101,12 +101,12 @@ exports[`LocationHeader NavigationItems should show categories, if extras or new
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -116,34 +116,34 @@ exports[`LocationHeader NavigationItems should show extras, categories, events i
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/extras",
+    "_href": "/",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
 `;
 
 exports[`LocationHeader should match snapshot 1`] = `
-<Header
+<Connect(Header)
   actionItems={
     Array [
       HeaderActionItem {
         "_dropDownNode": undefined,
-        "_href": "/location1/language1/search",
+        "_href": "/location1/de/search",
         "_iconSrc": "test-file-stub",
       },
       HeaderActionItem {
         "_dropDownNode": undefined,
-        "_href": "/language1",
+        "_href": "/de",
         "_iconSrc": "test-file-stub",
       },
       HeaderActionItem {
@@ -157,17 +157,17 @@ exports[`LocationHeader should match snapshot 1`] = `
     Array [
       HeaderNavigationItem {
         "_active": false,
-        "_href": "/location1/language1/extras",
+        "_href": "/",
         "_text": "app:extras",
       },
       HeaderNavigationItem {
         "_active": false,
-        "_href": "/location1/language1",
+        "_href": "/location1/de",
         "_text": "app:categories",
       },
       HeaderNavigationItem {
         "_active": false,
-        "_href": "/location1/language1/events",
+        "_href": "/location1/de/events",
         "_text": "app:news",
       },
     ]

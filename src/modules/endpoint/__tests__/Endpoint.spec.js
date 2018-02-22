@@ -13,7 +13,7 @@ describe('Endpoint', () => {
   const defaultJsonMapper = (json) => json
 
   const createEndpoint = ({name = 'endpoint', fetchUrl = defaultFetchUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
-    return new Endpoint(name, fetchUrl, jsonMapper, (state) => ({}), false, responseOverride)
+    return new Endpoint(name, fetchUrl, jsonMapper, () => ({}), false, responseOverride)
   }
 
   const expectActions = (dispatchResult, store, expectedActions) => {
@@ -164,7 +164,7 @@ describe('Endpoint', () => {
           type: 'FINISH_FETCH_DATA_ENDPOINT',
           payload: new Payload(false,
             null,
-            errorMessage,
+            'endpoint:page.loadingFailed',
             'https://weird-endpoint/a/b/api.json',
             mockedTime
           )

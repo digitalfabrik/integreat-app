@@ -2,48 +2,43 @@
 
 exports[`ScrollingSearchBox should render 1`] = `
 <div>
-  <StickyHeadroom
+  <Headroom
+    height={45}
     pinStart={0}
-    stickyNode={
-      <Translate(SearchInput)
-        filterText="Test"
-        onClickInput={[Function]}
-        onFilterTextChange={[Function]}
-        spaceSearch={undefined}
-      />
-    }
-    stickyTop={0}
+    scrollHeight={45}
+    stickyAncestor={<MockNode />}
   >
-    <MockNode />
-  </StickyHeadroom>
+    <Translate(SearchInput)
+      filterText="Test"
+      onClickInput={[Function]}
+      onFilterTextChange={[Function]}
+    />
+  </Headroom>
 </div>
 `;
 
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="headroom unfixed headroom-wrapper"
+    class="headroom static"
+    style="top: -45px;"
   >
     <div
-      class="headroom headroom--unfixed"
+      class=""
     >
       <div
-        class=""
+        class="search"
       >
-        <div
-          class="search"
-        >
-          <span
-            aria-hidden="true"
-            class="fa fa-search searchIcon"
-          />
-          <input
-            class="searchInput"
-            placeholder="common:search"
-            type="text"
-            value="Test"
-          />
-        </div>
+        <span
+          aria-hidden="true"
+          class="fa fa-search searchIcon"
+        />
+        <input
+          class="searchInput"
+          placeholder="common:search"
+          type="text"
+          value="Test"
+        />
       </div>
     </div>
   </div>
@@ -53,19 +48,18 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
 
 exports[`ScrollingSearchBox should space search 1`] = `
 <div>
-  <StickyHeadroom
+  <Headroom
+    height={45}
     pinStart={0}
-    stickyNode={
-      <Translate(SearchInput)
-        filterText="Test"
-        onClickInput={[Function]}
-        onFilterTextChange={[Function]}
-        spaceSearch={true}
-      />
-    }
-    stickyTop={0}
+    scrollHeight={45}
+    stickyAncestor={<MockNode />}
   >
-    <MockNode />
-  </StickyHeadroom>
+    <Translate(SearchInput)
+      filterText="Test"
+      onClickInput={[Function]}
+      onFilterTextChange={[Function]}
+      spaceSearch={true}
+    />
+  </Headroom>
 </div>
 `;

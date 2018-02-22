@@ -128,6 +128,20 @@ describe('I18nProvider', () => {
       expect(component.state()).toEqual({language: expectedLanguage})
     })
 
+    test('should ignore invalid languages', () => {
+      const tree = mount(<I18nProvider>
+        <div />
+      </I18nProvider>)
+
+      const i18n = tree.find(I18nextProvider).prop('i18n')
+
+      const expectedLanguage = i18n.languages[0]
+
+      tree.instance().setLanguage('long string')
+
+      expect(document.documentElement.lang).toEqual(expectedLanguage)
+    })
+
     test('should take param language if param is defined', () => {
       const component = mount(<I18nProvider>
         <div />

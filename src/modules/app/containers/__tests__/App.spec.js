@@ -12,15 +12,14 @@ const mockedStore = mockStore()
 jest.mock('../../createReduxStore', () => jest.fn().mockImplementation(() => mockedStore))
 
 describe('App', () => {
-  test('should match snapshot', () => {
-    const component = shallow(<App />)
-    expect(component).toMatchSnapshot()
+  test('should render', () => {
+    shallow(<App />)
   })
 
   test('should create correct store and pass it to Provider', () => {
     const app = shallow(<App />)
 
-    expect(createReduxStore).toHaveBeenCalledWith(createHistory)
+    expect(createReduxStore).toHaveBeenCalledWith(createHistory, {}, expect.any(Object))
     expect(app.find(Provider).prop('store')).toEqual(mockedStore)
   })
 })
