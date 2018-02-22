@@ -1,5 +1,4 @@
 import { createAction, handleAction } from 'redux-actions'
-import format from 'string-template'
 
 import reduceReducers from 'reduce-reducers'
 import Payload from './Payload'
@@ -17,14 +16,13 @@ class Endpoint {
   /**
    * @type string
    */
-  url
   _stateName
   finishFetchAction
   startFetchAction
   /**
-   * @type mapStateToUrlParamsCallback
+   * @type mapRouterToUrlCallback
    */
-  mapStateToUrlParams
+  mapRouterToUrl
   /**
    * @type shouldRefetchCallback
    */
@@ -43,14 +41,14 @@ class Endpoint {
   /**
    * @callback mapDataCallback
    * @param {object} data The data which has been fetched (Possibly a plain js object)
-   * @param {object} urlParams The params which were used in the fetch url
+   * @param {object | {}} router The router which was used in the fetch url
    * @return {object} The mapped data
    */
 
   /**
-   * @callback mapStateToUrlParamsCallback
-   * @param {object} state
-   * @return {object} The url params
+   * @callback mapRouterToUrlCallback
+   * @param {object | {}} router
+   * @return {string} The url
    */
 
   /**
@@ -62,15 +60,13 @@ class Endpoint {
 
   /**
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
-   * @param {string} url The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
+   * @param {function} mapRouterToUrl The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
    * @param {function} mapResponse Transforms the response from the fetch to a result
-   * @param {mapStateToUrlParamsCallback} mapStateToUrlParams Maps the state to the url params which are needed in the Fetcher component
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    * @param responseOverride {*} An override value from the API response. Useful for testing.
    */
-  constructor (name, url, mapResponse, mapStateToUrlParams, shouldRefetch, responseOverride) {
-    this.url = url
-    this.mapStateToUrlParams = mapStateToUrlParams
+  constructor (name, mapRouterToUrl, mapResponse, shouldRefetch, responseOverride) {
+    this.mapRouterToUrl = mapRouterToUrl
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
@@ -98,12 +94,12 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  requestAction (urlParams = {}) {
+  requestAction (router = {}) {
     const responseOverride = this.responseOverride
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
      *
-     * @param urlParams The params for the url of the endpoint
+     * @param router The router for the url of the endpoint
      * @param options The options get passed to the {@link mapResponse} function when fetching
      * @return {function(*, *)} The Action for the redux store which can initiate a fetch
      */
@@ -113,11 +109,7 @@ class Endpoint {
         return new StoreResponse(false)
       }
 
-      const formattedURL = format(this.url, urlParams)
-      /*
-       todo: check if there are any paramters left in the url: formattedURL.match(/{(.*)?}/)
-       currently this does not work as unused paramaters are just removed from the url
-       */
+      const formattedURL = this.mapRouterToUrl(router)
 
       const lastUrl = endpointData.requestUrl
       const urlNotChanged = lastUrl !== null && lastUrl === formattedURL
@@ -132,7 +124,7 @@ class Endpoint {
       dispatch(this.startFetchAction())
 
       if (responseOverride) {
-        const value = this.mapResponse(responseOverride, urlParams)
+        const value = this.mapResponse(responseOverride, router)
         dispatch(this.finishFetchAction(value, null, formattedURL))
         return new StoreResponse(false, Promise.resolve(value))
       }
@@ -143,7 +135,7 @@ class Endpoint {
           .then(response => response.json())
           .then(json => {
             try {
-              const value = this.mapResponse(json, urlParams)
+              const value = this.mapResponse(json, router)
               return dispatch(this.finishFetchAction(value, null, formattedURL))
             } catch (e) {
               console.error('Failed to map the json for the endpoint: ' + this.stateName)

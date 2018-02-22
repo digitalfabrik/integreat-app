@@ -15,7 +15,7 @@ function stripSlashes (path) {
 }
 
 export default new EndpointBuilder('locations')
-  .withUrl('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
+  .withRouterToUrlMapper(() => 'https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
   .withMapper(json => {
     const locations = json
       .map((location) => new LocationModel({

@@ -1,17 +1,15 @@
 import { isEqual } from 'lodash/lang'
 
 import Endpoint from './Endpoint'
-import StateMapperBuilder from './StateMapperBuilder'
 
 /**
  * Helper class to build a {@link Endpoint}
  */
 class EndpointBuilder {
   _name
-  _url
+  _routerToUrlMapper
   _mapper
   _responseOverride
-  _stateMapperBuilder
   _refetchLogic
 
   /**
@@ -20,18 +18,17 @@ class EndpointBuilder {
    */
   constructor (name) {
     this._name = name
-    this._stateMapperBuilder = new StateMapperBuilder(this)
 
     this._refetchLogic = (urlParams, nextUrlParams) => !isEqual(urlParams, nextUrlParams)
   }
 
   /**
-   * Adds a url to the builder
-   * @param url The url
+   * Adds a router to url mapper to the builder
+   * @param routerToUrlMapper The url
    * @return {EndpointBuilder} The builder itself
    */
-  withUrl (url) {
-    this._url = url
+  withRouterToUrlMapper (routerToUrlMapper) {
+    this._routerToUrlMapper = routerToUrlMapper
     return this
   }
 
@@ -43,14 +40,6 @@ class EndpointBuilder {
   withMapper (mapper) {
     this._mapper = mapper
     return this
-  }
-
-  /**
-   * Adds a state mapper builder to this builder
-   * @return {StateMapperBuilder} The state mapper of this builder
-   */
-  withStateMapper () {
-    return this._stateMapperBuilder
   }
 
   /**
@@ -82,7 +71,7 @@ class EndpointBuilder {
       throw Error('You have to set a name to build an endpoint!')
     }
 
-    if (!this._url) {
+    if (!this._routerToUrlMapper) {
       throw Error('You have to set a url to build an endpoint!')
     }
 
@@ -94,7 +83,7 @@ class EndpointBuilder {
       throw Error('You have to set a refetch logic to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._url, this._mapper, this._stateMapperBuilder.build(), this._refetchLogic, this._responseOverride)
+    return new Endpoint(this._name, this._routerToUrlMapper, this._mapper, this._refetchLogic, this._responseOverride)
   }
 }
 
