@@ -18,9 +18,13 @@ describe('disclaimer', () => {
     parent: 0
   }
 
-  test('should map state to urls', () => {
-    expect(disclaimer.mapStateToUrlParams({router: {params: {location: 'augsburg', language: 'de'}}}))
-      .toEqual({location: 'augsburg', language: 'de'})
+  const router = {params: {location: 'augsburg', language: 'de'}}
+
+  test('should map router to url', () => {
+    expect(disclaimer.mapRouterToUrl(router)).toEqual(
+      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/disclaimer' +
+      '?since=1970-01-01T00:00:00Z'
+    )
   })
 
   test('should throw if there are multiple disclaimers', () => {

@@ -40,7 +40,7 @@ describe('LanguageSelector', () => {
 
   describe('connect', () => {
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()

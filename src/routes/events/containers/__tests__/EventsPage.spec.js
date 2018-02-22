@@ -177,13 +177,13 @@ describe('EventsPage', () => {
 
   describe('connect', () => {
     const eventsEndpoint = new EndpointBuilder('events')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(events)
       .build()
 
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()

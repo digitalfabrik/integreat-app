@@ -21,7 +21,7 @@ export class LandingPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  language: state.router.params.language ? state.router.params.language : 'de'
+  language: state.router.params && state.router.params.language ? state.router.params.language : 'de'
 })
 
 export default compose(

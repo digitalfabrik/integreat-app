@@ -47,7 +47,7 @@ class Endpoint {
 
   /**
    * @callback mapRouterToUrlCallback
-   * @param {object | {}} router
+   * @param {object | undefined} router
    * @return {string} The url
    */
 
@@ -94,7 +94,7 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  requestAction (router = {}) {
+  requestAction (router) {
     const responseOverride = this.responseOverride
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
