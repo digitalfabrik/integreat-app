@@ -59,8 +59,8 @@ describe('events', () => {
     thumbnail: json.thumbnail,
     address: json.location.address,
     town: json.location.town,
-    startDate: moment(json.event.start_date + ' ' + json.event.start_time),
-    endDate: moment(json.event.end_date + ' ' + json.event.end_time),
+    startDate: moment(`${json.event.start_date} ${json.event.start_time}`),
+    endDate: moment(`${json.event.end_date} ${json.event.end_time}`),
     allDay: json.event.all_day !== '0',
     excerpt: json.excerpt,
     availableLanguages: json.available_languages

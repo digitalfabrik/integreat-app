@@ -12,7 +12,7 @@ export default new EndpointBuilder('categories')
       .map((category) => {
         return new CategoryModel({
           id: category.id,
-          url: baseUrl + '/' + decodeURI(category.permalink.url_page),
+          url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,
           title: category.title,
           parentId: category.parent,
           content: category.content,

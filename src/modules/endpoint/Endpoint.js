@@ -146,13 +146,13 @@ class Endpoint {
               const value = this.mapResponse(json, urlParams)
               return dispatch(this.finishFetchAction(value, null, formattedURL))
             } catch (e) {
-              console.error('Failed to map the json for the endpoint: ' + this.stateName)
+              console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
               console.error(e)
               return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
             }
           })
           .catch((e) => {
-            console.error('Failed to load the request for the endpoint: ' + this.stateName)
+            console.error(`Failed to load the request for the endpoint: ${this.stateName}`)
             console.error(e)
             return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
           })

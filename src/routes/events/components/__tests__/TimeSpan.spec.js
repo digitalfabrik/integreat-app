@@ -28,7 +28,7 @@ describe('TimeSpan', () => {
         <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
       ).instance()
 
-      expect(locales.map((locale) => locale + ': ' + timeSpan.toTimeSpanString(locale))).toMatchSnapshot()
+      expect(locales.map((locale) => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date + time and end time if the dates are the same', () => {
@@ -40,7 +40,7 @@ describe('TimeSpan', () => {
         <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
       ).instance()
 
-      expect(locales.map((locale) => locale + ': ' + timeSpan.toTimeSpanString(locale))).toMatchSnapshot()
+      expect(locales.map((locale) => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date + time if start and end are the same', () => {
@@ -52,7 +52,7 @@ describe('TimeSpan', () => {
         <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
       ).instance()
 
-      expect(locales.map((locale) => locale + ': ' + timeSpan.toTimeSpanString(locale))).toMatchSnapshot()
+      expect(locales.map((locale) => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date + end date if allDay is true', () => {
@@ -64,7 +64,7 @@ describe('TimeSpan', () => {
         <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
       ).instance()
 
-      expect(locales.map((locale) => locale + ': ' + timeSpan.toTimeSpanString(locale))).toMatchSnapshot()
+      expect(locales.map((locale) => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date if allDay is true and the dates are the same', () => {
@@ -76,7 +76,7 @@ describe('TimeSpan', () => {
         <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
       ).instance()
 
-      expect(locales.map((locale) => locale + ': ' + timeSpan.toTimeSpanString(locale))).toMatchSnapshot()
+      expect(locales.map((locale) => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
     })
 
     it('should only return start date (+ time) if endDate is not valid', () => {
@@ -88,7 +88,7 @@ describe('TimeSpan', () => {
         <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
       ).instance()
 
-      expect(locales.map((locale) => locale + ': ' + timeSpan.toTimeSpanString(locale))).toMatchSnapshot()
+      expect(locales.map((locale) => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
     })
   })
 })

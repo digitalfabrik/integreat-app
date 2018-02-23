@@ -19,7 +19,7 @@ export class I18nRedirect extends React.Component {
   }
 
   componentWillMount () {
-    this.props.redirect(normalizeUrl(this.props.currentPath) + '/' + this.context.i18n.language)
+    this.props.redirect(`${normalizeUrl(this.props.currentPath)}/${this.context.i18n.language}`)
   }
 
   render () {

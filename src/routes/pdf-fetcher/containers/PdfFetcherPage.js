@@ -111,7 +111,7 @@ class PdfFetcherPage extends React.Component {
           return
         }
 
-        const regex = escapeRegExp(`https://cms.integreat-app.de/${this.props.location}/wp-content/uploads/`) + '[\\w|/|-]*\\.pdf'
+        const regex = `${escapeRegExp(`https://cms.integreat-app.de/${this.props.location}/wp-content/uploads/`)}[\\w|/|-]*\\.pdf`
         const match = text.match(new RegExp(regex))
 
         if (isEmpty(match)) {

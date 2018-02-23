@@ -29,7 +29,7 @@ const contextTypes = {
 export function withFetcher (endpointName, hideError = false, hideSpinner = false) {
   return (WrappedComponent) => {
     class Fetcher extends React.Component {
-      static displayName = endpointName + 'Fetcher'
+      static displayName = `${endpointName}Fetcher`
       static propTypes = {
         urlParams: PropTypes.objectOf(PropTypes.string),
         className: PropTypes.string,

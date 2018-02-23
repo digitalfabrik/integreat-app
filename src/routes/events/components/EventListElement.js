@@ -64,7 +64,7 @@ class EventListElement extends React.Component {
    * @returns {string} The formatted excerpt
    */
   formatExcerpt (excerptLength) {
-    return this.props.event.excerpt.slice(0, excerptLength) + '...'
+    return `${this.props.event.excerpt.slice(0, excerptLength)}...`
   }
 }
 

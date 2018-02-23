@@ -192,7 +192,8 @@
         "error",
         "always"
       ],
-      "no-extra-bind": "error"
+      "no-extra-bind": "error",
+      "prefer-template": "error"
     },
     "overrides": [
       {
