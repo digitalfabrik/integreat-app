@@ -193,7 +193,8 @@
         "always"
       ],
       "no-extra-bind": "error",
-      "prefer-template": "error"
+      "prefer-template": "error",
+      "no-loop-func": "error"
     },
     "overrides": [
       {
