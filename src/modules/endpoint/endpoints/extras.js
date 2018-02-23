@@ -2,8 +2,8 @@ import EndpointBuilder from '../EndpointBuilder'
 import ExtraModel from '../models/ExtraModel'
 
 export default new EndpointBuilder('extras')
-  .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v3/extras/')
-  .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
+  .withStateToUrlMapper((state) => `https://cms.integreat-app.de/${state.router.params.location}` +
+    `/${state.router.params.language}/wp-json/extensions/v3/extras/`)
   .withMapper((json) => json
     .filter(extra => extra.enabled)
     .map(extra => new ExtraModel({

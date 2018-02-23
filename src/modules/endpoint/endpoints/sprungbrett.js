@@ -2,8 +2,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 
 export default new EndpointBuilder('sprungbrett')
-  .withUrl('{url}')
-  .withStateMapper().fromFunction(state => ({url: state.sprungbrettUrl.url}))
+  .withStateToUrlMapper((state) => `${state.sprungbrettUrl.url}`)
   .withMapper((json) => json.results
     .map(job => new SprungbrettJobModel({
       title: job.title,
