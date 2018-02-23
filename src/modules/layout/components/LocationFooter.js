@@ -26,7 +26,7 @@ class LocationFooter extends React.Component {
       <Link href={this.props.matchRoute(DisclaimerPage).stringify(this.getCurrentParams())}>
         {this.props.t('imprintAndContact')}
       </Link>
-      <a href={'https://integreat-app.de/datenschutz/'}>Datenschutz</a>
+      <a href={'https://integreat-app.de/datenschutz/'}>{this.props.t('privacy')}</a>
     </Footer>
   }
 }

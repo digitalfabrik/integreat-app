@@ -1,9 +1,11 @@
 import React from 'react'
+import Caption from '../../../modules/common/components/Caption'
 
 class MainDisclaimerPage extends React.Component {
   render () {
     return (
       <div>
+        <Caption title={'Impressum und Datenschutz'} />
         <h3>Angaben gemäß § 5 TMG:</h3>
         <p>
           Tür an Tür – Digital Factory gGmbH<br />
