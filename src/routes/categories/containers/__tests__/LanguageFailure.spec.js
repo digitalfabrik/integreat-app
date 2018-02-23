@@ -122,24 +122,21 @@ describe('LanguageFailure', () => {
         languageChangeUrls: {}
       })
 
-      const mapLanguageToUrl = (language) => `/${language}`
-
       const languageChangeUrls = {
-        en: '/en',
-        ar: '/ar',
-        de: '/de'
+        en: '/augsburg/en',
+        ar: '/augsburg/ar',
+        de: '/augsburg/de'
       }
 
       expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
 
-      const languageFailure = mount(
+      mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
             <ConnectedLanguageFailure />
           </EndpointProvider>
         </Provider>
       ).find(LanguageFailure)
-      languageFailure.props().setLanguageChangeUrls(mapLanguageToUrl, languages)
 
       expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
