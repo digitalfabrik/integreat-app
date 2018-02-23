@@ -12,33 +12,37 @@ const mockStore = configureMockStore()
 describe('Header', () => {
   test('should match snapshot with smallViewport', () => {
     const component = shallow(
-      <Header smallViewport
-              actionItems={[new HeaderActionItem({href: '/action1'})]}
-              navigationItems={[new HeaderNavigationItem({href: '/nav1'})]} />
+      <Header
+        logoHref={'/'}
+        smallViewport
+        actionItems={[new HeaderActionItem({href: '/action1'})]}
+        navigationItems={[new HeaderNavigationItem({href: '/nav1'})]} />
     )
     expect(component).toMatchSnapshot()
   })
 
   test('should match snapshot with largeViewport', () => {
     const component = shallow(
-      <Header smallViewport={false}
-              actionItems={[new HeaderActionItem({href: '/action1'})]}
-              navigationItems={[new HeaderNavigationItem({href: '/nav1'})]} />
+      <Header
+        logoHref={'/'}
+        smallViewport={false}
+        actionItems={[new HeaderActionItem({href: '/action1'})]}
+        navigationItems={[new HeaderNavigationItem({href: '/nav1'})]} />
     )
     expect(component).toMatchSnapshot()
   })
 
   test('should connect to the store', () => {
-    const smallStore = mockStore({viewport: {is: { small: true }}})
+    const smallStore = mockStore({viewport: {is: {small: true}}, router: {pathname: '/'}})
     const smallComponent = mount(<Provider store={smallStore}>
-        <ConnectedHeader />
+      <ConnectedHeader logoHref={'/'} />
     </Provider>)
 
     expect(smallComponent.find(Header).prop('smallViewport')).toBe(true)
 
-    const largeStore = mockStore({viewport: {is: { small: false }}})
+    const largeStore = mockStore({viewport: {is: {small: false}}, router: {pathname: '/'}})
     const largeComponent = mount(<Provider store={largeStore}>
-      <ConnectedHeader />
+      <ConnectedHeader logoHref={'/'} />
     </Provider>)
     expect(largeComponent.find(Header).prop('smallViewport')).toBe(false)
   })

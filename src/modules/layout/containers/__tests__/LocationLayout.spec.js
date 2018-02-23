@@ -23,7 +23,7 @@ describe('LocationLayout', () => {
       <LocationLayout location='location1' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
-                      path='/:location/:language'>
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -34,7 +34,7 @@ describe('LocationLayout', () => {
       <LocationLayout location='unavailableLocation' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
-                      path='/:location/:language'>
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()

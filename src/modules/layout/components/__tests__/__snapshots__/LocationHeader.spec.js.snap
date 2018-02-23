@@ -113,6 +113,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       },
     ]
   }
+  logoHref="/location1/de"
   navigationItems={
     Array [
       HeaderNavigationItem {

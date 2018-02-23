@@ -3,10 +3,10 @@
 exports[`LocationLayout connect should map state to props 1`] = `
 Object {
   "children": <MockNode />,
+  "currentPath": "/:location/:language",
   "dispatch": [Function],
   "language": "en",
   "location": "augsburg",
-  "path": "/:location/:language",
 }
 `;
 
@@ -30,6 +30,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
   }
   header={
     <Translate(LocationHeader)
+      currentPath="/:location/:language"
       language="de"
       locationModel={
         LocationModel {
@@ -43,7 +44,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
         }
       }
       matchRoute={[Function]}
-      path="/:location/:language"
     />
   }
 >

@@ -11,9 +11,13 @@ exports[`Header should match snapshot with largeViewport 1`] = `
     <div
       className="logoWide"
     >
-      <img
-        src="test-file-stub"
-      />
+      <Connect(Link)
+        href="/"
+      >
+        <img
+          src="test-file-stub"
+        />
+      </Connect(Link)>
     </div>
     <HeaderActionBar
       className="actionBar"
@@ -54,9 +58,13 @@ exports[`Header should match snapshot with smallViewport 1`] = `
     <div
       className="logoWide"
     >
-      <img
-        src="test-file-stub"
-      />
+      <Connect(Link)
+        href="/"
+      >
+        <img
+          src="test-file-stub"
+        />
+      </Connect(Link)>
     </div>
     <HeaderActionBar
       className="actionBar"
