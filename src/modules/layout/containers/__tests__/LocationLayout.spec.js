@@ -41,7 +41,7 @@ describe('LocationLayout', () => {
 
   describe('connect', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
-      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(locations)
       .build()

@@ -3,7 +3,7 @@ import EndpointBuilder from '../EndpointBuilder'
 describe('EndpointBuilder', () => {
   test('should have a default refetch logic which makes sense', () => {
     const endpoint = new EndpointBuilder(name)
-      .withRouterToUrlMapper(() => 'https://someurl')
+      .withStateToUrlMapper(() => 'https://someurl')
       .withMapper((json) => json)
       .build()
 
@@ -23,13 +23,13 @@ describe('EndpointBuilder', () => {
     const override = {test: 'random'}
 
     const endpoint = new EndpointBuilder(name)
-      .withRouterToUrlMapper(() => url)
+      .withStateToUrlMapper(() => url)
       .withRefetchLogic(refetchLogic)
       .withMapper(mapper)
       .withResponseOverride(override)
       .build()
 
-    expect(endpoint.mapRouterToUrl).toEqual(expect.any(Function))
+    expect(endpoint.mapStateToUrl).toEqual(expect.any(Function))
     expect(endpoint.stateName).toBe(name)
     expect(endpoint.shouldRefetch).toBe(refetchLogic)
     expect(endpoint.mapResponse).toBe(mapper)
@@ -41,7 +41,7 @@ describe('EndpointBuilder', () => {
 
     const builder = new EndpointBuilder('endpoint')
     expect(() => builder.build()).toThrow()
-    builder.withRouterToUrlMapper(() => 'https://someurl')
+    builder.withStateToUrlMapper(() => 'https://someurl')
     expect(() => builder.build()).toThrow()
     builder.withMapper((json) => json)
     expect(() => builder.build()).not.toThrow()

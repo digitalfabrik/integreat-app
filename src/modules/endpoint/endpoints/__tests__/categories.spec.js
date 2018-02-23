@@ -78,16 +78,16 @@ describe('categories', () => {
     new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'})
   ]
 
-  const router = {params: {language: 'de', location: 'augsburg'}}
+  const state = {router: {params: {language: 'de', location: 'augsburg'}}}
 
   test('should map router to url', () => {
-    expect(categories.mapRouterToUrl(router)).toEqual(
+    expect(categories.mapStateToUrl(state)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z'
     )
   })
 
   test('should map fetched data to models', () => {
-    const response = categories.mapResponse(categoriesJSON, router)
+    const response = categories.mapResponse(categoriesJSON, state)
     const categoriesMapModel = new CategoriesMapModel(categoryModels)
     expect(response).toEqual(categoriesMapModel)
   })

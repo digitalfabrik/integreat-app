@@ -59,13 +59,13 @@ describe('DisclaimerPage', () => {
 
   describe('connect', () => {
     const disclaimerEndpoint = new EndpointBuilder('disclaimer')
-      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(disclaimer)
       .build()
 
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()

@@ -20,9 +20,9 @@ class Endpoint {
   finishFetchAction
   startFetchAction
   /**
-   * @type mapRouterToUrlCallback
+   * @type mapStateToUrlCallback
    */
-  mapRouterToUrl
+  mapStateToUrl
   /**
    * @type shouldRefetchCallback
    */
@@ -41,13 +41,13 @@ class Endpoint {
   /**
    * @callback mapDataCallback
    * @param {object} data The data which has been fetched (Possibly a plain js object)
-   * @param {object | undefined} router The router which was used in the fetch url
+   * @param {object | undefined} state The state which was used in the fetch url
    * @return {object} The mapped data
    */
 
   /**
-   * @callback mapRouterToUrlCallback
-   * @param {object | undefined} router
+   * @callback mapStateToUrlCallback
+   * @param {object | undefined} state
    * @return {string} The url
    */
 
@@ -60,13 +60,13 @@ class Endpoint {
 
   /**
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
-   * @param {function} mapRouterToUrl The url with params (params are used like this: https://cms.integreat-app.de/{location}/{language})
+   * @param {function} mapStateToUrl The mapper which maps the state to a request url
    * @param {function} mapResponse Transforms the response from the fetch to a result
    * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    * @param responseOverride {*} An override value from the API response. Useful for testing.
    */
-  constructor (name, mapRouterToUrl, mapResponse, shouldRefetch, responseOverride) {
-    this.mapRouterToUrl = mapRouterToUrl
+  constructor (name, mapStateToUrl, mapResponse, shouldRefetch, responseOverride) {
+    this.mapStateToUrl = mapStateToUrl
     this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
@@ -94,12 +94,12 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  requestAction (router) {
+  requestAction (state) {
     const responseOverride = this.responseOverride
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
      *
-     * @param router The router with (hopefully) all relevant params
+     * @param state The state with (hopefully) all relevant params
      * @param options The options get passed to the {@link mapResponse} function when fetching
      * @return {function(*, *)} The Action for the redux store which can initiate a fetch
      */
@@ -109,10 +109,10 @@ class Endpoint {
         return new StoreResponse(false)
       }
 
-      const formattedURL = this.mapRouterToUrl(router)
+      const formattedURL = this.mapStateToUrl(state)
 
       if (formattedURL.includes('undefined')) {
-        throw new Error('Some necessary params in the router were undefined:' + formattedURL)
+        throw new Error('Some necessary params in the state were undefined:' + formattedURL)
       }
 
       const lastUrl = endpointData.requestUrl
@@ -127,7 +127,7 @@ class Endpoint {
       dispatch(this.startFetchAction())
 
       if (responseOverride) {
-        const value = this.mapResponse(responseOverride, router)
+        const value = this.mapResponse(responseOverride, state)
         dispatch(this.finishFetchAction(value, null, formattedURL))
         return new StoreResponse(false, Promise.resolve(value))
       }
@@ -138,7 +138,7 @@ class Endpoint {
           .then(response => response.json())
           .then(json => {
             try {
-              const value = this.mapResponse(json, router)
+              const value = this.mapResponse(json, state)
               return dispatch(this.finishFetchAction(value, null, formattedURL))
             } catch (e) {
               console.error('Failed to map the json for the endpoint: ' + this.stateName)
