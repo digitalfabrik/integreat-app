@@ -12,7 +12,7 @@ class GeneralFooter extends React.Component {
   render () {
     return <Footer>
       <Link href={'/disclaimer'}>{this.props.t('imprintAndContact')}</Link>
-      <a href={'https://integreat-app.de/datenschutz/'}>Datenschutz</a>
+      <a href={'https://integreat-app.de/datenschutz/'}>{this.props.t('privacy')}</a>
     </Footer>
   }
 }
