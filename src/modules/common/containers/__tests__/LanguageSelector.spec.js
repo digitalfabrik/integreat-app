@@ -24,13 +24,11 @@ describe('LanguageSelector', () => {
     ar: 'test/url/ar'
   }
 
-  const mockCloseDropDownCallback = jest.fn()
-
   test('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageSelector location={location}
                         languageChangeUrls={languageChangeUrls}
-                        closeDropDownCallback={mockCloseDropDownCallback}
+                        closeDropDownCallback={() => {}}
                         language={language}
                         languages={languages} />
     )
@@ -40,7 +38,7 @@ describe('LanguageSelector', () => {
 
   test('should add vertical class name if verticalLayout is true', () => {
     const wrapper = shallow(<LanguageSelector location={location} languageChangeUrls={languageChangeUrls}
-                                              closeDropDownCallback={mockCloseDropDownCallback} language={language}
+                                              closeDropDownCallback={() => {}} language={language}
                                               languages={languages}
                                               verticalLayout />)
     expect(wrapper).toMatchSnapshot()
