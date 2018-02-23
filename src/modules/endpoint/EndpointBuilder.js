@@ -24,7 +24,7 @@ class EndpointBuilder {
 
   /**
    * Adds a router to url mapper to the builder
-   * @param routerToUrlMapper THe routerToUrlMapper which is mapping the router to a url
+   * @param routerToUrlMapper The routerToUrlMapper which is mapping the router to a url
    * @return {EndpointBuilder} The builder itself
    */
   withRouterToUrlMapper (routerToUrlMapper) {
