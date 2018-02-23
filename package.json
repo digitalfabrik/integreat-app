@@ -212,6 +212,17 @@
           "**/__mocks__/*.js"
         ],
         "rules": {
+          "no-magic-numbers": [
+            "error",
+            {
+              "ignore": [
+                -1,
+                0,
+                1
+              ],
+              "ignoreArrayIndexes": true
+            }
+          ],
           "react/jsx-no-bind": [
             "error",
             {

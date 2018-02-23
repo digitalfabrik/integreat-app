@@ -16,8 +16,7 @@ import React from 'react'
 import RouteConfig from '../RouteConfig'
 import SearchPage from 'routes/search/containers/SearchPage'
 import { Fragment } from 'redux-little-router'
-
-const LANGUAGE_CODE_LENGTH = 2
+import { LANGUAGE_CODE_LENGTH } from '../constants'
 
 /**
  * todo: Test and document in WEBAPP-90

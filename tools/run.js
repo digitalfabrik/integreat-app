@@ -35,10 +35,11 @@ module.exports = task('run', () => new Promise((resolve) => {
     // For more information visit https://browsersync.io/docs/options
     count += 1
     if (count === 1) {
+      const DEFAULT_PORT = 3000
       bs.init({
         open: false,
-        port: process.env.PORT || 3000,
-        ui: {port: Number(process.env.PORT || 3000) + 1},
+        port: process.env.PORT || DEFAULT_PORT,
+        ui: {port: Number(process.env.PORT || DEFAULT_PORT) + 1},
         server: {
           baseDir: 'www',
           middleware: [
