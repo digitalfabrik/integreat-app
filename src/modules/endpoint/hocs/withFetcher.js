@@ -21,12 +21,11 @@ const contextTypes = {
 /**
  * This creates a factory for a Higher-Order-Component. The HOC attaches a fetcher to the supplied component.
  * @param endpointName {string} The name of the endpoint to fetch from
- * @param hideError {boolean} If you want to hide errors in the render() method
+ * @param FailureComponent {*} the component which is rendered in error-case, null if no Failure should be rendered.
  * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
- * @param FailureComponent {*} the component which is rendered in error-case if hideError is false
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
-export function withFetcher (endpointName, hideError = false, hideSpinner = false, FailureComponent = Failure) {
+export function withFetcher (endpointName, FailureComponent = Failure, hideSpinner = false) {
   return (WrappedComponent) => {
     class Fetcher extends React.Component {
       static displayName = endpointName + 'Fetcher'
@@ -84,7 +83,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
       }
 
       errorVisible () {
-        return !hideError && this.props[this.endpoint.payloadName].error
+        return this.props[this.endpoint.payloadName].error
       }
 
       render () {
@@ -99,7 +98,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
         }
 
         if (this.errorVisible()) {
-          return <FailureComponent error={payload.error} />
+          return FailureComponent ? <FailureComponent error={payload.error} /> : null
         }
 
         const allProps = Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})
@@ -137,8 +136,8 @@ const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
   })
 }
 
-export default (endpointName, hideError, hideSpinner, FailureComponent) => {
-  const HOC = withFetcher(endpointName, hideError, hideSpinner, FailureComponent)
+export default (endpointName, FailureComponent, hideSpinner) => {
+  const HOC = withFetcher(endpointName, FailureComponent, hideSpinner)
   return (WrappedComponent) => {
     const AnotherWrappedComponent = HOC(WrappedComponent)
     return getContext(contextTypes)(
