@@ -26,7 +26,7 @@ describe('LanguageFailure', () => {
     new LocationModel({name: 'Werne', code: 'werne'})
   ]
 
-  const language = 'en'
+  const language = 'tu'
 
   test('should match snapshot', () => {
     const wrapper = shallow(
@@ -88,9 +88,9 @@ describe('LanguageFailure', () => {
     test('should map state to props', () => {
       const store = createReduxStore(createHistory, {
         router: {
-          params: {location: location, language: language},
-          pathname: pathname,
-          query: {id: id}
+          params: {location, language},
+          pathname,
+          query: {id}
         },
         languageChangeUrls: {}
       })
@@ -139,8 +139,8 @@ describe('LanguageFailure', () => {
           </EndpointProvider>
         </Provider>
       ).find(LanguageFailure)
-
       languageFailure.props().setLanguageChangeUrls(mapLanguageToUrl, languages)
+
       expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })

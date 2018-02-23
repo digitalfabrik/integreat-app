@@ -9,6 +9,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from '../../../modules/endpoint/models/LocationModel'
 import Caption from '../../../modules/common/components/Caption'
+import style from './LanguageFailure.css'
 
 export class LanguageFailure extends React.PureComponent {
   static propTypes = {
@@ -44,10 +45,7 @@ export class LanguageFailure extends React.PureComponent {
   render () {
     return <React.Fragment>
       <Caption title={this.getTitle()} />
-      <p style={{
-        textAlign: 'center',
-        margin: '25px 0'
-      }}>{this.props.t('common:chooseYourLanguage')}</p>
+      <p className={style.chooseLanguage}>{this.props.t('common:chooseYourLanguage')}</p>
       <LanguageSelector verticalLayout />
     </React.Fragment>
   }
