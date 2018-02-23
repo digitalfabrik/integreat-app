@@ -8,6 +8,7 @@ import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import Headroom from '../../common/components/Headroom'
 import { connect } from 'react-redux'
+import { Link } from 'redux-little-router'
 
 const HEADER_HEIGHT_LARGE = 85
 const HALF_HEADER_HEIGHT_SMALL = 55
@@ -22,7 +23,8 @@ export class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
-    smallViewport: PropTypes.bool.isRequired
+    smallViewport: PropTypes.bool.isRequired,
+    logoHref: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -36,7 +38,9 @@ export class Header extends React.Component {
       <Headroom scrollHeight={scrollHeight}>
         <header className={style.header}>
           <div className={style.logoWide}>
-            <img src={logoWide} />
+            <Link href={this.props.logoHref}>
+              <img src={logoWide} />
+            </Link>
           </div>
           <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
           <HeaderNavigationBar className={style.navigationBar} items={this.props.navigationItems} />

@@ -20,7 +20,7 @@ class LocationHeader extends React.Component {
     matchRoute: PropTypes.func.isRequired,
     locationModel: PropTypes.instanceOf(LocationModel).isRequired,
     language: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
+    currentPath: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
   }
 
@@ -42,7 +42,7 @@ class LocationHeader extends React.Component {
   }
 
   getNavigationItems () {
-    const {t, matchRoute, path} = this.props
+    const {t, matchRoute, currentPath} = this.props
     const currentParams = this.getCurrentParams()
 
     const isEventsEnabled = () => this.props.locationModel.eventsEnabled
@@ -50,8 +50,8 @@ class LocationHeader extends React.Component {
     const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
     const isExtrasSelected = () => false // todo for WEBAPP-64: test and verify this
-    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(path)
-    const isEventsSelected = () => matchRoute(EventsPage).hasPath(path)
+    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(currentPath)
+    const isEventsSelected = () => matchRoute(EventsPage).hasPath(currentPath)
 
     const extras = isExtrasEnabled() &&
       new HeaderNavigationItem({
@@ -78,7 +78,10 @@ class LocationHeader extends React.Component {
   }
 
   render () {
-    return <Header actionItems={this.getActionItems()} navigationItems={this.getNavigationItems()} />
+    const {matchRoute} = this.props
+    return <Header logoHref={matchRoute(CategoriesPage).stringify(this.getCurrentParams())}
+                   actionItems={this.getActionItems()}
+                   navigationItems={this.getNavigationItems()} />
   }
 }
 

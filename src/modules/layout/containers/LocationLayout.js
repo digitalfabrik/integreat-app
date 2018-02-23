@@ -6,7 +6,7 @@ import compose from 'lodash/fp/compose'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
-import GeneralHeader from '../components/GeneralHeader'
+import GeneralHeader from './GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from '../components/LocationHeader'
@@ -18,7 +18,7 @@ export class LocationLayout extends React.Component {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    path: PropTypes.string.isRequired,
+    currentPath: PropTypes.string.isRequired,
     children: PropTypes.node
   }
 
@@ -32,9 +32,9 @@ export class LocationLayout extends React.Component {
       return <Layout header={<GeneralHeader />} footer={<GeneralFooter />}>{this.props.children}</Layout>
     }
 
-    const {path, matchRoute} = this.props
+    const {currentPath, matchRoute} = this.props
     return <Layout header={<LocationHeader locationModel={locationModel}
-                                           path={path}
+                                           currentPath={currentPath}
                                            matchRoute={matchRoute} language={this.props.language} />}
                    footer={<LocationFooter matchRoute={matchRoute} location={this.props.location}
                                            language={this.props.language} />}>
@@ -44,7 +44,7 @@ export class LocationLayout extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  path: state.router.route,
+  currentPath: state.router.route,
   location: state.router.params.location,
   language: state.router.params.language
 })
