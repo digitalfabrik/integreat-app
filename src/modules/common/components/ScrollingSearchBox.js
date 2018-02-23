@@ -40,7 +40,7 @@ export class ScrollingSearchBox extends React.PureComponent {
     this.scroll()
   }
 
-  setReference (node) {
+  setReference = (node) => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
