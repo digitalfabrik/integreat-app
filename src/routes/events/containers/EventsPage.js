@@ -61,7 +61,9 @@ export class EventsPage extends React.Component {
     if (this.props.id && this.props.events) {
       // only a specific event
       const event = this.findEvent(this.props.events, this.props.id)
-      if (event) availableLanguages = event.availableLanguages
+      if (event) {
+        availableLanguages = event.availableLanguages
+      }
     }
     this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
   }

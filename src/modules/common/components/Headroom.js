@@ -78,8 +78,11 @@ class Headroom extends React.PureComponent {
    * @returns {string} the next mode of Headroom
    */
   determineMode (scrollTop, direction) {
-    if (this.shouldSetStatic(scrollTop)) return STATIC
-    else return direction === UPWARDS ? PINNED : UNPINNED
+    if (this.shouldSetStatic(scrollTop)) {
+      return STATIC
+    } else {
+      return direction === UPWARDS ? PINNED : UNPINNED
+    }
   }
 
   /**
@@ -88,7 +91,9 @@ class Headroom extends React.PureComponent {
   shouldTransition (mode, direction) {
     // If mode is static, then no transition, because we're already in the right spot
     // (and want to change transform and top properties seamlessly)
-    if (mode === STATIC) return false
+    if (mode === STATIC) {
+      return false
+    }
     // mode is not static, transition when moving upwards or when we've lastly did the transition
     return direction === UPWARDS || this.state.transition
   }
@@ -98,7 +103,9 @@ class Headroom extends React.PureComponent {
    */
   update = () => {
     const currentScrollTop = Headroom.getScrollTop()
-    if (currentScrollTop === this.lastKnownScrollTop) return
+    if (currentScrollTop === this.lastKnownScrollTop) {
+      return
+    }
     const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
     const mode = this.determineMode(currentScrollTop, direction)
     const transition = this.shouldTransition(mode, direction)

@@ -25,8 +25,8 @@ export default new EndpointBuilder('events')
     .filter((event) => event.startDate.isValid())
     .filter((event) => event.startDate.isAfter(moment()))
     .sort((event1, event2) => {
-      if (event1.startDate.isBefore(event2.startDate)) return -1
-      if (event1.startDate.isAfter(event2.startDate)) return 1
+      if (event1.startDate.isBefore(event2.startDate)) { return -1 }
+      if (event1.startDate.isAfter(event2.startDate)) { return 1 }
       return 0
     })
   )
