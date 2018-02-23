@@ -1,8 +1,6 @@
 import createBrowserHistory from 'history/createBrowserHistory'
 
-const createHistory = () => {
-  const history = createBrowserHistory()
-
+const createHistory = (history = createBrowserHistory()) => {
   history.listen((location, action) => {
     // Keep default behavior of restoring scroll position when user:
     // - clicked back button

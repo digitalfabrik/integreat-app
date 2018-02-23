@@ -25,7 +25,7 @@ const LANGUAGE_CODE_LENGTH = 2
  */
 class RouterFragment extends React.Component {
   static propTypes = {
-    routerConfig: PropTypes.instanceOf(RouteConfig).isRequired
+    routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }
 
   static isLanguageCode (language) {
@@ -33,12 +33,12 @@ class RouterFragment extends React.Component {
   }
 
   /**
-   * This is the matchRoute from the supplied {@link routerConfig}
+   * This is the matchRoute from the supplied {@link routeConfig}
    *
    * @param id The id to look for
    * @returns {*|Route}
    */
-  matchRoute = (id) => this.props.routerConfig.matchRoute(id)
+  matchRoute = (id) => this.props.routeConfig.matchRoute(id)
 
   render () {
     /*
@@ -86,8 +86,8 @@ class RouterFragment extends React.Component {
 
         {/* If language param is longer than 2, it is no language and is probably a location
         -> redirect the language-specific location */}
-        <Fragment forRoute='/:unknown(/)' withConditions={
-          location => !RouterFragment.isLanguageCode(location.params.unknown)
+        <Fragment forRoute='/:language(/)' withConditions={
+          location => !RouterFragment.isLanguageCode(location.params.language)
         }>
           <I18nRedirect />
         </Fragment>
