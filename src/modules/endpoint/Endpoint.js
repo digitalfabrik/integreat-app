@@ -111,7 +111,7 @@ class Endpoint {
 
       const formattedURL = this.mapStateToUrl(state)
 
-      if (formattedURL.includes('undefined')) {
+      if (formattedURL.includes(undefined)) {
         throw new Error('Some necessary params in the state were undefined:' + formattedURL)
       }
 
