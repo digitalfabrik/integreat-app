@@ -47,7 +47,7 @@ describe('events', () => {
     }
   }
 
-  test('should map state to urls', () => {
+  it('should map state to urls', () => {
     expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg'}}}))
       .toEqual({location: 'augsburg'})
   })
@@ -75,7 +75,7 @@ describe('events', () => {
   ]
 
   describe('should map fetched data to models', () => {
-    test('if one event has already passed', () => {
+    it('if one event has already passed', () => {
       const clock = lolex.install({now: Date.parse('2016-01-31')})
       const eventsModels = events.mapResponse(json)
 
@@ -85,7 +85,7 @@ describe('events', () => {
 
       clock.uninstall()
     })
-    test('if no event has passed', () => {
+    it('if no event has passed', () => {
       const clock = lolex.install({now: Date.parse('2015-11-29')})
       const eventsModels = events.mapResponse(json)
 

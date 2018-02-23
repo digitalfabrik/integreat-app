@@ -18,7 +18,7 @@ describe('LocationLayout', () => {
 
   const MockNode = () => <div />
 
-  test('should show LocationHeader and LocationFooter if LocationModel is available', () => {
+  it('should show LocationHeader and LocationFooter if LocationModel is available', () => {
     const component = shallow(
       <LocationLayout location='location1' language={language}
                       matchRoute={matchRoute}
@@ -29,7 +29,7 @@ describe('LocationLayout', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
+  it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
       <LocationLayout location='unavailableLocation' language={language}
                       matchRoute={matchRoute}
@@ -54,7 +54,7 @@ describe('LocationLayout', () => {
       router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'}
     })
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       const tree = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>

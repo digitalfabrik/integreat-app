@@ -3,14 +3,14 @@ import { mount, shallow } from 'enzyme'
 import ConnectedSearchInput, { SearchInput } from '../SearchInput'
 
 describe('SearchInput', () => {
-  test('should render', () => {
+  it('should render', () => {
     const mockTranslate = jest.fn((text) => text)
     expect(shallow(<SearchInput filterText={'Test'}
                                 onFilterTextChange={() => {}}
                                 t={mockTranslate} />)).toMatchSnapshot()
   })
 
-  test('should render and space search', () => {
+  it('should render and space search', () => {
     const mockTranslate = jest.fn((text) => text)
     expect(shallow(<SearchInput filterText={'Test'}
                                 onFilterTextChange={() => {}}
@@ -19,13 +19,13 @@ describe('SearchInput', () => {
   })
 
   describe('connect', () => {
-    test('should render', () => {
+    it('should render', () => {
       expect(shallow(<ConnectedSearchInput filterText={'Test'}
                                            onFilterTextChange={() => {}} />)).toMatchSnapshot()
     })
   })
 
-  test('should pass onFilterTextChange and onClickInput', () => {
+  it('should pass onFilterTextChange and onClickInput', () => {
     const outerFilterTextChange = jest.fn()
     const onClickInput = jest.fn()
     const component = mount(<ConnectedSearchInput filterText={'Test'}

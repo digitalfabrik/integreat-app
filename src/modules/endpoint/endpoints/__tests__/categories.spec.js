@@ -82,11 +82,11 @@ describe('categories', () => {
 
   const router = {router: {params: {language: 'de', location: 'augsburg'}}}
 
-  test('should map state to urls', () => {
+  it('should map state to urls', () => {
     expect(categories.mapStateToUrlParams(router)).toEqual(urlParams)
   })
 
-  test('should map fetched data to models', () => {
+  it('should map fetched data to models', () => {
     const response = categories.mapResponse(categoriesJSON, urlParams)
     const categoriesMapModel = new CategoriesMapModel(categoryModels)
     expect(response).toEqual(categoriesMapModel)

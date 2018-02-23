@@ -24,7 +24,7 @@ describe('LanguageSelector', () => {
     ar: 'test/url/ar'
   }
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const mockCloseDropDownCallback = jest.fn()
 
     const wrapper = shallow(
@@ -45,7 +45,7 @@ describe('LanguageSelector', () => {
       .withResponseOverride(languages)
       .build()
 
-    test('should have correct props', () => {
+    it('should have correct props', () => {
       const mockCloseDropDownCallback = jest.fn()
 
       const store = createReduxStore(createHistory, {

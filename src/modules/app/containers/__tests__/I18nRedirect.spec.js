@@ -6,7 +6,7 @@ import ConnectedI18nRedirect, { I18nRedirect } from '../I18nRedirect'
 import PropTypes from 'prop-types'
 
 describe('I18nRedirect', () => {
-  test('should call redirect when mounting', () => {
+  it('should call redirect when mounting', () => {
     const redirect = jest.fn()
     mount(
       <I18nRedirect
@@ -17,7 +17,7 @@ describe('I18nRedirect', () => {
     expect(redirect).toHaveBeenCalledWith('/augsburg/de')
   })
 
-  test('should create correct store and pass it to Provider', () => {
+  it('should create correct store and pass it to Provider', () => {
     const mockStore = configureMockStore()
 
     const store = mockStore({

@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 const mockStore = configureMockStore()
 
 describe('Header', () => {
-  test('should match snapshot with smallViewport', () => {
+  it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header smallViewport
               actionItems={[new HeaderActionItem({href: '/action1'})]}
@@ -19,7 +19,7 @@ describe('Header', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should match snapshot with largeViewport', () => {
+  it('should match snapshot with largeViewport', () => {
     const component = shallow(
       <Header smallViewport={false}
               actionItems={[new HeaderActionItem({href: '/action1'})]}
@@ -28,7 +28,7 @@ describe('Header', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should connect to the store', () => {
+  it('should connect to the store', () => {
     const smallStore = mockStore({viewport: {is: { small: true }}})
     const smallComponent = mount(<Provider store={smallStore}>
         <ConnectedHeader />

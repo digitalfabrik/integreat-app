@@ -48,7 +48,7 @@ describe('EventsPage', () => {
   const language = 'en'
   const id = '1235'
 
-  test('should match snapshot and render EventList', () => {
+  it('should match snapshot and render EventList', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -59,7 +59,7 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should match snapshot and render EventDetail', () => {
+  it('should match snapshot and render EventDetail', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   location={location}
@@ -71,7 +71,7 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should match snapshot and render Spinner', () => {
+  it('should match snapshot and render Spinner', () => {
     const wrapper = shallow(
       <EventsPage events={[]}
                   location={location}
@@ -83,7 +83,7 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once on mount with availableLanguages', () => {
+  it('should dispatch once on mount with availableLanguages', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const eventsPage = shallow(
@@ -101,7 +101,7 @@ describe('EventsPage', () => {
     )
   })
 
-  test('should dispatch once on mount without availableLanguages', () => {
+  it('should dispatch once on mount without availableLanguages', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const eventsPage = shallow(
@@ -116,7 +116,7 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(eventsPage.mapLanguageToUrl, languages, {})
   })
 
-  test('should dispatch on prop update with availableLanguages', () => {
+  it('should dispatch on prop update with availableLanguages', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
@@ -144,7 +144,7 @@ describe('EventsPage', () => {
     )
   })
 
-  test('should not dispatch on irrelevant prop update', () => {
+  it('should not dispatch on irrelevant prop update', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const wrapper = shallow(
@@ -167,7 +167,7 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
-  test('should mapLanguageToUrl correctly', () => {
+  it('should mapLanguageToUrl correctly', () => {
     const mapLanguageToUrl = shallow(
       <EventsPage events={events}
                   location={location}
@@ -194,7 +194,7 @@ describe('EventsPage', () => {
       .withResponseOverride(languages)
       .build()
 
-    test('should map state and fetched data to props', () => {
+    it('should map state and fetched data to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
       })
@@ -217,7 +217,7 @@ describe('EventsPage', () => {
       })
     })
 
-    test('should map dispatch to props', () => {
+    it('should map dispatch to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
       })

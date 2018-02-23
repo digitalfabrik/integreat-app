@@ -1,7 +1,7 @@
 import EndpointBuilder from '../EndpointBuilder'
 
 describe('EndpointBuilder', () => {
-  test('should have a default refetch logic which makes sense', () => {
+  it('should have a default refetch logic which makes sense', () => {
     const endpoint = new EndpointBuilder(name)
       .withUrl('https://someurl')
       .withMapper((json) => json)
@@ -15,7 +15,7 @@ describe('EndpointBuilder', () => {
     expect(endpoint.shouldRefetch({a: {b: 'c'}}, {a: {b: null}})).toBeTruthy()
   })
 
-  test('should produce the correct endpoint', () => {
+  it('should produce the correct endpoint', () => {
     const url = 'https://someurl'
     const name = 'endpoint'
     const refetchLogic = () => false
@@ -37,7 +37,7 @@ describe('EndpointBuilder', () => {
     expect(endpoint.responseOverride).toBe(override)
   })
 
-  test('should throw errors if used incorrectly', () => {
+  it('should throw errors if used incorrectly', () => {
     expect(() => new EndpointBuilder(undefined).build()).toThrow()
 
     const builder = new EndpointBuilder('endpoint')

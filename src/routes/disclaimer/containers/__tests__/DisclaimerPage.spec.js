@@ -24,7 +24,7 @@ describe('DisclaimerPage', () => {
     id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
   })
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
@@ -33,7 +33,7 @@ describe('DisclaimerPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once on mount', () => {
+  it('should dispatch once on mount', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const disclaimerPage = shallow(
@@ -47,7 +47,7 @@ describe('DisclaimerPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(disclaimerPage.mapLanguageToUrl, languages)
   })
 
-  test('should mapLanguageToUrl correctly', () => {
+  it('should mapLanguageToUrl correctly', () => {
     const disclaimerPage = shallow(
       <DisclaimerPage languages={languages}
                       location={location}
@@ -74,7 +74,7 @@ describe('DisclaimerPage', () => {
       router: {params: {location: location}}
     })
 
-    test('should map state and fetched data to props', () => {
+    it('should map state and fetched data to props', () => {
       const disclaimerPage = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
@@ -91,7 +91,7 @@ describe('DisclaimerPage', () => {
       })
     })
 
-    test('should map dispatch to props', () => {
+    it('should map dispatch to props', () => {
       const mapLanguageToUrl = (language) => `/${language}`
 
       const languageChangeUrls = {

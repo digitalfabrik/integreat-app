@@ -36,11 +36,11 @@ describe('EventList', () => {
 
   const language = 'en'
 
-  test('should render a list of events', () => {
+  it('should render a list of events', () => {
     expect(shallow(<EventList events={events} language={language} url={url} />).dive()).toMatchSnapshot()
   })
 
-  test('should render no events', () => {
+  it('should render no events', () => {
     expect(shallow(<EventList events={[]} language={language} url={url} />).dive()).toMatchSnapshot()
   })
 })

@@ -24,7 +24,7 @@ describe('Endpoint', () => {
     })
   }
 
-  test('should have correct names', () => {
+  it('should have correct names', () => {
     const endpoint = createEndpoint({name: 'endpoint'})
 
     expect(endpoint.stateName).toBe('endpoint')
@@ -43,19 +43,19 @@ describe('Endpoint', () => {
       clock.uninstall()
     })
 
-    test('should return the initial state', () => {
+    it('should return the initial state', () => {
       const reducer = createEndpoint({}).createReducer()
       expect(reducer(undefined, {})).toEqual(new Payload(false))
     })
 
-    test('should handle startFetchAction', () => {
+    it('should handle startFetchAction', () => {
       const endpoint = createEndpoint({})
       const reducer = endpoint.createReducer()
       expect(reducer({}, endpoint.startFetchAction()))
         .toEqual(new Payload(true))
     })
 
-    test('should handle finishFetchAction if data was received', () => {
+    it('should handle finishFetchAction if data was received', () => {
       const endpoint = createEndpoint({})
       const reducer = endpoint.createReducer()
       const json = {data: 'test'}
@@ -64,7 +64,7 @@ describe('Endpoint', () => {
         .toEqual(new Payload(false, json, null, url, mockedTime))
     })
 
-    test('should handle finishFetchAction if error occurred', () => {
+    it('should handle finishFetchAction if error occurred', () => {
       const endpoint = createEndpoint({})
       const reducer = endpoint.createReducer()
       const error = 'error'
@@ -87,7 +87,7 @@ describe('Endpoint', () => {
       clock.uninstall()
     })
 
-    test('should fetch correctly', () => {
+    it('should fetch correctly', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
         jsonMapper: (json) => json,
@@ -116,7 +116,7 @@ describe('Endpoint', () => {
       return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
     })
 
-    test('should fail if json is malformatted', () => {
+    it('should fail if json is malformatted', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
         jsonMapper: (json) => json,
@@ -145,7 +145,7 @@ describe('Endpoint', () => {
       return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
     })
 
-    test('should fail if json transform is malformatted', () => {
+    it('should fail if json transform is malformatted', () => {
       const errorMessage = 'Let the world burn!'
       const endpoint = createEndpoint({
         name: 'endpoint',
@@ -174,7 +174,7 @@ describe('Endpoint', () => {
       return expectActions(endpoint.requestAction(urlParams), store, expectedActions)
     })
 
-    test('should not refetch if there is a recent one', () => {
+    it('should not refetch if there is a recent one', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
         jsonMapper: (json) => json,
@@ -194,7 +194,7 @@ describe('Endpoint', () => {
         .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(true))
     })
 
-    test('should not fetch while fetching', () => {
+    it('should not fetch while fetching', () => {
       const endpoint = createEndpoint({})
       const store = mockStore({
         [endpoint.stateName]: new Payload(true)
@@ -204,7 +204,7 @@ describe('Endpoint', () => {
         .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(false))
     })
 
-    test('should use override correctly', () => {
+    it('should use override correctly', () => {
       const json = {test: 'random'}
 
       const endpoint = createEndpoint({

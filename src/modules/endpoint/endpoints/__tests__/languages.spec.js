@@ -15,12 +15,12 @@ describe('languages', () => {
     }
   ]
 
-  test('should map state to urls', () => {
+  it('should map state to urls', () => {
     expect(languages.mapStateToUrlParams({router: {params: {location: 'augsburg'}}}))
       .toEqual({location: 'augsburg', language: 'de'})
   })
 
-  test('should map fetched data to models', () => {
+  it('should map fetched data to models', () => {
     const languageModels = languages.mapResponse(languagesJson)
     expect(languageModels).toEqual([
       new LanguageModel('de', 'Deutsch'),

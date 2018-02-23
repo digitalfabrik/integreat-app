@@ -18,11 +18,11 @@ describe('locations', () => {
   }
   const locationJson = [location1, location2]
 
-  test('should map state to urls', () => {
+  it('should map state to urls', () => {
     expect(locations.mapStateToUrlParams({})).toEqual({})
   })
 
-  test('should map fetched data to models', () => {
+  it('should map fetched data to models', () => {
     const locationModels = locations.mapResponse(locationJson)
     expect(locationModels).toEqual([
       new LocationModel({

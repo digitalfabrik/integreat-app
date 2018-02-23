@@ -1,7 +1,7 @@
 import DisclaimerModel from '../DisclaimerModel'
 
 describe('DisclaimerModel', () => {
-  test('should return correct attributes', () => {
+  it('should return correct attributes', () => {
     const props = {
       id: 1689,
       title: 'Feedback, Kontakt und mögliches Engagement',

@@ -1,7 +1,7 @@
 import reducers from '../reducers'
 
 describe('reducers', () => {
-  test('should have all reducers we currently need', () => {
+  it('should have all reducers we currently need', () => {
     // This helped to find possible typos in file names or endpoint names
     expect(reducers).toEqual({
       disclaimer: expect.any(Function),

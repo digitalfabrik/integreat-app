@@ -33,14 +33,14 @@ describe('LocationHeader', () => {
   })
 
   describe('NavigationItems', () => {
-    test('should be empty, if extras and news are both disabled', () => {
+    it('should be empty, if extras and news are both disabled', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(false, false)}
                                                 path='' />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    test('should show categories, if extras or news are enabled', () => {
+    it('should show categories, if extras or news are enabled', () => {
       const extrasComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                  locationModel={createLocation(true, false)}
                                                  path='' />)
@@ -52,21 +52,21 @@ describe('LocationHeader', () => {
       expect(eventsComp.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    test('should show extras, categories, events in this order', () => {
+    it('should show extras, categories, events in this order', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
                                                 path='' />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    test('should highlight categories if route corresponds', () => {
+    it('should highlight categories if route corresponds', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
                                                 path='/:location/:language(/*)' />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    test('should highlight events if route corresponds', () => {
+    it('should highlight events if route corresponds', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
                                                 path='/:location/:language/events(/:id)' />)
@@ -77,7 +77,7 @@ describe('LocationHeader', () => {
     // todo for WEBAPP-64: should highlight extras if route corresponds
   })
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                               locationModel={createLocation(true, true)} path='' />)
     expect(component.dive()).toMatchSnapshot()

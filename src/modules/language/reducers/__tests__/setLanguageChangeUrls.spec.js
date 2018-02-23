@@ -7,7 +7,7 @@ describe('setLanguageChangeUrls', () => {
   const languages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
   const languageChangeAction = setLanguageChangeUrlsAction(mapper, languages, {de: 1, en: 2})
 
-  test('should return the initial state', () => {
+  it('should return the initial state', () => {
     expect(setLanguageChangeUrls(undefined, languageChangeAction)).toEqual({
       de: '/de/1',
       en: '/en/2'

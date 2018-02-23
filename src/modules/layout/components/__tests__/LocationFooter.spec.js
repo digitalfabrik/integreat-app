@@ -4,7 +4,7 @@ import LocationFooter from '../LocationFooter'
 import Route from '../../../app/Route'
 
 describe('LocationFooter', () => {
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const matchRoute = (id) => new Route({id, path: '/:location/:language/disclaimer'})
 
     const component = shallow(<LocationFooter location={'augsburg'} language={'de'}

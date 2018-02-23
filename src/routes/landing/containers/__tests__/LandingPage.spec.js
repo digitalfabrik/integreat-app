@@ -20,7 +20,7 @@ describe('LandingPage', () => {
     })
   ]
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     expect(shallow(<LandingPage locations={locations} language={'de'} />)).toMatchSnapshot()
   })
 
@@ -31,7 +31,7 @@ describe('LandingPage', () => {
       .withResponseOverride(locations)
       .build()
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       const language = 'en'
 
       const store = createReduxStore(createHistory, {
@@ -56,7 +56,7 @@ describe('LandingPage', () => {
       })
     })
 
-    test('should fallback to "de" if state is empty', () => {
+    it('should fallback to "de" if state is empty', () => {
       const store = createReduxStore(createHistory, {
         locations: new Payload(false),
         router: {params: {}} /* todo: this test should also succeed if there is no router. Currently it does
