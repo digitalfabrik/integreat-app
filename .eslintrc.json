@@ -13,8 +13,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
     "jest/no-disabled-tests": "error",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
@@ -24,24 +22,14 @@
     "jest/valid-describe": "error",
     "jest/no-test-prefixes": "error",
     "jest/consistent-test-it": "error",
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1,
-        "ignoredNodes": [
-          "JSXElement *"
-        ]
-      }
-    ],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "react/jsx-indent": "off",
     "react/jsx-indent-props": "off",
     "react/prop-types": "error",
-    "jsx-quotes": "error",
     "react/jsx-tag-spacing": "error",
     "react/no-unused-prop-types": "error",
     "react/no-access-state-in-setstate": "error",
-    "prefer-const": "error",
     "react/prefer-es6-class": [
       "error",
       "always"
@@ -74,6 +62,18 @@
     "curly": [
       "error",
       "all"
+    ],
+    "prefer-const": "error",
+    "jsx-quotes": "error",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1,
+        "ignoredNodes": [
+          "JSXElement *"
+        ]
+      }
     ]
   },
   "overrides": [
