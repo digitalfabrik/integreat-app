@@ -1,21 +1,21 @@
-import { Fragment } from 'redux-little-router'
-import React from 'react'
-
-import Layout from 'modules/layout/components/Layout'
-import GeneralHeader from '../../layout/components/GeneralHeader'
-import GeneralFooter from '../../layout/components/GeneralFooter'
-import LocationLayout from '../../layout/containers/LocationLayout'
-
-import SearchPage from 'routes/search/containers/SearchPage'
-import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
-import EventsPage from 'routes/events/containers/EventsPage'
-import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
-import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
-import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
+import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
+
+import EventsPage from 'routes/events/containers/EventsPage'
+import GeneralFooter from '../../layout/components/GeneralFooter'
+import GeneralHeader from '../../layout/components/GeneralHeader'
 import I18nRedirect from 'modules/app/containers/I18nRedirect'
+
+import LandingPage from 'routes/landing/containers/LandingPage'
+import Layout from 'modules/layout/components/Layout'
+import LocationLayout from '../../layout/containers/LocationLayout'
+import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
+import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import PropTypes from 'prop-types'
+import React from 'react'
 import RouteConfig from '../RouteConfig'
+import SearchPage from 'routes/search/containers/SearchPage'
+import { Fragment } from 'redux-little-router'
 
 const LANGUAGE_CODE_LENGTH = 2
 
@@ -32,6 +32,8 @@ class RouterFragment extends React.Component {
     return language && language.length === LANGUAGE_CODE_LENGTH
   }
 
+  redirectCondition = location => !RouterFragment.isLanguageCode(location.params.language)
+
   /**
    * This is the matchRoute from the supplied {@link routeConfig}
    *
@@ -45,6 +47,7 @@ class RouterFragment extends React.Component {
      * For routes inside a <React.Fragment /> the priority decreases with each element
      * So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
      */
+
     return <Fragment forRoute='/'>
       {/* Routes */}
       <React.Fragment>
@@ -86,9 +89,7 @@ class RouterFragment extends React.Component {
 
         {/* If language param is longer than 2, it is no language and is probably a location
         -> redirect the language-specific location */}
-        <Fragment forRoute='/:language(/)' withConditions={
-          location => !RouterFragment.isLanguageCode(location.params.language)
-        }>
+        <Fragment forRoute='/:language(/)' withConditions={this.redirectCondition}>
           <I18nRedirect />
         </Fragment>
 

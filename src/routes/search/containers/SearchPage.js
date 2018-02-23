@@ -46,13 +46,15 @@ export class SearchPage extends React.Component {
       .map(model => ({model, children: []}))
   }
 
+  onFilterTextChange = filterText => this.setState({filterText: filterText})
+
   render () {
     const categories = this.findCategories()
 
     return (
       <div>
         <SearchInput filterText={this.state.filterText}
-                     onFilterTextChange={(filterText) => this.setState({filterText: filterText})}
+                     onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
         <CategoryList categories={categories} />
       </div>
