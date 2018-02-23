@@ -12,17 +12,15 @@ import connectedWithFetcher, { withFetcher } from '../withFetcher'
 import EndpointProvider from '../../EndpointProvider'
 
 describe('withFetcher', () => {
-  const urlParams = {var1: 'a', var2: 'b'}
   const responseOverride = {data: 'random'}
   const endpoint = new EndpointBuilder('endpoint')
-    .withUrl('https://someendpoint/{var1}/{var2}/api.json')
+    .withStateToUrlMapper((state) => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
     .withMapper((json) => json)
-    .withStateMapper().fromFunction(() => (urlParams))
     .withResponseOverride(responseOverride)
     .build()
 
   // eslint-disable-next-line react/prop-types
-  const createComponent = ({endpoint, hideError = false, hideSpinner = false, urlParams = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
+  const createComponent = ({endpoint, hideError = false, hideSpinner = false, state = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
     const HOC = withFetcher(endpoint.stateName, hideError, hideSpinner)
 
     class WrappedComponent extends React.Component {
@@ -36,7 +34,7 @@ describe('withFetcher', () => {
     const Hoced = HOC(WrappedComponent)
 
     return <Hoced getEndpoint={() => endpoint}
-                  urlParams={urlParams}
+                  state={state}
                   requestAction={requestAction}
                   classname={classname}
                   {...otherProps} />
@@ -87,7 +85,7 @@ describe('withFetcher', () => {
 
   test('should fetch when endpoint tells us', () => {
     const endpoint = new EndpointBuilder('endpoint')
-      .withUrl('https://someendpoint/{var1}/{var2}/api.json')
+      .withStateToUrlMapper((state) => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
       .withMapper((json) => json)
       .withResponseOverride({})
       .withRefetchLogic(() => true) // Refetch always
@@ -125,22 +123,20 @@ describe('withFetcher', () => {
   })
 
   test('should dispatch the correct actions whens fetch occurs', () => {
-    const urlParams = {param1: 'a'}
-    const otherUrlParams = {param2: 'b'}
+    const state = {param1: 'a'}
+    const otherState = {param2: 'b'}
     const mockRequestAction = jest.fn().mockReturnValue(new StoreResponse(true))
 
-    const hoc = shallow(createComponent({endpoint, urlParams, requestAction: mockRequestAction}))
+    const hoc = shallow(createComponent({endpoint, state, requestAction: mockRequestAction}))
     const instance = hoc.instance()
 
     expect(hoc.state()).toEqual({isDataAvailable: true})
 
-    expect(mockRequestAction).toBeCalledWith(urlParams)
+    expect(mockRequestAction).toBeCalledWith(state)
 
-    instance.fetch(otherUrlParams)
+    instance.fetch(otherState)
 
-    expect(mockRequestAction).toBeCalledWith(otherUrlParams)
-
-    expect(() => instance.fetch(undefined)).toThrow()
+    expect(mockRequestAction).toBeCalledWith(otherState)
   })
 
   const mockStore = configureMockStore([thunk])
@@ -169,7 +165,7 @@ describe('withFetcher', () => {
 
     test('should map dispatch to props', () => {
       const payload = new Payload(false)
-      const store = mockStore({[endpoint.stateName]: payload})
+      const store = mockStore({[endpoint.stateName]: payload, var1: 'a', var2: 'b'})
       const HOC = connectedWithFetcher(endpoint.stateName)
       const WrappedComponent = () => <span>WrappedComponent</span>
       const Hoced = HOC(WrappedComponent)
@@ -202,7 +198,7 @@ describe('withFetcher', () => {
       component instead of a spinner */
       const requestUrl = 'https://someendpoint/a/b/api.json'
       const payload = new Payload(false, {}, null, requestUrl)
-      const store = mockStore({[endpoint.stateName]: payload})
+      const store = mockStore({[endpoint.stateName]: payload, var1: 'a', var2: 'b'})
       const HOC = connectedWithFetcher(endpoint.stateName)
       const WrappedComponent = () => <span>WrappedComponent</span>
       const Hoced = HOC(WrappedComponent)

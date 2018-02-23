@@ -18,8 +18,8 @@ describe('locations', () => {
   }
   const locationJson = [location1, location2]
 
-  test('should map state to urls', () => {
-    expect(locations.mapStateToUrlParams({})).toEqual({})
+  test('should map router to url', () => {
+    expect(locations.mapStateToUrl()).toEqual('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
   })
 
   test('should map fetched data to models', () => {
@@ -30,14 +30,14 @@ describe('locations', () => {
         code: 'augsburg',
         live: location1.live,
         eventsEnabled: true,
-        extrasEnabled: true // todo: Adjust this in WEBAPP-64
+        extrasEnabled: true
       }),
       new LocationModel({
         name: location2.name,
         code: 'regensburg',
         live: location2.live,
         eventsEnabled: false,
-        extrasEnabled: true // todo: Adjust this in WEBAPP-64
+        extrasEnabled: true
       })
     ])
   })
