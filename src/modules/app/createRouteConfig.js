@@ -46,9 +46,6 @@ const createRouteConfig = () => [
     path: '/disclaimer'
   }),
   new Route({
-    path: '/:unknown(/)'
-  }),
-  new Route({
     id: LandingPage,
     path: '/:language(/)'
   })

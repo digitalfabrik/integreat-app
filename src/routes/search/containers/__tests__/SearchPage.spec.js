@@ -128,13 +128,13 @@ describe('SearchPage', () => {
 
   describe('connect()', () => {
     const categoriesEndpoint = new EndpointBuilder('categories')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(categories)
       .build()
 
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()

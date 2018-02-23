@@ -136,6 +136,12 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
       wrapper.instance().mapLanguageToUrl, languages, events[1].availableLanguages
     )
+
+    wrapper.setProps({id: undefined, ...wrapper.props})
+    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(3)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(
+      wrapper.instance().mapLanguageToUrl, languages
+    )
   })
 
   test('should not dispatch on irrelevant prop update', () => {
@@ -177,13 +183,13 @@ describe('EventsPage', () => {
 
   describe('connect', () => {
     const eventsEndpoint = new EndpointBuilder('events')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(events)
       .build()
 
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withUrl('https://weird-endpoint/api.json')
+      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()

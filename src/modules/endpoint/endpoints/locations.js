@@ -15,7 +15,7 @@ function stripSlashes (path) {
 }
 
 export default new EndpointBuilder('locations')
-  .withUrl('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
+  .withRouterToUrlMapper(() => 'https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
   .withMapper(json => {
     const locations = json
       .map((location) => new LocationModel({
@@ -23,7 +23,7 @@ export default new EndpointBuilder('locations')
         code: stripSlashes(location.path),
         live: location.live,
         eventsEnabled: location['ige-evts'] === '1',
-        extrasEnabled: true // todo: Adjust this in WEBAPP-64
+        extrasEnabled: true
       }))
     return sortBy(locations, location => location.sortKey)
   })
