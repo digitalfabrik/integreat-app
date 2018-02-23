@@ -19,7 +19,7 @@ class FilterableLocationSelector extends React.Component {
     this.state = {filterText: ''}
   }
 
-  onFilterTextChange = filterText => this.setState({filterText})
+  onFilterTextChange = (filterText) => this.setState({filterText})
 
   render () {
     return (

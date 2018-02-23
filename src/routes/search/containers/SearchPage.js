@@ -42,11 +42,11 @@ export class SearchPage extends React.Component {
 
   findCategories () {
     return this.props.categories.toArray()
-      .filter(category => this.acceptCategory(category))
-      .map(model => ({model, children: []}))
+      .filter((category) => this.acceptCategory(category))
+      .map((model) => ({model, children: []}))
   }
 
-  onFilterTextChange = filterText => this.setState({filterText: filterText})
+  onFilterTextChange = (filterText) => this.setState({filterText: filterText})
 
   render () {
     const categories = this.findCategories()

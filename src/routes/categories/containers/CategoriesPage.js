@@ -111,7 +111,7 @@ export class CategoriesPage extends React.Component {
                             locations={locations} />
     }
     // some level between, we want to display a list
-    return <CategoryList categories={children.map(model => ({model, children: categories.getChildren(model)}))}
+    return <CategoryList categories={children.map((model) => ({model, children: categories.getChildren(model)}))}
                          title={category.title}
                          content={category.content} />
   }

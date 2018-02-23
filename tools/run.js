@@ -25,7 +25,7 @@ module.exports = task('run', () => new Promise((resolve) => {
 
   compiler.plugin('done', (stats) => {
     // Generate index.html page
-    const bundle = stats.compilation.chunks.find(x => x.name === 'main').files[0]
+    const bundle = stats.compilation.chunks.find((x) => x.name === 'main').files[0]
     const template = fs.readFileSync('./www/index.ejs', 'utf8')
     const render = ejs.compile(template, {filename: './www/index.ejs'})
     const output = render({debug: true, bundle: `/dist/${bundle}`, config})

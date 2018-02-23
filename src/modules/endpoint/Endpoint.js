@@ -140,8 +140,8 @@ class Endpoint {
       // Fetchers cannot display payload yet, since it's currently fetching
       return new StoreResponse(false,
         fetch(formattedURL)
-          .then(response => response.json())
-          .then(json => {
+          .then((response) => response.json())
+          .then((json) => {
             try {
               const value = this.mapResponse(json, urlParams)
               return dispatch(this.finishFetchAction(value, null, formattedURL))
@@ -151,7 +151,7 @@ class Endpoint {
               return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
             }
           })
-          .catch(e => {
+          .catch((e) => {
             console.error('Failed to load the request for the endpoint: ' + this.stateName)
             console.error(e)
             return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))

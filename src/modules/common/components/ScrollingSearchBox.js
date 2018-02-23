@@ -49,7 +49,7 @@ export class ScrollingSearchBox extends React.PureComponent {
     }
   }
 
-  onSearchInputTextChange = value => this.onFilterTextChange(value)
+  onSearchInputTextChange = (value) => this.onFilterTextChange(value)
 
   onSearchInputClick = () => this.onClick()
 

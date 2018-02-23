@@ -10,7 +10,7 @@ class CategoriesMapModel {
    * @param categories CategoryModels as array
    */
   constructor (categories = []) {
-    this._categories = new Map(categories.map(category => ([category.url, category])))
+    this._categories = new Map(categories.map((category) => ([category.url, category])))
   }
 
   /**
@@ -35,7 +35,7 @@ class CategoriesMapModel {
    * @return {CategoryModel | undefined} The category
    */
   getCategoryById (id) {
-    return this.toArray().find(category => category.id === Number(id))
+    return this.toArray().find((category) => category.id === Number(id))
   }
 
   /**
@@ -45,7 +45,7 @@ class CategoriesMapModel {
    */
   getChildren (category) {
     return this.toArray()
-      .filter(_category => _category.parentUrl === category.url)
+      .filter((_category) => _category.parentUrl === category.url)
       .sort((category1, category2) => (category1.order - category2.order))
   }
 

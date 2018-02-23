@@ -15,7 +15,7 @@ function run (task, action, ...args) {
   process.stdout.write(`Starting '${taskName}'...\n`)
   return Promise.resolve().then(() => action(...args)).then(() => {
     process.stdout.write(`Finished '${taskName}' after ${new Date().getTime() - start.getTime()}ms\n`)
-  }, err => process.stderr.write(`${err.stack}\n`))
+  }, (err) => process.stderr.write(`${err.stack}\n`))
 }
 
 process.nextTick(() => require.main.exports())

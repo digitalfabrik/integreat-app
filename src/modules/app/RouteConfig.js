@@ -29,7 +29,7 @@ export class RouteConfig {
    * @return {Route} The matched route
    */
   matchRoute (id) {
-    const route = this.routes.find(route => route.id === id)
+    const route = this.routes.find((route) => route.id === id)
     if (!route) {
       throw Error(`Route ${id} was not found in RouteConfig!`)
     }

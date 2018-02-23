@@ -32,7 +32,7 @@ class RouterFragment extends React.Component {
     return language && language.length === LANGUAGE_CODE_LENGTH
   }
 
-  redirectCondition = location => !RouterFragment.isLanguageCode(location.params.language)
+  redirectCondition = (location) => !RouterFragment.isLanguageCode(location.params.language)
 
   /**
    * This is the matchRoute from the supplied {@link routeConfig}

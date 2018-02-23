@@ -74,7 +74,7 @@ class LocationHeader extends React.Component {
         text: t('news')
       })
 
-    return [extras, categories, events].filter(isEnabled => isEnabled)
+    return [extras, categories, events].filter((isEnabled) => isEnabled)
   }
 
   render () {
