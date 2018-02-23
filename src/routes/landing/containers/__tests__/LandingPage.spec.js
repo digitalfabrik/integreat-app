@@ -27,7 +27,7 @@ describe('LandingPage', () => {
   describe('connect()', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
       .withUrl('https://weird-endpoint/api.json')
-      .withMapper(json => json)
+      .withMapper((json) => json)
       .withResponseOverride(locations)
       .build()
 

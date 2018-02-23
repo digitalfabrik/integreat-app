@@ -10,7 +10,7 @@ describe('Headroom', () => {
   const MockNode = () => <div />
   const MockAncestor = () => <div />
 
-  const createComponent = props => mount(
+  const createComponent = (props) => mount(
     <Headroom scrollHeight={50}
               height={100}
               stickyAncestor={<MockAncestor />}

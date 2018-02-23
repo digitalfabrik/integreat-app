@@ -182,7 +182,8 @@
             "multiple"
           ]
         }
-      ]
+      ],
+      "arrow-parens": ["error", "always"]
     },
     "overrides": [
       {
@@ -191,7 +192,7 @@
         ],
         "excludedFiles": ["*.spec.js", "**/__mocks__/*.js"],
         "rules": {
-          "arrow-parens": ["error", "always"],
+
           "react/jsx-no-bind": [
             "error",
             {
