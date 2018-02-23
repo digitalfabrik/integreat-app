@@ -4,10 +4,10 @@ import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 
 export default new EndpointBuilder('categories')
-  .withRouterToUrlMapper(router => `https://cms.integreat-app.de/${router.params.location}/${router.params.language}` +
-    `/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
-  .withMapper((json, router) => {
-    const baseUrl = `/${router.params.location}/${router.params.language}`
+  .withStateToUrlMapper(state => `https://cms.integreat-app.de/${state.router.params.location}` +
+  `/${state.router.params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
+  .withMapper((json, state) => {
+    const baseUrl = `/${state.router.params.location}/${state.router.params.language}`
     const categories = json.filter((category) => category.status === 'publish')
       .map((category) => {
         return new CategoryModel({
@@ -22,7 +22,7 @@ export default new EndpointBuilder('categories')
         })
       })
 
-    categories.push(new CategoryModel({id: 0, url: baseUrl, title: router.params.location}))
+    categories.push(new CategoryModel({id: 0, url: baseUrl, title: state.router.params.location}))
 
     categories.forEach(category => {
       if (category.id !== 0) {

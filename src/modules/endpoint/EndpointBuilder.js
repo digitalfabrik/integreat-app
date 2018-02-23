@@ -7,7 +7,7 @@ import Endpoint from './Endpoint'
  */
 class EndpointBuilder {
   _name
-  _routerToUrlMapper
+  _stateToUrlMapper
   _mapper
   _responseOverride
   _refetchLogic
@@ -19,22 +19,22 @@ class EndpointBuilder {
   constructor (name) {
     this._name = name
 
-    this._refetchLogic = (urlParams, nextUrlParams) => !isEqual(urlParams, nextUrlParams)
+    this._refetchLogic = (state, nextState) => !isEqual(state, nextState)
   }
 
   /**
-   * Adds a router to url mapper to the builder
-   * @param routerToUrlMapper The routerToUrlMapper which is mapping the router to a url
+   * Adds a state to url mapper to the builder
+   * @param stateToUrlMapper The stateToUrlMapper which is mapping the state to a url
    * @return {EndpointBuilder} The builder itself
    */
-  withRouterToUrlMapper (routerToUrlMapper) {
-    this._routerToUrlMapper = routerToUrlMapper
+  withStateToUrlMapper (stateToUrlMapper) {
+    this._stateToUrlMapper = stateToUrlMapper
     return this
   }
 
   /**
-   * Adds a url to the builder
-   * @param mapper The mapper
+   * Adds a json mapper to the builder
+   * @param mapper The mapper which maps json from our cms to models
    * @return {EndpointBuilder} The builder itself
    */
   withMapper (mapper) {
@@ -44,7 +44,7 @@ class EndpointBuilder {
 
   /**
    * Adds refetch logic to this builder
-   * @param refetchLogic The refetch logic
+   * @param refetchLogic The refetch logic which specifies when to refetch
    * @return {EndpointBuilder} The builder itself
    */
   withRefetchLogic (refetchLogic) {
@@ -71,7 +71,7 @@ class EndpointBuilder {
       throw Error('You have to set a name to build an endpoint!')
     }
 
-    if (!this._routerToUrlMapper) {
+    if (!this._stateToUrlMapper) {
       throw Error('You have to set a url mapper to build an endpoint!')
     }
 
@@ -83,7 +83,7 @@ class EndpointBuilder {
       throw Error('You have to set a refetch logic to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._routerToUrlMapper, this._mapper, this._refetchLogic, this._responseOverride)
+    return new Endpoint(this._name, this._stateToUrlMapper, this._mapper, this._refetchLogic, this._responseOverride)
   }
 }
 

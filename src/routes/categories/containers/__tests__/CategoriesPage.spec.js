@@ -274,19 +274,19 @@ describe('CategoriesPage', () => {
 
   describe('connect', () => {
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()
 
     const locationsEndpoint = new EndpointBuilder('locations')
-      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(locations)
       .build()
 
     const categoriesEndpoint = new EndpointBuilder('categories')
-      .withRouterToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(categories)
       .build()
