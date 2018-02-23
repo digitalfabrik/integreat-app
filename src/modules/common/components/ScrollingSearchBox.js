@@ -44,7 +44,7 @@ export class ScrollingSearchBox extends React.PureComponent {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
-        this.setState(Object.assign({}, this.state, {initialized: true}))
+        this.setState((prevState) => Object.assign({}, prevState, {initialized: true}))
       }
     }
   }

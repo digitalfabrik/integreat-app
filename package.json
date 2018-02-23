@@ -170,6 +170,7 @@
       "jsx-quotes": "error",
       "react/jsx-tag-spacing": "error",
       "react/no-unused-prop-types": "error",
+      "react/no-access-state-in-setstate": "error",
       "prefer-const": "error",
       "react/prefer-es6-class": [
         "error",
