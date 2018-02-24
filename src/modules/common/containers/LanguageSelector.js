@@ -37,7 +37,7 @@ export class LanguageSelector extends React.Component {
    * @return The links for language change and a span for the current language
    */
   getLanguageLinks () {
-    return this.props.languages.map((language) => {
+    return this.props.languages.map(language => {
       if (language.code === this.props.language) {
         return (
           <span key={language.code}
@@ -68,7 +68,7 @@ export class LanguageSelector extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   languageChangeUrls: state.languageChangeUrls

@@ -40,16 +40,16 @@ export class ScrollingSearchBox extends React.PureComponent {
     this.scroll()
   }
 
-  setReference = (node) => {
+  setReference = node => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
-        this.setState((prevState) => Object.assign({}, prevState, {initialized: true}))
+        this.setState(prevState => Object.assign({}, prevState, {initialized: true}))
       }
     }
   }
 
-  onSearchInputTextChange = (value) => this.onFilterTextChange(value)
+  onSearchInputTextChange = value => this.onFilterTextChange(value)
 
   onSearchInputClick = () => this.onClick()
 

@@ -27,7 +27,7 @@ const contextTypes = {
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
 export function withFetcher (endpointName, hideError = false, hideSpinner = false) {
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     class Fetcher extends React.Component {
       static displayName = `${endpointName}Fetcher`
       static propTypes = {
@@ -118,7 +118,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
   }
 }
 
-const createMapStateToProps = (endpointName) => (state, ownProps) => {
+const createMapStateToProps = endpointName => (state, ownProps) => {
   if (!ownProps.getEndpoint) {
     throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
   }
@@ -129,17 +129,17 @@ const createMapStateToProps = (endpointName) => (state, ownProps) => {
   })
 }
 
-const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
+const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: (urlParams) => dispatch(endpoint.requestAction(urlParams))
+    requestAction: urlParams => dispatch(endpoint.requestAction(urlParams))
   })
 }
 
 export default (endpointName, hideError, hideSpinner) => {
   const HOC = withFetcher(endpointName, hideError, hideSpinner)
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     const AnotherWrappedComponent = HOC(WrappedComponent)
     return getContext(contextTypes)(
       connect(createMapStateToProps(endpointName), createMapDispatchToProps(endpointName))(AnotherWrappedComponent))

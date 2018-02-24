@@ -16,7 +16,7 @@ describe('withFetcher', () => {
   const responseOverride = {data: 'random'}
   const endpoint = new EndpointBuilder('endpoint')
     .withUrl('https://someendpoint/{var1}/{var2}/api.json')
-    .withMapper((json) => json)
+    .withMapper(json => json)
     .withStateMapper().fromFunction(() => (urlParams))
     .withResponseOverride(responseOverride)
     .build()
@@ -88,7 +88,7 @@ describe('withFetcher', () => {
   it('should fetch when endpoint tells us', () => {
     const endpoint = new EndpointBuilder('endpoint')
       .withUrl('https://someendpoint/{var1}/{var2}/api.json')
-      .withMapper((json) => json)
+      .withMapper(json => json)
       .withResponseOverride({})
       .withRefetchLogic(() => true) // Refetch always
       .build()

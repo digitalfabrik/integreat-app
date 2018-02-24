@@ -9,7 +9,7 @@ import SearchPage from '../../../../routes/search/containers/SearchPage'
 import EventsPage from '../../../../routes/events/containers/EventsPage'
 
 describe('LocationHeader', () => {
-  const matchRoute = (id) => {
+  const matchRoute = id => {
     switch (id) {
       case CategoriesPage:
         return new Route({id, path: '/:location/:language(/*)'})

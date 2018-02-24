@@ -10,7 +10,7 @@ describe('Headroom', () => {
   const MockNode = () => <div />
   const MockAncestor = () => <div />
 
-  const createComponent = (props) => mount(
+  const createComponent = props => mount(
     <Headroom scrollHeight={50}
               height={100}
               stickyAncestor={<MockAncestor />}
@@ -72,7 +72,7 @@ describe('Headroom', () => {
   describe('update', () => {
     it('should set correct state, if user hasn\'t scrolled beyond pinStart', () => {
       const component = createComponent({pinStart, height, scrollHeight})
-      const scrollTo = (scrollTo) => {
+      const scrollTo = scrollTo => {
         window.pageYOffset = scrollTo
         component.instance().update()
       }
@@ -83,7 +83,7 @@ describe('Headroom', () => {
 
     it('should set correct state, if user has scrolled down to pinStart + scrollHeight/2', () => {
       const component = createComponent({pinStart, height, scrollHeight})
-      const scrollTo = (scrollTo) => {
+      const scrollTo = scrollTo => {
         window.pageYOffset = scrollTo
         component.instance().update()
       }
@@ -95,7 +95,7 @@ describe('Headroom', () => {
 
     it('should set correct state, if user has scrolled down and back up again', () => {
       const component = createComponent({pinStart, height, scrollHeight})
-      const scrollTo = (scrollTo) => {
+      const scrollTo = scrollTo => {
         window.pageYOffset = scrollTo
         component.instance().update()
       }
@@ -122,7 +122,7 @@ describe('Headroom', () => {
 
     it('shouldn\'t update state update is called with same scrollTop', () => {
       const component = createComponent({pinStart, height, scrollHeight})
-      const scrollTo = (scrollTo) => {
+      const scrollTo = scrollTo => {
         window.pageYOffset = scrollTo
         component.instance().update()
       }

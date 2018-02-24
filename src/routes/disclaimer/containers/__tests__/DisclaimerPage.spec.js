@@ -60,13 +60,13 @@ describe('DisclaimerPage', () => {
   describe('connect', () => {
     const disclaimerEndpoint = new EndpointBuilder('disclaimer')
       .withUrl('https://weird-endpoint/api.json')
-      .withMapper((json) => json)
+      .withMapper(json => json)
       .withResponseOverride(disclaimer)
       .build()
 
     const languagesEndpoint = new EndpointBuilder('languages')
       .withUrl('https://weird-endpoint/api.json')
-      .withMapper((json) => json)
+      .withMapper(json => json)
       .withResponseOverride(languages)
       .build()
 
@@ -92,7 +92,7 @@ describe('DisclaimerPage', () => {
     })
 
     it('should map dispatch to props', () => {
-      const mapLanguageToUrl = (language) => `/${language}`
+      const mapLanguageToUrl = language => `/${language}`
 
       const languageChangeUrls = {
         en: '/en',

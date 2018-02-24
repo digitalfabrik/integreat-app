@@ -39,22 +39,9 @@
     "react/no-did-update-set-state": "error",
     "react/no-direct-mutation-state": "error",
     "react/no-typos": "error",
-    "sort-imports-es6-autofix/sort-imports-es6": [
-      "off",
-      {
-        "ignoreCase": false,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": [
-          "none",
-          "all",
-          "single",
-          "multiple"
-        ]
-      }
-    ],
     "arrow-parens": [
       "error",
-      "always"
+      "as-needed"
     ],
     "no-extra-bind": "error",
     "prefer-template": "error",

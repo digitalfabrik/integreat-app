@@ -52,7 +52,7 @@ describe('events', () => {
       .toEqual({location: 'augsburg'})
   })
 
-  const toEventModel = (json) => new EventModel({
+  const toEventModel = json => new EventModel({
     id: json.id,
     title: json.title,
     content: json.content,

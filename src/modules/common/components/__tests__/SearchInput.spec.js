@@ -4,14 +4,14 @@ import ConnectedSearchInput, { SearchInput } from '../SearchInput'
 
 describe('SearchInput', () => {
   it('should render', () => {
-    const mockTranslate = jest.fn((text) => text)
+    const mockTranslate = jest.fn(text => text)
     expect(shallow(<SearchInput filterText={'Test'}
                                 onFilterTextChange={() => {}}
                                 t={mockTranslate} />)).toMatchSnapshot()
   })
 
   it('should render and space search', () => {
-    const mockTranslate = jest.fn((text) => text)
+    const mockTranslate = jest.fn(text => text)
     expect(shallow(<SearchInput filterText={'Test'}
                                 onFilterTextChange={() => {}}
                                 t={mockTranslate}

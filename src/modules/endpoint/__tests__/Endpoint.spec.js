@@ -10,7 +10,7 @@ describe('Endpoint', () => {
 
   const urlParams = {var1: 'a', var2: 'b'}
   const defaultFetchUrl = 'https://weird-endpoint/{var1}/{var2}/api.json'
-  const defaultJsonMapper = (json) => json
+  const defaultJsonMapper = json => json
 
   const createEndpoint = ({name = 'endpoint', fetchUrl = defaultFetchUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
     return new Endpoint(name, fetchUrl, jsonMapper, () => ({}), false, responseOverride)
@@ -90,7 +90,7 @@ describe('Endpoint', () => {
     it('should fetch correctly', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
-        jsonMapper: (json) => json,
+        jsonMapper: json => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
       const store = mockStore({[endpoint.stateName]: new Payload(false)})
@@ -119,7 +119,7 @@ describe('Endpoint', () => {
     it('should fail if json is malformatted', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
-        jsonMapper: (json) => json,
+        jsonMapper: json => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
       const store = mockStore({[endpoint.stateName]: new Payload(false)})
@@ -177,7 +177,7 @@ describe('Endpoint', () => {
     it('should not refetch if there is a recent one', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
-        jsonMapper: (json) => json,
+        jsonMapper: json => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
       const json = {test: 'random'}
@@ -191,7 +191,7 @@ describe('Endpoint', () => {
       })
 
       return expectActions(endpoint.requestAction(urlParams), store, [])
-        .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(true))
+        .then(storeResponse => expect(storeResponse.dataAvailable).toBe(true))
     })
 
     it('should not fetch while fetching', () => {
@@ -201,7 +201,7 @@ describe('Endpoint', () => {
       })
 
       return expectActions(endpoint.requestAction(urlParams), store, [])
-        .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(false))
+        .then(storeResponse => expect(storeResponse.dataAvailable).toBe(false))
     })
 
     it('should use override correctly', () => {
@@ -209,7 +209,7 @@ describe('Endpoint', () => {
 
       const endpoint = createEndpoint({
         name: 'endpoint',
-        jsonMapper: (json) => json,
+        jsonMapper: json => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json',
         responseOverride: json
       })

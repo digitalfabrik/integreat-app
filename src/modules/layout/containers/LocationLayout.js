@@ -23,7 +23,7 @@ export class LocationLayout extends React.Component {
   }
 
   getCurrentLocation () {
-    return this.props.locations.find((location) => location.code === this.props.location)
+    return this.props.locations.find(location => location.code === this.props.location)
   }
 
   render () {
@@ -43,7 +43,7 @@ export class LocationLayout extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   path: state.router.route,
   location: state.router.params.location,
   language: state.router.params.language

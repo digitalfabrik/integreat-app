@@ -10,7 +10,7 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
 
 describe('LocationLayout', () => {
-  const matchRoute = (id) => {}
+  const matchRoute = id => {}
 
   const language = 'de'
 
@@ -43,7 +43,7 @@ describe('LocationLayout', () => {
   describe('connect', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
       .withUrl('https://weird-endpoint/api.json')
-      .withMapper((json) => json)
+      .withMapper(json => json)
       .withResponseOverride(locations)
       .build()
 

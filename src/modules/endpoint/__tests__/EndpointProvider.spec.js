@@ -6,7 +6,7 @@ import EndpointBuilder from '../EndpointBuilder'
 describe('EndpointProvider', () => {
   const endpoint = new EndpointBuilder('endpoint')
     .withUrl('https://weird-endpoint/api.json')
-    .withMapper((json) => json)
+    .withMapper(json => json)
     .withResponseOverride({})
     .build()
 

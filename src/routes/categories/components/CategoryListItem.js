@@ -24,7 +24,7 @@ class CategoryListItem extends React.Component {
           <img className={style.categoryThumbnail} src={category.thumbnail || iconPlaceholder} />
           <div className={style.categoryCaption}>{category.title}</div>
         </Link>
-        {children.map((child) =>
+        {children.map(child =>
           <div key={child.id} className={style.subRow}>
             <Link href={child.url}>
               {

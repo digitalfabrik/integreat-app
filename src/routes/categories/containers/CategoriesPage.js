@@ -111,7 +111,7 @@ export class CategoriesPage extends React.Component {
                             locations={locations} />
     }
     // some level between, we want to display a list
-    return <CategoryList categories={children.map((model) => ({model, children: categories.getChildren(model)}))}
+    return <CategoryList categories={children.map(model => ({model, children: categories.getChildren(model)}))}
                          title={category.title}
                          content={category.content} />
   }
@@ -133,13 +133,13 @@ export class CategoriesPage extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (mapLanguageToUrl, languages, availableLanguages) =>
     dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)),
-  replaceUrl: (url) => dispatch(replace(url))
+  replaceUrl: url => dispatch(replace(url))
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.pathname,

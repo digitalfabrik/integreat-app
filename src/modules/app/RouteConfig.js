@@ -4,7 +4,7 @@ export class RouteConfig {
   routes = []
 
   constructor (routes = []) {
-    this.routes = routes.map((route) => {
+    this.routes = routes.map(route => {
       if (!(route instanceof Route)) {
         throw new Error('All values in the route config must be Routes!')
       }
@@ -29,7 +29,7 @@ export class RouteConfig {
    * @return {Route} The matched route
    */
   matchRoute (id) {
-    const route = this.routes.find((route) => route.id === id)
+    const route = this.routes.find(route => route.id === id)
     if (!route) {
       throw Error(`Route ${id} was not found in RouteConfig!`)
     }

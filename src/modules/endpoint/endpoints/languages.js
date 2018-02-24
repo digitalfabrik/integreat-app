@@ -4,12 +4,12 @@ import LanguageModel from '../models/LanguageModel'
 
 export default new EndpointBuilder('languages')
   .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/languages/wpml')
-  .withStateMapper().fromFunction((state) => ({
+  .withStateMapper().fromFunction(state => ({
     location: state.router.params.location,
     language: 'de' /* todo:  This forces that the languages are always fetched in german language. German always
                              exists in the backend -> a language switch always works */
   }))
-  .withMapper((json) => json
-    .map((language) => new LanguageModel(language.code, language.native_name))
+  .withMapper(json => json
+    .map(language => new LanguageModel(language.code, language.native_name))
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code)))
   .build()

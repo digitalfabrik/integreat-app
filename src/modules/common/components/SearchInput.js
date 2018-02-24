@@ -14,7 +14,7 @@ export class SearchInput extends React.Component {
     t: PropTypes.func.isRequired
   }
 
-  onFilterTextChange = (event) => this.props.onFilterTextChange(event.target.value)
+  onFilterTextChange = event => this.props.onFilterTextChange(event.target.value)
 
   render () {
     return (

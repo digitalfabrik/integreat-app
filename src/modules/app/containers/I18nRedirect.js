@@ -27,11 +27,11 @@ export class I18nRedirect extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  redirect: (href) => dispatch(replace(href))
+const mapDispatchToProps = dispatch => ({
+  redirect: href => dispatch(replace(href))
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentPath: state.router.pathname
 })
 

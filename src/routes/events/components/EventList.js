@@ -34,7 +34,7 @@ class EventList extends React.Component {
       )
     }
 
-    const elements = this.props.events.map((event) =>
+    const elements = this.props.events.map(event =>
       <EventListElement key={event.id}
                         event={event}
                         parentUrl={this.props.url}

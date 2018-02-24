@@ -8,8 +8,8 @@ export default new EndpointBuilder('categories')
   .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
   .withMapper((json, urlParams) => {
     const baseUrl = `/${urlParams.location}/${urlParams.language}`
-    const categories = json.filter((category) => category.status === 'publish')
-      .map((category) => {
+    const categories = json.filter(category => category.status === 'publish')
+      .map(category => {
         return new CategoryModel({
           id: category.id,
           url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,
@@ -24,9 +24,9 @@ export default new EndpointBuilder('categories')
 
     categories.push(new CategoryModel({id: 0, url: baseUrl, title: urlParams.location}))
 
-    categories.forEach((category) => {
+    categories.forEach(category => {
       if (category.id !== 0) {
-        const parent = categories.find((_category) => _category.id === category.parentId)
+        const parent = categories.find(_category => _category.id === category.parentId)
         if (!parent) {
           throw new Error(`Invalid data from categories endpoint: Page with id ${category.id} has no parent.`)
         }

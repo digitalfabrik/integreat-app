@@ -25,7 +25,7 @@ class CategoryTiles extends React.Component {
    * @return {String} The found name or the given title
    */
   getLocationName (title) {
-    const location = this.props.locations.find((_location) => title === _location.code)
+    const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
 
@@ -34,7 +34,7 @@ class CategoryTiles extends React.Component {
       <div>
         <Caption title={this.getLocationName(this.props.title)} />
         <Row className={style.categoryTiles}>
-          {this.props.categories.map((category) =>
+          {this.props.categories.map(category =>
             <CategoryTile key={category.id}
                           category={category} />)}
         </Row>

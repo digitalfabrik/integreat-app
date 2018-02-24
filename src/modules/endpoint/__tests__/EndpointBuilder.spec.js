@@ -4,7 +4,7 @@ describe('EndpointBuilder', () => {
   it('should have a default refetch logic which makes sense', () => {
     const endpoint = new EndpointBuilder(name)
       .withUrl('https://someurl')
-      .withMapper((json) => json)
+      .withMapper(json => json)
       .build()
 
     // Not equal test
@@ -19,7 +19,7 @@ describe('EndpointBuilder', () => {
     const url = 'https://someurl'
     const name = 'endpoint'
     const refetchLogic = () => false
-    const mapper = (json) => json
+    const mapper = json => json
     const override = {test: 'random'}
 
     const endpoint = new EndpointBuilder(name)
@@ -27,7 +27,7 @@ describe('EndpointBuilder', () => {
       .withRefetchLogic(refetchLogic)
       .withMapper(mapper)
       .withResponseOverride(override)
-      .withStateMapper().fromFunction((state) => ({}))
+      .withStateMapper().fromFunction(state => ({}))
       .build()
 
     expect(endpoint.url).toBe(url)
@@ -44,7 +44,7 @@ describe('EndpointBuilder', () => {
     expect(() => builder.build()).toThrow()
     builder.withUrl('https://someurl')
     expect(() => builder.build()).toThrow()
-    builder.withMapper((json) => json)
+    builder.withMapper(json => json)
     expect(() => builder.build()).not.toThrow()
     builder.withRefetchLogic(null)
     expect(() => builder.build()).toThrow()

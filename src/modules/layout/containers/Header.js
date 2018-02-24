@@ -46,5 +46,5 @@ export class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({smallViewport: state.viewport.is.small})
+const mapStateToProps = state => ({smallViewport: state.viewport.is.small})
 export default connect(mapStateToProps)(Header)

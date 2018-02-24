@@ -24,12 +24,12 @@ class Breadcrumbs extends React.Component {
    * @return {String} The found name or the given title
    */
   getLocationName (title) {
-    const location = this.props.locations.find((_location) => title === _location.code)
+    const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
 
   getBreadcrumbs () {
-    return this.props.parents.map((parent) => {
+    return this.props.parents.map(parent => {
       const title = parent.id === 0 ? this.getLocationName(parent.title) : parent.title
       return (
         <Link key={parent.url}

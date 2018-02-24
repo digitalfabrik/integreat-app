@@ -16,7 +16,7 @@ describe('setLanguageChangeUrls', () => {
   })
 
   it('should create an action to change language urls if there are no available languages', () => {
-    const mapper = (language) => `/${language}`
+    const mapper = language => `/${language}`
     const languages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
     const action = setLanguageChangeUrls(mapper, languages, undefined)
 
