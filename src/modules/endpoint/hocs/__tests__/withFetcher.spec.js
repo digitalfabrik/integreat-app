@@ -42,7 +42,7 @@ describe('withFetcher', () => {
                   {...otherProps} />
   }
 
-  it('should should show error if there is one and it\'s not hidden', () => {
+  it('should show error if there is one and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideError: false,
@@ -53,7 +53,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should should show spinner if there is no data yet and it\'s not hidden', () => {
+  it('should show spinner if there is no data yet and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: false,
@@ -64,7 +64,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should should show nothing if there is no data yet and spinner is hidden', () => {
+  it('should show nothing if there is no data yet and spinner is hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: true,
@@ -75,7 +75,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should should show wrapped component if there is data', () => {
+  it('should show wrapped component if there is data', () => {
     const hoc = createComponent({
       endpoint,
       requestAction: () => new StoreResponse(true),
