@@ -1,54 +1,19 @@
-import PdfFetcherPage from '../../routes/pdf-fetcher/containers/PdfFetcherPage'
-import DisclaimerPage from '../../routes/disclaimer/containers/DisclaimerPage'
-import LandingPage from '../../routes/landing/containers/LandingPage'
-import MainDisclaimerPage from '../../routes/main-disclaimer/components/MainDisclaimerPage'
-import EventsPage from '../../routes/events/containers/EventsPage'
-import SearchPage from '../../routes/search/containers/SearchPage'
-import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
-import Route from './Route'
-import SprungbrettPage from '../../routes/sprungbrett/containers/SprungbrettPage'
-import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
+import {
+  CATEGORIES_PAGE_ROUTE, DISCLAIMER_PAGE_ROUTE, EVENTS_PAGE_ROUTE, EXTRAS_PAGE_ROUTE, LANDING_PAGE_ROUTE,
+  MAIN_DISCLAIMER_PAGE_ROUTE, PDF_FETCHER_PAGE_ROUTE, SEARCH_PAGE_ROUTE
+} from '../common/constants'
 
-const createRouteConfig = () => [
-  new Route({
-    path: '/'
-  }),
-  new Route({
-    id: SearchPage,
-    path: '/:location/:language/search'
-  }),
-  new Route({
-    id: DisclaimerPage,
-    path: '/:location/:language/disclaimer'
-  }),
-  new Route({
-    id: EventsPage,
-    path: '/:location/:language/events(/:id)'
-  }),
-  new Route({
-    id: PdfFetcherPage,
-    path: '/:location/:language/fetch-pdf'
-  }),
-  new Route({
-    id: SprungbrettPage,
-    path: '/:location/:language/extras/sprungbrett'
-  }),
-  new Route({
-    id: ExtrasPage,
-    path: '/:location/:language/extras'
-  }),
-  new Route({
-    id: CategoriesPage,
-    path: '/:location/:language(/*)'
-  }),
-  new Route({
-    id: MainDisclaimerPage,
-    path: '/disclaimer'
-  }),
-  new Route({
-    id: LandingPage,
-    path: '/:language(/)'
-  })
-]
+const createRouteConfig = () => {
+  return [
+    LANDING_PAGE_ROUTE,
+    SEARCH_PAGE_ROUTE,
+    DISCLAIMER_PAGE_ROUTE,
+    EVENTS_PAGE_ROUTE,
+    PDF_FETCHER_PAGE_ROUTE,
+    EXTRAS_PAGE_ROUTE,
+    CATEGORIES_PAGE_ROUTE,
+    MAIN_DISCLAIMER_PAGE_ROUTE
+  ]
+}
 
 export default createRouteConfig

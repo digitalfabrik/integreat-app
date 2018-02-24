@@ -14,7 +14,6 @@ import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimer
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import ExtrasPage from 'routes/extras/containers/ExtrasPage'
-import SprungbrettPage from 'routes/sprungbrett/containers/SprungbrettPage'
 import I18nRedirect from 'modules/app/containers/I18nRedirect'
 import PropTypes from 'prop-types'
 import RouteConfig from '../RouteConfig'
@@ -70,10 +69,7 @@ class RouterFragment extends React.Component {
             <Fragment forRoute='/fetch-pdf'>
               <PdfFetcherPage />
             </Fragment>
-            <Fragment forRoute='/extras/sprungbrett'>
-              <SprungbrettPage />
-            </Fragment>
-            <Fragment forRoute='/extras'>
+            <Fragment forRoute='/extras(/:extra)'>
               <ExtrasPage />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}

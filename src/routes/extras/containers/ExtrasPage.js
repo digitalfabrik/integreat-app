@@ -8,11 +8,14 @@ import { setSprungbrettUrl } from 'modules/sprungbrett/actions/setSprungbrettUrl
 
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ExtraTiles from '../components/ExtraTiles'
+import SprungbrettPage from './SprungbrettPage'
+import { SPRUNGBRETT_NAME } from '../../../modules/common/constants'
 
 export class ExtrasPage extends React.Component {
   static propTypes = {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
+    extra: PropTypes.string,
     extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
     setSprungbrettUrl: PropTypes.func.isRequired
   }
@@ -21,19 +24,20 @@ export class ExtrasPage extends React.Component {
     if (this.props) {
       const sprungbrett = this.props.extras.find(extra => extra.type === 'ige-sbt')
       if (sprungbrett) {
-        this.props.setSprungbrettUrl(sprungbrett.url)
+        this.props.setSprungbrettUrl(sprungbrett.url.split('=')[1])
       }
     }
   }
 
   render () {
-    return <ExtraTiles language={this.props.language} location={this.props.location} extras={this.props.extras} />
+    return this.props.extra === SPRUNGBRETT_NAME ? <SprungbrettPage /> : <ExtraTiles extras={this.props.extras} location={this.props.location} language={this.props.language} />
   }
 }
 
 const mapStateToProps = (state) => ({
   location: state.router.params.location,
-  language: state.router.params.language
+  language: state.router.params.language,
+  extra: state.router.params.extra
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,6 +46,6 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default compose(
-  withFetcher('extras'),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  withFetcher('extras')
 )(ExtrasPage)
