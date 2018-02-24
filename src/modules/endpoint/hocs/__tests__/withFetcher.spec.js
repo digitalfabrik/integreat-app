@@ -14,8 +14,8 @@ import EndpointProvider from '../../EndpointProvider'
 describe('withFetcher', () => {
   const responseOverride = {data: 'random'}
   const endpoint = new EndpointBuilder('endpoint')
-    .withStateToUrlMapper((state) => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
-    .withMapper((json) => json)
+    .withStateToUrlMapper(state => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
+    .withMapper(json => json)
     .withResponseOverride(responseOverride)
     .build()
 
@@ -85,8 +85,8 @@ describe('withFetcher', () => {
 
   it('should fetch when endpoint tells us', () => {
     const endpoint = new EndpointBuilder('endpoint')
-      .withStateToUrlMapper((state) => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
-      .withMapper((json) => json)
+      .withStateToUrlMapper(state => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
+      .withMapper(json => json)
       .withResponseOverride({})
       .withRefetchLogic(() => true) // Refetch always
       .build()
@@ -122,7 +122,7 @@ describe('withFetcher', () => {
     expect(mockRequestAction.mock.calls).toHaveLength(2)
   })
 
-  test('should dispatch the correct actions whens fetch occurs', () => {
+  it('should dispatch the correct actions whens fetch occurs', () => {
     const state = {param1: 'a'}
     const otherState = {param2: 'b'}
     const mockRequestAction = jest.fn().mockReturnValue(new StoreResponse(true))

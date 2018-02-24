@@ -129,7 +129,7 @@ const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: (state) => dispatch(endpoint.requestAction(state))
+    requestAction: state => dispatch(endpoint.requestAction(state))
   })
 }
 

@@ -17,7 +17,7 @@ describe('languages', () => {
 
   const state = {router: {params: {location: 'augsburg'}}}
 
-  test('should map router to url', () => {
+  it('should map router to url', () => {
     expect(languages.mapStateToUrl(state)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/languages/wpml'
     )

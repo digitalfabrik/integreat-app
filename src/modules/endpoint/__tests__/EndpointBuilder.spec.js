@@ -4,7 +4,7 @@ describe('EndpointBuilder', () => {
   it('should have a default refetch logic which makes sense', () => {
     const endpoint = new EndpointBuilder(name)
       .withStateToUrlMapper(() => 'https://someurl')
-      .withMapper((json) => json)
+      .withMapper(json => json)
       .build()
 
     // Not equal test

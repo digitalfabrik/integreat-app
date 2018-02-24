@@ -53,7 +53,7 @@ describe('LocationLayout', () => {
       router: {params: {location: location, language: language}, route: path}
     })
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       const tree = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>

@@ -8,8 +8,8 @@ export default new EndpointBuilder('categories')
   `/${state.router.params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
   .withMapper((json, state) => {
     const baseUrl = `/${state.router.params.location}/${state.router.params.language}`
-    const categories = json.filter((category) => category.status === 'publish')
-      .map((category) => {
+    const categories = json.filter(category => category.status === 'publish')
+      .map(category => {
         return new CategoryModel({
           id: category.id,
           url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,

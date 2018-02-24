@@ -7,7 +7,7 @@ import DisclaimerModel from '../models/DisclaimerModel'
 export default new EndpointBuilder('disclaimer')
   .withStateToUrlMapper(state => `https://cms.integreat-app.de/${state.router.params.location}` +
     `/${state.router.params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`)
-  .withMapper((json) => {
+  .withMapper(json => {
     if (isEmpty(json)) {
       throw new Error('disclaimer:notAvailable')
     }

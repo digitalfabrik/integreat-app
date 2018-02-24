@@ -20,7 +20,7 @@ describe('disclaimer', () => {
 
   const state = {router: {params: {location: 'augsburg', language: 'de'}}}
 
-  test('should map router to url', () => {
+  it('should map router to url', () => {
     expect(disclaimer.mapStateToUrl(state)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/disclaimer' +
       '?since=1970-01-01T00:00:00Z'

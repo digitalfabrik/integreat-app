@@ -9,8 +9,8 @@ describe('Endpoint', () => {
   const mockStore = configureMockStore([thunk])
 
   const state = {var1: 'a', var2: 'b'}
-  const defaultMapStateToUrl = (state) => `https://weird-endpoint/${state.var1}/${state.var2}/api.json`
-  const defaultJsonMapper = (json) => json
+  const defaultMapStateToUrl = state => `https://weird-endpoint/${state.var1}/${state.var2}/api.json`
+  const defaultJsonMapper = json => json
 
   const createEndpoint = (
     {name = 'endpoint', mapStateToUrl = defaultMapStateToUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
@@ -32,7 +32,7 @@ describe('Endpoint', () => {
     expect(endpoint.payloadName).toBe('endpointPayload')
   })
 
-  test('should throw if needed state params are undefined', () => {
+  it('should throw if needed state params are undefined', () => {
     const endpoint = createEndpoint({name: 'endpoint'})
 
     expect(endpoint.requestAction(undefined)).toThrow()
@@ -98,7 +98,7 @@ describe('Endpoint', () => {
     it('should fetch correctly', () => {
       const endpoint = createEndpoint({
         name: 'endpoint',
-        jsonMapper: (json) => json
+        jsonMapper: json => json
       })
       const store = mockStore({[endpoint.stateName]: new Payload(false)})
       const json = {test: 'random'}
@@ -198,17 +198,17 @@ describe('Endpoint', () => {
       })
 
       return expectActions(endpoint.requestAction(state), store, [])
-        .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(true))
+        .then(storeResponse => expect(storeResponse.dataAvailable).toBe(true))
     })
 
-    test('should not fetch while fetching', () => {
+    it('should not fetch while fetching', () => {
       const endpoint = createEndpoint({})
       const store = mockStore({
         [endpoint.stateName]: new Payload(true)
       })
 
       return expectActions(endpoint.requestAction(state), store, [])
-        .then((storeResponse) => expect(storeResponse.dataAvailable).toBe(false))
+        .then(storeResponse => expect(storeResponse.dataAvailable).toBe(false))
     })
 
     it('should use override correctly', () => {
