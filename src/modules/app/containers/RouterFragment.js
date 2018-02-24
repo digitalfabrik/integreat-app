@@ -18,10 +18,6 @@ import SearchPage from 'routes/search/containers/SearchPage'
 import { Fragment } from 'redux-little-router'
 import { LANGUAGE_CODE_LENGTH } from '../constants'
 
-/**
- * todo: Test and document in WEBAPP-90
- * todo: Layouts should be set in each route
- */
 class RouterFragment extends React.Component {
   static propTypes = {
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
@@ -50,7 +46,7 @@ class RouterFragment extends React.Component {
     return <Fragment forRoute='/'>
       {/* Routes */}
       <React.Fragment>
-        {/* No language was provided to redirect to a specific language (e.g. the browsers language) */}
+        {/* No language was provided, so redirect to a specific language (e.g. the browsers language) */}
         <Fragment forRoute='/'>
           <I18nRedirect />
         </Fragment>

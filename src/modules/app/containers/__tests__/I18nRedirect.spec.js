@@ -12,7 +12,7 @@ describe('I18nRedirect', () => {
       <I18nRedirect
         currentPath={'/augsburg/'}
         redirect={redirect} />,
-      {context: {i18n: {language: 'de'}}, childContextTypes: {i18n: PropTypes.object.isRequired}} // fixme why can't we use I18nProvider here?
+      {context: {i18n: {language: 'de'}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
     )
     expect(redirect).toHaveBeenCalledWith('/augsburg/de')
   })
@@ -28,7 +28,7 @@ describe('I18nRedirect', () => {
       <Provider store={store}>
         <ConnectedI18nRedirect />
       </Provider>,
-      {context: {i18n: {language: 'de'}}, childContextTypes: {i18n: PropTypes.object.isRequired}} // fixme why can't we use I18nProvider here?
+      {context: {i18n: {language: 'de'}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
     )
 
     expect(tree.find(ConnectedI18nRedirect).childAt(0).props()).toMatchSnapshot()

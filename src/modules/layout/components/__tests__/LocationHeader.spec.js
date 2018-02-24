@@ -73,8 +73,6 @@ describe('LocationHeader', () => {
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
-
-    // todo for WEBAPP-64: should highlight extras if route corresponds
   })
 
   it('should match snapshot', () => {

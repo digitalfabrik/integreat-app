@@ -4,10 +4,9 @@ import EndpointBuilder from '../EndpointBuilder'
 import EventModel from '../models/EventModel'
 
 export default new EndpointBuilder('events')
-  // fetch events from 'de' because most events aren't available in other languages
-  .withUrl('https://cms.integreat-app.de/{location}/{language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z')
-  .withStateMapper().fromArray(['location', 'language'], (state, paramName) => state.router.params[paramName])
-  .withMapper(json => json
+  .withStateToUrlMapper(state => `https://cms.integreat-app.de/${state.router.params.location}` +
+    `/${state.router.params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`)
+  .withMapper((json) => json
     .filter(event => event.status === 'publish')
     .map(event => new EventModel({
       id: event.id,

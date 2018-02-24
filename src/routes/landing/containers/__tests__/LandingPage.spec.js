@@ -26,7 +26,7 @@ describe('LandingPage', () => {
 
   describe('connect()', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
-      .withUrl('https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(locations)
       .build()
@@ -58,9 +58,7 @@ describe('LandingPage', () => {
 
     it('should fallback to "de" if state is empty', () => {
       const store = createReduxStore(createHistory, {
-        locations: new Payload(false),
-        router: {params: {}} /* todo: this test should also succeed if there is no router. Currently it does
-                                todo: not because of a missing check in mapStateToProps of Footer.js */
+        locations: new Payload(false)
       })
 
       const tree = mount(

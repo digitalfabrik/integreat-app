@@ -47,9 +47,13 @@ describe('events', () => {
     }
   }
 
-  it('should map state to urls', () => {
-    expect(events.mapStateToUrlParams({router: {params: {location: 'augsburg'}}}))
-      .toEqual({location: 'augsburg'})
+  const state = {router: {params: {location: 'augsburg', language: 'de'}}}
+
+  test('should map router to url', () => {
+    expect(events.mapStateToUrl(state)).toEqual(
+      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/events' +
+      '?since=1970-01-01T00:00:00Z'
+    )
   })
 
   const toEventModel = json => new EventModel({
