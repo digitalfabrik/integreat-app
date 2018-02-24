@@ -69,7 +69,7 @@ class RouterFragment extends React.Component {
             <Fragment forRoute='/fetch-pdf'>
               <PdfFetcherPage />
             </Fragment>
-            <Fragment forRoute='/extras(/:extra)'>
+            <Fragment forRoute='/extras(/:extra(:/jobType))'>
               <ExtrasPage />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}

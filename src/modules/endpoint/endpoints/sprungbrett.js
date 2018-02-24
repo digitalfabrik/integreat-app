@@ -8,8 +8,7 @@ export default new EndpointBuilder('sprungbrett')
       title: job.title,
       city: job.city,
       url: job.url,
-      isEmployment: job.employment === 1,
-      isApprenticeship: job.apprenticeship === 1
+      isApprenticeship: job.employment === 1
     }))
   )
   .build()

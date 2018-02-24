@@ -33,7 +33,7 @@ export const PDF_FETCHER_PAGE_ROUTE = new Route({
 
 export const EXTRAS_PAGE_ROUTE = new Route({
   id: ExtrasPage,
-  path: '/:location/:language/extras(/:extra)'
+  path: '/:location/:language/extras(/:extra(/:jobType))'
 })
 
 export const CATEGORIES_PAGE_ROUTE = new Route({
