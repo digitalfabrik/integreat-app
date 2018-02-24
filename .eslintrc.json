@@ -39,6 +39,7 @@
     "react/no-did-update-set-state": "error",
     "react/no-direct-mutation-state": "error",
     "react/no-typos": "error",
+    "prefer-object-spread/prefer-object-spread": "error",
     "arrow-parens": [
       "error",
       "as-needed"
@@ -99,6 +100,6 @@
   "plugins": [
     "react",
     "jest",
-    "sort-imports-es6-autofix"
+    "prefer-object-spread"
   ]
 }
