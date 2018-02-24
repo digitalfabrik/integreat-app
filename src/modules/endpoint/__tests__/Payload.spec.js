@@ -32,7 +32,7 @@ describe('Payload', () => {
     }).toThrow()
   })
 
-  it('should throw url is invalid', () => {
+  it('should throw if url is invalid', () => {
     expect(() => {
       // eslint-disable-next-line no-new
       new Payload(true, data, null, 'Rambazamba!', fetchDate)
