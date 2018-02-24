@@ -36,7 +36,7 @@ describe('CategoryList', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('getLocationName', () => {
+  it('should get location names correctly', () => {
     const categoryTiles = shallow(
       <CategoryTiles categories={categories}
                      locations={locations}
