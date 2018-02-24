@@ -70,7 +70,7 @@ class PdfFetcherPage extends React.Component {
     const children = this.props.categories.getChildren(category)
     const toc = isEmpty(children)
 
-    this.setState(prevState => ({...prevState, ...{loading: category}}))
+    this.setState(prevState => ({...prevState, loading: category}))
 
     if (category.id !== 0) {
       categoryIds.push(category.id)
