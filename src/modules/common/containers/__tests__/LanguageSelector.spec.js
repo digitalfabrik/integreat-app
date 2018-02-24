@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 
-import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector'
+import ConnectedLanguageSelector, { LanguageSelector } from '../../../layout/containers/LanguageSelector'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'

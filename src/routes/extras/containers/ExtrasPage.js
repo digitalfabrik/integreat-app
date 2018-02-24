@@ -9,7 +9,8 @@ import { setSprungbrettUrl } from 'modules/sprungbrett/actions/setSprungbrettUrl
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ExtraTiles from '../components/ExtraTiles'
 import SprungbrettPage from './SprungbrettPage'
-import { SPRUNGBRETT_NAME } from '../../../modules/common/constants'
+
+const SPRUNGBRETT_NAME = 'sprungbrett'
 
 export class ExtrasPage extends React.Component {
   static propTypes = {

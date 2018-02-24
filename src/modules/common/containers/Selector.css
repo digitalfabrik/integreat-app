@@ -2,7 +2,7 @@
 @import url('../constants/colors.css');
 @import url('../constants/dimensions.css');
 
-.language-selector {
+.selector {
   display: flex;
   width: 100%;
   flex-flow: row wrap;

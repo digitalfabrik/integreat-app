@@ -5,24 +5,40 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 import SprungbrettList from '../components/SprungbrettList'
 import { connect } from 'react-redux'
-import SprungbrettTypeSelector from '../components/SprungbrettTypeSelector'
+import SprungbrettTypeSelector from '../components/SprungbrettSelector'
 import compose from 'lodash/fp/compose'
 
 export class SprungbrettPage extends React.Component {
   static propTypes = {
     sprungbrett: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel)),
-    jobType: PropTypes.string
+    type: PropTypes.string,
+    location: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired
+  }
+
+  getBasePath () {
+    return `/${this.props.location}/${this.props.language}/extras/sprungbrett`
+  }
+
+  getJobs () {
+    const type = this.props.type
+    const jobs = this.props.sprungbrett
+
+    if (type === 'all') {
+      return jobs
+    } else if (type === 'apprenticeships') {
+      return jobs.filter(job => job.isApprenticeship)
+    } else if (type === 'employments') {
+      return jobs.filter(job => job.isEmployment)
+    }
+    // todo throw
   }
 
   getContent () {
-    if (!this.props.jobType) {
-      return <SprungbrettTypeSelector />
-    } else if (this.props.jobType === 'apprenticeships') {
-      return <SprungbrettList jobs={this.props.sprungbrett.filter(job => job.isApprenticeship)} />
-    } else if (this.props.jobType === 'internships') {
-      return <SprungbrettList jobs={this.props.sprungbrett.filter(job => !job.isApprenticeship)} />
-    }
-    // throw error
+    return <div>
+      <SprungbrettTypeSelector basePath={this.getBasePath()} type={this.props.type} />
+      {<SprungbrettList jobs={this.getJobs()} />}
+    </div>
   }
 
   render () {
@@ -31,7 +47,9 @@ export class SprungbrettPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  jobType: state.router.params.jobType
+  type: state.router.params.type,
+  language: state.router.params.language,
+  location: state.router.params.location
 })
 
 export default compose(
