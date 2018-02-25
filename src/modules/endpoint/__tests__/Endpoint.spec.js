@@ -8,12 +8,10 @@ import Payload from '../Payload'
 describe('Endpoint', () => {
   const mockStore = configureMockStore([thunk])
 
-  const state = {var1: 'a', var2: 'b'}
   const defaultMapStateToUrl = state => `https://weird-endpoint/${state.var1}/${state.var2}/api.json`
   const defaultJsonMapper = json => json
 
-  const createEndpoint = (
-    {name = 'endpoint', mapStateToUrl = defaultMapStateToUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
+  const createEndpoint = ({name = 'endpoint', mapStateToUrl = defaultMapStateToUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
     return new Endpoint(name, mapStateToUrl, jsonMapper, false, responseOverride)
   }
 
@@ -35,8 +33,10 @@ describe('Endpoint', () => {
   it('should throw if needed state params are undefined', () => {
     const endpoint = createEndpoint({name: 'endpoint'})
 
-    expect(endpoint.requestAction(undefined)).toThrow()
-    expect(endpoint.requestAction({var1: 'a'})).toThrow()
+    const dipatch = () => {}
+    const getState = () => ({endpoint: new Payload(false), var1: 'a'})
+    expect(() => endpoint.requestAction()(dipatch, getState)).toThrowErrorMatchingSnapshot()
+    expect(() => endpoint.requestAction()(dipatch, getState)).toThrowErrorMatchingSnapshot()
   })
 
   describe('Reducer', () => {
@@ -85,14 +85,18 @@ describe('Endpoint', () => {
   describe('Actions', () => {
     let clock
     const mockedTime = 0
+    let prevError
 
     beforeEach(() => {
       clock = lolex.install({now: mockedTime, toFake: []})
+      prevError = console.error
+      console.error = error => console.log(`Some expected error was thrown: ${error}`)
     })
 
     afterEach(() => {
       fetch.resetMocks()
       clock.uninstall()
+      console.error = prevError
     })
 
     it('should fetch correctly', () => {
@@ -100,7 +104,7 @@ describe('Endpoint', () => {
         name: 'endpoint',
         jsonMapper: json => json
       })
-      const store = mockStore({[endpoint.stateName]: new Payload(false)})
+      const store = mockStore({[endpoint.stateName]: new Payload(false), var1: 'a', var2: 'b'})
       const json = {test: 'random'}
       fetch.mockResponse(JSON.stringify(json))
 
@@ -120,7 +124,7 @@ describe('Endpoint', () => {
         }
       ]
 
-      return expectActions(endpoint.requestAction(state), store, expectedActions)
+      return expectActions(endpoint.requestAction(), store, expectedActions)
     })
 
     it('should fail if json is malformatted', () => {
@@ -129,7 +133,7 @@ describe('Endpoint', () => {
         jsonMapper: json => json,
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
-      const store = mockStore({[endpoint.stateName]: new Payload(false)})
+      const store = mockStore({[endpoint.stateName]: new Payload(false), var1: 'a', var2: 'b'})
       const malformattedJson = 'I\'m so mean!'
       fetch.mockResponse(malformattedJson)
 
@@ -149,7 +153,7 @@ describe('Endpoint', () => {
         }
       ]
 
-      return expectActions(endpoint.requestAction(state), store, expectedActions)
+      return expectActions(endpoint.requestAction(), store, expectedActions)
     })
 
     it('should fail if json transform is malformatted', () => {
@@ -159,7 +163,7 @@ describe('Endpoint', () => {
         jsonMapper: () => { throw new Error(errorMessage) },
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json'
       })
-      const store = mockStore({[endpoint.stateName]: new Payload(false)})
+      const store = mockStore({[endpoint.stateName]: new Payload(false), var1: 'a', var2: 'b'})
       fetch.mockResponse(JSON.stringify({}))
 
       const expectedActions = [
@@ -178,7 +182,7 @@ describe('Endpoint', () => {
         }
       ]
 
-      return expectActions(endpoint.requestAction(state), store, expectedActions)
+      return expectActions(endpoint.requestAction(), store, expectedActions)
     })
 
     it('should not refetch if there is a recent one', () => {
@@ -194,20 +198,22 @@ describe('Endpoint', () => {
           json,
           null,
           'https://weird-endpoint/a/b/api.json',
-          mockedTime)
+          mockedTime),
+        var1: 'a',
+        var2: 'b'
       })
 
-      return expectActions(endpoint.requestAction(state), store, [])
+      return expectActions(endpoint.requestAction(), store, [])
         .then(storeResponse => expect(storeResponse.dataAvailable).toBe(true))
     })
 
     it('should not fetch while fetching', () => {
       const endpoint = createEndpoint({})
       const store = mockStore({
-        [endpoint.stateName]: new Payload(true)
+        [endpoint.stateName]: new Payload(true), var1: 'a', var2: 'b'
       })
 
-      return expectActions(endpoint.requestAction(state), store, [])
+      return expectActions(endpoint.requestAction(), store, [])
         .then(storeResponse => expect(storeResponse.dataAvailable).toBe(false))
     })
 
@@ -220,7 +226,7 @@ describe('Endpoint', () => {
         fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json',
         responseOverride: json
       })
-      const store = mockStore({[endpoint.stateName]: new Payload(false)})
+      const store = mockStore({[endpoint.stateName]: new Payload(false), var1: 'a', var2: 'b'})
       const expectedActions = [
         {
           type: 'START_FETCH_DATA_ENDPOINT',
@@ -237,7 +243,7 @@ describe('Endpoint', () => {
         }
       ]
 
-      return expectActions(endpoint.requestAction(state), store, expectedActions)
+      return expectActions(endpoint.requestAction(), store, expectedActions)
     })
   })
 })

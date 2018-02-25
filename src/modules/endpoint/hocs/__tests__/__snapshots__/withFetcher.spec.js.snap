@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`withFetcher connect() should throw if endpoint provider is missing 1`] = `"Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?"`;
+
 exports[`withFetcher should render nothing if there is an error and FailureComponent is null 1`] = `""`;
 
 exports[`withFetcher should show custom FailureComponent if there is an error 1`] = `
@@ -31,3 +33,5 @@ exports[`withFetcher should show wrapped component if there is data 1`] = `
   endpoint={Object {}}
 />
 `;
+
+exports[`withFetcher should throw error if there is no getEndpoint function 1`] = `"Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?"`;

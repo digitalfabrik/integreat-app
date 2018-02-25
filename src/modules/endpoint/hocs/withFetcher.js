@@ -8,7 +8,7 @@ import style from './withFetcher.css'
 import { getContext } from 'recompose'
 
 const contextTypes = {
-  getEndpoint: PropTypes.func.isRequired
+  getEndpoint: PropTypes.func
 }
 
 /**
@@ -55,26 +55,25 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
         // before render() in the Fetcher component is called the first time.
         // This causes the <WrappedComponent> to be displayed with outdated props.
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
-        this.fetch(this.props.state)
+        this.fetch()
       }
 
       componentWillReceiveProps (nextProps) {
         // Dispatch new requestAction to ask the endpoint whether data is available, if:
-        // (a) the Fetcher urlParams prop changed or
+        // (a) the redux-state prop changed or
         // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
         const endpoint = this.endpoint
         if (endpoint.shouldRefetch(this.props.state, nextProps.state) ||
           this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
-          this.fetch(nextProps.state)
+          this.fetch()
         }
       }
 
       /**
        * Triggers a new fetch if available
-       * @param {object} state The state with the params
        */
-      fetch (state) {
-        const storeResponse = this.props.requestAction(state)
+      fetch () {
+        const storeResponse = this.props.requestAction()
         this.setState({isDataAvailable: storeResponse.dataAvailable})
       }
 
@@ -126,7 +125,7 @@ const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: state => dispatch(endpoint.requestAction(state))
+    requestAction: state => dispatch(endpoint.requestAction())
   })
 }
 

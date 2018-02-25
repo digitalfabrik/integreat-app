@@ -94,7 +94,7 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  requestAction (state) {
+  requestAction () {
     const responseOverride = this.responseOverride
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
@@ -104,15 +104,16 @@ class Endpoint {
      * @return {function(*, *)} The Action for the redux store which can initiate a fetch
      */
     return (dispatch, getState) => {
-      const endpointData = getState()[this.stateName]
+      const state = getState()
+      const endpointData = state[this.stateName]
       if (endpointData.isFetching) {
         return new StoreResponse(false)
       }
 
       const formattedURL = this.mapStateToUrl(state)
 
-      if (formattedURL.includes(undefined)) {
-        throw new Error(`Some necessary params in the state were undefined:${formattedURL}`)
+      if (formattedURL.includes('undefined')) {
+        throw new Error(`Some necessary params in the state were undefined: ${formattedURL}`)
       }
 
       const lastUrl = endpointData.requestUrl

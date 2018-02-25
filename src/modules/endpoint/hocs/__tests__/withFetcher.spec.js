@@ -145,31 +145,25 @@ describe('withFetcher', () => {
 
   it('should dispatch the correct actions whens fetch occurs', () => {
     const state = {param1: 'a'}
-    const otherState = {param2: 'b'}
     const mockRequestAction = jest.fn().mockReturnValue(new StoreResponse(true))
 
     const hoc = shallow(createComponent({endpoint, state, requestAction: mockRequestAction}))
-    const instance = hoc.instance()
 
     expect(hoc.state()).toEqual({isDataAvailable: true})
 
-    expect(mockRequestAction).toBeCalledWith(state)
-
-    instance.fetch(otherState)
-
-    expect(mockRequestAction).toBeCalledWith(otherState)
+    expect(mockRequestAction).toBeCalled()
   })
-
-  const mockStore = configureMockStore([thunk])
 
   it('should throw error if there is no getEndpoint function', () => {
     const HOC = withFetcher(endpoint.stateName)
     const Hoced = HOC(() => <span>WrappedComponent</span>)
 
-    expect(() => shallow(<Hoced />)).toThrow()
+    expect(() => shallow(<Hoced state={{}} requestAction={() => new StoreResponse(true)} />)).toThrowErrorMatchingSnapshot()
   })
 
   describe('connect()', () => {
+    const mockStore = configureMockStore([thunk])
+
     it('should throw if endpoint provider is missing', () => {
       const payload = new Payload(false)
       const store = mockStore({[endpoint.stateName]: payload})
@@ -181,7 +175,7 @@ describe('withFetcher', () => {
         <Provider store={store}>
           <Hoced />
         </Provider>
-      )).toThrow()
+      )).toThrowErrorMatchingSnapshot()
     })
 
     it('should map dispatch to props', () => {
@@ -191,7 +185,7 @@ describe('withFetcher', () => {
       const WrappedComponent = () => <span>WrappedComponent</span>
       const Hoced = HOC(WrappedComponent)
 
-      const tree = mount(
+      mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[endpoint]}>
             <Hoced />
@@ -199,17 +193,9 @@ describe('withFetcher', () => {
         </Provider>
       )
 
-      const wrappedHOCProps = tree.find('endpointFetcher').props()
-
       expect(store.getActions()).toHaveLength(2) // componentDidMount calls fetch
       expect(store.getActions()).toContainEqual({
         payload: new Payload(false, responseOverride, null, 'https://someendpoint/a/b/api.json', expect.any(Number)),
-        type: 'FINISH_FETCH_DATA_ENDPOINT'
-      })
-      wrappedHOCProps.requestAction({var1: 'c', var2: 'd'})
-      expect(store.getActions()).not.toHaveLength(2) // should change after dispatch -> not 2 anymore
-      expect(store.getActions()).toContainEqual({
-        payload: new Payload(false, responseOverride, null, 'https://someendpoint/c/d/api.json', expect.any(Number)),
         type: 'FINISH_FETCH_DATA_ENDPOINT'
       })
     })

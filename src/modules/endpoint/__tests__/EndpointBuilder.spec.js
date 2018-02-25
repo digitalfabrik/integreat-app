@@ -37,15 +37,15 @@ describe('EndpointBuilder', () => {
   })
 
   it('should throw errors if used incorrectly', () => {
-    expect(() => new EndpointBuilder(undefined).build()).toThrow()
+    expect(() => new EndpointBuilder(undefined).build()).toThrowErrorMatchingSnapshot()
 
     const builder = new EndpointBuilder('endpoint')
-    expect(() => builder.build()).toThrow()
+    expect(() => builder.build()).toThrowErrorMatchingSnapshot()
     builder.withStateToUrlMapper(() => 'https://someurl')
-    expect(() => builder.build()).toThrow()
+    expect(() => builder.build()).toThrowErrorMatchingSnapshot()
     builder.withMapper(json => json)
     expect(() => builder.build()).not.toThrow()
     builder.withRefetchLogic(null)
-    expect(() => builder.build()).toThrow()
+    expect(() => builder.build()).toThrowErrorMatchingSnapshot()
   })
 })
