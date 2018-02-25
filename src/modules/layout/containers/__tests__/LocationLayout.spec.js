@@ -81,7 +81,7 @@ describe('LocationLayout', () => {
 
     const mockStore = configureMockStore([thunk])
 
-    const createComponentInViewport = (small) => {
+    const createComponentInViewport = small => {
       const smallStore = mockStore({
         locations: new Payload(false),
         router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'},

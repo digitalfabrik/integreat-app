@@ -8,11 +8,11 @@ import RouteConfig from '../../RouteConfig'
 import Route from '../../Route'
 
 describe('RouterFragment', () => {
-  test('should render', () => {
+  it('should render', () => {
     shallow(<RouterFragment routeConfig={new RouteConfig()} scrollHeight={0} />)
   })
 
-  test('should match routes and use route config', () => {
+  it('should match routes and use route config', () => {
     const id = 0xBABE
     const route = new Route({id, path: '/'})
     const tree = shallow(<RouterFragment routeConfig={new RouteConfig([route])} scrollHeight={0} />)
@@ -20,7 +20,7 @@ describe('RouterFragment', () => {
     expect(tree.instance().matchRoute(id)).toBe(route)
   })
 
-  test('should tell if string is a language code', () => {
+  it('should tell if string is a language code', () => {
     expect(RouterFragment.isLanguageCode('de')).toBe(true)
     expect(RouterFragment.isLanguageCode('1')).toBe(false)
     expect(RouterFragment.isLanguageCode('123')).toBe(false)
@@ -29,7 +29,7 @@ describe('RouterFragment', () => {
   describe('connect()', () => {
     const mockStore = configureMockStore()
 
-    const createComponentInViewport = (small) => {
+    const createComponentInViewport = small => {
       const routeConfig = new RouteConfig([])
 
       const smallStore = mockStore({
@@ -43,7 +43,7 @@ describe('RouterFragment', () => {
       )
     }
 
-    test('should have correct scroll height', () => {
+    it('should have correct scroll height', () => {
       const smallComponent = createComponentInViewport(true).find(ConnectedRouterFragment).childAt(0)
       expect(smallComponent.prop('scrollHeight')).toBe(HALF_HEADER_HEIGHT_SMALL)
 

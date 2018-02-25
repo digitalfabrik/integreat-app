@@ -50,7 +50,7 @@ export class LocationLayout extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentPath: state.router.route,
   location: state.router.params.location,
   language: state.router.params.language,

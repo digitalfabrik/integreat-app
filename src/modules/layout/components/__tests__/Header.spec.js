@@ -6,7 +6,7 @@ import HeaderNavigationItem from '../../HeaderNavigationItem'
 import Header from '../Header'
 
 describe('Header', () => {
-  test('should match snapshot with smallViewport', () => {
+  it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
         logoHref={'/'}
@@ -16,7 +16,7 @@ describe('Header', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should match snapshot with largeViewport', () => {
+  it('should match snapshot with largeViewport', () => {
     const component = shallow(
       <Header
         logoHref={'/'}
