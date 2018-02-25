@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LocationLayout connect() should map state to props 1`] = `
-Object {
-  "children": <MockNode />,
-  "currentPath": "/:location/:language",
-  "dispatch": [Function],
-  "language": "en",
-  "location": "augsburg",
-  "scrollHeight": 55,
-}
-`;
-
 exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
 <Layout
   footer={<Translate(GeneralFooter) />}
