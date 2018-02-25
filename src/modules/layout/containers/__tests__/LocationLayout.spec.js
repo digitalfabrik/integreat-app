@@ -2,14 +2,15 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
 import { mount, shallow } from 'enzyme'
-import thunk from 'redux-thunk'
-import configureMockStore from 'redux-mock-store'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import Payload from 'modules/endpoint/Payload'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
-import Header from '../../components/Header'
 import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../constants'
+import createReduxStore from '../../../app/createReduxStore'
+import createHistory from '../../../app/createHistory'
+import thunk from 'redux-thunk/index'
+import configureMockStore from 'redux-mock-store'
+import Payload from '../../../endpoint/Payload'
 
 describe('LocationLayout', () => {
   const matchRoute = (id) => {}
@@ -46,30 +47,37 @@ describe('LocationLayout', () => {
 
   describe('connect()', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
-      .withUrl('https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(locations)
       .build()
 
-    const mockStore = configureMockStore([thunk])
+    const location = 'augsburg'
+    const path = '/:location/:language'
 
     test('should map state to props', () => {
-      const store = mockStore({
-        locations: new Payload(false),
-        router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'},
-        viewport: {is: {small: true}}
+      const store = createReduxStore(createHistory, {
+        router: {params: {location: location, language: language}, route: path}
       })
 
-      const tree = mount(
+      const locationLayout = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>
-            <ConnectedLocationLayout><MockNode /></ConnectedLocationLayout>
+            <ConnectedLocationLayout />
           </EndpointProvider>
         </Provider>
-      )
-      // todo: add locations
-      expect(tree.find(ConnectedLocationLayout).childAt(0).props()).toMatchSnapshot()
+      ).find(LocationLayout)
+
+      expect(locationLayout.props()).toEqual({
+        path: path,
+        location: location,
+        language: language,
+        locations: locations,
+        dispatch: expect.any(Function)
+      })
     })
+
+    const mockStore = configureMockStore([thunk])
 
     const createComponentInViewport = (small) => {
       const smallStore = mockStore({

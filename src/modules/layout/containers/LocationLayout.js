@@ -59,5 +59,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations', true, true)
+  withFetcher('locations', null, true)
 )(LocationLayout)

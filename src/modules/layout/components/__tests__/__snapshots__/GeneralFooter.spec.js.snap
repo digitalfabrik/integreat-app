@@ -10,7 +10,7 @@ exports[`GeneralFooter should match snapshot 1`] = `
   <a
     href="https://integreat-app.de/datenschutz/"
   >
-    Datenschutz
+    app:privacy
   </a>
 </Footer>
 `;
