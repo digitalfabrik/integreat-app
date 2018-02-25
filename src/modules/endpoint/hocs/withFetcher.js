@@ -26,7 +26,7 @@ const contextTypes = {
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
 export function withFetcher (endpointName, FailureComponent = Failure, hideSpinner = false) {
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     class Fetcher extends React.Component {
       static displayName = `${endpointName}Fetcher`
       static propTypes = {
@@ -132,7 +132,7 @@ const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
 
 export default (endpointName, hideError, hideSpinner) => {
   const HOC = withFetcher(endpointName, hideError, hideSpinner)
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     const AnotherWrappedComponent = HOC(WrappedComponent)
     return getContext(contextTypes)(
       connect(createMapStateToProps(endpointName), createMapDispatchToProps(endpointName))(AnotherWrappedComponent))

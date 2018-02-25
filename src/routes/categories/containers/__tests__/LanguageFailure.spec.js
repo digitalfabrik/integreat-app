@@ -28,7 +28,7 @@ describe('LanguageFailure', () => {
 
   const language = 'tu'
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageFailure locations={locations}
                        languages={languages}
@@ -41,7 +41,7 @@ describe('LanguageFailure', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once on mount', () => {
+  it('should dispatch once on mount', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const categoriesPage = shallow(
       <LanguageFailure locations={locations}
@@ -56,7 +56,7 @@ describe('LanguageFailure', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(categoriesPage.mapLanguageToUrl, languages)
   })
 
-  test('should map language to url', () => {
+  it('should map language to url', () => {
     const mapLanguageToUrl = shallow(
       <LanguageFailure locations={locations}
                        languages={languages}
@@ -85,7 +85,7 @@ describe('LanguageFailure', () => {
     const pathname = '/augsburg/tu'
     const id = '1234'
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
         router: {
           params: {location, language},
@@ -112,7 +112,7 @@ describe('LanguageFailure', () => {
       })
     })
 
-    test('should map dispatch to props', () => {
+    it('should map dispatch to props', () => {
       const store = createReduxStore(createHistory, {
         router: {
           params: {location: location, language: language},

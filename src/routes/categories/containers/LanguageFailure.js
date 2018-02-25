@@ -25,7 +25,7 @@ export class LanguageFailure extends React.PureComponent {
    * @param {string} language The language
    * @returns {string} The url of the CategoriesPage of a different language
    */
-  mapLanguageToUrl = (language) => `/${this.props.location}/${language}`
+  mapLanguageToUrl = language => `/${this.props.location}/${language}`
 
   /**
    * Gets and stores the available languages for the current page
@@ -51,11 +51,11 @@ export class LanguageFailure extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (mapLanguageToUrl, languages) => dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   location: state.router.params.location
 })
 

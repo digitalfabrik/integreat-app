@@ -39,7 +39,7 @@ describe('withFetcher', () => {
                   {...otherProps} />
   }
 
-  test('should show default Failure if there is an error', () => {
+  it('should show default Failure if there is an error', () => {
     const hoc = createComponent({
       endpoint,
       requestAction: () => new StoreResponse(true),
@@ -49,7 +49,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should show custom FailureComponent if there is an error', () => {
+  it('should show custom FailureComponent if there is an error', () => {
     const MockedFailureComponent = () => <div />
     const hoc = createComponent({
       endpoint,
@@ -61,7 +61,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should render nothing if there is an error and FailureComponent is null', () => {
+  it('should render nothing if there is an error and FailureComponent is null', () => {
     const hoc = createComponent({
       endpoint,
       FailureComponent: null,
@@ -72,7 +72,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should show spinner if there is no data yet and it\'s not hidden', () => {
+  it('should show spinner if there is no data yet and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: false,
@@ -83,7 +83,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should show nothing if there is no data yet and spinner is hidden', () => {
+  it('should show nothing if there is no data yet and spinner is hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: true,
@@ -94,7 +94,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should show wrapped component if there is data', () => {
+  it('should show wrapped component if there is data', () => {
     const hoc = createComponent({
       endpoint,
       requestAction: () => new StoreResponse(true),
