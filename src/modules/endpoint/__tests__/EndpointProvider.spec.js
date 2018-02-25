@@ -5,12 +5,12 @@ import EndpointBuilder from '../EndpointBuilder'
 
 describe('EndpointProvider', () => {
   const endpoint = new EndpointBuilder('endpoint')
-    .withUrl('https://weird-endpoint/api.json')
+    .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
     .withMapper(json => json)
     .withResponseOverride({})
     .build()
 
-  test('should have correct child context', () => {
+  it('should have correct child context', () => {
     expect(EndpointProvider.childContextTypes).toHaveProperty('getEndpoint')
 
     const provider = shallow(<EndpointProvider endpoints={[endpoint]}>
@@ -21,7 +21,7 @@ describe('EndpointProvider', () => {
     expect(getEndpoint(endpoint.stateName)).toBe(endpoint)
   })
 
-  test('should need children', () => {
+  it('should need children', () => {
     expect(() => shallow(
       <EndpointProvider endpoints={[endpoint]} />)
     ).toThrow()

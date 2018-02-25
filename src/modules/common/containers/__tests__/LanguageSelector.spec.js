@@ -24,13 +24,11 @@ describe('LanguageSelector', () => {
     ar: 'test/url/ar'
   }
 
-  test('should match snapshot', () => {
-    const mockCloseDropDownCallback = jest.fn()
-
+  it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageSelector location={location}
                         languageChangeUrls={languageChangeUrls}
-                        closeDropDownCallback={mockCloseDropDownCallback}
+                        closeDropDownCallback={() => {}}
                         language={language}
                         languages={languages} />
     )
@@ -38,14 +36,22 @@ describe('LanguageSelector', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should add vertical class name if verticalLayout is true', () => {
+    const wrapper = shallow(<LanguageSelector location={location} languageChangeUrls={languageChangeUrls}
+                                              closeDropDownCallback={() => {}} language={language}
+                                              languages={languages}
+                                              verticalLayout />)
+    expect(wrapper).toMatchSnapshot()
+  })
+
   describe('connect', () => {
     const languagesEndpoint = new EndpointBuilder('languages')
-      .withUrl('https://weird-endpoint/api.json')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(languages)
       .build()
 
-    test('should have correct props', () => {
+    it('should have correct props', () => {
       const mockCloseDropDownCallback = jest.fn()
 
       const store = createReduxStore(createHistory, {

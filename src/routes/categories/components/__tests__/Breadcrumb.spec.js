@@ -45,7 +45,7 @@ const locations = [
 ]
 
 describe('Breadcrumbs', () => {
-  test('should render and match snapshot', () => {
+  it('should render and match snapshot', () => {
     const wrapper = shallow(
       <Breadcrumbs parents={parents} locations={locations} />
     )
@@ -53,7 +53,7 @@ describe('Breadcrumbs', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('getLocationName', () => {
+  it('getLocationName', () => {
     const breadcrumbs = shallow(
       <Breadcrumbs parents={parents} locations={locations} />
     ).instance()

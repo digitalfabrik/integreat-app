@@ -32,7 +32,7 @@ class TimeSpan extends React.Component {
         // startDate and endDate are on the same day
 
         // if allDay: we don't need anything more, because we are on the same day, else: only time
-        span += this.props.allDay ? '' : ' - ' + endDate.format('LT')
+        span += this.props.allDay ? '' : ` - ${endDate.format('LT')}`
       } else {
         // startDate and endDate are not on the same day
 

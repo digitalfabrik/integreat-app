@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 describe('LocationEntry', () => {
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const name = 'Augsburg'
     const code = 'augsburg'
     const component = shallow(<LocationEntry language={'de'} location={new LocationModel({name, code})} />)

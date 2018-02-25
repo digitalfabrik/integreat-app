@@ -33,9 +33,10 @@
     "redux-actions": "~2.2.1",
     "redux-little-router": "~14.2.1",
     "redux-logger": "~3.0.6",
+    "redux-responsive": "^4.3.5",
     "redux-thunk": "~2.2.0",
-    "string-template": "~1.0.0",
     "text-encoding": "~0.6.4",
+    "url-pattern": "^1.0.3",
     "url-search-params-polyfill": "~2.0.1",
     "webfontloader": "~1.6.28",
     "whatwg-fetch": "~2.0.3"
@@ -63,10 +64,11 @@
     "eslint-config-standard": "~10.2.1",
     "eslint-config-standard-react": "~5.0.0",
     "eslint-plugin-import": "~2.8.0",
-    "eslint-plugin-jest": "~21.4.2",
+    "eslint-plugin-jest": "~21.12.1",
     "eslint-plugin-node": "~5.2.1",
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-promise": "~3.6.0",
-    "eslint-plugin-react": "~7.5.1",
+    "eslint-plugin-react": "~7.7.0",
     "eslint-plugin-standard": "~3.0.1",
     "file-loader": "~1.1.5",
     "front-matter": "~2.3.0",
@@ -127,56 +129,11 @@
       "transform-runtime"
     ]
   },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": [
-      "standard",
-      "standard-react"
-    ],
-    "env": {
-      "browser": true,
-      "jest": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
-    },
-    "rules": {
-      "react/jsx-uses-react": "error",
-      "react/jsx-uses-vars": "error",
-      "jest/no-disabled-tests": "error",
-      "jest/no-focused-tests": "error",
-      "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "error",
-      "jest/valid-expect": "error",
-      "indent": [
-        "error",
-        2,
-        {
-          "SwitchCase": 1,
-          "ignoredNodes": [
-            "JSXElement *"
-          ]
-        }
-      ],
-      "react/jsx-indent": "off",
-      "react/jsx-indent-props": "off",
-      "react/prop-types": "error",
-      "jsx-quotes": "error",
-      "react/jsx-tag-spacing": "error",
-      "react/no-unused-prop-types": "error",
-      "prefer-const": "error"
-    },
-    "plugins": [
-      "react",
-      "jest"
-    ]
-  },
   "scripts": {
     "eslint": "eslint src tools",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.css\"",
-    "lint": "npm run eslint && npm run stylelint",
-    "lintfix": "npm run eslint --fix && stylefmt -r \"src/**/*.css\"",
+    "lint": "yarn run eslint && yarn run stylelint",
+    "lint:fix": "yarn run eslint --fix && stylefmt -r \"src/**/*.css\"",
     "build": "node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "start": "node tools/run.js",

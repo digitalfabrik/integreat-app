@@ -5,7 +5,7 @@ import PdfButton from '../PdfButton'
 const href = '/augsburg/de'
 
 describe('PdfButton', () => {
-  test('should render', () => {
+  it('should render', () => {
     const wrapper = shallow(<PdfButton href={href} />)
     expect(wrapper).toMatchSnapshot()
   })

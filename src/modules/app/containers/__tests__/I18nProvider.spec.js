@@ -11,7 +11,7 @@ import resources from '../../../../locales.json'
 const mockStore = configureMockStore()
 
 describe('I18nProvider', () => {
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const component = mount(<I18nProvider>
       <div />
     </I18nProvider>)
@@ -22,7 +22,7 @@ describe('I18nProvider', () => {
     expect(i18nextProvider.children()).toMatchSnapshot()
   })
 
-  test('should transform the resources correctly', () => {
+  it('should transform the resources correctly', () => {
     const input = {
       'module1': {
         'language1': {
@@ -44,7 +44,7 @@ describe('I18nProvider', () => {
     expect(I18nProvider.transformResources(input)).toMatchSnapshot()
   })
 
-  test('should initialize correct i18next instance', () => {
+  it('should initialize correct i18next instance', () => {
     let i18nInstance
     const unmockedCreateInstance = i18next.createInstance.bind(i18next)
     i18next.createInstance = jest.fn(() => {
@@ -74,7 +74,7 @@ describe('I18nProvider', () => {
     i18next.createInstance = unmockedCreateInstance
   })
 
-  test('should fallback to en', () => {
+  it('should fallback to en', () => {
     const component = mount(<I18nProvider>
       <div />
     </I18nProvider>)
@@ -84,7 +84,7 @@ describe('I18nProvider', () => {
     expect(component.state()).toEqual({language: 'en'})
   })
 
-  test('should call setLanguage on property change', () => {
+  it('should call setLanguage on property change', () => {
     I18nProvider.prototype.setLanguage = jest.fn(I18nProvider.prototype.setLanguage)
     const component = mount(<I18nProvider>
       <div />
@@ -95,7 +95,7 @@ describe('I18nProvider', () => {
     expect(I18nProvider.prototype.setLanguage).toHaveBeenCalledWith('de')
   })
 
-  test('should connect to the store', () => {
+  it('should connect to the store', () => {
     const store = mockStore({router: {params: {language: 'language1'}}})
     const i18n = mount(<Provider store={store}>
       <ConnectedI18nProvider>
@@ -107,7 +107,7 @@ describe('I18nProvider', () => {
   })
 
   describe('setLanguage', () => {
-    test('should take first i18next language if param is undefined', () => {
+    it('should take first i18next language if param is undefined', () => {
       const component = mount(<I18nProvider>
         <div />
       </I18nProvider>)
@@ -128,7 +128,21 @@ describe('I18nProvider', () => {
       expect(component.state()).toEqual({language: expectedLanguage})
     })
 
-    test('should take param language if param is defined', () => {
+    it('should ignore invalid languages', () => {
+      const tree = mount(<I18nProvider>
+        <div />
+      </I18nProvider>)
+
+      const i18n = tree.find(I18nextProvider).prop('i18n')
+
+      const expectedLanguage = i18n.languages[0]
+
+      tree.instance().setLanguage('long string')
+
+      expect(document.documentElement.lang).toEqual(expectedLanguage)
+    })
+
+    it('should take param language if param is defined', () => {
       const component = mount(<I18nProvider>
         <div />
       </I18nProvider>)
@@ -150,7 +164,7 @@ describe('I18nProvider', () => {
     })
   })
 
-  test('should add direction style depending on language', () => {
+  it('should add direction style depending on language', () => {
     const component = mount(<I18nProvider language='en'>
       <div />
     </I18nProvider>)

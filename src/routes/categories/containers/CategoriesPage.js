@@ -8,7 +8,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 
@@ -16,6 +16,7 @@ import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
 import CategoryTiles from '../components/CategoryTiles'
 import CategoryList from '../components/CategoryList'
+import LanguageFailure from './LanguageFailure'
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<location>/<language>*
@@ -133,13 +134,13 @@ export class CategoriesPage extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (mapLanguageToUrl, languages, availableLanguages) =>
     dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)),
-  replaceUrl: (url) => dispatch(replace(url))
+  replaceUrl: url => dispatch(replace(url))
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.pathname,
@@ -148,7 +149,7 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('categories'),
+  withFetcher('categories', LanguageFailure),
   withFetcher('languages'),
   withFetcher('locations')
 )(CategoriesPage)

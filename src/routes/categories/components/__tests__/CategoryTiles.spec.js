@@ -27,7 +27,7 @@ const categories = [
 ]
 
 describe('CategoryList', () => {
-  test('should render', () => {
+  it('should render', () => {
     const wrapper = shallow(
       <CategoryTiles categories={categories}
                     locations={locations}
@@ -36,7 +36,7 @@ describe('CategoryList', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('getLocationName', () => {
+  it('should get location names correctly', () => {
     const categoryTiles = shallow(
       <CategoryTiles categories={categories}
                      locations={locations}

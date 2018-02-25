@@ -12,18 +12,16 @@ import connectedWithFetcher, { withFetcher } from '../withFetcher'
 import EndpointProvider from '../../EndpointProvider'
 
 describe('withFetcher', () => {
-  const urlParams = {var1: 'a', var2: 'b'}
   const responseOverride = {data: 'random'}
   const endpoint = new EndpointBuilder('endpoint')
-    .withUrl('https://someendpoint/{var1}/{var2}/api.json')
-    .withMapper((json) => json)
-    .withStateMapper().fromFunction(() => (urlParams))
+    .withStateToUrlMapper(state => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
+    .withMapper(json => json)
     .withResponseOverride(responseOverride)
     .build()
 
   // eslint-disable-next-line react/prop-types
-  const createComponent = ({endpoint, hideError = false, hideSpinner = false, urlParams = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
-    const HOC = withFetcher(endpoint.stateName, hideError, hideSpinner)
+  const createComponent = ({endpoint, FailureComponent, hideSpinner = false, state = {}, requestAction, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
+    const HOC = withFetcher(endpoint.stateName, FailureComponent, hideSpinner)
 
     class WrappedComponent extends React.Component {
       static displayName = 'WrappedComponent'
@@ -36,16 +34,14 @@ describe('withFetcher', () => {
     const Hoced = HOC(WrappedComponent)
 
     return <Hoced getEndpoint={() => endpoint}
-                  urlParams={urlParams}
+                  state={state}
                   requestAction={requestAction}
-                  classname={classname}
                   {...otherProps} />
   }
 
-  test('should should show error if there is one and it\'s not hidden', () => {
+  it('should show default Failure if there is an error', () => {
     const hoc = createComponent({
       endpoint,
-      hideError: false,
       requestAction: () => new StoreResponse(true),
       otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
     })
@@ -53,7 +49,30 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should should show spinner if there is no data yet and it\'s not hidden', () => {
+  it('should show custom FailureComponent if there is an error', () => {
+    const MockedFailureComponent = () => <div />
+    const hoc = createComponent({
+      endpoint,
+      FailureComponent: MockedFailureComponent,
+      requestAction: () => new StoreResponse(true),
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  it('should render nothing if there is an error and FailureComponent is null', () => {
+    const hoc = createComponent({
+      endpoint,
+      FailureComponent: null,
+      requestAction: () => new StoreResponse(true),
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  it('should show spinner if there is no data yet and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: false,
@@ -64,7 +83,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should should show nothing if there is no data yet and spinner is hidden', () => {
+  it('should show nothing if there is no data yet and spinner is hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: true,
@@ -75,7 +94,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should should show wrapped component if there is data', () => {
+  it('should show wrapped component if there is data', () => {
     const hoc = createComponent({
       endpoint,
       requestAction: () => new StoreResponse(true),
@@ -85,10 +104,10 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  test('should fetch when endpoint tells us', () => {
+  it('should fetch when endpoint tells us', () => {
     const endpoint = new EndpointBuilder('endpoint')
-      .withUrl('https://someendpoint/{var1}/{var2}/api.json')
-      .withMapper((json) => json)
+      .withStateToUrlMapper(state => `https://someendpoint/${state.var1}/${state.var2}/api.json`)
+      .withMapper(json => json)
       .withResponseOverride({})
       .withRefetchLogic(() => true) // Refetch always
       .build()
@@ -104,7 +123,7 @@ describe('withFetcher', () => {
     expect(mockRequestAction.mock.calls).toHaveLength(2)
   })
 
-  test('should fetch when props change', () => {
+  it('should fetch when props change', () => {
     const mockRequestAction = jest.fn().mockReturnValue(new StoreResponse(false))
     const otherProps = {[endpoint.payloadName]: new Payload(false)}
     const hoc = shallow(createComponent({
@@ -124,28 +143,26 @@ describe('withFetcher', () => {
     expect(mockRequestAction.mock.calls).toHaveLength(2)
   })
 
-  test('should dispatch the correct actions whens fetch occurs', () => {
-    const urlParams = {param1: 'a'}
-    const otherUrlParams = {param2: 'b'}
+  it('should dispatch the correct actions whens fetch occurs', () => {
+    const state = {param1: 'a'}
+    const otherState = {param2: 'b'}
     const mockRequestAction = jest.fn().mockReturnValue(new StoreResponse(true))
 
-    const hoc = shallow(createComponent({endpoint, urlParams, requestAction: mockRequestAction}))
+    const hoc = shallow(createComponent({endpoint, state, requestAction: mockRequestAction}))
     const instance = hoc.instance()
 
     expect(hoc.state()).toEqual({isDataAvailable: true})
 
-    expect(mockRequestAction).toBeCalledWith(urlParams)
+    expect(mockRequestAction).toBeCalledWith(state)
 
-    instance.fetch(otherUrlParams)
+    instance.fetch(otherState)
 
-    expect(mockRequestAction).toBeCalledWith(otherUrlParams)
-
-    expect(() => instance.fetch(undefined)).toThrow()
+    expect(mockRequestAction).toBeCalledWith(otherState)
   })
 
   const mockStore = configureMockStore([thunk])
 
-  test('should throw error if there is no getEndpoint function', () => {
+  it('should throw error if there is no getEndpoint function', () => {
     const HOC = withFetcher(endpoint.stateName)
     const Hoced = HOC(() => <span>WrappedComponent</span>)
 
@@ -153,9 +170,23 @@ describe('withFetcher', () => {
   })
 
   describe('connect()', () => {
-    test('should map dispatch to props', () => {
+    it('should throw if endpoint provider is missing', () => {
       const payload = new Payload(false)
       const store = mockStore({[endpoint.stateName]: payload})
+      const HOC = connectedWithFetcher(endpoint.stateName)
+      const WrappedComponent = () => <span>WrappedComponent</span>
+      const Hoced = HOC(WrappedComponent)
+
+      expect(() => mount(
+        <Provider store={store}>
+          <Hoced />
+        </Provider>
+      )).toThrow()
+    })
+
+    it('should map dispatch to props', () => {
+      const payload = new Payload(false)
+      const store = mockStore({[endpoint.stateName]: payload, var1: 'a', var2: 'b'})
       const HOC = connectedWithFetcher(endpoint.stateName)
       const WrappedComponent = () => <span>WrappedComponent</span>
       const Hoced = HOC(WrappedComponent)
@@ -183,12 +214,12 @@ describe('withFetcher', () => {
       })
     })
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       /*  The url from the last request. This tells the endpoint that we already have data and displays the wrapped
       component instead of a spinner */
       const requestUrl = 'https://someendpoint/a/b/api.json'
       const payload = new Payload(false, {}, null, requestUrl)
-      const store = mockStore({[endpoint.stateName]: payload})
+      const store = mockStore({[endpoint.stateName]: payload, var1: 'a', var2: 'b'})
       const HOC = connectedWithFetcher(endpoint.stateName)
       const WrappedComponent = () => <span>WrappedComponent</span>
       const Hoced = HOC(WrappedComponent)

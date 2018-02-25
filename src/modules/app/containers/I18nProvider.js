@@ -7,12 +7,15 @@ import WebFont from 'webfontloader'
 import PropTypes from 'prop-types'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import localesResources from '../../../locales.json'
+import localesResources from 'locales.json'
+import { LANGUAGE_CODE_LENGTH } from '../constants'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGE = 'en'
 
 export class I18nProvider extends React.Component {
+  i18n
+
   static propTypes = {
     children: PropTypes.element.isRequired,
     language: PropTypes.string
@@ -22,7 +25,7 @@ export class I18nProvider extends React.Component {
     super()
 
     const i18nextResources = I18nProvider.transformResources(localesResources)
-    this._i18n = i18n.createInstance()
+    this.i18n = i18n.createInstance()
       .use(LanguageDetector)
       .init({
         resources: i18nextResources,
@@ -51,13 +54,19 @@ export class I18nProvider extends React.Component {
   }
 
   setLanguage (language) {
-    const targetLanguage = language || this._i18n.languages[0]
+    const targetLanguage = language || this.i18n.languages[0]
+
+    if (targetLanguage.length !== LANGUAGE_CODE_LENGTH) {
+      // No valid language code
+      return
+    }
+
     this.setState({language: targetLanguage})
-    /* Use language from browser detection if it is not available in url todo: redirect to correct url */
+
     document.documentElement.lang = targetLanguage
 
     // Set i18next language to apps language
-    this._i18n.changeLanguage(targetLanguage)
+    this.i18n.changeLanguage(targetLanguage)
     this.loadFonts(targetLanguage)
   }
 
@@ -86,7 +95,7 @@ export class I18nProvider extends React.Component {
   }
 
   render () {
-    return <I18nextProvider i18n={this._i18n}>
+    return <I18nextProvider i18n={this.i18n}>
       <div style={{'direction': RTL_LANGUAGES.includes(this.state.language) ? 'rtl' : 'ltr'}}>
         {this.props.children}
       </div>
@@ -94,6 +103,6 @@ export class I18nProvider extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({language: state.router.params.language})
+const mapStateToProps = state => ({language: state.router.params.language})
 
 export default connect(mapStateToProps)(I18nProvider)

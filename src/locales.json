@@ -2,18 +2,21 @@
   "app": {
     "ar": {
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+      "privacy": "حماية المعلومات",
       "extras": "إضافات",
       "categories": "الفئات",
       "news": "الأخبار"
     },
     "de": {
       "imprintAndContact": "Impressum und Kontakt",
+      "privacy": "Datenschutz",
       "extras": "Extras",
       "categories": "Kategorien",
       "news": "News"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
+      "privacy": "Data Privacy",
       "extras": "Extras",
       "categories": "Categories",
       "news": "News"
@@ -30,10 +33,14 @@
       "search": "البحث"
     },
     "de": {
-      "search": "Suchen"
+      "search": "Suchen",
+      "chooseYourLanguage": "Wähle deine Sprache:",
+      "goToStart": "Zur Startseite"
     },
     "en": {
-      "search": "Search"
+      "search": "Search",
+      "chooseYourLanguage": "Choose your language:",
+      "goToStart": "Go to start"
     },
     "fa": {
       "search": "جستجو"

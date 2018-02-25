@@ -1,11 +1,14 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import Navigation from '../../../app/Navigation'
 import LocationFooter from '../LocationFooter'
+import Route from '../../../app/Route'
 
 describe('LocationFooter', () => {
-  test('should match snapshot', () => {
-    const component = shallow(<LocationFooter navigation={new Navigation('location1', 'language1')} />)
+  it('should match snapshot', () => {
+    const matchRoute = id => new Route({id, path: '/:location/:language/disclaimer'})
+
+    const component = shallow(<LocationFooter location={'augsburg'} language={'de'}
+                                              matchRoute={matchRoute} />)
     expect(component.dive()).toMatchSnapshot()
   })
 })

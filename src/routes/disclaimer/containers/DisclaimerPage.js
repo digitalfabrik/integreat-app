@@ -7,7 +7,7 @@ import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
-import { setLanguageChangeUrls } from 'modules/language/actions/setLanguageChangeUrls'
+import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 
 /**
@@ -21,7 +21,7 @@ export class DisclaimerPage extends React.Component {
     setLanguageChangeUrls: PropTypes.func.isRequired
   }
 
-  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/disclaimer`
+  mapLanguageToUrl = language => `/${this.props.location}/${language}/disclaimer`
 
   componentDidMount () {
     this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages)
@@ -33,11 +33,11 @@ export class DisclaimerPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   location: state.router.params.location
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (urls, languages) => dispatch(
     setLanguageChangeUrls(urls, languages)
   )

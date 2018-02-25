@@ -32,7 +32,7 @@ const categories = [
 ]
 
 describe('CategoryList', () => {
-  test('should render and display a caption', () => {
+  it('should render and display a caption', () => {
     const wrapper = shallow(
       <CategoryList categories={categories}
                     title={title}
@@ -41,7 +41,7 @@ describe('CategoryList', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should render and not display a caption', () => {
+  it('should render and not display a caption', () => {
     const wrapper = shallow(
       <CategoryList categories={categories} />
     )

@@ -15,12 +15,15 @@ describe('languages', () => {
     }
   ]
 
-  test('should map state to urls', () => {
-    expect(languages.mapStateToUrlParams({router: {params: {location: 'augsburg'}}}))
-      .toEqual({location: 'augsburg', language: 'de'})
+  const state = {router: {params: {location: 'augsburg'}}}
+
+  it('should map router to url', () => {
+    expect(languages.mapStateToUrl(state)).toEqual(
+      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/languages/wpml'
+    )
   })
 
-  test('should map fetched data to models', () => {
+  it('should map fetched data to models', () => {
     const languageModels = languages.mapResponse(languagesJson)
     expect(languageModels).toEqual([
       new LanguageModel('de', 'Deutsch'),

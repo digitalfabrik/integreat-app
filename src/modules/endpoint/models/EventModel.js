@@ -31,7 +31,7 @@ class EventModel {
 
   get address () {
     if (this._address && this._town) {
-      return this._address + ', ' + this._town
+      return `${this._address}, ${this._town}`
     } else if (this._address) {
       return this._address
     } else if (this._town) {
