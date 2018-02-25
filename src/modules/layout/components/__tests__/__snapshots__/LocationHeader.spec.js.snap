@@ -93,7 +93,7 @@ Array [
 `;
 
 exports[`LocationHeader should match snapshot 1`] = `
-<Connect(Header)
+<Header
   actionItems={
     Array [
       HeaderActionItem {

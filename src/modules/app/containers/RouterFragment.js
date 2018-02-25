@@ -2,7 +2,7 @@ import { Fragment } from 'redux-little-router'
 import React from 'react'
 
 import Layout from 'modules/layout/components/Layout'
-import GeneralHeader from '../../layout/containers/GeneralHeader'
+import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import LocationLayout from '../../layout/containers/LocationLayout'
 
@@ -16,6 +16,9 @@ import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import I18nRedirect from 'modules/app/containers/I18nRedirect'
 import PropTypes from 'prop-types'
 import RouteConfig from '../RouteConfig'
+import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../layout/constants'
+import { connect } from 'react-redux'
+import Headroom from '../../common/components/Headroom'
 
 const LANGUAGE_CODE_LENGTH = 2
 
@@ -23,8 +26,9 @@ const LANGUAGE_CODE_LENGTH = 2
  * todo: Test and document in WEBAPP-90
  * todo: Layouts should be set in each route
  */
-class RouterFragment extends React.Component {
+export class RouterFragment extends React.Component {
   static propTypes = {
+    scrollHeight: PropTypes.number.isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }
 
@@ -81,7 +85,8 @@ class RouterFragment extends React.Component {
 
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
-          <Layout header={<GeneralHeader />} footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
+          <Layout header={<Headroom scrollHeight={this.props.scrollHeight}><GeneralHeader /></Headroom>}
+                  footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
         {/* If language param is longer than 2, it is no language and is probably a location
@@ -108,4 +113,8 @@ class RouterFragment extends React.Component {
   }
 }
 
-export default RouterFragment
+const mapStateToProps = (state) => ({
+  scrollHeight: state.viewport.is.small ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
+})
+
+export default connect(mapStateToProps)(RouterFragment)

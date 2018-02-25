@@ -1,19 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LocationLayout connect should map state to props 1`] = `
+exports[`LocationLayout connect() should map state to props 1`] = `
 Object {
   "children": <MockNode />,
   "currentPath": "/:location/:language",
   "dispatch": [Function],
   "language": "en",
   "location": "augsburg",
+  "scrollHeight": 55,
 }
 `;
 
 exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
 <Layout
   footer={<Translate(GeneralFooter) />}
-  header={<GeneralHeader />}
+  header={
+    <Headroom
+      pinStart={0}
+      scrollHeight={0}
+    >
+      <GeneralHeader />
+    </Headroom>
+  }
 >
   <MockNode />
 </Layout>
@@ -29,22 +37,27 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
     />
   }
   header={
-    <Translate(LocationHeader)
-      currentPath="/:location/:language"
-      language="de"
-      locationModel={
-        LocationModel {
-          "_code": "location1",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Mambo No. 5",
-          "_sortCategory": "M",
-          "_sortKey": "mambo no. 5",
+    <Headroom
+      pinStart={0}
+      scrollHeight={0}
+    >
+      <Translate(LocationHeader)
+        currentPath="/:location/:language"
+        language="de"
+        locationModel={
+          LocationModel {
+            "_code": "location1",
+            "_eventsEnabled": false,
+            "_extrasEnabled": false,
+            "_live": false,
+            "_name": "Mambo No. 5",
+            "_sortCategory": "M",
+            "_sortKey": "mambo no. 5",
+          }
         }
-      }
-      matchRoute={[Function]}
-    />
+        matchRoute={[Function]}
+      />
+    </Headroom>
   }
 >
   <MockNode />

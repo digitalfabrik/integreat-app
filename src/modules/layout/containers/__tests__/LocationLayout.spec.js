@@ -8,6 +8,8 @@ import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import Payload from 'modules/endpoint/Payload'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
+import Header from '../../components/Header'
+import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../constants'
 
 describe('LocationLayout', () => {
   const matchRoute = (id) => {}
@@ -23,6 +25,7 @@ describe('LocationLayout', () => {
       <LocationLayout location='location1' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
+                      scrollHeight={0}
                       currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
@@ -34,13 +37,14 @@ describe('LocationLayout', () => {
       <LocationLayout location='unavailableLocation' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
+                      scrollHeight={0}
                       currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
 
-  describe('connect', () => {
+  describe('connect()', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
       .withUrl('https://weird-endpoint/api.json')
       .withMapper(json => json)
@@ -49,12 +53,13 @@ describe('LocationLayout', () => {
 
     const mockStore = configureMockStore([thunk])
 
-    const store = mockStore({
-      locations: new Payload(false),
-      router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'}
-    })
-
     test('should map state to props', () => {
+      const store = mockStore({
+        locations: new Payload(false),
+        router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'},
+        viewport: {is: {small: true}}
+      })
+
       const tree = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>
@@ -64,6 +69,29 @@ describe('LocationLayout', () => {
       )
       // todo: add locations
       expect(tree.find(ConnectedLocationLayout).childAt(0).props()).toMatchSnapshot()
+    })
+
+    const createComponentInViewport = (small) => {
+      const smallStore = mockStore({
+        locations: new Payload(false),
+        router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'},
+        viewport: {is: {small}}
+      })
+      return mount(
+        <Provider store={smallStore}>
+          <EndpointProvider endpoints={[locationsEndpoint]}>
+            <ConnectedLocationLayout><MockNode /></ConnectedLocationLayout>
+          </EndpointProvider>
+        </Provider>
+      )
+    }
+
+    test('should have correct scroll height', () => {
+      const smallComponent = createComponentInViewport(true).find(ConnectedLocationLayout).childAt(0)
+      expect(smallComponent.prop('scrollHeight')).toBe(HALF_HEADER_HEIGHT_SMALL)
+
+      const largeComponent = createComponentInViewport(false).find(ConnectedLocationLayout).childAt(0)
+      expect(largeComponent.prop('scrollHeight')).toBe(HEADER_HEIGHT_LARGE)
     })
   })
 })
