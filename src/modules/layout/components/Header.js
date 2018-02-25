@@ -6,8 +6,6 @@ import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import Headroom from '../../common/components/Headroom'
-import { connect } from 'react-redux'
 import { Link } from 'redux-little-router'
 
 /**

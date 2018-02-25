@@ -8,7 +8,7 @@ import EndpointProvider from '../../../endpoint/EndpointProvider'
 import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../constants'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
-import thunk from 'redux-thunk/index'
+import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 import Payload from '../../../endpoint/Payload'
 
@@ -57,7 +57,8 @@ describe('LocationLayout', () => {
 
     test('should map state to props', () => {
       const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language}, route: path}
+        router: {params: {location: location, language: language}, route: path},
+        viewport: {is: {small: false}}
       })
 
       const locationLayout = mount(
@@ -69,10 +70,11 @@ describe('LocationLayout', () => {
       ).find(LocationLayout)
 
       expect(locationLayout.props()).toEqual({
-        path: path,
+        currentPath: path,
         location: location,
         language: language,
         locations: locations,
+        scrollHeight: HEADER_HEIGHT_LARGE,
         dispatch: expect.any(Function)
       })
     })
