@@ -12,11 +12,11 @@ describe('HeaderDropDown', () => {
     </HeaderDropDown>)
   })
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     expect(wrapperComponent.dive()).toMatchSnapshot()
   })
 
-  test('should pass correct closeDropDown callback', () => {
+  it('should pass correct closeDropDown callback', () => {
     const component = wrapperComponent.dive()
     expect(component.find('MockNode')).toHaveLength(1)
     const callback = component.find('MockNode').prop('closeDropDownCallback')
@@ -24,14 +24,14 @@ describe('HeaderDropDown', () => {
   })
 
   describe('closeDropDown()', () => {
-    test('should close DropDown if active', () => {
+    it('should close DropDown if active', () => {
       const component = wrapperComponent.dive()
       component.setState({dropDownActive: true})
       component.instance().closeDropDown()
       expect(component.instance().state.dropDownActive).toBe(false)
     })
 
-    test('shouldnt open DropDown if inactive', () => {
+    it('shouldnt open DropDown if inactive', () => {
       const component = wrapperComponent.dive()
       component.instance().closeDropDown()
       expect(component.instance().state.dropDownActive).toBe(false)
@@ -39,38 +39,38 @@ describe('HeaderDropDown', () => {
   })
 
   describe('toggleDropDown()', () => {
-    test('should close DropDown if active', () => {
+    it('should close DropDown if active', () => {
       const component = wrapperComponent.dive()
       component.setState({dropDownActive: true})
       component.instance().toggleDropDown()
       expect(component.instance().state.dropDownActive).toBe(false)
     })
 
-    test('should open DropDown if inactive', () => {
+    it('should open DropDown if inactive', () => {
       const component = wrapperComponent.dive()
       component.instance().toggleDropDown()
       expect(component.instance().state.dropDownActive).toBe(true)
     })
   })
 
-  test('should toggle when user clicks on img', () => {
+  it('should toggle when user clicks on img', () => {
     const component = wrapperComponent.dive()
     const onClick = component.find('img').prop('onClick')
     expect(onClick).toBe(component.instance().toggleDropDown)
   })
 
-  test('should call closeDropDown when handleClickOutside is called', () => {
+  it('should call closeDropDown when handleClickOutside is called', () => {
     const component = wrapperComponent.dive()
     component.instance().closeDropDown = jest.fn()
     component.instance().handleClickOutside()
     expect(component.instance().closeDropDown).toHaveBeenCalled()
   })
 
-  test('should be closed from the beginning', () => {
+  it('should be closed from the beginning', () => {
     expect(wrapperComponent.dive().instance().state.dropDownActive).toBe(false)
   })
 
-  test('should add class if active', () => {
+  it('should add class if active', () => {
     const component = wrapperComponent.dive()
     expect(component.find('.dropDown').hasClass('dropDownActive')).toEqual(false)
     component.setState({dropDownActive: true})

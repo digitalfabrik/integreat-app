@@ -18,7 +18,7 @@ export default new EndpointBuilder('locations')
   .withStateToUrlMapper(() => 'https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
   .withMapper(json => {
     const locations = json
-      .map((location) => new LocationModel({
+      .map(location => new LocationModel({
         name: location.name,
         code: stripSlashes(location.path),
         live: location.live,

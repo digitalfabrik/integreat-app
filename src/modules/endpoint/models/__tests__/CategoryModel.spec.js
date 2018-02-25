@@ -1,7 +1,7 @@
 import CategoryModel from '../CategoryModel'
 
 describe('CategoryModel', () => {
-  test('should return correct attributes', () => {
+  it('should return correct attributes', () => {
     const props = {
       id: 1,
       url: '/test/url',
@@ -22,12 +22,12 @@ describe('CategoryModel', () => {
     expect(category.availableLanguages).toBe(props.availableLanguages)
   })
 
-  test('should have correct default attributes', () => {
+  it('should have correct default attributes', () => {
     const category = new CategoryModel({id: 4, url: '/test/url'})
     expect(category.parentId).toBe(-1)
-    expect(category.parentUrl).toBe(null)
+    expect(category.parentUrl).toBeNull()
     expect(category.content).toBe('')
-    expect(category.thumbnail).toBe(null)
+    expect(category.thumbnail).toBeNull()
     expect(category.order).toBe(0)
     expect(category.availableLanguages).toEqual({})
   })

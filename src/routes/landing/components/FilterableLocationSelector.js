@@ -19,12 +19,14 @@ class FilterableLocationSelector extends React.Component {
     this.state = {filterText: ''}
   }
 
+  onFilterTextChange = filterText => this.setState({filterText})
+
   render () {
     return (
       <div className={style.topSpacing}>
         <Heading />
         <ScrollingSearchBox filterText={this.state.filterText}
-                            onFilterTextChange={filterText => this.setState({filterText})}>
+                            onFilterTextChange={this.onFilterTextChange}>
           <LocationSelector locations={this.props.locations}
                             filterText={this.state.filterText}
                             language={this.props.language} />

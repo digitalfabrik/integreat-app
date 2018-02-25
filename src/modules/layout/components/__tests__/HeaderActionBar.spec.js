@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import HeaderActionItem from '../../HeaderActionItem'
 
 describe('HeaderActionBar', () => {
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const component = shallow(
       <HeaderActionBar className='testClass' items={[
         new HeaderActionItem({iconSrc: 'icon1', href: 'link1'}),

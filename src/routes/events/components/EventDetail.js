@@ -24,7 +24,7 @@ class EventDetail extends React.Component {
 
   getEventPlaceholder () {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-    return placeholders[this.props.event.id % 3]
+    return placeholders[this.props.event.id % placeholders.length]
   }
 
   render () {

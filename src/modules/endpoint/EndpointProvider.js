@@ -14,10 +14,10 @@ class EndpointProvider extends React.Component {
 
   getChildContext () {
     return {
-      getEndpoint: (endpointName) => {
+      getEndpoint: endpointName => {
         const endpoint = this.endpoints[endpointName]
         if (!endpoint) {
-          throw new Error('The endpoint ' + endpointName + ' was not found. Maybe you forgot register the endpoint!')
+          throw new Error(`The endpoint ${endpointName} was not found. Maybe you forgot to register the endpoint!`)
         }
         return endpoint
       }

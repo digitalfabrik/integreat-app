@@ -37,7 +37,7 @@ describe('LocationSelector', () => {
     })
   ]
 
-  test('should render', () => {
+  it('should render', () => {
     shallow(
       <LocationSelector
         filterText='Text'
@@ -46,7 +46,7 @@ describe('LocationSelector', () => {
     )
   })
 
-  test('should filter for existing and live locations', () => {
+  it('should filter for existing and live locations', () => {
     const wrapper = shallow(<LocationSelector
       filterText='city'
       language='de'
@@ -58,7 +58,7 @@ describe('LocationSelector', () => {
     expect(component.filter()).toHaveLength(3)
   })
 
-  test('should exclude location if location does not exist', () => {
+  it('should exclude location if location does not exist', () => {
     const wrapper = shallow(<LocationSelector
       filterText='Does not exist'
       language='de'
@@ -69,7 +69,7 @@ describe('LocationSelector', () => {
     expect(component.filter()).toHaveLength(0)
   })
 
-  test('should exclude location if location is not live', () => {
+  it('should exclude location if location is not live', () => {
     const wrapper = shallow(<LocationSelector
       filterText='notlive'
       language='de'
@@ -80,7 +80,7 @@ describe('LocationSelector', () => {
     expect(component.filter()).toHaveLength(0)
   })
 
-  test('should filter for all non-live locations if filterText is "wirschaffendas"', () => {
+  it('should filter for all non-live locations if filterText is "wirschaffendas"', () => {
     const wrapper = shallow(<LocationSelector
       filterText='wirschaffendas'
       language='de'

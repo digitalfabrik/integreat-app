@@ -9,7 +9,7 @@ const config = require('./config')
 global.HMR = !process.argv.includes('--no-hmr') // Hot Module Replacement (HMR)
 
 // Build the app and launch it in a browser for testing via Browsersync
-module.exports = task('run', () => new Promise((resolve) => {
+module.exports = task('run', () => new Promise(resolve => {
   rimraf.sync('www/dist/*', {nosort: true, dot: true})
   let count = 0
   const bs = Browsersync.create()
@@ -23,7 +23,7 @@ module.exports = task('run', () => new Promise((resolve) => {
     stats: webpackConfig.stats
   })
 
-  compiler.plugin('done', (stats) => {
+  compiler.plugin('done', stats => {
     // Generate index.html page
     const bundle = stats.compilation.chunks.find(x => x.name === 'main').files[0]
     const template = fs.readFileSync('./www/index.ejs', 'utf8')
@@ -35,10 +35,11 @@ module.exports = task('run', () => new Promise((resolve) => {
     // For more information visit https://browsersync.io/docs/options
     count += 1
     if (count === 1) {
+      const DEFAULT_PORT = 3000
       bs.init({
         open: false,
-        port: process.env.PORT || 3000,
-        ui: {port: Number(process.env.PORT || 3000) + 1},
+        port: process.env.PORT || DEFAULT_PORT,
+        ui: {port: Number(process.env.PORT || DEFAULT_PORT) + 1},
         server: {
           baseDir: 'www',
           middleware: [

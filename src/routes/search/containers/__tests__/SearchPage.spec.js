@@ -71,7 +71,7 @@ describe('SearchPage', () => {
 
   const categories = new CategoriesMapModel(categoryModels)
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const wrapper = shallow(<SearchPage location={location}
                                         languages={languages}
                                         categories={categories}
@@ -79,7 +79,7 @@ describe('SearchPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once in componentDidMount', () => {
+  it('should dispatch once in componentDidMount', () => {
     const mockSetLanguageChangeUrls = jest.fn()
 
     const searchPage = shallow(<SearchPage location={location}
@@ -92,7 +92,7 @@ describe('SearchPage', () => {
     expect(mockSetLanguageChangeUrls).toBeCalledWith(searchPage.mapLanguageToUrl, languages)
   })
 
-  test('should mapLanguageToUrl correctly', () => {
+  it('should mapLanguageToUrl correctly', () => {
     const searchPage = shallow(
       <SearchPage location={location}
                   languages={languages}
@@ -102,7 +102,7 @@ describe('SearchPage', () => {
     expect(searchPage.mapLanguageToUrl('en')).toBe('/augsburg/en/search')
   })
 
-  test('should filter correctly', () => {
+  it('should filter correctly', () => {
     const mockStore = configureMockStore()
     const store = mockStore({router: {}})
 
@@ -139,7 +139,7 @@ describe('SearchPage', () => {
       .withResponseOverride(languages)
       .build()
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location}}
       })
@@ -162,7 +162,7 @@ describe('SearchPage', () => {
       })
     })
 
-    test('should map dispatch to props', () => {
+    it('should map dispatch to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location}}
       })

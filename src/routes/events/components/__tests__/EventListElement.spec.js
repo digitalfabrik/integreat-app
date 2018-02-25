@@ -19,7 +19,7 @@ describe('EventListElement', () => {
 
   const language = 'en'
 
-  test('should render', () => {
+  it('should render', () => {
     expect(shallow(
       <EventListElement event={event} parentUrl={url} isFirst={false} language={language} />
     )).toMatchSnapshot()

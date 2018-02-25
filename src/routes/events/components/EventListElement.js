@@ -11,6 +11,8 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
 
+const EXCERPT_LENGTH = 70
+
 /**
  * Display a element of the EventList
  */
@@ -35,7 +37,7 @@ class EventListElement extends React.Component {
    */
   getEventPlaceholder () {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-    return placeholders[this.props.event.id % 3]
+    return placeholders[this.props.event.id % placeholders.length]
   }
 
   render () {
@@ -52,7 +54,7 @@ class EventListElement extends React.Component {
                       locale={this.props.language} />
             , {event.address}
           </div>
-          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(70)}} />
+          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}} />
         </div>
       </Link>
     )
@@ -64,7 +66,7 @@ class EventListElement extends React.Component {
    * @returns {string} The formatted excerpt
    */
   formatExcerpt (excerptLength) {
-    return this.props.event.excerpt.slice(0, excerptLength) + '...'
+    return `${this.props.event.excerpt.slice(0, excerptLength)}...`
   }
 }
 

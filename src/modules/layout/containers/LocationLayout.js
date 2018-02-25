@@ -26,7 +26,7 @@ export class LocationLayout extends React.Component {
   }
 
   getCurrentLocation () {
-    return this.props.locations.find((location) => location.code === this.props.location)
+    return this.props.locations.find(location => location.code === this.props.location)
   }
 
   render () {

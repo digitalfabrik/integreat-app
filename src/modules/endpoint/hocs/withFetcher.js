@@ -26,9 +26,9 @@ const contextTypes = {
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
 export function withFetcher (endpointName, FailureComponent = Failure, hideSpinner = false) {
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     class Fetcher extends React.Component {
-      static displayName = endpointName + 'Fetcher'
+      static displayName = `${endpointName}Fetcher`
       static propTypes = {
         state: PropTypes.object.isRequired,
         requestAction: PropTypes.func.isRequired,
@@ -97,7 +97,7 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
           return FailureComponent ? <FailureComponent error={payload.error} /> : null
         }
 
-        const allProps = Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})
+        const allProps = ({...this.props, [this.endpoint.stateName]: payload.data})
         // Strip all internal data
         delete allProps[this.endpoint.payloadName]
         delete allProps.getEndpoint
@@ -111,7 +111,7 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
   }
 }
 
-const createMapStateToProps = (endpointName) => (state, ownProps) => {
+const createMapStateToProps = endpointName => (state, ownProps) => {
   if (!ownProps.getEndpoint) {
     throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
   }
@@ -122,17 +122,17 @@ const createMapStateToProps = (endpointName) => (state, ownProps) => {
   })
 }
 
-const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
+const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: (state) => dispatch(endpoint.requestAction(state))
+    requestAction: state => dispatch(endpoint.requestAction(state))
   })
 }
 
-export default (endpointName, FailureComponent, hideSpinner) => {
-  const HOC = withFetcher(endpointName, FailureComponent, hideSpinner)
-  return (WrappedComponent) => {
+export default (endpointName, hideError, hideSpinner) => {
+  const HOC = withFetcher(endpointName, hideError, hideSpinner)
+  return WrappedComponent => {
     const AnotherWrappedComponent = HOC(WrappedComponent)
     return getContext(contextTypes)(
       connect(createMapStateToProps(endpointName), createMapDispatchToProps(endpointName))(AnotherWrappedComponent))

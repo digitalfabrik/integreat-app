@@ -20,7 +20,7 @@
   justify-content: space-between;
   font-family: var(--decorative-font-family);
   font-size-adjust: var(--font-size-adjust);
-  line-height: var(--decorative-line-height)
+  line-height: var(--decorative-line-height);
 }
 
 .layout p {

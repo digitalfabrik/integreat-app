@@ -19,7 +19,7 @@ const category = new CategoryModel({
 })
 
 describe('CategoryTile', () => {
-  test('should render and match snapshot', () => {
+  it('should render and match snapshot', () => {
     const wrapper = shallow(
       <CategoryTile category={category} />
     )

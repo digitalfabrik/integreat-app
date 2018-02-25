@@ -24,7 +24,7 @@ class HeaderDropDown extends React.Component {
   }
 
   toggleDropDown () {
-    this.setState({dropDownActive: !this.state.dropDownActive})
+    this.setState(prevState => ({ dropDownActive: !prevState.dropDownActive }))
   }
 
   closeDropDown () {

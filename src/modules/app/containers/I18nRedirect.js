@@ -19,7 +19,7 @@ export class I18nRedirect extends React.Component {
   }
 
   componentWillMount () {
-    this.props.redirect(normalizeUrl(this.props.currentPath) + '/' + this.context.i18n.language)
+    this.props.redirect(`${normalizeUrl(this.props.currentPath)}/${this.context.i18n.language}`)
   }
 
   render () {
@@ -27,11 +27,11 @@ export class I18nRedirect extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   redirect: href => dispatch(replace(href))
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentPath: state.router.pathname
 })
 

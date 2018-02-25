@@ -10,7 +10,7 @@ describe('EndpointProvider', () => {
     .withResponseOverride({})
     .build()
 
-  test('should have correct child context', () => {
+  it('should have correct child context', () => {
     expect(EndpointProvider.childContextTypes).toHaveProperty('getEndpoint')
 
     const provider = shallow(<EndpointProvider endpoints={[endpoint]}>
@@ -21,7 +21,7 @@ describe('EndpointProvider', () => {
     expect(getEndpoint(endpoint.stateName)).toBe(endpoint)
   })
 
-  test('should need children', () => {
+  it('should need children', () => {
     expect(() => shallow(
       <EndpointProvider endpoints={[endpoint]} />)
     ).toThrow()
