@@ -34,10 +34,12 @@
     },
     "de": {
       "search": "Suchen",
+      "chooseYourLanguage": "Wähle deine Sprache:",
       "goToStart": "Zur Startseite"
     },
     "en": {
       "search": "Search",
+      "chooseYourLanguage": "Choose your language:",
       "goToStart": "Go to start"
     },
     "fa": {

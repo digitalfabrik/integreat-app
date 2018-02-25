@@ -20,8 +20,8 @@ describe('withFetcher', () => {
     .build()
 
   // eslint-disable-next-line react/prop-types
-  const createComponent = ({endpoint, hideError = false, hideSpinner = false, state = {}, requestAction, classname, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
-    const HOC = withFetcher(endpoint.stateName, hideError, hideSpinner)
+  const createComponent = ({endpoint, FailureComponent, hideSpinner = false, state = {}, requestAction, otherProps = {[endpoint.payloadName]: new Payload(false)}}) => {
+    const HOC = withFetcher(endpoint.stateName, FailureComponent, hideSpinner)
 
     class WrappedComponent extends React.Component {
       static displayName = 'WrappedComponent'
@@ -36,14 +36,12 @@ describe('withFetcher', () => {
     return <Hoced getEndpoint={() => endpoint}
                   state={state}
                   requestAction={requestAction}
-                  classname={classname}
                   {...otherProps} />
   }
 
-  it('should show error if there is one and it\'s not hidden', () => {
+  test('should show default Failure if there is an error', () => {
     const hoc = createComponent({
       endpoint,
-      hideError: false,
       requestAction: () => new StoreResponse(true),
       otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
     })
@@ -51,7 +49,30 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should show spinner if there is no data yet and it\'s not hidden', () => {
+  test('should show custom FailureComponent if there is an error', () => {
+    const MockedFailureComponent = () => <div />
+    const hoc = createComponent({
+      endpoint,
+      FailureComponent: MockedFailureComponent,
+      requestAction: () => new StoreResponse(true),
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  test('should render nothing if there is an error and FailureComponent is null', () => {
+    const hoc = createComponent({
+      endpoint,
+      FailureComponent: null,
+      requestAction: () => new StoreResponse(true),
+      otherProps: {[endpoint.payloadName]: new Payload(false, null, 'Yepp... Error time! Wushhh!')}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  test('should show spinner if there is no data yet and it\'s not hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: false,
@@ -62,7 +83,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should show nothing if there is no data yet and spinner is hidden', () => {
+  test('should show nothing if there is no data yet and spinner is hidden', () => {
     const hoc = createComponent({
       endpoint,
       hideSpinner: true,
@@ -73,7 +94,7 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should show wrapped component if there is data', () => {
+  test('should show wrapped component if there is data', () => {
     const hoc = createComponent({
       endpoint,
       requestAction: () => new StoreResponse(true),
