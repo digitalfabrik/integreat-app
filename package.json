@@ -140,8 +140,11 @@
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
-    "test:update": "jest --config jest.config.json -u",
-    "prepush": "yarn run test && yarn run lint",
-    "postcheckout": "yarn"
+    "test:update": "jest --config jest.config.json -u"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint:fix"
+    }
   }
 }
