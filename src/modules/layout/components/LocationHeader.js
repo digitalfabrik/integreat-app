@@ -21,6 +21,7 @@ class LocationHeader extends React.Component {
     locationModel: PropTypes.instanceOf(LocationModel).isRequired,
     language: PropTypes.string.isRequired,
     currentPath: PropTypes.string.isRequired,
+    viewportSmall: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired
   }
 
@@ -79,9 +80,11 @@ class LocationHeader extends React.Component {
 
   render () {
     const {matchRoute} = this.props
-    return <Header logoHref={matchRoute(CategoriesPage).stringify(this.getCurrentParams())}
-                   actionItems={this.getActionItems()}
-                   navigationItems={this.getNavigationItems()} />
+    return <Header
+      viewportSmall={this.props.viewportSmall}
+      logoHref={matchRoute(CategoriesPage).stringify(this.getCurrentParams())}
+      actionItems={this.getActionItems()}
+      navigationItems={this.getNavigationItems()} />
   }
 }
 

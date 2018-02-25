@@ -5,7 +5,6 @@ import { mount, shallow } from 'enzyme'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
-import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../constants'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import thunk from 'redux-thunk'
@@ -26,7 +25,7 @@ describe('LocationLayout', () => {
       <LocationLayout location='location1' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
-                      scrollHeight={0}
+                      viewportSmall
                       currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
@@ -38,7 +37,7 @@ describe('LocationLayout', () => {
       <LocationLayout location='unavailableLocation' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
-                      scrollHeight={0}
+                      viewportSmall
                       currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
@@ -74,7 +73,7 @@ describe('LocationLayout', () => {
         location: location,
         language: language,
         locations: locations,
-        scrollHeight: HEADER_HEIGHT_LARGE,
+        viewportSmall: false,
         dispatch: expect.any(Function)
       })
     })
@@ -98,10 +97,10 @@ describe('LocationLayout', () => {
 
     it('should have correct scroll height', () => {
       const smallComponent = createComponentInViewport(true).find(ConnectedLocationLayout).childAt(0)
-      expect(smallComponent.prop('scrollHeight')).toBe(HALF_HEADER_HEIGHT_SMALL)
+      expect(smallComponent.prop('viewportSmall')).toBe(true)
 
       const largeComponent = createComponentInViewport(false).find(ConnectedLocationLayout).childAt(0)
-      expect(largeComponent.prop('scrollHeight')).toBe(HEADER_HEIGHT_LARGE)
+      expect(largeComponent.prop('viewportSmall')).toBe(false)
     })
   })
 })

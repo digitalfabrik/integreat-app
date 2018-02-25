@@ -1,6 +1,5 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme/build/index'
-import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../../layout/constants'
 import ConnectedRouterFragment, { RouterFragment } from '../RouterFragment'
 import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
@@ -45,10 +44,10 @@ describe('RouterFragment', () => {
 
     it('should have correct scroll height', () => {
       const smallComponent = createComponentInViewport(true).find(ConnectedRouterFragment).childAt(0)
-      expect(smallComponent.prop('scrollHeight')).toBe(HALF_HEADER_HEIGHT_SMALL)
+      expect(smallComponent.prop('viewportSmall')).toBe(true)
 
       const largeComponent = createComponentInViewport(false).find(ConnectedRouterFragment).childAt(0)
-      expect(largeComponent.prop('scrollHeight')).toBe(HEADER_HEIGHT_LARGE)
+      expect(largeComponent.prop('viewportSmall')).toBe(false)
     })
   })
 })

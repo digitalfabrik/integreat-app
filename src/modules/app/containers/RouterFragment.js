@@ -14,16 +14,14 @@ import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimer
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import PropTypes from 'prop-types'
 import RouteConfig from '../RouteConfig'
-import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../../layout/constants'
 import { connect } from 'react-redux'
-import Headroom from '../../common/components/Headroom'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 
 const LANGUAGE_CODE_LENGTH = 2
 
 export class RouterFragment extends React.Component {
   static propTypes = {
-    scrollHeight: PropTypes.number.isRequired,
+    viewportSmall: PropTypes.bool.isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }
 
@@ -83,7 +81,7 @@ export class RouterFragment extends React.Component {
 
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
-          <Layout header={<Headroom scrollHeight={this.props.scrollHeight}><GeneralHeader /></Headroom>}
+          <Layout header={<GeneralHeader viewportSmall={this.props.viewportSmall} />}
                   footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
@@ -99,10 +97,10 @@ export class RouterFragment extends React.Component {
         </Fragment>
 
         {/* There are no missing routes. Covered:
-              * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
-              * One argument (MainDisclaimer or LandingPage with language preselection)
-              * No arguments (LandingPage)
-              */}
+          * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
+          * One argument (MainDisclaimer or LandingPage with language preselection)
+          * No arguments (LandingPage)
+          */}
 
       </React.Fragment>
     </Fragment>
@@ -110,7 +108,7 @@ export class RouterFragment extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  scrollHeight: state.viewport.is.small ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
+  viewportSmall: state.viewport.is.small
 })
 
 export default connect(mapStateToProps)(RouterFragment)
