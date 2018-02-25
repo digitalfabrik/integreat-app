@@ -18,7 +18,8 @@ export class LocationLayout extends React.Component {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    path: PropTypes.string.isRequired,
+    currentPath: PropTypes.string.isRequired,
+    viewportSmall: PropTypes.bool.isRequired,
     children: PropTypes.node
   }
 
@@ -29,12 +30,14 @@ export class LocationLayout extends React.Component {
   render () {
     const locationModel = this.getCurrentLocation()
     if (!locationModel) {
-      return <Layout header={<GeneralHeader />} footer={<GeneralFooter />}>{this.props.children}</Layout>
+      return <Layout header={<GeneralHeader />}
+                     footer={<GeneralFooter />}>{this.props.children}</Layout>
     }
 
-    const {path, matchRoute} = this.props
-    return <Layout header={<LocationHeader locationModel={locationModel}
-                                           path={path}
+    const {currentPath, matchRoute} = this.props
+    return <Layout header={<LocationHeader viewportSmall={this.props.viewportSmall}
+                                           locationModel={locationModel}
+                                           currentPath={currentPath}
                                            matchRoute={matchRoute} language={this.props.language} />}
                    footer={<LocationFooter matchRoute={matchRoute} location={this.props.location}
                                            language={this.props.language} />}>
@@ -44,9 +47,10 @@ export class LocationLayout extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  path: state.router.route,
+  currentPath: state.router.route,
   location: state.router.params.location,
-  language: state.router.params.language
+  language: state.router.params.language,
+  viewportSmall: state.viewport.is.small
 })
 
 export default compose(

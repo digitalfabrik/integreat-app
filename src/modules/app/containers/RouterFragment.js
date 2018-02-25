@@ -1,25 +1,27 @@
-import CategoriesPage from 'routes/categories/containers/CategoriesPage'
-import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
+import { Fragment } from 'redux-little-router'
+import React from 'react'
 
-import EventsPage from 'routes/events/containers/EventsPage'
-import GeneralFooter from '../../layout/components/GeneralFooter'
-import GeneralHeader from '../../layout/components/GeneralHeader'
-import I18nRedirect from 'modules/app/containers/I18nRedirect'
-
-import LandingPage from 'routes/landing/containers/LandingPage'
 import Layout from 'modules/layout/components/Layout'
+import GeneralHeader from '../../layout/components/GeneralHeader'
+import GeneralFooter from '../../layout/components/GeneralFooter'
 import LocationLayout from '../../layout/containers/LocationLayout'
+import SearchPage from 'routes/search/containers/SearchPage'
+import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
+import EventsPage from 'routes/events/containers/EventsPage'
+import I18nRedirect from 'modules/app/containers/I18nRedirect'
+import LandingPage from 'routes/landing/containers/LandingPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import PropTypes from 'prop-types'
-import React from 'react'
 import RouteConfig from '../RouteConfig'
-import SearchPage from 'routes/search/containers/SearchPage'
-import { Fragment } from 'redux-little-router'
-import { LANGUAGE_CODE_LENGTH } from '../constants'
+import { connect } from 'react-redux'
+import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 
-class RouterFragment extends React.Component {
+const LANGUAGE_CODE_LENGTH = 2
+
+export class RouterFragment extends React.Component {
   static propTypes = {
+    viewportSmall: PropTypes.bool.isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }
 
@@ -79,7 +81,8 @@ class RouterFragment extends React.Component {
 
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
-          <Layout header={<GeneralHeader />} footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
+          <Layout header={<GeneralHeader viewportSmall={this.props.viewportSmall} />}
+                  footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
         </Fragment>
 
         {/* If language param is longer than 2, it is no language and is probably a location
@@ -94,14 +97,18 @@ class RouterFragment extends React.Component {
         </Fragment>
 
         {/* There are no missing routes. Covered:
-              * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
-              * One argument (MainDisclaimer or LandingPage with language preselection)
-              * No arguments (LandingPage)
-              */}
+          * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
+          * One argument (MainDisclaimer or LandingPage with language preselection)
+          * No arguments (LandingPage)
+          */}
 
       </React.Fragment>
     </Fragment>
   }
 }
 
-export default RouterFragment
+const mapStateToProps = state => ({
+  viewportSmall: state.viewport.is.small
+})
+
+export default connect(mapStateToProps)(RouterFragment)

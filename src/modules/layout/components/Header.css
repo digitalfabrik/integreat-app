@@ -24,9 +24,14 @@
   padding: 0 10px;
 }
 
+.logo-wide a {
+  width: 100%;
+  height: 60%;
+}
+
 .logo-wide img {
   max-width: 100%;
-  max-height: 60%;
+  max-height: 100%;
 }
 
 .action-bar {
@@ -58,7 +63,7 @@
     order: 3;
   }
 
-  .logo-wide img {
+  .logo-wide a {
     max-height: 75%;
   }
 }

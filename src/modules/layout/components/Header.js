@@ -2,15 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
-import HeaderNavigationBar from '../components/HeaderNavigationBar'
-import HeaderActionBar from '../components/HeaderActionBar'
+import HeaderNavigationBar from './HeaderNavigationBar'
+import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
+import { Link } from 'redux-little-router'
+import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../constants'
 import Headroom from '../../common/components/Headroom'
-import { connect } from 'react-redux'
-
-const HEADER_HEIGHT_LARGE = 85
-const HALF_HEADER_HEIGHT_SMALL = 55
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -18,11 +16,12 @@ const HALF_HEADER_HEIGHT_SMALL = 55
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-export class Header extends React.Component {
+class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
-    smallViewport: PropTypes.bool.isRequired
+    logoHref: PropTypes.string.isRequired,
+    viewportSmall: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -31,12 +30,14 @@ export class Header extends React.Component {
   }
 
   render () {
-    const scrollHeight = this.props.smallViewport ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
+    const scrollHeight = this.props.viewportSmall ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
     return (
       <Headroom scrollHeight={scrollHeight}>
         <header className={style.header}>
           <div className={style.logoWide}>
-            <img src={logoWide} />
+            <Link href={this.props.logoHref}>
+              <img src={logoWide} />
+            </Link>
           </div>
           <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
           <HeaderNavigationBar className={style.navigationBar} items={this.props.navigationItems} />
@@ -46,5 +47,4 @@ export class Header extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({smallViewport: state.viewport.is.small})
-export default connect(mapStateToProps)(Header)
+export default Header
