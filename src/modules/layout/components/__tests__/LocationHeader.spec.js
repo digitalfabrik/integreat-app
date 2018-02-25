@@ -36,17 +36,20 @@ describe('LocationHeader', () => {
     it('should be empty, if extras and news are both disabled', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(false, false)}
-                                                currentPath='' />)
+                                                currentPath=''
+                                                viewportSmall />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     it('should show categories, if extras or news are enabled', () => {
       const extrasComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                  locationModel={createLocation(true, false)}
-                                                 currentPath='' />)
+                                                 currentPath=''
+                                                 viewportSmall />)
       const eventsComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                  locationModel={createLocation(false, true)}
-                                                 currentPath='' />)
+                                                 currentPath=''
+                                                 viewportSmall />)
 
       expect(extrasComp.dive().prop('navigationItems')).toMatchSnapshot()
       expect(eventsComp.dive().prop('navigationItems')).toMatchSnapshot()
@@ -55,21 +58,24 @@ describe('LocationHeader', () => {
     it('should show extras, categories, events in this order', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
-                                                currentPath='' />)
+                                                currentPath=''
+                                                viewportSmall />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     it('should highlight categories if route corresponds', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
-                                                currentPath='/:location/:language(/*)' />)
+                                                currentPath='/:location/:language(/*)'
+                                                viewportSmall />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
     it('should highlight events if route corresponds', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
-                                                currentPath='/:location/:language/events(/:id)' />)
+                                                currentPath='/:location/:language/events(/:id)'
+                                                viewportSmall />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
@@ -77,7 +83,9 @@ describe('LocationHeader', () => {
 
   it('should match snapshot', () => {
     const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
-                                              locationModel={createLocation(true, true)} path='' />)
+                                              locationModel={createLocation(true, true)}
+                                              currentPath=''
+                                              viewportSmall />)
     expect(component.dive()).toMatchSnapshot()
   })
 })

@@ -133,5 +133,6 @@ exports[`LocationHeader should match snapshot 1`] = `
       },
     ]
   }
+  viewportSmall={true}
 />
 `;

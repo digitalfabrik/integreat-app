@@ -50,7 +50,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
 exports[`Header should match snapshot with smallViewport 1`] = `
 <Headroom
   pinStart={0}
-  scrollHeight={85}
+  scrollHeight={55}
 >
   <header
     className="header"

@@ -5,7 +5,7 @@ import HeaderActionItem from '../HeaderActionItem'
 
 class GeneralHeader extends React.Component {
   render () {
-    return <Header logoHref={'/'} actionItems={[new HeaderActionItem({href: '/', iconSrc: locationIcon})]} />
+    return <Header viewportSmall logoHref={'/'} actionItems={[new HeaderActionItem({href: '/', iconSrc: locationIcon})]} />
   }
 }
 

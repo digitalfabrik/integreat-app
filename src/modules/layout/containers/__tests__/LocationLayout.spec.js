@@ -7,8 +7,6 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
-import thunk from 'redux-thunk'
-import configureMockStore from 'redux-mock-store'
 import Payload from '../../../endpoint/Payload'
 
 describe('LocationLayout', () => {
@@ -54,19 +52,25 @@ describe('LocationLayout', () => {
     const location = 'augsburg'
     const path = '/:location/:language'
 
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language}, route: path},
-        viewport: {is: {small: false}}
-      })
+    const mockNode = <MockNode />
 
-      const locationLayout = mount(
+    const createComponentInViewport = (small = false) => {
+      const store = createReduxStore(createHistory, {
+        locations: new Payload(false),
+        router: {params: {location: location, language: language}, route: path},
+        viewport: {is: {small}}
+      })
+      return mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>
-            <ConnectedLocationLayout />
+            <ConnectedLocationLayout matchRoute={matchRoute}>{mockNode}</ConnectedLocationLayout>
           </EndpointProvider>
         </Provider>
-      ).find(LocationLayout)
+      )
+    }
+
+    it('should map state to props', () => {
+      const locationLayout = createComponentInViewport().find(LocationLayout)
 
       expect(locationLayout.props()).toEqual({
         currentPath: path,
@@ -74,32 +78,17 @@ describe('LocationLayout', () => {
         language: language,
         locations: locations,
         viewportSmall: false,
-        dispatch: expect.any(Function)
+        dispatch: expect.any(Function),
+        matchRoute: expect.any(Function),
+        children: mockNode
       })
     })
 
-    const mockStore = configureMockStore([thunk])
-
-    const createComponentInViewport = small => {
-      const smallStore = mockStore({
-        locations: new Payload(false),
-        router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'},
-        viewport: {is: {small}}
-      })
-      return mount(
-        <Provider store={smallStore}>
-          <EndpointProvider endpoints={[locationsEndpoint]}>
-            <ConnectedLocationLayout><MockNode /></ConnectedLocationLayout>
-          </EndpointProvider>
-        </Provider>
-      )
-    }
-
     it('should have correct scroll height', () => {
-      const smallComponent = createComponentInViewport(true).find(ConnectedLocationLayout).childAt(0)
+      const smallComponent = createComponentInViewport(true).find(LocationLayout)
       expect(smallComponent.prop('viewportSmall')).toBe(true)
 
-      const largeComponent = createComponentInViewport(false).find(ConnectedLocationLayout).childAt(0)
+      const largeComponent = createComponentInViewport(false).find(LocationLayout)
       expect(largeComponent.prop('viewportSmall')).toBe(false)
     })
   })
