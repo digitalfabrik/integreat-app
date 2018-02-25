@@ -46,7 +46,7 @@ class LocationModel {
 
   static getSortingInformation (name) {
     name = name.toLowerCase()
-    const prefix = find(IGNORED_PREFIXES, (pre) => name.startsWith(pre + ' '))
+    const prefix = find(IGNORED_PREFIXES, pre => name.startsWith(`${pre} `))
 
     if (prefix) {
       name = name.substring(prefix.length + 1).trim()

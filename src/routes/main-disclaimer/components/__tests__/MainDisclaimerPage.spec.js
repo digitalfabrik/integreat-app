@@ -3,7 +3,7 @@ import { render } from 'enzyme'
 import MainDisclaimerPage from '../MainDisclaimerPage'
 
 describe('MainDisclaimerPage', () => {
-  test('should render', () => {
+  it('should render', () => {
     render(<MainDisclaimerPage />)
   })
 })

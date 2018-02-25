@@ -37,7 +37,7 @@ class PdfFetcherPage extends React.Component {
   }
 
   addCategoryIdsRecursively (categoryIds, children) {
-    children.forEach((child) => {
+    children.forEach(child => {
       categoryIds.push(child.id)
       this.addCategoryIdsRecursively(categoryIds, this.props.categories.getChildren(child))
     })
@@ -55,7 +55,7 @@ class PdfFetcherPage extends React.Component {
   }
 
   getTitle (title) {
-    const location = this.props.locations.find((location) => location.code === title)
+    const location = this.props.locations.find(location => location.code === title)
     return location ? location.name : title
   }
 
@@ -70,7 +70,7 @@ class PdfFetcherPage extends React.Component {
     const children = this.props.categories.getChildren(category)
     const toc = isEmpty(children)
 
-    this.setState(Object.assign({}, this.state, {loading: category}))
+    this.setState(prevState => ({...prevState, loading: category}))
 
     if (category.id !== 0) {
       categoryIds.push(category.id)
@@ -104,13 +104,13 @@ class PdfFetcherPage extends React.Component {
         // But other request succeeds so let's ignore it
       },
       body,
-      chunkParser: (bytes) => { text += decoder.decode(bytes) },
+      chunkParser: bytes => { text += decoder.decode(bytes) },
       onComplete: () => {
         if (!category === this.state.loading) {
           return
         }
 
-        const regex = escapeRegExp(`https://cms.integreat-app.de/${this.props.location}/wp-content/uploads/`) + '[\\w|/|-]*\\.pdf'
+        const regex = `${escapeRegExp(`https://cms.integreat-app.de/${this.props.location}/wp-content/uploads/`)}[\\w|/|-]*\\.pdf`
         const match = text.match(new RegExp(regex))
 
         if (isEmpty(match)) {
@@ -144,7 +144,7 @@ class PdfFetcherPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   location: state.router.params.location,
   language: state.router.params.language,
   fetchUrl: state.router.query.url

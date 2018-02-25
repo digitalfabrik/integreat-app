@@ -69,7 +69,7 @@ export class LanguageSelector extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   languageChangeUrls: state.languageChangeUrls

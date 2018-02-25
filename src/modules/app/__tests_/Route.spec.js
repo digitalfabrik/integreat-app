@@ -1,17 +1,17 @@
 import Route from '../Route'
 
 describe('Route', () => {
-  test('should stringify correctly', () => {
+  it('should stringify correctly', () => {
     const route = new Route({id: 'some-id', path: ':location/:language'})
     expect(route.stringify({location: 'augsburg', language: 'de'})).toBe('augsburg/de')
   })
 
-  test('should throw error if a param is missing', () => {
+  it('should throw error if a param is missing', () => {
     const route = new Route({id: 'some-id', path: ':location/:language'})
     expect(() => route.stringify({location: 'augsburg'})).toThrow()
   })
 
-  test('should have correct path and id', () => {
+  it('should have correct path and id', () => {
     const route = new Route({id: 'some-id', path: ':location/:language'})
     expect(route.path).toBe(':location/:language')
     expect(route.id).toBe('some-id')

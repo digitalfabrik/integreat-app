@@ -48,7 +48,7 @@ export class EventsPage extends React.Component {
    * @param {string} id The id of the event to search for
    */
   findEvent = (events, id) => events.find(
-    (event) => event.id.toString() === id
+    event => event.id.toString() === id
   )
 
   /**
@@ -61,7 +61,9 @@ export class EventsPage extends React.Component {
     if (this.props.id && this.props.events) {
       // only a specific event
       const event = this.findEvent(this.props.events, this.props.id)
-      if (event) availableLanguages = event.availableLanguages
+      if (event) {
+        availableLanguages = event.availableLanguages
+      }
     }
     this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
   }
@@ -110,13 +112,13 @@ export class EventsPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   id: state.router.params.id
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
     setLanguageChangeUrls(urls, languages, availableLanguages)
   )

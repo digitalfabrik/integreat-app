@@ -16,7 +16,7 @@ describe('CategoriesMapModel', () => {
   const category3 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte')
   const category4 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
 
-  test('should get the right categories and normalize urls', () => {
+  it('should get the right categories and normalize urls', () => {
     expect(category1).toEqual(categories[0])
     expect(category2).toEqual(categories[1])
     expect(category3).toEqual(categories[2])
@@ -24,22 +24,22 @@ describe('CategoriesMapModel', () => {
     expect(categoriesMapModel.getCategoryByUrl('/test/url')).toBe(undefined)
   })
 
-  test('should find category by id', () => {
+  it('should find category by id', () => {
     expect(categoriesMapModel.getCategoryById(category1.id)).toBe(category1)
   })
 
-  test('should have the right parent attributes', () => {
+  it('should have the right parent attributes', () => {
     expect(category2.parentUrl).toBe(category1.url)
     expect(category3.parentUrl).toBe(category1.url)
     expect(category4.parentUrl).toBe(category3.url)
   })
 
-  test('should return all (mediate) parents in right order', () => {
+  it('should return all (mediate) parents in right order', () => {
     expect(categoriesMapModel.getAncestors(category4)[0]).toEqual(category1)
     expect(categoriesMapModel.getAncestors(category4)[1]).toEqual(category3)
   })
 
-  test('should return all immediate children in the right order', () => {
+  it('should return all immediate children in the right order', () => {
     expect(categoriesMapModel.getChildren(category1)[0]).toEqual(category2)
     expect(categoriesMapModel.getChildren(category1)[1]).toEqual(category3)
   })

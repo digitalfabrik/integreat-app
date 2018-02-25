@@ -134,13 +134,13 @@ export class CategoriesPage extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (mapLanguageToUrl, languages, availableLanguages) =>
     dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)),
-  replaceUrl: (url) => dispatch(replace(url))
+  replaceUrl: url => dispatch(replace(url))
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.pathname,

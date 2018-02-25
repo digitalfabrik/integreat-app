@@ -17,7 +17,7 @@ describe('EventDetail', () => {
 
   const language = 'en'
 
-  test('should render', () => {
+  it('should render', () => {
     expect(shallow(<EventDetail event={event} language={language} />)).toMatchSnapshot()
   })
 })

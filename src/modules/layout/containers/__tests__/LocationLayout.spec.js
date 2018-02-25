@@ -9,7 +9,7 @@ import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 
 describe('LocationLayout', () => {
-  const matchRoute = (id) => {}
+  const matchRoute = id => {}
 
   const language = 'de'
 
@@ -17,7 +17,7 @@ describe('LocationLayout', () => {
 
   const MockNode = () => <div />
 
-  test('should show LocationHeader and LocationFooter if LocationModel is available', () => {
+  it('should show LocationHeader and LocationFooter if LocationModel is available', () => {
     const component = shallow(
       <LocationLayout location='location1' language={language}
                       matchRoute={matchRoute}
@@ -28,7 +28,7 @@ describe('LocationLayout', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
+  it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
       <LocationLayout location='unavailableLocation' language={language}
                       matchRoute={matchRoute}
@@ -53,8 +53,8 @@ describe('LocationLayout', () => {
       router: {params: {location: location, language: language}, route: path}
     })
 
-    test('should map state to props', () => {
-      const locationLayout = mount(
+    it('should map state to props', () => {
+      const tree = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>
             <ConnectedLocationLayout />
@@ -62,7 +62,7 @@ describe('LocationLayout', () => {
         </Provider>
       ).find(LocationLayout)
 
-      expect(locationLayout.props()).toEqual({
+      expect(tree.props()).toEqual({
         path: path,
         location: location,
         language: language,

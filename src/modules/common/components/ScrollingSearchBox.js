@@ -40,24 +40,28 @@ export class ScrollingSearchBox extends React.PureComponent {
     this.scroll()
   }
 
-  setReference (node) {
+  setReference = node => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
-        this.setState(Object.assign({}, this.state, {initialized: true}))
+        this.setState(prevState => ({...prevState, initialized: true}))
       }
     }
   }
 
+  onSearchInputTextChange = value => this.onFilterTextChange(value)
+
+  onSearchInputClick = () => this.onClick()
+
   render () {
-    return <div ref={node => this.setReference(node)}>
+    return <div ref={this.setReference}>
       <Headroom pinStart={this._node ? this._node.offsetTop : 0}
                 scrollHeight={SEARCH_BAR_HEIGHT}
                 height={SEARCH_BAR_HEIGHT}
                 stickyAncestor={this.props.children}>
         <SearchInput filterText={this.props.filterText}
-                     onFilterTextChange={value => this.onFilterTextChange(value)}
-                     onClickInput={() => this.onClick()}
+                     onFilterTextChange={this.onSearchInputTextChange}
+                     onClickInput={this.onSearchInputClick}
                      spaceSearch={this.props.spaceSearch} />
       </Headroom>
     </div>

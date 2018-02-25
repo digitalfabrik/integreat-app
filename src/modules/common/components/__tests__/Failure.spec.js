@@ -4,9 +4,9 @@ import { shallow } from 'enzyme'
 import ConnectedFailure, { Failure } from '../Failure'
 
 describe('Failure', () => {
-  const mockTranslate = jest.fn((msg) => msg)
+  const mockTranslate = jest.fn(msg => msg)
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const wrapper = shallow(
       <Failure error='Error Message' t={mockTranslate} />
     )
@@ -15,7 +15,7 @@ describe('Failure', () => {
   })
 
   describe('connect', () => {
-    test('should match snapshot', () => {
+    it('should match snapshot', () => {
       const wrapper = shallow(
         <ConnectedFailure error='Error Message' />
       )
