@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
 import SprungbrettListItem from './SprungbrettListItem'
+import style from './SprungbrettList.css'
 
 class SprungbrettList extends React.Component {
   static propTypes = {
@@ -16,7 +17,7 @@ class SprungbrettList extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={style.list} >
         {this.getListItems()}
       </div>
     )

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
+import style from './SprungbrettListItem.css'
+
 class SprungbrettListItem extends React.Component {
   static propTypes = {
     job: PropTypes.instanceOf(SprungbrettJobModel).isRequired
@@ -11,9 +13,12 @@ class SprungbrettListItem extends React.Component {
   render () {
     const job = this.props.job
 
-    return <a href={job.url}>
-      <div>{job.title}</div>
-    </a>
+    return <a href={job.url} className={style.job}>
+      <div className={style.title}>{job.title}</div>
+      <div className={style.description}>
+        {job.city}
+      </div>
+      </a>
   }
 }
 

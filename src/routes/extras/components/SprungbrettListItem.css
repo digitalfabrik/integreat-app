@@ -1,0 +1,19 @@
+@import url('../../../modules/common/constants/colors.css');
+
+.job {
+  display: flex;
+  border-bottom: 2px solid var(--theme-color);
+}
+
+.description {
+  margin-left: 15px;
+  padding: 15px 0;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.horizontal-line {
+  border-bottom: 2px solid var(--theme-color);
+}
