@@ -1,4 +1,4 @@
-export class SelectorItem {
+export default class SelectorItemModel {
   constructor ({code, name, path}) {
     this._code = code
     this._name = name

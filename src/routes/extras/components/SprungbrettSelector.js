@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { SelectorItem } from '../../../modules/common/SelectorItem'
+import SelectorItemModel from '../../../modules/common/SelectorItemModel'
 import Selector from '../../../modules/common/containers/Selector'
 
 class SprungbrettSelector extends React.Component {
@@ -13,9 +13,9 @@ class SprungbrettSelector extends React.Component {
   // todo translate
   getItems () {
     return [
-      new SelectorItem({code: 'all', name: 'All', path: `${this.props.basePath}/all`}),
-      new SelectorItem({code: 'apprenticeships', name: 'Apprenticeship', path: `${this.props.basePath}/apprenticeships`}),
-      new SelectorItem({code: 'employments', name: 'Employment', path: `${this.props.basePath}/employments`})
+      new SelectorItemModel({code: 'all', name: 'All', path: `${this.props.basePath}/all`}),
+      new SelectorItemModel({code: 'apprenticeships', name: 'Apprenticeship', path: `${this.props.basePath}/apprenticeships`}),
+      new SelectorItemModel({code: 'employments', name: 'Employment', path: `${this.props.basePath}/employments`})
     ]
   }
 

@@ -1,10 +1,10 @@
-@import url('../../../modules/common/constants/helpers.css');
+@import url('../constants/helpers.css');
 
-.category {
+.tile {
   margin-bottom: 20px;
 }
 
-.category > a {
+.tile > a {
   @mixin remove-a;
   display: block;
   max-width: 170px;
@@ -17,14 +17,14 @@
   margin: 0 auto;
 }
 
-.category-thumbnail {
+.tile-thumbnail {
   display: block;
   width: 100%;
   margin: 0 auto;
   padding-top: 100%;
 }
 
-.category-thumbnail img {
+.tile-thumbnail img {
   top: 0;
   width: 100%;
   height: 100%;
@@ -33,11 +33,11 @@
   object-fit: contain;
 }
 
-.category-thumbnail img:hover {
+.tile-thumbnail img:hover {
   transform: scale(1.01);
 }
 
-.category-title {
+.tile-title {
   margin: 5px 0;
   text-align: center;
 }

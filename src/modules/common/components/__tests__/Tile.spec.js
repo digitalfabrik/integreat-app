@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import CategoryTile from '../CategoryTile'
+import CategoryTile from '../Tile'
 
 const category = new CategoryModel({
   id: 3649,

@@ -2,8 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import CategoryTiles from '../CategoryTiles'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import CategoryTiles from '../Tiles'
+import LocationModel from '../../../endpoint/models/LocationModel'
 
 const locations = [
   new LocationModel({name: 'Augsburg', code: 'augsburg'}),

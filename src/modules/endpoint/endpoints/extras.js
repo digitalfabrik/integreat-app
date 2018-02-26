@@ -9,7 +9,8 @@ export default new EndpointBuilder('extras')
     .map(extra => new ExtraModel({
       type: extra.alias,
       name: extra.alias,
-      url: extra.url
+      path: extra.url
+      // todo add thumnail and change name
     }))
   )
   .build()

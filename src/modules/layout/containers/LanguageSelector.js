@@ -5,7 +5,7 @@ import compose from 'lodash/fp/compose'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import { SelectorItem } from '../../common/SelectorItem'
+import SelectorItemModel from '../../common/SelectorItemModel'
 import Selector from '../../common/containers/Selector'
 
 /**
@@ -31,16 +31,16 @@ export class LanguageSelector extends React.Component {
     return this.props.languageChangeUrls[languageCode] || `/${this.props.location}/${languageCode}`
   }
 
-  getSelectorItems () {
+  getSelectorItemModels () {
     return this.props.languages.map(language =>
-      new SelectorItem({code: language.code, name: language.name, path: this.getPathForLanguage(language.code)})
+      new SelectorItemModel({code: language.code, name: language.name, path: this.getPathForLanguage(language.code)})
     )
   }
 
   render () {
     return (
       <Selector verticalLayout={this.props.verticalLayout}
-                items={this.getSelectorItems()}
+                items={this.getSelectorItemModels()}
                 active={this.props.language}
                 closeDropDownCallback={this.props.closeDropDownCallback} />
     )

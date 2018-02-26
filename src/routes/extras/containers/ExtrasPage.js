@@ -6,9 +6,10 @@ import { connect } from 'react-redux'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import { setSprungbrettUrl } from 'modules/sprungbrett/actions/setSprungbrettUrl'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import ExtraTiles from '../components/ExtraTiles'
 import SprungbrettPage from './SprungbrettPage'
+import TileModel from '../../../modules/common/TileModel'
+import Tiles from '../../../modules/common/components/Tiles'
+import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 
 const SPRUNGBRETT_NAME = 'sprungbrett'
 
@@ -25,13 +26,28 @@ export class ExtrasPage extends React.Component {
     if (this.props) {
       const sprungbrett = this.props.extras.find(extra => extra.type === 'ige-sbt')
       if (sprungbrett) {
-        this.props.setSprungbrettUrl(sprungbrett.url.split('=')[1])
+        // todo take the whole url
+        this.props.setSprungbrettUrl(sprungbrett.path.split('=')[1])
       }
     }
   }
 
+  getSprungbrettPath () {
+    return `/${this.props.location}/${this.props.language}/extras/sprungbrett`
+  }
+
+  getTileModels () {
+    return this.props.extras.map(extra => new TileModel({
+      id: extra.type,
+      name: extra.name,
+      path: extra.type === 'ige-sbt' ? this.getSprungbrettPath() : extra.path,
+      thumbnail: extra.thumbnail,
+      isExternalUrl: extra.type !== 'ige-sbt'
+    }))
+  }
+
   render () {
-    return this.props.extra === SPRUNGBRETT_NAME ? <SprungbrettPage /> : <ExtraTiles extras={this.props.extras} location={this.props.location} language={this.props.language} />
+    return this.props.extra === SPRUNGBRETT_NAME ? <SprungbrettPage /> : <Tiles tiles={this.getTileModels()} />
   }
 }
 
