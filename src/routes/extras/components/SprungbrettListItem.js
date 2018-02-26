@@ -15,9 +15,7 @@ class SprungbrettListItem extends React.Component {
 
     return <a href={job.url} className={style.job}>
       <div className={style.title}>{job.title}</div>
-      <div className={style.description}>
-        {job.city}
-      </div>
+      <div className={style.description}>{job.location}</div>
       </a>
   }
 }

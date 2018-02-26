@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import SprungbrettTypeSelector from '../components/SprungbrettSelector'
 import compose from 'lodash/fp/compose'
 
+import style from './SprungbrettPage.css'
+
 export class SprungbrettPage extends React.Component {
   static propTypes = {
     sprungbrett: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel)),
@@ -35,7 +37,7 @@ export class SprungbrettPage extends React.Component {
   }
 
   getContent () {
-    return <div>
+    return <div className={style.container}>
       <SprungbrettTypeSelector basePath={this.getBasePath()} type={this.props.type} />
       {<SprungbrettList jobs={this.getJobs()} />}
     </div>

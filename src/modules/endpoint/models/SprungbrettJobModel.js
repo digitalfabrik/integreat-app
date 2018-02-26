@@ -1,8 +1,8 @@
 class SprungbrettModel {
-  constructor ({id, title, city, url, isEmployment, isApprenticeship}) {
+  constructor ({id, title, location, url, isEmployment, isApprenticeship}) {
     this._id = id
     this._title = title
-    this._city = city
+    this._location = location
     this._url = url
     this._isEmployment = isEmployment
     this._isApprenticeship = isApprenticeship
@@ -16,8 +16,8 @@ class SprungbrettModel {
     return this._title
   }
 
-  get city () {
-    return this._city
+  get location () {
+    return this._location
   }
 
   get url () {

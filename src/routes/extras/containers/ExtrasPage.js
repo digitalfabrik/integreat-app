@@ -33,7 +33,7 @@ export class ExtrasPage extends React.Component {
   }
 
   getSprungbrettPath () {
-    return `/${this.props.location}/${this.props.language}/extras/sprungbrett`
+    return `/${this.props.location}/${this.props.language}/extras/sprungbrett/all`
   }
 
   getTileModels () {
