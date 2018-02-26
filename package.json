@@ -139,7 +139,6 @@
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
-    "test:update": "jest --config jest.config.json -u",
-    "precommit": "yarn run lint:fix"
+    "test:update": "jest --config jest.config.json -u"
   }
 }
