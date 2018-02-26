@@ -7,7 +7,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import { setSprungbrettUrl } from 'modules/sprungbrett/actions/setSprungbrettUrl'
 
 import SprungbrettPage from './SprungbrettPage'
-import TileModel from '../../../modules/common/TileModel'
+import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 

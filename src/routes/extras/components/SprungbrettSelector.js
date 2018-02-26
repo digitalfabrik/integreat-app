@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SelectorItemModel from '../../../modules/common/SelectorItemModel'
-import Selector from '../../../modules/common/containers/Selector'
+import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
+import Selector from '../../../modules/common/components/Selector'
 
 class SprungbrettSelector extends React.Component {
   static propTypes = {

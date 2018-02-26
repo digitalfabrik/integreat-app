@@ -17,7 +17,7 @@ import PdfButton from 'routes/categories/components/PdfButton'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
-import TileModel from '../../../modules/common/TileModel'
+import TileModel from '../../../modules/common/models/TileModel'
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<location>/<language>*

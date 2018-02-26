@@ -6,7 +6,7 @@ import Tile from './Tile'
 import { Row } from 'react-flexbox-grid'
 
 import style from './Tiles.css'
-import TileModel from '../TileModel'
+import TileModel from '../models/TileModel'
 
 /**
  * Displays a table of Tiles

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tiles should match snapshot 1`] = `
+<div>
+  <Caption
+    title="Augsburg"
+  />
+  <Row
+    className="tiles"
+  >
+    <Tile
+      key="35"
+      tile={
+        TileModel {
+          "_id": 35,
+          "_isExternalUrl": false,
+          "_name": "Willkommen in Augsburg",
+          "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
+          "_thumbnail": "some-thumnail.jpg",
+        }
+      }
+    />
+    <Tile
+      key="36"
+      tile={
+        TileModel {
+          "_id": 36,
+          "_isExternalUrl": false,
+          "_name": "Erste Schritte",
+          "_path": "/augsburg/de/willkommen/erste-schritte",
+          "_thumbnail": "some-other-thumbnail.jpg",
+        }
+      }
+    />
+  </Row>
+</div>
+`;

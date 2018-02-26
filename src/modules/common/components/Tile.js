@@ -4,7 +4,7 @@ import { Link } from 'redux-little-router'
 import { Col } from 'react-flexbox-grid'
 
 import style from './Tile.css'
-import TileModel from '../TileModel'
+import TileModel from '../models/TileModel'
 
 /**
  * Displays a single Tile
@@ -19,19 +19,19 @@ class Tile extends React.Component {
     return tile.isExternalUrl
       ? <a href={this.props.tile.path}>
         <div className={style.thumbnailSizer}>
-          <div className={style.tileThumbnail}>
+          <div className={style.thumbnail}>
             <img src={this.props.tile.thumbnail} />
           </div>
         </div>
-        <div className={style.tileTitle}>{this.props.tile.name}</div>
+        <div className={style.title}>{this.props.tile.name}</div>
       </a>
       : <Link href={this.props.tile.path}>
         <div className={style.thumbnailSizer}>
-          <div className={style.tileThumbnail}>
+          <div className={style.thumbnail}>
             <img src={this.props.tile.thumbnail} />
           </div>
         </div>
-        <div className={style.tileTitle}>{this.props.tile.name}</div>
+        <div className={style.title}>{this.props.tile.name}</div>
       </Link>
   }
 

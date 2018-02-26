@@ -1,27 +1,35 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import CategoryTile from '../Tile'
+import TileModel from 'modules/common/models/TileModel'
+import Tile from '../Tile'
 
-const category = new CategoryModel({
+const tile1 = new TileModel({
   id: 3649,
-  url: '/augsburg/de/willkommen',
-  title: 'Willkommen',
-  content: 'this is a test content',
-  parentId: 0,
-  parentUrl: '/augsburg/de',
-  order: 11,
-  availableLanguages: {
-    en: 4804, ar: 4819, fa: 4827
-  },
+  path: '/augsburg/de/willkommen',
+  name: 'Willkommen',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
 })
 
+const tile2 = new TileModel({
+  id: 3649,
+  path: '/augsburg/de/willkommen',
+  name: 'Willkommen',
+  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+  isExternalUrl: true
+})
+
 describe('CategoryTile', () => {
-  it('should render and match snapshot', () => {
+  it('should render a Link if path is not an external url', () => {
     const wrapper = shallow(
-      <CategoryTile category={category} />
+      <Tile tile={tile1} />
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render a a-Tag if path is not an external url', () => {
+    const wrapper = shallow(
+      <Tile tile={tile2} />
     )
     expect(wrapper).toMatchSnapshot()
   })

@@ -17,14 +17,14 @@
   margin: 0 auto;
 }
 
-.tile-thumbnail {
+.thumbnail {
   display: block;
   width: 100%;
   margin: 0 auto;
   padding-top: 100%;
 }
 
-.tile-thumbnail img {
+.thumbnail img {
   top: 0;
   width: 100%;
   height: 100%;
@@ -33,11 +33,11 @@
   object-fit: contain;
 }
 
-.tile-thumbnail img:hover {
+.thumbnail img:hover {
   transform: scale(1.01);
 }
 
-.tile-title {
+.title {
   margin: 5px 0;
   text-align: center;
 }

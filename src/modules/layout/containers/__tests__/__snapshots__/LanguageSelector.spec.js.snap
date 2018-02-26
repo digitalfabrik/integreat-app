@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageSelector should add vertical class name if verticalLayout is true 1`] = `
+<Selector
+  active="de"
+  closeDropDownCallback={[Function]}
+  items={
+    Array [
+      SelectorItemModel {
+        "_code": "de",
+        "_name": "Deutsch",
+        "_path": "test/url/de",
+      },
+      SelectorItemModel {
+        "_code": "en",
+        "_name": "English",
+        "_path": "test/url/en",
+      },
+      SelectorItemModel {
+        "_code": "ar",
+        "_name": "Arabic",
+        "_path": "test/url/ar",
+      },
+    ]
+  }
+  verticalLayout={true}
+/>
+`;
+
+exports[`LanguageSelector should match snapshot 1`] = `
+<Selector
+  active="de"
+  closeDropDownCallback={[Function]}
+  items={
+    Array [
+      SelectorItemModel {
+        "_code": "de",
+        "_name": "Deutsch",
+        "_path": "test/url/de",
+      },
+      SelectorItemModel {
+        "_code": "en",
+        "_name": "English",
+        "_path": "test/url/en",
+      },
+      SelectorItemModel {
+        "_code": "ar",
+        "_name": "Arabic",
+        "_path": "test/url/ar",
+      },
+    ]
+  }
+/>
+`;

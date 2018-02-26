@@ -4,7 +4,7 @@ import { Link } from 'redux-little-router'
 import cx from 'classnames'
 
 import style from './Selector.css'
-import SelectorItemModel from '../SelectorItemModel'
+import SelectorItemModel from '../models/SelectorItemModel'
 
 /**
  * Displays a Selector showing different items
