@@ -17,7 +17,8 @@ export class LanguageSelector extends React.Component {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    languageChangeUrls: PropTypes.object.isRequired
+    languageChangeUrls: PropTypes.object.isRequired,
+    verticalLayout: PropTypes.bool
   }
 
   /**
@@ -45,7 +46,7 @@ export class LanguageSelector extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   languageChangeUrls: state.languageChangeUrls
@@ -53,5 +54,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('languages', true, true)
+  withFetcher('languages', null, true)
 )(LanguageSelector)

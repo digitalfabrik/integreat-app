@@ -21,7 +21,7 @@ export class DisclaimerPage extends React.Component {
     setLanguageChangeUrls: PropTypes.func.isRequired
   }
 
-  mapLanguageToUrl = (language) => `/${this.props.location}/${language}/disclaimer`
+  mapLanguageToUrl = language => `/${this.props.location}/${language}/disclaimer`
 
   componentDidMount () {
     this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages)
@@ -33,11 +33,11 @@ export class DisclaimerPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   location: state.router.params.location
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (urls, languages) => dispatch(
     setLanguageChangeUrls(urls, languages)
   )

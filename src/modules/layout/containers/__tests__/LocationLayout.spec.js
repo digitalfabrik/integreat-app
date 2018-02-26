@@ -7,9 +7,12 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
+import thunk from 'redux-thunk'
+import configureMockStore from 'redux-mock-store'
+import Payload from '../../../endpoint/Payload'
 
 describe('LocationLayout', () => {
-  const matchRoute = (id) => {}
+  const matchRoute = id => {}
 
   const language = 'de'
 
@@ -17,29 +20,31 @@ describe('LocationLayout', () => {
 
   const MockNode = () => <div />
 
-  test('should show LocationHeader and LocationFooter if LocationModel is available', () => {
+  it('should show LocationHeader and LocationFooter if LocationModel is available', () => {
     const component = shallow(
       <LocationLayout location='location1' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
-                      path='/:location/:language'>
+                      viewportSmall
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
 
-  test('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
+  it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
       <LocationLayout location='unavailableLocation' language={language}
                       matchRoute={matchRoute}
                       locations={locations}
-                      path='/:location/:language'>
+                      viewportSmall
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
 
-  describe('connect', () => {
+  describe('connect()', () => {
     const locationsEndpoint = new EndpointBuilder('locations')
       .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
@@ -49,11 +54,12 @@ describe('LocationLayout', () => {
     const location = 'augsburg'
     const path = '/:location/:language'
 
-    const store = createReduxStore(createHistory, {
-      router: {params: {location: location, language: language}, route: path}
-    })
+    it('should map state to props', () => {
+      const store = createReduxStore(createHistory, {
+        router: {params: {location: location, language: language}, route: path},
+        viewport: {is: {small: false}}
+      })
 
-    test('should map state to props', () => {
       const locationLayout = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint]}>
@@ -63,12 +69,38 @@ describe('LocationLayout', () => {
       ).find(LocationLayout)
 
       expect(locationLayout.props()).toEqual({
-        path: path,
+        currentPath: path,
         location: location,
         language: language,
         locations: locations,
+        viewportSmall: false,
         dispatch: expect.any(Function)
       })
+    })
+
+    const mockStore = configureMockStore([thunk])
+
+    const createComponentInViewport = small => {
+      const smallStore = mockStore({
+        locations: new Payload(false),
+        router: {params: {location: 'augsburg', language: 'en', id: '1234'}, route: '/:location/:language'},
+        viewport: {is: {small}}
+      })
+      return mount(
+        <Provider store={smallStore}>
+          <EndpointProvider endpoints={[locationsEndpoint]}>
+            <ConnectedLocationLayout><MockNode /></ConnectedLocationLayout>
+          </EndpointProvider>
+        </Provider>
+      )
+    }
+
+    it('should have correct scroll height', () => {
+      const smallComponent = createComponentInViewport(true).find(ConnectedLocationLayout).childAt(0)
+      expect(smallComponent.prop('viewportSmall')).toBe(true)
+
+      const largeComponent = createComponentInViewport(false).find(ConnectedLocationLayout).childAt(0)
+      expect(largeComponent.prop('viewportSmall')).toBe(false)
     })
   })
 })

@@ -4,7 +4,7 @@ import HeaderNavigationBar from '../HeaderNavigationBar'
 import HeaderNavigationItem from '../../HeaderNavigationItem'
 
 describe('HeaderNavigationBar', () => {
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const component = shallow(
       <HeaderNavigationBar className='testClass' items={[
         new HeaderNavigationItem({href: 'link1', text: 'text1'}),
@@ -14,7 +14,7 @@ describe('HeaderNavigationBar', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should add a class when no items supplied', () => {
+  it('should add a class when no items supplied', () => {
     const component = shallow(<HeaderNavigationBar items={[]} />)
     expect(component.find('div').prop('className')).toEqual('navigationBar hidden')
   })

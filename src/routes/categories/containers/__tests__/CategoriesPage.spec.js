@@ -81,7 +81,7 @@ describe('CategoriesPage', () => {
 
   const language = 'en'
 
-  test('should match snapshot and render a Page if page has no children', () => {
+  it('should match snapshot and render a Page if page has no children', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -98,7 +98,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
+  it('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -115,7 +115,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should match snapshot and render CategoryTiles if the path is the root category', () => {
+  it('should match snapshot and render CategoryTiles if the path is the root category', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -132,7 +132,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should match snapshot and render an Error if path is not valid', () => {
+  it('should match snapshot and render an Error if path is not valid', () => {
     const mockReplaceUrl = jest.fn()
 
     const wrapper = shallow(
@@ -149,7 +149,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  test('should dispatch once on mount if the path is valid', () => {
+  it('should dispatch once on mount if the path is valid', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -170,7 +170,7 @@ describe('CategoriesPage', () => {
     )
   })
 
-  test('should not dispatch on mount if the path is invalid', () => {
+  it('should not dispatch on mount if the path is invalid', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -188,7 +188,7 @@ describe('CategoriesPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(0)
   })
 
-  test('should dispatch on prop update', () => {
+  it('should dispatch on prop update', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -213,7 +213,7 @@ describe('CategoriesPage', () => {
     )
   })
 
-  test('should not dispatch on prop update if neither path nor categories are updated', () => {
+  it('should not dispatch on prop update if neither path nor categories are updated', () => {
     const mockSetLanguageChangeUrls = jest.fn()
     const mockReplaceUrl = jest.fn()
 
@@ -235,7 +235,7 @@ describe('CategoriesPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount)
   })
 
-  test('should map language to url', () => {
+  it('should map language to url', () => {
     const mockReplaceUrl = jest.fn()
 
     const mapLanguageToUrl = shallow(
@@ -255,7 +255,7 @@ describe('CategoriesPage', () => {
     expect(mapLanguageToUrl(language)).toBe(`/${location}/${language}`)
   })
 
-  test('should get pdf fetch path', () => {
+  it('should get pdf fetch path', () => {
     const mockReplaceUrl = jest.fn()
 
     const categoriesPage = shallow(
@@ -294,7 +294,7 @@ describe('CategoriesPage', () => {
     const pathname = '/augsburg/de/willkommen'
     const id = '1234'
 
-    test('should map state to props', () => {
+    it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location, language: language},
           pathname: pathname,
@@ -323,7 +323,7 @@ describe('CategoriesPage', () => {
       })
     })
 
-    test('should map dispatch to props', () => {
+    it('should map dispatch to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location, language: language},
           pathname: pathname,

@@ -49,22 +49,22 @@ describe('events', () => {
 
   const state = {router: {params: {location: 'augsburg', language: 'de'}}}
 
-  test('should map router to url', () => {
+  it('should map router to url', () => {
     expect(events.mapStateToUrl(state)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/events' +
       '?since=1970-01-01T00:00:00Z'
     )
   })
 
-  const toEventModel = (json) => new EventModel({
+  const toEventModel = json => new EventModel({
     id: json.id,
     title: json.title,
     content: json.content,
     thumbnail: json.thumbnail,
     address: json.location.address,
     town: json.location.town,
-    startDate: moment(json.event.start_date + ' ' + json.event.start_time),
-    endDate: moment(json.event.end_date + ' ' + json.event.end_time),
+    startDate: moment(`${json.event.start_date} ${json.event.start_time}`),
+    endDate: moment(`${json.event.end_date} ${json.event.end_time}`),
     allDay: json.event.all_day !== '0',
     excerpt: json.excerpt,
     availableLanguages: json.available_languages
@@ -79,7 +79,7 @@ describe('events', () => {
   ]
 
   describe('should map fetched data to models', () => {
-    test('if one event has already passed', () => {
+    it('if one event has already passed', () => {
       const clock = lolex.install({now: Date.parse('2016-01-31')})
       const eventsModels = events.mapResponse(json)
 
@@ -89,7 +89,7 @@ describe('events', () => {
 
       clock.uninstall()
     })
-    test('if no event has passed', () => {
+    it('if no event has passed', () => {
       const clock = lolex.install({now: Date.parse('2015-11-29')})
       const eventsModels = events.mapResponse(json)
 

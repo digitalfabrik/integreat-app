@@ -4,7 +4,7 @@ export class RouteConfig {
   routes = []
 
   constructor (routes = []) {
-    this.routes = routes.map((route) => {
+    this.routes = routes.map(route => {
       if (!(route instanceof Route)) {
         throw new Error('All values in the route config must be Routes!')
       }

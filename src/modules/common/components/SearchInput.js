@@ -14,6 +14,8 @@ export class SearchInput extends React.Component {
     t: PropTypes.func.isRequired
   }
 
+  onFilterTextChange = event => this.props.onFilterTextChange(event.target.value)
+
   render () {
     return (
       <div className={this.props.spaceSearch ? style.searchSpacing : ''}>
@@ -23,7 +25,7 @@ export class SearchInput extends React.Component {
                  placeholder={this.props.t('search')}
                  className={style.searchInput}
                  defaultValue={this.props.filterText}
-                 onChange={event => this.props.onFilterTextChange(event.target.value)}
+                 onChange={this.onFilterTextChange}
                  onClick={this.props.onClickInput} />
         </div>
       </div>

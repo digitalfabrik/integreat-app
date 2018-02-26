@@ -133,7 +133,7 @@ Array [
 `;
 
 exports[`LocationHeader should match snapshot 1`] = `
-<Connect(Header)
+<Header
   actionItems={
     Array [
       HeaderActionItem {
@@ -153,6 +153,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       },
     ]
   }
+  logoHref="/location1/de"
   navigationItems={
     Array [
       HeaderNavigationItem {

@@ -20,6 +20,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
   }
   header={
     <Translate(LocationHeader)
+      currentPath="/:location/:language"
       language="de"
       locationModel={
         LocationModel {
@@ -33,7 +34,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
         }
       }
       matchRoute={[Function]}
-      path="/:location/:language"
+      viewportSmall={true}
     />
   }
 >

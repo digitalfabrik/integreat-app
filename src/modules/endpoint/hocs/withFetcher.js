@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import { connect } from 'react-redux'
 import Spinner from 'react-spinkit'
 
@@ -22,17 +21,16 @@ const contextTypes = {
 /**
  * This creates a factory for a Higher-Order-Component. The HOC attaches a fetcher to the supplied component.
  * @param endpointName {string} The name of the endpoint to fetch from
- * @param hideError {boolean} If you want to hide errors in the render() method
+ * @param FailureComponent {*} the component which is rendered in error-case, null if no Failure should be rendered.
  * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
-export function withFetcher (endpointName, hideError = false, hideSpinner = false) {
-  return (WrappedComponent) => {
+export function withFetcher (endpointName, FailureComponent = Failure, hideSpinner = false) {
+  return WrappedComponent => {
     class Fetcher extends React.Component {
-      static displayName = endpointName + 'Fetcher'
+      static displayName = `${endpointName}Fetcher`
       static propTypes = {
         state: PropTypes.object.isRequired,
-        className: PropTypes.string,
         requestAction: PropTypes.func.isRequired,
         getEndpoint: PropTypes.func
       }
@@ -81,7 +79,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
       }
 
       errorVisible () {
-        return !hideError && this.props[this.endpoint.payloadName].error
+        return this.props[this.endpoint.payloadName].error
       }
 
       render () {
@@ -89,22 +87,21 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
 
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
-            return <Spinner className={cx(style.loading, this.props.className)} name='line-scale-party' />
+            return <Spinner className={style.loading} name='line-scale-party' />
           } else {
             return <div />
           }
         }
 
         if (this.errorVisible()) {
-          return <Failure className={cx(style.loading, this.props.className)} error={payload.error} />
+          return FailureComponent ? <FailureComponent error={payload.error} /> : null
         }
 
-        const allProps = Object.assign({}, this.props, {[this.endpoint.stateName]: payload.data})
+        const allProps = ({...this.props, [this.endpoint.stateName]: payload.data})
         // Strip all internal data
         delete allProps[this.endpoint.payloadName]
         delete allProps.getEndpoint
         delete allProps.state
-        delete allProps.className
         delete allProps.requestAction
         return <WrappedComponent {...allProps} />
       }
@@ -114,7 +111,7 @@ export function withFetcher (endpointName, hideError = false, hideSpinner = fals
   }
 }
 
-const createMapStateToProps = (endpointName) => (state, ownProps) => {
+const createMapStateToProps = endpointName => (state, ownProps) => {
   if (!ownProps.getEndpoint) {
     throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
   }
@@ -125,17 +122,17 @@ const createMapStateToProps = (endpointName) => (state, ownProps) => {
   })
 }
 
-const createMapDispatchToProps = (endpointName) => (dispatch, ownProps) => {
+const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: (state) => dispatch(endpoint.requestAction(state))
+    requestAction: state => dispatch(endpoint.requestAction(state))
   })
 }
 
 export default (endpointName, hideError, hideSpinner) => {
   const HOC = withFetcher(endpointName, hideError, hideSpinner)
-  return (WrappedComponent) => {
+  return WrappedComponent => {
     const AnotherWrappedComponent = HOC(WrappedComponent)
     return getContext(contextTypes)(
       connect(createMapStateToProps(endpointName), createMapDispatchToProps(endpointName))(AnotherWrappedComponent))

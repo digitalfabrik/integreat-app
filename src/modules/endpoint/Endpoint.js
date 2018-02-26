@@ -111,8 +111,8 @@ class Endpoint {
 
       const formattedURL = this.mapStateToUrl(state)
 
-      if (formattedURL.includes('undefined')) {
-        throw new Error('Some necessary params in the state were undefined:' + formattedURL)
+      if (formattedURL.includes(undefined)) {
+        throw new Error(`Some necessary params in the state were undefined:${formattedURL}`)
       }
 
       const lastUrl = endpointData.requestUrl
@@ -141,13 +141,13 @@ class Endpoint {
               const value = this.mapResponse(json, state)
               return dispatch(this.finishFetchAction(value, null, formattedURL))
             } catch (e) {
-              console.error('Failed to map the json for the endpoint: ' + this.stateName)
+              console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
               console.error(e)
               return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
             }
           })
           .catch(e => {
-            console.error('Failed to load the request for the endpoint: ' + this.stateName)
+            console.error(`Failed to load the request for the endpoint: ${this.stateName}`)
             console.error(e)
             return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
           })

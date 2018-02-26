@@ -46,7 +46,7 @@ describe('FilterableLocationSelector', () => {
   const router = routerForBrowser({routes: {}})
   const mockStore = configureMockStore([router.middleware])
 
-  test('should render', () => {
+  it('should render', () => {
     const store = mockStore({router: {}})
     const component = shallow(
       <Provider store={store}>
@@ -59,7 +59,7 @@ describe('FilterableLocationSelector', () => {
     expect(component).toMatchSnapshot()
   })
 
-  test('should pass filterText to LocationSelector and filter', () => {
+  it('should pass filterText to LocationSelector and filter', () => {
     const store = mockStore({router: {}})
     const wrapper = mount(
       <Provider store={store}>

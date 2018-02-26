@@ -20,27 +20,27 @@ describe('disclaimer', () => {
 
   const state = {router: {params: {location: 'augsburg', language: 'de'}}}
 
-  test('should map router to url', () => {
+  it('should map router to url', () => {
     expect(disclaimer.mapStateToUrl(state)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/disclaimer' +
       '?since=1970-01-01T00:00:00Z'
     )
   })
 
-  test('should throw if there are multiple disclaimers', () => {
+  it('should throw if there are multiple disclaimers', () => {
     expect(() => disclaimer.mapResponse([pageJson, pageJson])).toThrow()
   })
 
-  test('should throw if there is no disclaimer', () => {
+  it('should throw if there is no disclaimer', () => {
     expect(() => disclaimer.mapResponse(undefined)).toThrow()
   })
 
-  test('should throw if the disclaimer is not published', () => {
+  it('should throw if the disclaimer is not published', () => {
     const unpublishedPage = Object.assign({}, ...pageJson, {status: 'no published'})
     expect(() => disclaimer.mapResponse([unpublishedPage])).toThrow()
   })
 
-  test('should map fetched data to models', () => {
+  it('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse([pageJson])
     expect(disclaimerModel).toEqual(new DisclaimerModel({
       id: pageJson.id,

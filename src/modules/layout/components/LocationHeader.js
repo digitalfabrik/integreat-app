@@ -7,7 +7,7 @@ import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import Header from 'modules/layout/containers/Header'
+import Header from 'modules/layout/components/Header'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import SearchPage from 'routes/search/containers/SearchPage'
@@ -21,7 +21,8 @@ class LocationHeader extends React.Component {
     matchRoute: PropTypes.func.isRequired,
     locationModel: PropTypes.instanceOf(LocationModel).isRequired,
     language: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
+    currentPath: PropTypes.string.isRequired,
+    viewportSmall: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired
   }
 
@@ -43,16 +44,16 @@ class LocationHeader extends React.Component {
   }
 
   getNavigationItems () {
-    const {t, matchRoute, path} = this.props
+    const {t, matchRoute, currentPath} = this.props
     const currentParams = this.getCurrentParams()
 
     const isEventsEnabled = () => this.props.locationModel.eventsEnabled
     const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
     const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
-    const isExtrasSelected = () => matchRoute(ExtrasPage).hasPath(path)
-    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(path)
-    const isEventsSelected = () => matchRoute(EventsPage).hasPath(path)
+    const isExtrasSelected = () => matchRoute(ExtrasPage).hasPath(currentPath)
+    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(currentPath)
+    const isEventsSelected = () => matchRoute(EventsPage).hasPath(currentPath)
 
     const extras = isExtrasEnabled() &&
       new HeaderNavigationItem({
@@ -79,7 +80,12 @@ class LocationHeader extends React.Component {
   }
 
   render () {
-    return <Header actionItems={this.getActionItems()} navigationItems={this.getNavigationItems()} />
+    const {matchRoute} = this.props
+    return <Header
+      viewportSmall={this.props.viewportSmall}
+      logoHref={matchRoute(CategoriesPage).stringify(this.getCurrentParams())}
+      actionItems={this.getActionItems()}
+      navigationItems={this.getNavigationItems()} />
   }
 }
 

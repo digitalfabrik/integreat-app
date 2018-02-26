@@ -11,6 +11,15 @@
   text-align: center;
 }
 
+.vertical {
+  flex-flow: column;
+  align-items: center;
+
+  & .element {
+    flex: 1;
+  }
+}
+
 .element {
   @mixin remove-a;
   height: var(--header-height);

@@ -1,0 +1,2 @@
+export const HEADER_HEIGHT_LARGE = 85
+export const HALF_HEADER_HEIGHT_SMALL = 55
