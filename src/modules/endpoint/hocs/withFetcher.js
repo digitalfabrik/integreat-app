@@ -7,6 +7,7 @@ import Failure from 'modules/common/components/Failure'
 import style from './withFetcher.css'
 import { getContext } from 'recompose'
 import Endpoint from '../Endpoint'
+import { isEqual } from 'lodash/lang'
 
 const contextTypes = {
   getEndpoint: PropTypes.func
@@ -53,10 +54,8 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
 
       componentWillReceiveProps (nextProps) {
         // Dispatch new requestAction to ask the endpoint whether data is available, if:
-        // (a) the redux-state prop changed or
-        // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
-        if (this.props.endpoint.shouldRefetch(this.props.state, nextProps.state) ||
-          this.getStatePayload(this.props) !== this.getStatePayload(nextProps)) {
+        // (a) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
+        if (!isEqual(this.props.state, nextProps.state) || this.getStatePayload(this.props) !== this.getStatePayload(nextProps)) {
           this.tryRequest()
         }
       }

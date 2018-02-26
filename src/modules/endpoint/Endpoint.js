@@ -23,10 +23,6 @@ class Endpoint {
    * @type mapStateToUrlCallback
    */
   mapStateToUrl
-  /**
-   * @type shouldRefetchCallback
-   */
-  shouldRefetch
 
   /**
    * Converts a fetched response to an object
@@ -52,22 +48,13 @@ class Endpoint {
    */
 
   /**
-   * @callback shouldRefetchCallback
-   * @param {object} currentProps
-   * @param {object} nextProps
-   * @return {boolean} Whether we should refetch
-   */
-
-  /**
    * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
    * @param {function} mapStateToUrl The mapper which maps the state to a request url
    * @param {function} mapResponse Transforms the response from the fetch to a result
-   * @param shouldRefetch Takes the current and the next props and should return whether we should refetch
    * @param responseOverride {*} An override value from the API response. Useful for testing.
    */
-  constructor (name, mapStateToUrl, mapResponse, shouldRefetch, responseOverride) {
+  constructor (name, mapStateToUrl, mapResponse, responseOverride) {
     this.mapStateToUrl = mapStateToUrl
-    this.shouldRefetch = shouldRefetch
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
     this._stateName = name
