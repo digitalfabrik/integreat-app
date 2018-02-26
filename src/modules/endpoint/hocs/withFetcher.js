@@ -6,6 +6,7 @@ import Spinner from 'react-spinkit'
 import Failure from 'modules/common/components/Failure'
 import style from './withFetcher.css'
 import { getContext } from 'recompose'
+import Endpoint from '../Endpoint'
 
 const contextTypes = {
   getEndpoint: PropTypes.func
@@ -31,23 +32,15 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
       static displayName = `${endpointName}Fetcher`
       static propTypes = {
         state: PropTypes.object.isRequired,
-        requestAction: PropTypes.func.isRequired,
-        getEndpoint: PropTypes.func
+        endpoint: PropTypes.instanceOf(Endpoint).isRequired,
+        requestAction: PropTypes.func.isRequired
       }
 
       static contextTypes = contextTypes
 
-      constructor (props, context) {
+      constructor () {
         super()
         this.state = {isDataAvailable: false}
-
-        if (props.getEndpoint) {
-          this.endpoint = props.getEndpoint(endpointName)
-        } else if (context && context.getEndpoint) {
-          this.endpoint = context.getEndpoint(endpointName)
-        } else {
-          throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
-        }
       }
 
       componentWillMount () {
@@ -55,34 +48,33 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
         // before render() in the Fetcher component is called the first time.
         // This causes the <WrappedComponent> to be displayed with outdated props.
         // https://github.com/reactjs/react-redux/issues/210#issuecomment-166055644
-        this.fetch()
+        this.tryRequest()
       }
 
       componentWillReceiveProps (nextProps) {
         // Dispatch new requestAction to ask the endpoint whether data is available, if:
         // (a) the redux-state prop changed or
         // (b) the Fetcher endpoint.payloadName prop changed because of new data in the store (e.g. because a payload has been fetched)
-        const endpoint = this.endpoint
-        if (endpoint.shouldRefetch(this.props.state, nextProps.state) ||
-          this.props[endpoint.payloadName] !== nextProps[endpoint.payloadName]) {
-          this.fetch()
+        if (this.props.endpoint.shouldRefetch(this.props.state, nextProps.state) ||
+          this.getStatePayload(this.props) !== this.getStatePayload(nextProps)) {
+          this.tryRequest()
         }
       }
 
+      getStatePayload (props = this.props) {
+        return props.state[this.props.endpoint.stateName]
+      }
+
       /**
-       * Triggers a new fetch if available
+       * Tries to trigger a request by dispatching a requestAction
        */
-      fetch () {
+      tryRequest () {
         const storeResponse = this.props.requestAction()
         this.setState({isDataAvailable: storeResponse.dataAvailable})
       }
 
-      errorVisible () {
-        return this.props[this.endpoint.payloadName].error
-      }
-
       render () {
-        const payload = this.props[this.endpoint.payloadName]
+        const payload = this.getStatePayload()
 
         if (!this.state.isDataAvailable) {
           if (!hideSpinner) {
@@ -92,14 +84,13 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
           }
         }
 
-        if (this.errorVisible()) {
+        if (this.getStatePayload().error) {
           return FailureComponent ? <FailureComponent error={payload.error} /> : null
         }
 
-        const allProps = ({...this.props, [this.endpoint.stateName]: payload.data})
+        const allProps = ({...this.props, [this.props.endpoint.stateName]: payload.data})
         // Strip all internal data
-        delete allProps[this.endpoint.payloadName]
-        delete allProps.getEndpoint
+        delete allProps.endpoint
         delete allProps.state
         delete allProps.requestAction
         return <WrappedComponent {...allProps} />
@@ -115,17 +106,14 @@ const createMapStateToProps = endpointName => (state, ownProps) => {
     throw new Error('Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?')
   }
   const endpoint = ownProps.getEndpoint(endpointName)
-  return ({
-    [endpoint.payloadName]: state[endpoint.stateName],
-    state: state
-  })
+  return ({endpoint, state})
 }
 
 const createMapDispatchToProps = endpointName => (dispatch, ownProps) => {
   // We already check in createMapStateToProps for ownProps.getEndpoint, which is called earlier
   const endpoint = ownProps.getEndpoint(endpointName)
   return ({
-    requestAction: state => dispatch(endpoint.requestAction())
+    requestAction: () => dispatch(endpoint.requestAction())
   })
 }
 

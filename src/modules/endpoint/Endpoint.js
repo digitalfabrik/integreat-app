@@ -105,8 +105,8 @@ class Endpoint {
      */
     return (dispatch, getState) => {
       const state = getState()
-      const endpointData = state[this.stateName]
-      if (endpointData.isFetching) {
+      const payload = state[this.stateName]
+      if (payload.isFetching) {
         return new StoreResponse(false)
       }
 
@@ -116,7 +116,7 @@ class Endpoint {
         throw new Error(`Some necessary params in the state were undefined: ${formattedURL}`)
       }
 
-      const lastUrl = endpointData.requestUrl
+      const lastUrl = payload.requestUrl
       const urlNotChanged = lastUrl && lastUrl === formattedURL
 
       if (urlNotChanged) {
