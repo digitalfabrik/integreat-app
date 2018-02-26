@@ -32,14 +32,15 @@ export class LanguageSelector extends React.Component {
   }
 
   getSelectorItems () {
-    return this.props.languages.map((language) =>
+    return this.props.languages.map(language =>
       new SelectorItem({code: language.code, name: language.name, path: this.getPathForLanguage(language.code)})
     )
   }
 
   render () {
     return (
-      <Selector items={this.getSelectorItems()}
+      <Selector verticalLayout={this.props.verticalLayout}
+                items={this.getSelectorItems()}
                 active={this.props.language}
                 closeDropDownCallback={this.props.closeDropDownCallback} />
     )

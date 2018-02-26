@@ -11,6 +11,7 @@ import { SelectorItem } from '../SelectorItem'
  */
 export default class Selector extends React.Component {
   static propTypes = {
+    verticalLayout: PropTypes.bool,
     closeDropDownCallback: PropTypes.func,
     items: PropTypes.arrayOf(PropTypes.instanceOf(SelectorItem)).isRequired,
     active: PropTypes.string.isRequired
@@ -41,7 +42,7 @@ export default class Selector extends React.Component {
 
   render () {
     return (
-      <div className={style.selector}>
+      <div className={cx({[style.selector]: true, [style.vertical]: this.props.verticalLayout})}>
         {this.getItems()}
       </div>
     )

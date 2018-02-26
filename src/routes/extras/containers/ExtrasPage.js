@@ -35,14 +35,14 @@ export class ExtrasPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   location: state.router.params.location,
   language: state.router.params.language,
   extra: state.router.params.extra
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  setSprungbrettUrl: (url) =>
+const mapDispatchToProps = dispatch => ({
+  setSprungbrettUrl: url =>
     dispatch(setSprungbrettUrl(url))
 })
 

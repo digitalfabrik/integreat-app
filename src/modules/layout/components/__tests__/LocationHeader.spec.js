@@ -74,15 +74,15 @@ describe('LocationHeader', () => {
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    test('should highlight extras if extras route is selected', () => {
-      const component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
+    it('should highlight extras if extras route is selected', () => {
+      const component = shallow(<LocationHeader location={createLocation(true, true)}
                                                 route='/:location/:language/extras' />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
-    test('should highlight extras if sprungbrett route is selected', () => {
-      const component = shallow(<LocationHeader navigation={navigation} location={createLocation(true, true)}
+    it('should highlight extras if sprungbrett route is selected', () => {
+      const component = shallow(<LocationHeader location={createLocation(true, true)}
                                                 route='/:location/:language/extras/sprungbrett' />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()

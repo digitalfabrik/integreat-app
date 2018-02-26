@@ -46,7 +46,7 @@ export class SprungbrettPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   type: state.router.params.type,
   language: state.router.params.language,
   location: state.router.params.location
