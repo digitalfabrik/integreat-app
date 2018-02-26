@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from 'react-i18next'
 import PropTypes from 'prop-types'
-import LanguageSelector from 'modules/common/containers/LanguageSelector'
+import LanguageSelector from 'modules/layout/containers/LanguageSelector'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
