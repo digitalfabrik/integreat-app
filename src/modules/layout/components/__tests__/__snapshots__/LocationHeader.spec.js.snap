@@ -6,7 +6,7 @@ exports[`LocationHeader NavigationItems should highlight categories if route cor
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/",
+    "_href": "/location1/de/extras",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
@@ -26,7 +26,7 @@ exports[`LocationHeader NavigationItems should highlight events if route corresp
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/",
+    "_href": "/location1/de/extras",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
@@ -45,38 +45,18 @@ Array [
 exports[`LocationHeader NavigationItems should highlight extras if extras route is selected 1`] = `
 Array [
   HeaderNavigationItem {
-    "_active": true,
-    "_href": "/location1/language1/extras",
+    "_active": false,
+    "_href": "/location1/de/extras",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1",
+    "_href": "/location1/de",
     "_text": "app:categories",
   },
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/location1/language1/events",
-    "_text": "app:news",
-  },
-]
-`;
-
-exports[`LocationHeader NavigationItems should highlight extras if sprungbrett route is selected 1`] = `
-Array [
-  HeaderNavigationItem {
-    "_active": true,
-    "_href": "/location1/language1/extras",
-    "_text": "app:extras",
-  },
-  HeaderNavigationItem {
-    "_active": false,
-    "_href": "/location1/language1",
-    "_text": "app:categories",
-  },
-  HeaderNavigationItem {
-    "_active": false,
-    "_href": "/location1/language1/events",
+    "_href": "/location1/de/events",
     "_text": "app:news",
   },
 ]
@@ -86,7 +66,7 @@ exports[`LocationHeader NavigationItems should show categories, if extras or new
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/",
+    "_href": "/location1/de/extras",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
@@ -116,7 +96,7 @@ exports[`LocationHeader NavigationItems should show extras, categories, events i
 Array [
   HeaderNavigationItem {
     "_active": false,
-    "_href": "/",
+    "_href": "/location1/de/extras",
     "_text": "app:extras",
   },
   HeaderNavigationItem {
@@ -158,7 +138,7 @@ exports[`LocationHeader should match snapshot 1`] = `
     Array [
       HeaderNavigationItem {
         "_active": false,
-        "_href": "/",
+        "_href": "/location1/de/extras",
         "_text": "app:extras",
       },
       HeaderNavigationItem {

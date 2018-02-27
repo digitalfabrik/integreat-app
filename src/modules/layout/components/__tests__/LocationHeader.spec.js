@@ -7,6 +7,7 @@ import CategoriesPage from '../../../../routes/categories/containers/CategoriesP
 import LandingPage from '../../../../routes/landing/containers/LandingPage'
 import SearchPage from '../../../../routes/search/containers/SearchPage'
 import EventsPage from '../../../../routes/events/containers/EventsPage'
+import ExtrasPage from '../../../../routes/extras/containers/ExtrasPage'
 
 describe('LocationHeader', () => {
   const matchRoute = id => {
@@ -19,6 +20,8 @@ describe('LocationHeader', () => {
         return new Route({id, path: '/:location/:language/search'})
       case EventsPage:
         return new Route({id, path: '/:location/:language/events(/:id)'})
+      case ExtrasPage:
+        return new Route({id, path: '/:location/:language/extras(/:extra(/:type))'})
     }
     throw new Error(`Route ${id} not found!`)
   }
@@ -75,15 +78,9 @@ describe('LocationHeader', () => {
     })
 
     it('should highlight extras if extras route is selected', () => {
-      const component = shallow(<LocationHeader location={createLocation(true, true)}
-                                                route='/:location/:language/extras' />)
-
-      expect(component.dive().prop('navigationItems')).toMatchSnapshot()
-    })
-
-    it('should highlight extras if sprungbrett route is selected', () => {
-      const component = shallow(<LocationHeader location={createLocation(true, true)}
-                                                route='/:location/:language/extras/sprungbrett' />)
+      const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
+                                                locationModel={createLocation(true, true)}
+                                                route='/:location/:language/extras(/:extra(/:type))' />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
