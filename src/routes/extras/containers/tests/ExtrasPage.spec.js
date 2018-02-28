@@ -54,6 +54,19 @@ describe('ExtrasPage', () => {
     expect(extrasPage).toMatchSnapshot()
   })
 
+  it('should render a failure if the selected extra does not exist', () => {
+    const extrasPage = shallow(
+      <ExtrasPage setLanguageChangeUrls={() => {}}
+                  setSprungbrettUrl={() => {}}
+                  languages={languages}
+                  location={location}
+                  language={language}
+                  extras={extras}
+                  extra={'no valid extra'} />
+    )
+    expect(extrasPage).toMatchSnapshot()
+  })
+
   // todo activate this test
   /* it('should set the sprungbrett url if there is a sprungbrett extra', () => {
     const setSprungbrettUrl = jest.fn()

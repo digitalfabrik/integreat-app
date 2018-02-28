@@ -12,8 +12,9 @@ import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import Failure from '../../../modules/common/components/Failure'
 
-const SPRUNGBRETT_NAME = 'sprungbrett'
+const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
@@ -65,8 +66,19 @@ export class ExtrasPage extends React.Component {
     }))
   }
 
+  getContent () {
+    if (this.props.extra === SPRUNGBRETT_EXTRA) {
+      return <SprungbrettPage />
+    } else if (this.props.extra) {
+      // we currently only implement the sprungbrett extra, so there is no other valid extra path
+      return <Failure error={'not-found:page.notFound'} />
+    } else {
+      return <Tiles tiles={this.getTileModels()} />
+    }
+  }
+
   render () {
-    return this.props.extra === SPRUNGBRETT_NAME ? <SprungbrettPage /> : <Tiles tiles={this.getTileModels()} />
+    return this.getContent()
   }
 }
 

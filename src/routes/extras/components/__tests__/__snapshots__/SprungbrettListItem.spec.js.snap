@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettListItem should match snapshot 1`] = `
+<a
+  className="job"
+>
+  <div
+    className="title"
+  />
+  <div
+    className="description"
+  />
+</a>
+`;
