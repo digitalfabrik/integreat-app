@@ -1,19 +1,46 @@
-import {
-  CATEGORIES_PAGE_ROUTE, DISCLAIMER_PAGE_ROUTE, EVENTS_PAGE_ROUTE, EXTRAS_PAGE_ROUTE, LANDING_PAGE_ROUTE,
-  MAIN_DISCLAIMER_PAGE_ROUTE, PDF_FETCHER_PAGE_ROUTE, SEARCH_PAGE_ROUTE
-} from '../common/constants'
+import SearchPage from 'routes/search/containers/SearchPage'
+import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
+import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
+import CategoriesPage from 'routes/categories/containers/CategoriesPage'
+import ExtrasPage from 'routes/extras/containers/ExtrasPage'
+import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
+import LandingPage from 'routes/landing/containers/LandingPage'
+import EventsPage from 'routes/events/containers/EventsPage'
+import Route from './Route'
 
-const createRouteConfig = () => {
-  return [
-    LANDING_PAGE_ROUTE,
-    SEARCH_PAGE_ROUTE,
-    DISCLAIMER_PAGE_ROUTE,
-    EVENTS_PAGE_ROUTE,
-    PDF_FETCHER_PAGE_ROUTE,
-    EXTRAS_PAGE_ROUTE,
-    CATEGORIES_PAGE_ROUTE,
-    MAIN_DISCLAIMER_PAGE_ROUTE
-  ]
-}
+const createRouteConfig = () => [
+  new Route({
+    id: LandingPage,
+    path: '/(:language(/))'
+  }),
+  new Route({
+    id: SearchPage,
+    path: '/:location/:language/search'
+  }),
+  new Route({
+    id: DisclaimerPage,
+    path: '/:location/:language/disclaimer'
+  }),
+  new Route({
+    id: EventsPage,
+    path: '/:location/:language/events(/:id)'
+  }),
+  new Route({
+    id: PdfFetcherPage,
+    path: '/:location/:language/fetch-pdf'
+  }),
+  new Route({
+    id: ExtrasPage,
+    path: '/:location/:language/extras(/:extra)'
+  }),
+  new Route({
+    id: CategoriesPage,
+    path: '/:location/:language(/*)'
+  }),
+  new Route({
+    id: MainDisclaimerPage,
+    path: '/disclaimer'
+  })
+]
 
 export default createRouteConfig
