@@ -8,12 +8,13 @@ import Caption from '../../../modules/common/components/Caption'
 
 export class SprungbrettPage extends React.Component {
   static propTypes = {
-    sprungbrett: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel)).isRequired
+    sprungbrett: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel)).isRequired,
+    title: PropTypes.string.isRequired
   }
 
   render () {
     return <div >
-      <Caption title={'Sprungbrett'} />
+      <Caption title={this.props.title} />
       <SprungbrettList jobs={this.props.sprungbrett} />
     </div>
   }

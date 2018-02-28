@@ -69,7 +69,8 @@ export class ExtrasPage extends React.Component {
 
   getContent () {
     if (this.props.extra === SPRUNGBRETT_EXTRA) {
-      return <SprungbrettPage />
+      // todo use title from the cms instead
+      return <SprungbrettPage title={'Sprungbrett'} />
     } else if (this.props.extra) {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
       return <Failure error={'not-found:page.notFound'} />

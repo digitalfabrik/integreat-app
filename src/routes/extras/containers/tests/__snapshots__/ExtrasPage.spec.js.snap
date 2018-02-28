@@ -6,7 +6,11 @@ exports[`ExtrasPage should render a failure if the selected extra does not exist
 />
 `;
 
-exports[`ExtrasPage should render a sprungbrett page if it is the selected extra 1`] = `<getContext(Connect(sprungbrettFetcher)) />`;
+exports[`ExtrasPage should render a sprungbrett page if it is the selected extra 1`] = `
+<getContext(Connect(sprungbrettFetcher))
+  title="Sprungbrett"
+/>
+`;
 
 exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
 <Tiles

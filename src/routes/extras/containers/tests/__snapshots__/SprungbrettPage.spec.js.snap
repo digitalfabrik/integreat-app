@@ -2,9 +2,7 @@
 
 exports[`SprungbrettPage it should render a list with all jobs 1`] = `
 <div>
-  <Caption
-    title="Sprungbrett"
-  />
+  <Caption />
   <SprungbrettList
     jobs={
       Array [
