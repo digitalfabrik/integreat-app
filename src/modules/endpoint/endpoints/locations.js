@@ -23,7 +23,7 @@ export default new EndpointBuilder('locations')
         code: stripSlashes(location.path),
         live: location.live,
         eventsEnabled: location['ige-evts'] === '1',
-        extrasEnabled: true
+        extrasEnabled: true // todo
       }))
     return sortBy(locations, location => location.sortKey)
   })
