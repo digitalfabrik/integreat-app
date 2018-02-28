@@ -45,5 +45,3 @@ export const MAIN_DISCLAIMER_PAGE_ROUTE = new Route({
   id: MainDisclaimerPage,
   path: '/disclaimer'
 })
-
-export const SPRUNGBRETT_NAME = 'sprungbrett'

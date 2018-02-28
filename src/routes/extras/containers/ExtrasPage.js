@@ -10,6 +10,7 @@ import SprungbrettPage from './SprungbrettPage'
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
 
 const SPRUNGBRETT_NAME = 'sprungbrett'
 
@@ -19,6 +20,7 @@ export class ExtrasPage extends React.Component {
     language: PropTypes.string.isRequired,
     extra: PropTypes.string,
     extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     setSprungbrettUrl: PropTypes.func.isRequired
   }
 
@@ -47,7 +49,7 @@ export class ExtrasPage extends React.Component {
   }
 
   render () {
-    return this.props.extra === SPRUNGBRETT_NAME ? <SprungbrettPage /> : <Tiles tiles={this.getTileModels()} />
+    return this.props.extra === SPRUNGBRETT_NAME ? <SprungbrettPage languages={this.props.languages} /> : <Tiles tiles={this.getTileModels()} />
   }
 }
 
@@ -64,5 +66,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('extras')
+  withFetcher('extras'),
+  withFetcher('languages')
 )(ExtrasPage)

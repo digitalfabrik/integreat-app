@@ -18,7 +18,6 @@ class Tiles extends React.Component {
   }
 
   render () {
-    console.log(this.props.tiles)
     return (
       <div>
         {this.props.title && <Caption title={this.props.title} />}

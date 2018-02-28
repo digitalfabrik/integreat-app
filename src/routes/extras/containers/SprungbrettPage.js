@@ -5,18 +5,35 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 import SprungbrettList from '../components/SprungbrettList'
 import { connect } from 'react-redux'
-import SprungbrettTypeSelector from '../components/SprungbrettSelector'
+import SprungbrettSelector from '../components/SprungbrettSelector'
 import compose from 'lodash/fp/compose'
 
 import style from './SprungbrettPage.css'
+import Failure from '../../../modules/common/components/Failure'
+import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
+import setLanguageChangeUrls from '../../../modules/language/actions/setLanguageChangeUrls'
 
 export class SprungbrettPage extends React.Component {
   static propTypes = {
-    sprungbrett: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel)),
+    sprungbrett: PropTypes.arrayOf(PropTypes.instanceOf(SprungbrettJobModel)).isRequired,
     type: PropTypes.string,
     location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    setLanguageChangeUrls: PropTypes.func.isRequired
   }
+
+  componentDidMount () {
+    this.props.setLanguageChangeUrls(this.mapLanguageToUrl(this.props.type), this.props.languages)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.type !== this.props.type) {
+      this.props.setLanguageChangeUrls(this.mapLanguageToUrl(nextProps.type), this.props.languages)
+    }
+  }
+
+  mapLanguageToUrl = type => language => (`/${this.props.location}/${language}/extras/sprungbrett/${type}`)
 
   getBasePath () {
     return `/${this.props.location}/${this.props.language}/extras/sprungbrett`
@@ -33,14 +50,17 @@ export class SprungbrettPage extends React.Component {
     } else if (type === 'employments') {
       return jobs.filter(job => job.isEmployment)
     }
-    // todo throw
   }
 
   getContent () {
-    return <div className={style.container}>
-      <SprungbrettTypeSelector basePath={this.getBasePath()} type={this.props.type} />
-      {<SprungbrettList jobs={this.getJobs()} />}
-    </div>
+    const jobs = this.getJobs()
+    return jobs
+      ? <div className={style.container}>
+          <SprungbrettSelector basePath={this.getBasePath()} type={this.props.type} />
+          {<SprungbrettList jobs={this.getJobs()} />}
+        </div>
+      // todo translate
+      : <Failure error={'This site does not exist'} />
   }
 
   render () {
@@ -54,7 +74,11 @@ const mapStateToProps = state => ({
   location: state.router.params.location
 })
 
+const mapDispatchToProps = dispatch => ({
+  setLanguageChangeUrls: (mapLanguageToUrl, languages) => dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
+})
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withFetcher('sprungbrett')
 )(SprungbrettPage)
