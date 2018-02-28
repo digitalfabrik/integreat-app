@@ -1,19 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SprungbrettPage it should render a Failure if type is not valid 1`] = `
-<Translate(Failure)
-  error="This site does not exist"
-/>
-`;
-
-exports[`SprungbrettPage it should render a selector and a list if type is valid 1`] = `
+exports[`SprungbrettPage it should render a list with all jobs 1`] = `
 <div
   className="container"
 >
-  <SprungbrettSelector
-    basePath="/augsburg/de/extras/sprungbrett"
-    type="all"
-  />
   <SprungbrettList
     jobs={
       Array [

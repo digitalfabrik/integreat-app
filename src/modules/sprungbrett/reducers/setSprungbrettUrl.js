@@ -1,5 +1,5 @@
 import { handleAction } from 'redux-actions'
-import { setSprungbrettUrl } from '../actions/setSprungbrettUrl'
+import setSprungbrettUrl from '../actions/setSprungbrettUrl'
 
 /**
  * The reducer to store the url for the sprungbrett extra

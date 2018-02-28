@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExtrasPage should render a sprungbrett page if it is the selected extra 1`] = `<getContext(Connect(sprungbrettFetcher)) />`;
+
+exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
+<Tiles
+  tiles={
+    Array [
+      TileModel {
+        "_id": "ige-sbt",
+        "_isExternalUrl": false,
+        "_name": "Sprungbrett",
+        "_path": "/augsburg/de/extras/sprungbrett",
+        "_thumbnail": "xy",
+      },
+      TileModel {
+        "_id": "ige-ilb",
+        "_isExternalUrl": true,
+        "_name": "Jobboerse",
+        "_path": "ihk-jobborese.com",
+        "_thumbnail": "xy",
+      },
+      TileModel {
+        "_id": "ige-ipb",
+        "_isExternalUrl": true,
+        "_name": "Praktikumsboerse",
+        "_path": "ihk-pratkitkumsboerse.com",
+        "_thumbnail": "xy",
+      },
+    ]
+  }
+/>
+`;

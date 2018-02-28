@@ -1,13 +1,13 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
-import ConnectedSprungbrettPage, { SprungbrettPage } from '../SprungbrettPage'
-import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
-import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
-import createHistory from '../../../../modules/app/createHistory'
-import createReduxStore from '../../../../modules/app/createReduxStore'
-import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
 import { Provider } from 'react-redux'
-import LanguageModel from '../../../../modules/endpoint/models/LanguageModel'
+
+import createReduxStore from 'modules/app/createReduxStore'
+import createHistory from 'modules/app/createHistory'
+import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
+import EndpointProvider from 'modules/endpoint/EndpointProvider'
+import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
+import ConnectedSprungbrettPage, { SprungbrettPage } from '../SprungbrettPage'
 
 describe('SprungbrettPage', () => {
   const location = 'augsburg'
@@ -25,101 +25,11 @@ describe('SprungbrettPage', () => {
     })
   ]
 
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch')
-  ]
-
-  it('it should render a Failure if type is not valid', () => {
+  it('it should render a list with all jobs', () => {
     const component = shallow(
-      <SprungbrettPage setLanguageChangeUrls={() => {}}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'bla'} />
+      <SprungbrettPage sprungbrett={jobs} />
     )
     expect(component).toMatchSnapshot()
-  })
-
-  it('it should render a selector and a list if type is valid', () => {
-    const component = shallow(
-      <SprungbrettPage setLanguageChangeUrls={() => {}}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'all'} />
-    )
-    expect(component).toMatchSnapshot()
-  })
-
-  it('it should return all jobs', () => {
-    const sprungbrettPage = shallow(
-      <SprungbrettPage setLanguageChangeUrls={() => {}}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'all'} />
-    ).instance()
-    expect(sprungbrettPage.getJobs()).toEqual(jobs)
-  })
-
-  it('it should return jobs in which an apprenticeship is possible', () => {
-    const sprungbrettPage = shallow(
-      <SprungbrettPage setLanguageChangeUrls={() => {}}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'apprenticeships'} />
-    ).instance()
-    expect(sprungbrettPage.getJobs()).toEqual([jobs[0], jobs[2]])
-  })
-
-  it('it should return jobs in which an employment is possible', () => {
-    const sprungbrettPage = shallow(
-      <SprungbrettPage setLanguageChangeUrls={() => {}}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'employments'} />
-    ).instance()
-    expect(sprungbrettPage.getJobs()).toEqual([jobs[0], jobs[1]])
-  })
-
-  it('should set language change urls', () => {
-    const setLanguageChangeUrls = jest.fn()
-    const sprunbrettPage = shallow(
-      <SprungbrettPage setLanguageChangeUrls={setLanguageChangeUrls}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'employments'} />
-    ).instance()
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(setLanguageChangeUrls).toHaveBeenCalledWith(sprunbrettPage.instance().mapLanguageToUrl, languages)
-  })
-
-  it('should update language change urls only on relevant prop change', () => {
-    const setLanguageChangeUrls = jest.fn()
-    const sprunbrettPage = shallow(
-      <SprungbrettPage setLanguageChangeUrls={setLanguageChangeUrls}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       sprungbrett={jobs}
-                       type={'employments'} />
-    ).instance()
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(1)
-    sprunbrettPage.setProps({type: 'all', ...sprunbrettPage.props})
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(2)
-
-    sprunbrettPage.setProps({type: 'employments', ...sprunbrettPage.props})
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(2)
   })
 
   describe('connect', () => {
@@ -131,8 +41,7 @@ describe('SprungbrettPage', () => {
 
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language, type: 'apprenticeships'}},
-        languageChangeUrls: {}
+        router: {params: {location: location, language: language}}
       })
 
       const sprungbrettPage = mount(
@@ -143,13 +52,7 @@ describe('SprungbrettPage', () => {
         </Provider>
       ).find(SprungbrettPage)
 
-      expect(sprungbrettPage.props()).toEqual({
-        type: 'apprenticeships',
-        location: location,
-        language: language,
-        sprungbrett: jobs,
-        dispatch: expect.any(Function)
-      })
+      expect(sprungbrettPage.props()).toEqual({sprungbrett: jobs})
     })
   })
 })
