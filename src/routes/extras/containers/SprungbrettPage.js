@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 import SprungbrettList from '../components/SprungbrettList'
-
-import compose from 'lodash/fp/compose'
-
-import style from './SprungbrettPage.css'
+import Caption from '../../../modules/common/components/Caption'
 
 export class SprungbrettPage extends React.Component {
   static propTypes = {
@@ -15,12 +12,11 @@ export class SprungbrettPage extends React.Component {
   }
 
   render () {
-    return <div className={style.container}>
+    return <div >
+      <Caption title={'Sprungbrett'} />
       <SprungbrettList jobs={this.props.sprungbrett} />
     </div>
   }
 }
 
-export default compose(
-  withFetcher('sprungbrett')
-)(SprungbrettPage)
+export default withFetcher('sprungbrett')(SprungbrettPage)

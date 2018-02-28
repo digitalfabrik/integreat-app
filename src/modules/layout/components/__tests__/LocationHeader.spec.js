@@ -21,7 +21,7 @@ describe('LocationHeader', () => {
       case EventsPage:
         return new Route({id, path: '/:location/:language/events(/:id)'})
       case ExtrasPage:
-        return new Route({id, path: '/:location/:language/extras(/:extra(/:type))'})
+        return new Route({id, path: '/:location/:language/extras(/:extra)'})
     }
     throw new Error(`Route ${id} not found!`)
   }
@@ -80,7 +80,7 @@ describe('LocationHeader', () => {
     it('should highlight extras if extras route is selected', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
-                                                route='/:location/:language/extras(/:extra(/:type))' />)
+                                                route='/:location/:language/extras(/:extra)' />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })

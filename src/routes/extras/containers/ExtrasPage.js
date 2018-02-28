@@ -15,6 +15,7 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
+const SPRUNGBRETT_TYPE = 'ige-sbt'
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
@@ -33,7 +34,7 @@ export class ExtrasPage extends React.Component {
   componentWillMount () {
     // if the sprungbrett extra is activated, we have to save it's url to the store to be able to load the endpoint
     if (this.props.extras) {
-      const sprungbrett = this.props.extras.find(extra => extra.type === 'ige-sbt')
+      const sprungbrett = this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)
       if (sprungbrett) {
         // todo take the whole url
         this.props.setSprungbrettUrl(sprungbrett.path.split('=')[1])
@@ -51,7 +52,7 @@ export class ExtrasPage extends React.Component {
   mapLanguageToUrl = extra => language => `${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
 
   getSprungbrettPath () {
-    return `/${this.props.location}/${this.props.language}/extras/sprungbrett`
+    return `/${this.props.location}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
   }
 
   getTileModels () {
@@ -59,10 +60,10 @@ export class ExtrasPage extends React.Component {
       id: extra.type,
       name: extra.name,
       // the url stored in the sprungbrett (ige-sbt) extra is the url of the endpoint
-      path: extra.type === 'ige-sbt' ? this.getSprungbrettPath() : extra.path,
+      path: extra.type === SPRUNGBRETT_TYPE ? this.getSprungbrettPath() : extra.path,
       thumbnail: extra.thumbnail,
       // every extra apart from the sprungbrett extra is just a link to an external site
-      isExternalUrl: extra.type !== 'ige-sbt'
+      isExternalUrl: extra.type !== SPRUNGBRETT_TYPE
     }))
   }
 
