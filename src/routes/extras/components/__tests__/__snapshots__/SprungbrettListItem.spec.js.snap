@@ -3,6 +3,7 @@
 exports[`SprungbrettListItem should match snapshot 1`] = `
 <a
   className="job"
+  target="_blank"
 >
   <div
     className="title"

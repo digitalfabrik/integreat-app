@@ -10,22 +10,24 @@ exports[`CategoryTile should render a Link if path is not an external url 1`] = 
   <Connect(Link)
     href="/augsburg/de/willkommen"
   >
-    <div
-      className="thumbnailSizer"
-    >
+    <React.Fragment>
       <div
-        className="thumbnail"
+        className="thumbnailSizer"
       >
-        <img
-          src="https://cms.integreat-ap…03/Beratung-150x150.png"
-        />
+        <div
+          className="thumbnail"
+        >
+          <img
+            src="https://cms.integreat-ap…03/Beratung-150x150.png"
+          />
+        </div>
       </div>
-    </div>
-    <div
-      className="title"
-    >
-      Willkommen
-    </div>
+      <div
+        className="title"
+      >
+        Willkommen
+      </div>
+    </React.Fragment>
   </Connect(Link)>
 </Col>
 `;
@@ -38,24 +40,27 @@ exports[`CategoryTile should render a a-Tag if path is not an external url 1`] =
   xs={6}
 >
   <a
-    href="/augsburg/de/willkommen"
+    href="https://example.com"
+    target="_blank"
   >
-    <div
-      className="thumbnailSizer"
-    >
+    <React.Fragment>
       <div
-        className="thumbnail"
+        className="thumbnailSizer"
       >
-        <img
-          src="https://cms.integreat-ap…03/Beratung-150x150.png"
-        />
+        <div
+          className="thumbnail"
+        >
+          <img
+            src="https://cms.integreat-ap…03/Beratung-150x150.png"
+          />
+        </div>
       </div>
-    </div>
-    <div
-      className="title"
-    >
-      Willkommen
-    </div>
+      <div
+        className="title"
+      >
+        Example
+      </div>
+    </React.Fragment>
   </a>
 </Col>
 `;

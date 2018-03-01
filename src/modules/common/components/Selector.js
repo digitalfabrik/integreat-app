@@ -9,7 +9,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 /**
  * Displays a Selector showing different items
  */
-export default class Selector extends React.Component {
+class Selector extends React.Component {
   static propTypes = {
     verticalLayout: PropTypes.bool,
     closeDropDownCallback: PropTypes.func,
@@ -48,3 +48,5 @@ export default class Selector extends React.Component {
     )
   }
 }
+
+export default Selector

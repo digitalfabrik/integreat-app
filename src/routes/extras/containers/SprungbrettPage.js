@@ -13,10 +13,10 @@ export class SprungbrettPage extends React.Component {
   }
 
   render () {
-    return <div >
+    return <React.Fragment >
       <Caption title={this.props.title} />
       <SprungbrettList jobs={this.props.sprungbrett} />
-    </div>
+    </React.Fragment>
   }
 }
 

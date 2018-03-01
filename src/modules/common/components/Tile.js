@@ -14,24 +14,25 @@ class Tile extends React.Component {
     tile: PropTypes.instanceOf(TileModel).isRequired
   }
 
+  getTileContent () {
+    return <React.Fragment>
+      <div className={style.thumbnailSizer}>
+        <div className={style.thumbnail}>
+          <img src={this.props.tile.thumbnail} />
+        </div>
+      </div>
+      <div className={style.title}>{this.props.tile.name}</div>
+    </React.Fragment>
+  }
+
   getTile () {
     const tile = this.props.tile
     return tile.isExternalUrl
-      ? <a href={this.props.tile.path}>
-        <div className={style.thumbnailSizer}>
-          <div className={style.thumbnail}>
-            <img src={this.props.tile.thumbnail} />
-          </div>
-        </div>
-        <div className={style.title}>{this.props.tile.name}</div>
+      ? <a href={this.props.tile.path} target='_blank'>
+        {this.getTileContent()}
       </a>
       : <Link href={this.props.tile.path}>
-        <div className={style.thumbnailSizer}>
-          <div className={style.thumbnail}>
-            <img src={this.props.tile.thumbnail} />
-          </div>
-        </div>
-        <div className={style.title}>{this.props.tile.name}</div>
+        {this.getTileContent()}
       </Link>
   }
 

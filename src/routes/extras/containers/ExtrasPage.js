@@ -33,13 +33,19 @@ export class ExtrasPage extends React.Component {
 
   componentWillMount () {
     // if the sprungbrett extra is activated, we have to save it's url to the store to be able to load the endpoint
-    if (this.props.extras) {
-      const sprungbrett = this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)
-      if (sprungbrett) {
-        // todo take the whole url
-        this.props.setSprungbrettUrl(sprungbrett.path.split('=')[1])
-      }
-      this.props.setLanguageChangeUrls(this.mapLanguageToUrl(this.props.extra), this.props.languages)
+    const sprungbrett = this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)
+    if (sprungbrett) {
+      // todo take the whole url
+      this.props.setSprungbrettUrl(sprungbrett.path.split('=')[1])
+    }
+    this.props.setLanguageChangeUrls(this.mapLanguageToUrl(this.props.extra), this.props.languages)
+  }
+
+  componentWillUnmount () {
+    const sprungbrett = this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)
+    if (sprungbrett) {
+      // todo take the whole url
+      this.props.setSprungbrettUrl(undefined)
     }
   }
 
@@ -49,7 +55,7 @@ export class ExtrasPage extends React.Component {
     }
   }
 
-  mapLanguageToUrl = extra => language => `${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
+  mapLanguageToUrl = extra => language => `/${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
 
   getSprungbrettPath () {
     return `/${this.props.location}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SprungbrettPage it should render a list with all jobs 1`] = `
-<div>
+<React.Fragment>
   <Caption />
   <SprungbrettList
     jobs={
@@ -33,5 +33,5 @@ exports[`SprungbrettPage it should render a list with all jobs 1`] = `
       ]
     }
   />
-</div>
+</React.Fragment>
 `;

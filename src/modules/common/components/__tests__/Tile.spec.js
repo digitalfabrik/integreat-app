@@ -13,8 +13,8 @@ const tile1 = new TileModel({
 
 const tile2 = new TileModel({
   id: 3649,
-  path: '/augsburg/de/willkommen',
-  name: 'Willkommen',
+  path: 'https://example.com',
+  name: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   isExternalUrl: true
 })

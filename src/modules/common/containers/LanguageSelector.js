@@ -5,8 +5,8 @@ import compose from 'lodash/fp/compose'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import SelectorItemModel from '../../common/models/SelectorItemModel'
-import Selector from '../../common/components/Selector'
+import SelectorItemModel from '../models/SelectorItemModel'
+import Selector from '../components/Selector'
 
 /**
  * Displays a dropDown menu to handle changing of the language

@@ -13,7 +13,7 @@ class SprungbrettListItem extends React.Component {
   render () {
     const job = this.props.job
 
-    return <a href={job.url} className={style.job}>
+    return <a href={job.url} className={style.job} target='_blank' >
       <div className={style.title}>{job.title}</div>
       <div className={style.description}>{job.location}</div>
       </a>
