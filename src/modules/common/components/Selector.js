@@ -14,6 +14,7 @@ class Selector extends React.Component {
     verticalLayout: PropTypes.bool,
     closeDropDownCallback: PropTypes.func,
     items: PropTypes.arrayOf(PropTypes.instanceOf(SelectorItemModel)).isRequired,
+    /** The code of the item which is currently active **/
     active: PropTypes.string.isRequired
   }
 

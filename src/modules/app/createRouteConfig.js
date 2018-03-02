@@ -10,8 +10,11 @@ import Route from './Route'
 
 const createRouteConfig = () => [
   new Route({
+    path: '/'
+  }),
+  new Route({
     id: LandingPage,
-    path: '/(:language(/))'
+    path: '/:language(/)'
   }),
   new Route({
     id: SearchPage,
