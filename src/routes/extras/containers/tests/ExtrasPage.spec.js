@@ -32,7 +32,6 @@ describe('ExtrasPage', () => {
   it('should render a sprungbrett page if it is the selected extra', () => {
     const extrasPage = shallow(
       <ExtrasPage setLanguageChangeUrls={() => {}}
-                  setSprungbrettUrl={() => {}}
                   languages={languages}
                   location={location}
                   language={language}
@@ -45,7 +44,6 @@ describe('ExtrasPage', () => {
   it('should render extra tiles if no extra is selected', () => {
     const extrasPage = shallow(
       <ExtrasPage setLanguageChangeUrls={() => {}}
-                  setSprungbrettUrl={() => {}}
                   languages={languages}
                   location={location}
                   language={language}
@@ -57,7 +55,6 @@ describe('ExtrasPage', () => {
   it('should render a failure if the selected extra does not exist', () => {
     const extrasPage = shallow(
       <ExtrasPage setLanguageChangeUrls={() => {}}
-                  setSprungbrettUrl={() => {}}
                   languages={languages}
                   location={location}
                   language={language}
@@ -67,39 +64,10 @@ describe('ExtrasPage', () => {
     expect(extrasPage).toMatchSnapshot()
   })
 
-  // todo activate this test
-  /* it('should set the sprungbrett url if there is a sprungbrett extra', () => {
-    const setSprungbrettUrl = jest.fn()
-    shallow(
-      <ExtrasPage setLanguageChangeUrls={() => {}}
-                  setSprungbrettUrl={setSprungbrettUrl}
-                  languages={languages}
-                  location={location}
-                  language={language}
-                  extras={extras} />
-    )
-    expect(setSprungbrettUrl.mock.calls).toHaveLength(1)
-    expect(setSprungbrettUrl).toHaveBeenCalledWith(sprungbrettExtra.path)
-  }) */
-
-  it('should not set a sprungbret url if there is none', () => {
-    const setSprungbrettUrl = jest.fn()
-    shallow(
-      <ExtrasPage setLanguageChangeUrls={() => {}}
-                  setSprungbrettUrl={setSprungbrettUrl}
-                  languages={languages}
-                  location={location}
-                  language={language}
-                  extras={[]} />
-    )
-    expect(setSprungbrettUrl.mock.calls).toHaveLength(0)
-  })
-
   it('should set language change urls on mount', () => {
     const setLanguageChangeUrls = jest.fn()
     shallow(
       <ExtrasPage setLanguageChangeUrls={setLanguageChangeUrls}
-                  setSprungbrettUrl={() => {}}
                   languages={languages}
                   location={location}
                   language={language}
@@ -112,7 +80,6 @@ describe('ExtrasPage', () => {
     const setLanguageChangeUrls = jest.fn()
     const extrasPage = shallow(
       <ExtrasPage setLanguageChangeUrls={setLanguageChangeUrls}
-                  setSprungbrettUrl={() => {}}
                   languages={languages}
                   location={location}
                   language={language}
@@ -158,8 +125,7 @@ describe('ExtrasPage', () => {
         extras: extras,
         languages: languages,
         extra: 'extra',
-        setLanguageChangeUrls: expect.any(Function),
-        setSprungbrettUrl: expect.any(Function)
+        setLanguageChangeUrls: expect.any(Function)
       })
     })
 

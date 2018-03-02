@@ -4,7 +4,6 @@ import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import setSprungbrettUrl from 'modules/sprungbrett/actions/setSprungbrettUrl'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 
 import SprungbrettPage from './SprungbrettPage'
@@ -27,26 +26,11 @@ export class ExtrasPage extends React.Component {
     extra: PropTypes.string,
     extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    setSprungbrettUrl: PropTypes.func.isRequired,
     setLanguageChangeUrls: PropTypes.func.isRequired
   }
 
   componentWillMount () {
-    // if the sprungbrett extra is activated, we have to save it's url to the store to be able to load the endpoint
-    const sprungbrett = this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)
-    if (sprungbrett) {
-      // todo take the whole url
-      this.props.setSprungbrettUrl(sprungbrett.path.split('=')[1])
-    }
     this.props.setLanguageChangeUrls(this.mapLanguageToUrl(this.props.extra), this.props.languages)
-  }
-
-  componentWillUnmount () {
-    const sprungbrett = this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)
-    if (sprungbrett) {
-      // todo take the whole url
-      this.props.setSprungbrettUrl(undefined)
-    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -97,7 +81,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setSprungbrettUrl: url => dispatch(setSprungbrettUrl(url)),
   setLanguageChangeUrls: (mapLanguageToUrl, languages) => dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
 })
 

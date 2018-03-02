@@ -2,8 +2,9 @@ import EndpointBuilder from '../EndpointBuilder'
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 
 export default new EndpointBuilder('sprungbrett')
-  // todo take the whole url
-  .withStateToUrlMapper(state => `https://webnext.integreat-app.de/proxy/sprungbrett/app-search-internships?location=${state.sprungbrettUrl.url}`)
+  // currently not working since this is not the final url (will be changed with api v3)
+  // todo remove this comment
+  .withStateToUrlMapper(state => state.extras.data.find(extra => extra.type === 'ige-sbt')._path)
   .withMapper(json => json.results
     .map((job, index) => new SprungbrettJobModel({
       id: index,
