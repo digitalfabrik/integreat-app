@@ -13,6 +13,7 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Failure from 'modules/common/components/Failure'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
+import { apiUrl } from 'modules/endpoint/constants'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
@@ -60,7 +61,7 @@ class PdfFetcherPage extends React.Component {
   }
 
   fetchUrl (category) {
-    const url = `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`
+    const url = `${apiUrl}/${this.props.location}/wp-admin/admin-ajax.php`
     const categoryIds = []
     const requestType = 'page'
     /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
