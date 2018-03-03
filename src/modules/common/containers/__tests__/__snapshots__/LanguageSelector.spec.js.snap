@@ -2,7 +2,7 @@
 
 exports[`LanguageSelector should add vertical class name if verticalLayout is true 1`] = `
 <Selector
-  active="de"
+  activeItemCode="de"
   closeDropDownCallback={[Function]}
   items={
     Array [
@@ -29,7 +29,7 @@ exports[`LanguageSelector should add vertical class name if verticalLayout is tr
 
 exports[`LanguageSelector should match snapshot 1`] = `
 <Selector
-  active="de"
+  activeItemCode="de"
   closeDropDownCallback={[Function]}
   items={
     Array [

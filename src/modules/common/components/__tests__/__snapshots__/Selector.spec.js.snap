@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tiles should be vertical and match snapshot 1`] = `
+exports[`Selector should be vertical and match snapshot 1`] = `
 <div
   className="selector vertical"
 >
@@ -22,7 +22,7 @@ exports[`Tiles should be vertical and match snapshot 1`] = `
 </div>
 `;
 
-exports[`Tiles should match snapshot 1`] = `
+exports[`Selector should match snapshot 1`] = `
 <div
   className="selector"
 >

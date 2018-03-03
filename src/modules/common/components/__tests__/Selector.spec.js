@@ -16,13 +16,13 @@ const selectorItems = [
   })
 ]
 
-describe('Tiles', () => {
+describe('Selector', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <Selector verticalLayout={false}
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
-                active={'de'} />
+                activeItemCode={'de'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -32,7 +32,7 @@ describe('Tiles', () => {
       <Selector verticalLayout
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
-                active={'de'} />
+                activeItemCode={'de'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
