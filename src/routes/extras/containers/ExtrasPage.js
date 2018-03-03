@@ -58,7 +58,7 @@ export class ExtrasPage extends React.Component {
   }
 
   getContent () {
-    if (this.props.extra === SPRUNGBRETT_EXTRA) {
+    if (this.props.extra === SPRUNGBRETT_EXTRA && this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)) {
       // todo use title from the cms instead
       return <SprungbrettPage title={'Sprungbrett'} />
     } else if (this.props.extra) {

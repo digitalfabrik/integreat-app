@@ -41,7 +41,7 @@ export class LanguageSelector extends React.Component {
     return (
       <Selector verticalLayout={this.props.verticalLayout}
                 items={this.getSelectorItemModels()}
-                active={this.props.language}
+                activeItemCode={this.props.language}
                 closeDropDownCallback={this.props.closeDropDownCallback} />
     )
   }
