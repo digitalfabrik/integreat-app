@@ -32,15 +32,27 @@ export class SearchPage extends React.Component {
   }
 
   acceptCategory (category) {
-    const title = category.title.toLowerCase()
-    const content = category.content
     const filterText = this.state.filterText.toLowerCase()
-    return title.includes(filterText) || content.toLowerCase().includes(filterText)
+    const title = category.title.toLowerCase()
+    const content = category.content.toLowerCase()
+    return title.includes(filterText) || content.includes(filterText)
   }
 
   findCategories () {
+    const filterText = this.state.filterText.toLowerCase()
+
     return this.props.categories.toArray()
       .filter(category => this.acceptCategory(category))
+      // sort results so that categories including the filter text in the title on top
+      .sort((category1, category2) => {
+        if (category1.title.toLowerCase().includes(filterText) && !category2.title.toLowerCase().includes(filterText)) {
+          return -1
+        } else if (category1.title.toLowerCase().includes(filterText)) {
+          return 0
+        } else {
+          return 1
+        }
+      })
       .map(model => ({model, children: []}))
   }
 
@@ -54,7 +66,7 @@ export class SearchPage extends React.Component {
         <SearchInput filterText={this.state.filterText}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
-        <CategoryList categories={categories} />
+        <CategoryList categories={categories} query={this.state.filterText} />
       </div>
     )
   }

@@ -23,6 +23,7 @@
     "react-dom": "~16.2.0",
     "react-flexbox-grid": "~2.0.0",
     "react-fontawesome": "~1.6.1",
+    "react-highlighter": "^0.4.2",
     "react-i18next": "~7.1.1",
     "react-onclickoutside": "~6.7.0",
     "react-redux": "~5.0.3",

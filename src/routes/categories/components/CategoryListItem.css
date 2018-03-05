@@ -43,3 +43,7 @@
     border-bottom: 1px solid var(--theme-color);
   }
 }
+
+.highlight {
+  background-color: var(--theme-color);
+}
