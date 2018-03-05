@@ -1,20 +1,21 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
 import { Col } from 'react-flexbox-grid'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 import style from './CategoryTile.css'
+
+type Props = {
+  category: CategoryModel
+}
 
 /**
  * Displays a single CategoryTile
  */
-class CategoryTile extends React.Component {
-  static propTypes = {
-    category: PropTypes.instanceOf(CategoryModel).isRequired
-  }
-
+class CategoryTile extends React.Component<Props> {
   render () {
     return (
       <Col xs={6} sm={4} md={3} className={style.category}>

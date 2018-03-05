@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
@@ -7,15 +8,15 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import style from './CategoryListItem.css'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 
+type Props = {
+  category: CategoryModel,
+  children: Array<CategoryModel>
+}
+
 /**
  * Displays a single CategoryListItem
  */
-class CategoryListItem extends React.Component {
-  static propTypes = {
-    category: PropTypes.instanceOf(CategoryModel).isRequired,
-    children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
-  }
-
+class CategoryListItem extends React.Component<Props> {
   render () {
     const {category, children} = this.props
     return (
