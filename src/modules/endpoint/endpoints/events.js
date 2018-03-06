@@ -1,3 +1,5 @@
+// @flow
+
 import moment from 'moment'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'

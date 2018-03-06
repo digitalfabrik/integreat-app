@@ -1,3 +1,5 @@
+// @flow
+
 import EndpointBuilder from '../EndpointBuilder'
 
 import CategoryModel from '../models/CategoryModel'
@@ -19,11 +21,23 @@ export default new EndpointBuilder('categories')
           content: category.content,
           thumbnail: category.thumbnail,
           order: category.order,
-          availableLanguages: category.available_languages
+          availableLanguages: category.available_languages,
+          parentUrl: ''
         })
       })
 
-    categories.push(new CategoryModel({id: 0, url: baseUrl, title: state.router.params.location}))
+    // the root category representing the location
+    categories.push(new CategoryModel({
+      id: 0,
+      url: baseUrl,
+      title: state.router.params.location,
+      parentId: -1,
+      content: '',
+      order: -1,
+      thumbnail: '',
+      parentUrl: '',
+      availableLanguages: {}
+    }))
 
     categories.forEach(category => {
       if (category.id !== 0) {

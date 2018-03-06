@@ -3,22 +3,22 @@
 import moment from 'moment'
 
 type eventModel = {
-  _id: number,
-  _title: string,
-  _content: string,
-  _thumbnail: string,
-  _availableLanguages: any,
-  _content: string,
-  _town: string,
-  _address: string,
-  _startDate: moment,
-  _endDate: moment,
-  _allDay: boolean,
-  _excerpt: string
+  id: boolean,
+  title: string,
+  content: string,
+  thumbnail: string,
+  availableLanguages: any,
+  content: string,
+  town: string,
+  address: string,
+  startDate: moment,
+  endDate: moment,
+  allDay: boolean,
+  excerpt: string
 }
 
 class EventModel {
-  _id: number
+  _id: boolean
   _title: string
   _content: string
   _thumbnail: string
@@ -45,7 +45,7 @@ class EventModel {
     this._availableLanguages = eventModel.availableLanguages
   }
 
-  get id (): number {
+  get id (): boolean {
     return this._id
   }
 

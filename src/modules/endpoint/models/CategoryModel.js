@@ -5,7 +5,7 @@ type categoryModel = {
   url: string,
   title: string,
   parentId: number,
-  parentUrl: ?string,
+  parentUrl: string,
   content: string,
   thumbnail: string,
   order: number,
@@ -17,7 +17,7 @@ class CategoryModel {
   _url: string
   _title: string
   _parentId: number
-  _parentUrl: ?string
+  _parentUrl: string
   _content: string
   _thumbnail: string
   _order: number
@@ -59,7 +59,7 @@ class CategoryModel {
     return this._parentId
   }
 
-  get parentUrl (): ?string {
+  get parentUrl (): string {
     return this._parentUrl
   }
 
