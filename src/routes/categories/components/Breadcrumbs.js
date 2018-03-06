@@ -2,11 +2,35 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Link } from 'redux-little-router'
+import { textSecondaryColor, textDecorationColor } from 'modules/common/constants/colors'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
+import styled from 'styled-components'
+import { removeA } from '../../../modules/common/constants/helpers'
 
-import style from './Breadcrumbs.css'
+const Wrapper = styled.div`
+  padding: 10px 0;
+  white-space: nowrap;
+  overflow-x: auto;
+`
+
+const Breadcrumb = styled(Link)`
+  ${removeA}
+`
+
+const Separator = styled.span`
+  &::after {
+    color: ${textDecorationColor};
+    font-size: 16px;
+    content: ' > ';
+  }
+`
+
+const Title = styled.span`
+  color: ${textSecondaryColor};
+  font-size: 15px;
+`
 
 /**
  * Displays breadcrumbs (Links) for lower category levels
@@ -32,20 +56,18 @@ class Breadcrumbs extends React.Component {
     return this.props.parents.map(parent => {
       const title = parent.id === 0 ? this.getLocationName(parent.title) : parent.title
       return (
-        <Link key={parent.url}
-              className={style.breadcrumb}
-              href={parent.url}>
-          <span className={style.separator} />
-          <span className={style.level}>{title}</span>
-        </Link>
+        <Breadcrumb key={parent.url} href={parent.url}>
+          <Separator />
+          <Title>{title}</Title>
+        </Breadcrumb>
       )
     })
   }
 
   render () {
-    return <div className={style.breadcrumbs}>
+    return <Wrapper>
       {this.getBreadcrumbs()}
-    </div>
+    </Wrapper>
   }
 }
 
