@@ -59,7 +59,7 @@ export class SearchPage extends React.Component {
             return 1
           }
         } else {
-          // category2 includes the filterText in the title while category1 doesn't, so category1 should be first
+          // category2 includes the filterText in the title while category1 doesn't, so category2 should be first
           return 1
         }
       })
