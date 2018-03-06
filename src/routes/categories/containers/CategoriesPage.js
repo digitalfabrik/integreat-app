@@ -28,7 +28,7 @@ type Props = {
   languages: Array<LanguageModel>,
   location: string,
   language: string,
-  path?: string,
+  path: string,
   categoryId?: string,
   setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void,
   replaceUrl: (string) => void

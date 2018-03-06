@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
@@ -43,16 +43,19 @@ export class LanguageFailure extends React.PureComponent<Props> {
     this.setLanguageChangeUrls()
   }
 
-  getTitle () {
-    return this.props.locations.find(location => location.code === this.props.location).name
+  getTitle (): ?string {
+    const location = this.props.locations.find(location => location.code === this.props.location)
+    if (location) {
+      return location.name
+    }
   }
 
   render () {
-    return <React.Fragment>
+    return <Fragment>
       <Caption title={this.getTitle()} />
       <p className={style.chooseLanguage}>{this.props.t('common:chooseYourLanguage')}</p>
       <LanguageSelector verticalLayout />
-    </React.Fragment>
+    </Fragment>
   }
 }
 
