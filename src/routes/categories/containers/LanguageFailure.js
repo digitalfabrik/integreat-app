@@ -43,8 +43,11 @@ export class LanguageFailure extends React.PureComponent<Props> {
     this.setLanguageChangeUrls()
   }
 
-  getTitle () {
-    return this.props.locations.find(location => location.code === this.props.location).name
+  getTitle (): string {
+    const location = this.props.locations.find(location => location.code === this.props.location)
+    if (location) {
+      return location.name
+    }
   }
 
   render () {
