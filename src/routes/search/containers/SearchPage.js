@@ -34,15 +34,18 @@ export class SearchPage extends React.Component {
   findCategories () {
     const filterText = this.state.filterText.toLowerCase()
 
+    // find all categories whose titles include the filter text and sort them lexicographically
     const categoriesWithTitle = this.props.categories.toArray()
       .filter(category => category.title.toLowerCase().includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
+    // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = this.props.categories.toArray()
       .filter(category => !category.title.toLowerCase().includes(filterText))
       .filter(category => category.content.toLowerCase().includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
+    // return all categories from above
     return categoriesWithTitle
       .concat(categoriesWithContent)
       .map(category => ({model: category, children: []}))
