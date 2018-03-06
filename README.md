@@ -92,10 +92,10 @@ Run **yarn** in Terminal and right-click on package.json to show the npm scripts
 Also mark the *src* and *www* folder as *Source directory*.
 
 Install the following plugins:
-* PostCSS
 * EJS
 * ESLint
 * React CSS Modules
+* Styled Components
 
 Go to:
 * Run > Edit Configurations > Defaults > Jest  

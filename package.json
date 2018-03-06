@@ -35,6 +35,7 @@
     "redux-logger": "~3.0.6",
     "redux-responsive": "^4.3.5",
     "redux-thunk": "~2.2.0",
+    "styled-components": "^3.2.0",
     "text-encoding": "~0.6.4",
     "url-pattern": "^1.0.3",
     "url-search-params-polyfill": "~2.0.1",
@@ -47,6 +48,7 @@
     "babel-core": "~6.26.0",
     "babel-eslint": "~8.0.3",
     "babel-loader": "~7.1.2",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-plugin-transform-runtime": "~6.23.0",
     "babel-preset-env": "~1.6.1",
     "babel-preset-react": "~6.24.1",
@@ -112,6 +114,8 @@
     "stylelint": "~8.3.1",
     "stylelint-order": "~0.8.0",
     "stylelint-webpack-plugin": "~0.9.0",
+    "stylelint-processor-styled-components": "^1.3.0",
+    "stylelint-config-styled-components": "^0.1.1",
     "url-loader": "~0.6.2",
     "webpack": "~3.10.0",
     "webpack-bundle-analyzer": "~2.9.1",
@@ -125,12 +129,13 @@
       "stage-1"
     ],
     "plugins": [
+      "babel-plugin-styled-components",
       "transform-runtime"
     ]
   },
   "scripts": {
     "eslint": "eslint src tools",
-    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.css\"",
+    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
     "lint": "yarn run eslint && yarn run stylelint",
     "lint:fix": "yarn run eslint --fix && stylefmt -r \"src/**/*.css\"",
     "build": "node tools/build.js",
