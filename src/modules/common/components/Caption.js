@@ -1,7 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './Caption.css'
+import styled from 'styled-components'
+import { smallViewport } from '../constants/dimensions'
+
+const H1 = styled.h1`
+  margin: 25px 0;
+  font-size: 2rem;
+  text-align: center;
+  
+  @media ${smallViewport} {
+    margin: 10px 0;
+  }
+`
 
 class Caption extends React.Component {
   static propTypes = {
@@ -10,7 +21,7 @@ class Caption extends React.Component {
 
   render () {
     return (
-      <h1 className={style.caption}>{this.props.title}</h1>
+      <H1>{this.props.title}</H1>
     )
   }
 }

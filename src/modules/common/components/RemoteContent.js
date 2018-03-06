@@ -1,8 +1,51 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
-import style from './RemoteContent.css'
+import styled, { css } from 'styled-components'
+import { contentFontFamily, contentFontSize, contentLineHeight } from '../constants/fonts'
+import { backgroundAccentColor } from '../constants/colors'
+
+const SandBox = styled.div`
+  font-family: ${contentFontFamily};
+  font-size: ${contentFontSize};
+  line-height: ${contentLineHeight};
+  ${props => props.centered && css`
+    text-align: center;
+    list-style-position: inside;
+  `}
+  
+  & img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  & table {
+    display: block;
+    width: 100% !important;
+    height: auto !important; /* need important because of bad-formatted remote-content */
+    overflow: auto;
+  }
+  
+  & tbody,
+  & thead {
+    display: table; /* little bit hacky, but works in all browsers, even IE11 :O */
+    width: 100%;
+    box-sizing: border-box;
+    border-collapse: collapse;
+  }
+
+  & tbody,
+  & thead,
+  & th,
+  & td {
+    border: 1px solid ${backgroundAccentColor};
+  }
+  
+  & a {
+    overflow-wrap: break-word;
+  }
+`
 
 class RemoteContent extends React.Component {
   static propTypes = {
@@ -15,8 +58,8 @@ class RemoteContent extends React.Component {
   }
 
   render () {
-    return <div className={cx({[style.centered]: this.props.centered, [style.remoteContent]: true})}
-                dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
+    return <SandBox centered={this.props.centered}
+                    dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
   }
 }
 

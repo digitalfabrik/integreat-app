@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
-import style from './Headroom.css'
+import styled from 'styled-components'
 
 const UPWARDS = 'up'
 const DOWNWARDS = 'down'
@@ -10,6 +9,15 @@ const DOWNWARDS = 'down'
 const UNPINNED = 'unpinned'
 const PINNED = 'pinned'
 const STATIC = 'static'
+
+const HeaderWrapper = styled.div`
+  position: sticky;
+  top: ${props => props.top}px;
+  z-index: 1;
+  transform: translateY(${props => props.translateY}px);
+  ${props => props.transition && `transition: transform 0.2s ease-out;`}
+  ${props => props.static && `transition: none;`}
+`
 
 class Headroom extends React.PureComponent {
   static propTypes = {
@@ -124,15 +132,12 @@ class Headroom extends React.PureComponent {
     const transform = mode === UNPINNED ? -scrollHeight : 0
     const ownStickyTop = mode === STATIC ? -scrollHeight : 0
     return <React.Fragment>
-      <div
-        style={{transform: `translateY(${transform}px)`, top: `${ownStickyTop}px`}}
-        className={cx({
-          [style.headroom]: true,
-          [style.transition]: transition,
-          [style.static]: mode === STATIC
-        })}>
+      <HeaderWrapper translateY={transform}
+                     top={ownStickyTop}
+                     transition={transition}
+                     static={mode === STATIC}>
         {children}
-      </div>
+      </HeaderWrapper>
       {stickyAncestor && React.cloneElement(stickyAncestor, {stickyTop})}
     </React.Fragment>
   }
