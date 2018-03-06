@@ -45,8 +45,9 @@ export class SearchPage extends React.Component {
       .filter(category => category.content.toLowerCase().includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
-    // return all categories from above
+    // return all categories from above and remove the root category
     return categoriesWithTitle
+      .filter(category => category.id !== 0)
       .concat(categoriesWithContent)
       .map(category => ({model: category, children: []}))
   }
