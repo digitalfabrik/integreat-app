@@ -2,9 +2,17 @@
 
 exports[`LocationEntry should match snapshot 1`] = `
 <Connect(Link)
-  className="languageListItem"
+  className="locationListItem"
   href="/augsburg/de"
 >
-  Augsburg
+  <Highlighter
+    caseSensitive={false}
+    matchClass="highlight"
+    matchElement="strong"
+    matchStyle={Object {}}
+    search=""
+  >
+    Augsburg
+  </Highlighter>
 </Connect(Link)>
 `;

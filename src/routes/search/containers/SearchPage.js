@@ -25,10 +25,10 @@ export class SearchPage extends React.Component {
     this.state = {filterText: ''}
   }
 
-  mapLanguageToUrl = language => `/${this.props.location}/${language}/search`
+  mapLanguageToPath = language => `/${this.props.location}/${language}/search`
 
   componentDidMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages)
+    this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages)
   }
 
   acceptCategory (category) {
@@ -87,8 +87,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToUrl, languages) =>
-    dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
+  setLanguageChangeUrls: (mapLanguageToPath, languages) =>
+    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
 })
 
 export default compose(
