@@ -46,10 +46,20 @@ export class SearchPage extends React.Component {
       // sort results so that categories including the filter text in the title on top
       .sort((category1, category2) => {
         if (category1.title.toLowerCase().includes(filterText) && !category2.title.toLowerCase().includes(filterText)) {
+          // category1 includes the filterText in the title while category2 doesn't, so category1 should be first
           return -1
-        } else if (category1.title.toLowerCase().includes(filterText)) {
-          return 0
+        } else if (category1.title.toLowerCase().includes(filterText) ||
+          !category2.title.toLowerCase().includes(filterText)) {
+          // the filterText is either included in the title of both categories or the content of both categories
+          if (category1.title < category2.title) {
+            // the title of category1 is lexicographically smaller than the title of category2 so it should be first
+            return -1
+          } else {
+            // the title of category1 is lexicographically bigger than the title of category2 so it should be last
+            return 1
+          }
         } else {
+          // category2 includes the filterText in the title while category1 doesn't, so category1 should be first
           return 1
         }
       })
