@@ -1,63 +1,93 @@
+// @flow
+
+import moment from 'moment'
+
+type eventModel = {
+  _id: number,
+  _title: string,
+  _content: string,
+  _thumbnail: string,
+  _availableLanguages: any,
+  _content: string,
+  _town: string,
+  _address: string,
+  _startDate: moment,
+  _endDate: moment,
+  _allDay: boolean,
+  _excerpt: string
+}
+
 class EventModel {
-  constructor ({id, title = '', content = '', thumbnail = '', address = '', town = '', startDate = undefined, endDate = undefined, allDay = false, excerpt = '', availableLanguages = []}) {
-    this._id = id
-    this._title = title
-    this._content = content
-    this._thumbnail = thumbnail
-    this._address = address
-    this._town = town
-    this._startDate = startDate
-    this._endDate = endDate
-    this._allDay = allDay
-    this._excerpt = excerpt
-    this._availableLanguages = availableLanguages
+  _id: number
+  _title: string
+  _content: string
+  _thumbnail: string
+  _availableLanguages: any
+  _content: string
+  _town: string
+  _address: string
+  _startDate: moment
+  _endDate: moment
+  _allDay: boolean
+  _excerpt: string
+
+  constructor (eventModel: eventModel) {
+    this._id = eventModel.id
+    this._title = eventModel.title
+    this._content = eventModel.content
+    this._thumbnail = eventModel.thumbnail
+    this._address = eventModel.address
+    this._town = eventModel.town
+    this._startDate = eventModel.startDate
+    this._endDate = eventModel.endDate
+    this._allDay = eventModel.allDay
+    this._excerpt = eventModel.excerpt
+    this._availableLanguages = eventModel.availableLanguages
   }
 
-  get id () {
+  get id (): number {
     return this._id
   }
 
-  get title () {
+  get title (): string {
     return this._title
   }
 
-  get thumbnail () {
+  get thumbnail (): string {
     return this._thumbnail
   }
 
-  get content () {
+  get content (): string {
     return this._content
   }
 
-  get address () {
+  get address (): ?string {
     if (this._address && this._town) {
       return `${this._address}, ${this._town}`
     } else if (this._address) {
       return this._address
     } else if (this._town) {
       return this._town
-    } else {
-      return null
     }
   }
 
-  get startDate () {
+  get startDate (): moment {
     return this._startDate
   }
 
-  get endDate () {
+  get endDate (): moment {
     return this._endDate
   }
 
-  get allDay () {
+  get allDay (): boolean {
     return this._allDay
   }
 
-  get excerpt () {
+  get excerpt (): string {
     return this._excerpt
   }
 
-  get availableLanguages () {
+  get availableLanguages (): any {
     return this._availableLanguages
   }
 }
