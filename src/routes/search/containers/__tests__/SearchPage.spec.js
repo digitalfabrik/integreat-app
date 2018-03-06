@@ -24,7 +24,8 @@ describe('SearchPage', () => {
     new CategoryModel({
       id: 0,
       url: '/augsburg/de',
-      title: 'augsburg'
+      title: 'augsburg',
+      content: ''
     }),
     new CategoryModel({
       id: 3650,

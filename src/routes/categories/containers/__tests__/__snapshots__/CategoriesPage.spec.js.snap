@@ -147,13 +147,13 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     parents={
       Array [
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 0,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "augsburg",
           "_url": "/augsburg/de",
         },
@@ -229,13 +229,13 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
     parents={
       Array [
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 0,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "augsburg",
           "_url": "/augsburg/de",
         },

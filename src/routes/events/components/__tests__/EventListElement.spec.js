@@ -12,7 +12,8 @@ describe('EventListElement', () => {
     availableLanguages: {de: '1235', ar: '1236'},
     startDate: moment.tz('2017-11-27 19:30:00', 'UTC'),
     endDate: moment.tz('2017-11-27 21:30:00', 'UTC'),
-    allDay: false
+    allDay: false,
+    excerpt: ''
   })
 
   const url = `/augsburg/en/events`

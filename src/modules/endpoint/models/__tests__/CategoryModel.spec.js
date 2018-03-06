@@ -21,14 +21,4 @@ describe('CategoryModel', () => {
     expect(category.order).toBe(props.order)
     expect(category.availableLanguages).toBe(props.availableLanguages)
   })
-
-  it('should have correct default attributes', () => {
-    const category = new CategoryModel({id: 4, url: '/test/url'})
-    expect(category.parentId).toBe(-1)
-    expect(category.parentUrl).toBeNull()
-    expect(category.content).toBe('')
-    expect(category.thumbnail).toBeNull()
-    expect(category.order).toBe(0)
-    expect(category.availableLanguages).toEqual({})
-  })
 })

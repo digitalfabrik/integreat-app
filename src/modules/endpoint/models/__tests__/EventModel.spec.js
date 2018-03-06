@@ -18,6 +18,6 @@ describe('EventModel', () => {
 
   it('should have no address if we have neither address nor town', () => {
     const event = new EventModel({})
-    expect(event.address).toBeNull()
+    expect(event.address).toBeUndefined()
   })
 })

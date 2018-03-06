@@ -11,13 +11,13 @@ exports[`CategoryList should render 1`] = `
     <CategoryTile
       category={
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 35,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "Willkommen in Augsburg",
           "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
@@ -27,13 +27,13 @@ exports[`CategoryList should render 1`] = `
     <CategoryTile
       category={
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 35,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "Willkommen in Augsburg",
           "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }

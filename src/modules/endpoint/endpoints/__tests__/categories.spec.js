@@ -75,7 +75,16 @@ describe('categories', () => {
       },
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
     }),
-    new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'})
+    new CategoryModel({
+      id: 0,
+      url: '/augsburg/de',
+      title: 'augsburg',
+      availableLanguages: {},
+      content: '',
+      order: -1,
+      parentUrl: '',
+      parentId: -1,
+      thumbnail: ''})
   ]
 
   const state = {router: {params: {language: 'de', location: 'augsburg'}}}
