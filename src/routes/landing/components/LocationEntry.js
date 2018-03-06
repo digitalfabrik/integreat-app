@@ -16,7 +16,7 @@ class LocationEntry extends React.PureComponent {
     const {location, language, filterText} = this.props
     return (
       <Link href={`/${location.code}/${language}`} className={style.locationListItem}>
-        <Highlighter matchClass={style.highlight} search={filterText || ''}>
+        <Highlighter search={filterText || ''}>
           {location.name}
         </Highlighter>
       </Link>

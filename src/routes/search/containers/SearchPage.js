@@ -31,39 +31,21 @@ export class SearchPage extends React.Component {
     this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages)
   }
 
-  acceptCategory (category) {
-    const filterText = this.state.filterText.toLowerCase()
-    const title = category.title.toLowerCase()
-    const content = category.content.toLowerCase()
-    return title.includes(filterText) || content.includes(filterText)
-  }
-
   findCategories () {
     const filterText = this.state.filterText.toLowerCase()
 
-    return this.props.categories.toArray()
-      .filter(category => this.acceptCategory(category))
-      // sort results so that categories including the filter text in the title on top
-      .sort((category1, category2) => {
-        if (category1.title.toLowerCase().includes(filterText) && !category2.title.toLowerCase().includes(filterText)) {
-          // category1 includes the filterText in the title while category2 doesn't, so category1 should be first
-          return -1
-        } else if (category1.title.toLowerCase().includes(filterText) ||
-          !category2.title.toLowerCase().includes(filterText)) {
-          // the filterText is either included in the title of both categories or the content of both categories
-          if (category1.title < category2.title) {
-            // the title of category1 is lexicographically smaller than the title of category2 so it should be first
-            return -1
-          } else {
-            // the title of category1 is lexicographically bigger than the title of category2 so it should be last
-            return 1
-          }
-        } else {
-          // category2 includes the filterText in the title while category1 doesn't, so category2 should be first
-          return 1
-        }
-      })
-      .map(model => ({model, children: []}))
+    const categoriesWithTitle = this.props.categories.toArray()
+      .filter(category => category.title.toLowerCase().includes(filterText))
+      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+
+    const categoriesWithContent = this.props.categories.toArray()
+      .filter(category => !category.title.toLowerCase().includes(filterText))
+      .filter(category => category.content.toLowerCase().includes(filterText))
+      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+
+    return categoriesWithTitle
+      .concat(categoriesWithContent)
+      .map(category => ({model: category, children: []}))
   }
 
   onFilterTextChange = filterText => this.setState({filterText: filterText})

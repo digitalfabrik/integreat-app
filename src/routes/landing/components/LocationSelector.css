@@ -27,7 +27,3 @@
     background-color: var(--background-accent-color);
   }
 }
-
-.highlight {
-  background-color: var(--theme-color);
-}

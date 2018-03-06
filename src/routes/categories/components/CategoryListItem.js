@@ -35,7 +35,7 @@ class CategoryListItem extends React.Component {
   }
 
   getTitle () {
-    return <Highlighter className={style.categoryCaption} matchClass={style.highlight} search={this.props.query || ''}>
+    return <Highlighter className={style.categoryCaption} search={this.props.query || ''}>
       {this.props.category.title}
       </Highlighter>
   }
