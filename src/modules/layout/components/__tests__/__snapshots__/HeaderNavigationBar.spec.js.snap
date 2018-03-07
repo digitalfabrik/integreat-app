@@ -4,19 +4,27 @@ exports[`HeaderNavigationBar should match snapshot 1`] = `
 <div
   className="testClass navigationBar"
 >
-  <Connect(Link)
-    className="navigationItem"
+  <branch(undefined)
+    className="navigationItem inactiveNavigationItem"
     href="link1"
     key="text1"
   >
     text1
-  </Connect(Link)>
-  <Connect(Link)
-    className="navigationItem"
+  </branch(undefined)>
+  <branch(undefined)
+    className="navigationItem inactiveNavigationItem"
     href="link2"
     key="text2"
   >
     text2
-  </Connect(Link)>
+  </branch(undefined)>
+  <ReactTooltip
+    effect="solid"
+    insecure={true}
+    place="top"
+    resizeHide={true}
+    type="dark"
+    wrapper="div"
+  />
 </div>
 `;

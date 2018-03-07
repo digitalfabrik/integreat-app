@@ -5,19 +5,25 @@ exports[`LocationHeader NavigationItems should be empty, if extras and news are 
 exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
 Array [
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de/extras",
-    "_text": "app:extras",
+    "_selected": false,
+    "_text": "layout:extras",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
     "_active": true,
     "_href": "/location1/de",
-    "_text": "app:categories",
+    "_selected": true,
+    "_text": "layout:categories",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
     "_active": false,
     "_href": "/location1/de/events",
-    "_text": "app:news",
+    "_selected": false,
+    "_text": "layout:news",
+    "_tooltip": "layout:noNews",
   },
 ]
 `;
@@ -25,19 +31,25 @@ Array [
 exports[`LocationHeader NavigationItems should highlight events if route corresponds 1`] = `
 Array [
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de/extras",
-    "_text": "app:extras",
-  },
-  HeaderNavigationItem {
-    "_active": false,
-    "_href": "/location1/de",
-    "_text": "app:categories",
+    "_selected": false,
+    "_text": "layout:extras",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
     "_active": true,
+    "_href": "/location1/de",
+    "_selected": false,
+    "_text": "layout:categories",
+    "_tooltip": undefined,
+  },
+  HeaderNavigationItem {
+    "_active": false,
     "_href": "/location1/de/events",
-    "_text": "app:news",
+    "_selected": true,
+    "_text": "layout:news",
+    "_tooltip": "layout:noNews",
   },
 ]
 `;
@@ -45,19 +57,25 @@ Array [
 exports[`LocationHeader NavigationItems should highlight extras if extras route is selected 1`] = `
 Array [
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de/extras",
-    "_text": "app:extras",
+    "_selected": false,
+    "_text": "layout:extras",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de",
-    "_text": "app:categories",
+    "_selected": false,
+    "_text": "layout:categories",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
     "_active": false,
     "_href": "/location1/de/events",
-    "_text": "app:news",
+    "_selected": false,
+    "_text": "layout:news",
+    "_tooltip": "layout:noNews",
   },
 ]
 `;
@@ -65,14 +83,18 @@ Array [
 exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
 Array [
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de/extras",
-    "_text": "app:extras",
+    "_selected": false,
+    "_text": "layout:extras",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de",
-    "_text": "app:categories",
+    "_selected": false,
+    "_text": "layout:categories",
+    "_tooltip": undefined,
   },
 ]
 `;
@@ -80,14 +102,18 @@ Array [
 exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 2`] = `
 Array [
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de",
-    "_text": "app:categories",
+    "_selected": false,
+    "_text": "layout:categories",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
     "_active": false,
     "_href": "/location1/de/events",
-    "_text": "app:news",
+    "_selected": false,
+    "_text": "layout:news",
+    "_tooltip": "layout:noNews",
   },
 ]
 `;
@@ -95,19 +121,25 @@ Array [
 exports[`LocationHeader NavigationItems should show extras, categories, events in this order 1`] = `
 Array [
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de/extras",
-    "_text": "app:extras",
+    "_selected": false,
+    "_text": "layout:extras",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
-    "_active": false,
+    "_active": true,
     "_href": "/location1/de",
-    "_text": "app:categories",
+    "_selected": false,
+    "_text": "layout:categories",
+    "_tooltip": undefined,
   },
   HeaderNavigationItem {
     "_active": false,
     "_href": "/location1/de/events",
-    "_text": "app:news",
+    "_selected": false,
+    "_text": "layout:news",
+    "_tooltip": "layout:noNews",
   },
 ]
 `;
@@ -137,19 +169,25 @@ exports[`LocationHeader should match snapshot 1`] = `
   navigationItems={
     Array [
       HeaderNavigationItem {
-        "_active": false,
+        "_active": true,
         "_href": "/location1/de/extras",
-        "_text": "app:extras",
+        "_selected": false,
+        "_text": "layout:extras",
+        "_tooltip": undefined,
       },
       HeaderNavigationItem {
-        "_active": false,
+        "_active": true,
         "_href": "/location1/de",
-        "_text": "app:categories",
+        "_selected": false,
+        "_text": "layout:categories",
+        "_tooltip": undefined,
       },
       HeaderNavigationItem {
         "_active": false,
         "_href": "/location1/de/events",
-        "_text": "app:news",
+        "_selected": false,
+        "_text": "layout:news",
+        "_tooltip": "layout:noNews",
       },
     ]
   }

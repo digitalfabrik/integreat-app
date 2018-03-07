@@ -21,7 +21,11 @@
   text-transform: uppercase;
 }
 
-.navigation-item.active-navigation-item {
+.navigation-item.inactive-navigation-item {
+  opacity: 0.5;
+}
+
+.navigation-item.selected-navigation-item {
   font-weight: 700;
 }
 
