@@ -2,7 +2,9 @@
 
 exports[`SprungbrettPage it should render a list with all jobs 1`] = `
 <React.Fragment>
-  <Caption />
+  <Caption
+    title="Sprungbrett"
+  />
   <SprungbrettList
     jobs={
       Array [

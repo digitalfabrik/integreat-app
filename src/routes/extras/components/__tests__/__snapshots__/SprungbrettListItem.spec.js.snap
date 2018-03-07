@@ -7,9 +7,13 @@ exports[`SprungbrettListItem should match snapshot 1`] = `
 >
   <div
     className="title"
-  />
+  >
+    WebDeveloper
+  </div>
   <div
     className="description"
-  />
+  >
+    Augsburg
+  </div>
 </a>
 `;
