@@ -25,23 +25,31 @@ export class SearchPage extends React.Component {
     this.state = {filterText: ''}
   }
 
-  mapLanguageToUrl = language => `/${this.props.location}/${language}/search`
+  mapLanguageToPath = language => `/${this.props.location}/${language}/search`
 
   componentDidMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages)
-  }
-
-  acceptCategory (category) {
-    const title = category.title.toLowerCase()
-    const content = category.content
-    const filterText = this.state.filterText.toLowerCase()
-    return title.includes(filterText) || content.toLowerCase().includes(filterText)
+    this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages)
   }
 
   findCategories () {
-    return this.props.categories.toArray()
-      .filter(category => this.acceptCategory(category))
-      .map(model => ({model, children: []}))
+    const filterText = this.state.filterText.toLowerCase()
+
+    // find all categories whose titles include the filter text and sort them lexicographically
+    const categoriesWithTitle = this.props.categories.toArray()
+      .filter(category => category.title.toLowerCase().includes(filterText))
+      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+
+    // find all categories whose contents but not titles include the filter text and sort them lexicographically
+    const categoriesWithContent = this.props.categories.toArray()
+      .filter(category => !category.title.toLowerCase().includes(filterText))
+      .filter(category => category.content.toLowerCase().includes(filterText))
+      .sort((category1, category2) => category1.title.localeCompare(category2.title))
+
+    // return all categories from above and remove the root category
+    return categoriesWithTitle
+      .filter(category => category.id !== 0)
+      .concat(categoriesWithContent)
+      .map(category => ({model: category, children: []}))
   }
 
   onFilterTextChange = filterText => this.setState({filterText: filterText})
@@ -54,7 +62,7 @@ export class SearchPage extends React.Component {
         <SearchInput filterText={this.state.filterText}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
-        <CategoryList categories={categories} />
+        <CategoryList categories={categories} query={this.state.filterText} />
       </div>
     )
   }
@@ -65,8 +73,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToUrl, languages) =>
-    dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
+  setLanguageChangeUrls: (mapLanguageToPath, languages) =>
+    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
 })
 
 export default compose(

@@ -26,7 +26,8 @@ export class SearchInput extends React.Component {
                  className={style.searchInput}
                  defaultValue={this.props.filterText}
                  onChange={this.onFilterTextChange}
-                 onClick={this.props.onClickInput} />
+                 onClick={this.props.onClickInput}
+                 autoFocus />
         </div>
       </div>
     )
