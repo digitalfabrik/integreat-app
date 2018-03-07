@@ -12,7 +12,9 @@ import type { CategoryType } from '../../../modules/endpoint/models/CategoryMode
 type Props = {
   categories: Array<{model: CategoryType, children: Array<CategoryType>}>,
   title?: string,
-  content?: string
+  content?: string,
+  /** A search query to highlight in the categories titles */
+  query?: string
 }
 
 /**
@@ -28,7 +30,8 @@ class CategoryList extends React.Component<Props> {
           {this.props.categories.map(({model, children}) =>
             <CategoryListItem key={model.id}
                               category={model}
-                              children={children} />)}
+                              children={children}
+                              query={this.props.query} />)}
         </div>
       </div>
     )

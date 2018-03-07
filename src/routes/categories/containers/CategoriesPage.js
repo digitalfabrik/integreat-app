@@ -15,9 +15,10 @@ import Page from 'modules/common/components/Page'
 
 import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
-import CategoryTiles from '../components/CategoryTiles'
+import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
+import TileModel from '../../../modules/common/models/TileModel'
 
 import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
 
@@ -95,6 +96,23 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   /**
+   * Our root categories don't have the right title (location code instead of location title), so we have to compare the
+   * title of the root category with the code of every location
+   * @param {String} title The title of the category to search for
+   * @return {String} The found name or the given title
+   */
+  getLocationName (title) {
+    const location = this.props.locations.find(_location => title === _location.code)
+    return location ? location.name : title
+  }
+
+  getTileModels (categories) {
+    return categories.map(category => new TileModel({
+      id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
+    }))
+  }
+
+  /**
    * Returns the content to be displayed, based on the current category, which is
    * a) page with information
    * b) table with categories
@@ -103,7 +121,7 @@ export class CategoriesPage extends React.Component<Props> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryType) {
-    const {categories, locations} = this.props
+    const categories = this.props.categories
     const children = categories.getChildren(category)
 
     if (children.length === 0) {
@@ -112,9 +130,8 @@ export class CategoriesPage extends React.Component<Props> {
                    content={category.content} />
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
-      return <CategoryTiles categories={children}
-                            title={category.title}
-                            locations={locations} />
+      return <Tiles tiles={this.getTileModels(children)}
+                    title={this.getLocationName(category.title)} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, children: categories.getChildren(model)}))}
@@ -128,7 +145,6 @@ export class CategoriesPage extends React.Component<Props> {
     if (!category) {
       return <Failure error='not-found:page.notFound' />
     }
-    this.props.categories.getAncestors(category)
 
     return <div>
       <Breadcrumbs

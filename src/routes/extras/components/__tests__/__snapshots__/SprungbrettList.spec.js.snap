@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettList should match snapshot 1`] = `
+<div
+  className="list"
+>
+  <SprungbrettListItem
+    job={
+      SprungbrettModel {
+        "_id": "0",
+        "_isApprenticeship": true,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "WebDeveloper",
+        "_url": undefined,
+      }
+    }
+    key="0"
+  />
+  <SprungbrettListItem
+    job={
+      SprungbrettModel {
+        "_id": "1",
+        "_isApprenticeship": false,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "BackendDeveloper",
+        "_url": undefined,
+      }
+    }
+    key="1"
+  />
+  <SprungbrettListItem
+    job={
+      SprungbrettModel {
+        "_id": "2",
+        "_isApprenticeship": true,
+        "_isEmployment": false,
+        "_location": "Augsburg",
+        "_title": "Freelancer",
+        "_url": undefined,
+      }
+    }
+    key="2"
+  />
+</div>
+`;
