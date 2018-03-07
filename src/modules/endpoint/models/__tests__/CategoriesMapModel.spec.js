@@ -25,6 +25,7 @@ describe('CategoriesMapModel', () => {
 
   it('should find category by id', () => {
     expect(categoriesMapModel.getCategoryById(category1.id)).toBe(category1)
+    expect(() => categoriesMapModel.getCategoryById(1234567)).toThrowErrorMatchingSnapshot()
   })
 
   it('should have the right parent attributes', () => {

@@ -3,6 +3,7 @@
 import moment from 'moment'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
+import type { EventType } from '../types'
 
 export default new EndpointBuilder('events')
   .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
@@ -21,7 +22,7 @@ export default new EndpointBuilder('events')
       allDay: event.event.all_day !== '0',
       excerpt: event.excerpt,
       availableLanguages: event.available_languages
-    }))
+    }: EventType))
     .filter(event => event.startDate.isValid())
     .filter(event => event.startDate.isAfter(moment()))
     .sort((event1, event2) => {
