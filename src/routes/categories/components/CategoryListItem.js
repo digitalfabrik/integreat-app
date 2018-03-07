@@ -61,7 +61,7 @@ class CategoryListItem extends React.Component {
 
   getChildren () {
     return this.props.children.map(child =>
-      <Row key={child.id}>
+      <div key={child.id}>
         <StyledLink href={child.url}>
           {
             child.thumbnail
@@ -70,7 +70,7 @@ class CategoryListItem extends React.Component {
           }
           <SubCategoryCaption>{child.title}</SubCategoryCaption>
         </StyledLink>
-      </Row>
+      </div>
     )
   }
 
