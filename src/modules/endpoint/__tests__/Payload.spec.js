@@ -29,13 +29,13 @@ describe('Payload', () => {
     expect(() => {
       // eslint-disable-next-line no-new
       new Payload(true, data, error, fetchUrl, fetchDate)
-    }).toThrow()
+    }).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if url is invalid', () => {
     expect(() => {
       // eslint-disable-next-line no-new
       new Payload(true, data, null, 'Rambazamba!', fetchDate)
-    }).toThrow()
+    }).toThrowErrorMatchingSnapshot()
   })
 })
