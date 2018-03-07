@@ -20,6 +20,7 @@ exports[`SearchInput should render 1`] = `
       name="search"
     />
     <input
+      autoFocus={true}
       className="searchInput"
       defaultValue="Test"
       onChange={[Function]}
@@ -42,6 +43,7 @@ exports[`SearchInput should render and space search 1`] = `
       name="search"
     />
     <input
+      autoFocus={true}
       className="searchInput"
       defaultValue="Test"
       onChange={[Function]}

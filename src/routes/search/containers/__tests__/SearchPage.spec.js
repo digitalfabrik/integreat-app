@@ -89,17 +89,17 @@ describe('SearchPage', () => {
     ).instance()
 
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(searchPage.mapLanguageToUrl, languages)
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(searchPage.mapLanguageToPath, languages)
   })
 
-  it('should mapLanguageToUrl correctly', () => {
+  it('should mapLanguageToPath correctly', () => {
     const searchPage = shallow(
       <SearchPage location={location}
                   languages={languages}
                   categories={categories}
                   setLanguageChangeUrls={() => {}} />
     ).instance()
-    expect(searchPage.mapLanguageToUrl('en')).toBe('/augsburg/en/search')
+    expect(searchPage.mapLanguageToPath('en')).toBe('/augsburg/en/search')
   })
 
   it('should filter correctly', () => {
@@ -117,13 +117,70 @@ describe('SearchPage', () => {
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
 
-    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length)
+    // the root category should not be returned
+    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length - 1)
 
     searchInputProps.onFilterTextChange('Does not exist!')
     expect(searchPage.findCategories()).toHaveLength(0)
 
     searchInputProps.onFilterTextChange(categoryModels[1].title)
     expect(searchPage.findCategories()).toHaveLength(1)
+  })
+
+  it('should sort correctly', () => {
+    const categoryModels = [
+      // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
+      new CategoryModel({
+        id: 1,
+        url: '/abc',
+        title: 'abc',
+        content: ''
+      }),
+      // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
+      new CategoryModel({
+        id: 2,
+        url: '/defabc',
+        title: 'defabc',
+        content: ''
+      }),
+      // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
+      new CategoryModel({
+        id: 3,
+        url: '/def',
+        title: 'def',
+        content: 'abc'
+      }),
+      // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
+      new CategoryModel({
+        id: 4,
+        url: '/ghi',
+        title: 'ghi',
+        content: 'abc'
+      })
+    ]
+
+    const categories = new CategoriesMapModel(categoryModels)
+
+    const mockStore = configureMockStore()
+    const store = mockStore({router: {}})
+
+    const tree = mount(
+      <Provider store={store}>
+        <SearchPage location={location}
+                    languages={languages}
+                    categories={categories}
+                    setLanguageChangeUrls={() => {}} />
+      </Provider>
+    )
+    const searchPage = tree.find(SearchPage).instance()
+    const searchInputProps = tree.find('SearchInput').props()
+
+    searchInputProps.onFilterTextChange('abc')
+
+    expect(searchPage.findCategories()[0].model).toBe(categoryModels[0])
+    expect(searchPage.findCategories()[1].model).toBe(categoryModels[1])
+    expect(searchPage.findCategories()[2].model).toBe(categoryModels[2])
+    expect(searchPage.findCategories()[3].model).toBe(categoryModels[3])
   })
 
   describe('connect()', () => {
