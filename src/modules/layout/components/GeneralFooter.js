@@ -17,4 +17,4 @@ class GeneralFooter extends React.Component {
   }
 }
 
-export default translate('app')(GeneralFooter)
+export default translate('layout')(GeneralFooter)

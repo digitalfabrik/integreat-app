@@ -61,7 +61,8 @@ export class SearchInput extends React.Component {
           <TextInput placeholder={this.props.t('search')}
                      defaultValue={this.props.filterText}
                      onChange={this.onFilterTextChange}
-                     onClick={this.props.onClickInput} />
+                     onClick={this.props.onClickInput}
+                     autoFocus />
         </Wrapper>
       </Spacer>
     )

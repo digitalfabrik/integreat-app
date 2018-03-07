@@ -77,6 +77,7 @@ Used Redux extensions:
 ### Testing
 * [Jest](https://facebook.github.io/jest/) is used for testing.
 * [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility
+* To test another api, you can set the new cms domain via Console of your web browser: Just type `window.localStorage.set('api-url', 'https://cms-test.integreat-app.de')` and reload the page.
 
 ### Linting
 * The linter for JavaScript is [eslint](http://eslint.org/)
