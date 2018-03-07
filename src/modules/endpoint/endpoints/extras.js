@@ -6,7 +6,6 @@ export default new EndpointBuilder('extras')
   .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
     `/${state.router.params.language}/wp-json/extensions/v3/extras`)
   .withMapper(json => json
-    .filter(extra => extra.alias !== 'ige-c4r')
     .map(extra => new ExtraModel({
       alias: extra.alias,
       name: extra.name,
