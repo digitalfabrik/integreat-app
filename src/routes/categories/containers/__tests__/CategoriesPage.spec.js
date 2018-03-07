@@ -22,7 +22,8 @@ describe('CategoriesPage', () => {
       parentId: -1,
       order: -1,
       availableLanguages: {},
-      thumbnail: 'no_thumbnail'
+      thumbnail: 'no_thumbnail',
+      parentUrl: ''
     }, {
       id: 3650,
       url: '/augsburg/de/anlaufstellen',
@@ -97,8 +98,6 @@ describe('CategoriesPage', () => {
   })
 
   it('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -107,15 +106,13 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={categoryModels[2].url}
                       setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      replaceUrl={() => {}} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should match snapshot and render CategoryTiles if the path is the root category', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -124,7 +121,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={'/augsburg/de'}
                       setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      replaceUrl={() => {}} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -290,7 +287,7 @@ describe('CategoriesPage', () => {
       .build()
 
     const pathname = '/augsburg/de/willkommen'
-    const id = '1234'
+    const id = '3650'
 
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {

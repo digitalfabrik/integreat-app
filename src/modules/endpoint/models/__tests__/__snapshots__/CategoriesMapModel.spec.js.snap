@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoriesMapModel should get the right categories and normalize urls 1`] = `"No category with the given url '/test/url'"`;

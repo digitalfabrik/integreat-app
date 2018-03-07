@@ -27,10 +27,14 @@ class CategoriesMapModel {
   /**
    * Returns the category with the given url
    * @param {String} url The url
-   * @return {CategoryType | undefined} The category
+   * @return {CategoryType} The category
    */
-  getCategoryByUrl (url: string): ?CategoryType {
-    return this._categories.get(normalizeUrl(url))
+  getCategoryByUrl (url: string): CategoryType {
+    const category = this._categories.get(normalizeUrl(url))
+    if (!category) {
+      throw Error(`No category with the given url '${url}'`)
+    }
+    return category
   }
 
   /**
@@ -39,7 +43,12 @@ class CategoriesMapModel {
    * @return {CategoryType | undefined} The category
    */
   getCategoryById (id: number): ?CategoryType {
-    return this.toArray().find(category => category.id === id)
+    const category = this.toArray().find(category => category.id === id)
+
+    if (!category) {
+      throw Error(`No category with the given id '${id}'`)
+    }
+    return category
   }
 
   /**
@@ -61,14 +70,9 @@ class CategoriesMapModel {
   getAncestors (category: CategoryType): Array<CategoryType> {
     const parents = []
 
-    // this has to be this ugly because flow would show errors
-    let _category = category
-    while (_category && _category.parentUrl) {
-      _category = this.getCategoryByUrl(_category.parentUrl)
-      if (!_category) {
-        break
-      }
-      parents.unshift(_category)
+    while (category.parentUrl !== '') {
+      category = this.getCategoryByUrl(category.parentUrl)
+      parents.unshift(category)
     }
     return parents
   }

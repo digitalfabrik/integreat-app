@@ -79,8 +79,9 @@ describe('categories', () => {
     content: '',
     order: -1,
     parentId: -1,
-    thumbnail: ''}
-  ]
+    thumbnail: '',
+    parentUrl: ''
+  }]
 
   const state = {router: {params: {language: 'de', location: 'augsburg'}}}
 

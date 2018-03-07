@@ -33,7 +33,8 @@ export default new EndpointBuilder('categories')
       content: '',
       order: -1,
       thumbnail: '',
-      availableLanguages: {}
+      availableLanguages: {},
+      parentUrl: ''
     })
 
     categories.forEach(category => {

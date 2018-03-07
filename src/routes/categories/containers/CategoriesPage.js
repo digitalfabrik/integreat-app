@@ -46,13 +46,21 @@ export class CategoriesPage extends React.Component<Props> {
    */
   componentDidMount () {
     if (this.props.categoryId) {
-      const category = this.props.categories.getCategoryById(this.props.categoryId)
-      if (category) {
-        this.props.replaceUrl(category.url)
+      try {
+        const category = this.props.categories.getCategoryById(this.props.categoryId)
+        if (category) {
+          this.props.replaceUrl(category.url)
+        }
+      } catch (e) {
+        console.error(e.message)
       }
     }
-    const category = this.props.categories.getCategoryByUrl(this.props.path)
-    this.setLanguageChangeUrls(category)
+    try {
+      const category = this.props.categories.getCategoryByUrl(this.props.path)
+      this.setLanguageChangeUrls(category)
+    } catch (e) {
+      console.error(e.message)
+    }
   }
 
   /**
@@ -140,19 +148,18 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    const category = this.props.categories.getCategoryByUrl(this.props.path)
-
-    if (!category) {
+    try {
+      const category = this.props.categories.getCategoryByUrl(this.props.path)
+      return <div>
+        <Breadcrumbs
+          parents={this.props.categories.getAncestors(category)}
+          locations={this.props.locations} />
+        {this.getContent(category)}
+        <PdfButton href={this.getPdfFetchPath()} />
+      </div>
+    } catch (e) {
       return <Failure error='not-found:page.notFound' />
     }
-
-    return <div>
-      <Breadcrumbs
-        parents={this.props.categories.getAncestors(category)}
-        locations={this.props.locations} />
-      {this.getContent(category)}
-      <PdfButton href={this.getPdfFetchPath()} />
-    </div>
   }
 }
 
