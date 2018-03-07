@@ -21,6 +21,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
   header={
     <Translate(LocationHeader)
       currentPath="/:location/:language"
+      eventCount={2}
       language="de"
       locationModel={
         LocationModel {
