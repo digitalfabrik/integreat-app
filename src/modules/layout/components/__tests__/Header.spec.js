@@ -11,7 +11,8 @@ describe('Header', () => {
       <Header
         logoHref={'/'}
         actionItems={[new HeaderActionItem({href: '/action1'})]}
-        navigationItems={[new HeaderNavigationItem({href: '/nav1'})]} />
+        navigationItems={[new HeaderNavigationItem({href: '/nav1'})]}
+        viewportSmall />
     )
     expect(component).toMatchSnapshot()
   })
@@ -21,7 +22,8 @@ describe('Header', () => {
       <Header
         logoHref={'/'}
         actionItems={[new HeaderActionItem({href: '/action1'})]}
-        navigationItems={[new HeaderNavigationItem({href: '/nav1'})]} />
+        navigationItems={[new HeaderNavigationItem({href: '/nav1'})]}
+        viewportSmall={false} />
     )
     expect(component).toMatchSnapshot()
   })

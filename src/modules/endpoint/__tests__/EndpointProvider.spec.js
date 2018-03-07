@@ -20,10 +20,4 @@ describe('EndpointProvider', () => {
     const getEndpoint = provider.getChildContext()['getEndpoint']
     expect(getEndpoint(endpoint.stateName)).toBe(endpoint)
   })
-
-  it('should need children', () => {
-    expect(() => shallow(
-      <EndpointProvider endpoints={[endpoint]} />)
-    ).toThrow()
-  })
 })
