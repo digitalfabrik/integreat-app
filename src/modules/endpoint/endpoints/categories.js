@@ -4,7 +4,7 @@ import EndpointBuilder from '../EndpointBuilder'
 
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import {apiUrl} from '../constants'
-import type { CategoryType } from '../models/CategoryModel'
+import type { CategoryType } from '../types'
 
 export default new EndpointBuilder('categories')
   .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +

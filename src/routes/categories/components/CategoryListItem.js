@@ -6,7 +6,7 @@ import Highlighter from 'react-highlighter'
 
 import style from './CategoryListItem.css'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
+import type { CategoryType } from '../../../modules/endpoint/types'
 
 type Props = {
   category: CategoryType,

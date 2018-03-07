@@ -3,14 +3,13 @@
 import moment from 'moment'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
-import EventModel from '../models/EventModel'
 
 export default new EndpointBuilder('events')
   .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
     `/${state.router.params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`)
   .withMapper(json => json
     .filter(event => event.status === 'publish')
-    .map(event => new EventModel({
+    .map(event => ({
       id: event.id,
       title: event.title,
       content: event.content,

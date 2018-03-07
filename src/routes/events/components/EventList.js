@@ -1,25 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
 import EventListElement from './EventListElement'
-import EventModel from 'modules/endpoint/models/EventModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
+import type { EventType } from '../../../modules/endpoint/types'
+
+type Props = {
+  events: Array<EventType>,
+  url: string,
+  language: string,
+  t: (string) => string
+}
 
 /**
  * Display a list of events
  */
-class EventList extends React.Component {
-  static propTypes = {
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
-    url: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    t: PropTypes.func.isRequired
-  }
-
+class EventList extends React.Component<Props> {
   render () {
     const {t} = this.props
 

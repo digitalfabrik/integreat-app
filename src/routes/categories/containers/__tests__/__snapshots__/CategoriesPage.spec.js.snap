@@ -44,7 +44,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
           "_isExternalUrl": false,
           "_name": "Willkommen",
           "_path": "/augsburg/de/willkommen",
-          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_thumbnail": "third_thumbnail",
         },
         TileModel {
           "_id": 3650,
