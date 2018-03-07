@@ -36,11 +36,12 @@ class LocationSelector extends React.PureComponent {
     const groups = groupBy(locations, location => location.sortCategory)
     return transform(groups, (result, locations, key) => {
       result.push(<div key={key}>
-        <div className={style.languageListParent} style={{top: `${this.props.stickyTop}px`}}>{key}</div>
+        <div className={style.locationListParent} style={{top: `${this.props.stickyTop}px`}}>{key}</div>
         {locations.map(location => <LocationEntry
           key={location.code}
           location={location}
-          language={this.props.language} />)}
+          language={this.props.language}
+          filterText={this.props.filterText} />)}
       </div>)
     }, [])
   }

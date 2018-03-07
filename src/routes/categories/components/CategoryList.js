@@ -18,7 +18,9 @@ class CategoryList extends React.Component {
       children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
     })).isRequired,
     title: PropTypes.string,
-    content: PropTypes.string
+    content: PropTypes.string,
+    /** A search query to highlight in the categories titles */
+    query: PropTypes.string
   }
 
   render () {
@@ -30,7 +32,8 @@ class CategoryList extends React.Component {
           {this.props.categories.map(({model, children}) =>
             <CategoryListItem key={model.id}
                               category={model}
-                              children={children} />)}
+                              children={children}
+                              query={this.props.query} />)}
         </div>
       </div>
     )
