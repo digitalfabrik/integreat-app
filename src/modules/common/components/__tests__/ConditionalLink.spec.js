@@ -17,7 +17,7 @@ describe('ConditionalLink', () => {
       </Provider>
     )
     const link = tree.find(Link)
-    console.log(tree.debug())
+
     expect(link.length).not.toBe(0)
     expect(link.props()).toEqual({prob: 'value', href: '/augsburg/de'})
   })
