@@ -23,6 +23,7 @@ class LocationHeader extends React.Component {
     language: PropTypes.string.isRequired,
     currentPath: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
+    eventCount: PropTypes.number.isRequired,
     t: PropTypes.func.isRequired
   }
 
@@ -55,25 +56,31 @@ class LocationHeader extends React.Component {
     const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(currentPath)
     const isEventsSelected = () => matchRoute(EventsPage).hasPath(currentPath)
 
+    const isEventsActive = () => this.props.eventCount > 0
+
     const extras = isExtrasEnabled() &&
       new HeaderNavigationItem({
         href: matchRoute(ExtrasPage).stringify(currentParams),
-        active: isExtrasSelected(),
-        text: t('extras')
+        selected: isExtrasSelected(),
+        text: t('extras'),
+        active: true
       })
 
     const categories = isCategoriesEnabled() &&
       new HeaderNavigationItem({
         href: matchRoute(CategoriesPage).stringify(currentParams),
-        active: isCategoriesSelected(),
-        text: t('categories')
+        selected: isCategoriesSelected(),
+        text: t('categories'),
+        active: true
       })
 
     const events = isEventsEnabled() &&
       new HeaderNavigationItem({
         href: matchRoute(EventsPage).stringify(currentParams),
-        active: isEventsSelected(),
-        text: t('news')
+        selected: isEventsSelected(),
+        text: t('news'),
+        active: isEventsActive(),
+        tooltip: t('noNews')
       })
 
     return [extras, categories, events].filter(isEnabled => isEnabled)
@@ -89,4 +96,4 @@ class LocationHeader extends React.Component {
   }
 }
 
-export default translate('app')(LocationHeader)
+export default translate('layout')(LocationHeader)

@@ -31,4 +31,4 @@ class LocationFooter extends React.Component {
   }
 }
 
-export default translate('app')(LocationFooter)
+export default translate('layout')(LocationFooter)

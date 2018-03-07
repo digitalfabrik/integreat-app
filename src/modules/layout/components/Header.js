@@ -39,8 +39,8 @@ class Header extends React.Component {
               <img src={logoWide} />
             </Link>
           </div>
-          <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
           <HeaderNavigationBar className={style.navigationBar} items={this.props.navigationItems} />
+          <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
         </header>
       </Headroom>
     )
