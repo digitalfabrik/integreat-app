@@ -1,12 +1,11 @@
 import CategoriesMapModel from '../CategoriesMapModel'
-import CategoryModel from '../CategoryModel'
 
 describe('CategoriesMapModel', () => {
   const categories = [
-    new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
-    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1}),
-    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2}),
-    new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'})
+    {id: 0, url: '/augsburg/de', title: 'augsburg'},
+    {id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1},
+    {id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2},
+    {id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'}
   ]
 
   const categoriesMapModel = new CategoriesMapModel(categories)

@@ -1,7 +1,6 @@
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
@@ -21,13 +20,16 @@ describe('SearchPage', () => {
   ]
 
   const categoryModels = [
-    new CategoryModel({
+    {
       id: 0,
       url: '/augsburg/de',
       title: 'augsburg',
-      content: ''
-    }),
-    new CategoryModel({
+      content: '',
+      parentId: -1,
+      order: -1,
+      availableLanguages: {},
+      thumbnail: 'no_thumbnail'
+    }, {
       id: 3650,
       url: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
@@ -39,8 +41,7 @@ describe('SearchPage', () => {
         en: 4361, ar: 4367, fa: 4368
       },
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-    }),
-    new CategoryModel({
+    }, {
       id: 3649,
       url: '/augsburg/de/willkommen',
       title: 'Willkommen',
@@ -52,8 +53,7 @@ describe('SearchPage', () => {
         en: 4804, ar: 4819, fa: 4827
       },
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-    }),
-    new CategoryModel({
+    }, {
       id: 35,
       url: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
@@ -67,7 +67,7 @@ describe('SearchPage', () => {
         ar: '397'
       },
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
-    })
+    }
   ]
 
   const categories = new CategoriesMapModel(categoryModels)

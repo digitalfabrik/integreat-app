@@ -1,6 +1,5 @@
 import categories from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
-import CategoryModel from '../../models/CategoryModel'
 
 jest.unmock('../categories')
 
@@ -48,43 +47,39 @@ describe('categories', () => {
     status: 'trash'
   }]
 
-  const categoryModels = [
-    new CategoryModel({
-      id: 3650,
-      url: '/augsburg/de/anlaufstellen',
-      title: 'Anlaufstellen zu sonstigen Themen',
-      content: '',
-      parentId: 0,
-      parentUrl: '/augsburg/de',
-      order: 75,
-      availableLanguages: {
-        en: 4361, ar: 4367, fa: 4368
-      },
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-    }),
-    new CategoryModel({
-      id: 3649,
-      url: '/augsburg/de/willkommen',
-      title: 'Willkommen',
-      content: '',
-      parentId: 0,
-      parentUrl: '/augsburg/de',
-      order: 11,
-      availableLanguages: {
-        en: 4804, ar: 4819, fa: 4827
-      },
-      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-    }),
-    new CategoryModel({
-      id: 0,
-      url: '/augsburg/de',
-      title: 'augsburg',
-      availableLanguages: {},
-      content: '',
-      order: -1,
-      parentUrl: '',
-      parentId: -1,
-      thumbnail: ''})
+  const categoryModels = [{
+    id: 3650,
+    url: '/augsburg/de/anlaufstellen',
+    title: 'Anlaufstellen zu sonstigen Themen',
+    content: '',
+    parentId: 0,
+    parentUrl: '/augsburg/de',
+    order: 75,
+    availableLanguages: {
+      en: 4361, ar: 4367, fa: 4368
+    },
+    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+  }, {
+    id: 3649,
+    url: '/augsburg/de/willkommen',
+    title: 'Willkommen',
+    content: '',
+    parentId: 0,
+    parentUrl: '/augsburg/de',
+    order: 11,
+    availableLanguages: {
+      en: 4804, ar: 4819, fa: 4827
+    },
+    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+  }, {
+    id: 0,
+    url: '/augsburg/de',
+    title: 'augsburg',
+    availableLanguages: {},
+    content: '',
+    order: -1,
+    parentId: -1,
+    thumbnail: ''}
   ]
 
   const state = {router: {params: {language: 'de', location: 'augsburg'}}}
