@@ -36,73 +36,26 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     }
     parents={Array []}
   />
-  <CategoryTiles
-    categories={
+  <Tiles
+    tiles={
       Array [
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": 4819,
-            "en": 4804,
-            "fa": 4827,
-          },
-          "_content": "",
+        TileModel {
           "_id": 3649,
-          "_order": 11,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
+          "_isExternalUrl": false,
+          "_name": "Willkommen",
+          "_path": "/augsburg/de/willkommen",
           "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
-          "_title": "Willkommen",
-          "_url": "/augsburg/de/willkommen",
         },
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": 4367,
-            "en": 4361,
-            "fa": 4368,
-          },
-          "_content": "",
+        TileModel {
           "_id": 3650,
-          "_order": 75,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
+          "_isExternalUrl": false,
+          "_name": "Anlaufstellen zu sonstigen Themen",
+          "_path": "/augsburg/de/anlaufstellen",
           "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
-          "_title": "Anlaufstellen zu sonstigen Themen",
-          "_url": "/augsburg/de/anlaufstellen",
         },
       ]
     }
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
-    title="augsburg"
+    title="Augsburg"
   />
   <PdfButton
     href="/augsburg/en/fetch-pdf?url=/augsburg/de"

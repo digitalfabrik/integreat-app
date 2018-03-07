@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'redux-little-router'
-import cx from 'classnames'
 import compose from 'lodash/fp/compose'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import style from './LanguageSelector.css'
+import SelectorItemModel from '../models/SelectorItemModel'
+import Selector from '../components/Selector'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -32,39 +31,18 @@ export class LanguageSelector extends React.Component {
     return this.props.languageChangeUrls[languageCode] || `/${this.props.location}/${languageCode}`
   }
 
-  /**
-   * Maps all languages to a Link, which are linking to the same page in a different language and closing the dropDown
-   * menu. For the current language we don't want to link anywhere
-   * @return The links for language change and a span for the current language
-   */
-  getLanguageLinks () {
-    return this.props.languages.map(language => {
-      if (language.code === this.props.language) {
-        return (
-          <span key={language.code}
-                className={cx(style.element, style.elementActive)}
-                onClick={this.props.closeDropDownCallback}>
-            {language.name}
-            </span>
-        )
-      } else {
-        return (
-          <Link key={language.code}
-                className={style.element}
-                onClick={this.props.closeDropDownCallback}
-                href={this.getPathForLanguage(language.code)}>
-            {language.name}
-          </Link>
-        )
-      }
-    })
+  getSelectorItemModels () {
+    return this.props.languages.map(language =>
+      new SelectorItemModel({code: language.code, name: language.name, path: this.getPathForLanguage(language.code)})
+    )
   }
 
   render () {
     return (
-      <div className={cx({[style.languageSelector]: true, [style.vertical]: this.props.verticalLayout})}>
-        {this.getLanguageLinks()}
-      </div>
+      <Selector verticalLayout={this.props.verticalLayout}
+                items={this.getSelectorItemModels()}
+                activeItemCode={this.props.language}
+                closeDropDownCallback={this.props.closeDropDownCallback} />
     )
   }
 }

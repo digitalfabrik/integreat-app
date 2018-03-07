@@ -1,5 +1,5 @@
 {
-  "app": {
+  "layout": {
     "ar": {
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
       "privacy": "حماية المعلومات",
@@ -12,14 +12,16 @@
       "privacy": "Datenschutz",
       "extras": "Extras",
       "categories": "Kategorien",
-      "news": "News"
+      "news": "News",
+      "noNews": "Keine News"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
       "privacy": "Data Privacy",
       "extras": "Extras",
       "categories": "Categories",
-      "news": "News"
+      "news": "News",
+      "noNews": "No News"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettListItem should match snapshot 1`] = `
+<a
+  className="job"
+  target="_blank"
+>
+  <div
+    className="title"
+  >
+    WebDeveloper
+  </div>
+  <div
+    className="description"
+  >
+    Augsburg
+  </div>
+</a>
+`;
