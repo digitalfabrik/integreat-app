@@ -34,7 +34,7 @@ export class LocationLayout extends React.Component {
     const locationModel = this.getCurrentLocation()
 
     if (!locationModel) {
-      return <Layout header={<GeneralHeader />}
+      return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                      footer={<GeneralFooter />}>{children}</Layout>
     }
 
