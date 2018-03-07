@@ -1,9 +1,9 @@
 import EndpointBuilder from '../EndpointBuilder'
-
+import {apiUrl} from '../constants'
 import LanguageModel from '../models/LanguageModel'
 
 export default new EndpointBuilder('languages')
-  .withStateToUrlMapper(state => `https://cms.integreat-app.de/${state.router.params.location}` +
+  .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
   `/de/wp-json/extensions/v0/languages/wpml`)
   .withMapper(json => json
     .map(language => new LanguageModel(language.code, language.native_name))

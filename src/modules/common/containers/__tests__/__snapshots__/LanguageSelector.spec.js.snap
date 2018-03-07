@@ -1,61 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LanguageSelector should add vertical class name if verticalLayout is true 1`] = `
-<div
-  className="languageSelector vertical"
->
-  <span
-    className="element elementActive"
-    key="de"
-    onClick={[Function]}
-  >
-    Deutsch
-  </span>
-  <Connect(Link)
-    className="element"
-    href="test/url/en"
-    key="en"
-    onClick={[Function]}
-  >
-    English
-  </Connect(Link)>
-  <Connect(Link)
-    className="element"
-    href="test/url/ar"
-    key="ar"
-    onClick={[Function]}
-  >
-    Arabic
-  </Connect(Link)>
-</div>
+<Selector
+  activeItemCode="de"
+  closeDropDownCallback={[Function]}
+  items={
+    Array [
+      SelectorItemModel {
+        "_code": "de",
+        "_name": "Deutsch",
+        "_path": "test/url/de",
+      },
+      SelectorItemModel {
+        "_code": "en",
+        "_name": "English",
+        "_path": "test/url/en",
+      },
+      SelectorItemModel {
+        "_code": "ar",
+        "_name": "Arabic",
+        "_path": "test/url/ar",
+      },
+    ]
+  }
+  verticalLayout={true}
+/>
 `;
 
 exports[`LanguageSelector should match snapshot 1`] = `
-<div
-  className="languageSelector"
->
-  <span
-    className="element elementActive"
-    key="de"
-    onClick={[Function]}
-  >
-    Deutsch
-  </span>
-  <Connect(Link)
-    className="element"
-    href="test/url/en"
-    key="en"
-    onClick={[Function]}
-  >
-    English
-  </Connect(Link)>
-  <Connect(Link)
-    className="element"
-    href="test/url/ar"
-    key="ar"
-    onClick={[Function]}
-  >
-    Arabic
-  </Connect(Link)>
-</div>
+<Selector
+  activeItemCode="de"
+  closeDropDownCallback={[Function]}
+  items={
+    Array [
+      SelectorItemModel {
+        "_code": "de",
+        "_name": "Deutsch",
+        "_path": "test/url/de",
+      },
+      SelectorItemModel {
+        "_code": "en",
+        "_name": "English",
+        "_path": "test/url/en",
+      },
+      SelectorItemModel {
+        "_code": "ar",
+        "_name": "Arabic",
+        "_path": "test/url/ar",
+      },
+    ]
+  }
+/>
 `;

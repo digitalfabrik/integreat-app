@@ -11,11 +11,16 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       className="categoryThumbnail"
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
     />
-    <div
+    <Highlighter
+      caseSensitive={false}
       className="categoryCaption"
+      matchClass="highlight"
+      matchElement="strong"
+      matchStyle={Object {}}
+      search=""
     >
       Willkommen
-    </div>
+    </Highlighter>
   </Connect(Link)>
   <div
     className="subRow"
@@ -49,11 +54,16 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       className="categoryThumbnail"
       src="test-file-stub"
     />
-    <div
+    <Highlighter
+      caseSensitive={false}
       className="categoryCaption"
+      matchClass="highlight"
+      matchElement="strong"
+      matchStyle={Object {}}
+      search=""
     >
       GotNoThumb :O
-    </div>
+    </Highlighter>
   </Connect(Link)>
   <div
     className="subRow"

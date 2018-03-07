@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
+import Highlighter from 'react-highlighter'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
@@ -24,7 +25,7 @@ const SubCategoryThumbnail = CategoryThumbnail.extend`
 `
 const SubCategoryThumbnailDiv = SubCategoryThumbnail.withComponent('div')
 
-const CategoryCaption = styled.div`
+const CategoryCaption = styled(Highlighter)`
   height: 100%;
   min-width: 1px; /* needed to enabled line breaks for to long words, exact value doesn't matter, @Max: DO NOT CHANGE */
   flex-grow: 1;
@@ -53,27 +54,41 @@ const StyledLink = styled(Link)`
 class CategoryListItem extends React.Component {
   static propTypes = {
     category: PropTypes.instanceOf(CategoryModel).isRequired,
-    children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
+    children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
+    /** A search query to highlight in the category title */
+    query: PropTypes.string
+  }
+
+  getChildren () {
+    return this.props.children.map(child =>
+      <Row key={child.id}>
+        <StyledLink href={child.url}>
+          {
+            child.thumbnail
+              ? <SubCategoryThumbnail src={child.thumbnail} />
+              : <SubCategoryThumbnailDiv />
+          }
+          <SubCategoryCaption>{child.title}</SubCategoryCaption>
+        </StyledLink>
+      </Row>
+    )
+  }
+
+  getTitle () {
+    return <CategoryCaption search={this.props.query || ''}>
+      {this.props.category.title}
+      </CategoryCaption>
   }
 
   render () {
-    const {category, children} = this.props
+    const {category} = this.props
     return (
       <Row>
         <StyledLink href={category.url}>
           <CategoryThumbnail src={category.thumbnail || iconPlaceholder} />
-          <CategoryCaption>{category.title}</CategoryCaption>
+          {this.getTitle()}
         </StyledLink >
-        {children.map(child =>
-          <StyledLink key={child.id} href={child.url}>
-            {
-              child.thumbnail
-              ? <SubCategoryThumbnail src={child.thumbnail} />
-              : <SubCategoryThumbnailDiv />
-            }
-            <SubCategoryCaption>{child.title}</SubCategoryCaption>
-          </StyledLink>
-        )}
+        {this.getChildren()}
       </Row>
     )
   }

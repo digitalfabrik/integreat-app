@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selector should be vertical and match snapshot 1`] = `
+<div
+  className="selector vertical"
+>
+  <Connect(Link)
+    className="element"
+    href="/augsburg/en/"
+    key="en"
+    onClick={[Function]}
+  >
+    English
+  </Connect(Link)>
+  <span
+    className="element elementActive"
+    key="de"
+    onClick={[Function]}
+  >
+    Deutsch
+  </span>
+</div>
+`;
+
+exports[`Selector should match snapshot 1`] = `
+<div
+  className="selector"
+>
+  <Connect(Link)
+    className="element"
+    href="/augsburg/en/"
+    key="en"
+    onClick={[Function]}
+  >
+    English
+  </Connect(Link)>
+  <span
+    className="element elementActive"
+    key="de"
+    onClick={[Function]}
+  >
+    Deutsch
+  </span>
+</div>
+`;
