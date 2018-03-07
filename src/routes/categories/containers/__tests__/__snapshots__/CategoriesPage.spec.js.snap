@@ -39,35 +39,35 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
   <CategoryTiles
     categories={
       Array [
-        CategoryModel {
-          "_availableLanguages": Object {
+        Object {
+          "availableLanguages": Object {
             "ar": 4819,
             "en": 4804,
             "fa": 4827,
           },
-          "_content": "",
-          "_id": 3649,
-          "_order": 11,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
-          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
-          "_title": "Willkommen",
-          "_url": "/augsburg/de/willkommen",
+          "content": "",
+          "id": 3649,
+          "order": 11,
+          "parentId": 0,
+          "parentUrl": "/augsburg/de",
+          "thumbnail": "third_thumbnail",
+          "title": "Willkommen",
+          "url": "/augsburg/de/willkommen",
         },
-        CategoryModel {
-          "_availableLanguages": Object {
+        Object {
+          "availableLanguages": Object {
             "ar": 4367,
             "en": 4361,
             "fa": 4368,
           },
-          "_content": "",
-          "_id": 3650,
-          "_order": 75,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
-          "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
-          "_title": "Anlaufstellen zu sonstigen Themen",
-          "_url": "/augsburg/de/anlaufstellen",
+          "content": "",
+          "id": 3650,
+          "order": 75,
+          "parentId": 0,
+          "parentUrl": "/augsburg/de",
+          "thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+          "title": "Anlaufstellen zu sonstigen Themen",
+          "url": "/augsburg/de/anlaufstellen",
         },
       ]
     }
@@ -146,38 +146,36 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     }
     parents={
       Array [
-        CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 0,
-          "_order": undefined,
-          "_parentId": undefined,
-          "_parentUrl": undefined,
-          "_thumbnail": undefined,
-          "_title": "augsburg",
-          "_url": "/augsburg/de",
+        Object {
+          "availableLanguages": Object {},
+          "content": "",
+          "id": 0,
+          "order": -1,
+          "parentId": -1,
+          "thumbnail": "no_thumbnail",
+          "title": "augsburg",
+          "url": "/augsburg/de",
         },
-        CategoryModel {
-          "_availableLanguages": Object {
+        Object {
+          "availableLanguages": Object {
             "ar": 4819,
             "en": 4804,
             "fa": 4827,
           },
-          "_content": "",
-          "_id": 3649,
-          "_order": 11,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
-          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
-          "_title": "Willkommen",
-          "_url": "/augsburg/de/willkommen",
+          "content": "",
+          "id": 3649,
+          "order": 11,
+          "parentId": 0,
+          "parentUrl": "/augsburg/de",
+          "thumbnail": "third_thumbnail",
+          "title": "Willkommen",
+          "url": "/augsburg/de/willkommen",
         },
       ]
     }
   />
   <Page
-    content="<p>Willkommen in Augsbur…er Stadt Augsburg</p>
-"
+    content="some content"
     title="Willkommen in Augsburg"
   />
   <PdfButton
@@ -228,16 +226,15 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
     }
     parents={
       Array [
-        CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 0,
-          "_order": undefined,
-          "_parentId": undefined,
-          "_parentUrl": undefined,
-          "_thumbnail": undefined,
-          "_title": "augsburg",
-          "_url": "/augsburg/de",
+        Object {
+          "availableLanguages": Object {},
+          "content": "",
+          "id": 0,
+          "order": -1,
+          "parentId": -1,
+          "thumbnail": "no_thumbnail",
+          "title": "augsburg",
+          "url": "/augsburg/de",
         },
       ]
     }
@@ -247,21 +244,20 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
       Array [
         Object {
           "children": Array [],
-          "model": CategoryModel {
-            "_availableLanguages": Object {
-              "ar": "397",
-              "de": "711",
-              "en": "390",
+          "model": Object {
+            "availableLanguages": Object {
+              "ar": 397,
+              "de": 711,
+              "en": 390,
             },
-            "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
-",
-            "_id": 35,
-            "_order": 1,
-            "_parentId": 3649,
-            "_parentUrl": "/augsburg/de/willkommen",
-            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
-            "_title": "Willkommen in Augsburg",
-            "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "content": "some content",
+            "id": 35,
+            "order": 1,
+            "parentId": 3649,
+            "parentUrl": "/augsburg/de/willkommen",
+            "thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "title": "Willkommen in Augsburg",
+            "url": "/augsburg/de/willkommen/willkommen-in-augsburg",
           },
         },
       ]

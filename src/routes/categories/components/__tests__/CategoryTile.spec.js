@@ -1,10 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryTile from '../CategoryTile'
 
-const category = new CategoryModel({
+const category = {
   id: 3649,
   url: '/augsburg/de/willkommen',
   title: 'Willkommen',
@@ -16,7 +15,7 @@ const category = new CategoryModel({
     en: 4804, ar: 4819, fa: 4827
   },
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-})
+}
 
 describe('CategoryTile', () => {
   it('should render and match snapshot', () => {

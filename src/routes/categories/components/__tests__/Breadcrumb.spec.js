@@ -1,13 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Breadcrumbs from '../Breadcrumbs'
 
 const parents = [
-  new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
-  new CategoryModel({
+  {
+    id: 0, url: '/augsburg/de', title: 'augsburg'
+  }, {
     id: 3649,
     url: '/augsburg/de/willkommen',
     title: 'Willkommen',
@@ -19,9 +19,7 @@ const parents = [
       en: 4804, ar: 4819, fa: 4827
     },
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-  }),
-
-  new CategoryModel({
+  }, {
     id: 35,
     url: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
@@ -35,7 +33,7 @@ const parents = [
       ar: '397'
     },
     thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
-  })
+  }
 ]
 
 const locations = [

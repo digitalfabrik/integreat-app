@@ -1,10 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryListItem from '../CategoryListItem'
 
-const category = new CategoryModel({
+const category = {
   id: 3649,
   url: '/augsburg/de/willkommen',
   title: 'Willkommen',
@@ -16,8 +15,8 @@ const category = new CategoryModel({
     en: 4804, ar: 4819, fa: 4827
   },
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-})
-const childCategory = new CategoryModel({
+}
+const childCategory = {
   id: 5234,
   url: '/augsburg/de/test',
   title: 'Child',
@@ -29,7 +28,7 @@ const childCategory = new CategoryModel({
     en: 4804, ar: 4819, fa: 4827
   },
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-})
+}
 
 describe('CategoryListItem', () => {
   it('should render and match snapshot', () => {
@@ -40,7 +39,7 @@ describe('CategoryListItem', () => {
   })
 
   it('should replace empty thumbnail', () => {
-    const noThumbCategory = new CategoryModel({id: 42, url: '', title: 'GotNoThumb :O', parentId: 2})
+    const noThumbCategory = {id: 42, url: '', title: 'GotNoThumb :O', parentId: 2}
     const wrapper = shallow(
       <CategoryListItem category={noThumbCategory} children={[noThumbCategory]} />
     )

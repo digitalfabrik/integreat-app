@@ -2,16 +2,16 @@
 
 import React from 'react'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Caption from 'modules/common/components/Caption'
 import CategoryTile from './CategoryTile'
 import style from './CategoryTile.css'
 import { Row } from 'react-flexbox-grid'
+import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
   title: string,
-  categories: Array<CategoryModel>,
+  categories: Array<CategoryType>,
   locations: Array<LocationModel>
 }
 

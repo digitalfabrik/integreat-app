@@ -18,7 +18,8 @@ import PdfButton from 'routes/categories/components/PdfButton'
 import CategoryTiles from '../components/CategoryTiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+
+import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
 
 type mapLanguageToPath = (string, ?string) => string
 
@@ -29,7 +30,7 @@ type Props = {
   location: string,
   language: string,
   path: string,
-  categoryId?: string,
+  categoryId?: number,
   setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void,
   replaceUrl: (string) => void
 }
@@ -79,9 +80,9 @@ export class CategoriesPage extends React.Component<Props> {
 
   /**
    * Gets and stores the available languages for the current page
-   * @param {CategoryModel | undefined} category The current category
+   * @param {CategoryType | undefined} category The current category
    */
-  setLanguageChangeUrls (category: ?CategoryModel) {
+  setLanguageChangeUrls (category: ?CategoryType) {
     if (category) {
       this.props.setLanguageChangeUrls(
         this.mapLanguageToPath, this.props.languages, category.availableLanguages
@@ -101,7 +102,7 @@ export class CategoriesPage extends React.Component<Props> {
    * @param category The current category
    * @return {*} The content to be displayed
    */
-  getContent (category: CategoryModel) {
+  getContent (category: CategoryType) {
     const {categories, locations} = this.props
     const children = categories.getChildren(category)
 
@@ -127,6 +128,7 @@ export class CategoriesPage extends React.Component<Props> {
     if (!category) {
       return <Failure error='not-found:page.notFound' />
     }
+    this.props.categories.getAncestors(category)
 
     return <div>
       <Breadcrumbs
@@ -148,7 +150,7 @@ const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.pathname,
-  categoryId: state.router.query.id
+  categoryId: Number(state.router.query.id)
 })
 
 export default compose(

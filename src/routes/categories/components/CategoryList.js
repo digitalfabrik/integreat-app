@@ -2,15 +2,15 @@
 
 import React from 'react'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 
 import style from './CategoryList.css'
+import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  categories: Array<{model: CategoryModel, children: Array<CategoryModel>}>,
+  categories: Array<{model: CategoryType, children: Array<CategoryType>}>,
   title?: string,
   content?: string
 }

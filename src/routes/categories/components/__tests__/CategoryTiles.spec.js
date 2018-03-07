@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryTiles from '../CategoryTiles'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 
@@ -14,20 +13,20 @@ const locations = [
 const title = 'augsburg'
 
 const categories = [
-  new CategoryModel({
+  {
     id: 35,
     url: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg'
-  }),
-  new CategoryModel({
+  },
+  {
     id: 35,
     url: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg'
-  })
+  }
 ]
 
-describe('CategoryList', () => {
-  it('should render', () => {
+describe('CategoryTiles', () => {
+  it('should match snapshot', () => {
     const wrapper = shallow(
       <CategoryTiles categories={categories}
                     locations={locations}

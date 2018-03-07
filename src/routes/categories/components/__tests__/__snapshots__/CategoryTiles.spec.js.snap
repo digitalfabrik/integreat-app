@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CategoryList should render 1`] = `
+exports[`CategoryTiles should match snapshot 1`] = `
 <div>
   <Caption
     title="Augsburg"
@@ -10,32 +10,20 @@ exports[`CategoryList should render 1`] = `
   >
     <CategoryTile
       category={
-        CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 35,
-          "_order": undefined,
-          "_parentId": undefined,
-          "_parentUrl": undefined,
-          "_thumbnail": undefined,
-          "_title": "Willkommen in Augsburg",
-          "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+        Object {
+          "id": 35,
+          "title": "Willkommen in Augsburg",
+          "url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
       }
       key="35"
     />
     <CategoryTile
       category={
-        CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 35,
-          "_order": undefined,
-          "_parentId": undefined,
-          "_parentUrl": undefined,
-          "_thumbnail": undefined,
-          "_title": "Willkommen in Augsburg",
-          "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+        Object {
+          "id": 35,
+          "title": "Willkommen in Augsburg",
+          "url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
       }
       key="35"

@@ -4,13 +4,13 @@ import React from 'react'
 
 import { Link } from 'redux-little-router'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
 import style from './Breadcrumbs.css'
+import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  parents: Array<CategoryModel>,
+  parents: Array<CategoryType>,
   locations: Array<LocationModel>
 }
 

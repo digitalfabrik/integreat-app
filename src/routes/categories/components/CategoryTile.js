@@ -4,12 +4,11 @@ import React from 'react'
 import { Link } from 'redux-little-router'
 import { Col } from 'react-flexbox-grid'
 
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-
 import style from './CategoryTile.css'
+import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  category: CategoryModel
+  category: CategoryType
 }
 
 /**

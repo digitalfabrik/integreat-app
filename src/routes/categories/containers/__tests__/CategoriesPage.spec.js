@@ -10,17 +10,20 @@ import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
-    new CategoryModel({
+    {
       id: 0,
       url: '/augsburg/de',
-      title: 'augsburg'
-    }),
-    new CategoryModel({
+      title: 'augsburg',
+      content: '',
+      parentId: -1,
+      order: -1,
+      availableLanguages: {},
+      thumbnail: 'no_thumbnail'
+    }, {
       id: 3650,
       url: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
@@ -32,8 +35,7 @@ describe('CategoriesPage', () => {
         en: 4361, ar: 4367, fa: 4368
       },
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-    }),
-    new CategoryModel({
+    }, {
       id: 3649,
       url: '/augsburg/de/willkommen',
       title: 'Willkommen',
@@ -44,24 +46,22 @@ describe('CategoriesPage', () => {
       availableLanguages: {
         en: 4804, ar: 4819, fa: 4827
       },
-      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-    }),
-    new CategoryModel({
+      thumbnail: 'third_thumbnail'
+    }, {
       id: 35,
       url: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
-      content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
+      content: 'some content',
       parentId: 3649,
       parentUrl: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
-        en: '390',
-        de: '711',
-        ar: '397'
+        en: 390,
+        de: 711,
+        ar: 397
       },
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
-    })
-  ]
+    }]
 
   const categories = new CategoriesMapModel(categoryModels)
 
@@ -82,8 +82,6 @@ describe('CategoriesPage', () => {
   const language = 'en'
 
   it('should match snapshot and render a Page if page has no children', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -92,7 +90,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={categoryModels[3].url}
                       setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      replaceUrl={() => {}} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -314,7 +312,7 @@ describe('CategoriesPage', () => {
         location: location,
         language: language,
         path: pathname,
-        categoryId: id,
+        categoryId: Number(id),
         setLanguageChangeUrls: expect.any(Function),
         replaceUrl: expect.any(Function),
         categories: categories,
