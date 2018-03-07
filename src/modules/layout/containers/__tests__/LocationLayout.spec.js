@@ -17,14 +17,15 @@ describe('LocationLayout', () => {
   const language = 'de'
 
   const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
-  const events = [new EventModel({
-    id: 1234,
-    title: 'first Event',
-    availableLanguages: {de: '1235', ar: '1236'},
-    startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-    endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    allDay: true
-  }),
+  const events = [
+    new EventModel({
+      id: 1234,
+      title: 'first Event',
+      availableLanguages: {de: '1235', ar: '1236'},
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      allDay: true
+    }),
     new EventModel({
       id: 2,
       title: 'second Event',
@@ -77,8 +78,6 @@ describe('LocationLayout', () => {
     const location = 'augsburg'
     const path = '/:location/:language'
 
-    const mockNode = <MockNode />
-
     const createComponentInViewport = (small = false) => {
       const store = createReduxStore(createHistory, {
         locations: new Payload(false),
@@ -88,7 +87,7 @@ describe('LocationLayout', () => {
       return mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[locationsEndpoint, eventsEndpoint]}>
-            <ConnectedLocationLayout />
+            <ConnectedLocationLayout matchRoute={matchRoute} />
           </EndpointProvider>
         </Provider>
       )
@@ -103,10 +102,9 @@ describe('LocationLayout', () => {
         language: language,
         locations: locations,
         viewportSmall: false,
+        matchRoute: matchRoute,
         events: events,
-        dispatch: expect.any(Function),
-        matchRoute: expect.any(Function),
-        children: mockNode
+        dispatch: expect.any(Function)
       })
     })
 
