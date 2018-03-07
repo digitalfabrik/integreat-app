@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import ReactTooltip from 'react-tooltip'
 import { isEmpty } from 'lodash/lang'
-import { Link } from 'redux-little-router'
 
 import style from './HeaderNavigationBar.css'
 import HeaderNavigationItem from '../HeaderNavigationItem'
+import ConditionalLink from '../../common/components/ConditionalLink'
 
 /**
  * Designed to work with Header. In the MenuBar you can display textual links. Should be used for navigating as a
@@ -21,10 +22,15 @@ class HeaderMenuBar extends React.Component {
     return <div
       className={cx(this.props.className, style.navigationBar, isEmpty(this.props.items) ? style.hidden : '')}>
       {this.props.items.map(item => (
-        <Link key={item.text}
-              className={cx(style.navigationItem, item.active ? style.activeNavigationItem : '')}
-              href={item.href}>{item.text}</Link>
+        <ConditionalLink active={item.active} data-tip={!item.active ? item.tooltip : ''}
+                         key={item.text}
+                         className={cx(style.navigationItem, !item.active ? style.inactiveNavigationItem : (item.selected ? style.selectedNavigationItem : ''))}
+                         href={item.href}>{item.text}
+        </ConditionalLink>
       ))}
+
+      <ReactTooltip place='top' type='dark' effect='solid' />
+
     </div>
   }
 }
