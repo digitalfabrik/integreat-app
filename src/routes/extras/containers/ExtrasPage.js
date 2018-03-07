@@ -14,7 +14,6 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
-const SPRUNGBRETT_TYPE = 'ige-sbt'
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
@@ -30,16 +29,16 @@ export class ExtrasPage extends React.Component {
   }
 
   componentWillMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToUrl(this.props.extra), this.props.languages)
+    this.props.setLanguageChangeUrls(this.mapLanguageToPath(this.props.extra), this.props.languages)
   }
 
   componentWillReceiveProps (nextProps) {
     if (this.props.extra !== nextProps.extra) {
-      this.props.setLanguageChangeUrls(this.mapLanguageToUrl(nextProps.extra), this.props.languages)
+      this.props.setLanguageChangeUrls(this.mapLanguageToPath(nextProps.extra), this.props.languages)
     }
   }
 
-  mapLanguageToUrl = extra => language => `/${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
+  mapLanguageToPath = extra => language => `/${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
 
   getSprungbrettPath () {
     return `/${this.props.location}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
@@ -47,20 +46,21 @@ export class ExtrasPage extends React.Component {
 
   getTileModels () {
     return this.props.extras.map(extra => new TileModel({
-      id: extra.type,
+      id: extra.alias,
       name: extra.name,
-      // the url stored in the sprungbrett (ige-sbt) extra is the url of the endpoint
-      path: extra.type === SPRUNGBRETT_TYPE ? this.getSprungbrettPath() : extra.path,
+      // the url stored in the sprungbrett extra is the url of the endpoint
+      path: extra.alias === SPRUNGBRETT_EXTRA ? this.getSprungbrettPath() : extra.path,
       thumbnail: extra.thumbnail,
-      // every extra apart from the sprungbrett extra is just a link to an external site
-      isExternalUrl: extra.type !== SPRUNGBRETT_TYPE
+      // every extra except from the sprungbrett extra is just a link to an external site
+      isExternalUrl: extra.alias !== SPRUNGBRETT_EXTRA
     }))
   }
 
   getContent () {
-    if (this.props.extra === SPRUNGBRETT_EXTRA && this.props.extras.find(extra => extra.type === SPRUNGBRETT_TYPE)) {
-      // todo use title from the cms instead
-      return <SprungbrettPage title={'Sprungbrett'} />
+    const sprungbrett = this.props.extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+
+    if (this.props.extra === SPRUNGBRETT_EXTRA && sprungbrett) {
+      return <SprungbrettPage title={sprungbrett.name} />
     } else if (this.props.extra) {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
       return <Failure error={'not-found:page.notFound'} />
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToUrl, languages) => dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages))
+  setLanguageChangeUrls: (mapLanguageToPath, languages) => dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
 })
 
 export default compose(
