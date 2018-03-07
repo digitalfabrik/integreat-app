@@ -1,13 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import SprungbrettListItem from '../SprungbrettListItem'
+import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 
 describe('SprungbrettListItem', () => {
-  const extra = new ExtraModel({type: 'ige-ipb', path: 'praktikumsboerse', name: 'IHK PB', thumbnail: 'xy'})
-
+  const job = new SprungbrettJobModel({
+    id: '0', title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true
+  })
   it('should match snapshot', () => {
-    const wrapper = shallow(<SprungbrettListItem job={extra} />)
+    const wrapper = shallow(<SprungbrettListItem job={job} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

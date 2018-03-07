@@ -20,13 +20,13 @@ describe('ExtrasPage', () => {
   ]
 
   const sprungbrettExtra = new ExtraModel({
-    type: 'ige-sbt', path: 'path to fetch jobs from', name: 'Sprungbrett', thumbnail: 'xy'
+    alias: 'sprungbrett', path: 'path to fetch jobs from', name: 'Sprungbrett', thumbnail: 'xy'
   })
 
   const extras = [
     sprungbrettExtra,
-    new ExtraModel({type: 'ige-ilb', path: 'ihk-jobborese.com', name: 'Jobboerse', thumbnail: 'xy'}),
-    new ExtraModel({type: 'ige-ipb', path: 'ihk-pratkitkumsboerse.com', name: 'Praktikumsboerse', thumbnail: 'xy'})
+    new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', name: 'Jobboerse', thumbnail: 'xy'}),
+    new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', name: 'Praktikumsboerse', thumbnail: 'xy'})
   ]
 
   it('should render a sprungbrett page if it is the selected extra', () => {

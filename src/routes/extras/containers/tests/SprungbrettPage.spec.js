@@ -27,7 +27,7 @@ describe('SprungbrettPage', () => {
 
   it('it should render a list with all jobs', () => {
     const component = shallow(
-      <SprungbrettPage sprungbrett={jobs} />
+      <SprungbrettPage sprungbrett={jobs} title={'Sprungbrett'} />
     )
     expect(component).toMatchSnapshot()
   })

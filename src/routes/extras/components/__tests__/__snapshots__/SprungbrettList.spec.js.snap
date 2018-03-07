@@ -6,33 +6,42 @@ exports[`SprungbrettList should match snapshot 1`] = `
 >
   <SprungbrettListItem
     job={
-      ExtraModel {
-        "_name": "Sprungbrett",
-        "_path": "path to fetch jobs from",
-        "_thumbnail": "xy",
-        "_type": "ige-sbt",
+      SprungbrettModel {
+        "_id": "0",
+        "_isApprenticeship": true,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "WebDeveloper",
+        "_url": undefined,
       }
     }
+    key="0"
   />
   <SprungbrettListItem
     job={
-      ExtraModel {
-        "_name": "Jobboerse",
-        "_path": "ihk-jobborese.com",
-        "_thumbnail": "xy",
-        "_type": "ige-ilb",
+      SprungbrettModel {
+        "_id": "1",
+        "_isApprenticeship": false,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "BackendDeveloper",
+        "_url": undefined,
       }
     }
+    key="1"
   />
   <SprungbrettListItem
     job={
-      ExtraModel {
-        "_name": "Praktikumsboerse",
-        "_path": "ihk-pratkitkumsboerse.com",
-        "_thumbnail": "xy",
-        "_type": "ige-ipb",
+      SprungbrettModel {
+        "_id": "2",
+        "_isApprenticeship": true,
+        "_isEmployment": false,
+        "_location": "Augsburg",
+        "_title": "Freelancer",
+        "_url": undefined,
       }
     }
+    key="2"
   />
 </div>
 `;
