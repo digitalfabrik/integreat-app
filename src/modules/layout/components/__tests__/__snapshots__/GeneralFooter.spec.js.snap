@@ -5,12 +5,12 @@ exports[`GeneralFooter should match snapshot 1`] = `
   <Connect(Link)
     href="/disclaimer"
   >
-    app:imprintAndContact
+    layout:imprintAndContact
   </Connect(Link)>
   <a
     href="https://integreat-app.de/datenschutz/"
   >
-    app:privacy
+    layout:privacy
   </a>
 </Footer>
 `;

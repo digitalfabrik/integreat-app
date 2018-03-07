@@ -8,6 +8,8 @@ import EndpointProvider from '../../../endpoint/EndpointProvider'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import Payload from '../../../endpoint/Payload'
+import EventModel from '../../../endpoint/models/EventModel'
+import moment from 'moment-timezone'
 
 describe('LocationLayout', () => {
   const matchRoute = id => {}
@@ -15,6 +17,21 @@ describe('LocationLayout', () => {
   const language = 'de'
 
   const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
+  const events = [new EventModel({
+    id: 1234,
+    title: 'first Event',
+    availableLanguages: {de: '1235', ar: '1236'},
+    startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+    endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+    allDay: true
+  }),
+    new EventModel({
+      id: 2,
+      title: 'second Event',
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      allDay: true
+    })]
 
   const MockNode = () => <div />
 
@@ -24,7 +41,8 @@ describe('LocationLayout', () => {
                       matchRoute={matchRoute}
                       locations={locations}
                       viewportSmall
-                      currentPath='/:location/:language'>
+                      currentPath='/:location/:language'
+                      events={events}>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -36,7 +54,8 @@ describe('LocationLayout', () => {
                       matchRoute={matchRoute}
                       locations={locations}
                       viewportSmall
-                      currentPath='/:location/:language'>
+                      currentPath='/:location/:language'
+                      events={events}>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -47,6 +66,12 @@ describe('LocationLayout', () => {
       .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
       .withMapper(json => json)
       .withResponseOverride(locations)
+      .build()
+
+    const eventsEndpoint = new EndpointBuilder('events')
+      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
+      .withMapper(json => json)
+      .withResponseOverride(events)
       .build()
 
     const location = 'augsburg'
@@ -62,8 +87,8 @@ describe('LocationLayout', () => {
       })
       return mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint]}>
-            <ConnectedLocationLayout matchRoute={matchRoute}>{mockNode}</ConnectedLocationLayout>
+          <EndpointProvider endpoints={[locationsEndpoint, eventsEndpoint]}>
+            <ConnectedLocationLayout />
           </EndpointProvider>
         </Provider>
       )
@@ -78,6 +103,7 @@ describe('LocationLayout', () => {
         language: language,
         locations: locations,
         viewportSmall: false,
+        events: events,
         dispatch: expect.any(Function),
         matchRoute: expect.any(Function),
         children: mockNode

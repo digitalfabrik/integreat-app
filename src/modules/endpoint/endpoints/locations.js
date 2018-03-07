@@ -1,5 +1,6 @@
 import { sortBy } from 'lodash/collection'
 
+import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 
 import LocationModel from '../models/LocationModel'
@@ -15,7 +16,7 @@ function stripSlashes (path) {
 }
 
 export default new EndpointBuilder('locations')
-  .withStateToUrlMapper(() => 'https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
+  .withStateToUrlMapper(() => `${apiUrl}/wp-json/extensions/v1/multisites`)
   .withMapper(json => {
     const locations = json
       .map(location => new LocationModel({
@@ -23,7 +24,7 @@ export default new EndpointBuilder('locations')
         code: stripSlashes(location.path),
         live: location.live,
         eventsEnabled: location['ige-evts'] === '1',
-        extrasEnabled: true
+        extrasEnabled: true // todo
       }))
     return sortBy(locations, location => location.sortKey)
   })

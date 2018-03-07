@@ -13,20 +13,6 @@ exports[`SearchPage should match snapshot 1`] = `
         Object {
           "children": Array [],
           "model": CategoryModel {
-            "_availableLanguages": Object {},
-            "_content": "",
-            "_id": 0,
-            "_order": 0,
-            "_parentId": -1,
-            "_parentUrl": null,
-            "_thumbnail": null,
-            "_title": "augsburg",
-            "_url": "/augsburg/de",
-          },
-        },
-        Object {
-          "children": Array [],
-          "model": CategoryModel {
             "_availableLanguages": Object {
               "ar": 4367,
               "en": 4361,
@@ -81,6 +67,7 @@ exports[`SearchPage should match snapshot 1`] = `
         },
       ]
     }
+    query=""
   />
 </div>
 `;
