@@ -3,7 +3,7 @@
 import moment from 'moment'
 
 export type EventType = {
-  id: boolean,
+  id: number,
   title: string,
   content: string,
   thumbnail: string,
@@ -22,7 +22,7 @@ export type CategoryType = {
   url: string,
   title: string,
   parentId: number,
-  parentUrl: ?string,
+  parentUrl: string,
   content: string,
   thumbnail: string,
   order: number,

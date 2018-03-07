@@ -2,7 +2,7 @@ import CategoriesMapModel from '../CategoriesMapModel'
 
 describe('CategoriesMapModel', () => {
   const categories = [
-    {id: 0, url: '/augsburg/de', title: 'augsburg'},
+    {id: 0, url: '/augsburg/de', title: 'augsburg', parentUrl: ''},
     {id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1},
     {id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2},
     {id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'}
@@ -20,7 +20,7 @@ describe('CategoriesMapModel', () => {
     expect(category2).toEqual(categories[1])
     expect(category3).toEqual(categories[2])
     expect(category4).toEqual(categories[3])
-    expect(categoriesMapModel.getCategoryByUrl('/test/url')).toBe(undefined)
+    expect(() => categoriesMapModel.getCategoryByUrl('/test/url')).toThrowErrorMatchingSnapshot()
   })
 
   it('should find category by id', () => {
