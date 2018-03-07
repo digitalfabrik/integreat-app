@@ -1,34 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 import Spinner from 'react-spinkit'
 
-import EventModel from 'modules/endpoint/models/EventModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import type { EventType } from '../../../modules/endpoint/types'
+
+type mapLanguageToPath = (string, ?string) => string
+
+type Props = {
+  events: Array<EventType>,
+  location: string,
+  languages: Array<LanguageModel>,
+  language: string,
+  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, any) => {},
+  id?: string
+}
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-export class EventsPage extends React.Component {
-  static propTypes = {
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
-    location: PropTypes.string.isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    language: PropTypes.string.isRequired,
-    setLanguageChangeUrls: PropTypes.func.isRequired,
-    id: PropTypes.string
-  }
-
-  /**
-   * Generates the current url
-   * @returns {string} The url
-   */
-  getUrl () {
+export class EventsPage extends React.Component<Props> {
+  getPath () {
     return `/${this.props.location}/${this.props.language}/events`
   }
 
@@ -36,15 +33,15 @@ export class EventsPage extends React.Component {
    * The function used to map different languages to their EventsPages
    * @param {string} language The language
    * @param {string | undefined} id The id of a single event
-   * @returns {string} The url of the EventsPage of a different language
+   * @returns {string} The path of the EventsPage of a different language
    */
-  mapLanguageToUrl = (language, id) =>
+  mapLanguageToPath = (language, id) =>
     id ? `/${this.props.location}/${language}/events/${id}`
       : `/${this.props.location}/${language}/events`
 
   /**
    * Finds the event in events with the given id
-   * @param {Array.<EventModel>} events The events to search
+   * @param {Array<EventType>} events The events to search
    * @param {string} id The id of the event to search for
    */
   findEvent = (events, id) => events.find(
@@ -65,7 +62,7 @@ export class EventsPage extends React.Component {
         availableLanguages = event.availableLanguages
       }
     }
-    this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages, availableLanguages)
+    this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages, availableLanguages)
   }
 
   /**
@@ -87,12 +84,12 @@ export class EventsPage extends React.Component {
       if (event) {
         // events have been loaded in the new language
         this.props.setLanguageChangeUrls(
-          this.mapLanguageToUrl, nextProps.languages, event.availableLanguages
+          this.mapLanguageToPath, nextProps.languages, event.availableLanguages
         )
       }
     } else {
       // all events
-      this.props.setLanguageChangeUrls(this.mapLanguageToUrl, nextProps.languages)
+      this.props.setLanguageChangeUrls(this.mapLanguageToPath, nextProps.languages)
     }
   }
 
@@ -108,7 +105,7 @@ export class EventsPage extends React.Component {
         return <Spinner name='line-scale-party' />
       }
     }
-    return <EventList events={this.props.events} url={this.getUrl()} language={this.props.language} />
+    return <EventList events={this.props.events} url={this.getPath()} language={this.props.language} />
   }
 }
 
@@ -119,8 +116,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (urls, languages, availableLanguages) => dispatch(
-    setLanguageChangeUrls(urls, languages, availableLanguages)
+  setLanguageChangeUrls: (mapLanguageToPath, languages, availableLanguages) => dispatch(
+    setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)
   )
 })
 

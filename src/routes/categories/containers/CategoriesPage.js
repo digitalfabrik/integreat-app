@@ -20,7 +20,7 @@ import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
 
-import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
+import type { CategoryType } from '../../../modules/endpoint/types'
 
 type mapLanguageToPath = (string, ?string) => string
 

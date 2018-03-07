@@ -10,7 +10,6 @@ import createHistory from '../../../app/createHistory'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 import Payload from '../../../endpoint/Payload'
-import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 
 describe('LocationLayout', () => {
@@ -19,21 +18,21 @@ describe('LocationLayout', () => {
   const language = 'de'
 
   const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
-  const events = [new EventModel({
+  const events = [{
     id: 1234,
     title: 'first Event',
     availableLanguages: {de: '1235', ar: '1236'},
     startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
     endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
     allDay: true
-  }),
-  new EventModel({
+  },
+  {
     id: 2,
     title: 'second Event',
     startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
     endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
     allDay: true
-  })]
+  }]
 
   const MockNode = () => <div />
 

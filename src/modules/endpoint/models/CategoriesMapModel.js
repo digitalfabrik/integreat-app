@@ -1,7 +1,7 @@
 // @flow
 
 import normalizeUrl from 'normalize-url'
-import type { CategoryType } from './CategoryModel'
+import type { CategoryType } from '../types'
 
 /**
  * Contains a Map [string -> CategoryType] and some helper functions

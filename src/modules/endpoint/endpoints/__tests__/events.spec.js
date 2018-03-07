@@ -1,5 +1,4 @@
 import events from '../events'
-import EventModel from '../../models/EventModel'
 import lolex from 'lolex'
 import moment from 'moment'
 
@@ -56,7 +55,7 @@ describe('events', () => {
     )
   })
 
-  const toEventModel = json => new EventModel({
+  const toEventModel = json => ({
     id: json.id,
     title: json.title,
     content: json.content,

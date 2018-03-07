@@ -7,7 +7,7 @@ import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 
 import style from './CategoryList.css'
-import type { CategoryType } from '../../../modules/endpoint/models/CategoryModel'
+import type { CategoryType } from '../../../modules/endpoint/types'
 
 type Props = {
   categories: Array<{model: CategoryType, children: Array<CategoryType>}>,
