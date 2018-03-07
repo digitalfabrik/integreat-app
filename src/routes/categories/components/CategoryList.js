@@ -19,7 +19,7 @@ class CategoryList extends React.Component {
     })).isRequired,
     title: PropTypes.string,
     content: PropTypes.string,
-    /** A search query to highlight in the categories titles **/
+    /** A search query to highlight in the categories titles */
     query: PropTypes.string
   }
 

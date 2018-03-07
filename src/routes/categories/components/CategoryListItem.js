@@ -15,7 +15,7 @@ class CategoryListItem extends React.Component {
   static propTypes = {
     category: PropTypes.instanceOf(CategoryModel).isRequired,
     children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
-    /** A search query to highlight in the category title **/
+    /** A search query to highlight in the category title */
     query: PropTypes.string
   }
 
