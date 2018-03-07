@@ -8,14 +8,15 @@ import LocationLayout from '../../layout/containers/LocationLayout'
 import SearchPage from 'routes/search/containers/SearchPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
-import I18nRedirect from 'modules/app/containers/I18nRedirect'
-import LandingPage from 'routes/landing/containers/LandingPage'
-import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
+import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
+import LandingPage from 'routes/landing/containers/LandingPage'
+import CategoriesPage from 'routes/categories/containers/CategoriesPage'
+import ExtrasPage from 'routes/extras/containers/ExtrasPage'
+import I18nRedirect from 'modules/app/containers/I18nRedirect'
 import PropTypes from 'prop-types'
 import RouteConfig from '../RouteConfig'
 import { connect } from 'react-redux'
-import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 
 const LANGUAGE_CODE_LENGTH = 2
 
@@ -71,6 +72,9 @@ export class RouterFragment extends React.Component {
             {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
             <Fragment forRoute='/fetch-pdf'>
               <PdfFetcherPage />
+            </Fragment>
+            <Fragment forRoute='/extras(/:extra)'>
+              <ExtrasPage />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}
             <Fragment forNoMatch>

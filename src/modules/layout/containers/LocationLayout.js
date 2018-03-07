@@ -28,20 +28,23 @@ export class LocationLayout extends React.Component {
   }
 
   render () {
+    const {language, location, currentPath, matchRoute, viewportSmall, children} = this.props
     const locationModel = this.getCurrentLocation()
+
     if (!locationModel) {
       return <Layout header={<GeneralHeader />}
-                     footer={<GeneralFooter />}>{this.props.children}</Layout>
+                     footer={<GeneralFooter />}>{children}</Layout>
     }
 
-    const {currentPath, matchRoute} = this.props
-    return <Layout header={<LocationHeader viewportSmall={this.props.viewportSmall}
+    return <Layout header={<LocationHeader viewportSmall={viewportSmall}
                                            locationModel={locationModel}
                                            currentPath={currentPath}
-                                           matchRoute={matchRoute} language={this.props.language} />}
-                   footer={<LocationFooter matchRoute={matchRoute} location={this.props.location}
-                                           language={this.props.language} />}>
-      {this.props.children}
+                                           matchRoute={matchRoute}
+                                           language={language} />}
+                   footer={<LocationFooter matchRoute={matchRoute}
+                                           location={location}
+                                           language={language} />}>
+      {children}
     </Layout>
   }
 }
