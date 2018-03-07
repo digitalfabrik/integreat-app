@@ -30,8 +30,8 @@ exports[`withFetcher should show spinner if there is no data yet and it's not hi
 
 exports[`withFetcher should show wrapped component if there is data 1`] = `
 <WrappedComponent
-  endpoint={Object {}}
+  someEndpoint={Object {}}
 />
 `;
 
-exports[`withFetcher should throw error if there is no getEndpoint function 1`] = `"Invalid context. Did you forget to wrap the withFetcher(...) in a EndpointProvider?"`;
+exports[`withFetcher should throw error if there is no endpoint provided 1`] = `"Cannot read property 'stateName' of undefined"`;

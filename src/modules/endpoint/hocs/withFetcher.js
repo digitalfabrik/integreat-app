@@ -90,6 +90,7 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
         const allProps = ({...this.props, [this.props.endpoint.stateName]: payload.data})
         // Strip all internal data
         delete allProps.endpoint
+        delete allProps.getEndpoint
         delete allProps.state
         delete allProps.requestAction
         return <WrappedComponent {...allProps} />

@@ -12,7 +12,7 @@ describe('Endpoint', () => {
   const defaultJsonMapper = json => json
 
   const createEndpoint = ({name = 'endpoint', mapStateToUrl = defaultMapStateToUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
-    return new Endpoint(name, mapStateToUrl, jsonMapper, false, responseOverride)
+    return new Endpoint(name, mapStateToUrl, jsonMapper, responseOverride)
   }
 
   const expectActions = (dispatchResult, store, expectedActions) => {

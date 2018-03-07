@@ -28,7 +28,5 @@ describe('EndpointBuilder', () => {
     expect(() => builder.build()).toThrowErrorMatchingSnapshot()
     builder.withMapper(json => json)
     expect(() => builder.build()).not.toThrow()
-    builder.withRefetchLogic(null)
-    expect(() => builder.build()).toThrowErrorMatchingSnapshot()
   })
 })
