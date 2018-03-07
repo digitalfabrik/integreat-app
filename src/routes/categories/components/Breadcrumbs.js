@@ -13,6 +13,12 @@ const Wrapper = styled.div`
   padding: 10px 0;
   white-space: nowrap;
   overflow-x: auto;
+
+ /* avoid changing height when switching between pages (show line even if there are no breadcrumbs) */
+  &:empty::after {
+    padding-left: 1px;
+    content: '';
+  }
 `
 
 const Breadcrumb = styled(Link)`
