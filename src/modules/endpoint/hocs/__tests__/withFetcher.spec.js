@@ -153,17 +153,24 @@ describe('withFetcher', () => {
   })
 
   it('should throw error if there is no endpoint provided', () => {
+    const prevError = console.error
+    console.error = error => console.log(`Some expected error was thrown: ${error}`)
+
     const HOC = withFetcher(endpoint.stateName)
     const Hoced = HOC(() => <span>WrappedComponent</span>)
 
     expect(() => shallow(<Hoced state={{}}
                                 requestAction={() => new StoreResponse(true)} />)).toThrowErrorMatchingSnapshot()
+    console.error = prevError
   })
 
   describe('connect()', () => {
     const mockStore = configureMockStore([thunk])
 
     it('should throw if endpoint provider is missing', () => {
+      const prevError = console.error
+      console.error = error => console.log(`Some expected error was thrown: ${error}`)
+
       const payload = new Payload(false)
       const store = mockStore({[endpoint.stateName]: payload})
       const HOC = connectedWithFetcher(endpoint.stateName)
@@ -175,6 +182,8 @@ describe('withFetcher', () => {
           <Hoced />
         </Provider>
       )).toThrowErrorMatchingSnapshot()
+
+      console.error = prevError
     })
 
     it('should map dispatch to props', () => {
@@ -216,8 +225,6 @@ describe('withFetcher', () => {
           </EndpointProvider>
         </Provider>
       )
-
-      console.log(tree.debug())
 
       const wrappedHOCProps = tree.find(WrappedComponent).props()
 
