@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import HeaderActionItem from '../../HeaderActionItem'
-import HeaderNavigationItem from '../../HeaderNavigationItem'
+import HeaderNavigationItem from '../HeaderNavigationItem'
 import Header from '../Header'
 
 describe('Header', () => {

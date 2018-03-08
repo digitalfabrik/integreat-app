@@ -1,7 +1,3 @@
-@import url('../../common/constants/dimensions.css');
-@import url('../../common/constants/helpers.css');
-@import url('../../common/constants/fonts.css');
-
 .navigation-bar {
   display: flex;
   align-items: center;
@@ -10,27 +6,4 @@
 
 .navigation-bar.hidden {
   display: none;
-}
-
-.navigation-item {
-  @mixin remove-a;
-  flex: 1;
-  font-size: 1.1em;
-  font-weight: 400;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.navigation-item.inactive-navigation-item {
-  opacity: 0.5;
-}
-
-.navigation-item.selected-navigation-item {
-  font-weight: 700;
-}
-
-@media (--small-viewport) {
-  .navigation-item {
-    font-size: 0.9em;
-  }
 }
