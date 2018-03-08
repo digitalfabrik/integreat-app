@@ -1,28 +1,26 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
+import Caption from 'modules/common/components/Caption'
+import CategoryListItem from './CategoryListItem'
 
 import style from './CategoryList.css'
-import Caption from '../../../modules/common/components/Caption'
-import CategoryListItem from './CategoryListItem'
+
+type Props = {
+  categories: Array<{model: CategoryModel, children: Array<CategoryModel>}>,
+  title?: string,
+  content?: string,
+  /** A search query to highlight in the categories titles */
+  query?: string
+}
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.Component {
-  static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.shape({
-      model: PropTypes.instanceOf(CategoryModel).isRequired,
-      children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired
-    })).isRequired,
-    title: PropTypes.string,
-    content: PropTypes.string,
-    /** A search query to highlight in the categories titles */
-    query: PropTypes.string
-  }
-
+class CategoryList extends React.Component<Props> {
   render () {
     return (
       <div>
