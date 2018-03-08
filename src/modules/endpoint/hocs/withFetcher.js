@@ -20,14 +20,16 @@ const contextTypes = {
  * @return {React.Component} The HOC
  */
 
+const Loading = () => <Spinner className={style.loading} name='line-scale-party' />
+
 /**
  * This creates a factory for a Higher-Order-Component. The HOC attaches a fetcher to the supplied component.
  * @param endpointName {string} The name of the endpoint to fetch from
  * @param FailureComponent {*} the component which is rendered in error-case, null if no Failure should be rendered.
- * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
+ * @param LoadingComponent {*} the component which is rendered while loading, null if no loading should be rendered.
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
-export function withFetcher (endpointName, FailureComponent = Failure, hideSpinner = false) {
+export function withFetcher (endpointName, FailureComponent = Failure, LoadingComponent = Loading) {
   return WrappedComponent => {
     class Fetcher extends React.Component {
       static displayName = `${endpointName}Fetcher`
@@ -76,11 +78,7 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
         const payload = this.getStatePayload()
 
         if (!this.state.isDataAvailable) {
-          if (!hideSpinner) {
-            return <Spinner className={style.loading} name='line-scale-party' />
-          } else {
-            return <div />
-          }
+          return LoadingComponent ? <LoadingComponent /> : null
         }
 
         if (this.getStatePayload().error) {

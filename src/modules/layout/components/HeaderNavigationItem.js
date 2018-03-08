@@ -20,7 +20,7 @@ class HeaderNavigationItem extends React.PureComponent {
     /** false if the item should be shown grayed out */
     active: PropTypes.bool.isRequired,
     /** the message to be displayed when the item is hovered */
-    tooltip: PropTypes.bool
+    tooltip: PropTypes.string
   }
 
   render () {
