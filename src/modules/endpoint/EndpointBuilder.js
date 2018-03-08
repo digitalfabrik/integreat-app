@@ -1,5 +1,3 @@
-import { isEqual } from 'lodash/lang'
-
 import Endpoint from './Endpoint'
 
 /**
@@ -10,7 +8,6 @@ class EndpointBuilder {
   _stateToUrlMapper
   _mapper
   _responseOverride
-  _refetchLogic
 
   /**
    * Creates a new endpoint builder
@@ -18,8 +15,6 @@ class EndpointBuilder {
    */
   constructor (name) {
     this._name = name
-
-    this._refetchLogic = (state, nextState) => !isEqual(state, nextState)
   }
 
   /**
@@ -39,16 +34,6 @@ class EndpointBuilder {
    */
   withMapper (mapper) {
     this._mapper = mapper
-    return this
-  }
-
-  /**
-   * Adds refetch logic to this builder
-   * @param refetchLogic The refetch logic which specifies when to refetch
-   * @return {EndpointBuilder} The builder itself
-   */
-  withRefetchLogic (refetchLogic) {
-    this._refetchLogic = refetchLogic
     return this
   }
 
@@ -79,11 +64,7 @@ class EndpointBuilder {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    if (!this._refetchLogic) {
-      throw Error('You have to set a refetch logic to build an endpoint!')
-    }
-
-    return new Endpoint(this._name, this._stateToUrlMapper, this._mapper, this._refetchLogic, this._responseOverride)
+    return new Endpoint(this._name, this._stateToUrlMapper, this._mapper, this._responseOverride)
   }
 }
 

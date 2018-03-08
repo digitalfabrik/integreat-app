@@ -47,12 +47,12 @@ describe('SprungbrettPage', () => {
       const sprungbrettPage = mount(
         <Provider store={store}>
           <EndpointProvider endpoints={[sprungbrettEndpoint]}>
-            <ConnectedSprungbrettPage />
+            <ConnectedSprungbrettPage title={'Sprungbrett'} />
           </EndpointProvider>
         </Provider>
       ).find(SprungbrettPage)
 
-      expect(sprungbrettPage.props()).toEqual({sprungbrett: jobs})
+      expect(sprungbrettPage.props()).toEqual({sprungbrett: jobs, title: 'Sprungbrett'})
     })
   })
 })

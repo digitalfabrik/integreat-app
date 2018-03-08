@@ -166,7 +166,7 @@ describe('CategoriesPage', () => {
 
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      categoriesPage.mapLanguageToUrl, languages, categoryModels[2].availableLanguages
+      categoriesPage.mapLanguageToPath, languages, categoryModels[2].availableLanguages
     )
   })
 
@@ -209,7 +209,7 @@ describe('CategoriesPage', () => {
 
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount + 1)
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      wrapper.instance().mapLanguageToUrl, languages, categoryModels[3].availableLanguages
+      wrapper.instance().mapLanguageToPath, languages, categoryModels[3].availableLanguages
     )
   })
 
@@ -235,10 +235,10 @@ describe('CategoriesPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount)
   })
 
-  it('should map language to url', () => {
+  it('should map language to path', () => {
     const mockReplaceUrl = jest.fn()
 
-    const mapLanguageToUrl = shallow(
+    const mapLanguageToPath = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
                       languages={languages}
@@ -247,12 +247,12 @@ describe('CategoriesPage', () => {
                       path={categoryModels[2].url}
                       setLanguageChangeUrls={() => {}}
                       replaceUrl={mockReplaceUrl} />
-    ).instance().mapLanguageToUrl
+    ).instance().mapLanguageToPath
 
-    expect(mapLanguageToUrl(language, categoryModels[3].availableLanguages[language])).toBe(
+    expect(mapLanguageToPath(language, categoryModels[3].availableLanguages[language])).toBe(
       `/${location}/${language}?id=${categoryModels[3].availableLanguages[language]}`
     )
-    expect(mapLanguageToUrl(language)).toBe(`/${location}/${language}`)
+    expect(mapLanguageToPath(language)).toBe(`/${location}/${language}`)
   })
 
   it('should get pdf fetch path', () => {
@@ -331,7 +331,7 @@ describe('CategoriesPage', () => {
         languageChangeUrls: {}
       })
 
-      const mapLanguageToUrl = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
+      const mapLanguageToPath = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
 
       const languageChangeUrls = {
         en: '/en/1235',
@@ -354,7 +354,7 @@ describe('CategoriesPage', () => {
         </Provider>
       ).find(CategoriesPage)
 
-      categoriesPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
+      categoriesPage.props().setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)
       expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })

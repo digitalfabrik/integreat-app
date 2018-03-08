@@ -85,6 +85,15 @@ Used Redux extensions:
 
 You can run the linter by calling **yarn run lint**. Some issues can be fixed automatically by running **yarn run lintfix**
 
+### Type checking
+[Flow](https://flow.org/) is used for static type checking.
+
+Go to Settings > Languages & Frameworks > JavaScript and
+* choose **Flow** as Language version
+* set *Flow package or executable* to **<project_dir>/node_modules/flow-bin**
+
+You can run flow using **yarn flow**. 
+
 ## IDE
 **Make sure you have at least [nodejs 6](https://nodejs.org/) installed**
 

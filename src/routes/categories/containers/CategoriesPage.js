@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
@@ -18,23 +19,26 @@ import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
+
+type mapLanguageToPath = (string, ?string) => string
+
+type Props = {
+  categories: CategoriesMapModel,
+  locations: Array<LocationModel>,
+  languages: Array<LanguageModel>,
+  location: string,
+  language: string,
+  path: string,
+  categoryId?: string,
+  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void,
+  replaceUrl: (string) => void
+}
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<location>/<language>*
  */
-export class CategoriesPage extends React.Component {
-  static propTypes = {
-    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    path: PropTypes.string,
-    categoryId: PropTypes.string,
-    setLanguageChangeUrls: PropTypes.func.isRequired,
-    replaceUrl: PropTypes.func.isRequired
-  }
-
+export class CategoriesPage extends React.Component<Props> {
   /**
    * If category is defined, we want to redirect to the page with the given id,
    * else we just dispatch the language change urls here
@@ -57,7 +61,7 @@ export class CategoriesPage extends React.Component {
    * @see https://reactjs.org/docs/react-component.html#componentwillupdate
    * @param nextProps The new props
    */
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps (nextProps: Object) {
     if (nextProps.path !== this.props.path || nextProps.categories !== this.props.categories) {
       const category = nextProps.categories.getCategoryByUrl(nextProps.path)
       this.setLanguageChangeUrls(category)
@@ -68,9 +72,9 @@ export class CategoriesPage extends React.Component {
    * The function used to map different languages to their CategoriesPage
    * @param {string} language The language
    * @param {string | undefined} id The id of a category
-   * @returns {string} The url of the CategoriesPage of a different language
+   * @returns {string} The path of the CategoriesPage of a different language
    */
-  mapLanguageToUrl = (language, id) => (
+  mapLanguageToPath = (language: string, id: ?string) => (
     id ? `/${this.props.location}/${language}?id=${id}` : `/${this.props.location}/${language}`
   )
 
@@ -78,10 +82,10 @@ export class CategoriesPage extends React.Component {
    * Gets and stores the available languages for the current page
    * @param {CategoryModel | undefined} category The current category
    */
-  setLanguageChangeUrls (category) {
+  setLanguageChangeUrls (category: ?CategoryModel) {
     if (category) {
       this.props.setLanguageChangeUrls(
-        this.mapLanguageToUrl, this.props.languages, category.availableLanguages
+        this.mapLanguageToPath, this.props.languages, category.availableLanguages
       )
     }
   }
@@ -115,7 +119,7 @@ export class CategoriesPage extends React.Component {
    * @param category The current category
    * @return {*} The content to be displayed
    */
-  getContent (category) {
+  getContent (category: CategoryModel) {
     const categories = this.props.categories
     const children = categories.getChildren(category)
 
@@ -152,8 +156,8 @@ export class CategoriesPage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToUrl, languages, availableLanguages) =>
-    dispatch(setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)),
+  setLanguageChangeUrls: (mapLanguageToPath, languages, availableLanguages) =>
+    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)),
   replaceUrl: url => dispatch(replace(url))
 })
 

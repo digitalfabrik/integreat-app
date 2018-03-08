@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import { Link } from 'redux-little-router'
 import { textSecondaryColor, textDecorationColor } from 'modules/common/constants/colors'
@@ -38,22 +39,22 @@ const Title = styled.span`
   font-size: 15px;
 `
 
+type Props = {
+  parents: Array<CategoryModel>,
+  locations: Array<LocationModel>
+}
+
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-class Breadcrumbs extends React.Component {
-  static propTypes = {
-    parents: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
-  }
-
+class Breadcrumbs extends React.Component<Props> {
   /**
    * Our root categories don't have the right title (location code instead of location title), so we have to compare the
    * title of the root category with the code of every location
    * @param {String} title The title of the category to search for
    * @return {String} The found name or the given title
    */
-  getLocationName (title) {
+  getLocationName (title: string) {
     const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
