@@ -42,8 +42,7 @@ describe('LocationLayout', () => {
                       matchRoute={matchRoute}
                       locations={locations}
                       viewportSmall
-                      currentPath='/:location/:language'
-                      events={events}>
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -55,8 +54,7 @@ describe('LocationLayout', () => {
                       matchRoute={matchRoute}
                       locations={locations}
                       viewportSmall
-                      currentPath='/:location/:language'
-                      events={events}>
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -103,7 +101,6 @@ describe('LocationLayout', () => {
         locations: locations,
         viewportSmall: false,
         matchRoute: matchRoute,
-        events: events,
         dispatch: expect.any(Function)
       })
     })
