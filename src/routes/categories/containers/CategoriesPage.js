@@ -22,7 +22,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 
 import type { CategoryType } from '../../../modules/endpoint/types'
 
-type mapLanguageToPath = (string, ?string) => string
+type MapLanguageToPath = (string, ?string) => string
 
 type Props = {
   categories: CategoriesMapModel,
@@ -32,7 +32,7 @@ type Props = {
   language: string,
   path: string,
   categoryId?: number,
-  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void,
+  setLanguageChangeUrls: (MapLanguageToPath, Array<LanguageModel>, ?Object) => void,
   replaceUrl: (string) => void
 }
 

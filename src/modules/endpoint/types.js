@@ -2,12 +2,28 @@
 
 import moment from 'moment'
 
+export type AvailableLanguages = {
+  de?: string,
+  en?: string,
+  ar?: string,
+  fa?: string,
+  fr?: string,
+  tr?: string,
+  ku?: string,
+  ru?: string,
+  ti?: string,
+  sr?: string,
+  am?: string,
+  per?: string,
+  pl?: string
+}
+
 export type EventType = {
   id: number,
   title: string,
   content: string,
   thumbnail: string,
-  availableLanguages: any,
+  availableLanguages: AvailableLanguages,
   content: string,
   town: string,
   address: string,
@@ -26,5 +42,5 @@ export type CategoryType = {
   content: string,
   thumbnail: string,
   order: number,
-  availableLanguages: any
+  availableLanguages: AvailableLanguages
 }
