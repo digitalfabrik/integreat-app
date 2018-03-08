@@ -40,7 +40,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(false, false)}
                                                 currentPath=''
-                                                viewportSmall />)
+                                                viewportSmall
+                                                eventCount={0} />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
@@ -48,11 +49,13 @@ describe('LocationHeader', () => {
       const extrasComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                  locationModel={createLocation(true, false)}
                                                  currentPath=''
-                                                 viewportSmall />)
+                                                 viewportSmall
+                                                 eventCount={0} />)
       const eventsComp = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                  locationModel={createLocation(false, true)}
                                                  currentPath=''
-                                                 viewportSmall />)
+                                                 viewportSmall
+                                                 eventCount={0} />)
 
       expect(extrasComp.dive().prop('navigationItems')).toMatchSnapshot()
       expect(eventsComp.dive().prop('navigationItems')).toMatchSnapshot()
@@ -62,7 +65,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
                                                 currentPath=''
-                                                viewportSmall />)
+                                                viewportSmall
+                                                eventCount={0} />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
@@ -70,7 +74,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
                                                 currentPath='/:location/:language(/*)'
-                                                viewportSmall />)
+                                                viewportSmall
+                                                eventCount={0} />)
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
 
@@ -78,7 +83,8 @@ describe('LocationHeader', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
                                                 currentPath='/:location/:language/events(/:id)'
-                                                viewportSmall />)
+                                                viewportSmall
+                                                eventCount={0} />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
@@ -86,7 +92,10 @@ describe('LocationHeader', () => {
     it('should highlight extras if extras route is selected', () => {
       const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                                 locationModel={createLocation(true, true)}
-                                                route='/:location/:language/extras(/:extra)' />)
+                                                route='/:location/:language/extras(/:extra)'
+                                                currentPath=''
+                                                viewportSmall
+                                                eventCount={0} />)
 
       expect(component.dive().prop('navigationItems')).toMatchSnapshot()
     })
@@ -96,7 +105,10 @@ describe('LocationHeader', () => {
     const component = shallow(<LocationHeader matchRoute={matchRoute} language={language}
                                               locationModel={createLocation(true, true)}
                                               currentPath=''
-                                              viewportSmall />)
+                                              viewportSmall
+                                              eventCount={0} />)
     expect(component.dive()).toMatchSnapshot()
   })
+
+  // fixme: Test the events enabled functionality. Especially isEventsActive()
 })
