@@ -15,7 +15,7 @@ import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import ExtrasPage from 'routes/extras/containers/ExtrasPage'
-import LocationHeaderEventsNavigationItem from './LocationHeaderEventsNavigationItem'
+import EventsNavigationItem from './EventsNavigationItem'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -57,18 +57,21 @@ class LocationHeader extends React.Component {
     const isEventsSelected = () => matchRoute(EventsPage).hasPath(currentPath)
 
     const extras = isExtrasEnabled() && <HeaderNavigationItem
+      key='extras'
       href={matchRoute(ExtrasPage).stringify(currentParams)}
       selected={isExtrasSelected()}
       text={t('extras')}
       active />
 
     const categories = isCategoriesEnabled() && <HeaderNavigationItem
+      key='categories'
       href={matchRoute(CategoriesPage).stringify(currentParams)}
       selected={isCategoriesSelected()}
       text={t('categories')}
       active />
 
-    const events = isEventsEnabled() && <LocationHeaderEventsNavigationItem
+    const events = isEventsEnabled() && <EventsNavigationItem
+      key='events'
       href={matchRoute(EventsPage).stringify(currentParams)}
       selected={isEventsSelected()}
       text={t('news')}

@@ -77,21 +77,21 @@ export function withFetcher (endpointName, FailureComponent = Failure, LoadingCo
       render () {
         const payload = this.getStatePayload()
 
-        if (!this.state.isDataAvailable) {
-          return LoadingComponent ? <LoadingComponent /> : null
-        }
-
-        if (this.getStatePayload().error) {
-          return FailureComponent ? <FailureComponent error={payload.error} /> : null
-        }
-
-        const allProps = ({...this.props, [this.props.endpoint.stateName]: payload.data})
+        const allProps = {...this.props}
         // Strip all internal data
         delete allProps.endpoint
         delete allProps.getEndpoint
         delete allProps.state
         delete allProps.requestAction
-        return <WrappedComponent {...allProps} />
+
+        if (!this.state.isDataAvailable) {
+          return LoadingComponent ? <LoadingComponent {...allProps} /> : null
+        }
+
+        if (payload.error) {
+          return FailureComponent ? <FailureComponent {...allProps} error={payload.error} /> : null
+        }
+        return <WrappedComponent {...{...allProps, [this.props.endpoint.stateName]: payload.data}} />
       }
     }
 

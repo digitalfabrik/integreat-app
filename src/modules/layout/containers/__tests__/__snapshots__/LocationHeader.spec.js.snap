@@ -16,7 +16,7 @@ Array [
     selected={true}
     text="layout:categories"
   />,
-  <LocationHeaderEventsNavigationItem
+  <getContext(Connect(eventsFetcher))
     href="/location1/de/events"
     selected={false}
     text="layout:news"
@@ -39,7 +39,7 @@ Array [
     selected={false}
     text="layout:categories"
   />,
-  <LocationHeaderEventsNavigationItem
+  <getContext(Connect(eventsFetcher))
     href="/location1/de/events"
     selected={true}
     text="layout:news"
@@ -62,7 +62,7 @@ Array [
     selected={false}
     text="layout:categories"
   />,
-  <LocationHeaderEventsNavigationItem
+  <getContext(Connect(eventsFetcher))
     href="/location1/de/events"
     selected={false}
     text="layout:news"
@@ -96,7 +96,7 @@ Array [
     selected={false}
     text="layout:categories"
   />,
-  <LocationHeaderEventsNavigationItem
+  <getContext(Connect(eventsFetcher))
     href="/location1/de/events"
     selected={false}
     text="layout:news"
@@ -119,7 +119,7 @@ Array [
     selected={false}
     text="layout:categories"
   />,
-  <LocationHeaderEventsNavigationItem
+  <getContext(Connect(eventsFetcher))
     href="/location1/de/events"
     selected={false}
     text="layout:news"
@@ -164,7 +164,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         selected={false}
         text="layout:categories"
       />,
-      <LocationHeaderEventsNavigationItem
+      <getContext(Connect(eventsFetcher))
         href="/location1/de/events"
         selected={false}
         text="layout:news"
