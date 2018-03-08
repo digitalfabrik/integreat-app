@@ -9,7 +9,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationHeader from '../components/LocationHeader'
+import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 
 export class LocationLayout extends React.Component {
