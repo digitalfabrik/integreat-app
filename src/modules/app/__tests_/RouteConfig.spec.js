@@ -9,7 +9,7 @@ describe('RouteConfig', () => {
   })
 
   it('should throw error if providing invalid config', () => {
-    expect(() => new RouteConfig([0xBABE])).toThrow()
+    expect(() => new RouteConfig([0xBABE])).toThrowErrorMatchingSnapshot()
   })
 
   it('should match routes', () => {
@@ -20,6 +20,6 @@ describe('RouteConfig', () => {
 
   it('should throw error if route is not found', () => {
     const routeConfig = new RouteConfig([])
-    expect(() => routeConfig.matchRoute('some-id')).toThrow()
+    expect(() => routeConfig.matchRoute('some-id')).toThrowErrorMatchingSnapshot()
   })
 })

@@ -8,7 +8,7 @@ describe('Route', () => {
 
   it('should throw error if a param is missing', () => {
     const route = new Route({id: 'some-id', path: ':location/:language'})
-    expect(() => route.stringify({location: 'augsburg'})).toThrow()
+    expect(() => route.stringify({location: 'augsburg'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should have correct path and id', () => {

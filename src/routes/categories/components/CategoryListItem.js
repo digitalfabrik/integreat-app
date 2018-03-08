@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'redux-little-router'
 import Highlighter from 'react-highlighter'
 
@@ -48,17 +49,17 @@ const StyledLink = styled(Link)`
   margin: 0 auto;
 `
 
+type Props = {
+  category: CategoryModel,
+  children: Array<CategoryModel>,
+  /** A search query to highlight in the category title */
+  query?: string
+}
+
 /**
  * Displays a single CategoryListItem
  */
-class CategoryListItem extends React.Component {
-  static propTypes = {
-    category: PropTypes.instanceOf(CategoryModel).isRequired,
-    children: PropTypes.arrayOf(PropTypes.instanceOf(CategoryModel)).isRequired,
-    /** A search query to highlight in the category title */
-    query: PropTypes.string
-  }
-
+class CategoryListItem extends React.Component<Props> {
   getChildren () {
     return this.props.children.map(child =>
       <div key={child.id}>
@@ -77,7 +78,7 @@ class CategoryListItem extends React.Component {
   getTitle () {
     return <CategoryCaption search={this.props.query || ''}>
       {this.props.category.title}
-      </CategoryCaption>
+    </CategoryCaption>
   }
 
   render () {
