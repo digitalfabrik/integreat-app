@@ -34,7 +34,6 @@ class Endpoint {
    */
   responseOverride
 
-
   /**
    * Holds the override value for the error
    */
