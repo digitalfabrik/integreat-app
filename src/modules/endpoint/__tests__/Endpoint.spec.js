@@ -89,7 +89,7 @@ describe('Endpoint', () => {
 
     beforeEach(() => {
       clock = lolex.install({now: mockedTime, toFake: []})
-      prevError = console.error
+      prevError = console.error // todo: Find better way of allowing console.error
       console.error = error => console.log(`Some expected error was thrown: ${error}`)
     })
 
