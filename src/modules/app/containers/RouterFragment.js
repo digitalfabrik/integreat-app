@@ -4,26 +4,22 @@ import React from 'react'
 import Layout from 'modules/layout/components/Layout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
-import LocationLayout from '../../layout/containers/LocationLayout'
-import SearchPage from 'routes/search/containers/SearchPage'
-import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
-import EventsPage from 'routes/events/containers/EventsPage'
-import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
-import CategoriesPage from 'routes/categories/containers/CategoriesPage'
-import ExtrasPage from 'routes/extras/containers/ExtrasPage'
 import I18nRedirect from 'modules/app/containers/I18nRedirect'
 import PropTypes from 'prop-types'
 import RouteConfig from '../RouteConfig'
 import { connect } from 'react-redux'
+import LocationFragment from './LocationFragment'
+import LocationModel from '../../endpoint/models/LocationModel'
 
 const LANGUAGE_CODE_LENGTH = 2
 
 export class RouterFragment extends React.Component {
   static propTypes = {
     viewportSmall: PropTypes.bool.isRequired,
-    routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
+    routeConfig: PropTypes.instanceOf(RouteConfig).isRequired,
+    locations: PropTypes.array(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
   static isLanguageCode (language) {
@@ -31,21 +27,10 @@ export class RouterFragment extends React.Component {
   }
 
   redirectCondition = location => !RouterFragment.isLanguageCode(location.params.language)
-
-  /**
-   * This is the matchRoute from the supplied {@link routeConfig}
-   *
-   * @param id The id to look for
-   * @returns {*|Route}
-   */
-  matchRoute = id => this.props.routeConfig.matchRoute(id)
+  isLocation = location => this.props.locations.find(_location => _location.code === location)
 
   render () {
-    /*
-     * For routes inside a <React.Fragment /> the priority decreases with each element
-     * So /disclaimer has higher priority than /:language -> '/disclaimer' resolves to /disclaimer
-     */
-
+    const {routeConfig, locations, viewportSmall} = this.props
     return <Fragment forRoute='/'>
       {/* Routes */}
       <React.Fragment>
@@ -54,39 +39,14 @@ export class RouterFragment extends React.Component {
           <I18nRedirect />
         </Fragment>
 
-        {/* Matches two or more arguments like /augsburg/de */}
-        <Fragment forRoute='/:location/:language(/*)'>
-          <LocationLayout matchRoute={this.matchRoute}>
-            {/* Matches /augsburg/de/search -> Search */}
-            <Fragment forRoute='/search'>
-              <SearchPage />
-            </Fragment>
-            {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
-            <Fragment forRoute='/disclaimer'>
-              <DisclaimerPage />
-            </Fragment>
-            {/* Matches /augsburg/de/events* -> Events */}
-            <Fragment forRoute='/events(/:id)'>
-              <EventsPage />
-            </Fragment>
-            {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
-            <Fragment forRoute='/fetch-pdf'>
-              <PdfFetcherPage />
-            </Fragment>
-            <Fragment forRoute='/extras(/:extra)'>
-              <ExtrasPage />
-            </Fragment>
-            {/* Matches /augsburg/de/* -> Content */}
-            <Fragment forNoMatch>
-              <CategoriesPage />
-            </Fragment>
-          </LocationLayout>
-        </Fragment>
-
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
-          <Layout header={<GeneralHeader viewportSmall={this.props.viewportSmall} />}
+          <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                   footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
+        </Fragment>
+
+        <Fragment forRoute='/:location' withConditions={this.isLocation}>
+          <LocationFragment routeConfig={routeConfig} locations={locations} />
         </Fragment>
 
         {/* If language param is longer than 2, it is no language and is probably a location
