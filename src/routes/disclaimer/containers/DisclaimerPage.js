@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -43,8 +41,4 @@ const mapDispatchToProps = dispatch => ({
   )
 })
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('disclaimer'),
-  withFetcher('languages')
-)(DisclaimerPage)
+export default connect(mapStateToProps, mapDispatchToProps)(DisclaimerPage)

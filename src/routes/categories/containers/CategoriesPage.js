@@ -3,9 +3,7 @@
 import React from 'react'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -17,7 +15,6 @@ import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
-import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 
@@ -168,9 +165,4 @@ const mapStateToProps = state => ({
   categoryId: state.router.query.id
 })
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('categories', LanguageFailure),
-  withFetcher('languages'),
-  withFetcher('locations')
-)(CategoriesPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)

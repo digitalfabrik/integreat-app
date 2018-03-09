@@ -4,7 +4,6 @@ import React, { Fragment } from 'react'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import LanguageSelector from 'modules/common/containers/LanguageSelector'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
@@ -69,7 +68,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('locations'),
-  withFetcher('languages'),
   translate('common')
 )(LanguageFailure)

@@ -11,3 +11,5 @@ export const eventsUrlMapper = params => `${apiUrl}/${params.location}/${params.
 export const extrasUrlMapper = params => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v3/extras`
 
 export const disclaimerUrlMapper = params => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`
+
+export const sprungbrettUrlMapper = params => params.url
