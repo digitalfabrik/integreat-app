@@ -44,7 +44,7 @@ export class CategoriesPage extends React.Component<Props> {
    * If category is defined, we want to redirect to the page with the given id,
    * else we just dispatch the language change urls here
    */
-  componentDidMount () {
+  componentWillMount () {
     if (this.props.categoryId) {
       try {
         const category = this.props.categories.getCategoryById(this.props.categoryId)
@@ -52,14 +52,14 @@ export class CategoriesPage extends React.Component<Props> {
           this.props.replaceUrl(category.url)
         }
       } catch (e) {
-        console.error(e.message)
+        // this will be obsolete soon, so don't do anything if the id is invalid
       }
     }
     try {
       const category = this.props.categories.getCategoryByUrl(this.props.path)
       this.setLanguageChangeUrls(category)
     } catch (e) {
-      console.error(e.message)
+      // error is handled in the render method
     }
   }
 
