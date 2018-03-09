@@ -8,7 +8,6 @@ import { isEmpty } from 'lodash/lang'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import style from './PdfFetcherPage.css'
 import Failure from 'modules/common/components/Failure'
@@ -153,7 +152,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations'),
-  withFetcher('categories'),
   translate('pdf-fetcher')
 )(PdfFetcherPage)

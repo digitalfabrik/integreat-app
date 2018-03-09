@@ -2,11 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import compose from 'lodash/fp/compose'
-
 import SearchInput from 'modules/common/components/SearchInput'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -77,8 +74,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
 })
 
-export default compose(
-  withFetcher('categories'),
-  withFetcher('languages'),
-  connect(mapStateToProps, mapDispatchToProps)
-)(SearchPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)

@@ -14,8 +14,8 @@ import languagesMapper from '../../endpoint/mappers/languages'
 
 class LocationFragment extends React.Component {
   static propTypes = {
-    locations: PropTypes.array(PropTypes.instanceOf(LocationModel)).isRequired,
-    languages: PropTypes.array(PropTypes.instanceOf(LanguageModel)).isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }
 
@@ -30,7 +30,7 @@ class LocationFragment extends React.Component {
       </Fragment>
 
       <Fragment forNoMatch>
-        <LanguageFailure />
+        <LanguageFailure languages={languages} locations={locations} />
       </Fragment>
     </React.Fragment>
   }
@@ -38,7 +38,7 @@ class LocationFragment extends React.Component {
 
 class Container extends React.Component {
   static propTypes = {
-    locations: PropTypes.array(PropTypes.instanceOf(LocationModel)).isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     location: PropTypes.string.isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }

@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 import Spinner from 'react-spinkit'
 
 import EventModel from 'modules/endpoint/models/EventModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
@@ -124,8 +122,4 @@ const mapDispatchToProps = dispatch => ({
   )
 })
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('events'),
-  withFetcher('languages')
-)(EventsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(EventsPage)

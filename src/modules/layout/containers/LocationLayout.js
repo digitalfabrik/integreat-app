@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import EventModel from 'modules/endpoint/models/EventModel'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
@@ -58,8 +56,4 @@ const mapStateToProps = state => ({
   viewportSmall: state.viewport.is.small
 })
 
-export default compose(
-  connect(mapStateToProps),
-  withFetcher('locations', null, true),
-  withFetcher('events')
-)(LocationLayout)
+export default connect(mapStateToProps)(LocationLayout)

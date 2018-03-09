@@ -19,7 +19,7 @@ export class RouterFragment extends React.Component {
   static propTypes = {
     viewportSmall: PropTypes.bool.isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired,
-    locations: PropTypes.array(PropTypes.instanceOf(LocationModel)).isRequired
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
   static isLanguageCode (language) {
@@ -57,7 +57,9 @@ export class RouterFragment extends React.Component {
 
         {/* Matches one or zero arguments like /de */}
         <Fragment forRoute='/:language(/)'>
-          <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
+          <Layout footer={<GeneralFooter />}>
+            <LandingPage locations={locations} />
+          </Layout>
         </Fragment>
 
         {/* There are no missing routes. Covered:

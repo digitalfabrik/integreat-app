@@ -80,7 +80,6 @@
     "git-repo-version": "~1.0.1",
     "highlight.js": "~9.12.0",
     "html-loader": "~0.5.1",
-    "husky": "^0.14.3",
     "identity-obj-proxy": "~3.0.0",
     "img-loader": "~2.0.0",
     "is-url": "^1.2.2",
@@ -145,7 +144,6 @@
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
-    "test:update": "jest --config jest.config.json -u",
-    "precommit": "yarn run lint:fix"
+    "test:update": "jest --config jest.config.json -u"
   }
 }

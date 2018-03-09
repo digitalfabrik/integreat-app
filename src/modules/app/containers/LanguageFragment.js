@@ -27,10 +27,10 @@ import extrasMapper from '../../endpoint/mappers/extras'
 
 export class LanguageFragment extends React.Component {
   static propTypes = {
-    locations: PropTypes.array(PropTypes.instanceOf(LocationModel)).isRequired,
-    languages: PropTypes.array(PropTypes.instanceOf(LanguageModel)).isRequired,
-    events: PropTypes.array(PropTypes.instanceOf(EventModel)).isRequired,
-    extras: PropTypes.array(PropTypes.instanceOf(ExtraModel)).isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired,
+    extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
     disclaimer: PropTypes.instanceOf(DisclaimerModel).isRequired,
     categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
@@ -80,8 +80,8 @@ export class LanguageFragment extends React.Component {
 
 class Container extends React.Component {
   static propTypes = {
-    locations: PropTypes.array(PropTypes.instanceOf(LocationModel)).isRequired,
-    languages: PropTypes.array(PropTypes.instanceOf(LanguageModel)).isRequired,
+    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired
