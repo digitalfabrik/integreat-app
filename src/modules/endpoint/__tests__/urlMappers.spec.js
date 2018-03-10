@@ -1,5 +1,5 @@
 import { categoriesUrlMapper, disclaimerUrlMapper, eventsUrlMapper,
-  extrasUrlMapper, languagesUrlMapper, locationUrlMapper, sprungbrettUrlMapper } from './urlMappers'
+  extrasUrlMapper, languagesUrlMapper, locationUrlMapper, sprungbrettUrlMapper } from '../urlMappers'
 
 describe('urlMappers', () => {
   const params = {location: 'augsburg', language: 'de', url: 'sprungbrett_url'}
