@@ -19,13 +19,13 @@ class LocationFragment extends React.Component {
     routeConfig: PropTypes.instanceOf(RouteConfig).isRequired
   }
 
-  isLanguage = language => this.props.languages.find(_language => _language.code === language)
+  isLanguage = router => this.props.languages.find(language => language.code === router.params.language)
 
   render () {
     const {locations, languages, routeConfig} = this.props
 
     return <React.Fragment>
-      <Fragment forRoute='/:language' withConditions={this.isLanguage} >
+      <Fragment forRoute='' withConditions={this.isLanguage} >
         <LanguageFragment locations={locations} languages={languages} routeConfig={routeConfig} />
       </Fragment>
 

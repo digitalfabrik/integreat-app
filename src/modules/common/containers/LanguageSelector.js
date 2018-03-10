@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
@@ -53,7 +51,4 @@ const mapStateToProps = state => ({
   languageChangeUrls: state.languageChangeUrls
 })
 
-export default compose(
-  connect(mapStateToProps),
-  withFetcher('languages', null, true)
-)(LanguageSelector)
+export default connect(mapStateToProps)(LanguageSelector)

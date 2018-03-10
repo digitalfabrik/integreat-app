@@ -10,6 +10,7 @@ import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from '../components/LocationHeader'
 import LocationFooter from '../components/LocationFooter'
+import LanguageModel from '../../endpoint/models/LanguageModel'
 
 export class LocationLayout extends React.Component {
   static propTypes = {
@@ -17,6 +18,7 @@ export class LocationLayout extends React.Component {
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     currentPath: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
     children: PropTypes.node,
@@ -28,7 +30,7 @@ export class LocationLayout extends React.Component {
   }
 
   render () {
-    const {language, location, currentPath, matchRoute, viewportSmall, children, events} = this.props
+    const {language, location, currentPath, matchRoute, viewportSmall, children, events, languages} = this.props
     const locationModel = this.getCurrentLocation()
 
     if (!locationModel) {
@@ -40,7 +42,9 @@ export class LocationLayout extends React.Component {
                                            locationModel={locationModel}
                                            currentPath={currentPath}
                                            matchRoute={matchRoute}
-                                           language={language} eventCount={events.length} />}
+                                           language={language}
+                                           eventCount={events.length}
+                                           languages={languages} />}
                    footer={<LocationFooter matchRoute={matchRoute}
                                            location={location}
                                            language={language} />}>

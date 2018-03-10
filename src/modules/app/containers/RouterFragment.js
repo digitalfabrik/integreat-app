@@ -12,8 +12,10 @@ import RouteConfig from '../RouteConfig'
 import { connect } from 'react-redux'
 import LocationFragment from './LocationFragment'
 import LocationModel from '../../endpoint/models/LocationModel'
+import Failure from '../../common/components/Failure'
 
-const LANGUAGE_CODE_LENGTH = 2
+const LANGUAGE_CODE_MIN_LENGTH = 2
+const LANGUAGE_CODE_MAX_LENGTH = 3
 
 export class RouterFragment extends React.Component {
   static propTypes = {
@@ -22,17 +24,15 @@ export class RouterFragment extends React.Component {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired
   }
 
-  static isLanguageCode (language) {
-    return language && language.length === LANGUAGE_CODE_LENGTH
-  }
+  isLanguageCode = router => router.params.location && router.params.location.length >= LANGUAGE_CODE_MIN_LENGTH &&
+    router.params.location.length <= LANGUAGE_CODE_MAX_LENGTH
 
-  redirectCondition = location => !RouterFragment.isLanguageCode(location.params.language)
-  isLocation = location => this.props.locations.find(_location => _location.code === location)
+  isLocation = router => this.props.locations.find(location => location.code === router.params.location)
 
   render () {
     const {routeConfig, locations, viewportSmall} = this.props
+
     return <Fragment forRoute='/'>
-      {/* Routes */}
       <React.Fragment>
         {/* No language was provided, so redirect to a specific language (e.g. the browsers language) */}
         <Fragment forRoute='/'>
@@ -42,24 +42,28 @@ export class RouterFragment extends React.Component {
         {/* Matches /disclaimer */}
         <Fragment forRoute='/disclaimer'>
           <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                  footer={<GeneralFooter />}><MainDisclaimerPage /></Layout>
+                  footer={<GeneralFooter />}>
+            <MainDisclaimerPage />
+          </Layout>
         </Fragment>
 
-        <Fragment forRoute='/:location' withConditions={this.isLocation}>
+        <Fragment forRoute='/:location/:language(/*)' withConditions={this.isLocation}>
           <LocationFragment routeConfig={routeConfig} locations={locations} />
         </Fragment>
 
-        {/* If language param is longer than 2, it is no language and is probably a location
-        -> redirect the language-specific location */}
-        <Fragment forRoute='/:language(/)' withConditions={this.redirectCondition}>
+        <Fragment forRoute='/:location(/)' withConditions={this.isLocation}>
           <I18nRedirect />
         </Fragment>
 
         {/* Matches one or zero arguments like /de */}
-        <Fragment forRoute='/:language(/)'>
+        <Fragment forRoute='/:location(/)' withConditions={this.isLanguageCode}>
           <Layout footer={<GeneralFooter />}>
             <LandingPage locations={locations} />
           </Layout>
+        </Fragment>
+
+        <Fragment forNoMatch>
+          <Failure />
         </Fragment>
 
         {/* There are no missing routes. Covered:

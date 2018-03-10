@@ -15,9 +15,11 @@ import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import EventsPage from 'routes/events/containers/EventsPage'
 import ExtrasPage from 'routes/extras/containers/ExtrasPage'
+import LanguageModel from '../../endpoint/models/LanguageModel'
 
 class LocationHeader extends React.Component {
   static propTypes = {
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     matchRoute: PropTypes.func.isRequired,
     locationModel: PropTypes.instanceOf(LocationModel).isRequired,
     language: PropTypes.string.isRequired,
@@ -28,12 +30,12 @@ class LocationHeader extends React.Component {
   }
 
   getActionItems () {
-    const {matchRoute} = this.props
+    const {matchRoute, languages} = this.props
     const currentParams = this.getCurrentParams()
     return [
       new HeaderActionItem({href: matchRoute(SearchPage).stringify(currentParams), iconSrc: searchIcon}),
       new HeaderActionItem({href: matchRoute(LandingPage).stringify(currentParams), iconSrc: locationIcon}),
-      new HeaderActionItem({dropDownNode: <LanguageSelector />, iconSrc: languageIcon})
+      new HeaderActionItem({dropDownNode: <LanguageSelector languages={languages} />, iconSrc: languageIcon})
     ]
   }
 
