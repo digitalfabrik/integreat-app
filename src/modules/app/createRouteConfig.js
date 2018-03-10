@@ -11,11 +11,7 @@ import Failure from '../common/components/Failure'
 
 const createRouteConfig = () => [
   new Route({
-    path: '/'
-  }),
-  new Route({
-    id: LandingPage,
-    path: '/:location'
+    path: '/(:location)'
   }),
   new Route({
     id: SearchPage,
@@ -44,6 +40,10 @@ const createRouteConfig = () => [
   new Route({
     id: MainDisclaimerPage,
     path: '/disclaimer'
+  }),
+  new Route({
+    id: LandingPage,
+    path: '/:language(/)'
   }),
   new Route({
     id: Failure,
