@@ -4,8 +4,6 @@ import { Provider } from 'react-redux'
 
 import createHistory from 'modules/app/createHistory'
 import createReduxStore from 'modules/app/createReduxStore'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -70,18 +68,6 @@ describe('LanguageFailure', () => {
   })
 
   describe('connect', () => {
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
-    const locationsEndpoint = new EndpointBuilder('locations')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(locations)
-      .build()
-
     const pathname = '/augsburg/tu'
     const id = '1234'
 
@@ -97,9 +83,7 @@ describe('LanguageFailure', () => {
 
       const languageFailure = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
-            <ConnectedLanguageFailure />
-          </EndpointProvider>
+          <ConnectedLanguageFailure languages={languages} locations={locations} />
         </Provider>
       ).find(LanguageFailure)
 
@@ -132,9 +116,7 @@ describe('LanguageFailure', () => {
 
       mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
-            <ConnectedLanguageFailure />
-          </EndpointProvider>
+          <ConnectedLanguageFailure languages={languages} locations={locations} />
         </Provider>
       ).find(LanguageFailure)
 

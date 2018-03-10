@@ -9,7 +9,7 @@ import withFetcher from '../../endpoint/hocs/withFetcher'
 import LocationModel from '../../endpoint/models/LocationModel'
 import LanguageFragment from './LanguageFragment'
 import LanguageFailure from '../../../routes/categories/containers/LanguageFailure'
-import { languagesUrlMapper } from '../../endpoint/urls'
+import { languagesUrlMapper } from '../../endpoint/urlMappers'
 import languagesMapper from '../../endpoint/mappers/languages'
 
 class LocationFragment extends React.Component {

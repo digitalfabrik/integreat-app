@@ -4,8 +4,6 @@ import { Provider } from 'react-redux'
 
 import createHistory from 'modules/app/createHistory'
 import createReduxStore from 'modules/app/createReduxStore'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -273,24 +271,6 @@ describe('CategoriesPage', () => {
   })
 
   describe('connect', () => {
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
-    const locationsEndpoint = new EndpointBuilder('locations')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(locations)
-      .build()
-
-    const categoriesEndpoint = new EndpointBuilder('categories')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(categories)
-      .build()
-
     const pathname = '/augsburg/de/willkommen'
     const id = '1234'
 
@@ -304,9 +284,7 @@ describe('CategoriesPage', () => {
 
       const categoriesPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
-            <ConnectedCategoriesPage />
-          </EndpointProvider>
+          <ConnectedCategoriesPage categories={categories} languages={languages} locations={locations} />
         </Provider>
       ).find(CategoriesPage)
 
@@ -348,9 +326,7 @@ describe('CategoriesPage', () => {
 
       const categoriesPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
-            <ConnectedCategoriesPage />
-          </EndpointProvider>
+          <ConnectedCategoriesPage categories={categories} languages={languages} locations={locations} />
         </Provider>
       ).find(CategoriesPage)
 

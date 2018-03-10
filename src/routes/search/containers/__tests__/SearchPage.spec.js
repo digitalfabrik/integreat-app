@@ -6,8 +6,6 @@ import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
 
@@ -184,18 +182,6 @@ describe('SearchPage', () => {
   })
 
   describe('connect()', () => {
-    const categoriesEndpoint = new EndpointBuilder('categories')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(categories)
-      .build()
-
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location}}
@@ -203,9 +189,7 @@ describe('SearchPage', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
-            <ConnectedSearchPage />
-          </EndpointProvider>
+          <ConnectedSearchPage languages={languages} categories={categories} />
         </Provider>
       )
 
@@ -228,9 +212,9 @@ describe('SearchPage', () => {
 
       mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
-            <ConnectedSearchPage />
-          </EndpointProvider>
+          <Provider store={store}>
+            <ConnectedSearchPage languages={languages} categories={categories} />
+          </Provider>
         </Provider>
       )
 

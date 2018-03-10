@@ -1,9 +1,9 @@
-import events from '../events'
+import eventsMapper from '../events'
 import EventModel from '../../models/EventModel'
 import lolex from 'lolex'
 import moment from 'moment'
 
-jest.unmock('modules/endpoint/endpoints/events')
+jest.unmock('../events')
 
 describe('events', () => {
   const eventPage1 = {
@@ -47,15 +47,6 @@ describe('events', () => {
     }
   }
 
-  const state = {router: {params: {location: 'augsburg', language: 'de'}}}
-
-  it('should map router to url', () => {
-    expect(events.mapStateToUrl(state)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/events' +
-      '?since=1970-01-01T00:00:00Z'
-    )
-  })
-
   const toEventModel = json => new EventModel({
     id: json.id,
     title: json.title,
@@ -81,7 +72,7 @@ describe('events', () => {
   describe('should map fetched data to models', () => {
     it('if one event has already passed', () => {
       const clock = lolex.install({now: Date.parse('2016-01-31')})
-      const eventsModels = events.mapResponse(json)
+      const eventsModels = eventsMapper(json)
 
       expect(eventsModels).toEqual([
         toEventModel(eventPage1)
@@ -91,7 +82,7 @@ describe('events', () => {
     })
     it('if no event has passed', () => {
       const clock = lolex.install({now: Date.parse('2015-11-29')})
-      const eventsModels = events.mapResponse(json)
+      const eventsModels = eventsMapper(json)
 
       expect(eventsModels).toEqual([
         toEventModel(eventPage2),

@@ -1,4 +1,4 @@
-import locations from '../locations'
+import locationsMapper from '../locations'
 import LocationModel from '../../models/LocationModel'
 
 jest.unmock('../locations')
@@ -18,12 +18,8 @@ describe('locations', () => {
   }
   const locationJson = [location1, location2]
 
-  it('should map router to url', () => {
-    expect(locations.mapStateToUrl()).toEqual('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
-  })
-
   it('should map fetched data to models', () => {
-    const locationModels = locations.mapResponse(locationJson)
+    const locationModels = locationsMapper(locationJson)
     expect(locationModels).toEqual([
       new LocationModel({
         name: location1.name,

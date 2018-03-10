@@ -1,4 +1,4 @@
-import extras from '../extras'
+import extrasMapper from '../extras'
 import ExtraModel from '../../models/ExtraModel'
 
 jest.unmock('../extras')
@@ -34,16 +34,8 @@ describe('extras', () => {
       path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg'})
   ]
 
-  const state = {router: {params: {location: 'bad-toelz', language: 'en'}}}
-
-  it('should map router to url', () => {
-    expect(extras.mapStateToUrl(state)).toEqual(
-      'https://cms.integreat-app.de/bad-toelz/en/wp-json/extensions/v3/extras'
-    )
-  })
-
   it('should map json to models', () => {
-    const disclaimerModel = extras.mapResponse(pageJson)
+    const disclaimerModel = extrasMapper(pageJson)
     expect(disclaimerModel).toEqual(extraModels)
   })
 })

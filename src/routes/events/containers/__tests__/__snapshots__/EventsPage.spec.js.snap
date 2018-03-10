@@ -81,11 +81,4 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
 />
 `;
 
-exports[`EventsPage should match snapshot and render Spinner 1`] = `
-<Spinner
-  fadeIn="full"
-  name="line-scale-party"
-  noFadeIn={false}
-  overrideSpinnerClassName=""
-/>
-`;
+exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `<Translate(Failure) />`;

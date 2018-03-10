@@ -6,8 +6,6 @@ import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
-import EndpointBuilder from '../../../endpoint/EndpointBuilder'
-import EndpointProvider from '../../../endpoint/EndpointProvider'
 
 describe('LanguageSelector', () => {
   const location = 'augsburg'
@@ -45,12 +43,6 @@ describe('LanguageSelector', () => {
   })
 
   describe('connect', () => {
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
     it('should have correct props', () => {
       const mockCloseDropDownCallback = jest.fn()
 
@@ -61,9 +53,7 @@ describe('LanguageSelector', () => {
 
       const tree = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[languagesEndpoint]}>
-            <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
-          </EndpointProvider>
+          <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} languages={languages} />
         </Provider>
       )
 
