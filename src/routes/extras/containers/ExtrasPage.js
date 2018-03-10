@@ -10,7 +10,7 @@ import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
-import withFetcher from '../../../modules/endpoint/withFetcher'
+import withFetcher from '../../../modules/endpoint/hocs/withFetcher'
 import { sprungbrettUrlMapper } from '../../../modules/endpoint/urls'
 import sprungbrettMapper from '../../../modules/endpoint/mappers/sprungbrett'
 
