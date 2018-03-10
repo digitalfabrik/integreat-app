@@ -5,8 +5,6 @@ import moment from 'moment-timezone'
 
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
@@ -71,13 +69,13 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot and render Spinner', () => {
+  it('should match snapshot and render Failure if event does not exist', () => {
     const wrapper = shallow(
-      <EventsPage events={[]}
+      <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
-                  id={id}
+                  id={'234729'}
                   setLanguageChangeUrls={() => {}} />
     )
     expect(wrapper).toMatchSnapshot()
@@ -182,18 +180,6 @@ describe('EventsPage', () => {
   })
 
   describe('connect', () => {
-    const eventsEndpoint = new EndpointBuilder('events')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(events)
-      .build()
-
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
     it('should map state and fetched data to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
@@ -201,9 +187,7 @@ describe('EventsPage', () => {
 
       const eventsPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
-            <ConnectedEventsPage />
-          </EndpointProvider>
+          <ConnectedEventsPage events={events} languages={languages} />
         </Provider>
       ).find(EventsPage)
 
@@ -239,9 +223,7 @@ describe('EventsPage', () => {
 
       const eventsPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[eventsEndpoint, languagesEndpoint]}>
-            <ConnectedEventsPage />
-          </EndpointProvider>
+          <ConnectedEventsPage languages={languages} events={events} />
         </Provider>
       ).find(EventsPage)
 

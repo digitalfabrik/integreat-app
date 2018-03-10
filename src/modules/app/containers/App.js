@@ -9,7 +9,7 @@ import RouterFragment from './RouterFragment'
 import createRouteConfig from '../createRouteConfig'
 import withFetcher from '../../endpoint/hocs/withFetcher'
 import locationsMapper from '../../endpoint/mappers/locations'
-import { locationUrlMapper } from '../../endpoint/urls'
+import { locationUrlMapper } from '../../endpoint/urlMappers'
 
 class App extends React.Component {
   store

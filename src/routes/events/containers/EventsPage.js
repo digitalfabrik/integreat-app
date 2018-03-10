@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Spinner from 'react-spinkit'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import Failure from '../../../modules/common/components/Failure'
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
@@ -102,8 +102,7 @@ export class EventsPage extends React.Component {
       if (event) {
         return <EventDetail event={event} location={this.props.location} language={this.props.language} />
       } else {
-        // events in new language haven't been fetched yet
-        return <Spinner name='line-scale-party' />
+        return <Failure />
       }
     }
     return <EventList events={this.props.events} url={this.getUrl()} language={this.props.language} />

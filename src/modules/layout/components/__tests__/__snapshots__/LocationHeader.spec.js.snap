@@ -159,7 +159,24 @@ exports[`LocationHeader should match snapshot 1`] = `
         "_iconSrc": "test-file-stub",
       },
       HeaderActionItem {
-        "_dropDownNode": <Connect(getContext(Connect(languagesFetcher))) />,
+        "_dropDownNode": <Connect(LanguageSelector)
+          languages={
+            Array [
+              LanguageModel {
+                "_code": "de",
+                "_name": "Deutsch",
+              },
+              LanguageModel {
+                "_code": "en",
+                "_name": "English",
+              },
+              LanguageModel {
+                "_code": "ar",
+                "_name": "Arabic",
+              },
+            ]
+          }
+        />,
         "_href": undefined,
         "_iconSrc": "test-file-stub",
       },

@@ -1,6 +1,5 @@
-import sprungbrett from '../sprungbrett'
+import sprungbrettMapper from '../sprungbrett'
 import SprungbrettJobModel from '../../models/SprungbrettJobModel'
-import ExtraModel from '../../models/ExtraModel'
 
 jest.unmock('../sprungbrett')
 
@@ -70,16 +69,8 @@ describe('sprungbrett', () => {
     })
   ]
 
-  const state = {extras: {data: [new ExtraModel({alias: 'sprungbrett', path: 'sprungbrett_url'})]}}
-
-  it('should map router to url', () => {
-    expect(sprungbrett.mapStateToUrl(state)).toEqual(
-      'sprungbrett_url'
-    )
-  })
-
   it('should map fetched data to models', () => {
-    const sprungbrettModel = sprungbrett.mapResponse(json)
+    const sprungbrettModel = sprungbrettMapper(json)
     expect(sprungbrettModel).toEqual(sprungbrettJobModels)
   })
 })

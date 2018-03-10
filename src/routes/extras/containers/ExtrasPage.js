@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 
-import SprungbrettPage from './SprungbrettPage'
+import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
 import withFetcher from '../../../modules/endpoint/hocs/withFetcher'
-import { sprungbrettUrlMapper } from '../../../modules/endpoint/urls'
+import { sprungbrettUrlMapper } from '../../../modules/endpoint/urlMappers'
 import sprungbrettMapper from '../../../modules/endpoint/mappers/sprungbrett'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
@@ -59,7 +59,7 @@ export class ExtrasPage extends React.Component {
 
   getContent () {
     const sprungbrett = this.props.extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    const SprungbrettPageWithFetcher = withFetcher('sprungbrett', sprungbrettUrlMapper, sprungbrettMapper, {url: sprungbrett.path})(SprungbrettPage)
+    const SprungbrettPageWithFetcher = withFetcher('jobs', sprungbrettUrlMapper, sprungbrettMapper, {url: sprungbrett.path})(SprungbrettList)
 
     if (this.props.extra === SPRUNGBRETT_EXTRA && sprungbrett) {
       return <SprungbrettPageWithFetcher title={sprungbrett.name} />

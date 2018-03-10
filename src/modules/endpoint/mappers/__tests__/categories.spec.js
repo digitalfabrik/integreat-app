@@ -1,4 +1,4 @@
-import categories from '../categories'
+import categoriesMapper from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
 
@@ -78,16 +78,10 @@ describe('categories', () => {
     new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'})
   ]
 
-  const state = {router: {params: {language: 'de', location: 'augsburg'}}}
-
-  it('should map router to url', () => {
-    expect(categories.mapStateToUrl(state)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z'
-    )
-  })
+  const params = {language: 'de', location: 'augsburg'}
 
   it('should map fetched data to models', () => {
-    const response = categories.mapResponse(categoriesJSON, state)
+    const response = categoriesMapper(categoriesJSON, params)
     const categoriesMapModel = new CategoriesMapModel(categoryModels)
     expect(response).toEqual(categoriesMapModel)
   })

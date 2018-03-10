@@ -10,7 +10,23 @@ exports[`LanguageFailure should match snapshot 1`] = `
   >
     common:chooseYourLanguage
   </p>
-  <Connect(getContext(Connect(languagesFetcher)))
+  <Connect(LanguageSelector)
+    languages={
+      Array [
+        LanguageModel {
+          "_code": "en",
+          "_name": "English",
+        },
+        LanguageModel {
+          "_code": "de",
+          "_name": "Deutsch",
+        },
+        LanguageModel {
+          "_code": "ar",
+          "_name": "Arabic",
+        },
+      ]
+    }
     verticalLayout={true}
   />
 </React.Fragment>

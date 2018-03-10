@@ -4,8 +4,6 @@ import { Provider } from 'react-redux'
 
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -58,18 +56,6 @@ describe('DisclaimerPage', () => {
   })
 
   describe('connect', () => {
-    const disclaimerEndpoint = new EndpointBuilder('disclaimer')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(disclaimer)
-      .build()
-
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
     const store = createReduxStore(createHistory, {
       router: {params: {location: location}}
     })
@@ -77,9 +63,7 @@ describe('DisclaimerPage', () => {
     it('should map state and fetched data to props', () => {
       const disclaimerPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
-            <ConnectedDisclaimerPage />
-          </EndpointProvider>
+          <ConnectedDisclaimerPage languages={languages} disclaimer={disclaimer} />
         </Provider>
       ).find(DisclaimerPage)
 
@@ -102,9 +86,7 @@ describe('DisclaimerPage', () => {
 
       const disclaimerPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
-            <ConnectedDisclaimerPage />
-          </EndpointProvider>
+          <ConnectedDisclaimerPage languages={languages} disclaimer={disclaimer} />
         </Provider>
       ).find(DisclaimerPage)
 

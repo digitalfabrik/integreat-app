@@ -27,6 +27,22 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
       currentPath="/:location/:language"
       eventCount={2}
       language="de"
+      languages={
+        Array [
+          LanguageModel {
+            "_code": "de",
+            "_name": "Deutsch",
+          },
+          LanguageModel {
+            "_code": "en",
+            "_name": "English",
+          },
+          LanguageModel {
+            "_code": "ar",
+            "_name": "Arabic",
+          },
+        ]
+      }
       locationModel={
         LocationModel {
           "_code": "location1",

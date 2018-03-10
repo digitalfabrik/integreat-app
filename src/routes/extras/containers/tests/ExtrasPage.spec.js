@@ -4,8 +4,6 @@ import { Provider } from 'react-redux'
 
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
@@ -29,7 +27,7 @@ describe('ExtrasPage', () => {
     new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', name: 'Praktikumsboerse', thumbnail: 'xy'})
   ]
 
-  it('should render a sprungbrett page if it is the selected extra', () => {
+  it('should render a sprungbrett list if it is the selected extra', () => {
     const extrasPage = shallow(
       <ExtrasPage setLanguageChangeUrls={() => {}}
                   languages={languages}
@@ -94,18 +92,6 @@ describe('ExtrasPage', () => {
   })
 
   describe('connect', () => {
-    const extrasEndpoint = new EndpointBuilder('extras')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(extras)
-      .build()
-
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
         router: {params: {location: location, language: language, extra: 'extra'}}
@@ -113,9 +99,7 @@ describe('ExtrasPage', () => {
 
       const sprungbrettPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[extrasEndpoint, languagesEndpoint]}>
-            <ConnectedExtrasPage />
-          </EndpointProvider>
+          <ConnectedExtrasPage languages={languages} extras={extras} />
         </Provider>
       ).find(ExtrasPage)
 
@@ -145,9 +129,7 @@ describe('ExtrasPage', () => {
 
       const eventsPage = mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[extrasEndpoint, languagesEndpoint]}>
-            <ConnectedExtrasPage />
-          </EndpointProvider>
+          <ConnectedExtrasPage languages={languages} extras={extras} />
         </Provider>
       ).find(ExtrasPage)
 
