@@ -48,7 +48,7 @@ export class LanguageFragment extends React.Component {
     const {locations, languages, categories, events, extras, disclaimer} = this.props
 
     return <React.Fragment>
-      <LocationLayout matchRoute={this.matchRoute} locations={locations} events={events}>
+      <LocationLayout matchRoute={this.matchRoute} locations={locations} events={events} languages={languages}>
         {/* Matches /augsburg/de/search -> Search */}
         <Fragment forRoute='/search'>
           <SearchPage locations={locations} languages={languages} categories={categories} />
@@ -98,7 +98,7 @@ class Container extends React.Component {
       withFetcher('extras', extrasUrlMapper, extrasMapper, params)
     )(LanguageFragment)
 
-    return <LanguageFragmentWithFetchers locations={locations} languages={languages} location={location} language={language} routeConfig={routeConfig} />
+    return <LanguageFragmentWithFetchers locations={locations} languages={languages} routeConfig={routeConfig} />
   }
 }
 

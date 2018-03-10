@@ -1,7 +1,7 @@
 import ExtraModel from '../models/ExtraModel'
 
 function extrasMapper (json) {
-  json
+  return json
     .map(extra => new ExtraModel({
       alias: extra.alias,
       name: extra.name,

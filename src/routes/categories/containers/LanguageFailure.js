@@ -50,10 +50,11 @@ export class LanguageFailure extends React.PureComponent<Props> {
   }
 
   render () {
+    const {languages, t} = this.props
     return <Fragment>
       <Caption title={this.getTitle()} />
-      <p className={style.chooseLanguage}>{this.props.t('common:chooseYourLanguage')}</p>
-      <LanguageSelector verticalLayout />
+      <p className={style.chooseLanguage}>{t('common:chooseYourLanguage')}</p>
+      <LanguageSelector languages={languages} verticalLayout />
     </Fragment>
   }
 }
