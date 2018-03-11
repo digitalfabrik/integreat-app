@@ -1,7 +1,5 @@
 const useHMR = !!global.HMR // HotModuleReplacement
 const config = {
-  babelrc: false,
-  cacheDirectory: useHMR,
   presets: [
     '@babel/preset-env',
     '@babel/preset-react',
@@ -15,6 +13,8 @@ const config = {
 }
 
 if (useHMR) {
+  config.babelrc = false
+  config.cacheDirectory = useHMR
   config.plugins.unshift('react-hot-loader/babel')
 }
 
