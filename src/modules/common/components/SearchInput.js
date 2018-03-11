@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import { backgroundColor, textColor, textSecondaryColor } from '../constants/colors'
 
 const searchLogoWidth = '25px'
 
@@ -16,15 +15,15 @@ const TextInput = styled.input.attrs({type: 'text'})`
   height: 25px;
   box-sizing: border-box;
   margin-left: 5px;
-  color: ${textColor};
+  color: ${props => props.theme.colors.textColor};
   background: transparent;
   border-width: 0 0 1px;
-  border-color: ${textSecondaryColor};
+  border-color: ${props => props.theme.colors.textSecondaryColor};
   outline: none;
   border-radius: 0;
 
   &::placeholder {
-    color: ${textColor}
+    color: ${props => props.theme.colors.textColor}
   }
 `
 
@@ -33,7 +32,7 @@ const Wrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 10%;
-  background-color: ${backgroundColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const SearchIcon = styled(FontAwesome).attrs({name: 'search'})`

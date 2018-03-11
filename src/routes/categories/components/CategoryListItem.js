@@ -7,7 +7,7 @@ import Highlighter from 'react-highlighter'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
-import { themeColor } from '../../../modules/common/constants/colors'
+import { themeColor } from '../../../modules/app/constants/colors'
 
 const Row = styled.div`margin: 20px 0;`
 

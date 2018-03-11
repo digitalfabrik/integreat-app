@@ -3,15 +3,15 @@
 import React from 'react'
 
 import { Link } from 'redux-little-router'
-import { textSecondaryColor, textDecorationColor } from 'modules/common/constants/colors'
+import { textSecondaryColor, textDecorationColor } from 'modules/app/constants/colors'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import styled from 'styled-components'
-import { removeA } from '../../../modules/common/constants/helpers'
+import { removeA } from '../../../modules/app/constants/helpers'
 
 const Wrapper = styled.div`
-  padding: 10px 0;
+  margin: 10px 0;
   white-space: nowrap;
   overflow-x: auto;
 
