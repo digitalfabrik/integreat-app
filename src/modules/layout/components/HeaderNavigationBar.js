@@ -18,7 +18,7 @@ class HeaderNavigationBar extends React.Component {
   render () {
     return <div
       className={cx({
-        [this.props.className]: true,
+        [this.props.className]: this.props.className,
         [style.navigationBar]: true,
         [style.hidden]: isEmpty(this.props.children)
       })}>
