@@ -1,4 +1,6 @@
-export const removeA = `
-  color: inherit;
-  text-decoration: none;
-`
+export default {
+  removeA: `
+    color: inherit;
+    text-decoration: none;
+  `
+}

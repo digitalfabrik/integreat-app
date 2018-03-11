@@ -3,19 +3,17 @@
 import React from 'react'
 
 import { Link } from 'redux-little-router'
-import { textSecondaryColor, textDecorationColor } from 'modules/app/constants/colors'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import styled from 'styled-components'
-import { removeA } from '../../../modules/app/constants/helpers'
 
 const Wrapper = styled.div`
   margin: 10px 0;
   white-space: nowrap;
   overflow-x: auto;
 
- /* avoid changing height when switching between pages (show line even if there are no breadcrumbs) */
+  /* avoid changing height when switching between pages (show line even if there are no breadcrumbs) */
   &:empty::after {
     padding-left: 1px;
     content: '';
@@ -23,19 +21,19 @@ const Wrapper = styled.div`
 `
 
 const Breadcrumb = styled(Link)`
-  ${removeA}
+  ${props => props.theme.helpers.removeA}
 `
 
 const Separator = styled.span`
   &::after {
-    color: ${textDecorationColor};
+    color: ${props => props.theme.colors.textDecorationColor};
     font-size: 16px;
     content: ' > ';
   }
 `
 
 const Title = styled.span`
-  color: ${textSecondaryColor};
+  color: ${props => props.theme.colors.textSecondaryColor};
   font-size: 15px;
 `
 

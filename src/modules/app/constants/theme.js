@@ -1,7 +1,7 @@
-import * as colors from './colors'
-import * as dimensions from './dimensions'
-import * as fonts from './fonts'
-import * as helpers from './helpers'
+import colors from './colors'
+import dimensions from './dimensions'
+import fonts from './fonts'
+import helpers from './helpers'
 
 export default {
   colors,
