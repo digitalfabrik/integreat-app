@@ -28,7 +28,11 @@ class HeaderNavigationItem extends React.PureComponent {
     return <React.Fragment>
       <ConditionalLink active={active} data-tip={!active ? tooltip : ''}
                        key={text}
-                       className={cx(style.navigationItem, !active ? style.inactiveNavigationItem : (selected ? style.selectedNavigationItem : ''))}
+                       className={cx({
+                         [style.navigationItem]: true,
+                         [style.inactiveNavigationItem]: !active,
+                         [style.selectedNavigationItem]: active && selected
+                       })}
                        href={href}>{text}
       </ConditionalLink>
 
