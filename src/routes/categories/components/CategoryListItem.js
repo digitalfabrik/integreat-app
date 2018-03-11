@@ -7,9 +7,10 @@ import Highlighter from 'react-highlighter'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
-import { themeColor } from '../../../modules/app/constants/colors'
 
-const Row = styled.div`margin: 20px 0;`
+const Row = styled.div`
+  margin: 20px 0;
+`
 
 const CategoryThumbnail = styled.img`
   width: 40px;
@@ -32,13 +33,13 @@ const CategoryCaption = styled(Highlighter)`
   flex-grow: 1;
   margin-left: 10px;
   padding: 15px 0;
-  border-bottom: 2px solid ${themeColor};
+  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   word-wrap: break-word;
 `
 
 const SubCategoryCaption = CategoryCaption.extend`
   padding: 10px 0 10px 15px;
-  border-bottom: 1px solid ${themeColor};
+  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 const StyledLink = styled(Link)`

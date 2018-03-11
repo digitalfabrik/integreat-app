@@ -1,3 +1,5 @@
-export const smallViewport = `(max-width: 750px)`
-export const headerHeight = '85px'
-export const headerHeightSmall = '55px'
+export default {
+  smallViewport: `(max-width: 750px)`,
+  headerHeight: '85px',
+  headerHeightSmall: '55px'
+}

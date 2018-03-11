@@ -1,7 +1,9 @@
-export const themeColor = '#fbda16'
-export const themeDarkColor = '#c4a900'
-export const backgroundAccentColor = '#fafafa'
-export const textColor = '#000000'
-export const textSecondaryColor = '#585858'
-export const textDecorationColor = '#c7c7c7'
-export const backgroundColor = '#ffffff'
+export default {
+  themeColor: '#fbda16',
+  themeDarkColor: '#c4a900',
+  backgroundAccentColor: '#fafafa',
+  textColor: '#000000',
+  textSecondaryColor: '#585858',
+  textDecorationColor: '#c7c7c7',
+  backgroundColor: '#ffffff'
+}

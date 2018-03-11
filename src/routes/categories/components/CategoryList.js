@@ -7,11 +7,10 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
-import { removeA } from 'modules/app/constants/helpers'
 
 const List = styled.div`
   & a {
-    ${() => removeA}
+    ${props => props.theme.helpers.removeA}
   }
 `
 
