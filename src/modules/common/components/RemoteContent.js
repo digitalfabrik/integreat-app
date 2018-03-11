@@ -2,13 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import styled, { css } from 'styled-components'
-import { contentFontFamily, contentFontSize, contentLineHeight } from '../constants/fonts'
-import { backgroundAccentColor } from '../constants/colors'
 
 const SandBox = styled.div`
-  font-family: ${contentFontFamily};
-  font-size: ${contentFontSize};
-  line-height: ${contentLineHeight};
+  font-family: ${props => props.theme.fonts.contentFontFamily};
+  font-size: ${props => props.theme.fonts.contentFontSize};
+  line-height: ${props => props.theme.fonts.contentLineHeight};
   ${props => props.centered && css`
     text-align: center;
     list-style-position: inside;
@@ -39,7 +37,7 @@ const SandBox = styled.div`
   & thead,
   & th,
   & td {
-    border: 1px solid ${backgroundAccentColor};
+    border: 1px solid ${props => props.theme.colors.backgroundAccentColor};
   }
   
   & a {

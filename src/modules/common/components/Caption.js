@@ -2,14 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
-import { smallViewport } from '../constants/dimensions'
 
 const H1 = styled.h1`
   margin: 25px 0;
   font-size: 2rem;
   text-align: center;
   
-  @media ${smallViewport} {
+  @media ${props => props.theme.dimensions.smallViewport} {
     margin: 10px 0;
   }
 `

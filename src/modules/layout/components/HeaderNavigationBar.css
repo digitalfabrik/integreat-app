@@ -1,6 +1,6 @@
-@import url('../../common/constants/dimensions.css');
-@import url('../../common/constants/helpers.css');
-@import url('../../common/constants/fonts.css');
+@import url('../../app/constants/dimensions.css');
+@import url('../../app/constants/helpers.css');
+@import url('../../app/constants/fonts.css');
 
 .navigation-bar {
   display: flex;

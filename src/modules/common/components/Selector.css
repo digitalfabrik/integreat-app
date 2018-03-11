@@ -1,6 +1,6 @@
-@import url('../constants/helpers.css');
-@import url('../constants/colors.css');
-@import url('../constants/dimensions.css');
+@import url('../../app/constants/helpers.css');
+@import url('../../app/constants/colors.css');
+@import url('../../app/constants/dimensions.css');
 
 .selector {
   display: flex;
