@@ -6,7 +6,7 @@ import I18nProvider from './I18nProvider'
 
 import RouteConfig from '../RouteConfig'
 import RouterFragment from './RouterFragment'
-import createRouteConfig from '../createRouteConfig'
+import routesMap from '../routesMap'
 import withFetcher from '../../endpoint/hocs/withFetcher'
 import locationsMapper from '../../endpoint/mappers/locations'
 import { locationUrlMapper } from '../../endpoint/urlMappers'
@@ -15,9 +15,10 @@ class App extends React.Component {
   store
   routeConfig
 
+  // todo
   constructor () {
     super()
-    this.routeConfig = new RouteConfig(createRouteConfig())
+    this.routeConfig = new RouteConfig(routesMap)
   }
 
   componentWillMount () {

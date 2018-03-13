@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -35,7 +35,7 @@ class Breadcrumbs extends React.Component<Props> {
       return (
         <Link key={parent.url}
               className={style.breadcrumb}
-              href={parent.url}>
+              to={parent.url}>
           <span className={style.separator} />
           <span className={style.level}>{title}</span>
         </Link>

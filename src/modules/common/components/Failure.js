@@ -4,7 +4,7 @@ import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
 
 import style from './Failure.css'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
@@ -20,7 +20,7 @@ export class Failure extends React.Component {
     return <div>
       <div className={style.centerText}>{t(error)}</div>
       <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
-      <Link className={style.centerText} href={'/'}>{t('goToStart')}</Link>
+      <Link className={style.centerText} to={'/'}>{t('goToStart')}</Link>
     </div>
   }
 }

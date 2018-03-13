@@ -6,7 +6,7 @@ import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../constants'
 import Headroom from '../../common/components/Headroom'
 
@@ -35,7 +35,7 @@ class Header extends React.Component {
       <Headroom scrollHeight={scrollHeight}>
         <header className={style.header}>
           <div className={style.logoWide}>
-            <Link href={this.props.logoHref}>
+            <Link to={this.props.logoHref}>
               <img src={logoWide} />
             </Link>
           </div>
