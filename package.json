@@ -1,6 +1,6 @@
 {
   "name": "integreat-webapp",
-  "version": "2018.03.0",
+  "version": "2018.03.1",
   "private": true,
   "engines": {
     "node": ">=6",
