@@ -5,18 +5,21 @@ describe('EndpointBuilder', () => {
     const url = 'https://someurl'
     const name = 'endpoint'
     const mapper = json => json
-    const override = {test: 'random'}
+    const responseOverride = {test: 'random'}
+    const errorOverride = 'Error No. 5'
 
     const endpoint = new EndpointBuilder(name)
       .withStateToUrlMapper(() => url)
       .withMapper(mapper)
-      .withResponseOverride(override)
+      .withResponseOverride(responseOverride)
+      .withErrorOverride(errorOverride)
       .build()
 
     expect(endpoint.mapStateToUrl).toEqual(expect.any(Function))
     expect(endpoint.stateName).toBe(name)
     expect(endpoint.mapResponse).toBe(mapper)
-    expect(endpoint.responseOverride).toBe(override)
+    expect(endpoint.responseOverride).toBe(responseOverride)
+    expect(endpoint.errorOverride).toBe(errorOverride)
   })
 
   it('should throw errors if used incorrectly', () => {

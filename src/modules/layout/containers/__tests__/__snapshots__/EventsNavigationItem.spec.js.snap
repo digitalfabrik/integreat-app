@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventsNavigationItem should render active if events are available 1`] = `
+<HeaderNavigationItem
+  active={true}
+  href="href1"
+  selected={false}
+  text="href1"
+  tooltip="tooltip1"
+/>
+`;
+
+exports[`EventsNavigationItem should render inactive if events are undefined or empty 1`] = `
+<HeaderNavigationItem
+  active={false}
+  href="href1"
+  selected={false}
+  text="text1"
+  tooltip="tooltip1"
+/>
+`;
+
+exports[`EventsNavigationItem should render inactive if events are undefined or empty 2`] = `
+<HeaderNavigationItem
+  active={false}
+  href="href1"
+  selected={false}
+  text="text1"
+  tooltip="tooltip1"
+/>
+`;
