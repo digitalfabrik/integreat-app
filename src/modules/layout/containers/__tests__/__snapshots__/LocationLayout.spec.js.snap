@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+  header={
+    <GeneralHeader
+      viewportSmall={true}
+    />
+  }
+>
+  <MockNode />
+</Layout>
+`;
+
+exports[`LocationLayout should show LocationHeader and LocationFooter if LocationModel is available 1`] = `
+<Layout
+  footer={
+    <Translate(LocationFooter)
+      language="de"
+      location="location1"
+      matchRoute={[Function]}
+    />
+  }
+  header={
+    <Translate(LocationHeader)
+      currentPath="/:location/:language"
+      language="de"
+      locationModel={
+        LocationModel {
+          "_code": "location1",
+          "_eventsEnabled": false,
+          "_extrasEnabled": false,
+          "_live": false,
+          "_name": "Mambo No. 5",
+          "_sortCategory": "M",
+          "_sortKey": "mambo no. 5",
+        }
+      }
+      matchRoute={[Function]}
+      viewportSmall={true}
+    />
+  }
+>
+  <MockNode />
+</Layout>
+`;

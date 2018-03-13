@@ -1,0 +1,26 @@
+@import url('../../common/constants/helpers.css');
+@import url('../../common/constants/colors.css');
+@import url('../../common/constants/dimensions.css');
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--background-accent-color);
+}
+
+.footer * {
+  @mixin remove-a;
+  margin: 5px;
+}
+
+.footer > *:after {
+  padding-right: 10px;
+  content: '';
+}
+
+.footer > *:last-child::after {
+  content: '';
+}

@@ -1,0 +1,27 @@
+@import url('../../common/constants/dimensions.css');
+
+.action-items {
+  justify-content: flex-end;
+}
+
+.action-items > * {
+  width: calc(0.8 * var(--header-height));
+  height: calc(0.8 * var(--header-height));
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.action-items img {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 22%;
+  object-fit: contain;
+}
+
+@media (--small-viewport) {
+  .action-items > * {
+    width: calc(0.8 * var(--header-height-small));
+    height: calc(0.8 * var(--header-height-small));
+  }
+}

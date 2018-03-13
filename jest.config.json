@@ -1,6 +1,7 @@
 {
   "rootDir": "src/",
   "verbose": true,
+  "automock": false,
   "setupFiles": [
     "<rootDir>/setupTest.js"
   ],
@@ -21,5 +22,8 @@
   "collectCoverageFrom": [
     "**/*.{js,jsx}"
   ],
-  "coverageDirectory": "../__coverage__"
+  "coverageDirectory": "../__coverage__",
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ]
 }

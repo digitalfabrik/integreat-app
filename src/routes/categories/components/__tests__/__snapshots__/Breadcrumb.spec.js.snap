@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs should render and match snapshot 1`] = `
+<div
+  className="breadcrumbs"
+>
+  <Connect(Link)
+    className="breadcrumb"
+    href="/augsburg/de"
+    key="/augsburg/de"
+  >
+    <span
+      className="separator"
+    />
+    <span
+      className="level"
+    >
+      Augsburg
+    </span>
+  </Connect(Link)>
+  <Connect(Link)
+    className="breadcrumb"
+    href="/augsburg/de/willkommen"
+    key="/augsburg/de/willkommen"
+  >
+    <span
+      className="separator"
+    />
+    <span
+      className="level"
+    >
+      Willkommen
+    </span>
+  </Connect(Link)>
+  <Connect(Link)
+    className="breadcrumb"
+    href="/augsburg/de/willkommen/willkommen-in-augsburg"
+    key="/augsburg/de/willkommen/willkommen-in-augsburg"
+  >
+    <span
+      className="separator"
+    />
+    <span
+      className="level"
+    >
+      Willkommen in Augsburg
+    </span>
+  </Connect(Link)>
+</div>
+`;

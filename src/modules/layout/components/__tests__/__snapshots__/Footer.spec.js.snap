@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should insert items 1`] = `
+<footer
+  className="footer"
+/>
+`;
+
+exports[`Footer should show Version on dev builds 1`] = `
+<footer
+  className="footer"
+>
+  <span
+    className="item"
+  >
+    vX.X
+  </span>
+</footer>
+`;

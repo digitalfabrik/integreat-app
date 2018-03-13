@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationHeader NavigationItems should be empty, if extras and news are both disabled 1`] = `Array []`;
+
+exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de/extras"
+    selected={false}
+    text="layout:extras"
+  />,
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de"
+    selected={true}
+    text="layout:categories"
+  />,
+  <getContext(Connect(eventsFetcher))
+    href="/location1/de/events"
+    selected={false}
+    text="layout:news"
+    tooltip="layout:noNews"
+  />,
+]
+`;
+
+exports[`LocationHeader NavigationItems should highlight events if route corresponds 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de/extras"
+    selected={false}
+    text="layout:extras"
+  />,
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de"
+    selected={false}
+    text="layout:categories"
+  />,
+  <getContext(Connect(eventsFetcher))
+    href="/location1/de/events"
+    selected={true}
+    text="layout:news"
+    tooltip="layout:noNews"
+  />,
+]
+`;
+
+exports[`LocationHeader NavigationItems should highlight extras if extras route is selected 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de/extras"
+    selected={false}
+    text="layout:extras"
+  />,
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de"
+    selected={false}
+    text="layout:categories"
+  />,
+  <getContext(Connect(eventsFetcher))
+    href="/location1/de/events"
+    selected={false}
+    text="layout:news"
+    tooltip="layout:noNews"
+  />,
+]
+`;
+
+exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de/extras"
+    selected={false}
+    text="layout:extras"
+  />,
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de"
+    selected={false}
+    text="layout:categories"
+  />,
+]
+`;
+
+exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 2`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de"
+    selected={false}
+    text="layout:categories"
+  />,
+  <getContext(Connect(eventsFetcher))
+    href="/location1/de/events"
+    selected={false}
+    text="layout:news"
+    tooltip="layout:noNews"
+  />,
+]
+`;
+
+exports[`LocationHeader NavigationItems should show extras, categories, events in this order 1`] = `
+Array [
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de/extras"
+    selected={false}
+    text="layout:extras"
+  />,
+  <HeaderNavigationItem
+    active={true}
+    href="/location1/de"
+    selected={false}
+    text="layout:categories"
+  />,
+  <getContext(Connect(eventsFetcher))
+    href="/location1/de/events"
+    selected={false}
+    text="layout:news"
+    tooltip="layout:noNews"
+  />,
+]
+`;
+
+exports[`LocationHeader should match snapshot 1`] = `
+<Header
+  actionItems={
+    Array [
+      HeaderActionItem {
+        "_dropDownNode": undefined,
+        "_href": "/location1/de/search",
+        "_iconSrc": "test-file-stub",
+      },
+      HeaderActionItem {
+        "_dropDownNode": undefined,
+        "_href": "/de",
+        "_iconSrc": "test-file-stub",
+      },
+      HeaderActionItem {
+        "_dropDownNode": <Connect(getContext(Connect(languagesFetcher))) />,
+        "_href": undefined,
+        "_iconSrc": "test-file-stub",
+      },
+    ]
+  }
+  logoHref="/location1/de"
+  navigationItems={
+    Array [
+      <HeaderNavigationItem
+        active={true}
+        href="/location1/de/extras"
+        selected={false}
+        text="layout:extras"
+      />,
+      <HeaderNavigationItem
+        active={true}
+        href="/location1/de"
+        selected={false}
+        text="layout:categories"
+      />,
+      <getContext(Connect(eventsFetcher))
+        href="/location1/de/events"
+        selected={false}
+        text="layout:news"
+        tooltip="layout:noNews"
+      />,
+    ]
+  }
+  viewportSmall={true}
+/>
+`;

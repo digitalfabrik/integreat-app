@@ -1,1 +1,1 @@
-This package contains all the pages which are referenced by route paths in main.js.
+This package contains all the routes. Routes can contain containers, components, hocs, actions and reducers

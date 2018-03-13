@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventList should render a list of events 1`] = `
+<React.Fragment>
+  <Caption
+    title="events:news"
+  />
+  <div
+    className="list"
+  >
+    <EventListElement
+      event={
+        EventModel {
+          "_address": "",
+          "_allDay": true,
+          "_availableLanguages": Object {
+            "ar": "1236",
+            "de": "1235",
+          },
+          "_content": "",
+          "_endDate": "2017-11-18T19:30:00.000Z",
+          "_excerpt": "",
+          "_id": 1234,
+          "_startDate": "2017-11-18T09:30:00.000Z",
+          "_thumbnail": "",
+          "_title": "first Event",
+          "_town": "",
+        }
+      }
+      key="1234"
+      language="en"
+      parentUrl="/augsburg/en/events"
+    />
+    <EventListElement
+      event={
+        EventModel {
+          "_address": "",
+          "_allDay": true,
+          "_availableLanguages": Object {
+            "ar": "1236",
+            "en": "1234",
+          },
+          "_content": "",
+          "_endDate": "2017-11-18T19:30:00.000Z",
+          "_excerpt": "",
+          "_id": 1235,
+          "_startDate": "2017-11-18T09:30:00.000Z",
+          "_thumbnail": "",
+          "_title": "erstes Event",
+          "_town": "",
+        }
+      }
+      key="1235"
+      language="en"
+      parentUrl="/augsburg/en/events"
+    />
+    <EventListElement
+      event={
+        EventModel {
+          "_address": "",
+          "_allDay": true,
+          "_availableLanguages": Array [],
+          "_content": "",
+          "_endDate": "2017-11-18T19:30:00.000Z",
+          "_excerpt": "",
+          "_id": 2,
+          "_startDate": "2017-11-18T09:30:00.000Z",
+          "_thumbnail": "",
+          "_title": "second Event",
+          "_town": "",
+        }
+      }
+      key="2"
+      language="en"
+      parentUrl="/augsburg/en/events"
+    />
+  </div>
+</React.Fragment>
+`;
+
+exports[`EventList should render no events 1`] = `
+<div>
+  <Caption
+    title="events:news"
+  />
+  <div
+    className="noEvents"
+  >
+    events:currentlyNoEvents
+  </div>
+</div>
+`;

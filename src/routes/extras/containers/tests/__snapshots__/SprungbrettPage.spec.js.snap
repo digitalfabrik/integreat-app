@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettPage it should render a list with all jobs 1`] = `
+<React.Fragment>
+  <Caption
+    title="Sprungbrett"
+  />
+  <SprungbrettList
+    jobs={
+      Array [
+        SprungbrettModel {
+          "_id": "0",
+          "_isApprenticeship": true,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "WebDeveloper",
+          "_url": undefined,
+        },
+        SprungbrettModel {
+          "_id": "1",
+          "_isApprenticeship": false,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "BackendDeveloper",
+          "_url": undefined,
+        },
+        SprungbrettModel {
+          "_id": "2",
+          "_isApprenticeship": true,
+          "_isEmployment": false,
+          "_location": "Augsburg",
+          "_title": "Freelancer",
+          "_url": undefined,
+        },
+      ]
+    }
+  />
+</React.Fragment>
+`;
