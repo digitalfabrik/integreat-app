@@ -1,28 +1,22 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router'
+import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
 import RouteConfig from 'modules/app/RouteConfig'
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 
-const createReduxStore = (createHistory, initialState = {}, routes = new RouteConfig()) => {
+const createReduxStore = (createHistory, initialState = {}, routesMap = new RouteConfig()) => {
   const history = createHistory()
-  const basename = ''
 
-  // Additional reducers
-  const {enhancer: routerEnhancer, reducer: routerReducer, middleware: routerMiddleware} = routerForBrowser({
-    routes: routes.toPlainObject(),
-    basename,
-    history
-  })
+  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap)
 
   /**
    * The middlewares of this app, add additional middlewares here
    */
   const middlewares = [
-    routerMiddleware,
+    middleware,
     thunkMiddleware // Allows to return functions in actions
   ]
 
@@ -31,22 +25,15 @@ const createReduxStore = (createHistory, initialState = {}, routes = new RouteCo
     middlewares.push(createLogger()) // Logs all state changes in console
   }
 
-  const reducer = combineReducers({
+  const reducers = combineReducers({
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
-    router: routerReducer,
+    router: reducer,
     languageChangeUrls: setLanguageChangeUrlsReducer
   })
 
-  const enhancer = compose(responsiveStoreEnhancer, routerEnhancer, applyMiddleware(...middlewares))
+  const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
 
-  const store = createStore(reducer, initialState, enhancer)
-
-  const initialLocation = store.router
-  if (initialLocation) {
-    store.dispatch(initializeCurrentLocation(initialLocation))
-  }
-
-  return store
+  return createStore(reducers, initialState, enhancers)
 }
 
 export default createReduxStore
