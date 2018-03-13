@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'redux-little-router'
 import cx from 'classnames'
 
 import style from './Selector.css'
 import SelectorItemModel from '../models/SelectorItemModel'
+import Link from 'redux-first-router-link'
 
 /**
  * Displays a Selector showing different items
@@ -33,7 +33,7 @@ class Selector extends React.Component {
           <Link key={item.code}
                 className={style.element}
                 onClick={this.props.closeDropDownCallback}
-                href={item.path}>
+                to={item.path}>
             {item.name}
           </Link>
         )

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { replace } from 'redux-little-router'
 import normalizeUrl from 'normalize-url'
 
 import { connect } from 'react-redux'
@@ -19,7 +18,8 @@ export class I18nRedirect extends React.Component {
   }
 
   componentWillMount () {
-    this.props.redirect(`${normalizeUrl(this.props.currentPath)}/${this.context.i18n.language}`)
+    // todo
+    // this.props.redirect(`${normalizeUrl(this.props.currentPath)}/${this.context.i18n.language}`)
   }
 
   render () {

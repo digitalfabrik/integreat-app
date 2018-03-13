@@ -8,7 +8,7 @@ import SearchPage from '../../../routes/search/containers/SearchPage'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import Failure from '../../common/components/Failure'
 
-export default (state, action) => components[action.type] || state
+export default (state = {}, action = 'LANDING') => components[action.type] || state
 
 const components = {
   LANDING: LandingPage,
