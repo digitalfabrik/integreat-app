@@ -12,6 +12,8 @@ import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
+import Caption from '../../../modules/common/components/Caption'
+import { translate } from 'react-i18next'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -25,7 +27,8 @@ export class ExtrasPage extends React.Component {
     extra: PropTypes.string,
     extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    setLanguageChangeUrls: PropTypes.func.isRequired
+    setLanguageChangeUrls: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   componentWillMount () {
@@ -57,6 +60,7 @@ export class ExtrasPage extends React.Component {
   }
 
   getContent () {
+    const {t} = this.props
     const sprungbrett = this.props.extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
 
     if (this.props.extra === SPRUNGBRETT_EXTRA && sprungbrett) {
@@ -65,7 +69,10 @@ export class ExtrasPage extends React.Component {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
       return <Failure error={'not-found:page.notFound'} />
     } else {
-      return <Tiles tiles={this.getTileModels()} />
+      return <React.Fragment>
+        <Caption title={t('extras')} />
+        <Tiles tiles={this.getTileModels()} />
+      </React.Fragment>
     }
   }
 
@@ -85,6 +92,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  translate('layout'),
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('extras'),
   withFetcher('languages')
