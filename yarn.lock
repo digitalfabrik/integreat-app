@@ -6075,6 +6075,12 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
 
+path-to-regexp@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
+  dependencies:
+    isarray "0.0.1"
+
 path-to-regexp@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.1.0.tgz#7e30f9f5b134bd6a28ffc2e3ef1e47075ac5259b"
@@ -6718,6 +6724,13 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@15.5.10:
+  version "15.5.10"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+
 prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@~15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
@@ -7134,6 +7147,20 @@ redux-actions@~2.2.1:
     lodash-es "^4.17.4"
     reduce-reducers "^0.1.0"
 
+redux-first-router-link@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/redux-first-router-link/-/redux-first-router-link-1.4.2.tgz#2cd5274fe12539f617068bb2412f329f437813d2"
+  dependencies:
+    path-to-regexp "^1.7.0"
+    prop-types "15.5.10"
+    rudy-match-path "^0.3.0"
+
+redux-first-router@^0.0.16-next:
+  version "0.0.16-next"
+  resolved "https://registry.yarnpkg.com/redux-first-router/-/redux-first-router-0.0.16-next.tgz#493c344dd92b4c20a318a024d4dfa7d948d87d86"
+  dependencies:
+    rudy-match-path "^0.3.0"
+
 redux-little-router@~14.2.1:
   version "14.2.3"
   resolved "https://registry.yarnpkg.com/redux-little-router/-/redux-little-router-14.2.3.tgz#2b2d6b4d1c6a825f0c1ec1aab00671f2a154c49d"
@@ -7434,6 +7461,12 @@ rst-selector-parser@^2.2.3:
   dependencies:
     lodash.flattendeep "^4.4.0"
     nearley "^2.7.10"
+
+rudy-match-path@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/rudy-match-path/-/rudy-match-path-0.3.0.tgz#c90e23caac500f244d5e4ab448e2725f1254e2e8"
+  dependencies:
+    path-to-regexp "^1.7.0"
 
 run-async@^2.2.0:
   version "2.3.0"

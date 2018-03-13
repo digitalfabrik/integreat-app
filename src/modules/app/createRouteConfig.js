@@ -9,46 +9,13 @@ import EventsPage from 'routes/events/containers/EventsPage'
 import Route from './Route'
 import Failure from '../common/components/Failure'
 
-const createRouteConfig = () => [
-  new Route({
-    path: '/(:location)'
-  }),
-  new Route({
-    id: SearchPage,
-    path: '/:location/:language/search'
-  }),
-  new Route({
-    id: DisclaimerPage,
-    path: '/:location/:language/disclaimer'
-  }),
-  new Route({
-    id: EventsPage,
-    path: '/:location/:language/events(/:id)'
-  }),
-  new Route({
-    id: PdfFetcherPage,
-    path: '/:location/:language/fetch-pdf'
-  }),
-  new Route({
-    id: ExtrasPage,
-    path: '/:location/:language/extras(/:extra)'
-  }),
-  new Route({
-    id: CategoriesPage,
-    path: '/:location/:language(/*)'
-  }),
-  new Route({
-    id: MainDisclaimerPage,
-    path: '/disclaimer'
-  }),
-  new Route({
-    id: LandingPage,
-    path: '/:language(/)'
-  }),
-  new Route({
-    id: Failure,
-    path: '/*'
-  })
-]
+const routesMap = {
+  LANDING: '/:language(/)',
+  MAIN_DISCLAIMER: '/disclaimer',
+  EVENTS: {path: '/:location/:language/events(/:event)'},
+  EXTRAS: {path: '/:location/:language/extras(/:extra)'},
+  DISCLAIMER: {path: '/:location/:language/disclaimer'},
+  SEARCH: {path: '/:location/:language/search'}
+}
 
-export default createRouteConfig
+export default routesMap
