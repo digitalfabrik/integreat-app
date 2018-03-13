@@ -15,7 +15,7 @@ const stripSlashes = path => {
   return path
 }
 
-const fetcher = () =>
+const fetcher = (dispatch, location) =>
   fetch(urlMapper())
     .then(response => response.json())
     .then(json => {
@@ -28,6 +28,14 @@ const fetcher = () =>
           extrasEnabled: true // todo
         })).sort(location => location.name)
       return sortBy(locations, location => location.sortKey)
+    })
+    .then(locations => {
+      dispatch({type: 'LOCATIONS_FETCHED', payload: {locations}})
+      return locations
+    }).then(locations => {
+      if (location && !locations.find(_location => _location.code === location)) {
+        dispatch({type: 'LOCATION_NOT_FOUND', payload: {location}})
+      }
     })
 
 export default fetcher
