@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import { branch, mapProps, renderComponent } from 'recompose'
 import { omit } from 'lodash/object'
 

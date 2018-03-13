@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
@@ -27,9 +26,7 @@ type Props = {
   location: string,
   language: string,
   path: string,
-  categoryId?: string,
-  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void,
-  replaceUrl: (string) => void
+  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void
 }
 
 /**
@@ -41,12 +38,6 @@ export class CategoriesPage extends React.Component<Props> {
    * else we just dispatch the language change urls here
    */
   componentDidMount () {
-    if (this.props.categoryId) {
-      const category = this.props.categories.getCategoryById(this.props.categoryId)
-      if (category) {
-        this.props.replaceUrl(category.url)
-      }
-    }
     const category = this.props.categories.getCategoryByUrl(this.props.path)
     this.setLanguageChangeUrls(category)
   }
@@ -97,12 +88,12 @@ export class CategoriesPage extends React.Component<Props> {
    * @param {String} title The title of the category to search for
    * @return {String} The found name or the given title
    */
-  getLocationName (title) {
+  getLocationName (title: string) {
     const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
 
-  getTileModels (categories) {
+  getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
     }))
@@ -154,15 +145,13 @@ export class CategoriesPage extends React.Component<Props> {
 
 const mapDispatchToProps = dispatch => ({
   setLanguageChangeUrls: (mapLanguageToPath, languages, availableLanguages) =>
-    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)),
-  replaceUrl: url => dispatch(replace(url))
+    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages))
 })
 
 const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
-  path: state.router.pathname,
-  categoryId: state.router.query.id
+  path: state.router.pathname
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)

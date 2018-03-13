@@ -3,7 +3,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import ConditionalLink, { InactiveLink } from '../ConditionalLink'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 

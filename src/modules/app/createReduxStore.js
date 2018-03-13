@@ -28,7 +28,7 @@ const createReduxStore = (createHistory, initialState = {}, routesMap = new Rout
 
   const rootReducer = combineReducers({
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
-    router: reducer,
+    location: reducer,
     languageChangeUrls: setLanguageChangeUrlsReducer,
     ...reducers
   })

@@ -103,6 +103,6 @@ export class I18nProvider extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({language: state.router.params.language})
+const mapStateToProps = state => ({language: state.location.payload.language})
 
 export default connect(mapStateToProps)(I18nProvider)
