@@ -40,9 +40,9 @@ class CategoriesMapModel {
   /**
    * Returns the category with the given id
    * @param id The id
-   * @return {CategoryModel | undefined} The category
+   * @return {CategoryModel} The category
    */
-  getCategoryById (id: number): ?CategoryModel {
+  getCategoryById (id: number): CategoryModel {
     const category = this.toArray().find(category => category.id === id)
 
     if (!category) {

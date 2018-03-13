@@ -3,16 +3,17 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import EventDetail from '../EventDetail'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 
 describe('EventDetail', () => {
-  const event = {
+  const event = new EventModel({
     id: 1234,
     title: 'first Event',
     availableLanguages: {de: '1235', ar: '1236'},
     startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
     endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
     allDay: true
-  }
+  })
 
   const language = 'en'
 

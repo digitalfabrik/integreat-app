@@ -3,37 +3,7 @@
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
   <Breadcrumbs
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
+    locationName="Augsburg"
     parents={Array []}
   />
   <Tiles
@@ -44,7 +14,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
           "_isExternalUrl": false,
           "_name": "Willkommen",
           "_path": "/augsburg/de/willkommen",
-          "_thumbnail": "third_thumbnail",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
         },
         TileModel {
           "_id": 3650,
@@ -66,64 +36,34 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
   <Breadcrumbs
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
+    locationName="Augsburg"
     parents={
       Array [
-        Object {
-          "availableLanguages": Object {},
-          "content": "",
-          "id": 0,
-          "order": -1,
-          "parentId": -1,
-          "parentUrl": "",
-          "thumbnail": "no_thumbnail",
-          "title": "augsburg",
-          "url": "/augsburg/de",
+        CategoryModel {
+          "_availableLanguages": Object {},
+          "_content": "",
+          "_id": 0,
+          "_order": -1,
+          "_parentId": -1,
+          "_parentUrl": "",
+          "_thumbnail": "no_thumbnail",
+          "_title": "augsburg",
+          "_url": "/augsburg/de",
         },
-        Object {
-          "availableLanguages": Object {
+        CategoryModel {
+          "_availableLanguages": Object {
             "ar": 4819,
             "en": 4804,
             "fa": 4827,
           },
-          "content": "",
-          "id": 3649,
-          "order": 11,
-          "parentId": 0,
-          "parentUrl": "/augsburg/de",
-          "thumbnail": "third_thumbnail",
-          "title": "Willkommen",
-          "url": "/augsburg/de/willkommen",
+          "_content": "",
+          "_id": 3649,
+          "_order": 11,
+          "_parentId": 0,
+          "_parentUrl": "/augsburg/de",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
+          "_url": "/augsburg/de/willkommen",
         },
       ]
     }
@@ -147,49 +87,19 @@ exports[`CategoriesPage should match snapshot and render an Error if path is not
 exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
 <div>
   <Breadcrumbs
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
+    locationName="Augsburg"
     parents={
       Array [
-        Object {
-          "availableLanguages": Object {},
-          "content": "",
-          "id": 0,
-          "order": -1,
-          "parentId": -1,
-          "parentUrl": "",
-          "thumbnail": "no_thumbnail",
-          "title": "augsburg",
-          "url": "/augsburg/de",
+        CategoryModel {
+          "_availableLanguages": Object {},
+          "_content": "",
+          "_id": 0,
+          "_order": -1,
+          "_parentId": -1,
+          "_parentUrl": "",
+          "_thumbnail": "no_thumbnail",
+          "_title": "augsburg",
+          "_url": "/augsburg/de",
         },
       ]
     }
@@ -199,20 +109,20 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
       Array [
         Object {
           "children": Array [],
-          "model": Object {
-            "availableLanguages": Object {
+          "model": CategoryModel {
+            "_availableLanguages": Object {
               "ar": 397,
               "de": 711,
               "en": 390,
             },
-            "content": "some content",
-            "id": 35,
-            "order": 1,
-            "parentId": 3649,
-            "parentUrl": "/augsburg/de/willkommen",
-            "thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
-            "title": "Willkommen in Augsburg",
-            "url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_content": "some content",
+            "_id": 35,
+            "_order": 1,
+            "_parentId": 3649,
+            "_parentUrl": "/augsburg/de/willkommen",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+            "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
           },
         },
       ]
