@@ -10,40 +10,55 @@ import LocationLayout from '../layout/containers/LocationLayout'
 import MainDisclaimerPage from '../../routes/main-disclaimer/components/MainDisclaimerPage'
 import GeneralFooter from '../layout/components/GeneralFooter'
 import GeneralHeader from '../layout/components/GeneralHeader'
+import LanguageModel from '../endpoint/models/LanguageModel'
+import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
+import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
 
 type Props = {
   viewportSmall: boolean,
   currentRoute: string,
-  locations: Array<LocationModel>
+  locations: Array<LocationModel>,
+  languages: Array<LanguageModel>,
+  categories: CategoriesMapModel
 }
 
 class Switcher extends React.Component<Props> {
   getComponent () {
-    switch (this.props.currentRoute) {
+    const {currentRoute, locations, languages, categories} = this.props
+    const LoadingSpinner = () => <Spinner name='line-scale-party' />
+
+    switch (currentRoute) {
       case 'LANDING':
-        return this.props.locations ? <LandingPage /> : <Spinner name='line-scale-party' />
+        return locations ? <LandingPage /> : <LoadingSpinner />
       case 'MAIN_DISCLAIMER':
         return <MainDisclaimerPage />
+      case 'CATEGORIES':
+        return locations && languages && categories ? <CategoriesPage /> : <LoadingSpinner />
     }
   }
 
   render () {
-    const {viewportSmall, currentRoute} = this.props
+    const {viewportSmall, currentRoute, locations, languages} = this.props
+
     return currentRoute === 'LANDING' || currentRoute === 'MAIN_DISCLAIMER'
       ? <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                 footer={<GeneralFooter />}>
           {this.getComponent()}
         </Layout>
-      : <LocationLayout>
-          {this.getComponent()}
-        </LocationLayout>
+      : locations && languages
+        ? <LocationLayout>
+            {this.getComponent()}
+          </LocationLayout>
+        : <Spinner name='line-scale-party' />
   }
 }
 
 const mapStateToProps = state => ({
   viewportSmall: state.viewport.is.small,
   currentRoute: state.location.type,
-  locations: state.locationModels.locations
+  locations: state.locationModels,
+  languages: state.languages,
+  categories: state.categories
 })
 
 export default connect(mapStateToProps)(Switcher)

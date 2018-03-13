@@ -12,7 +12,7 @@ import ConditionalLink from '../../common/components/ConditionalLink'
  * Designed to work with Header. In the MenuBar you can display textual links. Should be used for navigating as a
  * main menu.
  */
-class HeaderMenuBar extends React.Component {
+class HeaderNavigationBar extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired
@@ -25,7 +25,7 @@ class HeaderMenuBar extends React.Component {
         <ConditionalLink active={item.active} data-tip={!item.active ? item.tooltip : ''}
                          key={item.text}
                          className={cx(style.navigationItem, !item.active ? style.inactiveNavigationItem : (item.selected ? style.selectedNavigationItem : ''))}
-                         href={item.href}>{item.text}
+                         to={item.href}>{item.text}
         </ConditionalLink>
       ))}
 
@@ -35,4 +35,4 @@ class HeaderMenuBar extends React.Component {
   }
 }
 
-export default HeaderMenuBar
+export default HeaderNavigationBar

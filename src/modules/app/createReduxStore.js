@@ -3,12 +3,12 @@ import thunkMiddleware from 'redux-thunk'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
-import RouteConfig from 'modules/app/RouteConfig'
 import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 import endpointReducers from '../endpoint/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
+import defaultRoutesMap from './routesMap'
 
-const createReduxStore = (createHistory, initialState = {}, routesMap = new RouteConfig()) => {
+const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {
   const history = createHistory()
 
   const {reducer, middleware, enhancer} = connectRoutes(history, routesMap)

@@ -1,7 +1,7 @@
 import { handleAction } from 'redux-actions'
 
 const reducer = (state, action) => action.payload
-const defaultState = {}
+const defaultState = null
 
 const reducers = {
   locationModels: handleAction('LOCATIONS_FETCHED', reducer, defaultState),

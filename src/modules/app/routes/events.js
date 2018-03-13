@@ -6,7 +6,7 @@ const route = {
     const state = getState()
     const {location, language} = state.router.payload
 
-    let locations = state.locations
+    let locations = state.locationModels
     if (!locations) {
       locations = await locationsFetcher()
 

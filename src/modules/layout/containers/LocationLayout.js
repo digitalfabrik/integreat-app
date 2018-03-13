@@ -14,15 +14,14 @@ import LanguageModel from '../../endpoint/models/LanguageModel'
 
 export class LocationLayout extends React.Component {
   static propTypes = {
-    matchRoute: PropTypes.func.isRequired,
     location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    currentPath: PropTypes.string.isRequired,
+    currentRoute: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
     children: PropTypes.node,
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel))
   }
 
   getCurrentLocation () {
@@ -30,34 +29,40 @@ export class LocationLayout extends React.Component {
   }
 
   render () {
-    const {language, location, currentPath, matchRoute, viewportSmall, children, events, languages} = this.props
+    const {language, location, currentRoute, viewportSmall, children, events, languages} = this.props
     const locationModel = this.getCurrentLocation()
+    const isEventsActive = events ? events.length > 0 : false
 
     if (!locationModel) {
       return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                     footer={<GeneralFooter />}>{children}</Layout>
+                     footer={<GeneralFooter />}>
+          {children}
+        </Layout>
     }
 
     return <Layout header={<LocationHeader viewportSmall={viewportSmall}
-                                           locationModel={locationModel}
-                                           currentPath={currentPath}
-                                           matchRoute={matchRoute}
-                                           language={language}
-                                           eventCount={events.length}
-                                           languages={languages} />}
-                   footer={<LocationFooter matchRoute={matchRoute}
                                            location={location}
+                                           currentRoute={currentRoute}
+                                           language={language}
+                                           languages={languages}
+                                           isEventsActive={isEventsActive}
+                                           isEventsEnabled={locationModel.eventsEnabled}
+                                           isExtrasEnabled={locationModel.extrasEnabled} />}
+                   footer={<LocationFooter location={location}
                                            language={language} />}>
-      {children}
-    </Layout>
+        {children}
+      </Layout>
   }
 }
 
 const mapStateToProps = state => ({
-  currentPath: state.router.route,
-  location: state.router.params.location,
-  language: state.router.params.language,
-  viewportSmall: state.viewport.is.small
+  currentRoute: state.location.type,
+  location: state.location.payload.location,
+  language: state.location.payload.language,
+  viewportSmall: state.viewport.is.small,
+  locations: state.locationModels,
+  languages: state.languages,
+  events: state.events
 })
 
 export default connect(mapStateToProps)(LocationLayout)
