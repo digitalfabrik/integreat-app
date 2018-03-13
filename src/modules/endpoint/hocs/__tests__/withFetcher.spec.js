@@ -20,8 +20,8 @@ describe('withFetcher', () => {
     .build()
 
   // eslint-disable-next-line react/prop-types
-  const createComponent = ({endpoint, FailureComponent, hideSpinner = false, state = {[endpoint.stateName]: new Payload(false)}, requestAction}) => {
-    const HOC = withFetcher(endpoint.stateName, FailureComponent, hideSpinner)
+  const createComponent = ({endpoint, FailureComponent, LoadingComponent, state = {[endpoint.stateName]: new Payload(false)}, requestAction}) => {
+    const HOC = withFetcher(endpoint.stateName, FailureComponent, LoadingComponent)
 
     class WrappedComponent extends React.Component {
       static displayName = 'WrappedComponent'
@@ -71,10 +71,9 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should show spinner if there is no data yet and it\'s not hidden', () => {
+  it('should show default spinner if there is no data yet', () => {
     const hoc = createComponent({
       endpoint,
-      hideSpinner: false,
       requestAction: () => new StoreResponse(false),
       state: {[endpoint.stateName]: new Payload(true)}
     })
@@ -82,10 +81,22 @@ describe('withFetcher', () => {
     expect(shallow(hoc)).toMatchSnapshot()
   })
 
-  it('should show nothing if there is no data yet and spinner is hidden', () => {
+  it('should show custom spinner if there is no data yet', () => {
+    const MockedLoadingComponent = () => <div />
     const hoc = createComponent({
       endpoint,
-      hideSpinner: true,
+      LoadingComponent: MockedLoadingComponent,
+      requestAction: () => new StoreResponse(false),
+      state: {[endpoint.stateName]: new Payload(true)}
+    })
+
+    expect(shallow(hoc)).toMatchSnapshot()
+  })
+
+  it('should show nothing if there is no data yet and LoadingComponent is null', () => {
+    const hoc = createComponent({
+      endpoint,
+      LoadingComponent: null,
       requestAction: () => new StoreResponse(false),
       state: {[endpoint.stateName]: new Payload(true)}
     })

@@ -4,13 +4,12 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
-import EventModel from 'modules/endpoint/models/EventModel'
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationHeader from '../components/LocationHeader'
+import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 
 export class LocationLayout extends React.Component {
@@ -21,8 +20,7 @@ export class LocationLayout extends React.Component {
     locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     currentPath: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
-    children: PropTypes.node,
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)).isRequired
+    children: PropTypes.node
   }
 
   getCurrentLocation () {
@@ -30,7 +28,7 @@ export class LocationLayout extends React.Component {
   }
 
   render () {
-    const {language, location, currentPath, matchRoute, viewportSmall, children, events} = this.props
+    const {language, location, currentPath, matchRoute, viewportSmall, children} = this.props
     const locationModel = this.getCurrentLocation()
 
     if (!locationModel) {
@@ -42,7 +40,7 @@ export class LocationLayout extends React.Component {
                                            locationModel={locationModel}
                                            currentPath={currentPath}
                                            matchRoute={matchRoute}
-                                           language={language} eventCount={events.length} />}
+                                           language={language} />}
                    footer={<LocationFooter matchRoute={matchRoute}
                                            location={location}
                                            language={language} />}>
@@ -60,6 +58,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations', null, true),
-  withFetcher('events')
+  withFetcher('locations', null, null)
 )(LocationLayout)
