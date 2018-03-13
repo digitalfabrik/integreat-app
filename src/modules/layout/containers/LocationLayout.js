@@ -8,11 +8,10 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationHeader from '../components/LocationHeader'
+import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 
 import Route from '../../app/Route'
-import EventModel from '../../endpoint/models/EventModel'
 
 type Props = {
   matchRoute: () => Route,
@@ -22,7 +21,6 @@ type Props = {
   currentPath: string,
   viewportSmall: boolean,
   children?: Node,
-  events: Array<EventModel>
 }
 
 export class LocationLayout extends React.Component<Props> {
@@ -31,7 +29,7 @@ export class LocationLayout extends React.Component<Props> {
   }
 
   render () {
-    const {language, location, currentPath, matchRoute, viewportSmall, children, events} = this.props
+    const {language, location, currentPath, matchRoute, viewportSmall, children} = this.props
     const locationModel = this.getCurrentLocation()
 
     if (!locationModel) {
@@ -43,7 +41,7 @@ export class LocationLayout extends React.Component<Props> {
                                            locationModel={locationModel}
                                            currentPath={currentPath}
                                            matchRoute={matchRoute}
-                                           language={language} eventCount={events.length} />}
+                                           language={language} />}
                    footer={<LocationFooter matchRoute={matchRoute}
                                            location={location}
                                            language={language} />}>
@@ -61,6 +59,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations', null, true),
-  withFetcher('events')
+  withFetcher('locations', null, null)
 )(LocationLayout)

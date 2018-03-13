@@ -19,20 +19,17 @@ exports[`Header should match snapshot with largeViewport 1`] = `
         />
       </Connect(Link)>
     </div>
-    <HeaderMenuBar
+    <HeaderNavigationBar
       className="navigationBar"
-      items={
-        Array [
-          HeaderNavigationItem {
-            "_active": undefined,
-            "_href": "/nav1",
-            "_selected": undefined,
-            "_text": undefined,
-            "_tooltip": undefined,
-          },
-        ]
-      }
-    />
+    >
+      <HeaderNavigationItem
+        active={true}
+        href="/nav1"
+        selected={true}
+        text="text1"
+        tooltip="tooltip1"
+      />
+    </HeaderNavigationBar>
     <HeaderActionBar
       className="actionBar"
       items={
@@ -68,20 +65,17 @@ exports[`Header should match snapshot with smallViewport 1`] = `
         />
       </Connect(Link)>
     </div>
-    <HeaderMenuBar
+    <HeaderNavigationBar
       className="navigationBar"
-      items={
-        Array [
-          HeaderNavigationItem {
-            "_active": undefined,
-            "_href": "/nav1",
-            "_selected": undefined,
-            "_text": undefined,
-            "_tooltip": undefined,
-          },
-        ]
-      }
-    />
+    >
+      <HeaderNavigationItem
+        active={true}
+        href="/nav1"
+        selected={true}
+        text="text1"
+        tooltip="tooltip1"
+      />
+    </HeaderNavigationBar>
     <HeaderActionBar
       className="actionBar"
       items={
