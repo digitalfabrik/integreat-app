@@ -19,7 +19,8 @@ export class LandingPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  language: state.router.params && state.router.params.language ? state.router.params.language : 'de'
+  language: state.location.payload.language || 'de',
+  locations: state.locationModels.locations
 })
 
 export default connect(mapStateToProps)(LandingPage)
