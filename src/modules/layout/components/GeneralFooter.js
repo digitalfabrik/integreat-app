@@ -3,7 +3,7 @@ import { translate } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 import Footer from './Footer'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 class GeneralFooter extends React.Component {
   static propTypes = {
@@ -11,7 +11,7 @@ class GeneralFooter extends React.Component {
   }
   render () {
     return <Footer>
-      <Link href={'/disclaimer'}>{this.props.t('imprintAndContact')}</Link>
+      <Link to={'/disclaimer'}>{this.props.t('imprintAndContact')}</Link>
       <a href={'https://integreat-app.de/datenschutz/'}>{this.props.t('privacy')}</a>
     </Footer>
   }

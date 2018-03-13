@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import Highlighter from 'react-highlighter'
 
 import style from './LocationSelector.css'
@@ -15,7 +15,7 @@ class LocationEntry extends React.PureComponent {
   render () {
     const {location, language, filterText} = this.props
     return (
-      <Link href={`/${location.code}/${language}`} className={style.locationListItem}>
+      <Link to={`/${location.code}/${language}`} className={style.locationListItem}>
         <Highlighter search={filterText || ''}>
           {location.name}
         </Highlighter>

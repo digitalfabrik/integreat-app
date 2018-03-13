@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'redux-little-router'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
 
@@ -10,6 +9,7 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
+import Link from 'redux-first-router-link'
 
 const EXCERPT_LENGTH = 70
 
@@ -43,7 +43,7 @@ class EventListElement extends React.Component {
   render () {
     const event = this.props.event
     return (
-      <Link href={this.getUrl()} className={style.event}>
+      <Link to={this.getUrl()} className={style.event}>
         <img className={style.eventThumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
         <div className={style.eventDescription}>
           <div className={style.eventTitle}>{event.title}</div>

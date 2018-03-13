@@ -35,7 +35,6 @@
     "redux-actions": "~2.2.1",
     "redux-first-router": "^0.0.16-next",
     "redux-first-router-link": "^1.4.2",
-    "redux-little-router": "~14.2.1",
     "redux-logger": "~3.0.6",
     "redux-responsive": "^4.3.5",
     "redux-thunk": "~2.2.0",
