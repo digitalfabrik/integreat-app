@@ -8,13 +8,11 @@ type Props = {
 }
 
 class Toolbar extends React.Component<Props> {
-
   render () {
     return <div>
       <PdfButton href={this.props.pdfHref} />
     </div>
   }
-
 }
 
 export default Toolbar
