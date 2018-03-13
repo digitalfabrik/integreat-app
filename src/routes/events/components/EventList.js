@@ -6,10 +6,10 @@ import EventListElement from './EventListElement'
 import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
-import type { EventType } from '../../../modules/endpoint/types'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 
 type Props = {
-  events: Array<EventType>,
+  events: Array<EventModel>,
   url: string,
   language: string,
   t: (string) => string

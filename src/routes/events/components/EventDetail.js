@@ -9,11 +9,10 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
-
-import type { EventType } from '../../../modules/endpoint/types'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 
 type Props = {
-  event: EventType,
+  event: EventModel,
   language: string,
   t: (string) => string
 }
