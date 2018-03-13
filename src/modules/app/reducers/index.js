@@ -1,1 +1,1 @@
-export { default as page } from './page'
+export { default as locationModels } from './locations'
