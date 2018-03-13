@@ -1,5 +1,6 @@
 import categories from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
+import CategoryModel from '../../models/CategoryModel'
 
 jest.unmock('../categories')
 
@@ -47,7 +48,7 @@ describe('categories', () => {
     status: 'trash'
   }]
 
-  const categoryModels = [{
+  const categoryModels = [new CategoryModel({
     id: 3650,
     url: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
@@ -59,7 +60,7 @@ describe('categories', () => {
       en: 4361, ar: 4367, fa: 4368
     },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-  }, {
+  }), new CategoryModel({
     id: 3649,
     url: '/augsburg/de/willkommen',
     title: 'Willkommen',
@@ -71,7 +72,7 @@ describe('categories', () => {
       en: 4804, ar: 4819, fa: 4827
     },
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-  }, {
+  }), new CategoryModel({
     id: 0,
     url: '/augsburg/de',
     title: 'augsburg',
@@ -81,7 +82,7 @@ describe('categories', () => {
     parentId: -1,
     thumbnail: '',
     parentUrl: ''
-  }]
+  })]
 
   const state = {router: {params: {language: 'de', location: 'augsburg'}}}
 

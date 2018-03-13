@@ -8,12 +8,12 @@ import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import type { EventType } from '../../../modules/endpoint/types'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 
 type mapLanguageToPath = (string, ?string) => string
 
 type Props = {
-  events: Array<EventType>,
+  events: Array<EventModel>,
   location: string,
   languages: Array<LanguageModel>,
   language: string,
@@ -41,7 +41,7 @@ export class EventsPage extends React.Component<Props> {
 
   /**
    * Finds the event in events with the given id
-   * @param {Array<EventType>} events The events to search
+   * @param {Array<EventModel>} events The events to search
    * @param {string} id The id of the event to search for
    */
   findEvent = (events, id) => events.find(

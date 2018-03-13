@@ -11,8 +11,8 @@ import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from '../components/LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 
-import type { EventType } from '../../endpoint/types'
 import Route from '../../app/Route'
+import EventModel from '../../endpoint/models/EventModel'
 
 type Props = {
   matchRoute: () => Route,
@@ -22,7 +22,7 @@ type Props = {
   currentPath: string,
   viewportSmall: boolean,
   children?: Node,
-  events: Array<EventType>
+  events: Array<EventModel>
 }
 
 export class LocationLayout extends React.Component<Props> {

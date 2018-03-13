@@ -1,6 +1,7 @@
 import events from '../events'
 import lolex from 'lolex'
 import moment from 'moment'
+import EventModel from '../../models/EventModel'
 
 jest.unmock('modules/endpoint/endpoints/events')
 
@@ -55,7 +56,7 @@ describe('events', () => {
     )
   })
 
-  const toEventModel = json => ({
+  const toEventModel = json => (new EventModel({
     id: json.id,
     title: json.title,
     content: json.content,
@@ -67,7 +68,7 @@ describe('events', () => {
     allDay: json.event.all_day !== '0',
     excerpt: json.excerpt,
     availableLanguages: json.available_languages
-  })
+  }))
 
   const json = [
     {

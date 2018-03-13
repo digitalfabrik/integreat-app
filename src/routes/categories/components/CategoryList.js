@@ -7,10 +7,10 @@ import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 
 import style from './CategoryList.css'
-import type { CategoryType } from '../../../modules/endpoint/types'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  categories: Array<{model: CategoryType, children: Array<CategoryType>}>,
+  categories: Array<{model: CategoryModel, children: Array<CategoryModel>}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */

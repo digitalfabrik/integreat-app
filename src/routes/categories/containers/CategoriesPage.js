@@ -19,8 +19,7 @@ import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
-
-import type { CategoryType } from '../../../modules/endpoint/types'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type MapLanguageToPath = (string, ?string) => string
 
@@ -89,9 +88,9 @@ export class CategoriesPage extends React.Component<Props> {
 
   /**
    * Gets and stores the available languages for the current page
-   * @param {CategoryType | undefined} category The current category
+   * @param {CategoryModel | undefined} category The current category
    */
-  setLanguageChangeUrls (category: ?CategoryType) {
+  setLanguageChangeUrls (category: ?CategoryModel) {
     if (category) {
       this.props.setLanguageChangeUrls(
         this.mapLanguageToPath, this.props.languages, category.availableLanguages
@@ -114,7 +113,7 @@ export class CategoriesPage extends React.Component<Props> {
     return location ? location.name : title
   }
 
-  getTileModels (categories: Array<CategoryType>) {
+  getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
     }))
@@ -128,7 +127,7 @@ export class CategoriesPage extends React.Component<Props> {
    * @param category The current category
    * @return {*} The content to be displayed
    */
-  getContent (category: CategoryType) {
+  getContent (category: CategoryModel) {
     const categories = this.props.categories
     const children = categories.getChildren(category)
 

@@ -7,10 +7,10 @@ import { Link } from 'redux-little-router'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 
 import style from './Breadcrumbs.css'
-import type { CategoryType } from '../../../modules/endpoint/types'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  parents: Array<CategoryType>,
+  parents: Array<CategoryModel>,
   locations: Array<LocationModel>
 }
 

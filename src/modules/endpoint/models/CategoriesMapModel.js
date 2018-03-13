@@ -1,35 +1,35 @@
 // @flow
 
 import normalizeUrl from 'normalize-url'
-import type { CategoryType } from '../types'
+import CategoryModel from './CategoryModel'
 
 /**
- * Contains a Map [string -> CategoryType] and some helper functions
+ * Contains a Map [string -> CategoryModel] and some helper functions
  */
 class CategoriesMapModel {
-  _categories: Map<string, CategoryType>
+  _categories: Map<string, CategoryModel>
   /**
    * Creates a Map [url -> category] from the categories provided,
    * whose parent attributes are first changed from id to url
-   * @param categories CategoryTypes as array
+   * @param categories CategoryModel as array
    */
-  constructor (categories: Array<CategoryType>) {
+  constructor (categories: Array<CategoryModel>) {
     this._categories = new Map(categories.map(category => ([category.url, category])))
   }
 
   /**
-   * @return {CategoryType[]} categories The categories as array
+   * @return {CategoryModel[]} categories The categories as array
    */
-  toArray (): Array<CategoryType> {
+  toArray (): Array<CategoryModel> {
     return Array.from(this._categories.values())
   }
 
   /**
    * Returns the category with the given url
    * @param {String} url The url
-   * @return {CategoryType} The category
+   * @return {CategoryModel} The category
    */
-  getCategoryByUrl (url: string): CategoryType {
+  getCategoryByUrl (url: string): CategoryModel {
     const category = this._categories.get(normalizeUrl(url))
     if (!category) {
       throw Error(`No category with the given url '${url}'`)
@@ -40,9 +40,9 @@ class CategoriesMapModel {
   /**
    * Returns the category with the given id
    * @param id The id
-   * @return {CategoryType | undefined} The category
+   * @return {CategoryModel | undefined} The category
    */
-  getCategoryById (id: number): ?CategoryType {
+  getCategoryById (id: number): ?CategoryModel {
     const category = this.toArray().find(category => category.id === id)
 
     if (!category) {
@@ -54,9 +54,9 @@ class CategoriesMapModel {
   /**
    * Returns all children of the given category
    * @param category The category
-   * @return {CategoryType[]} The children
+   * @return {CategoryModel[]} The children
    */
-  getChildren (category: CategoryType): Array<CategoryType> {
+  getChildren (category: CategoryModel): Array<CategoryModel> {
     return this.toArray()
       .filter(_category => _category.parentUrl === category.url)
       .sort((category1, category2) => (category1.order - category2.order))
@@ -65,9 +65,9 @@ class CategoriesMapModel {
   /**
    * Returns all (mediate) parents of the given category
    * @param category The category
-   * @return {CategoryType[]} The parents, with the immediate parent last
+   * @return {CategoryModel[]} The parents, with the immediate parent last
    */
-  getAncestors (category: CategoryType): Array<CategoryType> {
+  getAncestors (category: CategoryModel): Array<CategoryModel> {
     const parents = []
 
     while (category.parentUrl !== '') {

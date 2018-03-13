@@ -9,13 +9,12 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
-
-import type { EventType } from '../../../modules/endpoint/types'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 
 const EXCERPT_LENGTH = 70
 
 type Props = {
-  event: EventType,
+  event: EventModel,
   parentUrl: string,
   language: string
 }

@@ -6,11 +6,11 @@ import Highlighter from 'react-highlighter'
 
 import style from './CategoryListItem.css'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import type { CategoryType } from '../../../modules/endpoint/types'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  category: CategoryType,
-  children: Array<CategoryType>,
+  category: CategoryModel,
+  children: Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string
 }
