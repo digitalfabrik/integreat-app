@@ -96,6 +96,20 @@
       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
     }
   },
+  "extras": {
+    "ar": {
+      "extras": "إضافات"
+    },
+    "en": {
+      "extras": "Extras"
+    },
+    "de": {
+      "extras": "Extras"
+    },
+    "fa": {
+      "extras": "اضافات"
+    }
+  },
   "landing": {
     "ar": {
       "where": "أين أنت؟"
