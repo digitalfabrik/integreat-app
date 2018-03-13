@@ -2,8 +2,9 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryListItem from '../CategoryListItem'
+import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 
-const category = {
+const category = new CategoryModel({
   id: 3649,
   url: '/augsburg/de/willkommen',
   title: 'Willkommen',
@@ -15,8 +16,8 @@ const category = {
     en: 4804, ar: 4819, fa: 4827
   },
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-}
-const childCategory = {
+})
+const childCategory = new CategoryModel({
   id: 5234,
   url: '/augsburg/de/test',
   title: 'Child',
@@ -28,7 +29,7 @@ const childCategory = {
     en: 4804, ar: 4819, fa: 4827
   },
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-}
+})
 
 describe('CategoryListItem', () => {
   it('should render and match snapshot', () => {

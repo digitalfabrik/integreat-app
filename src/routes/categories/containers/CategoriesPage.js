@@ -152,7 +152,7 @@ export class CategoriesPage extends React.Component<Props> {
       return <div>
         <Breadcrumbs
           parents={this.props.categories.getAncestors(category)}
-          locations={this.props.locations} />
+          locationName={this.getLocationName(this.props.location)} />
         {this.getContent(category)}
         <PdfButton href={this.getPdfFetchPath()} />
       </div>

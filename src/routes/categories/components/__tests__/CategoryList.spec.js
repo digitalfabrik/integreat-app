@@ -2,30 +2,31 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryList from '../CategoryList'
+import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 
 const title = 'Willkommen'
 const content = 'test content'
 
 const categories = [
   {
-    model: {
+    model: new CategoryModel({
       id: 35,
       url: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg'
-    },
+    }),
     children: [
-      {
+      new CategoryModel({
         id: 35,
         url: '/augsburg/de/willkommen/willkommen-in-augsburg',
         title: 'Willkommen in Augsburg'
-      }]
+      })]
   },
   {
-    model: {
+    model: new CategoryModel({
       id: 35,
       url: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg'
-    },
+    }),
     children: []
   }
 ]

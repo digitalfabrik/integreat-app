@@ -8,7 +8,6 @@ import EndpointProvider from '../../../endpoint/EndpointProvider'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import Payload from '../../../endpoint/Payload'
-import moment from 'moment-timezone'
 
 describe('LocationLayout', () => {
   const matchRoute = id => {}
@@ -16,21 +15,6 @@ describe('LocationLayout', () => {
   const language = 'de'
 
   const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
-  const events = [{
-    id: 1234,
-    title: 'first Event',
-    availableLanguages: {de: '1235', ar: '1236'},
-    startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-    endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    allDay: true
-  },
-  {
-    id: 2,
-    title: 'second Event',
-    startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-    endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    allDay: true
-  }]
 
   const MockNode = () => <div />
 
@@ -65,12 +49,6 @@ describe('LocationLayout', () => {
       .withResponseOverride(locations)
       .build()
 
-    const eventsEndpoint = new EndpointBuilder('events')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(events)
-      .build()
-
     const location = 'augsburg'
     const path = '/:location/:language'
 
@@ -82,7 +60,7 @@ describe('LocationLayout', () => {
       })
       return mount(
         <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint, eventsEndpoint]}>
+          <EndpointProvider endpoints={[locationsEndpoint]}>
             <ConnectedLocationLayout matchRoute={matchRoute} />
           </EndpointProvider>
         </Provider>

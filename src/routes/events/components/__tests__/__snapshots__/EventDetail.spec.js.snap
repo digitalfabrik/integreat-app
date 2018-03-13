@@ -3,16 +3,21 @@
 exports[`EventDetail should render 1`] = `
 <EventDetail
   event={
-    Object {
-      "allDay": true,
-      "availableLanguages": Object {
+    EventModel {
+      "_address": undefined,
+      "_allDay": true,
+      "_availableLanguages": Object {
         "ar": "1236",
         "de": "1235",
       },
-      "endDate": "2017-11-18T19:30:00.000Z",
-      "id": 1234,
-      "startDate": "2017-11-18T09:30:00.000Z",
-      "title": "first Event",
+      "_content": undefined,
+      "_endDate": "2017-11-18T19:30:00.000Z",
+      "_excerpt": undefined,
+      "_id": 1234,
+      "_startDate": "2017-11-18T09:30:00.000Z",
+      "_thumbnail": undefined,
+      "_title": "first Event",
+      "_town": undefined,
     }
   }
   language="en"
