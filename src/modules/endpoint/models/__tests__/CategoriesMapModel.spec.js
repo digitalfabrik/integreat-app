@@ -1,12 +1,11 @@
 import CategoriesMapModel from '../CategoriesMapModel'
-import CategoryModel from '../CategoryModel'
 
 describe('CategoriesMapModel', () => {
   const categories = [
-    new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
-    new CategoryModel({id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1}),
-    new CategoryModel({id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2}),
-    new CategoryModel({id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'})
+    {id: 0, url: '/augsburg/de', title: 'augsburg', parentUrl: ''},
+    {id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1},
+    {id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2},
+    {id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'}
   ]
 
   const categoriesMapModel = new CategoriesMapModel(categories)
@@ -21,11 +20,12 @@ describe('CategoriesMapModel', () => {
     expect(category2).toEqual(categories[1])
     expect(category3).toEqual(categories[2])
     expect(category4).toEqual(categories[3])
-    expect(categoriesMapModel.getCategoryByUrl('/test/url')).toBe(undefined)
+    expect(() => categoriesMapModel.getCategoryByUrl('/test/url')).toThrowErrorMatchingSnapshot()
   })
 
   it('should find category by id', () => {
     expect(categoriesMapModel.getCategoryById(category1.id)).toBe(category1)
+    expect(() => categoriesMapModel.getCategoryById(1234567)).toThrowErrorMatchingSnapshot()
   })
 
   it('should have the right parent attributes', () => {

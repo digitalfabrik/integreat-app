@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'redux-little-router'
+// @flow
 
-import EventModel from '../../../modules/endpoint/models/EventModel'
+import React from 'react'
+import { Link } from 'redux-little-router'
 
 import style from './EventListElement.css'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
@@ -10,24 +9,25 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 
 const EXCERPT_LENGTH = 70
+
+type Props = {
+  event: EventModel,
+  parentUrl: string,
+  language: string
+}
 
 /**
  * Display a element of the EventList
  */
-class EventListElement extends React.Component {
-  static propTypes = {
-    event: PropTypes.instanceOf(EventModel).isRequired,
-    parentUrl: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired
-  }
-
+class EventListElement extends React.Component<Props> {
   /**
    * Generates the url of the specific event represented by this EventListElement
    * @returns {string} The url
    */
-  getUrl () {
+  getUrl (): string {
     return `${this.props.parentUrl}/${this.props.event.id}`
   }
 
@@ -65,7 +65,7 @@ class EventListElement extends React.Component {
    * @param excerptLength The maximal length of the excerpt
    * @returns {string} The formatted excerpt
    */
-  formatExcerpt (excerptLength) {
+  formatExcerpt (excerptLength: number): string {
     return `${this.props.event.excerpt.slice(0, excerptLength)}...`
   }
 }

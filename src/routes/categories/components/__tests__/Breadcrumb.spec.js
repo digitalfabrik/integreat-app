@@ -1,13 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import LocationModel from 'modules/endpoint/models/LocationModel'
 import Breadcrumbs from '../Breadcrumbs'
+import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 
 const parents = [
-  new CategoryModel({id: 0, url: '/augsburg/de', title: 'augsburg'}),
   new CategoryModel({
+    id: 0, url: '/augsburg/de', title: 'augsburg'
+  }), new CategoryModel({
     id: 3649,
     url: '/augsburg/de/willkommen',
     title: 'Willkommen',
@@ -19,9 +19,7 @@ const parents = [
       en: 4804, ar: 4819, fa: 4827
     },
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
-  }),
-
-  new CategoryModel({
+  }), new CategoryModel({
     id: 35,
     url: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
@@ -38,27 +36,12 @@ const parents = [
   })
 ]
 
-const locations = [
-  new LocationModel({name: 'Augsburg', code: 'augsburg'}),
-  new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-  new LocationModel({name: 'Werne', code: 'werne'})
-]
-
 describe('Breadcrumbs', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(
-      <Breadcrumbs parents={parents} locations={locations} />
+      <Breadcrumbs parents={parents} locationName='Augsburg' />
     )
 
     expect(wrapper).toMatchSnapshot()
-  })
-
-  it('getLocationName', () => {
-    const breadcrumbs = shallow(
-      <Breadcrumbs parents={parents} locations={locations} />
-    ).instance()
-
-    expect(breadcrumbs.getLocationName(parents[0].title)).toEqual(locations[0].name)
-    expect(breadcrumbs.getLocationName('test')).toEqual('test')
   })
 })
