@@ -15,7 +15,7 @@ class EventModel {
   _excerpt: string
   _availableLanguages: Map<string, string>
 
-  constructor (obj: {id: number, title: string, content: string, thumbnail: string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, string>}) {
+  constructor (obj: {|id: number, title: string, content: string, thumbnail: string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, string>|}) {
     this._id = obj.id
     this._title = obj.title
     this._content = obj.content
