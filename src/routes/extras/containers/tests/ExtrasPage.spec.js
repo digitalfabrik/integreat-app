@@ -36,7 +36,8 @@ describe('ExtrasPage', () => {
                   location={location}
                   language={language}
                   extras={extras}
-                  extra={'sprungbrett'} />
+                  extra={'sprungbrett'}
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -47,7 +48,8 @@ describe('ExtrasPage', () => {
                   languages={languages}
                   location={location}
                   language={language}
-                  extras={extras} />
+                  extras={extras}
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -59,7 +61,8 @@ describe('ExtrasPage', () => {
                   location={location}
                   language={language}
                   extras={extras}
-                  extra={'no valid extra'} />
+                  extra={'no valid extra'}
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -71,7 +74,8 @@ describe('ExtrasPage', () => {
                   languages={languages}
                   location={location}
                   language={language}
-                  extras={extras} />
+                  extras={extras}
+                  t={key => key} />
     )
     expect(setLanguageChangeUrls.mock.calls).toHaveLength(1)
   })
@@ -83,7 +87,8 @@ describe('ExtrasPage', () => {
                   languages={languages}
                   location={location}
                   language={language}
-                  extras={extras} />
+                  extras={extras}
+                  t={key => key} />
     )
     expect(setLanguageChangeUrls.mock.calls).toHaveLength(1)
     extrasPage.setProps({extra: 'sprungbrett', ...extrasPage.props})
@@ -125,7 +130,8 @@ describe('ExtrasPage', () => {
         extras: extras,
         languages: languages,
         extra: 'extra',
-        setLanguageChangeUrls: expect.any(Function)
+        setLanguageChangeUrls: expect.any(Function),
+        t: expect.any(Function)
       })
     })
 
