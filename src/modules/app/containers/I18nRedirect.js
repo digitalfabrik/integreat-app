@@ -18,7 +18,7 @@ export class I18nRedirect extends React.Component {
     i18n: PropTypes.object.isRequired
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.redirect(`${normalizeUrl(this.props.currentPath)}/${this.context.i18n.language}`)
   }
 
