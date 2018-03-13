@@ -25,7 +25,7 @@ type Props = {
   languages: Array<LanguageModel>,
   location: string,
   language: string,
-  path: string,
+  category: string,
   setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void
 }
 
@@ -38,7 +38,7 @@ export class CategoriesPage extends React.Component<Props> {
    * else we just dispatch the language change urls here
    */
   componentDidMount () {
-    const category = this.props.categories.getCategoryByUrl(this.props.path)
+    const category = this.props.categories.getCategoryByUrl(this.props.category)
     this.setLanguageChangeUrls(category)
   }
 
@@ -50,8 +50,8 @@ export class CategoriesPage extends React.Component<Props> {
    * @param nextProps The new props
    */
   componentWillReceiveProps (nextProps: Object) {
-    if (nextProps.path !== this.props.path || nextProps.categories !== this.props.categories) {
-      const category = nextProps.categories.getCategoryByUrl(nextProps.path)
+    if (nextProps.category !== this.props.category || nextProps.categories !== this.props.categories) {
+      const category = nextProps.categories.getCategoryByUrl(nextProps.category)
       this.setLanguageChangeUrls(category)
     }
   }
@@ -79,7 +79,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   getPdfFetchPath () {
-    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.path}`
+    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.category}`
   }
 
   /**
@@ -127,7 +127,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    const category = this.props.categories.getCategoryByUrl(this.props.path)
+    const category = this.props.categories.getCategoryByUrl(this.props.category)
 
     if (!category) {
       return <Failure error='not-found:page.notFound' />
@@ -149,9 +149,12 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  language: state.router.params.language,
-  location: state.router.params.location,
-  path: state.router.pathname
+  language: state.location.payload.language,
+  location: state.location.payload.location,
+  category: state.location.payload.category || `/${state.location.payload.location}/${state.location.payload.language}`,
+  categories: state.categories,
+  locations: state.locationModels,
+  languages: state.languages
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)

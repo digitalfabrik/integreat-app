@@ -28,8 +28,10 @@ const mapper = json =>
       return 0
     })
 
-const fetcher = async params =>
+const fetcher = (params, dispatch) =>
   fetch(urlMapper(params))
+    .then(result => result.json())
     .then(json => mapper(json))
+    .then(events => dispatch({type: 'EVENTS_FETCHED', payload: events}))
 
 export default fetcher

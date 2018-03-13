@@ -30,7 +30,7 @@ const fetcher = (dispatch, location) =>
       return sortBy(locations, location => location.sortKey)
     })
     .then(locations => {
-      dispatch({type: 'LOCATIONS_FETCHED', payload: {locations}})
+      dispatch({type: 'LOCATIONS_FETCHED', payload: locations})
       return locations
     }).then(locations => {
       if (location && !locations.find(_location => _location.code === location)) {

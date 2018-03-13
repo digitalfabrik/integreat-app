@@ -77,8 +77,8 @@ export class ExtrasPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location,
-  language: state.router.params.language,
+  location: state.location.payload.location,
+  language: state.location.payload.language,
   extra: state.router.params.extra
 })
 

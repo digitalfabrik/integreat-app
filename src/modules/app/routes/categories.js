@@ -1,44 +1,41 @@
-import { categoriesFetcher, languagesFetcher, locationsFetcher } from '../../endpoint/fetchers'
+import { categoriesFetcher, eventsFetcher, languagesFetcher, locationsFetcher } from '../../endpoint/fetchers'
 
 const route = {
-  path: '/:location/:language(/:category)',
+  path: '/:location/:language*',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {location, language} = state.router.payload
-    const categoryId = state.router.query.categoryId
+    const {location, language} = state.location.payload
 
-    let locations = state.locations
+    const query = state.location.query
+    const categoryId = query ? query.categoryId : undefined
+
+    const locations = state.locationModels
     if (!locations) {
-      locations = await locationsFetcher()
-
-      dispatch({type: 'LOCATIONS_FETCHED', payload: {locations}})
+      await locationsFetcher(dispatch, location)
     }
 
-    if (!locations.find(_location => _location.code === location)) {
-      dispatch({type: 'LOCATION_NOT_FOUND', payload: {location}})
-    }
-
-    let languages = state[location].languages
+    const languages = state.languages
     if (!languages) {
-      languages = await languagesFetcher({location})
-
-      dispatch({type: 'LANGUAGES_FETCHED', payload: {location, languages}})
+      await languagesFetcher({location}, dispatch, language)
     }
 
-    if (!languages.find(_language => _language.code === language)) {
-      dispatch({type: 'LANGUAGE_NOT_FOUND', payload: {location, language}})
+    const events = state.events
+    if (!events) {
+      await eventsFetcher({location, language}, dispatch)
     }
 
-    let categories = state[location][language].categories
+    let categories = state.categories
     if (!categories) {
-      categories = await categoriesFetcher({location, language})
-
-      dispatch({type: 'CATEGORIES_FETCHED', payload: {location, language, categories}})
+      categories = await categoriesFetcher({location, language}, dispatch)
     }
 
     if (categoryId) {
-      const category = categories.getCategoryById(Number(categoryId))
-      dispatch({type: 'CATEGORIES', payload: {location, language, category: category.path}})
+      try {
+        const category = categories.getCategoryById(Number(categoryId))
+        dispatch({type: 'CATEGORIES', payload: {location, language, category: category.path}})
+      } catch (e) {
+        dispatch({type: 'CATEGORY_NOT_FOUND', payload: {categoryId}})
+      }
     }
   }
 }

@@ -6,82 +6,68 @@ import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
-import LocationModel from 'modules/endpoint/models/LocationModel'
 import Header from 'modules/layout/components/Header'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
-import SearchPage from 'routes/search/containers/SearchPage'
-import LandingPage from 'routes/landing/containers/LandingPage'
-import CategoriesPage from 'routes/categories/containers/CategoriesPage'
-import EventsPage from 'routes/events/containers/EventsPage'
-import ExtrasPage from 'routes/extras/containers/ExtrasPage'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 
 class LocationHeader extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    matchRoute: PropTypes.func.isRequired,
-    locationModel: PropTypes.instanceOf(LocationModel).isRequired,
+    location: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    currentPath: PropTypes.string.isRequired,
+    currentRoute: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
-    eventCount: PropTypes.number.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    isEventsEnabled: PropTypes.bool.isRequired,
+    isExtrasEnabled: PropTypes.bool.isRequired,
+    isEventsActive: PropTypes.bool.isRequired
+  }
+
+  getBasePath () {
+    return `/${this.props.location}/${this.props.language}`
   }
 
   getActionItems () {
-    const {matchRoute, languages} = this.props
-    const currentParams = this.getCurrentParams()
+    const {languages, language} = this.props
     return [
-      new HeaderActionItem({href: matchRoute(SearchPage).stringify(currentParams), iconSrc: searchIcon}),
-      new HeaderActionItem({href: matchRoute(LandingPage).stringify(currentParams), iconSrc: locationIcon}),
+      new HeaderActionItem({href: `${this.getBasePath()}/search`, iconSrc: searchIcon}),
+      new HeaderActionItem({href: `/${language}`, iconSrc: locationIcon}),
       new HeaderActionItem({dropDownNode: <LanguageSelector languages={languages} />, iconSrc: languageIcon})
     ]
   }
 
-  getCurrentParams () {
-    return {
-      location: this.props.locationModel.code,
-      language: this.props.language
-    }
-  }
-
   getNavigationItems () {
-    const {t, matchRoute, currentPath} = this.props
-    const currentParams = this.getCurrentParams()
+    const {t, isEventsEnabled, isExtrasEnabled, currentRoute, isEventsActive} = this.props
 
-    const isEventsEnabled = () => this.props.locationModel.eventsEnabled
-    const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
-    const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
+    const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
 
-    const isExtrasSelected = () => matchRoute(ExtrasPage).hasPath(currentPath)
-    const isCategoriesSelected = () => matchRoute(CategoriesPage).hasPath(currentPath)
-    const isEventsSelected = () => matchRoute(EventsPage).hasPath(currentPath)
+    const isExtrasSelected = currentRoute === 'EXTRAS'
+    const isCategoriesSelected = currentRoute === 'CATEGORIES'
+    const isEventsSelected = currentRoute === 'EVENTS'
 
-    const isEventsActive = () => this.props.eventCount > 0
-
-    const extras = isExtrasEnabled() &&
+    const extras = isExtrasEnabled &&
       new HeaderNavigationItem({
-        href: matchRoute(ExtrasPage).stringify(currentParams),
-        selected: isExtrasSelected(),
+        href: `${this.getBasePath()}/extras`,
+        selected: isExtrasSelected,
         text: t('extras'),
         active: true
       })
 
-    const categories = isCategoriesEnabled() &&
+    const categories = isCategoriesEnabled &&
       new HeaderNavigationItem({
-        href: matchRoute(CategoriesPage).stringify(currentParams),
-        selected: isCategoriesSelected(),
+        href: `${this.getBasePath()}`,
+        selected: isCategoriesSelected,
         text: t('categories'),
         active: true
       })
 
-    const events = isEventsEnabled() &&
+    const events = isEventsEnabled &&
       new HeaderNavigationItem({
-        href: matchRoute(EventsPage).stringify(currentParams),
-        selected: isEventsSelected(),
+        href: `${this.getBasePath()}/events`,
+        selected: isEventsSelected,
         text: t('news'),
-        active: isEventsActive(),
+        active: isEventsActive,
         tooltip: t('noNews')
       })
 
@@ -89,10 +75,9 @@ class LocationHeader extends React.Component {
   }
 
   render () {
-    const {matchRoute} = this.props
     return <Header
       viewportSmall={this.props.viewportSmall}
-      logoHref={matchRoute(CategoriesPage).stringify(this.getCurrentParams())}
+      logoHref={`${this.getBasePath()}`}
       actionItems={this.getActionItems()}
       navigationItems={this.getNavigationItems()} />
   }

@@ -36,8 +36,13 @@ const mapper = (json, params) => {
   return new CategoriesMapModel(categories)
 }
 
-const fetcher = async params =>
+const fetcher = (params, dispatch) =>
   fetch(urlMapper(params))
+    .then(result => result.json())
     .then(json => mapper(json, params))
+    .then(categories => {
+      dispatch({type: 'CATEGORIES_FETCHED', payload: categories})
+      return categories
+    })
 
 export default fetcher
