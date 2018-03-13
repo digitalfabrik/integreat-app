@@ -14,4 +14,4 @@ then
     rsync -vr --delete $(mktemp -d)/ ${HOST}:${REMOTE_DIR}
 fi
 
-rsync -vIacz --progress --stats --exclude=*.ejs public/* ${HOST}:${REMOTE_DIR}
+rsync -vIacz --progress --stats --exclude=*.ejs www/* ${HOST}:${REMOTE_DIR}

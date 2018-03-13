@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchInput connect should render 1`] = `
+<SearchInput
+  filterText="Test"
+  onFilterTextChange={[Function]}
+  t={[Function]}
+/>
+`;
+
+exports[`SearchInput should render 1`] = `
+<div
+  className=""
+>
+  <div
+    className="search"
+  >
+    <FontAwesome
+      className="searchIcon"
+      name="search"
+    />
+    <input
+      autoFocus={true}
+      className="searchInput"
+      defaultValue="Test"
+      onChange={[Function]}
+      placeholder="search"
+      type="text"
+    />
+  </div>
+</div>
+`;
+
+exports[`SearchInput should render and space search 1`] = `
+<div
+  className="searchSpacing"
+>
+  <div
+    className="search"
+  >
+    <FontAwesome
+      className="searchIcon"
+      name="search"
+    />
+    <input
+      autoFocus={true}
+      className="searchInput"
+      defaultValue="Test"
+      onChange={[Function]}
+      placeholder="search"
+      type="text"
+    />
+  </div>
+</div>
+`;

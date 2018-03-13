@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPage should match snapshot 1`] = `
+<div>
+  <Translate(SearchInput)
+    filterText=""
+    onFilterTextChange={[Function]}
+    spaceSearch={true}
+  />
+  <CategoryList
+    categories={
+      Array [
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": 4367,
+              "en": 4361,
+              "fa": 4368,
+            },
+            "_content": "",
+            "_id": 3650,
+            "_order": 75,
+            "_parentId": 0,
+            "_parentUrl": "/augsburg/de",
+            "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+            "_title": "Anlaufstellen zu sonstigen Themen",
+            "_url": "/augsburg/de/anlaufstellen",
+          },
+        },
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": 4819,
+              "en": 4804,
+              "fa": 4827,
+            },
+            "_content": "",
+            "_id": 3649,
+            "_order": 11,
+            "_parentId": 0,
+            "_parentUrl": "/augsburg/de",
+            "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+            "_title": "Willkommen",
+            "_url": "/augsburg/de/willkommen",
+          },
+        },
+        Object {
+          "children": Array [],
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": "397",
+              "de": "711",
+              "en": "390",
+            },
+            "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
+",
+            "_id": 35,
+            "_order": 1,
+            "_parentId": 3649,
+            "_parentUrl": "/augsburg/de/willkommen",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+            "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
+          },
+        },
+      ]
+    }
+    query=""
+  />
+</div>
+`;

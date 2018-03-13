@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnail {
+  display: flex;
+  width: 300px;
+  height: 300px;
+  margin: 10px auto;
+  padding-bottom: 10px;
+  object-fit: contain;
+}
+
+.identifier {
+  font-weight: 700;
+}

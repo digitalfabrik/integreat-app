@@ -1,0 +1,78 @@
+@import url('../../common/constants/helpers.css');
+@import url('../../common/constants/colors.css');
+@import url('../../common/constants/dimensions.css');
+
+.header {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+  background-color: var(--background-accent-color);
+  user-select: none;
+}
+
+.header > div {
+  display: flex;
+  height: var(--header-height);
+  align-items: center;
+}
+
+.logo-wide {
+  box-sizing: border-box;
+  flex: 1 1 100px;
+  order: 0;
+  padding: 0 10px;
+}
+
+.logo-wide a {
+  width: 100%;
+  height: 60%;
+}
+
+.logo-wide img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.action-bar {
+  flex: 1 1 100px;
+  order: 2;
+}
+
+.navigation-bar {
+  flex: 2 1 100px;
+  order: 1;
+}
+
+@media (--small-viewport) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .header > div {
+    height: var(--header-height-small);
+  }
+
+  .header .action-bar,
+  .header .logo-wide {
+    flex: 1 1 100px;
+  }
+
+  .navigation-bar {
+    flex: 1 0 100%;
+    order: 3;
+  }
+
+  .logo-wide a {
+    max-height: 75%;
+  }
+}
+
+/* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+@media screen and (min-width: 1000px) {
+  .header {
+    padding-right: calc((200% - 100vw - 1000px) / 2);
+    padding-left: calc((100vw - 1000px) / 2);
+  }
+}

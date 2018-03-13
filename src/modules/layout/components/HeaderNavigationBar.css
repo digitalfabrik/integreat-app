@@ -1,0 +1,9 @@
+.navigation-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation-bar.hidden {
+  display: none;
+}

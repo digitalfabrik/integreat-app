@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heading should render 1`] = `
+<Translate(Heading)>
+  <Heading
+    t={[Function]}
+  >
+    <div>
+      <img
+        className="logo"
+        src="test-file-stub"
+      />
+      <Caption
+        className="caption"
+        title="landing:where"
+      >
+        <h1
+          className="caption"
+        >
+          landing:where
+        </h1>
+      </Caption>
+    </div>
+  </Heading>
+</Translate(Heading)>
+`;

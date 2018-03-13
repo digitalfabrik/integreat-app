@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should match snapshot with largeViewport 1`] = `
+<Headroom
+  pinStart={0}
+  scrollHeight={85}
+>
+  <header
+    className="header"
+  >
+    <div
+      className="logoWide"
+    >
+      <Connect(Link)
+        href="/"
+      >
+        <img
+          src="test-file-stub"
+        />
+      </Connect(Link)>
+    </div>
+    <HeaderNavigationBar
+      className="navigationBar"
+    >
+      <HeaderNavigationItem
+        active={true}
+        href="/nav1"
+        selected={true}
+        text="text1"
+        tooltip="tooltip1"
+      />
+    </HeaderNavigationBar>
+    <HeaderActionBar
+      className="actionBar"
+      items={
+        Array [
+          HeaderActionItem {
+            "_dropDownNode": undefined,
+            "_href": "/action1",
+            "_iconSrc": undefined,
+          },
+        ]
+      }
+    />
+  </header>
+</Headroom>
+`;
+
+exports[`Header should match snapshot with smallViewport 1`] = `
+<Headroom
+  pinStart={0}
+  scrollHeight={55}
+>
+  <header
+    className="header"
+  >
+    <div
+      className="logoWide"
+    >
+      <Connect(Link)
+        href="/"
+      >
+        <img
+          src="test-file-stub"
+        />
+      </Connect(Link)>
+    </div>
+    <HeaderNavigationBar
+      className="navigationBar"
+    >
+      <HeaderNavigationItem
+        active={true}
+        href="/nav1"
+        selected={true}
+        text="text1"
+        tooltip="tooltip1"
+      />
+    </HeaderNavigationBar>
+    <HeaderActionBar
+      className="actionBar"
+      items={
+        Array [
+          HeaderActionItem {
+            "_dropDownNode": undefined,
+            "_href": "/action1",
+            "_iconSrc": undefined,
+          },
+        ]
+      }
+    />
+  </header>
+</Headroom>
+`;
