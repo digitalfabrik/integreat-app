@@ -1,9 +1,18 @@
+// @flow
+
 import { apiUrl } from '../constants'
 import ExtraModel from '../models/ExtraModel'
 
-const urlMapper = params => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v3/extras`
+type Params = {
+  city: string,
+  language: string
+}
 
-const mapper = json =>
+type Dispatch = ({type: string, payload: Array<ExtraModel>}) => {}
+
+const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
+
+const mapper = (json: any): Array<ExtraModel> =>
   json
     .map(extra => new ExtraModel({
       alias: extra.alias,
@@ -12,8 +21,13 @@ const mapper = json =>
       thumbnail: extra.thumbnail
     }))
 
-const fetcher = async params =>
+const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<ExtraModel>> =>
   fetch(urlMapper(params))
+    .then(result => result.json())
     .then(json => mapper(json))
+    .then(extras => {
+      dispatch({type: 'EXTRAS_FETCHED', payload: extras})
+      return extras
+    })
 
 export default fetcher
