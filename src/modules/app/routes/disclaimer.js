@@ -1,24 +1,15 @@
-import { citiesFetcher, disclaimerFetcher, eventsFetcher, languagesFetcher } from '../../endpoint/fetchers'
+import { disclaimerFetcher, locationLayoutFetcher } from '../../endpoint/fetchers'
 
 const route = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
+    const prev = state.location.prev
 
-    if (!state.cities) {
-      await citiesFetcher(dispatch, city)
-    }
+    await locationLayoutFetcher(dispatch, getState)
 
-    if (!state.languages) {
-      await languagesFetcher({city}, dispatch, language)
-    }
-
-    if (!state.events) {
-      await eventsFetcher({city, language}, dispatch)
-    }
-
-    if (!state.disclaimer) {
+    if (!state.disclaimer || prev.payload.city !== city || prev.payload.language !== language) {
       await disclaimerFetcher({city, language}, dispatch)
     }
   }

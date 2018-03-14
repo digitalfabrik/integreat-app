@@ -5,6 +5,8 @@ import { sortBy } from 'lodash/collection'
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 
+type Params = {city: ?string}
+
 type Dispatch = ({type: string, payload: Array<CityModel> | string}) => {}
 
 const urlMapper = (): string => `${apiUrl}/wp-json/extensions/v1/multisites`
@@ -19,7 +21,7 @@ const stripSlashes = path => {
   return path
 }
 
-const fetcher = (dispatch: Dispatch, city: ?string): Promise<Array<CityModel>> =>
+const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<CityModel>> =>
   fetch(urlMapper())
     .then(response => response.json())
     .then(json => {
@@ -38,8 +40,8 @@ const fetcher = (dispatch: Dispatch, city: ?string): Promise<Array<CityModel>> =
       dispatch({type: 'CITIES_FETCHED', payload: cities})
       return cities
     }).then(cities => {
-      if (city && !cities.find(_city => _city.code === city)) {
-        dispatch({type: 'CITY_NOT_FOUND', payload: city})
+      if (params.city && !cities.find(_city => _city.code === params.city)) {
+        dispatch({type: 'CITY_NOT_FOUND', payload: params.city})
       }
       return cities
     })

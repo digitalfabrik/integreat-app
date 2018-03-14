@@ -4,7 +4,8 @@ import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 
 type Params = {
-  city: string
+  city: string,
+  language: ?string
 }
 
 type Dispatch = ({type: string, payload: Array<LanguageModel> | {city: string, language: string}}) => {}
@@ -16,7 +17,7 @@ const mapper = (json: any): Array<LanguageModel> =>
     .map(language => new LanguageModel(language.code, language.native_name))
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
 
-const fetcher = (params: Params, dispatch: Dispatch, language: string): Promise<Array<LanguageModel>> =>
+const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<LanguageModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json))
@@ -25,8 +26,8 @@ const fetcher = (params: Params, dispatch: Dispatch, language: string): Promise<
       return languages
     })
     .then(languages => {
-      if (language && !languages.find(_language => _language.code === language)) {
-        dispatch({type: 'LANGUAGE_NOT_FOUND', payload: {city: params.city, language}})
+      if (params.language && !languages.find(_language => _language.code === params.language)) {
+        dispatch({type: 'LANGUAGE_NOT_FOUND', payload: {city: params.city, language: params.language}})
       }
       return languages
     })
