@@ -1,19 +1,19 @@
 import { categoriesFetcher, locationLayoutFetcher } from '../../endpoint/fetchers'
 
 const route = {
-  path: '/:city/:language/:categoryPath?',
+  path: '/:city/:language/:categoryPath*',
   thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
     const prev = state.location.prev
-
-    const query = state.location.query
+    const query = state.location.payload.query
     const categoryId = query ? query.categoryId : undefined
 
-    await locationLayoutFetcher(dispatch, getState)
-
     let categories = state.categories
+    console.log(prev.payload.language !== language)
+    console.log(!categories)
+    console.log(prev.payload.city !== city)
     if (!categories || prev.payload.city !== city || prev.payload.language !== language) {
       categories = await categoriesFetcher({city, language}, dispatch)
     }
@@ -25,6 +25,8 @@ const route = {
       } catch (e) {
         dispatch({type: 'CATEGORY_ID_NOT_FOUND', payload: categoryId})
       }
+    } else {
+      await locationLayoutFetcher(dispatch, getState)
     }
   }
 }

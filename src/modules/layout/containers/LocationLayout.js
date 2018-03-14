@@ -7,7 +7,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationHeader from './LocationHeader'
+import LocationHeader from '../components/LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 
