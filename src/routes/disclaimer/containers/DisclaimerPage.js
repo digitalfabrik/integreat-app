@@ -14,12 +14,12 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 export class DisclaimerPage extends React.Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    location: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     disclaimer: PropTypes.instanceOf(DisclaimerModel).isRequired,
     setLanguageChangeUrls: PropTypes.func.isRequired
   }
 
-  mapLanguageToUrl = language => `/${this.props.location}/${language}/disclaimer`
+  mapLanguageToUrl = language => `/${this.props.city}/${language}/disclaimer`
 
   componentDidMount () {
     this.props.setLanguageChangeUrls(this.mapLanguageToUrl, this.props.languages)
@@ -32,7 +32,9 @@ export class DisclaimerPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location
+  city: state.location.payload.city,
+  disclaimer: state.disclaimer,
+  languages: state.languages
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -17,6 +17,8 @@ import EventsPage from '../../routes/events/containers/EventsPage'
 import EventModel from '../endpoint/models/EventModel'
 import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
 import ExtraModel from '../endpoint/models/ExtraModel'
+import DisclaimerPage from '../../routes/disclaimer/containers/DisclaimerPage'
+import DisclaimerModel from '../endpoint/models/DisclaimerModel'
 
 type Props = {
   viewportSmall: boolean,
@@ -25,12 +27,13 @@ type Props = {
   languages: Array<LanguageModel>,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
-  extras: Array<ExtraModel>
+  extras: Array<ExtraModel>,
+  disclaimer: DisclaimerModel
 }
 
 class Switcher extends React.Component<Props> {
   getComponent () {
-    const {currentRoute, cities, events, categories, extras} = this.props
+    const {currentRoute, cities, events, categories, extras, disclaimer} = this.props
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
     switch (currentRoute) {
@@ -44,6 +47,8 @@ class Switcher extends React.Component<Props> {
         return events ? <EventsPage /> : <LoadingSpinner />
       case 'EXTRAS':
         return extras ? <ExtrasPage /> : <LoadingSpinner />
+      case 'DISCLAIMER':
+        return disclaimer ? <DisclaimerPage /> : <LoadingSpinner />
     }
   }
 
@@ -70,7 +75,8 @@ const mapStateToProps = state => ({
   languages: state.languages,
   categories: state.categories,
   events: state.events,
-  extras: state.extras
+  extras: state.extras,
+  disclaimer: state.disclaimer
 })
 
 export default connect(mapStateToProps)(Switcher)
