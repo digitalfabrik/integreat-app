@@ -33,7 +33,7 @@ class Selector extends React.Component {
           <Link key={item.code}
                 className={style.element}
                 onClick={this.props.closeDropDownCallback}
-                to={item.path}>
+                to={item.href}>
             {item.name}
           </Link>
         )

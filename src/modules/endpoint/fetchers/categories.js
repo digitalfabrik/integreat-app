@@ -21,6 +21,7 @@ const mapper = (json: any, params: Params): CategoriesMapModel => {
       return new CategoryModel({
         id: category.id,
         url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,
+        path: decodeURI(category.permalink.url_page),
         title: category.title,
         parentId: category.parent,
         content: category.content,
@@ -34,6 +35,7 @@ const mapper = (json: any, params: Params): CategoriesMapModel => {
   categories.push(new CategoryModel({
     id: 0,
     url: baseUrl,
+    path: '',
     title: params.city,
     parentId: -1,
     content: '',

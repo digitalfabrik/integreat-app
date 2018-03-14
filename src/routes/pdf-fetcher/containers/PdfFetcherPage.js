@@ -127,7 +127,6 @@ class PdfFetcherPage extends React.Component {
   }
 
   render () {
-    console.log(this.props.fetchUrl)
     const {t} = this.props
     if (this.state.loading) {
       return <div className={style.pdfFetcher}>

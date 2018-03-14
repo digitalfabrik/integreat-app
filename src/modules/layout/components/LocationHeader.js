@@ -7,7 +7,7 @@ import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
 import Header from 'modules/layout/components/Header'
-import HeaderNavigationItem from '../components/HeaderNavigationItem'
+import HeaderNavigationItem from './HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 
