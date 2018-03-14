@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import LocationModel from 'modules/endpoint/models/CityModel'
 import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 
@@ -14,32 +13,33 @@ import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 type Props = {
   categories: CategoriesMapModel,
-  locations: Array<LocationModel>,
-  location: string,
+  cities: Array<CityModel>,
+  city: string,
   language: string,
   category: string
 }
 
 /**
- * Displays a CategoryTable, CategoryList or a single category as page matching the route /<location>/<language>*
+ * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
 export class CategoriesPage extends React.Component<Props> {
   getPdfFetchPath () {
-    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.category}`
+    return `/${this.props.city}/${this.props.language}/fetch-pdf?url=${this.props.category}`
   }
 
   /**
-   * Our root categories don't have the right title (location code instead of location title), so we have to compare the
-   * title of the root category with the code of every location
+   * Our root categories don't have the right title (citiy code instead of city title), so we have to compare the
+   * title of the root category with the code of every city
    * @param {String} title The title of the category to search for
    * @return {String} The found name or the given title
    */
-  getLocationName (title: string) {
-    const location = this.props.locations.find(_location => title === _location.code)
-    return location ? location.name : title
+  getCityName (title: string) {
+    const city = this.props.cities.find(_city => title === _city.code)
+    return city ? city.name : title
   }
 
   getTileModels (categories: Array<CategoryModel>) {
@@ -67,7 +67,7 @@ export class CategoriesPage extends React.Component<Props> {
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={this.getLocationName(category.title)} />
+                    title={this.getCityName(category.title)} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, children: categories.getChildren(model)}))}
@@ -85,7 +85,7 @@ export class CategoriesPage extends React.Component<Props> {
     return <div>
       <Breadcrumbs
         parents={this.props.categories.getAncestors(categoryModel)}
-        locationName={this.getLocationName(this.props.location)} />
+        locationName={this.getCityName(this.props.city)} />
       {this.getContent(categoryModel)}
       <PdfButton href={this.getPdfFetchPath()} />
     </div>
@@ -94,10 +94,10 @@ export class CategoriesPage extends React.Component<Props> {
 
 const mapStateToProps = state => ({
   language: state.location.payload.language,
-  location: state.location.payload.location,
+  city: state.location.payload.city,
   category: state.location.pathname,
   categories: state.categories,
-  locations: state.locationModels,
+  cities: state.cities,
   languages: state.languages
 })
 
