@@ -1,0 +1,26 @@
+@import url('../../common/constants/dimensions.css');
+
+.toolbar {
+  flex-grow: 0;
+  padding: 10px;
+  text-align: right;
+}
+
+.toolbar > * {
+  display: block;
+  margin: 10px 0;
+  opacity: 0.75;
+  font-size: 2em;
+  transition: .1s opacity;
+}
+
+.toolbar *:hover {
+  opacity: 1;
+}
+
+@media (--small-viewport) {
+  .toolbar * {
+    display: inline;
+    margin: 0 10px;
+  }
+}
