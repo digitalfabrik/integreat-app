@@ -19,6 +19,7 @@ import ExtrasPage from '../../routes/extras/containers/ExtrasPage'
 import ExtraModel from '../endpoint/models/ExtraModel'
 import DisclaimerPage from '../../routes/disclaimer/containers/DisclaimerPage'
 import DisclaimerModel from '../endpoint/models/DisclaimerModel'
+import SearchPage from '../../routes/search/containers/SearchPage'
 
 type Props = {
   viewportSmall: boolean,
@@ -42,13 +43,15 @@ class Switcher extends React.Component<Props> {
       case 'MAIN_DISCLAIMER':
         return <MainDisclaimerPage />
       case 'CATEGORIES':
-        return cities && categories ? <CategoriesPage /> : <LoadingSpinner />
+        return categories ? <CategoriesPage /> : <LoadingSpinner />
       case 'EVENTS':
         return events ? <EventsPage /> : <LoadingSpinner />
       case 'EXTRAS':
         return extras ? <ExtrasPage /> : <LoadingSpinner />
       case 'DISCLAIMER':
         return disclaimer ? <DisclaimerPage /> : <LoadingSpinner />
+      case 'SEARCH':
+        return categories ? <SearchPage /> : <LoadingSpinner />
     }
   }
 

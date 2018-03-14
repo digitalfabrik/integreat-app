@@ -11,7 +11,7 @@ import CategoryList from '../../categories/components/CategoryList'
 
 export class SearchPage extends React.Component {
   static propTypes = {
-    location: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
     setLanguageChangeUrls: PropTypes.func.isRequired
@@ -22,7 +22,7 @@ export class SearchPage extends React.Component {
     this.state = {filterText: ''}
   }
 
-  mapLanguageToPath = language => `/${this.props.location}/${language}/search`
+  mapLanguageToPath = language => `/${this.props.city}/${language}/search`
 
   componentDidMount () {
     this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages)
@@ -66,7 +66,9 @@ export class SearchPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location
+  city: state.location.payload.city,
+  languages: state.languages,
+  categories: state.categories
 })
 
 const mapDispatchToProps = dispatch => ({
