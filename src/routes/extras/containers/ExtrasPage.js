@@ -10,9 +10,6 @@ import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
-import withFetcher from '../../../modules/endpoint/hocs/withFetcher'
-import { sprungbrettUrlMapper } from '../../../modules/endpoint/urlMappers'
-import sprungbrettMapper from '../../../modules/endpoint/mappers/sprungbrett'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -59,10 +56,9 @@ export class ExtrasPage extends React.Component {
 
   getContent () {
     const sprungbrett = this.props.extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    const SprungbrettPageWithFetcher = withFetcher('jobs', sprungbrettUrlMapper, sprungbrettMapper, {url: sprungbrett.path})(SprungbrettList)
 
     if (this.props.extra === SPRUNGBRETT_EXTRA && sprungbrett) {
-      return <SprungbrettPageWithFetcher title={sprungbrett.name} />
+      return <SprungbrettList title={sprungbrett.name} />
     } else if (this.props.extra) {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
       return <Failure error={'not-found:page.notFound'} />

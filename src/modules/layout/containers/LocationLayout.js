@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import LocationModel from 'modules/endpoint/models/LocationModel'
@@ -8,23 +7,23 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationHeader from '../components/LocationHeader'
+import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 
-export class LocationLayout extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    currentRoute: PropTypes.string.isRequired,
-    viewportSmall: PropTypes.bool.isRequired,
-    children: PropTypes.node,
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel))
-  }
+type Props = {
+  location: string,
+  language: string,
+  locations: Array<LocationModel>,
+  langages: Array<LanguageModel>,
+  currentRoute: string,
+  viewportSmall: boolean,
+  children?: Node,
+  events: Array<EventModel>
+}
 
-  getCurrentLocation () {
+export class LocationLayout extends React.Component<Props> {
+  getCurrentLocation (): ?LocationModel {
     return this.props.locations.find(location => location.code === this.props.location)
   }
 

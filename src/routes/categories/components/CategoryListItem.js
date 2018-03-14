@@ -4,10 +4,9 @@ import React from 'react'
 import Link from 'redux-first-router-link'
 import Highlighter from 'react-highlighter'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
-
 import style from './CategoryListItem.css'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
   category: CategoryModel,

@@ -16,9 +16,14 @@ describe('CategoriesPage', () => {
     new CategoryModel({
       id: 0,
       url: '/augsburg/de',
-      title: 'augsburg'
-    }),
-    new CategoryModel({
+      title: 'augsburg',
+      content: '',
+      parentId: -1,
+      order: -1,
+      availableLanguages: {},
+      thumbnail: 'no_thumbnail',
+      parentUrl: ''
+    }), new CategoryModel({
       id: 3650,
       url: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
@@ -48,14 +53,14 @@ describe('CategoriesPage', () => {
       id: 35,
       url: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
-      content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
+      content: 'some content',
       parentId: 3649,
       parentUrl: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
-        en: '390',
-        de: '711',
-        ar: '397'
+        en: 390,
+        de: 711,
+        ar: 397
       },
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
     })
@@ -80,8 +85,6 @@ describe('CategoriesPage', () => {
   const language = 'en'
 
   it('should match snapshot and render a Page if page has no children', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -90,15 +93,13 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={categoryModels[3].url}
                       setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      replaceUrl={() => {}} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -107,15 +108,13 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={categoryModels[2].url}
                       setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      replaceUrl={() => {}} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should match snapshot and render CategoryTiles if the path is the root category', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       locations={locations}
@@ -124,7 +123,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={'/augsburg/de'}
                       setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      replaceUrl={() => {}} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -272,7 +271,7 @@ describe('CategoriesPage', () => {
 
   describe('connect', () => {
     const pathname = '/augsburg/de/willkommen'
-    const id = '1234'
+    const id = '3650'
 
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
@@ -292,7 +291,7 @@ describe('CategoriesPage', () => {
         location: location,
         language: language,
         path: pathname,
-        categoryId: id,
+        categoryId: Number(id),
         setLanguageChangeUrls: expect.any(Function),
         replaceUrl: expect.any(Function),
         categories: categories,

@@ -15,9 +15,9 @@ import PdfButton from 'routes/categories/components/PdfButton'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
-type mapLanguageToPath = (string, ?string) => string
+type MapLanguageToPath = (string, ?string) => string
 
 type Props = {
   categories: CategoriesMapModel,
@@ -26,7 +26,7 @@ type Props = {
   location: string,
   language: string,
   category: string,
-  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void
+  setLanguageChangeUrls: (MapLanguageToPath, Array<LanguageModel>, ?Object) => void
 }
 
 /**

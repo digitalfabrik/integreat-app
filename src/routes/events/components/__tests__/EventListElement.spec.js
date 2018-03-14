@@ -2,8 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
-import EventModel from 'modules/endpoint/models/EventModel'
 import EventListElement from '../EventListElement'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 
 describe('EventListElement', () => {
   const event = new EventModel({
@@ -12,7 +12,8 @@ describe('EventListElement', () => {
     availableLanguages: {de: '1235', ar: '1236'},
     startDate: moment.tz('2017-11-27 19:30:00', 'UTC'),
     endDate: moment.tz('2017-11-27 21:30:00', 'UTC'),
-    allDay: false
+    allDay: false,
+    excerpt: ''
   })
 
   const url = `/augsburg/en/events`

@@ -7,9 +7,10 @@ import searchIcon from '../assets/magnifier.svg'
 import locationIcon from '../assets/location-icon.svg'
 import languageIcon from '../assets/language-icon.svg'
 import Header from 'modules/layout/components/Header'
-import HeaderNavigationItem from '../HeaderNavigationItem'
+import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import LanguageModel from '../../endpoint/models/LanguageModel'
+import EventsNavigationItem from './EventsNavigationItem'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -46,30 +47,26 @@ class LocationHeader extends React.Component {
     const isCategoriesSelected = currentRoute === 'CATEGORIES'
     const isEventsSelected = currentRoute === 'EVENTS'
 
-    const extras = isExtrasEnabled &&
-      new HeaderNavigationItem({
-        href: `${this.getBasePath()}/extras`,
-        selected: isExtrasSelected,
-        text: t('extras'),
-        active: true
-      })
+    const extras = isExtrasEnabled && <HeaderNavigationItem
+      key='extras'
+      href={`${this.getBasePath()}/extras`}
+      selected={isExtrasSelected}
+      text={t('extras')}
+      active />
 
-    const categories = isCategoriesEnabled &&
-      new HeaderNavigationItem({
-        href: `${this.getBasePath()}`,
-        selected: isCategoriesSelected,
-        text: t('categories'),
-        active: true
-      })
+    const categories = isCategoriesEnabled && <HeaderNavigationItem
+      key='categories'
+      href={`${this.getBasePath()}`}
+      selected={isCategoriesSelected}
+      text={t('categories')}
+      active />
 
-    const events = isEventsEnabled &&
-      new HeaderNavigationItem({
-        href: `${this.getBasePath()}/events`,
-        selected: isEventsSelected,
-        text: t('news'),
-        active: isEventsActive,
-        tooltip: t('noNews')
-      })
+    const events = isEventsEnabled && <EventsNavigationItem
+      key='events'
+      href={`${this.getBasePath()}/events`}
+      selected={isEventsSelected}
+      text={t('news')}
+      tooltip={t('noNews')} />
 
     return [extras, categories, events].filter(isEnabled => isEnabled)
   }
