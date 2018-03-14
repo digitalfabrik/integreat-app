@@ -97,7 +97,7 @@ describe('EventsPage', () => {
 
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      eventsPage.mapLanguageToUrl, languages, events[1].availableLanguages
+      eventsPage.mapLanguageToPath, languages, events[1].availableLanguages
     )
   })
 
@@ -113,7 +113,7 @@ describe('EventsPage', () => {
     ).instance()
 
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(eventsPage.mapLanguageToUrl, languages, {})
+    expect(mockSetLanguageChangeUrls).toBeCalledWith(eventsPage.mapLanguageToPath, languages, {})
   })
 
   it('should dispatch on prop update with availableLanguages', () => {
@@ -134,13 +134,13 @@ describe('EventsPage', () => {
 
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(2)
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      wrapper.instance().mapLanguageToUrl, languages, events[1].availableLanguages
+      wrapper.instance().mapLanguageToPath, languages, events[1].availableLanguages
     )
 
     wrapper.setProps({id: undefined, ...wrapper.props})
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(3)
     expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      wrapper.instance().mapLanguageToUrl, languages
+      wrapper.instance().mapLanguageToPath, languages
     )
   })
 
@@ -167,18 +167,18 @@ describe('EventsPage', () => {
     expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
   })
 
-  it('should mapLanguageToUrl correctly', () => {
-    const mapLanguageToUrl = shallow(
+  it('should mapLanguageToPath correctly', () => {
+    const mapLanguageToPath = shallow(
       <EventsPage events={events}
                   location={location}
                   languages={languages}
                   language={language}
                   id={id}
                   setLanguageChangeUrls={() => {}} />
-    ).instance().mapLanguageToUrl
+    ).instance().mapLanguageToPath
 
-    expect(mapLanguageToUrl(language)).toBe(`/${location}/${language}/events`)
-    expect(mapLanguageToUrl(language, id)).toBe(`/${location}/${language}/events/${id}`)
+    expect(mapLanguageToPath(language)).toBe(`/${location}/${language}/events`)
+    expect(mapLanguageToPath(language, id)).toBe(`/${location}/${language}/events/${id}`)
   })
 
   describe('connect', () => {
@@ -222,7 +222,7 @@ describe('EventsPage', () => {
         router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
       })
 
-      const mapLanguageToUrl = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
+      const mapLanguageToPath = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
 
       const languageChangeUrls = {
         en: '/en/1235',
@@ -245,7 +245,7 @@ describe('EventsPage', () => {
         </Provider>
       ).find(EventsPage)
 
-      eventsPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages, availableLanguages)
+      eventsPage.props().setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)
       expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })

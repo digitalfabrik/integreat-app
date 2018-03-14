@@ -11,20 +11,20 @@ exports[`EventList should render a list of events 1`] = `
     <EventListElement
       event={
         EventModel {
-          "_address": "",
+          "_address": undefined,
           "_allDay": true,
           "_availableLanguages": Object {
             "ar": "1236",
             "de": "1235",
           },
-          "_content": "",
+          "_content": undefined,
           "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": "",
+          "_excerpt": undefined,
           "_id": 1234,
           "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": "",
+          "_thumbnail": undefined,
           "_title": "first Event",
-          "_town": "",
+          "_town": undefined,
         }
       }
       key="1234"
@@ -34,20 +34,20 @@ exports[`EventList should render a list of events 1`] = `
     <EventListElement
       event={
         EventModel {
-          "_address": "",
+          "_address": undefined,
           "_allDay": true,
           "_availableLanguages": Object {
             "ar": "1236",
             "en": "1234",
           },
-          "_content": "",
+          "_content": undefined,
           "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": "",
+          "_excerpt": undefined,
           "_id": 1235,
           "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": "",
+          "_thumbnail": undefined,
           "_title": "erstes Event",
-          "_town": "",
+          "_town": undefined,
         }
       }
       key="1235"
@@ -57,17 +57,17 @@ exports[`EventList should render a list of events 1`] = `
     <EventListElement
       event={
         EventModel {
-          "_address": "",
+          "_address": undefined,
           "_allDay": true,
-          "_availableLanguages": Array [],
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": "",
+          "_excerpt": undefined,
           "_id": 2,
           "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": "",
+          "_thumbnail": undefined,
           "_title": "second Event",
-          "_town": "",
+          "_town": undefined,
         }
       }
       key="2"
