@@ -1,38 +1,38 @@
-import { categoriesFetcher, eventsFetcher, languagesFetcher, locationsFetcher } from '../../endpoint/fetchers'
+import { categoriesFetcher, eventsFetcher, languagesFetcher, citiesFetcher } from '../../endpoint/fetchers'
 
 const route = {
-  path: '/:location/:language*',
+  path: '/:city/:language*',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {location, language} = state.location.payload
+    const {city, language} = state.location.payload
 
     const query = state.location.query
     const categoryId = query ? query.categoryId : undefined
 
-    const locations = state.locationModels
-    if (!locations) {
-      await locationsFetcher(dispatch, location)
+    const cities = state.cities
+    if (!cities) {
+      await citiesFetcher(dispatch, city)
     }
 
     const languages = state.languages
     if (!languages) {
-      await languagesFetcher({location}, dispatch, language)
+      await languagesFetcher({city}, dispatch, language)
     }
 
     const events = state.events
     if (!events) {
-      await eventsFetcher({location, language}, dispatch)
+      await eventsFetcher({city, language}, dispatch)
     }
 
     let categories = state.categories
     if (!categories) {
-      categories = await categoriesFetcher({location, language}, dispatch)
+      categories = await categoriesFetcher({city, language}, dispatch)
     }
 
     if (categoryId) {
       try {
         const category = categories.getCategoryById(Number(categoryId))
-        dispatch({type: 'CATEGORIES', payload: {location, language, category: category.path}})
+        dispatch({type: 'CATEGORIES', payload: {city, language, category: category.path}})
       } catch (e) {
         dispatch({type: 'CATEGORY_NOT_FOUND', payload: {categoryId}})
       }

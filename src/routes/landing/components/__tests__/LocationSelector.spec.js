@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 
 import LocationSelector from '../LocationSelector'
 

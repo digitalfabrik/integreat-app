@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import LocationModel from '../../../../modules/endpoint/models/CityModel'
 import createHistory from '../../../../modules/app/createHistory'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 

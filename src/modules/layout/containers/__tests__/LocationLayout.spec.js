@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 
 import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'

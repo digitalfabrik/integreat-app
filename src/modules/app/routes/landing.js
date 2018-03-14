@@ -1,10 +1,10 @@
-import { locationsFetcher } from '../../endpoint/fetchers'
+import { citiesFetcher } from '../../endpoint/fetchers'
 
 const route = {
   path: '/',
   thunk: (dispatch, getState) => {
-    if (!getState().locationModels) {
-      locationsFetcher(dispatch)
+    if (!getState().cities) {
+      citiesFetcher(dispatch)
     }
   }
 }

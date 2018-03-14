@@ -9,11 +9,11 @@ type Params = {
   language: string
 }
 
-type Dispatch = ({type: string, payload: any}) => {}
+type Dispatch = ({type: string, payload: CategoriesMapModel}) => {}
 
-export const urlMapper = (params: Params) => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
+export const urlMapper = (params: Params): string => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
 
-const mapper = (json, params: Params) => {
+const mapper = (json: any, params: Params): CategoriesMapModel => {
   const baseUrl = `/${params.location}/${params.language}`
   const categories = json
     .filter(category => category.status === 'publish')
@@ -56,7 +56,7 @@ const mapper = (json, params: Params) => {
   return new CategoriesMapModel(categories)
 }
 
-const fetcher = (params: Params, dispatch: Dispatch) =>
+const fetcher = (params: Params, dispatch: Dispatch): Promise =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json, params))

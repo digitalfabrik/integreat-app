@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import EventModel from 'modules/endpoint/models/EventModel'
 
 import GeneralHeader from '../components/GeneralHeader'

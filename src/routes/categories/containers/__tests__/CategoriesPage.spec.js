@@ -6,7 +6,7 @@ import createHistory from 'modules/app/createHistory'
 import createReduxStore from 'modules/app/createReduxStore'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'

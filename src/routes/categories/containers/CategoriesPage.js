@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 

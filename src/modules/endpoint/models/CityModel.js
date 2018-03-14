@@ -3,9 +3,9 @@ import { find } from 'lodash/collection'
 
 const IGNORED_PREFIXES = ['stadt', 'kreis', 'landkreis']
 
-class LocationModel {
+class CityModel {
   constructor ({name, code, live = false, eventsEnabled = false, extrasEnabled = false}) {
-    const {sortKey, sortCategory} = LocationModel.getSortingInformation(name)
+    const {sortKey, sortCategory} = CityModel.getSortingInformation(name)
 
     this._name = name
     this._code = code
@@ -59,4 +59,4 @@ class LocationModel {
   }
 }
 
-export default LocationModel
+export default CityModel

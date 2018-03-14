@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash/lang'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import style from './PdfFetcherPage.css'
 import Failure from 'modules/common/components/Failure'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
