@@ -154,7 +154,7 @@ export class CategoriesPage extends React.Component<Props> {
       return <Failure error='not-found:page.notFound' />
     }
 
-    return <React.Fragment>
+    return <div className={style.wrapper}>
       <Toolbar className={style.toolbar} children={this.getToolbarChildren()} />
       <div className={style.content}>
         <Breadcrumbs
@@ -162,7 +162,7 @@ export class CategoriesPage extends React.Component<Props> {
           locations={this.props.locations} />
         {this.getContent(category)}
       </div>
-    </React.Fragment>
+    </div>
   }
 }
 

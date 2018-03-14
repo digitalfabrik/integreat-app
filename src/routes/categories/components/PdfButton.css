@@ -2,5 +2,4 @@
 
 .pdf-wrapper {
   @mixin remove-a;
-  text-align: right;
 }
