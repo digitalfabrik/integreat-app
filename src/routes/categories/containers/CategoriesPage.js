@@ -100,12 +100,12 @@ export class CategoriesPage extends React.Component<Props> {
    * @param {String} title The title of the category to search for
    * @return {String} The found name or the given title
    */
-  getLocationName (title) {
+  getLocationName (title : string) {
     const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
 
-  getTileModels (categories) {
+  getTileModels (categories : Array<CategoryModel>) {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
     }))
