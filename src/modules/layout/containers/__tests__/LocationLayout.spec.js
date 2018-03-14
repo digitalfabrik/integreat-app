@@ -6,6 +6,8 @@ import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import { LocationLayout } from '../LocationLayout'
+import createReduxStore from '../../../app/createReduxStore'
+import createHistory from '../../../app/createHistory'
 
 describe('LocationLayout', () => {
   const matchRoute = id => {}
@@ -47,8 +49,7 @@ describe('LocationLayout', () => {
                       matchRoute={matchRoute}
                       locations={locations}
                       viewportSmall
-                      currentPath='/:location/:language'
-                      events={events}>
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -62,8 +63,7 @@ describe('LocationLayout', () => {
                       matchRoute={matchRoute}
                       locations={locations}
                       viewportSmall
-                      currentPath='/:location/:language'
-                      events={events}>
+                      currentPath='/:location/:language'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -92,7 +92,6 @@ describe('LocationLayout', () => {
         locations: locations,
         viewportSmall: false,
         matchRoute: matchRoute,
-        events: events,
         dispatch: expect.any(Function)
       })
     })
