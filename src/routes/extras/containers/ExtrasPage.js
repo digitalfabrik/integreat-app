@@ -3,8 +3,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
-
 import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
@@ -75,8 +73,4 @@ const mapStateToProps = state => ({
   sprungbrettJobs: state.sprungbrettJobs
 })
 
-const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToPath, languages) => dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExtrasPage)
+export default connect(mapStateToProps)(ExtrasPage)

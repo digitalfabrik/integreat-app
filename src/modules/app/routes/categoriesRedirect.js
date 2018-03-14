@@ -10,7 +10,6 @@ const route = {
 
     try {
       const category = categories.getCategoryById(Number(categoryId))
-      console.log(category)
       dispatch({type: 'CATEGORIES', payload: {city, language, categoryPath: category.path}})
     } catch (e) {
       dispatch({type: 'CATEGORY_ID_NOT_FOUND', payload: categoryId})

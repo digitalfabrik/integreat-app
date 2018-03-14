@@ -3,7 +3,6 @@ import thunkMiddleware from 'redux-thunk'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
-import setLanguageChangeUrlsReducer from '../language/reducers/setLanguageChangeUrls'
 import endpointReducers from '../endpoint/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
@@ -29,8 +28,7 @@ const createReduxStore = (createHistory, initialState = {}, routesMap = defaultR
   const rootReducer = combineReducers({
     ...endpointReducers,
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
-    location: reducer,
-    languageChangeUrls: setLanguageChangeUrlsReducer
+    location: reducer
   })
 
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
