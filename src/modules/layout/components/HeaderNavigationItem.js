@@ -33,7 +33,7 @@ class HeaderNavigationItem extends React.PureComponent {
                          [style.inactiveNavigationItem]: !active,
                          [style.selectedNavigationItem]: active && selected
                        })}
-                       href={href}>{text}
+                       to={href}>{text}
       </ConditionalLink>
 
       <ReactTooltip place='top' type='dark' effect='solid' />

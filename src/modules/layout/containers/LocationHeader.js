@@ -10,7 +10,6 @@ import Header from 'modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import LanguageModel from '../../endpoint/models/LanguageModel'
-import EventsNavigationItem from './EventsNavigationItem'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -61,12 +60,13 @@ class LocationHeader extends React.Component {
       text={t('categories')}
       active />
 
-    const events = isEventsEnabled && <EventsNavigationItem
+    const events = isEventsEnabled && <HeaderNavigationItem
       key='events'
       href={`${this.getBasePath()}/events`}
       selected={isEventsSelected}
       text={t('news')}
-      tooltip={t('noNews')} />
+      tooltip={t('noNews')}
+      active={isEventsActive} />
 
     return [extras, categories, events].filter(isEnabled => isEnabled)
   }

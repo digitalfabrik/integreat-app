@@ -15,7 +15,7 @@ type Props = {
   location: string,
   language: string,
   locations: Array<LocationModel>,
-  langages: Array<LanguageModel>,
+  languages: Array<LanguageModel>,
   currentRoute: string,
   viewportSmall: boolean,
   children?: Node,
