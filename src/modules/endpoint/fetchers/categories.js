@@ -1,10 +1,19 @@
+// @flow
+
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 
-export const urlMapper = params => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
+type Params = {
+  location: string,
+  language: string
+}
 
-const mapper = (json, params) => {
+type Dispatch = ({type: string, payload: any}) => {}
+
+export const urlMapper = (params: Params) => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
+
+const mapper = (json, params: Params) => {
   const baseUrl = `/${params.location}/${params.language}`
   const categories = json
     .filter(category => category.status === 'publish')
@@ -17,11 +26,22 @@ const mapper = (json, params) => {
         content: category.content,
         thumbnail: category.thumbnail,
         order: category.order,
-        availableLanguages: category.available_languages
+        availableLanguages: category.available_languages,
+        parentUrl: ''
       })
     })
 
-  categories.push(new CategoryModel({id: 0, url: baseUrl, title: params.location}))
+  categories.push(new CategoryModel({
+    id: 0,
+    url: baseUrl,
+    title: params.location,
+    parentId: -1,
+    content: '',
+    thumbnail: '',
+    order: -1,
+    availableLanguages: new Map(),
+    parentUrl: ''
+  }))
 
   categories.forEach(category => {
     if (category.id !== 0) {
@@ -36,7 +56,7 @@ const mapper = (json, params) => {
   return new CategoriesMapModel(categories)
 }
 
-const fetcher = (params, dispatch) =>
+const fetcher = (params: Params, dispatch: Dispatch) =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json, params))
