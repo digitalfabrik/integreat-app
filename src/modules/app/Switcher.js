@@ -13,18 +13,21 @@ import GeneralHeader from '../layout/components/GeneralHeader'
 import LanguageModel from '../endpoint/models/LanguageModel'
 import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
 import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
+import EventsPage from '../../routes/events/containers/EventsPage'
+import EventModel from '../endpoint/models/EventModel'
 
 type Props = {
   viewportSmall: boolean,
   currentRoute: string,
   cities: Array<CityModel>,
   languages: Array<LanguageModel>,
-  categories: CategoriesMapModel
+  categories: CategoriesMapModel,
+  events: Array<EventModel>
 }
 
 class Switcher extends React.Component<Props> {
   getComponent () {
-    const {currentRoute, cities, languages, categories} = this.props
+    const {currentRoute, cities, events, categories} = this.props
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
     switch (currentRoute) {
@@ -33,7 +36,9 @@ class Switcher extends React.Component<Props> {
       case 'MAIN_DISCLAIMER':
         return <MainDisclaimerPage />
       case 'CATEGORIES':
-        return cities && languages && categories ? <CategoriesPage /> : <LoadingSpinner />
+        return cities && categories ? <CategoriesPage /> : <LoadingSpinner />
+      case 'EVENTS':
+        return events ? <EventsPage /> : <LoadingSpinner />
     }
   }
 
@@ -58,7 +63,8 @@ const mapStateToProps = state => ({
   currentRoute: state.location.type,
   cities: state.cities,
   languages: state.languages,
-  categories: state.categories
+  categories: state.categories,
+  events: state.events
 })
 
 export default connect(mapStateToProps)(Switcher)
