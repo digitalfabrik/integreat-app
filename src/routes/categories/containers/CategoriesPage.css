@@ -1,3 +1,16 @@
 .breadcrumb-spacing {
   margin-bottom: 20px;
 }
+
+.toolbar {
+
+}
+
+.content {
+  max-width: 1000px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  margin: 0 auto;
+  padding: 0 16px;
+  word-wrap: break-word;
+}

@@ -4,6 +4,7 @@ import React from 'react'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
+import FontAwesome from 'react-fontawesome'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
@@ -19,6 +20,9 @@ import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import Toolbar from '../../../modules/layout/components/Toolbar'
+import PdfButton from '../components/PdfButton'
+import style from './CategoriesPage.css'
 
 type mapLanguageToPath = (string, ?string) => string
 
@@ -110,6 +114,12 @@ export class CategoriesPage extends React.Component<Props> {
     }))
   }
 
+  getToolbarChildren () {
+    const pdfButton = <PdfButton href={this.getPdfFetchPath()} />
+    const test = <FontAwesome name='print' />
+    return [pdfButton, test]
+  }
+
   /**
    * Returns the content to be displayed, based on the current category, which is
    * a) page with information
@@ -144,12 +154,15 @@ export class CategoriesPage extends React.Component<Props> {
       return <Failure error='not-found:page.notFound' />
     }
 
-    return <div>
-      <Breadcrumbs
-        parents={this.props.categories.getAncestors(category)}
-        locations={this.props.locations} />
-      {this.getContent(category)}
-    </div>
+    return <React.Fragment>
+      <Toolbar className={style.toolbar} children={this.getToolbarChildren()} />
+      <div className={style.content}>
+        <Breadcrumbs
+          parents={this.props.categories.getAncestors(category)}
+          locations={this.props.locations} />
+        {this.getContent(category)}
+      </div>
+    </React.Fragment>
   }
 }
 
