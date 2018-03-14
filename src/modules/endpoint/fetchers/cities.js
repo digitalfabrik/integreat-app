@@ -19,7 +19,7 @@ const stripSlashes = path => {
   return path
 }
 
-const fetcher = (dispatch: Dispatch, city: ?string): Promise =>
+const fetcher = (dispatch: Dispatch, city: ?string): Promise<Array<CityModel>> =>
   fetch(urlMapper())
     .then(response => response.json())
     .then(json => {
@@ -41,6 +41,7 @@ const fetcher = (dispatch: Dispatch, city: ?string): Promise =>
       if (city && !cities.find(_city => _city.code === city)) {
         dispatch({type: 'CITY_NOT_FOUND', payload: city})
       }
+      return cities
     })
 
 export default fetcher

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import LocationModel from 'modules/endpoint/models/CityModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 import EventModel from 'modules/endpoint/models/EventModel'
 
 import GeneralHeader from '../components/GeneralHeader'
@@ -12,9 +12,9 @@ import LocationFooter from '../components/LocationFooter'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 
 type Props = {
-  location: string,
+  city: string,
   language: string,
-  locations: Array<LocationModel>,
+  cities: Array<CityModel>,
   languages: Array<LanguageModel>,
   currentRoute: string,
   viewportSmall: boolean,
@@ -23,16 +23,16 @@ type Props = {
 }
 
 export class LocationLayout extends React.Component<Props> {
-  getCurrentLocation (): ?LocationModel {
-    return this.props.locations.find(location => location.code === this.props.location)
+  getCurrentCity (): ?CityModel {
+    return this.props.cities.find(_city => _city.code === this.props.city)
   }
 
   render () {
-    const {language, location, currentRoute, viewportSmall, children, events, languages} = this.props
-    const locationModel = this.getCurrentLocation()
+    const {language, city, currentRoute, viewportSmall, children, events, languages} = this.props
+    const cityModel = this.getCurrentCity()
     const isEventsActive = events ? events.length > 0 : false
 
-    if (!locationModel) {
+    if (!cityModel) {
       return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                      footer={<GeneralFooter />}>
           {children}
@@ -40,14 +40,14 @@ export class LocationLayout extends React.Component<Props> {
     }
 
     return <Layout header={<LocationHeader viewportSmall={viewportSmall}
-                                           location={location}
+                                           location={city}
                                            currentRoute={currentRoute}
                                            language={language}
                                            languages={languages}
                                            isEventsActive={isEventsActive}
-                                           isEventsEnabled={locationModel.eventsEnabled}
-                                           isExtrasEnabled={locationModel.extrasEnabled} />}
-                   footer={<LocationFooter location={location}
+                                           isEventsEnabled={cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel.extrasEnabled} />}
+                   footer={<LocationFooter location={city}
                                            language={language} />}>
         {children}
       </Layout>
@@ -56,10 +56,10 @@ export class LocationLayout extends React.Component<Props> {
 
 const mapStateToProps = state => ({
   currentRoute: state.location.type,
-  location: state.location.payload.location,
+  city: state.location.payload.city,
   language: state.location.payload.language,
   viewportSmall: state.viewport.is.small,
-  locations: state.locationModels,
+  cities: state.cities,
   languages: state.languages,
   events: state.events
 })

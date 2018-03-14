@@ -5,13 +5,13 @@ import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 
 type Params = {
-  location: string,
+  city: string,
   language: string
 }
 
 type Dispatch = ({type: string, payload: Array<EventModel>}) => {}
 
-const urlMapper = (params: Params): string => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
+const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
 
 const mapper = (json: any): Array<EventModel> =>
   json
@@ -37,10 +37,13 @@ const mapper = (json: any): Array<EventModel> =>
       return 0
     })
 
-const fetcher = (params: Params, dispatch: Dispatch) =>
+const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<EventModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json))
-    .then(events => dispatch({type: 'EVENTS_FETCHED', payload: events}))
+    .then(events => {
+      dispatch({type: 'EVENTS_FETCHED', payload: events})
+      return events
+    })
 
 export default fetcher

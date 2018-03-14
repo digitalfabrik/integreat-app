@@ -14,7 +14,7 @@ export class LanguageSelector extends React.Component {
     closeDropDownCallback: PropTypes.func,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     language: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     languageChangeUrls: PropTypes.object.isRequired,
     verticalLayout: PropTypes.bool
   }
@@ -26,7 +26,7 @@ export class LanguageSelector extends React.Component {
    * @return {string} The path
    */
   getPathForLanguage (languageCode) {
-    return this.props.languageChangeUrls[languageCode] || `/${this.props.location}/${languageCode}`
+    return this.props.languageChangeUrls[languageCode] || `/${this.props.city}/${languageCode}`
   }
 
   getSelectorItemModels () {
@@ -47,7 +47,7 @@ export class LanguageSelector extends React.Component {
 
 const mapStateToProps = state => ({
   language: state.location.payload.language,
-  location: state.location.payload.location,
+  city: state.location.payload.city,
   languageChangeUrls: state.languageChangeUrls
 })
 
