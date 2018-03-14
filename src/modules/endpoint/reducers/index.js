@@ -4,7 +4,7 @@ const reducer = (state, action) => action.payload
 const defaultState = null
 
 const reducers = {
-  locationModels: handleAction('LOCATIONS_FETCHED', reducer, defaultState),
+  cities: handleAction('CITIES_FETCHED', reducer, defaultState),
   languages: handleAction('LANGUAGES_FETCHED', reducer, defaultState),
   categories: handleAction('CATEGORIES_FETCHED', reducer, defaultState),
   events: handleAction('EVENTS_FETCHED', reducer, defaultState),

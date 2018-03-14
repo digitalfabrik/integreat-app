@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import LocationHeader from '../LocationHeader'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import Route from '../../../app/Route'
 import CategoriesPage from '../../../../routes/categories/containers/CategoriesPage'
 import LandingPage from '../../../../routes/landing/containers/LandingPage'

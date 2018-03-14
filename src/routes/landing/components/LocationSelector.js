@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import style from './LocationSelector.css'
 import { transform } from 'lodash/object'
 import { groupBy, filter } from 'lodash/collection'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import LocationEntry from './LocationEntry'
 
 class LocationSelector extends React.PureComponent {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Heading from './Heading'
 import ScrollingSearchBox from 'modules/common/components/ScrollingSearchBox'
 import LocationSelector from './LocationSelector'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 
 import style from './FilterableLocationSelector.css'
 

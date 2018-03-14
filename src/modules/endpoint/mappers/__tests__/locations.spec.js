@@ -1,5 +1,5 @@
 import locationsMapper from '../locations'
-import LocationModel from '../../models/LocationModel'
+import LocationModel from '../../models/CityModel'
 
 jest.unmock('../locations')
 

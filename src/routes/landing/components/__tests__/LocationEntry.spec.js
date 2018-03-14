@@ -1,5 +1,5 @@
 import LocationEntry from '../LocationEntry'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import LocationModel from '../../../../modules/endpoint/models/CityModel'
 import { shallow } from 'enzyme'
 import React from 'react'
 

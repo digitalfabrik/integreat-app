@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import FilterableLocationSelector from '../FilterableLocationSelector'
 import { mount, shallow } from 'enzyme'
 import LocationSelector from 'routes/landing/components/LocationSelector'

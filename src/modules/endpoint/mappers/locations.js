@@ -1,6 +1,6 @@
 import { sortBy } from 'lodash/collection'
 
-import LocationModel from '../models/LocationModel'
+import LocationModel from '../models/CityModel'
 
 function stripSlashes (path) {
   if (path.startsWith('/')) {

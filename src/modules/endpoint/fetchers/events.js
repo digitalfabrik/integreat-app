@@ -4,9 +4,16 @@ import moment from 'moment'
 import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 
-const urlMapper = params => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
+type Params = {
+  location: string,
+  language: string
+}
 
-const mapper = json =>
+type Dispatch = ({type: string, payload: Array<EventModel>}) => {}
+
+const urlMapper = (params: Params): string => `${apiUrl}/${params.location}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
+
+const mapper = (json: any): Array<EventModel> =>
   json
     .filter(event => event.status === 'publish')
     .map(event => new EventModel({
@@ -30,7 +37,7 @@ const mapper = json =>
       return 0
     })
 
-const fetcher = (params, dispatch) =>
+const fetcher = (params: Params, dispatch: Dispatch) =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json))

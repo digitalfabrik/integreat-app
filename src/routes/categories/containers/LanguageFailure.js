@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import LanguageSelector from 'modules/common/containers/LanguageSelector'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './LanguageFailure.css'

@@ -3,24 +3,24 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import LocationModel from 'modules/endpoint/models/CityModel'
 
 export class LandingPage extends React.Component {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     language: PropTypes.string.isRequired
   }
 
   render () {
     return <FilterableLocationSelector
           language={this.props.language}
-          locations={this.props.locations} />
+          locations={this.props.cities} />
   }
 }
 
 const mapStateToProps = state => ({
   language: state.location.payload.language || 'de',
-  locations: state.locationModels
+  cities: state.cities
 })
 
 export default connect(mapStateToProps)(LandingPage)
