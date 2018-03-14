@@ -20,7 +20,7 @@ type Props = {
   cities: Array<CityModel>,
   city: string,
   language: string,
-  category: string
+  categoryPath: string
 }
 
 /**
@@ -28,7 +28,7 @@ type Props = {
  */
 export class CategoriesPage extends React.Component<Props> {
   getPdfFetchPath () {
-    return `/${this.props.city}/${this.props.language}/fetch-pdf?url=${this.props.category}`
+    return `/${this.props.city}/${this.props.language}/fetch-pdf?url=${this.props.categoryPath}`
   }
 
   /**
@@ -76,7 +76,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    const categoryModel = this.props.categories.getCategoryByUrl(this.props.category)
+    const categoryModel = this.props.categories.getCategoryByUrl(this.props.categoryPath)
 
     if (!categoryModel) {
       return <Failure error='not-found:page.notFound' />
@@ -95,7 +95,7 @@ export class CategoriesPage extends React.Component<Props> {
 const mapStateToProps = state => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  category: state.location.pathname,
+  categoryPath: state.location.pathname,
   categories: state.categories,
   cities: state.cities,
   languages: state.languages

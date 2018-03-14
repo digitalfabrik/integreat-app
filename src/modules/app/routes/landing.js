@@ -2,9 +2,9 @@ import { citiesFetcher } from '../../endpoint/fetchers'
 
 const route = {
   path: '/',
-  thunk: (dispatch, getState) => {
+  thunk: async (dispatch, getState) => {
     if (!getState().cities) {
-      citiesFetcher(dispatch)
+      await citiesFetcher(dispatch)
     }
   }
 }
