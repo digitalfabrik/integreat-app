@@ -14,7 +14,6 @@ import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 
 import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
-import PdfButton from 'routes/categories/components/PdfButton'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
@@ -150,7 +149,6 @@ export class CategoriesPage extends React.Component<Props> {
         parents={this.props.categories.getAncestors(category)}
         locations={this.props.locations} />
       {this.getContent(category)}
-      <PdfButton href={this.getPdfFetchPath()} />
     </div>
   }
 }
