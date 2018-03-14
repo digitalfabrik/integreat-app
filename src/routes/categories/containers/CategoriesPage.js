@@ -28,7 +28,7 @@ type Props = {
  */
 export class CategoriesPage extends React.Component<Props> {
   getPdfFetchPath () {
-    return `/${this.props.city}/${this.props.language}/fetch-pdf?url=${this.props.categoryPath}`
+    return `/${this.props.city}/${this.props.language}/fetch-pdf${this.props.categoryPath}`
   }
 
   /**
