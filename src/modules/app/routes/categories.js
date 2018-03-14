@@ -11,9 +11,6 @@ const route = {
     const categoryId = query ? query.categoryId : undefined
 
     let categories = state.categories
-    console.log(prev.payload.language !== language)
-    console.log(!categories)
-    console.log(prev.payload.city !== city)
     if (!categories || prev.payload.city !== city || prev.payload.language !== language) {
       categories = await categoriesFetcher({city, language}, dispatch)
     }

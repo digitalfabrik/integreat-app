@@ -5,27 +5,16 @@ import { connect } from 'react-redux'
 import SearchInput from 'modules/common/components/SearchInput'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
 
 export class SearchPage extends React.Component {
   static propTypes = {
-    city: PropTypes.string.isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
-    setLanguageChangeUrls: PropTypes.func.isRequired
+    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired
   }
 
   constructor () {
     super()
     this.state = {filterText: ''}
-  }
-
-  mapLanguageToPath = language => `/${this.props.city}/${language}/search`
-
-  componentDidMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages)
   }
 
   findCategories () {
@@ -66,14 +55,7 @@ export class SearchPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  city: state.location.payload.city,
-  languages: state.languages,
   categories: state.categories
 })
 
-const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToPath, languages) =>
-    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)
+export default connect(mapStateToProps)(SearchPage)
