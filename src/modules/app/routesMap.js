@@ -10,8 +10,8 @@ const routesMap = {
   EXTRAS: extrasRoute,
   DISCLAIMER: disclaimerRoute,
   SEARCH: searchRoute,
-  CATEGORIES: categoriesRoute,
-  PDF_FETCHER: pdfFetcherRoute
+  PDF_FETCHER: pdfFetcherRoute,
+  CATEGORIES: categoriesRoute
 }
 
 export default routesMap

@@ -20,6 +20,7 @@ import ExtraModel from '../endpoint/models/ExtraModel'
 import DisclaimerPage from '../../routes/disclaimer/containers/DisclaimerPage'
 import DisclaimerModel from '../endpoint/models/DisclaimerModel'
 import SearchPage from '../../routes/search/containers/SearchPage'
+import PdfFetcherPage from '../../routes/pdf-fetcher/containers/PdfFetcherPage'
 
 type Props = {
   viewportSmall: boolean,
@@ -52,13 +53,15 @@ class Switcher extends React.Component<Props> {
         return disclaimer ? <DisclaimerPage /> : <LoadingSpinner />
       case 'SEARCH':
         return categories ? <SearchPage /> : <LoadingSpinner />
+      case 'PDF_FETCHER':
+        return categories ? <PdfFetcherPage /> : <LoadingSpinner />
     }
   }
 
   render () {
     const {viewportSmall, currentRoute, cities, languages} = this.props
 
-    return currentRoute === 'LANDING' || currentRoute === 'MAIN_DISCLAIMER'
+    return ['LANDING', 'MAIN_DISCLAIMER', 'PDF_FETCHER'].includes(currentRoute)
       ? <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                 footer={<GeneralFooter />}>
           {this.getComponent()}

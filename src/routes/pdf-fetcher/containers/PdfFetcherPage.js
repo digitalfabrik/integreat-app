@@ -8,17 +8,17 @@ import { isEmpty } from 'lodash/lang'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 
-import LocationModel from 'modules/endpoint/models/CityModel'
 import style from './PdfFetcherPage.css'
 import Failure from 'modules/common/components/Failure'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { apiUrl } from 'modules/endpoint/constants'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)).isRequired,
     categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
-    location: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     fetchUrl: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
@@ -55,12 +55,12 @@ class PdfFetcherPage extends React.Component {
   }
 
   getTitle (title) {
-    const location = this.props.locations.find(location => location.code === title)
-    return location ? location.name : title
+    const city = this.props.cities.find(_city => _city.code === title)
+    return city ? city.name : title
   }
 
   fetchUrl (category) {
-    const url = `${apiUrl}/${this.props.location}/wp-admin/admin-ajax.php`
+    const url = `${apiUrl}/${this.props.city}/wp-admin/admin-ajax.php`
     const categoryIds = []
     const requestType = 'page'
     /* 'allpages' is available for the root page, but 'allpages' doesn't work with all
@@ -82,7 +82,7 @@ class PdfFetcherPage extends React.Component {
       requestType: requestType,
       myContent: categoryIds.join(','),
       pdfOptions: `${toc},${title},${category.id}_file,,`,
-      'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.location}/wp-admin/admin-ajax.php`,
+      'ajaxVars[ajaxurl]': `https://cms.integreat-app.de/${this.props.city}/wp-admin/admin-ajax.php`,
       font,
       fontcolor: '',
       bgcolor: '',
@@ -110,7 +110,7 @@ class PdfFetcherPage extends React.Component {
           return
         }
 
-        const regex = `${escapeRegExp(`https://cms.integreat-app.de/${this.props.location}/wp-content/uploads/`)}[\\w|/|-]*\\.pdf`
+        const regex = `${escapeRegExp(`https://cms.integreat-app.de/${this.props.city}/wp-content/uploads/`)}[\\w|/|-]*\\.pdf`
         const match = text.match(new RegExp(regex))
 
         if (isEmpty(match)) {
@@ -127,6 +127,7 @@ class PdfFetcherPage extends React.Component {
   }
 
   render () {
+    console.log(this.props.fetchUrl)
     const {t} = this.props
     if (this.state.loading) {
       return <div className={style.pdfFetcher}>
@@ -145,9 +146,11 @@ class PdfFetcherPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location,
-  language: state.router.params.language,
-  fetchUrl: state.router.query.url
+  city: state.location.payload.city,
+  language: state.location.payload.language,
+  fetchUrl: state.location.payload.fetchUrl,
+  categories: state.categories,
+  cities: state.cities
 })
 
 export default compose(
