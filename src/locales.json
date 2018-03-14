@@ -13,7 +13,8 @@
       "extras": "Extras",
       "categories": "Kategorien",
       "news": "News",
-      "noNews": "Keine News"
+      "noNews": "Keine News",
+      "createPdf": "PDF erstellen"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -21,7 +22,8 @@
       "extras": "Extras",
       "categories": "Categories",
       "news": "News",
-      "noNews": "No News"
+      "noNews": "No News",
+      "createPdf": "Create a PDF"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",

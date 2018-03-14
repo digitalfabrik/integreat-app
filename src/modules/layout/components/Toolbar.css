@@ -8,19 +8,19 @@
 
 .toolbar > * {
   display: block;
-  margin: 10px 0;
+  margin: 8px 0;
   opacity: 0.75;
   font-size: 2em;
   transition: .1s opacity;
 }
 
-.toolbar *:hover {
+.toolbar > *:hover {
   opacity: 1;
 }
 
 @media (--small-viewport) {
   .toolbar * {
     display: inline;
-    margin: 0 10px;
+    margin: 0 8px;
   }
 }
