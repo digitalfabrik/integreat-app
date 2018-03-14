@@ -10,7 +10,7 @@ const reducers = {
   events: handleAction('EVENTS_FETCHED', reducer, defaultState),
   extras: handleAction('EXTRAS_FETCHED', reducer, defaultState),
   disclaimer: handleAction('DISCLAIMER_FETCHED', reducer, defaultState),
-  sprungbrett: handleAction('SPRUNGBRETT_FETCHED', reducer, defaultState)
+  sprungbrettJobs: handleAction('SPRUNGBRETT_JOBS_FETCHED', reducer, defaultState)
 }
 
 export default reducers
