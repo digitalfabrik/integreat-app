@@ -1,17 +1,17 @@
 @import url('../../common/constants/dimensions.css');
 
 .toolbar {
-  flex-grow: 0;
-  padding: 10px;
-  text-align: right;
+  box-sizing: border-box;
+  padding: 0 16px;
+  text-align: left;
 }
 
 .toolbar > * {
   display: block;
   margin: 8px 0;
-  opacity: 0.75;
+  opacity: 0.5;
   font-size: 2em;
-  transition: .1s opacity;
+  transition: 0.2s opacity;
 }
 
 .toolbar > *:hover {

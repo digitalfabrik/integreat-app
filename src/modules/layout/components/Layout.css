@@ -5,11 +5,11 @@
 @import url('../../common/constants/dimensions.css');
 
 .content {
-  max-width: 800px;
+  width: 100%;
+  max-width: var(--max-width);
   box-sizing: border-box;
   flex-grow: 1;
   margin: 0 auto;
-  padding: 0 16px;
   word-wrap: break-word;
 }
 
@@ -39,7 +39,7 @@
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-@media screen and (min-width: 1000px) {
+@media (--min-max-width) {
   .layout {
     margin-right: 0;
     margin-left: calc(100vw - 100%);

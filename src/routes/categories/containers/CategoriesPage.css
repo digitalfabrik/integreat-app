@@ -1,16 +1,46 @@
+@import url('../../../modules/common/constants/dimensions.css');
+
 .breadcrumb-spacing {
   margin-bottom: 20px;
 }
 
-.toolbar {
-
+.wrapper {
+  text-align: start;
 }
 
 .content {
-  max-width: 1000px;
+  display: inline-block;
+  width: calc(var(--max-width) - 2*var(--toolbar-width));
+  max-width: calc(100% - var(--toolbar-width));
   box-sizing: border-box;
-  flex-grow: 1;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 10px;
   word-wrap: break-word;
+}
+
+.toolbar {
+  position: sticky;
+  top: var(--header-height);
+  display: inline-block;
+  width: var(--toolbar-width);
+  margin-top: 110px;
+  padding-top: 20px;
+  vertical-align: top;
+}
+
+@media (--small-viewport) {
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .toolbar {
+    position: static;
+    margin-top: 0;
+  }
+
+  .wrapper > * {
+    width: 100%;
+    max-width: initial;
+  }
 }
