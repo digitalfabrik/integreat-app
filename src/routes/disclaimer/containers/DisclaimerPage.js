@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
-  withLocationLayout,
+  withLocationLayout(null),
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('disclaimer'),
   withFetcher('languages')

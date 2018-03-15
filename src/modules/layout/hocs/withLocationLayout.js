@@ -11,6 +11,7 @@ import LocationFooter from '../components/LocationFooter'
 import branch from 'recompose/branch'
 import compose from 'recompose/compose'
 import withProps from 'recompose/withProps'
+import React from 'react'
 
 const mapStateToProps = state => ({
   currentPath: state.router.route,
@@ -22,14 +23,13 @@ const mapStateToProps = state => ({
 const findLocation = props => props.locations.find(location => location.code === props.location)
 
 const Header = withProps(props => ({ locationModel: findLocation(props) }))(LocationHeader)
-const withLocationLayout = withLayout(Header, null, LocationFooter)
 
-export default compose(
+export default Toolbar => compose(
   connect(mapStateToProps),
   withFetcher('locations', null, null),
   branch(
     props => !!findLocation(props),
-    withLocationLayout,
+    withLayout(Header, Toolbar, LocationFooter),
     withLayout(GeneralHeader, null, GeneralFooter)
   )
 )
