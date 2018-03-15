@@ -1,11 +1,3 @@
-import SearchPage from 'routes/search/containers/SearchPage'
-import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
-import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
-import CategoriesPage from 'routes/categories/containers/CategoriesPage'
-import ExtrasPage from 'routes/extras/containers/ExtrasPage'
-import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
-import LandingPage from 'routes/landing/containers/LandingPage'
-import EventsPage from 'routes/events/containers/EventsPage'
 import Route from './Route'
 
 const createRouteConfig = () => [
@@ -13,35 +5,35 @@ const createRouteConfig = () => [
     path: '/'
   }),
   new Route({
-    id: LandingPage,
+    id: 'landing',
     path: '/:language(/)'
   }),
   new Route({
-    id: SearchPage,
+    id: 'search',
     path: '/:location/:language/search'
   }),
   new Route({
-    id: DisclaimerPage,
+    id: 'disclaimer',
     path: '/:location/:language/disclaimer'
   }),
   new Route({
-    id: EventsPage,
+    id: 'events',
     path: '/:location/:language/events(/:id)'
   }),
   new Route({
-    id: PdfFetcherPage,
+    id: 'pdf-fetcher',
     path: '/:location/:language/fetch-pdf'
   }),
   new Route({
-    id: ExtrasPage,
+    id: 'extras',
     path: '/:location/:language/extras(/:extra)'
   }),
   new Route({
-    id: CategoriesPage,
+    id: 'categories',
     path: '/:location/:language(/*)'
   }),
   new Route({
-    id: MainDisclaimerPage,
+    id: 'main-disclaimer',
     path: '/disclaimer'
   })
 ]
