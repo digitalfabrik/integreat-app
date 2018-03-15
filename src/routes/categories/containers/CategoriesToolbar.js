@@ -3,17 +3,19 @@
 import { connect } from 'react-redux'
 import React from 'react'
 import compose from 'recompose/compose'
+import { translate } from 'react-i18next'
 
 import withFetcher from '../../../modules/endpoint/hocs/withFetcher'
-import PdfButton from '../components/PdfButton'
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 
 type Props = {
   location: string,
   language: string,
   path: string,
-  categories: CategoriesMapModel
+  categories: CategoriesMapModel,
+  t: string => string
 }
 
 export class CategoriesToolbar extends React.PureComponent<Props> {
@@ -25,7 +27,11 @@ export class CategoriesToolbar extends React.PureComponent<Props> {
     try {
       this.props.categories.getCategoryByUrl(this.props.path)
       return <Toolbar>
-        <PdfButton href={this.getPdfFetchPath()} />
+        <ToolbarItem name='file-pdf-o' text={this.props.t('createPdf')} href={this.getPdfFetchPath()} />
+        {/* todo: Add these functionalities:
+        <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
+        <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
+        <ToolbarItem name='audio-description' text='Sprachausgabe' href={this.getPdfFetchPath()} /> */}
       </Toolbar>
     } catch (e) {
       return <Toolbar />
@@ -40,6 +46,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
+  translate('categories'),
   withFetcher('categories', null, null),
   connect(mapStateToProps)
 )(CategoriesToolbar)
