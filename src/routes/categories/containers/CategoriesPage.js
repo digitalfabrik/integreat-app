@@ -33,9 +33,7 @@ type Props = {
   locations: Array<LocationModel>,
   languages: Array<LanguageModel>,
   location: string,
-  language: string,
   path: string,
-  stickyTop?: number,
   categoryId?: number,
   setLanguageChangeUrls: (MapLanguageToPath, Array<LanguageModel>, ?Object) => void,
   replaceUrl: (string) => void
@@ -119,12 +117,6 @@ export class CategoriesPage extends React.Component<Props> {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
     }))
-  }
-
-  getToolbarChildren () {
-    const pdfButton = <PdfButton href={this.getPdfFetchPath()} name='pdf' />
-    const test = <FontAwesome name='print' key='print' />
-    return <React.Fragment>{pdfButton}{test}</React.Fragment>
   }
 
   /**
