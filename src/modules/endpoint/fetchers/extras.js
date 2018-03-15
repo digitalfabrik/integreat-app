@@ -10,7 +10,7 @@ type Params = {
   language: string
 }
 
-const EXTRAS_FETCHED = 'EXTRAS_FETCHED'
+export const EXTRAS_FETCHED = 'EXTRAS_FETCHED'
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
 

@@ -7,7 +7,7 @@ type Params = {
   url: string
 }
 
-const SPRUNGBRETT_JOBS_FETCHED = 'SPRUNGBRETT_JOBS_FETCHED'
+export const SPRUNGBRETT_JOBS_FETCHED = 'SPRUNGBRETT_JOBS_FETCHED'
 
 const urlMapper = (params: Params): string => params.url
 

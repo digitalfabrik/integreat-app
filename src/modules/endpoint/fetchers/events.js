@@ -11,7 +11,7 @@ type Params = {
   language: string
 }
 
-const EVENTS_FETCHED = 'EVENTS_FETCHED'
+export const EVENTS_FETCHED = 'EVENTS_FETCHED'
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
 
