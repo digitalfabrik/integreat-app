@@ -1,6 +1,5 @@
 // @flow
 
-import { createAction } from 'redux-actions'
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'

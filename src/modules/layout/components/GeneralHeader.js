@@ -12,7 +12,7 @@ class GeneralHeader extends React.Component {
 
   render () {
     return <Header viewportSmall={this.props.viewportSmall}
-                   logoHref={'/'}
+                   logoHref={goToI18nRedirect()}
                    actionItems={[new HeaderActionItem({href: goToI18nRedirect(), iconSrc: landingIcon})]} />
   }
 }

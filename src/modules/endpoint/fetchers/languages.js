@@ -1,10 +1,10 @@
 // @flow
 
-import { createAction } from 'redux-actions'
 import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import { saveLanguages } from '../actions/fetcher'
+import { goToNotFound } from '../../app/routes/notFound'
 
 type Params = {
   city: string,
@@ -28,7 +28,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<LanguageMode
     })
     .then(languages => {
       if (params.language && !languages.find(_language => _language.code === params.language)) {
-        dispatch(createAction(LANGUAGE_NOT_FOUND)({city: params.city, language: params.language}))
+        dispatch(goToNotFound({type: 'language', notFound: params.language, city: params.city}))
       }
       return languages
     })

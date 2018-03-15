@@ -6,10 +6,9 @@ import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import { saveCities } from '../actions/fetcher'
+import { goToNotFound } from '../../app/routes/notFound'
 
 type Params = {city: ?string}
-
-export const CITIES_NOT_FOUND = 'CITIES_NOT_FOUND'
 
 const urlMapper = (): string => `${apiUrl}/wp-json/extensions/v1/multisites`
 
@@ -43,7 +42,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<CityModel>> 
       return cities
     }).then(cities => {
       if (params.city && !cities.find(_city => _city.code === params.city)) {
-        dispatch(createAction(CITIES_NOT_FOUND)(params.city))
+        dispatch(goToNotFound({type: 'city', notFound: params.city}))
       }
       return cities
     })

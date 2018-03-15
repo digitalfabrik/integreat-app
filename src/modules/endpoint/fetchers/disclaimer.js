@@ -11,7 +11,6 @@ type Params = {
   language: string
 }
 
-
 export const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`
 
 const mapper = (json: any): DisclaimerModel => {

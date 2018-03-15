@@ -29,8 +29,8 @@ import { EXTRAS_ROUTE } from './routes/extras'
 import { DISCLAIMER_ROUTE } from './routes/disclaimer'
 import { SEARCH_ROUTE } from './routes/search'
 import { PDF_FETCHER_ROUTE } from './routes/pdfFetcher'
-import { I18N_REDIRECT_ROUTE } from './routes/i18nRedirect'
-import { CATEGORIES_REDIRECT_ROUTE } from './routes/categoriesRedirect'
+
+import NotFoundPage from '../../routes/notFound/NotFoundPage'
 
 type Props = {
   viewportSmall: boolean,
@@ -66,6 +66,7 @@ class Switcher extends React.Component<Props> {
       case PDF_FETCHER_ROUTE:
         return categories ? <PdfFetcherPage /> : <LoadingSpinner />
     }
+    return <NotFoundPage />
   }
 
   render () {
@@ -75,18 +76,19 @@ class Switcher extends React.Component<Props> {
       return <Layout footer={<GeneralFooter />}>
         {this.getComponent()}
       </Layout>
-    } else if ([MAIN_DISCLAIMER_ROUTE, PDF_FETCHER_ROUTE, I18N_REDIRECT_ROUTE, CATEGORIES_REDIRECT_ROUTE].includes(currentRoute)) {
-      return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                     footer={<GeneralFooter />}>
-        {this.getComponent()}
-      </Layout>
-    } else if (cities && languages) {
-      return <LocationLayout>
-        {this.getComponent()}
-      </LocationLayout>
-    } else {
-      return <Spinner name='line-scale-party' />
+    } else if ([CATEGORIES_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, EXTRAS_ROUTE, SEARCH_ROUTE].includes(currentRoute)) {
+      if (cities && languages) {
+        return <LocationLayout>
+          {this.getComponent()}
+        </LocationLayout>
+      } else {
+        return <Spinner name='line-scale-party' />
+      }
     }
+    return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
+                   footer={<GeneralFooter />}>
+      {this.getComponent()}
+    </Layout>
   }
 }
 

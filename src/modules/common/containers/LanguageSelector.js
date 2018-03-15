@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -12,6 +12,7 @@ import { EVENTS_ROUTE, goToEvents } from '../../app/routes/events'
 import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
+import Caption from '../components/Caption'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -65,12 +66,15 @@ export class LanguageSelector extends React.Component {
   }
 
   render () {
-    return (
-      <Selector verticalLayout={this.props.verticalLayout}
-                items={this.getSelectorItemModels()}
-                activeItemCode={this.props.router.payload.language}
-                closeDropDownCallback={this.props.closeDropDownCallback} />
-    )
+    const {router, verticalLayout, closeDropDownCallback} = this.props
+
+    return <React.Fragment>
+        {verticalLayout ? <Caption title={router.payload.city} /> : null}
+        <Selector verticalLayout={verticalLayout}
+                  items={this.getSelectorItemModels()}
+                  activeItemCode={router.payload.language}
+                  closeDropDownCallback={closeDropDownCallback} />
+      </React.Fragment>
   }
 }
 

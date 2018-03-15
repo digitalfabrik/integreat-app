@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import { CATEGORIES_ROUTE } from './categories'
+import { NOT_FOUND } from 'redux-first-router'
 
-export const goToCategories = (city: string, language: string, categoryPath: ?string) =>
-  createAction(CATEGORIES_ROUTE)({city, language, categoryPath})
+export const goToNotFound = (obj: {type: string, notFound: string, city: ?string}) =>
+  createAction(NOT_FOUND)(obj)
