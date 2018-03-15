@@ -13,8 +13,7 @@
       "extras": "Extras",
       "categories": "Kategorien",
       "news": "News",
-      "noNews": "Keine News",
-      "createPdf": "PDF erstellen"
+      "noNews": "Keine News"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -22,8 +21,7 @@
       "extras": "Extras",
       "categories": "Categories",
       "news": "News",
-      "noNews": "No News",
-      "createPdf": "Create a PDF"
+      "noNews": "No News"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
@@ -70,6 +68,18 @@
       "page": {
         "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
       }
+    }
+  },
+  "categories": {
+    "ar": {
+    },
+    "de": {
+      "createPdf": "Erstelle PDF"
+    },
+    "en": {
+      "createPdf": "Create PDF"
+    },
+    "fa": {
     }
   },
   "events": {

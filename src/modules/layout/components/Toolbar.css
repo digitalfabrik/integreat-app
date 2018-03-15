@@ -1,19 +1,17 @@
 @import url('../../common/constants/dimensions.css');
 
 .toolbar {
+  display: flex;
+  width: 75px;
   box-sizing: border-box;
-  padding: 16px;
-  text-align: start;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
 }
 
-.toolbar > a {
-  display: block;
-  width: 25px;
-  height: 25px;
-  padding: 8px;
+.toolbar > * {
   opacity: 0.5;
-  font-size: 1.5em;
-  text-align: center;
+  font-size: 1.5rem;
   transition: 0.2s opacity;
 }
 
@@ -23,11 +21,8 @@
 
 @media (--small-viewport) {
   .toolbar {
-    text-align: center;
-  }
-
-  .toolbar > a {
-    display: inline;
-    margin: 0 8px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
   }
 }

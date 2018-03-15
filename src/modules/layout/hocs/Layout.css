@@ -25,7 +25,7 @@
 
   & .main {
     display: inline-block;
-    width: calc(var(--max-width) - 2*var(--toolbar-width));
+    width: calc(var(--max-width) - 2 * var(--toolbar-width));
     max-width: calc(100% - var(--toolbar-width));
     box-sizing: border-box;
     margin: 0 auto;
@@ -46,22 +46,18 @@
     vertical-align: top;
     transition: top 0.2s ease-in-out;
   }
-}
 
-@media (--small-viewport) {
-  .body {
+  @media (--small-viewport) {
     display: flex;
     flex-direction: column-reverse;
-  }
 
-  .aside {
-    position: static;
-    margin-top: 0;
-  }
-
-  .body > * {
-    width: 100%;
-    max-width: initial;
+    & .main,
+    & .aside {
+      position: static;
+      width: 100%;
+      max-width: initial;
+      margin-top: 0;
+    }
   }
 }
 

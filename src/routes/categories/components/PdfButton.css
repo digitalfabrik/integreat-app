@@ -1,5 +1,0 @@
-@import url('../../../modules/common/constants/helpers.css');
-
-.pdf-wrapper {
-  @mixin remove-a;
-}
