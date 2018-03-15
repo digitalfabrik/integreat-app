@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'classnames'
 import style from './Layout.css'
 
 /**
@@ -26,9 +25,7 @@ const withLayout = (Header, Toolbar, Footer) => WrappedComponent =>
                 {Toolbar && <Toolbar {...this.props} />}
               </aside>
               <main className={style.main}>
-                <div className={cx(style.content)}>
-                  <WrappedComponent stickyTop={this.state.stickyTop} {...this.props} />
-                </div>
+                <WrappedComponent {...this.props} />
               </main>
             </div>
           </div>
