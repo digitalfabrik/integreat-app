@@ -19,7 +19,7 @@ class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.node,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
-    logoHref: PropTypes.string.isRequired,
+    logoHref: PropTypes.object.isRequired,
     viewportSmall: PropTypes.bool.isRequired
   }
 

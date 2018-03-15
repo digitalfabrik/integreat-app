@@ -1,13 +1,16 @@
 // @flow
 
+import { createAction } from 'redux-actions'
 import { sortBy } from 'lodash/collection'
 
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
 
 type Params = {city: ?string}
 
-type Dispatch = ({type: string, payload: Array<CityModel> | string}) => {}
+const CITIES_FETCHED = 'CITIES_FETCHED'
+const CITIES_NOT_FOUND = 'CITIES_NOT_FOUND'
 
 const urlMapper = (): string => `${apiUrl}/wp-json/extensions/v1/multisites`
 
@@ -37,11 +40,11 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<CityModel>> 
       return sortBy(cities, _city => _city.sortKey)
     })
     .then(cities => {
-      dispatch({type: 'CITIES_FETCHED', payload: cities})
+      dispatch(createAction(CITIES_FETCHED)(cities))
       return cities
     }).then(cities => {
       if (params.city && !cities.find(_city => _city.code === params.city)) {
-        dispatch({type: 'CITY_NOT_FOUND', payload: params.city})
+        dispatch(createAction(CITIES_NOT_FOUND)(params.city))
       }
       return cities
     })

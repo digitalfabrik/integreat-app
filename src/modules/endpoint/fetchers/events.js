@@ -1,15 +1,17 @@
 // @flow
 
+import { createAction } from 'redux-actions'
 import moment from 'moment'
 import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
 
 type Params = {
   city: string,
   language: string
 }
 
-type Dispatch = ({type: string, payload: Array<EventModel>}) => {}
+const EVENTS_FETCHED = 'EVENTS_FETCHED'
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
 
@@ -42,7 +44,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<EventModel>>
     .then(result => result.json())
     .then(json => mapper(json))
     .then(events => {
-      dispatch({type: 'EVENTS_FETCHED', payload: events})
+      dispatch(createAction(EVENTS_FETCHED)(events))
       return events
     })
 

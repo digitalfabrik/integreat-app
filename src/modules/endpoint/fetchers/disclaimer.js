@@ -1,15 +1,17 @@
 // @flow
 
+import { createAction } from 'redux-actions'
 import { apiUrl } from '../constants'
 import DisclaimerModel from '../models/DisclaimerModel'
 import { isEmpty } from 'lodash/lang'
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
 
 type Params = {
   city: string,
   language: string
 }
 
-type Dispatch = ({type: string, payload: DisclaimerModel}) => {}
+const DISCLAIMER_FETCHED = 'DISCLAIMER_FETCHED'
 
 export const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`
 
@@ -40,7 +42,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<DisclaimerModel> =
     .then(response => response.json())
     .then(json => mapper(json))
     .then(disclaimer => {
-      dispatch({type: 'DISCLAIMER_FETCHED', payload: disclaimer})
+      dispatch(createAction(DISCLAIMER_FETCHED)(disclaimer))
       return disclaimer
     })
 
