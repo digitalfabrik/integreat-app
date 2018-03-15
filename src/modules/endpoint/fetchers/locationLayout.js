@@ -1,6 +1,9 @@
-import { citiesFetcher, eventsFetcher, languagesFetcher } from '../../endpoint/fetchers'
+// @flow
 
-const fetcher = async (dispatch, getState) => {
+import { citiesFetcher, eventsFetcher, languagesFetcher } from '../../endpoint/fetchers'
+import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+
+const fetcher = async (dispatch: Dispatch, getState: GetState) => {
   const state = getState()
   const {city, language} = state.location.payload
   const params = {city: city, language: language}

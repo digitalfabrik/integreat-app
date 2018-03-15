@@ -42,11 +42,9 @@ export class LanguageSelector extends React.Component {
           const category = categories.getCategoryByUrl(router.pathname)
           if (category && category.id !== 0) {
             return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
-          } else {
-            return goToCategories(city, languageCode)
           }
         }
-        return
+        return goToCategories(city, languageCode)
       case EVENTS_ROUTE:
         return goToEvents(city, languageCode, eventId)
       case EXTRAS_ROUTE:

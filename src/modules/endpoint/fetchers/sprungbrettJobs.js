@@ -1,12 +1,13 @@
 // @flow
-
+import { createAction } from 'redux-actions'
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
 
 type Params = {
   url: string
 }
 
-type Dispatch = ({type: string, payload: Array<SprungbrettJobModel>}) => {}
+const SPRUNGBRETT_JOBS_FETCHED = 'SPRUNGBRETT_JOBS_FETCHED'
 
 const urlMapper = (params: Params): string => params.url
 
@@ -26,7 +27,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<SprungbrettJ
     .then(response => response.json())
     .then(json => mapper(json))
     .then(jobs => {
-      dispatch({type: 'SPRUNGBRETT_JOBS_FETCHED', payload: jobs})
+      dispatch(createAction(SPRUNGBRETT_JOBS_FETCHED)(jobs))
       return jobs
     })
 

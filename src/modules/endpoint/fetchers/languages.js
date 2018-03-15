@@ -1,14 +1,17 @@
 // @flow
 
+import { createAction } from 'redux-actions'
 import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
 
 type Params = {
   city: string,
   language: ?string
 }
 
-type Dispatch = ({type: string, payload: Array<LanguageModel> | {city: string, language: string}}) => {}
+const LANGUAGES_FETCHED = 'LANGUAGES_FETCHED'
+const LANGUAGE_NOT_FOUND = 'LANGUAGES_NOT_FOUND'
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`
 
@@ -22,12 +25,12 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<LanguageMode
     .then(result => result.json())
     .then(json => mapper(json))
     .then(languages => {
-      dispatch({type: 'LANGUAGES_FETCHED', payload: languages})
+      dispatch(createAction(LANGUAGES_FETCHED)(languages))
       return languages
     })
     .then(languages => {
       if (params.language && !languages.find(_language => _language.code === params.language)) {
-        dispatch({type: 'LANGUAGE_NOT_FOUND', payload: {city: params.city, language: params.language}})
+        dispatch(createAction(LANGUAGE_NOT_FOUND)({city: params.city, language: params.language}))
       }
       return languages
     })
