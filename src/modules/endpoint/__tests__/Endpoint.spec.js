@@ -11,8 +11,8 @@ describe('Endpoint', () => {
   const defaultMapStateToUrl = state => `https://weird-endpoint/${state.var1}/${state.var2}/api.json`
   const defaultJsonMapper = json => json
 
-  const createEndpoint = ({name = 'endpoint', mapStateToUrl = defaultMapStateToUrl, jsonMapper = defaultJsonMapper, responseOverride}) => {
-    return new Endpoint(name, mapStateToUrl, jsonMapper, responseOverride)
+  const createEndpoint = ({name = 'endpoint', mapStateToUrl = defaultMapStateToUrl, jsonMapper = defaultJsonMapper, responseOverride, errorOverride}) => {
+    return new Endpoint(name, mapStateToUrl, jsonMapper, responseOverride, errorOverride)
   }
 
   const expectActions = (dispatchResult, store, expectedActions) => {
@@ -217,7 +217,7 @@ describe('Endpoint', () => {
         .then(storeResponse => expect(storeResponse.dataAvailable).toBe(false))
     })
 
-    it('should use override correctly', () => {
+    it('should use overrideResponse correctly', () => {
       const json = {test: 'random'}
 
       const endpoint = createEndpoint({
@@ -237,6 +237,35 @@ describe('Endpoint', () => {
           payload: new Payload(false,
             json,
             null,
+            'https://weird-endpoint/a/b/api.json',
+            mockedTime
+          )
+        }
+      ]
+
+      return expectActions(endpoint.requestAction(), store, expectedActions)
+    })
+
+    it('should use overrideError correctly', () => {
+      const error = 'Error No. 5'
+
+      const endpoint = createEndpoint({
+        name: 'endpoint',
+        jsonMapper: json => json,
+        fetchUrl: 'https://weird-endpoint/{var1}/{var2}/api.json',
+        errorOverride: error
+      })
+      const store = mockStore({[endpoint.stateName]: new Payload(false), var1: 'a', var2: 'b'})
+      const expectedActions = [
+        {
+          type: 'START_FETCH_DATA_ENDPOINT',
+          payload: new Payload(true)
+        },
+        {
+          type: 'FINISH_FETCH_DATA_ENDPOINT',
+          payload: new Payload(false,
+            null,
+            error,
             'https://weird-endpoint/a/b/api.json',
             mockedTime
           )

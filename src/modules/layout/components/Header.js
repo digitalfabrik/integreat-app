@@ -5,7 +5,6 @@ import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
-import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Link } from 'redux-little-router'
 import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../constants'
 import Headroom from '../../common/components/Headroom'
@@ -18,14 +17,14 @@ import Headroom from '../../common/components/Headroom'
  */
 class Header extends React.Component {
   static propTypes = {
-    navigationItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderNavigationItem)).isRequired,
+    navigationItems: PropTypes.node,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
     logoHref: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
-    navigationItems: [],
+    navigationItems: null,
     actionItems: []
   }
 
@@ -39,7 +38,7 @@ class Header extends React.Component {
               <img src={logoWide} />
             </Link>
           </div>
-          <HeaderNavigationBar className={style.navigationBar} items={this.props.navigationItems} />
+          <HeaderNavigationBar className={style.navigationBar}>{this.props.navigationItems}</HeaderNavigationBar>
           <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
         </header>
       </Headroom>

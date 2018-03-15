@@ -24,9 +24,13 @@ describe('SearchPage', () => {
     new CategoryModel({
       id: 0,
       url: '/augsburg/de',
-      title: 'augsburg'
-    }),
-    new CategoryModel({
+      title: 'augsburg',
+      content: '',
+      parentId: -1,
+      order: -1,
+      availableLanguages: {},
+      thumbnail: 'no_thumbnail'
+    }), new CategoryModel({
       id: 3650,
       url: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',

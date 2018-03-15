@@ -20,14 +20,16 @@ const contextTypes = {
  * @return {React.Component} The HOC
  */
 
+const Loading = () => <Spinner className={style.loading} name='line-scale-party' />
+
 /**
  * This creates a factory for a Higher-Order-Component. The HOC attaches a fetcher to the supplied component.
  * @param endpointName {string} The name of the endpoint to fetch from
  * @param FailureComponent {*} the component which is rendered in error-case, null if no Failure should be rendered.
- * @param hideSpinner {boolean} If you want to hide a loading spinner in the render() method
+ * @param LoadingComponent {*} the component which is rendered while loading, null if no loading should be rendered.
  * @return {buildHOC} Returns a HOC which renders the supplied component as soon as the fetcher succeeded
  */
-export function withFetcher (endpointName, FailureComponent = Failure, hideSpinner = false) {
+export function withFetcher (endpointName, FailureComponent = Failure, LoadingComponent = Loading) {
   return WrappedComponent => {
     class Fetcher extends React.Component {
       static displayName = `${endpointName}Fetcher`
@@ -75,25 +77,21 @@ export function withFetcher (endpointName, FailureComponent = Failure, hideSpinn
       render () {
         const payload = this.getStatePayload()
 
-        if (!this.state.isDataAvailable) {
-          if (!hideSpinner) {
-            return <Spinner className={style.loading} name='line-scale-party' />
-          } else {
-            return <div />
-          }
-        }
-
-        if (this.getStatePayload().error) {
-          return FailureComponent ? <FailureComponent error={payload.error} /> : null
-        }
-
-        const allProps = ({...this.props, [this.props.endpoint.stateName]: payload.data})
+        const allProps = {...this.props}
         // Strip all internal data
         delete allProps.endpoint
         delete allProps.getEndpoint
         delete allProps.state
         delete allProps.requestAction
-        return <WrappedComponent {...allProps} />
+
+        if (!this.state.isDataAvailable) {
+          return LoadingComponent ? <LoadingComponent {...allProps} /> : null
+        }
+
+        if (payload.error) {
+          return FailureComponent ? <FailureComponent {...allProps} error={payload.error} /> : null
+        }
+        return <WrappedComponent {...{...allProps, [this.props.endpoint.stateName]: payload.data}} />
       }
     }
 

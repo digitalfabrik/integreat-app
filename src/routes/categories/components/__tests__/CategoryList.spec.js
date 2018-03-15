@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryList from '../CategoryList'
+import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 
 const title = 'Willkommen'
 const content = 'test content'

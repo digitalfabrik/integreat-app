@@ -35,6 +35,11 @@ class Endpoint {
   responseOverride
 
   /**
+   * Holds the override value for the error
+   */
+  errorOverride
+
+  /**
    * @callback mapDataCallback
    * @param {object} data The data which has been fetched (Possibly a plain js object)
    * @param {object | undefined} state The state which was used in the fetch url
@@ -52,11 +57,13 @@ class Endpoint {
    * @param {function} mapStateToUrl The mapper which maps the state to a request url
    * @param {function} mapResponse Transforms the response from the fetch to a result
    * @param responseOverride {*} An override value from the API response. Useful for testing.
+   * @param errorOverride {*} An override value to simulate an error while fetching. Useful for testing.
    */
-  constructor (name, mapStateToUrl, mapResponse, responseOverride) {
+  constructor (name, mapStateToUrl, mapResponse, responseOverride, errorOverride) {
     this.mapStateToUrl = mapStateToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
+    this.errorOverride = errorOverride
     this._stateName = name
 
     const actionName = name.toUpperCase()
@@ -83,6 +90,7 @@ class Endpoint {
 
   requestAction () {
     const responseOverride = this.responseOverride
+    const errorOverride = this.errorOverride
     /**
      * Returns whether the correct data is available and ready for the fetcher to be displayed.
      *
@@ -114,6 +122,10 @@ class Endpoint {
       // Refetch if url changes or we don't have a lastUrl
       dispatch(this.startFetchAction())
 
+      if (errorOverride) {
+        dispatch(this.finishFetchAction(null, errorOverride, formattedURL))
+        return new StoreResponse(false, Promise.resolve(null))
+      }
       if (responseOverride) {
         const value = this.mapResponse(responseOverride, state)
         dispatch(this.finishFetchAction(value, null, formattedURL))
