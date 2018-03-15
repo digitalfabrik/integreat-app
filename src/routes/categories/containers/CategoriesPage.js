@@ -1,10 +1,9 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
-import FontAwesome from 'react-fontawesome'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
@@ -147,12 +146,12 @@ export class CategoriesPage extends React.Component<Props> {
   render () {
     try {
       const category = this.props.categories.getCategoryByUrl(this.props.path)
-      return <div className={style.content}>
-          <Breadcrumbs
-            parents={this.props.categories.getAncestors(category)}
-            locationName={this.getLocationName(this.props.location)} />
-          {this.getContent(category)}
-        </div>
+      return <Fragment>
+        <Breadcrumbs
+          parents={this.props.categories.getAncestors(category)}
+          locationName={this.getLocationName(this.props.location)} />
+        {this.getContent(category)}
+      </Fragment>
     } catch (e) {
       return <Failure error='not-found:page.notFound' />
     }
