@@ -2,15 +2,16 @@
 
 .toolbar {
   box-sizing: border-box;
-  padding: 0 16px;
-  text-align: left;
+  padding: 16px;
+  text-align: start;
+  transition: top 0.2s ease-in-out;
 }
 
 .toolbar > * {
   display: block;
-  margin: 8px 0;
+  padding: 8px;
   opacity: 0.5;
-  font-size: 2em;
+  font-size: 1.5em;
   transition: 0.2s opacity;
 }
 
@@ -19,6 +20,10 @@
 }
 
 @media (--small-viewport) {
+  .toolbar {
+    text-align: center;
+  }
+
   .toolbar * {
     display: inline;
     margin: 0 8px;
