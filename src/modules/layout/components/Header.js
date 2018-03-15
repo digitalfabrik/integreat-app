@@ -20,7 +20,8 @@ class Header extends React.Component {
     navigationItems: PropTypes.node,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
     logoHref: PropTypes.string.isRequired,
-    viewportSmall: PropTypes.bool.isRequired
+    viewportSmall: PropTypes.bool.isRequired,
+    onStickyTopChanged: PropTypes.func
   }
 
   static defaultProps = {
@@ -29,9 +30,10 @@ class Header extends React.Component {
   }
 
   render () {
+    const height = this.props.viewportSmall ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
     const scrollHeight = this.props.viewportSmall ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
     return (
-      <Headroom scrollHeight={scrollHeight}>
+      <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
         <header className={style.header}>
           <div className={style.logoWide}>
             <Link href={this.props.logoHref}>
