@@ -10,7 +10,7 @@ const route = {
     await locationLayoutFetcher(dispatch, getState)
 
     if (!state.categories || prev.payload.city !== city || prev.payload.language !== language) {
-      await categoriesFetcher({city, language}, dispatch)
+      await categoriesFetcher(dispatch, {city, language})
     }
   }
 }

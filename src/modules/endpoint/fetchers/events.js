@@ -37,7 +37,7 @@ const mapper = (json: any): Array<EventModel> =>
       return 0
     })
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<EventModel>> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<EventModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json))

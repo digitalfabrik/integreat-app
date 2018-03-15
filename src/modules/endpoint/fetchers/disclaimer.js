@@ -35,7 +35,7 @@ const mapper = (json: any): DisclaimerModel => {
   return disclaimers[0]
 }
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<DisclaimerModel> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<DisclaimerModel> =>
   fetch(urlMapper(params))
     .then(response => response.json())
     .then(json => mapper(json))

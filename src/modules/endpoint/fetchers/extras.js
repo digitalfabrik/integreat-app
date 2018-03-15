@@ -21,7 +21,7 @@ const mapper = (json: any): Array<ExtraModel> =>
       thumbnail: extra.thumbnail
     }))
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<ExtraModel>> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<ExtraModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json))

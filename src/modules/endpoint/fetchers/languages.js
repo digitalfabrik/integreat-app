@@ -17,7 +17,7 @@ const mapper = (json: any): Array<LanguageModel> =>
     .map(language => new LanguageModel(language.code, language.native_name))
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<LanguageModel>> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<LanguageModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json))

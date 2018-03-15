@@ -1,3 +1,4 @@
+export { default as i18nRedirectRoute } from './i18nRedirect'
 export { default as landingRoute } from './landing'
 export { default as mainDisclaimerRoute } from './mainDisclaimer'
 export { default as searchRoute } from './search'

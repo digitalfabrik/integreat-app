@@ -1,14 +1,11 @@
-import i18n from 'i18next'
 import React from 'react'
 import { connect } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-import { reduce, forEach } from 'lodash/collection'
 import WebFont from 'webfontloader'
 import PropTypes from 'prop-types'
-import LanguageDetector from 'i18next-browser-languagedetector'
 
-import localesResources from 'locales.json'
 import { LANGUAGE_CODE_LENGTH } from '../constants'
+import i18n from '../i18n'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGE = 'en'
@@ -24,33 +21,9 @@ export class I18nProvider extends React.Component {
   constructor () {
     super()
 
-    const i18nextResources = I18nProvider.transformResources(localesResources)
-    this.i18n = i18n.createInstance()
-      .use(LanguageDetector)
-      .init({
-        resources: i18nextResources,
-        fallbackLng: FALLBACK_LANGUAGE,
-        load: 'languageOnly',
-        // eslint-disable-next-line no-undef
-        debug: __DEV__
-      })
+    this.i18n = i18n
 
     this.state = {language: FALLBACK_LANGUAGE}
-  }
-
-  /**
-   * Transform locale resources to the structure: languageCode -> namespace -> key:value
-   * And not: namespace -> languageCode -> key:value
-   * @param {object} resources
-   * @returns {object} transformed resources suplliable to i18next instance
-   */
-  static transformResources (resources) {
-    return reduce(resources, (accumulator, namespace, namespaceName) => {
-      forEach(namespace, (language, languageCode) => {
-        accumulator[languageCode] = {...accumulator[languageCode], [namespaceName]: language}
-      })
-      return accumulator
-    }, {})
   }
 
   setLanguage (language) {

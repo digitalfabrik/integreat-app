@@ -12,7 +12,7 @@ const route = {
 
     let categories = state.categories
     if (!categories || prev.payload.city !== city || prev.payload.language !== language) {
-      categories = await categoriesFetcher({city, language}, dispatch)
+      categories = await categoriesFetcher(dispatch, {city, language})
     }
 
     if (categoryId) {
