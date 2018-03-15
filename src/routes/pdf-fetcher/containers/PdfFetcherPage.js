@@ -14,6 +14,7 @@ import style from './PdfFetcherPage.css'
 import Failure from 'modules/common/components/Failure'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { apiUrl } from 'modules/endpoint/constants'
+import withLayout from '../../../modules/layout/hocs/withLayout'
 
 class PdfFetcherPage extends React.Component {
   static propTypes = {
@@ -152,6 +153,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
+  withLayout(null, null, null),
   connect(mapStateToProps),
   withFetcher('locations'),
   withFetcher('categories'),

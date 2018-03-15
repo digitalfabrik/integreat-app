@@ -1,5 +1,8 @@
 import React from 'react'
 import Caption from '../../../modules/common/components/Caption'
+import GeneralFooter from '../../../modules/layout/components/GeneralFooter'
+import GeneralHeader from '../../../modules/layout/components/GeneralHeader'
+import withLayout from '../../../modules/layout/hocs/withLayout'
 
 class MainDisclaimerPage extends React.Component {
   render () {
@@ -79,4 +82,4 @@ class MainDisclaimerPage extends React.Component {
   }
 }
 
-export default MainDisclaimerPage
+export default withLayout(GeneralHeader, null, GeneralFooter)(MainDisclaimerPage)

@@ -14,6 +14,7 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
 import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
+import withLocationLayout from '../../../modules/layout/hocs/withLocationLayout'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -92,6 +93,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  withLocationLayout,
   translate('extras'),
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('extras'),
