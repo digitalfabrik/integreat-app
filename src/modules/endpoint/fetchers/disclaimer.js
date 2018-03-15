@@ -11,7 +11,7 @@ type Params = {
   language: string
 }
 
-const DISCLAIMER_FETCHED = 'DISCLAIMER_FETCHED'
+export const DISCLAIMER_FETCHED = 'DISCLAIMER_FETCHED'
 
 export const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`
 

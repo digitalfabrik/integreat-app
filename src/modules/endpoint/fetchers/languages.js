@@ -10,8 +10,8 @@ type Params = {
   language: ?string
 }
 
-const LANGUAGES_FETCHED = 'LANGUAGES_FETCHED'
-const LANGUAGE_NOT_FOUND = 'LANGUAGES_NOT_FOUND'
+export const LANGUAGES_FETCHED = 'LANGUAGES_FETCHED'
+export const LANGUAGE_NOT_FOUND = 'LANGUAGES_NOT_FOUND'
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`
 

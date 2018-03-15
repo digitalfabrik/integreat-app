@@ -4,6 +4,7 @@ import { extrasFetcher, locationLayoutFetcher, sprungbrettFetcher } from '../../
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../../endpoint/remover'
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 export const goToExtras = (city: string, language: string, extraAlias: ?string) =>
@@ -15,6 +16,15 @@ export const extrasRoute = {
     const state = getState()
     const {city, language, extraAlias} = state.location.payload
     const prev = state.location.prev
+
+    if (prev.payload.language && prev.payload.language !== language) {
+      clearStoreOnLanguageChange(dispatch, getState)
+    }
+
+    if (prev.payload.city && prev.payload.city !== city) {
+      clearStoreOnCityChange(dispatch, getState)
+    }
+
     await locationLayoutFetcher(dispatch, getState)
 
     let extras = state.extras

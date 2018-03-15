@@ -4,6 +4,7 @@ import { disclaimerFetcher, locationLayoutFetcher } from '../../endpoint/fetcher
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../../endpoint/remover'
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
@@ -16,9 +17,17 @@ export const disclaimerRoute = {
     const {city, language} = state.location.payload
     const prev = state.location.prev
 
+    if (prev.payload.language && prev.payload.language !== language) {
+      clearStoreOnLanguageChange(dispatch)
+    }
+
+    if (prev.payload.city && prev.payload.city !== city) {
+      clearStoreOnCityChange(dispatch)
+    }
+
     await locationLayoutFetcher(dispatch, getState)
 
-    if (!state.disclaimer || prev.payload.city !== city || prev.payload.language !== language) {
+    if (!state.disclaimer) {
       await disclaimerFetcher(dispatch, {city, language})
     }
   }

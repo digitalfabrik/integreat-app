@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
+import { clearStoreOnLanguageChange } from '../../endpoint/remover'
 
 export const CATEGORIES_REDIRECT_ROUTE = 'CATEGORIES_REDIRECT'
 export const goToCategoriesRedirect = (city: string, language: string, categoryId: number) =>
@@ -15,6 +16,8 @@ export const categoriesRedirectRoute = {
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
+
+    clearStoreOnLanguageChange(dispatch, getState)
 
     const categories = await categoriesFetcher(dispatch, {city, language})
 

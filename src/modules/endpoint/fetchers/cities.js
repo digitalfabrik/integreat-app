@@ -9,8 +9,8 @@ import type { Dispatch } from 'redux-first-router/dist/flow-types'
 
 type Params = {city: ?string}
 
-const CITIES_FETCHED = 'CITIES_FETCHED'
-const CITIES_NOT_FOUND = 'CITIES_NOT_FOUND'
+export const CITIES_FETCHED = 'CITIES_FETCHED'
+export const CITIES_NOT_FOUND = 'CITIES_NOT_FOUND'
 
 const urlMapper = (): string => `${apiUrl}/wp-json/extensions/v1/multisites`
 
