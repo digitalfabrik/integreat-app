@@ -2,8 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
-import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../EventDetail'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 
 describe('EventDetail', () => {
   const event = new EventModel({

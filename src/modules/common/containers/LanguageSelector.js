@@ -55,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('languages', null, true)
+  withFetcher('languages', null, null)
 )(LanguageSelector)

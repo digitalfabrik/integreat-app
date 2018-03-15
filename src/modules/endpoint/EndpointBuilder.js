@@ -48,6 +48,16 @@ class EndpointBuilder {
   }
 
   /**
+   * Fetcher throws an error. Useful for testing.
+   * @param errorOverride {*} The error
+   * @return {EndpointBuilder} The builder itself
+   */
+  withErrorOverride (errorOverride) {
+    this._errorOverride = errorOverride
+    return this
+  }
+
+  /**
    * Checks the data and builds the endpoint
    * @return {Endpoint} The final endpoint
    */
@@ -64,7 +74,7 @@ class EndpointBuilder {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._stateToUrlMapper, this._mapper, this._responseOverride)
+    return new Endpoint(this._name, this._stateToUrlMapper, this._mapper, this._responseOverride, this._errorOverride)
   }
 }
 
