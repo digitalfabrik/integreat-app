@@ -1,7 +1,7 @@
 import { citiesFetcher } from '../../endpoint/fetchers'
 
 const route = {
-  path: '/',
+  path: '/:language',
   thunk: async (dispatch, getState) => {
     if (!getState().cities) {
       await citiesFetcher(dispatch)

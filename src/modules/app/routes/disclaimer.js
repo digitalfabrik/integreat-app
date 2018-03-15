@@ -10,7 +10,7 @@ const route = {
     await locationLayoutFetcher(dispatch, getState)
 
     if (!state.disclaimer || prev.payload.city !== city || prev.payload.language !== language) {
-      await disclaimerFetcher({city, language}, dispatch)
+      await disclaimerFetcher(dispatch, {city, language})
     }
   }
 }

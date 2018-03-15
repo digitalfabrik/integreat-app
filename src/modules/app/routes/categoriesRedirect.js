@@ -6,7 +6,7 @@ const route = {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
 
-    const categories = await categoriesFetcher({city, language}, dispatch)
+    const categories = await categoriesFetcher(dispatch, {city, language})
 
     try {
       const category = categories.getCategoryById(Number(categoryId))

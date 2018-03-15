@@ -58,7 +58,7 @@ const mapper = (json: any, params: Params): CategoriesMapModel => {
   return new CategoriesMapModel(categories)
 }
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<CategoriesMapModel> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<CategoriesMapModel> =>
   fetch(urlMapper(params))
     .then(result => result.json())
     .then(json => mapper(json, params))

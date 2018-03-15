@@ -7,15 +7,15 @@ const fetcher = async (dispatch, getState) => {
   const prev = state.location.prev
 
   if (!state.cities) {
-    await citiesFetcher(params, dispatch)
+    await citiesFetcher(dispatch, params)
   }
 
   if (!state.languages || prev.payload.city !== city) {
-    await languagesFetcher(params, dispatch)
+    await languagesFetcher(dispatch, params)
   }
 
   if (!state.events || prev.payload.city !== city || prev.payload.language !== language) {
-    await eventsFetcher(params, dispatch)
+    await eventsFetcher(dispatch, params)
   }
 }
 

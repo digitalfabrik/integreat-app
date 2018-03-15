@@ -21,7 +21,7 @@ const mapper = (json: any): Array<SprungbrettJobModel> =>
       isApprenticeship: job.apprenticeship === '1'
     }))
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<SprungbrettJobModel>> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<SprungbrettJobModel>> =>
   fetch(urlMapper(params))
     .then(response => response.json())
     .then(json => mapper(json))

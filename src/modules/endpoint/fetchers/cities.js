@@ -21,7 +21,7 @@ const stripSlashes = path => {
   return path
 }
 
-const fetcher = (params: Params, dispatch: Dispatch): Promise<Array<CityModel>> =>
+const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<CityModel>> =>
   fetch(urlMapper())
     .then(response => response.json())
     .then(json => {

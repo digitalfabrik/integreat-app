@@ -1,10 +1,10 @@
 import {
-  categoriesRedirectRoute,
-  categoriesRoute, disclaimerRoute, eventsRoute, extrasRoute, landingRoute, mainDisclaimerRoute, pdfFetcherRoute,
-  searchRoute
+  categoriesRedirectRoute, categoriesRoute, disclaimerRoute, eventsRoute, extrasRoute, i18nRedirectRoute, landingRoute,
+  mainDisclaimerRoute, pdfFetcherRoute, searchRoute
 } from './routes'
 
 const routesMap = {
+  I18N_REDIRECT: i18nRedirectRoute,
   LANDING: landingRoute,
   MAIN_DISCLAIMER: mainDisclaimerRoute,
   EVENTS: eventsRoute,

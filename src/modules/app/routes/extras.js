@@ -10,14 +10,14 @@ const route = {
 
     let extras = state.extras
     if (!extras || prev.payload.city !== city || prev.payload.language !== language) {
-      extras = await extrasFetcher({city, language}, dispatch)
+      extras = await extrasFetcher(dispatch, {city, language})
     }
 
     if (extraAlias === 'sprungbrett') {
       const sprungbrettModel = extras.find(_extra => _extra.alias === extraAlias)
       if (sprungbrettModel) {
         if (!state.sprungbrett) {
-          await sprungbrettFetcher({url: sprungbrettModel.path}, dispatch)
+          await sprungbrettFetcher(dispatch, {url: sprungbrettModel.path})
         }
       }
     }
