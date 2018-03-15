@@ -1,5 +1,5 @@
 @custom-media --small-viewport (max-width: 750px);
-@custom-media --min-max-width screen and (min-width: 1000px);
+@custom-media --min-max-width screen and (min-width: 1100px);
 
 :root {
   --header-height: 85px;
