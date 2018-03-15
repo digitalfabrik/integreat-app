@@ -21,6 +21,16 @@ import DisclaimerPage from '../../routes/disclaimer/containers/DisclaimerPage'
 import DisclaimerModel from '../endpoint/models/DisclaimerModel'
 import SearchPage from '../../routes/search/containers/SearchPage'
 import PdfFetcherPage from '../../routes/pdf-fetcher/containers/PdfFetcherPage'
+import { LANDING_ROUTE } from './routes/landing'
+import { MAIN_DISCLAIMER_ROUTE } from './routes/mainDisclaimer'
+import { CATEGORIES_ROUTE } from './routes/categories'
+import { EVENTS_ROUTE } from './routes/events'
+import { EXTRAS_ROUTE } from './routes/extras'
+import { DISCLAIMER_ROUTE } from './routes/disclaimer'
+import { SEARCH_ROUTE } from './routes/search'
+import { PDF_FETCHER_ROUTE } from './routes/pdfFetcher'
+import { I18N_REDIRECT_ROUTE } from './routes/i18nRedirect'
+import { CATEGORIES_REDIRECT_ROUTE } from './routes/categoriesRedirect'
 
 type Props = {
   viewportSmall: boolean,
@@ -39,21 +49,21 @@ class Switcher extends React.Component<Props> {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
     switch (currentRoute) {
-      case 'LANDING':
+      case LANDING_ROUTE:
         return cities ? <LandingPage /> : <LoadingSpinner />
-      case 'MAIN_DISCLAIMER':
+      case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
-      case 'CATEGORIES':
+      case CATEGORIES_ROUTE:
         return categories ? <CategoriesPage /> : <LoadingSpinner />
-      case 'EVENTS':
+      case EVENTS_ROUTE:
         return events ? <EventsPage /> : <LoadingSpinner />
-      case 'EXTRAS':
+      case EXTRAS_ROUTE:
         return extras ? <ExtrasPage /> : <LoadingSpinner />
-      case 'DISCLAIMER':
+      case DISCLAIMER_ROUTE:
         return disclaimer ? <DisclaimerPage /> : <LoadingSpinner />
-      case 'SEARCH':
+      case SEARCH_ROUTE:
         return categories ? <SearchPage /> : <LoadingSpinner />
-      case 'PDF_FETCHER':
+      case PDF_FETCHER_ROUTE:
         return categories ? <PdfFetcherPage /> : <LoadingSpinner />
     }
   }
@@ -61,16 +71,22 @@ class Switcher extends React.Component<Props> {
   render () {
     const {viewportSmall, currentRoute, cities, languages} = this.props
 
-    return ['LANDING', 'MAIN_DISCLAIMER', 'PDF_FETCHER'].includes(currentRoute)
-      ? <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                footer={<GeneralFooter />}>
-          {this.getComponent()}
-        </Layout>
-      : cities && languages
-        ? <LocationLayout>
-            {this.getComponent()}
-          </LocationLayout>
-        : <Spinner name='line-scale-party' />
+    if (currentRoute === LANDING_ROUTE) {
+      return <Layout footer={<GeneralFooter />}>
+        {this.getComponent()}
+      </Layout>
+    } else if ([MAIN_DISCLAIMER_ROUTE, PDF_FETCHER_ROUTE, I18N_REDIRECT_ROUTE, CATEGORIES_REDIRECT_ROUTE].includes(currentRoute)) {
+      return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
+                     footer={<GeneralFooter />}>
+        {this.getComponent()}
+      </Layout>
+    } else if (cities && languages) {
+      return <LocationLayout>
+        {this.getComponent()}
+      </LocationLayout>
+    } else {
+      return <Spinner name='line-scale-party' />
+    }
   }
 }
 

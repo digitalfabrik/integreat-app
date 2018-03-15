@@ -1,8 +1,17 @@
-import { disclaimerFetcher, locationLayoutFetcher } from '../../endpoint/fetchers'
+// @flow
 
-const route = {
+import { disclaimerFetcher, locationLayoutFetcher } from '../../endpoint/fetchers'
+import { createAction } from 'redux-actions'
+
+import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+
+export const DISCLAIMER_ROUTE = 'DISCLAIMER'
+
+export const goToDisclaimer = (city: string, language: string) => createAction(DISCLAIMER_ROUTE)({city, language})
+
+export const disclaimerRoute = {
   path: '/:city/:language/disclaimer',
-  thunk: async (dispatch, getState) => {
+  thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
     const prev = state.location.prev
@@ -14,4 +23,3 @@ const route = {
     }
   }
 }
-export default route

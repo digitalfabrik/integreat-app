@@ -1,9 +1,18 @@
-import { categoriesFetcher, locationLayoutFetcher } from '../../endpoint/fetchers'
+// @flow
 
-const route = {
+import { categoriesFetcher, locationLayoutFetcher } from '../../endpoint/fetchers'
+import { createAction } from 'redux-actions'
+
+import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+
+export const PDF_FETCHER_ROUTE = 'PDF_FETCHER'
+export const goToPdfFetcher = (city: string, language: string, fetchUrl: string) =>
+  createAction(PDF_FETCHER_ROUTE)({city, language, fetchUrl})
+
+export const pdfFetcherRoute = {
   path: '/:city/:language/fetch-pdf/:fetchUrl+',
   fromPath: (segment: string, key: string): string => key === 'fetchUrl' ? `/${segment}` : segment,
-  thunk: async (dispatch, getState) => {
+  thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
     const prev = state.location.prev
@@ -15,4 +24,3 @@ const route = {
     }
   }
 }
-export default route

@@ -10,7 +10,7 @@ import style from './FilterableLocationSelector.css'
 
 class FilterableLocationSelector extends React.Component {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
     language: PropTypes.string.isRequired
   }
 
@@ -27,7 +27,7 @@ class FilterableLocationSelector extends React.Component {
         <Heading />
         <ScrollingSearchBox filterText={this.state.filterText}
                             onFilterTextChange={this.onFilterTextChange}>
-          <LocationSelector locations={this.props.locations}
+          <LocationSelector cities={this.props.cities}
                             filterText={this.state.filterText}
                             language={this.props.language} />
         </ScrollingSearchBox>

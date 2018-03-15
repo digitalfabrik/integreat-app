@@ -10,12 +10,13 @@ import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
 import Link from 'redux-first-router-link'
 import EventModel from '../../../modules/endpoint/models/EventModel'
+import { goToEvents } from '../../../modules/app/routes/events'
 
 const EXCERPT_LENGTH = 70
 
 type Props = {
   event: EventModel,
-  parentUrl: string,
+  city: string,
   language: string
 }
 
@@ -23,14 +24,6 @@ type Props = {
  * Display a element of the EventList
  */
 class EventListElement extends React.Component<Props> {
-  /**
-   * Generates the url of the specific event represented by this EventListElement
-   * @returns {string} The url
-   */
-  getUrl (): string {
-    return `${this.props.parentUrl}/${this.props.event.id}`
-  }
-
   /**
    * We have three placeholder thumbnails to display when cities don't provide a thumbnail
    * @returns {*} The Placeholder Thumbnail
@@ -41,9 +34,9 @@ class EventListElement extends React.Component<Props> {
   }
 
   render () {
-    const event = this.props.event
+    const {city, language, event} = this.props
     return (
-      <Link to={this.getUrl()} className={style.event}>
+      <Link to={goToEvents(city, language, event.id)} className={style.event}>
         <img className={style.eventThumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
         <div className={style.eventDescription}>
           <div className={style.eventTitle}>{event.title}</div>

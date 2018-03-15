@@ -40,14 +40,14 @@ export class LocationLayout extends React.Component<Props> {
     }
 
     return <Layout header={<LocationHeader viewportSmall={viewportSmall}
-                                           location={city}
+                                           city={city}
                                            currentRoute={currentRoute}
                                            language={language}
                                            languages={languages}
                                            isEventsActive={isEventsActive}
                                            isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled} />}
-                   footer={<LocationFooter location={city}
+                   footer={<LocationFooter city={city}
                                            language={language} />}>
         {children}
       </Layout>

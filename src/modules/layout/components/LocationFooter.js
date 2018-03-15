@@ -4,19 +4,20 @@ import { translate } from 'react-i18next'
 
 import Footer from './Footer'
 import Link from 'redux-first-router-link'
+import { goToDisclaimer } from '../../app/routes/disclaimer'
 
 class LocationFooter extends React.Component {
   static propTypes = {
-    location: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
   }
 
   render () {
-    const {t, location, language} = this.props
+    const {t, city, language} = this.props
 
     return <Footer>
-      <Link to={`/${location}/${language}/disclaimer`}>
+      <Link to={goToDisclaimer(city, language)}>
         {t('imprintAndContact')}
       </Link>
       <a href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</a>

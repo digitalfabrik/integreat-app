@@ -1,8 +1,18 @@
-import { categoriesFetcher } from '../../endpoint/fetchers'
+// @flow
 
-const route = {
+import { categoriesFetcher } from '../../endpoint/fetchers'
+import { createAction } from 'redux-actions'
+
+import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import { goToCategories } from './categories'
+
+export const CATEGORIES_REDIRECT_ROUTE = 'CATEGORIES_REDIRECT'
+export const goToCategoriesRedirect = (city: string, language: string, categoryId: number) =>
+  createAction(CATEGORIES_REDIRECT_ROUTE)({city, language, categoryId})
+
+export const categoriesRedirectRoute = {
   path: '/:city/:language/redirect/:categoryId',
-  thunk: async (dispatch, getState) => {
+  thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
 
@@ -10,11 +20,9 @@ const route = {
 
     try {
       const category = categories.getCategoryById(Number(categoryId))
-      dispatch({type: 'CATEGORIES', payload: {city, language, categoryPath: category.path}})
+      dispatch(goToCategories(city, language, category.path))
     } catch (e) {
       dispatch({type: 'CATEGORY_ID_NOT_FOUND', payload: categoryId})
     }
   }
 }
-
-export default route

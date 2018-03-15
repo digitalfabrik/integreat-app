@@ -9,7 +9,7 @@ import LocationEntry from './LocationEntry'
 
 class LocationSelector extends React.PureComponent {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
     filterText: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     stickyTop: PropTypes.number.isRequired
@@ -21,7 +21,7 @@ class LocationSelector extends React.PureComponent {
 
   filter () {
     const filterText = this.props.filterText.toLowerCase()
-    let locations = this.props.locations
+    let locations = this.props.cities
 
     if (filterText === 'wirschaffendas') {
       return filter(locations, location => !location.live)
@@ -39,7 +39,7 @@ class LocationSelector extends React.PureComponent {
         <div className={style.locationListParent} style={{top: `${this.props.stickyTop}px`}}>{key}</div>
         {locations.map(location => <LocationEntry
           key={location.code}
-          location={location}
+          city={location}
           language={this.props.language}
           filterText={this.props.filterText} />)}
       </div>)
