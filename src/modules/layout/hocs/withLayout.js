@@ -14,20 +14,23 @@ const withLayout = (Header, Toolbar, Footer) => WrappedComponent =>
       this.state = {stickyTop: 0}
     }
 
-    onStickyTopChanged = stickyTop => {
-      this.setState({stickyTop})
-    }
+    onStickyTopChanged = stickyTop => this.setState({stickyTop})
 
     render () {
       return (
         <div className={style.richLayout}>
           <div>
             {Header && <Header onStickyTopChanged={this.onStickyTopChanged} {...this.props} />}
-            <main className={style.layout}>
-              <div className={cx(style.content)}>
-                <WrappedComponent stickyTop={this.state.stickyTop} {...this.props} />
-              </div>
-            </main>
+            <div className={style.body}>
+              <aside style={{top: `${this.state.stickyTop}px`}} className={style.aside}>
+                {Toolbar && <Toolbar {...this.props} />}
+              </aside>
+              <main className={style.main}>
+                <div className={cx(style.content)}>
+                  <WrappedComponent stickyTop={this.state.stickyTop} {...this.props} />
+                </div>
+              </main>
+            </div>
           </div>
           {Footer && <Footer {...this.props} />}
         </div>

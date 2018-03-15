@@ -160,15 +160,12 @@ export class CategoriesPage extends React.Component<Props> {
   render () {
     try {
       const category = this.props.categories.getCategoryByUrl(this.props.path)
-      return <div className={style.wrapper}>
-        <Toolbar stickyTop={this.props.stickyTop} className={style.toolbar}>{this.getToolbarChildren()}</Toolbar>
-        <div className={style.content}>
+      return <div className={style.content}>
           <Breadcrumbs
             parents={this.props.categories.getAncestors(category)}
             locationName={this.getLocationName(this.props.location)} />
           {this.getContent(category)}
         </div>
-      </div>
     } catch (e) {
       return <Failure error='not-found:page.notFound' />
     }

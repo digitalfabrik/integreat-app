@@ -4,15 +4,6 @@
 @import url('../../common/constants/fonts.css');
 @import url('../../common/constants/dimensions.css');
 
-.content {
-  width: 100%;
-  max-width: var(--max-width);
-  box-sizing: border-box;
-  flex-grow: 1;
-  margin: 0 auto;
-  word-wrap: break-word;
-}
-
 .rich-layout {
   position: relative;
   display: flex;
@@ -24,25 +15,71 @@
   line-height: var(--decorative-line-height);
 }
 
-.layout {
+.main {
   display: flex;
 }
 
-.layout p {
+.main p {
   margin: var(--standard-paragraph-margin) 0;
 }
 
+.body {
+  width: 100%;
+  max-width: var(--max-width);
+  flex-grow: 1;
+  margin: 0 auto;
+  background-color: var(--background-color);
+  word-wrap: break-word;
+}
+
+.main {
+  display: inline-block;
+  width: calc(var(--max-width) - 2*var(--toolbar-width));
+  max-width: calc(100% - var(--toolbar-width));
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 10px;
+  text-align: start;
+  word-wrap: break-word;
+}
+
+.aside {
+  position: sticky;
+  display: inline-block;
+  margin-top: 110px;
+  width: var(--toolbar-width);
+  vertical-align: top;
+  transition: top 0.2s ease-in-out;
+}
+
 @media (--small-viewport) {
-  .layout {
+  .body {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .aside {
+    position: static;
+    margin-top: 0;
+  }
+
+  .body > * {
+    width: 100%;
+    max-width: initial;
+  }
+}
+
+
+@media (--small-viewport) {
+  .body {
     flex-direction: column-reverse;
   }
 }
 
 /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
 @media (--min-max-width) {
-  .layout {
-    margin-right: 0;
-    margin-left: calc(100vw - 100%);
-    background-color: var(--background-color);
+  .body {
+    padding-right: calc((200% - 100vw - var(--max-width)) / 2);
+    padding-left: calc((100vw - var(--max-width)) / 2);
   }
 }
