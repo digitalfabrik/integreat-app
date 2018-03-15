@@ -1,4 +1,7 @@
+// @flow
+
 import React from 'react'
+import type { ComponentType } from 'react'
 import style from './Layout.css'
 
 /**
@@ -6,14 +9,15 @@ import style from './Layout.css'
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const withLayout = (Header, Toolbar, Footer) => WrappedComponent =>
-  class Layout extends React.Component {
-    constructor () {
-      super()
-      this.state = {stickyTop: 0}
-    }
+const withLayout = (
+  Header: ComponentType<{ onStickyTopChanged: number => void }>,
+  Toolbar: ?ComponentType<{}>,
+  Footer: ComponentType<{}>
+) => (WrappedComponent: ComponentType<{}>) =>
+  class Layout extends React.Component<{}, { stickyTop: number }> {
+    state = {stickyTop: 0}
 
-    onStickyTopChanged = stickyTop => this.setState({stickyTop})
+    onStickyTopChanged = (stickyTop: number) => this.setState({stickyTop})
 
     render () {
       return (
