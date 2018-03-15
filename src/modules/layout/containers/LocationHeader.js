@@ -19,6 +19,7 @@ class LocationHeader extends React.Component {
     language: PropTypes.string.isRequired,
     currentPath: PropTypes.string.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
+    onStickyTopChanged: PropTypes.func,
     t: PropTypes.func.isRequired
   }
 
@@ -78,6 +79,7 @@ class LocationHeader extends React.Component {
   render () {
     const {matchRoute} = this.props
     return <Header
+      onStickyTopChanged={this.props.onStickyTopChanged}
       viewportSmall={this.props.viewportSmall}
       logoHref={matchRoute('categories').stringify(this.getCurrentParams())}
       actionItems={this.getActionItems()}
