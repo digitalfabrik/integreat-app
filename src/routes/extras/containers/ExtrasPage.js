@@ -93,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
-  withLocationLayout,
+  withLocationLayout(null),
   translate('extras'),
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('extras'),

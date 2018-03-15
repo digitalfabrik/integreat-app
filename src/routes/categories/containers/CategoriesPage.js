@@ -24,6 +24,7 @@ import Toolbar from '../../../modules/layout/components/Toolbar'
 import PdfButton from '../components/PdfButton'
 import style from './CategoriesPage.css'
 import withLocationLayout from 'modules/layout/hocs/withLocationLayout'
+import CategoriesToolbar from './CategoriesToolbar'
 
 type MapLanguageToPath = (string, ?string) => string
 
@@ -101,10 +102,6 @@ export class CategoriesPage extends React.Component<Props> {
         this.mapLanguageToPath, this.props.languages, category.availableLanguages
       )
     }
-  }
-
-  getPdfFetchPath () {
-    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.path}`
   }
 
   /**
@@ -186,7 +183,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  withLocationLayout,
+  withLocationLayout(CategoriesToolbar),
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('categories', LanguageFailure),
   withFetcher('languages'),
