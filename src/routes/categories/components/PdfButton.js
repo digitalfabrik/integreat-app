@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import FontAwesome from 'react-fontawesome'
 import ReactTooltip from 'react-tooltip'
 import { translate } from 'react-i18next'
@@ -12,15 +12,15 @@ type Props = {
   t: Function
 }
 
-class PdfButton extends React.Component<Props> {
+class PdfButton extends React.PureComponent<Props> {
   render () {
-    return <React.Fragment>
+    return <Fragment>
       <a className={style.pdfWrapper} data-tip={this.props.t('createPdf')}
          data-delay-show={300} href={this.props.href} target='_blank'>
         <FontAwesome name='file-pdf-o' />
       </a>
       <ReactTooltip place='top' type='dark' effect='solid' />
-    </React.Fragment>
+    </Fragment>
   }
 }
 
