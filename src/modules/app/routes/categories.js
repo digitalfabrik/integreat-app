@@ -4,7 +4,7 @@ import { categoriesFetcher, locationLayoutFetcher } from '../../endpoint/fetcher
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
-import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../../endpoint/remover'
+import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../../endpoint/actions/remover'
 
 export const CATEGORIES_ROUTE = 'CATEGORIES'
 

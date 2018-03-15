@@ -1,17 +1,17 @@
 // @flow
 
 import { handleAction, handleActions } from 'redux-actions'
-import { CITIES_FETCHED } from '../fetchers/cities'
-import { LANGUAGES_FETCHED } from '../fetchers/languages'
-import { CATEGORIES_FETCHED } from '../fetchers/categories'
-import { EVENTS_FETCHED } from '../fetchers/events'
-import { EXTRAS_FETCHED } from '../fetchers/extras'
-import { DISCLAIMER_FETCHED } from '../fetchers/disclaimer'
-import { SPRUNGBRETT_JOBS_FETCHED } from '../fetchers/sprungbrettJobs'
+import { CITIES_FETCHED } from './fetchers/cities'
+import { LANGUAGES_FETCHED } from './fetchers/languages'
+import { CATEGORIES_FETCHED } from './fetchers/categories'
+import { EVENTS_FETCHED } from './fetchers/events'
+import { EXTRAS_FETCHED } from './fetchers/extras'
+import { DISCLAIMER_FETCHED } from './fetchers/disclaimer'
+import { SPRUNGBRETT_JOBS_FETCHED } from './fetchers/sprungbrettJobs'
 import {
   CATEGORIES_REMOVED, DISCLAIMER_REMOVED, EVENTS_REMOVED, EXTRAS_REMOVED, LANGUAGES_REMOVED,
   SPRUNGBRETT_JOBS_REMOVED
-} from '../remover'
+} from './actions/remover'
 
 import type { Action, Store } from 'redux-first-router/dist/flow-types'
 

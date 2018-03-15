@@ -4,7 +4,7 @@ import { categoriesFetcher, locationLayoutFetcher } from '../../endpoint/fetcher
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
-import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../../endpoint/remover'
+import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../../endpoint/actions/remover'
 
 export const PDF_FETCHER_ROUTE = 'PDF_FETCHER'
 export const goToPdfFetcher = (city: string, language: string, fetchUrl: string) =>

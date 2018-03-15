@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import { clearStoreOnCityChange } from '../../endpoint/remover'
+import { clearStoreOnCityChange } from '../../endpoint/actions/remover'
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
