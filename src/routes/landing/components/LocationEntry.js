@@ -4,20 +4,22 @@ import Link from 'redux-first-router-link'
 import Highlighter from 'react-highlighter'
 
 import style from './LocationSelector.css'
+import { goToCategories } from '../../../modules/app/routes/categories'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 class LocationEntry extends React.PureComponent {
   static propTypes = {
     language: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired,
+    city: PropTypes.instanceOf(CityModel).isRequired,
     filterText: PropTypes.string
   }
 
   render () {
-    const {location, language, filterText} = this.props
+    const {city, language, filterText} = this.props
     return (
-      <Link to={`/${location.code}/${language}`} className={style.locationListItem}>
+      <Link to={goToCategories(city.code, language)} className={style.locationListItem}>
         <Highlighter search={filterText || ''}>
-          {location.name}
+          {city.name}
         </Highlighter>
       </Link>
     )

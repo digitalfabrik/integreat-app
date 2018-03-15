@@ -6,6 +6,12 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import { CATEGORIES_ROUTE, goToCategories } from '../../app/routes/categories'
+import { goToCategoriesRedirect } from '../../app/routes/categoriesRedirect'
+import { EVENTS_ROUTE, goToEvents } from '../../app/routes/events'
+import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
+import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
+import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -25,33 +31,37 @@ export class LanguageSelector extends React.Component {
    * @param languageCode The languageCode
    * @return {string} The path
    */
-  getLanuageChangeAction (languageCode) {
-    const router = this.props.router
+  getLanguageChangeAction (languageCode) {
+    const {router, categories} = this.props
+    const {city, eventId, extraAlias} = router.payload
     const routeType = router.type
-    const categories = this.props.categories
 
     switch (routeType) {
-      case 'CATEGORIES':
+      case CATEGORIES_ROUTE:
         if (categories) {
           const category = categories.getCategoryByUrl(router.pathname)
-          return {type: 'CATEGORIES_REDIRECT', payload: {city: router.payload.city, language: languageCode, categoryId: `${category.availableLanguages[languageCode]}`}}
+          if (category && category.id !== 0) {
+            return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
+          } else {
+            return goToCategories(city, languageCode)
+          }
         }
         return
-      case 'EVENTS':
-        return {type: 'EVENTS', payload: {...router.payload, language: languageCode}}
-      case 'EXTRAS':
-        return {type: 'EXTRAS', payload: {...router.payload, language: languageCode}}
-      case 'DISCLAIMER':
-        return {type: 'DISCLAIMER', payload: {...router.payload, language: languageCode}}
-      case 'SEARCH':
-        return {type: 'SEARCH', payload: {...router.payload, language: languageCode}}
+      case EVENTS_ROUTE:
+        return goToEvents(city, languageCode, eventId)
+      case EXTRAS_ROUTE:
+        return goToExtras(city, languageCode, extraAlias)
+      case DISCLAIMER_ROUTE:
+        return goToDisclaimer(city, languageCode)
+      case SEARCH_ROUTE:
+        return goToSearch(city, languageCode)
     }
   }
 
   getSelectorItemModels () {
     return this.props.languages.map(language =>
       new SelectorItemModel({
-        code: language.code, name: language.name, href: this.getLanuageChangeAction(language.code)
+        code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
       })
     )
   }

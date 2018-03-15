@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import locationIcon from '../assets/location-icon.svg'
+import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItem from '../HeaderActionItem'
+import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
 
 class GeneralHeader extends React.Component {
   static propTypes = {
@@ -12,7 +13,7 @@ class GeneralHeader extends React.Component {
   render () {
     return <Header viewportSmall={this.props.viewportSmall}
                    logoHref={'/'}
-                   actionItems={[new HeaderActionItem({href: '/', iconSrc: locationIcon})]} />
+                   actionItems={[new HeaderActionItem({href: goToI18nRedirect(), iconSrc: landingIcon})]} />
   }
 }
 

@@ -14,12 +14,12 @@ export class LandingPage extends React.Component {
   render () {
     return <FilterableLocationSelector
           language={this.props.language}
-          locations={this.props.cities} />
+          cities={this.props.cities} />
   }
 }
 
 const mapStateToProps = state => ({
-  language: state.location.payload.language || 'de',
+  language: state.location.payload.language,
   cities: state.cities
 })
 

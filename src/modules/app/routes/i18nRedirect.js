@@ -1,12 +1,23 @@
+// @flow
+
 import { citiesFetcher } from '../../endpoint/fetchers'
+import { createAction } from 'redux-actions'
 import i18n from '../i18n'
+
+import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import { goToCategories } from './categories'
+import { goToLanding } from './landing'
 
 const MIN_LANGUAGE_CODE_LENGTH = 2
 const MAX_LANGUAGE_CODE_LENGTH = 3
 
-const route = {
+export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
+
+export const goToI18nRedirect = (param: ?string) => createAction(I18N_REDIRECT_ROUTE)({param})
+
+export const i18nRedirectRoute = {
   path: '/:param?',
-  thunk: async (dispatch, getState) => {
+  thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const param = state.location.payload.param
 
@@ -16,19 +27,20 @@ const route = {
     }
 
     if (!param) {
-      dispatch({type: 'LANDING', payload: {language: i18n.language}})
+      dispatch(goToLanding(i18n.language))
+      return
     }
 
     if (cities.find(_city => _city.code === param)) {
-      dispatch({type: 'CATEGORIES', payload: {city: param, language: i18n.language}})
+      dispatch(goToCategories(param, i18n.language))
+      return
     }
 
     if (param.length === MIN_LANGUAGE_CODE_LENGTH || param.length === MAX_LANGUAGE_CODE_LENGTH) {
-      dispatch({type: 'LANDING', payload: {language: param}})
+      dispatch(goToLanding(param))
+      return
     }
 
     dispatch({type: 'NOT_FOUND', payload: param})
   }
 }
-
-export default route
