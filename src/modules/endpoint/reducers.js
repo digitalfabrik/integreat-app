@@ -1,13 +1,11 @@
 // @flow
 
 import { handleAction, handleActions } from 'redux-actions'
-import { CITIES_FETCHED } from './fetchers/cities'
-import { LANGUAGES_FETCHED } from './fetchers/languages'
-import { CATEGORIES_FETCHED } from './fetchers/categories'
-import { EVENTS_FETCHED } from './fetchers/events'
-import { EXTRAS_FETCHED } from './fetchers/extras'
-import { DISCLAIMER_FETCHED } from './fetchers/disclaimer'
-import { SPRUNGBRETT_JOBS_FETCHED } from './fetchers/sprungbrettJobs'
+import {
+  CITIES_FETCHED, LANGUAGES_FETCHED, EXTRAS_FETCHED, EVENTS_FETCHED, DISCLAIMER_FETCHED, SPRUNGBRETT_JOBS_FETCHED,
+  CATEGORIES_FETCHED
+} from './actions/fetcher'
+
 import {
   CATEGORIES_REMOVED, DISCLAIMER_REMOVED, EVENTS_REMOVED, EXTRAS_REMOVED, LANGUAGES_REMOVED,
   SPRUNGBRETT_JOBS_REMOVED
