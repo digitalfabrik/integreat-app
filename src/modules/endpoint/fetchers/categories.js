@@ -6,13 +6,12 @@ import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import { saveCategories } from '../actions/fetcher'
 
 type Params = {
   city: string,
   language: string
 }
-
-export const CATEGORIES_FETCHED = 'CATEGORIES_FETCHED'
 
 export const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
 
@@ -66,7 +65,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<CategoriesMapModel
     .then(result => result.json())
     .then(json => mapper(json, params))
     .then(categories => {
-      dispatch(createAction(CATEGORIES_FETCHED)(categories))
+      dispatch(saveCategories(categories))
       return categories
     })
 

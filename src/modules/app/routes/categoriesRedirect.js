@@ -5,7 +5,7 @@ import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
-import { clearStoreOnLanguageChange } from '../../endpoint/remover'
+import { clearStoreOnLanguageChange } from '../../endpoint/actions/remover'
 
 export const CATEGORIES_REDIRECT_ROUTE = 'CATEGORIES_REDIRECT'
 export const goToCategoriesRedirect = (city: string, language: string, categoryId: number) =>

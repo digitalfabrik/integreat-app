@@ -7,7 +7,7 @@ import i18n from '../i18n'
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
 import { goToLanding } from './landing'
-import { clearStoreOnCityChange } from '../../endpoint/remover'
+import { clearStoreOnCityChange } from '../../endpoint/actions/remover'
 
 const MIN_LANGUAGE_CODE_LENGTH = 2
 const MAX_LANGUAGE_CODE_LENGTH = 3

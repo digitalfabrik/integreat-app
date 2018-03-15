@@ -4,7 +4,7 @@ import { citiesFetcher } from '../../endpoint/fetchers'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
-import { clearStoreOnCityChange } from '../../endpoint/remover'
+import { clearStoreOnCityChange } from '../../endpoint/actions/remover'
 
 export const LANDING_ROUTE = 'LANDING'
 

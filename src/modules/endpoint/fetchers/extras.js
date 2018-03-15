@@ -1,16 +1,14 @@
 // @flow
 
-import { createAction } from 'redux-actions'
 import { apiUrl } from '../constants'
 import ExtraModel from '../models/ExtraModel'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import { saveExtras } from '../actions/fetcher'
 
 type Params = {
   city: string,
   language: string
 }
-
-export const EXTRAS_FETCHED = 'EXTRAS_FETCHED'
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
 
@@ -28,7 +26,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<ExtraModel>>
     .then(result => result.json())
     .then(json => mapper(json))
     .then(extras => {
-      dispatch(createAction(EXTRAS_FETCHED)(extras))
+      dispatch(saveExtras(extras))
       return extras
     })
 
