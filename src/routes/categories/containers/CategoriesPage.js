@@ -3,7 +3,7 @@
 import React from 'react'
 import { replace } from 'redux-little-router'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
+import compose from 'recompose/compose'
 import FontAwesome from 'react-fontawesome'
 
 import withFetcher from 'modules/endpoint/hocs/withFetcher'
@@ -19,10 +19,11 @@ import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import PdfButton from '../components/PdfButton'
 import style from './CategoriesPage.css'
+import withLocationLayout from 'modules/layout/hocs/withLocationLayout'
 
 type MapLanguageToPath = (string, ?string) => string
 
@@ -33,6 +34,7 @@ type Props = {
   location: string,
   language: string,
   path: string,
+  stickyTop?: number,
   categoryId?: number,
   setLanguageChangeUrls: (MapLanguageToPath, Array<LanguageModel>, ?Object) => void,
   replaceUrl: (string) => void
@@ -123,9 +125,9 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   getToolbarChildren () {
-    const pdfButton = <PdfButton href={this.getPdfFetchPath()} />
-    const test = <FontAwesome name='print' />
-    return [pdfButton, test]
+    const pdfButton = <PdfButton href={this.getPdfFetchPath()} name='pdf' />
+    const test = <FontAwesome name='print' key='print' />
+    return <React.Fragment>{pdfButton}{test}</React.Fragment>
   }
 
   /**
@@ -159,7 +161,7 @@ export class CategoriesPage extends React.Component<Props> {
     try {
       const category = this.props.categories.getCategoryByUrl(this.props.path)
       return <div className={style.wrapper}>
-        <Toolbar className={style.toolbar} children={this.getToolbarChildren()} />
+        <Toolbar stickyTop={this.props.stickyTop} className={style.toolbar}>{this.getToolbarChildren()}</Toolbar>
         <div className={style.content}>
           <Breadcrumbs
             parents={this.props.categories.getAncestors(category)}
@@ -187,6 +189,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
+  withLocationLayout,
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('categories', LanguageFailure),
   withFetcher('languages'),

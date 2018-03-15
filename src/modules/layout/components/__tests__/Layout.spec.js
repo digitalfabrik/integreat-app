@@ -1,4 +1,4 @@
-import Layout from '../Layout'
+import Layout from '../../hocs/withLayout'
 import React from 'react'
 import { shallow } from 'enzyme'
 

@@ -9,6 +9,7 @@ import EventList from '../components/EventList'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import EventModel from '../../../modules/endpoint/models/EventModel'
+import withLocationLayout from '../../../modules/layout/hocs/withLocationLayout'
 
 type mapLanguageToPath = (string, ?string) => string
 
@@ -122,6 +123,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  withLocationLayout,
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('events'),
   withFetcher('languages')

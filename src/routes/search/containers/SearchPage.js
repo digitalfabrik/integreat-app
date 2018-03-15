@@ -11,6 +11,7 @@ import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
+import withLocationLayout from '../../../modules/layout/hocs/withLocationLayout'
 
 export class SearchPage extends React.Component {
   static propTypes = {
@@ -78,6 +79,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  withLocationLayout,
   withFetcher('categories'),
   withFetcher('languages'),
   connect(mapStateToProps, mapDispatchToProps)

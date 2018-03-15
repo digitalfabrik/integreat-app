@@ -1,10 +1,9 @@
 import { Fragment } from 'redux-little-router'
 import React from 'react'
 
-import Layout from 'modules/layout/components/Layout'
+import Layout from 'modules/layout/hocs/withLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
-import LocationLayout from '../../layout/containers/LocationLayout'
 import SearchPage from 'routes/search/containers/SearchPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
@@ -56,31 +55,31 @@ export class RouterFragment extends React.Component {
 
         {/* Matches two or more arguments like /augsburg/de */}
         <Fragment forRoute='/:location/:language(/*)'>
-          <LocationLayout matchRoute={this.matchRoute}>
-            {/* Matches /augsburg/de/search -> Search */}
+          {/* Matches /augsburg/de/search -> Search */}
+          <React.Fragment>
             <Fragment forRoute='/search'>
-              <SearchPage />
+              <SearchPage matchRoute={this.matchRoute} />
             </Fragment>
             {/* Matches /augsburg/de/disclaimer -> Disclaimer */}
             <Fragment forRoute='/disclaimer'>
-              <DisclaimerPage />
+                <DisclaimerPage matchRoute={this.matchRoute} />
             </Fragment>
             {/* Matches /augsburg/de/events* -> Events */}
             <Fragment forRoute='/events(/:id)'>
-              <EventsPage />
+                <EventsPage matchRoute={this.matchRoute} />
             </Fragment>
             {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
             <Fragment forRoute='/fetch-pdf'>
-              <PdfFetcherPage />
+              <PdfFetcherPage matchRoute={this.matchRoute} />
             </Fragment>
             <Fragment forRoute='/extras(/:extra)'>
-              <ExtrasPage />
+                <ExtrasPage matchRoute={this.matchRoute} />
             </Fragment>
             {/* Matches /augsburg/de/* -> Content */}
             <Fragment forNoMatch>
-              <CategoriesPage />
+              <CategoriesPage matchRoute={this.matchRoute} />
             </Fragment>
-          </LocationLayout>
+          </React.Fragment>
         </Fragment>
 
         {/* Matches /disclaimer */}
@@ -97,7 +96,7 @@ export class RouterFragment extends React.Component {
 
         {/* Matches one or zero arguments like /de */}
         <Fragment forRoute='/:language(/)'>
-          <Layout footer={<GeneralFooter />}><LandingPage /></Layout>
+          <LandingPage />
         </Fragment>
 
         {/* There are no missing routes. Covered:

@@ -9,6 +9,7 @@ import withFetcher from 'modules/endpoint/hocs/withFetcher'
 
 import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import withLocationLayout from '../../../modules/layout/hocs/withLocationLayout'
 
 /**
  * Displays the locations disclaimer matching the route /<location>/<language>/disclaimer
@@ -44,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  withLocationLayout,
   connect(mapStateToProps, mapDispatchToProps),
   withFetcher('disclaimer'),
   withFetcher('languages')
