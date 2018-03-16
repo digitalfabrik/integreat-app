@@ -8,6 +8,7 @@ import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
 import { goToLanding } from './landing'
 import { clearStoreOnCityChange } from '../../endpoint/actions/remover'
+import { goToNotFound } from './notFound'
 
 const MIN_LANGUAGE_CODE_LENGTH = 2
 const MAX_LANGUAGE_CODE_LENGTH = 3
@@ -47,6 +48,6 @@ export const i18nRedirectRoute = {
       return
     }
 
-    dispatch({type: 'NOT_FOUND', payload: param})
+    dispatch(goToNotFound(param))
   }
 }

@@ -14,8 +14,8 @@ import LanguageModel from '../../endpoint/models/LanguageModel'
 type Props = {
   city: string,
   language: string,
-  cities: Array<CityModel>,
-  languages: Array<LanguageModel>,
+  cities: ?Array<CityModel>,
+  languages: ?Array<LanguageModel>,
   currentRoute: string,
   viewportSmall: boolean,
   children?: Node,
@@ -24,7 +24,8 @@ type Props = {
 
 export class LocationLayout extends React.Component<Props> {
   getCurrentCity (): ?CityModel {
-    return this.props.cities.find(_city => _city.code === this.props.city)
+    const cities = this.props.cities
+    return cities && cities.find(_city => _city.code === this.props.city)
   }
 
   render () {

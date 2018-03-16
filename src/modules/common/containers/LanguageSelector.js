@@ -13,6 +13,7 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import Caption from '../components/Caption'
+import CityModel from '../../endpoint/models/CityModel'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -20,10 +21,11 @@ import Caption from '../components/Caption'
 export class LanguageSelector extends React.Component {
   static propTypes = {
     closeDropDownCallback: PropTypes.func,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     router: PropTypes.object.isRequired,
     verticalLayout: PropTypes.bool,
-    categories: PropTypes.instanceOf(CategoriesMapModel)
+    categories: PropTypes.instanceOf(CategoriesMapModel),
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel))
   }
 
   /**
@@ -58,22 +60,32 @@ export class LanguageSelector extends React.Component {
   }
 
   getSelectorItemModels () {
-    return this.props.languages.map(language =>
+    const languages = this.props.languages
+    return languages && this.props.languages.map(language =>
       new SelectorItemModel({
         code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
       })
     )
   }
 
+  getCityName () {
+    const {router, cities} = this.props
+    return cities && cities.find(_city => _city.code === router.payload.city)
+  }
+
   render () {
     const {router, verticalLayout, closeDropDownCallback} = this.props
+    const selectorItemModels = this.getSelectorItemModels()
+    const title = this.getCityName()
 
     return <React.Fragment>
-        {verticalLayout ? <Caption title={router.payload.city} /> : null}
-        <Selector verticalLayout={verticalLayout}
+      {verticalLayout && title ? <Caption title={title} /> : null}
+      {selectorItemModels
+        ? <Selector verticalLayout={verticalLayout}
                   items={this.getSelectorItemModels()}
                   activeItemCode={router.payload.language}
                   closeDropDownCallback={closeDropDownCallback} />
+        : null}
       </React.Fragment>
   }
 }
@@ -81,7 +93,8 @@ export class LanguageSelector extends React.Component {
 const mapStateToProps = state => ({
   router: state.location,
   languages: state.languages,
-  categories: state.categories
+  categories: state.categories,
+  cities: state.cities
 })
 
 export default connect(mapStateToProps)(LanguageSelector)
