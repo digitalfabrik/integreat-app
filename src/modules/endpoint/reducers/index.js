@@ -4,12 +4,12 @@ import { handleAction, handleActions } from 'redux-actions'
 import {
   CITIES_FETCHED, LANGUAGES_FETCHED, EXTRAS_FETCHED, EVENTS_FETCHED, DISCLAIMER_FETCHED, SPRUNGBRETT_JOBS_FETCHED,
   CATEGORIES_FETCHED
-} from './actions/fetcher'
+} from '../actions/fetcher'
 
 import {
   CATEGORIES_REMOVED, DISCLAIMER_REMOVED, EVENTS_REMOVED, EXTRAS_REMOVED, LANGUAGES_REMOVED,
   SPRUNGBRETT_JOBS_REMOVED
-} from './actions/remover'
+} from '../actions/remover'
 
 import type { Action, Store } from 'redux-first-router/dist/flow-types'
 
@@ -18,6 +18,7 @@ const removerReducer = () => null
 
 const defaultState = null
 
+// reducers to handle the fetching and removing of data to and from the redux store
 const reducers = {
   cities: handleAction(CITIES_FETCHED, fetcherReducer, defaultState),
   languages: handleActions({

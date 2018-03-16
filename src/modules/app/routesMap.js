@@ -9,6 +9,7 @@ import { PDF_FETCHER_ROUTE, pdfFetcherRoute } from './routes/pdfFetcher'
 import { CATEGORIES_REDIRECT_ROUTE, categoriesRedirectRoute } from './routes/categoriesRedirect'
 import { CATEGORIES_ROUTE, categoriesRoute } from './routes/categories'
 
+// this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
 const routesMap = {
   [I18N_REDIRECT_ROUTE]: i18nRedirectRoute,
   [LANDING_ROUTE]: landingRoute,

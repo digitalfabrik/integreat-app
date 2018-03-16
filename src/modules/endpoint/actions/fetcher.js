@@ -3,6 +3,7 @@
 import { createAction } from 'redux-actions'
 import type { Payload } from 'redux-first-router/dist/flow-types'
 
+// types of the actions
 export const CATEGORIES_FETCHED = 'CATEGORIES_FETCHED'
 export const SPRUNGBRETT_JOBS_FETCHED = 'SPRUNGBRETT_JOBS_FETCHED'
 export const LANGUAGES_FETCHED = 'LANGUAGES_FETCHED'
@@ -11,6 +12,7 @@ export const EVENTS_FETCHED = 'EVENTS_FETCHED'
 export const DISCLAIMER_FETCHED = 'DISCLAIMER_FETCHED'
 export const CITIES_FETCHED = 'CITIES_FETCHED'
 
+// actions to save data to the redux store
 export const saveCategories = (payload: Payload) => createAction(CATEGORIES_FETCHED)(payload)
 export const saveSprungbrettJobs = (payload: Payload) => createAction(SPRUNGBRETT_JOBS_FETCHED)(payload)
 export const saveCities = (payload: Payload) => createAction(CITIES_FETCHED)(payload)

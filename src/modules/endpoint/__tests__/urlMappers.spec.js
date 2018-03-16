@@ -1,7 +1,4 @@
-import { categoriesUrlMapper, disclaimerUrlMapper, eventsUrlMapper,
-  extrasUrlMapper, languagesUrlMapper, locationUrlMapper, sprungbrettUrlMapper } from '../urlMappers'
-
-describe('urlMappers', () => {
+/** describe('urlMappers', () => {
   const params = {location: 'augsburg', language: 'de', url: 'sprungbrett_url'}
 
   it('should map params to disclaimer url', () => {
@@ -45,4 +42,4 @@ describe('urlMappers', () => {
       'sprungbrett_url'
     )
   })
-})
+}) */

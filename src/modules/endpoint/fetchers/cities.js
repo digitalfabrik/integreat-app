@@ -42,6 +42,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<CityModel>> 
       dispatch(saveCities(cities))
       return cities
     }).then(cities => {
+      // if the city param is not a valid city we want to go to show an error
       if (params.city && !cities.find(_city => _city.code === params.city)) {
         dispatch(redirect(goToNotFound(params.city)))
       }

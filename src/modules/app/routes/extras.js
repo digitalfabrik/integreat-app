@@ -10,6 +10,10 @@ export const EXTRAS_ROUTE = 'EXTRAS'
 export const goToExtras = (city: string, language: string, extraAlias: ?string) =>
   createAction(EXTRAS_ROUTE)({city, language, extraAlias})
 
+/**
+ * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras/sprungbrett
+ * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ */
 export const extrasRoute = {
   path: '/:city/:language/extras/:extraAlias?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {

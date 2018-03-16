@@ -6,5 +6,3 @@ export { default as languagesFetcher } from './languages'
 export { default as citiesFetcher } from './cities'
 export { default as sprungbrettFetcher } from './sprungbrettJobs'
 export { default as locationLayoutFetcher } from './locationLayout'
-
-// todo error handling
