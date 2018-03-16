@@ -28,7 +28,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<LanguageMode
     })
     .then(languages => {
       if (params.language && !languages.find(_language => _language.code === params.language)) {
-        dispatch(goToNotFound({type: 'language', notFound: params.language, city: params.city}))
+        dispatch(goToNotFound(params.city, params.language))
       }
       return languages
     })

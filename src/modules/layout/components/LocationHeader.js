@@ -18,7 +18,7 @@ import { goToLanding } from '../../app/routes/landing'
 
 class LocationHeader extends React.Component {
   static propTypes = {
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     city: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     currentRoute: PropTypes.string.isRequired,

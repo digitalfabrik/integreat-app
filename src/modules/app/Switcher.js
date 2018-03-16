@@ -10,7 +10,6 @@ import LocationLayout from '../layout/containers/LocationLayout'
 import MainDisclaimerPage from '../../routes/main-disclaimer/components/MainDisclaimerPage'
 import GeneralFooter from '../layout/components/GeneralFooter'
 import GeneralHeader from '../layout/components/GeneralHeader'
-import LanguageModel from '../endpoint/models/LanguageModel'
 import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
 import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../routes/events/containers/EventsPage'
@@ -31,12 +30,12 @@ import { SEARCH_ROUTE } from './routes/search'
 import { PDF_FETCHER_ROUTE } from './routes/pdfFetcher'
 
 import NotFoundPage from '../../routes/notFound/NotFoundPage'
+import { NOT_FOUND_ROUTE } from './routes/notFound'
 
 type Props = {
   viewportSmall: boolean,
   currentRoute: string,
   cities: Array<CityModel>,
-  languages: Array<LanguageModel>,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   extras: Array<ExtraModel>,
@@ -49,41 +48,63 @@ class Switcher extends React.Component<Props> {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
     switch (currentRoute) {
+      case NOT_FOUND_ROUTE:
+        if (cities) {
+          return <NotFoundPage />
+        }
+        break
       case LANDING_ROUTE:
-        return cities ? <LandingPage /> : <LoadingSpinner />
+        if (cities) {
+          return <LandingPage />
+        }
+        break
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        return categories ? <CategoriesPage /> : <LoadingSpinner />
+        if (categories) {
+          return <CategoriesPage />
+        }
+        break
       case EVENTS_ROUTE:
-        return events ? <EventsPage /> : <LoadingSpinner />
+        if (events) {
+          return <EventsPage />
+        }
+        break
       case EXTRAS_ROUTE:
-        return extras ? <ExtrasPage /> : <LoadingSpinner />
+        if (extras) {
+          return <ExtrasPage />
+        }
+        break
       case DISCLAIMER_ROUTE:
-        return disclaimer ? <DisclaimerPage /> : <LoadingSpinner />
+        if (disclaimer) {
+          return <DisclaimerPage />
+        }
+        break
       case SEARCH_ROUTE:
-        return categories ? <SearchPage /> : <LoadingSpinner />
+        if (categories) {
+          return <SearchPage />
+        }
+        break
       case PDF_FETCHER_ROUTE:
-        return categories ? <PdfFetcherPage /> : <LoadingSpinner />
+        if (categories) {
+          return <PdfFetcherPage />
+        }
+        break
     }
-    return <NotFoundPage />
+    return <LoadingSpinner />
   }
 
   render () {
-    const {viewportSmall, currentRoute, cities, languages} = this.props
+    const {viewportSmall, currentRoute} = this.props
 
     if (currentRoute === LANDING_ROUTE) {
       return <Layout footer={<GeneralFooter />}>
         {this.getComponent()}
       </Layout>
     } else if ([CATEGORIES_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, EXTRAS_ROUTE, SEARCH_ROUTE].includes(currentRoute)) {
-      if (cities && languages) {
-        return <LocationLayout>
-          {this.getComponent()}
-        </LocationLayout>
-      } else {
-        return <Spinner name='line-scale-party' />
-      }
+      return <LocationLayout>
+        {this.getComponent()}
+      </LocationLayout>
     }
     return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                    footer={<GeneralFooter />}>
