@@ -2,6 +2,7 @@
 
 import { categoriesFetcher } from '../../endpoint/fetchers'
 import { createAction } from 'redux-actions'
+import { redirect } from 'redux-first-router'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
@@ -23,7 +24,7 @@ export const categoriesRedirectRoute = {
 
     try {
       const category = categories.getCategoryById(Number(categoryId))
-      dispatch(goToCategories(city, language, category.path))
+      dispatch(redirect(goToCategories(city, language, category.path)))
     } catch (e) {
       dispatch({type: 'CATEGORY_ID_NOT_FOUND', payload: categoryId})
     }

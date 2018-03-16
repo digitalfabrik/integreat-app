@@ -5,6 +5,7 @@ import { apiUrl } from '../constants'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import { saveLanguages } from '../actions/fetcher'
 import { goToNotFound } from '../../app/routes/notFound'
+import { redirect } from 'redux-first-router'
 
 type Params = {
   city: string,
@@ -13,22 +14,19 @@ type Params = {
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`
 
-const mapper = (json: any): Array<LanguageModel> =>
-  json
-    .map(language => new LanguageModel(language.code, language.native_name))
-    .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
-
 const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<LanguageModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
-    .then(json => mapper(json))
+    .then(json => json
+      .map(language => new LanguageModel(language.code, language.native_name))
+      .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code)))
     .then(languages => {
       dispatch(saveLanguages(languages))
       return languages
     })
     .then(languages => {
       if (params.language && !languages.find(_language => _language.code === params.language)) {
-        dispatch(goToNotFound(params.city, params.language))
+        dispatch(redirect(goToNotFound(params.city, params.language)))
       }
       return languages
     })

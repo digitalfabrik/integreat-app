@@ -12,19 +12,16 @@ type Params = {
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
 
-const mapper = (json: any): Array<ExtraModel> =>
-  json
-    .map(extra => new ExtraModel({
-      alias: extra.alias,
-      name: extra.name,
-      path: extra.url,
-      thumbnail: extra.thumbnail
-    }))
-
 const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<ExtraModel>> =>
   fetch(urlMapper(params))
     .then(result => result.json())
-    .then(json => mapper(json))
+    .then(json => json
+      .map(extra => new ExtraModel({
+        alias: extra.alias,
+        name: extra.name,
+        path: extra.url,
+        thumbnail: extra.thumbnail
+      })))
     .then(extras => {
       dispatch(saveExtras(extras))
       return extras

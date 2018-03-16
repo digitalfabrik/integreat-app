@@ -18,11 +18,11 @@ export const disclaimerRoute = {
     const prev = state.location.prev
 
     if (prev.payload.language && prev.payload.language !== language) {
-      clearStoreOnLanguageChange(dispatch)
+      clearStoreOnLanguageChange(dispatch, getState)
     }
 
     if (prev.payload.city && prev.payload.city !== city) {
-      clearStoreOnCityChange(dispatch)
+      clearStoreOnCityChange(dispatch, getState)
     }
 
     await locationLayoutFetcher(dispatch, getState)
