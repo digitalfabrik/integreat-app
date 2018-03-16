@@ -11,6 +11,10 @@ export const CATEGORIES_ROUTE = 'CATEGORIES'
 export const goToCategories = (city: string, language: string, categoryPath: ?string) =>
   createAction(CATEGORIES_ROUTE)({city, language, categoryPath})
 
+/**
+ * CategoriesRoute, matches /augsburg/de*
+ * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ */
 export const categoriesRoute = {
   path: '/:city/:language/:categoryPath*',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
@@ -28,7 +32,7 @@ export const categoriesRoute = {
 
     await locationLayoutFetcher(dispatch, getState)
 
-    if (!state.categories || prev.payload.city !== city || prev.payload.language !== language) {
+    if (!state.categories) {
       await categoriesFetcher(dispatch, {city, language})
     }
   }

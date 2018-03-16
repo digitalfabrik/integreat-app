@@ -25,6 +25,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<LanguageMode
       return languages
     })
     .then(languages => {
+      // if the language param is not a valid language (for the current city) we want to display an error
       if (params.language && !languages.find(_language => _language.code === params.language)) {
         dispatch(redirect(goToNotFound(params.city, params.language)))
       }

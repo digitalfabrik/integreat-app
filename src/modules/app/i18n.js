@@ -6,6 +6,10 @@ import { reduce, forEach } from 'lodash/collection'
 const FALLBACK_LANGUAGE = 'en'
 
 /**
+ * i18n is an instance of i18next which is responsible for language detection and change, translations and rtl vs ltr layout
+ */
+
+/**
  * Transform locale resources to the structure: languageCode -> namespace -> key:value
  * And not: namespace -> languageCode -> key:value
  * @param {object} resources

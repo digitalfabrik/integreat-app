@@ -1,1 +1,2 @@
-export const LANGUAGE_CODE_LENGTH = 2
+export const MIN_LANGUAGE_CODE_LENGTH = 2
+export const MAX_LANGUAGE_CODE_LENGTH = 3

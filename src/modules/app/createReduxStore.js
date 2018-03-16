@@ -3,14 +3,24 @@ import thunkMiddleware from 'redux-thunk'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
-import endpointReducers from '../endpoint/reducers'
+import endpointReducers from '../endpoint/reducers/index'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
+
+import onBackNext from './onBackNext'
+
+/**
+ * Creates our Redux store
+ * @param createHistory
+ * @param initialState
+ * @param routesMap
+ * @return {*}
+ */
 
 const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {
   const history = createHistory()
 
-  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap)
+  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {onBeforeChange: onBackNext})
 
   /**
    * The middlewares of this app, add additional middlewares here

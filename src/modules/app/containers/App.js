@@ -5,7 +5,7 @@ import createHistory from '../createHistory'
 import I18nProvider from './I18nProvider'
 
 import routesMap from '../routesMap'
-import Switcher from '../Switcher'
+import Switcher from './Switcher'
 
 class App extends React.Component {
   store

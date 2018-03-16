@@ -10,14 +10,17 @@ import { goToCategories } from './categories'
 import { goToLanding } from './landing'
 import { clearStoreOnCityChange } from '../../endpoint/actions/remover'
 import { goToNotFound } from './notFound'
-
-const MIN_LANGUAGE_CODE_LENGTH = 2
-const MAX_LANGUAGE_CODE_LENGTH = 3
+import { MAX_LANGUAGE_CODE_LENGTH, MIN_LANGUAGE_CODE_LENGTH } from '../constants'
 
 export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
 export const goToI18nRedirect = (param: ?string) => createAction(I18N_REDIRECT_ROUTE)({param})
 
+/**
+ * I18nRoute to redirect if no language is specified or to the not found route if the param is invalid.
+ * Matches / and /param
+ * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ */
 export const i18nRedirectRoute = {
   path: '/:param?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
@@ -47,7 +50,7 @@ export const i18nRedirectRoute = {
     }
 
     // the param is probably a language code, so redirect to the landing route
-    if (param.length === MIN_LANGUAGE_CODE_LENGTH || param.length === MAX_LANGUAGE_CODE_LENGTH) {
+    if (param.length >= MIN_LANGUAGE_CODE_LENGTH || param.length <= MAX_LANGUAGE_CODE_LENGTH) {
       dispatch(redirect(goToLanding(param)))
       return
     }

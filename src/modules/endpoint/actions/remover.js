@@ -3,6 +3,7 @@
 import { createAction } from 'redux-actions'
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 
+// types of the atcions
 export const CATEGORIES_REMOVED = 'CATEGORIES_REMOVED'
 export const LANGUAGES_REMOVED = 'LANGUAGES_REMOVED'
 export const EVENTS_REMOVED = 'EVENTS_REMOVED'
@@ -10,7 +11,8 @@ export const EXTRAS_REMOVED = 'EXTRAS_REMOVED'
 export const DISCLAIMER_REMOVED = 'DISCLAIMER_REMOVED'
 export const SPRUNGBRETT_JOBS_REMOVED = 'SPRUNGBRETT_JOBS_REMOVED'
 
-const removeCategories = () => createAction(CATEGORIES_REMOVED)()
+// actions to remove data from the redux store
+export const removeCategories = () => createAction(CATEGORIES_REMOVED)()
 const removeLanguages = () => createAction(LANGUAGES_REMOVED)()
 const removeEvents = () => createAction(EVENTS_REMOVED)()
 const removeExtras = () => createAction(EXTRAS_REMOVED)()
