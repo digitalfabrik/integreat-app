@@ -3,6 +3,7 @@
 import { citiesFetcher } from '../../endpoint/fetchers'
 import { createAction } from 'redux-actions'
 import i18n from '../i18n'
+import { redirect } from 'redux-first-router'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
@@ -33,21 +34,25 @@ export const i18nRedirectRoute = {
       cities = await citiesFetcher(dispatch, {})
     }
 
-    if (!param) {
-      dispatch(goToLanding(i18n.language))
+    // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
+    if (!param || param === 'landing') {
+      dispatch(redirect(goToLanding(i18n.language)))
       return
     }
 
+    // the param is a valid city, so redirect to the categories route with the detected language
     if (cities.find(_city => _city.code === param)) {
-      dispatch(goToCategories(param, i18n.language))
+      dispatch(redirect(goToCategories(param, i18n.language)))
       return
     }
 
+    // the param is probably a language code, so redirect to the landing route
     if (param.length === MIN_LANGUAGE_CODE_LENGTH || param.length === MAX_LANGUAGE_CODE_LENGTH) {
-      dispatch(goToLanding(param))
+      dispatch(redirect(goToLanding(param)))
       return
     }
 
-    dispatch(goToNotFound(param))
+    // param is neither a language code nor a city, so it is not a valid route
+    dispatch(redirect(goToNotFound(param)))
   }
 }

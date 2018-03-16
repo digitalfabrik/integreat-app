@@ -7,6 +7,7 @@ import { apiUrl } from '../constants'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import { saveCities } from '../actions/fetcher'
 import { goToNotFound } from '../../app/routes/notFound'
+import { redirect } from 'redux-first-router'
 
 type Params = {city: ?string}
 
@@ -42,7 +43,7 @@ const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<CityModel>> 
       return cities
     }).then(cities => {
       if (params.city && !cities.find(_city => _city.code === params.city)) {
-        dispatch(goToNotFound({type: 'city', notFound: params.city}))
+        dispatch(redirect(goToNotFound(params.city)))
       }
       return cities
     })

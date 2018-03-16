@@ -13,7 +13,7 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import Caption from '../components/Caption'
-import CityModel from '../../endpoint/models/CityModel'
+import { NOT_FOUND } from 'redux-first-router'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -22,10 +22,10 @@ export class LanguageSelector extends React.Component {
   static propTypes = {
     closeDropDownCallback: PropTypes.func,
     languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
-    router: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     verticalLayout: PropTypes.bool,
     categories: PropTypes.instanceOf(CategoriesMapModel),
-    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel))
+    title: PropTypes.string
   }
 
   /**
@@ -35,19 +35,19 @@ export class LanguageSelector extends React.Component {
    * @return {string} The path
    */
   getLanguageChangeAction (languageCode) {
-    const {router, categories} = this.props
-    const {city, eventId, extraAlias} = router.payload
-    const routeType = router.type
+    const {location, categories} = this.props
+    const {city, eventId, extraAlias} = location.payload
+    const routeType = location.type
 
     switch (routeType) {
       case CATEGORIES_ROUTE:
         if (categories) {
-          const category = categories.getCategoryByUrl(router.pathname)
+          const category = categories.getCategoryByUrl(location.pathname)
           if (category && category.id !== 0) {
             return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
           }
         }
-        return goToCategories(city, languageCode)
+        break
       case EVENTS_ROUTE:
         return goToEvents(city, languageCode, eventId)
       case EXTRAS_ROUTE:
@@ -56,7 +56,10 @@ export class LanguageSelector extends React.Component {
         return goToDisclaimer(city, languageCode)
       case SEARCH_ROUTE:
         return goToSearch(city, languageCode)
+      case NOT_FOUND:
+        return goToCategories(location.prev.payload.city, languageCode)
     }
+    return goToCategories(city, languageCode)
   }
 
   getSelectorItemModels () {
@@ -68,22 +71,16 @@ export class LanguageSelector extends React.Component {
     )
   }
 
-  getCityName () {
-    const {router, cities} = this.props
-    return cities && cities.find(_city => _city.code === router.payload.city)
-  }
-
   render () {
-    const {router, verticalLayout, closeDropDownCallback} = this.props
+    const {location, verticalLayout, closeDropDownCallback, title} = this.props
     const selectorItemModels = this.getSelectorItemModels()
-    const title = this.getCityName()
 
     return <React.Fragment>
       {verticalLayout && title ? <Caption title={title} /> : null}
       {selectorItemModels
         ? <Selector verticalLayout={verticalLayout}
                   items={this.getSelectorItemModels()}
-                  activeItemCode={router.payload.language}
+                  activeItemCode={location.payload.language}
                   closeDropDownCallback={closeDropDownCallback} />
         : null}
       </React.Fragment>
@@ -91,7 +88,7 @@ export class LanguageSelector extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  router: state.location,
+  location: state.location,
   languages: state.languages,
   categories: state.categories,
   cities: state.cities

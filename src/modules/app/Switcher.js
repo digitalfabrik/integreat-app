@@ -30,7 +30,7 @@ import { SEARCH_ROUTE } from './routes/search'
 import { PDF_FETCHER_ROUTE } from './routes/pdfFetcher'
 
 import NotFoundPage from '../../routes/notFound/NotFoundPage'
-import { NOT_FOUND_ROUTE } from './routes/notFound'
+import { NOT_FOUND } from 'redux-first-router'
 
 type Props = {
   viewportSmall: boolean,
@@ -48,7 +48,7 @@ class Switcher extends React.Component<Props> {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
     switch (currentRoute) {
-      case NOT_FOUND_ROUTE:
+      case NOT_FOUND:
         if (cities) {
           return <NotFoundPage />
         }
