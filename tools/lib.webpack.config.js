@@ -5,9 +5,18 @@ const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
+const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin')
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
+
+const basePackageValues = {
+  'name': '@integreat/shared',
+  'version': '1.0.0',
+  'main': './main.js'
+}
+
+const versionsPackageFilename = path.resolve(__dirname, '../package.json')
 
 // Webpack configuration (main.js => www/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
@@ -21,7 +30,7 @@ const config = {
   // The base directory for resolving the entry option
   context: path.resolve(__dirname, '../src'),
   // The entry point for the bundle
-  entry: [ './lib.js' ],
+  entry: ['./lib.js'],
 
   externals: [nodeExternals()],
   // Options affecting the output of the compilation
@@ -38,6 +47,7 @@ const config = {
   stats: 'verbose',
   // The list of plugins for Webpack compiler
   plugins: [
+    new GeneratePackageJsonPlugin(basePackageValues, versionsPackageFilename),
     new StyleLintPlugin({
       files: '**/*.css',
       configFile: 'stylelint.config.js',
