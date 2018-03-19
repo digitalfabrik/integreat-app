@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
-import LocationModel from 'modules/endpoint/models/CityModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 
 export class LandingPage extends React.Component {
   static propTypes = {
-    cities: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)).isRequired,
     language: PropTypes.string.isRequired
   }
 

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -21,7 +21,7 @@ import { NOT_FOUND } from 'redux-first-router'
 export class LanguageSelector extends React.Component {
   static propTypes = {
     closeDropDownCallback: PropTypes.func,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
     location: PropTypes.object.isRequired,
     verticalLayout: PropTypes.bool,
     categories: PropTypes.instanceOf(CategoriesMapModel),
@@ -76,13 +76,11 @@ export class LanguageSelector extends React.Component {
     const selectorItemModels = this.getSelectorItemModels()
 
     return <React.Fragment>
-      {verticalLayout && title ? <Caption title={title} /> : null}
-      {selectorItemModels
-        ? <Selector verticalLayout={verticalLayout}
+      {verticalLayout && title && <Caption title={title} />}
+      {selectorItemModels && <Selector verticalLayout={verticalLayout}
                   items={this.getSelectorItemModels()}
                   activeItemCode={location.payload.language}
-                  closeDropDownCallback={closeDropDownCallback} />
-        : null}
+                  closeDropDownCallback={closeDropDownCallback} />}
       </React.Fragment>
   }
 }

@@ -32,10 +32,7 @@ export const i18nRedirectRoute = {
       clearStoreOnCityChange(dispatch, getState)
     }
 
-    let cities = state.cities
-    if (!cities) {
-      cities = await citiesFetcher(dispatch, {})
-    }
+    const cities = state.cities || await citiesFetcher(dispatch, {})
 
     // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
     if (!param || param === 'landing') {
