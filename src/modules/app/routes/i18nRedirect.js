@@ -8,7 +8,6 @@ import { redirect } from 'redux-first-router'
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
 import { goToLanding } from './landing'
-import { clearStoreOnCityChange } from '../../endpoint/actions/remover'
 import { goToNotFound } from './notFound'
 import { MAX_LANGUAGE_CODE_LENGTH, MIN_LANGUAGE_CODE_LENGTH } from '../constants'
 
@@ -26,11 +25,6 @@ export const i18nRedirectRoute = {
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const param = state.location.payload.param
-    const prev = state.location.prev
-
-    if (prev.payload.city) {
-      clearStoreOnCityChange(dispatch, getState)
-    }
 
     const cities = state.cities || await citiesFetcher(dispatch, {})
 
