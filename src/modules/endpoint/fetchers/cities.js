@@ -9,7 +9,7 @@ import { saveCities } from '../actions/fetcher'
 import { goToNotFound } from '../../app/routes/notFound'
 import { redirect } from 'redux-first-router'
 
-type Params = {city: ?string}
+type Params = {city?: string}
 
 const urlMapper = (): string => `${apiUrl}/wp-json/extensions/v1/multisites`
 

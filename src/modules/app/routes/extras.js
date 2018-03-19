@@ -1,6 +1,7 @@
 // @flow
 
-import { extrasFetcher, sprungbrettFetcher } from '../../endpoint/fetchers'
+import extrasFetcher from '../../endpoint/fetchers/extras'
+import sprungbrettFetcher from '../../endpoint/fetchers/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'

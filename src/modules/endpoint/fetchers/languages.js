@@ -9,7 +9,7 @@ import { redirect } from 'redux-first-router'
 
 type Params = {
   city: string,
-  language: ?string
+  language?: string
 }
 
 const urlMapper = (params: Params): string => `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`

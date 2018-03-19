@@ -1,6 +1,6 @@
 // @flow
 
-import { citiesFetcher } from '../../endpoint/fetchers'
+import citiesFetcher from '../../endpoint/fetchers/cities'
 import { createAction } from 'redux-actions'
 import i18n from '../i18n'
 import { redirect } from 'redux-first-router'
