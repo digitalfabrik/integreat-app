@@ -2,6 +2,7 @@
 
 import React from 'react'
 import type { ComponentType } from 'react'
+import ReactTooltip from 'react-tooltip'
 import style from './Layout.css'
 
 /**
@@ -9,11 +10,9 @@ import style from './Layout.css'
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const withLayout = (
-  Header: ComponentType<{ onStickyTopChanged: number => void }>,
-  Toolbar: ?ComponentType<{}>,
-  Footer: ComponentType<{}>
-) => (WrappedComponent: ComponentType<{}>) =>
+const withLayout = (Header: ComponentType<{ onStickyTopChanged: number => void }>,
+                    Toolbar: ?ComponentType<{}>,
+                    Footer: ComponentType<{}>) => (WrappedComponent: ComponentType<{}>) =>
   class Layout extends React.Component<{}, { stickyTop: number }> {
     state = {stickyTop: 0}
 
@@ -34,6 +33,7 @@ const withLayout = (
             </div>
           </div>
           {Footer && <Footer {...this.props} />}
+          <ReactTooltip effect='solid' delayShow={0} />
         </div>
       )
     }
