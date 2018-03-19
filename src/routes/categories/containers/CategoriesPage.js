@@ -19,7 +19,6 @@ import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import style from './CategoriesPage.css'
 import withLocationLayout from 'modules/layout/hocs/withLocationLayout'
 import CategoriesToolbar from './CategoriesToolbar'
 
