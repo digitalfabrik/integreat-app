@@ -63,8 +63,7 @@ export class LanguageSelector extends React.Component {
   }
 
   getSelectorItemModels () {
-    const languages = this.props.languages
-    return languages && this.props.languages.map(language =>
+    return this.props.languages.map(language =>
       new SelectorItemModel({
         code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
       })
