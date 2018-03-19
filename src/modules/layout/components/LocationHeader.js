@@ -31,11 +31,14 @@ class LocationHeader extends React.Component {
 
   getActionItems () {
     const {languages, language, city} = this.props
-    return [
+    const headerActionItems = [
       new HeaderActionItem({href: goToSearch(city, language), iconSrc: searchIcon}),
-      new HeaderActionItem({href: goToLanding(language), iconSrc: landingIcon}),
-      new HeaderActionItem({dropDownNode: <LanguageSelector languages={languages} />, iconSrc: languageIcon})
+      new HeaderActionItem({href: goToLanding(language), iconSrc: landingIcon})
     ]
+    if (languages) {
+      headerActionItems.push(new HeaderActionItem({dropDownNode: <LanguageSelector languages={languages} />, iconSrc: languageIcon}))
+    }
+    return headerActionItems
   }
 
   getNavigationItems () {
