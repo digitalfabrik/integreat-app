@@ -11,9 +11,9 @@ import style from './Layout.css'
  * always stick to the bottom of the viewbox.
  */
 const withLayout = (
-  Header: ComponentType<{ onStickyTopChanged: number => void }>,
+  Header: ?ComponentType<{ onStickyTopChanged: number => void }>,
   Toolbar: ?ComponentType<{}>,
-  Footer: ComponentType<{}>) => (WrappedComponent: ComponentType<{}>
+  Footer: ?ComponentType<{}>) => (WrappedComponent: ComponentType<{}>
 ) => class Layout extends React.Component<{}, { stickyTop: number }> {
   state = {stickyTop: 0}
 
