@@ -1,5 +1,14 @@
 import Route from './Route'
 
+export const landingRoute = 'landing'
+export const searchRoute = 'search'
+export const disclaimerRoute = 'disclaimer'
+export const eventsRoute = 'events'
+export const pdfFetcherRoute = 'pdf-fetcher'
+export const extrasRoute = 'extras'
+export const categoriesRoute = 'categories'
+export const mainDisclaimerRoute = 'main-disclaimer'
+
 const createRouteConfig = () => [
   new Route({
     path: '/'

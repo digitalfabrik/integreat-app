@@ -11,6 +11,7 @@ import Header from 'modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import EventsNavigationItem from './EventsNavigationItem'
+import { categoriesRoute, eventsRoute, extrasRoute, landingRoute, searchRoute } from '../../app/createRouteConfig'
 
 class LocationHeader extends React.Component {
   static propTypes = {
@@ -27,8 +28,8 @@ class LocationHeader extends React.Component {
     const {matchRoute} = this.props
     const currentParams = this.getCurrentParams()
     return [
-      new HeaderActionItem({href: matchRoute('search').stringify(currentParams), iconSrc: searchIcon}),
-      new HeaderActionItem({href: matchRoute('landing').stringify(currentParams), iconSrc: locationIcon}),
+      new HeaderActionItem({href: matchRoute(searchRoute).stringify(currentParams), iconSrc: searchIcon}),
+      new HeaderActionItem({href: matchRoute(landingRoute).stringify(currentParams), iconSrc: locationIcon}),
       new HeaderActionItem({dropDownNode: <LanguageSelector />, iconSrc: languageIcon})
     ]
   }
@@ -48,27 +49,27 @@ class LocationHeader extends React.Component {
     const isExtrasEnabled = () => this.props.locationModel.extrasEnabled
     const isCategoriesEnabled = () => isExtrasEnabled() || isEventsEnabled()
 
-    const isExtrasSelected = () => matchRoute('extras').hasPath(currentPath)
-    const isCategoriesSelected = () => matchRoute('categories').hasPath(currentPath)
-    const isEventsSelected = () => matchRoute('events').hasPath(currentPath)
+    const isExtrasSelected = () => matchRoute(extrasRoute).hasPath(currentPath)
+    const isCategoriesSelected = () => matchRoute(categoriesRoute).hasPath(currentPath)
+    const isEventsSelected = () => matchRoute(eventsRoute).hasPath(currentPath)
 
     const extras = isExtrasEnabled() && <HeaderNavigationItem
       key='extras'
-      href={matchRoute('extras').stringify(currentParams)}
+      href={matchRoute(extrasRoute).stringify(currentParams)}
       selected={isExtrasSelected()}
-      text={t('extras')}
+      text={t(extrasRoute)}
       active />
 
     const categories = isCategoriesEnabled() && <HeaderNavigationItem
       key='categories'
-      href={matchRoute('categories').stringify(currentParams)}
+      href={matchRoute(categoriesRoute).stringify(currentParams)}
       selected={isCategoriesSelected()}
       text={t('categories')}
       active />
 
     const events = isEventsEnabled() && <EventsNavigationItem
       key='events'
-      href={matchRoute('events').stringify(currentParams)}
+      href={matchRoute(eventsRoute).stringify(currentParams)}
       selected={isEventsSelected()}
       text={t('news')}
       tooltip={t('noNews')} />
@@ -81,7 +82,7 @@ class LocationHeader extends React.Component {
     return <Header
       onStickyTopChanged={this.props.onStickyTopChanged}
       viewportSmall={this.props.viewportSmall}
-      logoHref={matchRoute('categories').stringify(this.getCurrentParams())}
+      logoHref={matchRoute(categoriesRoute).stringify(this.getCurrentParams())}
       actionItems={this.getActionItems()}
       navigationItems={this.getNavigationItems()} />
   }
