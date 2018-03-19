@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 
 import Footer from './Footer'
 import { Link } from 'redux-little-router'
+import { disclaimerRoute } from '../../app/createRouteConfig'
 
 class LocationFooter extends React.Component {
   static propTypes = {
@@ -22,7 +23,7 @@ class LocationFooter extends React.Component {
 
   render () {
     return <Footer>
-      <Link href={this.props.matchRoute('disclaimer').stringify(this.getCurrentParams())}>
+      <Link href={this.props.matchRoute(disclaimerRoute).stringify(this.getCurrentParams())}>
         {this.props.t('imprintAndContact')}
       </Link>
       <a href={'https://integreat-app.de/datenschutz/'}>{this.props.t('privacy')}</a>
