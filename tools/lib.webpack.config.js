@@ -38,13 +38,15 @@ const config = {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/dist/',
     filename: isDebug ? '[name].js' : '[name].js',
-    sourcePrefix: '  '
+    sourcePrefix: '  ',
+    library: '@integreat/shared',
+    libraryTarget: 'umd'
   },
   // Developer tool to enhance debugging, source maps
   // http://webpack.github.io/docs/configuration.html#devtool
   devtool: isDebug ? 'source-map' : false,
   // What information should be printed to the console
-  stats: 'verbose',
+  stats: isVerbose ? 'verbose' : 'normal',
   // The list of plugins for Webpack compiler
   plugins: [
     new GeneratePackageJsonPlugin(basePackageValues, versionsPackageFilename),
@@ -54,8 +56,8 @@ const config = {
       emitErrors: !isDebug
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-      __DEV__: isDebug,
+      'process.env.NODE_ENV': '"production"',
+      __DEV__: false,
       __VERSION__: JSON.stringify(getVersion())
     }),
     // Emit a JSON file with assets paths
@@ -66,8 +68,8 @@ const config = {
       prettyPrint: true
     }),
     new webpack.LoaderOptionsPlugin({
-      debug: isDebug,
-      minimize: !isDebug
+      debug: false,
+      minimize: true
     })
   ],
   // Options affecting the normal modules
@@ -99,13 +101,13 @@ const config = {
             loader: 'css-loader',
             options: {
               camelCase: 'dashes',
-              sourceMap: isDebug,
+              sourceMap: false,
               importLoaders: true,
               // CSS Modules https://github.com/css-modules/css-modules
               modules: true,
-              localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+              localIdentName: '[hash:base64:10]',
               // CSS Nano http://cssnano.co/options/
-              minimize: !isDebug
+              minimize: false
             }
           },
           {
