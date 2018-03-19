@@ -23,6 +23,11 @@ class HeaderNavigationItem extends React.PureComponent {
     tooltip: PropTypes.string
   }
 
+  componentDidMount () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
   render () {
     const {active, text, tooltip, selected, href} = this.props
     return <React.Fragment>
@@ -35,8 +40,6 @@ class HeaderNavigationItem extends React.PureComponent {
                        })}
                        href={href}>{text}
       </ConditionalLink>
-
-      <ReactTooltip place='top' type='dark' effect='solid' />
     </React.Fragment>
   }
 }
