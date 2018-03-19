@@ -3,7 +3,10 @@
 import type { Dispatch, GetState, Bag } from 'redux-first-router/dist/flow-types'
 import { CATEGORIES_ROUTE } from './routes/categories'
 import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../endpoint/actions/remover'
-import { citiesFetcher, eventsFetcher, languagesFetcher } from '../endpoint/fetchers'
+import citiesFetcher from '../endpoint/fetchers/cities'
+import languagesFetcher from '../endpoint/fetchers/languages'
+import eventsFetcher from '../endpoint/fetchers/events'
+
 import { EVENTS_ROUTE } from './routes/events'
 import { EXTRAS_ROUTE } from './routes/extras'
 import { DISCLAIMER_ROUTE } from './routes/disclaimer'
@@ -33,6 +36,7 @@ const onBeforeChange = async (dispatch: Dispatch, getState: GetState, bag: Bag) 
     clearStoreOnCityChange(dispatch, getState)
   }
 
+  // in the following routes we have a location layout, so we need cities, languages and events
   if ([CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE].includes(route)) {
     if (!state.cities) {
       await citiesFetcher(dispatch, params)

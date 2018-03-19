@@ -1,6 +1,6 @@
 // @flow
 
-import { citiesFetcher } from '../../endpoint/fetchers'
+import citiesFetcher from '../../endpoint/fetchers/cities'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
