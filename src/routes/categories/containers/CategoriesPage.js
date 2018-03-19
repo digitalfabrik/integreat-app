@@ -32,7 +32,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   /**
-   * Our root categories don't have the right title (citiy code instead of city title), so we have to compare the
+   * Our root categories don't have the right title (city code instead of city title), so we have to compare the
    * title of the root category with the code of every city
    * @param {String} title The title of the category to search for
    * @return {String} The found name or the given title

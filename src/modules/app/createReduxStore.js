@@ -7,7 +7,7 @@ import endpointReducers from '../endpoint/reducers/index'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
 
-import onBackNext from './onBackNext'
+import onBeforeChange from './onBeforeChange'
 
 /**
  * Creates our Redux store
@@ -20,7 +20,7 @@ import onBackNext from './onBackNext'
 const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {
   const history = createHistory()
 
-  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {onBeforeChange: onBackNext})
+  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {onBeforeChange: onBeforeChange})
 
   /**
    * The middlewares of this app, add additional middlewares here

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import Heading from './Heading'
 import ScrollingSearchBox from 'modules/common/components/ScrollingSearchBox'
 import LocationSelector from './LocationSelector'
-import LocationModel from 'modules/endpoint/models/CityModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 
 import style from './FilterableLocationSelector.css'
 
 class FilterableLocationSelector extends React.Component {
   static propTypes = {
-    cities: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)).isRequired,
     language: PropTypes.string.isRequired
   }
 

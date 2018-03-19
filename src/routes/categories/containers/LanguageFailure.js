@@ -7,13 +7,13 @@ import { connect } from 'react-redux'
 
 import LanguageSelector from 'modules/common/containers/LanguageSelector'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import LocationModel from 'modules/endpoint/models/CityModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './LanguageFailure.css'
 
 type Props = {
-  locations: Array<LocationModel>,
+  locations: Array<CityModel>,
   languages: Array<LanguageModel>,
   location: string,
   t: string => string
