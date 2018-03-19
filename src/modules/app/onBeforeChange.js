@@ -2,8 +2,12 @@
 
 import type { Dispatch, GetState, Bag } from 'redux-first-router/dist/flow-types'
 import { CATEGORIES_ROUTE } from './routes/categories'
-import { removeCategories } from '../endpoint/actions/remover'
-import { categoriesFetcher } from '../endpoint/fetchers'
+import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../endpoint/actions/remover'
+import { citiesFetcher, eventsFetcher, languagesFetcher } from '../endpoint/fetchers'
+import { EVENTS_ROUTE } from './routes/events'
+import { EXTRAS_ROUTE } from './routes/extras'
+import { DISCLAIMER_ROUTE } from './routes/disclaimer'
+import { SEARCH_ROUTE } from './routes/search'
 
 /**
  * This handles the use of the back/ next button of the browser. We have to remove and refetch the categories in the old
@@ -12,20 +16,34 @@ import { categoriesFetcher } from '../endpoint/fetchers'
  * @param dispatch
  * @param getState
  * @param bag
- * @return {Promise<void>}
  */
 const onBeforeChange = async (dispatch: Dispatch, getState: GetState, bag: Bag) => {
   const state = getState()
   const {city, language} = bag.action.payload
-  const type = bag.action.type
+  const route = bag.action.type
+  const prevCity = state.location.payload.city
   const prevLanguage = state.location.payload.language
-  if (bag.action.meta) {
-    const historyActionType = bag.action.meta.location.kind
+  const params = {city, language}
 
-    if (type === CATEGORIES_ROUTE && historyActionType === 'pop' && language !== prevLanguage) {
-      dispatch(removeCategories())
+  if (prevLanguage && prevLanguage !== language) {
+    clearStoreOnLanguageChange(dispatch, getState)
+  }
 
-      await categoriesFetcher(dispatch, {city, language})
+  if (prevCity && prevCity !== city) {
+    clearStoreOnCityChange(dispatch, getState)
+  }
+
+  if ([CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE].includes(route)) {
+    if (!state.cities) {
+      await citiesFetcher(dispatch, params)
+    }
+
+    if (!state.languages) {
+      await languagesFetcher(dispatch, params)
+    }
+
+    if (!state.events) {
+      await eventsFetcher(dispatch, params)
     }
   }
 }
