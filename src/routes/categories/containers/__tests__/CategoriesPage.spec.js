@@ -254,23 +254,6 @@ describe('CategoriesPage', () => {
     expect(mapLanguageToPath(language)).toBe(`/${location}/${language}`)
   })
 
-  it('should get pdf fetch path', () => {
-    const mockReplaceUrl = jest.fn()
-
-    const categoriesPage = shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={categoryModels[2].url}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
-    ).instance()
-
-    expect(categoriesPage.getPdfFetchPath()).toBe(`/${location}/${language}/fetch-pdf?url=${categoryModels[2].url}`)
-  })
-
   describe('connect', () => {
     const languagesEndpoint = new EndpointBuilder('languages')
       .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
