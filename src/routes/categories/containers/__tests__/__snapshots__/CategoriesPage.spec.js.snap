@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
-<div>
+<React.Fragment>
   <Breadcrumbs
     locationName="Augsburg"
     parents={Array []}
@@ -27,14 +27,11 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     }
     title="Augsburg"
   />
-  <PdfButton
-    href="/augsburg/en/fetch-pdf?url=/augsburg/de"
-  />
-</div>
+</React.Fragment>
 `;
 
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
-<div>
+<React.Fragment>
   <Breadcrumbs
     locationName="Augsburg"
     parents={
@@ -72,10 +69,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     content="some content"
     title="Willkommen in Augsburg"
   />
-  <PdfButton
-    href="/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen/willkommen-in-augsburg"
-  />
-</div>
+</React.Fragment>
 `;
 
 exports[`CategoriesPage should match snapshot and render an Error if path is not valid 1`] = `
@@ -85,7 +79,7 @@ exports[`CategoriesPage should match snapshot and render an Error if path is not
 `;
 
 exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
-<div>
+<React.Fragment>
   <Breadcrumbs
     locationName="Augsburg"
     parents={
@@ -130,8 +124,5 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
     content=""
     title="Willkommen"
   />
-  <PdfButton
-    href="/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen"
-  />
-</div>
+</React.Fragment>
 `;
