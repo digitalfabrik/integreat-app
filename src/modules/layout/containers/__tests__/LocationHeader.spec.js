@@ -3,24 +3,20 @@ import React from 'react'
 import LocationHeader from '../LocationHeader'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import Route from '../../../app/Route'
-import CategoriesPage from '../../../../routes/categories/containers/CategoriesPage'
-import LandingPage from '../../../../routes/landing/containers/LandingPage'
-import SearchPage from '../../../../routes/search/containers/SearchPage'
-import EventsPage from '../../../../routes/events/containers/EventsPage'
-import ExtrasPage from '../../../../routes/extras/containers/ExtrasPage'
+import { categoriesRoute, eventsRoute, extrasRoute, landingRoute, searchRoute } from '../../../app/createRouteConfig'
 
 describe('LocationHeader', () => {
   const matchRoute = id => {
     switch (id) {
-      case CategoriesPage:
+      case categoriesRoute:
         return new Route({id, path: '/:location/:language(/*)'})
-      case LandingPage:
+      case landingRoute:
         return new Route({id, path: '/:language'})
-      case SearchPage:
+      case searchRoute:
         return new Route({id, path: '/:location/:language/search'})
-      case EventsPage:
+      case eventsRoute:
         return new Route({id, path: '/:location/:language/events(/:id)'})
-      case ExtrasPage:
+      case extrasRoute:
         return new Route({id, path: '/:location/:language/extras(/:extra)'})
     }
     throw new Error(`Route ${id} not found!`)
