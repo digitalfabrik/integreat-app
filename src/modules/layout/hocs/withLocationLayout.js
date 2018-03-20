@@ -26,7 +26,7 @@ const Header = withProps(props => ({ locationModel: findLocation(props) }))(Loca
 
 export default (Toolbar?: ComponentType<{}>) => compose(
   connect(mapStateToProps),
-  withFetcher('locations', null, null),
+  withFetcher('locations'),
   branch(
     // if a corresponding location is available ...
     props => !!findLocation(props),
