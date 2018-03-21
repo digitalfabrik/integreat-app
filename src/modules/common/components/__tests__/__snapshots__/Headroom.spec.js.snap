@@ -7,19 +7,20 @@ exports[`Headroom should render correct if state is pinned, transition 1`] = `
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <div
-    className="headroom transition"
-    style={
-      Object {
-        "top": "0px",
-        "transform": "translateY(0px)",
-      }
-    }
+  <Headroomstyles__HeaderWrapper
+    static={false}
+    top={0}
+    transition={true}
+    translateY={0}
   >
-    <MockNode>
-      <div />
-    </MockNode>
-  </div>
+    <div
+      className="Headroomstyles__HeaderWrapper-iDCIAq fsTJoL"
+    >
+      <MockNode>
+        <div />
+      </MockNode>
+    </div>
+  </Headroomstyles__HeaderWrapper>
   <MockAncestor
     stickyTop={100}
   >
@@ -35,19 +36,20 @@ exports[`Headroom should render correct if state is static, no transition 1`] = 
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <div
-    className="headroom static"
-    style={
-      Object {
-        "top": "-50px",
-        "transform": "translateY(0px)",
-      }
-    }
+  <Headroomstyles__HeaderWrapper
+    static={true}
+    top={-50}
+    transition={false}
+    translateY={0}
   >
-    <MockNode>
-      <div />
-    </MockNode>
-  </div>
+    <div
+      className="Headroomstyles__HeaderWrapper-iDCIAq fAVNrI"
+    >
+      <MockNode>
+        <div />
+      </MockNode>
+    </div>
+  </Headroomstyles__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
@@ -63,19 +65,20 @@ exports[`Headroom should render correct if state is unpinned, no transition 1`] 
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <div
-    className="headroom"
-    style={
-      Object {
-        "top": "0px",
-        "transform": "translateY(-50px)",
-      }
-    }
+  <Headroomstyles__HeaderWrapper
+    static={false}
+    top={0}
+    transition={false}
+    translateY={-50}
   >
-    <MockNode>
-      <div />
-    </MockNode>
-  </div>
+    <div
+      className="Headroomstyles__HeaderWrapper-iDCIAq SWfww"
+    >
+      <MockNode>
+        <div />
+      </MockNode>
+    </div>
+  </Headroomstyles__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
@@ -91,19 +94,20 @@ exports[`Headroom should render correct if state is unpinned, transition 1`] = `
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <div
-    className="headroom transition"
-    style={
-      Object {
-        "top": "0px",
-        "transform": "translateY(-50px)",
-      }
-    }
+  <Headroomstyles__HeaderWrapper
+    static={false}
+    top={0}
+    transition={true}
+    translateY={-50}
   >
-    <MockNode>
-      <div />
-    </MockNode>
-  </div>
+    <div
+      className="Headroomstyles__HeaderWrapper-iDCIAq fEMeBw"
+    >
+      <MockNode>
+        <div />
+      </MockNode>
+    </div>
+  </Headroomstyles__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
@@ -114,17 +118,14 @@ exports[`Headroom should render correct if state is unpinned, transition 1`] = `
 
 exports[`Headroom should render with no stickyAncestor supplied 1`] = `
 <React.Fragment>
-  <div
-    className="headroom static"
-    style={
-      Object {
-        "top": "-50px",
-        "transform": "translateY(0px)",
-      }
-    }
+  <Headroomstyles__HeaderWrapper
+    static={true}
+    top={-50}
+    transition={false}
+    translateY={0}
   >
     <MockNode />
-  </div>
+  </Headroomstyles__HeaderWrapper>
 </React.Fragment>
 `;
 
@@ -135,19 +136,20 @@ exports[`Headroom should render with values from its state 1`] = `
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <div
-    className="headroom static"
-    style={
-      Object {
-        "top": "-50px",
-        "transform": "translateY(0px)",
-      }
-    }
+  <Headroomstyles__HeaderWrapper
+    static={true}
+    top={-50}
+    transition={false}
+    translateY={0}
   >
-    <MockNode>
-      <div />
-    </MockNode>
-  </div>
+    <div
+      className="Headroomstyles__HeaderWrapper-iDCIAq fAVNrI"
+    >
+      <MockNode>
+        <div />
+      </MockNode>
+    </div>
+  </Headroomstyles__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
