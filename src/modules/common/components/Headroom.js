@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import styled from 'styled-components'
+import { HeaderWrapper } from './Headroom.styles'
 
 const UPWARDS = 'up'
 const DOWNWARDS = 'down'
@@ -9,15 +8,6 @@ const DOWNWARDS = 'down'
 const UNPINNED = 'unpinned'
 const PINNED = 'pinned'
 const STATIC = 'static'
-
-const HeaderWrapper = styled.div`
-  position: sticky;
-  top: ${props => props.top}px;
-  z-index: 1;
-  transform: translateY(${props => props.translateY}px);
-  ${props => props.transition && `transition: transform 0.2s ease-out;`}
-  ${props => props.static && `transition: none;`}
-`
 
 class Headroom extends React.PureComponent {
   static propTypes = {

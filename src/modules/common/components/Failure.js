@@ -5,15 +5,7 @@ import FontAwesome from 'react-fontawesome'
 
 import { Link } from 'redux-little-router'
 
-import styled from 'styled-components'
-
-const Centered = styled.div`
-  & > * {
-    display: block;
-    margin-top: 50px;
-    text-align: center;
-  }
-`
+import { Centered } from './Failure.styles'
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
