@@ -19,8 +19,6 @@ export const disclaimerRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    if (!state.disclaimer) {
-      await disclaimerFetcher(dispatch, {city, language})
-    }
+    await disclaimerFetcher(dispatch, state.disclaimer, {city, language})
   }
 }

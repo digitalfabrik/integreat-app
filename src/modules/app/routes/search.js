@@ -19,8 +19,6 @@ export const searchRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    if (!state.categories) {
-      await categoriesFetcher(dispatch, {city, language})
-    }
+    await categoriesFetcher.fetchData(dispatch, state.categories, {city, language})
   }
 }
