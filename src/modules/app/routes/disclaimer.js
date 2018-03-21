@@ -1,6 +1,6 @@
 // @flow
 
-import disclaimerFetcher from '../../endpoint/fetchers/disclaimer'
+import disclaimerFetcher from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'

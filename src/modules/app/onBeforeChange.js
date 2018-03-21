@@ -3,9 +3,9 @@
 import type { Dispatch, GetState, Bag } from 'redux-first-router/dist/flow-types'
 import { CATEGORIES_ROUTE } from './routes/categories'
 import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../endpoint/actions/remover'
-import citiesFetcher from '../endpoint/fetchers/cities'
-import languagesFetcher from '../endpoint/fetchers/languages'
-import eventsFetcher from '../endpoint/fetchers/events'
+import citiesFetcher from '../endpoint/endpoints/cities'
+import languagesFetcher from '../endpoint/endpoints/languages'
+import eventsFetcher from '../endpoint/endpoints/events'
 
 import { EVENTS_ROUTE } from './routes/events'
 import { EXTRAS_ROUTE } from './routes/extras'

@@ -1,15 +1,13 @@
 // @flow
 
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import EndpointBuilder from '../EndpointBuilder'
-import Payload from '../Payload'
 
 type Params = {
   url: string
 }
 
-export default (dispatch: Dispatch, oldPayload: Payload, params: Params): Promise<Payload> => new EndpointBuilder('sprungbrettJobs')
+export default new EndpointBuilder('sprungbrettJobs')
   .withParamsToUrlMapper((params: Params): string => params.url)
   .withMapper((json: any): Array<SprungbrettJobModel> => json.results
     .map((job, index) => new SprungbrettJobModel({
@@ -21,4 +19,3 @@ export default (dispatch: Dispatch, oldPayload: Payload, params: Params): Promis
       isApprenticeship: job.apprenticeship === '1'
     })))
   .build()
-  .fetchData(dispatch, oldPayload, params)

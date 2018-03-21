@@ -1,6 +1,6 @@
 // @flow
 
-import categoriesFetcher from '../../endpoint/fetchers/categories'
+import categoriesFetcher from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'

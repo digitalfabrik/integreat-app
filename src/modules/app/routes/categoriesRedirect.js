@@ -1,6 +1,6 @@
 // @flow
 
-import categoriesFetcher from '../../endpoint/fetchers/categories'
+import categoriesFetcher from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 import { redirect } from 'redux-first-router'
 
