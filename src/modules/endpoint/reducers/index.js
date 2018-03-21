@@ -12,11 +12,12 @@ import {
 } from '../actions/remover'
 
 import type { Action, Store } from 'redux-first-router/dist/flow-types'
+import Payload from '../Payload'
 
 const fetcherReducer = (state: Store, action: Action) => action.payload
 const removerReducer = () => null
 
-const defaultState = null
+const defaultState = new Payload(false)
 
 // reducers to handle the fetching and removing of data to and from the redux store
 const reducers = {

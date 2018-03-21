@@ -5,48 +5,32 @@ import { sortBy } from 'lodash/collection'
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
-import { saveCities } from '../actions/fetcher'
-import { goToNotFound } from '../../app/routes/notFound'
-import { redirect } from 'redux-first-router'
+import Payload from '../Payload'
+import EndpointBuilder from '../EndpointBuilder'
 
-type Params = {city?: string}
-
-const urlMapper = (): string => `${apiUrl}/wp-json/extensions/v1/multisites`
-
-const stripSlashes = path => {
+const stripSlashes = (path: string): string => {
   if (path.startsWith('/')) {
-    path = path.substr(1)
+    return path.substr(1)
   }
   if (path.endsWith('/')) {
-    path = path.substr(0, path.length - 1)
+    return path.substr(0, path.length - 1)
   }
   return path
 }
 
-const fetcher = (dispatch: Dispatch, params: Params): Promise<Array<CityModel>> =>
-  fetch(urlMapper())
-    .then(response => response.json())
-    .then(json => {
-      const cities = json
-        .map(_city => new CityModel({
-          name: _city.name,
-          code: stripSlashes(_city.path),
-          live: _city.live,
-          eventsEnabled: _city['ige-evts'] === '1',
-          extrasEnabled: true // todo
-        }))
-        .sort(_city => _city.name)
-      return sortBy(cities, _city => _city.sortKey)
-    })
-    .then(cities => {
-      dispatch(saveCities(cities))
-      return cities
-    }).then(cities => {
-      // if the city param is not a valid city we want to show an error
-      if (params.city && !cities.find(_city => _city.code === params.city)) {
-        dispatch(redirect(goToNotFound(params.city)))
-      }
-      return cities
-    })
-
-export default fetcher
+export default (dispatch: Dispatch, oldPayload: Payload) => new EndpointBuilder('cities')
+  .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v1/multisites`)
+  .withMapper((json: any): Array<CityModel> => {
+    const cities = json
+      .map(_city => new CityModel({
+        name: _city.name,
+        code: stripSlashes(_city.path),
+        live: _city.live,
+        eventsEnabled: _city['ige-evts'] === '1',
+        extrasEnabled: true // todo
+      }))
+      .sort(_city => _city.name)
+    return sortBy(cities, _city => _city.sortKey)
+  })
+  .build()
+  .fetchData(dispatch, oldPayload)
