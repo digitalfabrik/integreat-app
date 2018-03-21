@@ -1,8 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 
-import EventModel from 'modules/endpoint/models/EventModel'
 import RemoteContent from 'modules/common/components/RemoteContent'
 
 import style from './EventDetail.css'
@@ -11,17 +9,18 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
+import EventModel from '../../../modules/endpoint/models/EventModel'
+
+type Props = {
+  event: EventModel,
+  language: string,
+  t: (string) => string
+}
 
 /**
  * Display a single event with all necessary information
  */
-class EventDetail extends React.Component {
-  static propTypes = {
-    event: PropTypes.instanceOf(EventModel).isRequired,
-    language: PropTypes.string.isRequired,
-    t: PropTypes.func.isRequired
-  }
-
+class EventDetail extends React.Component<Props> {
   getEventPlaceholder () {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
     return placeholders[this.props.event.id % placeholders.length]

@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoryListItem from '../CategoryListItem'
+import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 
 const category = new CategoryModel({
   id: 3649,
@@ -40,7 +40,7 @@ describe('CategoryListItem', () => {
   })
 
   it('should replace empty thumbnail', () => {
-    const noThumbCategory = new CategoryModel({id: 42, url: '', title: 'GotNoThumb :O', parentId: 2})
+    const noThumbCategory = {id: 42, url: '', title: 'GotNoThumb :O', parentId: 2}
     const wrapper = shallow(
       <CategoryListItem category={noThumbCategory} children={[noThumbCategory]} />
     )
