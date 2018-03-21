@@ -8,6 +8,8 @@ import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import EndpointBuilder from '../../../endpoint/EndpointBuilder'
 import EndpointProvider from '../../../endpoint/EndpointProvider'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../app/constants/theme'
 
 describe('LanguageSelector', () => {
   const location = 'augsburg'
@@ -60,11 +62,13 @@ describe('LanguageSelector', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[languagesEndpoint]}>
-            <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[languagesEndpoint]}>
+              <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       )
 
       const languageSelector = tree.find(LanguageSelector)

@@ -8,6 +8,8 @@ import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
 import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 import ConnectedSprungbrettPage, { SprungbrettPage } from '../SprungbrettPage'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('SprungbrettPage', () => {
   const location = 'augsburg'
@@ -45,11 +47,13 @@ describe('SprungbrettPage', () => {
       })
 
       const sprungbrettPage = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[sprungbrettEndpoint]}>
-            <ConnectedSprungbrettPage title={'Sprungbrett'} />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[sprungbrettEndpoint]}>
+              <ConnectedSprungbrettPage title={'Sprungbrett'} />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       ).find(SprungbrettPage)
 
       expect(sprungbrettPage.props()).toEqual({sprungbrett: jobs, title: 'Sprungbrett'})
