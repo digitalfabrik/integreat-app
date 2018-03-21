@@ -18,7 +18,7 @@ const stripSlashes = (path: string): string => {
   return path
 }
 
-export default (dispatch: Dispatch, oldPayload: Payload) => new EndpointBuilder('cities')
+export default (dispatch: Dispatch, oldPayload: Payload): Promise<Payload> => new EndpointBuilder('cities')
   .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v1/multisites`)
   .withMapper((json: any): Array<CityModel> => {
     const cities = json
