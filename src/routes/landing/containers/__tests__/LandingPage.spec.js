@@ -8,6 +8,8 @@ import createHistory from '../../../../modules/app/createHistory'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import EndpointProvider from '../../../../modules/endpoint/EndpointProvider'
 import EndpointBuilder from '../../../../modules/endpoint/EndpointBuilder'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('LandingPage', () => {
   const locations = [
@@ -40,11 +42,13 @@ describe('LandingPage', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint]}>
-            <ConnectedLandingPage />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[locationsEndpoint]}>
+              <ConnectedLandingPage />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       )
 
       const landingPageProps = tree.find(LandingPage).props()
@@ -62,11 +66,13 @@ describe('LandingPage', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint]}>
-            <ConnectedLandingPage />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[locationsEndpoint]}>
+              <ConnectedLandingPage />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       )
 
       const landingPageProps = tree.find(LandingPage).props()

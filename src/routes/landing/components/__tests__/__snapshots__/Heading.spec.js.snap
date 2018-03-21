@@ -1,26 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Heading should render 1`] = `
-<Translate(Heading)>
-  <Heading
-    t={[Function]}
-  >
-    <div>
-      <img
-        className="logo"
-        src="test-file-stub"
-      />
-      <Caption
-        className="caption"
-        title="landing:where"
-      >
-        <h1
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "backgroundAccentColor": "#fafafa",
+        "backgroundColor": "#ffffff",
+        "textColor": "#000000",
+        "textDecorationColor": "#c7c7c7",
+        "textSecondaryColor": "#585858",
+        "themeColor": "#fbda16",
+        "themeDarkColor": "#c4a900",
+      },
+      "dimensions": Object {
+        "headerHeight": "85px",
+        "headerHeightSmall": "55px",
+        "smallViewport": "(max-width: 750px)",
+      },
+      "fonts": Object {
+        "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+        "contentFontSize": "0.95rem",
+        "contentLineHeight": 1.4,
+        "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+        "decorativeFontSize": "0.95rem",
+        "decorativeLineHeight": 1.3,
+        "fontSizeAdjust": 0.55,
+        "standardParagraphMargin": "0.75rem",
+      },
+      "helpers": Object {
+        "removeA": "
+    color: inherit;
+    text-decoration: none;
+  ",
+      },
+    }
+  }
+>
+  <Translate(Heading)>
+    <Heading
+      t={[Function]}
+    >
+      <div>
+        <img
+          className="logo"
+          src="test-file-stub"
+        />
+        <Caption
           className="caption"
+          title="landing:where"
         >
-          landing:where
-        </h1>
-      </Caption>
-    </div>
-  </Heading>
-</Translate(Heading)>
+          <Caption__H1>
+            <h1
+              className="Caption__H1-gDQjcn fKFIQW"
+            >
+              landing:where
+            </h1>
+          </Caption__H1>
+        </Caption>
+      </div>
+    </Heading>
+  </Translate(Heading)>
+</ThemeProvider>
 `;
