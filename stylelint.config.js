@@ -205,7 +205,7 @@ module.exports = {
         'src'
       ],
       {
-        unspecified: 'bottomAlphabetical',
+        unspecified: 'ignore',
       }
     ],
     'property-case': 'lower',
