@@ -20,14 +20,16 @@ export const extrasRoute = {
     const state = getState()
     const {city, language, extraAlias} = state.location.payload
 
-    const extras = state.extras || await extrasFetcher(dispatch, {city, language})
+    const extrasPayload = await extrasFetcher.fetchData(dispatch, state.extras, {city, language})
+
+    if (!extrasPayload) {
+      // todo error handling
+    }
 
     if (extraAlias === 'sprungbrett') {
-      const sprungbrettModel = extras.find(_extra => _extra.alias === extraAlias)
+      const sprungbrettModel = extrasPayload.data.find(_extra => _extra.alias === extraAlias)
       if (sprungbrettModel) {
-        if (!state.sprungbrett) {
-          await sprungbrettFetcher(dispatch, {url: sprungbrettModel.path})
-        }
+        await sprungbrettFetcher.fetchData(dispatch, state.sprungbrettJobs, {url: sprungbrettModel.path})
       }
     }
   }

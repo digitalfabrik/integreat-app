@@ -26,7 +26,11 @@ export const i18nRedirectRoute = {
     const state = getState()
     const param = state.location.payload.param
 
-    const cities = await citiesFetcher(dispatch, state.cities)
+    const citiesPayload = await citiesFetcher.fetchData(dispatch, state.cities)
+
+    if (!citiesPayload.data) {
+      // todo error handling
+    }
 
     // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
     if (!param || param === 'landing') {
@@ -35,7 +39,7 @@ export const i18nRedirectRoute = {
     }
 
     // the param is a valid city, so redirect to the categories route with the detected language
-    if (cities.find(_city => _city.code === param)) {
+    if (citiesPayload.data.find(_city => _city.code === param)) {
       dispatch(redirect(goToCategories(param, i18n.language)))
       return
     }
