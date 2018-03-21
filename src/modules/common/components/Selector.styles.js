@@ -11,8 +11,8 @@ export const Element = styled(Link)`
   font-size: 1.2em;
   line-height: ${props => props.theme.dimensions.headerHeight};
   text-align: center;
-  transition: background-color 0.2s, border-radius 0.2s;
   border-radius: 30px;
+  transition: background-color 0.2s, border-radius 0.2s;
   user-select: none;
   
   :hover {
@@ -22,11 +22,11 @@ export const Element = styled(Link)`
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
-      height: ${props => props.theme.dimensions.headerHeightSmall};
-      min-width: 70px;
-      flex: 1 1 70px;
-      font-size: 1em;
-      line-height: ${props => props.theme.dimensions.headerHeightSmall};
+    height: ${props => props.theme.dimensions.headerHeightSmall};
+    min-width: 70px;
+    flex: 1 1 70px;
+    font-size: 1em;
+    line-height: ${props => props.theme.dimensions.headerHeightSmall};
   }
 `
 
