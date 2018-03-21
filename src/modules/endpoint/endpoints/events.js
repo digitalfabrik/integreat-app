@@ -3,16 +3,14 @@
 import moment from 'moment'
 import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import EndpointBuilder from '../EndpointBuilder'
-import Payload from '../Payload'
 
 type Params = {
   city: string,
   language: string
 }
 
-export default (dispatch: Dispatch, oldPayload: Payload, params: Params): Promise<Payload> => new EndpointBuilder('events')
+export default new EndpointBuilder('events')
   .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`)
   .withMapper((json: any): Array<EventModel> => json
     .filter(event => event.status === 'publish')
@@ -37,4 +35,3 @@ export default (dispatch: Dispatch, oldPayload: Payload, params: Params): Promis
       return 0
     }))
   .build()
-  .fetchData(dispatch, oldPayload, params)

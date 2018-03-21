@@ -4,16 +4,14 @@ import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import EndpointBuilder from '../EndpointBuilder'
-import Payload from '../Payload'
 
 type Params = {
   city: string,
   language: string
 }
 
-export default (dispatch: Dispatch, oldPayload: Payload, params: Params): Promise<Payload> => new EndpointBuilder('categories')
+export default new EndpointBuilder('categories')
   .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
   .withMapper((json: any, params: Params): CategoriesMapModel => {
     const baseUrl = `/${params.city}/${params.language}`
@@ -60,4 +58,3 @@ export default (dispatch: Dispatch, oldPayload: Payload, params: Params): Promis
     return new CategoriesMapModel(categories)
   })
   .build()
-  .fetchData(dispatch, oldPayload, params)

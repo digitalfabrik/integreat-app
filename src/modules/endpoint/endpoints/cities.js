@@ -4,8 +4,6 @@ import { sortBy } from 'lodash/collection'
 
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
-import Payload from '../Payload'
 import EndpointBuilder from '../EndpointBuilder'
 
 const stripSlashes = (path: string): string => {
@@ -18,7 +16,7 @@ const stripSlashes = (path: string): string => {
   return path
 }
 
-export default (dispatch: Dispatch, oldPayload: Payload): Promise<Payload> => new EndpointBuilder('cities')
+export default new EndpointBuilder('cities')
   .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v1/multisites`)
   .withMapper((json: any): Array<CityModel> => {
     const cities = json
@@ -33,4 +31,3 @@ export default (dispatch: Dispatch, oldPayload: Payload): Promise<Payload> => ne
     return sortBy(cities, _city => _city.sortKey)
   })
   .build()
-  .fetchData(dispatch, oldPayload)
