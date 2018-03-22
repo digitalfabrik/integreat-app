@@ -5,6 +5,8 @@ import Payload from './Payload'
 export const startFetchActionName = (type: string): string => `START_FETCH_${type.toUpperCase()}`
 export const finishFetchActionName = (type: string): string => `FINISH_FETCH_${type.toUpperCase()}`
 
+export const endpointLoadingErrorMessage = 'Failed to load the request for the endpoint'
+
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
@@ -72,13 +74,6 @@ class Endpoint {
     return this._stateName
   }
 
-  /**
-   * @returns {string|*} The name of the resulting payload
-   */
-  get payloadName () {
-    return `${this.stateName}Payload`
-  }
-
   async loadData (dispatch, oldPayload, params) {
     const responseOverride = this.responseOverride
     const errorOverride = this.errorOverride
@@ -96,14 +91,13 @@ class Endpoint {
     }
 
     const lastUrl = oldPayload.requestUrl
-    const urlNotChanged = lastUrl && lastUrl === formattedURL
 
-    if (urlNotChanged) {
-      // Correct payload has been loaded and can now be used by the fetcher(s)
+    if (lastUrl && lastUrl === formattedURL) {
+      // The correct data was already fetched
       return oldPayload
     }
 
-    // Refetch if url changes or we don't have a lastUrl
+    // Fetch if the data is not valid anymore or it hasn't been fetched yet
     dispatch(this.startFetchAction())
 
     if (errorOverride) {
@@ -125,7 +119,13 @@ class Endpoint {
 
   async fetchData (formattedUrl, params) {
     return fetch(formattedUrl)
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw new Error(endpointLoadingErrorMessage)
+        }
+      })
       .then(json => {
         try {
           const fetchedData = this.mapResponse(json, params)
@@ -137,8 +137,7 @@ class Endpoint {
         }
       })
       .catch(e => {
-        console.error(`Failed to load the request for the endpoint: ${this.stateName}`)
-        console.error(e)
+        console.error(`${e}: ${this.stateName}`)
         return new Payload(false, null, e, formattedUrl)
       })
   }
