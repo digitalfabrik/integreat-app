@@ -22,7 +22,7 @@ export const categoriesRedirectRoute = {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
 
-    const categoriesPayload = await categoriesFetcher.fetchData(dispatch, state.categories, {city, language})
+    const categoriesPayload = await categoriesFetcher.loadData(dispatch, state.categories, {city, language})
 
     if (!categoriesPayload.data) {
       // todo error handling

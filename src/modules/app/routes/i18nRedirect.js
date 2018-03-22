@@ -26,7 +26,7 @@ export const i18nRedirectRoute = {
     const state = getState()
     const param = state.location.payload.param
 
-    const citiesPayload = await citiesFetcher.fetchData(dispatch, state.cities)
+    const citiesPayload = await citiesFetcher.loadData(dispatch, state.cities)
 
     if (!citiesPayload.data) {
       // todo error handling

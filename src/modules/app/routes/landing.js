@@ -16,6 +16,6 @@ export const goToLanding = (language: string) => createAction(LANDING_ROUTE)({la
 export const landingRoute = {
   path: '/landing/:language',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
-    await citiesFetcher.fetchData(dispatch, getState().cities)
+    await citiesFetcher.loadData(dispatch, getState().cities)
   }
 }

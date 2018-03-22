@@ -2,7 +2,6 @@
 
 import type { Dispatch, GetState, Bag } from 'redux-first-router/dist/flow-types'
 import { CATEGORIES_ROUTE } from './routes/categories'
-import { clearStoreOnCityChange, clearStoreOnLanguageChange } from '../endpoint/actions/remover'
 import citiesFetcher from '../endpoint/endpoints/cities'
 import languagesFetcher from '../endpoint/endpoints/languages'
 import eventsFetcher from '../endpoint/endpoints/events'
@@ -24,31 +23,15 @@ const onBeforeChange = async (dispatch: Dispatch, getState: GetState, bag: Bag) 
   const state = getState()
   const {city, language} = bag.action.payload
   const route = bag.action.type
-  const prevCity = state.location.payload.city
-  const prevLanguage = state.location.payload.language
   const params = {city, language}
-
-  if (prevLanguage && prevLanguage !== language) {
-    clearStoreOnLanguageChange(dispatch, getState)
-  }
-
-  if (prevCity && prevCity !== city) {
-    clearStoreOnCityChange(dispatch, getState)
-  }
 
   // in the following routes we have a location layout, so we need cities, languages and events
   if ([CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE].includes(route)) {
-    if (!state.cities) {
-      await citiesFetcher(dispatch, params)
-    }
+    await citiesFetcher.loadData(dispatch, state.cities, params)
 
-    if (!state.languages) {
-      await languagesFetcher(dispatch, params)
-    }
+    await languagesFetcher.loadData(dispatch, state.languages, params)
 
-    if (!state.events) {
-      await eventsFetcher(dispatch, params)
-    }
+    await eventsFetcher.loadData(dispatch, state.events, params)
   }
 }
 

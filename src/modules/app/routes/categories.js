@@ -20,6 +20,6 @@ export const categoriesRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesFetcher.fetchData(dispatch, state.categories, {city, language})
+    await categoriesFetcher.loadData(dispatch, state.categories, {city, language})
   }
 }

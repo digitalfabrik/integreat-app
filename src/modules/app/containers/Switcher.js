@@ -44,7 +44,7 @@ type Props = {
 class Switcher extends React.Component<Props> {
   static getDisplayComponent (page: Node, payload: Payload) {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
-
+    console.log(payload)
     if (payload.isFetching) {
       return <LoadingSpinner />
     } else if (payload.data) {
@@ -100,12 +100,12 @@ class Switcher extends React.Component<Props> {
 const mapStateToProps = state => ({
   viewportSmall: state.viewport.is.small,
   currentRoute: state.location.type,
-  cities: state.cities,
-  languages: state.languages,
-  categories: state.categories,
-  events: state.events,
-  extras: state.extras,
-  disclaimer: state.disclaimer
+  citiesPayload: state.cities,
+  languagesPayload: state.languages,
+  categoriesPayload: state.categories,
+  eventsPayload: state.events,
+  extrasPayload: state.extras,
+  disclaimerPayload: state.disclaimer
 })
 
 export default connect(mapStateToProps)(Switcher)
