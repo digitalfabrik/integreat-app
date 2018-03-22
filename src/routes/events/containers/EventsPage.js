@@ -17,10 +17,6 @@ type Props = {
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export class EventsPage extends React.Component<Props> {
-  getPath (): string {
-    return `/${this.props.city}/${this.props.language}/events`
-  }
-
   render () {
     const {events, eventId, city, language} = this.props
 
@@ -34,7 +30,7 @@ export class EventsPage extends React.Component<Props> {
         return <Failure />
       }
     }
-    return <EventList events={events} url={this.getPath()} language={language} />
+    return <EventList events={events} city={city} language={language} />
   }
 }
 
@@ -42,7 +38,7 @@ const mapStateToProps = state => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,
-  events: state.events
+  events: state.events.data
 })
 
 export default connect(mapStateToProps)(EventsPage)

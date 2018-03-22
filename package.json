@@ -30,7 +30,6 @@
     "react-spinkit": "~3.0.0",
     "react-tooltip": "^3.4.0",
     "recompose": "^0.26.0",
-    "reduce-reducers": "~0.1.2",
     "redux": "~3.7.2",
     "redux-actions": "~2.2.1",
     "redux-first-router": "^0.0.16-next",

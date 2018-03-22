@@ -127,7 +127,6 @@ class Endpoint {
     return fetch(formattedUrl)
       .then(response => response.json())
       .then(json => {
-        console.log(json)
         try {
           const fetchedData = this.mapResponse(json, params)
           return new Payload(false, fetchedData, null, formattedUrl)

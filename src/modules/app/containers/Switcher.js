@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import Spinner from 'react-spinkit'
@@ -26,7 +26,6 @@ import { PDF_FETCHER_ROUTE } from '../routes/pdfFetcher'
 
 import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
-import type { Node } from 'react'
 
 type Props = {
   viewportSmall: boolean,
@@ -42,7 +41,7 @@ type Props = {
  * Renders different Pages depending on the current route. If the needed data is not available, a LoadingSpinner is rendered
  */
 class Switcher extends React.Component<Props> {
-  static getDisplayComponent (page: Node, payload: Payload) {
+  static getDisplayComponent (page: React.Node, payload: Payload): React.Node {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
     console.log(payload)
     if (payload.isFetching) {
@@ -54,7 +53,7 @@ class Switcher extends React.Component<Props> {
     }
   }
 
-  getPage () {
+  getPage (): React.Node {
     const {currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload} = this.props
 
     switch (currentRoute) {

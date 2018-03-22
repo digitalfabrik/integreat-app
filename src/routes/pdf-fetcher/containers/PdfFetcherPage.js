@@ -148,8 +148,8 @@ const mapStateToProps = state => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
   fetchUrl: state.location.payload.fetchUrl,
-  categories: state.categories,
-  cities: state.cities
+  categories: state.categories.data,
+  cities: state.cities.data
 })
 
 export default compose(

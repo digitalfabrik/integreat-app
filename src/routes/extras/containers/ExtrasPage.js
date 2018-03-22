@@ -69,8 +69,8 @@ const mapStateToProps = state => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
   extraAlias: state.location.payload.extraAlias,
-  extras: state.extras,
-  sprungbrettJobs: state.sprungbrettJobs
+  extras: state.extras.data,
+  sprungbrettJobs: state.sprungbrettJobs.data
 })
 
 export default connect(mapStateToProps)(ExtrasPage)

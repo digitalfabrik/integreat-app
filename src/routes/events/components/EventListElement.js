@@ -44,7 +44,7 @@ class EventListElement extends React.Component<Props> {
             <TimeSpan startDate={event.startDate}
                       endDate={event.endDate}
                       allDay={event.allDay}
-                      locale={this.props.language} />
+                      locale={language} />
             , {event.address}
           </div>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}} />
