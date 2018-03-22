@@ -8,10 +8,10 @@ import EndpointBuilder from '../EndpointBuilder'
 
 const stripSlashes = (path: string): string => {
   if (path.startsWith('/')) {
-    return path.substr(1)
+    path = path.substr(1)
   }
   if (path.endsWith('/')) {
-    return path.substr(0, path.length - 1)
+    path = path.substr(0, path.length - 1)
   }
   return path
 }

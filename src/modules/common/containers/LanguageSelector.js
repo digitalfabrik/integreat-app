@@ -86,9 +86,9 @@ export class LanguageSelector extends React.Component {
 
 const mapStateToProps = state => ({
   location: state.location,
-  languages: state.languages,
-  categories: state.categories,
-  cities: state.cities
+  languages: state.languages.data,
+  categories: state.categories.data,
+  cities: state.cities.data
 })
 
 export default connect(mapStateToProps)(LanguageSelector)

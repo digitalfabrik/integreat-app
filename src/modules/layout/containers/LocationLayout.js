@@ -60,9 +60,9 @@ const mapStateToProps = state => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
   viewportSmall: state.viewport.is.small,
-  cities: state.cities,
-  languages: state.languages,
-  events: state.events
+  cities: state.cities.data,
+  languages: state.languages.data,
+  events: state.events.data
 })
 
 export default connect(mapStateToProps)(LocationLayout)

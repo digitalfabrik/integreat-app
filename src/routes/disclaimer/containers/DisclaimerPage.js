@@ -21,8 +21,7 @@ export class DisclaimerPage extends React.Component {
 
 const mapStateToProps = state => ({
   city: state.location.payload.city,
-  disclaimer: state.disclaimer,
-  languages: state.languages
+  disclaimer: state.disclaimer.data
 })
 
 export default connect(mapStateToProps)(DisclaimerPage)

@@ -20,7 +20,7 @@ export class LandingPage extends React.Component {
 
 const mapStateToProps = state => ({
   language: state.location.payload.language,
-  cities: state.cities
+  cities: state.cities.data
 })
 
 export default connect(mapStateToProps)(LandingPage)

@@ -55,7 +55,7 @@ export class SearchPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories
+  categories: state.categories.data
 })
 
 export default connect(mapStateToProps)(SearchPage)

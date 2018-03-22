@@ -96,9 +96,8 @@ const mapStateToProps = state => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   categoryPath: state.location.pathname,
-  categories: state.categories,
-  cities: state.cities,
-  languages: state.languages
+  categories: state.categories.data,
+  cities: state.cities.data
 })
 
 export default connect(mapStateToProps)(CategoriesPage)
