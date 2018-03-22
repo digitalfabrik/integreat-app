@@ -8,6 +8,7 @@ import style from './Failure.css'
 import Link from 'redux-first-router-link'
 
 import type { Action } from 'redux-first-router/dist/flow-types'
+import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
 
 type Props = {
   error: string,
@@ -26,7 +27,7 @@ export class Failure extends React.Component<Props> {
     return <div>
       <div className={style.centerText}>{`${t(error)} ${notFound}`}</div>
       <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
-      <Link className={style.centerText} to={goTo}>{goToMessage || t('goToStart')}</Link>
+      <Link className={style.centerText} to={goTo || goToI18nRedirect()}>{goToMessage || t('goToStart')}</Link>
     </div>
   }
 }
