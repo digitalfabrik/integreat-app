@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
-import endpointReducers from '../endpoint/reducers/index'
+import endpointReducers from '../endpoint/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
 
@@ -34,7 +34,7 @@ const createReduxStore = (createHistory, initialState = {}, routesMap = defaultR
   if (__DEV__) {
     middlewares.push(createLogger()) // Logs all state changes in console
   }
-
+  console.log(endpointReducers)
   const rootReducer = combineReducers({
     ...endpointReducers,
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),

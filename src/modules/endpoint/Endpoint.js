@@ -1,14 +1,9 @@
-// @flow
+import { createAction } from 'redux-actions'
 
-import { createAction, handleAction } from 'redux-actions'
-
-import reduceReducers from 'reduce-reducers'
 import Payload from './Payload'
 
-class ActionType {
-  static FINISH_FETCH = 'FINISH_FETCH_DATA'
-  static START_FETCH = 'START_FETCH_DATA'
-}
+export const startFetchActionName = (type: string): string => `START_FETCH_${type.toUpperCase()}`
+export const finishFetchActionName = (type: string): string => `FINISH_FETCH_${type.toUpperCase()}`
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -66,8 +61,8 @@ class Endpoint {
     this.responseOverride = responseOverride
     this.errorOverride = errorOverride
     this._stateName = name
-    this.finishFetchAction = (payload: Payload) => createAction(`${ActionType.FINISH_FETCH}_${this._stateName.toUpperCase()}`)(payload)
-    this.startFetchAction = () => createAction(`${ActionType.START_FETCH}_${this._stateName.toUpperCase()}`)(new Payload(true))
+    this.finishFetchAction = (payload: Payload) => createAction(finishFetchActionName(this._stateName))(payload)
+    this.startFetchAction = () => createAction(startFetchActionName(this._stateName))(new Payload(true))
   }
 
   /**
@@ -84,7 +79,7 @@ class Endpoint {
     return `${this.stateName}Payload`
   }
 
-  async fetchData (dispatch, oldPayload, params) {
+  async loadData (dispatch, oldPayload, params) {
     const responseOverride = this.responseOverride
     const errorOverride = this.errorOverride
     /**
@@ -123,37 +118,30 @@ class Endpoint {
       return payload
     }
 
-    fetch(formattedURL)
+    const payload = await this.fetchData(formattedURL, params)
+    dispatch(this.finishFetchAction(payload))
+    return payload
+  }
+
+  async fetchData (formattedUrl, params) {
+    return fetch(formattedUrl)
       .then(response => response.json())
       .then(json => {
+        console.log(json)
         try {
           const fetchedData = this.mapResponse(json, params)
-          const payload = new Payload(false, fetchedData, null, formattedURL)
-          dispatch(this.finishFetchAction(payload))
-          return payload
+          return new Payload(false, fetchedData, null, formattedUrl)
         } catch (e) {
           console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
           console.error(e)
-          dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
+          return new Payload(false, null, 'endpoint:page.loadingFailed', formattedUrl)
         }
       })
       .catch(e => {
         console.error(`Failed to load the request for the endpoint: ${this.stateName}`)
         console.error(e)
-        const payload = new Payload(false, null, e, formattedURL)
-        dispatch(this.finishFetchAction(payload))
-        return payload
+        return new Payload(false, null, e, formattedUrl)
       })
-  }
-
-  createReducer () {
-    const defaultState = new Payload(false)
-    const reducer = (state, action) => action.payload
-
-    return reduceReducers(
-      handleAction(this.startFetchAction, reducer, defaultState),
-      handleAction(this.finishFetchAction, reducer, defaultState)
-    )
   }
 }
 
