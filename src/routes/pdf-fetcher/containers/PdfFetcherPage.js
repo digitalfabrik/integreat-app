@@ -30,9 +30,13 @@ class PdfFetcherPage extends React.Component {
   }
 
   componentWillMount () {
-    const category = this.props.categories.getCategoryByUrl(this.props.fetchUrl)
-    if (category) {
-      this.fetchUrl(category)
+    try {
+      const category = this.props.categories.getCategoryByUrl(this.props.fetchUrl)
+      if (category) {
+        this.fetchUrl(category)
+      }
+    } catch (e) {
+      // todo error handling
     }
   }
 

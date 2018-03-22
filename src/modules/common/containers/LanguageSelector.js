@@ -14,6 +14,7 @@ import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import Caption from '../components/Caption'
 import { NOT_FOUND } from 'redux-first-router'
+import EventModel from '../../endpoint/models/EventModel'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -25,6 +26,7 @@ export class LanguageSelector extends React.Component {
     location: PropTypes.object.isRequired,
     verticalLayout: PropTypes.bool,
     categories: PropTypes.instanceOf(CategoriesMapModel),
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
     title: PropTypes.string
   }
 
@@ -35,21 +37,31 @@ export class LanguageSelector extends React.Component {
    * @return {string} The path
    */
   getLanguageChangeAction (languageCode) {
-    const {location, categories} = this.props
+    const {location, categories, events} = this.props
     const {city, eventId, extraAlias} = location.payload
     const routeType = location.type
 
     switch (routeType) {
       case CATEGORIES_ROUTE:
         if (categories) {
-          const category = categories.getCategoryByUrl(location.pathname)
-          if (category && category.id !== 0) {
-            return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
+          try {
+            const category = categories.getCategoryByUrl(location.pathname)
+            if (category && category.id !== 0) {
+              return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
+            }
+          } catch (e) {
+            // start of the fetching process is after route change, so there could still be the old categories in the store
           }
         }
-        break
+        return goToCategories(city, languageCode)
       case EVENTS_ROUTE:
-        return goToEvents(city, languageCode, eventId)
+        if (events && eventId) {
+          const event = events.find(_event => _event.id === eventId)
+          if (event) {
+            return goToEvents(city, languageCode, event.availableLanguages[languageCode])
+          }
+        }
+        return goToEvents(city, languageCode)
       case EXTRAS_ROUTE:
         return goToExtras(city, languageCode, extraAlias)
       case DISCLAIMER_ROUTE:
@@ -59,7 +71,6 @@ export class LanguageSelector extends React.Component {
       case NOT_FOUND:
         return goToCategories(location.prev.payload.city, languageCode)
     }
-    return goToCategories(city, languageCode)
   }
 
   getSelectorItemModels () {
@@ -88,6 +99,7 @@ const mapStateToProps = state => ({
   location: state.location,
   languages: state.languages.data,
   categories: state.categories.data,
+  events: state.events.data,
   cities: state.cities.data
 })
 

@@ -43,13 +43,14 @@ type Props = {
 class Switcher extends React.Component<Props> {
   static getDisplayComponent (page: React.Node, payload: Payload): React.Node {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
-    console.log(payload)
     if (payload.isFetching) {
       return <LoadingSpinner />
     } else if (payload.data) {
       return page
-    } else {
+    } else if (payload.error) {
       return <Failure error={payload.error} />
+    } else {
+      return null
     }
   }
 
