@@ -27,7 +27,7 @@ import { PDF_FETCHER_ROUTE } from '../routes/pdfFetcher'
 import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
 import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
-import I18nRedirect from './I18nRedirect'
+import I18nRedirect from '../../../routes/i18nRedirect/containers/I18nRedirect'
 
 type Props = {
   viewportSmall: boolean,
