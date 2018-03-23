@@ -13,7 +13,6 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import Caption from '../components/Caption'
-import { NOT_FOUND } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
 
 /**
@@ -68,8 +67,6 @@ export class LanguageSelector extends React.Component {
         return goToDisclaimer(city, languageCode)
       case SEARCH_ROUTE:
         return goToSearch(city, languageCode)
-      case NOT_FOUND:
-        return goToCategories(location.prev.payload.city, languageCode)
     }
   }
 

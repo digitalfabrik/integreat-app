@@ -73,7 +73,6 @@ describe('LocationLayout', () => {
 
   describe('connect()', () => {
     const city = 'augsburg'
-    const path = '/:location/:language'
 
     const store = createReduxStore(createHistory, {
       viewport: {is: {small: false}},
@@ -92,7 +91,7 @@ describe('LocationLayout', () => {
       expect(tree.find(LocationLayout).props()).toEqual({
         events: events,
         languages: languages,
-        currentRoute: path,
+        currentRoute: '',
         city: city,
         language: language,
         cities: cities,

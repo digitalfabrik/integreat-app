@@ -29,8 +29,9 @@ export class LanguageFailure extends React.PureComponent<Props> {
 
   render () {
     const {languages, t} = this.props
+    const title = this.getTitle()
     return <Fragment>
-      <Caption title={this.getTitle()} />
+      {title && <Caption title={title} />}
       <p className={style.chooseLanguage}>{t('common:chooseYourLanguage')}</p>
       <LanguageSelector languages={languages} verticalLayout />
     </Fragment>
@@ -38,7 +39,9 @@ export class LanguageFailure extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  city: state.router.params.city
+  city: state.location.payload.city,
+  languages: state.languages.data,
+  cities: state.cities.data
 })
 
 export default compose(
