@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 `
 
 export const Breadcrumb = styled(Link)`
-  ${props => props.theme.helpers.removeA}
+  ${props => props.theme.helpers.removeLinkHighlighting}
 `
 
 export const Separator = styled.span`
