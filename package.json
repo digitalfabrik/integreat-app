@@ -140,7 +140,7 @@
     "lint:fix": "yarn run eslint --fix && stylefmt -r \"src/**/*.css\"",
     "build": "node tools/build.js",
     "build:debug": "node tools/build.js --debug",
-    "buildLib": "node tools/lib.build.js",
+    "build:lib": "node tools/lib.build.js",
     "start": "node tools/run.js",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
