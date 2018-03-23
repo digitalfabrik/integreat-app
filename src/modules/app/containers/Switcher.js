@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import Spinner from 'react-spinkit'
 import Layout from '../../layout/components/Layout'
-import LocationLayout from '../../layout/containers/LocationLayout'
+import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/LocationLayout'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import GeneralHeader from '../../layout/components/GeneralHeader'
@@ -37,18 +37,17 @@ type Props = {
   disclaimerPayload: Payload
 }
 
+const LoadingSpinner = () => <Spinner name='line-scale-party' />
+
 /**
  * Renders different Pages depending on the current route. If the needed data is not available, a LoadingSpinner is rendered
  */
 class Switcher extends React.Component<Props> {
-  static getDisplayComponent (page: React.Node, payload: Payload): React.Node {
-    const LoadingSpinner = () => <Spinner name='line-scale-party' />
-    if (payload.isFetching) {
-      return <LoadingSpinner />
-    } else if (payload.data) {
-      return page
-    } else if (payload.error) {
+  static getFailureLoadingComponents (payload: Payload): React.Node {
+    if (payload.error) {
       return <Failure error={payload.error} />
+    } else if (payload.isFetching || !payload.data) {
+      return <LoadingSpinner />
     } else {
       return null
     }
@@ -59,23 +58,24 @@ class Switcher extends React.Component<Props> {
 
     switch (currentRoute) {
       case LANDING_ROUTE:
-        return Switcher.getDisplayComponent(<LandingPage />, citiesPayload)
+        return Switcher.getFailureLoadingComponents(citiesPayload) || <LandingPage />
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        return Switcher.getDisplayComponent(<CategoriesPage />, categoriesPayload)
+        return Switcher.getFailureLoadingComponents(categoriesPayload) || <CategoriesPage />
       case EVENTS_ROUTE:
-        return Switcher.getDisplayComponent(<EventsPage />, eventsPayload)
+        return Switcher.getFailureLoadingComponents(eventsPayload) || <EventsPage />
       case EXTRAS_ROUTE:
-        return Switcher.getDisplayComponent(<ExtrasPage />, extrasPayload)
+        return Switcher.getFailureLoadingComponents(extrasPayload) || <ExtrasPage />
       case DISCLAIMER_ROUTE:
-        return Switcher.getDisplayComponent(<DisclaimerPage />, disclaimerPayload)
+        return Switcher.getFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
       case SEARCH_ROUTE:
-        return Switcher.getDisplayComponent(<SearchPage />, categoriesPayload)
+        return Switcher.getFailureLoadingComponents(categoriesPayload) || <SearchPage />
       case PDF_FETCHER_ROUTE:
-        return Switcher.getDisplayComponent(<PdfFetcherPage />, categoriesPayload)
+        return Switcher.getFailureLoadingComponents(categoriesPayload) || <PdfFetcherPage />
+      default:
+        return <Failure error={'Route not found'} />
     }
-    return null
   }
 
   render () {
@@ -85,7 +85,7 @@ class Switcher extends React.Component<Props> {
       return <Layout footer={<GeneralFooter />}>
         {this.getPage()}
       </Layout>
-    } else if ([CATEGORIES_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, EXTRAS_ROUTE, SEARCH_ROUTE].includes(currentRoute)) {
+    } else if (LocationLayoutRoutes.includes(currentRoute)) {
       return <LocationLayout>
         {this.getPage()}
       </LocationLayout>

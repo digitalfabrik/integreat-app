@@ -10,6 +10,13 @@ import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from '../components/LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import LanguageModel from '../../endpoint/models/LanguageModel'
+import { CATEGORIES_ROUTE } from '../../app/routes/categories'
+import { EVENTS_ROUTE } from '../../app/routes/events'
+import { EXTRAS_ROUTE } from '../../app/routes/extras'
+import { DISCLAIMER_ROUTE } from '../../app/routes/disclaimer'
+import { SEARCH_ROUTE } from '../../app/routes/search'
+
+export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
 type Props = {
   city: string,

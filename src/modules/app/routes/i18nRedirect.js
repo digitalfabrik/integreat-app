@@ -1,6 +1,6 @@
 // @flow
 
-import citiesFetcher from '../../endpoint/endpoints/cities'
+import citiesEndpoint from '../../endpoint/endpoints/cities'
 import { createAction } from 'redux-actions'
 import i18n from '../i18n'
 import { redirect } from 'redux-first-router'
@@ -26,7 +26,7 @@ export const i18nRedirectRoute = {
     const state = getState()
     const param = state.location.payload.param
 
-    const citiesPayload = await citiesFetcher.loadData(dispatch, state.cities)
+    const citiesPayload = await citiesEndpoint.loadData(dispatch, state.cities)
 
     if (!citiesPayload.data) {
       // todo error handling

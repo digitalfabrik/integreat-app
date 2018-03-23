@@ -1,7 +1,7 @@
 // @flow
 
-import extrasFetcher from '../../endpoint/endpoints/extras'
-import sprungbrettFetcher from '../../endpoint/endpoints/sprungbrettJobs'
+import extrasEndpoint from '../../endpoint/endpoints/extras'
+import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
@@ -20,7 +20,7 @@ export const extrasRoute = {
     const state = getState()
     const {city, language, extraAlias} = state.location.payload
 
-    const extrasPayload = await extrasFetcher.loadData(dispatch, state.extras, {city, language})
+    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
 
     if (!extrasPayload) {
       // todo error handling
@@ -29,7 +29,7 @@ export const extrasRoute = {
     if (extraAlias === 'sprungbrett') {
       const sprungbrettModel = extrasPayload.data.find(_extra => _extra.alias === extraAlias)
       if (sprungbrettModel) {
-        await sprungbrettFetcher.loadData(dispatch, state.sprungbrettJobs, {url: sprungbrettModel.path})
+        await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {url: sprungbrettModel.path})
       }
     }
   }

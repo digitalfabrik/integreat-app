@@ -9,14 +9,6 @@ import defaultRoutesMap from './routesMap'
 
 import onBeforeChange from './onBeforeChange'
 
-/**
- * Creates our Redux store
- * @param createHistory
- * @param initialState
- * @param routesMap
- * @return {*}
- */
-
 const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {
   const history = createHistory()
 
@@ -34,7 +26,6 @@ const createReduxStore = (createHistory, initialState = {}, routesMap = defaultR
   if (__DEV__) {
     middlewares.push(createLogger()) // Logs all state changes in console
   }
-  console.log(endpointReducers)
   const rootReducer = combineReducers({
     ...endpointReducers,
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),

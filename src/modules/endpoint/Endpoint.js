@@ -1,63 +1,46 @@
+// @flow
+
 import { createAction } from 'redux-actions'
 
 import Payload from './Payload'
+import type { Action, Dispatch } from 'redux-first-router/dist/flow-types'
+import CategoriesMapModel from './models/CategoriesMapModel'
+import CityModel from './models/CityModel'
+import LanguageModel from './models/LanguageModel'
+import EventModel from './models/EventModel'
+import ExtraModel from './models/ExtraModel'
+import SprungbrettModel from './models/SprungbrettJobModel'
+import DisclaimerModel from './models/DisclaimerModel'
 
 export const startFetchActionName = (type: string): string => `START_FETCH_${type.toUpperCase()}`
 export const finishFetchActionName = (type: string): string => `FINISH_FETCH_${type.toUpperCase()}`
 
 export const endpointLoadingErrorMessage = 'Failed to load the request for the endpoint'
 
+type Params = {city?: string, language?: string} | {url: string}
+type PayloadData = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettModel> |
+  CategoriesMapModel | DisclaimerModel
+type FinishFetchAction = (payload: Payload) => Action
+type StartFetchAction = (payload: Payload) => Action
+type MapParamsToUrl = (params: Params) => string
+type MapResponse = (json: any, params?: Params) => PayloadData
+type ResponseOverride = () => PayloadData
+type ErrorOverride = () => string
+
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
 class Endpoint {
-  /**
-   * @type string
-   */
-  _stateName
-  finishFetchAction
-  startFetchAction
-  /**
-   * @type mapParamsToUrlCallback
-   */
-  mapParamsToUrl
+  _stateName: string
+  finishFetchAction: FinishFetchAction
+  startFetchAction: StartFetchAction
+  mapParamsToUrl: MapParamsToUrl
+  mapResponse: MapResponse
+  responseOverride: ?ResponseOverride
+  errorOverride: ?ErrorOverride
 
-  /**
-   * Converts a fetched response to an object
-   */
-  mapResponse
-
-  /**
-   * Holds the override value for the response
-   */
-  responseOverride
-
-  /**
-   * Holds the override value for the error
-   */
-  errorOverride
-
-  /**
-   * @callback mapDataCallback
-   * @param {object} data The data which has been fetched (Possibly a plain js object)
-   * @param {object | undefined} state The state which was used in the fetch url
-   * @return {object} The mapped data
-   */
-
-  /**
-   * @callback mapParamsToUrlCallback
-   * @param {object | undefined} state
-   * @return {string} The url
-   */
-
-  /**
-   * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
-   * @param {function} mapParamsToUrl The mapper which maps the params to a request url
-   * @param {function} mapResponse Transforms the response from the fetch to a result
-   * @param responseOverride {*} An override value from the API response. Useful for testing.
-   * @param errorOverride {*} An override value to simulate an error while fetching. Useful for testing.
-   */
-  constructor (name, mapParamsToUrl, mapResponse, responseOverride, errorOverride) {
+  constructor (name: string, mapParamsToUrl: MapParamsToUrl, mapResponse: MapResponse,
+    responseOverride: ?ResponseOverride, errorOverride: ?ErrorOverride) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
@@ -67,14 +50,11 @@ class Endpoint {
     this.startFetchAction = () => createAction(startFetchActionName(this._stateName))(new Payload(true))
   }
 
-  /**
-   * @returns {string|*} The name of the linked state
-   */
-  get stateName () {
+  get stateName (): string {
     return this._stateName
   }
 
-  async loadData (dispatch, oldPayload, params) {
+  async loadData (dispatch: Dispatch, oldPayload: Payload, params: Params): Promise<Payload> {
     const responseOverride = this.responseOverride
     const errorOverride = this.errorOverride
     /**
@@ -117,7 +97,7 @@ class Endpoint {
     return payload
   }
 
-  async fetchData (formattedUrl, params) {
+  fetchData (formattedUrl: string, params: Params): Promise<PayloadData> {
     return fetch(formattedUrl)
       .then(response => {
         if (response.ok) {
