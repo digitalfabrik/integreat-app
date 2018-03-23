@@ -13,17 +13,17 @@ import Caption from 'modules/common/components/Caption'
 import style from './LanguageFailure.css'
 
 type Props = {
-  locations: Array<CityModel>,
+  cities: Array<CityModel>,
   languages: Array<LanguageModel>,
-  location: string,
+  city: string,
   t: string => string
 }
 
 export class LanguageFailure extends React.PureComponent<Props> {
   getTitle (): ?string {
-    const location = this.props.locations.find(location => location.code === this.props.location)
-    if (location) {
-      return location.name
+    const city = this.props.cities.find(city => city.code === this.props.city)
+    if (city) {
+      return city.name
     }
   }
 
@@ -38,7 +38,7 @@ export class LanguageFailure extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location
+  city: state.router.params.city
 })
 
 export default compose(

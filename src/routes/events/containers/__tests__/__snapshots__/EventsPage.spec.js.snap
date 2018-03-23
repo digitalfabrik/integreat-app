@@ -13,7 +13,7 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
       "_content": undefined,
       "_endDate": "2017-11-18T19:30:00.000Z",
       "_excerpt": undefined,
-      "_id": 1235,
+      "_id": "1235",
       "_startDate": "2017-11-18T09:30:00.000Z",
       "_thumbnail": undefined,
       "_title": "erstes Event",
@@ -27,6 +27,7 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 
 exports[`EventsPage should match snapshot and render EventList 1`] = `
 <Translate(EventList)
+  city="augsburg"
   events={
     Array [
       EventModel {
@@ -39,7 +40,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
         "_content": undefined,
         "_endDate": "2017-11-18T19:30:00.000Z",
         "_excerpt": undefined,
-        "_id": 1234,
+        "_id": "1234",
         "_startDate": "2017-11-18T09:30:00.000Z",
         "_thumbnail": undefined,
         "_title": "first Event",
@@ -55,7 +56,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
         "_content": undefined,
         "_endDate": "2017-11-18T19:30:00.000Z",
         "_excerpt": undefined,
-        "_id": 1235,
+        "_id": "1235",
         "_startDate": "2017-11-18T09:30:00.000Z",
         "_thumbnail": undefined,
         "_title": "erstes Event",
@@ -68,7 +69,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
         "_content": undefined,
         "_endDate": "2017-11-18T19:30:00.000Z",
         "_excerpt": undefined,
-        "_id": 2,
+        "_id": "2",
         "_startDate": "2017-11-18T09:30:00.000Z",
         "_thumbnail": undefined,
         "_title": "second Event",
@@ -77,7 +78,6 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
     ]
   }
   language="en"
-  url="/augsburg/en/events"
 />
 `;
 

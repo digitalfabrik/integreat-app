@@ -96,7 +96,7 @@ describe('I18nProvider', () => {
   })
 
   it('should connect to the store', () => {
-    const store = mockStore({router: {params: {language: 'language1'}}})
+    const store = mockStore({location: {payload: {language: 'language1'}}})
     const i18n = mount(<Provider store={store}>
       <ConnectedI18nProvider>
         <div />
