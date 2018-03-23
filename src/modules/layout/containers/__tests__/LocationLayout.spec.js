@@ -1,20 +1,22 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import LocationModel from 'modules/endpoint/models/CityModel'
+import { shallow, mount } from 'enzyme'
+import CityModel from 'modules/endpoint/models/CityModel'
 
 import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
-import { LocationLayout } from '../LocationLayout'
+import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
+import { EXTRAS_ROUTE } from '../../../app/routes/extras'
+import { Provider } from 'react-redux'
 
 describe('LocationLayout', () => {
   const matchRoute = id => {}
 
   const language = 'de'
 
-  const locations = [new LocationModel({name: 'Mambo No. 5', code: 'location1'})]
+  const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
 
   const languages = [
     new LanguageModel('de', 'Deutsch'),
@@ -41,15 +43,15 @@ describe('LocationLayout', () => {
 
   const MockNode = () => <div />
 
-  it('should show LocationHeader and LocationFooter if LocationModel is available', () => {
+  it('should show LocationHeader and LocationFooter if City is available', () => {
     const component = shallow(
-      <LocationLayout location='location1'
+      <LocationLayout city='city1'
                       language={language}
                       languages={languages}
                       matchRoute={matchRoute}
-                      locations={locations}
+                      cities={cities}
                       viewportSmall
-                      currentPath='/:location/:language'>
+                      currentRoute={EXTRAS_ROUTE}>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -57,60 +59,46 @@ describe('LocationLayout', () => {
 
   it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
-      <LocationLayout location='unavailableLocation'
+      <LocationLayout city='unavailableLocation'
                       language={language}
                       languages={languages}
                       matchRoute={matchRoute}
-                      locations={locations}
+                      cities={cities}
                       viewportSmall
-                      currentPath='/:location/:language'>
+                      currentRoute='RANDOM_ROUTE'>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
-/**
+
   describe('connect()', () => {
-    const location = 'augsburg'
+    const city = 'augsburg'
     const path = '/:location/:language'
 
     const store = createReduxStore(createHistory, {
-      router: {params: {location: location, language: language}, route: path},
-      viewport: {is: {small: true}}
+      viewport: {is: {small: false}},
+      languages: {data: languages},
+      events: {data: events},
+      cities: {data: cities}
     })
 
     it('should map state to props', () => {
       const tree = mount(
         <Provider store={store}>
-          <ConnectedLocationLayout events={events} languages={languages} matchRoute={matchRoute} />
+          <ConnectedLocationLayout />
         </Provider>
       )
 
       expect(tree.find(LocationLayout).props()).toEqual({
-        currentPath: path,
-        location: location,
+        events: events,
+        languages: languages,
+        currentRoute: path,
+        city: city,
         language: language,
-        locations: locations,
+        cities: cities,
         viewportSmall: false,
-        matchRoute: matchRoute,
         dispatch: expect.any(Function)
       })
     })
-
-    it('should have correct scroll height', () => {
-      const smallComponent = mount(
-        <Provider store={createStoreWithViewport(true)}>
-          <ConnectedLocationLayout locations={locations} languages={languages} matchRoute={matchRoute} />
-        </Provider>
-      ).find(LocationLayout)
-      expect(smallComponent.prop('viewportSmall')).toBe(true)
-
-      const largeComponent = mount(
-        <Provider store={createStoreWithViewport(false)}>
-          <ConnectedLocationLayout locations={locations} languages={languages} matchRoute={matchRoute} />
-        </Provider>
-      ).find(LocationLayout)
-      expect(largeComponent.prop('viewportSmall')).toBe(false)
-    })
   })
- */
 })
