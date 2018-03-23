@@ -1299,10 +1299,6 @@ brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
 
-browser-headers@^0.3.1:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/browser-headers/-/browser-headers-0.3.2.tgz#f6f36201a7e4c1cbe1e5a64c8bbca6cb632a1c04"
-
 browser-resolve@^1.11.2:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/browser-resolve/-/browser-resolve-1.11.2.tgz#8ff09b0a2c421718a1051c260b32e48f442938ce"
@@ -1635,12 +1631,6 @@ chokidar@1.7.0, chokidar@^1.6.1, chokidar@^1.7.0:
     readdirp "^2.0.0"
   optionalDependencies:
     fsevents "^1.0.0"
-
-chunked-request@~0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/chunked-request/-/chunked-request-0.7.1.tgz#47f61add0c9829d2e11da30b7676c43a09046f16"
-  dependencies:
-    browser-headers "^0.3.1"
 
 ci-info@^1.0.0:
   version "1.1.2"
@@ -8290,10 +8280,6 @@ test-exclude@^4.1.1:
     object-assign "^4.1.0"
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
-
-text-encoding@~0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.6.4.tgz#e399a982257a276dae428bb92845cb71bdc26d19"
 
 text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
