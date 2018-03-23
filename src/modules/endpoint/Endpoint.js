@@ -97,29 +97,21 @@ class Endpoint {
     return payload
   }
 
-  fetchData (formattedUrl: string, params: Params): Promise<PayloadData> {
-    return fetch(formattedUrl)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        } else {
-          throw new Error(endpointLoadingErrorMessage)
-        }
-      })
-      .then(json => {
-        try {
-          const fetchedData = this.mapResponse(json, params)
-          return new Payload(false, fetchedData, null, formattedUrl)
-        } catch (e) {
-          console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
-          console.error(e)
-          return new Payload(false, null, 'endpoint:page.loadingFailed', formattedUrl)
-        }
-      })
-      .catch(e => {
-        console.error(`${e}: ${this.stateName}`)
-        return new Payload(false, null, e, formattedUrl)
-      })
+  async fetchData (formattedUrl: string, params: Params): Promise<PayloadData> {
+    const response = await fetch(formattedUrl)
+    if (!response.ok) {
+      console.error(`${endpointLoadingErrorMessage}: ${this.stateName}`)
+      return new Payload(false, null, endpointLoadingErrorMessage, formattedUrl)
+    }
+    const json = await response.json()
+    try {
+      const fetchedData = this.mapResponse(json, params)
+      return new Payload(false, fetchedData, null, formattedUrl)
+    } catch (e) {
+      console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
+      console.error(e)
+      return new Payload(false, null, 'endpoint:page.loadingFailed', formattedUrl)
+    }
   }
 }
 
