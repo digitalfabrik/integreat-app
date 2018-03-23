@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "babel-polyfill": "~6.26.0",
-    "chunked-request": "~0.7.1",
     "classnames": "~2.2.5",
     "font-awesome": "~4.7.0",
     "history": "~4.7.2",
@@ -38,7 +37,6 @@
     "redux-responsive": "^4.3.5",
     "redux-thunk": "~2.2.0",
     "styled-components": "^3.2.0",
-    "text-encoding": "~0.6.4",
     "url-pattern": "^1.0.3",
     "url-search-params-polyfill": "~2.0.1",
     "webfontloader": "~1.6.28",
