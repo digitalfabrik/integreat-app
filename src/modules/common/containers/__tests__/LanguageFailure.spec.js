@@ -8,8 +8,6 @@ import createReduxStore from 'modules/app/createReduxStore'
 import CityModel from 'modules/endpoint/models/CityModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ConnectedLanguageFailure, { LanguageFailure } from '../LanguageFailure'
-import routesMap from '../../../app/routesMap'
-import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 
 describe('LanguageFailure', () => {
   const city = 'augsburg'
@@ -41,16 +39,8 @@ describe('LanguageFailure', () => {
   })
 
   describe('connect', () => {
-    const pathname = '/augsburg/tu'
-
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
-        location: {
-          payload: {city: city, language: language, categoryPath: 'willkommen'},
-          pathname: pathname,
-          routesMap: routesMap,
-          type: CATEGORIES_ROUTE
-        },
         cities: {data: cities},
         languages: {data: languages}
       })
@@ -65,7 +55,8 @@ describe('LanguageFailure', () => {
         city: city,
         t: expect.any(Function),
         cities: cities,
-        languages: languages
+        languages: languages,
+        dispatch: expect.any(Function)
       })
     })
   })

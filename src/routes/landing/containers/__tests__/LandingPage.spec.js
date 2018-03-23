@@ -3,9 +3,8 @@ import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import configureMockStore from 'redux-mock-store'
-import routesMap from '../../../../modules/app/routesMap'
-import { LANDING_ROUTE } from '../../../../modules/app/routes/landing'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import createHistory from '../../../../modules/app/createHistory'
 
 describe('LandingPage', () => {
   const cities = [
@@ -26,9 +25,7 @@ describe('LandingPage', () => {
     it('should map state to props', () => {
       const language = 'en'
 
-      const mockStore = configureMockStore()
-      const store = mockStore({
-        location: {payload: {language: language}, pathname: '/landing/en', routesMap: routesMap, type: LANDING_ROUTE},
+      const store = createReduxStore(createHistory, {
         cities: {data: cities}
       })
 
