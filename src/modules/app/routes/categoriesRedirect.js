@@ -1,6 +1,6 @@
 // @flow
 
-import categoriesFetcher from '../../endpoint/endpoints/categories'
+import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 import { redirect } from 'redux-first-router'
 
@@ -22,7 +22,7 @@ export const categoriesRedirectRoute = {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
 
-    const categoriesPayload = await categoriesFetcher.loadData(dispatch, state.categories, {city, language})
+    const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
 
     if (!categoriesPayload.data) {
       // todo error handling

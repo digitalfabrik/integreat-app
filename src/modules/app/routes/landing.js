@@ -1,6 +1,6 @@
 // @flow
 
-import citiesFetcher from '../../endpoint/endpoints/cities'
+import citiesEndpoint from '../../endpoint/endpoints/cities'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
@@ -16,6 +16,6 @@ export const goToLanding = (language: string) => createAction(LANDING_ROUTE)({la
 export const landingRoute = {
   path: '/landing/:language',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
-    await citiesFetcher.loadData(dispatch, getState().cities)
+    await citiesEndpoint.loadData(dispatch, getState().cities)
   }
 }

@@ -1,6 +1,6 @@
 // @flow
 
-import disclaimerFetcher from '../../endpoint/endpoints/disclaimer'
+import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
@@ -19,6 +19,6 @@ export const disclaimerRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await disclaimerFetcher.loadData(dispatch, state.disclaimer, {city, language})
+    await disclaimerEndpoint.loadData(dispatch, state.disclaimer, {city, language})
   }
 }

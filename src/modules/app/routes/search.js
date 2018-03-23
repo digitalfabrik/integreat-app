@@ -1,6 +1,6 @@
 // @flow
 
-import categoriesFetcher from '../../endpoint/endpoints/categories'
+import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
@@ -19,6 +19,6 @@ export const searchRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesFetcher.loadData(dispatch, state.categories, {city, language})
+    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
   }
 }
