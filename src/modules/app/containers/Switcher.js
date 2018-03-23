@@ -26,6 +26,8 @@ import { PDF_FETCHER_ROUTE } from '../routes/pdfFetcher'
 
 import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
+import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
+import I18nRedirect from './I18nRedirect'
 
 type Props = {
   viewportSmall: boolean,
@@ -57,6 +59,8 @@ class Switcher extends React.Component<Props> {
     const {currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload} = this.props
 
     switch (currentRoute) {
+      case I18N_REDIRECT_ROUTE:
+        return Switcher.getFailureLoadingComponents(citiesPayload) || <I18nRedirect />
       case LANDING_ROUTE:
         return Switcher.getFailureLoadingComponents(citiesPayload) || <LandingPage />
       case MAIN_DISCLAIMER_ROUTE:
