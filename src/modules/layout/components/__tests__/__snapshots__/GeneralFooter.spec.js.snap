@@ -3,7 +3,11 @@
 exports[`GeneralFooter should match snapshot 1`] = `
 <Footer>
   <Connect(Link)
-    href="/disclaimer"
+    to={
+      Object {
+        "type": "MAIN_DISCLAIMER",
+      }
+    }
   >
     layout:imprintAndContact
   </Connect(Link)>

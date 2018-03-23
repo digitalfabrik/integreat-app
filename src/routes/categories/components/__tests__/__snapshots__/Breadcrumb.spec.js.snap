@@ -6,8 +6,8 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
 >
   <Connect(Link)
     className="breadcrumb"
-    href="/augsburg/de"
     key="/augsburg/de"
+    to="/augsburg/de"
   >
     <span
       className="separator"
@@ -20,8 +20,8 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
   </Connect(Link)>
   <Connect(Link)
     className="breadcrumb"
-    href="/augsburg/de/willkommen"
     key="/augsburg/de/willkommen"
+    to="/augsburg/de/willkommen"
   >
     <span
       className="separator"
@@ -34,8 +34,8 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
   </Connect(Link)>
   <Connect(Link)
     className="breadcrumb"
-    href="/augsburg/de/willkommen/willkommen-in-augsburg"
     key="/augsburg/de/willkommen/willkommen-in-augsburg"
+    to="/augsburg/de/willkommen/willkommen-in-augsburg"
   >
     <span
       className="separator"
