@@ -13,6 +13,46 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationM
 </Layout>
 `;
 
+exports[`LocationLayout should show LocationHeader and LocationFooter if City is available 1`] = `
+<Layout
+  footer={
+    <Translate(LocationFooter)
+      city="city1"
+      language="de"
+    />
+  }
+  header={
+    <Translate(LocationHeader)
+      city="city1"
+      currentRoute="EXTRAS"
+      isEventsActive={false}
+      isEventsEnabled={false}
+      isExtrasEnabled={false}
+      language="de"
+      languages={
+        Array [
+          LanguageModel {
+            "_code": "de",
+            "_name": "Deutsch",
+          },
+          LanguageModel {
+            "_code": "en",
+            "_name": "English",
+          },
+          LanguageModel {
+            "_code": "ar",
+            "_name": "Arabic",
+          },
+        ]
+      }
+      viewportSmall={true}
+    />
+  }
+>
+  <MockNode />
+</Layout>
+`;
+
 exports[`LocationLayout should show LocationHeader and LocationFooter if LocationModel is available 1`] = `
 <Layout
   footer={

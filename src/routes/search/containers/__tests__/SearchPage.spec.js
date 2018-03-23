@@ -1,23 +1,13 @@
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
 
 describe('SearchPage', () => {
-  const location = 'augsburg'
-
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('ar', 'Arabic')
-  ]
-
   const categoryModels = [
     new CategoryModel({
       id: 0,
@@ -74,46 +64,18 @@ describe('SearchPage', () => {
   const categories = new CategoriesMapModel(categoryModels)
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage location={location}
-                                        languages={languages}
-                                        categories={categories}
-                                        setLanguageChangeUrls={() => {}} />)
+    const wrapper = shallow(<SearchPage categories={categories} />)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should dispatch once in componentDidMount', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const searchPage = shallow(<SearchPage location={location}
-                                           languages={languages}
-                                           categories={categories}
-                                           setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    ).instance()
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(searchPage.mapLanguageToPath, languages)
-  })
-
-  it('should mapLanguageToPath correctly', () => {
-    const searchPage = shallow(
-      <SearchPage location={location}
-                  languages={languages}
-                  categories={categories}
-                  setLanguageChangeUrls={() => {}} />
-    ).instance()
-    expect(searchPage.mapLanguageToPath('en')).toBe('/augsburg/en/search')
-  })
-
   it('should filter correctly', () => {
-    const mockStore = configureMockStore()
-    const store = mockStore({router: {}})
+    const store = createReduxStore(createHistory, {
+      categories: {data: categories}
+    })
 
     const tree = mount(
       <Provider store={store}>
-        <SearchPage location={location}
-                    languages={languages}
-                    categories={categories}
-                    setLanguageChangeUrls={() => {}} />
+        <SearchPage categories={categories} />
       </Provider>
     )
     const searchPage = tree.find(SearchPage).instance()
@@ -163,15 +125,13 @@ describe('SearchPage', () => {
 
     const categories = new CategoriesMapModel(categoryModels)
 
-    const mockStore = configureMockStore()
-    const store = mockStore({router: {}})
+    const store = createReduxStore(createHistory, {
+      categories: {data: categories}
+    })
 
     const tree = mount(
       <Provider store={store}>
-        <SearchPage location={location}
-                    languages={languages}
-                    categories={categories}
-                    setLanguageChangeUrls={() => {}} />
+        <SearchPage categories={categories} />
       </Provider>
     )
     const searchPage = tree.find(SearchPage).instance()
@@ -188,44 +148,20 @@ describe('SearchPage', () => {
   describe('connect()', () => {
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
-        router: {params: {location: location}}
+        categories: {data: categories}
       })
 
       const tree = mount(
         <Provider store={store}>
-          <ConnectedSearchPage languages={languages} categories={categories} />
+          <ConnectedSearchPage />
         </Provider>
       )
 
-      const categoriesPageProps = tree.find(SearchPage).props()
+      const searchPageProps = tree.find(SearchPage).props()
 
-      expect(categoriesPageProps).toEqual({
-        location,
+      expect(searchPageProps).toEqual({
         categories,
-        languages,
-        setLanguageChangeUrls: expect.any(Function)
-      })
-    })
-
-    it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location}}
-      })
-
-      expect(store.getState().languageChangeUrls).toEqual({})
-
-      mount(
-        <Provider store={store}>
-          <Provider store={store}>
-            <ConnectedSearchPage languages={languages} categories={categories} />
-          </Provider>
-        </Provider>
-      )
-
-      expect(store.getState().languageChangeUrls).toEqual({
-        en: '/augsburg/en/search',
-        de: '/augsburg/de/search',
-        ar: '/augsburg/ar/search'
+        dispatch: expect.any(Function)
       })
     })
   })
