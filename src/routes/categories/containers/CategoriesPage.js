@@ -20,6 +20,7 @@ import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { apiUrl } from '../../../modules/endpoint/constants'
 
 type MapLanguageToPath = (string, ?string) => string
 
@@ -98,8 +99,12 @@ export class CategoriesPage extends React.Component<Props> {
     }
   }
 
-  getPdfFetchPath () {
-    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.path}`
+  getPdfUrl (category: CategoryModel) {
+    if (category.id === 0) {
+      return `${apiUrl}/${this.props.location}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
+    } else {
+      return `${apiUrl}/${this.props.location}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${this.props.path}`
+    }
   }
 
   /**
@@ -154,7 +159,7 @@ export class CategoriesPage extends React.Component<Props> {
           parents={this.props.categories.getAncestors(category)}
           locationName={this.getLocationName(this.props.location)} />
         {this.getContent(category)}
-        <PdfButton href={this.getPdfFetchPath()} />
+        <PdfButton href={this.getPdfUrl(category)} />
       </div>
     } catch (e) {
       return <Failure error='not-found:page.notFound' />
