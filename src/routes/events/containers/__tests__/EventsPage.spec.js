@@ -13,7 +13,7 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 describe('EventsPage', () => {
   const events = [
     new EventModel({
-      id: 1234,
+      id: '1234',
       title: 'first Event',
       availableLanguages: {de: '1235', ar: '1236'},
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
@@ -21,7 +21,7 @@ describe('EventsPage', () => {
       allDay: true
     }),
     new EventModel({
-      id: 1235,
+      id: '1235',
       title: 'erstes Event',
       availableLanguages: {en: '1234', ar: '1236'},
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
@@ -29,7 +29,7 @@ describe('EventsPage', () => {
       allDay: true
     }),
     new EventModel({
-      id: 2,
+      id: '2',
       title: 'second Event',
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
@@ -37,7 +37,7 @@ describe('EventsPage', () => {
     })
   ]
 
-  const location = 'augsburg'
+  const city = 'augsburg'
   const languages = [
     new LanguageModel('en', 'English'),
     new LanguageModel('de', 'Deutsch'),
@@ -49,10 +49,9 @@ describe('EventsPage', () => {
   it('should match snapshot and render EventList', () => {
     const wrapper = shallow(
       <EventsPage events={events}
-                  location={location}
+                  city={city}
                   languages={languages}
-                  language={language}
-                  setLanguageChangeUrls={() => {}} />
+                  language={language} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -60,11 +59,10 @@ describe('EventsPage', () => {
   it('should match snapshot and render EventDetail', () => {
     const wrapper = shallow(
       <EventsPage events={events}
-                  location={location}
+                  city={city}
                   languages={languages}
                   language={language}
-                  id={id}
-                  setLanguageChangeUrls={() => {}} />
+                  eventId={id} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -72,163 +70,33 @@ describe('EventsPage', () => {
   it('should match snapshot and render Failure if event does not exist', () => {
     const wrapper = shallow(
       <EventsPage events={events}
-                  location={location}
+                  city={city}
                   languages={languages}
                   language={language}
-                  id={'234729'}
-                  setLanguageChangeUrls={() => {}} />
+                  eventId={'234729'} />
     )
     expect(wrapper).toMatchSnapshot()
-  })
-
-  it('should dispatch once on mount with availableLanguages', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const eventsPage = shallow(
-      <EventsPage events={events}
-                  location={location}
-                  languages={languages}
-                  language={language}
-                  id={id}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    ).instance()
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      eventsPage.mapLanguageToPath, languages, events[1].availableLanguages
-    )
-  })
-
-  it('should dispatch once on mount without availableLanguages', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const eventsPage = shallow(
-      <EventsPage events={events}
-                  location={location}
-                  languages={languages}
-                  language={language}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    ).instance()
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(eventsPage.mapLanguageToPath, languages, {})
-  })
-
-  it('should dispatch on prop update with availableLanguages', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const wrapper = shallow(
-      <EventsPage events={[]}
-                  location={location}
-                  languages={languages}
-                  language={language}
-                  id={id}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    )
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-
-    wrapper.setProps({events: events, ...wrapper.props})
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(2)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      wrapper.instance().mapLanguageToPath, languages, events[1].availableLanguages
-    )
-
-    wrapper.setProps({id: undefined, ...wrapper.props})
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(3)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      wrapper.instance().mapLanguageToPath, languages
-    )
-  })
-
-  it('should not dispatch on irrelevant prop update', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const wrapper = shallow(
-      <EventsPage events={events}
-                  location={location}
-                  languages={languages}
-                  language={language}
-                  id={id}
-                  setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    )
-
-    const mockCalls = mockSetLanguageChangeUrls.mock.calls
-
-    wrapper.setProps({events: events, ...wrapper.props})
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
-
-    wrapper.setProps({...wrapper.props})
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(mockCalls.length)
-  })
-
-  it('should mapLanguageToPath correctly', () => {
-    const mapLanguageToPath = shallow(
-      <EventsPage events={events}
-                  location={location}
-                  languages={languages}
-                  language={language}
-                  id={id}
-                  setLanguageChangeUrls={() => {}} />
-    ).instance().mapLanguageToPath
-
-    expect(mapLanguageToPath(language)).toBe(`/${location}/${language}/events`)
-    expect(mapLanguageToPath(language, id)).toBe(`/${location}/${language}/events/${id}`)
   })
 
   describe('connect', () => {
     it('should map state and fetched data to props', () => {
       const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
+        events: {data: events},
+        location: {pathname: '/augsburg/en/events', payload: {city: city, language: language, eventId: id}}
       })
 
       const eventsPage = mount(
         <Provider store={store}>
-          <ConnectedEventsPage events={events} languages={languages} />
+          <ConnectedEventsPage />
         </Provider>
       ).find(EventsPage)
 
       expect(eventsPage.props()).toEqual({
-        location: location,
+        city: city,
         language: language,
-        id: id,
-        setLanguageChangeUrls: expect.any(Function),
-        events: events,
-        languages: languages
+        eventId: id,
+        events: events
       })
-    })
-
-    it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language, id: id}, languageChangeUrls: {}}
-      })
-
-      const mapLanguageToPath = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
-
-      const languageChangeUrls = {
-        en: '/en/1235',
-        de: '/de',
-        ar: '/ar/1236'
-      }
-
-      const availableLanguages = {
-        en: '1235',
-        ar: '1236'
-      }
-
-      expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
-
-      const eventsPage = mount(
-        <Provider store={store}>
-          <ConnectedEventsPage languages={languages} events={events} />
-        </Provider>
-      ).find(EventsPage)
-
-      eventsPage.props().setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)
-      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })
 
