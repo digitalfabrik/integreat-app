@@ -6,7 +6,7 @@ import Footer from './Footer'
 import Link from 'redux-first-router-link'
 import { goToDisclaimer } from '../../app/routes/disclaimer'
 
-class LocationFooter extends React.Component {
+export class LocationFooter extends React.Component {
   static propTypes = {
     city: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,

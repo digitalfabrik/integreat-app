@@ -8,7 +8,7 @@ exports[`CategoryTile should render a Link if path is not an external url 1`] = 
   xs={6}
 >
   <Connect(Link)
-    href="/augsburg/de/willkommen"
+    to="/augsburg/de/willkommen"
   >
     <React.Fragment>
       <div

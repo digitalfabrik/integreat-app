@@ -5,7 +5,7 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
   className="row"
 >
   <Connect(Link)
-    href="/augsburg/de/willkommen"
+    to="/augsburg/de/willkommen"
   >
     <img
       className="categoryThumbnail"
@@ -24,8 +24,8 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
   </Connect(Link)>
   <Connect(Link)
     className="subRow"
-    href="/augsburg/de/test"
     key="5234"
+    to="/augsburg/de/test"
   >
     <img
       className="categoryThumbnail"
@@ -45,7 +45,7 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
   className="row"
 >
   <Connect(Link)
-    href=""
+    to=""
   >
     <img
       className="categoryThumbnail"
@@ -64,8 +64,8 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
   </Connect(Link)>
   <Connect(Link)
     className="subRow"
-    href=""
     key="42"
+    to=""
   >
     <div
       className="categoryThumbnail"

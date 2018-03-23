@@ -10,15 +10,15 @@ import configureMockStore from 'redux-mock-store'
 describe('ConditionalLink', () => {
   it('should render a Link if active', () => {
     const mockStore = configureMockStore()
-    const store = mockStore({router: {}})
+    const store = mockStore({location: {}})
 
     const tree = mount(<Provider store={store}>
-        <ConditionalLink prob='value' active={true} href='/augsburg/de' />
+        <ConditionalLink prob='value' active={true} href={{type: 'RANDOM_ROUTE'}} />
       </Provider>
     )
     const link = tree.find(Link)
     expect(link.length).not.toBe(0)
-    expect(link.props()).toEqual({prob: 'value', href: '/augsburg/de'})
+    expect(link.props()).toEqual({prob: 'value', href: {type: 'RANDOM_ROUTE'}})
   })
 
   it('should render a InactiveLink if inactive', () => {
