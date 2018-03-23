@@ -8,7 +8,6 @@ import LocationLayout from '../../layout/containers/LocationLayout'
 import SearchPage from 'routes/search/containers/SearchPage'
 import DisclaimerPage from 'routes/disclaimer/containers/DisclaimerPage'
 import EventsPage from 'routes/events/containers/EventsPage'
-import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import LandingPage from 'routes/landing/containers/LandingPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
@@ -69,10 +68,7 @@ export class RouterFragment extends React.Component {
             <Fragment forRoute='/events(/:id)'>
               <EventsPage />
             </Fragment>
-            {/* Matches /augsburg/de/fetch-pdf/* -> Redirect */}
-            <Fragment forRoute='/fetch-pdf'>
-              <PdfFetcherPage />
-            </Fragment>
+            {/* Matches /augsburg/de/extras* -> Extras */}
             <Fragment forRoute='/extras(/:extra)'>
               <ExtrasPage />
             </Fragment>
@@ -101,7 +97,7 @@ export class RouterFragment extends React.Component {
         </Fragment>
 
         {/* There are no missing routes. Covered:
-          * Two or more arguments (Search/Disclaimer/Events/PdfFetcher/CategoriesPage)
+          * Two or more arguments (Search/Disclaimer/Events/CategoriesPage)
           * One argument (MainDisclaimer or LandingPage with language preselection)
           * No arguments (LandingPage)
           */}
