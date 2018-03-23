@@ -1,5 +1,5 @@
 export default {
-  removeA: `
+  removeLinkHighlighting: `
     color: inherit;
     text-decoration: none;
   `

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import { Link } from 'redux-little-router'
 
 export const Element = styled(Link)`
-  ${props => props.theme.helpers.removeA};
+  ${props => props.theme.helpers.removeLinkHighlighting};
   height: ${props => props.theme.dimensions.headerHeight};
   min-width: 90px;
   max-width: 120px;
