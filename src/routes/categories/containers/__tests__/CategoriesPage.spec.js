@@ -6,8 +6,6 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/app/constants/theme'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
