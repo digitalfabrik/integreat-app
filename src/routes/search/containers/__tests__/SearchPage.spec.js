@@ -8,6 +8,7 @@ import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
+import configureMockStore from 'redux-mock-store'
 
 describe('SearchPage', () => {
   const categoryModels = [
@@ -137,8 +138,9 @@ describe('SearchPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-        <SearchPage categories={categories} />
-      </Provider></ThemeProvider>
+          <SearchPage categories={categories} />
+        </Provider>
+      </ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -151,25 +153,21 @@ describe('SearchPage', () => {
     expect(searchPage.findCategories()[3].model).toBe(categoryModels[3])
   })
 
-  describe('connect()', () => {
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        categories: {data: categories}
-      })
+  it('should map state to props', () => {
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      categories: {data: categories}
+    })
 
-      const tree = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-          <ConnectedSearchPage />
-        </Provider></ThemeProvider>
-      )
+    const searchPage = shallow(
+      <ConnectedSearchPage store={store} />
+    )
 
-      const searchPageProps = tree.find(SearchPage).props()
-
-      expect(searchPageProps).toEqual({
-        categories,
-        dispatch: expect.any(Function)
-      })
+    expect(searchPage.props()).toEqual({
+      categories,
+      dispatch: expect.any(Function),
+      store,
+      storeSubscription: expect.any(Object)
     })
   })
 })
