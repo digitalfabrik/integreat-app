@@ -8,6 +8,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('SearchPage', () => {
   const location = 'augsburg'
@@ -109,12 +111,14 @@ describe('SearchPage', () => {
     const store = mockStore({router: {}})
 
     const tree = mount(
-      <Provider store={store}>
-        <SearchPage location={location}
-                    languages={languages}
-                    categories={categories}
-                    setLanguageChangeUrls={() => {}} />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <SearchPage location={location}
+                      languages={languages}
+                      categories={categories}
+                      setLanguageChangeUrls={() => {}} />
+        </Provider>
+      </ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -167,12 +171,14 @@ describe('SearchPage', () => {
     const store = mockStore({router: {}})
 
     const tree = mount(
-      <Provider store={store}>
-        <SearchPage location={location}
-                    languages={languages}
-                    categories={categories}
-                    setLanguageChangeUrls={() => {}} />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <SearchPage location={location}
+                      languages={languages}
+                      categories={categories}
+                      setLanguageChangeUrls={() => {}} />
+        </Provider>
+      </ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -192,9 +198,10 @@ describe('SearchPage', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedSearchPage languages={languages} categories={categories} />
-        </Provider>
+        </Provider></ThemeProvider>
       )
 
       const categoriesPageProps = tree.find(SearchPage).props()
@@ -215,11 +222,13 @@ describe('SearchPage', () => {
       expect(store.getState().languageChangeUrls).toEqual({})
 
       mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
           <Provider store={store}>
-            <ConnectedSearchPage languages={languages} categories={categories} />
+            <Provider store={store}>
+              <ConnectedSearchPage languages={languages} categories={categories} />
+            </Provider>
           </Provider>
-        </Provider>
+        </ThemeProvider>
       )
 
       expect(store.getState().languageChangeUrls).toEqual({

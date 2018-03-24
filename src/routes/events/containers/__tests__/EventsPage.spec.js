@@ -9,6 +9,8 @@ import createHistory from 'modules/app/createHistory'
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('EventsPage', () => {
   const events = [
@@ -186,10 +188,11 @@ describe('EventsPage', () => {
       })
 
       const eventsPage = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedEventsPage events={events} languages={languages} />
         </Provider>
-      ).find(EventsPage)
+      </ThemeProvider>).find(EventsPage)
 
       expect(eventsPage.props()).toEqual({
         location: location,
@@ -222,9 +225,11 @@ describe('EventsPage', () => {
       expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
 
       const eventsPage = mount(
+        <ThemeProvider theme={theme}>
         <Provider store={store}>
           <ConnectedEventsPage languages={languages} events={events} />
         </Provider>
+        </ThemeProvider>
       ).find(EventsPage)
 
       eventsPage.props().setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)

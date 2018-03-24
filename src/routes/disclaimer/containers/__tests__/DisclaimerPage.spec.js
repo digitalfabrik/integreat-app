@@ -8,6 +8,8 @@ import createHistory from 'modules/app/createHistory'
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('DisclaimerPage', () => {
   const location = 'augsburg'
@@ -62,9 +64,10 @@ describe('DisclaimerPage', () => {
 
     it('should map state and fetched data to props', () => {
       const disclaimerPage = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedDisclaimerPage languages={languages} disclaimer={disclaimer} />
-        </Provider>
+        </Provider></ThemeProvider>
       ).find(DisclaimerPage)
 
       expect(disclaimerPage.props()).toEqual({
@@ -85,9 +88,10 @@ describe('DisclaimerPage', () => {
       }
 
       const disclaimerPage = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedDisclaimerPage languages={languages} disclaimer={disclaimer} />
-        </Provider>
+        </Provider></ThemeProvider>
       ).find(DisclaimerPage)
 
       disclaimerPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages)

@@ -6,6 +6,8 @@ import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector
 import createReduxStore from '../../../app/createReduxStore'
 import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../app/constants/theme'
 
 describe('LanguageSelector', () => {
   const location = 'augsburg'
@@ -52,9 +54,10 @@ describe('LanguageSelector', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} languages={languages} />
-        </Provider>
+        </Provider></ThemeProvider>
       )
 
       const languageSelector = tree.find(LanguageSelector)

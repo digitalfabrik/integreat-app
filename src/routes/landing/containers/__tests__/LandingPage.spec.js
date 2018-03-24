@@ -5,6 +5,8 @@ import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import LocationModel from '../../../../modules/endpoint/models/CityModel'
 import createHistory from '../../../../modules/app/createHistory'
 import createReduxStore from '../../../../modules/app/createReduxStore'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('LandingPage', () => {
   const locations = [
@@ -30,9 +32,10 @@ describe('LandingPage', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedLandingPage locations={locations} />
-        </Provider>
+        </Provider></ThemeProvider>
       )
 
       const landingPageProps = tree.find(LandingPage).props()
@@ -48,9 +51,10 @@ describe('LandingPage', () => {
       const store = createReduxStore(createHistory, {})
 
       const tree = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedLandingPage locations={locations} />
-        </Provider>
+        </Provider></ThemeProvider>
       )
 
       const landingPageProps = tree.find(LandingPage).props()

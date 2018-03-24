@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Caption should render 1`] = `
-<h1
-  className="caption"
->
+<Captionstyles__H1>
   Test Title
-</h1>
+</Captionstyles__H1>
 `;
