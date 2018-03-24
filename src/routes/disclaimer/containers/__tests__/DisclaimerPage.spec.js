@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import configureMockStore from 'redux-mock-store'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('DisclaimerPage', () => {
   const disclaimer = new DisclaimerModel({
@@ -23,9 +25,10 @@ describe('DisclaimerPage', () => {
 
     it('should map state and fetched data to props', () => {
       const disclaimerPage = mount(
-        <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
           <ConnectedDisclaimerPage />
-        </Provider>
+        </Provider></ThemeProvider>
       ).find(DisclaimerPage)
 
       expect(disclaimerPage.props()).toEqual({

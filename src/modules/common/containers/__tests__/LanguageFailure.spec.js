@@ -4,6 +4,8 @@ import { shallow } from 'enzyme'
 import CityModel from 'modules/endpoint/models/CityModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ConnectedLanguageFailure, { LanguageFailure } from '../LanguageFailure'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 import configureMockStore from 'redux-mock-store'
 
 describe('LanguageFailure', () => {

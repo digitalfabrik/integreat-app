@@ -1,13 +1,12 @@
-@import url('../../common/constants/helpers.css');
-@import url('../../common/constants/colors.css');
-@import url('../../common/constants/dimensions.css');
+@import url('../../app/constants/helpers.css');
+@import url('../../app/constants/colors.css');
+@import url('../../app/constants/dimensions.css');
 
 .footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 20px;
-  padding: 20px;
+  padding: 15px 5px;
   background-color: var(--background-accent-color);
 }
 

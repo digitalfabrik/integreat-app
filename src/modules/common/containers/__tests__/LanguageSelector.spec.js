@@ -12,6 +12,8 @@ import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../app/constants/theme'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'

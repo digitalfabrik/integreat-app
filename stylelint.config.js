@@ -1,5 +1,8 @@
 module.exports = {
+  processors: ['stylelint-processor-styled-components'],
   plugins: ['stylelint-order'],
+  extends: ['stylelint-config-styled-components'],
+  syntax: 'scss',
   rules: {
     'at-rule-empty-line-before': [
       'always',
@@ -202,7 +205,7 @@ module.exports = {
         'src'
       ],
       {
-        unspecified: 'bottomAlphabetical',
+        unspecified: 'ignore',
       }
     ],
     'property-case': 'lower',
