@@ -1,7 +1,19 @@
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
 import Payload from '../../Payload'
+import lolex from 'lolex'
 
 describe('finishFetchAction', () => {
+  let clock
+  const mockedTime = 0
+
+  beforeEach(() => {
+    clock = lolex.install({now: mockedTime, toFake: []})
+  })
+
+  afterEach(() => {
+    clock.uninstall()
+  })
+
   it('should have the right action name', () => {
     expect(finishFetchActionName('endpoint')).toBe('FINISH_FETCH_ENDPOINT')
   })

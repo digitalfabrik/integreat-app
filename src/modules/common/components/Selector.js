@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import Link from 'redux-first-router-link'
 import { ActiveElement, Element, Wrapper } from './Selector.styles'
 
 /**

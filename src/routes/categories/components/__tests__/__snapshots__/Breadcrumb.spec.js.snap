@@ -3,7 +3,6 @@
 exports[`Breadcrumbs should render and match snapshot 1`] = `
 <Breadcrumbsstyles__Wrapper>
   <Breadcrumbsstyles__Breadcrumb
-    href="/augsburg/de"
     key="/augsburg/de"
     to="/augsburg/de"
   >
@@ -13,7 +12,6 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
     </Breadcrumbsstyles__Title>
   </Breadcrumbsstyles__Breadcrumb>
   <Breadcrumbsstyles__Breadcrumb
-    href="/augsburg/de/willkommen"
     key="/augsburg/de/willkommen"
     to="/augsburg/de/willkommen"
   >
@@ -23,7 +21,6 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
     </Breadcrumbsstyles__Title>
   </Breadcrumbsstyles__Breadcrumb>
   <Breadcrumbsstyles__Breadcrumb
-    href="/augsburg/de/willkommen/willkommen-in-augsburg"
     key="/augsburg/de/willkommen/willkommen-in-augsburg"
     to="/augsburg/de/willkommen/willkommen-in-augsburg"
   >
