@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterableLocationSelector should render 1`] = `
+<div
+  className="topSpacing"
+>
+  <Translate(Heading) />
+  <ScrollingSearchBox
+    filterText=""
+    onFilterTextChange={[Function]}
+  >
+    <LocationSelector
+      cities={
+        Array [
+          CityModel {
+            "_code": "city",
+            "_eventsEnabled": false,
+            "_extrasEnabled": false,
+            "_live": true,
+            "_name": "City",
+            "_sortCategory": "C",
+            "_sortKey": "city",
+          },
+          CityModel {
+            "_code": "otherCity",
+            "_eventsEnabled": false,
+            "_extrasEnabled": false,
+            "_live": true,
+            "_name": "Other city",
+            "_sortCategory": "O",
+            "_sortKey": "other city",
+          },
+          CityModel {
+            "_code": "nonlive",
+            "_eventsEnabled": false,
+            "_extrasEnabled": false,
+            "_live": false,
+            "_name": "Not-live",
+            "_sortCategory": "N",
+            "_sortKey": "not-live",
+          },
+          CityModel {
+            "_code": "yetanothercity",
+            "_eventsEnabled": false,
+            "_extrasEnabled": false,
+            "_live": true,
+            "_name": "Yet another city",
+            "_sortCategory": "Y",
+            "_sortKey": "yet another city",
+          },
+        ]
+      }
+      filterText=""
+      language="de"
+      stickyTop={0}
+    />
+  </ScrollingSearchBox>
+</div>
+`;

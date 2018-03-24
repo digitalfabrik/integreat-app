@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disclaimer should throw if the disclaimer is not published 1`] = `"There must be exactly one disclaimer!"`;
+
+exports[`disclaimer should throw if there are multiple disclaimers 1`] = `"There must be exactly one disclaimer!"`;
+
+exports[`disclaimer should throw if there is no disclaimer 1`] = `"disclaimer:notAvailable"`;
