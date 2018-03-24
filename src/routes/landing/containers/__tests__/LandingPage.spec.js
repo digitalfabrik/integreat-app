@@ -3,8 +3,6 @@ import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/app/constants/theme'
 
 describe('LandingPage', () => {
   const cities = [
@@ -32,13 +30,11 @@ describe('LandingPage', () => {
       cities: {data: cities}
     })
 
-    const tree = shallow(
+    const landingPage = shallow(
       <ConnectedLandingPage store={store} />
     )
 
-    const landingPageProps = tree.find(LandingPage).props()
-
-    expect(landingPageProps).toEqual({
+    expect(landingPage.props()).toEqual({
       language,
       cities,
       store: store,

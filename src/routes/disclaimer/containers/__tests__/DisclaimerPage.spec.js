@@ -27,8 +27,9 @@ describe('DisclaimerPage', () => {
       const disclaimerPage = mount(
         <ThemeProvider theme={theme}>
           <Provider store={store}>
-          <ConnectedDisclaimerPage />
-        </Provider></ThemeProvider>
+            <ConnectedDisclaimerPage />
+          </Provider>
+        </ThemeProvider>
       ).find(DisclaimerPage)
 
       expect(disclaimerPage.props()).toEqual({
