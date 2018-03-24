@@ -14,7 +14,6 @@ import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import SearchPage from '../../../routes/search/containers/SearchPage'
-import PdfFetcherPage from '../../../routes/pdf-fetcher/containers/PdfFetcherPage'
 import { LANDING_ROUTE } from '../routes/landing'
 import { MAIN_DISCLAIMER_ROUTE } from '../routes/mainDisclaimer'
 import { CATEGORIES_ROUTE } from '../routes/categories'
@@ -22,7 +21,6 @@ import { EVENTS_ROUTE } from '../routes/events'
 import { EXTRAS_ROUTE } from '../routes/extras'
 import { DISCLAIMER_ROUTE } from '../routes/disclaimer'
 import { SEARCH_ROUTE } from '../routes/search'
-import { PDF_FETCHER_ROUTE } from '../routes/pdfFetcher'
 
 import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
@@ -71,8 +69,6 @@ class Switcher extends React.Component<Props> {
         return Switcher.getFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
       case SEARCH_ROUTE:
         return Switcher.getFailureLoadingComponents(categoriesPayload) || <SearchPage />
-      case PDF_FETCHER_ROUTE:
-        return Switcher.getFailureLoadingComponents(categoriesPayload) || <PdfFetcherPage />
       default:
         return <Failure error={'Route not found'} />
     }
