@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 export const Wrapper = styled.div`
   margin: 10px 0;
