@@ -1,14 +1,11 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-
-import createHistory from 'modules/app/createHistory'
-import createReduxStore from 'modules/app/createReduxStore'
+import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
@@ -83,7 +80,7 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      categoryPath={categoryModels[3].url} />
+                      path={categoryModels[3].url} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -95,7 +92,7 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      categoryPath={categoryModels[2].url} />
+                      path={categoryModels[2].url} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -107,7 +104,7 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      categoryPath={'/augsburg/de'} />
+                      path={'/augsburg/de'} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -119,37 +116,39 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      categoryPath={'/augsburg/de/not/valid'} />
+                      path={'/augsburg/de/not/valid'} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  describe('connect', () => {
-    const pathname = '/augsburg/de/willkommen'
+  it('should map state to props', () => {
+    const pathname = '/augsburg/en/willkommen'
+    const location = {
+      payload: {city: city, language: language},
+      pathname: pathname
+    }
 
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        location: {payload: {city: city, language: language, categoryPath: 'willkommen'},
-          pathname: pathname
-        },
-        cities: {data: cities},
-        categories: {data: categories}
-      })
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      categories: {data: categories},
+      cities: {data: cities}
+    })
 
-      const categoriesPage = mount(
-        <Provider store={store}>
-          <ConnectedCategoriesPage />
-        </Provider>
-      ).find(CategoriesPage)
+    const categoriesPage = shallow(
+      <ConnectedCategoriesPage store={store} />
+    )
 
-      expect(categoriesPage.props()).toEqual({
-        city: city,
-        language: language,
-        categoryPath: pathname,
-        categories: categories,
-        cities: cities
-      })
+    expect(categoriesPage.props()).toEqual({
+      city,
+      language,
+      path: pathname,
+      categories,
+      cities,
+      store,
+      dispatch: expect.any(Function),
+      storeSubscription: expect.any(Object)
     })
   })
 })

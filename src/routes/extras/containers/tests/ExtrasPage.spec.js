@@ -1,12 +1,10 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-import { Provider } from 'react-redux'
 
-import createReduxStore from 'modules/app/createReduxStore'
-import createHistory from 'modules/app/createHistory'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
 import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('ExtrasPage', () => {
   const city = 'augsburg'
@@ -74,30 +72,30 @@ describe('ExtrasPage', () => {
     expect(extrasPage).toMatchSnapshot()
   })
 
-  describe('connect', () => {
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        location: {
-          payload: {city: city, language: language, extra: 'extra'},
-          pathname: '/augsburg/de/extras/extra'
-        },
-        extras: {data: extras},
-        sprungbrettJobs: {data: jobs}
-      })
+  it('should map state to props', () => {
+    const extraAlias = 'sprungbrett'
+    const location = {payload: {language, city, extraAlias}}
 
-      const sprungbrettPage = mount(
-        <Provider store={store}>
-          <ConnectedExtrasPage />
-        </Provider>
-      ).find(ExtrasPage)
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      extras: {data: extras},
+      sprungbrettJobs: {data: jobs}
+    })
 
-      expect(sprungbrettPage.props()).toEqual({
-        city: city,
-        language: language,
-        extras: extras,
-        extra: 'extra',
-        sprungbrettJobs: jobs
-      })
+    const extrasPage = shallow(
+      <ConnectedExtrasPage store={store} />
+    )
+
+    expect(extrasPage.props()).toEqual({
+      language,
+      extraAlias,
+      city,
+      extras,
+      sprungbrettJobs: jobs,
+      store: store,
+      storeSubscription: expect.any(Object),
+      dispatch: expect.any(Function)
     })
   })
 })

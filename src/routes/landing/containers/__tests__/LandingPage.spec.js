@@ -1,10 +1,8 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import createReduxStore from '../../../../modules/app/createReduxStore'
-import createHistory from '../../../../modules/app/createHistory'
+import configureMockStore from 'redux-mock-store'
 
 describe('LandingPage', () => {
   const cities = [
@@ -21,26 +19,29 @@ describe('LandingPage', () => {
     expect(shallow(<LandingPage cities={cities} language={'de'} />)).toMatchSnapshot()
   })
 
-  describe('connect()', () => {
-    it('should map state to props', () => {
-      const language = 'en'
+  it('should map state to props', () => {
+    const language = 'en'
 
-      const store = createReduxStore(createHistory, {
-        cities: {data: cities}
-      })
+    const location = {payload: {language}}
 
-      const tree = mount(
-        <Provider store={store}>
-          <ConnectedLandingPage />
-        </Provider>
-      )
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      cities: {data: cities}
+    })
 
-      const landingPageProps = tree.find(LandingPage).props()
+    const tree = shallow(
+      <ConnectedLandingPage store={store} />
+    )
 
-      expect(landingPageProps).toEqual({
-        language,
-        cities
-      })
+    const landingPageProps = tree.find(LandingPage).props()
+
+    expect(landingPageProps).toEqual({
+      language,
+      cities,
+      store: store,
+      storeSubscription: expect.any(Object),
+      dispatch: expect.any(Function)
     })
   })
 })
