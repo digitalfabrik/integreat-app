@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import style from './Selector.css'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from 'redux-first-router-link'
+import { ActiveElement, Element, Wrapper } from './Selector.styles'
 
 /**
  * Displays a Selector showing different items
@@ -22,20 +22,18 @@ class Selector extends React.Component {
     return this.props.items.map(item => {
       if (item.code === this.props.activeItemCode) {
         return (
-          <span key={item.code}
-                className={cx(style.element, style.elementActive)}
-                onClick={this.props.closeDropDownCallback}>
+          <ActiveElement key={item.code}
+                         onClick={this.props.closeDropDownCallback}>
             {item.name}
-            </span>
+          </ActiveElement>
         )
       } else {
         return (
-          <Link key={item.code}
-                className={style.element}
+          <Element key={item.code}
                 onClick={this.props.closeDropDownCallback}
                 to={item.href}>
             {item.name}
-          </Link>
+          </Element>
         )
       }
     })
@@ -43,9 +41,9 @@ class Selector extends React.Component {
 
   render () {
     return (
-      <div className={cx({[style.selector]: true, [style.vertical]: this.props.verticalLayout})}>
+      <Wrapper vertical={this.props.verticalLayout}>
         {this.getItems()}
-      </div>
+      </Wrapper>
     )
   }
 }

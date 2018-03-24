@@ -1,11 +1,8 @@
 // @flow
 
 import React from 'react'
-
-import Link from 'redux-first-router-link'
-
-import style from './Breadcrumbs.css'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import { Breadcrumb, Separator, Title, Wrapper } from './Breadcrumbs.styles'
 
 type Props = {
   parents: Array<CategoryModel>,
@@ -20,20 +17,18 @@ class Breadcrumbs extends React.Component<Props> {
     return this.props.parents.map(parent => {
       const title = parent.id === 0 ? this.props.locationName : parent.title
       return (
-        <Link key={parent.url}
-              className={style.breadcrumb}
-              to={parent.url}>
-          <span className={style.separator} />
-          <span className={style.level}>{title}</span>
-        </Link>
+        <Breadcrumb key={parent.url} href={parent.url}>
+          <Separator />
+          <Title>{title}</Title>
+        </Breadcrumb>
       )
     })
   }
 
   render () {
-    return <div className={style.breadcrumbs}>
+    return <Wrapper>
       {this.getBreadcrumbs()}
-    </div>
+    </Wrapper>
   }
 }
 
