@@ -8,6 +8,8 @@ import SearchInput from 'modules/common/components/SearchInput'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import createHistory from '../../../../modules/app/createHistory'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 jest.mock('react-i18next')
 
@@ -56,11 +58,12 @@ describe('FilterableLocationSelector', () => {
 
   it('should pass filterText to LocationSelector and filter', () => {
     const wrapper = mount(
-      <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
         <FilterableLocationSelector
           language='de'
           cities={cities} />
-      </Provider>
+      </Provider></ThemeProvider>
     )
 
     const search = wrapper.find(SearchInput)

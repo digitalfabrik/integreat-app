@@ -1,11 +1,14 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
+
 import createReduxStore from '../createReduxStore'
 import createHistory from '../createHistory'
 import I18nProvider from './I18nProvider'
 
 import routesMap from '../routesMap'
 import Switcher from './Switcher'
+import theme from '../constants/theme'
 
 class App extends React.Component {
   store
@@ -17,7 +20,9 @@ class App extends React.Component {
   render () {
     return <Provider store={this.store}>
       <I18nProvider>
-        <Switcher />
+        <ThemeProvider theme={theme}>
+          <Switcher />
+        </ThemeProvider>
       </I18nProvider>
     </Provider>
   }

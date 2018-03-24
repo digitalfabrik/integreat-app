@@ -1,50 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Breadcrumbs should render and match snapshot 1`] = `
-<div
-  className="breadcrumbs"
->
-  <Connect(Link)
-    className="breadcrumb"
+<Breadcrumbsstyles__Wrapper>
+  <Breadcrumbsstyles__Breadcrumb
+    href="/augsburg/de"
     key="/augsburg/de"
     to="/augsburg/de"
   >
-    <span
-      className="separator"
-    />
-    <span
-      className="level"
-    >
+    <Breadcrumbsstyles__Separator />
+    <Breadcrumbsstyles__Title>
       Augsburg
-    </span>
-  </Connect(Link)>
-  <Connect(Link)
-    className="breadcrumb"
+    </Breadcrumbsstyles__Title>
+  </Breadcrumbsstyles__Breadcrumb>
+  <Breadcrumbsstyles__Breadcrumb
+    href="/augsburg/de/willkommen"
     key="/augsburg/de/willkommen"
     to="/augsburg/de/willkommen"
   >
-    <span
-      className="separator"
-    />
-    <span
-      className="level"
-    >
+    <Breadcrumbsstyles__Separator />
+    <Breadcrumbsstyles__Title>
       Willkommen
-    </span>
-  </Connect(Link)>
-  <Connect(Link)
-    className="breadcrumb"
+    </Breadcrumbsstyles__Title>
+  </Breadcrumbsstyles__Breadcrumb>
+  <Breadcrumbsstyles__Breadcrumb
+    href="/augsburg/de/willkommen/willkommen-in-augsburg"
     key="/augsburg/de/willkommen/willkommen-in-augsburg"
     to="/augsburg/de/willkommen/willkommen-in-augsburg"
   >
-    <span
-      className="separator"
-    />
-    <span
-      className="level"
-    >
+    <Breadcrumbsstyles__Separator />
+    <Breadcrumbsstyles__Title>
       Willkommen in Augsburg
-    </span>
-  </Connect(Link)>
-</div>
+    </Breadcrumbsstyles__Title>
+  </Breadcrumbsstyles__Breadcrumb>
+</Breadcrumbsstyles__Wrapper>
 `;

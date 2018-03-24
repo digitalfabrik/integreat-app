@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import style from './Caption.css'
+import { H1 } from './Caption.styles'
 
 class Caption extends React.Component {
   static propTypes = {
@@ -10,7 +9,7 @@ class Caption extends React.Component {
 
   render () {
     return (
-      <h1 className={style.caption}>{this.props.title}</h1>
+      <H1>{this.props.title}</H1>
     )
   }
 }

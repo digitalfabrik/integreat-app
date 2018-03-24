@@ -5,7 +5,6 @@ import { EVENTS_ROUTE, eventsRoute } from './routes/events'
 import { EXTRAS_ROUTE, extrasRoute } from './routes/extras'
 import { DISCLAIMER_ROUTE, disclaimerRoute } from './routes/disclaimer'
 import { SEARCH_ROUTE, searchRoute } from './routes/search'
-import { PDF_FETCHER_ROUTE, pdfFetcherRoute } from './routes/pdfFetcher'
 import { CATEGORIES_REDIRECT_ROUTE, categoriesRedirectRoute } from './routes/categoriesRedirect'
 import { CATEGORIES_ROUTE, categoriesRoute } from './routes/categories'
 
@@ -18,7 +17,6 @@ const routesMap = {
   [EXTRAS_ROUTE]: extrasRoute,
   [DISCLAIMER_ROUTE]: disclaimerRoute,
   [SEARCH_ROUTE]: searchRoute,
-  [PDF_FETCHER_ROUTE]: pdfFetcherRoute,
   [CATEGORIES_REDIRECT_ROUTE]: categoriesRedirectRoute,
   [CATEGORIES_ROUTE]: categoriesRoute
 }

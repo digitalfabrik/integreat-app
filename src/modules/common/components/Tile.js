@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'redux-first-router-link'
-import { Col } from 'react-flexbox-grid'
+import { Col } from 'react-styled-flexboxgrid'
 
 import style from './Tile.css'
 import TileModel from '../models/TileModel'
