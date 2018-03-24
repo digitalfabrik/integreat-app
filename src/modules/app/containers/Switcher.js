@@ -42,7 +42,7 @@ const LoadingSpinner = () => <Spinner name='line-scale-party' />
 /**
  * Renders different Pages depending on the current route. If the needed data is not available, a LoadingSpinner is rendered
  */
-class Switcher extends React.Component<Props> {
+export class Switcher extends React.Component<Props> {
   static getFailureLoadingComponents (payload: Payload): React.Node {
     if (payload.error) {
       return <Failure error={payload.error} />
@@ -101,7 +101,6 @@ const mapStateToProps = state => ({
   viewportSmall: state.viewport.is.small,
   currentRoute: state.location.type,
   citiesPayload: state.cities,
-  languagesPayload: state.languages,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
   extrasPayload: state.extras,
