@@ -1,14 +1,11 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
-
-import createReduxStore from 'modules/app/createReduxStore'
-import createHistory from 'modules/app/createHistory'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('EventsPage', () => {
   const events = [
@@ -78,25 +75,27 @@ describe('EventsPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  describe('connect', () => {
-    it('should map state and fetched data to props', () => {
-      const store = createReduxStore(createHistory, {
-        events: {data: events},
-        location: {pathname: '/augsburg/en/events', payload: {city: city, language: language, eventId: id}}
-      })
+  it('should map state to props', () => {
+    const location = {payload: {city: city, language: language, eventId: id}}
 
-      const eventsPage = mount(
-        <Provider store={store}>
-          <ConnectedEventsPage />
-        </Provider>
-      ).find(EventsPage)
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      events: {data: events}
+    })
 
-      expect(eventsPage.props()).toEqual({
-        city: city,
-        language: language,
-        eventId: id,
-        events: events
-      })
+    const categoriesPage = shallow(
+      <ConnectedEventsPage store={store} />
+    )
+
+    expect(categoriesPage.props()).toEqual({
+      city,
+      language,
+      eventId: id,
+      events,
+      store,
+      dispatch: expect.any(Function),
+      storeSubscription: expect.any(Object)
     })
   })
 

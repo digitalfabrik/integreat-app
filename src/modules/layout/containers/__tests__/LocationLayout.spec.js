@@ -1,15 +1,13 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import CityModel from 'modules/endpoint/models/CityModel'
 
 import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import createReduxStore from '../../../app/createReduxStore'
-import createHistory from '../../../app/createHistory'
 import { EXTRAS_ROUTE } from '../../../app/routes/extras'
-import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
 
 describe('LocationLayout', () => {
   const matchRoute = id => {}
@@ -71,33 +69,38 @@ describe('LocationLayout', () => {
     expect(component).toMatchSnapshot()
   })
 
-  describe('connect()', () => {
-    const city = 'augsburg'
+  it('should map state to props', () => {
+    const type = 'RANDOM_ROUTE'
+    const city = 'city'
+    const location = {
+      payload: {city, language},
+      type
+    }
 
-    const store = createReduxStore(createHistory, {
-      viewport: {is: {small: false}},
-      languages: {data: languages},
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
       events: {data: events},
-      cities: {data: cities}
+      cities: {data: cities},
+      languages: {data: languages},
+      viewport: {is: {small: false}}
     })
 
-    it('should map state to props', () => {
-      const tree = mount(
-        <Provider store={store}>
-          <ConnectedLocationLayout />
-        </Provider>
-      )
+    const locationLayout = shallow(
+      <ConnectedLocationLayout store={store} />
+    )
 
-      expect(tree.find(LocationLayout).props()).toEqual({
-        events: events,
-        languages: languages,
-        currentRoute: '',
-        city: city,
-        language: language,
-        cities: cities,
-        viewportSmall: false,
-        dispatch: expect.any(Function)
-      })
+    expect(locationLayout.props()).toEqual({
+      city,
+      viewportSmall: false,
+      language,
+      currentRoute: type,
+      languages,
+      events,
+      cities,
+      store,
+      dispatch: expect.any(Function),
+      storeSubscription: expect.any(Object)
     })
   })
 })

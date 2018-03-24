@@ -1,13 +1,10 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-
-import createHistory from 'modules/app/createHistory'
-import createReduxStore from 'modules/app/createReduxStore'
+import { shallow } from 'enzyme'
 
 import CityModel from 'modules/endpoint/models/CityModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ConnectedLanguageFailure, { LanguageFailure } from '../LanguageFailure'
+import configureMockStore from 'redux-mock-store'
 
 describe('LanguageFailure', () => {
   const city = 'augsburg'
@@ -38,26 +35,27 @@ describe('LanguageFailure', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  describe('connect', () => {
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        cities: {data: cities},
-        languages: {data: languages}
-      })
+  it('should map state to props', () => {
+    const location = {payload: {city}}
 
-      const languageFailure = mount(
-        <Provider store={store}>
-          <ConnectedLanguageFailure />
-        </Provider>
-      ).find(LanguageFailure)
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      languages: {data: languages},
+      cities: {data: cities}
+    })
 
-      expect(languageFailure.props()).toEqual({
-        city: city,
-        t: expect.any(Function),
-        cities: cities,
-        languages: languages,
-        dispatch: expect.any(Function)
-      })
+    const languageFailure = shallow(
+      <ConnectedLanguageFailure store={store} />
+    )
+
+    expect(languageFailure.props()).toEqual({
+      city,
+      cities,
+      languages,
+      dispatch: expect.any(Function),
+      store,
+      storeSubscription: expect.any(Object)
     })
   })
 })

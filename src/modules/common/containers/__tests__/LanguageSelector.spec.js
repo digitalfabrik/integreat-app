@@ -1,10 +1,7 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 
 import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector'
-import createReduxStore from '../../../app/createReduxStore'
-import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import { EVENTS_ROUTE } from '../../../app/routes/events'
 import EventModel from '../../../endpoint/models/EventModel'
@@ -14,6 +11,7 @@ import { SEARCH_ROUTE } from '../../../app/routes/search'
 import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
@@ -179,31 +177,31 @@ describe('LanguageSelector', () => {
     expect(languageSelector).toMatchSnapshot()
   })
 
-  describe('connect', () => {
-    it('should have correct props', () => {
-      const mockCloseDropDownCallback = jest.fn()
+  it('should map state to props', () => {
+    const mockCloseDropDownCallback = jest.fn()
+    const location = {type: 'DISCLAIMER', payload: {city, language}, pathname: '/augsburg/de/disclaimer'}
 
-      const store = createReduxStore(createHistory, {
-        languages: {data: languages},
-        categories: {data: categories},
-        events: {data: events}
-      })
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      languages: {data: languages},
+      categories: {data: categories},
+      events: {data: events}
+    })
 
-      const tree = mount(
-        <Provider store={store}>
-          <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
-        </Provider>
-      )
+    const languageSelector = shallow(
+      <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} store={store} />
+    )
 
-      const languageSelector = tree.find(LanguageSelector)
-
-      expect(languageSelector.props()).toEqual({
-        closeDropDownCallback: mockCloseDropDownCallback,
-        languages: languages,
-        language: language,
-        city: city,
-        dispatch: expect.any(Function)
-      })
+    expect(languageSelector.props()).toEqual({
+      closeDropDownCallback: mockCloseDropDownCallback,
+      languages,
+      location,
+      events,
+      categories,
+      dispatch: expect.any(Function),
+      store,
+      storeSubscription: expect.any(Object)
     })
   })
 })

@@ -30,10 +30,9 @@ export class LanguageSelector extends React.Component {
   }
 
   /**
-   * Maps the given languageCode to a path to link to, which is either the languageChangeUrl from the store or,
-   * if this is not given, the root categories page in the language
-   * @param languageCode The languageCode
-   * @return {string} The path
+   * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
+   * @param languageCode
+   * @return {*}
    */
   getLanguageChangeAction (languageCode) {
     const {location, categories, events} = this.props
@@ -96,8 +95,7 @@ const mapStateToProps = state => ({
   location: state.location,
   languages: state.languages.data,
   categories: state.categories.data,
-  events: state.events.data,
-  cities: state.cities.data
+  events: state.events.data
 })
 
 export default connect(mapStateToProps)(LanguageSelector)
