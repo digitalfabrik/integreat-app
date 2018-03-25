@@ -77,6 +77,10 @@ describe('sprungbrettJobs', () => {
     )
   })
 
+  it('should throw if the url to map the url are missing', () => {
+    expect(() => sprungbrettJobs.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
   it('should map fetched data to models', () => {
     const sprungbrettModel = sprungbrettJobs.mapResponse(json)
     expect(sprungbrettModel).toEqual(sprungbrettJobModels)

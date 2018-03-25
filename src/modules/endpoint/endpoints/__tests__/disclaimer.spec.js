@@ -27,6 +27,14 @@ describe('disclaimer', () => {
     )
   })
 
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => disclaimer.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => disclaimer.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+  })
+
   it('should throw if there are multiple disclaimers', () => {
     expect(() => disclaimer.mapResponse([pageJson, pageJson])).toThrowErrorMatchingSnapshot()
   })

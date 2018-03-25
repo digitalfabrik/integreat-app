@@ -48,10 +48,6 @@ class Endpoint {
      */
     const formattedURL = this.mapParamsToUrl(params)
 
-    if (formattedURL.includes('undefined')) {
-      throw new Error(`Some necessary params in the state were undefined: ${formattedURL}`)
-    }
-
     const lastUrl = oldPayload.requestUrl
 
     if (lastUrl && lastUrl === formattedURL) {
