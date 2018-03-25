@@ -1,6 +1,8 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedSearchInput, { SearchInput } from '../SearchInput'
+import theme from '../../../app/constants/theme'
+import { ThemeProvider } from 'styled-components'
 
 describe('SearchInput', () => {
   it('should render', () => {
@@ -28,9 +30,13 @@ describe('SearchInput', () => {
   it('should pass onFilterTextChange and onClickInput', () => {
     const outerFilterTextChange = jest.fn()
     const onClickInput = jest.fn()
-    const component = mount(<ConnectedSearchInput filterText={'Test'}
-                                            onClickInput={onClickInput}
-                                            onFilterTextChange={outerFilterTextChange} />)
+    const component = mount(
+      <ThemeProvider theme={theme}>
+        <ConnectedSearchInput filterText={'Test'}
+                              onClickInput={onClickInput}
+                              onFilterTextChange={outerFilterTextChange} />
+      </ThemeProvider>
+    )
     component.find('input').simulate('click')
     expect(onClickInput).toHaveBeenCalled()
     component.find('input').simulate('change', {target: {value: 'test'}})

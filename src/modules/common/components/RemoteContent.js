@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
-import style from './RemoteContent.css'
+import { SandBox } from './RemoteContent.styles'
 
 class RemoteContent extends React.Component {
   static propTypes = {
@@ -15,8 +14,8 @@ class RemoteContent extends React.Component {
   }
 
   render () {
-    return <div className={cx({[style.centered]: this.props.centered, [style.remoteContent]: true})}
-                dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
+    return <SandBox centered={this.props.centered}
+                    dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML} />
   }
 }
 

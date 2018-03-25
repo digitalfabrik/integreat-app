@@ -1,8 +1,8 @@
-@import url('../../common/constants/colors.css');
-@import url('../../common/constants/fonts.css');
-@import url('../../common/constants/helpers.css');
-@import url('../../common/constants/fonts.css');
-@import url('../../common/constants/dimensions.css');
+@import url('../../app/constants/colors.css');
+@import url('../../app/constants/fonts.css');
+@import url('../../app/constants/helpers.css');
+@import url('../../app/constants/fonts.css');
+@import url('../../app/constants/dimensions.css');
 
 .content {
   max-width: 1000px;

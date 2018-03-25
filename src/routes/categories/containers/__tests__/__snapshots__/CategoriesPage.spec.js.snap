@@ -3,37 +3,7 @@
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
   <Breadcrumbs
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
+    locationName="Augsburg"
     parents={Array []}
   />
   <Tiles
@@ -58,7 +28,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     title="Augsburg"
   />
   <PdfButton
-    href="/augsburg/en/fetch-pdf?url=/augsburg/de"
+    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"
   />
 </div>
 `;
@@ -66,47 +36,17 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
   <Breadcrumbs
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
+    locationName="Augsburg"
     parents={
       Array [
         CategoryModel {
           "_availableLanguages": Object {},
           "_content": "",
           "_id": 0,
-          "_order": 0,
+          "_order": -1,
           "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_parentUrl": "",
+          "_thumbnail": "no_thumbnail",
           "_title": "augsburg",
           "_url": "/augsburg/de",
         },
@@ -129,12 +69,11 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     }
   />
   <Page
-    content="<p>Willkommen in Augsbur…er Stadt Augsburg</p>
-"
+    content="some content"
     title="Willkommen in Augsburg"
   />
   <PdfButton
-    href="/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen/willkommen-in-augsburg"
+    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen/willkommen-in-augsburg"
   />
 </div>
 `;
@@ -148,47 +87,17 @@ exports[`CategoriesPage should match snapshot and render an Error if path is not
 exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
 <div>
   <Breadcrumbs
-    locations={
-      Array [
-        LocationModel {
-          "_code": "augsburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Augsburg",
-          "_sortCategory": "A",
-          "_sortKey": "augsburg",
-        },
-        LocationModel {
-          "_code": "regensburg",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Stadt Regensburg",
-          "_sortCategory": "R",
-          "_sortKey": "regensburg",
-        },
-        LocationModel {
-          "_code": "werne",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Werne",
-          "_sortCategory": "W",
-          "_sortKey": "werne",
-        },
-      ]
-    }
+    locationName="Augsburg"
     parents={
       Array [
         CategoryModel {
           "_availableLanguages": Object {},
           "_content": "",
           "_id": 0,
-          "_order": 0,
+          "_order": -1,
           "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_parentUrl": "",
+          "_thumbnail": "no_thumbnail",
           "_title": "augsburg",
           "_url": "/augsburg/de",
         },
@@ -202,12 +111,11 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
           "children": Array [],
           "model": CategoryModel {
             "_availableLanguages": Object {
-              "ar": "397",
-              "de": "711",
-              "en": "390",
+              "ar": 397,
+              "de": 711,
+              "en": 390,
             },
-            "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
-",
+            "_content": "some content",
             "_id": 35,
             "_order": 1,
             "_parentId": 3649,
@@ -223,7 +131,7 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
     title="Willkommen"
   />
   <PdfButton
-    href="/augsburg/en/fetch-pdf?url=/augsburg/de/willkommen"
+    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
   />
 </div>
 `;

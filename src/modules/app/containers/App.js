@@ -1,5 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
+
 import createReduxStore from '../createReduxStore'
 import createHistory from '../createHistory'
 import I18nProvider from './I18nProvider'
@@ -15,6 +17,7 @@ import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrett'
 import RouteConfig from '../RouteConfig'
 import RouterFragment from './RouterFragment'
 import createRouteConfig from '../createRouteConfig'
+import theme from '../constants/theme'
 
 class App extends React.Component {
   store
@@ -34,7 +37,9 @@ class App extends React.Component {
       <EndpointProvider
         endpoints={[languagesEndpoint, locationEndpoint, categoriesEndpoint, disclaimerEndpoint, eventsEndpoint, extrasEndpoint, sprungbrettEndpoint]}>
         <I18nProvider>
-          <RouterFragment routeConfig={this.routeConfig} />
+          <ThemeProvider theme={theme}>
+            <RouterFragment routeConfig={this.routeConfig} />
+          </ThemeProvider>
         </I18nProvider>
       </EndpointProvider>
     </Provider>

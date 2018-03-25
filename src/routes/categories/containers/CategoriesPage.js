@@ -19,9 +19,10 @@ import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import LanguageFailure from './LanguageFailure'
 import TileModel from '../../../modules/common/models/TileModel'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { apiUrl } from '../../../modules/endpoint/constants'
 
-type mapLanguageToPath = (string, ?string) => string
+type MapLanguageToPath = (string, ?string) => string
 
 type Props = {
   categories: CategoriesMapModel,
@@ -30,8 +31,8 @@ type Props = {
   location: string,
   language: string,
   path: string,
-  categoryId?: string,
-  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, ?Object) => void,
+  categoryId?: number,
+  setLanguageChangeUrls: (MapLanguageToPath, Array<LanguageModel>, ?Object) => void,
   replaceUrl: (string) => void
 }
 
@@ -43,15 +44,23 @@ export class CategoriesPage extends React.Component<Props> {
    * If category is defined, we want to redirect to the page with the given id,
    * else we just dispatch the language change urls here
    */
-  componentDidMount () {
+  componentWillMount () {
     if (this.props.categoryId) {
-      const category = this.props.categories.getCategoryById(this.props.categoryId)
-      if (category) {
-        this.props.replaceUrl(category.url)
+      try {
+        const category = this.props.categories.getCategoryById(this.props.categoryId)
+        if (category) {
+          this.props.replaceUrl(category.url)
+        }
+      } catch (e) {
+        // this will be obsolete soon, so don't do anything if the id is invalid
       }
     }
-    const category = this.props.categories.getCategoryByUrl(this.props.path)
-    this.setLanguageChangeUrls(category)
+    try {
+      const category = this.props.categories.getCategoryByUrl(this.props.path)
+      this.setLanguageChangeUrls(category)
+    } catch (e) {
+      // error is handled in the render method
+    }
   }
 
   /**
@@ -90,8 +99,12 @@ export class CategoriesPage extends React.Component<Props> {
     }
   }
 
-  getPdfFetchPath () {
-    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.path}`
+  getPdfUrl (category: CategoryModel) {
+    if (category.id === 0) {
+      return `${apiUrl}/${this.props.location}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
+    } else {
+      return `${apiUrl}/${this.props.location}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${this.props.path}`
+    }
   }
 
   /**
@@ -100,12 +113,12 @@ export class CategoriesPage extends React.Component<Props> {
    * @param {String} title The title of the category to search for
    * @return {String} The found name or the given title
    */
-  getLocationName (title) {
+  getLocationName (title: string) {
     const location = this.props.locations.find(_location => title === _location.code)
     return location ? location.name : title
   }
 
-  getTileModels (categories) {
+  getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
     }))
@@ -139,19 +152,18 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    const category = this.props.categories.getCategoryByUrl(this.props.path)
-
-    if (!category) {
+    try {
+      const category = this.props.categories.getCategoryByUrl(this.props.path)
+      return <div>
+        <Breadcrumbs
+          parents={this.props.categories.getAncestors(category)}
+          locationName={this.getLocationName(this.props.location)} />
+        {this.getContent(category)}
+        <PdfButton href={this.getPdfUrl(category)} />
+      </div>
+    } catch (e) {
       return <Failure error='not-found:page.notFound' />
     }
-
-    return <div>
-      <Breadcrumbs
-        parents={this.props.categories.getAncestors(category)}
-        locations={this.props.locations} />
-      {this.getContent(category)}
-      <PdfButton href={this.getPdfFetchPath()} />
-    </div>
   }
 }
 
@@ -165,7 +177,7 @@ const mapStateToProps = state => ({
   language: state.router.params.language,
   location: state.router.params.location,
   path: state.router.pathname,
-  categoryId: state.router.query.id
+  categoryId: Number(state.router.query.id)
 })
 
 export default compose(

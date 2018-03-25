@@ -1,5 +1,4 @@
 import SearchPage from 'routes/search/containers/SearchPage'
-import PdfFetcherPage from 'routes/pdf-fetcher/containers/PdfFetcherPage'
 import MainDisclaimerPage from 'routes/main-disclaimer/components/MainDisclaimerPage'
 import CategoriesPage from 'routes/categories/containers/CategoriesPage'
 import ExtrasPage from 'routes/extras/containers/ExtrasPage'
@@ -27,10 +26,6 @@ const createRouteConfig = () => [
   new Route({
     id: EventsPage,
     path: '/:location/:language/events(/:id)'
-  }),
-  new Route({
-    id: PdfFetcherPage,
-    path: '/:location/:language/fetch-pdf'
   }),
   new Route({
     id: ExtrasPage,

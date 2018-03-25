@@ -10,6 +10,8 @@ import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
 import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('SearchPage', () => {
   const location = 'augsburg'
@@ -24,9 +26,13 @@ describe('SearchPage', () => {
     new CategoryModel({
       id: 0,
       url: '/augsburg/de',
-      title: 'augsburg'
-    }),
-    new CategoryModel({
+      title: 'augsburg',
+      content: '',
+      parentId: -1,
+      order: -1,
+      availableLanguages: {},
+      thumbnail: 'no_thumbnail'
+    }), new CategoryModel({
       id: 3650,
       url: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
@@ -107,12 +113,14 @@ describe('SearchPage', () => {
     const store = mockStore({router: {}})
 
     const tree = mount(
-      <Provider store={store}>
-        <SearchPage location={location}
-                    languages={languages}
-                    categories={categories}
-                    setLanguageChangeUrls={() => {}} />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <SearchPage location={location}
+                      languages={languages}
+                      categories={categories}
+                      setLanguageChangeUrls={() => {}} />
+        </Provider>
+      </ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -165,12 +173,14 @@ describe('SearchPage', () => {
     const store = mockStore({router: {}})
 
     const tree = mount(
-      <Provider store={store}>
-        <SearchPage location={location}
-                    languages={languages}
-                    categories={categories}
-                    setLanguageChangeUrls={() => {}} />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <SearchPage location={location}
+                      languages={languages}
+                      categories={categories}
+                      setLanguageChangeUrls={() => {}} />
+        </Provider>
+      </ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -202,11 +212,13 @@ describe('SearchPage', () => {
       })
 
       const tree = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
-            <ConnectedSearchPage />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
+              <ConnectedSearchPage />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       )
 
       const categoriesPageProps = tree.find(SearchPage).props()
@@ -227,11 +239,13 @@ describe('SearchPage', () => {
       expect(store.getState().languageChangeUrls).toEqual({})
 
       mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
-            <ConnectedSearchPage />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
+              <ConnectedSearchPage />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       )
 
       expect(store.getState().languageChangeUrls).toEqual({
