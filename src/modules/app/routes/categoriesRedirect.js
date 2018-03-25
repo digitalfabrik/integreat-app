@@ -7,6 +7,7 @@ import { redirect } from 'redux-first-router'
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { goToCategories } from './categories'
 import { goToNotFound } from './notFound'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 
 export const CATEGORIES_REDIRECT_ROUTE = 'CATEGORIES_REDIRECT'
 export const goToCategoriesRedirect = (city: string, language: string, categoryId: number) =>
@@ -22,17 +23,17 @@ export const categoriesRedirectRoute = {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
 
-    const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
+    const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language, url: ''})
 
-    if (!categoriesPayload.data) {
+    if (!categoriesPayload.data || !(categoriesPayload.data instanceof CategoriesMapModel)) {
       // todo error handling
-    }
-
-    try {
-      const category = categoriesPayload.data.getCategoryById(Number(categoryId))
-      dispatch(redirect(goToCategories(city, language, category.path)))
-    } catch (e) {
-      dispatch(redirect(goToNotFound(city, language)))
+    } else if (categoriesPayload.data instanceof CategoriesMapModel) {
+      try {
+        const category = categoriesPayload.data.getCategoryById(Number(categoryId))
+        dispatch(redirect(goToCategories(city, language, category.path)))
+      } catch (e) {
+        dispatch(redirect(goToNotFound()))
+      }
     }
   }
 }

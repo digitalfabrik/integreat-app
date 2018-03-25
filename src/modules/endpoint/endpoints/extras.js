@@ -3,11 +3,7 @@
 import { apiUrl } from '../constants'
 import ExtraModel from '../models/ExtraModel'
 import EndpointBuilder from '../EndpointBuilder'
-
-type Params = {
-  city: string,
-  language: string
-}
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('extras')
   .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`)

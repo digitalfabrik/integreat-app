@@ -5,11 +5,7 @@ import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 
 import EndpointBuilder from '../EndpointBuilder'
-
-type Params = {
-  city: string,
-  language: string
-}
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('categories')
   .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)

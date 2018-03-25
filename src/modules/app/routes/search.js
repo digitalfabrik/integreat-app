@@ -19,6 +19,6 @@ export const searchRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
+    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language, url: ''})
   }
 }

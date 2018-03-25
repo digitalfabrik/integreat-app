@@ -5,6 +5,7 @@ import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import ExtraModel from '../../endpoint/models/ExtraModel'
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 export const goToExtras = (city: string, language: string, extraAlias: ?string) =>
@@ -20,16 +21,16 @@ export const extrasRoute = {
     const state = getState()
     const {city, language, extraAlias} = state.location.payload
 
-    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
+    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language, url: ''})
 
-    if (!extrasPayload) {
+    if (!extrasPayload.data) {
       // todo error handling
-    }
-
-    if (extraAlias === 'sprungbrett') {
-      const sprungbrettModel = extrasPayload.data.find(_extra => _extra.alias === extraAlias)
-      if (sprungbrettModel) {
-        await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {url: sprungbrettModel.path})
+    } else if (Array.isArray(extrasPayload.data)) {
+      if (extraAlias === 'sprungbrett') {
+        const sprungbrettModel = extrasPayload.data.find(_extra => _extra instanceof ExtraModel && _extra.alias === extraAlias)
+        if (sprungbrettModel) {
+          await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {city, language, url: sprungbrettModel.path})
+        }
       }
     }
   }
