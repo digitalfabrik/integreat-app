@@ -81,19 +81,18 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    try {
-      const categoryModel = this.props.categories.getCategoryByUrl(this.props.path)
-
+    const categoryModel = this.props.categories.findCategoryByUrl(this.props.path)
+    if (categoryModel) {
       return <div>
-        <Breadcrumbs
-          parents={this.props.categories.getAncestors(categoryModel)}
-          locationName={this.getCityName(this.props.city)} />
-        {this.getContent(categoryModel)}
-        <PdfButton href={this.getPdfUrl(categoryModel)} />
-      </div>
-    } catch (e) {
-      return <Failure error='not-found:page.notFound' />
+          <Breadcrumbs
+            parents={this.props.categories.getAncestors(categoryModel)}
+            locationName={this.getCityName(this.props.city)} />
+          {this.getContent(categoryModel)}
+          <PdfButton href={this.getPdfUrl(categoryModel)} />
+        </div>
     }
+
+    return <Failure error='not-found:page.notFound' />
   }
 }
 

@@ -27,28 +27,19 @@ class CategoriesMapModel {
   /**
    * Returns the category with the given url
    * @param {String} url The url
-   * @return {CategoryModel} The category
+   * @return {CategoryModel | undefined} The category
    */
-  getCategoryByUrl (url: string): CategoryModel {
-    const category = this._categories.get(normalizeUrl(url))
-    if (!category) {
-      throw Error(`No category with the given url '${url}'`)
-    }
-    return category
+  findCategoryByUrl (url: string): ?CategoryModel {
+    return this._categories.get(normalizeUrl(url))
   }
 
   /**
    * Returns the category with the given id
    * @param id The id
-   * @return {CategoryModel} The category
+   * @return {CategoryModel | undefined} The category
    */
-  getCategoryById (id: number): CategoryModel {
-    const category = this.toArray().find(category => category.id === id)
-
-    if (!category) {
-      throw Error(`No category with the given id '${id}'`)
-    }
-    return category
+  findCategoryById (id: number): ?CategoryModel {
+    return this.toArray().find(category => category.id === id)
   }
 
   /**
@@ -70,8 +61,12 @@ class CategoriesMapModel {
   getAncestors (category: CategoryModel): Array<CategoryModel> {
     const parents = []
 
-    while (category.parentUrl !== '') {
-      category = this.getCategoryByUrl(category.parentUrl)
+    while (category.id !== 0) {
+      const temp = this.findCategoryByUrl(category.parentUrl)
+      if (!temp) {
+        throw new Error(`The category ${category.parentUrl} does not exist but should be the parent of ${category.url}`)
+      }
+      category = temp
       parents.unshift(category)
     }
     return parents
