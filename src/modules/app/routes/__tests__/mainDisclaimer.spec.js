@@ -8,6 +8,6 @@ describe('mainDisclaimer route', () => {
   })
 
   it('should have the right path', () => {
-    expect(mainDisclaimerRoute.path).toBe('/disclaimer')
+    expect(mainDisclaimerRoute).toBe('/disclaimer')
   })
 })

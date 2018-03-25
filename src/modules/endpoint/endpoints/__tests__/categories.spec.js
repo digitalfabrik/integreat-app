@@ -95,9 +95,25 @@ describe('categories', () => {
     )
   })
 
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => categories.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => categories.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+  })
+
   it('should map fetched data to models', () => {
     const response = categories.mapResponse(categoriesJSON, params)
     const categoriesMapModel = new CategoriesMapModel(categoryModels)
     expect(response).toEqual(categoriesMapModel)
+  })
+
+  it('should throw if city to map the data are missing', () => {
+    expect(() => categories.mapResponse('json', {})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if language to map the data are missing', () => {
+    expect(() => categories.mapResponse('json', {city: 'city'})).toThrowErrorMatchingSnapshot()
   })
 })

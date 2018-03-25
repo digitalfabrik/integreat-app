@@ -42,6 +42,14 @@ describe('extras', () => {
     )
   })
 
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => extras.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => extras.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+  })
+
   it('should map json to models', () => {
     const disclaimerModel = extras.mapResponse(pageJson)
     expect(disclaimerModel).toEqual(extraModels)

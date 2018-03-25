@@ -1,5 +1,6 @@
 import languages from '../languages'
 import LanguageModel from '../../models/LanguageModel'
+import categories from '../categories'
 
 jest.unmock('modules/endpoint/endpoints/languages')
 
@@ -21,6 +22,10 @@ describe('languages', () => {
     expect(languages.mapParamsToUrl(params)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/languages/wpml'
     )
+  })
+
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => categories.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {

@@ -41,6 +41,14 @@ describe('events', () => {
     )
   })
 
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => events.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => events.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+  })
+
   const toEventModel = json => {
     const allDay = json.event.all_day !== '0'
     return new EventModel({

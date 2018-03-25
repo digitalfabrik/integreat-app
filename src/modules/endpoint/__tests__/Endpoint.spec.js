@@ -21,20 +21,6 @@ describe('Endpoint', () => {
     expect(endpoint.stateName).toBe('endpoint')
   })
 
-  it('should throw if needed state params are undefined', async () => {
-    const endpoint = createEndpoint({name: 'endpoint'})
-
-    const dispatch = () => {}
-    const oldPayload = {}
-    const params = {}
-
-    try {
-      await endpoint.loadData(dispatch, oldPayload, params)
-    } catch (e) {
-      expect(e).toMatchSnapshot()
-    }
-  })
-
   describe('Actions', () => {
     let clock
     const mockedTime = 0
