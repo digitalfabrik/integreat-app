@@ -23,7 +23,7 @@ export const categoriesRedirectRoute = {
     const state = getState()
     const {city, language, categoryId} = state.location.payload
 
-    const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language, url: ''})
+    const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
 
     if (!categoriesPayload.data || !(categoriesPayload.data instanceof CategoriesMapModel)) {
       // todo error handling

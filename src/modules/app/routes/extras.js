@@ -21,7 +21,7 @@ export const extrasRoute = {
     const state = getState()
     const {city, language, extraAlias} = state.location.payload
 
-    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language, url: ''})
+    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
 
     if (!extrasPayload.data) {
       // todo error handling

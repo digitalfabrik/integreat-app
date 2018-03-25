@@ -9,7 +9,7 @@ import type { PayloadData } from './Payload'
 export const LOADING_ERROR = 'Failed to load the request for the endpoint'
 export const MAPPING_ERROR = 'Failed to map the json for the endpoint'
 
-export type Params = {city: string, language: string, url: string}
+export type Params = {city?: string, language?: string, url?: string}
 export type MapParamsToUrl = (params: Params) => string
 export type MapResponse = (json: any, params: Params) => PayloadData
 

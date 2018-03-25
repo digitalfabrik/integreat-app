@@ -20,6 +20,6 @@ export const categoriesRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language, url: ''})
+    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
   }
 }

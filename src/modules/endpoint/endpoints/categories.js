@@ -8,9 +8,24 @@ import EndpointBuilder from '../EndpointBuilder'
 import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('categories')
-  .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
+  .withParamsToUrlMapper((params: Params): string => {
+    if (!params.city) {
+      throw new Error('The city is missing. Could not map the params to the categories endpoint url.')
+    }
+    if (!params.language) {
+      throw new Error('The language is missing. Could not map the params to the categories endpoint url.')
+    }
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
+  })
   .withMapper((json: any, params: Params): CategoriesMapModel => {
-    const baseUrl = `/${params.city}/${params.language}`
+    if (!params.city) {
+      throw new Error('The city is missing. Could not map the json in categories endpoint.')
+    }
+    if (!params.language) {
+      throw new Error('The language is missing. Could not map the json in categories endpoint.')
+    }
+    const city = params.city
+    const baseUrl = `/${city}/${params.language}`
     const categories = json
       .filter(category => category.status === 'publish')
       .map(category => {
@@ -32,7 +47,7 @@ export default new EndpointBuilder('categories')
       id: 0,
       url: baseUrl,
       path: '',
-      title: params.city,
+      title: city,
       parentId: -1,
       content: '',
       thumbnail: '',
