@@ -10,6 +10,8 @@ import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ConnectedLanguageFailure, { LanguageFailure } from '../LanguageFailure'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('LanguageFailure', () => {
   const location = 'augsburg'
@@ -96,11 +98,13 @@ describe('LanguageFailure', () => {
       })
 
       const languageFailure = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
-            <ConnectedLanguageFailure />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
+              <ConnectedLanguageFailure />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       ).find(LanguageFailure)
 
       expect(languageFailure.props()).toEqual({
@@ -131,11 +135,13 @@ describe('LanguageFailure', () => {
       expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
 
       mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
-            <ConnectedLanguageFailure />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[locationsEndpoint, languagesEndpoint]}>
+              <ConnectedLanguageFailure />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       ).find(LanguageFailure)
 
       expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)

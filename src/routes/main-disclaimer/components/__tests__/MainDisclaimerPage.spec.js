@@ -1,9 +1,11 @@
 import React from 'react'
-import { render } from 'enzyme'
+import { mount } from 'enzyme'
 import MainDisclaimerPage from '../MainDisclaimerPage'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('MainDisclaimerPage', () => {
   it('should render', () => {
-    render(<MainDisclaimerPage />)
+    mount(<ThemeProvider theme={theme}><MainDisclaimerPage /></ThemeProvider>)
   })
 })

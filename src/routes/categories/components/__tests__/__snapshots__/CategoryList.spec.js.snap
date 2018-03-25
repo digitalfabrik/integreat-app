@@ -13,19 +13,17 @@ exports[`CategoryList should render and display a caption 1`] = `
       }
     }
   />
-  <div
-    className="list"
-  >
+  <CategoryListstyles__List>
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 35,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "Willkommen in Augsburg",
           "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
@@ -35,20 +33,20 @@ exports[`CategoryList should render and display a caption 1`] = `
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 35,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "Willkommen in Augsburg",
           "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
       }
       key="35"
     />
-  </div>
+  </CategoryListstyles__List>
 </div>
 `;
 
@@ -62,19 +60,17 @@ exports[`CategoryList should render and not display a caption 1`] = `
       }
     }
   />
-  <div
-    className="list"
-  >
+  <CategoryListstyles__List>
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 35,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "Willkommen in Augsburg",
           "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
@@ -84,19 +80,19 @@ exports[`CategoryList should render and not display a caption 1`] = `
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
+          "_availableLanguages": undefined,
+          "_content": undefined,
           "_id": 35,
-          "_order": 0,
-          "_parentId": -1,
-          "_parentUrl": null,
-          "_thumbnail": null,
+          "_order": undefined,
+          "_parentId": undefined,
+          "_parentUrl": undefined,
+          "_thumbnail": undefined,
           "_title": "Willkommen in Augsburg",
           "_url": "/augsburg/de/willkommen/willkommen-in-augsburg",
         }
       }
       key="35"
     />
-  </div>
+  </CategoryListstyles__List>
 </div>
 `;

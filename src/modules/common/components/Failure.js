@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
 
-import style from './Failure.css'
 import { Link } from 'redux-little-router'
+
+import { Centered } from './Failure.styles'
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
@@ -17,11 +18,11 @@ export class Failure extends React.Component {
 
   render () {
     const {t, error} = this.props
-    return <div>
-      <div className={style.centerText}>{t(error)}</div>
-      <div className={style.centerText}><FontAwesome name='frown-o' size='5x' /></div>
-      <Link className={style.centerText} href={'/'}>{t('goToStart')}</Link>
-    </div>
+    return <Centered>
+      <div>{t(error)}</div>
+      <div><FontAwesome name='frown-o' size='5x' /></div>
+      <Link href={'/'}>{t('goToStart')}</Link>
+    </Centered>
   }
 }
 

@@ -3,6 +3,8 @@ import { mount, shallow } from 'enzyme'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
 import { animateScroll } from 'react-scroll'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../app/constants/theme'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
@@ -25,10 +27,12 @@ describe('ScrollingSearchBox', () => {
   it('should pass onFilterTextChange and call scroll()', () => {
     const outerFilterTextChange = jest.fn()
     const component = mount(
-      <ScrollingSearchBox filterText={'Test'}
-                          onFilterTextChange={outerFilterTextChange}>
-        <MockNode />
-      </ScrollingSearchBox>)
+      <ThemeProvider theme={theme}>
+        <ScrollingSearchBox filterText={'Test'}
+                            onFilterTextChange={outerFilterTextChange}>
+          <MockNode />
+        </ScrollingSearchBox>
+      </ThemeProvider>).find(ScrollingSearchBox)
     component.instance().scroll = jest.fn()
 
     component.find(SearchInput).prop('onFilterTextChange')('test')
@@ -39,18 +43,22 @@ describe('ScrollingSearchBox', () => {
 
   it('should set correct reference', () => {
     const component = mount(
-      <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
-        <MockNode />
-      </ScrollingSearchBox>)
+      <ThemeProvider theme={theme}>
+        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+          <MockNode />
+        </ScrollingSearchBox>
+      </ThemeProvider>).find(ScrollingSearchBox)
     const node = component.instance()._node
     expect(node).toMatchSnapshot()
   })
 
   it('shouldnt call scroll() if user is already below searchInput onClick', () => {
     const component = mount(
-      <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
-        <MockNode />
-      </ScrollingSearchBox>)
+      <ThemeProvider theme={theme}>
+        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+          <MockNode />
+        </ScrollingSearchBox>
+      </ThemeProvider>).find(ScrollingSearchBox)
 
     component.instance().scroll = jest.fn()
     component.instance()._node = {offsetTop: 15}
@@ -62,9 +70,11 @@ describe('ScrollingSearchBox', () => {
 
   it('should call scroll() if user is above searchInput onClick', () => {
     const component = mount(
-      <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
-        <MockNode />
-      </ScrollingSearchBox>)
+      <ThemeProvider theme={theme}>
+        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+          <MockNode />
+        </ScrollingSearchBox>
+      </ThemeProvider>).find(ScrollingSearchBox)
 
     component.instance().scroll = jest.fn()
     component.instance()._node = {offsetTop: 15}
@@ -76,9 +86,11 @@ describe('ScrollingSearchBox', () => {
 
   it('should call animateScroll on scroll()', () => {
     const component = mount(
-      <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
-        <MockNode />
-      </ScrollingSearchBox>)
+      <ThemeProvider theme={theme}>
+        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+          <MockNode />
+        </ScrollingSearchBox>
+      </ThemeProvider>).find(ScrollingSearchBox)
 
     component.instance()._node = {offsetTop: 15}
     component.instance().scroll()
