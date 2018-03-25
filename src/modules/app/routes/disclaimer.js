@@ -19,6 +19,6 @@ export const disclaimerRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await disclaimerEndpoint.loadData(dispatch, state.disclaimer, {city, language, url: ''})
+    await disclaimerEndpoint.loadData(dispatch, state.disclaimer, {city, language})
   }
 }
