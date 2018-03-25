@@ -25,13 +25,15 @@ export const categoriesRedirectRoute = {
 
     const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
 
-    if (!categoriesPayload.data || !(categoriesPayload.data instanceof CategoriesMapModel)) {
+    if (!categoriesPayload.data) {
       // todo error handling
-    } else if (categoriesPayload.data instanceof CategoriesMapModel) {
-      try {
-        const category = categoriesPayload.data.getCategoryById(Number(categoryId))
+    }
+
+    if (categoriesPayload.data instanceof CategoriesMapModel) {
+      const category = categoriesPayload.data.findCategoryById(Number(categoryId))
+      if (category) {
         dispatch(redirect(goToCategories(city, language, category.path)))
-      } catch (e) {
+      } else {
         dispatch(redirect(goToNotFound()))
       }
     }

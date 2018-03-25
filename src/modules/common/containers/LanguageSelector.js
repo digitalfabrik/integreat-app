@@ -42,13 +42,9 @@ export class LanguageSelector extends React.Component {
     switch (routeType) {
       case CATEGORIES_ROUTE:
         if (categories) {
-          try {
-            const category = categories.getCategoryByUrl(location.pathname)
-            if (category && category.id !== 0) {
-              return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
-            }
-          } catch (e) {
-            // start of the fetching process is after route change, so there could still be the old categories in the store
+          const category = categories.findCategoryByUrl(location.pathname)
+          if (category && category.id !== 0) {
+            return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
           }
         }
         return goToCategories(city, languageCode)
