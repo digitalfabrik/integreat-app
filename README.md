@@ -121,8 +121,25 @@ You can [view our bugs](https://integreat.atlassian.net/) or [create new ones](h
 
 ## Deployment to web.
 
-See instructions [here](tools/deploy/README.md).
+1. Create new release on Jira (should be empty)
+2. Update old issues to use the created release as Fix Version
+   * Query to find old issues: `project = "integreat-webapp" AND Sprint = "Highway to I10K!" AND Sprint != "Highway to IXIK!" AND fixVersion is empty`
+3. Release the Jira release
+4. Generate release notes in Jira
 
+5. Create a branch and create a Pull Request to develop:
+    * Update version number in package.json
+6. Merge branch in develop
+
+7. Create Pull Request to merge develop in master:
+8. Merge develop in master
+
+9. Tag the master HEAD as "2018.03.02". Add the release notes from Jira as description.
+10. Send release notes to Slack channel #app-web
+
+11. See instructions for deployment [here](tools/deploy/README.md).
+    * Example: `tools/deploy/ssh-deploy.sh web.integreat-app.de /var/www/web.integreat-app.de/`
+    
 ## Deployment to webnext.
 
 1.  When pushing to any branch a [travis](https://travis-ci.org/Integreat/integreat-webapp) build ist triggered. When 
