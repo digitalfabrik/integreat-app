@@ -2,10 +2,7 @@
 
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 import EndpointBuilder from '../EndpointBuilder'
-
-type Params = {
-  url: string
-}
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('sprungbrettJobs')
   .withParamsToUrlMapper((params: Params): string => params.url)

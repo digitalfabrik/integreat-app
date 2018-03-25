@@ -3,10 +3,7 @@
 import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
-
-type Params = {
-  city: string
-}
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('languages')
   .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`)

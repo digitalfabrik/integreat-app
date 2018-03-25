@@ -19,6 +19,6 @@ export const i18nRedirectRoute = {
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
 
-    await citiesEndpoint.loadData(dispatch, state.cities)
+    await citiesEndpoint.loadData(dispatch, state.cities, {city: '', language: '', url: ''})
   }
 }

@@ -2,26 +2,16 @@
 
 import Payload from './Payload'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
-import CategoriesMapModel from './models/CategoriesMapModel'
-import CityModel from './models/CityModel'
-import LanguageModel from './models/LanguageModel'
-import EventModel from './models/EventModel'
-import ExtraModel from './models/ExtraModel'
-import SprungbrettModel from './models/SprungbrettJobModel'
-import DisclaimerModel from './models/DisclaimerModel'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
+import type { PayloadData } from './Payload'
 
 export const LOADING_ERROR = 'Failed to load the request for the endpoint'
 export const MAPPING_ERROR = 'Failed to map the json for the endpoint'
 
-type Params = {city?: string, language?: string} | {url: string}
-type PayloadData = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettModel> |
-  CategoriesMapModel | DisclaimerModel
-type MapParamsToUrl = (params: Params) => string
-type MapResponse = (json: any, params?: Params) => PayloadData
-type ResponseOverride = () => PayloadData
-type ErrorOverride = () => string
+export type Params = {city: string, language: string, url: string}
+export type MapParamsToUrl = (params: Params) => string
+export type MapResponse = (json: any, params: Params) => PayloadData
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -30,11 +20,11 @@ class Endpoint {
   _stateName: string
   mapParamsToUrl: MapParamsToUrl
   mapResponse: MapResponse
-  responseOverride: ?ResponseOverride
-  errorOverride: ?ErrorOverride
+  responseOverride: ?PayloadData
+  errorOverride: ?string
 
   constructor (name: string, mapParamsToUrl: MapParamsToUrl, mapResponse: MapResponse,
-    responseOverride: ?ResponseOverride, errorOverride: ?ErrorOverride) {
+    responseOverride: ?PayloadData, errorOverride: ?string) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
@@ -89,7 +79,7 @@ class Endpoint {
     return payload
   }
 
-  async fetchData (formattedUrl: string, params: Params): Promise<PayloadData> {
+  async fetchData (formattedUrl: string, params: Params): Promise<Payload> {
     const response = await fetch(formattedUrl)
     if (!response.ok) {
       console.error(`${LOADING_ERROR}: ${this.stateName}`)
