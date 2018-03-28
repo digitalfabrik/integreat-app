@@ -43,7 +43,8 @@ export class CategoriesPage extends React.Component<Props> {
    * @return {String} The found name or the given title
    */
   getCityName (title: string) {
-    const city = this.props.cities.find(_city => title === _city.code)
+    const cities = this.props.cities
+    const city = cities && this.props.cities.find(_city => title === _city.code)
     return city ? city.name : title
   }
 

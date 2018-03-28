@@ -43,7 +43,7 @@ const LoadingSpinner = () => <Spinner name='line-scale-party' />
  * Renders different Pages depending on the current route. If the needed data is not available, a LoadingSpinner is rendered
  */
 export class Switcher extends React.Component<Props> {
-  static getFailureLoadingComponents (payload: Payload): React.Node {
+  static renderFailureLoadingComponents (payload: Payload): React.Node {
     if (payload.error) {
       return <Failure error={payload.error} />
     } else if (payload.isFetching || !payload.data) {
@@ -53,26 +53,26 @@ export class Switcher extends React.Component<Props> {
     }
   }
 
-  getPage (): React.Node {
+  renderPage (): React.Node {
     const {currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload} = this.props
 
     switch (currentRoute) {
       case I18N_REDIRECT_ROUTE:
-        return Switcher.getFailureLoadingComponents(citiesPayload) || <I18nRedirect />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) || <I18nRedirect />
       case LANDING_ROUTE:
-        return Switcher.getFailureLoadingComponents(citiesPayload) || <LandingPage />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) || <LandingPage />
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        return Switcher.getFailureLoadingComponents(categoriesPayload) || <CategoriesPage />
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <CategoriesPage />
       case EVENTS_ROUTE:
-        return Switcher.getFailureLoadingComponents(eventsPayload) || <EventsPage />
+        return Switcher.renderFailureLoadingComponents(eventsPayload) || <EventsPage />
       case EXTRAS_ROUTE:
-        return Switcher.getFailureLoadingComponents(extrasPayload) || <ExtrasPage />
+        return Switcher.renderFailureLoadingComponents(extrasPayload) || <ExtrasPage />
       case DISCLAIMER_ROUTE:
-        return Switcher.getFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
+        return Switcher.renderFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
       case SEARCH_ROUTE:
-        return Switcher.getFailureLoadingComponents(categoriesPayload) || <SearchPage />
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <SearchPage />
       default:
         return <Failure error={'Route not found'} />
     }
@@ -83,16 +83,16 @@ export class Switcher extends React.Component<Props> {
 
     if (currentRoute === LANDING_ROUTE) {
       return <Layout footer={<GeneralFooter />}>
-        {this.getPage()}
+        {this.renderPage()}
       </Layout>
     } else if (LocationLayoutRoutes.includes(currentRoute)) {
       return <LocationLayout>
-        {this.getPage()}
+        {this.renderPage()}
       </LocationLayout>
     }
     return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                    footer={<GeneralFooter />}>
-      {this.getPage()}
+      {this.renderPage()}
     </Layout>
   }
 }
