@@ -53,11 +53,11 @@ describe('Switcher', () => {
   })
 
   it('should return a spinner if the data has not been fetched yet', () => {
-    expect(Switcher.getFailureLoadingComponents(fetchingPayload)).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents(fetchingPayload)).toMatchSnapshot()
   })
 
   it('should return a failure if there was an error during fetching', () => {
-    expect(Switcher.getFailureLoadingComponents(errorPayload)).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents(errorPayload)).toMatchSnapshot()
   })
 
   describe('should get the right page if data has been fetched and', () => {
