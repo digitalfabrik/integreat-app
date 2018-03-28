@@ -70,16 +70,20 @@ class Endpoint {
       return payload
     }
 
-    const payload = await this.fetchData(formattedURL, params)
-    dispatch(finishFetchAction(this.stateName, payload))
-    return payload
+    try {
+      const payload = await this.fetchData(formattedURL, params)
+      dispatch(finishFetchAction(this.stateName, payload))
+      return payload
+    } catch (e) {
+      console.error(`${LOADING_ERROR}: ${this.stateName}`)
+      return new Payload(false, null, LOADING_ERROR, formattedURL)
+    }
   }
 
   async fetchData (formattedUrl: string, params: Params): Promise<Payload> {
     const response = await fetch(formattedUrl)
     if (!response.ok) {
-      console.error(`${LOADING_ERROR}: ${this.stateName}`)
-      return new Payload(false, null, LOADING_ERROR, formattedUrl)
+      throw new Error(LOADING_ERROR)
     }
     try {
       const json = await response.json()
