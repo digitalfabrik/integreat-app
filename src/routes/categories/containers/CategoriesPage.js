@@ -15,7 +15,7 @@ import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
-import NotFoundError from '../errors/NotFoundError'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -85,7 +85,7 @@ export class CategoriesPage extends React.Component<Props> {
         </div>
     }
 
-    const error = new NotFoundError({type: 'category', id: this.props.path, city: cityName})
+    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: cityName})
     return <FailureSwitcher error={error} />
   }
 }

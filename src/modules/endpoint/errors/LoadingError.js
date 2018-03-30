@@ -3,7 +3,7 @@
 class LoadingError extends Error {
   _endpointName: string
 
-  getMessage = (endpointName: string, message: ?string) =>
+  getMessage = (endpointName: string, message: ?string): string =>
     `Failed to load the request for the ${endpointName} endpoint. ${message || ''}`
 
   constructor (params: {endpointName: string, message: string}) {

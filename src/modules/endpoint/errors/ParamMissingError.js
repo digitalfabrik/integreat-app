@@ -4,7 +4,7 @@ class ParamMissingError extends Error {
   _endpointName: string
   _paramName: string
 
-  getMessage = (endpointName: string, paramName: string) =>
+  getMessage = (endpointName: string, paramName: string): string =>
     `Failed to load the ${endpointName} endpoint because the ${paramName} is missing`
 
   constructor (endpointName: string, paramName: string) {
