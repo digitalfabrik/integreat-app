@@ -25,10 +25,10 @@ export const categoriesRedirectRoute = {
     const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
 
     if (categoriesPayload.data) {
-      try {
-        const category = categoriesPayload.data.getCategoryById(Number(categoryId))
+      const category = categoriesPayload.data.findCategoryById(Number(categoryId))
+      if (category) {
         dispatch(redirect(goToCategories(city, language, category.path)))
-      } catch (e) {
+      } else {
         dispatch(redirect(goToNotFound()))
       }
     }

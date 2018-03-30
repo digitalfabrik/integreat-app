@@ -13,7 +13,6 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import Caption from '../components/Caption'
-import { NOT_FOUND } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
 
 /**
@@ -31,10 +30,9 @@ export class LanguageSelector extends React.Component {
   }
 
   /**
-   * Maps the given languageCode to a path to link to, which is either the languageChangeUrl from the store or,
-   * if this is not given, the root categories page in the language
-   * @param languageCode The languageCode
-   * @return {string} The path
+   * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
+   * @param languageCode
+   * @return {*}
    */
   getLanguageChangeAction (languageCode) {
     const {location, categories, events} = this.props
@@ -44,13 +42,9 @@ export class LanguageSelector extends React.Component {
     switch (routeType) {
       case CATEGORIES_ROUTE:
         if (categories) {
-          try {
-            const category = categories.getCategoryByUrl(location.pathname)
-            if (category && category.id !== 0) {
-              return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
-            }
-          } catch (e) {
-            // start of the fetching process is after route change, so there could still be the old categories in the store
+          const category = categories.findCategoryByUrl(location.pathname)
+          if (category && category.id !== 0) {
+            return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
           }
         }
         return goToCategories(city, languageCode)
@@ -68,8 +62,6 @@ export class LanguageSelector extends React.Component {
         return goToDisclaimer(city, languageCode)
       case SEARCH_ROUTE:
         return goToSearch(city, languageCode)
-      case NOT_FOUND:
-        return goToCategories(location.prev.payload.city, languageCode)
     }
   }
 
@@ -99,8 +91,7 @@ const mapStateToProps = state => ({
   location: state.location,
   languages: state.languages.data,
   categories: state.categories.data,
-  events: state.events.data,
-  cities: state.cities.data
+  events: state.events.data
 })
 
 export default connect(mapStateToProps)(LanguageSelector)
