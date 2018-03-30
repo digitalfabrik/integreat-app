@@ -24,6 +24,8 @@ import { SEARCH_ROUTE } from '../routes/search'
 
 import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
+import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
+import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
 
 type Props = {
   viewportSmall: boolean,
@@ -40,8 +42,8 @@ const LoadingSpinner = () => <Spinner name='line-scale-party' />
 /**
  * Renders different Pages depending on the current route. If the needed data is not available, a LoadingSpinner is rendered
  */
-class Switcher extends React.Component<Props> {
-  static getFailureLoadingComponents (payload: Payload): React.Node {
+export class Switcher extends React.Component<Props> {
+  static renderFailureLoadingComponents (payload: Payload): React.Node {
     if (payload.error) {
       return <Failure error={payload.error} />
     } else if (payload.isFetching || !payload.data) {
@@ -51,24 +53,29 @@ class Switcher extends React.Component<Props> {
     }
   }
 
-  getPage (): React.Node {
+  renderPage (): React.Node {
     const {currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload} = this.props
 
     switch (currentRoute) {
+      case I18N_REDIRECT_ROUTE:
+        return Switcher.renderFailureLoadingComponents(citiesPayload) || <I18nRedirectPage />
       case LANDING_ROUTE:
-        return Switcher.getFailureLoadingComponents(citiesPayload) || <LandingPage />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) || <LandingPage />
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        return Switcher.getFailureLoadingComponents(categoriesPayload) || <CategoriesPage />
+        // The CategoriesPage needs cities and categories
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) ||
+          Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          <CategoriesPage />
       case EVENTS_ROUTE:
-        return Switcher.getFailureLoadingComponents(eventsPayload) || <EventsPage />
+        return Switcher.renderFailureLoadingComponents(eventsPayload) || <EventsPage />
       case EXTRAS_ROUTE:
-        return Switcher.getFailureLoadingComponents(extrasPayload) || <ExtrasPage />
+        return Switcher.renderFailureLoadingComponents(extrasPayload) || <ExtrasPage />
       case DISCLAIMER_ROUTE:
-        return Switcher.getFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
+        return Switcher.renderFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
       case SEARCH_ROUTE:
-        return Switcher.getFailureLoadingComponents(categoriesPayload) || <SearchPage />
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <SearchPage />
       default:
         return <Failure error={'Route not found'} />
     }
@@ -79,16 +86,16 @@ class Switcher extends React.Component<Props> {
 
     if (currentRoute === LANDING_ROUTE) {
       return <Layout footer={<GeneralFooter />}>
-        {this.getPage()}
+        {this.renderPage()}
       </Layout>
     } else if (LocationLayoutRoutes.includes(currentRoute)) {
       return <LocationLayout>
-        {this.getPage()}
+        {this.renderPage()}
       </LocationLayout>
     }
     return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
                    footer={<GeneralFooter />}>
-      {this.getPage()}
+      {this.renderPage()}
     </Layout>
   }
 }
@@ -97,7 +104,6 @@ const mapStateToProps = state => ({
   viewportSmall: state.viewport.is.small,
   currentRoute: state.location.type,
   citiesPayload: state.cities,
-  languagesPayload: state.languages,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
   extrasPayload: state.extras,
