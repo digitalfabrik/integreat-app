@@ -1,53 +1,35 @@
 // @flow
 
-import { createAction } from 'redux-actions'
-
 import Payload from './Payload'
-import type { Action, Dispatch } from 'redux-first-router/dist/flow-types'
-import CategoriesMapModel from './models/CategoriesMapModel'
-import CityModel from './models/CityModel'
-import LanguageModel from './models/LanguageModel'
-import EventModel from './models/EventModel'
-import ExtraModel from './models/ExtraModel'
-import SprungbrettModel from './models/SprungbrettJobModel'
-import DisclaimerModel from './models/DisclaimerModel'
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import startFetchAction from './actions/startFetchAction'
+import finishFetchAction from './actions/finishFetchAction'
+import type { PayloadData } from './Payload'
 
-export const startFetchActionName = (type: string): string => `START_FETCH_${type.toUpperCase()}`
-export const finishFetchActionName = (type: string): string => `FINISH_FETCH_${type.toUpperCase()}`
+export const LOADING_ERROR = 'Failed to load the request for the endpoint'
+export const MAPPING_ERROR = 'Failed to map the json for the endpoint'
 
-export const endpointLoadingErrorMessage = 'Failed to load the request for the endpoint'
-
-type Params = {city?: string, language?: string} | {url: string}
-type PayloadData = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettModel> |
-  CategoriesMapModel | DisclaimerModel
-type FinishFetchAction = (payload: Payload) => Action
-type StartFetchAction = (payload: Payload) => Action
-type MapParamsToUrl = (params: Params) => string
-type MapResponse = (json: any, params?: Params) => PayloadData
-type ResponseOverride = () => PayloadData
-type ErrorOverride = () => string
+export type Params = {city?: string, language?: string, url?: string}
+export type MapParamsToUrl = (params: Params) => string
+export type MapResponse = (json: any, params: Params) => PayloadData
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
 class Endpoint {
   _stateName: string
-  finishFetchAction: FinishFetchAction
-  startFetchAction: StartFetchAction
   mapParamsToUrl: MapParamsToUrl
   mapResponse: MapResponse
-  responseOverride: ?ResponseOverride
-  errorOverride: ?ErrorOverride
+  responseOverride: ?PayloadData
+  errorOverride: ?string
 
   constructor (name: string, mapParamsToUrl: MapParamsToUrl, mapResponse: MapResponse,
-    responseOverride: ?ResponseOverride, errorOverride: ?ErrorOverride) {
+    responseOverride: ?PayloadData, errorOverride: ?string) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
     this.errorOverride = errorOverride
     this._stateName = name
-    this.finishFetchAction = (payload: Payload) => createAction(finishFetchActionName(this._stateName))(payload)
-    this.startFetchAction = () => createAction(startFetchActionName(this._stateName))(new Payload(true))
   }
 
   get stateName (): string {
@@ -66,10 +48,6 @@ class Endpoint {
      */
     const formattedURL = this.mapParamsToUrl(params)
 
-    if (formattedURL.includes('undefined')) {
-      throw new Error(`Some necessary params in the state were undefined: ${formattedURL}`)
-    }
-
     const lastUrl = oldPayload.requestUrl
 
     if (lastUrl && lastUrl === formattedURL) {
@@ -78,39 +56,43 @@ class Endpoint {
     }
 
     // Fetch if the data is not valid anymore or it hasn't been fetched yet
-    dispatch(this.startFetchAction())
+    dispatch(startFetchAction(this.stateName))
 
     if (errorOverride) {
       const payload = new Payload(false, null, errorOverride, formattedURL)
-      dispatch(this.finishFetchAction(payload))
+      dispatch(finishFetchAction(this.stateName, payload))
       return payload
     }
     if (responseOverride) {
       const data = this.mapResponse(responseOverride, params)
       const payload = new Payload(false, data, null, formattedURL)
-      dispatch(this.finishFetchAction(payload))
+      dispatch(finishFetchAction(this.stateName, payload))
       return payload
     }
 
-    const payload = await this.fetchData(formattedURL, params)
-    dispatch(this.finishFetchAction(payload))
-    return payload
+    try {
+      const payload = await this.fetchData(formattedURL, params)
+      dispatch(finishFetchAction(this.stateName, payload))
+      return payload
+    } catch (e) {
+      console.error(`${LOADING_ERROR}: ${this.stateName}`)
+      return new Payload(false, null, LOADING_ERROR, formattedURL)
+    }
   }
 
-  async fetchData (formattedUrl: string, params: Params): Promise<PayloadData> {
+  async fetchData (formattedUrl: string, params: Params): Promise<Payload> {
     const response = await fetch(formattedUrl)
     if (!response.ok) {
-      console.error(`${endpointLoadingErrorMessage}: ${this.stateName}`)
-      return new Payload(false, null, endpointLoadingErrorMessage, formattedUrl)
+      throw new Error(LOADING_ERROR)
     }
-    const json = await response.json()
     try {
+      const json = await response.json()
       const fetchedData = this.mapResponse(json, params)
       return new Payload(false, fetchedData, null, formattedUrl)
     } catch (e) {
-      console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
+      console.error(`${MAPPING_ERROR}: ${this.stateName}`)
       console.error(e)
-      return new Payload(false, null, 'endpoint:page.loadingFailed', formattedUrl)
+      return new Payload(false, null, MAPPING_ERROR, formattedUrl)
     }
   }
 }
