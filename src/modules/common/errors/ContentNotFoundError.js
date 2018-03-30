@@ -2,7 +2,7 @@
 
 type NotFound = 'category' | 'event' | 'extra'
 
-class NotFoundError extends Error {
+class ContentNotFoundError extends Error {
   _type: NotFound
   _id: string | number
   _city: string
@@ -31,4 +31,4 @@ class NotFoundError extends Error {
   }
 }
 
-export default NotFoundError
+export default ContentNotFoundError

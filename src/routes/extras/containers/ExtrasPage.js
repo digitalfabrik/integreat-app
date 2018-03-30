@@ -13,7 +13,7 @@ import Spinner from 'react-spinkit'
 import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import NotFoundError from '../../categories/errors/NotFoundError'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
@@ -61,7 +61,7 @@ export class ExtrasPage extends React.Component<Props> {
       } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
         const cityName = CityModel.findCityName(cities, city)
-        const error = new NotFoundError({type: 'extra', id: extraAlias, city: cityName})
+        const error = new ContentNotFoundError({type: 'extra', id: extraAlias, city: cityName})
         return <FailureSwitcher error={error} />
       }
     } else {

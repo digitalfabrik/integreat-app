@@ -5,7 +5,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import NotFoundError from '../../categories/errors/NotFoundError'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
 
 type Props = {
@@ -31,7 +31,7 @@ export class EventsPage extends React.Component<Props> {
         return <EventDetail event={event} location={city} language={language} />
       } else {
         const cityName = CityModel.findCityName(cities, city)
-        const error = new NotFoundError({type: 'event', id: eventId, city: cityName})
+        const error = new ContentNotFoundError({type: 'event', id: eventId, city: cityName})
         return <FailureSwitcher error={error} />
       }
     }
