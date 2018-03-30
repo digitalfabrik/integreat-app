@@ -1,8 +1,6 @@
 // @flow
 
 import React from 'react'
-import Link from 'redux-first-router-link'
-import Highlighter from 'react-highlighter'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
@@ -27,7 +25,7 @@ class CategoryListItem extends React.Component<Props> {
   getChildren () {
     return this.props.children.map(child =>
       <div key={child.id}>
-        <StyledLink href={child.url}>
+        <StyledLink to={child.url}>
           {
             child.thumbnail
               ? <SubCategoryThumbnail src={child.thumbnail} />
@@ -49,7 +47,7 @@ class CategoryListItem extends React.Component<Props> {
     const {category} = this.props
     return (
       <Row>
-        <StyledLink href={category.url}>
+        <StyledLink to={category.url}>
           <CategoryThumbnail src={category.thumbnail || iconPlaceholder} />
           {this.getTitle()}
         </StyledLink>
