@@ -2,13 +2,15 @@
 
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 import EndpointBuilder from '../EndpointBuilder'
-
-type Params = {
-  url: string
-}
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('sprungbrettJobs')
-  .withParamsToUrlMapper((params: Params): string => params.url)
+  .withParamsToUrlMapper((params: Params): string => {
+    if (!params.url) {
+      throw new Error('The url is missing. Could not map the params to the sprungbrettJobs endpoint url.')
+    }
+    return params.url
+  })
   .withMapper((json: any): Array<SprungbrettJobModel> => json.results
     .map((job, index) => new SprungbrettJobModel({
       id: index,

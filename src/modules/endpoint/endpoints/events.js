@@ -4,14 +4,18 @@ import moment from 'moment'
 import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
-
-type Params = {
-  city: string,
-  language: string
-}
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('events')
-  .withParamsToUrlMapper((params: Params): string => `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`)
+  .withParamsToUrlMapper((params: Params): string => {
+    if (!params.city) {
+      throw new Error('The city is missing. Could not map the params to the events endpoint url.')
+    }
+    if (!params.language) {
+      throw new Error('The language is missing. Could not map the params to the events endpoint url.')
+    }
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
+  })
   .withMapper((json: any): Array<EventModel> => json
     .filter(event => event.status === 'publish')
     .map(event => {
