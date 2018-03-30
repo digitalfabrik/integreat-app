@@ -24,15 +24,13 @@ export const categoriesRedirectRoute = {
 
     const categoriesPayload = await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
 
-    if (!categoriesPayload.data) {
-      // todo error handling
-    }
-
-    try {
-      const category = categoriesPayload.data.getCategoryById(Number(categoryId))
-      dispatch(redirect(goToCategories(city, language, category.path)))
-    } catch (e) {
-      dispatch(redirect(goToNotFound(city, language)))
+    if (categoriesPayload.data) {
+      try {
+        const category = categoriesPayload.data.getCategoryById(Number(categoryId))
+        dispatch(redirect(goToCategories(city, language, category.path)))
+      } catch (e) {
+        dispatch(redirect(goToNotFound()))
+      }
     }
   }
 }
