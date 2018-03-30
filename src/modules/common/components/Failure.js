@@ -23,7 +23,7 @@ export class Failure extends React.Component<Props> {
     return <Centered>
       <div>{t(error)}</div>
       <div><FontAwesome name='frown-o' size='5x' /></div>
-      <Link to={goToI18nRedirect}>{t('goToStart')}</Link>
+      <Link to={goToI18nRedirect()}>{t('goToStart')}</Link>
     </Centered>
   }
 }
