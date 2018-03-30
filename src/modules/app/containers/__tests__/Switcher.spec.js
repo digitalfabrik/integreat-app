@@ -63,7 +63,7 @@ describe('Switcher', () => {
   describe('should get the right page if data has been fetched and', () => {
     it('is the categories route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: CATEGORIES_ROUTE, categoriesPayload: dataPayload})
+        createSwitcher({currentRoute: CATEGORIES_ROUTE, categoriesPayload: dataPayload, citiesPayload: dataPayload})
       )
 
       expect(switcher).toMatchSnapshot()
