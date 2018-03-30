@@ -1,6 +1,7 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
+import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
 import SprungbrettList from '../components/SprungbrettList'
@@ -10,6 +11,8 @@ import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import Failure from '../../../modules/common/components/Failure'
 import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
 import Spinner from 'react-spinkit'
+import Caption from '../../../modules/common/components/Caption'
+import { translate } from 'react-i18next'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -18,7 +21,8 @@ type Props = {
   language: string,
   extraAlias?: string,
   extras: Array<ExtraModel>,
-  sprungbrettJobs?: Array<SprungbrettJobModel>
+  sprungbrettJobs?: Array<SprungbrettJobModel>,
+  t: (string) => string
 }
 
 /**
@@ -56,7 +60,10 @@ export class ExtrasPage extends React.Component<Props> {
         return <Failure error={'not-found:page.notFound'} />
       }
     } else {
-      return <Tiles tiles={this.getTileModels()} />
+      return <React.Fragment>
+        <Caption title={this.props.t('extras')} />
+        <Tiles tiles={this.getTileModels()} />
+      </React.Fragment>
     }
   }
 
@@ -73,4 +80,7 @@ const mapStateToProps = state => ({
   sprungbrettJobs: state.sprungbrettJobs.data
 })
 
-export default connect(mapStateToProps)(ExtrasPage)
+export default compose(
+  translate('extras'),
+  connect(mapStateToProps)
+)(ExtrasPage)
