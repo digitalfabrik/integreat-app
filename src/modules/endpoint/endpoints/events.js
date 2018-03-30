@@ -5,14 +5,17 @@ import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import type { Params } from '../Endpoint'
+import ParamMissingError from '../errors/ParamMissingError'
 
-export default new EndpointBuilder('events')
+const EVENTS_ENDPOINT_NAME = 'events'
+
+export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: Params): string => {
     if (!params.city) {
-      throw new Error('The city is missing. Could not map the params to the events endpoint url.')
+      throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'city')
     }
     if (!params.language) {
-      throw new Error('The language is missing. Could not map the params to the events endpoint url.')
+      throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'language')
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
   })
