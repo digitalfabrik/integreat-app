@@ -10,7 +10,6 @@ import { goToCategories } from '../../../modules/app/routes/categories'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
 
 import type { Action } from 'redux-first-router/dist/flow-types'
-import { goToMainDisclaimer } from '../../../modules/app/routes/mainDisclaimer'
 
 type Props = {
   redirect: (Action) => void,
@@ -37,16 +36,11 @@ export class I18nRedirect extends React.Component<Props> {
       return goToLanding(i18n.language)
     }
 
-    if (param === 'disclaimer') {
-      return goToMainDisclaimer()
-    }
-
     // the param is a valid city, so redirect to the categories route with the detected language
     if (cities.find(_city => _city.code === param)) {
       return goToCategories(param, i18n.language)
     }
 
-    // param is neither a language code nor a city or "disclaimer", so it is not a valid route
     return goToNotFound()
   }
 
