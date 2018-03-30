@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 
 import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
@@ -15,6 +14,8 @@ import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { apiUrl } from '../../../modules/endpoint/constants'
+import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
+import NotFoundError from '../errors/NotFoundError'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -36,17 +37,6 @@ export class CategoriesPage extends React.Component<Props> {
     }
   }
 
-  /**
-   * Our root categories don't have the right title (city code instead of city title), so we have to compare the
-   * title of the root category with the code of every city
-   * @param {String} title The title of the category to search for
-   * @return {String} The found name or the given title
-   */
-  getCityName (title: string) {
-    const city = this.props.cities.find(_city => title === _city.code)
-    return city ? city.name : title
-  }
-
   getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
@@ -62,7 +52,7 @@ export class CategoriesPage extends React.Component<Props> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel) {
-    const categories = this.props.categories
+    const {categories, cities} = this.props
     const children = categories.getChildren(category)
 
     if (children.length === 0) {
@@ -72,7 +62,7 @@ export class CategoriesPage extends React.Component<Props> {
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={this.getCityName(category.title)} />
+                    title={CityModel.findCityName(cities, category.title)} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, children: categories.getChildren(model)}))}
@@ -81,18 +71,22 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    const categoryModel = this.props.categories.findCategoryByUrl(this.props.path)
+    const {categories, path, city, cities} = this.props
+    const categoryModel = categories.findCategoryByUrl(path)
+    const cityName = CityModel.findCityName(cities, city)
+
     if (categoryModel) {
       return <div>
           <Breadcrumbs
-            parents={this.props.categories.getAncestors(categoryModel)}
-            locationName={this.getCityName(this.props.city)} />
+            parents={categories.getAncestors(categoryModel)}
+            cityName={cityName} />
           {this.getContent(categoryModel)}
           <PdfButton href={this.getPdfUrl(categoryModel)} />
         </div>
     }
 
-    return <Failure error='not-found:page.notFound' />
+    const error = new NotFoundError({type: 'category', id: this.props.path, city: cityName})
+    return <FailureSwitcher error={error} />
   }
 }
 

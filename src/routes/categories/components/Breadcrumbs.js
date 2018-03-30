@@ -6,7 +6,7 @@ import { Breadcrumb, Separator, Title, Wrapper } from './Breadcrumbs.styles'
 
 type Props = {
   parents: Array<CategoryModel>,
-  locationName: string
+  cityName: string
 }
 
 /**
@@ -15,7 +15,7 @@ type Props = {
 class Breadcrumbs extends React.Component<Props> {
   getBreadcrumbs () {
     return this.props.parents.map(parent => {
-      const title = parent.id === 0 ? this.props.locationName : parent.title
+      const title = parent.id === 0 ? this.props.cityName : parent.title
       return (
         <Breadcrumb key={parent.url} to={parent.url}>
           <Separator />

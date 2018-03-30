@@ -8,11 +8,13 @@ import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import Failure from '../../../modules/common/components/Failure'
 import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
 import Spinner from 'react-spinkit'
 import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import NotFoundError from '../../categories/errors/NotFoundError'
+import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -22,7 +24,8 @@ type Props = {
   extraAlias?: string,
   extras: Array<ExtraModel>,
   sprungbrettJobs?: Array<SprungbrettJobModel>,
-  t: (string) => string
+  t: (string) => string,
+  cities: Array<CityModel>
 }
 
 /**
@@ -48,7 +51,7 @@ export class ExtrasPage extends React.Component<Props> {
   getContent () {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
-    const {extraAlias, extras, sprungbrettJobs} = this.props
+    const {extraAlias, extras, sprungbrettJobs, city, cities} = this.props
 
     if (extraAlias) {
       const extra = extras.find(_extra => _extra.alias === extraAlias)
@@ -57,7 +60,9 @@ export class ExtrasPage extends React.Component<Props> {
         return sprungbrettJobs ? <SprungbrettList title={extra.name} jobs={sprungbrettJobs} /> : <LoadingSpinner />
       } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
-        return <Failure error={'not-found:page.notFound'} />
+        const cityName = CityModel.findCityName(cities, city)
+        const error = new NotFoundError({type: 'extra', id: extraAlias, city: cityName})
+        return <FailureSwitcher error={error} />
       }
     } else {
       return <React.Fragment>
@@ -77,7 +82,8 @@ const mapStateToProps = state => ({
   language: state.location.payload.language,
   extraAlias: state.location.payload.extraAlias,
   extras: state.extras.data,
-  sprungbrettJobs: state.sprungbrettJobs.data
+  sprungbrettJobs: state.sprungbrettJobs.data,
+  cities: state.cities.data
 })
 
 export default compose(
