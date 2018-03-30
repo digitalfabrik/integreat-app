@@ -25,7 +25,8 @@ import { SEARCH_ROUTE } from '../routes/search'
 import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
 import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
-import I18nRedirect from '../../../routes/i18nRedirect/containers/I18nRedirect'
+import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
+import { CATEGORIES_REDIRECT_ROUTE } from '../routes/categoriesRedirect'
 
 type Props = {
   viewportSmall: boolean,
@@ -58,13 +59,16 @@ export class Switcher extends React.Component<Props> {
 
     switch (currentRoute) {
       case I18N_REDIRECT_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) || <I18nRedirect />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) || <I18nRedirectPage />
       case LANDING_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) || <LandingPage />
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <CategoriesPage />
+        // The CategoriesPage needs cities and categories
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) ||
+          Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          <CategoriesPage />
       case EVENTS_ROUTE:
         return Switcher.renderFailureLoadingComponents(eventsPayload) || <EventsPage />
       case EXTRAS_ROUTE:
@@ -73,6 +77,8 @@ export class Switcher extends React.Component<Props> {
         return Switcher.renderFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
       case SEARCH_ROUTE:
         return Switcher.renderFailureLoadingComponents(categoriesPayload) || <SearchPage />
+      case CATEGORIES_REDIRECT_ROUTE:
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <LoadingSpinner />
       default:
         return <Failure error={'Route not found'} />
     }

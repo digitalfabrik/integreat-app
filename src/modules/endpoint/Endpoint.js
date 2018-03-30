@@ -46,6 +46,7 @@ class Endpoint {
      * @param options The options get passed to the {@link mapResponse} function when fetching
      * @return {function(*, *)} The Action for the redux store which can initiate a fetch
      */
+    // todo: WEBAPP-203: Catch error
     const formattedURL = this.mapParamsToUrl(params)
 
     const lastUrl = oldPayload.requestUrl

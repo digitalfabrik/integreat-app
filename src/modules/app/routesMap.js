@@ -10,9 +10,9 @@ import { CATEGORIES_ROUTE, categoriesRoute } from './routes/categories'
 
 // this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
 const routesMap = {
+  [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRoute,
   [I18N_REDIRECT_ROUTE]: i18nRedirectRoute,
   [LANDING_ROUTE]: landingRoute,
-  [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRoute,
   [EVENTS_ROUTE]: eventsRoute,
   [EXTRAS_ROUTE]: extrasRoute,
   [DISCLAIMER_ROUTE]: disclaimerRoute,
