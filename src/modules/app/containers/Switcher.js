@@ -26,6 +26,7 @@ import Payload from '../../endpoint/Payload'
 import Failure from '../../common/components/Failure'
 import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
 import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
+import { CATEGORIES_REDIRECT_ROUTE } from '../routes/categoriesRedirect'
 
 type Props = {
   viewportSmall: boolean,
@@ -76,6 +77,8 @@ export class Switcher extends React.Component<Props> {
         return Switcher.renderFailureLoadingComponents(disclaimerPayload) || <DisclaimerPage />
       case SEARCH_ROUTE:
         return Switcher.renderFailureLoadingComponents(categoriesPayload) || <SearchPage />
+      case CATEGORIES_REDIRECT_ROUTE:
+        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <LoadingSpinner />
       default:
         return <Failure error={'Route not found'} />
     }
