@@ -23,10 +23,6 @@ export const extrasRoute = {
 
     const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
 
-    if (!extrasPayload.data) {
-      // todo error handling
-    }
-
     if (Array.isArray(extrasPayload.data)) {
       if (extraAlias === 'sprungbrett') {
         const sprungbrettModel = extrasPayload.data.find(_extra => _extra instanceof ExtraModel && _extra.alias === extraAlias)
