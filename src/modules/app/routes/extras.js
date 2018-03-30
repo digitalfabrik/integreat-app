@@ -22,14 +22,12 @@ export const extrasRoute = {
 
     const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
 
-    if (!extrasPayload) {
-      // todo error handling
-    }
-
-    if (extraAlias === 'sprungbrett') {
-      const sprungbrettModel = extrasPayload.data.find(_extra => _extra.alias === extraAlias)
-      if (sprungbrettModel) {
-        await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {url: sprungbrettModel.path})
+    if (extrasPayload) {
+      if (extraAlias === 'sprungbrett') {
+        const sprungbrettModel = extrasPayload.data.find(_extra => _extra.alias === extraAlias)
+        if (sprungbrettModel) {
+          await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {url: sprungbrettModel.path})
+        }
       }
     }
   }
