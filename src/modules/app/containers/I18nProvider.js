@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 import localesResources from 'locales.json'
-import { MAX_LANGUAGE_CODE_LENGTH, MIN_LANGUAGE_CODE_LENGTH } from '../constants'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGE = 'en'
@@ -55,11 +54,6 @@ export class I18nProvider extends React.Component {
 
   setLanguage (language) {
     const targetLanguage = language || this.i18n.languages[0]
-
-    if (targetLanguage.length < MIN_LANGUAGE_CODE_LENGTH || targetLanguage.length > MAX_LANGUAGE_CODE_LENGTH) {
-      // No valid language code
-      return
-    }
 
     this.setState({language: targetLanguage})
 
