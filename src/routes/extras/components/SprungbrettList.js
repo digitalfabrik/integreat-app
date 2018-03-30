@@ -1,7 +1,6 @@
 // @flow
 
-import React from 'react'
-import type { Node } from 'react'
+import * as React from 'react'
 
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
@@ -15,7 +14,7 @@ type Props = {
 }
 
 class SprungbrettList extends React.Component<Props> {
-  getListItems (): Array<Node> {
+  getListItems (): Array<React.Node> {
     return this.props.jobs.map(job => <SprungbrettListItem key={job.id} job={job} />)
   }
 
