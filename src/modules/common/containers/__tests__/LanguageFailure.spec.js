@@ -36,11 +36,8 @@ describe('LanguageFailure', () => {
   })
 
   it('should map state to props', () => {
-    const location = {payload: {city}}
-
     const mockStore = configureMockStore()
     const store = mockStore({
-      location: location,
       languages: {data: languages},
       cities: {data: cities}
     })
@@ -50,7 +47,6 @@ describe('LanguageFailure', () => {
     )
 
     expect(languageFailure.props()).toEqual({
-      city,
       cities,
       languages,
       dispatch: expect.any(Function),

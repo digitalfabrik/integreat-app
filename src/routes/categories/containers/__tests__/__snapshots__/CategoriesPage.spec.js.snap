@@ -3,7 +3,7 @@
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
   <Breadcrumbs
-    locationName="Augsburg"
+    cityName="Augsburg"
     parents={Array []}
   />
   <Tiles
@@ -36,7 +36,7 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
   <Breadcrumbs
-    locationName="Augsburg"
+    cityName="Augsburg"
     parents={
       Array [
         CategoryModel {
@@ -81,15 +81,15 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
 `;
 
 exports[`CategoriesPage should match snapshot and render an Error if path is not valid 1`] = `
-<Translate(Failure)
-  error="not-found:page.notFound"
+<FailureSwitcher
+  error={[Error: The category /augsburg/de/not/valid does not exist in augsburg in your current language.]}
 />
 `;
 
 exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
 <div>
   <Breadcrumbs
-    locationName="Augsburg"
+    cityName="Augsburg"
     parents={
       Array [
         CategoryModel {
