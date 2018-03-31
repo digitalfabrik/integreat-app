@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`categories should throw if city to map the data are missing 1`] = `"The city is missing. Could not map the json in categories endpoint."`;
+exports[`categories should throw if city to map the data are missing 1`] = `"Failed to load the categories endpoint because the city is missing"`;
 
-exports[`categories should throw if language to map the data are missing 1`] = `"The language is missing. Could not map the json in categories endpoint."`;
+exports[`categories should throw if language to map the data are missing 1`] = `"Failed to load the categories endpoint because the language is missing"`;
 
-exports[`categories should throw if the city to map the url are missing 1`] = `"The city is missing. Could not map the params to the categories endpoint url."`;
+exports[`categories should throw if the city to map the url are missing 1`] = `"Failed to load the categories endpoint because the city is missing"`;
 
-exports[`categories should throw if the language to map the url are missing 1`] = `"The language is missing. Could not map the params to the categories endpoint url."`;
+exports[`categories should throw if the language to map the url are missing 1`] = `"Failed to load the categories endpoint because the language is missing"`;

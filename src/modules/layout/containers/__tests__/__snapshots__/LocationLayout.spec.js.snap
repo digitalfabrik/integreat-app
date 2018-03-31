@@ -3,11 +3,7 @@
 exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
 <Layout
   footer={<Translate(GeneralFooter) />}
-  header={
-    <GeneralHeader
-      viewportSmall={true}
-    />
-  }
+  header={<Connect(GeneralHeader) />}
 >
   <MockNode />
 </Layout>

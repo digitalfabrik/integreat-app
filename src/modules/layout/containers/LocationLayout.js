@@ -41,7 +41,7 @@ export class LocationLayout extends React.Component<Props> {
     const isEventsActive = events ? events.length > 0 : false
 
     if (!cityModel) {
-      return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
+      return <Layout header={<GeneralHeader />}
                      footer={<GeneralFooter />}>
           {children}
         </Layout>
