@@ -1,5 +1,7 @@
 // @flow
 
+import LoadingError from './LoadingError'
+
 class MappingError extends Error {
   _endpointName: string
 
@@ -9,6 +11,10 @@ class MappingError extends Error {
   constructor (endpointName: string, message: string) {
     super()
     this.message = this.getMessage(endpointName, message)
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, LoadingError)
+    }
   }
 
   get endpointName (): string {

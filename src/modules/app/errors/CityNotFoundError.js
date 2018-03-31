@@ -7,6 +7,10 @@ class CityNotFoundError extends Error {
     super()
     this.message = 'city not found'
     this._city = params.city
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, CityNotFoundError)
+    }
   }
 
   get city (): string {
