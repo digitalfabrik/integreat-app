@@ -9,6 +9,7 @@ exports[`EventList should render a list of events 1`] = `
     className="list"
   >
     <EventListElement
+      city="augsburg"
       event={
         EventModel {
           "_address": undefined,
@@ -29,9 +30,9 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="1234"
       language="en"
-      parentUrl="/augsburg/en/events"
     />
     <EventListElement
+      city="augsburg"
       event={
         EventModel {
           "_address": undefined,
@@ -52,9 +53,9 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="1235"
       language="en"
-      parentUrl="/augsburg/en/events"
     />
     <EventListElement
+      city="augsburg"
       event={
         EventModel {
           "_address": undefined,
@@ -72,7 +73,6 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="2"
       language="en"
-      parentUrl="/augsburg/en/events"
     />
   </div>
 </React.Fragment>

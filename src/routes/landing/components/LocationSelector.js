@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 import style from './LocationSelector.css'
 import { transform } from 'lodash/object'
-import { groupBy, filter } from 'lodash/collection'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import { groupBy } from 'lodash/collection'
+import CityModel from 'modules/endpoint/models/CityModel'
 import LocationEntry from './LocationEntry'
 
 class LocationSelector extends React.PureComponent {
   static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)),
+    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)),
     filterText: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     stickyTop: PropTypes.number.isRequired
@@ -21,15 +21,15 @@ class LocationSelector extends React.PureComponent {
 
   filter () {
     const filterText = this.props.filterText.toLowerCase()
-    let locations = this.props.locations
+    const cities = this.props.cities
 
     if (filterText === 'wirschaffendas') {
-      return filter(locations, location => !location.live)
+      return cities.filter(_city => !_city.live)
+    } else {
+      return cities
+        .filter(_city => _city.live)
+        .filter(_city => _city.name.toLowerCase().includes(filterText))
     }
-
-    locations = filter(locations, location => location.live)
-
-    return filter(locations, location => location.name.toLowerCase().includes(filterText))
   }
 
   renderList (locations) {
@@ -39,7 +39,7 @@ class LocationSelector extends React.PureComponent {
         <div className={style.locationListParent} style={{top: `${this.props.stickyTop}px`}}>{key}</div>
         {locations.map(location => <LocationEntry
           key={location.code}
-          location={location}
+          city={location}
           language={this.props.language}
           filterText={this.props.filterText} />)}
       </div>)

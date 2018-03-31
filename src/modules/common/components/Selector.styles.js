@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 export const Element = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};

@@ -5,9 +5,9 @@ exports[`Selector should be vertical and match snapshot 1`] = `
   vertical={true}
 >
   <Selectorstyles__Element
-    href="/augsburg/en/"
     key="en"
     onClick={[Function]}
+    to="/augsburg/en/"
   >
     English
   </Selectorstyles__Element>
@@ -25,9 +25,9 @@ exports[`Selector should match snapshot 1`] = `
   vertical={false}
 >
   <Selectorstyles__Element
-    href="/augsburg/en/"
     key="en"
     onClick={[Function]}
+    to="/augsburg/en/"
   >
     English
   </Selectorstyles__Element>

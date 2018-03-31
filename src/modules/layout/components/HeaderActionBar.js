@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import cx from 'classnames'
 
 import HeaderDropDown from './HeaderDropDown'
@@ -23,7 +23,7 @@ class HeaderActionBar extends React.Component {
         this.props.items.map((item, index) => {
           return item.dropDownNode
             ? <HeaderDropDown key={index} iconSrc={item.iconSrc}>{item.dropDownNode}</HeaderDropDown>
-            : <Link key={index} href={item.href}><img src={item.iconSrc} /></Link>
+            : <Link key={index} to={item.href}><img src={item.iconSrc} /></Link>
         })
       }
     </div>

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageFailure should match snapshot 1`] = `
+<React.Fragment>
+  <Caption
+    title="Augsburg"
+  />
+  <p
+    className="chooseLanguage"
+  >
+    common:chooseYourLanguage
+  </p>
+  <Connect(LanguageSelector)
+    languages={
+      Array [
+        LanguageModel {
+          "_code": "en",
+          "_name": "English",
+        },
+        LanguageModel {
+          "_code": "de",
+          "_name": "Deutsch",
+        },
+        LanguageModel {
+          "_code": "ar",
+          "_name": "Arabic",
+        },
+      ]
+    }
+    verticalLayout={true}
+  />
+</React.Fragment>
+`;

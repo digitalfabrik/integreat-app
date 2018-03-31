@@ -32,13 +32,21 @@ describe('events', () => {
   const event3 = createEvent(4768, '1', '2017-09-29', '09:00:00', '2017-09-29', '15:00:00') // we get these from cms
   const event4 = createEvent(4826, '1', '2018-03-01', '00:00:00', '2018-06-01', '23:59:59')
 
-  const state = {router: {params: {location: 'augsburg', language: 'de'}}}
+  const params = {city: 'augsburg', language: 'de'}
 
-  it('should map router to url', () => {
-    expect(events.mapStateToUrl(state)).toEqual(
+  it('should map params to url', () => {
+    expect(events.mapParamsToUrl(params)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/events' +
       '?since=1970-01-01T00:00:00Z'
     )
+  })
+
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => events.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => events.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
   })
 
   const toEventModel = json => {

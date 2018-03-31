@@ -17,7 +17,7 @@ class Breadcrumbs extends React.Component<Props> {
     return this.props.parents.map(parent => {
       const title = parent.id === 0 ? this.props.locationName : parent.title
       return (
-        <Breadcrumb key={parent.url} href={parent.url}>
+        <Breadcrumb key={parent.url} to={parent.url}>
           <Separator />
           <Title>{title}</Title>
         </Breadcrumb>

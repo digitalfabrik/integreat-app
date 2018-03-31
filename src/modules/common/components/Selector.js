@@ -13,7 +13,7 @@ class Selector extends React.Component {
     closeDropDownCallback: PropTypes.func,
     items: PropTypes.arrayOf(PropTypes.instanceOf(SelectorItemModel)).isRequired,
     /** The code of the item which is currently active **/
-    activeItemCode: PropTypes.string.isRequired
+    activeItemCode: PropTypes.string
   }
 
   getItems () {
@@ -28,8 +28,8 @@ class Selector extends React.Component {
       } else {
         return (
           <Element key={item.code}
-                   onClick={this.props.closeDropDownCallback}
-                   href={item.path}>
+                onClick={this.props.closeDropDownCallback}
+                to={item.href}>
             {item.name}
           </Element>
         )

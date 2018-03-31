@@ -18,13 +18,21 @@ describe('disclaimer', () => {
     parent: 0
   }
 
-  const state = {router: {params: {location: 'augsburg', language: 'de'}}}
+  const params = {city: 'augsburg', language: 'de'}
 
   it('should map router to url', () => {
-    expect(disclaimer.mapStateToUrl(state)).toEqual(
+    expect(disclaimer.mapParamsToUrl(params)).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/disclaimer' +
       '?since=1970-01-01T00:00:00Z'
     )
+  })
+
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => disclaimer.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => disclaimer.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if there are multiple disclaimers', () => {

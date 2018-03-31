@@ -1,53 +1,35 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
-
-import SprungbrettPage from './SprungbrettPage'
+import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import Failure from '../../../modules/common/components/Failure'
-import Caption from '../../../modules/common/components/Caption'
-import { translate } from 'react-i18next'
+import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
+import Spinner from 'react-spinkit'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
+
+type Props = {
+  city: string,
+  language: string,
+  extraAlias?: string,
+  extras: Array<ExtraModel>,
+  sprungbrettJobs?: Array<SprungbrettJobModel>
+}
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
  */
-export class ExtrasPage extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    extra: PropTypes.string,
-    extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    setLanguageChangeUrls: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+export class ExtrasPage extends React.Component<Props> {
+  getSprungbrettPath (): string {
+    return `/${this.props.city}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
   }
 
-  componentWillMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToPath(this.props.extra), this.props.languages)
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (this.props.extra !== nextProps.extra) {
-      this.props.setLanguageChangeUrls(this.mapLanguageToPath(nextProps.extra), this.props.languages)
-    }
-  }
-
-  mapLanguageToPath = extra => language => `/${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
-
-  getSprungbrettPath () {
-    return `/${this.props.location}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
-  }
-
-  getTileModels () {
+  getTileModels (): Array<TileModel> {
     return this.props.extras.map(extra => new TileModel({
       id: extra.alias,
       name: extra.name,
@@ -60,19 +42,21 @@ export class ExtrasPage extends React.Component {
   }
 
   getContent () {
-    const {t} = this.props
-    const sprungbrett = this.props.extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
-    if (this.props.extra === SPRUNGBRETT_EXTRA && sprungbrett) {
-      return <SprungbrettPage title={sprungbrett.name} />
-    } else if (this.props.extra) {
+    const {extraAlias, extras, sprungbrettJobs} = this.props
+
+    if (extraAlias) {
+      const extra = extras.find(_extra => _extra.alias === extraAlias)
+
+      if (extra && extraAlias === SPRUNGBRETT_EXTRA) {
+        return sprungbrettJobs ? <SprungbrettList title={extra.name} jobs={sprungbrettJobs} /> : <LoadingSpinner />
+      } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
-      return <Failure error={'not-found:page.notFound'} />
+        return <Failure error={'not-found:page.notFound'} />
+      }
     } else {
-      return <React.Fragment>
-        <Caption title={t('extras')} />
-        <Tiles tiles={this.getTileModels()} />
-      </React.Fragment>
+      return <Tiles tiles={this.getTileModels()} />
     }
   }
 
@@ -82,18 +66,11 @@ export class ExtrasPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location,
-  language: state.router.params.language,
-  extra: state.router.params.extra
+  city: state.location.payload.city,
+  language: state.location.payload.language,
+  extraAlias: state.location.payload.extraAlias,
+  extras: state.extras.data,
+  sprungbrettJobs: state.sprungbrettJobs.data
 })
 
-const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToPath, languages) => dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
-})
-
-export default compose(
-  translate('extras'),
-  connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('extras'),
-  withFetcher('languages')
-)(ExtrasPage)
+export default connect(mapStateToProps)(ExtrasPage)
