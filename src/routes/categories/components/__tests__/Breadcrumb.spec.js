@@ -39,7 +39,7 @@ const parents = [
 describe('Breadcrumbs', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(
-      <Breadcrumbs parents={parents} locationName='Augsburg' />
+      <Breadcrumbs parents={parents} cityName='Augsburg' />
     )
 
     expect(wrapper).toMatchSnapshot()
