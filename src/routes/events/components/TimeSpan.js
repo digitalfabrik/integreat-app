@@ -11,7 +11,6 @@ type Props = {
 }
 
 class TimeSpan extends React.Component<Props> {
-
   /**
    * Returns a formatted string containing all relevant start and end date and time information
    * @param {String} locale The locale to format the span in
