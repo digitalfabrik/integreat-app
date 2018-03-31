@@ -27,8 +27,11 @@ import FailureSwitcher from '../../common/containers/FailureSwitcher'
 import { NOT_FOUND } from 'redux-first-router'
 import CityNotFoundError from '../errors/CityNotFoundError'
 import CityModel from '../../endpoint/models/CityModel'
-import withLayout from '../../layout/withLayout'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
+import Layout from '../../layout/components/Layout'
+import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/LocationLayout'
+import GeneralHeader from '../../layout/components/GeneralHeader'
+import GeneralFooter from '../../layout/components/GeneralFooter'
 
 type Props = {
   currentRoute: string,
@@ -40,7 +43,8 @@ type Props = {
   languages: ?Array<LanguageModel>,
   language: ?string,
   city: ?string,
-  param: ?string
+  param: ?string,
+  viewportSmall: boolean
 }
 
 /**
@@ -105,25 +109,48 @@ export class Switcher extends React.Component<Props> {
   }
 
   render () {
-    const {city, citiesPayload, language, languages, currentRoute} = this.props
+    const {city, citiesPayload, language, languages, currentRoute, viewportSmall} = this.props
 
     // The current city is invalid, so we want to show an error
     if (city && Array.isArray(citiesPayload.data) &&
       !citiesPayload.data.find(_city => _city instanceof CityModel && _city.code === city)) {
       const error = new CityNotFoundError({city})
-      const FailureSwitcherWithLayout = withLayout(currentRoute)(FailureSwitcher)
-      return <FailureSwitcherWithLayout error={error} />
+      return (
+        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
+          <FailureSwitcher error={error} />
+        </Layout>
+      )
     }
 
     // The current language is not available in the current city, so we want to show an error
     if (language && city && languages && !languages.find(_language => _language.code === language)) {
       const error = new LanguageNotFoundError({city, language})
-      const FailureSwitcherWithLayout = withLayout(currentRoute)(FailureSwitcher)
-      return <FailureSwitcherWithLayout error={error} />
+      return (
+        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
+          <FailureSwitcher error={error} />
+        </Layout>
+      )
     }
 
-    const PageWithLayout = withLayout(currentRoute)(this.renderPage)
-    return <PageWithLayout />
+    if (currentRoute === LANDING_ROUTE) {
+      return (
+        <Layout footer={<GeneralFooter />}>
+          {this.renderPage()}
+        </Layout>
+      )
+    } else if (LocationLayoutRoutes.includes(currentRoute)) {
+      return (
+        <LocationLayout>
+          {this.renderPage()}
+        </LocationLayout>
+      )
+    } else {
+      return (
+        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
+          {this.renderPage()}
+        </Layout>
+      )
+    }
   }
 }
 
@@ -137,7 +164,8 @@ const mapStateToProps = state => ({
   languages: state.languages.data,
   language: state.location.payload.language,
   city: state.location.payload.city,
-  param: state.location.payload.param
+  param: state.location.payload.param,
+  viewportSmall: state.viewport.is.small
 })
 
 export default connect(mapStateToProps)(Switcher)
