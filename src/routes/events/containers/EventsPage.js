@@ -4,16 +4,14 @@ import { connect } from 'react-redux'
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
-import CityModel from '../../../modules/endpoint/models/CityModel'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
+import FailureSwitcher from '../../../modules/common/containers/FailureSwitcher'
 
 type Props = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  eventId?: string,
-  cities: Array<CityModel>
+  eventId?: string
 }
 
 /**
@@ -21,7 +19,7 @@ type Props = {
  */
 export class EventsPage extends React.Component<Props> {
   render () {
-    const {events, eventId, city, language, cities} = this.props
+    const {events, eventId, city, language} = this.props
 
     if (eventId) {
       // event with the given id from this.props.id
@@ -30,8 +28,7 @@ export class EventsPage extends React.Component<Props> {
       if (event) {
         return <EventDetail event={event} location={city} language={language} />
       } else {
-        const cityName = CityModel.findCityName(cities, city)
-        const error = new ContentNotFoundError({type: 'event', id: eventId, city: cityName})
+        const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
         return <FailureSwitcher error={error} />
       }
     }
@@ -43,8 +40,7 @@ const mapStateToProps = state => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,
-  events: state.events.data,
-  cities: state.cities.data
+  events: state.events.data
 })
 
 export default connect(mapStateToProps)(EventsPage)
