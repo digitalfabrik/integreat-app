@@ -1,9 +1,10 @@
 import lolex from 'lolex'
 
-import Endpoint, { MAPPING_ERROR } from '../Endpoint'
+import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import startFetchAction from '../actions/startFetchAction'
 import finishFetchAction from '../actions/finishFetchAction'
+import MappingError from '../errors/MappingError'
 
 describe('Endpoint', () => {
   const stateName = 'endpoint'
@@ -87,7 +88,10 @@ describe('Endpoint', () => {
       fetch.mockResponse(malformedJSON)
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, null, MAPPING_ERROR, defaultMapParamsToUrl(params))
+      const payload = new Payload(false, null,
+        new MappingError(
+          stateName, 'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
+        ), defaultMapParamsToUrl(params))
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)
