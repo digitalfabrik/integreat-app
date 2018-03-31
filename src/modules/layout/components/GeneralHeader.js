@@ -10,7 +10,7 @@ type Props = {
   viewportSmall: boolean
 }
 
-export class GeneralHeader extends React.Component<Props> {
+class GeneralHeader extends React.Component<Props> {
   render () {
     return <Header viewportSmall={this.props.viewportSmall}
                    logoHref={goToI18nRedirect()}
