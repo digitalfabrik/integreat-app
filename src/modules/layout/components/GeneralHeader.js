@@ -1,15 +1,17 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItem from '../HeaderActionItem'
 import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
+import { connect } from 'react-redux'
 
-class GeneralHeader extends React.Component {
-  static propTypes = {
-    viewportSmall: PropTypes.bool.isRequired
-  }
+type Props = {
+  viewportSmall: boolean
+}
 
+class GeneralHeader extends React.Component<Props> {
   render () {
     return <Header viewportSmall={this.props.viewportSmall}
                    logoHref={goToI18nRedirect()}
@@ -17,4 +19,8 @@ class GeneralHeader extends React.Component {
   }
 }
 
-export default GeneralHeader
+const mapStateToProps = state => ({
+  viewportSmall: state.viewport.is.small
+})
+
+export default connect(mapStateToProps)(GeneralHeader)
