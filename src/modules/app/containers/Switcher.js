@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
-import Spinner from 'react-spinkit'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
@@ -29,6 +28,7 @@ import { NOT_FOUND } from 'redux-first-router'
 import CityNotFoundError from '../errors/CityNotFoundError'
 import CityModel from '../../endpoint/models/CityModel'
 import withLayout from '../../layout/withLayout'
+import LoadingSpinner from '../../common/components/LoadingSpinner'
 
 type Props = {
   currentRoute: string,
@@ -42,8 +42,6 @@ type Props = {
   city: ?string,
   param: ?string
 }
-
-const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
 /**
  * Switches what content should be rendered depending on the current route
