@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'
@@ -6,9 +8,12 @@ import Link from 'redux-first-router-link'
 
 import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
+import type { Action } from 'redux-first-router/dist/flow-types'
 
 type Props = {
-  error: string,
+  errorMessage: string,
+  goToAction: ?Action,
+  goToMessage: ?string,
   t: (string) => string
 }
 
@@ -17,11 +22,11 @@ type Props = {
  */
 export class Failure extends React.Component<Props> {
   render () {
-    const {t, error} = this.props
+    const {t, errorMessage, goToAction, goToMessage} = this.props
     return <Centered>
-      <div>{t(error)}</div>
+      <div>{t(errorMessage)}</div>
       <div><FontAwesome name='frown-o' size='5x' /></div>
-      <Link to={goToI18nRedirect()}>{t('goToStart')}</Link>
+      <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goToStart')}</Link>
     </Centered>
   }
 }
