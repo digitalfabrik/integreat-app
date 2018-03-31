@@ -5,7 +5,6 @@ import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItem from '../HeaderActionItem'
 import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
-import { connect } from 'react-redux'
 
 type Props = {
   viewportSmall: boolean
@@ -19,8 +18,4 @@ export class GeneralHeader extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
-  viewportSmall: state.viewport.is.small
-})
-
-export default connect(mapStateToProps)(GeneralHeader)
+export default GeneralHeader
