@@ -4,11 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import Spinner from 'react-spinkit'
-import Layout from '../../layout/components/Layout'
-import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/LocationLayout'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
-import GeneralFooter from '../../layout/components/GeneralFooter'
-import GeneralHeader from '../../layout/components/GeneralHeader'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
@@ -23,30 +19,44 @@ import { DISCLAIMER_ROUTE } from '../routes/disclaimer'
 import { SEARCH_ROUTE } from '../routes/search'
 
 import Payload from '../../endpoint/Payload'
-import Failure from '../../common/components/Failure'
 import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
 import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
 import { CATEGORIES_REDIRECT_ROUTE } from '../routes/categoriesRedirect'
+import LanguageModel from '../../endpoint/models/LanguageModel'
+import LanguageNotFoundError from '../errors/LanguageNotFoundError'
+import FailureSwitcher from '../../common/containers/FailureSwitcher'
+import { NOT_FOUND } from 'redux-first-router'
+import CityNotFoundError from '../errors/CityNotFoundError'
+import CityModel from '../../endpoint/models/CityModel'
+import withLayout from '../../layout/withLayout'
 
 type Props = {
-  viewportSmall: boolean,
   currentRoute: string,
   citiesPayload: Payload,
   categoriesPayload: Payload,
   eventsPayload: Payload,
   extrasPayload: Payload,
-  disclaimerPayload: Payload
+  disclaimerPayload: Payload,
+  languages: ?Array<LanguageModel>,
+  language: ?string,
+  city: ?string,
+  param: ?string
 }
 
 const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
 /**
- * Renders different Pages depending on the current route. If the needed data is not available, a LoadingSpinner is rendered
+ * Switches what content should be rendered depending on the current route
  */
 export class Switcher extends React.Component<Props> {
-  static renderFailureLoadingComponents (payload: Payload): React.Node {
+  /**
+   * Renders a failure component if the payload contains an error or a LoadingSpinner if the data is currently being fetched
+   * @param payload The payload to check for errors or fetching process
+   * @return {*}
+   */
+  static renderFailureLoadingComponents = (payload: Payload): React.Node => {
     if (payload.error) {
-      return <Failure error={payload.error} />
+      return <FailureSwitcher error={payload.error} />
     } else if (payload.isFetching || !payload.data) {
       return <LoadingSpinner />
     } else {
@@ -54,8 +64,14 @@ export class Switcher extends React.Component<Props> {
     }
   }
 
-  renderPage (): React.Node {
-    const {currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload} = this.props
+  /**
+   * Renders the right page for the current route or a failure or loading component if there was an error during fetching
+   * @return {*}
+   */
+  renderPage = (): React.Node => {
+    const {
+      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload, param
+    } = this.props
 
     switch (currentRoute) {
       case I18N_REDIRECT_ROUTE:
@@ -79,38 +95,51 @@ export class Switcher extends React.Component<Props> {
         return Switcher.renderFailureLoadingComponents(categoriesPayload) || <SearchPage />
       case CATEGORIES_REDIRECT_ROUTE:
         return Switcher.renderFailureLoadingComponents(categoriesPayload) || <LoadingSpinner />
-      default:
-        return <Failure error={'Route not found'} />
+      case NOT_FOUND:
+        // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
+        // "disclaimer" nor a city, so we want to show an error that the param is not an available city
+        if (param) {
+          const error = new CityNotFoundError({city: param})
+          return <FailureSwitcher error={error} />
+        }
     }
+    throw new Error(`For the route ${currentRoute} was no content selected in the Switcher which should be displayed.`)
   }
 
   render () {
-    const {viewportSmall, currentRoute} = this.props
+    const {city, citiesPayload, language, languages, currentRoute} = this.props
 
-    if (currentRoute === LANDING_ROUTE) {
-      return <Layout footer={<GeneralFooter />}>
-        {this.renderPage()}
-      </Layout>
-    } else if (LocationLayoutRoutes.includes(currentRoute)) {
-      return <LocationLayout>
-        {this.renderPage()}
-      </LocationLayout>
+    // The current city is invalid, so we want to show an error
+    if (city && Array.isArray(citiesPayload.data) &&
+      !citiesPayload.data.find(_city => _city instanceof CityModel && _city.code === city)) {
+      const error = new CityNotFoundError({city})
+      const FailureSwitcherWithLayout = withLayout(currentRoute)(FailureSwitcher)
+      return <FailureSwitcherWithLayout error={error} />
     }
-    return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
-                   footer={<GeneralFooter />}>
-      {this.renderPage()}
-    </Layout>
+
+    // The current language is not available in the current city, so we want to show an error
+    if (language && city && languages && !languages.find(_language => _language.code === language)) {
+      const error = new LanguageNotFoundError({city, language})
+      const FailureSwitcherWithLayout = withLayout(currentRoute)(FailureSwitcher)
+      return <FailureSwitcherWithLayout error={error} />
+    }
+
+    const PageWithLayout = withLayout(currentRoute)(this.renderPage)
+    return <PageWithLayout />
   }
 }
 
 const mapStateToProps = state => ({
-  viewportSmall: state.viewport.is.small,
   currentRoute: state.location.type,
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
   extrasPayload: state.extras,
-  disclaimerPayload: state.disclaimer
+  disclaimerPayload: state.disclaimer,
+  languages: state.languages.data,
+  language: state.location.payload.language,
+  city: state.location.payload.city,
+  param: state.location.payload.param
 })
 
 export default connect(mapStateToProps)(Switcher)
