@@ -6,16 +6,18 @@ class ContentNotFoundError extends Error {
   _type: NotFound
   _id: string | number
   _city: string
+  _language: string
 
   getMessage = (type: NotFound, id: string, city: string): string =>
     `The ${type} ${id} does not exist in ${city} in your current language.`
 
-  constructor (params: {type: NotFound, id: string, city: string}) {
+  constructor (params: {type: NotFound, id: string, city: string, language: string}) {
     super()
     this.message = this.getMessage(params.type, params.id, params.city)
     this._type = params.type
     this._id = params.id
     this._city = params.city
+    this._language = params.language
   }
 
   get type (): NotFound {
@@ -28,6 +30,10 @@ class ContentNotFoundError extends Error {
 
   get city (): string {
     return this._city
+  }
+
+  get language (): string {
+    return this._language
   }
 }
 

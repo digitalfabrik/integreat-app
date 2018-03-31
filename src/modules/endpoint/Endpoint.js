@@ -79,7 +79,9 @@ class Endpoint {
       }
 
       console.error(error)
-      return new Payload(false, null, error, formattedURL)
+      const payload = new Payload(false, null, error, formattedURL)
+      dispatch(finishFetchAction(this.stateName, payload))
+      return payload
     }
   }
 

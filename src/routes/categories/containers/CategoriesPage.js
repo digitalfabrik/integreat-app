@@ -14,7 +14,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { apiUrl } from '../../../modules/endpoint/constants'
-import { FailureSwitcher } from '../../../modules/common/containers/FailureSwitcher'
+import FailureSwitcher from '../../../modules/common/containers/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
 type Props = {
@@ -71,7 +71,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   render () {
-    const {categories, path, city, cities} = this.props
+    const {categories, path, city, cities, language} = this.props
     const categoryModel = categories.findCategoryByUrl(path)
     const cityName = CityModel.findCityName(cities, city)
 
@@ -85,7 +85,7 @@ export class CategoriesPage extends React.Component<Props> {
         </div>
     }
 
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: cityName})
+    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city, language})
     return <FailureSwitcher error={error} />
   }
 }
