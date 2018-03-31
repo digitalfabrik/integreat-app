@@ -14,7 +14,7 @@ class HeaderNavigationItem extends React.PureComponent {
     /** text to be displayed */
     text: PropTypes.string.isRequired,
     /** link to the page that should be shown when the item is clicked */
-    href: PropTypes.string.isRequired,
+    href: PropTypes.object.isRequired,
     /** true if the item is currently selected */
     selected: PropTypes.bool.isRequired,
     /** false if the item should be shown grayed out */
@@ -33,7 +33,7 @@ class HeaderNavigationItem extends React.PureComponent {
                          [style.inactiveNavigationItem]: !active,
                          [style.selectedNavigationItem]: active && selected
                        })}
-                       href={href}>{text}
+                       to={href}>{text}
       </ConditionalLink>
 
       <ReactTooltip place='top' type='dark' effect='solid' />

@@ -14,7 +14,6 @@ describe('Payload', () => {
     expect(payload.error).toBeNull()
     expect(payload.requestUrl).toBe(fetchUrl)
     expect(payload.fetchDate).toBe(fetchDate)
-    expect(payload.ready()).toBeTruthy()
   })
 
   it('should construct error payload correctly', () => {
@@ -22,7 +21,6 @@ describe('Payload', () => {
 
     expect(payload.data).toBeNull()
     expect(payload.error).toBe(error)
-    expect(payload.ready()).toBeFalsy()
   })
 
   it('should throw if error and data is supplied', () => {

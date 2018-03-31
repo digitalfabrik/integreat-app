@@ -3,14 +3,22 @@
 exports[`LocationFooter should match snapshot 1`] = `
 <Footer>
   <Connect(Link)
-    href="/augsburg/de/disclaimer"
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "DISCLAIMER",
+      }
+    }
   >
-    layout:imprintAndContact
+    imprintAndContact
   </Connect(Link)>
   <a
     href="https://integreat-app.de/datenschutz/"
   >
-    layout:privacy
+    privacy
   </a>
 </Footer>
 `;

@@ -3,7 +3,7 @@
 exports[`CategoryListItem should render and match snapshot 1`] = `
 <CategoryListItemstyles__Row>
   <CategoryListItemstyles__StyledLink
-    href="/augsburg/de/willkommen"
+    to="/augsburg/de/willkommen"
   >
     <CategoryListItemstyles__CategoryThumbnail
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
@@ -18,7 +18,7 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
     key="5234"
   >
     <CategoryListItemstyles__StyledLink
-      href="/augsburg/de/test"
+      to="/augsburg/de/test"
     >
       <CategoryListItemstyles__CategoryThumbnail
         src="https://cms.integreat-ap…03/Beratung-150x150.png"
@@ -34,7 +34,7 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
 exports[`CategoryListItem should replace empty thumbnail 1`] = `
 <CategoryListItemstyles__Row>
   <CategoryListItemstyles__StyledLink
-    href=""
+    to=""
   >
     <CategoryListItemstyles__CategoryThumbnail
       src="test-file-stub"
@@ -49,7 +49,7 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
     key="42"
   >
     <CategoryListItemstyles__StyledLink
-      href=""
+      to=""
     >
       <CategoryListItemstyles__CategoryThumbnail />
       <CategoryListItemstyles__CategoryCaption>

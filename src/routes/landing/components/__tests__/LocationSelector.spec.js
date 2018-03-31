@@ -1,34 +1,34 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 
 import LocationSelector from '../LocationSelector'
 
 describe('LocationSelector', () => {
-  const locations = [
-    new LocationModel({
+  const cities = [
+    new CityModel({
       name: 'City',
       code: 'city',
       live: true,
       eventsEnabled: false,
       extrasEnabled: false
     }),
-    new LocationModel({
+    new CityModel({
       name: 'Other city',
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
       extrasEnabled: false
     }),
-    new LocationModel({
+    new CityModel({
       name: 'Not-live',
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
       extrasEnabled: false
     }),
-    new LocationModel({
+    new CityModel({
       name: 'Yet another city',
       code: 'yetanothercity',
       live: true,
@@ -42,15 +42,15 @@ describe('LocationSelector', () => {
       <LocationSelector
         filterText='Text'
         language='de'
-        locations={locations} />
+        cities={cities} />
     )
   })
 
-  it('should filter for existing and live locations', () => {
+  it('should filter for existing and live cities', () => {
     const wrapper = shallow(<LocationSelector
       filterText='city'
       language='de'
-      locations={locations} />
+      cities={cities} />
     )
 
     const component = wrapper.instance()
@@ -62,7 +62,7 @@ describe('LocationSelector', () => {
     const wrapper = shallow(<LocationSelector
       filterText='Does not exist'
       language='de'
-      locations={locations} />
+      cities={cities} />
     )
 
     const component = wrapper.instance()
@@ -73,18 +73,18 @@ describe('LocationSelector', () => {
     const wrapper = shallow(<LocationSelector
       filterText='notlive'
       language='de'
-      locations={locations} />
+      cities={cities} />
     )
 
     const component = wrapper.instance()
     expect(component.filter()).toHaveLength(0)
   })
 
-  it('should filter for all non-live locations if filterText is "wirschaffendas"', () => {
+  it('should filter for all non-live cities if filterText is "wirschaffendas"', () => {
     const wrapper = shallow(<LocationSelector
       filterText='wirschaffendas'
       language='de'
-      locations={locations} />
+      cities={cities} />
     )
 
     const component = wrapper.instance()
