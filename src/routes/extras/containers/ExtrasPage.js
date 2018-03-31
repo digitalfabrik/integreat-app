@@ -83,6 +83,6 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  translate('extras'),
-  connect(mapStateToProps)
+  connect(mapStateToProps),
+  translate('extras')
 )(ExtrasPage)
