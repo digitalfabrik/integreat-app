@@ -1,42 +1,42 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import LocationModel from 'modules/endpoint/models/CityModel'
 import FilterableLocationSelector from '../FilterableLocationSelector'
 import { mount, shallow } from 'enzyme'
 import LocationSelector from 'routes/landing/components/LocationSelector'
 import SearchInput from 'modules/common/components/SearchInput'
-import configureMockStore from 'redux-mock-store'
-import { routerForBrowser } from 'redux-little-router'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import createHistory from '../../../../modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
 
 jest.mock('react-i18next')
 
 describe('FilterableLocationSelector', () => {
-  const locations = [
-    new LocationModel({
+  const cities = [
+    new CityModel({
       name: 'City',
       code: 'city',
       live: true,
       eventsEnabled: false,
       extrasEnabled: false
     }),
-    new LocationModel({
+    new CityModel({
       name: 'Other city',
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
       extrasEnabled: false
     }),
-    new LocationModel({
+    new CityModel({
       name: 'Not-live',
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
       extrasEnabled: false
     }),
-    new LocationModel({
+    new CityModel({
       name: 'Yet another city',
       code: 'yetanothercity',
       live: true,
@@ -44,35 +44,26 @@ describe('FilterableLocationSelector', () => {
       extrasEnabled: false
     })
   ]
-
-  // todo
-  /**
-  const router = routerForBrowser({routes: {}})
-  const mockStore = configureMockStore([router.middleware])
+  const store = createReduxStore(createHistory)
 
   it('should render', () => {
-    const store = mockStore({router: {}})
     const component = shallow(
-      <Provider store={store}>
-        <FilterableLocationSelector
-          language='de'
-          locations={locations} />
-      </Provider>
+      <FilterableLocationSelector
+        language='de'
+        cities={cities} />
     )
 
     expect(component).toMatchSnapshot()
   })
 
   it('should pass filterText to LocationSelector and filter', () => {
-    const store = mockStore({router: {}})
     const wrapper = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <FilterableLocationSelector
-            language='de'
-            locations={locations} />
-        </Provider>
-      </ThemeProvider>
+        <FilterableLocationSelector
+          language='de'
+          cities={cities} />
+      </Provider></ThemeProvider>
     )
 
     const search = wrapper.find(SearchInput)
@@ -80,5 +71,5 @@ describe('FilterableLocationSelector', () => {
 
     const selector = wrapper.find(LocationSelector)
     expect(selector.instance().filter()).toHaveLength(3)
-  }) */
+  })
 })

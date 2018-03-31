@@ -16,7 +16,7 @@ const omitActive = mapProps(props => omit(props, 'active'))
 
 /**
  * Component ConditionalLink.
- * If prop.active === true, returns a redux-little-router Link
+ * If prop.active === true, returns a redux-first-router Link
  * else: returns a InactiveLink (has the same LAF, but is not clickable)
  * In both cases the returned component does not have props.active set.
  */

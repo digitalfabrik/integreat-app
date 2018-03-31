@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { translate } from 'react-i18next'
 import FontAwesome from 'react-fontawesome'

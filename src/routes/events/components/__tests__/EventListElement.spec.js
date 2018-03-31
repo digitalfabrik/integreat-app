@@ -16,13 +16,12 @@ describe('EventListElement', () => {
     excerpt: ''
   })
 
-  const url = `/augsburg/en/events`
-
+  const city = 'augsburg'
   const language = 'en'
 
   it('should render', () => {
     expect(shallow(
-      <EventListElement event={event} parentUrl={url} isFirst={false} language={language} />
+      <EventListElement event={event} city={city} language={language} />
     )).toMatchSnapshot()
   })
 })
