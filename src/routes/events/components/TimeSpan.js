@@ -1,14 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
+// @flow
 
-class TimeSpan extends React.Component {
-  static propTypes = {
-    startDate: PropTypes.instanceOf(moment).isRequired,
-    endDate: PropTypes.instanceOf(moment).isRequired,
-    allDay: PropTypes.bool.isRequired,
-    locale: PropTypes.string.isRequired
-  }
+import React from 'react'
+import type { Moment } from 'moment'
+
+type Props = {
+  startDate: Moment,
+  endDate: Moment,
+  allDay: Boolean,
+  locale: String
+}
+
+class TimeSpan extends React.Component<Props> {
 
   /**
    * Returns a formatted string containing all relevant start and end date and time information
