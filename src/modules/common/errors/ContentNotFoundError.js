@@ -1,5 +1,7 @@
 // @flow
 
+import LoadingError from '../../endpoint/errors/LoadingError'
+
 type NotFound = 'category' | 'event' | 'extra'
 
 class ContentNotFoundError extends Error {
@@ -18,6 +20,10 @@ class ContentNotFoundError extends Error {
     this._id = params.id
     this._city = params.city
     this._language = params.language
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, LoadingError)
+    }
   }
 
   get type (): NotFound {

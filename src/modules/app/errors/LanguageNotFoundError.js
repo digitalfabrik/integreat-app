@@ -9,6 +9,10 @@ class LanguageNotFoundError extends Error {
     this.message = 'language not found'
     this._city = params.city
     this._language = params.language
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, LanguageNotFoundError)
+    }
   }
 
   get language (): string {

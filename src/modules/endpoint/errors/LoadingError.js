@@ -10,6 +10,10 @@ class LoadingError extends Error {
     super()
     this.message = this.getMessage(params.endpointName, params.message)
     this._endpointName = params.endpointName
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, LoadingError)
+    }
   }
 
   get endpointName (): string {
