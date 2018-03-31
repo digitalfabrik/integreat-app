@@ -96,7 +96,7 @@ describe('I18nProvider', () => {
   })
 
   it('should connect to the store', () => {
-    const store = mockStore({router: {params: {language: 'language1'}}})
+    const store = mockStore({location: {payload: {language: 'language1'}}})
     const i18n = mount(<Provider store={store}>
       <ConnectedI18nProvider>
         <div />
@@ -126,20 +126,6 @@ describe('I18nProvider', () => {
       expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
       expect(instance.loadFonts).toHaveBeenCalledWith(expectedLanguage)
       expect(component.state()).toEqual({language: expectedLanguage})
-    })
-
-    it('should ignore invalid languages', () => {
-      const tree = mount(<I18nProvider>
-        <div />
-      </I18nProvider>)
-
-      const i18n = tree.find(I18nextProvider).prop('i18n')
-
-      const expectedLanguage = i18n.languages[0]
-
-      tree.instance().setLanguage('long string')
-
-      expect(document.documentElement.lang).toEqual(expectedLanguage)
     })
 
     it('should take param language if param is defined', () => {

@@ -1,21 +1,14 @@
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import React from 'react'
-import { Provider } from 'react-redux'
 
-import createReduxStore from 'modules/app/createReduxStore'
-import createHistory from 'modules/app/createHistory'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
+import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('ExtrasPage', () => {
-  const location = 'augsburg'
+  const city = 'augsburg'
   const language = 'de'
-
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch')
-  ]
 
   const sprungbrettExtra = new ExtraModel({
     alias: 'sprungbrett', path: 'path to fetch jobs from', name: 'Sprungbrett', thumbnail: 'xy'
@@ -27,120 +20,82 @@ describe('ExtrasPage', () => {
     new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', name: 'Praktikumsboerse', thumbnail: 'xy'})
   ]
 
-  it('should render a sprungbrett list if it is the selected extra', () => {
+  const jobs = [
+    new SprungbrettJobModel({
+      id: '0', title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true
+    }),
+    new SprungbrettJobModel({
+      id: '1', title: 'BackendDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: false
+    }),
+    new SprungbrettJobModel({
+      id: '2', title: 'Freelancer', location: 'Augsburg', isEmployment: false, isApprenticeship: true
+    })
+  ]
+
+  it('should render a sprungbrett list if it is the selected extra and the jobs have been fetched', () => {
     const extrasPage = shallow(
-      <ExtrasPage setLanguageChangeUrls={() => {}}
-                  languages={languages}
-                  location={location}
+      <ExtrasPage city={city}
                   language={language}
                   extras={extras}
-                  extra={'sprungbrett'}
-                  t={key => key} />
+                  extraAlias='sprungbrett'
+                  sprungbrettJobs={jobs} />
+    )
+    expect(extrasPage).toMatchSnapshot()
+  })
+
+  it('should render a sprungbrett list if it is the selected extra and the jobs have not been fetched', () => {
+    const extrasPage = shallow(
+      <ExtrasPage city={city}
+                  language={language}
+                  extras={extras}
+                  extraAlias='sprungbrett' />
     )
     expect(extrasPage).toMatchSnapshot()
   })
 
   it('should render extra tiles if no extra is selected', () => {
     const extrasPage = shallow(
-      <ExtrasPage setLanguageChangeUrls={() => {}}
-                  languages={languages}
-                  location={location}
+      <ExtrasPage city={city}
                   language={language}
-                  extras={extras}
-                  t={key => key} />
+                  extras={extras} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
 
   it('should render a failure if the selected extra does not exist', () => {
     const extrasPage = shallow(
-      <ExtrasPage setLanguageChangeUrls={() => {}}
-                  languages={languages}
-                  location={location}
+      <ExtrasPage city={city}
                   language={language}
                   extras={extras}
-                  extra={'no valid extra'}
-                  t={key => key} />
+                  extraAlias={'no valid extra'} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
 
-  it('should set language change urls on mount', () => {
-    const setLanguageChangeUrls = jest.fn()
-    shallow(
-      <ExtrasPage setLanguageChangeUrls={setLanguageChangeUrls}
-                  languages={languages}
-                  location={location}
-                  language={language}
-                  extras={extras}
-                  t={key => key} />
-    )
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(1)
-  })
+  it('should map state to props', () => {
+    const extraAlias = 'sprungbrett'
+    const location = {payload: {language, city, extraAlias}}
 
-  it('should update language change urls only on relevant prop change', () => {
-    const setLanguageChangeUrls = jest.fn()
-    const extrasPage = shallow(
-      <ExtrasPage setLanguageChangeUrls={setLanguageChangeUrls}
-                  languages={languages}
-                  location={location}
-                  language={language}
-                  extras={extras}
-                  t={key => key} />
-    )
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(1)
-    extrasPage.setProps({extra: 'sprungbrett', ...extrasPage.props})
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(2)
-
-    extrasPage.setProps({extra: 'sprungbrett', ...extrasPage.props})
-    expect(setLanguageChangeUrls.mock.calls).toHaveLength(2)
-  })
-
-  describe('connect', () => {
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language, extra: 'extra'}}
-      })
-
-      const sprungbrettPage = mount(
-        <Provider store={store}>
-          <ConnectedExtrasPage languages={languages} extras={extras} />
-        </Provider>
-      ).find(ExtrasPage)
-
-      expect(sprungbrettPage.props()).toEqual({
-        location: location,
-        language: language,
-        extras: extras,
-        languages: languages,
-        extra: 'extra',
-        setLanguageChangeUrls: expect.any(Function),
-        t: expect.any(Function)
-      })
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      extras: {data: extras},
+      sprungbrettJobs: {data: jobs}
     })
 
-    it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language, extra: 'extra'}}
-      })
+    const extrasPage = shallow(
+      <ConnectedExtrasPage store={store} />
+    )
 
-      const mapLanguageToUrl = language => `/${language}`
-
-      const languageChangeUrls = {
-        en: '/en',
-        de: '/de'
-      }
-
-      expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
-
-      const eventsPage = mount(
-        <Provider store={store}>
-          <ConnectedExtrasPage languages={languages} extras={extras} />
-        </Provider>
-      ).find(ExtrasPage)
-
-      eventsPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages)
-      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
+    expect(extrasPage.props()).toEqual({
+      language,
+      extraAlias,
+      city,
+      extras,
+      sprungbrettJobs: jobs,
+      store: store,
+      storeSubscription: expect.any(Object),
+      dispatch: expect.any(Function)
     })
   })
 })

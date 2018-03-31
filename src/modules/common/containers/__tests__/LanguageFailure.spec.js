@@ -1,18 +1,13 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 
-import createHistory from 'modules/app/createHistory'
-import createReduxStore from 'modules/app/createReduxStore'
-
-import LocationModel from 'modules/endpoint/models/CityModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import ConnectedLanguageFailure, { LanguageFailure } from '../LanguageFailure'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/app/constants/theme'
+import configureMockStore from 'redux-mock-store'
 
 describe('LanguageFailure', () => {
-  const location = 'augsburg'
+  const city = 'augsburg'
 
   const languages = [
     new LanguageModel('en', 'English'),
@@ -20,111 +15,47 @@ describe('LanguageFailure', () => {
     new LanguageModel('ar', 'Arabic')
   ]
 
-  const locations = [
-    new LocationModel({name: 'Augsburg', code: 'augsburg'}),
-    new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-    new LocationModel({name: 'Werne', code: 'werne'})
+  const cities = [
+    new CityModel({name: 'Augsburg', code: 'augsburg'}),
+    new CityModel({name: 'Stadt Regensburg', code: 'regensburg'}),
+    new CityModel({name: 'Werne', code: 'werne'})
   ]
 
   const language = 'tu'
 
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <LanguageFailure locations={locations}
+      <LanguageFailure cities={cities}
                        languages={languages}
-                       location={location}
+                       city={city}
                        language={language}
-                       t={key => key}
-                       setLanguageChangeUrls={() => {}} />
+                       t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should dispatch once on mount', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-    const categoriesPage = shallow(
-      <LanguageFailure locations={locations}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       setLanguageChangeUrls={mockSetLanguageChangeUrls}
-                       t={key => key} />
-    ).instance()
+  it('should map state to props', () => {
+    const location = {payload: {city}}
 
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(categoriesPage.mapLanguageToUrl, languages)
-  })
-
-  it('should map language to url', () => {
-    const mapLanguageToUrl = shallow(
-      <LanguageFailure locations={locations}
-                       languages={languages}
-                       location={location}
-                       language={language}
-                       setLanguageChangeUrls={() => {}}
-                       t={key => key} />
-    ).instance().mapLanguageToUrl
-
-    expect(mapLanguageToUrl(language)).toBe(`/${location}/${language}`)
-  })
-
-  describe('connect', () => {
-    const pathname = '/augsburg/tu'
-    const id = '1234'
-
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {
-          params: {location, language},
-          pathname,
-          query: {id}
-        },
-        languageChangeUrls: {}
-      })
-
-      const languageFailure = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-          <ConnectedLanguageFailure languages={languages} locations={locations} />
-        </Provider></ThemeProvider>
-      ).find(LanguageFailure)
-
-      expect(languageFailure.props()).toEqual({
-        location: location,
-        setLanguageChangeUrls: expect.any(Function),
-        t: expect.any(Function),
-        locations: locations,
-        languages: languages
-      })
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      languages: {data: languages},
+      cities: {data: cities}
     })
 
-    it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {
-          params: {location: location, language: language},
-          pathname: pathname,
-          query: {id: id}
-        },
-        languageChangeUrls: {}
-      })
+    const languageFailure = shallow(
+      <ConnectedLanguageFailure store={store} />
+    )
 
-      const languageChangeUrls = {
-        en: '/augsburg/en',
-        ar: '/augsburg/ar',
-        de: '/augsburg/de'
-      }
-
-      expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
-
-      mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-          <ConnectedLanguageFailure languages={languages} locations={locations} />
-        </Provider></ThemeProvider>
-      ).find(LanguageFailure)
-
-      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
+    expect(languageFailure.props()).toEqual({
+      city,
+      cities,
+      languages,
+      dispatch: expect.any(Function),
+      store,
+      storeSubscription: expect.any(Object)
     })
   })
 })

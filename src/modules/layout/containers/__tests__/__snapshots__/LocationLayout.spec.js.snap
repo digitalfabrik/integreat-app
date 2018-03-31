@@ -13,18 +13,21 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationM
 </Layout>
 `;
 
-exports[`LocationLayout should show LocationHeader and LocationFooter if LocationModel is available 1`] = `
+exports[`LocationLayout should show LocationHeader and LocationFooter if City is available 1`] = `
 <Layout
   footer={
     <Translate(LocationFooter)
+      city="city1"
       language="de"
-      location="location1"
-      matchRoute={[Function]}
     />
   }
   header={
     <Translate(LocationHeader)
-      currentPath="/:location/:language"
+      city="city1"
+      currentRoute="EXTRAS"
+      isEventsActive={false}
+      isEventsEnabled={false}
+      isExtrasEnabled={false}
       language="de"
       languages={
         Array [
@@ -42,18 +45,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if Locatio
           },
         ]
       }
-      locationModel={
-        LocationModel {
-          "_code": "location1",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": false,
-          "_name": "Mambo No. 5",
-          "_sortCategory": "M",
-          "_sortKey": "mambo no. 5",
-        }
-      }
-      matchRoute={[Function]}
       viewportSmall={true}
     />
   }

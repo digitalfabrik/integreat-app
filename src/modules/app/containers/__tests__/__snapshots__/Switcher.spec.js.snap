@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switcher layout should render a layout with a footer if the current route is the landing route 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+>
+  <LoadingSpinner />
+</Layout>
+`;
+
+exports[`Switcher layout should render a layout with a header and a footer as default 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+  header={
+    <GeneralHeader
+      viewportSmall={false}
+    />
+  }
+>
+  <MainDisclaimerPage />
+</Layout>
+`;
+
+exports[`Switcher layout should render a location layout if the current route is a location layout route 1`] = `
+<Connect(LocationLayout)>
+  <LoadingSpinner />
+</Connect(LocationLayout)>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the categories route 1`] = `
+<Connect(LocationLayout)>
+  <Connect(CategoriesPage) />
+</Connect(LocationLayout)>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the disclaimer route 1`] = `
+<Connect(LocationLayout)>
+  <Connect(DisclaimerPage) />
+</Connect(LocationLayout)>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the events route 1`] = `
+<Connect(LocationLayout)>
+  <Connect(EventsPage) />
+</Connect(LocationLayout)>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the extras route 1`] = `
+<Connect(LocationLayout)>
+  <Connect(ExtrasPage) />
+</Connect(LocationLayout)>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the i18nRedirect route 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+  header={
+    <GeneralHeader
+      viewportSmall={false}
+    />
+  }
+>
+  <Connect(I18nRedirect) />
+</Layout>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the landing route 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+>
+  <Connect(LandingPage) />
+</Layout>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the main disclaimer route 1`] = `
+<Layout
+  footer={<Translate(GeneralFooter) />}
+  header={
+    <GeneralHeader
+      viewportSmall={false}
+    />
+  }
+>
+  <MainDisclaimerPage />
+</Layout>
+`;
+
+exports[`Switcher should get the right page if data has been fetched and is the search route 1`] = `
+<Connect(LocationLayout)>
+  <Connect(SearchPage) />
+</Connect(LocationLayout)>
+`;
+
+exports[`Switcher should return a failure if there was an error during fetching 1`] = `
+<Translate(Failure)
+  error="fake news"
+/>
+`;
+
+exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<LoadingSpinner />`;

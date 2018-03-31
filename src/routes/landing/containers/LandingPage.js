@@ -12,9 +12,7 @@ export class LandingPage extends React.Component {
   }
 
   render () {
-    return <FilterableLocationSelector
-          language={this.props.language}
-          cities={this.props.cities} />
+    return <FilterableLocationSelector language={this.props.language} cities={this.props.cities} />
   }
 }
 
