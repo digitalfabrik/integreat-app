@@ -38,7 +38,8 @@ describe('ExtrasPage', () => {
                   language={language}
                   extras={extras}
                   extraAlias='sprungbrett'
-                  sprungbrettJobs={jobs} />
+                  sprungbrettJobs={jobs}
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -48,7 +49,8 @@ describe('ExtrasPage', () => {
       <ExtrasPage city={city}
                   language={language}
                   extras={extras}
-                  extraAlias='sprungbrett' />
+                  extraAlias='sprungbrett'
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -57,7 +59,8 @@ describe('ExtrasPage', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}
-                  extras={extras} />
+                  extras={extras}
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -67,7 +70,8 @@ describe('ExtrasPage', () => {
       <ExtrasPage city={city}
                   language={language}
                   extras={extras}
-                  extraAlias={'no valid extra'} />
+                  extraAlias={'no valid extra'}
+                  t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })

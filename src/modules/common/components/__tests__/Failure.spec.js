@@ -8,7 +8,7 @@ describe('Failure', () => {
 
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <Failure error='Error Message' t={mockTranslate} />
+      <Failure errorMessage='Error Message' t={mockTranslate} />
     )
 
     expect(wrapper).toMatchSnapshot()
