@@ -16,30 +16,26 @@ type Props = {
   cities: Array<CityModel>,
   languages: Array<LanguageModel>,
   city: string,
+  language: string,
   t: string => string
 }
 
 export class LanguageFailure extends React.PureComponent<Props> {
-  getTitle (): ?string {
-    const city = this.props.cities.find(city => city.code === this.props.city)
-    if (city) {
-      return city.name
-    }
-  }
-
   render () {
-    const {languages, t} = this.props
-    const title = this.getTitle()
+    const {languages, t, language, city, cities} = this.props
+    const title = cities && CityModel.findCityName(cities, city)
+    // todo design and translate
     return <Fragment>
       {title && <Caption title={title} />}
-      <p className={style.chooseLanguage}>{t('common:chooseYourLanguage')}</p>
+      <p className={style.chooseLanguage}>
+        {`Your language ${language} is not available here. ${t('common:chooseYourLanguage')}`}
+      </p>
       <LanguageSelector languages={languages} verticalLayout />
     </Fragment>
   }
 }
 
 const mapStateToProps = state => ({
-  city: state.location.payload.city,
   languages: state.languages.data,
   cities: state.cities.data
 })
