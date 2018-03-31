@@ -47,7 +47,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the extras route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(ExtrasPage) />
+  <Connect(Translate(ExtrasPage)) />
 </Connect(LocationLayout)>
 `;
 
@@ -92,7 +92,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 `;
 
 exports[`Switcher should return a failure if there was an error during fetching 1`] = `
-<Translate(Failure)
+<FailureSwitcher
   error="fake news"
 />
 `;

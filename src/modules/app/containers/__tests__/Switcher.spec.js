@@ -128,7 +128,7 @@ describe('Switcher', () => {
 
   it('should map state to props', () => {
     const currentRoute = 'RANDOM_ROUTE'
-    const location = {type: currentRoute}
+    const location = {type: currentRoute, payload: {city: 'augsburg', language: 'de', param: 'param'}}
     const mockStore = configureMockStore()
     const store = mockStore({
       location,
@@ -137,6 +137,7 @@ describe('Switcher', () => {
       categories: fetchingPayload,
       disclaimer: fetchingPayload,
       extras: fetchingPayload,
+      languages: dataPayload,
       viewport: {is: {small: true}}
     })
 
@@ -151,7 +152,11 @@ describe('Switcher', () => {
       extrasPayload: fetchingPayload,
       citiesPayload: fetchingPayload,
       disclaimerPayload: fetchingPayload,
+      languages: 'fetched fake news :D',
       viewportSmall: true,
+      city: 'augsburg',
+      param: 'param',
+      language: 'de',
       store,
       storeSubscription: expect.any(Object),
       dispatch: expect.any(Function)
