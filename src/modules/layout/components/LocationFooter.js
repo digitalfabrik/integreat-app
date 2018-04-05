@@ -17,8 +17,6 @@ export class LocationFooter extends React.Component {
     const {t, city, language} = this.props
 
     return <Footer>
-      <Link href={this.props.matchRoute(disclaimerRoute).stringify(this.getCurrentParams())}>
-        {this.props.t('imprintAndContact')}
       <Link to={goToDisclaimer(city, language)}>
         {t('imprintAndContact')}
       </Link>

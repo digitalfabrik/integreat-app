@@ -1,52 +1,44 @@
 // @flow
 
-import { connect } from 'react-redux'
 import React from 'react'
-import compose from 'recompose/compose'
 import { translate } from 'react-i18next'
 
-import withFetcher from '../../../modules/endpoint/hocs/withFetcher'
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
+import { apiUrl } from '../../../modules/endpoint/constants'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
-  location: string,
+  city: string,
   language: string,
-  path: string,
   categories: CategoriesMapModel,
+  pathname: string,
   t: string => string
 }
 
 export class CategoriesToolbar extends React.PureComponent<Props> {
-  getPdfFetchPath () {
-    return `/${this.props.location}/${this.props.language}/fetch-pdf?url=${this.props.path}`
+  getPdfUrl (category: CategoryModel) {
+    if (category.id === 0) {
+      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
+    } else {
+      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${category.url}`
+    }
   }
 
   render () {
-    try {
-      this.props.categories.getCategoryByUrl(this.props.path)
-      return <Toolbar>
-        <ToolbarItem name='file-pdf-o' text={this.props.t('createPdf')} href={this.getPdfFetchPath()} />
-        {/* todo: Add these functionalities:
-        <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
-        <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
-        <ToolbarItem name='audio-description' text='Sprachausgabe' href={this.getPdfFetchPath()} /> */}
-      </Toolbar>
-    } catch (e) {
-      return <Toolbar />
+    const category = this.props.categories.findCategoryByUrl(this.props.pathname)
+    if (!category) {
+      return null
     }
+    return <Toolbar>
+      <ToolbarItem name='file-pdf-o' text={this.props.t('createPdf')} href={this.getPdfUrl(category)} />
+      {/* todo: Add these functionalities:
+              <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
+              <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
+              <ToolbarItem name='audio-description' text='Sprachausgabe' href={this.getPdfFetchPath()} /> */}
+    </Toolbar>
   }
 }
 
-const mapStateToProps = state => ({
-  location: state.router.params.location,
-  language: state.router.params.language,
-  path: state.router.pathname
-})
-
-export default compose(
-  translate('categories'),
-  withFetcher('categories', null, null),
-  connect(mapStateToProps)
-)(CategoriesToolbar)
+export default translate('categories')(CategoriesToolbar)
