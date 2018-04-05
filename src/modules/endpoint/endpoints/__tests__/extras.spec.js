@@ -34,12 +34,20 @@ describe('extras', () => {
       path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg'})
   ]
 
-  const state = {router: {params: {location: 'bad-toelz', language: 'en'}}}
+  const params = {city: 'bad-toelz', language: 'en'}
 
   it('should map router to url', () => {
-    expect(extras.mapStateToUrl(state)).toEqual(
+    expect(extras.mapParamsToUrl(params)).toEqual(
       'https://cms.integreat-app.de/bad-toelz/en/wp-json/extensions/v3/extras'
     )
+  })
+
+  it('should throw if the city to map the url are missing', () => {
+    expect(() => extras.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+  })
+
+  it('should throw if the language to map the url are missing', () => {
+    expect(() => extras.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map json to models', () => {

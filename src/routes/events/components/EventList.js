@@ -10,7 +10,7 @@ import EventModel from '../../../modules/endpoint/models/EventModel'
 
 type Props = {
   events: Array<EventModel>,
-  url: string,
+  city: string,
   language: string,
   t: (string) => string
 }
@@ -20,9 +20,9 @@ type Props = {
  */
 class EventList extends React.Component<Props> {
   render () {
-    const {t} = this.props
+    const {t, city, language, events} = this.props
 
-    if (isEmpty(this.props.events)) {
+    if (isEmpty(events)) {
       return (
         <div>
           <Caption title={t('news')} />
@@ -33,11 +33,11 @@ class EventList extends React.Component<Props> {
       )
     }
 
-    const elements = this.props.events.map(event =>
+    const elements = events.map(event =>
       <EventListElement key={event.id}
                         event={event}
-                        parentUrl={this.props.url}
-                        language={this.props.language} />
+                        city={city}
+                        language={language} />
     )
 
     return (

@@ -5,8 +5,12 @@ exports[`HeaderActionBar should match snapshot 1`] = `
   className="testClass actionItems"
 >
   <Connect(Link)
-    href="link1"
     key="0"
+    to={
+      Object {
+        "type": "RANDOM_HREF",
+      }
+    }
   >
     <img
       src="icon1"

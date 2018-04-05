@@ -33,15 +33,15 @@ describe('EventList', () => {
     })
   ]
 
-  const url = `/augsburg/en/events`
+  const city = 'augsburg'
 
   const language = 'en'
 
   it('should render a list of events', () => {
-    expect(shallow(<EventList events={events} language={language} url={url} />).dive()).toMatchSnapshot()
+    expect(shallow(<EventList events={events} language={language} city={city} />).dive()).toMatchSnapshot()
   })
 
   it('should render no events', () => {
-    expect(shallow(<EventList events={[]} language={language} url={url} />).dive()).toMatchSnapshot()
+    expect(shallow(<EventList events={[]} language={language} city={city} />).dive()).toMatchSnapshot()
   })
 })

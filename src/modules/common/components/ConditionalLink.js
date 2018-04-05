@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import { branch, mapProps, renderComponent } from 'recompose'
 import { omit } from 'lodash/object'
 
@@ -16,7 +16,7 @@ const omitActive = mapProps(props => omit(props, 'active'))
 
 /**
  * Component ConditionalLink.
- * If prop.active === true, returns a redux-little-router Link
+ * If prop.active === true, returns a redux-first-router Link
  * else: returns a InactiveLink (has the same LAF, but is not clickable)
  * In both cases the returned component does not have props.active set.
  */

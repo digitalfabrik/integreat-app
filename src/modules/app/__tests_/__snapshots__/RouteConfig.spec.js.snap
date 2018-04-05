@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`RouteConfig should throw error if providing invalid config 1`] = `"All values in the route config must be Routes!"`;
-
-exports[`RouteConfig should throw error if route is not found 1`] = `"Route some-id was not found in RouteConfig!"`;
