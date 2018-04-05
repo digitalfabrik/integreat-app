@@ -4,7 +4,7 @@ node_js:
 - '6'
 script:
 - yarn run lint
-- yarn run test --runInBand
+- yarn run test
 - yarn run build:debug
 before_deploy:
   - git config --local user.name "travis"
