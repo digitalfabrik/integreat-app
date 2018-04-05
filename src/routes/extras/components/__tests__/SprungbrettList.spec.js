@@ -17,7 +17,7 @@ describe('SprungbrettList', () => {
   ]
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SprungbrettList jobs={jobs} />)
+    const wrapper = shallow(<SprungbrettList jobs={jobs} title={'Sprungbrett'} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

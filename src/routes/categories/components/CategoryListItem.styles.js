@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Highlighter from 'react-highlighter'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 export const Row = styled.div`
   margin: 20px 0;

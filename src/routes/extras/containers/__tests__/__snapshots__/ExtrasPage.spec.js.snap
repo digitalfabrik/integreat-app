@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExtrasPage should render a failure if the selected extra does not exist 1`] = `
+<Translate(Failure)
+  error="not-found:page.notFound"
+/>
+`;
+
+exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have been fetched 1`] = `
+<SprungbrettList
+  jobs={
+    Array [
+      SprungbrettModel {
+        "_id": "0",
+        "_isApprenticeship": true,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "WebDeveloper",
+        "_url": undefined,
+      },
+      SprungbrettModel {
+        "_id": "1",
+        "_isApprenticeship": false,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "BackendDeveloper",
+        "_url": undefined,
+      },
+      SprungbrettModel {
+        "_id": "2",
+        "_isApprenticeship": true,
+        "_isEmployment": false,
+        "_location": "Augsburg",
+        "_title": "Freelancer",
+        "_url": undefined,
+      },
+    ]
+  }
+  title="Sprungbrett"
+/>
+`;
+
+exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have not been fetched 1`] = `<LoadingSpinner />`;
+
+exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
+<Tiles
+  tiles={
+    Array [
+      TileModel {
+        "_id": "sprungbrett",
+        "_isExternalUrl": false,
+        "_name": "Sprungbrett",
+        "_path": "/augsburg/de/extras/sprungbrett",
+        "_thumbnail": "xy",
+      },
+      TileModel {
+        "_id": "ihk-lehrstellenboerse",
+        "_isExternalUrl": true,
+        "_name": "Jobboerse",
+        "_path": "ihk-jobborese.com",
+        "_thumbnail": "xy",
+      },
+      TileModel {
+        "_id": "ihk-praktikumsboerse",
+        "_isExternalUrl": true,
+        "_name": "Praktikumsboerse",
+        "_path": "ihk-pratkitkumsboerse.com",
+        "_thumbnail": "xy",
+      },
+    ]
+  }
+/>
+`;

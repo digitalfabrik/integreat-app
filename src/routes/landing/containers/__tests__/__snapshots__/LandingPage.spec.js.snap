@@ -2,10 +2,9 @@
 
 exports[`LandingPage should match snapshot 1`] = `
 <FilterableLocationSelector
-  language="de"
-  locations={
+  cities={
     Array [
-      LocationModel {
+      CityModel {
         "_code": "city",
         "_eventsEnabled": false,
         "_extrasEnabled": false,
@@ -16,5 +15,6 @@ exports[`LandingPage should match snapshot 1`] = `
       },
     ]
   }
+  language="de"
 />
 `;

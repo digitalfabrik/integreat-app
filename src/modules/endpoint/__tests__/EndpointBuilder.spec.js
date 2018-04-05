@@ -7,15 +7,16 @@ describe('EndpointBuilder', () => {
     const mapper = json => json
     const responseOverride = {test: 'random'}
     const errorOverride = 'Error No. 5'
+    const mapParamsToUrl = () => url
 
     const endpoint = new EndpointBuilder(name)
-      .withStateToUrlMapper(() => url)
+      .withParamsToUrlMapper(mapParamsToUrl)
       .withMapper(mapper)
       .withResponseOverride(responseOverride)
       .withErrorOverride(errorOverride)
       .build()
 
-    expect(endpoint.mapStateToUrl).toEqual(expect.any(Function))
+    expect(endpoint.mapParamsToUrl).toBe(mapParamsToUrl)
     expect(endpoint.stateName).toBe(name)
     expect(endpoint.mapResponse).toBe(mapper)
     expect(endpoint.responseOverride).toBe(responseOverride)
@@ -27,7 +28,7 @@ describe('EndpointBuilder', () => {
 
     const builder = new EndpointBuilder('endpoint')
     expect(() => builder.build()).toThrowErrorMatchingSnapshot()
-    builder.withStateToUrlMapper(() => 'https://someurl')
+    builder.withParamsToUrlMapper(() => 'https://someurl')
     expect(() => builder.build()).toThrowErrorMatchingSnapshot()
     builder.withMapper(json => json)
     expect(() => builder.build()).not.toThrow()

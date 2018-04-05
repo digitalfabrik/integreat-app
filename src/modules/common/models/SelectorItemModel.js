@@ -1,8 +1,8 @@
 export default class SelectorItemModel {
-  constructor ({code, name, path}) {
+  constructor ({code, name, href}) {
     this._code = code
     this._name = name
-    this._path = path
+    this._href = href
   }
 
   get code () {
@@ -13,7 +13,7 @@ export default class SelectorItemModel {
     return this._name
   }
 
-  get path () {
-    return this._path
+  get href () {
+    return this._href
   }
 }

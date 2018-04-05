@@ -19,7 +19,14 @@ exports[`Failure should match snapshot 1`] = `
     />
   </div>
   <Connect(Link)
-    href="/"
+    to={
+      Object {
+        "payload": Object {
+          "param": undefined,
+        },
+        "type": "I18N_REDIRECT",
+      }
+    }
   >
     goToStart
   </Connect(Link)>

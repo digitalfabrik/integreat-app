@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import { Col } from 'react-styled-flexboxgrid'
 
 import style from './Tile.css'
@@ -31,7 +31,7 @@ class Tile extends React.Component {
       ? <a href={this.props.tile.path} target='_blank'>
         {this.getTileContent()}
       </a>
-      : <Link href={this.props.tile.path}>
+      : <Link to={this.props.tile.path}>
         {this.getTileContent()}
       </Link>
   }
