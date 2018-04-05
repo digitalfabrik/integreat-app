@@ -2,34 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import compose from 'lodash/fp/compose'
-
 import SearchInput from 'modules/common/components/SearchInput'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryList from '../../categories/components/CategoryList'
-import withLocationLayout from '../../../modules/layout/hocs/withLocationLayout'
 
 export class SearchPage extends React.Component {
   static propTypes = {
-    location: PropTypes.string.isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired,
-    setLanguageChangeUrls: PropTypes.func.isRequired
+    categories: PropTypes.instanceOf(CategoriesMapModel).isRequired
   }
 
   constructor () {
     super()
     this.state = {filterText: ''}
-  }
-
-  mapLanguageToPath = language => `/${this.props.location}/${language}/search`
-
-  componentDidMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages)
   }
 
   findCategories () {
@@ -70,17 +55,7 @@ export class SearchPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.router.params.location
+  categories: state.categories.data
 })
 
-const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToPath, languages) =>
-    dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
-})
-
-export default compose(
-  withLocationLayout(null),
-  withFetcher('categories'),
-  withFetcher('languages'),
-  connect(mapStateToProps, mapDispatchToProps)
-)(SearchPage)
+export default connect(mapStateToProps)(SearchPage)

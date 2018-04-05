@@ -10,22 +10,20 @@ describe('CategoriesMapModel', () => {
 
   const categoriesMapModel = new CategoriesMapModel(categories)
 
-  const category1 = categoriesMapModel.getCategoryByUrl('/augsburg/de/')
-  const category2 = categoriesMapModel.getCategoryByUrl('/augsburg/de/willkommen')
-  const category3 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte')
-  const category4 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
+  const category1 = categoriesMapModel.findCategoryByUrl('/augsburg/de/')
+  const category2 = categoriesMapModel.findCategoryByUrl('/augsburg/de/willkommen')
+  const category3 = categoriesMapModel.findCategoryByUrl('/augsburg/de/erste-schritte')
+  const category4 = categoriesMapModel.findCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
 
   it('should get the right categories and normalize urls', () => {
     expect(category1).toEqual(categories[0])
     expect(category2).toEqual(categories[1])
     expect(category3).toEqual(categories[2])
     expect(category4).toEqual(categories[3])
-    expect(() => categoriesMapModel.getCategoryByUrl('/test/url')).toThrowErrorMatchingSnapshot()
   })
 
   it('should find category by id', () => {
-    expect(categoriesMapModel.getCategoryById(category1.id)).toBe(category1)
-    expect(() => categoriesMapModel.getCategoryById(1234567)).toThrowErrorMatchingSnapshot()
+    expect(categoriesMapModel.findCategoryById(category1.id)).toBe(category1)
   })
 
   it('should have the right parent attributes', () => {

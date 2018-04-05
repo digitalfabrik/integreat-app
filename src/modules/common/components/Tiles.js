@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Caption from 'modules/common/components/Caption'
 import Tile from './Tile'
-import { Row } from 'react-flexbox-grid'
+import { Row } from 'react-styled-flexboxgrid'
 
 import style from './Tiles.css'
 import TileModel from '../models/TileModel'

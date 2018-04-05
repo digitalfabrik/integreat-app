@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RemoteContent should render 1`] = `
-<div
-  className="remoteContent"
+<RemoteContentstyles__SandBox
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",
@@ -12,8 +11,8 @@ exports[`RemoteContent should render 1`] = `
 `;
 
 exports[`RemoteContent should render and have centered props 1`] = `
-<div
-  className="centered remoteContent"
+<RemoteContentstyles__SandBox
+  centered={true}
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",

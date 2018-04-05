@@ -1,40 +1,58 @@
 // @flow
 
-import EndpointBuilder from '../EndpointBuilder'
-
-import CategoriesMapModel from '../models/CategoriesMapModel'
-import {apiUrl} from '../constants'
 import CategoryModel from '../models/CategoryModel'
+import CategoriesMapModel from '../models/CategoriesMapModel'
+import { apiUrl } from '../constants'
+
+import EndpointBuilder from '../EndpointBuilder'
+import type { Params } from '../Endpoint'
 
 export default new EndpointBuilder('categories')
-  .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
-  `/${state.router.params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
-  .withMapper((json, state) => {
-    const baseUrl = `/${state.router.params.location}/${state.router.params.language}`
-    const categories: Array<CategoryModel> = json
+  .withParamsToUrlMapper((params: Params): string => {
+    if (!params.city) {
+      throw new Error('The city is missing. Could not map the params to the categories endpoint url.')
+    }
+    if (!params.language) {
+      throw new Error('The language is missing. Could not map the params to the categories endpoint url.')
+    }
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
+  })
+  .withMapper((json: any, params: Params): CategoriesMapModel => {
+    if (!params.city) {
+      throw new Error('The city is missing. Could not map the json in categories endpoint.')
+    }
+    if (!params.language) {
+      throw new Error('The language is missing. Could not map the json in categories endpoint.')
+    }
+    const city = params.city
+    const baseUrl = `/${city}/${params.language}`
+    const categories = json
       .filter(category => category.status === 'publish')
-      .map(category => (new CategoryModel({
-        id: category.id,
-        url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,
-        title: category.title,
-        parentId: category.parent,
-        content: category.content,
-        thumbnail: category.thumbnail,
-        order: category.order,
-        availableLanguages: category.available_languages,
-        parentUrl: ''
-      })))
+      .map(category => {
+        return new CategoryModel({
+          id: category.id,
+          url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,
+          path: decodeURI(category.permalink.url_page),
+          title: category.title,
+          parentId: category.parent,
+          content: category.content,
+          thumbnail: category.thumbnail,
+          order: category.order,
+          availableLanguages: category.available_languages,
+          parentUrl: ''
+        })
+      })
 
-    // the root category representing the location
     categories.push(new CategoryModel({
       id: 0,
       url: baseUrl,
-      title: state.router.params.location,
+      path: '',
+      title: city,
       parentId: -1,
       content: '',
-      order: -1,
       thumbnail: '',
-      availableLanguages: {},
+      order: -1,
+      availableLanguages: new Map(),
       parentUrl: ''
     }))
 

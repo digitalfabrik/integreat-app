@@ -5,9 +5,8 @@ import React from 'react'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
-
-import style from './CategoryList.css'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { List } from './CategoryList.styles'
 
 type Props = {
   categories: Array<{model: CategoryModel, children: Array<CategoryModel>}>,
@@ -26,13 +25,13 @@ class CategoryList extends React.Component<Props> {
       <div>
         {this.props.title && <Caption title={this.props.title} />}
         <RemoteContent centered dangerouslySetInnerHTML={{__html: this.props.content}} />
-        <div className={style.list}>
+        <List>
           {this.props.categories.map(({model, children}) =>
             <CategoryListItem key={model.id}
                               category={model}
                               children={children}
                               query={this.props.query} />)}
-        </div>
+        </List>
       </div>
     )
   }

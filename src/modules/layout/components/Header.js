@@ -5,7 +5,7 @@ import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../constants'
 import Headroom from '../../common/components/Headroom'
 
@@ -19,7 +19,7 @@ class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.node,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
-    logoHref: PropTypes.string.isRequired,
+    logoHref: PropTypes.object.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
     onStickyTopChanged: PropTypes.func
   }
@@ -36,7 +36,7 @@ class Header extends React.Component {
       <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
         <header className={style.header}>
           <div className={style.logoWide}>
-            <Link href={this.props.logoHref}>
+            <Link to={this.props.logoHref}>
               <img src={logoWide} />
             </Link>
           </div>

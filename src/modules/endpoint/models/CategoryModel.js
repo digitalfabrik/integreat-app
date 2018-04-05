@@ -3,6 +3,7 @@
 class CategoryModel {
   _id: number
   _url: string
+  _path: string
   _title: string
   _content: string
   _parentId: number
@@ -11,7 +12,7 @@ class CategoryModel {
   _order: number
   _availableLanguages: Map<string, string>
 
-  constructor (obj: {| id: number, url: string, title: string, content: string, parentId: number, thumbnail: string,
+  constructor (obj: {| id: number, path: string, url: string, title: string, content: string, parentId: number, thumbnail: string,
     parentUrl: string, order: number, availableLanguages: Map<string, string> |}) {
     this._id = obj.id
     this._url = obj.url
@@ -21,6 +22,7 @@ class CategoryModel {
     this._parentUrl = obj.parentUrl
     this._thumbnail = obj.thumbnail
     this._order = obj.order
+    this._path = obj.path
     this._availableLanguages = obj.availableLanguages
   }
 
@@ -34,6 +36,10 @@ class CategoryModel {
 
   get url (): string {
     return this._url
+  }
+
+  get path (): string {
+    return this._path
   }
 
   get title (): string {

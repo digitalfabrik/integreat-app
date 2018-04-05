@@ -1,17 +1,11 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-
-import createHistory from 'modules/app/createHistory'
-import createReduxStore from 'modules/app/createReduxStore'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
+import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import LocationModel from 'modules/endpoint/models/LocationModel'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
@@ -70,32 +64,23 @@ describe('CategoriesPage', () => {
 
   const categories = new CategoriesMapModel(categoryModels)
 
-  const locations = [
-    new LocationModel({name: 'Augsburg', code: 'augsburg'}),
-    new LocationModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-    new LocationModel({name: 'Werne', code: 'werne'})
+  const cities = [
+    new CityModel({name: 'Augsburg', code: 'augsburg'}),
+    new CityModel({name: 'Stadt Regensburg', code: 'regensburg'}),
+    new CityModel({name: 'Werne', code: 'werne'})
   ]
 
-  const location = 'augsburg'
-
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('ar', 'Arabic')
-  ]
+  const city = 'augsburg'
 
   const language = 'en'
 
   it('should match snapshot and render a Page if page has no children', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
+                      cities={cities}
+                      city={city}
                       language={language}
-                      path={categoryModels[3].url}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={() => {}} />
+                      path={categoryModels[3].url} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -104,13 +89,10 @@ describe('CategoriesPage', () => {
   it('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
+                      cities={cities}
+                      city={city}
                       language={language}
-                      path={categoryModels[2].url}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={() => {}} />
+                      path={categoryModels[2].url} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -119,225 +101,54 @@ describe('CategoriesPage', () => {
   it('should match snapshot and render CategoryTiles if the path is the root category', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
+                      cities={cities}
+                      city={city}
                       language={language}
-                      path={'/augsburg/de'}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={() => {}} />
+                      path={'/augsburg/de'} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should match snapshot and render an Error if path is not valid', () => {
-    const mockReplaceUrl = jest.fn()
-
     const wrapper = shallow(
       <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
+                      cities={cities}
+                      city={city}
                       language={language}
-                      path={'/augsburg/de/not/valid'}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
+                      path={'/augsburg/de/not/valid'} />
     )
 
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should dispatch once on mount if the path is valid', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-    const mockReplaceUrl = jest.fn()
+  it('should map state to props', () => {
+    const pathname = '/augsburg/en/willkommen'
+    const location = {
+      payload: {city: city, language: language},
+      pathname: pathname
+    }
 
-    const categoriesPage = shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={categoryModels[2].url}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
-                      replaceUrl={mockReplaceUrl} />
-    ).instance()
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      categoriesPage.mapLanguageToPath, languages, categoryModels[2].availableLanguages
-    )
-  })
-
-  it('should not dispatch on mount if the path is invalid', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-    const mockReplaceUrl = jest.fn()
-
-    shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={'/augsburg/de/not/valid'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
-                      replaceUrl={mockReplaceUrl} />
-    )
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(0)
-  })
-
-  it('should dispatch on prop update', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-    const mockReplaceUrl = jest.fn()
-
-    const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={'/augsburg/de/willkommen'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
-                      replaceUrl={mockReplaceUrl} />
-    )
-
-    const callCount = mockSetLanguageChangeUrls.mock.calls.length
-
-    wrapper.setProps({...wrapper.props, path: '/augsburg/de/willkommen/willkommen-in-augsburg'})
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount + 1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(
-      wrapper.instance().mapLanguageToPath, languages, categoryModels[3].availableLanguages
-    )
-  })
-
-  it('should not dispatch on prop update if neither path nor categories are updated', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-    const mockReplaceUrl = jest.fn()
-
-    const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={'/augsburg/de/willkommen'}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls}
-                      replaceUrl={mockReplaceUrl} />
-    )
-
-    const callCount = mockSetLanguageChangeUrls.mock.calls.length
-
-    wrapper.setProps({...wrapper.props})
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(callCount)
-  })
-
-  it('should map language to path', () => {
-    const mockReplaceUrl = jest.fn()
-
-    const mapLanguageToPath = shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={categoryModels[2].url}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
-    ).instance().mapLanguageToPath
-
-    expect(mapLanguageToPath(language, categoryModels[3].availableLanguages[language])).toBe(
-      `/${location}/${language}?id=${categoryModels[3].availableLanguages[language]}`
-    )
-    expect(mapLanguageToPath(language)).toBe(`/${location}/${language}`)
-  })
-
-  describe('connect', () => {
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
-    const locationsEndpoint = new EndpointBuilder('locations')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(locations)
-      .build()
-
-    const categoriesEndpoint = new EndpointBuilder('categories')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(categories)
-      .build()
-
-    const pathname = '/augsburg/de/willkommen'
-    const id = '3650'
-
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language},
-          pathname: pathname,
-          query: {id: id}},
-        languageChangeUrls: {}
-      })
-
-      const categoriesPage = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
-            <ConnectedCategoriesPage />
-          </EndpointProvider>
-        </Provider>
-      ).find(CategoriesPage)
-
-      expect(categoriesPage.props()).toEqual({
-        location: location,
-        language: language,
-        path: pathname,
-        categoryId: Number(id),
-        setLanguageChangeUrls: expect.any(Function),
-        replaceUrl: expect.any(Function),
-        categories: categories,
-        locations: locations,
-        languages: languages
-      })
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      categories: {data: categories},
+      cities: {data: cities}
     })
 
-    it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language},
-          pathname: pathname,
-          query: {id: id}},
-        languageChangeUrls: {}
-      })
+    const categoriesPage = shallow(
+      <ConnectedCategoriesPage store={store} />
+    )
 
-      const mapLanguageToPath = (language, id) => (id ? `/${language}/${id}` : `/${language}`)
-
-      const languageChangeUrls = {
-        en: '/en/1235',
-        ar: '/ar/1236',
-        de: '/de'
-      }
-
-      const availableLanguages = {
-        en: '1235',
-        ar: '1236'
-      }
-
-      expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
-
-      const categoriesPage = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
-            <ConnectedCategoriesPage />
-          </EndpointProvider>
-        </Provider>
-      ).find(CategoriesPage)
-
-      categoriesPage.props().setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)
-      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
+    expect(categoriesPage.props()).toEqual({
+      city,
+      language,
+      path: pathname,
+      categories,
+      cities,
+      store,
+      dispatch: expect.any(Function),
+      storeSubscription: expect.any(Object)
     })
   })
 })

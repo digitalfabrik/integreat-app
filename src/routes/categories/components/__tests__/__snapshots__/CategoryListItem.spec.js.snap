@@ -1,80 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryListItem should render and match snapshot 1`] = `
-<div
-  className="row"
->
-  <Connect(Link)
-    href="/augsburg/de/willkommen"
+<CategoryListItemstyles__Row>
+  <CategoryListItemstyles__StyledLink
+    to="/augsburg/de/willkommen"
   >
-    <img
-      className="categoryThumbnail"
+    <CategoryListItemstyles__CategoryThumbnail
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
     />
-    <Highlighter
-      caseSensitive={false}
-      className="categoryCaption"
-      matchClass="highlight"
-      matchElement="strong"
-      matchStyle={Object {}}
+    <CategoryListItemstyles__CategoryCaption
       search=""
     >
       Willkommen
-    </Highlighter>
-  </Connect(Link)>
-  <Connect(Link)
-    className="subRow"
-    href="/augsburg/de/test"
+    </CategoryListItemstyles__CategoryCaption>
+  </CategoryListItemstyles__StyledLink>
+  <div
     key="5234"
   >
-    <img
-      className="categoryThumbnail"
-      src="https://cms.integreat-ap…03/Beratung-150x150.png"
-    />
-    <div
-      className="categoryCaption"
+    <CategoryListItemstyles__StyledLink
+      to="/augsburg/de/test"
     >
-      Child
-    </div>
-  </Connect(Link)>
-</div>
+      <CategoryListItemstyles__CategoryThumbnail
+        src="https://cms.integreat-ap…03/Beratung-150x150.png"
+      />
+      <CategoryListItemstyles__CategoryCaption>
+        Child
+      </CategoryListItemstyles__CategoryCaption>
+    </CategoryListItemstyles__StyledLink>
+  </div>
+</CategoryListItemstyles__Row>
 `;
 
 exports[`CategoryListItem should replace empty thumbnail 1`] = `
-<div
-  className="row"
->
-  <Connect(Link)
-    href=""
+<CategoryListItemstyles__Row>
+  <CategoryListItemstyles__StyledLink
+    to=""
   >
-    <img
-      className="categoryThumbnail"
+    <CategoryListItemstyles__CategoryThumbnail
       src="test-file-stub"
     />
-    <Highlighter
-      caseSensitive={false}
-      className="categoryCaption"
-      matchClass="highlight"
-      matchElement="strong"
-      matchStyle={Object {}}
+    <CategoryListItemstyles__CategoryCaption
       search=""
     >
       GotNoThumb :O
-    </Highlighter>
-  </Connect(Link)>
-  <Connect(Link)
-    className="subRow"
-    href=""
+    </CategoryListItemstyles__CategoryCaption>
+  </CategoryListItemstyles__StyledLink>
+  <div
     key="42"
   >
-    <div
-      className="categoryThumbnail"
-    />
-    <div
-      className="categoryCaption"
+    <CategoryListItemstyles__StyledLink
+      to=""
     >
-      GotNoThumb :O
-    </div>
-  </Connect(Link)>
-</div>
+      <CategoryListItemstyles__CategoryThumbnail />
+      <CategoryListItemstyles__CategoryCaption>
+        GotNoThumb :O
+      </CategoryListItemstyles__CategoryCaption>
+    </CategoryListItemstyles__StyledLink>
+  </div>
+</CategoryListItemstyles__Row>
 `;

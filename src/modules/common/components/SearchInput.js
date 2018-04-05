@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FontAwesome from 'react-fontawesome'
 import { translate } from 'react-i18next'
-
-import style from './SearchInput.css'
+import { SearchIcon, Spacer, TextInput, Wrapper } from './SearchInput.styles'
 
 export class SearchInput extends React.Component {
   static propTypes = {
@@ -18,18 +16,16 @@ export class SearchInput extends React.Component {
 
   render () {
     return (
-      <div className={this.props.spaceSearch ? style.searchSpacing : ''}>
-        <div className={style.search}>
-          <FontAwesome className={style.searchIcon} name='search' />
-          <input type='text'
-                 placeholder={this.props.t('search')}
-                 className={style.searchInput}
-                 defaultValue={this.props.filterText}
-                 onChange={this.onFilterTextChange}
-                 onClick={this.props.onClickInput}
-                 autoFocus />
-        </div>
-      </div>
+      <Spacer space={this.props.spaceSearch}>
+        <Wrapper>
+          <SearchIcon />
+          <TextInput placeholder={this.props.t('search')}
+                     defaultValue={this.props.filterText}
+                     onChange={this.onFilterTextChange}
+                     onClick={this.props.onClickInput}
+                     autoFocus />
+        </Wrapper>
+      </Spacer>
     )
   }
 }
