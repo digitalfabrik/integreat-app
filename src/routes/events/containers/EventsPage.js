@@ -1,128 +1,44 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
-import Spinner from 'react-spinkit'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
+import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
-import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import EventModel from '../../../modules/endpoint/models/EventModel'
-
-type mapLanguageToPath = (string, ?string) => string
+import Failure from '../../../modules/common/components/Failure'
 
 type Props = {
   events: Array<EventModel>,
-  location: string,
-  languages: Array<LanguageModel>,
+  city: string,
   language: string,
-  setLanguageChangeUrls: (mapLanguageToPath, Array<LanguageModel>, any) => {},
-  id?: string
+  eventId?: string
 }
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export class EventsPage extends React.Component<Props> {
-  getPath () {
-    return `/${this.props.location}/${this.props.language}/events`
-  }
-
-  /**
-   * The function used to map different languages to their EventsPages
-   * @param {string} language The language
-   * @param {string | undefined} id The id of a single event
-   * @returns {string} The path of the EventsPage of a different language
-   */
-  mapLanguageToPath = (language, id) =>
-    id ? `/${this.props.location}/${language}/events/${id}`
-      : `/${this.props.location}/${language}/events`
-
-  /**
-   * Finds the event in events with the given id
-   * @param {Array<EventModel>} events The events to search
-   * @param {string} id The id of the event to search for
-   */
-  findEvent = (events, id) => events.find(
-    event => event.id.toString() === id
-  )
-
-  /**
-   * Dispatches the action to set the language change urls after mount
-   */
-  componentDidMount () {
-    // all events
-    let availableLanguages = {}
-
-    if (this.props.id && this.props.events) {
-      // only a specific event
-      const event = this.findEvent(this.props.events, this.props.id)
-      if (event) {
-        availableLanguages = event.availableLanguages
-      }
-    }
-    this.props.setLanguageChangeUrls(this.mapLanguageToPath, this.props.languages, availableLanguages)
-  }
-
-  /**
-   * Dispatches the action to set the language change urls after a prop change
-   * (i.e. language change, selection of a specific event)
-   * we must NOT call dispatch in componentWillUpdate or componentDidUpdate
-   * @see https://reactjs.org/docs/react-component.html#componentwillupdate
-   * @param nextProps The new props
-   */
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.events === this.props.events && nextProps.id === this.props.id) {
-      // no relevant prop changes
-      return
-    }
-
-    if (nextProps.id) {
-      // only a specific event
-      const event = this.findEvent(nextProps.events, nextProps.id)
-      if (event) {
-        // events have been loaded in the new language
-        this.props.setLanguageChangeUrls(
-          this.mapLanguageToPath, nextProps.languages, event.availableLanguages
-        )
-      }
-    } else {
-      // all events
-      this.props.setLanguageChangeUrls(this.mapLanguageToPath, nextProps.languages)
-    }
-  }
-
   render () {
-    if (this.props.id) {
+    const {events, eventId, city, language} = this.props
+
+    if (eventId) {
       // event with the given id from this.props.id
-      const event = this.findEvent(this.props.events, this.props.id)
+      const event = events.find(_event => _event.id === eventId)
 
       if (event) {
-        return <EventDetail event={event} location={this.props.location} language={this.props.language} />
+        return <EventDetail event={event} location={city} language={language} />
       } else {
-        // events in new language haven't been fetched yet
-        return <Spinner name='line-scale-party' />
+        return <Failure />
       }
     }
-    return <EventList events={this.props.events} url={this.getPath()} language={this.props.language} />
+    return <EventList events={events} city={city} language={language} />
   }
 }
 
 const mapStateToProps = state => ({
-  language: state.router.params.language,
-  location: state.router.params.location,
-  id: state.router.params.id
+  language: state.location.payload.language,
+  city: state.location.payload.city,
+  eventId: state.location.payload.eventId,
+  events: state.events.data
 })
 
-const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToPath, languages, availableLanguages) => dispatch(
-    setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)
-  )
-})
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('events'),
-  withFetcher('languages')
-)(EventsPage)
+export default connect(mapStateToProps)(EventsPage)

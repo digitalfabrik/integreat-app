@@ -3,7 +3,16 @@
 exports[`LocationEntry should match snapshot 1`] = `
 <Connect(Link)
   className="locationListItem"
-  href="/augsburg/de"
+  to={
+    Object {
+      "payload": Object {
+        "categoryPath": undefined,
+        "city": "augsburg",
+        "language": "de",
+      },
+      "type": "CATEGORIES",
+    }
+  }
 >
   <Highlighter
     caseSensitive={false}

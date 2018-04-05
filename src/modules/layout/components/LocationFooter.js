@@ -3,30 +3,24 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 
 import Footer from './Footer'
-import { Link } from 'redux-little-router'
-import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
+import Link from 'redux-first-router-link'
+import { goToDisclaimer } from '../../app/routes/disclaimer'
 
-class LocationFooter extends React.Component {
+export class LocationFooter extends React.Component {
   static propTypes = {
-    matchRoute: PropTypes.func.isRequired,
-    location: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
   }
 
-  getCurrentParams () {
-    return {
-      location: this.props.location,
-      language: this.props.language
-    }
-  }
-
   render () {
+    const {t, city, language} = this.props
+
     return <Footer>
-      <Link href={this.props.matchRoute(DisclaimerPage).stringify(this.getCurrentParams())}>
-        {this.props.t('imprintAndContact')}
+      <Link to={goToDisclaimer(city, language)}>
+        {t('imprintAndContact')}
       </Link>
-      <a href={'https://integreat-app.de/datenschutz/'}>{this.props.t('privacy')}</a>
+      <a href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</a>
     </Footer>
   }
 }

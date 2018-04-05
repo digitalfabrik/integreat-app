@@ -1,54 +1,238 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to a single event if there is an event is selected 1`] = `
+Object {
+  "payload": Object {
+    "city": "augsburg",
+    "eventId": "1",
+    "language": "de",
+  },
+  "type": "EVENTS",
+}
+`;
+
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to categories 1`] = `
+Object {
+  "payload": Object {
+    "categoryPath": undefined,
+    "city": "augsburg",
+    "language": "de",
+  },
+  "type": "CATEGORIES",
+}
+`;
+
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to categories redirect if a category is selected 1`] = `
+Object {
+  "payload": Object {
+    "categoryId": "4361",
+    "city": "augsburg",
+    "language": "de",
+  },
+  "type": "CATEGORIES_REDIRECT",
+}
+`;
+
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to disclaimer 1`] = `
+Object {
+  "payload": Object {
+    "city": "augsburg",
+    "language": "de",
+  },
+  "type": "DISCLAIMER",
+}
+`;
+
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to events 1`] = `
+Object {
+  "payload": Object {
+    "city": "augsburg",
+    "eventId": undefined,
+    "language": "de",
+  },
+  "type": "EVENTS",
+}
+`;
+
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to extras 1`] = `
+Object {
+  "payload": Object {
+    "city": "augsburg",
+    "extraAlias": "sprungbrett",
+    "language": "de",
+  },
+  "type": "EXTRAS",
+}
+`;
+
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to search 1`] = `
+Object {
+  "payload": Object {
+    "city": "augsburg",
+    "language": "de",
+  },
+  "type": "SEARCH",
+}
+`;
+
 exports[`LanguageSelector should add vertical class name if verticalLayout is true 1`] = `
-<Selector
-  activeItemCode="de"
-  closeDropDownCallback={[Function]}
-  items={
-    Array [
-      SelectorItemModel {
+LanguageSelector {
+  "context": Object {},
+  "props": Object {
+    "languages": Array [
+      LanguageModel {
         "_code": "de",
         "_name": "Deutsch",
-        "_path": "test/url/de",
       },
-      SelectorItemModel {
+      LanguageModel {
         "_code": "en",
         "_name": "English",
-        "_path": "test/url/en",
       },
-      SelectorItemModel {
+      LanguageModel {
         "_code": "ar",
         "_name": "Arabic",
-        "_path": "test/url/ar",
       },
-    ]
-  }
-  verticalLayout={true}
-/>
+    ],
+    "location": Object {
+      "pathname": "/augsburg/de/disclaimer",
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "type": "DISCLAIMER",
+    },
+    "verticalLayout": true,
+  },
+  "refs": Object {},
+  "state": Object {},
+  "updater": Updater {
+    "_callbacks": Array [],
+    "_renderer": ReactShallowRenderer {
+      "_context": Object {},
+      "_element": <LanguageSelector
+        languages={
+          Array [
+            LanguageModel {
+              "_code": "de",
+              "_name": "Deutsch",
+            },
+            LanguageModel {
+              "_code": "en",
+              "_name": "English",
+            },
+            LanguageModel {
+              "_code": "ar",
+              "_name": "Arabic",
+            },
+          ]
+        }
+        location={
+          Object {
+            "pathname": "/augsburg/de/disclaimer",
+            "payload": Object {
+              "city": "augsburg",
+              "language": "de",
+            },
+            "type": "DISCLAIMER",
+          }
+        }
+        verticalLayout={true}
+      />,
+      "_forcedUpdate": false,
+      "_instance": [Circular],
+      "_newState": null,
+      "_rendered": <UNDEFINED>
+        <Selector
+          activeItemCode="de"
+          closeDropDownCallback={undefined}
+          items={
+            Array [
+              SelectorItemModel {
+                "_code": "de",
+                "_href": Object {
+                  "payload": Object {
+                    "city": "augsburg",
+                    "language": "de",
+                  },
+                  "type": "DISCLAIMER",
+                },
+                "_name": "Deutsch",
+              },
+              SelectorItemModel {
+                "_code": "en",
+                "_href": Object {
+                  "payload": Object {
+                    "city": "augsburg",
+                    "language": "en",
+                  },
+                  "type": "DISCLAIMER",
+                },
+                "_name": "English",
+              },
+              SelectorItemModel {
+                "_code": "ar",
+                "_href": Object {
+                  "payload": Object {
+                    "city": "augsburg",
+                    "language": "ar",
+                  },
+                  "type": "DISCLAIMER",
+                },
+                "_name": "Arabic",
+              },
+            ]
+          }
+          verticalLayout={true}
+        />
+      </UNDEFINED>,
+      "_rendering": false,
+      "_updater": [Circular],
+    },
+  },
+}
 `;
 
 exports[`LanguageSelector should match snapshot 1`] = `
-<Selector
-  activeItemCode="de"
-  closeDropDownCallback={[Function]}
-  items={
-    Array [
-      SelectorItemModel {
-        "_code": "de",
-        "_name": "Deutsch",
-        "_path": "test/url/de",
-      },
-      SelectorItemModel {
-        "_code": "en",
-        "_name": "English",
-        "_path": "test/url/en",
-      },
-      SelectorItemModel {
-        "_code": "ar",
-        "_name": "Arabic",
-        "_path": "test/url/ar",
-      },
-    ]
-  }
-/>
+<React.Fragment>
+  <Selector
+    activeItemCode="de"
+    items={
+      Array [
+        SelectorItemModel {
+          "_code": "de",
+          "_href": Object {
+            "payload": Object {
+              "city": "augsburg",
+              "language": "de",
+            },
+            "type": "DISCLAIMER",
+          },
+          "_name": "Deutsch",
+        },
+        SelectorItemModel {
+          "_code": "en",
+          "_href": Object {
+            "payload": Object {
+              "city": "augsburg",
+              "language": "en",
+            },
+            "type": "DISCLAIMER",
+          },
+          "_name": "English",
+        },
+        SelectorItemModel {
+          "_code": "ar",
+          "_href": Object {
+            "payload": Object {
+              "city": "augsburg",
+              "language": "ar",
+            },
+            "type": "DISCLAIMER",
+          },
+          "_name": "Arabic",
+        },
+      ]
+    }
+  />
+</React.Fragment>
 `;

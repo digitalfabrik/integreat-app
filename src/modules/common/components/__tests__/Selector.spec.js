@@ -6,12 +6,12 @@ import SelectorItemModel from '../../models/SelectorItemModel'
 const selectorItems = [
   new SelectorItemModel({
     code: 'en',
-    path: '/augsburg/en/',
+    href: '/augsburg/en/',
     name: 'English'
   }),
   new SelectorItemModel({
     code: 'de',
-    path: '/augsburg/de/',
+    href: '/augsburg/de/',
     name: 'Deutsch'
   })
 ]

@@ -1,4 +1,4 @@
-import LocationModel from '../LocationModel'
+import LocationModel from '../CityModel'
 
 describe('LocationModel', () => {
   it('should have correct sort key and category', () => {

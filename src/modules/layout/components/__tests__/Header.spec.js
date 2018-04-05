@@ -9,9 +9,11 @@ describe('Header', () => {
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
-        logoHref={'/'}
-        actionItems={[new HeaderActionItem({href: '/action1'})]}
-        navigationItems={<HeaderNavigationItem href='/nav1' text='text1' active selected tooltip='tooltip1' />}
+        logoHref={{type: 'RANDOM_ROUTE'}}
+        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        navigationItems={
+          <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
+        }
         viewportSmall />
     )
     expect(component).toMatchSnapshot()
@@ -20,9 +22,11 @@ describe('Header', () => {
   it('should match snapshot with largeViewport', () => {
     const component = shallow(
       <Header
-        logoHref={'/'}
-        actionItems={[new HeaderActionItem({href: '/action1'})]}
-        navigationItems={<HeaderNavigationItem href='/nav1' text='text1' active selected tooltip='tooltip1' />}
+        logoHref={{type: 'RANDOM_ROUTE'}}
+        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        navigationItems={
+          <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
+        }
         viewportSmall={false} />
     )
     expect(component).toMatchSnapshot()

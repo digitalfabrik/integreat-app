@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Route should throw error if a param is missing 1`] = `"no values provided for key \`language\`"`;
