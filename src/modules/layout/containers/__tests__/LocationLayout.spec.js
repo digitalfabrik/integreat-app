@@ -8,6 +8,8 @@ import LanguageModel from '../../../endpoint/models/LanguageModel'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import { EXTRAS_ROUTE } from '../../../app/routes/extras'
 import configureMockStore from 'redux-mock-store'
+import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
+import CategoryModel from '../../../endpoint/models/CategoryModel'
 
 describe('LocationLayout', () => {
   const matchRoute = id => {}
@@ -21,6 +23,22 @@ describe('LocationLayout', () => {
     new LanguageModel('en', 'English'),
     new LanguageModel('ar', 'Arabic')
   ]
+
+  const categories = new CategoriesMapModel([
+    new CategoryModel({
+      number: 1,
+      path: 'path01',
+      url: 'url01',
+      title: 'Title10',
+      content: 'contnentl',
+      parentId: 3,
+      thumbnail: 'thumb/nail',
+
+      parentUrl: 'parent/url',
+      order: 4,
+      availableLanguages: new Map()
+    })
+  ])
 
   const events = [
     new EventModel({
@@ -46,6 +64,7 @@ describe('LocationLayout', () => {
       <LocationLayout city='city1'
                       language={language}
                       languages={languages}
+                      categories={categories}
                       matchRoute={matchRoute}
                       cities={cities}
                       viewportSmall
@@ -60,6 +79,7 @@ describe('LocationLayout', () => {
       <LocationLayout city='unavailableLocation'
                       language={language}
                       languages={languages}
+                      categories={categories}
                       matchRoute={matchRoute}
                       cities={cities}
                       viewportSmall
@@ -83,6 +103,7 @@ describe('LocationLayout', () => {
       events: {data: events},
       cities: {data: cities},
       languages: {data: languages},
+      categories: {data: categories},
       viewport: {is: {small: false}}
     })
 
@@ -96,6 +117,7 @@ describe('LocationLayout', () => {
       language,
       currentRoute: type,
       languages,
+      categories,
       events,
       cities,
       store,
