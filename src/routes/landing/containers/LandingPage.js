@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 
 import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
 import CityModel from 'modules/endpoint/models/CityModel'
-import GeneralFooter from '../../../modules/layout/components/GeneralFooter'
-import withLayout from '../../../modules/layout/hocs/withLayout'
 
 export class LandingPage extends React.Component {
   static propTypes = {
