@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import style from './Layout.css'
+import { Aside, Body, RichLayout, Main } from './Layout.styles'
 
 type Props = {
   asideStickyTop: ?number,
@@ -21,21 +21,21 @@ class Layout extends React.PureComponent<Props> {
   render () {
     const {asideStickyTop, footer, header, toolbar, children} = this.props
     return (
-      <div className={style.richLayout}>
+      <RichLayout>
         <div>
           {header}
-          <div className={style.body}>
-            <aside style={{top: `${asideStickyTop}px`}} className={style.aside}>
+          <Body>
+            <Aside style={{top: `${asideStickyTop}px`}}>
               {toolbar}
-            </aside>
-            <main className={style.main}>
+            </Aside>
+            <Main>
               {children}
-            </main>
-          </div>
+            </Main>
+          </Body>
         </div>
         {footer}
         <ReactTooltip effect='solid' delayShow={0} />
-      </div>
+      </RichLayout>
     )
   }
 }
