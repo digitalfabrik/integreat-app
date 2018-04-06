@@ -15,6 +15,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationM
 
 exports[`LocationLayout should show LocationHeader and LocationFooter if City is available 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={
     <Translate(LocationFooter)
       city="city1"
@@ -45,6 +46,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if City is
           },
         ]
       }
+      onStickyTopChanged={[Function]}
       viewportSmall={true}
     />
   }
