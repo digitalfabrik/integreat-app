@@ -34,10 +34,14 @@ type Props = {
 }
 
 export class LocationLayout extends React.Component<Props> {
+  state = {stickyTop: 0}
+
   getCurrentCity (): ?CityModel {
     const cities = this.props.cities
     return cities && cities.find(_city => _city.code === this.props.city)
   }
+
+  onStickyTopChanged = stickyTop => this.setState({stickyTop})
 
   render () {
     const {language, city, currentRoute, viewportSmall, children, events, languages, pathname, categories} = this.props
@@ -52,17 +56,20 @@ export class LocationLayout extends React.Component<Props> {
       </Layout>
     }
 
-    return <Layout header={<LocationHeader viewportSmall={viewportSmall}
-                                           city={city}
-                                           currentRoute={currentRoute}
-                                           language={language}
-                                           languages={languages}
-                                           isEventsActive={isEventsActive}
-                                           isEventsEnabled={cityModel.eventsEnabled}
-                                           isExtrasEnabled={cityModel.extrasEnabled} />}
-                   footer={<LocationFooter city={city} language={language} />}
-                   toolbar={showCategoriesToolbar &&
-                   <CategoriesToolbar city={city} language={language} pathname={pathname} categories={categories} />}>
+    return <Layout
+      asideStickyTop={this.state.stickyTop}
+      header={<LocationHeader viewportSmall={viewportSmall}
+                              city={city}
+                              currentRoute={currentRoute}
+                              language={language}
+                              languages={languages}
+                              isEventsActive={isEventsActive}
+                              isEventsEnabled={cityModel.eventsEnabled}
+                              isExtrasEnabled={cityModel.extrasEnabled}
+                              onStickyTopChanged={this.onStickyTopChanged} />}
+      footer={<LocationFooter city={city} language={language} />}
+      toolbar={showCategoriesToolbar &&
+      <CategoriesToolbar city={city} language={language} pathname={pathname} categories={categories} />}>
       {children}
     </Layout>
   }
