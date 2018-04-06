@@ -16,7 +16,7 @@ export const Body = styled.div`
   max-width: ${props => props.theme.dimensions.maxWidth};
   flex-grow: 1;
   margin: 0 auto;
-  background-color: var(--background-color);
+  background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
   
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
