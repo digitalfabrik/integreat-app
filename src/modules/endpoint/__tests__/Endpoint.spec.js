@@ -50,11 +50,11 @@ describe('Endpoint', () => {
       fetch.mockResponse(JSON.stringify(json))
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, json, null, defaultMapParamsToUrl(params))
+      const payload = new Payload(false, defaultMapParamsToUrl(params), json, null)
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)
-      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName))
+      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
 
@@ -64,16 +64,16 @@ describe('Endpoint', () => {
       })
       const json = {test: 'random'}
       const dispatch = jest.fn()
-      const oldPayload = new Payload(false, {}, null, 'https://weird-endpoint/old-url/api.json')
+      const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
       const params = {var1: 'a', var2: 'b'}
       fetch.mockResponse(JSON.stringify(json))
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, json, null, defaultMapParamsToUrl(params))
+      const payload = new Payload(false, defaultMapParamsToUrl(params), json, null)
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)
-      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName))
+      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
 
@@ -83,19 +83,19 @@ describe('Endpoint', () => {
       })
       const malformedJSON = 'I\'m so mean!'
       const dispatch = jest.fn()
-      const oldPayload = new Payload(false, {}, null, 'https://weird-endpoint/old-url/api.json')
+      const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
       const params = {var1: 'a', var2: 'b'}
       fetch.mockResponse(malformedJSON)
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, null,
+      const payload = new Payload(false, defaultMapParamsToUrl(params), null,
         new MappingError(
           stateName, 'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
-        ), defaultMapParamsToUrl(params))
+        ))
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)
-      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName))
+      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
 
@@ -105,7 +105,7 @@ describe('Endpoint', () => {
       })
       const dispatch = jest.fn()
       const params = {var1: 'a', var2: 'b'}
-      const oldPayload = new Payload(false, {}, null, defaultMapParamsToUrl(params))
+      const oldPayload = new Payload(false, defaultMapParamsToUrl(params), {}, null)
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
 
@@ -125,11 +125,11 @@ describe('Endpoint', () => {
       const params = {var1: 'a', var2: 'b'}
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, json, null, defaultMapParamsToUrl(params))
+      const payload = new Payload(false, defaultMapParamsToUrl(params), json, null)
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)
-      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName))
+      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
 
@@ -145,11 +145,11 @@ describe('Endpoint', () => {
       const params = {var1: 'a', var2: 'b'}
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, null, error, defaultMapParamsToUrl(params))
+      const payload = new Payload(false, defaultMapParamsToUrl(params), null, error)
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)
-      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName))
+      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
   })

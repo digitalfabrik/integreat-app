@@ -23,12 +23,12 @@ const endpoints = [
   sprungbrettJobEndpoint
 ]
 
-const startFetchReducer = (state, action) => action.payload
-const finishFetchReducer = (oldPayload, action) => {
+export const startFetchReducer = (oldPayload, action) => action.payload
+export const finishFetchReducer = (oldPayload, action) => {
   // Only stores the data if the requestUrl hasn't changed since the start of the fetching process.
   // For example the data of "Nürnberg" is very large and could take a while to load, in which time one could change to
   // another city, which data could be overridden then by the data from "Nürnberg"
-  if (oldPayload.requestUrl === action.payload.requestUrl) {
+  if (oldPayload.isFetching && oldPayload.requestUrl === action.payload.requestUrl) {
     return action.payload
   } else {
     return oldPayload

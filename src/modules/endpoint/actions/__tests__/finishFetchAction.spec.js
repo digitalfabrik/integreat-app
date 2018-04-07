@@ -19,7 +19,7 @@ describe('finishFetchAction', () => {
   })
 
   it('should create the right action', () => {
-    const payload = new Payload(false, 'data', null, 'https://random_api.json')
+    const payload = new Payload(false, 'https://random_api.json', 'data', null)
     expect(finishFetchAction('endpoint', payload)).toEqual({type: finishFetchActionName('endpoint'), payload: payload})
   })
 })
