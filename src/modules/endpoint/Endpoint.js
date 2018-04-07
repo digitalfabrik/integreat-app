@@ -37,37 +37,36 @@ class Endpoint {
   }
 
   async loadData (dispatch: Dispatch, oldPayload: Payload, params: Params): Promise<Payload> {
-    let formattedURL
+    let formattedUrl
     try {
       const responseOverride = this.responseOverride
       const errorOverride = this.errorOverride
 
-      formattedURL = this.mapParamsToUrl(params)
+      formattedUrl = this.mapParamsToUrl(params)
 
       const lastUrl = oldPayload.requestUrl
 
-      if (lastUrl && lastUrl === formattedURL) {
+      if (lastUrl && lastUrl === formattedUrl) {
         // The correct data was already fetched
         return oldPayload
       }
 
       // Fetch if the data is not valid anymore or it hasn't been fetched yet
-      dispatch(startFetchAction(this.stateName))
+      dispatch(startFetchAction(this.stateName, formattedUrl))
 
       if (errorOverride) {
-        const payload = new Payload(false, null, errorOverride, formattedURL)
+        const payload = new Payload(false, formattedUrl, null, errorOverride)
         dispatch(finishFetchAction(this.stateName, payload))
         return payload
       }
       if (responseOverride) {
         const data = this.mapResponse(responseOverride, params)
-        const payload = new Payload(false, data, null, formattedURL)
+        const payload = new Payload(false, formattedUrl, data, null)
         dispatch(finishFetchAction(this.stateName, payload))
         return payload
       }
 
-      const payload = await this.fetchData(formattedURL, params)
-
+      const payload = await this.fetchData(formattedUrl, params)
       dispatch(finishFetchAction(this.stateName, payload))
       return payload
     } catch (e) {
@@ -79,7 +78,7 @@ class Endpoint {
       }
 
       console.error(error)
-      const payload = new Payload(false, null, error, formattedURL)
+      const payload = new Payload(false, formattedUrl, null, error)
       dispatch(finishFetchAction(this.stateName, payload))
       return payload
     }
@@ -93,7 +92,7 @@ class Endpoint {
     try {
       const json = await response.json()
       const fetchedData = this.mapResponse(json, params)
-      return new Payload(false, fetchedData, null, formattedUrl)
+      return new Payload(false, formattedUrl, fetchedData, null)
     } catch (e) {
       throw (e instanceof MappingError) ? e : new MappingError(this.stateName, e.message)
     }

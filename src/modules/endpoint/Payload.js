@@ -22,8 +22,8 @@ class Payload {
   _requestUrl: string | null
   _fetchDate: number
 
-  constructor (isFetching: boolean, data: PayloadData = null, error: ?Error = null,
-    requestUrl: string | null = null, fetchDate: number = new Date().getTime()) {
+  constructor (isFetching: boolean, requestUrl: string | null = null, data: PayloadData = null, error: ?Error = null,
+    fetchDate: number = new Date().getTime()) {
     this._isFetching = isFetching
     this._fetchDate = fetchDate
     this._error = error
