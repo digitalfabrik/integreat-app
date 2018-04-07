@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { detect } from 'detect-browser'
 const browser = detect()
 
