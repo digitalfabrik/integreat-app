@@ -1,9 +1,9 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import FilterableLocationSelector from '../FilterableLocationSelector'
+import FilterableCitySelector from '../FilterableCitySelector'
 import { mount, shallow } from 'enzyme'
-import LocationSelector from 'routes/landing/components/LocationSelector'
+import CitySelector from 'routes/landing/components/CitySelector'
 import SearchInput from 'modules/common/components/SearchInput'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
@@ -13,7 +13,7 @@ import theme from '../../../../modules/app/constants/theme'
 
 jest.mock('react-i18next')
 
-describe('FilterableLocationSelector', () => {
+describe('FilterableCitySelector', () => {
   const cities = [
     new CityModel({
       name: 'City',
@@ -48,7 +48,7 @@ describe('FilterableLocationSelector', () => {
 
   it('should render', () => {
     const component = shallow(
-      <FilterableLocationSelector
+      <FilterableCitySelector
         language='de'
         cities={cities} />
     )
@@ -56,11 +56,11 @@ describe('FilterableLocationSelector', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should pass filterText to LocationSelector and filter', () => {
+  it('should pass filterText to CityCitySelector and filter', () => {
     const wrapper = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-        <FilterableLocationSelector
+        <FilterableCitySelector
           language='de'
           cities={cities} />
       </Provider></ThemeProvider>
@@ -69,7 +69,7 @@ describe('FilterableLocationSelector', () => {
     const search = wrapper.find(SearchInput)
     search.prop('onFilterTextChange')('City')
 
-    const selector = wrapper.find(LocationSelector)
+    const selector = wrapper.find(CitySelector)
     expect(selector.instance().filter()).toHaveLength(3)
   })
 })

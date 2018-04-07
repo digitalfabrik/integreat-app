@@ -3,7 +3,7 @@ import Link from 'redux-first-router-link'
 
 import { positionStickyDisabled } from '../../../modules/common/constants'
 
-export const LocationListParent = styled.div`
+export const CityListParent = styled.div`
   position: ${positionStickyDisabled ? 'static' : 'sticky'};
   height: 30px;
   margin-top: 10px;
@@ -13,7 +13,7 @@ export const LocationListParent = styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
-export const LocationListItem = styled(Link)`
+export const CityListItem = styled(Link)`
   display: block;
   padding: 7px;
   color: inherit;
