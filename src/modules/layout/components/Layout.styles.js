@@ -56,8 +56,8 @@ export const Main = styled.main`
 export const Aside = styled.aside`
     position: sticky;
     display: inline-block;
-    width: var(--toolbar-width);
-    margin-top: 110px;
+    width: ${props => props.theme.dimensions.toolbarWidth};
+    margin-top: 105px;
     vertical-align: top;
     transition: top 0.2s ease-in-out;
     
