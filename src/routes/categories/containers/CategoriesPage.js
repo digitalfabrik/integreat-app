@@ -13,13 +13,11 @@ import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { apiUrl } from '../../../modules/endpoint/constants'
 
 type Props = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
-  language: string,
   path: string
 }
 
@@ -27,13 +25,6 @@ type Props = {
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
 export class CategoriesPage extends React.Component<Props> {
-  getPdfUrl (category: CategoryModel) {
-    if (category.id === 0) {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
-    } else {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${this.props.path}`
-    }
-  }
 
   /**
    * Our root categories don't have the right title (city code instead of city title), so we have to compare the
