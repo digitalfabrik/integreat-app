@@ -13,7 +13,7 @@ export const RichLayout = styled.div`
 
 export const Body = styled.div`
   width: 100%;
-  max-width: ${props => props.theme.dimensions.maxWidth};
+  max-width: ${props => props.theme.dimensions.maxWidth}px;
   flex-grow: 1;
   margin: 0 auto;
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -33,8 +33,8 @@ export const Body = styled.div`
 
 export const Main = styled.main`
     display: inline-block;
-    width: calc(${props => props.theme.dimensions.maxWidth} - 2*${props => props.theme.dimensions.toolbarWidth});
-    max-width: calc(100% - ${props => props.theme.dimensions.toolbarWidth});
+    width: ${props => props.theme.dimensions.maxWidth - 2 * props.theme.dimensions.toolbarWidth}px;
+    max-width: calc(100% - ${props => props.theme.dimensions.toolbarWidth}px);
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0 10px;
@@ -56,7 +56,7 @@ export const Main = styled.main`
 export const Aside = styled.aside`
     position: sticky;
     display: inline-block;
-    width: ${props => props.theme.dimensions.toolbarWidth};
+    width: ${props => props.theme.dimensions.toolbarWidth}px;
     margin-top: 105px;
     vertical-align: top;
     transition: top 0.2s ease-in-out;
