@@ -23,7 +23,7 @@ import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedire
 import { CATEGORIES_REDIRECT_ROUTE } from '../routes/categoriesRedirect'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 import LanguageNotFoundError from '../errors/LanguageNotFoundError'
-import FailureSwitcher from '../../common/containers/FailureSwitcher'
+import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { NOT_FOUND } from 'redux-first-router'
 import CityNotFoundError from '../errors/CityNotFoundError'
 import CityModel from '../../endpoint/models/CityModel'

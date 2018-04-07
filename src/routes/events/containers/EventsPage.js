@@ -5,7 +5,7 @@ import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import FailureSwitcher from '../../../modules/common/containers/FailureSwitcher'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type Props = {
   events: Array<EventModel>,
