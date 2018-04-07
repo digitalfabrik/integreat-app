@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './LocationSelector.css'
+import { LocationListParent } from './LocationSelector.styles'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityModel from 'modules/endpoint/models/CityModel'
@@ -36,7 +36,7 @@ class LocationSelector extends React.PureComponent {
     const groups = groupBy(locations, location => location.sortCategory)
     return transform(groups, (result, locations, key) => {
       result.push(<div key={key}>
-        <div className={style.locationListParent} style={{top: `${this.props.stickyTop}px`}}>{key}</div>
+        <LocationListParent style={{top: `${this.props.stickyTop}px`}}>{key}</LocationListParent>
         {locations.map(location => <LocationEntry
           key={location.code}
           city={location}

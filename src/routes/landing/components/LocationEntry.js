@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Link from 'redux-first-router-link'
 import Highlighter from 'react-highlighter'
 
-import style from './LocationSelector.css'
+import { LocationListItem } from './LocationSelector.styles'
 import { goToCategories } from '../../../modules/app/routes/categories'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 
@@ -17,11 +16,11 @@ class LocationEntry extends React.PureComponent {
   render () {
     const {city, language, filterText} = this.props
     return (
-      <Link to={goToCategories(city.code, language)} className={style.locationListItem}>
+      <LocationListItem to={goToCategories(city.code, language)}>
         <Highlighter search={filterText || ''}>
           {city.name}
         </Highlighter>
-      </Link>
+      </LocationListItem>
     )
   }
 }
