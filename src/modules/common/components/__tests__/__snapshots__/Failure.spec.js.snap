@@ -28,7 +28,7 @@ exports[`Failure should match snapshot 1`] = `
       }
     }
   >
-    goToStart
+    goTo.start
   </Connect(Link)>
 </Failurestyles__Centered>
 `;

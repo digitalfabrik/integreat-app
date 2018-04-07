@@ -14,8 +14,8 @@ import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
 import configureMockStore from 'redux-mock-store'
 
 describe('Switcher', () => {
-  const errorPayload = new Payload(false, null, 'fake news', 'https://random.api.json')
-  const dataPayload = new Payload(false, 'fetched fake news :D', null, 'https://random.api.json')
+  const errorPayload = new Payload(false, 'https://random.api.json', null, 'fake news')
+  const dataPayload = new Payload(false, 'https://random.api.json', 'fetched fake news :D', null)
   const idlePayload = new Payload(false)
   const fetchingPayload = new Payload(true)
 
@@ -128,7 +128,7 @@ describe('Switcher', () => {
 
   it('should map state to props', () => {
     const currentRoute = 'RANDOM_ROUTE'
-    const location = {type: currentRoute, payload: {city: 'augsburg', language: 'de', param: 'param'}}
+    const location = {type: currentRoute, payload: {city: 'augsburg', language: 'de'}, prev: {payload: {param: 'param'}}}
     const mockStore = configureMockStore()
     const store = mockStore({
       location,
