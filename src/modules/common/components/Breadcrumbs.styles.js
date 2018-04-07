@@ -3,18 +3,18 @@ import styled from 'styled-components'
 const opposite = direction => direction === 'ltr' ? 'rtl' : 'ltr'
 export const Wrapper = styled.div`
   margin: 10px 0;
+  text-align: end;
   white-space: nowrap;
   overflow-x: auto;
   direction: ${props => opposite(props.direction)};
-  text-align: end;
 `
 
 export const OrderedList = styled.ol`
   direction: ${props => props.direction};
   display: inline-block;
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 
   /* avoid changing height when switching between pages (show one line even if there are no breadcrumbs) */
   &:empty::after {
