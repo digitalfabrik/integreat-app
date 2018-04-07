@@ -2,6 +2,7 @@
 
 exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
   header={
     <GeneralHeader
