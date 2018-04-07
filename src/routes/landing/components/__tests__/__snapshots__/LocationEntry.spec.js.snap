@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocationEntry should match snapshot 1`] = `
-<Connect(Link)
-  className="locationListItem"
+<LocationSelectorstyles__LocationListItem
   to={
     Object {
       "payload": Object {
@@ -23,5 +22,5 @@ exports[`LocationEntry should match snapshot 1`] = `
   >
     Augsburg
   </Highlighter>
-</Connect(Link)>
+</LocationSelectorstyles__LocationListItem>
 `;
