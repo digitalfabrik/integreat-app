@@ -18,6 +18,10 @@ type Props = {
  * always stick to the bottom of the viewbox.
  */
 class Layout extends React.PureComponent<Props> {
+  static defaultProps = {
+    asideStickyTop: 0
+  }
+
   render () {
     const {asideStickyTop, footer, header, toolbar, children} = this.props
     return (
