@@ -45,7 +45,7 @@ export class FailureSwitcher extends React.Component<Props> {
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
     } else if (error instanceof LanguageNotFoundError) {
-      return <LanguageFailure city={error.city} language={error.language} />
+      return <LanguageFailure city={error.city} />
     } else {
       return <Failure errorMessage={error.message} />
     }

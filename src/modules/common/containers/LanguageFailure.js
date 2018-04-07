@@ -16,19 +16,17 @@ type Props = {
   cities: Array<CityModel>,
   languages: Array<LanguageModel>,
   city: string,
-  language: string,
   t: string => string
 }
 
 export class LanguageFailure extends React.PureComponent<Props> {
   render () {
-    const {languages, t, language, city, cities} = this.props
+    const {languages, t, city, cities} = this.props
     const title = cities && CityModel.findCityName(cities, city)
-    // todo design and translate
     return <Fragment>
       {title && <Caption title={title} />}
       <p className={style.chooseLanguage}>
-        {`Your language ${language} is not available here. ${t('common:chooseYourLanguage')}`}
+        {`${t('not-found.language')} ${t('chooseYourLanguage')}`}
       </p>
       <LanguageSelector languages={languages} verticalLayout />
     </Fragment>
@@ -42,5 +40,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
-  translate('common')
+  translate('error')
 )(LanguageFailure)
