@@ -36,38 +36,14 @@
     },
     "de": {
       "search": "Suchen",
-      "chooseYourLanguage": "Wähle deine Sprache:",
       "goToStart": "Zur Startseite"
     },
     "en": {
       "search": "Search",
-      "chooseYourLanguage": "Choose your language:",
       "goToStart": "Go to start"
     },
     "fa": {
       "search": "جستجو"
-    }
-  },
-  "endpoint": {
-    "ar": {
-      "page": {
-        "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات"
-      }
-    },
-    "de": {
-      "page": {
-        "loadingFailed": "Seite konnte leider nicht geladen werden."
-      }
-    },
-    "en": {
-      "page": {
-        "loadingFailed": "Sorry, but the requested page could not be loaded."
-      }
-    },
-    "fa": {
-      "page": {
-        "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
-      }
     }
   },
   "events": {
@@ -124,26 +100,44 @@
       "where": "تو کجایی؟"
     }
   },
-  "not-found": {
+  "error": {
     "ar": {
-      "page": {
-        "notFound": "لا يوجد سجَّلات جديدة"
-      }
+      "not-found": {
+        "category": "لا يوجد سجَّلات جديدة",
+        "disclaimer": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
+      },
+      "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات"
     },
     "de": {
-      "page": {
-        "notFound": "Seite wurde leider nicht gefunden."
-      }
+      "not-found": {
+        "language": "Deine Sprache ist hier leider nicht verfügbar.",
+        "city": "Deine Stadt wurde leider nicht verfügbar.",
+        "category": "Diese Seite wurde leider nicht gefunden.",
+        "event": "Dieses Event wurde leider nicht gefunden.",
+        "extra": "Dieses Extra wurde leider nicht gefunden.",
+        "disclaimer": "Impressum ist leider für diese Stadt nicht verfügbar."
+      },
+      "loadingFailed": "Seite konnte leider nicht geladen werden.",
+      "chooseYourLanguage": "Wähle deine Sprache:"
     },
     "en": {
-      "page": {
-        "notFound": "Sorry, but the requested page was not found."
-      }
+      "not-found": {
+        "language": "Sorry, but your language is not available here.",
+        "city": "Sorry, but your city was not found.",
+        "category": "Sorry, but the requested page was not found.",
+        "event": "Sorry, but this event was not found.",
+        "extra": "Sorry, but this extra does not exist.",
+        "disclaimer": "Sorry, but the disclaimer is not available for this city."
+      },
+      "loadingFailed": "Sorry, but the requested page could not be loaded.",
+      "chooseYourLanguage": "Choose your language:"
     },
     "fa": {
-      "page": {
-        "notFound": "مدخل مورد نظر ‎یافت نشد."
-      }
+      "not-found": {
+        "category": "مدخل مورد نظر ‎یافت نشد.",
+        "disclaimer": "متاسفانه برای این شهر مجوزی وجود ندارد."
+      },
+      "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
     }
   },
   "pdf-fetcher": {
@@ -174,20 +168,6 @@
       "page": {
         "loadingFailed": null
       }
-    }
-  },
-  "disclaimer": {
-    "ar": {
-      "notAvailable": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
-    },
-    "de": {
-      "notAvailable": "Impressum ist leider für diese Stadt nicht verfügbar."
-    },
-    "en": {
-      "notAvailable": "Sorry, but the disclaimer is not available for this city."
-    },
-    "fa": {
-      "notAvailable": "متاسفانه برای این شهر مجوزی وجود ندارد."
     }
   }
 }
