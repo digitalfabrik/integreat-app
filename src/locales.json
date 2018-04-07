@@ -35,12 +35,10 @@
       "search": "البحث"
     },
     "de": {
-      "search": "Suchen",
-      "goToStart": "Zur Startseite"
+      "search": "Suchen"
     },
     "en": {
-      "search": "Search",
-      "goToStart": "Go to start"
+      "search": "Search"
     },
     "fa": {
       "search": "جستجو"
@@ -118,19 +116,31 @@
         "disclaimer": "Impressum ist leider für diese Stadt nicht verfügbar."
       },
       "loadingFailed": "Seite konnte leider nicht geladen werden.",
-      "chooseYourLanguage": "Wähle deine Sprache:"
+      "chooseYourLanguage": "Wähle deine Sprache:",
+      "goTo": {
+        "start": "Zur Startseite",
+        "categories": "Zu den Kategorien",
+        "events": "Zu den News",
+        "extras": "Zu den Extras"
+      }
     },
     "en": {
       "not-found": {
         "language": "Sorry, but your language is not available here.",
-        "city": "Sorry, but your city was not found.",
-        "category": "Sorry, but the requested page was not found.",
-        "event": "Sorry, but this event was not found.",
-        "extra": "Sorry, but this extra does not exist.",
+        "city": "Sorry, but your city could not be found.",
+        "category": "Sorry, but the requested page could not be found.",
+        "event": "Sorry, but this event could not be found.",
+        "extra": "Sorry, but this extra could not be found.",
         "disclaimer": "Sorry, but the disclaimer is not available for this city."
       },
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
-      "chooseYourLanguage": "Choose your language:"
+      "chooseYourLanguage": "Choose your language:",
+      "goTo": {
+        "start": "Go to Start",
+        "categories": "Go to Categories",
+        "events": "Go to Events",
+        "extras": "Go to Extras"
+      }
     },
     "fa": {
       "not-found": {

@@ -164,7 +164,7 @@ const mapStateToProps = state => ({
   languages: state.languages.data,
   language: state.location.payload.language,
   city: state.location.payload.city,
-  param: state.location.payload.param,
+  param: state.location.prev.payload.param,
   viewportSmall: state.viewport.is.small
 })
 
