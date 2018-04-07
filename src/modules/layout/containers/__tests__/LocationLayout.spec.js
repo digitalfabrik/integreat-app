@@ -12,8 +12,6 @@ import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 
 describe('LocationLayout', () => {
-  const matchRoute = id => {}
-
   const language = 'de'
 
   const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
@@ -65,7 +63,6 @@ describe('LocationLayout', () => {
                       language={language}
                       languages={languages}
                       categories={categories}
-                      matchRoute={matchRoute}
                       cities={cities}
                       viewportSmall
                       currentRoute={EXTRAS_ROUTE}>
@@ -80,7 +77,6 @@ describe('LocationLayout', () => {
                       language={language}
                       languages={languages}
                       categories={categories}
-                      matchRoute={matchRoute}
                       cities={cities}
                       viewportSmall
                       currentRoute='RANDOM_ROUTE'>

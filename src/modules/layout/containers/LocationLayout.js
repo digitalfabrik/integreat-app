@@ -33,15 +33,19 @@ type Props = {
   events: Array<EventModel>
 }
 
-export class LocationLayout extends React.Component<Props> {
-  state = {stickyTop: 0}
+type State = {
+  asideStickyTop: number
+}
+
+export class LocationLayout extends React.Component<Props, State> {
+  state = {asideStickyTop: 0}
+
+  onStickyTopChanged = asideStickyTop => this.setState({asideStickyTop})
 
   getCurrentCity (): ?CityModel {
     const cities = this.props.cities
     return cities && cities.find(_city => _city.code === this.props.city)
   }
-
-  onStickyTopChanged = stickyTop => this.setState({stickyTop})
 
   render () {
     const {language, city, currentRoute, viewportSmall, children, events, languages, pathname, categories} = this.props
