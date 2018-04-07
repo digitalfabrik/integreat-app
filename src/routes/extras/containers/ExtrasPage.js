@@ -13,7 +13,7 @@ import Spinner from 'react-spinkit'
 import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import FailureSwitcher from '../../../modules/common/containers/FailureSwitcher'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 

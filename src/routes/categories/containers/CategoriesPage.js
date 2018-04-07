@@ -14,7 +14,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { apiUrl } from '../../../modules/endpoint/constants'
-import FailureSwitcher from '../../../modules/common/containers/FailureSwitcher'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
 type Props = {

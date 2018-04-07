@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
-import Failure from '../components/Failure'
-import LanguageFailure from './LanguageFailure'
+import Failure from './Failure'
+import LanguageFailure from '../containers/LanguageFailure'
 import { goToEvents } from '../../app/routes/events'
 import { goToExtras } from '../../app/routes/extras'
 import { goToCategories } from '../../app/routes/categories'
