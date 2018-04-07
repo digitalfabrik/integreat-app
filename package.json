@@ -9,6 +9,7 @@
   "dependencies": {
     "babel-polyfill": "~6.26.0",
     "classnames": "~2.2.5",
+    "detect-browser": "^2.2.0",
     "font-awesome": "~4.7.0",
     "history": "~4.7.2",
     "i18next": "~10.2.1",
