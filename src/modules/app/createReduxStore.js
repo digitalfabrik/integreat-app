@@ -28,10 +28,10 @@ const createReduxStore = (createHistory, initialState = {}, routesMap = defaultR
     middlewares.push(createLogger()) // Logs all state changes in console
   }
   const rootReducer = combineReducers({
-    uiDirection: uiDirectionReducer,
     ...endpointReducers,
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
-    location: reducer
+    location: reducer,
+    uiDirection: uiDirectionReducer
   })
 
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
