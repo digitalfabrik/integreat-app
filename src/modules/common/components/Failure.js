@@ -26,9 +26,9 @@ export class Failure extends React.Component<Props> {
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesome name='frown-o' size='5x' /></div>
-      <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goToStart')}</Link>
+      <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goTo.start')}</Link>
     </Centered>
   }
 }
 
-export default translate('common')(Failure)
+export default translate('error')(Failure)

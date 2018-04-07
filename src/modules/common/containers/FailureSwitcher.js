@@ -23,16 +23,16 @@ export class FailureSwitcher extends React.Component<Props> {
     switch (error.type) {
       case 'category':
         return <Failure goToAction={goToCategories(error.city, error.language)}
-                        goToMessage={'categories'}
-                        errorMessage={`There is no category with the path ${error.id}.`} />
+                        goToMessage={'goTo.categories'}
+                        errorMessage={'not-found.category'} />
       case 'event':
         return <Failure goToAction={goToEvents(error.city, error.language)}
-                        goToMessage={'events'}
-                        errorMessage={`There is no event with the id ${error.id}.`} />
+                        goToMessage={'goTo.events'}
+                        errorMessage={'not-found.event'} />
       case 'extra':
         return <Failure goTo={goToExtras(error.city, error.language)}
-                        goToMessage={'extras'}
-                        errorMessage={`There is no extra with the name ${error.id}.`} />
+                        goToMessage={'goTo.extras'}
+                        errorMessage={'not-found.extra'} />
     }
   }
 

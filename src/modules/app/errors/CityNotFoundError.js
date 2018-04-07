@@ -5,7 +5,7 @@ class CityNotFoundError extends Error {
 
   constructor (params: {city: string}) {
     super()
-    this.message = 'city not found'
+    this.message = 'not-found.city'
     this._city = params.city
 
     if (Error.captureStackTrace) {
