@@ -13,7 +13,7 @@ type Props = {
   error: Error
 }
 
-export class FailureSwitcher extends React.Component<Props> {
+class FailureSwitcher extends React.Component<Props> {
   /**
    * Renders a Failure with a link to the "home" of the route and information about what was not found
    * @param error
