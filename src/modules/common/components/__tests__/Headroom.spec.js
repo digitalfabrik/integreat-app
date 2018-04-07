@@ -132,6 +132,20 @@ describe('Headroom', () => {
       scrollTo(pinStart + scrollHeight + offset)
       expect(component.state()).toEqual({mode: 'unpinned', transition: false})
     })
+
+    it('should call onStickyTopChanged if mode has changed', () => {
+      const onStickyTopChanged = jest.fn()
+      const component = createComponent({pinStart, height, scrollHeight, onStickyTopChanged})
+      const scrollTo = scrollTo => {
+        window.pageYOffset = scrollTo
+        component.instance().update()
+      }
+
+      scrollTo(pinStart + scrollHeight + 10)
+      expect(onStickyTopChanged).toHaveBeenCalledWith(scrollHeight)
+      scrollTo(0)
+      expect(onStickyTopChanged).toHaveBeenCalledWith(height - scrollHeight)
+    })
   })
 
   it('should render correct if state is static, no transition', () => {
