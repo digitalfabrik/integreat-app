@@ -278,7 +278,7 @@ Array [
 `;
 
 exports[`LocationHeader should match snapshot 1`] = `
-<Header
+<WithTheme(Header)
   actionItems={
     Array [
       HeaderActionItem {
