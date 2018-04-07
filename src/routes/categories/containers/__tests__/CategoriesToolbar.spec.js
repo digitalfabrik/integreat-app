@@ -4,8 +4,6 @@ import { shallow } from 'enzyme'
 import { CategoriesToolbar } from '../CategoriesToolbar'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import configureMockStore from 'redux-mock-store'
 
 describe('CategoriesToolbar', () => {
   const categoryModels = [
@@ -63,12 +61,6 @@ describe('CategoriesToolbar', () => {
   ]
 
   const categories = new CategoriesMapModel(categoryModels)
-
-  const cities = [
-    new CityModel({name: 'Augsburg', code: 'augsburg'}),
-    new CityModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-    new CityModel({name: 'Werne', code: 'werne'})
-  ]
 
   const city = 'augsburg'
 

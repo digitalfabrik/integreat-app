@@ -25,7 +25,6 @@ type Props = {
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
 export class CategoriesPage extends React.Component<Props> {
-
   /**
    * Our root categories don't have the right title (city code instead of city title), so we have to compare the
    * title of the root category with the code of every city
