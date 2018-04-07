@@ -61,6 +61,15 @@ export const Aside = styled.aside`
     vertical-align: top;
     transition: top 0.2s ease-in-out;
     
+    &:empty{
+      display: none;
+    }
+    
+    &:empty + * {
+      display: block;
+      max-width: 100%;
+    }
+    
     @media ${props => props.theme.dimensions.smallViewport} {
       position: static;
       width: 100%;
