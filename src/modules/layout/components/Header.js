@@ -21,8 +21,8 @@ class Header extends React.Component {
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
     logoHref: PropTypes.object.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
-    onStickyTopChanged: PropTypes.func,
-    theme: PropTypes.object
+    theme: PropTypes.object.isRequired,
+    onStickyTopChanged: PropTypes.func
   }
 
   static defaultProps = {
