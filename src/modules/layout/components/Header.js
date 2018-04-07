@@ -6,8 +6,8 @@ import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import Link from 'redux-first-router-link'
-import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../constants'
 import Headroom from '../../common/components/Headroom'
+import { withTheme } from 'styled-components'
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -21,7 +21,8 @@ class Header extends React.Component {
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
     logoHref: PropTypes.object.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
-    onStickyTopChanged: PropTypes.func
+    onStickyTopChanged: PropTypes.func,
+    theme: PropTypes.object
   }
 
   static defaultProps = {
@@ -30,8 +31,9 @@ class Header extends React.Component {
   }
 
   render () {
-    const height = this.props.viewportSmall ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
-    const scrollHeight = this.props.viewportSmall ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
+    const {headerHeightSmall, headerHeightLarge} = this.props.theme.dimensions
+    const height = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
+    const scrollHeight = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
     return (
       <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
         <header className={style.header}>
@@ -48,4 +50,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default withTheme(Header)
