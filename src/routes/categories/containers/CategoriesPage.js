@@ -1,13 +1,14 @@
 // @flow
 
 import React from 'react'
+import type {Node} from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import Failure from 'modules/common/components/Failure'
 import Page from 'modules/common/components/Page'
 
-import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
+import Breadcrumbs from 'modules/common/components/Breadcrumbs'
 import PdfButton from 'routes/categories/components/PdfButton'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
@@ -15,13 +16,15 @@ import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { apiUrl } from '../../../modules/endpoint/constants'
+import Link from 'redux-first-router-link'
 
 type Props = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
   language: string,
-  path: string
+  path: string,
+  uiDirection: 'ltr' | 'rtl'
 }
 
 /**
@@ -80,16 +83,25 @@ export class CategoriesPage extends React.Component<Props> {
                          content={category.content} />
   }
 
+  getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
+    return this.props.categories.getAncestors(categoryModel)
+      .map(ancestor => ({
+        title: ancestor.id === 0 ? this.getCityName(ancestor.title) : ancestor.title,
+        url: ancestor.url
+      }))
+      .map(({title, url}) => <Link to={url} key={url}>{title}</Link>)
+  }
+
   render () {
     const categoryModel = this.props.categories.findCategoryByUrl(this.props.path)
     if (categoryModel) {
       return <div>
-          <Breadcrumbs
-            parents={this.props.categories.getAncestors(categoryModel)}
-            locationName={this.getCityName(this.props.city)} />
-          {this.getContent(categoryModel)}
-          <PdfButton href={this.getPdfUrl(categoryModel)} />
-        </div>
+        <Breadcrumbs direction={this.props.uiDirection}>
+          {this.getBreadcrumbs(categoryModel)}
+        </Breadcrumbs>
+        {this.getContent(categoryModel)}
+        <PdfButton href={this.getPdfUrl(categoryModel)} />
+      </div>
     }
 
     return <Failure error='not-found:page.notFound' />
@@ -97,6 +109,7 @@ export class CategoriesPage extends React.Component<Props> {
 }
 
 const mapStateToProps = state => ({
+  uiDirection: state.uiDirection,
   language: state.location.payload.language,
   city: state.location.payload.city,
   path: state.location.pathname,
