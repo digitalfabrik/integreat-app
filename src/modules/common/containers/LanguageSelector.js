@@ -42,7 +42,12 @@ export class LanguageSelector extends React.Component {
         if (categories) {
           const category = categories.findCategoryByUrl(location.pathname)
           if (category && category.id !== 0) {
-            return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
+            const categoryCode = category.availableLanguages[languageCode]
+            if (categoryCode) {
+              return goToCategoriesRedirect(city, languageCode, `${categoryCode}`)
+            } else {
+              return
+            }
           }
         }
         return goToCategories(city, languageCode)
@@ -64,23 +69,23 @@ export class LanguageSelector extends React.Component {
   }
 
   getSelectorItemModels () {
-    return this.props.languages.map(language =>
-      new SelectorItemModel({
-        code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
-      })
-    )
+    return this.props.languages
+      .map(language =>
+        new SelectorItemModel({
+          code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
+        })
+      )
+      .filter(selectorItem => selectorItem.href)
   }
 
   render () {
     const {location, verticalLayout, closeDropDownCallback} = this.props
     const selectorItemModels = this.getSelectorItemModels()
 
-    return <React.Fragment>
-      {selectorItemModels && <Selector verticalLayout={verticalLayout}
+    return selectorItemModels && <Selector verticalLayout={verticalLayout}
                   items={this.getSelectorItemModels()}
                   activeItemCode={location.payload.language}
-                  closeDropDownCallback={closeDropDownCallback} />}
-      </React.Fragment>
+                  closeDropDownCallback={closeDropDownCallback} />
   }
 }
 
