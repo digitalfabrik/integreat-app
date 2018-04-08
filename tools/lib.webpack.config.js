@@ -21,6 +21,7 @@ const versionsPackageFilename = path.resolve(__dirname, '../package.json')
 // Webpack configuration (main.js => www/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
 const config = {
+  mode: 'production',
   resolve: {
     modules: [
       path.resolve('./src'),
