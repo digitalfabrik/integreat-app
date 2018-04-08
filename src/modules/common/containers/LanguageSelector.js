@@ -13,20 +13,19 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import EventModel from '../../endpoint/models/EventModel'
+import LanguageSelectorDropDownItem from '../../layout/components/LanguageSelectorDropDownItem'
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
 export class LanguageSelector extends React.Component {
   static propTypes = {
-    closeDropDownCallback: PropTypes.func,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     location: PropTypes.object.isRequired,
-    verticalLayout: PropTypes.bool,
     categories: PropTypes.instanceOf(CategoriesMapModel),
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel))
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
+    isHeaderActionItem: PropTypes.bool
   }
-
   /**
    * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
    * @param languageCode
@@ -44,7 +43,7 @@ export class LanguageSelector extends React.Component {
           if (category && category.id !== 0) {
             const categoryCode = category.availableLanguages[languageCode]
             if (categoryCode) {
-              return goToCategoriesRedirect(city, languageCode, `${categoryCode}`)
+              return goToCategoriesRedirect(city, languageCode, categoryCode)
             } else {
               return
             }
@@ -69,7 +68,8 @@ export class LanguageSelector extends React.Component {
   }
 
   getSelectorItemModels () {
-    return this.props.languages
+    const languages = this.props.languages
+    return languages && languages
       .map(language =>
         new SelectorItemModel({
           code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
@@ -79,13 +79,17 @@ export class LanguageSelector extends React.Component {
   }
 
   render () {
-    const {location, verticalLayout, closeDropDownCallback} = this.props
-    const selectorItemModels = this.getSelectorItemModels()
+    const {location, isHeaderActionItem} = this.props
+    const selectorItems = this.getSelectorItemModels()
+    const activeItemCode = location.payload.language
 
-    return selectorItemModels && <Selector verticalLayout={verticalLayout}
-                  items={this.getSelectorItemModels()}
-                  activeItemCode={location.payload.language}
-                  closeDropDownCallback={closeDropDownCallback} />
+    if (isHeaderActionItem) {
+      return <LanguageSelectorDropDownItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
+    } else {
+      return selectorItems && <Selector verticalLayout
+                                        items={selectorItems}
+                                        activeItemCode={activeItemCode} />
+    }
   }
 }
 
