@@ -24,7 +24,7 @@ export class LanguageSelector extends React.Component {
     location: PropTypes.object.isRequired,
     categories: PropTypes.instanceOf(CategoriesMapModel),
     events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
-    isHeaderActionItem: PropTypes.bool
+    isHeaderActionItem: PropTypes.bool.isRequired
   }
   /**
    * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
