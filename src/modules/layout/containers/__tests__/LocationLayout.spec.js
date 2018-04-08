@@ -2,42 +2,13 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import CityModel from 'modules/endpoint/models/CityModel'
 
-import EventModel from '../../../endpoint/models/EventModel'
-import moment from 'moment-timezone'
-import LanguageModel from '../../../endpoint/models/LanguageModel'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import { EXTRAS_ROUTE } from '../../../app/routes/extras'
 import configureMockStore from 'redux-mock-store'
 
 describe('LocationLayout', () => {
-  const matchRoute = id => {}
-
   const language = 'de'
 
   const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
-
-  const languages = [
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('en', 'English'),
-    new LanguageModel('ar', 'Arabic')
-  ]
-
-  const events = [
-    new EventModel({
-      id: 1234,
-      title: 'first Event',
-      availableLanguages: {de: '1235', ar: '1236'},
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
-    }),
-    new EventModel({
-      id: 2,
-      title: 'second Event',
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
-    })]
 
   const MockNode = () => <div />
 
@@ -45,11 +16,8 @@ describe('LocationLayout', () => {
     const component = shallow(
       <LocationLayout city='city1'
                       language={language}
-                      languages={languages}
-                      matchRoute={matchRoute}
                       cities={cities}
-                      viewportSmall
-                      currentRoute={EXTRAS_ROUTE}>
+                      viewportSmall>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -59,30 +27,23 @@ describe('LocationLayout', () => {
     const component = shallow(
       <LocationLayout city='unavailableLocation'
                       language={language}
-                      languages={languages}
-                      matchRoute={matchRoute}
                       cities={cities}
-                      viewportSmall
-                      currentRoute='RANDOM_ROUTE'>
+                      viewportSmall>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
-    const type = 'RANDOM_ROUTE'
     const city = 'city'
     const location = {
-      payload: {city, language},
-      type
+      payload: {city, language}
     }
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      events: {data: events},
       cities: {data: cities},
-      languages: {data: languages},
       viewport: {is: {small: false}}
     })
 
@@ -94,9 +55,6 @@ describe('LocationLayout', () => {
       city,
       viewportSmall: false,
       language,
-      currentRoute: type,
-      languages,
-      events,
       cities,
       store,
       dispatch: expect.any(Function),

@@ -8,8 +8,8 @@ describe('HeaderActionBar', () => {
     const component = shallow(
       <HeaderActionBar className='testClass' items={[
         new HeaderActionItem({iconSrc: 'icon1', href: {type: 'RANDOM_HREF'}}),
-        new HeaderActionItem({iconSrc: 'icon2', dropDownNode: <div id='2' />}),
-        new HeaderActionItem({iconSrc: 'icon3', dropDownNode: <div id='3' />})
+        new HeaderActionItem({node: <div id='2' />}),
+        new HeaderActionItem({node: <div id='3' />})
       ]} />
     )
     expect(component).toMatchSnapshot()

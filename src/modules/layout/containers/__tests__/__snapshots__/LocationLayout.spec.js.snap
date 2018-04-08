@@ -22,30 +22,9 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if City is
     />
   }
   header={
-    <Translate(LocationHeader)
-      city="city1"
-      currentRoute="EXTRAS"
-      isEventsActive={false}
+    <Connect(Translate(LocationHeader))
       isEventsEnabled={false}
       isExtrasEnabled={false}
-      language="de"
-      languages={
-        Array [
-          LanguageModel {
-            "_code": "de",
-            "_name": "Deutsch",
-          },
-          LanguageModel {
-            "_code": "en",
-            "_name": "English",
-          },
-          LanguageModel {
-            "_code": "ar",
-            "_name": "Arabic",
-          },
-        ]
-      }
-      viewportSmall={true}
     />
   }
 >
