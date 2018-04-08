@@ -7,11 +7,9 @@ import compose from 'lodash/fp/compose'
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
-import languageIcon from '../assets/language-icon.svg'
 import Header from 'modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
-import LanguageModel from '../../endpoint/models/LanguageModel'
 import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { CATEGORIES_ROUTE, goToCategories } from '../../app/routes/categories'
 import { EVENTS_ROUTE, goToEvents } from '../../app/routes/events'
@@ -23,27 +21,22 @@ import type { Location } from 'redux-first-router/dist/flow-types'
 import EventModel from '../../endpoint/models/EventModel'
 
 type Props = {
-  languages: ?Array<LanguageModel>,
+  events: ?Array<EventModel>,
   location: Location,
   viewportSmall: boolean,
   t: string => string,
-  events: ?Array<EventModel>,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean
 }
 
 class LocationHeader extends React.Component<Props> {
-  getActionItems (): Array<HeaderActionItem> {
-    const {languages, location} = this.props
+  getActionItems (): Array<HeaderActionItem | Node> {
+    const {location} = this.props
     const {city, language} = location.payload
     return [
       new HeaderActionItem({href: goToSearch(city, language), iconSrc: searchIcon}),
       new HeaderActionItem({href: goToLanding(language), iconSrc: landingIcon}),
-      new HeaderActionItem({
-        dropDownNode: <LanguageSelector languages={languages} location={location} />,
-        iconSrc: languageIcon,
-        tooltip: 'No languages'
-      })
+      new HeaderActionItem({node: <LanguageSelector isHeaderActionItem />})
     ]
   }
 
