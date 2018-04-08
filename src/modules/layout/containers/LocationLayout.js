@@ -61,7 +61,7 @@ export class LocationLayout extends React.Component<Props, State> {
     }
 
     return <Layout
-      asideStickyTop={this.state.stickyTop}
+      asideStickyTop={this.state.asideStickyTop}
       header={<LocationHeader viewportSmall={viewportSmall}
                               city={city}
                               currentRoute={currentRoute}
