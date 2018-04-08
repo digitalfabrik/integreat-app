@@ -33,7 +33,7 @@ export class LanguageSelector extends React.Component {
    */
   getLanguageChangeAction (languageCode) {
     const {location, categories, events} = this.props
-    const {city, eventId, extraAlias} = location.payload
+    const {city, eventId, extraAlias, language, categoryPath} = location.payload
     const routeType = location.type
 
     switch (routeType) {
@@ -44,8 +44,10 @@ export class LanguageSelector extends React.Component {
             const categoryCode = category.availableLanguages[languageCode]
             if (categoryCode) {
               return goToCategoriesRedirect(city, languageCode, categoryCode)
+            } else if (languageCode === language) {
+              return goToCategories(city, languageCode, categoryPath)
             } else {
-              return
+              return null
             }
           }
         }

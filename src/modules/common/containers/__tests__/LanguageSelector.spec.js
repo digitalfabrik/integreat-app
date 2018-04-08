@@ -176,7 +176,7 @@ describe('LanguageSelector', () => {
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
     })
 
-    it('should return undefined if a language of a category is not available', () => {
+    it('should return null if a language of a category is not available', () => {
       const categoriesWithoutAvailableLanguages = new CategoriesMapModel([
         new CategoryModel({
           id: 3650,
@@ -200,7 +200,7 @@ describe('LanguageSelector', () => {
         <LanguageSelector categories={categoriesWithoutAvailableLanguages} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
-      expect(instance.getLanguageChangeAction('de')).toBeUndefined()
+      expect(instance.getLanguageChangeAction('en')).toBeNull()
     })
   })
 
