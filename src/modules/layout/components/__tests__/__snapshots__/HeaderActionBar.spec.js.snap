@@ -16,21 +16,19 @@ exports[`HeaderActionBar should match snapshot 1`] = `
       src="icon1"
     />
   </Connect(Link)>
-  <OnClickOutside(HeaderDropDown)
-    iconSrc="icon2"
+  <React.Fragment
     key="1"
   >
     <div
       id="2"
     />
-  </OnClickOutside(HeaderDropDown)>
-  <OnClickOutside(HeaderDropDown)
-    iconSrc="icon3"
+  </React.Fragment>
+  <React.Fragment
     key="2"
   >
     <div
       id="3"
     />
-  </OnClickOutside(HeaderDropDown)>
+  </React.Fragment>
 </div>
 `;
