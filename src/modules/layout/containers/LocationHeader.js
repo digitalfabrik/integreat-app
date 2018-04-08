@@ -29,8 +29,8 @@ type Props = {
   isExtrasEnabled: boolean
 }
 
-class LocationHeader extends React.Component<Props> {
-  getActionItems (): Array<HeaderActionItem | Node> {
+export class LocationHeader extends React.Component<Props> {
+  getActionItems (): Array<HeaderActionItem> {
     const {location} = this.props
     const {city, language} = location.payload
     return [
@@ -76,11 +76,10 @@ class LocationHeader extends React.Component<Props> {
   render () {
     const {city, language} = this.props.location.payload
 
-    return <Header
-      viewportSmall={this.props.viewportSmall}
-      logoHref={goToCategories(city, language)}
-      actionItems={this.getActionItems()}
-      navigationItems={this.getNavigationItems()} />
+    return <Header viewportSmall={this.props.viewportSmall}
+                   logoHref={goToCategories(city, language)}
+                   actionItems={this.getActionItems()}
+                   navigationItems={this.getNavigationItems()} />
   }
 }
 
