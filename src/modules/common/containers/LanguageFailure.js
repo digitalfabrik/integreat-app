@@ -6,7 +6,6 @@ import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
 import LanguageSelector from 'modules/common/containers/LanguageSelector'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CityModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
@@ -14,27 +13,25 @@ import style from './LanguageFailure.css'
 
 type Props = {
   cities: Array<CityModel>,
-  languages: Array<LanguageModel>,
   city: string,
   t: string => string
 }
 
 export class LanguageFailure extends React.PureComponent<Props> {
   render () {
-    const {languages, t, city, cities} = this.props
+    const {t, city, cities} = this.props
     const title = cities && CityModel.findCityName(cities, city)
     return <Fragment>
       {title && <Caption title={title} />}
       <p className={style.chooseLanguage}>
         {`${t('not-found.language')} ${t('chooseYourLanguage')}`}
       </p>
-      <LanguageSelector languages={languages} verticalLayout />
+      <LanguageSelector />
     </Fragment>
   }
 }
 
 const mapStateToProps = state => ({
-  languages: state.languages.data,
   cities: state.cities.data
 })
 
