@@ -13,7 +13,8 @@
       "extras": "Extras",
       "categories": "Kategorien",
       "news": "News",
-      "noNews": "Keine News"
+      "noNews": "Keine News",
+      "noLanguages": "Nicht verfügbar in anderen Sprachen"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -21,7 +22,8 @@
       "extras": "Extras",
       "categories": "Categories",
       "news": "News",
-      "noNews": "No News"
+      "noNews": "No News",
+      "noLanguages": "Not available in different languages"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
