@@ -27,11 +27,11 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
 
 exports[`HeaderLanguageSelectorItem should render an icon with a tooltip if there are no selectorItems 1`] = `
 <span>
-  <LanguageSelectorDropDownItemstyles__InactiveImage
+  <HeaderLanguageSelectorItemstyles__InactiveImage
     data-tip="layout:noLanguages"
     src="test-file-stub"
   />
-  <LanguageSelectorDropDownItemstyles__Tooltip
+  <HeaderLanguageSelectorItemstyles__Tooltip
     delayShow={0}
     effect="solid"
   />
