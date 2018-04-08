@@ -6,7 +6,7 @@ import HeaderDropDown from './HeaderDropDown'
 import Selector from '../../common/components/Selector'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
-import { InactiveImage, Tooltip } from './LanguageSelectorDropDownItem.styles'
+import { InactiveImage, Tooltip } from './HeaderLanguageSelectorItem.styles'
 
 type Props = {
   selectorItems: Array<SelectorItemModel>,
@@ -14,7 +14,7 @@ type Props = {
   t: string => string
 }
 
-class LanguageSelectorDropDownItem extends React.Component<Props> {
+class HeaderLanguageSelectorItem extends React.Component<Props> {
   render () {
     const {selectorItems, activeItemCode, t} = this.props
 
@@ -31,4 +31,4 @@ class LanguageSelectorDropDownItem extends React.Component<Props> {
   }
 }
 
-export default translate('layout')(LanguageSelectorDropDownItem)
+export default translate('layout')(HeaderLanguageSelectorItem)

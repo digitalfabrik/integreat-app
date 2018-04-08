@@ -13,7 +13,7 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import EventModel from '../../endpoint/models/EventModel'
-import LanguageSelectorDropDownItem from '../../layout/components/LanguageSelectorDropDownItem'
+import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
 /**
  * Displays a dropDown menu to handle changing of the language
@@ -84,7 +84,7 @@ export class LanguageSelector extends React.Component {
     const activeItemCode = location.payload.language
 
     if (isHeaderActionItem) {
-      return <LanguageSelectorDropDownItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
+      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
     } else {
       return selectorItems && <Selector verticalLayout
                                         items={selectorItems}

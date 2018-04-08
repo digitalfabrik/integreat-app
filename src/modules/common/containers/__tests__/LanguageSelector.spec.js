@@ -49,7 +49,7 @@ describe('LanguageSelector', () => {
 
   const categories = new CategoriesMapModel(categoryModels)
 
-  it('should render a LanguageSelectorDropDownItem if it is a header action item', () => {
+  it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
     const location = {
       pathname: '/augsburg/de/disclaimer',
       type: DISCLAIMER_ROUTE,

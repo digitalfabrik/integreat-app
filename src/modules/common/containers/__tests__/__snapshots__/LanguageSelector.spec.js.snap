@@ -75,8 +75,8 @@ Object {
 }
 `;
 
-exports[`LanguageSelector should render a LanguageSelectorDropDownItem if it is a header action item 1`] = `
-<Translate(LanguageSelectorDropDownItem)
+exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a header action item 1`] = `
+<Translate(HeaderLanguageSelectorItem)
   activeItemCode="de"
   selectorItems={
     Array [
