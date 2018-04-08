@@ -26,7 +26,7 @@ export class LanguageFailure extends React.PureComponent<Props> {
       <p className={style.chooseLanguage}>
         {`${t('not-found.language')} ${t('chooseYourLanguage')}`}
       </p>
-      <LanguageSelector />
+      <LanguageSelector isHeaderActionItem={false} />
     </Fragment>
   }
 }
