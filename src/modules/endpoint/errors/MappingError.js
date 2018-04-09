@@ -2,7 +2,7 @@
 
 class MappingError extends Error {
   getMessage = (endpointName: string, message: string): string =>
-    `Failed to map the json for the ${endpointName} endpoint. ${message}`
+    `MappingError: Failed to map the json for the ${endpointName} endpoint. ${message}`
 
   constructor (endpointName: string, message: string) {
     super()

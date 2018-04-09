@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`disclaimer should throw if the city to map the url are missing 1`] = `"Failed to load the disclaimer endpoint because the city is missing"`;
+exports[`disclaimer should throw if the city to map the url are missing 1`] = `"ParamMissingError: Failed to load the disclaimer endpoint because the city is missing"`;
 
 exports[`disclaimer should throw if the disclaimer is not published 1`] = `"There must be exactly one disclaimer!"`;
 
-exports[`disclaimer should throw if the language to map the url are missing 1`] = `"Failed to load the disclaimer endpoint because the language is missing"`;
+exports[`disclaimer should throw if the language to map the url are missing 1`] = `"ParamMissingError: Failed to load the disclaimer endpoint because the language is missing"`;
 
 exports[`disclaimer should throw if there are multiple disclaimers 1`] = `"There must be exactly one disclaimer!"`;
 
