@@ -6,46 +6,31 @@ import EventModel from '../../models/EventModel'
 jest.unmock('modules/endpoint/endpoints/events')
 
 describe('events', () => {
-  const eventPage1 = {
-    id: 2730,
+  // eslint-disable-next-line camelcase
+  const createEvent = (id, all_day, start_date, start_time, end_date, end_time) => ({
+    id,
     title: 'Asylploitischer Frühschoppen',
     status: 'publish',
-    excerpt: 'Am Sonntag den 31.01.16 findet ab 10:00 wieder der Asylpolitische Frühschoppen statt. Diesmal mit Ulla Jelpke.',
-    content: '<p>Am Sonntag den 31.01.16 findet ab 10:00 wieder der Asylpolitische Frühschoppen statt. Diesmal mit Ulla Jelpke.</p>\n',
+    excerpt: 'Am Sonntag...',
+    content: '<p>Am Sonntag...</p>',
     available_languages: [],
     thumbnail: null,
     event: {
-      start_date: '2016-01-31',
-      end_date: '2016-01-31',
-      all_day: '0',
-      start_time: '10:00:00',
-      end_time: '13:00:00'
+      all_day,
+      start_date,
+      start_time,
+      end_date,
+      end_time
     },
     location: {
       address: 'Wertachstr. 29',
       town: 'Augsburg'
     }
-  }
-  const eventPage2 = {
-    id: 1889,
-    title: 'Asylpolitischer Frühschoppen',
-    status: 'publish',
-    excerpt: 'Syrer erzählen von ihrer beschwerlichen Flucht vor dem Krieg.',
-    content: '<p>Syrer erzählen von ihrer beschwerlichen Flucht vor dem Krieg.</p>\n',
-    available_languages: [],
-    thumbnail: null,
-    event: {
-      start_date: '2015-11-29',
-      end_date: '2015-11-29',
-      all_day: '0',
-      start_time: '10:00:00',
-      end_time: '13:00:00'
-    },
-    location: {
-      address: 'Wertachstr. 29',
-      town: 'Augsburg'
-    }
-  }
+  })
+  const event1 = createEvent(2730, '0', '2016-01-31', '10:00:00', '2016-01-31', '13:00:00')
+  const event2 = createEvent(1889, '0', '2015-11-29', '10:00:00', '2015-11-29', '13:00:00')
+  const event3 = createEvent(4768, '1', '2017-09-29', '09:00:00', '2017-09-29', '15:00:00') // we get these from cms
+  const event4 = createEvent(4826, '1', '2018-03-01', '00:00:00', '2018-06-01', '23:59:59')
 
   const state = {router: {params: {location: 'augsburg', language: 'de'}}}
 
@@ -56,26 +41,31 @@ describe('events', () => {
     )
   })
 
-  const toEventModel = json => (new EventModel({
-    id: json.id,
-    title: json.title,
-    content: json.content,
-    thumbnail: json.thumbnail,
-    address: json.location.address,
-    town: json.location.town,
-    startDate: moment(`${json.event.start_date} ${json.event.start_time}`),
-    endDate: moment(`${json.event.end_date} ${json.event.end_time}`),
-    allDay: json.event.all_day !== '0',
-    excerpt: json.excerpt,
-    availableLanguages: json.available_languages
-  }))
+  const toEventModel = json => {
+    const allDay = json.event.all_day !== '0'
+    return new EventModel({
+      id: json.id,
+      title: json.title,
+      content: json.content,
+      thumbnail: json.thumbnail,
+      address: json.location.address,
+      town: json.location.town,
+      startDate: moment(`${json.event.start_date} ${allDay ? '00:00:00' : json.event.start_time}`),
+      endDate: moment(`${json.event.end_date} ${allDay ? '23:59:59' : json.event.end_time}`),
+      allDay: allDay,
+      excerpt: json.excerpt,
+      availableLanguages: json.available_languages
+    })
+  }
 
   const json = [
     {
       status: 'trash'
     },
-    eventPage1,
-    eventPage2
+    event1,
+    event2,
+    event3,
+    event4
   ]
 
   describe('should map fetched data to models', () => {
@@ -84,7 +74,9 @@ describe('events', () => {
       const eventsModels = events.mapResponse(json)
 
       expect(eventsModels).toEqual([
-        toEventModel(eventPage1)
+        toEventModel(event1),
+        toEventModel(event3),
+        toEventModel(event4)
       ])
 
       clock.uninstall()
@@ -94,8 +86,19 @@ describe('events', () => {
       const eventsModels = events.mapResponse(json)
 
       expect(eventsModels).toEqual([
-        toEventModel(eventPage2),
-        toEventModel(eventPage1)
+        toEventModel(event2),
+        toEventModel(event1),
+        toEventModel(event3),
+        toEventModel(event4)
+      ])
+      clock.uninstall()
+    })
+    it('while one event is currently happening', () => {
+      const clock = lolex.install({now: Date.parse('2018-03-08')})
+      const eventsModels = events.mapResponse(json)
+
+      expect(eventsModels).toEqual([
+        toEventModel(event4)
       ])
       clock.uninstall()
     })

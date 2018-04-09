@@ -1,18 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
-const pkg = require('../package.json')
+const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
-const babelConfig = Object.assign({}, pkg.babel, {
-  babelrc: false,
-  cacheDirectory: useHMR,
-  presets: pkg.babel.presets.map(x => x === 'latest' ? ['latest', {es2015: {modules: false}}] : x)
-})
 
 // Webpack configuration (main.js => www/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
@@ -84,48 +79,18 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: [
-          path.resolve(__dirname, '../src')
-        ],
+        include: [path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
         options: babelConfig
       },
       {
         test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
-          options: {
-            minimize: true
-          }
-        }]
-      },
-      {
-        test: /\.css$/,
-        loaders: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          }
-        ],
-        include: /flexboxgrid/
+        use: [{loader: 'html-loader', options: {minimize: true}}]
       },
       {
         test: /\.css$/,
         include: /node_modules/,
-        loaders: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          }
-        ],
-        exclude: /flexboxgrid/
+        loaders: [{loader: 'style-loader'}, {loader: 'css-loader'}]
       },
       {
         test: /\.(css|pcss)/,
@@ -215,7 +180,6 @@ if (!isDebug) {
 
 // Hot Module Replacement (HMR) + React Hot Reload
 if (isDebug && useHMR) {
-  babelConfig.plugins.unshift('react-hot-loader/babel')
   config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client')
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
   config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
