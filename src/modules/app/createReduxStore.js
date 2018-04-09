@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
-import uiDirectionReducer from '../app/reducers'
+import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from '../endpoint/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'

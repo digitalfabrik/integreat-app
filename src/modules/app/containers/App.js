@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 
 import createReduxStore from '../createReduxStore'
 import createHistory from '../createHistory'
-import I18nProvider from './I18nProvider'
+import I18nProvider from '../../i18n/containers/I18nProvider'
 
 import routesMap from '../routesMap'
 import Switcher from './Switcher'
