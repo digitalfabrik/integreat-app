@@ -12,6 +12,8 @@ import LocationModel from 'modules/endpoint/models/LocationModel'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/app/constants/theme'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
@@ -254,23 +256,6 @@ describe('CategoriesPage', () => {
     expect(mapLanguageToPath(language)).toBe(`/${location}/${language}`)
   })
 
-  it('should get pdf fetch path', () => {
-    const mockReplaceUrl = jest.fn()
-
-    const categoriesPage = shallow(
-      <CategoriesPage categories={categories}
-                      locations={locations}
-                      languages={languages}
-                      location={location}
-                      language={language}
-                      path={categoryModels[2].url}
-                      setLanguageChangeUrls={() => {}}
-                      replaceUrl={mockReplaceUrl} />
-    ).instance()
-
-    expect(categoriesPage.getPdfFetchPath()).toBe(`/${location}/${language}/fetch-pdf?url=${categoryModels[2].url}`)
-  })
-
   describe('connect', () => {
     const languagesEndpoint = new EndpointBuilder('languages')
       .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
@@ -295,18 +280,22 @@ describe('CategoriesPage', () => {
 
     it('should map state to props', () => {
       const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language},
+        router: {
+          params: {location: location, language: language},
           pathname: pathname,
-          query: {id: id}},
+          query: {id: id}
+        },
         languageChangeUrls: {}
       })
 
       const categoriesPage = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
-            <ConnectedCategoriesPage />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
+              <ConnectedCategoriesPage />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       ).find(CategoriesPage)
 
       expect(categoriesPage.props()).toEqual({
@@ -324,9 +313,11 @@ describe('CategoriesPage', () => {
 
     it('should map dispatch to props', () => {
       const store = createReduxStore(createHistory, {
-        router: {params: {location: location, language: language},
+        router: {
+          params: {location: location, language: language},
           pathname: pathname,
-          query: {id: id}},
+          query: {id: id}
+        },
         languageChangeUrls: {}
       })
 
@@ -346,11 +337,13 @@ describe('CategoriesPage', () => {
       expect(store.getState().languageChangeUrls).not.toEqual(languageChangeUrls)
 
       const categoriesPage = mount(
-        <Provider store={store}>
-          <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
-            <ConnectedCategoriesPage />
-          </EndpointProvider>
-        </Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <EndpointProvider endpoints={[categoriesEndpoint, locationsEndpoint, languagesEndpoint]}>
+              <ConnectedCategoriesPage />
+            </EndpointProvider>
+          </Provider>
+        </ThemeProvider>
       ).find(CategoriesPage)
 
       categoriesPage.props().setLanguageChangeUrls(mapLanguageToPath, languages, availableLanguages)

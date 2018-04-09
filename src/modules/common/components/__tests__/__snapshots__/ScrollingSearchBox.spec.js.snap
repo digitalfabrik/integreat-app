@@ -20,21 +20,20 @@ exports[`ScrollingSearchBox should render 1`] = `
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="headroom static"
-    style="top: -45px;"
+    class="Headroomstyles__HeaderWrapper-iDCIAq gEUoNd"
   >
     <div
-      class=""
+      class="SearchInputstyles__Spacer-jPTMIV hTlgQL"
     >
       <div
-        class="search"
+        class="SearchInputstyles__Wrapper-eDunOl gDAAdm"
       >
         <span
           aria-hidden="true"
-          class="fa fa-search searchIcon"
+          class="fa fa-search SearchInputstyles__SearchIcon-bXUNqg kVDGLo"
         />
         <input
-          class="searchInput"
+          class="SearchInputstyles__TextInput-kJgKBC lfoCjL"
           placeholder="common:search"
           type="text"
           value="Test"

@@ -8,25 +8,20 @@ exports[`Failure connect should match snapshot 1`] = `
 `;
 
 exports[`Failure should match snapshot 1`] = `
-<div>
-  <div
-    className="centerText"
-  >
+<Failurestyles__Centered>
+  <div>
     Error Message
   </div>
-  <div
-    className="centerText"
-  >
+  <div>
     <FontAwesome
       name="frown-o"
       size="5x"
     />
   </div>
   <Connect(Link)
-    className="centerText"
     href="/"
   >
     goToStart
   </Connect(Link)>
-</div>
+</Failurestyles__Centered>
 `;
