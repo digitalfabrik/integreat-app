@@ -7,7 +7,7 @@ import WebFont from 'webfontloader'
 import PropTypes from 'prop-types'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import localesResources from 'locales.json'
+import localesResources from '../../../locales'
 import setUiDirection from '../actions/setUIDirection'
 
 const RTL_LANGUAGES = ['ar', 'fa']
