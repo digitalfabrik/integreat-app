@@ -21,6 +21,8 @@ type Props = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
+  city: string,
+  language: string,
   uiDirection: 'ltr' | 'rtl'
 }
 
@@ -62,29 +64,30 @@ export class CategoriesPage extends React.Component<Props> {
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
-    return this.props.categories.getAncestors(categoryModel)
+    const {cities, categories} = this.props
+    return categories.getAncestors(categoryModel)
       .map(ancestor => ({
-        title: ancestor.id === 0 ? this.getCityName(ancestor.title) : ancestor.title,
+        title: ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title,
         url: ancestor.url
       }))
       .map(({title, url}) => <Link to={url} key={url}>{title}</Link>)
   }
 
   render () {
-    const {categories, path, city, cities, language} = this.props
+    const {categories, path, city, cities, language, uiDirection} = this.props
     const categoryModel = categories.findCategoryByUrl(path)
     const cityName = CityModel.findCityName(cities, city)
 
     if (categoryModel) {
       return <div>
-        <Breadcrumbs direction={this.props.uiDirection}>
+        <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
         {this.getContent(categoryModel)}
       </div>
     }
 
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city, language})
+    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: cityName, language})
     return <FailureSwitcher error={error} />
   }
 }
