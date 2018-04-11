@@ -39,7 +39,6 @@ export const SubCategoryCaption = CategoryCaption.extend`
 export const StyledLink = styled(Link)`
   display: flex;
   width: 100%;
-  max-width: 700px;
   align-items: center;
   margin: 0 auto;
 `
