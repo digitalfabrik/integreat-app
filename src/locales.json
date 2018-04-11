@@ -46,6 +46,18 @@
       "search": "جستجو"
     }
   },
+  "categories": {
+    "ar": {
+    },
+    "de": {
+      "createPdf": "Erstelle PDF"
+    },
+    "en": {
+      "createPdf": "Create PDF"
+    },
+    "fa": {
+    }
+  },
   "events": {
     "ar": {
       "location": "الموقع",

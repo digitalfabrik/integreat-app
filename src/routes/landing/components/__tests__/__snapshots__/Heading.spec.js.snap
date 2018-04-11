@@ -14,9 +14,12 @@ exports[`Heading should render 1`] = `
         "themeDarkColor": "#c4a900",
       },
       "dimensions": Object {
-        "headerHeight": "85px",
-        "headerHeightSmall": "55px",
+        "headerHeightLarge": 85,
+        "headerHeightSmall": 55,
+        "maxWidth": 1100,
+        "minMaxWidth": "screen and (min-width: 1100px)",
         "smallViewport": "(max-width: 750px)",
+        "toolbarWidth": 125,
       },
       "fonts": Object {
         "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
