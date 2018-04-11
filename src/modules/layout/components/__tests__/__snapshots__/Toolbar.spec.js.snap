@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar should render 1`] = `
+<div
+  className="toolbar sample"
+>
+  <p>
+    test item
+  </p>
+</div>
+`;
