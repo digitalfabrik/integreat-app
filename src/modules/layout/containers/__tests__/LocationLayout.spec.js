@@ -4,6 +4,9 @@ import CityModel from 'modules/endpoint/models/CityModel'
 
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import configureMockStore from 'redux-mock-store'
+import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
+import CategoryModel from '../../../endpoint/models/CategoryModel'
+import Layout from '../../components/Layout'
 
 describe('LocationLayout', () => {
   const language = 'de'
@@ -37,7 +40,8 @@ describe('LocationLayout', () => {
   it('should map state to props', () => {
     const city = 'city'
     const location = {
-      payload: {city, language}
+      payload: {city, language},
+      type
     }
 
     const mockStore = configureMockStore()
@@ -60,5 +64,22 @@ describe('LocationLayout', () => {
       dispatch: expect.any(Function),
       storeSubscription: expect.any(Object)
     })
+  })
+
+  it('should pass onStickyTopChanged to LocationHeader and asideStickyTop to Layout', () => {
+    const component = shallow(
+      <LocationLayout city='city1'
+                      language={language}
+                      languages={languages}
+                      categories={categories}
+                      cities={cities}
+                      viewportSmall
+                      currentRoute={EXTRAS_ROUTE}>
+        <MockNode />
+      </LocationLayout>)
+    const header = shallow(component.prop('header'))
+    header.prop('onStickyTopChanged')(50)
+    component.update()
+    expect(component.find(Layout).prop('asideStickyTop')).toEqual(50)
   })
 })

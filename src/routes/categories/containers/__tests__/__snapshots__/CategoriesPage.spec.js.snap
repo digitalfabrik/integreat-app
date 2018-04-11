@@ -3,8 +3,7 @@
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
   <Breadcrumbs
-    cityName="Augsburg"
-    parents={Array []}
+    direction="ltr"
   />
   <Tiles
     tiles={
@@ -27,86 +26,52 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     }
     title="Augsburg"
   />
-  <PdfButton
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"
-  />
 </div>
 `;
 
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
   <Breadcrumbs
-    cityName="Augsburg"
-    parents={
-      Array [
-        CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
-          "_id": 0,
-          "_order": -1,
-          "_parentId": -1,
-          "_parentUrl": "",
-          "_path": undefined,
-          "_thumbnail": "no_thumbnail",
-          "_title": "augsburg",
-          "_url": "/augsburg/de",
-        },
-        CategoryModel {
-          "_availableLanguages": Object {
-            "ar": 4819,
-            "en": 4804,
-            "fa": 4827,
-          },
-          "_content": "",
-          "_id": 3649,
-          "_order": 11,
-          "_parentId": 0,
-          "_parentUrl": "/augsburg/de",
-          "_path": undefined,
-          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
-          "_title": "Willkommen",
-          "_url": "/augsburg/de/willkommen",
-        },
-      ]
-    }
-  />
+    direction="ltr"
+  >
+    <Connect(Link)
+      key="/augsburg/de"
+      to="/augsburg/de"
+    >
+      Augsburg
+    </Connect(Link)>
+    <Connect(Link)
+      key="/augsburg/de/willkommen"
+      to="/augsburg/de/willkommen"
+    >
+      Willkommen
+    </Connect(Link)>
+  </Breadcrumbs>
   <Page
     content="some content"
     title="Willkommen in Augsburg"
-  />
-  <PdfButton
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen/willkommen-in-augsburg"
   />
 </div>
 `;
 
 exports[`CategoriesPage should match snapshot and render an Error if path is not valid 1`] = `
 <FailureSwitcher
-  error={[Error: The category /augsburg/de/not/valid does not exist in augsburg in your current language.]}
+  error={[Error: The category /augsburg/de/not/valid does not exist in Augsburg in your current language.]}
 />
 `;
 
 exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
 <div>
   <Breadcrumbs
-    cityName="Augsburg"
-    parents={
-      Array [
-        CategoryModel {
-          "_availableLanguages": Object {},
-          "_content": "",
-          "_id": 0,
-          "_order": -1,
-          "_parentId": -1,
-          "_parentUrl": "",
-          "_path": undefined,
-          "_thumbnail": "no_thumbnail",
-          "_title": "augsburg",
-          "_url": "/augsburg/de",
-        },
-      ]
-    }
-  />
+    direction="ltr"
+  >
+    <Connect(Link)
+      key="/augsburg/de"
+      to="/augsburg/de"
+    >
+      Augsburg
+    </Connect(Link)>
+  </Breadcrumbs>
   <CategoryList
     categories={
       Array [
@@ -133,9 +98,6 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
     }
     content=""
     title="Willkommen"
-  />
-  <PdfButton
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
   />
 </div>
 `;

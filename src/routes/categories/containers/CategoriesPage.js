@@ -1,42 +1,35 @@
 // @flow
 
 import React from 'react'
+import type {Node} from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import Page from 'modules/common/components/Page'
 
-import Breadcrumbs from 'routes/categories/components/Breadcrumbs'
-import PdfButton from 'routes/categories/components/PdfButton'
+import Breadcrumbs from 'modules/common/components/Breadcrumbs'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { apiUrl } from '../../../modules/endpoint/constants'
+import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
 type Props = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
+  path: string,
   city: string,
   language: string,
-  path: string
+  uiDirection: 'ltr' | 'rtl'
 }
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
 export class CategoriesPage extends React.Component<Props> {
-  getPdfUrl (category: CategoryModel) {
-    if (category.id === 0) {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
-    } else {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${this.props.path}`
-    }
-  }
-
   getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
       id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
@@ -70,27 +63,37 @@ export class CategoriesPage extends React.Component<Props> {
                          content={category.content} />
   }
 
+  getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
+    const {cities, categories} = this.props
+    return categories.getAncestors(categoryModel)
+      .map(ancestor => ({
+        title: ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title,
+        url: ancestor.url
+      }))
+      .map(({title, url}) => <Link to={url} key={url}>{title}</Link>)
+  }
+
   render () {
-    const {categories, path, city, cities, language} = this.props
+    const {categories, path, city, cities, language, uiDirection} = this.props
     const categoryModel = categories.findCategoryByUrl(path)
     const cityName = CityModel.findCityName(cities, city)
 
     if (categoryModel) {
       return <div>
-          <Breadcrumbs
-            parents={categories.getAncestors(categoryModel)}
-            cityName={cityName} />
-          {this.getContent(categoryModel)}
-          <PdfButton href={this.getPdfUrl(categoryModel)} />
-        </div>
+        <Breadcrumbs direction={uiDirection}>
+          {this.getBreadcrumbs(categoryModel)}
+        </Breadcrumbs>
+        {this.getContent(categoryModel)}
+      </div>
     }
 
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city, language})
+    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: cityName, language})
     return <FailureSwitcher error={error} />
   }
 }
 
 const mapStateToProps = state => ({
+  uiDirection: state.uiDirection,
   language: state.location.payload.language,
   city: state.location.payload.city,
   path: state.location.pathname,

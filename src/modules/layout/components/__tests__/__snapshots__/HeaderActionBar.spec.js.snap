@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderActionBar should match snapshot 1`] = `
-<div
-  className="testClass actionItems"
+<HeaderActionBarstyles__ActionItems
+  className="testClass"
 >
   <Connect(Link)
     key="0"
@@ -16,19 +16,21 @@ exports[`HeaderActionBar should match snapshot 1`] = `
       src="icon1"
     />
   </Connect(Link)>
-  <React.Fragment
+  <OnClickOutside(HeaderDropDown)
+    iconSrc="icon2"
     key="1"
   >
     <div
       id="2"
     />
-  </React.Fragment>
-  <React.Fragment
+  </OnClickOutside(HeaderDropDown)>
+  <OnClickOutside(HeaderDropDown)
+    iconSrc="icon3"
     key="2"
   >
     <div
       id="3"
     />
-  </React.Fragment>
-</div>
+  </OnClickOutside(HeaderDropDown)>
+</HeaderActionBarstyles__ActionItems>
 `;
