@@ -22,6 +22,7 @@ type Props = {
   city: string,
   language: string,
   cities: ?Array<CityModel>,
+  categories: CategoriesMapModel,
   currentRoute: string,
   viewportSmall: boolean,
   children?: Node,
@@ -43,8 +44,9 @@ export class LocationLayout extends React.Component<Props, State> {
   }
 
   render () {
-    const {language, city, currentRoute, viewportSmall, children, events, languages} = this.props
+    const {language, city, currentRoute, viewportSmall, children, pathname, categories} = this.props
     const cityModel = this.getCurrentCity()
+    const showCategoriesToolbar = currentRoute === CATEGORIES_ROUTE && categories
 
     if (!cityModel) {
       return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
@@ -53,12 +55,15 @@ export class LocationLayout extends React.Component<Props, State> {
       </Layout>
     }
 
-    return <LayoutasideStickyTop={this.state.asideStickyTop} header={<LocationHeader
-                                           isEventsEnabled={cityModel.eventsEnabled}
-                                           isExtrasEnabled={cityModel.extrasEnabled}onStickyTopChanged={this.onStickyTopChanged} />}
-                   footer={<LocationFooter city={city}language={language} />}
-      toolbar={showCategoriesToolbar &&
-        <CategoriesToolbar city={city} language={language} pathname={pathname} categories={categories}/>}>
+    return <Layout asideStickyTop={this.state.asideStickyTop}
+                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel.extrasEnabled}
+                                           onStickyTopChanged={this.onStickyTopChanged} />}
+                   footer={<LocationFooter city={city} language={language} />}
+                   toolbar={showCategoriesToolbar && <CategoriesToolbar city={city}
+                                                                        language={language}
+                                                                        pathname={pathname}
+                                                                        categories={categories} />}>
         {children}
       </Layout>
   }
@@ -70,7 +75,8 @@ const mapStateToProps = state => ({
   language: state.location.payload.language,
   pathname: state.location.pathname,
   viewportSmall: state.viewport.is.small,
-  cities: state.cities.data
+  cities: state.cities.data,
+  categories: state.categories.data
 })
 
 export default connect(mapStateToProps)(LocationLayout)

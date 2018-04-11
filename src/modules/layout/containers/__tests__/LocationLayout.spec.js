@@ -6,10 +6,28 @@ import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import configureMockStore from 'redux-mock-store'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
-import Layout from '../../components/Layout'
+import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 
 describe('LocationLayout', () => {
   const language = 'de'
+  const pathname = '/augsburg/de/willkommen'
+  const currentRoute = CATEGORIES_ROUTE
+
+  const categories = new CategoriesMapModel([
+    new CategoryModel({
+      number: 1,
+      path: 'path01',
+      url: 'url01',
+      title: 'Title10',
+      content: 'contnentl',
+      parentId: 3,
+      thumbnail: 'thumb/nail',
+
+      parentUrl: 'parent/url',
+      order: 4,
+      availableLanguages: new Map()
+    })
+  ])
 
   const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
 
@@ -19,6 +37,23 @@ describe('LocationLayout', () => {
     const component = shallow(
       <LocationLayout city='city1'
                       language={language}
+                      categories={categories}
+                      currentRoute={''}
+                      pathname={pathname}
+                      cities={cities}
+                      viewportSmall>
+        <MockNode />
+      </LocationLayout>)
+    expect(component).toMatchSnapshot()
+  })
+
+  it('should show CategoriesToolbar if current route is categories', () => {
+    const component = shallow(
+      <LocationLayout city='city1'
+                      language={language}
+                      categories={categories}
+                      currentRoute={CATEGORIES_ROUTE}
+                      pathname={pathname}
                       cities={cities}
                       viewportSmall>
         <MockNode />
@@ -29,6 +64,9 @@ describe('LocationLayout', () => {
   it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
       <LocationLayout city='unavailableLocation'
+                      categories={categories}
+                      currentRoute={currentRoute}
+                      pathname={pathname}
                       language={language}
                       cities={cities}
                       viewportSmall>
@@ -41,13 +79,15 @@ describe('LocationLayout', () => {
     const city = 'city'
     const location = {
       payload: {city, language},
-      type
+      type: currentRoute,
+      pathname: pathname
     }
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
       cities: {data: cities},
+      categories: {data: categories},
       viewport: {is: {small: false}}
     })
 
@@ -61,25 +101,11 @@ describe('LocationLayout', () => {
       language,
       cities,
       store,
+      currentRoute,
+      pathname,
+      categories,
       dispatch: expect.any(Function),
       storeSubscription: expect.any(Object)
     })
-  })
-
-  it('should pass onStickyTopChanged to LocationHeader and asideStickyTop to Layout', () => {
-    const component = shallow(
-      <LocationLayout city='city1'
-                      language={language}
-                      languages={languages}
-                      categories={categories}
-                      cities={cities}
-                      viewportSmall
-                      currentRoute={EXTRAS_ROUTE}>
-        <MockNode />
-      </LocationLayout>)
-    const header = shallow(component.prop('header'))
-    header.prop('onStickyTopChanged')(50)
-    component.update()
-    expect(component.find(Layout).prop('asideStickyTop')).toEqual(50)
   })
 })
