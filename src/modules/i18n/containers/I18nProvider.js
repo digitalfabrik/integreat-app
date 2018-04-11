@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 import localesResources from 'locales.json'
+import setUiDirection from '../actions/setUIDirection'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGE = 'en'
@@ -17,7 +18,8 @@ export class I18nProvider extends React.Component {
 
   static propTypes = {
     children: PropTypes.element.isRequired,
-    language: PropTypes.string
+    language: PropTypes.string,
+    setUiDirection: PropTypes.func
   }
 
   constructor () {
@@ -56,7 +58,7 @@ export class I18nProvider extends React.Component {
     const targetLanguage = language || this.i18n.languages[0]
 
     this.setState({language: targetLanguage})
-
+    this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
     document.documentElement.lang = targetLanguage
 
     // Set i18next language to apps language
@@ -97,6 +99,8 @@ export class I18nProvider extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({setUiDirection: action => dispatch(setUiDirection(action))})
+
 const mapStateToProps = state => ({language: state.location.payload.language})
 
-export default connect(mapStateToProps)(I18nProvider)
+export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)
