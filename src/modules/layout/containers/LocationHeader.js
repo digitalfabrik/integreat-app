@@ -26,7 +26,8 @@ type Props = {
   viewportSmall: boolean,
   t: string => string,
   isEventsEnabled: boolean,
-  isExtrasEnabled: boolean
+  isExtrasEnabled: boolean,
+  onStickyTopChanged: number => {}
 }
 
 export class LocationHeader extends React.Component<Props> {
@@ -79,7 +80,8 @@ export class LocationHeader extends React.Component<Props> {
     return <Header viewportSmall={this.props.viewportSmall}
                    logoHref={goToCategories(city, language)}
                    actionItems={this.getActionItems()}
-                   navigationItems={this.getNavigationItems()} />
+                   navigationItems={this.getNavigationItems()}
+                   onStickyTopChanged={this.props.onStickyTopChanged} />
   }
 }
 
