@@ -26,9 +26,6 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     }
     title="Augsburg"
   />
-  <PdfButton
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"
-  />
 </div>
 `;
 
@@ -53,9 +50,6 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
   <Page
     content="some content"
     title="Willkommen in Augsburg"
-  />
-  <PdfButton
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen/willkommen-in-augsburg"
   />
 </div>
 `;
@@ -104,9 +98,6 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
     }
     content=""
     title="Willkommen"
-  />
-  <PdfButton
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
   />
 </div>
 `;
