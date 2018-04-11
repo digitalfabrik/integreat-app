@@ -1,7 +1,0 @@
-@import url('../../../modules/app/constants/helpers.css');
-
-.pdf-wrapper {
-  @mixin remove-a;
-  display: block;
-  text-align: right;
-}

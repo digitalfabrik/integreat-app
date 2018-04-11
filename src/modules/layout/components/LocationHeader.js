@@ -26,7 +26,8 @@ class LocationHeader extends React.Component {
     t: PropTypes.func.isRequired,
     isEventsEnabled: PropTypes.bool.isRequired,
     isExtrasEnabled: PropTypes.bool.isRequired,
-    isEventsActive: PropTypes.bool.isRequired
+    isEventsActive: PropTypes.bool.isRequired,
+    onStickyTopChanged: PropTypes.func
   }
 
   getActionItems () {
@@ -80,7 +81,9 @@ class LocationHeader extends React.Component {
       viewportSmall={this.props.viewportSmall}
       logoHref={goToCategories(this.props.city, this.props.language)}
       actionItems={this.getActionItems()}
-      navigationItems={this.getNavigationItems()} />
+      navigationItems={this.getNavigationItems()}
+      onStickyTopChanged={this.props.onStickyTopChanged}
+    />
   }
 }
 
