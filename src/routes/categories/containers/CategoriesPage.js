@@ -14,13 +14,11 @@ import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { apiUrl } from '../../../modules/endpoint/constants'
 import Link from 'redux-first-router-link'
 
 type Props = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
-  city: string,
   path: string,
   uiDirection: 'ltr' | 'rtl'
 }
