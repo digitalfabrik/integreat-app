@@ -3,8 +3,8 @@
 exports[`I18nProvider should connect to the store 1`] = `
 Object {
   "children": <div />,
-  "dispatch": [Function],
   "language": "language1",
+  "setUiDirection": [Function],
 }
 `;
 
