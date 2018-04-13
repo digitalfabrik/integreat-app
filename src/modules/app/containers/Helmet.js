@@ -28,7 +28,7 @@ type Props = {
   t: string => string
 }
 
-class Helmet extends React.Component<Props> {
+export class Helmet extends React.Component<Props> {
   getRoutePageTitle (): ?string {
     const {location, categories, events, extras, t} = this.props
     const currentRoute = location.type
@@ -65,7 +65,6 @@ class Helmet extends React.Component<Props> {
         if (extraAlias) {
           if (extras) {
             const extra = extras.find(extra => extra.alias === extraAlias)
-            console.log(extras)
             if (extra) {
               return extra.title
             }
@@ -89,7 +88,7 @@ class Helmet extends React.Component<Props> {
 
     const routePageTitle = this.getRoutePageTitle()
     const cityName = cities && city && CityModel.findCityName(cities, city)
-    return `${routePageTitle ? `${routePageTitle} - ` : ''}${cityName ? `${cityName} - ` : ''} Integreat`
+    return `${routePageTitle ? `${routePageTitle} - ` : ''}${cityName ? `${cityName} - ` : ''}Integreat`
   }
 
   render () {
