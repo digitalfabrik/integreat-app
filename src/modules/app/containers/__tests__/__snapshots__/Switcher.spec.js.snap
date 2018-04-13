@@ -63,7 +63,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
     />
   }
 >
-  <Connect(I18nRedirect) />
+  <Connect(I18nRedirectPage) />
 </Layout>
 `;
 
