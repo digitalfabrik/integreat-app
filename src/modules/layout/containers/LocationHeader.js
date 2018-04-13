@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React from 'react'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
@@ -42,7 +42,7 @@ export class LocationHeader extends React.Component<Props> {
     ]
   }
 
-  getNavigationItems () {
+  getNavigationItems (): Array<HeaderNavigationItem> {
     const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
     const {city, language} = location.payload
     const currentRoute = location.type

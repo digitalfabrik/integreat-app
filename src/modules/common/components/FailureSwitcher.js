@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
@@ -8,6 +8,8 @@ import { goToEvents } from '../../app/routes/events'
 import { goToExtras } from '../../app/routes/extras'
 import { goToCategories } from '../../app/routes/categories'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
+
+import type { Node } from 'react'
 
 type Props = {
   error: Error
@@ -19,7 +21,7 @@ class FailureSwitcher extends React.Component<Props> {
    * @param error
    * @return {*}
    */
-  static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
+  static renderContentNotFoundComponent (error: ContentNotFoundError): Node {
     switch (error.type) {
       case 'category':
         return <Failure goToAction={goToCategories(error.city, error.language)}
@@ -40,7 +42,7 @@ class FailureSwitcher extends React.Component<Props> {
    * Decides which kind of error should be rendered
    * @return {*}
    */
-  renderErrorComponent (): React.Node {
+  renderErrorComponent (): Node {
     const error = this.props.error
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
