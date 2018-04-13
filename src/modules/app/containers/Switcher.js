@@ -32,6 +32,7 @@ import Layout from '../../layout/components/Layout'
 import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
+import type { State } from '../../../flowTypes'
 
 type Props = {
   currentRoute: string,
@@ -165,7 +166,7 @@ export class Switcher extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   currentRoute: state.location.type,
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
