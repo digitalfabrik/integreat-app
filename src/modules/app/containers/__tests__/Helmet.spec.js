@@ -3,7 +3,7 @@ import CategoryModel from '../../../endpoint/models/CategoryModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import { shallow } from 'enzyme'
-import { Helmet } from '../Helmet'
+import ConnectedHelmet, { Helmet } from '../Helmet'
 import { CATEGORIES_ROUTE } from '../../routes/categories'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
 import { EXTRAS_ROUTE } from '../../routes/extras'
@@ -13,6 +13,7 @@ import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
 import { MAIN_DISCLAIMER_ROUTE } from '../../routes/mainDisclaimer'
 import { LANDING_ROUTE } from '../../routes/landing'
 import CityModel from '../../../endpoint/models/CityModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -161,5 +162,35 @@ describe('Helmet', () => {
     )
 
     expect(helmet).toMatchSnapshot()
+  })
+
+  it('should map state to props', () => {
+    const param = 'param'
+
+    const location = {payload: {param}}
+
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      cities: {data: cities},
+      categories: {data: categories},
+      events: {data: events},
+      extras: {data: extras}
+    })
+
+    const connectedHelmet = shallow(
+      <ConnectedHelmet store={store} />
+    )
+
+    expect(connectedHelmet.props()).toEqual({
+      cities,
+      extras,
+      categories,
+      events,
+      location,
+      store: store,
+      storeSubscription: expect.any(Object),
+      dispatch: expect.any(Function)
+    })
   })
 })
