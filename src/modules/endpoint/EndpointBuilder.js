@@ -1,8 +1,7 @@
 // @flow
 
 import Endpoint from './Endpoint'
-import type { MapParamsToUrl, MapResponse } from './Endpoint'
-import type { PayloadData } from './Payload'
+import type { MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
 
 /**
  * Helper class to build a {@link Endpoint}
