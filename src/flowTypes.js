@@ -1,6 +1,6 @@
 // @flow
 
-import type { Location } from 'redux-first-router/dist/flow-types'
+import type { LocationState } from 'redux-first-router/dist/flow-types'
 import CityModel from './modules/endpoint/models/CityModel'
 import DisclaimerModel from './modules/endpoint/models/DisclaimerModel'
 import ExtraModel from './modules/endpoint/models/ExtraModel'
@@ -25,7 +25,7 @@ export type Payload<data: PayloadData> = {
 }
 
 export type State = {
-  +location: Location,
+  +location: LocationState,
   +categories: Payload<CategoriesMapModel>,
   +extras: Payload<Array<ExtraModel>>,
   +events: Payload<Array<EventModel>>,
