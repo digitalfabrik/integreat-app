@@ -12,7 +12,6 @@ import { EVENTS_ROUTE, goToEvents } from '../../app/routes/events'
 import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
-import Caption from '../components/Caption'
 import EventModel from '../../endpoint/models/EventModel'
 
 /**
@@ -25,8 +24,7 @@ export class LanguageSelector extends React.Component {
     location: PropTypes.object.isRequired,
     verticalLayout: PropTypes.bool,
     categories: PropTypes.instanceOf(CategoriesMapModel),
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
-    title: PropTypes.string
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel))
   }
 
   /**
@@ -74,11 +72,10 @@ export class LanguageSelector extends React.Component {
   }
 
   render () {
-    const {location, verticalLayout, closeDropDownCallback, title} = this.props
+    const {location, verticalLayout, closeDropDownCallback} = this.props
     const selectorItemModels = this.getSelectorItemModels()
 
     return <React.Fragment>
-      {verticalLayout && title && <Caption title={title} />}
       {selectorItemModels && <Selector verticalLayout={verticalLayout}
                   items={this.getSelectorItemModels()}
                   activeItemCode={location.payload.language}

@@ -57,6 +57,11 @@ class CityModel {
       sortCategory: isEmpty(name) ? '?' : name[0].toUpperCase()
     }
   }
+
+  static findCityName (cities: Array<CityModel>, code: string): ?string {
+    const city = cities.find(city => city.code === code)
+    return city ? city.name : code
+  }
 }
 
 export default CityModel

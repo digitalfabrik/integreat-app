@@ -8,7 +8,7 @@ exports[`LanguageFailure should match snapshot 1`] = `
   <p
     className="chooseLanguage"
   >
-    common:chooseYourLanguage
+    not-found.language chooseYourLanguage
   </p>
   <Connect(LanguageSelector)
     languages={

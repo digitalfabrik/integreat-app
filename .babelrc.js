@@ -8,7 +8,10 @@ const config = {
   ],
   plugins: [
     'babel-plugin-styled-components',
-    '@babel/plugin-transform-react-jsx'
+    '@babel/plugin-transform-react-jsx',
+    ['babel-plugin-transform-builtin-extend', {
+      globals: ["Error"]
+    }]
   ]
 }
 

@@ -11,8 +11,8 @@ class EndpointBuilder {
   _name: string
   _paramsToUrlMapper: MapParamsToUrl
   _mapper: MapResponse
-  _responseOverride: PayloadData
-  _errorOverride: ?string
+  _responseOverride: ?PayloadData
+  _errorOverride: ?Error
 
   /**
    * Creates a new endpoint builder
@@ -57,7 +57,7 @@ class EndpointBuilder {
    * @param errorOverride {*} The error
    * @return {EndpointBuilder} The builder itself
    */
-  withErrorOverride (errorOverride: string): EndpointBuilder {
+  withErrorOverride (errorOverride: Error): EndpointBuilder {
     this._errorOverride = errorOverride
     return this
   }
