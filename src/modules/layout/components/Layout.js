@@ -3,13 +3,14 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import { Aside, Body, RichLayout, Main } from './Layout.styles'
+import type { Node } from 'react'
 
 type Props = {
   asideStickyTop: number,
-  footer: ?React.Node,
-  header: ?React.Node,
-  toolbar: ?React.Node,
-  children: ?React.Node
+  footer?: Node,
+  header?: Node,
+  toolbar?: Node,
+  children?: Node
 }
 
 /**
