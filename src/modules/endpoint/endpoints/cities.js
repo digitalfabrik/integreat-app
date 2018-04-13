@@ -17,15 +17,16 @@ const stripSlashes = (path: string): string => {
 }
 
 export default new EndpointBuilder('cities')
-  .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v1/multisites`)
+  .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v3/sites`)
   .withMapper((json: any): Array<CityModel> => {
+    console.log(json)
     const cities = json
       .map(_city => new CityModel({
         name: _city.name,
         code: stripSlashes(_city.path),
         live: _city.live,
-        eventsEnabled: _city['ige-evts'] === '1',
-        extrasEnabled: true // todo
+        eventsEnabled: _city.events,
+        extrasEnabled: _city.extras
       }))
       .sort(_city => _city.name)
     return sortBy(cities, _city => _city.sortKey)
