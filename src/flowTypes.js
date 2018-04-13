@@ -37,3 +37,7 @@ export type State = {
   +viewport: {...any, +is: {+small: boolean, +large: boolean}},
   +uiDirection: UiDirection
 }
+
+export type EndpointParams = {city?: string, language?: string, url?: string}
+export type MapParamsToUrl = (params: EndpointParams) => string
+export type MapResponse = (json: any, params: EndpointParams) => PayloadData
