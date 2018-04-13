@@ -7,11 +7,12 @@ import Selector from '../../common/components/Selector'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import { InactiveImage, Tooltip } from './HeaderLanguageSelectorItem.styles'
+import type { I18nTranslate } from '../../../flowTypes'
 
 type Props = {
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
-  t: string => string
+  t: I18nTranslate
 }
 
 class HeaderLanguageSelectorItem extends React.Component<Props> {
