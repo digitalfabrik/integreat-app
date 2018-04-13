@@ -164,34 +164,35 @@
       "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
     }
   },
-  "pdf-fetcher": {
+  "app": {
     "ar": {
-      "creatingPdf": null,
-      "downloadPdfAt": null,
-      "page": {
-        "loadingFailed": null
-      }
+      "extras": "إضافات",
+      "events": "الأخبار",
+      "landing": "أين أنت؟",
+      "search": "البحث",
+      "disclaimer": "هيئة التحرير وجهة الاتصال"
+
     },
     "de": {
-      "creatingPdf": "Ihre PDF wird erstellt...",
-      "downloadPdfAt": "Sie können PDF hier herunterladen:",
-      "page": {
-        "loadingFailed": "Seite konnte leider nicht geladen werden."
-      }
+      "extras": "Extras",
+      "events": "News",
+      "landing": "Wo bist du?",
+      "search": "Suche",
+      "disclaimer": "Impressum und Kontakt"
     },
     "en": {
-      "creatingPdf": "Your PDF is being created...",
-      "downloadPdfAt": "You can download the PDF at:",
-      "page": {
-        "loadingFailed": "Sorry, but the requested page could not be loaded."
-      }
+      "extras": "Extras",
+      "events": "News",
+      "landing": "Where are you?",
+      "search": "Search",
+      "disclaimer": "Imprint and contact"
     },
     "fa": {
-      "creatingPdf": null,
-      "downloadPdfAt": null,
-      "page": {
-        "loadingFailed": null
-      }
+      "extras": "اضافات",
+      "news": "تازه​ها",
+      "landing": "تو کجایی؟",
+      "search": "جستجو",
+      "disclaimer": "مجوز ‎و اطلاعات تماس"
     }
   }
 }
