@@ -7,8 +7,8 @@
     "npm": ">=3.8"
   },
   "dependencies": {
-    "babel-plugin-transform-builtin-extend": "^1.1.2",
     "@babel/polyfill": "~7.0.0-beta.44",
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
     "classnames": "~2.2.5",
     "font-awesome": "~4.7.0",
     "history": "~4.7.2",
@@ -22,6 +22,7 @@
     "react": "~16.2.0",
     "react-dom": "~16.2.0",
     "react-fontawesome": "~1.6.1",
+    "react-helmet": "^5.2.0",
     "react-highlighter": "^0.4.2",
     "react-i18next": "~7.5.1",
     "react-onclickoutside": "~6.7.1",
