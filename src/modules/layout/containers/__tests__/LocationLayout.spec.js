@@ -2,26 +2,16 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import CityModel from 'modules/endpoint/models/CityModel'
 
-import EventModel from '../../../endpoint/models/EventModel'
-import moment from 'moment-timezone'
-import LanguageModel from '../../../endpoint/models/LanguageModel'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import { EXTRAS_ROUTE } from '../../../app/routes/extras'
 import configureMockStore from 'redux-mock-store'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
-import Layout from '../../components/Layout'
+import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 
 describe('LocationLayout', () => {
   const language = 'de'
-
-  const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
-
-  const languages = [
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('en', 'English'),
-    new LanguageModel('ar', 'Arabic')
-  ]
+  const pathname = '/augsburg/de/willkommen'
+  const currentRoute = CATEGORIES_ROUTE
 
   const categories = new CategoriesMapModel([
     new CategoryModel({
@@ -39,22 +29,7 @@ describe('LocationLayout', () => {
     })
   ])
 
-  const events = [
-    new EventModel({
-      id: 1234,
-      title: 'first Event',
-      availableLanguages: {de: '1235', ar: '1236'},
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
-    }),
-    new EventModel({
-      id: 2,
-      title: 'second Event',
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
-    })]
+  const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
 
   const MockNode = () => <div />
 
@@ -62,11 +37,25 @@ describe('LocationLayout', () => {
     const component = shallow(
       <LocationLayout city='city1'
                       language={language}
-                      languages={languages}
                       categories={categories}
+                      currentRoute={''}
+                      pathname={pathname}
                       cities={cities}
-                      viewportSmall
-                      currentRoute={EXTRAS_ROUTE}>
+                      viewportSmall>
+        <MockNode />
+      </LocationLayout>)
+    expect(component).toMatchSnapshot()
+  })
+
+  it('should show CategoriesToolbar if current route is categories', () => {
+    const component = shallow(
+      <LocationLayout city='city1'
+                      language={language}
+                      categories={categories}
+                      currentRoute={CATEGORIES_ROUTE}
+                      pathname={pathname}
+                      cities={cities}
+                      viewportSmall>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
@@ -75,31 +64,29 @@ describe('LocationLayout', () => {
   it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
     const component = shallow(
       <LocationLayout city='unavailableLocation'
-                      language={language}
-                      languages={languages}
                       categories={categories}
+                      currentRoute={currentRoute}
+                      pathname={pathname}
+                      language={language}
                       cities={cities}
-                      viewportSmall
-                      currentRoute='RANDOM_ROUTE'>
+                      viewportSmall>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
-    const type = 'RANDOM_ROUTE'
     const city = 'city'
     const location = {
       payload: {city, language},
-      type
+      type: currentRoute,
+      pathname: pathname
     }
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      events: {data: events},
       cities: {data: cities},
-      languages: {data: languages},
       categories: {data: categories},
       viewport: {is: {small: false}}
     })
@@ -112,31 +99,13 @@ describe('LocationLayout', () => {
       city,
       viewportSmall: false,
       language,
-      currentRoute: type,
-      languages,
-      categories,
-      events,
       cities,
       store,
+      currentRoute,
+      pathname,
+      categories,
       dispatch: expect.any(Function),
       storeSubscription: expect.any(Object)
     })
-  })
-
-  it('should pass onStickyTopChanged to LocationHeader and asideStickyTop to Layout', () => {
-    const component = shallow(
-      <LocationLayout city='city1'
-                      language={language}
-                      languages={languages}
-                      categories={categories}
-                      cities={cities}
-                      viewportSmall
-                      currentRoute={EXTRAS_ROUTE}>
-        <MockNode />
-      </LocationLayout>)
-    const header = shallow(component.prop('header'))
-    header.prop('onStickyTopChanged')(50)
-    component.update()
-    expect(component.find(Layout).prop('asideStickyTop')).toEqual(50)
   })
 })

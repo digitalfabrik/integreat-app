@@ -13,20 +13,19 @@ import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
 import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
 import EventModel from '../../endpoint/models/EventModel'
+import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
 export class LanguageSelector extends React.Component {
   static propTypes = {
-    closeDropDownCallback: PropTypes.func,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
     location: PropTypes.object.isRequired,
-    verticalLayout: PropTypes.bool,
     categories: PropTypes.instanceOf(CategoriesMapModel),
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel))
+    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
+    isHeaderActionItem: PropTypes.bool.isRequired
   }
-
   /**
    * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
    * @param languageCode
@@ -34,7 +33,7 @@ export class LanguageSelector extends React.Component {
    */
   getLanguageChangeAction (languageCode) {
     const {location, categories, events} = this.props
-    const {city, eventId, extraAlias} = location.payload
+    const {city, eventId, extraAlias, language, categoryPath} = location.payload
     const routeType = location.type
 
     switch (routeType) {
@@ -42,7 +41,14 @@ export class LanguageSelector extends React.Component {
         if (categories) {
           const category = categories.findCategoryByUrl(location.pathname)
           if (category && category.id !== 0) {
-            return goToCategoriesRedirect(city, languageCode, `${category.availableLanguages[languageCode]}`)
+            const categoryCode = category.availableLanguages[languageCode]
+            if (categoryCode) {
+              return goToCategoriesRedirect(city, languageCode, categoryCode)
+            } else if (languageCode === language) {
+              return goToCategories(city, languageCode, categoryPath)
+            } else {
+              return null
+            }
           }
         }
         return goToCategories(city, languageCode)
@@ -64,23 +70,28 @@ export class LanguageSelector extends React.Component {
   }
 
   getSelectorItemModels () {
-    return this.props.languages.map(language =>
-      new SelectorItemModel({
-        code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
-      })
-    )
+    const languages = this.props.languages
+    return languages && languages
+      .map(language =>
+        new SelectorItemModel({
+          code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
+        })
+      )
+      .filter(selectorItem => selectorItem.href)
   }
 
   render () {
-    const {location, verticalLayout, closeDropDownCallback} = this.props
-    const selectorItemModels = this.getSelectorItemModels()
+    const {location, isHeaderActionItem} = this.props
+    const selectorItems = this.getSelectorItemModels()
+    const activeItemCode = location.payload.language
 
-    return <React.Fragment>
-      {selectorItemModels && <Selector verticalLayout={verticalLayout}
-                  items={this.getSelectorItemModels()}
-                  activeItemCode={location.payload.language}
-                  closeDropDownCallback={closeDropDownCallback} />}
-      </React.Fragment>
+    if (isHeaderActionItem) {
+      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
+    } else {
+      return selectorItems && <Selector verticalLayout
+                                        items={selectorItems}
+                                        activeItemCode={activeItemCode} />
+    }
   }
 }
 
