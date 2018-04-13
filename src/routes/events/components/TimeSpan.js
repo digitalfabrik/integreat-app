@@ -6,8 +6,8 @@ import type { Moment } from 'moment'
 type Props = {
   startDate: Moment,
   endDate: Moment,
-  allDay: Boolean,
-  locale: String
+  allDay: boolean,
+  locale: string
 }
 
 class TimeSpan extends React.Component<Props> {
@@ -16,7 +16,7 @@ class TimeSpan extends React.Component<Props> {
    * @param {String} locale The locale to format the span in
    * @return {String} The formatted span string
    */
-  toTimeSpanString (locale) {
+  toTimeSpanString (locale: string): string {
     const startDate = this.props.startDate
     const endDate = this.props.endDate
 

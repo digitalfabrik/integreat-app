@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip'
 import { Aside, Body, RichLayout, Main } from './Layout.styles'
 
 type Props = {
-  asideStickyTop: ?number,
+  asideStickyTop: number,
   footer: ?React.Node,
   header: ?React.Node,
   toolbar: ?React.Node,
