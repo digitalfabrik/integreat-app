@@ -37,7 +37,7 @@ export class ExtrasPage extends React.Component<Props> {
   getTileModels (): Array<TileModel> {
     return this.props.extras.map(extra => new TileModel({
       id: extra.alias,
-      name: extra.name,
+      name: extra.title,
       // the url stored in the sprungbrett extra is the url of the endpoint
       path: extra.alias === SPRUNGBRETT_EXTRA ? this.getSprungbrettPath() : extra.path,
       thumbnail: extra.thumbnail,
@@ -55,7 +55,7 @@ export class ExtrasPage extends React.Component<Props> {
       const extra = extras.find(_extra => _extra.alias === extraAlias)
 
       if (extra && extraAlias === SPRUNGBRETT_EXTRA) {
-        return sprungbrettJobs ? <SprungbrettList title={extra.name} jobs={sprungbrettJobs} /> : <LoadingSpinner />
+        return sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <LoadingSpinner />
       } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
         const error = new ContentNotFoundError({type: 'extra', id: extraAlias, city, language})

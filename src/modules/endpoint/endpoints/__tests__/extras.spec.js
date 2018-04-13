@@ -24,13 +24,13 @@ describe('extras', () => {
     new ExtraModel({
       alias: 'serlo-abc',
       thumbnail: 'some_thumbnail',
-      name: 'Serlo ABC',
+      title: 'Serlo ABC',
       path: 'https://abc-app.serlo.org/'
     }),
     new ExtraModel({
       alias: 'sprungbrett',
       thumbnail: 'some_other_thumbnail',
-      name: 'Sprungbrett',
+      title: 'Sprungbrett',
       path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg'})
   ]
 
