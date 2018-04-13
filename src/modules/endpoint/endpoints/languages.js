@@ -4,11 +4,14 @@ import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import type { Params } from '../Endpoint'
+import ParamMissingError from '../errors/ParamMissingError'
 
-export default new EndpointBuilder('languages')
+const LANGUAGES_ENDPOINT_NAME = 'languages'
+
+export default new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: Params): string => {
     if (!params.city) {
-      throw new Error('The city is missing. Could not map the params to the languages endpoint url.')
+      throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
     }
     return `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`
   })

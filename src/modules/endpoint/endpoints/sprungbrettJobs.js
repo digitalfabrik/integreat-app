@@ -3,11 +3,14 @@
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 import EndpointBuilder from '../EndpointBuilder'
 import type { Params } from '../Endpoint'
+import ParamMissingError from '../errors/ParamMissingError'
 
-export default new EndpointBuilder('sprungbrettJobs')
+const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
+
+export default new EndpointBuilder(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: Params): string => {
     if (!params.url) {
-      throw new Error('The url is missing. Could not map the params to the sprungbrettJobs endpoint url.')
+      throw new ParamMissingError(SPRUNGBRETT_JOBS_ENDPOINT_NAME, 'url')
     }
     return params.url
   })
