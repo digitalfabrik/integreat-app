@@ -2,14 +2,12 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import CityModel from 'modules/endpoint/models/CityModel'
-import EventModel from 'modules/endpoint/models/EventModel'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationHeader from '../components/LocationHeader'
+import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
-import LanguageModel from '../../endpoint/models/LanguageModel'
 import { CATEGORIES_ROUTE } from '../../app/routes/categories'
 import { EVENTS_ROUTE } from '../../app/routes/events'
 import { EXTRAS_ROUTE } from '../../app/routes/extras'
@@ -25,13 +23,11 @@ type Props = {
   city: string,
   language: string,
   cities: ?Array<CityModel>,
-  languages: ?Array<LanguageModel>,
-  categories: ?CategoriesMapModel,
+  categories: CategoriesMapModel,
   currentRoute: string,
   viewportSmall: boolean,
   children?: Node,
-  pathname: string,
-  events: Array<EventModel>
+  pathname: string
 }
 
 type State = {
@@ -49,9 +45,8 @@ export class LocationLayout extends React.Component<Props, State> {
   }
 
   render () {
-    const {language, city, currentRoute, viewportSmall, children, events, languages, pathname, categories} = this.props
+    const {language, city, currentRoute, viewportSmall, children, pathname, categories} = this.props
     const cityModel = this.getCurrentCity()
-    const isEventsActive = events ? events.length > 0 : false
     const showCategoriesToolbar = currentRoute === CATEGORIES_ROUTE && categories
 
     if (!cityModel) {
@@ -61,22 +56,17 @@ export class LocationLayout extends React.Component<Props, State> {
       </Layout>
     }
 
-    return <Layout
-      asideStickyTop={this.state.asideStickyTop}
-      header={<LocationHeader viewportSmall={viewportSmall}
-                              city={city}
-                              currentRoute={currentRoute}
-                              language={language}
-                              languages={languages}
-                              isEventsActive={isEventsActive}
-                              isEventsEnabled={cityModel.eventsEnabled}
-                              isExtrasEnabled={cityModel.extrasEnabled}
-                              onStickyTopChanged={this.onStickyTopChanged} />}
-      footer={<LocationFooter city={city} language={language} />}
-      toolbar={showCategoriesToolbar &&
-      <CategoriesToolbar city={city} language={language} pathname={pathname} categories={categories} />}>
-      {children}
-    </Layout>
+    return <Layout asideStickyTop={this.state.asideStickyTop}
+                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel.extrasEnabled}
+                                           onStickyTopChanged={this.onStickyTopChanged} />}
+                   footer={<LocationFooter city={city} language={language} />}
+                   toolbar={showCategoriesToolbar && <CategoriesToolbar city={city}
+                                                                        language={language}
+                                                                        pathname={pathname}
+                                                                        categories={categories} />}>
+        {children}
+      </Layout>
   }
 }
 
@@ -87,8 +77,6 @@ const mapStateToProps = state => ({
   pathname: state.location.pathname,
   viewportSmall: state.viewport.is.small,
   cities: state.cities.data,
-  languages: state.languages.data,
-  events: state.events.data,
   categories: state.categories.data
 })
 

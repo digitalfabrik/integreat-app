@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Selector if there are selectorItems 1`] = `
+<OnClickOutside(HeaderDropDown)
+  iconSrc="test-file-stub"
+>
+  <Selector
+    activeItemCode="de"
+    items={
+      Array [
+        SelectorItemModel {
+          "_code": "en",
+          "_href": "/augsburg/en/",
+          "_name": "English",
+        },
+        SelectorItemModel {
+          "_code": "de",
+          "_href": "/augsburg/de/",
+          "_name": "Deutsch",
+        },
+      ]
+    }
+    verticalLayout={false}
+  />
+</OnClickOutside(HeaderDropDown)>
+`;
+
+exports[`HeaderLanguageSelectorItem should render an icon with a tooltip if there are no selectorItems 1`] = `
+<span>
+  <HeaderLanguageSelectorItemstyles__InactiveImage
+    data-tip="layout:noLanguages"
+    src="test-file-stub"
+  />
+  <HeaderLanguageSelectorItemstyles__Tooltip
+    delayShow={0}
+    effect="solid"
+  />
+</span>
+`;

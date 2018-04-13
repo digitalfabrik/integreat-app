@@ -44,11 +44,11 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownNode": undefined,
             "_href": Object {
               "type": "RANDOM_ROUTE",
             },
             "_iconSrc": undefined,
+            "_node": undefined,
           },
         ]
       }
@@ -101,11 +101,11 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownNode": undefined,
             "_href": Object {
               "type": "RANDOM_ROUTE",
             },
             "_iconSrc": undefined,
+            "_node": undefined,
           },
         ]
       }
