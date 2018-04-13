@@ -9,6 +9,7 @@ import I18nProvider from '../../i18n/containers/I18nProvider'
 import routesMap from '../routesMap'
 import Switcher from './Switcher'
 import theme from '../constants/theme'
+import Helmet from './Helmet'
 
 class App extends React.Component {
   store
@@ -21,7 +22,10 @@ class App extends React.Component {
     return <Provider store={this.store}>
       <I18nProvider>
         <ThemeProvider theme={theme}>
-          <Switcher />
+          <React.Fragment>
+            <Helmet />
+            <Switcher />
+          </React.Fragment>
         </ThemeProvider>
       </I18nProvider>
     </Provider>
