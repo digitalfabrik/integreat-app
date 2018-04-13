@@ -20,7 +20,7 @@ type Props = {
 /**
  * Adds the language code at the end of the current path
  */
-export class I18nRedirect extends React.Component<Props> {
+export class I18nRedirectPage extends React.Component<Props> {
   static contextTypes = {
     // we have to do this with PropTypes, because context is not known at compile time. A possible solution would be:
     // https://github.com/codemix/flow-runtime
@@ -62,4 +62,4 @@ const mapStateToProps = state => ({
   param: state.location.payload.param
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(I18nRedirect)
+export default connect(mapStateToProps, mapDispatchToProps)(I18nRedirectPage)
