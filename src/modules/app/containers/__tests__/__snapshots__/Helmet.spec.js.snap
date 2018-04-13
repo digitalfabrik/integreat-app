@@ -6,7 +6,7 @@ exports[`Helmet should match snapshot 1`] = `
   encodeSpecialCharacters={true}
 >
   <title>
-    disclaimer - Augsburg - Integreat
+    disclaimer - Augsburg
   </title>
 </HelmetWrapper>
 `;
