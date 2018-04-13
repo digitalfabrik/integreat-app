@@ -88,7 +88,7 @@ export class Helmet extends React.Component<Props> {
 
     const routePageTitle = this.getRoutePageTitle()
     const cityName = cities && city && CityModel.findCityName(cities, city)
-    return `${routePageTitle ? `${routePageTitle} - ` : ''}${cityName ? `${cityName} - ` : ''}Integreat`
+    return `${routePageTitle ? `${routePageTitle} - ` : ''}${cityName ? `${cityName}` : 'Integreat'}`
   }
 
   render () {

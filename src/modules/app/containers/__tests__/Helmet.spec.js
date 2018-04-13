@@ -145,13 +145,13 @@ describe('Helmet', () => {
       expect(helmet.instance().getPageTitle()).toBe('landing - Integreat')
     })
 
-    it('should return the current route title, cityName and "Integreat"', () => {
+    it('should return the current route title and cityName', () => {
       const location = {type: DISCLAIMER_ROUTE, payload: {city: city}}
       const helmet = shallow(
         <Helmet location={location} t={key => key} cities={cities} />
       )
 
-      expect(helmet.instance().getPageTitle()).toBe('disclaimer - Augsburg - Integreat')
+      expect(helmet.instance().getPageTitle()).toBe('disclaimer - Augsburg')
     })
   })
 
