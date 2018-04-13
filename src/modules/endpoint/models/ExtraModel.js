@@ -1,7 +1,7 @@
 export default class ExtraModel {
   constructor ({alias, title, path, thumbnail}) {
     this._alias = alias
-    this._title = name
+    this._title = title
     this._path = path
     this._thumbnail = thumbnail
   }
