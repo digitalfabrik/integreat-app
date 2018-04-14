@@ -1,7 +1,5 @@
 // @flow
 
-import { sortBy } from 'lodash/collection'
-
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
@@ -18,17 +16,15 @@ const stripSlashes = (path: string): string => {
 
 export default new EndpointBuilder('cities')
   .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v3/sites`)
-  .withMapper((json: any): Array<CityModel> => {
-    console.log(json)
-    const cities = json
-      .map(_city => new CityModel({
-        name: _city.name,
-        code: stripSlashes(_city.path),
-        live: _city.live,
-        eventsEnabled: _city.events,
-        extrasEnabled: _city.extras
-      }))
-      .sort(_city => _city.name)
-    return sortBy(cities, _city => _city.sortKey)
-  })
+  .withMapper((json: any): Array<CityModel> => json
+    .map(city => new CityModel({
+      name: city.name,
+      code: stripSlashes(city.path),
+      live: city.live,
+      eventsEnabled: city.events,
+      extrasEnabled: city.extras,
+      sortingName: city.name_without_prefix
+    }))
+    .sort(city => city.sortingName)
+  )
   .build()
