@@ -25,6 +25,6 @@ export default new EndpointBuilder('cities')
       extrasEnabled: city.extras,
       sortingName: city.name_without_prefix
     }))
-    .sort(city => city.sortingName)
+    .sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName))
   )
   .build()

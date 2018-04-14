@@ -42,6 +42,10 @@ class CityModel {
     return this._extrasEnabled
   }
 
+  get sortCategory (): string {
+    return this._sortingName.charAt(0)
+  }
+
   static findCityName (cities: Array<CityModel>, code: string): string {
     const city = cities.find(city => city.code === code)
     return city ? city.name : code
