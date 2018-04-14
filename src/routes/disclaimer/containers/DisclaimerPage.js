@@ -9,12 +9,13 @@ import Page from 'modules/common/components/Page'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   disclaimer: DisclaimerModel,
   cities: Array<CityModel>,
   city: string,
-  t: string => string
+  t: I18nTranslate
 }
 
 /**
@@ -34,7 +35,7 @@ export class DisclaimerPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   disclaimer: state.disclaimer.data,
   cities: state.cities.data,
   city: state.location.payload.city

@@ -12,6 +12,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   events: Array<EventModel>,
@@ -19,7 +20,7 @@ type Props = {
   language: string,
   eventId?: string,
   cities: Array<CityModel>,
-  t: string => string
+  t: I18nTranslate
 }
 
 /**
@@ -54,7 +55,7 @@ export class EventsPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,

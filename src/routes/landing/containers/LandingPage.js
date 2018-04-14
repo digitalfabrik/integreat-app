@@ -8,11 +8,12 @@ import FilterableCitySelector from 'routes/landing/components/FilterableCitySele
 import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import Helmet from 'react-helmet'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   cities: Array<CityModel>,
   language: string,
-  t: string => string
+  t: I18nTranslate
 }
 
 export class LandingPage extends React.Component<Props> {
@@ -27,7 +28,7 @@ export class LandingPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   language: state.location.payload.language,
   cities: state.cities.data
 })

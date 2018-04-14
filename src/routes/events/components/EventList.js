@@ -7,12 +7,13 @@ import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
 import EventModel from '../../../modules/endpoint/models/EventModel'
+import type { I18nTranslate } from '../../../flowTypes'
 
 type Props = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  t: (string) => string
+  t: I18nTranslate
 }
 
 /**
