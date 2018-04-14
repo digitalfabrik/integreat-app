@@ -91,7 +91,7 @@ export class CategoriesPage extends React.Component<Props> {
       </div>
     }
 
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: cityName, language})
+    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
     return <FailureSwitcher error={error} />
   }
 }
