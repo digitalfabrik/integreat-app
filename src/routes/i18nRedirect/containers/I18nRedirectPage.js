@@ -10,9 +10,10 @@ import { goToCategories } from '../../../modules/app/routes/categories'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
 
 import type { Action } from 'redux-first-router/dist/flow-types'
+import type { State } from '../../../flowTypes'
 
 type Props = {
-  redirect: (Action) => void,
+  redirect: Action => void,
   cities: Array<CityModel>,
   param: ?string
 }
@@ -57,7 +58,7 @@ const mapDispatchToProps = dispatch => ({
   redirect: action => dispatch(redirect(action))
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   cities: state.cities.data,
   param: state.location.payload.param
 })

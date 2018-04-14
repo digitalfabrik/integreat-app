@@ -8,13 +8,15 @@ import SprungbrettListItem from './SprungbrettListItem'
 import style from './SprungbrettList.css'
 import Caption from '../../../modules/common/components/Caption'
 
+import type { Node } from 'react'
+
 type Props = {
   jobs: Array<SprungbrettJobModel>,
   title: string
 }
 
 class SprungbrettList extends React.Component<Props> {
-  getListItems (): Array<React.Node> {
+  getListItems (): Array<Node> {
     return this.props.jobs.map(job => <SprungbrettListItem key={job.id} job={job} />)
   }
 

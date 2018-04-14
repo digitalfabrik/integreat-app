@@ -16,6 +16,7 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import type { State } from '../../../flowTypes'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -92,7 +93,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   uiDirection: state.uiDirection,
   language: state.location.payload.language,
   city: state.location.payload.city,

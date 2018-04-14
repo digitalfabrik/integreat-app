@@ -4,13 +4,13 @@ import { apiUrl } from '../constants'
 import DisclaimerModel from '../models/DisclaimerModel'
 import { isEmpty } from 'lodash/lang'
 import EndpointBuilder from '../EndpointBuilder'
-import type { Params } from '../Endpoint'
 import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
 
 const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
 export default new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: Params): string => {
+  .withParamsToUrlMapper((params: EndpointParams): string => {
     if (!params.city) {
       throw new ParamMissingError(DISCLAIMER_ENDPOINT_NAME, 'city')
     }
