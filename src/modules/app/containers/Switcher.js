@@ -59,7 +59,6 @@ export class Switcher extends React.Component<Props> {
    * @return {*}
    */
   static renderFailureLoadingComponents = (payload: Payload): Node => {
-    console.log(payload)
     if (payload.error) {
       return <FailureSwitcher error={payload.error} />
     } else if (payload.isFetching || !payload.data) {

@@ -33,13 +33,13 @@ class CitySelector extends React.PureComponent {
   }
 
   renderList (cities) {
-    const groups = groupBy(cities, location => location.sortCategory)
-    return transform(groups, (result, locations, key) => {
+    const groups = groupBy(cities, city => city.sortCategory)
+    return transform(groups, (result, cities, key) => {
       result.push(<div key={key}>
         <CityListParent style={{top: `${this.props.stickyTop}px`}}>{key}</CityListParent>
-        {locations.map(location => <CityEntry
-          key={location.code}
-          city={location}
+        {cities.map(city => <CityEntry
+          key={city.code}
+          city={city}
           language={this.props.language}
           filterText={this.props.filterText} />)}
       </div>)

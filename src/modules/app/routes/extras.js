@@ -25,7 +25,8 @@ export const extrasRoute = {
 
     if (Array.isArray(extrasPayload.data)) {
       if (extraAlias === 'sprungbrett') {
-        const sprungbrettModel = extrasPayload.data.find(_extra => _extra instanceof ExtraModel && _extra.alias === extraAlias)
+        const sprungbrettModel: ExtraModel = extrasPayload.data
+          .find(_extra => _extra instanceof ExtraModel && _extra.alias === extraAlias)
         if (sprungbrettModel) {
           await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {city, language, url: sprungbrettModel.path})
         }
