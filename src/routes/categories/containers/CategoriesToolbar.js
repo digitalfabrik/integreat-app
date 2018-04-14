@@ -8,13 +8,14 @@ import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapMo
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import type { I18nTranslate } from '../../../flowTypes'
 
 type Props = {
   city: string,
   language: string,
   categories: CategoriesMapModel,
   pathname: string,
-  t: string => string
+  t: I18nTranslate
 }
 
 export class CategoriesToolbar extends React.PureComponent<Props> {

@@ -9,12 +9,13 @@ import Link from 'redux-first-router-link'
 import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
 import type { Action } from 'redux-first-router/dist/flow-types'
+import type { I18nTranslate } from '../../../flowTypes'
 
 type Props = {
   errorMessage: string,
   goToAction: ?Action,
   goToMessage: ?string,
-  t: (string) => string
+  t: I18nTranslate
 }
 
 /**
