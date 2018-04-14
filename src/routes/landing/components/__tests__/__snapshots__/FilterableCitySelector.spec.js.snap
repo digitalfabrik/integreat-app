@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FilterableLocationSelector should render 1`] = `
+exports[`FilterableCitySelector should render 1`] = `
 <div
   className="topSpacing"
 >
@@ -9,7 +9,7 @@ exports[`FilterableLocationSelector should render 1`] = `
     filterText=""
     onFilterTextChange={[Function]}
   >
-    <LocationSelector
+    <CitySelector
       cities={
         Array [
           CityModel {

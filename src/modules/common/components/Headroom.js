@@ -22,7 +22,9 @@ class Headroom extends React.PureComponent {
     /** Used for rendering stickyTop position of stickyAncestor */
     height: PropTypes.number,
     /** Fired, when Headroom changes its state. Passes stickyTop of the ancestor. */
-    onStickyTopChanged: PropTypes.func
+    onStickyTopChanged: PropTypes.func,
+    /** True, if sticky position should be disabled (e.g. for edge 16 support) */
+    stickyPositionDisabled: PropTypes.bool
   }
 
   static defaultProps = {
@@ -126,7 +128,7 @@ class Headroom extends React.PureComponent {
   }
 
   render () {
-    const {stickyAncestor, children, height, scrollHeight} = this.props
+    const {stickyAncestor, children, height, scrollHeight, stickyPositionDisabled} = this.props
     const {mode, transition} = this.state
     const transform = mode === UNPINNED ? -scrollHeight : 0
     const stickyTop = Headroom.calcStickyTop(mode, height, scrollHeight)
@@ -135,6 +137,7 @@ class Headroom extends React.PureComponent {
       <HeaderWrapper translateY={transform}
                      top={ownStickyTop}
                      transition={transition}
+                     stickyPositionDisabled={stickyPositionDisabled}
                      static={mode === STATIC}>
         {children}
       </HeaderWrapper>

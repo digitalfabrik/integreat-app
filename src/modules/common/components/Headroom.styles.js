@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HeaderWrapper = styled.div`
-  position: sticky;
+  position: ${props => props.positionStickyDisabled ? 'static' : 'sticky'};
   top: ${props => props.top}px;
   z-index: 1;
   transform: translateY(${props => props.translateY}px);
