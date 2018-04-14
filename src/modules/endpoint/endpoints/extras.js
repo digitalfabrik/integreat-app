@@ -3,13 +3,14 @@
 import { apiUrl } from '../constants'
 import ExtraModel from '../models/ExtraModel'
 import EndpointBuilder from '../EndpointBuilder'
-import type { Params } from '../Endpoint'
+
 import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
 
 const EXTRAS_ENDPOINT_NAME = 'extras'
 
 export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: Params): string => {
+  .withParamsToUrlMapper((params: EndpointParams): string => {
     if (!params.city) {
       throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'city')
     }

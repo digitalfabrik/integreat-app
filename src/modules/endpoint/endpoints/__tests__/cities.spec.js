@@ -8,18 +8,22 @@ describe('cities', () => {
     name: 'Augsburg',
     path: '/augsburg/',
     live: true,
-    'ige-evts': '1'
+    events: true,
+    extras: true,
+    name_without_prefix: 'Augsburg'
   }
   const city2 = {
     name: 'Stadt Regensburg',
     path: '/regensburg/',
     live: true,
-    'ige-evts': '0'
+    events: false,
+    extras: false,
+    name_without_prefix: 'Regensburg'
   }
   const cityJson = [city1, city2]
 
-  it('should map router to url', () => {
-    expect(cities.mapParamsToUrl()).toEqual('https://cms.integreat-app.de/wp-json/extensions/v1/multisites')
+  it('should map params to url', () => {
+    expect(cities.mapParamsToUrl()).toEqual('https://cms.integreat-app.de/wp-json/extensions/v3/sites')
   })
 
   it('should map fetched data to models', () => {
@@ -30,14 +34,16 @@ describe('cities', () => {
         code: 'augsburg',
         live: city1.live,
         eventsEnabled: true,
-        extrasEnabled: true
+        extrasEnabled: true,
+        sortingName: 'Augsburg'
       }),
       new CityModel({
         name: city2.name,
         code: 'regensburg',
         live: city2.live,
         eventsEnabled: false,
-        extrasEnabled: true
+        extrasEnabled: false,
+        sortingName: 'Regensburg'
       })
     ])
   })

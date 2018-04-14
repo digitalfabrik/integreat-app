@@ -18,8 +18,7 @@ exports[`FilterableCitySelector should render 1`] = `
             "_extrasEnabled": false,
             "_live": true,
             "_name": "City",
-            "_sortCategory": "C",
-            "_sortKey": "city",
+            "_sortingName": "City",
           },
           CityModel {
             "_code": "otherCity",
@@ -27,8 +26,7 @@ exports[`FilterableCitySelector should render 1`] = `
             "_extrasEnabled": false,
             "_live": true,
             "_name": "Other city",
-            "_sortCategory": "O",
-            "_sortKey": "other city",
+            "_sortingName": "Other City",
           },
           CityModel {
             "_code": "nonlive",
@@ -36,8 +34,7 @@ exports[`FilterableCitySelector should render 1`] = `
             "_extrasEnabled": false,
             "_live": false,
             "_name": "Not-live",
-            "_sortCategory": "N",
-            "_sortKey": "not-live",
+            "_sortingName": "Not-live",
           },
           CityModel {
             "_code": "yetanothercity",
@@ -45,8 +42,7 @@ exports[`FilterableCitySelector should render 1`] = `
             "_extrasEnabled": false,
             "_live": true,
             "_name": "Yet another city",
-            "_sortCategory": "Y",
-            "_sortKey": "yet another city",
+            "_sortingName": "Yet another city",
           },
         ]
       }

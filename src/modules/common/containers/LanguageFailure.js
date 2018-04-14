@@ -10,11 +10,12 @@ import CityModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './LanguageFailure.css'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   cities: Array<CityModel>,
   city: string,
-  t: string => string
+  t: I18nTranslate
 }
 
 export class LanguageFailure extends React.PureComponent<Props> {
@@ -31,7 +32,7 @@ export class LanguageFailure extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   cities: state.cities.data
 })
 

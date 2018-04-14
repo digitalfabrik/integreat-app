@@ -11,20 +11,18 @@ exports[`LandingPage should match snapshot 1`] = `
     </title>
   </HelmetWrapper>
   <FilterableCitySelector
-    cities={
-      Array [
-        CityModel {
-          "_code": "city",
-          "_eventsEnabled": false,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "City",
-          "_sortCategory": "C",
-          "_sortKey": "city",
-        },
-      ]
-    }
-    language="de"
-  />
-</React.Fragment>
+  cities={
+    Array [
+      CityModel {
+        "_code": "city",
+        "_eventsEnabled": false,
+        "_extrasEnabled": false,
+        "_live": true,
+        "_name": "City",
+        "_sortingName": "City",
+      },
+    ]
+  }
+  language="de"
+/></React.Fragment>
 `;

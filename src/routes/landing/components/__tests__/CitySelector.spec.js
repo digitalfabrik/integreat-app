@@ -12,28 +12,32 @@ describe('CitySelector', () => {
       code: 'city',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'City'
     }),
     new CityModel({
       name: 'Other city',
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'OtherCity'
     }),
     new CityModel({
-      name: 'Not-live',
+      name: 'Notlive',
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Nonlive'
     }),
     new CityModel({
       name: 'Yet another city',
       code: 'yetanothercity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Yetanothercity'
     })
   ]
 
@@ -55,7 +59,7 @@ describe('CitySelector', () => {
 
     const component = wrapper.instance()
 
-    expect(component.filter()).toHaveLength(3)
+    expect(component.filter()).toMatchSnapshot()
   })
 
   it('should exclude location if location does not exist', () => {
@@ -66,7 +70,7 @@ describe('CitySelector', () => {
     )
 
     const component = wrapper.instance()
-    expect(component.filter()).toHaveLength(0)
+    expect(component.filter()).toMatchSnapshot()
   })
 
   it('should exclude location if location is not live', () => {
@@ -77,7 +81,7 @@ describe('CitySelector', () => {
     )
 
     const component = wrapper.instance()
-    expect(component.filter()).toHaveLength(0)
+    expect(component.filter()).toMatchSnapshot()
   })
 
   it('should filter for all non-live cities if filterText is "wirschaffendas"', () => {
@@ -88,6 +92,6 @@ describe('CitySelector', () => {
     )
 
     const component = wrapper.instance()
-    expect(component.filter()).toHaveLength(1)
+    expect(component.filter()).toMatchSnapshot()
   })
 })
