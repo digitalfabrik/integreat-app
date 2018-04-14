@@ -55,11 +55,11 @@ export class Helmet extends React.Component<Props> {
             }
           }
         } else {
-          return t('events')
+          return t('eventsTitle')
         }
         break
       case DISCLAIMER_ROUTE:
-        return t('disclaimer')
+        return t('disclaimerTitle')
       case EXTRAS_ROUTE:
         const extraAlias = location.payload.extraAlias
         if (extraAlias) {
@@ -70,15 +70,15 @@ export class Helmet extends React.Component<Props> {
             }
           }
         } else {
-          return t('extras')
+          return t('extrasTitle')
         }
         break
       case SEARCH_ROUTE:
-        return t('search')
+        return t('searchTitle')
       case MAIN_DISCLAIMER_ROUTE:
-        return t('disclaimer')
+        return t('disclaimerTitle')
       case LANDING_ROUTE:
-        return t('landing')
+        return t('landingTitle')
     }
   }
 

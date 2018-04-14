@@ -166,33 +166,33 @@
   },
   "app": {
     "ar": {
-      "extras": "إضافات",
-      "events": "الأخبار",
-      "landing": "أين أنت؟",
-      "search": "البحث",
-      "disclaimer": "هيئة التحرير وجهة الاتصال"
+      "extrasTitle": "إضافات",
+      "eventsTitle": "الأخبار",
+      "landingTitle": "أين أنت؟",
+      "searchTitle": "البحث",
+      "disclaimerTitle": "هيئة التحرير وجهة الاتصال"
 
     },
     "de": {
-      "extras": "Extras",
-      "events": "News",
-      "landing": "Wo bist du?",
-      "search": "Suche",
-      "disclaimer": "Impressum und Kontakt"
+      "extrasTitle": "Extras",
+      "eventsTitle": "News",
+      "landingTitle": "Wo bist du?",
+      "searchTitle": "Suche",
+      "disclaimerTitle": "Impressum und Kontakt"
     },
     "en": {
-      "extras": "Extras",
-      "events": "News",
-      "landing": "Where are you?",
-      "search": "Search",
-      "disclaimer": "Imprint and contact"
+      "extrasTitle": "Extras",
+      "eventsTitle": "News",
+      "landingTitle": "Where are you?",
+      "searchTitle": "Search",
+      "disclaimerTitle": "Imprint and contact"
     },
     "fa": {
-      "extras": "اضافات",
-      "news": "تازه​ها",
-      "landing": "تو کجایی؟",
-      "search": "جستجو",
-      "disclaimer": "مجوز ‎و اطلاعات تماس"
+      "extrasTitle": "اضافات",
+      "newsTitle": "تازه​ها",
+      "landingTitle": "تو کجایی؟",
+      "searchTitle": "جستجو",
+      "disclaimerTitle": "مجوز ‎و اطلاعات تماس"
     }
   }
 }
