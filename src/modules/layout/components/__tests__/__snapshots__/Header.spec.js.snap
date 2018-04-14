@@ -4,6 +4,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
 <Headroom
   height={85}
   pinStart={0}
+  positionStickyDisabled={false}
   scrollHeight={85}
 >
   <header
@@ -61,6 +62,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
 <Headroom
   height={55}
   pinStart={0}
+  positionStickyDisabled={false}
   scrollHeight={55}
 >
   <header
