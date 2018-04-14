@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
-import Failure from '../../../modules/common/components/Failure'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type Props = {
   events: Array<EventModel>,
@@ -27,7 +28,8 @@ export class EventsPage extends React.Component<Props> {
       if (event) {
         return <EventDetail event={event} location={city} language={language} />
       } else {
-        return <Failure />
+        const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
+        return <FailureSwitcher error={error} />
       }
     }
     return <EventList events={events} city={city} language={language} />

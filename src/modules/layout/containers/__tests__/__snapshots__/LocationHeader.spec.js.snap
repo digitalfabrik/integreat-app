@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`LocationHeader ActionItems should match snapshot 1`] = `
+Array [
+  HeaderActionItem {
+    "_href": Object {
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "type": "SEARCH",
+    },
+    "_iconSrc": "test-file-stub",
+    "_node": undefined,
+  },
+  HeaderActionItem {
+    "_href": Object {
+      "payload": Object {
+        "language": "de",
+      },
+      "type": "LANDING",
+    },
+    "_iconSrc": "test-file-stub",
+    "_node": undefined,
+  },
+  HeaderActionItem {
+    "_href": undefined,
+    "_iconSrc": undefined,
+    "_node": <Connect(LanguageSelector)
+      isHeaderActionItem={true}
+    />,
+  },
+]
+`;
+
 exports[`LocationHeader NavigationItems should be empty, if extras and news are both disabled 1`] = `Array []`;
 
 exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
@@ -17,7 +50,7 @@ Array [
       }
     }
     selected={false}
-    text="layout:extras"
+    text="extras"
   />,
   <HeaderNavigationItem
     active={true}
@@ -32,10 +65,10 @@ Array [
       }
     }
     selected={true}
-    text="layout:categories"
+    text="categories"
   />,
   <HeaderNavigationItem
-    active={false}
+    active={true}
     href={
       Object {
         "payload": Object {
@@ -47,8 +80,8 @@ Array [
       }
     }
     selected={false}
-    text="layout:news"
-    tooltip="layout:noNews"
+    text="news"
+    tooltip="noNews"
   />,
 ]
 `;
@@ -68,7 +101,7 @@ Array [
       }
     }
     selected={false}
-    text="layout:extras"
+    text="extras"
   />,
   <HeaderNavigationItem
     active={true}
@@ -83,10 +116,10 @@ Array [
       }
     }
     selected={false}
-    text="layout:categories"
+    text="categories"
   />,
   <HeaderNavigationItem
-    active={false}
+    active={true}
     href={
       Object {
         "payload": Object {
@@ -98,8 +131,8 @@ Array [
       }
     }
     selected={true}
-    text="layout:news"
-    tooltip="layout:noNews"
+    text="news"
+    tooltip="noNews"
   />,
 ]
 `;
@@ -119,7 +152,7 @@ Array [
       }
     }
     selected={true}
-    text="layout:extras"
+    text="extras"
   />,
   <HeaderNavigationItem
     active={true}
@@ -134,10 +167,10 @@ Array [
       }
     }
     selected={false}
-    text="layout:categories"
+    text="categories"
   />,
   <HeaderNavigationItem
-    active={false}
+    active={true}
     href={
       Object {
         "payload": Object {
@@ -149,8 +182,8 @@ Array [
       }
     }
     selected={false}
-    text="layout:news"
-    tooltip="layout:noNews"
+    text="news"
+    tooltip="noNews"
   />,
 ]
 `;
@@ -170,7 +203,7 @@ Array [
       }
     }
     selected={false}
-    text="layout:extras"
+    text="extras"
   />,
   <HeaderNavigationItem
     active={true}
@@ -184,8 +217,8 @@ Array [
         "type": "CATEGORIES",
       }
     }
-    selected={false}
-    text="layout:categories"
+    selected={true}
+    text="categories"
   />,
 ]
 `;
@@ -204,11 +237,11 @@ Array [
         "type": "CATEGORIES",
       }
     }
-    selected={false}
-    text="layout:categories"
+    selected={true}
+    text="categories"
   />,
   <HeaderNavigationItem
-    active={false}
+    active={true}
     href={
       Object {
         "payload": Object {
@@ -220,8 +253,8 @@ Array [
       }
     }
     selected={false}
-    text="layout:news"
-    tooltip="layout:noNews"
+    text="news"
+    tooltip="noNews"
   />,
 ]
 `;
@@ -241,7 +274,7 @@ Array [
       }
     }
     selected={false}
-    text="layout:extras"
+    text="extras"
   />,
   <HeaderNavigationItem
     active={true}
@@ -255,11 +288,11 @@ Array [
         "type": "CATEGORIES",
       }
     }
-    selected={false}
-    text="layout:categories"
+    selected={true}
+    text="categories"
   />,
   <HeaderNavigationItem
-    active={false}
+    active={true}
     href={
       Object {
         "payload": Object {
@@ -271,18 +304,17 @@ Array [
       }
     }
     selected={false}
-    text="layout:news"
-    tooltip="layout:noNews"
+    text="news"
+    tooltip="noNews"
   />,
 ]
 `;
 
 exports[`LocationHeader should match snapshot 1`] = `
-<Header
+<WithTheme(Header)
   actionItems={
     Array [
       HeaderActionItem {
-        "_dropDownNode": undefined,
         "_href": Object {
           "payload": Object {
             "city": "augsburg",
@@ -291,9 +323,9 @@ exports[`LocationHeader should match snapshot 1`] = `
           "type": "SEARCH",
         },
         "_iconSrc": "test-file-stub",
+        "_node": undefined,
       },
       HeaderActionItem {
-        "_dropDownNode": undefined,
         "_href": Object {
           "payload": Object {
             "language": "de",
@@ -301,28 +333,14 @@ exports[`LocationHeader should match snapshot 1`] = `
           "type": "LANDING",
         },
         "_iconSrc": "test-file-stub",
+        "_node": undefined,
       },
       HeaderActionItem {
-        "_dropDownNode": <Connect(LanguageSelector)
-          languages={
-            Array [
-              LanguageModel {
-                "_code": "de",
-                "_name": "Deutsch",
-              },
-              LanguageModel {
-                "_code": "en",
-                "_name": "English",
-              },
-              LanguageModel {
-                "_code": "ar",
-                "_name": "Arabic",
-              },
-            ]
-          }
-        />,
         "_href": undefined,
-        "_iconSrc": "test-file-stub",
+        "_iconSrc": undefined,
+        "_node": <Connect(LanguageSelector)
+          isHeaderActionItem={true}
+        />,
       },
     ]
   }
@@ -350,8 +368,8 @@ exports[`LocationHeader should match snapshot 1`] = `
             "type": "EXTRAS",
           }
         }
-        selected={false}
-        text="layout:extras"
+        selected={true}
+        text="extras"
       />,
       <HeaderNavigationItem
         active={true}
@@ -366,10 +384,10 @@ exports[`LocationHeader should match snapshot 1`] = `
           }
         }
         selected={false}
-        text="layout:categories"
+        text="categories"
       />,
       <HeaderNavigationItem
-        active={false}
+        active={true}
         href={
           Object {
             "payload": Object {
@@ -381,8 +399,8 @@ exports[`LocationHeader should match snapshot 1`] = `
           }
         }
         selected={false}
-        text="layout:news"
-        tooltip="layout:noNews"
+        text="news"
+        tooltip="noNews"
       />,
     ]
   }

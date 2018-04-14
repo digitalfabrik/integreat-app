@@ -4,14 +4,17 @@ import { apiUrl } from '../constants'
 import ExtraModel from '../models/ExtraModel'
 import EndpointBuilder from '../EndpointBuilder'
 import type { Params } from '../Endpoint'
+import ParamMissingError from '../errors/ParamMissingError'
 
-export default new EndpointBuilder('extras')
+const EXTRAS_ENDPOINT_NAME = 'extras'
+
+export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: Params): string => {
     if (!params.city) {
-      throw new Error('The city is missing. Could not map the params to the extras endpoint url.')
+      throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'city')
     }
     if (!params.language) {
-      throw new Error('The language is missing. Could not map the params to the extras endpoint url.')
+      throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'language')
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
   })
