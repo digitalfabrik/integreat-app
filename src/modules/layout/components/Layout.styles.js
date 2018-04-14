@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import withPlatform from '../../platform/hocs/withPlatform'
 
 export const RichLayout = styled.div`
   position: relative;
@@ -53,8 +54,8 @@ export const Main = styled.main`
     }
 `
 
-export const Aside = styled.aside`
-    position: sticky;
+export const Aside = withPlatform(styled.aside`
+    position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
     display: inline-block;
     width: ${props => props.theme.dimensions.toolbarWidth}px;
     margin-top: 105px;
@@ -76,4 +77,4 @@ export const Aside = styled.aside`
       max-width: initial;
       margin-top: 0;
     }
-`
+`)

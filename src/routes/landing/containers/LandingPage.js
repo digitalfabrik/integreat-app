@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
+import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import Helmet from 'react-helmet'
@@ -22,7 +22,7 @@ export class LandingPage extends React.Component<Props> {
       <Helmet>
         <title>{t('pageTitle')}</title>
       </Helmet>
-      <FilterableLocationSelector language={language} cities={cities} />
+      <FilterableCitySelector language={language} cities={cities} />
     </React.Fragment>
   }
 }

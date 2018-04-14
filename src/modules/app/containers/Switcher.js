@@ -57,6 +57,7 @@ export class Switcher extends React.Component<Props> {
    * @return {*}
    */
   static renderFailureLoadingComponents = (payload: Payload): React.Node => {
+    console.log(payload)
     if (payload.error) {
       return <FailureSwitcher error={payload.error} />
     } else if (payload.isFetching || !payload.data) {
@@ -141,18 +142,28 @@ export class Switcher extends React.Component<Props> {
     }
 
     if (currentRoute === LANDING_ROUTE) {
+      // LANDING_ROUTE
       return (
         <Layout footer={<GeneralFooter />}>
           {this.renderPage()}
         </Layout>
       )
     } else if (LocationLayoutRoutes.includes(currentRoute)) {
+      // CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE, CATEGORIES_REDIRECT_ROUTE
       return (
         <LocationLayout>
           {this.renderPage()}
         </LocationLayout>
       )
+    } else if (currentRoute === I18N_REDIRECT_ROUTE) {
+      // I18N_REDIRECT_ROUTE
+      return (
+        <Layout>
+          {this.renderPage()}
+        </Layout>
+      )
     } else {
+      // MAIN_DISCLAIMER_ROUTE, NOT_FOUND
       return (
         <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
           {this.renderPage()}
