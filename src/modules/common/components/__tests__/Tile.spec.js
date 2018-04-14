@@ -7,19 +7,20 @@ import Tile from '../Tile'
 const tile1 = new TileModel({
   id: 3649,
   path: '/augsburg/de/willkommen',
-  name: 'Willkommen',
-  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+  title: 'Willkommen',
+  thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+  isExternalUrl: false
 })
 
 const tile2 = new TileModel({
   id: 3649,
   path: 'https://example.com',
-  name: 'Example',
+  title: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   isExternalUrl: true
 })
 
-describe('CategoryTile', () => {
+describe('Tile', () => {
   it('should render a Link if path is not an external url', () => {
     const wrapper = shallow(
       <Tile tile={tile1} />

@@ -9,18 +9,18 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
     tiles={
       Array [
         TileModel {
-          "_id": 3649,
+          "_id": "3649",
           "_isExternalUrl": false,
-          "_name": "Willkommen",
           "_path": "/augsburg/de/willkommen",
           "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
         },
         TileModel {
-          "_id": 3650,
+          "_id": "3650",
           "_isExternalUrl": false,
-          "_name": "Anlaufstellen zu sonstigen Themen",
           "_path": "/augsburg/de/anlaufstellen",
           "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+          "_title": "Anlaufstellen zu sonstigen Themen",
         },
       ]
     }
