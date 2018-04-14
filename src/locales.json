@@ -32,6 +32,20 @@
       "news": "تازه​ها"
     }
   },
+  "search": {
+    "ar": {
+      "pageTitle": "البحث"
+    },
+    "de": {
+      "pageTitle": "Suche"
+    },
+    "en": {
+      "pageTitle": "Search"
+    },
+    "fa": {
+      "pageTitle": "جستجو"
+    }
+  },
   "common": {
     "ar": {
       "search": "البحث"
@@ -63,53 +77,68 @@
       "location": "الموقع",
       "date": "تاريخ",
       "news": "الأخبار",
+      "pageTitle": "الأخبار",
       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
     },
     "de": {
       "location": "Standort",
       "date": "Datum",
       "news": "News",
+      "pageTitle": "News",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
     },
     "en": {
       "location": "Location",
       "date": "Date",
       "news": "News",
+      "pageTitle": "News",
       "currentlyNoEvents": "No recent events available."
     },
     "fa": {
       "location": "موقعیت مکانی",
       "date": "تاریخ",
       "news": "تازه​ها",
+      "pageTitle": "تازه​ها",
       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
     }
   },
   "extras": {
     "ar": {
-      "extras": "إضافات"
+      "extras": "إضافات",
+      "pageTitle": "إضافات"
+
     },
     "en": {
-      "extras": "Extras"
+      "extras": "Extras",
+      "pageTitle": "Extras"
+
     },
     "de": {
-      "extras": "Extras"
+      "extras": "Extras",
+      "pageTitle": "Extras"
+
     },
     "fa": {
-      "extras": "اضافات"
+      "extras": "اضافات",
+      "pageTitle": "اضافات"
     }
   },
   "landing": {
     "ar": {
-      "where": "أين أنت؟"
+      "where": "أين أنت؟",
+      "pageTitle": "أين أنت؟"
     },
     "de": {
-      "where": "Wo bist du?"
+      "where": "Wo bist du?",
+      "pageTitle": "Wo bist du?"
     },
     "en": {
-      "where": "Where are you?"
+      "where": "Where are you?",
+      "pageTitle": "Where are you?"
     },
     "fa": {
-      "where": "تو کجایی؟"
+      "where": "تو کجایی؟",
+      "pageTitle": "تو کجایی؟"
     }
   },
   "error": {
@@ -164,35 +193,18 @@
       "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
     }
   },
-  "app": {
+  "disclaimer": {
     "ar": {
-      "extrasTitle": "إضافات",
-      "eventsTitle": "الأخبار",
-      "landingTitle": "أين أنت؟",
-      "searchTitle": "البحث",
-      "disclaimerTitle": "هيئة التحرير وجهة الاتصال"
-
+      "pageTitle": "هيئة التحرير وجهة الاتصال"
     },
     "de": {
-      "extrasTitle": "Extras",
-      "eventsTitle": "News",
-      "landingTitle": "Wo bist du?",
-      "searchTitle": "Suche",
-      "disclaimerTitle": "Impressum und Kontakt"
+      "pageTitle": "Impressum und Kontakt"
     },
     "en": {
-      "extrasTitle": "Extras",
-      "eventsTitle": "News",
-      "landingTitle": "Where are you?",
-      "searchTitle": "Search",
-      "disclaimerTitle": "Imprint and contact"
+      "pageTitle": "Imprint and contact"
     },
     "fa": {
-      "extrasTitle": "اضافات",
-      "newsTitle": "تازه​ها",
-      "landingTitle": "تو کجایی؟",
-      "searchTitle": "جستجو",
-      "disclaimerTitle": "مجوز ‎و اطلاعات تماس"
+      "pageTitle": "مجوز ‎و اطلاعات تماس"
     }
   }
 }
