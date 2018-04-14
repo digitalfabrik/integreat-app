@@ -1,17 +1,16 @@
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
+import withPlatform from '../../../modules/platform/hocs/withPlatform'
 
-import { positionStickyDisabled } from '../../../modules/common/constants'
-
-export const CityListParent = styled.div`
-  position: ${positionStickyDisabled ? 'static' : 'sticky'};
+export const CityListParent = withPlatform(styled.div`
+  position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
   height: 30px;
   margin-top: 10px;
   line-height: 30px;
   transition: top 0.2s ease-out;
   background-color: white;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
-`
+`)
 
 export const CityListItem = styled(Link)`
   display: block;
