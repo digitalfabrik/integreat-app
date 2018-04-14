@@ -4,8 +4,8 @@ import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from 'modules/endpoint/models/EventModel'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import configureMockStore from 'redux-mock-store'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('EventsPage', () => {
   const events = [
@@ -35,19 +35,25 @@ describe('EventsPage', () => {
   ]
 
   const city = 'augsburg'
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('ar', 'Arabic')
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false
+    })
   ]
   const language = 'en'
   const id = '1235'
+  const t = key => key
 
   it('should match snapshot and render EventList', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  languages={languages}
+                  cities={cities}
+                  t={t}
                   language={language} />
     )
     expect(wrapper).toMatchSnapshot()
@@ -57,7 +63,8 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  languages={languages}
+                  cities={cities}
+                  t={t}
                   language={language}
                   eventId={id} />
     )
@@ -68,7 +75,8 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  languages={languages}
+                  cities={cities}
+                  t={t}
                   language={language}
                   eventId={'234729'} />
     )
@@ -81,7 +89,8 @@ describe('EventsPage', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
-      events: {data: events}
+      events: {data: events},
+      cities: {data: cities}
     })
 
     const categoriesPage = shallow(
@@ -93,6 +102,7 @@ describe('EventsPage', () => {
       language,
       eventId: id,
       events,
+      cities,
       store,
       dispatch: expect.any(Function),
       storeSubscription: expect.any(Object)

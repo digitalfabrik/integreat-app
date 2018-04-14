@@ -2,6 +2,14 @@
 
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Augsburg
+    </title>
+  </HelmetWrapper>
   <Breadcrumbs
     direction="ltr"
   />
@@ -31,6 +39,15 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Willkommen in Augsburg - 
+      Augsburg
+    </title>
+  </HelmetWrapper>
   <Breadcrumbs
     direction="ltr"
   >
@@ -56,12 +73,21 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
 
 exports[`CategoriesPage should match snapshot and render an Error if path is not valid 1`] = `
 <FailureSwitcher
-  error={[Error: The category /augsburg/de/not/valid does not exist in Augsburg in your current language.]}
+  error={[Error: The category /augsburg/de/not/valid does not exist here.]}
 />
 `;
 
 exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
 <div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Willkommen - 
+      Augsburg
+    </title>
+  </HelmetWrapper>
   <Breadcrumbs
     direction="ltr"
   >

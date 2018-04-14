@@ -5,7 +5,7 @@ import FailureSwitcher from '../FailureSwitcher'
 import ContentNotFoundError from '../../errors/ContentNotFoundError'
 import LanguageNotFoundError from '../../../app/errors/LanguageNotFoundError'
 
-describe('LanguageFailure', () => {
+describe('FailureSwitcher', () => {
   const city = 'augsburg'
 
   const language = 'de'
