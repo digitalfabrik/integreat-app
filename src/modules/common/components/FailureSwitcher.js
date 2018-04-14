@@ -8,6 +8,7 @@ import { goToEvents } from '../../app/routes/events'
 import { goToExtras } from '../../app/routes/extras'
 import { goToCategories } from '../../app/routes/categories'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
+import Helmet from 'react-helmet'
 
 type Props = {
   error: Error
@@ -52,7 +53,13 @@ class FailureSwitcher extends React.Component<Props> {
   }
 
   render () {
-    return this.renderErrorComponent()
+    const error = this.props.error
+    return <React.Fragment>
+      <Helmet>
+        <title>{error.constructor.name}</title>
+      </Helmet>
+      {this.renderErrorComponent()}
+    </React.Fragment>
   }
 }
 
