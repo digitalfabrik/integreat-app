@@ -84,15 +84,17 @@ export class Switcher extends React.Component<Props> {
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
         // The CategoriesPage needs cities and categories
-        return Switcher.renderFailureLoadingComponents(categoriesPayload) ||
-          Switcher.renderFailureLoadingComponents(citiesPayload) ||
+        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(categoriesPayload) ||
           <CategoriesPage />
       case EVENTS_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(eventsPayload) ||
           <EventsPage />
       case EXTRAS_ROUTE:
-        return Switcher.renderFailureLoadingComponents(extrasPayload) || <ExtrasPage />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(extrasPayload) ||
+          <ExtrasPage />
       case DISCLAIMER_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
