@@ -16,6 +16,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import Helmet from 'react-helmet'
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -25,7 +26,7 @@ type Props = {
   extraAlias?: string,
   extras: Array<ExtraModel>,
   sprungbrettJobs?: Array<SprungbrettJobModel>,
-  t: string => string,
+  t: I18nTranslate,
   cities: Array<CityModel>
 }
 
@@ -85,7 +86,7 @@ export class ExtrasPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
   extraAlias: state.location.payload.extraAlias,

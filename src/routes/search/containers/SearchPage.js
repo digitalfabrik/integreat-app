@@ -11,12 +11,13 @@ import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import Helmet from 'react-helmet'
+import type { I18nTranslate } from '../../../flowTypes'
 
 type Props = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
-  t: string => string
+  t: I18nTranslate
 }
 
 type State = {
@@ -72,7 +73,7 @@ export class SearchPage extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   categories: state.categories.data,
   cities: state.cities.data,
   city: state.location.payload.city

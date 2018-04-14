@@ -19,13 +19,13 @@ import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router/dist/flow-types'
 import EventModel from '../../endpoint/models/EventModel'
-import type { State } from '../../../flowTypes'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
-  t: string => string,
+  t: I18nTranslate,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => {}
