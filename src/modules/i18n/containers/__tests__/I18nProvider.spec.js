@@ -12,7 +12,7 @@ const mockStore = configureMockStore()
 
 describe('I18nProvider', () => {
   it('should match snapshot', () => {
-    const component = mount(<I18nProvider>
+    const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
     // Check snapshot except for I18nextProvider's props (because there are all resources)
@@ -54,7 +54,7 @@ describe('I18nProvider', () => {
       return i18nInstance
     })
 
-    const component = mount(<I18nProvider>
+    const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
 
@@ -75,7 +75,7 @@ describe('I18nProvider', () => {
   })
 
   it('should fallback to en', () => {
-    const component = mount(<I18nProvider>
+    const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
 
@@ -86,7 +86,7 @@ describe('I18nProvider', () => {
 
   it('should call setLanguage on property change', () => {
     I18nProvider.prototype.setLanguage = jest.fn(I18nProvider.prototype.setLanguage)
-    const component = mount(<I18nProvider>
+    const component = mount(<I18nProvider setUiDirection={() => {}}>
       <div />
     </I18nProvider>)
     expect(I18nProvider.prototype.setLanguage).toHaveBeenCalledWith(undefined)
@@ -108,7 +108,7 @@ describe('I18nProvider', () => {
 
   describe('setLanguage', () => {
     it('should take first i18next language if param is undefined', () => {
-      const component = mount(<I18nProvider>
+      const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />
       </I18nProvider>)
 
@@ -129,7 +129,7 @@ describe('I18nProvider', () => {
     })
 
     it('should take param language if param is defined', () => {
-      const component = mount(<I18nProvider>
+      const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />
       </I18nProvider>)
 
@@ -151,11 +151,13 @@ describe('I18nProvider', () => {
   })
 
   it('should add direction style depending on language', () => {
-    const component = mount(<I18nProvider language='en'>
+    const mockSetUiDirection = jest.fn()
+    const component = mount(<I18nProvider language='en' setUiDirection={mockSetUiDirection}>
       <div />
     </I18nProvider>)
     expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
     component.setProps({language: 'ar'})
     expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
+    expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')
   })
 })

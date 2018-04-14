@@ -7,6 +7,7 @@
     "npm": ">=3.8"
   },
   "dependencies": {
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
     "@babel/polyfill": "~7.0.0-beta.44",
     "classnames": "~2.2.5",
     "detect-browser": "^2.2.0",

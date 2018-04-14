@@ -6,23 +6,27 @@ import { apiUrl } from '../constants'
 
 import EndpointBuilder from '../EndpointBuilder'
 import type { Params } from '../Endpoint'
+import ParamMissingError from '../errors/ParamMissingError'
+import MappingError from '../errors/MappingError'
 
-export default new EndpointBuilder('categories')
+const CATEGORIES_ENDPOINT_NAME = 'categories'
+
+export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: Params): string => {
     if (!params.city) {
-      throw new Error('The city is missing. Could not map the params to the categories endpoint url.')
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
     if (!params.language) {
-      throw new Error('The language is missing. Could not map the params to the categories endpoint url.')
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'language')
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
   })
   .withMapper((json: any, params: Params): CategoriesMapModel => {
     if (!params.city) {
-      throw new Error('The city is missing. Could not map the json in categories endpoint.')
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
     if (!params.language) {
-      throw new Error('The language is missing. Could not map the json in categories endpoint.')
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'language')
     }
     const city = params.city
     const baseUrl = `/${city}/${params.language}`
@@ -60,7 +64,8 @@ export default new EndpointBuilder('categories')
       if (category.id !== 0) {
         const parent = categories.find(_category => _category.id === category.parentId)
         if (!parent) {
-          throw new Error(`Invalid data from categories endpoint: Page with id ${category.id} has no parent.`)
+          throw new MappingError(CATEGORIES_ENDPOINT_NAME,
+            `Invalid data from categories endpoint: Page with id ${category.id} has no parent.`)
         }
         category.setParentUrl(parent.url)
       }

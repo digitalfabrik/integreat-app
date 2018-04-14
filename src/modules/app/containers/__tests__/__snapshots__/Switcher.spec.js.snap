@@ -2,6 +2,7 @@
 
 exports[`Switcher layout should render a layout with a footer if the current route is the landing route 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
 >
   <LoadingSpinner />
@@ -10,6 +11,7 @@ exports[`Switcher layout should render a layout with a footer if the current rou
 
 exports[`Switcher layout should render a layout with a header and a footer as default 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
   header={
     <GeneralHeader
@@ -47,18 +49,13 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the extras route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(ExtrasPage) />
+  <Connect(Translate(ExtrasPage)) />
 </Connect(LocationLayout)>
 `;
 
 exports[`Switcher should get the right page if data has been fetched and is the i18nRedirect route 1`] = `
 <Layout
-  footer={<Translate(GeneralFooter) />}
-  header={
-    <GeneralHeader
-      viewportSmall={false}
-    />
-  }
+  asideStickyTop={0}
 >
   <Connect(I18nRedirect) />
 </Layout>
@@ -66,6 +63,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the landing route 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
 >
   <Connect(LandingPage) />
@@ -74,6 +72,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the main disclaimer route 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
   header={
     <GeneralHeader
@@ -92,7 +91,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 `;
 
 exports[`Switcher should return a failure if there was an error during fetching 1`] = `
-<Translate(Failure)
+<FailureSwitcher
   error="fake news"
 />
 `;

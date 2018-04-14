@@ -2,6 +2,7 @@
 
 exports[`Header should match snapshot with largeViewport 1`] = `
 <Headroom
+  height={85}
   pinStart={0}
   scrollHeight={85}
 >
@@ -43,11 +44,11 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownNode": undefined,
             "_href": Object {
               "type": "RANDOM_ROUTE",
             },
             "_iconSrc": undefined,
+            "_node": undefined,
           },
         ]
       }
@@ -58,6 +59,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
 
 exports[`Header should match snapshot with smallViewport 1`] = `
 <Headroom
+  height={55}
   pinStart={0}
   scrollHeight={55}
 >
@@ -99,11 +101,11 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownNode": undefined,
             "_href": Object {
               "type": "RANDOM_ROUTE",
             },
             "_iconSrc": undefined,
+            "_node": undefined,
           },
         ]
       }

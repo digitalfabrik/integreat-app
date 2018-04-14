@@ -1,15 +1,19 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
+import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
 import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import Failure from '../../../modules/common/components/Failure'
 import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
 import Spinner from 'react-spinkit'
+import Caption from '../../../modules/common/components/Caption'
+import { translate } from 'react-i18next'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -18,7 +22,8 @@ type Props = {
   language: string,
   extraAlias?: string,
   extras: Array<ExtraModel>,
-  sprungbrettJobs?: Array<SprungbrettJobModel>
+  sprungbrettJobs?: Array<SprungbrettJobModel>,
+  t: (string) => string
 }
 
 /**
@@ -44,7 +49,7 @@ export class ExtrasPage extends React.Component<Props> {
   getContent () {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
-    const {extraAlias, extras, sprungbrettJobs} = this.props
+    const {extraAlias, extras, sprungbrettJobs, city, language} = this.props
 
     if (extraAlias) {
       const extra = extras.find(_extra => _extra.alias === extraAlias)
@@ -53,10 +58,14 @@ export class ExtrasPage extends React.Component<Props> {
         return sprungbrettJobs ? <SprungbrettList title={extra.name} jobs={sprungbrettJobs} /> : <LoadingSpinner />
       } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
-        return <Failure error={'not-found:page.notFound'} />
+        const error = new ContentNotFoundError({type: 'extra', id: extraAlias, city, language})
+        return <FailureSwitcher error={error} />
       }
     } else {
-      return <Tiles tiles={this.getTileModels()} />
+      return <React.Fragment>
+        <Caption title={this.props.t('extras')} />
+        <Tiles tiles={this.getTileModels()} />
+      </React.Fragment>
     }
   }
 
@@ -73,4 +82,7 @@ const mapStateToProps = state => ({
   sprungbrettJobs: state.sprungbrettJobs.data
 })
 
-export default connect(mapStateToProps)(ExtrasPage)
+export default compose(
+  connect(mapStateToProps),
+  translate('extras')
+)(ExtrasPage)

@@ -49,6 +49,34 @@ describe('LanguageSelector', () => {
 
   const categories = new CategoriesMapModel(categoryModels)
 
+  it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
+    const location = {
+      pathname: '/augsburg/de/disclaimer',
+      type: DISCLAIMER_ROUTE,
+      payload: {city, language}
+    }
+
+    const languageSelector = shallow(
+      <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
+    )
+
+    expect(languageSelector).toMatchSnapshot()
+  })
+
+  it('should render a normal Selector if it is not a header action item', () => {
+    const location = {
+      pathname: '/augsburg/de/disclaimer',
+      type: DISCLAIMER_ROUTE,
+      payload: {city, language}
+    }
+
+    const languageSelector = shallow(
+      <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem={false} />
+    )
+
+    expect(languageSelector).toMatchSnapshot()
+  })
+
   describe('getLanguageChangeAction', () => {
     it('should return an action to go to a single event if there is an event is selected', () => {
       const location = {
@@ -58,7 +86,7 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector events={events} languages={languages} location={location} />
+        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
@@ -72,7 +100,7 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector events={events} languages={languages} location={location} />
+        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
@@ -86,7 +114,7 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector languages={languages} location={location} />
+        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
@@ -100,7 +128,7 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector languages={languages} location={location} />
+        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
@@ -114,7 +142,7 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector languages={languages} location={location} />
+        <LanguageSelector events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
@@ -128,7 +156,7 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector languages={languages} location={location} />
+        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
@@ -142,43 +170,41 @@ describe('LanguageSelector', () => {
       }
 
       const instance = shallow(
-        <LanguageSelector categories={categories} languages={languages} location={location} />
+        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
       expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
     })
-  })
 
-  it('should match snapshot', () => {
-    const location = {
-      pathname: '/augsburg/de/disclaimer',
-      type: DISCLAIMER_ROUTE,
-      payload: {city, language}
-    }
+    it('should return null if a language of a category is not available', () => {
+      const categoriesWithoutAvailableLanguages = new CategoriesMapModel([
+        new CategoryModel({
+          id: 3650,
+          url: '/augsburg/en/welcome',
+          title: 'Welcome',
+          content: '',
+          parentId: 0,
+          parentUrl: '/augsburg/en',
+          order: 75,
+          availableLanguages: {},
+          thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+        })])
 
-    const languageSelector = shallow(
-      <LanguageSelector title={'Title'} languages={languages} location={location} />
-    )
+      const location = {
+        pathname: '/augsburg/en/welcome',
+        type: CATEGORIES_ROUTE,
+        payload: {city, language}
+      }
 
-    expect(languageSelector).toMatchSnapshot()
-  })
+      const instance = shallow(
+        <LanguageSelector categories={categoriesWithoutAvailableLanguages} events={events} languages={languages} location={location} isHeaderActionItem />
+      ).instance()
 
-  it('should add vertical class name if verticalLayout is true', () => {
-    const location = {
-      pathname: '/augsburg/de/disclaimer',
-      type: DISCLAIMER_ROUTE,
-      payload: {city, language}
-    }
-
-    const languageSelector = shallow(
-      <LanguageSelector languages={languages} location={location} verticalLayout />
-    ).instance()
-
-    expect(languageSelector).toMatchSnapshot()
+      expect(instance.getLanguageChangeAction('en')).toBeNull()
+    })
   })
 
   it('should map state to props', () => {
-    const mockCloseDropDownCallback = jest.fn()
     const location = {type: 'DISCLAIMER', payload: {city, language}, pathname: '/augsburg/de/disclaimer'}
 
     const mockStore = configureMockStore()
@@ -190,15 +216,15 @@ describe('LanguageSelector', () => {
     })
 
     const languageSelector = shallow(
-      <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} store={store} />
+      <ConnectedLanguageSelector isHeaderActionItem store={store} />
     )
 
     expect(languageSelector.props()).toEqual({
-      closeDropDownCallback: mockCloseDropDownCallback,
       languages,
       location,
       events,
       categories,
+      isHeaderActionItem: true,
       dispatch: expect.any(Function),
       store,
       storeSubscription: expect.any(Object)

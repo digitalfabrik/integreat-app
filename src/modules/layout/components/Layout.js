@@ -1,33 +1,45 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import cx from 'classnames'
-import style from './Layout.css'
+import ReactTooltip from 'react-tooltip'
+import { Aside, Body, RichLayout, Main } from './Layout.styles'
+
+type Props = {
+  asideStickyTop: ?number,
+  footer: ?React.Node,
+  header: ?React.Node,
+  toolbar: ?React.Node,
+  children: ?React.Node
+}
 
 /**
  * The standard Layout, used for any view in this app as a container.
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-class Layout extends React.Component {
-  static propTypes = {
-    header: PropTypes.node,
-    footer: PropTypes.node,
-    children: PropTypes.node
+class Layout extends React.PureComponent<Props> {
+  static defaultProps = {
+    asideStickyTop: 0
   }
 
   render () {
+    const {asideStickyTop, footer, header, toolbar, children} = this.props
     return (
-      <div className={style.richLayout}>
+      <RichLayout>
         <div>
-          {this.props.header}
-          <main className={style.layout}>
-            <div className={cx(style.content)}>
-              {this.props.children}
-            </div>
-          </main>
+          {header}
+          <Body>
+            <Aside style={{top: `${asideStickyTop}px`}}>
+              {toolbar}
+            </Aside>
+            <Main>
+              {children}
+            </Main>
+          </Body>
         </div>
-        {this.props.footer}
-      </div>
+        {footer}
+        <ReactTooltip effect='solid' delayShow={0} />
+      </RichLayout>
     )
   }
 }

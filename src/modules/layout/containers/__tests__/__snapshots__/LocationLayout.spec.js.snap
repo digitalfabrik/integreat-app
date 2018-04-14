@@ -1,7 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`LocationLayout should show CategoriesToolbar if current route is categories 1`] = `
+<Layout
+  asideStickyTop={0}
+  footer={
+    <Translate(LocationFooter)
+      city="city1"
+      language="de"
+    />
+  }
+  header={
+    <Connect(Translate(LocationHeader))
+      isEventsEnabled={false}
+      isExtrasEnabled={false}
+      onStickyTopChanged={[Function]}
+    />
+  }
+  toolbar={
+    <Translate(CategoriesToolbar)
+      categories={
+        CategoriesMapModel {
+          "_categories": Map {
+            "url01" => CategoryModel {
+              "_availableLanguages": Map {},
+              "_content": "contnentl",
+              "_id": undefined,
+              "_order": 4,
+              "_parentId": 3,
+              "_parentUrl": "parent/url",
+              "_path": "path01",
+              "_thumbnail": "thumb/nail",
+              "_title": "Title10",
+              "_url": "url01",
+            },
+          },
+        }
+      }
+      city="city1"
+      language="de"
+      pathname="/augsburg/de/willkommen"
+    />
+  }
+>
+  <MockNode />
+</Layout>
+`;
+
 exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
   header={
     <GeneralHeader
@@ -15,6 +62,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationM
 
 exports[`LocationLayout should show LocationHeader and LocationFooter if City is available 1`] = `
 <Layout
+  asideStickyTop={0}
   footer={
     <Translate(LocationFooter)
       city="city1"
@@ -22,32 +70,13 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if City is
     />
   }
   header={
-    <Translate(LocationHeader)
-      city="city1"
-      currentRoute="EXTRAS"
-      isEventsActive={false}
+    <Connect(Translate(LocationHeader))
       isEventsEnabled={false}
       isExtrasEnabled={false}
-      language="de"
-      languages={
-        Array [
-          LanguageModel {
-            "_code": "de",
-            "_name": "Deutsch",
-          },
-          LanguageModel {
-            "_code": "en",
-            "_name": "English",
-          },
-          LanguageModel {
-            "_code": "ar",
-            "_name": "Arabic",
-          },
-        ]
-      }
-      viewportSmall={true}
+      onStickyTopChanged={[Function]}
     />
   }
+  toolbar={false}
 >
   <MockNode />
 </Layout>
