@@ -1,7 +1,5 @@
 // @flow
 
-import { sortBy } from 'lodash/collection'
-
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
@@ -17,17 +15,16 @@ const stripSlashes = (path: string): string => {
 }
 
 export default new EndpointBuilder('cities')
-  .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v1/multisites`)
-  .withMapper((json: any): Array<CityModel> => {
-    const cities = json
-      .map(_city => new CityModel({
-        name: _city.name,
-        code: stripSlashes(_city.path),
-        live: _city.live,
-        eventsEnabled: _city['ige-evts'] === '1',
-        extrasEnabled: true // todo
-      }))
-      .sort(_city => _city.name)
-    return sortBy(cities, _city => _city.sortKey)
-  })
+  .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v3/sites`)
+  .withMapper((json: any): Array<CityModel> => json
+    .map(city => new CityModel({
+      name: city.name,
+      code: stripSlashes(city.path),
+      live: city.live,
+      eventsEnabled: city.events,
+      extrasEnabled: city.extras,
+      sortingName: city.name_without_prefix
+    }))
+    .sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName))
+  )
   .build()
