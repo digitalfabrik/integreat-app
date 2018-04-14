@@ -32,7 +32,7 @@ type Props = {
 export class CategoriesPage extends React.Component<Props> {
   getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
-      id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
+      id: String(category.id), title: category.title, path: category.url, thumbnail: category.thumbnail, isExternalUrl: false
     }))
   }
 
