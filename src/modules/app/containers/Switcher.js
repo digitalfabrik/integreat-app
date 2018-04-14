@@ -88,7 +88,9 @@ export class Switcher extends React.Component<Props> {
           Switcher.renderFailureLoadingComponents(citiesPayload) ||
           <CategoriesPage />
       case EVENTS_ROUTE:
-        return Switcher.renderFailureLoadingComponents(eventsPayload) || <EventsPage />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(eventsPayload) ||
+          <EventsPage />
       case EXTRAS_ROUTE:
         return Switcher.renderFailureLoadingComponents(extrasPayload) || <ExtrasPage />
       case DISCLAIMER_ROUTE:
