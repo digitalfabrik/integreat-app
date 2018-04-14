@@ -2,48 +2,84 @@
 
 exports[`ExtrasPage should render a failure if the selected extra does not exist 1`] = `
 <FailureSwitcher
-  error={[Error: The extra no valid extra does not exist in augsburg in your current language.]}
+  error={[Error: The extra no valid extra does not exist here.]}
 />
 `;
 
 exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have been fetched 1`] = `
-<SprungbrettList
-  jobs={
-    Array [
-      SprungbrettModel {
-        "_id": "0",
-        "_isApprenticeship": true,
-        "_isEmployment": true,
-        "_location": "Augsburg",
-        "_title": "WebDeveloper",
-        "_url": undefined,
-      },
-      SprungbrettModel {
-        "_id": "1",
-        "_isApprenticeship": false,
-        "_isEmployment": true,
-        "_location": "Augsburg",
-        "_title": "BackendDeveloper",
-        "_url": undefined,
-      },
-      SprungbrettModel {
-        "_id": "2",
-        "_isApprenticeship": true,
-        "_isEmployment": false,
-        "_location": "Augsburg",
-        "_title": "Freelancer",
-        "_url": undefined,
-      },
-    ]
-  }
-  title="Sprungbrett"
-/>
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Sprungbrett
+       - 
+      Augsburg
+    </title>
+  </HelmetWrapper>
+  <SprungbrettList
+    jobs={
+      Array [
+        SprungbrettModel {
+          "_id": "0",
+          "_isApprenticeship": true,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "WebDeveloper",
+          "_url": undefined,
+        },
+        SprungbrettModel {
+          "_id": "1",
+          "_isApprenticeship": false,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "BackendDeveloper",
+          "_url": undefined,
+        },
+        SprungbrettModel {
+          "_id": "2",
+          "_isApprenticeship": true,
+          "_isEmployment": false,
+          "_location": "Augsburg",
+          "_title": "Freelancer",
+          "_url": undefined,
+        },
+      ]
+    }
+    title="Sprungbrett"
+  />
+</React.Fragment>
 `;
 
-exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have not been fetched 1`] = `<LoadingSpinner />`;
+exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have not been fetched 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Sprungbrett
+       - 
+      Augsburg
+    </title>
+  </HelmetWrapper>
+  <LoadingSpinner />
+</React.Fragment>
+`;
 
 exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
 <React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      pageTitle
+       - 
+      Augsburg
+    </title>
+  </HelmetWrapper>
   <Caption
     title="extras"
   />

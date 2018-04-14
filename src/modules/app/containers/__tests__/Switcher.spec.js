@@ -71,7 +71,7 @@ describe('Switcher', () => {
 
     it('is the extras route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: EXTRAS_ROUTE, extrasPayload: dataPayload})
+        createSwitcher({currentRoute: EXTRAS_ROUTE, extrasPayload: dataPayload, citiesPayload: dataPayload})
       )
 
       expect(switcher).toMatchSnapshot()
@@ -79,7 +79,7 @@ describe('Switcher', () => {
 
     it('is the events route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: EVENTS_ROUTE, eventsPayload: dataPayload})
+        createSwitcher({currentRoute: EVENTS_ROUTE, eventsPayload: dataPayload, citiesPayload: dataPayload})
       )
 
       expect(switcher).toMatchSnapshot()
@@ -87,7 +87,7 @@ describe('Switcher', () => {
 
     it('is the disclaimer route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: DISCLAIMER_ROUTE, disclaimerPayload: dataPayload})
+        createSwitcher({currentRoute: DISCLAIMER_ROUTE, disclaimerPayload: dataPayload, citiesPayload: dataPayload})
       )
 
       expect(switcher).toMatchSnapshot()
@@ -95,7 +95,7 @@ describe('Switcher', () => {
 
     it('is the search route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: SEARCH_ROUTE, categoriesPayload: dataPayload})
+        createSwitcher({currentRoute: SEARCH_ROUTE, categoriesPayload: dataPayload, citiesPayload: dataPayload})
       )
 
       expect(switcher).toMatchSnapshot()

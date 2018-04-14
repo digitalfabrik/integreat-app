@@ -10,12 +10,12 @@ class ContentNotFoundError extends Error {
   _city: string
   _language: string
 
-  getMessage = (type: NotFound, id: string, city: string): string =>
-    `The ${type} ${id} does not exist in ${city} in your current language.`
+  getMessage = (type: NotFound, id: string): string =>
+    `The ${type} ${id} does not exist here.`
 
   constructor (params: {type: NotFound, id: string, city: string, language: string}) {
     super()
-    this.message = this.getMessage(params.type, params.id, params.city)
+    this.message = this.getMessage(params.type, params.id)
     this._type = params.type
     this._id = params.id
     this._city = params.city
