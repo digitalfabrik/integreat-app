@@ -37,10 +37,12 @@
       "pageTitle": "البحث"
     },
     "de": {
-      "pageTitle": "Suche"
+      "pageTitle": "Suche",
+      "searchCategory": "Suche nach einer Kategorie"
     },
     "en": {
-      "pageTitle": "Search"
+      "pageTitle": "Search",
+      "searchCategory": "Search a category"
     },
     "fa": {
       "pageTitle": "جستجو"
@@ -130,11 +132,13 @@
     },
     "de": {
       "where": "Wo bist du?",
-      "pageTitle": "Wo bist du?"
+      "pageTitle": "Wo bist du?",
+      "searchCity": "Suche nach deinem Ort"
     },
     "en": {
       "where": "Where are you?",
-      "pageTitle": "Where are you?"
+      "pageTitle": "Where are you?",
+      "searchCity": "Search your city"
     },
     "fa": {
       "where": "تو کجایی؟",
