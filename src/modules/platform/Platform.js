@@ -8,7 +8,7 @@ class Platform {
   }
 
   get positionStickyDisabled () {
-    return this._browser && this._browser.name === 'edge' && /^16\..*/.test(this._browser.version)
+    return !!(this._browser && this._browser.name === 'edge' && /^16\..*/.test(this._browser.version))
   }
 }
 

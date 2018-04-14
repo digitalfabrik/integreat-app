@@ -19,4 +19,4 @@ class Provider extends React.Component<{ children: Node }> {
   }
 }
 
-export default { Consumer: PlatformContext.Consumer, Provider }
+export default Provider
