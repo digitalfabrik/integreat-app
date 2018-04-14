@@ -12,6 +12,7 @@ describe('ScrollingSearchBox', () => {
   it('should render', () => {
     const component = (
       <ScrollingSearchBox filterText={'Test'}
+                          placeholderText={'Placeholder'}
                           onFilterTextChange={() => {}}>
         <MockNode />
       </ScrollingSearchBox>)
@@ -20,6 +21,7 @@ describe('ScrollingSearchBox', () => {
 
   it('should space search', () => {
     expect(shallow(<ScrollingSearchBox filterText={'Test'}
+                                       placeholderText={'Placeholder'}
                                        onFilterTextChange={() => {}}
                                        spaceSearch><MockNode /></ScrollingSearchBox>)).toMatchSnapshot()
   })
@@ -29,6 +31,7 @@ describe('ScrollingSearchBox', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
         <ScrollingSearchBox filterText={'Test'}
+                            placeholderText={'Placeholder'}
                             onFilterTextChange={outerFilterTextChange}>
           <MockNode />
         </ScrollingSearchBox>
@@ -44,7 +47,9 @@ describe('ScrollingSearchBox', () => {
   it('should set correct reference', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+        <ScrollingSearchBox filterText={'Test'}
+                            onFilterTextChange={() => {}}
+                            placeholderText={'Placeholder'}>
           <MockNode />
         </ScrollingSearchBox>
       </ThemeProvider>).find(ScrollingSearchBox)
@@ -55,7 +60,9 @@ describe('ScrollingSearchBox', () => {
   it('shouldnt call scroll() if user is already below searchInput onClick', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+        <ScrollingSearchBox filterText={'Test'}
+                            onFilterTextChange={() => {}}
+                            placeholderText={'Placeholder'}>
           <MockNode />
         </ScrollingSearchBox>
       </ThemeProvider>).find(ScrollingSearchBox)
@@ -71,7 +78,9 @@ describe('ScrollingSearchBox', () => {
   it('should call scroll() if user is above searchInput onClick', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+        <ScrollingSearchBox filterText={'Test'}
+                            onFilterTextChange={() => {}}
+                            placeholderText={'Placeholder'}>
           <MockNode />
         </ScrollingSearchBox>
       </ThemeProvider>).find(ScrollingSearchBox)
@@ -87,7 +96,9 @@ describe('ScrollingSearchBox', () => {
   it('should call animateScroll on scroll()', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'} onFilterTextChange={() => {}}>
+        <ScrollingSearchBox filterText={'Test'}
+                            onFilterTextChange={() => {}}
+                            placeholderText={'Placeholder'}>
           <MockNode />
         </ScrollingSearchBox>
       </ThemeProvider>).find(ScrollingSearchBox)

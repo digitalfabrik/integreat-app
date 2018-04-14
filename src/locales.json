@@ -48,20 +48,6 @@
       "pageTitle": "جستجو"
     }
   },
-  "common": {
-    "ar": {
-      "search": "البحث"
-    },
-    "de": {
-      "search": "Suchen"
-    },
-    "en": {
-      "search": "Search"
-    },
-    "fa": {
-      "search": "جستجو"
-    }
-  },
   "categories": {
     "ar": {
     },
