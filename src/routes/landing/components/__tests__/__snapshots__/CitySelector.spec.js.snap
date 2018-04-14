@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LocationSelector should exclude location if location does not exist 1`] = `Array []`;
+exports[`CitySelector should exclude location if location does not exist 1`] = `Array []`;
 
-exports[`LocationSelector should exclude location if location is not live 1`] = `Array []`;
+exports[`CitySelector should exclude location if location is not live 1`] = `Array []`;
 
-exports[`LocationSelector should filter for all non-live cities if filterText is "wirschaffendas" 1`] = `
+exports[`CitySelector should filter for all non-live cities if filterText is "wirschaffendas" 1`] = `
 Array [
   CityModel {
     "_code": "nonlive",
@@ -17,7 +17,7 @@ Array [
 ]
 `;
 
-exports[`LocationSelector should filter for existing and live cities 1`] = `
+exports[`CitySelector should filter for existing and live cities 1`] = `
 Array [
   CityModel {
     "_code": "city",
