@@ -9,7 +9,7 @@ import CityModel from 'modules/endpoint/models/CityModel'
 import style from './FilterableCitySelector.css'
 import { translate } from 'react-i18next'
 
-class FilterableCitySelector extends React.Component {
+export class FilterableCitySelector extends React.Component {
   static propTypes = {
     cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)).isRequired,
     language: PropTypes.string.isRequired,

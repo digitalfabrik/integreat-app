@@ -1,12 +1,8 @@
 import React from 'react'
 
-import FilterableCitySelector from '../FilterableCitySelector'
+import { FilterableCitySelector } from '../FilterableCitySelector'
 import { shallow } from 'enzyme'
-import CitySelector from 'routes/landing/components/CitySelector'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import ScrollingSearchBox from '../../../../modules/common/components/ScrollingSearchBox'
-
-jest.mock('react-i18next')
 
 describe('FilterableCitySelector', () => {
   const cities = [
@@ -48,24 +44,22 @@ describe('FilterableCitySelector', () => {
     const component = shallow(
       <FilterableCitySelector
         language='de'
-        cities={cities} />
+        cities={cities}
+        t={key => key} />
     )
 
     expect(component).toMatchSnapshot()
   })
 
-  it('should pass filterText to CitySelector and filter', () => {
+  it('should update filter text', () => {
     const wrapper = shallow(
         <FilterableCitySelector
+          t={key => key}
           language='de'
           cities={cities} />
     )
 
-    const search = wrapper.find(ScrollingSearchBox)
-    search.prop('onFilterTextChange')('City')
-
-    wrapper.update()
-    const selector = wrapper.find(CitySelector)
-    expect(selector.prop('filterText')).toEqual('City')
+    wrapper.instance().onFilterTextChange('City')
+    expect(wrapper).toMatchSnapshot()
   })
 })

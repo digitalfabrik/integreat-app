@@ -8,10 +8,11 @@ exports[`ScrollingSearchBox should render 1`] = `
     scrollHeight={45}
     stickyAncestor={<MockNode />}
   >
-    <Translate(SearchInput)
+    <SearchInput
       filterText="Test"
       onClickInput={[Function]}
       onFilterTextChange={[Function]}
+      placeholderText="Placeholder"
     />
   </Headroom>
 </div>
@@ -34,7 +35,8 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
         />
         <input
           class="SearchInputstyles__TextInput-kJgKBC lfoCjL"
-          placeholder="common:search"
+          label="Placeholder"
+          placeholder="Placeholder"
           type="text"
           value="Test"
         />
@@ -53,10 +55,11 @@ exports[`ScrollingSearchBox should space search 1`] = `
     scrollHeight={45}
     stickyAncestor={<MockNode />}
   >
-    <Translate(SearchInput)
+    <SearchInput
       filterText="Test"
       onClickInput={[Function]}
       onFilterTextChange={[Function]}
+      placeholderText="Placeholder"
       spaceSearch={true}
     />
   </Headroom>
