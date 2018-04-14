@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
@@ -56,12 +56,12 @@ class FailureSwitcher extends React.Component<Props> {
 
   render () {
     const error = this.props.error
-    return <React.Fragment>
+    return <Fragment>
       <Helmet>
         <title>{error.constructor.name}</title>
       </Helmet>
       {this.renderErrorComponent()}
-    </React.Fragment>
+    </Fragment>
   }
 }
 

@@ -11,7 +11,7 @@ import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import Helmet from 'react-helmet'
-import type { I18nTranslate } from '../../../flowTypes'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -20,11 +20,11 @@ type Props = {
   t: I18nTranslate
 }
 
-type State = {
+type LocalState = {
   filterText: string
 }
 
-export class SearchPage extends React.Component<Props, State> {
+export class SearchPage extends React.Component<Props, LocalState> {
   state = {
     filterText: ''
   }

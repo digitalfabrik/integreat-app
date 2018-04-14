@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react'
-import type { Node } from ' react'
+import type { Node } from 'react'
 
 import Platform from '../Platform'
 import PlatformContext from '../PlatformContext'
 
 class Provider extends React.Component<{ children: Node }> {
+  platform: Platform
   constructor () {
     super()
     this.platform = new Platform()
