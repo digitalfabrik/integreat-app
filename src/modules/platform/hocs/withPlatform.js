@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react'
-import type { ComponentType } from ' react'
+import type { ComponentType } from 'react'
 import { wrapDisplayName } from 'recompose'
 
 import PlatformContext from '../PlatformContext'
 
-const withPlatform = (WrappedComponent: ComponentType) => {
-  return class extends React.Component {
+const withPlatform = (WrappedComponent: ComponentType<{}>) => {
+  return class extends React.Component<{}> {
     static displayName = wrapDisplayName(WrappedComponent, 'withPlatform')
 
     render () {
