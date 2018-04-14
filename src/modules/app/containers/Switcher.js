@@ -100,7 +100,9 @@ export class Switcher extends React.Component<Props> {
           Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
           <DisclaimerPage />
       case SEARCH_ROUTE:
-        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <SearchPage />
+        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(categoriesPayload) ||
+          <SearchPage />
       case CATEGORIES_REDIRECT_ROUTE:
         return Switcher.renderFailureLoadingComponents(categoriesPayload) || <LoadingSpinner />
       case NOT_FOUND:
