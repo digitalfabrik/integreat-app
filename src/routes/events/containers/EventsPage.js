@@ -1,17 +1,26 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import Helmet from 'react-helmet'
+import { translate } from 'react-i18next'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  eventId?: string
+  eventId?: string,
+  cities: Array<CityModel>,
+  t: I18nTranslate
 }
 
 /**
@@ -19,28 +28,42 @@ type Props = {
  */
 export class EventsPage extends React.Component<Props> {
   render () {
-    const {events, eventId, city, language} = this.props
+    const {events, eventId, city, language, cities, t} = this.props
 
     if (eventId) {
       // event with the given id from this.props.id
       const event = events.find(_event => _event.id === eventId)
 
       if (event) {
-        return <EventDetail event={event} location={city} language={language} />
+        return <React.Fragment>
+          <Helmet>
+            <title>{event.title} - {CityModel.findCityName(cities, city)}</title>
+          </Helmet>
+          <EventDetail event={event} location={city} language={language} />
+        </React.Fragment>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
         return <FailureSwitcher error={error} />
       }
     }
-    return <EventList events={events} city={city} language={language} />
+    return <React.Fragment>
+      <Helmet>
+        <title>{t('pageTitle')} - {CityModel.findCityName(cities, city)}</title>
+      </Helmet>
+      <EventList events={events} city={city} language={language} />
+    </React.Fragment>
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,
-  events: state.events.data
+  events: state.events.data,
+  cities: state.cities.data
 })
 
-export default connect(mapStateToProps)(EventsPage)
+export default compose(
+  connect(mapStateToProps),
+  translate('events')
+)(EventsPage)

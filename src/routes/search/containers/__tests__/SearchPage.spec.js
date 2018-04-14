@@ -9,6 +9,7 @@ import createHistory from 'modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
 import configureMockStore from 'redux-mock-store'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('SearchPage', () => {
   const categoryModels = [
@@ -64,10 +65,23 @@ describe('SearchPage', () => {
     })
   ]
 
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false
+    })
+  ]
+
+  const city = 'augsburg'
+
   const categories = new CategoriesMapModel(categoryModels)
+  const t = key => key
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage categories={categories} />)
+    const wrapper = shallow(<SearchPage categories={categories} city={city} cities={cities} t={t} />)
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -79,9 +93,10 @@ describe('SearchPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-        <SearchPage
+        <SearchPage cities={cities}
                     categories={categories}
-                     />
+                    city={city}
+                    t={t} />
       </Provider></ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
@@ -131,21 +146,11 @@ describe('SearchPage', () => {
 
     const categories = new CategoriesMapModel(categoryModels)
 
-    const store = createReduxStore(createHistory, {
-      categories: {data: categories}
-    })
+    const searchPage = shallow(
+      <SearchPage cities={cities} city={city} categories={categories} t={t} />
+    ).instance()
 
-    const tree = mount(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <SearchPage categories={categories} />
-        </Provider>
-      </ThemeProvider>
-    )
-    const searchPage = tree.find(SearchPage).instance()
-    const searchInputProps = tree.find('SearchInput').props()
-
-    searchInputProps.onFilterTextChange('abc')
+    searchPage.onFilterTextChange('abc')
 
     expect(searchPage.findCategories()[0].model).toBe(categoryModels[0])
     expect(searchPage.findCategories()[1].model).toBe(categoryModels[1])
@@ -156,7 +161,9 @@ describe('SearchPage', () => {
   it('should map state to props', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
-      categories: {data: categories}
+      categories: {data: categories},
+      cities: {data: cities},
+      location: {payload: {city}}
     })
 
     const searchPage = shallow(
@@ -165,6 +172,8 @@ describe('SearchPage', () => {
 
     expect(searchPage.props()).toEqual({
       categories,
+      cities,
+      city,
       dispatch: expect.any(Function),
       store,
       storeSubscription: expect.any(Object)

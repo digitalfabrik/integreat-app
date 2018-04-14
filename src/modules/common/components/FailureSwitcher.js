@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
@@ -8,6 +8,7 @@ import { goToEvents } from '../../app/routes/events'
 import { goToExtras } from '../../app/routes/extras'
 import { goToCategories } from '../../app/routes/categories'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
+import Helmet from 'react-helmet'
 
 import type { Node } from 'react'
 
@@ -54,7 +55,13 @@ class FailureSwitcher extends React.Component<Props> {
   }
 
   render () {
-    return this.renderErrorComponent()
+    const error = this.props.error
+    return <Fragment>
+      <Helmet>
+        <title>{error.constructor.name}</title>
+      </Helmet>
+      {this.renderErrorComponent()}
+    </Fragment>
   }
 }
 

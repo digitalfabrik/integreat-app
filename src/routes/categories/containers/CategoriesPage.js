@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import Helmet from 'react-helmet'
 import type {Node} from 'react'
 import { connect } from 'react-redux'
 
@@ -33,7 +34,7 @@ type Props = {
 export class CategoriesPage extends React.Component<Props> {
   getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
-      id: category.id, name: category.title, path: category.url, thumbnail: category.thumbnail
+      id: String(category.id), title: category.title, path: category.url, thumbnail: category.thumbnail, isExternalUrl: false
     }))
   }
 
@@ -81,6 +82,9 @@ export class CategoriesPage extends React.Component<Props> {
 
     if (categoryModel) {
       return <div>
+        <Helmet>
+          <title>{categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}{cityName}</title>
+        </Helmet>
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
@@ -88,7 +92,7 @@ export class CategoriesPage extends React.Component<Props> {
       </div>
     }
 
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: cityName, language})
+    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
     return <FailureSwitcher error={error} />
   }
 }

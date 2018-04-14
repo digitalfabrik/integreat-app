@@ -1,19 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LandingPage should match snapshot 1`] = `
-<FilterableCitySelector
-  cities={
-    Array [
-      CityModel {
-        "_code": "city",
-        "_eventsEnabled": false,
-        "_extrasEnabled": false,
-        "_live": true,
-        "_name": "City",
-        "_sortingName": "City",
-      },
-    ]
-  }
-  language="de"
-/>
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      pageTitle
+    </title>
+  </HelmetWrapper>
+  <FilterableCitySelector
+    cities={
+      Array [
+        CityModel {
+          "_code": "city",
+          "_eventsEnabled": false,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "City",
+          "_sortingName": "City",
+        },
+      ]
+    }
+    language="de"
+  />
+</React.Fragment>
 `;

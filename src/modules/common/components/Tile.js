@@ -21,7 +21,7 @@ class Tile extends React.Component {
           <img src={this.props.tile.thumbnail} />
         </div>
       </div>
-      <div className={style.title}>{this.props.tile.name}</div>
+      <div className={style.title}>{this.props.tile.title}</div>
     </React.Fragment>
   }
 

@@ -22,7 +22,7 @@ export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
   .withMapper((json: any): Array<ExtraModel> => json
     .map(extra => new ExtraModel({
       alias: extra.alias,
-      name: extra.name,
+      title: extra.name,
       path: extra.url,
       thumbnail: extra.thumbnail
     })))

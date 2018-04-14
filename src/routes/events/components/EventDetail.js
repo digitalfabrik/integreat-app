@@ -10,11 +10,12 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
 import EventModel from '../../../modules/endpoint/models/EventModel'
+import type { I18nTranslate } from '../../../flowTypes'
 
 type Props = {
   event: EventModel,
   language: string,
-  t: (string) => string
+  t: I18nTranslate
 }
 
 /**
