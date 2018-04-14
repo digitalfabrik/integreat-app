@@ -11,7 +11,8 @@ describe('LandingPage', () => {
       code: 'city',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'City'
     })
   ]
 

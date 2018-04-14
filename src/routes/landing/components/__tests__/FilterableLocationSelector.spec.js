@@ -20,28 +20,32 @@ describe('FilterableLocationSelector', () => {
       code: 'city',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'City'
     }),
     new CityModel({
       name: 'Other city',
       code: 'otherCity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Other city'
     }),
     new CityModel({
       name: 'Not-live',
       code: 'nonlive',
       live: false,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Not-live'
     }),
     new CityModel({
       name: 'Yet another city',
       code: 'yetanothercity',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Yet another city'
     })
   ]
   const store = createReduxStore(createHistory)

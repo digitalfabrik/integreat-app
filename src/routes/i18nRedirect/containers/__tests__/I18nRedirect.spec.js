@@ -20,7 +20,8 @@ describe('I18nRedirect', () => {
       code: 'random_city',
       live: true,
       eventsEnabled: false,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'City'
     })
   ]
 
