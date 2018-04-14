@@ -68,7 +68,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getRoutePageTitle()).toBe('extras')
+      expect(helmet.instance().getRoutePageTitle()).toBe('extrasTitle')
     })
 
     it('should return the title of the current event', () => {
@@ -86,7 +86,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getRoutePageTitle()).toBe('events')
+      expect(helmet.instance().getRoutePageTitle()).toBe('eventsTitle')
     })
 
     it('should return "search" if it is the search route', () => {
@@ -95,7 +95,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getRoutePageTitle()).toBe('search')
+      expect(helmet.instance().getRoutePageTitle()).toBe('searchTitle')
     })
 
     it('should return "disclaimer" if it is the disclaimer route', () => {
@@ -104,7 +104,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getRoutePageTitle()).toBe('disclaimer')
+      expect(helmet.instance().getRoutePageTitle()).toBe('disclaimerTitle')
     })
 
     it('should return "disclaimer" if it is the main disclaimer route', () => {
@@ -113,7 +113,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getRoutePageTitle()).toBe('disclaimer')
+      expect(helmet.instance().getRoutePageTitle()).toBe('disclaimerTitle')
     })
 
     it('should return "landing" if it is the landing route', () => {
@@ -122,7 +122,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getRoutePageTitle()).toBe('landing')
+      expect(helmet.instance().getRoutePageTitle()).toBe('landingTitle')
     })
   })
 
@@ -142,7 +142,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} />
       )
 
-      expect(helmet.instance().getPageTitle()).toBe('landing - Integreat')
+      expect(helmet.instance().getPageTitle()).toBe('landingTitle - Integreat')
     })
 
     it('should return the current route title and cityName', () => {
@@ -151,7 +151,7 @@ describe('Helmet', () => {
         <Helmet location={location} t={key => key} cities={cities} />
       )
 
-      expect(helmet.instance().getPageTitle()).toBe('disclaimer - Augsburg')
+      expect(helmet.instance().getPageTitle()).toBe('disclaimerTitle - Augsburg')
     })
   })
 
