@@ -1,39 +1,53 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import configureMockStore from 'redux-mock-store'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/app/constants/theme'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('DisclaimerPage', () => {
   const disclaimer = new DisclaimerModel({
     id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
   })
 
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false
+    })
+  ]
+
+  const city = 'augsburg'
+
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <DisclaimerPage disclaimer={disclaimer} />)
+      <DisclaimerPage disclaimer={disclaimer} city={city} cities={cities} t={key => key} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   describe('connect', () => {
     const mockStore = configureMockStore()
-    const store = mockStore({disclaimer: {data: disclaimer}})
+    const store = mockStore({
+      disclaimer: {data: disclaimer},
+      cities: {data: cities},
+      location: {payload: {city}}
+    })
 
     it('should map state and fetched data to props', () => {
-      const disclaimerPage = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <ConnectedDisclaimerPage />
-          </Provider>
-        </ThemeProvider>
-      ).find(DisclaimerPage)
+      const disclaimerPage = shallow(
+        <ConnectedDisclaimerPage store={store} />
+      )
 
       expect(disclaimerPage.props()).toEqual({
         disclaimer: disclaimer,
+        city,
+        cities,
+        store: store,
+        storeSubscription: expect.any(Object),
         dispatch: expect.any(Function)
       })
     })

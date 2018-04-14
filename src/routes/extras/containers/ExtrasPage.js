@@ -14,6 +14,9 @@ import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import Helmet from 'react-helmet'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -23,7 +26,8 @@ type Props = {
   extraAlias?: string,
   extras: Array<ExtraModel>,
   sprungbrettJobs?: Array<SprungbrettJobModel>,
-  t: (string) => string
+  t: I18nTranslate,
+  cities: Array<CityModel>
 }
 
 /**
@@ -37,7 +41,7 @@ export class ExtrasPage extends React.Component<Props> {
   getTileModels (): Array<TileModel> {
     return this.props.extras.map(extra => new TileModel({
       id: extra.alias,
-      name: extra.name,
+      title: extra.title,
       // the url stored in the sprungbrett extra is the url of the endpoint
       path: extra.alias === SPRUNGBRETT_EXTRA ? this.getSprungbrettPath() : extra.path,
       thumbnail: extra.thumbnail,
@@ -49,13 +53,18 @@ export class ExtrasPage extends React.Component<Props> {
   getContent () {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
-    const {extraAlias, extras, sprungbrettJobs, city, language} = this.props
-
+    const {extraAlias, extras, sprungbrettJobs, city, language, cities, t} = this.props
+    const cityName = CityModel.findCityName(cities, city)
     if (extraAlias) {
       const extra = extras.find(_extra => _extra.alias === extraAlias)
 
       if (extra && extraAlias === SPRUNGBRETT_EXTRA) {
-        return sprungbrettJobs ? <SprungbrettList title={extra.name} jobs={sprungbrettJobs} /> : <LoadingSpinner />
+        return <React.Fragment>
+          <Helmet>
+            <title>{extra.title} - {cityName}</title>
+          </Helmet>
+          {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <LoadingSpinner />}
+        </React.Fragment>
       } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
         const error = new ContentNotFoundError({type: 'extra', id: extraAlias, city, language})
@@ -63,7 +72,10 @@ export class ExtrasPage extends React.Component<Props> {
       }
     } else {
       return <React.Fragment>
-        <Caption title={this.props.t('extras')} />
+        <Helmet>
+          <title>{t('pageTitle')} - {cityName}</title>
+        </Helmet>
+        <Caption title={t('extras')} />
         <Tiles tiles={this.getTileModels()} />
       </React.Fragment>
     }
@@ -74,12 +86,13 @@ export class ExtrasPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
   extraAlias: state.location.payload.extraAlias,
   extras: state.extras.data,
-  sprungbrettJobs: state.sprungbrettJobs.data
+  sprungbrettJobs: state.sprungbrettJobs.data,
+  cities: state.cities.data
 })
 
 export default compose(

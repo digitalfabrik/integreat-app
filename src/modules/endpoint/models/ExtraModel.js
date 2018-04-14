@@ -1,7 +1,7 @@
 export default class ExtraModel {
-  constructor ({alias, name, path, thumbnail}) {
+  constructor ({alias, title, path, thumbnail}) {
     this._alias = alias
-    this._name = name
+    this._title = title
     this._path = path
     this._thumbnail = thumbnail
   }
@@ -14,8 +14,8 @@ export default class ExtraModel {
     return this._thumbnail
   }
 
-  get name () {
-    return this._name
+  get title () {
+    return this._title
   }
 
   get path () {

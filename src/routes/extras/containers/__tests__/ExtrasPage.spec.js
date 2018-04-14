@@ -5,19 +5,20 @@ import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
 import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import configureMockStore from 'redux-mock-store'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('ExtrasPage', () => {
   const city = 'augsburg'
   const language = 'de'
 
   const sprungbrettExtra = new ExtraModel({
-    alias: 'sprungbrett', path: 'path to fetch jobs from', name: 'Sprungbrett', thumbnail: 'xy'
+    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy'
   })
 
   const extras = [
     sprungbrettExtra,
-    new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', name: 'Jobboerse', thumbnail: 'xy'}),
-    new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', name: 'Praktikumsboerse', thumbnail: 'xy'})
+    new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', title: 'Jobboerse', thumbnail: 'xy'}),
+    new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'})
   ]
 
   const jobs = [
@@ -32,11 +33,22 @@ describe('ExtrasPage', () => {
     })
   ]
 
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false
+    })
+  ]
+
   it('should render a sprungbrett list if it is the selected extra and the jobs have been fetched', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}
                   extras={extras}
+                  cities={cities}
                   extraAlias='sprungbrett'
                   sprungbrettJobs={jobs}
                   t={key => key} />
@@ -49,6 +61,7 @@ describe('ExtrasPage', () => {
       <ExtrasPage city={city}
                   language={language}
                   extras={extras}
+                  cities={cities}
                   extraAlias='sprungbrett'
                   t={key => key} />
     )
@@ -59,6 +72,7 @@ describe('ExtrasPage', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}
+                  cities={cities}
                   extras={extras}
                   t={key => key} />
     )
@@ -69,6 +83,7 @@ describe('ExtrasPage', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}
+                  cities={cities}
                   extras={extras}
                   extraAlias={'no valid extra'}
                   t={key => key} />
@@ -84,7 +99,8 @@ describe('ExtrasPage', () => {
     const store = mockStore({
       location: location,
       extras: {data: extras},
-      sprungbrettJobs: {data: jobs}
+      sprungbrettJobs: {data: jobs},
+      cities: {data: cities}
     })
 
     const extrasPage = shallow(
@@ -96,6 +112,7 @@ describe('ExtrasPage', () => {
       extraAlias,
       city,
       extras,
+      cities,
       sprungbrettJobs: jobs,
       store: store,
       storeSubscription: expect.any(Object),

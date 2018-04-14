@@ -37,13 +37,13 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the disclaimer route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(DisclaimerPage) />
+  <Connect(Translate(DisclaimerPage)) />
 </Connect(LocationLayout)>
 `;
 
 exports[`Switcher should get the right page if data has been fetched and is the events route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(EventsPage) />
+  <Connect(Translate(EventsPage)) />
 </Connect(LocationLayout)>
 `;
 
@@ -57,7 +57,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 <Layout
   asideStickyTop={0}
 >
-  <Connect(I18nRedirect) />
+  <Connect(I18nRedirectPage) />
 </Layout>
 `;
 
@@ -66,7 +66,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
   asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
 >
-  <Connect(LandingPage) />
+  <Connect(Translate(LandingPage)) />
 </Layout>
 `;
 
@@ -86,7 +86,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the search route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(SearchPage) />
+  <Connect(Translate(SearchPage)) />
 </Connect(LocationLayout)>
 `;
 

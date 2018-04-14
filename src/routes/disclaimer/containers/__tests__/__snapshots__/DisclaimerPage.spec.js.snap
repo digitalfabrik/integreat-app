@@ -1,8 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisclaimerPage should match snapshot 1`] = `
-<Page
-  content="this is a test content"
-  title="Feedback, Kontakt und mögliches Engagement"
-/>
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      pageTitle
+       - 
+      Augsburg
+    </title>
+  </HelmetWrapper>
+  <Page
+    content="this is a test content"
+    title="Feedback, Kontakt und mögliches Engagement"
+  />
+</React.Fragment>
 `;

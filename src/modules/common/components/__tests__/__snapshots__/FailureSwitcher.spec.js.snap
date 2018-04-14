@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LanguageFailure render component not found failure should render a category not found failure and match snapshot 1`] = `
+exports[`FailureSwitcher render component not found failure should render a category not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="not-found.category"
   goToAction={
@@ -17,7 +17,7 @@ exports[`LanguageFailure render component not found failure should render a cate
 />
 `;
 
-exports[`LanguageFailure render component not found failure should render a event not found failure and match snapshot 1`] = `
+exports[`FailureSwitcher render component not found failure should render a event not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="not-found.event"
   goToAction={
@@ -34,7 +34,7 @@ exports[`LanguageFailure render component not found failure should render a even
 />
 `;
 
-exports[`LanguageFailure render component not found failure should render a extra not found failure and match snapshot 1`] = `
+exports[`FailureSwitcher render component not found failure should render a extra not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="not-found.extra"
   goTo={
@@ -51,31 +51,61 @@ exports[`LanguageFailure render component not found failure should render a extr
 />
 `;
 
-exports[`LanguageFailure should render a LanguageFailure if there is a LanguageNotFoundError 1`] = `
-<Connect(Translate(LanguageFailure))
-  city="augsburg"
-/>
+exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageNotFoundError 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      LanguageNotFoundError
+    </title>
+  </HelmetWrapper>
+  <Connect(Translate(LanguageFailure))
+    city="augsburg"
+  />
+</React.Fragment>
 `;
 
-exports[`LanguageFailure should render a content not found failure if there is a ContentNotFoundError 1`] = `
-<Translate(Failure)
-  errorMessage="not-found.extra"
-  goTo={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "extraAlias": undefined,
-        "language": "de",
-      },
-      "type": "EXTRAS",
+exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      ContentNotFoundError
+    </title>
+  </HelmetWrapper>
+  <Translate(Failure)
+    errorMessage="not-found.extra"
+    goTo={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "extraAlias": undefined,
+          "language": "de",
+        },
+        "type": "EXTRAS",
+      }
     }
-  }
-  goToMessage="goTo.extras"
-/>
+    goToMessage="goTo.extras"
+  />
+</React.Fragment>
 `;
 
-exports[`LanguageFailure should render a failure as default 1`] = `
-<Translate(Failure)
-  errorMessage="error message"
-/>
+exports[`FailureSwitcher should render a failure as default 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Error
+    </title>
+  </HelmetWrapper>
+  <Translate(Failure)
+    errorMessage="error message"
+  />
+</React.Fragment>
 `;
