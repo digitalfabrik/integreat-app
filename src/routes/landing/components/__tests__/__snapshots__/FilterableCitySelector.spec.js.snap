@@ -26,7 +26,7 @@ exports[`FilterableCitySelector should render 1`] = `
             "_extrasEnabled": false,
             "_live": true,
             "_name": "Other city",
-            "_sortingName": "Other city",
+            "_sortingName": "Other City",
           },
           CityModel {
             "_code": "nonlive",
