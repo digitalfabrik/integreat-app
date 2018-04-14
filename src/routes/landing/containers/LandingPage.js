@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
+import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
 
 export class LandingPage extends React.Component {
@@ -12,7 +12,7 @@ export class LandingPage extends React.Component {
   }
 
   render () {
-    return <FilterableLocationSelector language={this.props.language} cities={this.props.cities} />
+    return <FilterableCitySelector language={this.props.language} cities={this.props.cities} />
   }
 }
 

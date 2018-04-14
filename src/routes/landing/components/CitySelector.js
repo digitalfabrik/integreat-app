@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import style from './LocationSelector.css'
+import { CityListParent } from './CitySelector.styles'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityModel from 'modules/endpoint/models/CityModel'
-import LocationEntry from './LocationEntry'
+import CityEntry from './CityEntry'
 
-class LocationSelector extends React.PureComponent {
+class CitySelector extends React.PureComponent {
   static propTypes = {
     cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)),
     filterText: PropTypes.string.isRequired,
@@ -36,8 +36,8 @@ class LocationSelector extends React.PureComponent {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
       result.push(<div key={key}>
-        <div className={style.locationListParent} style={{top: `${this.props.stickyTop}px`}}>{key}</div>
-        {cities.map(city => <LocationEntry
+        <CityListParent style={{top: `${this.props.stickyTop}px`}}>{key}</CityListParent>
+        {cities.map(city => <CityEntry
           key={city.code}
           city={city}
           language={this.props.language}
@@ -55,4 +55,4 @@ class LocationSelector extends React.PureComponent {
   }
 }
 
-export default LocationSelector
+export default CitySelector

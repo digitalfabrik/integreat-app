@@ -3,9 +3,9 @@ import { shallow } from 'enzyme'
 
 import CityModel from 'modules/endpoint/models/CityModel'
 
-import LocationSelector from '../LocationSelector'
+import CitySelector from '../CitySelector'
 
-describe('LocationSelector', () => {
+describe('CitySelector', () => {
   const cities = [
     new CityModel({
       name: 'City',
@@ -43,7 +43,7 @@ describe('LocationSelector', () => {
 
   it('should render', () => {
     shallow(
-      <LocationSelector
+      <CitySelector
         filterText='Text'
         language='de'
         cities={cities} />
@@ -51,7 +51,7 @@ describe('LocationSelector', () => {
   })
 
   it('should filter for existing and live cities', () => {
-    const wrapper = shallow(<LocationSelector
+    const wrapper = shallow(<CitySelector
       filterText='city'
       language='de'
       cities={cities} />
@@ -63,7 +63,7 @@ describe('LocationSelector', () => {
   })
 
   it('should exclude location if location does not exist', () => {
-    const wrapper = shallow(<LocationSelector
+    const wrapper = shallow(<CitySelector
       filterText='Does not exist'
       language='de'
       cities={cities} />
@@ -74,7 +74,7 @@ describe('LocationSelector', () => {
   })
 
   it('should exclude location if location is not live', () => {
-    const wrapper = shallow(<LocationSelector
+    const wrapper = shallow(<CitySelector
       filterText='notlive'
       language='de'
       cities={cities} />
@@ -85,7 +85,7 @@ describe('LocationSelector', () => {
   })
 
   it('should filter for all non-live cities if filterText is "wirschaffendas"', () => {
-    const wrapper = shallow(<LocationSelector
+    const wrapper = shallow(<CitySelector
       filterText='wirschaffendas'
       language='de'
       cities={cities} />

@@ -8,6 +8,9 @@ import HeaderActionItem from '../HeaderActionItem'
 import Link from 'redux-first-router-link'
 import Headroom from '../../common/components/Headroom'
 import { withTheme } from 'styled-components'
+import withPlatform from '../../platform/hocs/withPlatform'
+import Platform from '../../platform/Platform'
+import { compose } from 'redux'
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -15,14 +18,15 @@ import { withTheme } from 'styled-components'
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-class Header extends React.Component {
+export class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.node,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
     logoHref: PropTypes.object.isRequired,
     viewportSmall: PropTypes.bool.isRequired,
     theme: PropTypes.object.isRequired,
-    onStickyTopChanged: PropTypes.func
+    onStickyTopChanged: PropTypes.func,
+    platform: PropTypes.instanceOf(Platform)
   }
 
   static defaultProps = {
@@ -35,7 +39,8 @@ class Header extends React.Component {
     const height = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
     const scrollHeight = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
     return (
-      <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
+      <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}
+                positionStickyDisabled={this.props.platform.positionStickyDisabled}>
         <header className={style.header}>
           <div className={style.logoWide}>
             <Link to={this.props.logoHref}>
@@ -50,4 +55,7 @@ class Header extends React.Component {
   }
 }
 
-export default withTheme(Header)
+export default compose(
+  withTheme,
+  withPlatform
+)(Header)
