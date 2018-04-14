@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import Helmet from 'react-helmet'
 import type {Node} from 'react'
 import { connect } from 'react-redux'
 
@@ -80,6 +81,9 @@ export class CategoriesPage extends React.Component<Props> {
 
     if (categoryModel) {
       return <div>
+        <Helmet>
+          <title>{categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}{cityName}</title>
+        </Helmet>
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
