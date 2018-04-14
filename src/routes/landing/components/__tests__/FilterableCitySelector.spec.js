@@ -10,6 +10,7 @@ import createReduxStore from '../../../../modules/app/createReduxStore'
 import createHistory from '../../../../modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
+import PlatformProvider from '../../../../modules/platform/containers/PlatformProvider'
 
 jest.mock('react-i18next')
 
@@ -58,12 +59,11 @@ describe('FilterableCitySelector', () => {
 
   it('should pass filterText to CityCitySelector and filter', () => {
     const wrapper = mount(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
+      <PlatformProvider><ThemeProvider theme={theme}><Provider store={store}>
         <FilterableCitySelector
           language='de'
           cities={cities} />
-      </Provider></ThemeProvider>
+        </Provider></ThemeProvider></PlatformProvider>
     )
 
     const search = wrapper.find(SearchInput)
