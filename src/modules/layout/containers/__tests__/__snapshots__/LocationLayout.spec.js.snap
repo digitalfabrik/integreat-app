@@ -11,8 +11,8 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
   }
   header={
     <Connect(Translate(LocationHeader))
-      isEventsEnabled={false}
-      isExtrasEnabled={false}
+      isEventsEnabled={undefined}
+      isExtrasEnabled={undefined}
       onStickyTopChanged={[Function]}
     />
   }
@@ -71,8 +71,8 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if City is
   }
   header={
     <Connect(Translate(LocationHeader))
-      isEventsEnabled={false}
-      isExtrasEnabled={false}
+      isEventsEnabled={undefined}
+      isExtrasEnabled={undefined}
       onStickyTopChanged={[Function]}
     />
   }

@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React from 'react'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
@@ -17,12 +17,13 @@ import { goToSearch } from '../../app/routes/search'
 import { goToLanding } from '../../app/routes/landing'
 import { connect } from 'react-redux'
 
-import type { Location } from 'redux-first-router/dist/flow-types'
+import type { LocationState } from 'redux-first-router/dist/flow-types'
 import EventModel from '../../endpoint/models/EventModel'
+import type { State } from '../../../flowTypes'
 
 type Props = {
   events: ?Array<EventModel>,
-  location: Location,
+  location: LocationState,
   viewportSmall: boolean,
   t: string => string,
   isEventsEnabled: boolean,
@@ -41,7 +42,7 @@ export class LocationHeader extends React.Component<Props> {
     ]
   }
 
-  getNavigationItems () {
+  getNavigationItems (): Array<HeaderNavigationItem> {
     const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
     const {city, language} = location.payload
     const currentRoute = location.type
@@ -85,7 +86,7 @@ export class LocationHeader extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   location: state.location,
   viewportSmall: state.viewport.is.small,
   languages: state.languages.data,

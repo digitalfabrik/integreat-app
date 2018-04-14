@@ -5,14 +5,14 @@ import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 
 import EndpointBuilder from '../EndpointBuilder'
-import type { Params } from '../Endpoint'
 import ParamMissingError from '../errors/ParamMissingError'
 import MappingError from '../errors/MappingError'
+import type { EndpointParams } from '../../../flowTypes'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
 export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: Params): string => {
+  .withParamsToUrlMapper((params: EndpointParams): string => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
@@ -21,7 +21,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`
   })
-  .withMapper((json: any, params: Params): CategoriesMapModel => {
+  .withMapper((json: any, params: EndpointParams): CategoriesMapModel => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }

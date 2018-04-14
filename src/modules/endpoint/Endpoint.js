@@ -4,14 +4,10 @@ import Payload from './Payload'
 import type { Dispatch } from 'redux-first-router/dist/flow-types'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
-import type { PayloadData } from './Payload'
 import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import ParamMissingError from './errors/ParamMissingError'
-
-export type Params = {city?: string, language?: string, url?: string}
-export type MapParamsToUrl = (params: Params) => string
-export type MapResponse = (json: any, params: Params) => PayloadData
+import type { EndpointParams, MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -36,7 +32,7 @@ class Endpoint {
     return this._stateName
   }
 
-  async loadData (dispatch: Dispatch, oldPayload: Payload, params: Params): Promise<Payload> {
+  async loadData (dispatch: Dispatch, oldPayload: Payload, params: EndpointParams): Promise<Payload> {
     let formattedUrl
     try {
       const responseOverride = this.responseOverride
@@ -84,7 +80,7 @@ class Endpoint {
     }
   }
 
-  async fetchData (formattedUrl: string, params: Params): Promise<Payload> {
+  async fetchData (formattedUrl: string, params: EndpointParams): Promise<Payload> {
     const response = await fetch(formattedUrl)
     if (!response.ok) {
       throw new LoadingError({endpointName: this.stateName, message: `${response.status}`})

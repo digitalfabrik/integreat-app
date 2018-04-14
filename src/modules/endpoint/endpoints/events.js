@@ -4,13 +4,13 @@ import moment from 'moment'
 import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
-import type { Params } from '../Endpoint'
 import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
 export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: Params): string => {
+  .withParamsToUrlMapper((params: EndpointParams): string => {
     if (!params.city) {
       throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'city')
     }
