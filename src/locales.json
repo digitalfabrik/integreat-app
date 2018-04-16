@@ -42,7 +42,7 @@
     },
     "en": {
       "pageTitle": "Search",
-      "searchCategory": "Search a category"
+      "searchCategory": "Search for a category"
     },
     "fa": {
       "pageTitle": "جستجو"
@@ -124,7 +124,7 @@
     "en": {
       "where": "Where are you?",
       "pageTitle": "Where are you?",
-      "searchCity": "Search your city"
+      "searchCity": "Search for your city"
     },
     "fa": {
       "where": "تو کجایی؟",
