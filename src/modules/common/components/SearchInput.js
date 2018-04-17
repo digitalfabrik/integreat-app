@@ -19,12 +19,12 @@ export class SearchInput extends React.Component {
       <Spacer space={this.props.spaceSearch}>
         <Wrapper>
           <SearchIcon />
-          <TextInput placeholder={placeholderText}
-                     label={placeholderText}
-                     defaultValue={filterText}
-                     onChange={this.onFilterTextChange}
-                     onClick={onClickInput}
-                     autoFocus />
+            <TextInput placeholder={placeholderText}
+                       aria-label={placeholderText}
+                       defaultValue={filterText}
+                       onChange={this.onFilterTextChange}
+                       onClick={onClickInput}
+                       autoFocus />
         </Wrapper>
       </Spacer>
     )
