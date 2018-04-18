@@ -4,15 +4,22 @@
   "short_name": "Integreat",
   "version": "2018.03.2",
   "description": "Daily Guide for Refugees. Digital. Multilingual. Free.",
-  "icons": [
-    {
-      "16": "favicon-16x16.png",
-      "48": "favicon-48x48.png",
-      "96": "favicon-96x96.png",
-      "128": "favicon-128x128.png",
-      "512": "favicon-512x512.png"
-    }
-  ],
+  "icons": [{
+    "src": "www/favicon-16x16.png",
+    "sizes": "16x16"
+  }, {
+    "src": "www/favicon-48x48.png",
+    "sizes": "48x48"
+  }, {
+    "src": "www/favicon-96x96.png",
+    "sizes": "96x96"
+  }, {
+    "src": "www/favicon-192x192.png",
+    "sizes": "192x192"
+  }, {
+    "src": "www/favicon-512x512.png",
+    "sizes": "512x512"
+  }],
   "homepage_url": "https://integreat-app.de/",
   "related_applications": [
     {
