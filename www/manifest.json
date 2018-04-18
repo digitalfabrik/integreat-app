@@ -1,16 +1,19 @@
 {
+  "manifest_version": 2,
   "name": "Integreat",
-  "lang": "en-US",
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#fbda16",
+  "short_name": "Integreat",
+  "version": "2018.03.2",
+  "description": "Daily Guide for Refugees. Digital. Multilingual. Free.",
   "icons": [
     {
-      "src": "favicon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
+      "16": "favicon-16x16.png",
+      "48": "favicon-48x48.png",
+      "96": "favicon-96x96.png",
+      "128": "favicon-128x128.png",
+      "512": "favicon-512x512.png"
     }
   ],
+  "homepage_url": "https://integreat-app.de/",
   "related_applications": [
     {
       "platform": "play",
@@ -18,5 +21,9 @@
       "url": "https://play.google.com/store/apps/details?id=tuerantuer.app.integreat"
     }
   ],
-  "prefer_related_applications": true
+  "prefer_related_applications": true,
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#fbda16",
+  "background_color": "#ffffff"
 }
