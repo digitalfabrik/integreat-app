@@ -11,8 +11,8 @@ const isDebug = global.DEBUG === false ? false : !process.argv.includes('--relea
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 
 const basePackageValues = {
-  'name': '@integreat/shared',
-  'version': '1.0.0',
+  'name': '@integreat-app/shared',
+  'version': '0.0.1',
   'main': './index.js'
 }
 
