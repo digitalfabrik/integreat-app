@@ -12,9 +12,10 @@ exports[`SearchPage should match snapshot 1`] = `
       Augsburg
     </title>
   </HelmetWrapper>
-  <Translate(SearchInput)
+  <SearchInput
     filterText=""
     onFilterTextChange={[Function]}
+    placeholderText="searchCategory"
     spaceSearch={true}
   />
   <CategoryList
