@@ -5,9 +5,9 @@ exports[`SearchInput connect should render 1`] = `
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput
+      aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
-      label="Placeholder"
       onChange={[Function]}
       placeholder="Placeholder"
     />
@@ -20,9 +20,9 @@ exports[`SearchInput should render 1`] = `
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput
+      aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
-      label="Placeholder"
       onChange={[Function]}
       placeholder="Placeholder"
     />
@@ -37,9 +37,9 @@ exports[`SearchInput should render and space search 1`] = `
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput
+      aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
-      label="Placeholder"
       onChange={[Function]}
       placeholder="Placeholder"
     />

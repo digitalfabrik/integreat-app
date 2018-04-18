@@ -34,8 +34,8 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
           class="fa fa-search SearchInputstyles__SearchIcon-bXUNqg kVDGLo"
         />
         <input
+          aria-label="Placeholder"
           class="SearchInputstyles__TextInput-kJgKBC lfoCjL"
-          label="Placeholder"
           placeholder="Placeholder"
           type="text"
           value="Test"
