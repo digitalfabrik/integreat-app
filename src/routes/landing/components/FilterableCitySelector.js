@@ -7,11 +7,13 @@ import CitySelector from './CitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
 
 import style from './FilterableCitySelector.css'
+import { translate } from 'react-i18next'
 
-class FilterableCitySelector extends React.Component {
+export class FilterableCitySelector extends React.Component {
   static propTypes = {
     cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)).isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   constructor (props) {
@@ -22,18 +24,22 @@ class FilterableCitySelector extends React.Component {
   onFilterTextChange = filterText => this.setState({filterText})
 
   render () {
+    const {cities, language, t} = this.props
+    const filterText = this.state.filterText
+
     return (
       <div className={style.topSpacing}>
         <Heading />
-        <ScrollingSearchBox filterText={this.state.filterText}
-                            onFilterTextChange={this.onFilterTextChange}>
-          <CitySelector cities={this.props.cities}
-                        filterText={this.state.filterText}
-                        language={this.props.language} />
+        <ScrollingSearchBox filterText={filterText}
+                            onFilterTextChange={this.onFilterTextChange}
+                            placeholderText={t('searchCity')}>
+          <CitySelector cities={cities}
+                        filterText={filterText}
+                        language={language} />
         </ScrollingSearchBox>
       </div>
     )
   }
 }
 
-export default FilterableCitySelector
+export default translate('landing')(FilterableCitySelector)
