@@ -6,7 +6,7 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
@@ -32,7 +32,7 @@ describe('CategoriesPage', () => {
         en: 4361, ar: 4367, fa: 4368
       },
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      lastUpdate: moment('2017-01-01')
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 3649,
@@ -46,7 +46,7 @@ describe('CategoriesPage', () => {
         en: 4804, ar: 4819, fa: 4827
       },
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-      lastUpdate: moment('2017-01-01')
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 35,
