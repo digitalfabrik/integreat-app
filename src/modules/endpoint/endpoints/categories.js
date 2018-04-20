@@ -8,6 +8,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import MappingError from '../errors/MappingError'
 import type { EndpointParams } from '../../../flowTypes'
+import moment from 'moment'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
@@ -43,7 +44,8 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
           thumbnail: category.thumbnail,
           order: category.order,
           availableLanguages: category.available_languages,
-          parentUrl: ''
+          parentUrl: '',
+          lastUpdate: moment(category.modified_gmt)
         })
       })
 
@@ -57,7 +59,8 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
       thumbnail: '',
       order: -1,
       availableLanguages: new Map(),
-      parentUrl: ''
+      parentUrl: '',
+      lastUpdate: ''
     }))
 
     categories.forEach(category => {
