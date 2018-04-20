@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExtrasPage should render a failure if the selected extra does not exist 1`] = `
-<FailureSwitcher
+<Translate(FailureSwitcher)
   error={[Error: The extra no valid extra does not exist here.]}
 />
 `;
