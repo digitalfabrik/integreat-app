@@ -11,6 +11,7 @@ import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
 import type { Node } from 'react'
+import CityNotFoundError from '../../app/errors/CityNotFoundError'
 
 type Props = {
   error: Error
@@ -54,11 +55,20 @@ class FailureSwitcher extends React.Component<Props> {
     }
   }
 
-  render () {
+  getErrorName (): string {
     const error = this.props.error
+    if (error instanceof CityNotFoundError ||
+        error instanceof LanguageNotFoundError ||
+        error instanceof ContentNotFoundError) {
+      return 'Not Found'
+    }
+    return 'Error'
+  }
+
+  render () {
     return <Fragment>
       <Helmet>
-        <title>{error.constructor.name}</title>
+        <title>{this.getErrorName()}</title>
       </Helmet>
       {this.renderErrorComponent()}
     </Fragment>
