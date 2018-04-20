@@ -64,10 +64,16 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
       Willkommen
     </Connect(Link)>
   </Breadcrumbs>
-  <Page
-    content="some content"
-    title="Willkommen in Augsburg"
-  />
+  <React.Fragment>
+    <Page
+      content="some content"
+      title="Willkommen in Augsburg"
+    />
+    <Translate(CategoryTimeStamp)
+      language="en"
+      timestamp="January 1, 2017"
+    />
+  </React.Fragment>
 </div>
 `;
 
@@ -77,7 +83,7 @@ exports[`CategoriesPage should match snapshot and render an Error if path is not
 />
 `;
 
-exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root nor has children 1`] = `
+exports[`CategoriesPage should match snapshot render a CategoryList if the category is neither the root but has children 1`] = `
 <div>
   <HelmetWrapper
     defer={true}
@@ -111,6 +117,7 @@ exports[`CategoriesPage should match snapshot render a CategoryList if the categ
             },
             "_content": "some content",
             "_id": 35,
+            "_lastUpdate": "2016-12-31T23:00:00.000Z",
             "_order": 1,
             "_parentId": 3649,
             "_parentUrl": "/augsburg/de/willkommen",

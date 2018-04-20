@@ -1,6 +1,7 @@
 import categories from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
+import moment from 'moment'
 
 jest.unmock('../categories')
 
@@ -20,7 +21,8 @@ describe('categories', () => {
       ar: 4367,
       fa: 4368
     },
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+    modified_gmt: '2017-01-01'
   },
   {
     id: 3649,
@@ -37,7 +39,8 @@ describe('categories', () => {
       ar: 4819,
       fa: 4827
     },
-    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+    modified_gmt: '2017-01-09'
   },
   {
     id: 1234,
@@ -60,7 +63,8 @@ describe('categories', () => {
     availableLanguages: {
       en: 4361, ar: 4367, fa: 4368
     },
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+    lastUpdate: moment('2017-01-01')
   }), new CategoryModel({
     id: 3649,
     url: '/augsburg/de/willkommen',
@@ -73,7 +77,8 @@ describe('categories', () => {
     availableLanguages: {
       en: 4804, ar: 4819, fa: 4827
     },
-    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+    thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+    lastUpdate: moment('2017-01-09')
   }), new CategoryModel({
     id: 0,
     url: '/augsburg/de',
@@ -84,7 +89,8 @@ describe('categories', () => {
     order: -1,
     parentId: -1,
     thumbnail: '',
-    parentUrl: ''
+    parentUrl: '',
+    lastUpdate: ''
   })]
 
   const params = {language: 'de', city: 'augsburg'}
