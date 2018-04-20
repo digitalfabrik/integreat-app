@@ -4,6 +4,7 @@ import React from 'react'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { I18nTranslate } from '../../../flowTypes'
 import { translate } from 'react-i18next'
+import { Timestamp } from './CategoryTimestamp.styles'
 
 type Props = {
   language: string,
@@ -15,7 +16,7 @@ class CategoryTimestamp extends React.PureComponent<Props> {
   render () {
     const {language, category, t} = this.props
 
-    return <div>{t('lastUpdate')}{category.getLastUpdate(language)}</div>
+    return <Timestamp>{t('lastUpdate')}{category.getLastUpdate(language)}</Timestamp>
   }
 }
 
