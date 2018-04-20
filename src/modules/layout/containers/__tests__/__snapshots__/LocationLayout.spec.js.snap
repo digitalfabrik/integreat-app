@@ -25,6 +25,7 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
               "_availableLanguages": Map {},
               "_content": "contnentl",
               "_id": undefined,
+              "_lastUpdate": undefined,
               "_order": 4,
               "_parentId": 3,
               "_parentUrl": "parent/url",

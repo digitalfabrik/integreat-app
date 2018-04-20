@@ -31,6 +31,7 @@ exports[`SearchPage should match snapshot 1`] = `
             },
             "_content": "",
             "_id": 3650,
+            "_lastUpdate": undefined,
             "_order": 75,
             "_parentId": 0,
             "_parentUrl": "/augsburg/de",
@@ -50,6 +51,7 @@ exports[`SearchPage should match snapshot 1`] = `
             },
             "_content": "",
             "_id": 3649,
+            "_lastUpdate": undefined,
             "_order": 11,
             "_parentId": 0,
             "_parentUrl": "/augsburg/de",
@@ -70,6 +72,7 @@ exports[`SearchPage should match snapshot 1`] = `
             "_content": "<p>Willkommen in Augsbur…er Stadt Augsburg</p>
 ",
             "_id": 35,
+            "_lastUpdate": undefined,
             "_order": 1,
             "_parentId": 3649,
             "_parentUrl": "/augsburg/de/willkommen",
