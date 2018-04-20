@@ -62,7 +62,7 @@ describe('CategoriesPage', () => {
         ar: 397
       },
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
-      lastUpdate: moment('2017-01-01')
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     })
   ]
 
