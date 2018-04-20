@@ -56,7 +56,7 @@ export class CategoriesPage extends React.Component<Props> {
       return <Fragment>
         <Page title={category.title}
               content={category.content} />
-        <CategoryTimeStamp category={category} language={language} />
+        <CategoryTimeStamp timestamp={category.getLastUpdate(language)} language={language} />
       </Fragment>
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories

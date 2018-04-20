@@ -1,22 +1,20 @@
 // @flow
 
 import React from 'react'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { I18nTranslate } from '../../../flowTypes'
 import { translate } from 'react-i18next'
-import { Timestamp } from './CategoryTimeStamp.styles'
+import { TimeStamp } from './CategoryTimeStamp.styles'
 
 type Props = {
-  language: string,
-  category: CategoryModel,
+  timestamp: string,
   t: I18nTranslate
 }
 
 class CategoryTimeStamp extends React.PureComponent<Props> {
   render () {
-    const {language, category, t} = this.props
+    const {timestamp, t} = this.props
 
-    return <Timestamp>{t('lastUpdate')}{category.getLastUpdate(language)}</Timestamp>
+    return <TimeStamp>{t('lastUpdate')}{timestamp}</TimeStamp>
   }
 }
 
