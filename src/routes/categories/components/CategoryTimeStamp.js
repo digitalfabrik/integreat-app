@@ -10,7 +10,7 @@ type Props = {
   t: I18nTranslate
 }
 
-class CategoryTimeStamp extends React.PureComponent<Props> {
+export class CategoryTimeStamp extends React.PureComponent<Props> {
   render () {
     const {timestamp, t} = this.props
 
