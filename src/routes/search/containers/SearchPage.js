@@ -65,6 +65,7 @@ export class SearchPage extends React.Component<Props, LocalState> {
           <title>{t('pageTitle')} - {cityName}</title>
         </Helmet>
         <SearchInput filterText={this.state.filterText}
+                     placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} />
