@@ -18,7 +18,7 @@ import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { State, UiDirection } from '../../../flowTypes'
-import CategoryTimestamp from '../components/CategoryTimestamp'
+import CategoryTimeStamp from '../components/CategoryTimeStamp'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -56,7 +56,7 @@ export class CategoriesPage extends React.Component<Props> {
       return <Fragment>
         <Page title={category.title}
               content={category.content} />
-        <CategoryTimestamp category={category} language={language} />
+        <CategoryTimeStamp category={category} language={language} />
       </Fragment>
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
