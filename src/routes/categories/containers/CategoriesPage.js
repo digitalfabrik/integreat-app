@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import type {Node} from 'react'
 import { connect } from 'react-redux'
@@ -17,7 +17,8 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { State } from '../../../flowTypes'
+import type { State, UiDirection } from '../../../flowTypes'
+import CategoryTimestamp from '../components/CategoryTimestamp'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -25,7 +26,7 @@ type Props = {
   path: string,
   city: string,
   language: string,
-  uiDirection: 'ltr' | 'rtl'
+  uiDirection: UiDirection
 }
 
 /**
@@ -47,13 +48,16 @@ export class CategoriesPage extends React.Component<Props> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel) {
-    const {categories, cities} = this.props
+    const {categories, cities, language} = this.props
     const children = categories.getChildren(category)
 
     if (children.length === 0) {
       // last level, our category is a simple page
-      return <Page title={category.title}
-                   content={category.content} />
+      return <Fragment>
+        <Page title={category.title}
+              content={category.content} />
+        <CategoryTimestamp category={category} language={language} />
+      </Fragment>
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
