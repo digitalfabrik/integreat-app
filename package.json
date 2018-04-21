@@ -144,6 +144,7 @@
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
-    "test:update": "jest --config jest.config.json -u"
+    "test:update": "jest --config jest.config.json -u",
+    "findMissingLocales": "node tools/findMissingLocales"
   }
 }
