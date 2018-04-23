@@ -74,12 +74,8 @@ class CategoryModel {
     return this._availableLanguages
   }
 
-  getLastUpdate (locale: string): Moment {
-    const lastUpdate = this._lastUpdate
-    lastUpdate.locale(locale)
-
-    // only return day, month and year
-    return lastUpdate.format('LL')
+  get lastUpdate (): Moment {
+    return this._lastUpdate
   }
 }
 
