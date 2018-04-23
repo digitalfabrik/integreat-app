@@ -71,7 +71,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     />
     <Translate(CategoryTimeStamp)
       language="en"
-      timestamp="November 18, 2017"
+      lastUpdate={"2017-11-18T19:30:00.000Z"}
     />
   </React.Fragment>
 </div>

@@ -4,15 +4,21 @@ import React from 'react'
 import type { I18nTranslate } from '../../../flowTypes'
 import { translate } from 'react-i18next'
 import { TimeStamp } from './CategoryTimeStamp.styles'
+import { Moment } from 'moment'
 
 type Props = {
-  timestamp: string,
-  t: I18nTranslate
+  lastUpdate: Moment,
+  t: I18nTranslate,
+  language: string
 }
 
 export class CategoryTimeStamp extends React.PureComponent<Props> {
   render () {
-    const {timestamp, t} = this.props
+    const {lastUpdate, t, language} = this.props
+    lastUpdate.locale(language)
+
+    // only show day, month and year
+    const timestamp = lastUpdate.format('LL')
 
     return <TimeStamp>{t('lastUpdate')}{timestamp}</TimeStamp>
   }

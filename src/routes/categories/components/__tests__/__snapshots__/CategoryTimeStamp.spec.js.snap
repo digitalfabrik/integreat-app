@@ -3,6 +3,6 @@
 exports[`CategoryTimeStamp should match snapshot 1`] = `
 <CategoryTimeStampstyles__TimeStamp>
   lastUpdate
-  1.Januar 2017
+  18. November 2017
 </CategoryTimeStampstyles__TimeStamp>
 `;
