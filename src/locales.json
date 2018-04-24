@@ -147,7 +147,7 @@
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "extra": "Dieses Extra wurde leider nicht gefunden.",
-        "disclaimer": "Impressum ist leider für diese Stadt nicht verfügbar.",
+        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
         "pageTitle": "Seite nicht gefunden"
       },
       "loadingFailed": "Seite konnte leider nicht geladen werden.",
@@ -167,7 +167,7 @@
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "extra": "Sorry, but this extra could not be found.",
-        "disclaimer": "Sorry, but the disclaimer is not available for this city.",
+        "disclaimer": "Sorry, but there is no disclaimer available for this city.",
         "pageTitle": "Page not found"
       },
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
