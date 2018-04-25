@@ -20,7 +20,6 @@ import { SEARCH_ROUTE } from '../routes/search'
 import Payload from '../../endpoint/Payload'
 import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
 import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
-import { CATEGORIES_REDIRECT_ROUTE } from '../routes/categoriesRedirect'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 import LanguageNotFoundError from '../errors/LanguageNotFoundError'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
@@ -105,8 +104,6 @@ export class Switcher extends React.Component<Props> {
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(categoriesPayload) ||
           <SearchPage />
-      case CATEGORIES_REDIRECT_ROUTE:
-        return Switcher.renderFailureLoadingComponents(categoriesPayload) || <LoadingSpinner />
       case NOT_FOUND:
         // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
         // "disclaimer" nor a city, so we want to show an error that the param is not an available city
