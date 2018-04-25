@@ -9,6 +9,8 @@ export const SEARCH_ROUTE = 'SEARCH'
 
 export const goToSearch = (city: string, language: string): Action => createAction(SEARCH_ROUTE)({city, language})
 
+export const getSearchPath = (city: string, language: string): string => `/${city}/${language}/search`
+
 /**
  * SearchRoute, matches /augsburg/de/search
  * @type {{path: string, thunk: function(Dispatch, GetState)}}

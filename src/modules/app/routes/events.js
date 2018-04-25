@@ -8,7 +8,7 @@ export const EVENTS_ROUTE = 'EVENTS'
 export const goToEvents = (city: string, language: string, eventId: ?number): Action =>
   createAction(EVENTS_ROUTE)({city, language, eventId})
 
-export const getEventPath = (city: string, language: string, eventId: ?number): string =>
+export const getEventPath = (city: string, language: string, eventId: ?string): string =>
   `/${city}/${language}/events${eventId ? `/${eventId}` : ''}`
 
 /**
