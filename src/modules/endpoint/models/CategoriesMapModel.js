@@ -34,15 +34,6 @@ class CategoriesMapModel {
   }
 
   /**
-   * Returns the category with the given id
-   * @param id The id
-   * @return {CategoryModel | undefined} The category
-   */
-  findCategoryById (id: number): ?CategoryModel {
-    return this.toArray().find(category => category.id === id)
-  }
-
-  /**
    * Returns all children of the given category
    * @param category The category
    * @return {CategoryModel[]} The children

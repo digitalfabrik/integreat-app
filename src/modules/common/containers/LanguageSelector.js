@@ -43,7 +43,12 @@ export class LanguageSelector extends React.Component {
             if (language === languageCode) {
               return location.pathname
             }
-            return category.availableLanguages.get(languageCode)
+            const path = category.availableLanguages.get(languageCode)
+            if (path) {
+              return path
+            } else {
+              return null
+            }
           }
         }
         return goToCategories(city, languageCode)

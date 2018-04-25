@@ -21,18 +21,16 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
       categories={
         CategoriesMapModel {
           "_categories": Map {
-            "url01" => CategoryModel {
+            "path01" => CategoryModel {
               "_availableLanguages": Map {},
               "_content": "contnentl",
               "_id": undefined,
               "_lastUpdate": undefined,
               "_order": 4,
-              "_parentId": 3,
-              "_parentUrl": "parent/url",
+              "_parentPath": undefined,
               "_path": "path01",
               "_thumbnail": "thumb/nail",
               "_title": "Title10",
-              "_url": "url01",
             },
           },
         }

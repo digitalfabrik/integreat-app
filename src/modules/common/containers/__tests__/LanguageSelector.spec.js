@@ -15,7 +15,7 @@ import configureMockStore from 'redux-mock-store'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
-  const language = 'de'
+  const language = 'en'
   const languages = [
     new LanguageModel('de', 'Deutsch'),
     new LanguageModel('en', 'English'),
@@ -35,15 +35,12 @@ describe('LanguageSelector', () => {
   const categoryModels = [
     new CategoryModel({
       id: 3650,
-      url: '/augsburg/en/welcome',
+      path: '/augsburg/en/welcome',
       title: 'Welcome',
       content: '',
-      parentId: 0,
-      parentUrl: '/augsburg/en',
+      parentPath: '/augsburg/en',
       order: 75,
-      availableLanguages: {
-        de: 4361, ar: 4367, fa: 4368
-      },
+      availableLanguages: new Map([['de', 'augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })]
 
@@ -51,7 +48,7 @@ describe('LanguageSelector', () => {
 
   it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
     const location = {
-      pathname: '/augsburg/de/disclaimer',
+      pathname: '/augsburg/en/disclaimer',
       type: DISCLAIMER_ROUTE,
       payload: {city, language}
     }
@@ -65,7 +62,7 @@ describe('LanguageSelector', () => {
 
   it('should render a normal Selector if it is not a header action item', () => {
     const location = {
-      pathname: '/augsburg/de/disclaimer',
+      pathname: '/augsburg/en/disclaimer',
       type: DISCLAIMER_ROUTE,
       payload: {city, language}
     }
@@ -80,7 +77,7 @@ describe('LanguageSelector', () => {
   describe('getLanguageChangeAction', () => {
     it('should return an action to go to a single event if there is an event is selected', () => {
       const location = {
-        pathname: '/augsburg/de/events/1234',
+        pathname: '/augsburg/en/events/1234',
         type: EVENTS_ROUTE,
         payload: {city, language, eventId: '1234'}
       }
@@ -180,13 +177,12 @@ describe('LanguageSelector', () => {
       const categoriesWithoutAvailableLanguages = new CategoriesMapModel([
         new CategoryModel({
           id: 3650,
-          url: '/augsburg/en/welcome',
+          path: '/augsburg/en/welcome',
           title: 'Welcome',
           content: '',
-          parentId: 0,
-          parentUrl: '/augsburg/en',
+          parentPath: '/augsburg/en',
           order: 75,
-          availableLanguages: {},
+          availableLanguages: new Map(),
           thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
         })])
 
@@ -200,7 +196,7 @@ describe('LanguageSelector', () => {
         <LanguageSelector categories={categoriesWithoutAvailableLanguages} events={events} languages={languages} location={location} isHeaderActionItem />
       ).instance()
 
-      expect(instance.getLanguageChangeAction('en')).toBeNull()
+      expect(instance.getLanguageChangeAction('ar')).toBeNull()
     })
   })
 

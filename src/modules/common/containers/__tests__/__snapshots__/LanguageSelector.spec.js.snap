@@ -22,16 +22,7 @@ Object {
 }
 `;
 
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to categories redirect if a category is selected 1`] = `
-Object {
-  "payload": Object {
-    "categoryId": 4361,
-    "city": "augsburg",
-    "language": "de",
-  },
-  "type": "CATEGORIES_REDIRECT",
-}
-`;
+exports[`LanguageSelector getLanguageChangeAction should return an action to go to categories redirect if a category is selected 1`] = `"augsburg/de/willkommen"`;
 
 exports[`LanguageSelector getLanguageChangeAction should return an action to go to disclaimer 1`] = `
 Object {
@@ -77,7 +68,7 @@ Object {
 
 exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a header action item 1`] = `
 <Translate(HeaderLanguageSelectorItem)
-  activeItemCode="de"
+  activeItemCode="en"
   selectorItems={
     Array [
       SelectorItemModel {
@@ -120,7 +111,7 @@ exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a 
 
 exports[`LanguageSelector should render a normal Selector if it is not a header action item 1`] = `
 <Selector
-  activeItemCode="de"
+  activeItemCode="en"
   items={
     Array [
       SelectorItemModel {
