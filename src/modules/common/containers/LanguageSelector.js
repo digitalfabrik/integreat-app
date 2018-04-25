@@ -7,7 +7,6 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import { CATEGORIES_ROUTE, goToCategories } from '../../app/routes/categories'
-import { goToCategoriesRedirect } from '../../app/routes/categoriesRedirect'
 import { EVENTS_ROUTE, goToEvents } from '../../app/routes/events'
 import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
@@ -33,7 +32,7 @@ export class LanguageSelector extends React.Component {
    */
   getLanguageChangeAction (languageCode) {
     const {location, categories, events} = this.props
-    const {city, eventId, extraAlias, language, categoryPath} = location.payload
+    const {city, eventId, extraAlias, language} = location.payload
     const routeType = location.type
 
     switch (routeType) {
@@ -41,14 +40,10 @@ export class LanguageSelector extends React.Component {
         if (categories) {
           const category = categories.findCategoryByPath(location.pathname)
           if (category && category.id !== 0) {
-            const categoryCode = category.availableLanguages[languageCode]
-            if (categoryCode) {
-              return goToCategoriesRedirect(city, languageCode, categoryCode)
-            } else if (languageCode === language) {
-              return goToCategories(city, languageCode, categoryPath)
-            } else {
-              return null
+            if (language === languageCode) {
+              return location.pathname
             }
+            return category.availableLanguages.get(languageCode)
           }
         }
         return goToCategories(city, languageCode)
