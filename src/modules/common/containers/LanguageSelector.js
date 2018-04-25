@@ -40,12 +40,11 @@ export class LanguageSelector extends React.Component {
         if (categories) {
           const category = categories.findCategoryByPath(location.pathname)
           if (category && category.id !== 0) {
-            if (language === languageCode) {
-              return location.pathname
-            }
             const path = category.availableLanguages.get(languageCode)
             if (path) {
               return path
+            } else if (language === languageCode) {
+              return location.pathname
             } else {
               return null
             }
