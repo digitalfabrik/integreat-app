@@ -4,6 +4,6 @@ exports[`categories should throw if city to map the data are missing 1`] = `"Par
 
 exports[`categories should throw if language to map the data are missing 1`] = `"ParamMissingError: Failed to load the categories endpoint because the language is missing"`;
 
-exports[`categories should throw if the city to map the url are missing 1`] = `"ParamMissingError: Failed to load the categories endpoint because the city is missing"`;
+exports[`categories should throw if the city to map the path are missing 1`] = `"ParamMissingError: Failed to load the categories endpoint because the city is missing"`;
 
-exports[`categories should throw if the language to map the url are missing 1`] = `"ParamMissingError: Failed to load the categories endpoint because the language is missing"`;
+exports[`categories should throw if the language to map the path are missing 1`] = `"ParamMissingError: Failed to load the categories endpoint because the language is missing"`;

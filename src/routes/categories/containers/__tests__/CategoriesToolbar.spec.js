@@ -9,21 +9,21 @@ describe('CategoriesToolbar', () => {
   const categoryModels = [
     new CategoryModel({
       id: 0,
-      url: '/augsburg/de',
+      path: '/augsburg/de',
       title: 'augsburg',
       content: '',
       parentId: -1,
       order: -1,
       availableLanguages: {},
       thumbnail: 'no_thumbnail',
-      parentUrl: ''
+      parentPath: ''
     }), new CategoryModel({
       id: 3650,
-      url: '/augsburg/de/anlaufstellen',
+      path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
       parentId: 0,
-      parentUrl: '/augsburg/de',
+      parentPath: '/augsburg/de',
       order: 75,
       availableLanguages: {
         en: 4361, ar: 4367, fa: 4368
@@ -32,11 +32,11 @@ describe('CategoriesToolbar', () => {
     }),
     new CategoryModel({
       id: 3649,
-      url: '/augsburg/de/willkommen',
+      path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
       parentId: 0,
-      parentUrl: '/augsburg/de',
+      parentPath: '/augsburg/de',
       order: 11,
       availableLanguages: {
         en: 4804, ar: 4819, fa: 4827
@@ -45,11 +45,11 @@ describe('CategoriesToolbar', () => {
     }),
     new CategoryModel({
       id: 35,
-      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: 'some content',
       parentId: 3649,
-      parentUrl: '/augsburg/de/willkommen',
+      parentPath: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
         en: 390,
@@ -83,19 +83,19 @@ describe('CategoriesToolbar', () => {
       <CategoriesToolbar categories={categories}
                          city={city}
                          language={language}
-                         pathname={categoryModels[2].url}
+                         pathname={categoryModels[2].path}
                          t={key => key} />
     )
 
     expect(component).toMatchSnapshot()
   })
 
-  it('should render root-url for pdf endpoint', () => {
+  it('should render root-path for pdf endpoint', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
                          city={city}
                          language={language}
-                         pathname={categoryModels[0].url}
+                         pathname={categoryModels[0].path}
                          t={key => key} />
     )
 

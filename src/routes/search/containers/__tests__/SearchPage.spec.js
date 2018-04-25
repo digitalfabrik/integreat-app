@@ -15,7 +15,7 @@ describe('SearchPage', () => {
   const categoryModels = [
     new CategoryModel({
       id: 0,
-      url: '/augsburg/de',
+      path: '/augsburg/de',
       title: 'augsburg',
       content: '',
       parentId: -1,
@@ -24,7 +24,7 @@ describe('SearchPage', () => {
       thumbnail: 'no_thumbnail'
     }), new CategoryModel({
       id: 3650,
-      url: '/augsburg/de/anlaufstellen',
+      path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
       parentId: 0,
@@ -37,7 +37,7 @@ describe('SearchPage', () => {
     }),
     new CategoryModel({
       id: 3649,
-      url: '/augsburg/de/willkommen',
+      path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
       parentId: 0,
@@ -50,7 +50,7 @@ describe('SearchPage', () => {
     }),
     new CategoryModel({
       id: 35,
-      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
       parentId: 3649,
@@ -117,28 +117,28 @@ describe('SearchPage', () => {
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
       new CategoryModel({
         id: 1,
-        url: '/abc',
+        path: '/abc',
         title: 'abc',
         content: ''
       }),
       // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
       new CategoryModel({
         id: 2,
-        url: '/defabc',
+        path: '/defabc',
         title: 'defabc',
         content: ''
       }),
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       new CategoryModel({
         id: 3,
-        url: '/def',
+        path: '/def',
         title: 'def',
         content: 'abc'
       }),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
       new CategoryModel({
         id: 4,
-        url: '/ghi',
+        path: '/ghi',
         title: 'ghi',
         content: 'abc'
       })
