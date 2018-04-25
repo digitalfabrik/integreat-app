@@ -1,12 +1,13 @@
 // @flow
 
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
+import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 
 export const SEARCH_ROUTE = 'SEARCH'
 
-export const goToSearch = (city: string, language: string): string => `/${city}/${language}/search`
+export const goToSearch = (city: string, language: string): Action => createAction(SEARCH_ROUTE)({city, language})
 
 /**
  * SearchRoute, matches /augsburg/de/search
