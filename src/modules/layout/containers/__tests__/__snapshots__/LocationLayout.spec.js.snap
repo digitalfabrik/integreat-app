@@ -27,7 +27,7 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
               "_id": undefined,
               "_lastUpdate": undefined,
               "_order": 4,
-              "_parentPath": undefined,
+              "_parentPath": "parent/url",
               "_path": "path01",
               "_thumbnail": "thumb/nail",
               "_title": "Title10",
