@@ -39,7 +39,7 @@ export class LanguageSelector extends React.Component {
     switch (routeType) {
       case CATEGORIES_ROUTE:
         if (categories) {
-          const category = categories.findCategoryByUrl(location.pathname)
+          const category = categories.findCategoryByPath(location.pathname)
           if (category && category.id !== 0) {
             const categoryCode = category.availableLanguages[languageCode]
             if (categoryCode) {
