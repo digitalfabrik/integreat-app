@@ -20,7 +20,7 @@ describe('LocationLayout', () => {
       title: 'Title10',
       content: 'contnentl',
       thumbnail: 'thumb/nail',
-      parentPathS: 'parent/url',
+      parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map()
     })
