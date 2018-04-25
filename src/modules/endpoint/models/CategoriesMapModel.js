@@ -9,12 +9,12 @@ import CategoryModel from './CategoryModel'
 class CategoriesMapModel {
   _categories: Map<string, CategoryModel>
   /**
-   * Creates a Map [url -> category] from the categories provided,
-   * whose parent attributes are first changed from id to url
+   * Creates a Map [path -> category] from the categories provided,
+   * whose parent attributes are first changed from id to path
    * @param categories CategoryModel as array
    */
   constructor (categories: Array<CategoryModel>) {
-    this._categories = new Map(categories.map(category => ([category.url, category])))
+    this._categories = new Map(categories.map(category => ([category.path, category])))
   }
 
   /**
@@ -25,12 +25,12 @@ class CategoriesMapModel {
   }
 
   /**
-   * Returns the category with the given url
-   * @param {String} url The url
+   * Returns the category with the given path
+   * @param {String} path The path
    * @return {CategoryModel | undefined} The category
    */
-  findCategoryByUrl (url: string): ?CategoryModel {
-    return this._categories.get(normalizeUrl(url))
+  findCategoryByPath (path: string): ?CategoryModel {
+    return this._categories.get(normalizeUrl(path))
   }
 
   /**
@@ -49,7 +49,7 @@ class CategoriesMapModel {
    */
   getChildren (category: CategoryModel): Array<CategoryModel> {
     return this.toArray()
-      .filter(_category => _category.parentUrl === category.url)
+      .filter(_category => _category.parentPath === category.path)
       .sort((category1, category2) => (category1.order - category2.order))
   }
 
@@ -62,9 +62,9 @@ class CategoriesMapModel {
     const parents = []
 
     while (category.id !== 0) {
-      const temp = this.findCategoryByUrl(category.parentUrl)
+      const temp = this.findCategoryByPath(category.parentPath)
       if (!temp) {
-        throw new Error(`The category ${category.parentUrl} does not exist but should be the parent of ${category.url}`)
+        throw new Error(`The category ${category.parentPath} does not exist but should be the parent of ${category.path}`)
       }
       category = temp
       parents.unshift(category)
