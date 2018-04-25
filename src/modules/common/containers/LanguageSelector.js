@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
@@ -7,31 +8,34 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import { CATEGORIES_ROUTE, goToCategories } from '../../app/routes/categories'
-import { EVENTS_ROUTE, goToEvents } from '../../app/routes/events'
-import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
-import { DISCLAIMER_ROUTE, goToDisclaimer } from '../../app/routes/disclaimer'
-import { goToSearch, SEARCH_ROUTE } from '../../app/routes/search'
+import { EVENTS_ROUTE, getEventPath } from '../../app/routes/events'
+import { EXTRAS_ROUTE, getExtraPath } from '../../app/routes/extras'
+import { DISCLAIMER_ROUTE, getDisclaimerPath } from '../../app/routes/disclaimer'
+import { getSearchPath, SEARCH_ROUTE } from '../../app/routes/search'
 import EventModel from '../../endpoint/models/EventModel'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
+
+import type { Location } from 'redux-first-router/dist/flow-types'
+import type { State } from '../../../flowTypes'
+
+type Props = {
+  languages: Array<LanguageModel>,
+  location: Location,
+  categories: CategoriesMapModel,
+  events: Array<EventModel>,
+  isHeaderActionItem: boolean
+}
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-export class LanguageSelector extends React.Component {
-  static propTypes = {
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)),
-    location: PropTypes.object.isRequired,
-    categories: PropTypes.instanceOf(CategoriesMapModel),
-    events: PropTypes.arrayOf(PropTypes.instanceOf(EventModel)),
-    isHeaderActionItem: PropTypes.bool.isRequired
-  }
+export class LanguageSelector extends React.Component<Props> {
   /**
    * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
-   * @param languageCode
-   * @return {*}
    */
-  getLanguageChangeAction (languageCode) {
-    const {location, categories, events} = this.props
+  static getLanguageChangPath (params: {| location: Location, categories: CategoriesMapModel,
+    events: Array<EventModel>, languageCode: string |}) {
+    const {location, categories, events, languageCode} = params
     const {city, eventId, extraAlias, language} = location.payload
     const routeType = location.type
 
@@ -55,25 +59,27 @@ export class LanguageSelector extends React.Component {
         if (events && eventId) {
           const event = events.find(_event => _event.id === eventId)
           if (event) {
-            return goToEvents(city, languageCode, event.availableLanguages[languageCode])
+            return getEventPath(city, languageCode, event.availableLanguages.get(languageCode))
           }
         }
-        return goToEvents(city, languageCode)
+        return getEventPath(city, languageCode)
       case EXTRAS_ROUTE:
-        return goToExtras(city, languageCode, extraAlias)
+        return getExtraPath(city, languageCode, extraAlias)
       case DISCLAIMER_ROUTE:
-        return goToDisclaimer(city, languageCode)
+        return getDisclaimerPath(city, languageCode)
       case SEARCH_ROUTE:
-        return goToSearch(city, languageCode)
+        return getSearchPath(city, languageCode)
     }
   }
 
-  getSelectorItemModels () {
-    const languages = this.props.languages
+  getSelectorItemModels (): Array<SelectorItemModel> {
+    const {categories, events, location, languages} = this.props
     return languages && languages
       .map(language =>
         new SelectorItemModel({
-          code: language.code, name: language.name, href: this.getLanguageChangeAction(language.code)
+          code: language.code,
+          name: language.name,
+          href: LanguageSelector.getLanguageChangPath({categories, events, location, languageCode: language.code})
         })
       )
       .filter(selectorItem => selectorItem.href)
@@ -94,7 +100,7 @@ export class LanguageSelector extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: State) => ({
   location: state.location,
   languages: state.languages.data,
   categories: state.categories.data,
