@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -7,7 +5,7 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import { CATEGORIES_ROUTE, goToCategories } from '../../app/routes/categories'
+import { CATEGORIES_ROUTE, getCategoryPath } from '../../app/routes/categories'
 import { EVENTS_ROUTE, getEventPath } from '../../app/routes/events'
 import { EXTRAS_ROUTE, getExtraPath } from '../../app/routes/extras'
 import { DISCLAIMER_ROUTE, getDisclaimerPath } from '../../app/routes/disclaimer'
@@ -54,12 +52,12 @@ export class LanguageSelector extends React.Component<Props> {
             }
           }
         }
-        return goToCategories(city, languageCode)
+        return getCategoryPath(city, languageCode)
       case EVENTS_ROUTE:
         if (events && eventId) {
           const event = events.find(_event => _event.id === eventId)
           if (event) {
-            return getEventPath(city, languageCode, event.availableLanguages.get(languageCode))
+            return getEventPath(city, languageCode, event.availableLanguages[languageCode])
           }
         }
         return getEventPath(city, languageCode)
