@@ -11,7 +11,7 @@ describe('categories', () => {
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
     content: '',
-    parent: {},
+    parent: {id: 0, path: null, url: null},
     order: 75,
     available_languages: {
       en: {path: '/augsburg/en/anlaufstellen'}
@@ -24,7 +24,7 @@ describe('categories', () => {
     path: '/augsburg/de/willkommen',
     title: 'Willkommen',
     content: '',
-    parent: {},
+    parent: {id: 0, path: null, url: null},
     order: 11,
     available_languages: {
       en: {path: '/augsburg/en/welcome'}
