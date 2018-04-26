@@ -8,16 +8,9 @@ exports[`ExtrasPage should render a failure if the selected extra does not exist
 
 exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have been fetched 1`] = `
 <React.Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Sprungbrett
-       - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="Sprungbrett - Augsburg"
+  />
   <SprungbrettList
     jobs={
       Array [
@@ -54,32 +47,18 @@ exports[`ExtrasPage should render a sprungbrett list if it is the selected extra
 
 exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have not been fetched 1`] = `
 <React.Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Sprungbrett
-       - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="Sprungbrett - Augsburg"
+  />
   <LoadingSpinner />
 </React.Fragment>
 `;
 
 exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
 <React.Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      pageTitle
-       - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="pageTitle - Augsburg"
+  />
   <Caption
     title="extras"
   />

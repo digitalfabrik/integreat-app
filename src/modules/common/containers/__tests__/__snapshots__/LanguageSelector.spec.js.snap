@@ -66,6 +66,8 @@ Object {
 }
 `;
 
+exports[`LanguageSelector getLanguageChangeAction should return null if a language of a category is not available 1`] = `null`;
+
 exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a header action item 1`] = `
 <Translate(HeaderLanguageSelectorItem)
   activeItemCode="en"
@@ -73,35 +75,17 @@ exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a 
     Array [
       SelectorItemModel {
         "_code": "de",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/de/disclaimer",
         "_name": "Deutsch",
       },
       SelectorItemModel {
         "_code": "en",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "en",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/en/disclaimer",
         "_name": "English",
       },
       SelectorItemModel {
         "_code": "ar",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "ar",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/ar/disclaimer",
         "_name": "Arabic",
       },
     ]
@@ -116,35 +100,17 @@ exports[`LanguageSelector should render a normal Selector if it is not a header 
     Array [
       SelectorItemModel {
         "_code": "de",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/de/disclaimer",
         "_name": "Deutsch",
       },
       SelectorItemModel {
         "_code": "en",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "en",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/en/disclaimer",
         "_name": "English",
       },
       SelectorItemModel {
         "_code": "ar",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "ar",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/ar/disclaimer",
         "_name": "Arabic",
       },
     ]
