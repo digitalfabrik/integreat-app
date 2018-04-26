@@ -50,14 +50,18 @@
   },
   "categories": {
     "ar": {
+      "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "createPdf": "Erstelle PDF"
+      "createPdf": "Erstelle PDF",
+      "lastUpdate": "Letzte Änderung: "
     },
     "en": {
-      "createPdf": "Create PDF"
+      "createPdf": "Create PDF",
+      "lastUpdate": "Last Update: "
     },
     "fa": {
+      "lastUpdate": "آخرین به روزآوری: "
     }
   },
   "events": {

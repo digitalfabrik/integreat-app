@@ -3,10 +3,11 @@
 import React from 'react'
 import type {Node} from 'react'
 import { Breadcrumb, OrderedList, Wrapper } from './Breadcrumbs.styles'
+import type { UiDirection } from '../../../flowTypes'
 
 type Props = {
   children: Array<Node>,
-  direction: 'ltr' | 'rtl'
+  direction: UiDirection
 }
 
 /**

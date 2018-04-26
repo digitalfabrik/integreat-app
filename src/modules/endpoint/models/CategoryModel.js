@@ -1,5 +1,7 @@
 // @flow
 
+import type { Moment } from 'moment'
+
 class CategoryModel {
   _id: number
   _url: string
@@ -11,19 +13,21 @@ class CategoryModel {
   _thumbnail: string
   _order: number
   _availableLanguages: Map<string, string>
+  _lastUpdate: Moment
 
-  constructor (obj: {| id: number, path: string, url: string, title: string, content: string, parentId: number, thumbnail: string,
-    parentUrl: string, order: number, availableLanguages: Map<string, string> |}) {
-    this._id = obj.id
-    this._url = obj.url
-    this._title = obj.title
-    this._content = obj.content
-    this._parentId = obj.parentId
-    this._parentUrl = obj.parentUrl
-    this._thumbnail = obj.thumbnail
-    this._order = obj.order
-    this._path = obj.path
-    this._availableLanguages = obj.availableLanguages
+  constructor (params: {| id: number, path: string, url: string, title: string, content: string, parentId: number, thumbnail: string,
+    parentUrl: string, order: number, availableLanguages: Map<string, string>, lastUpdate: Moment |}) {
+    this._id = params.id
+    this._url = params.url
+    this._title = params.title
+    this._content = params.content
+    this._parentId = params.parentId
+    this._parentUrl = params.parentUrl
+    this._thumbnail = params.thumbnail
+    this._order = params.order
+    this._path = params.path
+    this._availableLanguages = params.availableLanguages
+    this._lastUpdate = params.lastUpdate
   }
 
   get thumbnail (): string {
@@ -68,6 +72,10 @@ class CategoryModel {
 
   get availableLanguages (): Map<string, string> {
     return this._availableLanguages
+  }
+
+  get lastUpdate (): Moment {
+    return this._lastUpdate
   }
 }
 
