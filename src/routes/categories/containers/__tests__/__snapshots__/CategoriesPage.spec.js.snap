@@ -44,7 +44,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
     encodeSpecialCharacters={true}
   >
     <title>
-      Willkommen - 
+      Willkommen -
       Augsburg
     </title>
   </HelmetWrapper>
@@ -96,7 +96,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     encodeSpecialCharacters={true}
   >
     <title>
-      Willkommen in Augsburg - 
+      Willkommen in Augsburg -
       Augsburg
     </title>
   </HelmetWrapper>
