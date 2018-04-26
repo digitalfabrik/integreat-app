@@ -6,6 +6,15 @@ exports[`ExtrasPage should render a failure if the selected extra does not exist
 />
 `;
 
+exports[`ExtrasPage should render a loading spinner if it is the selected extra and the jobs have not been fetched 1`] = `
+<React.Fragment>
+  <Connect(Helmet)
+    title="Sprungbrett - Augsburg"
+  />
+  <LoadingSpinner />
+</React.Fragment>
+`;
+
 exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have been fetched 1`] = `
 <React.Fragment>
   <Connect(Helmet)
@@ -42,15 +51,6 @@ exports[`ExtrasPage should render a sprungbrett list if it is the selected extra
     }
     title="Sprungbrett"
   />
-</React.Fragment>
-`;
-
-exports[`ExtrasPage should render a sprungbrett list if it is the selected extra and the jobs have not been fetched 1`] = `
-<React.Fragment>
-  <Connect(Helmet)
-    title="Sprungbrett - Augsburg"
-  />
-  <LoadingSpinner />
 </React.Fragment>
 `;
 
