@@ -90,7 +90,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot render a CategoryList if the category is neither the root but has children', () => {
+  it('should match snapshot and render a CategoryList if the category is neither the root but has children', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}
