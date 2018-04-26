@@ -40,7 +40,7 @@ describe('LanguageSelector', () => {
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
-      availableLanguages: new Map([['de', 'augsburg/de/willkommen']]),
+      availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })]
 
