@@ -58,7 +58,7 @@ exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageN
     encodeSpecialCharacters={true}
   >
     <title>
-      LanguageNotFoundError
+      not-found.pageTitle
     </title>
   </HelmetWrapper>
   <Connect(Translate(LanguageFailure))
@@ -74,7 +74,7 @@ exports[`FailureSwitcher should render a content not found failure if there is a
     encodeSpecialCharacters={true}
   >
     <title>
-      ContentNotFoundError
+      not-found.pageTitle
     </title>
   </HelmetWrapper>
   <Translate(Failure)
@@ -101,7 +101,7 @@ exports[`FailureSwitcher should render a failure as default 1`] = `
     encodeSpecialCharacters={true}
   >
     <title>
-      Error
+      pageTitle
     </title>
   </HelmetWrapper>
   <Translate(Failure)

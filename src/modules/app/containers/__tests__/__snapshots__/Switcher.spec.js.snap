@@ -91,7 +91,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 `;
 
 exports[`Switcher should return a failure if there was an error during fetching 1`] = `
-<FailureSwitcher
+<Translate(FailureSwitcher)
   error="fake news"
 />
 `;
