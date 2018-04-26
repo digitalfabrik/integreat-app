@@ -10,7 +10,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
 </Toolbar>
 `;
 
-exports[`CategoriesToolbar should render root-path for pdf endpoint 1`] = `
+exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
 <Toolbar>
   <ToolbarItem
     href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"

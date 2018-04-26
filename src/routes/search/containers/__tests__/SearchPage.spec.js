@@ -18,7 +18,6 @@ describe('SearchPage', () => {
       path: '/augsburg/de',
       title: 'augsburg',
       content: '',
-      parentId: -1,
       order: -1,
       availableLanguages: {},
       thumbnail: 'no_thumbnail'
@@ -27,7 +26,6 @@ describe('SearchPage', () => {
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
-      parentId: 0,
       parentUrl: '/augsburg/de',
       order: 75,
       availableLanguages: {
@@ -40,7 +38,6 @@ describe('SearchPage', () => {
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
-      parentId: 0,
       parentUrl: '/augsburg/de',
       order: 11,
       availableLanguages: {
@@ -53,7 +50,6 @@ describe('SearchPage', () => {
       path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
-      parentId: 3649,
       parentUrl: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
