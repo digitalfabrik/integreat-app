@@ -74,89 +74,82 @@ describe('LanguageSelector', () => {
     expect(languageSelector).toMatchSnapshot()
   })
 
-  describe('getLanguageChangeAction', () => {
-    it('should return an action to go to a single event if there is an event is selected', () => {
+  describe('getLanguageChangePath', () => {
+    it('should return the path of a single event if there is an event is selected', () => {
       const location = {
         pathname: '/augsburg/en/events/1234',
         type: EVENTS_ROUTE,
         payload: {city, language, eventId: '1234'}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/events/1')
     })
 
-    it('should return an action to go to events', () => {
+    it('should return the events path', () => {
       const location = {
         pathname: '/augsburg/en/events/1234',
         type: EVENTS_ROUTE,
         payload: {city, language}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/events')
     })
 
-    it('should return an action to go to extras', () => {
+    it('should return the path to a single extra if there is an extra selected', () => {
       const location = {
         pathname: '/augsburg/en/extras/sprungbrett',
         type: EXTRAS_ROUTE,
         payload: {city, language, extraAlias: 'sprungbrett'}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/extras/sprungbrett')
     })
 
-    it('should return an action to go to disclaimer', () => {
+    it('should return the extras path', () => {
+      const location = {
+        pathname: '/augsburg/en/extras',
+        type: EXTRAS_ROUTE,
+        payload: {city, language}
+      }
+
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/extras')
+    })
+
+    it('should return the disclaimer path', () => {
       const location = {
         pathname: '/augsburg/en/disclaimer',
         type: DISCLAIMER_ROUTE,
         payload: {city, language}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/disclaimer')
     })
 
-    it('should return an action to go to search', () => {
+    it('should return the search path', () => {
       const location = {
         pathname: '/augsburg/en/search',
         type: SEARCH_ROUTE,
         payload: {city, language}
       }
 
-      const instance = shallow(
-        <LanguageSelector events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/search')
     })
 
-    it('should return an action to go to categories', () => {
+    it('should return the categories path if it is the root category', () => {
       const location = {
         pathname: '/augsburg/en',
         type: CATEGORIES_ROUTE,
         payload: {city, language}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de')
     })
 
     it('should return an action to go to categories redirect if a category is selected', () => {
@@ -166,11 +159,8 @@ describe('LanguageSelector', () => {
         payload: {city, language}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('de')).toMatchSnapshot()
+      expect(LanguageSelector.getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+        .toBe('/augsburg/de/willkommen')
     })
 
     it('should return null if a language of a category is not available', () => {
@@ -192,11 +182,9 @@ describe('LanguageSelector', () => {
         payload: {city, language}
       }
 
-      const instance = shallow(
-        <LanguageSelector categories={categoriesWithoutAvailableLanguages} events={events} languages={languages} location={location} isHeaderActionItem />
-      ).instance()
-
-      expect(instance.getLanguageChangeAction('ar')).toBeNull()
+      expect(LanguageSelector.getLanguageChangePath(
+        {location, categories: categoriesWithoutAvailableLanguages, events, languageCode: 'de'})
+      ).toBeNull()
     })
   })
 

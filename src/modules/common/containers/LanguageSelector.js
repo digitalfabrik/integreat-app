@@ -31,7 +31,7 @@ export class LanguageSelector extends React.Component<Props> {
   /**
    * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
    */
-  static getLanguageChangPath (params: {| location: Location, categories: CategoriesMapModel,
+  static getLanguageChangePath (params: {| location: Location, categories: CategoriesMapModel,
     events: Array<EventModel>, languageCode: string |}) {
     const {location, categories, events, languageCode} = params
     const {city, eventId, extraAlias, language} = location.payload
@@ -77,7 +77,7 @@ export class LanguageSelector extends React.Component<Props> {
         new SelectorItemModel({
           code: language.code,
           name: language.name,
-          href: LanguageSelector.getLanguageChangPath({categories, events, location, languageCode: language.code})
+          href: LanguageSelector.getLanguageChangePath({categories, events, location, languageCode: language.code})
         })
       )
       .filter(selectorItem => selectorItem.href)
