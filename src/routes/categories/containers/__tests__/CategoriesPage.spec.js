@@ -6,6 +6,7 @@ import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
+import moment from 'moment-timezone'
 
 describe('CategoriesPage', () => {
   const categoryModels = [
@@ -30,7 +31,8 @@ describe('CategoriesPage', () => {
       availableLanguages: {
         en: 4361, ar: 4367, fa: 4368
       },
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 3649,
@@ -43,7 +45,8 @@ describe('CategoriesPage', () => {
       availableLanguages: {
         en: 4804, ar: 4819, fa: 4827
       },
-      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 35,
@@ -58,7 +61,8 @@ describe('CategoriesPage', () => {
         de: 711,
         ar: 397
       },
-      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
+      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     })
   ]
 
@@ -86,7 +90,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot render a CategoryList if the category is neither the root nor has children', () => {
+  it('should match snapshot and render a CategoryList if the category is neither the root but has children', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}
