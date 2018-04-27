@@ -17,13 +17,10 @@ describe('LocationLayout', () => {
     new CategoryModel({
       number: 1,
       path: 'path01',
-      url: 'url01',
       title: 'Title10',
       content: 'contnentl',
-      parentId: 3,
       thumbnail: 'thumb/nail',
-
-      parentUrl: 'parent/url',
+      parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map()
     })

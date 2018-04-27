@@ -23,12 +23,12 @@ export class CategoriesToolbar extends React.PureComponent<Props> {
     if (category.id === 0) {
       return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
     } else {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${category.url}`
+      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${category.path}`
     }
   }
 
   render () {
-    const category = this.props.categories.findCategoryByUrl(this.props.pathname)
+    const category = this.props.categories.findCategoryByPath(this.props.pathname)
     if (!category) {
       return null
     }
