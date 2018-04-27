@@ -25,7 +25,7 @@ export class Helmet extends React.Component<Props> {
     return languages && languages
       .map(language => {
         const path = LanguageSelector.getLanguageChangePath({events, categories, languageCode: language.code, location})
-        return <link rel='alternate' hrefLang={language.code} href={path} />
+        return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
       })
   }
 
