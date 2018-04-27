@@ -11,12 +11,16 @@ import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
 import type { Node } from 'react'
+import CityNotFoundError from '../../app/errors/CityNotFoundError'
+import type { I18nTranslate } from '../../../flowTypes'
+import { translate } from 'react-i18next'
 
 type Props = {
-  error: Error
+  error: Error,
+  t: I18nTranslate
 }
 
-class FailureSwitcher extends React.Component<Props> {
+export class FailureSwitcher extends React.Component<Props> {
   /**
    * Renders a Failure with a link to the "home" of the route and information about what was not found
    * @param error
@@ -54,15 +58,24 @@ class FailureSwitcher extends React.Component<Props> {
     }
   }
 
+  getErrorName (): string {
+    const {t, error} = this.props
+    if (error instanceof CityNotFoundError ||
+        error instanceof LanguageNotFoundError ||
+        error instanceof ContentNotFoundError) {
+      return t('not-found.pageTitle')
+    }
+    return t('pageTitle')
+  }
+
   render () {
-    const error = this.props.error
     return <Fragment>
       <Helmet>
-        <title>{error.constructor.name}</title>
+        <title>{this.getErrorName()}</title>
       </Helmet>
       {this.renderErrorComponent()}
     </Fragment>
   }
 }
 
-export default FailureSwitcher
+export default translate('error')(FailureSwitcher)

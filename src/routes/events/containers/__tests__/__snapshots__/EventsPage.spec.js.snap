@@ -92,7 +92,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
 `;
 
 exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `
-<FailureSwitcher
+<Translate(FailureSwitcher)
   error={[Error: The event 234729 does not exist here.]}
 />
 `;
