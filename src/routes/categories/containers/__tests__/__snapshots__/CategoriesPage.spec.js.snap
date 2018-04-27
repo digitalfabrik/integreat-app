@@ -44,7 +44,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
     encodeSpecialCharacters={true}
   >
     <title>
-      Willkommen -
+      Willkommen - 
       Augsburg
     </title>
   </HelmetWrapper>
@@ -94,7 +94,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
     encodeSpecialCharacters={true}
   >
     <title>
-      Willkommen in Augsburg -
+      Willkommen in Augsburg - 
       Augsburg
     </title>
   </HelmetWrapper>
@@ -128,7 +128,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
 `;
 
 exports[`CategoriesPage should match snapshot and render an Error if path is not valid 1`] = `
-<FailureSwitcher
+<Translate(FailureSwitcher)
   error={[Error: The category /augsburg/de/not/valid does not exist here.]}
 />
 `;
