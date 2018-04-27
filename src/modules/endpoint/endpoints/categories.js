@@ -4,6 +4,7 @@ import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 import normalizeUrl from 'normalize-url'
+import { toPairs } from 'lodash/object'
 
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
@@ -41,8 +42,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
           thumbnail: category.thumbnail,
           order: category.order,
           availableLanguages: new Map(
-            Object.keys(category.available_languages)
-              .map(key => [key, normalizeUrl(category.available_languages[key].path)])),
+            toPairs(category.available_languages).map(([key, value]) => [key, normalizeUrl(value.path)])),
           parentPath: normalizeUrl(category.parent.path || basePath),
           lastUpdate: moment(category.modified_gmt)
         })

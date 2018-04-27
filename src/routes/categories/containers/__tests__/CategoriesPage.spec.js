@@ -15,7 +15,6 @@ describe('CategoriesPage', () => {
       path: '/augsburg/de',
       title: 'augsburg',
       content: '',
-      parentId: -1,
       order: -1,
       availableLanguages: {},
       thumbnail: 'no_thumbnail',
@@ -25,7 +24,6 @@ describe('CategoriesPage', () => {
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
-      parentId: 0,
       parentPath: '/augsburg/de',
       order: 75,
       availableLanguages: {
@@ -39,7 +37,6 @@ describe('CategoriesPage', () => {
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
-      parentId: 0,
       parentPath: '/augsburg/de',
       order: 11,
       availableLanguages: {
@@ -53,7 +50,6 @@ describe('CategoriesPage', () => {
       path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: 'some content',
-      parentId: 3649,
       parentPath: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
@@ -90,7 +86,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot render a CategoryList if the category is neither the root but has children', () => {
+  it('should match snapshot and render a CategoryList if the category is neither the root but has children', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}

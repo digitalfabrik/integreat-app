@@ -12,7 +12,6 @@ describe('CategoriesToolbar', () => {
       path: '/augsburg/de',
       title: 'augsburg',
       content: '',
-      parentId: -1,
       order: -1,
       availableLanguages: {},
       thumbnail: 'no_thumbnail',
@@ -22,7 +21,6 @@ describe('CategoriesToolbar', () => {
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
-      parentId: 0,
       parentPath: '/augsburg/de',
       order: 75,
       availableLanguages: {
@@ -35,7 +33,6 @@ describe('CategoriesToolbar', () => {
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
-      parentId: 0,
       parentPath: '/augsburg/de',
       order: 11,
       availableLanguages: {
@@ -48,7 +45,6 @@ describe('CategoriesToolbar', () => {
       path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: 'some content',
-      parentId: 3649,
       parentPath: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
@@ -90,7 +86,7 @@ describe('CategoriesToolbar', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should render root-path for pdf endpoint', () => {
+  it('should render root-url for pdf endpoint', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
                          city={city}

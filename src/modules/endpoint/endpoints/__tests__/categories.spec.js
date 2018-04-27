@@ -10,9 +10,8 @@ describe('categories', () => {
     id: 3650,
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
-    status: 'publish',
     content: '',
-    parent: {},
+    parent: {id: 0, path: null, url: null},
     order: 75,
     available_languages: {
       en: {path: '/augsburg/en/anlaufstellen'}
@@ -24,9 +23,8 @@ describe('categories', () => {
     id: 3649,
     path: '/augsburg/de/willkommen',
     title: 'Willkommen',
-    status: 'publish',
     content: '',
-    parent: {},
+    parent: {id: 0, path: null, url: null},
     order: 11,
     available_languages: {
       en: {path: '/augsburg/en/welcome'}
