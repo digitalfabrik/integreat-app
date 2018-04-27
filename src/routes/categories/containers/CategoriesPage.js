@@ -35,7 +35,7 @@ type Props = {
 export class CategoriesPage extends React.Component<Props> {
   getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
-      id: String(category.id), title: category.title, path: category.url, thumbnail: category.thumbnail, isExternalUrl: false
+      id: String(category.id), title: category.title, path: category.path, thumbnail: category.thumbnail, isExternalUrl: false
     }))
   }
 
@@ -72,16 +72,15 @@ export class CategoriesPage extends React.Component<Props> {
   getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
     const {cities, categories} = this.props
     return categories.getAncestors(categoryModel)
-      .map(ancestor => ({
-        title: ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title,
-        url: ancestor.url
-      }))
-      .map(({title, url}) => <Link to={url} key={url}>{title}</Link>)
+      .map(ancestor => {
+        const title = ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title
+        return <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+      })
   }
 
   render () {
     const {categories, path, city, cities, language, uiDirection} = this.props
-    const categoryModel = categories.findCategoryByUrl(path)
+    const categoryModel = categories.findCategoryByPath(path)
     const cityName = CityModel.findCityName(cities, city)
 
     if (categoryModel) {
@@ -94,10 +93,10 @@ export class CategoriesPage extends React.Component<Props> {
         </Breadcrumbs>
         {this.getContent(categoryModel)}
       </div>
+    } else {
+      const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
+      return <FailureSwitcher error={error} />
     }
-
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
-    return <FailureSwitcher error={error} />
   }
 }
 
