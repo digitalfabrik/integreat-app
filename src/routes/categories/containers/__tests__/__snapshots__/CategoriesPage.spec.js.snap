@@ -78,15 +78,9 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
 
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Willkommen in Augsburg -
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="Willkommen in Augsburg - Augsburg"
+  />
   <Breadcrumbs
     direction="ltr"
   >
