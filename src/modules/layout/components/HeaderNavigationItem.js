@@ -7,20 +7,15 @@ import { InactiveNavigationItem, ActiveNavigationItem } from './HeaderNavigation
 import type { Action } from 'redux-first-router/dist/flow-types'
 
 type Props = {
-  /** text to be displayed */
   text: string,
-  /** link to the page that should be shown when the item is clicked */
   href: Action | string,
-  /** true if the item is currently selected */
   selected: boolean,
-  /** false if the item should be shown grayed out */
   active: boolean,
-  /** the message to be displayed when the item is hovered */
   tooltip?: string
 }
 
 /**
- * HeaderNavigationItem is the data class which needs to be supplied to HeaderNavigationBar.
+ * Renders a Link or a Span in the Header depending on the active prop
  */
 class HeaderNavigationItem extends React.PureComponent<Props> {
   componentDidMount () {
