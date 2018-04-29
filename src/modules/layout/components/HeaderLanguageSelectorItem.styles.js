@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip'
+import UnstyledTooltip from '../../common/components/Tooltip'
 
-export const Tooltip = styled(ReactTooltip)`
+export const Tooltip = styled(UnstyledTooltip)`
   display: inline-block;
 `
 export const InactiveImage = styled.img`

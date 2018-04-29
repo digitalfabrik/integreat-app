@@ -2,11 +2,11 @@
 
 import React from 'react'
 
-import Tooltip from 'react-tooltip'
 import SelectorItemModel from '../models/SelectorItemModel'
 import { SelectedElement, ActiveElement, Wrapper, InactiveElement } from './Selector.styles'
 import { translate } from 'react-i18next'
 import type { I18nTranslate } from '../../../flowTypes'
+import Tooltip from './Tooltip'
 
 type Props = {
   verticalLayout: boolean,
@@ -45,7 +45,7 @@ class Selector extends React.Component<Props> {
             <InactiveElement key={item.code}>
               {item.name}
             </InactiveElement>
-            <Tooltip effect='solid' delayShow={0} />
+            <Tooltip />
           </span>
         )
       }
