@@ -28,48 +28,6 @@ type Props = {
  * Displays a dropDown menu to handle changing of the language
  */
 export class LanguageSelector extends React.Component<Props> {
-  /**
-   * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
-   */
-  static getLanguageChangePath (params: {| location: Location, categories: CategoriesMapModel,
-    events: Array<EventModel>, languageCode: string |}) {
-    const {location, categories, events, languageCode} = params
-    const {city, eventId, extraAlias, language} = location.payload
-    const routeType = location.type
-
-    switch (routeType) {
-      case CATEGORIES_ROUTE:
-        if (categories) {
-          const category = categories.findCategoryByPath(location.pathname)
-          if (category && category.id !== 0) {
-            const path = category.availableLanguages.get(languageCode)
-            if (path) {
-              return path
-            } else if (language === languageCode) {
-              return location.pathname
-            } else {
-              return null
-            }
-          }
-        }
-        return getCategoryPath(city, languageCode)
-      case EVENTS_ROUTE:
-        if (events && eventId) {
-          const event = events.find(_event => _event.id === eventId)
-          if (event) {
-            return getEventPath(city, languageCode, event.availableLanguages[languageCode])
-          }
-        }
-        return getEventPath(city, languageCode)
-      case EXTRAS_ROUTE:
-        return getExtraPath(city, languageCode, extraAlias)
-      case DISCLAIMER_ROUTE:
-        return getDisclaimerPath(city, languageCode)
-      case SEARCH_ROUTE:
-        return getSearchPath(city, languageCode)
-    }
-  }
-
   getSelectorItemModels (): Array<SelectorItemModel> {
     const {categories, events, location, languages} = this.props
     return languages && languages
@@ -77,7 +35,7 @@ export class LanguageSelector extends React.Component<Props> {
         new SelectorItemModel({
           code: language.code,
           name: language.name,
-          href: LanguageSelector.getLanguageChangePath({categories, events, location, languageCode: language.code})
+          href: getLanguageChangePath({categories, events, location, languageCode: language.code})
         })
       )
       .filter(selectorItem => selectorItem.href)
