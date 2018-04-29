@@ -1,28 +1,28 @@
-import cx from 'classnames'
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import ReactTooltip from 'react-tooltip'
 
-import ConditionalLink from '../../common/components/ConditionalLink'
-import style from './HeaderNavigationItem.css'
+import { InactiveNavigationItem, ActiveNavigationItem } from './HeaderNavigationItem.styles'
+import type { Action } from 'redux-first-router/dist/flow-types'
+
+type Props = {
+  /** text to be displayed */
+  text: string,
+  /** link to the page that should be shown when the item is clicked */
+  href: Action | string,
+  /** true if the item is currently selected */
+  selected: boolean,
+  /** false if the item should be shown grayed out */
+  active: boolean,
+  /** the message to be displayed when the item is hovered */
+  tooltip: string
+}
 
 /**
  * HeaderNavigationItem is the data class which needs to be supplied to HeaderNavigationBar.
  */
-class HeaderNavigationItem extends React.PureComponent {
-  static propTypes = {
-    /** text to be displayed */
-    text: PropTypes.string.isRequired,
-    /** link to the page that should be shown when the item is clicked */
-    href: PropTypes.object.isRequired,
-    /** true if the item is currently selected */
-    selected: PropTypes.bool.isRequired,
-    /** false if the item should be shown grayed out */
-    active: PropTypes.bool.isRequired,
-    /** the message to be displayed when the item is hovered */
-    tooltip: PropTypes.string
-  }
-
+class HeaderNavigationItem extends React.PureComponent<Props> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
@@ -30,17 +30,15 @@ class HeaderNavigationItem extends React.PureComponent {
 
   render () {
     const {active, text, tooltip, selected, href} = this.props
-    return <React.Fragment>
-      <ConditionalLink active={active} data-tip={!active ? tooltip : ''}
-                       key={text}
-                       className={cx({
-                         [style.navigationItem]: true,
-                         [style.inactiveNavigationItem]: !active,
-                         [style.selectedNavigationItem]: active && selected
-                       })}
-                       to={href}>{text}
-      </ConditionalLink>
-    </React.Fragment>
+    if (active) {
+      return <ActiveNavigationItem key={text} to={href} selected={selected}>
+        {text}
+      </ActiveNavigationItem>
+    } else {
+      return <InactiveNavigationItem key={text} data-tip={tooltip}>
+        {text}
+      </InactiveNavigationItem>
+    }
   }
 }
 
