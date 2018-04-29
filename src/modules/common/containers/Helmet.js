@@ -6,10 +6,10 @@ import { connect } from 'react-redux'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import LanguageModel from '../../endpoint/models/LanguageModel'
-import { LanguageSelector } from './LanguageSelector'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router/dist/flow-types'
+import getLanguageChangePath from '../getLanguageChangePath'
 
 type Props = {
   title: string,
@@ -24,7 +24,7 @@ export class Helmet extends React.Component<Props> {
     const {languages, events, categories, location} = this.props
     return languages && languages
       .map(language => {
-        const path = LanguageSelector.getLanguageChangePath({events, categories, languageCode: language.code, location})
+        const path = getLanguageChangePath({events, categories, languageCode: language.code, location})
         return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
       })
   }
