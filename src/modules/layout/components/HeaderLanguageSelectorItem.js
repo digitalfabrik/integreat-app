@@ -6,8 +6,9 @@ import HeaderDropDown from './HeaderDropDown'
 import Selector from '../../common/components/Selector'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
-import { InactiveImage, Tooltip } from './HeaderLanguageSelectorItem.styles'
+import { InactiveImage } from './HeaderLanguageSelectorItem.styles'
 import type { I18nTranslate } from '../../../flowTypes'
+import ReactTooltip from 'react-tooltip'
 
 type Props = {
   selectorItems: Array<SelectorItemModel>,
@@ -16,6 +17,16 @@ type Props = {
 }
 
 class HeaderLanguageSelectorItem extends React.Component<Props> {
+  componentDidMount () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
+  componentDidUpdate () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
   render () {
     const {selectorItems, activeItemCode, t} = this.props
 
@@ -24,12 +35,11 @@ class HeaderLanguageSelectorItem extends React.Component<Props> {
         <Selector verticalLayout={false}
                   items={selectorItems}
                   activeItemCode={activeItemCode}
-                  tooltip={'noTranslation'} />
+                  inactiveItemTooltip={t('noTranslation')} />
       </HeaderDropDown>
       : <span>
-          <InactiveImage data-tip={t('noLanguages')} src={languageIcon} />
-          <Tooltip effect='solid' delayShow={0} />
-        </span>
+        <InactiveImage data-tip={t('noLanguages')} src={languageIcon} data-place='bottom' />
+      </span>
   }
 }
 

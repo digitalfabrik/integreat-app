@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import compose from 'lodash/fp/compose'
 
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
@@ -9,15 +10,17 @@ import EventModel from '../../endpoint/models/EventModel'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
 import type { Location } from 'redux-first-router/dist/flow-types'
-import type { State } from '../../../flowTypes'
+import type { I18nTranslate, State } from '../../../flowTypes'
 import getLanguageChangePath from '../../app/getLanguageChangePath'
+import { translate } from 'react-i18next'
 
 type Props = {
   languages: Array<LanguageModel>,
   location: Location,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
-  isHeaderActionItem: boolean
+  isHeaderActionItem: boolean,
+  t: I18nTranslate
 }
 
 /**
@@ -37,7 +40,7 @@ export class LanguageSelector extends React.Component<Props> {
   }
 
   render () {
-    const {location, isHeaderActionItem} = this.props
+    const {location, isHeaderActionItem, t} = this.props
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = location.payload.language
 
@@ -47,7 +50,7 @@ export class LanguageSelector extends React.Component<Props> {
       return selectorItems && <Selector verticalLayout
                                         items={selectorItems}
                                         activeItemCode={activeItemCode}
-                                        tooltip={'noTranslation'} />
+                                        inactiveItemTooltip={t('noTranslation')} />
     }
   }
 }
@@ -59,4 +62,7 @@ const mapStateToProps = (state: State) => ({
   events: state.events.data
 })
 
-export default connect(mapStateToProps)(LanguageSelector)
+export default compose(
+  connect(mapStateToProps),
+  translate('layout')
+)(LanguageSelector)

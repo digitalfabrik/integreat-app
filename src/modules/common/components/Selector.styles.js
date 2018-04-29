@@ -25,20 +25,17 @@ export const Element = styled(Link)`
 `
 
 export const ActiveElement = Element.extend`
-  :hover {
-    font-weight: 700;
-    border-radius: 0;
-  }
+  ${props => props.selected
+    ? `font-weight: 700;`
+    : `:hover {
+      font-weight: 700;
+      border-radius: 0;
+    }`}
   color: ${props => props.theme.colors.textColor};
 `
 
 export const InactiveElement = Element.withComponent('span').extend`
   color: ${props => props.theme.colors.textSecondaryColor};
-`
-
-export const SelectedElement = Element.withComponent('span').extend`
-  color: ${props => props.theme.colors.textColor};
-  font-weight: 700;
 `
 
 export const Wrapper = styled.div`

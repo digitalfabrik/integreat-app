@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react'
+import ReactTooltip from 'react-tooltip'
 import { Aside, Body, RichLayout, Main } from './Layout.styles'
 import type { Node } from 'react'
-import Tooltip from '../../common/components/Tooltip'
 
 type Props = {
   asideStickyTop: number,
@@ -39,7 +39,7 @@ class Layout extends React.PureComponent<Props> {
           </Body>
         </div>
         {footer}
-        <Tooltip />
+        <ReactTooltip effect='solid' delayShow={0} />
       </RichLayout>
     )
   }
