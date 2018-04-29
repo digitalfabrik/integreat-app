@@ -50,7 +50,12 @@ describe('LanguageSelector', () => {
     }
 
     const languageSelector = shallow(
-      <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem />
+      <LanguageSelector categories={categories}
+                        events={events}
+                        languages={languages}
+                        location={location}
+                        isHeaderActionItem
+                        t={key => key} />
     )
 
     expect(languageSelector).toMatchSnapshot()
@@ -64,7 +69,12 @@ describe('LanguageSelector', () => {
     }
 
     const languageSelector = shallow(
-      <LanguageSelector categories={categories} events={events} languages={languages} location={location} isHeaderActionItem={false} />
+      <LanguageSelector categories={categories}
+                        events={events}
+                        languages={languages}
+                        location={location}
+                        isHeaderActionItem={false}
+                        t={key => key} />
     )
 
     expect(languageSelector).toMatchSnapshot()

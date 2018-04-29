@@ -7,6 +7,7 @@ exports[`Selector should be vertical and match snapshot 1`] = `
   <Selectorstyles__Element
     key="en"
     onClick={[Function]}
+    selected={false}
     to="/augsburg/en/"
   >
     English
@@ -14,14 +15,16 @@ exports[`Selector should be vertical and match snapshot 1`] = `
   <Selectorstyles__Element
     key="de"
     onClick={[Function]}
+    selected={true}
+    to="/augsburg/de/"
   >
     Deutsch
   </Selectorstyles__Element>
   <Selectorstyles__Element
-    key="de"
-    onClick={[Function]}
+    data-tip="random tooltip"
+    key="fr"
   >
-    Deutsch
+    Französisch
   </Selectorstyles__Element>
 </Selectorstyles__Wrapper>
 `;
@@ -33,6 +36,7 @@ exports[`Selector should match snapshot 1`] = `
   <Selectorstyles__Element
     key="en"
     onClick={[Function]}
+    selected={false}
     to="/augsburg/en/"
   >
     English
@@ -40,14 +44,16 @@ exports[`Selector should match snapshot 1`] = `
   <Selectorstyles__Element
     key="de"
     onClick={[Function]}
+    selected={true}
+    to="/augsburg/de/"
   >
     Deutsch
   </Selectorstyles__Element>
   <Selectorstyles__Element
-    key="de"
-    onClick={[Function]}
+    data-tip="random tooltip"
+    key="fr"
   >
-    Deutsch
+    Französisch
   </Selectorstyles__Element>
 </Selectorstyles__Wrapper>
 `;
