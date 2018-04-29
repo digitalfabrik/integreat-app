@@ -26,7 +26,7 @@ Array [
   HeaderActionItem {
     "_href": undefined,
     "_iconSrc": undefined,
-    "_node": <Connect(LanguageSelector)
+    "_node": <Connect(Translate(LanguageSelector))
       isHeaderActionItem={true}
     />,
   },
@@ -338,7 +338,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       HeaderActionItem {
         "_href": undefined,
         "_iconSrc": undefined,
-        "_node": <Connect(LanguageSelector)
+        "_node": <Connect(Translate(LanguageSelector))
           isHeaderActionItem={true}
         />,
       },

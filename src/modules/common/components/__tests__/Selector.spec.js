@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Selector } from '../Selector'
+import Selector from '../Selector'
 import SelectorItemModel from '../../models/SelectorItemModel'
 
 const selectorItems = [
@@ -15,9 +15,8 @@ const selectorItems = [
     name: 'Deutsch'
   }),
   new SelectorItemModel({
-    code: 'de',
-    href: '/augsburg/de/',
-    name: 'Deutsch'
+    code: 'fr',
+    name: 'Französisch'
   })
 ]
 
@@ -28,8 +27,7 @@ describe('Selector', () => {
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
                 activeItemCode={'de'}
-                t={key => key}
-                tooltip={'random tooltip'} />
+                inactiveItemTooltip={'random tooltip'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -40,8 +38,7 @@ describe('Selector', () => {
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
                 activeItemCode={'de'}
-                t={key => key}
-                tooltip={'random tooltip'} />
+                inactiveItemTooltip={'random tooltip'} />
     )
     expect(wrapper).toMatchSnapshot()
   })

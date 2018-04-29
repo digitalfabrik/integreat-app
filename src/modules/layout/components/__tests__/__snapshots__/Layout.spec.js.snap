@@ -25,6 +25,12 @@ exports[`Layout should render all components 1`] = `
     </Layoutstyles__Body>
   </div>
   <footer />
-  <Tooltip />
+  <ReactTooltip
+    delayShow={0}
+    effect="solid"
+    insecure={true}
+    resizeHide={true}
+    wrapper="div"
+  />
 </Layoutstyles__RichLayout>
 `;

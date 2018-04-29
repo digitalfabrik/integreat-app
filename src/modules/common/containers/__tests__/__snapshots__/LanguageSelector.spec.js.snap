@@ -26,8 +26,9 @@ exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a 
 `;
 
 exports[`LanguageSelector should render a normal Selector if it is not a header action item 1`] = `
-<Translate(Selector)
+<Selector
   activeItemCode="en"
+  inactiveItemTooltip="noTranslation"
   items={
     Array [
       SelectorItemModel {
@@ -47,7 +48,6 @@ exports[`LanguageSelector should render a normal Selector if it is not a header 
       },
     ]
   }
-  tooltip="noTranslation"
   verticalLayout={true}
 />
 `;
