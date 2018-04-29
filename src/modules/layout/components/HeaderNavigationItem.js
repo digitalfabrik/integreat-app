@@ -16,7 +16,7 @@ type Props = {
   /** false if the item should be shown grayed out */
   active: boolean,
   /** the message to be displayed when the item is hovered */
-  tooltip: string
+  tooltip?: string
 }
 
 /**
