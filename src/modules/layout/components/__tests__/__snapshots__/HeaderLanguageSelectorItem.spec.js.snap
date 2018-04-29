@@ -4,7 +4,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
 <OnClickOutside(HeaderDropDown)
   iconSrc="test-file-stub"
 >
-  <Selector
+  <Translate(Selector)
     activeItemCode="de"
     items={
       Array [
@@ -20,6 +20,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
         },
       ]
     }
+    tooltip="noTranslation"
     verticalLayout={false}
   />
 </OnClickOutside(HeaderDropDown)>

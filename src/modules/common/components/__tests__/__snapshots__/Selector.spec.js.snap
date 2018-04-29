@@ -17,6 +17,12 @@ exports[`Selector should be vertical and match snapshot 1`] = `
   >
     Deutsch
   </Selectorstyles__Element>
+  <Selectorstyles__Element
+    key="de"
+    onClick={[Function]}
+  >
+    Deutsch
+  </Selectorstyles__Element>
 </Selectorstyles__Wrapper>
 `;
 
@@ -30,6 +36,12 @@ exports[`Selector should match snapshot 1`] = `
     to="/augsburg/en/"
   >
     English
+  </Selectorstyles__Element>
+  <Selectorstyles__Element
+    key="de"
+    onClick={[Function]}
+  >
+    Deutsch
   </Selectorstyles__Element>
   <Selectorstyles__Element
     key="de"

@@ -9,7 +9,7 @@ import LanguageModel from '../../endpoint/models/LanguageModel'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router/dist/flow-types'
-import getLanguageChangePath from '../getLanguageChangePath'
+import getLanguageChangePath from '../../app/getLanguageChangePath'
 
 type Props = {
   title: string,

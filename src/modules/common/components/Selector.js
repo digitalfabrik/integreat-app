@@ -20,7 +20,7 @@ type Props = {
 /**
  * Displays a Selector showing different items
  */
-class Selector extends React.Component<Props> {
+export class Selector extends React.Component<Props> {
   getItems () {
     const {items, activeItemCode, closeDropDownCallback, tooltip, t} = this.props
     return items.map(item => {
