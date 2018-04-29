@@ -5,16 +5,12 @@ import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import { CATEGORIES_ROUTE, getCategoryPath } from '../../app/routes/categories'
-import { EVENTS_ROUTE, getEventPath } from '../../app/routes/events'
-import { EXTRAS_ROUTE, getExtraPath } from '../../app/routes/extras'
-import { DISCLAIMER_ROUTE, getDisclaimerPath } from '../../app/routes/disclaimer'
-import { getSearchPath, SEARCH_ROUTE } from '../../app/routes/search'
 import EventModel from '../../endpoint/models/EventModel'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
 import type { Location } from 'redux-first-router/dist/flow-types'
 import type { State } from '../../../flowTypes'
+import getLanguageChangePath from '../getLanguageChangePath'
 
 type Props = {
   languages: Array<LanguageModel>,
@@ -38,7 +34,6 @@ export class LanguageSelector extends React.Component<Props> {
           href: getLanguageChangePath({categories, events, location, languageCode: language.code})
         })
       )
-      .filter(selectorItem => selectorItem.href)
   }
 
   render () {
@@ -51,7 +46,8 @@ export class LanguageSelector extends React.Component<Props> {
     } else {
       return selectorItems && <Selector verticalLayout
                                         items={selectorItems}
-                                        activeItemCode={activeItemCode} />
+                                        activeItemCode={activeItemCode}
+                                        tooltip={'noTranslation'} />
     }
   }
 }

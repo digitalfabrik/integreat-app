@@ -14,12 +14,6 @@ export const Element = styled(Link)`
   border-radius: 30px;
   transition: background-color 0.2s, border-radius 0.2s;
   user-select: none;
-  
-  :hover {
-    color: ${props => props.theme.colors.textColor};
-    font-weight: 700;
-    border-radius: 0;
-  }
 
   @media ${props => props.theme.dimensions.smallViewport} {
     height: ${props => props.theme.dimensions.headerHeightSmall}px;
@@ -30,7 +24,19 @@ export const Element = styled(Link)`
   }
 `
 
-export const ActiveElement = Element.withComponent('span').extend`
+export const ActiveElement = Element.extend`
+  :hover {
+    color: ${props => props.theme.colors.textColor};
+    font-weight: 700;
+    border-radius: 0;
+  }
+`
+
+export const InactiveElement = Element.withComponent('span').extend`
+  opacity: 0.5;
+`
+
+export const SelectedElement = Element.withComponent('span').extend`
   color: ${props => props.theme.colors.textColor};
   font-weight: 700;
 `
