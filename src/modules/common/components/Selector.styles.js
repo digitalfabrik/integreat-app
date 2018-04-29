@@ -26,14 +26,14 @@ export const Element = styled(Link)`
 
 export const ActiveElement = Element.extend`
   :hover {
-    color: ${props => props.theme.colors.textColor};
     font-weight: 700;
     border-radius: 0;
   }
+  color: ${props => props.theme.colors.textColor};
 `
 
 export const InactiveElement = Element.withComponent('span').extend`
-  opacity: 0.5;
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 export const SelectedElement = Element.withComponent('span').extend`
