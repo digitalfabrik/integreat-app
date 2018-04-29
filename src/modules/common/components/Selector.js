@@ -3,50 +3,48 @@
 import React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import { SelectedElement, ActiveElement, Wrapper, InactiveElement } from './Selector.styles'
-import { translate } from 'react-i18next'
-import type { I18nTranslate } from '../../../flowTypes'
-import Tooltip from './Tooltip'
+import { ActiveElement, Wrapper, InactiveElement } from './Selector.styles'
+import ReactTooltip from 'react-tooltip'
 
 type Props = {
   verticalLayout: boolean,
   closeDropDownCallback?: () => {},
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
-  tooltip: string,
-  t: I18nTranslate
+  inactiveItemTooltip: string
 }
 
 /**
  * Displays a Selector showing different items
  */
-export class Selector extends React.Component<Props> {
+class Selector extends React.Component<Props> {
+  componentDidMount () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
+  componentDidUpdate () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
   getItems () {
-    const {items, activeItemCode, closeDropDownCallback, tooltip, t} = this.props
+    const {items, activeItemCode, closeDropDownCallback, inactiveItemTooltip} = this.props
     return items.map(item => {
-      if (item.code === activeItemCode) {
-        return (
-          <SelectedElement key={item.code}
-                         onClick={closeDropDownCallback}>
-            {item.name}
-          </SelectedElement>
-        )
-      } else if (item.href) {
+      if (item.href) {
         return (
           <ActiveElement key={item.code}
-                onClick={closeDropDownCallback}
-                to={item.href}>
+                         onClick={closeDropDownCallback}
+                         to={item.href}
+                         selected={item.code === activeItemCode}>
             {item.name}
           </ActiveElement>
         )
       } else {
         return (
-          <span data-tip={t(tooltip)} key={item.code}>
-            <InactiveElement>
-              {item.name}
-            </InactiveElement>
-            <Tooltip />
-          </span>
+          <InactiveElement data-tip={inactiveItemTooltip} key={item.code}>
+            {item.name}
+          </InactiveElement>
         )
       }
     })
@@ -61,4 +59,4 @@ export class Selector extends React.Component<Props> {
   }
 }
 
-export default translate('common')(Selector)
+export default Selector

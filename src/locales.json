@@ -1,12 +1,4 @@
 {
-  "common": {
-    "de": {
-      "noTranslation": "Keine Übersetzung verfügbar"
-    },
-    "en": {
-      "noTranslation": "No translation available"
-    }
-  },
   "layout": {
     "ar": {
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
@@ -22,7 +14,8 @@
       "categories": "Kategorien",
       "news": "News",
       "noNews": "Keine News",
-      "noLanguages": "Nicht verfügbar in anderen Sprachen"
+      "noLanguages": "Nicht verfügbar in anderen Sprachen",
+      "noTranslation": "Keine Übersetzung verfügbar"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -31,7 +24,8 @@
       "categories": "Categories",
       "news": "News",
       "noNews": "No News",
-      "noLanguages": "Not available in different languages"
+      "noLanguages": "Not available in different languages",
+      "noTranslation": "No translation available"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
