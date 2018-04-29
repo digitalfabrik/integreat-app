@@ -1,13 +1,12 @@
 import styled, { css } from 'styled-components'
 import Link from 'redux-first-router-link'
 
-export const Element = styled(Link)`
+const Element = styled(Link)`
   ${props => props.theme.helpers.removeLinkHighlighting};
   height: ${props => props.theme.dimensions.headerHeightLarge}px;
   min-width: 90px;
   max-width: 120px;
   flex: 1 1 90px;
-  color: ${props => props.theme.colors.textSecondaryColor};
   font-size: 1.2em;
   line-height: ${props => props.theme.dimensions.headerHeightLarge}px;
   text-align: center;
