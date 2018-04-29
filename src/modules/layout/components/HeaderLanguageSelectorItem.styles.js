@@ -5,5 +5,5 @@ export const Tooltip = styled(UnstyledTooltip)`
   display: inline-block;
 `
 export const InactiveImage = styled.img`
-  opacity: 0.5;
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
