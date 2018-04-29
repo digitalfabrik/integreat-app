@@ -41,8 +41,8 @@ class Selector extends React.Component<Props> {
         )
       } else {
         return (
-          <span data-tip={t(tooltip)}>
-            <InactiveElement key={item.code}>
+          <span data-tip={t(tooltip)} key={item.code}>
+            <InactiveElement>
               {item.name}
             </InactiveElement>
             <Tooltip />

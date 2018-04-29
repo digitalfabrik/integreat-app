@@ -31,7 +31,7 @@ class CategoryListItem extends React.Component<Props> {
               ? <SubCategoryThumbnail src={child.thumbnail} />
               : <SubCategoryThumbnailDiv />
           }
-          <SubCategoryCaption>{child.title}</SubCategoryCaption>
+          <SubCategoryCaption search={''}>{child.title}</SubCategoryCaption>
         </StyledLink>
       </div>
     )
