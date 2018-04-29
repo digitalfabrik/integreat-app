@@ -10,7 +10,7 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 
 import type { Location } from 'redux-first-router/dist/flow-types'
 import type { State } from '../../../flowTypes'
-import getLanguageChangePath from '../getLanguageChangePath'
+import getLanguageChangePath from '../../app/getLanguageChangePath'
 
 type Props = {
   languages: Array<LanguageModel>,
