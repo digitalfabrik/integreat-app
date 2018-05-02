@@ -2,16 +2,9 @@
 
 exports[`SearchPage should match snapshot 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      pageTitle
-       - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="pageTitle - Augsburg"
+  />
   <SearchInput
     filterText=""
     onFilterTextChange={[Function]}

@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Fragment } from 'react'
-import Helmet from 'react-helmet'
 import type {Node} from 'react'
 import { connect } from 'react-redux'
 
@@ -19,6 +18,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { State, UiDirection } from '../../../flowTypes'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -78,16 +78,20 @@ export class CategoriesPage extends React.Component<Props> {
       })
   }
 
-  render () {
-    const {categories, path, city, cities, language, uiDirection} = this.props
-    const categoryModel = categories.findCategoryByPath(path)
+  getPageTitle (categoryModel: CategoryModel): string {
+    const {cities, city} = this.props
     const cityName = CityModel.findCityName(cities, city)
+
+    return `${categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}${cityName}`
+  }
+
+  render () {
+    const {categories, path, city, language, uiDirection} = this.props
+    const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
       return <div>
-        <Helmet>
-          <title>{categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}{cityName}</title>
-        </Helmet>
+        <Helmet title={this.getPageTitle(categoryModel)} />
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>

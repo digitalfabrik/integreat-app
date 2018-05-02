@@ -3,11 +3,13 @@
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
-export const goToDisclaimer = (city: string, language: string) => createAction(DISCLAIMER_ROUTE)({city, language})
+export const goToDisclaimer = (city: string, language: string): Action => createAction(DISCLAIMER_ROUTE)({city, language})
+
+export const getDisclaimerPath = (city: string, language: string): string => `/${city}/${language}/disclaimer`
 
 /**
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer

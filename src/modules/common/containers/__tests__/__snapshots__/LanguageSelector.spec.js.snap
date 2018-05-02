@@ -1,71 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to a single event if there is an event is selected 1`] = `
-Object {
-  "payload": Object {
-    "city": "augsburg",
-    "eventId": "1",
-    "language": "de",
-  },
-  "type": "EVENTS",
-}
-`;
-
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to categories 1`] = `
-Object {
-  "payload": Object {
-    "categoryPath": undefined,
-    "city": "augsburg",
-    "language": "de",
-  },
-  "type": "CATEGORIES",
-}
-`;
-
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to categories redirect if a category is selected 1`] = `"augsburg/de/willkommen"`;
-
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to disclaimer 1`] = `
-Object {
-  "payload": Object {
-    "city": "augsburg",
-    "language": "de",
-  },
-  "type": "DISCLAIMER",
-}
-`;
-
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to events 1`] = `
-Object {
-  "payload": Object {
-    "city": "augsburg",
-    "eventId": undefined,
-    "language": "de",
-  },
-  "type": "EVENTS",
-}
-`;
-
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to extras 1`] = `
-Object {
-  "payload": Object {
-    "city": "augsburg",
-    "extraAlias": "sprungbrett",
-    "language": "de",
-  },
-  "type": "EXTRAS",
-}
-`;
-
-exports[`LanguageSelector getLanguageChangeAction should return an action to go to search 1`] = `
-Object {
-  "payload": Object {
-    "city": "augsburg",
-    "language": "de",
-  },
-  "type": "SEARCH",
-}
-`;
-
 exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a header action item 1`] = `
 <Translate(HeaderLanguageSelectorItem)
   activeItemCode="en"
@@ -73,35 +7,17 @@ exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a 
     Array [
       SelectorItemModel {
         "_code": "de",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/de/disclaimer",
         "_name": "Deutsch",
       },
       SelectorItemModel {
         "_code": "en",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "en",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/en/disclaimer",
         "_name": "English",
       },
       SelectorItemModel {
         "_code": "ar",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "ar",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/ar/disclaimer",
         "_name": "Arabic",
       },
     ]
@@ -112,39 +28,22 @@ exports[`LanguageSelector should render a HeaderLanguageSelectorItem if it is a 
 exports[`LanguageSelector should render a normal Selector if it is not a header action item 1`] = `
 <Selector
   activeItemCode="en"
+  inactiveItemTooltip="noTranslation"
   items={
     Array [
       SelectorItemModel {
         "_code": "de",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/de/disclaimer",
         "_name": "Deutsch",
       },
       SelectorItemModel {
         "_code": "en",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "en",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/en/disclaimer",
         "_name": "English",
       },
       SelectorItemModel {
         "_code": "ar",
-        "_href": Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "ar",
-          },
-          "type": "DISCLAIMER",
-        },
+        "_href": "/augsburg/ar/disclaimer",
         "_name": "Arabic",
       },
     ]

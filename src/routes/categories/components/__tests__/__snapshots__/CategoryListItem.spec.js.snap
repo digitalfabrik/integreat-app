@@ -23,7 +23,9 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       <CategoryListItemstyles__CategoryThumbnail
         src="https://cms.integreat-ap…03/Beratung-150x150.png"
       />
-      <CategoryListItemstyles__CategoryCaption>
+      <CategoryListItemstyles__CategoryCaption
+        search=""
+      >
         Child
       </CategoryListItemstyles__CategoryCaption>
     </CategoryListItemstyles__StyledLink>
@@ -52,7 +54,9 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       to=""
     >
       <CategoryListItemstyles__CategoryThumbnail />
-      <CategoryListItemstyles__CategoryCaption>
+      <CategoryListItemstyles__CategoryCaption
+        search=""
+      >
         GotNoThumb :O
       </CategoryListItemstyles__CategoryCaption>
     </CategoryListItemstyles__StyledLink>
