@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
+<HeaderNavigationItemstyles__NavigationItem
+  key="Kategorien"
+  selected={true}
+  to="/augsburg/de"
+>
+  Kategorien
+</HeaderNavigationItemstyles__NavigationItem>
+`;
+
+exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
+<HeaderNavigationItemstyles__NavigationItem
+  data-tip="random tooltip"
+  key="Kategorien"
+>
+  Kategorien
+</HeaderNavigationItemstyles__NavigationItem>
+`;
