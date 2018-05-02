@@ -1,59 +1,68 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
 import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import EventModel from '../../endpoint/models/EventModel'
+import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
+
+import type { Location } from 'redux-first-router/dist/flow-types'
+import type { I18nTranslate, State } from '../../../flowTypes'
+import getLanguageChangePath from '../../app/getLanguageChangePath'
+import { translate } from 'react-i18next'
+
+type Props = {
+  languages: Array<LanguageModel>,
+  location: Location,
+  categories: CategoriesMapModel,
+  events: Array<EventModel>,
+  isHeaderActionItem: boolean,
+  t: I18nTranslate
+}
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-export class LanguageSelector extends React.Component {
-  static propTypes = {
-    closeDropDownCallback: PropTypes.func,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    language: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    languageChangeUrls: PropTypes.object.isRequired,
-    verticalLayout: PropTypes.bool
-  }
-
-  /**
-   * Maps the given languageCode to a path to link to, which is either the languageChangeUrl from the store or,
-   * if this is not given, the root categories page in the language
-   * @param languageCode The languageCode
-   * @return {string} The path
-   */
-  getPathForLanguage (languageCode) {
-    return this.props.languageChangeUrls[languageCode] || `/${this.props.location}/${languageCode}`
-  }
-
-  getSelectorItemModels () {
-    return this.props.languages.map(language =>
-      new SelectorItemModel({code: language.code, name: language.name, path: this.getPathForLanguage(language.code)})
-    )
+export class LanguageSelector extends React.Component<Props> {
+  getSelectorItemModels (): Array<SelectorItemModel> {
+    const {categories, events, location, languages} = this.props
+    return languages && languages
+      .map(language =>
+        new SelectorItemModel({
+          code: language.code,
+          name: language.name,
+          href: getLanguageChangePath({categories, events, location, languageCode: language.code})
+        })
+      )
   }
 
   render () {
-    return (
-      <Selector verticalLayout={this.props.verticalLayout}
-                items={this.getSelectorItemModels()}
-                activeItemCode={this.props.language}
-                closeDropDownCallback={this.props.closeDropDownCallback} />
-    )
+    const {location, isHeaderActionItem, t} = this.props
+    const selectorItems = this.getSelectorItemModels()
+    const activeItemCode = location.payload.language
+
+    if (isHeaderActionItem) {
+      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
+    } else {
+      return selectorItems && <Selector verticalLayout
+                                        items={selectorItems}
+                                        activeItemCode={activeItemCode}
+                                        inactiveItemTooltip={t('noTranslation')} />
+    }
   }
 }
 
-const mapStateToProps = state => ({
-  language: state.router.params.language,
-  location: state.router.params.location,
-  languageChangeUrls: state.languageChangeUrls
+const mapStateToProps = (state: State) => ({
+  location: state.location,
+  languages: state.languages.data,
+  categories: state.categories.data,
+  events: state.events.data
 })
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('languages', null, null)
+  translate('layout')
 )(LanguageSelector)

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs should render and match snapshot 1`] = `
+<Breadcrumbsstyles__Wrapper
+  direction="rtl"
+>
+  <Breadcrumbsstyles__OrderedList
+    direction="rtl"
+  >
+    <Breadcrumbsstyles__Breadcrumb
+      key="0"
+    >
+      <a
+        href="link1"
+      >
+        asdf
+      </a>
+    </Breadcrumbsstyles__Breadcrumb>
+    <Breadcrumbsstyles__Breadcrumb
+      key="1"
+    >
+      <a
+        href="link1/test"
+      >
+        test
+      </a>
+    </Breadcrumbsstyles__Breadcrumb>
+  </Breadcrumbsstyles__OrderedList>
+</Breadcrumbsstyles__Wrapper>
+`;

@@ -1,21 +1,22 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
+import type { Moment } from 'moment'
 
-class TimeSpan extends React.Component {
-  static propTypes = {
-    startDate: PropTypes.instanceOf(moment).isRequired,
-    endDate: PropTypes.instanceOf(moment).isRequired,
-    allDay: PropTypes.bool.isRequired,
-    locale: PropTypes.string.isRequired
-  }
+type Props = {
+  startDate: Moment,
+  endDate: Moment,
+  allDay: boolean,
+  locale: string
+}
 
+class TimeSpan extends React.Component<Props> {
   /**
    * Returns a formatted string containing all relevant start and end date and time information
    * @param {String} locale The locale to format the span in
    * @return {String} The formatted span string
    */
-  toTimeSpanString (locale) {
+  toTimeSpanString (locale: string): string {
     const startDate = this.props.startDate
     const endDate = this.props.endDate
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CategoryTile should render a Link if path is not an external url 1`] = `
+exports[`Tile should render a Link if path is not an external url 1`] = `
 <Col
   className="tile"
   md={3}
@@ -8,7 +8,7 @@ exports[`CategoryTile should render a Link if path is not an external url 1`] = 
   xs={6}
 >
   <Connect(Link)
-    href="/augsburg/de/willkommen"
+    to="/augsburg/de/willkommen"
   >
     <React.Fragment>
       <div
@@ -32,7 +32,7 @@ exports[`CategoryTile should render a Link if path is not an external url 1`] = 
 </Col>
 `;
 
-exports[`CategoryTile should render a a-Tag if path is not an external url 1`] = `
+exports[`Tile should render a a-Tag if path is not an external url 1`] = `
 <Col
   className="tile"
   md={3}

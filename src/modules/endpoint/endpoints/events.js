@@ -2,13 +2,24 @@
 
 import moment from 'moment'
 import { apiUrl } from '../constants'
-import EndpointBuilder from '../EndpointBuilder'
 import EventModel from '../models/EventModel'
+import EndpointBuilder from '../EndpointBuilder'
+import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
 
-export default new EndpointBuilder('events')
-  .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
-    `/${state.router.params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`)
-  .withMapper(json => json
+const EVENTS_ENDPOINT_NAME = 'events'
+
+export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: EndpointParams): string => {
+    if (!params.city) {
+      throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'city')
+    }
+    if (!params.language) {
+      throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'language')
+    }
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
+  })
+  .withMapper((json: any): Array<EventModel> => json
     .filter(event => event.status === 'publish')
     .map(event => {
       const allDay = event.event.all_day !== '0'

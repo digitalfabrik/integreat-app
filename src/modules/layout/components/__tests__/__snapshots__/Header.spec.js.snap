@@ -2,7 +2,9 @@
 
 exports[`Header should match snapshot with largeViewport 1`] = `
 <Headroom
+  height={85}
   pinStart={0}
+  positionStickyDisabled={false}
   scrollHeight={85}
 >
   <header
@@ -12,7 +14,11 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       className="logoWide"
     >
       <Connect(Link)
-        href="/"
+        to={
+          Object {
+            "type": "RANDOM_ROUTE",
+          }
+        }
       >
         <img
           src="test-file-stub"
@@ -24,7 +30,11 @@ exports[`Header should match snapshot with largeViewport 1`] = `
     >
       <HeaderNavigationItem
         active={true}
-        href="/nav1"
+        href={
+          Object {
+            "type": "ANOTHER_RANDOM_ROUTE",
+          }
+        }
         selected={true}
         text="text1"
         tooltip="tooltip1"
@@ -35,9 +45,11 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownNode": undefined,
-            "_href": "/action1",
+            "_href": Object {
+              "type": "RANDOM_ROUTE",
+            },
             "_iconSrc": undefined,
+            "_node": undefined,
           },
         ]
       }
@@ -48,7 +60,9 @@ exports[`Header should match snapshot with largeViewport 1`] = `
 
 exports[`Header should match snapshot with smallViewport 1`] = `
 <Headroom
+  height={55}
   pinStart={0}
+  positionStickyDisabled={false}
   scrollHeight={55}
 >
   <header
@@ -58,7 +72,11 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       className="logoWide"
     >
       <Connect(Link)
-        href="/"
+        to={
+          Object {
+            "type": "RANDOM_ROUTE",
+          }
+        }
       >
         <img
           src="test-file-stub"
@@ -70,7 +88,11 @@ exports[`Header should match snapshot with smallViewport 1`] = `
     >
       <HeaderNavigationItem
         active={true}
-        href="/nav1"
+        href={
+          Object {
+            "type": "ANOTHER_RANDOM_ROUTE",
+          }
+        }
         selected={true}
         text="text1"
         tooltip="tooltip1"
@@ -81,9 +103,11 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_dropDownNode": undefined,
-            "_href": "/action1",
+            "_href": Object {
+              "type": "RANDOM_ROUTE",
+            },
             "_iconSrc": undefined,
+            "_node": undefined,
           },
         ]
       }

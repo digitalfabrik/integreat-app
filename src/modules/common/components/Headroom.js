@@ -20,7 +20,11 @@ class Headroom extends React.PureComponent {
     /** Gets rendered with a corresponding stickyTop prop as an ancestor */
     stickyAncestor: PropTypes.node,
     /** Used for rendering stickyTop position of stickyAncestor */
-    height: PropTypes.number
+    height: PropTypes.number,
+    /** Fired, when Headroom changes its state. Passes stickyTop of the ancestor. */
+    onStickyTopChanged: PropTypes.func,
+    /** True, if sticky position should be disabled (e.g. for edge 16 support) */
+    positionStickyDisabled: PropTypes.bool
   }
 
   static defaultProps = {
@@ -107,6 +111,10 @@ class Headroom extends React.PureComponent {
     const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
     const mode = this.determineMode(currentScrollTop, direction)
     const transition = this.shouldTransition(mode, direction)
+    if (this.props.onStickyTopChanged && mode !== this.state.mode) {
+      const {onStickyTopChanged, height, scrollHeight} = this.props
+      onStickyTopChanged(Headroom.calcStickyTop(mode, height, scrollHeight))
+    }
     this.setState({mode, transition})
     this.lastKnownScrollTop = currentScrollTop
   }
@@ -115,16 +123,21 @@ class Headroom extends React.PureComponent {
     window.requestAnimationFrame(this.update)
   }
 
+  static calcStickyTop (mode, height, scrollHeight) {
+    return mode === PINNED ? height : height - scrollHeight
+  }
+
   render () {
-    const {stickyAncestor, children, height, scrollHeight} = this.props
+    const {stickyAncestor, children, height, scrollHeight, positionStickyDisabled} = this.props
     const {mode, transition} = this.state
-    const stickyTop = mode === PINNED ? height : height - scrollHeight
     const transform = mode === UNPINNED ? -scrollHeight : 0
+    const stickyTop = Headroom.calcStickyTop(mode, height, scrollHeight)
     const ownStickyTop = mode === STATIC ? -scrollHeight : 0
     return <React.Fragment>
       <HeaderWrapper translateY={transform}
                      top={ownStickyTop}
                      transition={transition}
+                     positionStickyDisabled={positionStickyDisabled}
                      static={mode === STATIC}>
         {children}
       </HeaderWrapper>

@@ -1,29 +1,37 @@
+// @flow
+
 export default class TileModel {
-  constructor ({id, name, path, thumbnail, isExternalUrl = false}) {
-    this._id = id
-    this._name = name
-    this._path = path
-    this._thumbnail = thumbnail
-    this._isExternalUrl = isExternalUrl
+  _id: string
+  _title: string
+  _path: string
+  _thumbnail: string
+  _isExternalUrl: boolean
+
+  constructor (params: {|id: string, title: string, path: string, thumbnail: string, isExternalUrl: boolean|}) {
+    this._id = params.id
+    this._title = params.title
+    this._path = params.path
+    this._thumbnail = params.thumbnail
+    this._isExternalUrl = params.isExternalUrl
   }
 
-  get id () {
+  get id (): string {
     return this._id
   }
 
-  get thumbnail () {
+  get thumbnail (): string {
     return this._thumbnail
   }
 
-  get name () {
-    return this._name
+  get title (): string {
+    return this._title
   }
 
-  get path () {
+  get path (): string {
     return this._path
   }
 
-  get isExternalUrl () {
+  get isExternalUrl (): boolean {
     return this._isExternalUrl
   }
 }

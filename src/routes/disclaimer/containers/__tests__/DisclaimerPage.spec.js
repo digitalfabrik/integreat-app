@@ -1,122 +1,55 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-
-import createReduxStore from 'modules/app/createReduxStore'
-import createHistory from 'modules/app/createHistory'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
+import { shallow } from 'enzyme'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/app/constants/theme'
+import configureMockStore from 'redux-mock-store'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('DisclaimerPage', () => {
-  const location = 'augsburg'
-
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('ar', 'Arabic')
-  ]
-
   const disclaimer = new DisclaimerModel({
     id: 1689, title: 'Feedback, Kontakt und mögliches Engagement', content: 'this is a test content'
   })
 
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false
+    })
+  ]
+
+  const city = 'augsburg'
+
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <DisclaimerPage languages={languages}
-                      location={location}
-                      disclaimer={disclaimer}
-                      setLanguageChangeUrls={() => {}} />)
+      <DisclaimerPage disclaimer={disclaimer} city={city} cities={cities} t={key => key} />)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should dispatch once on mount', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const disclaimerPage = shallow(
-      <DisclaimerPage languages={languages}
-                      location={location}
-                      disclaimer={disclaimer}
-                      setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    ).instance()
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(disclaimerPage.mapLanguageToUrl, languages)
-  })
-
-  it('should mapLanguageToUrl correctly', () => {
-    const disclaimerPage = shallow(
-      <DisclaimerPage languages={languages}
-                      location={location}
-                      disclaimer={disclaimer}
-                      setLanguageChangeUrls={() => {}} />
-    ).instance()
-    expect(disclaimerPage.mapLanguageToUrl('en')).toBe('/augsburg/en/disclaimer')
-  })
-
   describe('connect', () => {
-    const disclaimerEndpoint = new EndpointBuilder('disclaimer')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(disclaimer)
-      .build()
-
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
-    const store = createReduxStore(createHistory, {
-      router: {params: {location: location}}
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      disclaimer: {data: disclaimer},
+      cities: {data: cities},
+      location: {payload: {city}}
     })
 
     it('should map state and fetched data to props', () => {
-      const disclaimerPage = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
-              <ConnectedDisclaimerPage />
-            </EndpointProvider>
-          </Provider>
-        </ThemeProvider>
-      ).find(DisclaimerPage)
+      const disclaimerPage = shallow(
+        <ConnectedDisclaimerPage store={store} />
+      )
 
       expect(disclaimerPage.props()).toEqual({
-        location: location,
-        setLanguageChangeUrls: expect.any(Function),
         disclaimer: disclaimer,
-        languages: languages
+        city,
+        cities,
+        store: store,
+        storeSubscription: expect.any(Object),
+        dispatch: expect.any(Function)
       })
-    })
-
-    it('should map dispatch to props', () => {
-      const mapLanguageToUrl = language => `/${language}`
-
-      const languageChangeUrls = {
-        en: '/en',
-        ar: '/ar',
-        de: '/de'
-      }
-
-      const disclaimerPage = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <EndpointProvider endpoints={[disclaimerEndpoint, languagesEndpoint]}>
-              <ConnectedDisclaimerPage />
-            </EndpointProvider>
-          </Provider>
-        </ThemeProvider>
-      ).find(DisclaimerPage)
-
-      disclaimerPage.props().setLanguageChangeUrls(mapLanguageToUrl, languages)
-
-      expect(store.getState().languageChangeUrls).toEqual(languageChangeUrls)
     })
   })
 })

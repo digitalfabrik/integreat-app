@@ -6,10 +6,9 @@ import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 
 const category = new CategoryModel({
   id: 3649,
-  url: '/augsburg/de/willkommen',
+  path: '/augsburg/de/willkommen',
   title: 'Willkommen',
   content: 'this is a test content',
-  parentId: 0,
   parentUrl: '/augsburg/de',
   order: 11,
   availableLanguages: {
@@ -19,10 +18,9 @@ const category = new CategoryModel({
 })
 const childCategory = new CategoryModel({
   id: 5234,
-  url: '/augsburg/de/test',
+  path: '/augsburg/de/test',
   title: 'Child',
   content: 'this is a test content',
-  parentId: 0,
   parentUrl: '/augsburg/de',
   order: 11,
   availableLanguages: {
@@ -40,7 +38,7 @@ describe('CategoryListItem', () => {
   })
 
   it('should replace empty thumbnail', () => {
-    const noThumbCategory = {id: 42, url: '', title: 'GotNoThumb :O', parentId: 2}
+    const noThumbCategory = {id: 42, path: '', title: 'GotNoThumb :O'}
     const wrapper = shallow(
       <CategoryListItem category={noThumbCategory} children={[noThumbCategory]} />
     )

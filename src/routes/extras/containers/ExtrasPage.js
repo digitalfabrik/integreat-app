@@ -1,56 +1,47 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
+
+import * as React from 'react'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import setLanguageChangeUrls from 'modules/language/actions/setLanguageChangeUrls'
-
-import SprungbrettPage from './SprungbrettPage'
+import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
-import Failure from '../../../modules/common/components/Failure'
+import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
+import Spinner from 'react-spinkit'
 import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { I18nTranslate, State } from '../../../flowTypes'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
+
+type Props = {
+  city: string,
+  language: string,
+  extraAlias?: string,
+  extras: Array<ExtraModel>,
+  sprungbrettJobs?: Array<SprungbrettJobModel>,
+  t: I18nTranslate,
+  cities: Array<CityModel>
+}
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
  */
-export class ExtrasPage extends React.Component {
-  static propTypes = {
-    location: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    extra: PropTypes.string,
-    extras: PropTypes.arrayOf(PropTypes.instanceOf(ExtraModel)).isRequired,
-    languages: PropTypes.arrayOf(PropTypes.instanceOf(LanguageModel)).isRequired,
-    setLanguageChangeUrls: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+export class ExtrasPage extends React.Component<Props> {
+  getSprungbrettPath (): string {
+    return `/${this.props.city}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
   }
 
-  componentWillMount () {
-    this.props.setLanguageChangeUrls(this.mapLanguageToPath(this.props.extra), this.props.languages)
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (this.props.extra !== nextProps.extra) {
-      this.props.setLanguageChangeUrls(this.mapLanguageToPath(nextProps.extra), this.props.languages)
-    }
-  }
-
-  mapLanguageToPath = extra => language => `/${this.props.location}/${language}/extras${extra ? `/${extra}` : ``}`
-
-  getSprungbrettPath () {
-    return `/${this.props.location}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
-  }
-
-  getTileModels () {
+  getTileModels (): Array<TileModel> {
     return this.props.extras.map(extra => new TileModel({
       id: extra.alias,
-      name: extra.name,
+      title: extra.title,
       // the url stored in the sprungbrett extra is the url of the endpoint
       path: extra.alias === SPRUNGBRETT_EXTRA ? this.getSprungbrettPath() : extra.path,
       thumbnail: extra.thumbnail,
@@ -60,16 +51,26 @@ export class ExtrasPage extends React.Component {
   }
 
   getContent () {
-    const {t} = this.props
-    const sprungbrett = this.props.extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
-    if (this.props.extra === SPRUNGBRETT_EXTRA && sprungbrett) {
-      return <SprungbrettPage title={sprungbrett.name} />
-    } else if (this.props.extra) {
+    const {extraAlias, extras, sprungbrettJobs, city, language, cities, t} = this.props
+    const cityName = CityModel.findCityName(cities, city)
+    if (extraAlias) {
+      const extra = extras.find(_extra => _extra.alias === extraAlias)
+
+      if (extra && extraAlias === SPRUNGBRETT_EXTRA) {
+        return <React.Fragment>
+          <Helmet title={`${extra.title} - ${cityName}`} />
+          {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <LoadingSpinner />}
+        </React.Fragment>
+      } else {
       // we currently only implement the sprungbrett extra, so there is no other valid extra path
-      return <Failure error={'not-found:page.notFound'} />
+        const error = new ContentNotFoundError({type: 'extra', id: extraAlias, city, language})
+        return <FailureSwitcher error={error} />
+      }
     } else {
       return <React.Fragment>
+        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <Caption title={t('extras')} />
         <Tiles tiles={this.getTileModels()} />
       </React.Fragment>
@@ -81,19 +82,16 @@ export class ExtrasPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  location: state.router.params.location,
-  language: state.router.params.language,
-  extra: state.router.params.extra
-})
-
-const mapDispatchToProps = dispatch => ({
-  setLanguageChangeUrls: (mapLanguageToPath, languages) => dispatch(setLanguageChangeUrls(mapLanguageToPath, languages))
+const mapStateToProps = (state: State) => ({
+  city: state.location.payload.city,
+  language: state.location.payload.language,
+  extraAlias: state.location.payload.extraAlias,
+  extras: state.extras.data,
+  sprungbrettJobs: state.sprungbrettJobs.data,
+  cities: state.cities.data
 })
 
 export default compose(
-  translate('extras'),
-  connect(mapStateToProps, mapDispatchToProps),
-  withFetcher('extras'),
-  withFetcher('languages')
+  connect(mapStateToProps),
+  translate('extras')
 )(ExtrasPage)

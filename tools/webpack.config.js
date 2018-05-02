@@ -12,6 +12,7 @@ const useHMR = !!global.HMR // Hot Module Replacement (HMR)
 // Webpack configuration (main.js => www/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
 const config = {
+  mode: isDebug ? 'development' : 'production',
   resolve: {
     modules: [
       path.resolve('./src'),
@@ -167,14 +168,6 @@ const config = {
 
 // Optimize the bundle in release (production) mode
 if (!isDebug) {
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    parallel: true,
-    cache: true,
-    sourceMap: true,
-    compress: {
-      warnings: isVerbose
-    }
-  }))
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
 }
 

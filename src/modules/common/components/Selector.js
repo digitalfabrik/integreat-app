@@ -1,37 +1,50 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import { ActiveElement, Element, Wrapper } from './Selector.styles'
+import { ActiveElement, Wrapper, InactiveElement } from './Selector.styles'
+import ReactTooltip from 'react-tooltip'
+
+type Props = {
+  verticalLayout: boolean,
+  closeDropDownCallback?: () => {},
+  items: Array<SelectorItemModel>,
+  activeItemCode?: string,
+  inactiveItemTooltip: string
+}
 
 /**
  * Displays a Selector showing different items
  */
-class Selector extends React.Component {
-  static propTypes = {
-    verticalLayout: PropTypes.bool,
-    closeDropDownCallback: PropTypes.func,
-    items: PropTypes.arrayOf(PropTypes.instanceOf(SelectorItemModel)).isRequired,
-    /** The code of the item which is currently active **/
-    activeItemCode: PropTypes.string.isRequired
+class Selector extends React.Component<Props> {
+  componentDidMount () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
+  componentDidUpdate () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
   }
 
   getItems () {
-    return this.props.items.map(item => {
-      if (item.code === this.props.activeItemCode) {
+    const {items, activeItemCode, closeDropDownCallback, inactiveItemTooltip} = this.props
+    return items.map(item => {
+      if (item.href) {
         return (
           <ActiveElement key={item.code}
-                         onClick={this.props.closeDropDownCallback}>
+                         onClick={closeDropDownCallback}
+                         to={item.href}
+                         selected={item.code === activeItemCode}>
             {item.name}
           </ActiveElement>
         )
       } else {
         return (
-          <Element key={item.code}
-                   onClick={this.props.closeDropDownCallback}
-                   href={item.path}>
+          <InactiveElement data-tip={inactiveItemTooltip} key={item.code}>
             {item.name}
-          </Element>
+          </InactiveElement>
         )
       }
     })
