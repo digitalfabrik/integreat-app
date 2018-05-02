@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Endpoint should throw if needed state params are undefined 1`] = `"Some necessary params in the state were undefined: https://weird-endpoint/a/undefined/api.json"`;
-
-exports[`Endpoint should throw if needed state params are undefined 2`] = `"Some necessary params in the state were undefined: https://weird-endpoint/a/undefined/api.json"`;

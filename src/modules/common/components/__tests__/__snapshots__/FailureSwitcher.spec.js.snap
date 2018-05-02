@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FailureSwitcher render component not found failure should render a category not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="not-found.category"
+  goToAction={
+    Object {
+      "payload": Object {
+        "categoryPath": undefined,
+        "city": "augsburg",
+        "language": "de",
+      },
+      "type": "CATEGORIES",
+    }
+  }
+  goToMessage="goTo.categories"
+/>
+`;
+
+exports[`FailureSwitcher render component not found failure should render a event not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="not-found.event"
+  goToAction={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "eventId": undefined,
+        "language": "de",
+      },
+      "type": "EVENTS",
+    }
+  }
+  goToMessage="goTo.events"
+/>
+`;
+
+exports[`FailureSwitcher render component not found failure should render a extra not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="not-found.extra"
+  goTo={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "extraAlias": undefined,
+        "language": "de",
+      },
+      "type": "EXTRAS",
+    }
+  }
+  goToMessage="goTo.extras"
+/>
+`;
+
+exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageNotFoundError 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      not-found.pageTitle
+    </title>
+  </HelmetWrapper>
+  <Connect(Translate(LanguageFailure))
+    city="augsburg"
+  />
+</React.Fragment>
+`;
+
+exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      not-found.pageTitle
+    </title>
+  </HelmetWrapper>
+  <Translate(Failure)
+    errorMessage="not-found.extra"
+    goTo={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "extraAlias": undefined,
+          "language": "de",
+        },
+        "type": "EXTRAS",
+      }
+    }
+    goToMessage="goTo.extras"
+  />
+</React.Fragment>
+`;
+
+exports[`FailureSwitcher should render a failure as default 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      pageTitle
+    </title>
+  </HelmetWrapper>
+  <Translate(Failure)
+    errorMessage="error message"
+  />
+</React.Fragment>
+`;

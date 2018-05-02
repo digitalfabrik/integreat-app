@@ -1,86 +1,109 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
+import { shallow } from 'enzyme'
 
 import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector'
-import createReduxStore from '../../../app/createReduxStore'
-import createHistory from '../../../app/createHistory'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
-import EndpointBuilder from '../../../endpoint/EndpointBuilder'
-import EndpointProvider from '../../../endpoint/EndpointProvider'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../app/constants/theme'
+import EventModel from '../../../endpoint/models/EventModel'
+import { DISCLAIMER_ROUTE } from '../../../app/routes/disclaimer'
+import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
+import CategoryModel from '../../../endpoint/models/CategoryModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('LanguageSelector', () => {
-  const location = 'augsburg'
-  const language = 'de'
+  const city = 'augsburg'
+  const language = 'en'
   const languages = [
     new LanguageModel('de', 'Deutsch'),
     new LanguageModel('en', 'English'),
     new LanguageModel('ar', 'Arabic')
   ]
 
-  const languageChangeUrls = {
-    en: 'test/url/en',
-    de: 'test/url/de',
-    ar: 'test/url/ar'
-  }
+  const events = [
+    new EventModel({
+      id: '1234',
+      title: 'nulltes Event',
+      availableLanguages: {
+        de: '1',
+        en: '2'
+      }
+    })]
 
-  it('should match snapshot', () => {
-    const wrapper = shallow(
-      <LanguageSelector location={location}
-                        languageChangeUrls={languageChangeUrls}
-                        closeDropDownCallback={() => {}}
-                        language={language}
-                        languages={languages} />
+  const categoryModels = [
+    new CategoryModel({
+      id: 3650,
+      path: '/augsburg/en/welcome',
+      title: 'Welcome',
+      content: '',
+      parentPath: '/augsburg/en',
+      order: 75,
+      availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    })]
+
+  const categories = new CategoriesMapModel(categoryModels)
+
+  it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
+    const location = {
+      pathname: '/augsburg/en/disclaimer',
+      type: DISCLAIMER_ROUTE,
+      payload: {city, language}
+    }
+
+    const languageSelector = shallow(
+      <LanguageSelector categories={categories}
+                        events={events}
+                        languages={languages}
+                        location={location}
+                        isHeaderActionItem
+                        t={key => key} />
     )
 
-    expect(wrapper).toMatchSnapshot()
+    expect(languageSelector).toMatchSnapshot()
   })
 
-  it('should add vertical class name if verticalLayout is true', () => {
-    const wrapper = shallow(<LanguageSelector location={location} languageChangeUrls={languageChangeUrls}
-                                              closeDropDownCallback={() => {}} language={language}
-                                              languages={languages}
-                                              verticalLayout />)
-    expect(wrapper).toMatchSnapshot()
+  it('should render a normal Selector if it is not a header action item', () => {
+    const location = {
+      pathname: '/augsburg/en/disclaimer',
+      type: DISCLAIMER_ROUTE,
+      payload: {city, language}
+    }
+
+    const languageSelector = shallow(
+      <LanguageSelector categories={categories}
+                        events={events}
+                        languages={languages}
+                        location={location}
+                        isHeaderActionItem={false}
+                        t={key => key} />
+    )
+
+    expect(languageSelector).toMatchSnapshot()
   })
 
-  describe('connect', () => {
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
+  it('should map state to props', () => {
+    const location = {type: 'DISCLAIMER', payload: {city, language}, pathname: '/augsburg/de/disclaimer'}
 
-    it('should have correct props', () => {
-      const mockCloseDropDownCallback = jest.fn()
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location: location,
+      languages: {data: languages},
+      categories: {data: categories},
+      events: {data: events}
+    })
 
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: 'augsburg', language: 'de'}},
-        languageChangeUrls: languageChangeUrls
-      })
+    const languageSelector = shallow(
+      <ConnectedLanguageSelector isHeaderActionItem store={store} />
+    )
 
-      const tree = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <EndpointProvider endpoints={[languagesEndpoint]}>
-              <ConnectedLanguageSelector closeDropDownCallback={mockCloseDropDownCallback} />
-            </EndpointProvider>
-          </Provider>
-        </ThemeProvider>
-      )
-
-      const languageSelector = tree.find(LanguageSelector)
-
-      expect(languageSelector.props()).toEqual({
-        closeDropDownCallback: mockCloseDropDownCallback,
-        languages: languages,
-        language: language,
-        location: location,
-        languageChangeUrls: languageChangeUrls,
-        dispatch: expect.any(Function)
-      })
+    expect(languageSelector.props()).toEqual({
+      languages,
+      location,
+      events,
+      categories,
+      isHeaderActionItem: true,
+      dispatch: expect.any(Function),
+      store,
+      storeSubscription: expect.any(Object)
     })
   })
 })

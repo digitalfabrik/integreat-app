@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Highlighter from 'react-highlighter'
-import { Link } from 'redux-little-router'
+import Link from 'redux-first-router-link'
 
 export const Row = styled.div`
   margin: 20px 0;
@@ -39,7 +39,6 @@ export const SubCategoryCaption = CategoryCaption.extend`
 export const StyledLink = styled(Link)`
   display: flex;
   width: 100%;
-  max-width: 700px;
   align-items: center;
   margin: 0 auto;
 `

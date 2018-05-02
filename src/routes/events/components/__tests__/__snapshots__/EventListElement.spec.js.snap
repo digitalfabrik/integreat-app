@@ -3,7 +3,16 @@
 exports[`EventListElement should render 1`] = `
 <Connect(Link)
   className="event"
-  href="/augsburg/en/events/1234"
+  to={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "eventId": 1234,
+        "language": "en",
+      },
+      "type": "EVENTS",
+    }
+  }
 >
   <img
     className="eventThumbnail"

@@ -1,52 +1,64 @@
 // @flow
 
-import EndpointBuilder from '../EndpointBuilder'
-
-import CategoriesMapModel from '../models/CategoriesMapModel'
-import {apiUrl} from '../constants'
 import CategoryModel from '../models/CategoryModel'
+import CategoriesMapModel from '../models/CategoriesMapModel'
+import { apiUrl } from '../constants'
+import normalizeUrl from 'normalize-url'
+import { toPairs } from 'lodash/object'
 
-export default new EndpointBuilder('categories')
-  .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
-  `/${state.router.params.language}/wp-json/extensions/v0/modified_content/pages?since=1970-01-01T00:00:00Z`)
-  .withMapper((json, state) => {
-    const baseUrl = `/${state.router.params.location}/${state.router.params.language}`
-    const categories: Array<CategoryModel> = json
-      .filter(category => category.status === 'publish')
-      .map(category => (new CategoryModel({
-        id: category.id,
-        url: `${baseUrl}/${decodeURI(category.permalink.url_page)}`,
-        title: category.title,
-        parentId: category.parent,
-        content: category.content,
-        thumbnail: category.thumbnail,
-        order: category.order,
-        availableLanguages: category.available_languages,
-        parentUrl: ''
-      })))
+import EndpointBuilder from '../EndpointBuilder'
+import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
+import moment from 'moment'
 
-    // the root category representing the location
+const CATEGORIES_ENDPOINT_NAME = 'categories'
+
+export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: EndpointParams): string => {
+    if (!params.city) {
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
+    }
+    if (!params.language) {
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'language')
+    }
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
+  })
+  .withMapper((json: any, params: EndpointParams): CategoriesMapModel => {
+    if (!params.city) {
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
+    }
+    if (!params.language) {
+      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'language')
+    }
+    const city = params.city
+    const basePath = `/${city}/${params.language}`
+    const categories = json
+      .map(category => {
+        return new CategoryModel({
+          id: category.id,
+          path: normalizeUrl(category.path),
+          title: category.title,
+          content: category.content,
+          thumbnail: category.thumbnail,
+          order: category.order,
+          availableLanguages: new Map(
+            toPairs(category.available_languages).map(([key, value]) => [key, normalizeUrl(value.path)])),
+          parentPath: normalizeUrl(category.parent.path || basePath),
+          lastUpdate: moment(category.modified_gmt)
+        })
+      })
+
     categories.push(new CategoryModel({
       id: 0,
-      url: baseUrl,
-      title: state.router.params.location,
-      parentId: -1,
+      path: basePath,
+      title: city,
+      parentPath: '',
       content: '',
-      order: -1,
       thumbnail: '',
-      availableLanguages: {},
-      parentUrl: ''
+      order: -1,
+      availableLanguages: new Map(),
+      lastUpdate: ''
     }))
-
-    categories.forEach(category => {
-      if (category.id !== 0) {
-        const parent = categories.find(_category => _category.id === category.parentId)
-        if (!parent) {
-          throw new Error(`Invalid data from categories endpoint: Page with id ${category.id} has no parent.`)
-        }
-        category.setParentUrl(parent.url)
-      }
-    })
 
     return new CategoriesMapModel(categories)
   })

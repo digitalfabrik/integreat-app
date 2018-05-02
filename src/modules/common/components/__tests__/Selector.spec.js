@@ -6,13 +6,17 @@ import SelectorItemModel from '../../models/SelectorItemModel'
 const selectorItems = [
   new SelectorItemModel({
     code: 'en',
-    path: '/augsburg/en/',
+    href: '/augsburg/en/',
     name: 'English'
   }),
   new SelectorItemModel({
     code: 'de',
-    path: '/augsburg/de/',
+    href: '/augsburg/de/',
     name: 'Deutsch'
+  }),
+  new SelectorItemModel({
+    code: 'fr',
+    name: 'Französisch'
   })
 ]
 
@@ -22,7 +26,8 @@ describe('Selector', () => {
       <Selector verticalLayout={false}
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
-                activeItemCode={'de'} />
+                activeItemCode={'de'}
+                inactiveItemTooltip={'random tooltip'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -32,7 +37,8 @@ describe('Selector', () => {
       <Selector verticalLayout
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
-                activeItemCode={'de'} />
+                activeItemCode={'de'}
+                inactiveItemTooltip={'random tooltip'} />
     )
     expect(wrapper).toMatchSnapshot()
   })

@@ -1,8 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisclaimerPage should match snapshot 1`] = `
-<Page
-  content="this is a test content"
-  title="Feedback, Kontakt und mögliches Engagement"
-/>
+<React.Fragment>
+  <Connect(Helmet)
+    title="pageTitle - Augsburg"
+  />
+  <Page
+    content="this is a test content"
+    title="Feedback, Kontakt und mögliches Engagement"
+  />
+</React.Fragment>
 `;

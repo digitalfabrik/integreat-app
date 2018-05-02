@@ -1,29 +1,33 @@
+// @flow
+
 import Endpoint from './Endpoint'
+import type { MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
 
 /**
  * Helper class to build a {@link Endpoint}
  */
 class EndpointBuilder {
-  _name
-  _stateToUrlMapper
-  _mapper
-  _responseOverride
+  _name: string
+  _paramsToUrlMapper: MapParamsToUrl
+  _mapper: MapResponse
+  _responseOverride: ?PayloadData
+  _errorOverride: ?Error
 
   /**
    * Creates a new endpoint builder
    * @param {string} name The name of the endpoint to build
    */
-  constructor (name) {
+  constructor (name: string) {
     this._name = name
   }
 
   /**
    * Adds a state to url mapper to the builder
-   * @param stateToUrlMapper The stateToUrlMapper which is mapping the state to a url
+   * @param paramsToUrlMapper The paramsToUrlMapper which is mapping the params to a url
    * @return {EndpointBuilder} The builder itself
    */
-  withStateToUrlMapper (stateToUrlMapper) {
-    this._stateToUrlMapper = stateToUrlMapper
+  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrl): EndpointBuilder {
+    this._paramsToUrlMapper = paramsToUrlMapper
     return this
   }
 
@@ -32,7 +36,7 @@ class EndpointBuilder {
    * @param mapper The mapper which maps json from our cms to models
    * @return {EndpointBuilder} The builder itself
    */
-  withMapper (mapper) {
+  withMapper (mapper: MapResponse): EndpointBuilder {
     this._mapper = mapper
     return this
   }
@@ -42,7 +46,7 @@ class EndpointBuilder {
    * @param responseOverride {*} The response
    * @return {EndpointBuilder} The builder itself
    */
-  withResponseOverride (responseOverride) {
+  withResponseOverride (responseOverride: any): EndpointBuilder {
     this._responseOverride = responseOverride
     return this
   }
@@ -52,7 +56,7 @@ class EndpointBuilder {
    * @param errorOverride {*} The error
    * @return {EndpointBuilder} The builder itself
    */
-  withErrorOverride (errorOverride) {
+  withErrorOverride (errorOverride: Error): EndpointBuilder {
     this._errorOverride = errorOverride
     return this
   }
@@ -61,12 +65,12 @@ class EndpointBuilder {
    * Checks the data and builds the endpoint
    * @return {Endpoint} The final endpoint
    */
-  build () {
+  build (): Endpoint {
     if (!this._name) {
       throw Error('You have to set a name to build an endpoint!')
     }
 
-    if (!this._stateToUrlMapper) {
+    if (!this._paramsToUrlMapper) {
       throw Error('You have to set a url mapper to build an endpoint!')
     }
 
@@ -74,7 +78,7 @@ class EndpointBuilder {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._stateToUrlMapper, this._mapper, this._responseOverride, this._errorOverride)
+    return new Endpoint(this._name, this._paramsToUrlMapper, this._mapper, this._responseOverride, this._errorOverride)
   }
 }
 

@@ -2,36 +2,30 @@ import CategoriesMapModel from '../CategoriesMapModel'
 
 describe('CategoriesMapModel', () => {
   const categories = [
-    {id: 0, url: '/augsburg/de', title: 'augsburg', parentUrl: ''},
-    {id: 20, url: '/augsburg/de/willkommen', parentId: 0, parentUrl: '/augsburg/de', title: 'willkommen', order: 1},
-    {id: 21, url: '/augsburg/de/erste-schritte', parentId: 0, parentUrl: '/augsburg/de', title: 'erste-schritte', order: 2},
-    {id: 22, url: '/augsburg/de/erste-schritte/asylantrag', parentId: 21, parentUrl: '/augsburg/de/erste-schritte', title: 'asylantrag'}
+    {id: 0, path: '/augsburg/de', title: 'augsburg', parentPath: ''},
+    {id: 20, path: '/augsburg/de/willkommen', parentPath: '/augsburg/de', title: 'willkommen', order: 1},
+    {id: 21, path: '/augsburg/de/erste-schritte', parentPath: '/augsburg/de', title: 'erste-schritte', order: 2},
+    {id: 22, path: '/augsburg/de/erste-schritte/asylantrag', parentPath: '/augsburg/de/erste-schritte', title: 'asylantrag'}
   ]
 
   const categoriesMapModel = new CategoriesMapModel(categories)
 
-  const category1 = categoriesMapModel.getCategoryByUrl('/augsburg/de/')
-  const category2 = categoriesMapModel.getCategoryByUrl('/augsburg/de/willkommen')
-  const category3 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte')
-  const category4 = categoriesMapModel.getCategoryByUrl('/augsburg/de/erste-schritte/asylantrag')
+  const category1 = categoriesMapModel.findCategoryByPath('/augsburg/de/')
+  const category2 = categoriesMapModel.findCategoryByPath('/augsburg/de/willkommen')
+  const category3 = categoriesMapModel.findCategoryByPath('/augsburg/de/erste-schritte')
+  const category4 = categoriesMapModel.findCategoryByPath('/augsburg/de/erste-schritte/asylantrag')
 
-  it('should get the right categories and normalize urls', () => {
+  it('should get the right categories and normalize paths', () => {
     expect(category1).toEqual(categories[0])
     expect(category2).toEqual(categories[1])
     expect(category3).toEqual(categories[2])
     expect(category4).toEqual(categories[3])
-    expect(() => categoriesMapModel.getCategoryByUrl('/test/url')).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should find category by id', () => {
-    expect(categoriesMapModel.getCategoryById(category1.id)).toBe(category1)
-    expect(() => categoriesMapModel.getCategoryById(1234567)).toThrowErrorMatchingSnapshot()
   })
 
   it('should have the right parent attributes', () => {
-    expect(category2.parentUrl).toBe(category1.url)
-    expect(category3.parentUrl).toBe(category1.url)
-    expect(category4.parentUrl).toBe(category3.url)
+    expect(category2.parentPath).toBe(category1.path)
+    expect(category3.parentPath).toBe(category1.path)
+    expect(category4.parentPath).toBe(category3.path)
   })
 
   it('should return all (mediate) parents in right order', () => {

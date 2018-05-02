@@ -1,21 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Layout should match snapshot 1`] = `
-<div
-  className="richLayout"
->
+exports[`Layout should render all components 1`] = `
+<Layoutstyles__RichLayout>
   <div>
     <header />
-    <main
-      className="layout"
-    >
-      <div
-        className="content"
+    <Layoutstyles__Body>
+      <withPlatform(Layoutstyles__Aside)
+        style={
+          Object {
+            "top": "40px",
+          }
+        }
       >
-        Here comes the main content.
-      </div>
-    </main>
+        <div>
+          toolybar
+        </div>
+      </withPlatform(Layoutstyles__Aside)>
+      <Layoutstyles__Main>
+        <p>
+           
+          content right here
+        </p>
+      </Layoutstyles__Main>
+    </Layoutstyles__Body>
   </div>
   <footer />
-</div>
+  <ReactTooltip
+    delayShow={0}
+    effect="solid"
+    insecure={true}
+    resizeHide={true}
+    wrapper="div"
+  />
+</Layoutstyles__RichLayout>
 `;

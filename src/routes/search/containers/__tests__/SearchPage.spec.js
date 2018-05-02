@@ -1,43 +1,31 @@
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
-import EndpointBuilder from 'modules/endpoint/EndpointBuilder'
-import EndpointProvider from 'modules/endpoint/EndpointProvider'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
+import configureMockStore from 'redux-mock-store'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('SearchPage', () => {
-  const location = 'augsburg'
-
-  const languages = [
-    new LanguageModel('en', 'English'),
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('ar', 'Arabic')
-  ]
-
   const categoryModels = [
     new CategoryModel({
       id: 0,
-      url: '/augsburg/de',
+      path: '/augsburg/de',
       title: 'augsburg',
       content: '',
-      parentId: -1,
       order: -1,
       availableLanguages: {},
       thumbnail: 'no_thumbnail'
     }), new CategoryModel({
       id: 3650,
-      url: '/augsburg/de/anlaufstellen',
+      path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
-      parentId: 0,
       parentUrl: '/augsburg/de',
       order: 75,
       availableLanguages: {
@@ -47,10 +35,9 @@ describe('SearchPage', () => {
     }),
     new CategoryModel({
       id: 3649,
-      url: '/augsburg/de/willkommen',
+      path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
-      parentId: 0,
       parentUrl: '/augsburg/de',
       order: 11,
       availableLanguages: {
@@ -60,10 +47,9 @@ describe('SearchPage', () => {
     }),
     new CategoryModel({
       id: 35,
-      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
       content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
-      parentId: 3649,
       parentUrl: '/augsburg/de/willkommen',
       order: 1,
       availableLanguages: {
@@ -75,52 +61,39 @@ describe('SearchPage', () => {
     })
   ]
 
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false
+    })
+  ]
+
+  const city = 'augsburg'
+
   const categories = new CategoriesMapModel(categoryModels)
+  const t = key => key
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage location={location}
-                                        languages={languages}
-                                        categories={categories}
-                                        setLanguageChangeUrls={() => {}} />)
+    const wrapper = shallow(<SearchPage categories={categories} city={city} cities={cities} t={t} />)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should dispatch once in componentDidMount', () => {
-    const mockSetLanguageChangeUrls = jest.fn()
-
-    const searchPage = shallow(<SearchPage location={location}
-                                           languages={languages}
-                                           categories={categories}
-                                           setLanguageChangeUrls={mockSetLanguageChangeUrls} />
-    ).instance()
-
-    expect(mockSetLanguageChangeUrls.mock.calls).toHaveLength(1)
-    expect(mockSetLanguageChangeUrls).toBeCalledWith(searchPage.mapLanguageToPath, languages)
-  })
-
-  it('should mapLanguageToPath correctly', () => {
-    const searchPage = shallow(
-      <SearchPage location={location}
-                  languages={languages}
-                  categories={categories}
-                  setLanguageChangeUrls={() => {}} />
-    ).instance()
-    expect(searchPage.mapLanguageToPath('en')).toBe('/augsburg/en/search')
-  })
-
   it('should filter correctly', () => {
-    const mockStore = configureMockStore()
-    const store = mockStore({router: {}})
+    const store = createReduxStore(createHistory, {
+      categories: {data: categories}
+    })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <SearchPage location={location}
-                      languages={languages}
-                      categories={categories}
-                      setLanguageChangeUrls={() => {}} />
-        </Provider>
-      </ThemeProvider>
+        <SearchPage cities={cities}
+                    categories={categories}
+                    city={city}
+                    t={t} />
+      </Provider></ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -140,28 +113,28 @@ describe('SearchPage', () => {
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
       new CategoryModel({
         id: 1,
-        url: '/abc',
+        path: '/abc',
         title: 'abc',
         content: ''
       }),
       // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
       new CategoryModel({
         id: 2,
-        url: '/defabc',
+        path: '/defabc',
         title: 'defabc',
         content: ''
       }),
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       new CategoryModel({
         id: 3,
-        url: '/def',
+        path: '/def',
         title: 'def',
         content: 'abc'
       }),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
       new CategoryModel({
         id: 4,
-        url: '/ghi',
+        path: '/ghi',
         title: 'ghi',
         content: 'abc'
       })
@@ -169,23 +142,11 @@ describe('SearchPage', () => {
 
     const categories = new CategoriesMapModel(categoryModels)
 
-    const mockStore = configureMockStore()
-    const store = mockStore({router: {}})
+    const searchPage = shallow(
+      <SearchPage cities={cities} city={city} categories={categories} t={t} />
+    ).instance()
 
-    const tree = mount(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <SearchPage location={location}
-                      languages={languages}
-                      categories={categories}
-                      setLanguageChangeUrls={() => {}} />
-        </Provider>
-      </ThemeProvider>
-    )
-    const searchPage = tree.find(SearchPage).instance()
-    const searchInputProps = tree.find('SearchInput').props()
-
-    searchInputProps.onFilterTextChange('abc')
+    searchPage.onFilterTextChange('abc')
 
     expect(searchPage.findCategories()[0].model).toBe(categoryModels[0])
     expect(searchPage.findCategories()[1].model).toBe(categoryModels[1])
@@ -193,66 +154,25 @@ describe('SearchPage', () => {
     expect(searchPage.findCategories()[3].model).toBe(categoryModels[3])
   })
 
-  describe('connect()', () => {
-    const categoriesEndpoint = new EndpointBuilder('categories')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(categories)
-      .build()
-
-    const languagesEndpoint = new EndpointBuilder('languages')
-      .withStateToUrlMapper(() => 'https://weird-endpoint/api.json')
-      .withMapper(json => json)
-      .withResponseOverride(languages)
-      .build()
-
-    it('should map state to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location}}
-      })
-
-      const tree = mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
-              <ConnectedSearchPage />
-            </EndpointProvider>
-          </Provider>
-        </ThemeProvider>
-      )
-
-      const categoriesPageProps = tree.find(SearchPage).props()
-
-      expect(categoriesPageProps).toEqual({
-        location,
-        categories,
-        languages,
-        setLanguageChangeUrls: expect.any(Function)
-      })
+  it('should map state to props', () => {
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      categories: {data: categories},
+      cities: {data: cities},
+      location: {payload: {city}}
     })
 
-    it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        router: {params: {location: location}}
-      })
+    const searchPage = shallow(
+      <ConnectedSearchPage store={store} />
+    )
 
-      expect(store.getState().languageChangeUrls).toEqual({})
-
-      mount(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <EndpointProvider endpoints={[categoriesEndpoint, languagesEndpoint]}>
-              <ConnectedSearchPage />
-            </EndpointProvider>
-          </Provider>
-        </ThemeProvider>
-      )
-
-      expect(store.getState().languageChangeUrls).toEqual({
-        en: '/augsburg/en/search',
-        de: '/augsburg/de/search',
-        ar: '/augsburg/ar/search'
-      })
+    expect(searchPage.props()).toEqual({
+      categories,
+      cities,
+      city,
+      dispatch: expect.any(Function),
+      store,
+      storeSubscription: expect.any(Object)
     })
   })
 })

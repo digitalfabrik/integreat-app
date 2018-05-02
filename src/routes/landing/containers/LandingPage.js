@@ -1,30 +1,39 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
+
+import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import FilterableLocationSelector from 'routes/landing/components/FilterableLocationSelector'
-import withFetcher from 'modules/endpoint/hocs/withFetcher'
-import LocationModel from 'modules/endpoint/models/LocationModel'
+import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
+import CityModel from 'modules/endpoint/models/CityModel'
+import { translate } from 'react-i18next'
+import Helmet from 'react-helmet'
+import type { I18nTranslate, State } from '../../../flowTypes'
 
-export class LandingPage extends React.Component {
-  static propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.instanceOf(LocationModel)).isRequired,
-    language: PropTypes.string.isRequired
-  }
+type Props = {
+  cities: Array<CityModel>,
+  language: string,
+  t: I18nTranslate
+}
 
+export class LandingPage extends React.Component<Props> {
   render () {
-    return <FilterableLocationSelector
-          language={this.props.language}
-          locations={this.props.locations} />
+    const {t, language, cities} = this.props
+    return <React.Fragment>
+      <Helmet>
+        <title>{t('pageTitle')}</title>
+      </Helmet>
+      <FilterableCitySelector language={language} cities={cities} />
+    </React.Fragment>
   }
 }
 
-const mapStateToProps = state => ({
-  language: state.router.params && state.router.params.language ? state.router.params.language : 'de'
+const mapStateToProps = (state: State) => ({
+  language: state.location.payload.language,
+  cities: state.cities.data
 })
 
 export default compose(
   connect(mapStateToProps),
-  withFetcher('locations')
+  translate('landing')
 )(LandingPage)

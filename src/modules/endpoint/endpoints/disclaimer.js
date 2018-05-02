@@ -1,14 +1,25 @@
-import { isEmpty } from 'lodash/lang'
+// @flow
 
-import EndpointBuilder from '../EndpointBuilder'
-
-import DisclaimerModel from '../models/DisclaimerModel'
 import { apiUrl } from '../constants'
+import DisclaimerModel from '../models/DisclaimerModel'
+import { isEmpty } from 'lodash/lang'
+import EndpointBuilder from '../EndpointBuilder'
+import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
 
-export default new EndpointBuilder('disclaimer')
-  .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
-    `/${state.router.params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`)
-  .withMapper(json => {
+const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
+
+export default new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: EndpointParams): string => {
+    if (!params.city) {
+      throw new ParamMissingError(DISCLAIMER_ENDPOINT_NAME, 'city')
+    }
+    if (!params.language) {
+      throw new ParamMissingError(DISCLAIMER_ENDPOINT_NAME, 'language')
+    }
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/disclaimer?since=1970-01-01T00:00:00Z`
+  })
+  .withMapper((json: any): DisclaimerModel => {
     if (isEmpty(json)) {
       throw new Error('disclaimer:notAvailable')
     }
@@ -26,7 +37,6 @@ export default new EndpointBuilder('disclaimer')
     if (disclaimers.length !== 1) {
       throw new Error('There must be exactly one disclaimer!')
     }
-
     return disclaimers[0]
   })
   .build()

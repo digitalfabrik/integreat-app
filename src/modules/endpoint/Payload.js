@@ -1,20 +1,20 @@
+// @flow
+
 import isUrl from 'is-url'
+import type { PayloadData } from '../../flowTypes'
 
 /**
- * The payload gets stored in the redux store and holds the information about a etch
+ * The payload gets stored in the redux store and holds the information about a fetch
  */
 class Payload {
-  /**
-   * Creates a new Payload. You can only supply either data or error. The url has to be valid.
-   *
-   * @param isFetching {boolean} Whether we're currently fetching from requestUrl
-   * @param data {object|null} The data which has been fetched or null
-   * @param error {string|null} The error message which has occurred or null
-   * @param requestUrl {string|null} The url from which to fetch or null if we're not sure yet
-   * @param fetchDate {number|null} The date when the last fetch has been started
-   * @throws {Error} If you supply data and error or the url is invalid.
-   */
-  constructor (isFetching, data = null, error = null, requestUrl = null, fetchDate = null) {
+  _isFetching: boolean
+  _data: ?PayloadData
+  _error: ?Error
+  _requestUrl: ?string
+  _fetchDate: number
+
+  constructor (isFetching: boolean, requestUrl: ?string = null, data: ?PayloadData = null, error: ?Error = null,
+    fetchDate: number = new Date().getTime()) {
     this._isFetching = isFetching
     this._fetchDate = fetchDate
     this._error = error
@@ -30,45 +30,23 @@ class Payload {
     }
   }
 
-  /**
-   * @return {number} The date the fetch was initiated as serializable number
-   */
-  get fetchDate () {
+  get fetchDate (): number {
     return this._fetchDate
   }
 
-  /**
-   * @return {boolean} If a fetch is going on
-   */
-  get isFetching () {
+  get isFetching (): boolean {
     return this._isFetching
   }
 
-  /**
-   * @return {*} The data which has been fetched or null
-   */
-  get data () {
+  get data (): ?PayloadData {
     return this._data
   }
 
-  /**
-   * @return {boolean} If the {@link data} is ready to be used
-   */
-  ready () {
-    return !!this._data
-  }
-
-  /**
-   * @return {string} The error message if the fetch failed or null
-   */
-  get error () {
+  get error (): ?Error {
     return this._error
   }
 
-  /**
-   * @return {string} The url which was used to initiate the fetch
-   */
-  get requestUrl () {
+  get requestUrl (): ?string {
     return this._requestUrl
   }
 }

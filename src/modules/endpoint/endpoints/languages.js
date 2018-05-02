@@ -1,11 +1,22 @@
-import EndpointBuilder from '../EndpointBuilder'
-import {apiUrl} from '../constants'
-import LanguageModel from '../models/LanguageModel'
+// @flow
 
-export default new EndpointBuilder('languages')
-  .withStateToUrlMapper(state => `${apiUrl}/${state.router.params.location}` +
-  `/de/wp-json/extensions/v0/languages/wpml`)
-  .withMapper(json => json
+import LanguageModel from '../models/LanguageModel'
+import { apiUrl } from '../constants'
+import EndpointBuilder from '../EndpointBuilder'
+import ParamMissingError from '../errors/ParamMissingError'
+import type { EndpointParams } from '../../../flowTypes'
+
+const LANGUAGES_ENDPOINT_NAME = 'languages'
+
+export default new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: EndpointParams): string => {
+    if (!params.city) {
+      throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
+    }
+    return `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`
+  })
+  .withMapper((json: any): Array<LanguageModel> => json
     .map(language => new LanguageModel(language.code, language.native_name))
-    .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code)))
+    .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
+  )
   .build()

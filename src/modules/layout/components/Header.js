@@ -5,9 +5,12 @@ import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
-import { Link } from 'redux-little-router'
-import { HALF_HEADER_HEIGHT_SMALL, HEADER_HEIGHT_LARGE } from '../constants'
+import Link from 'redux-first-router-link'
 import Headroom from '../../common/components/Headroom'
+import { withTheme } from 'styled-components'
+import withPlatform from '../../platform/hocs/withPlatform'
+import Platform from '../../platform/Platform'
+import { compose } from 'redux'
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -15,12 +18,15 @@ import Headroom from '../../common/components/Headroom'
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-class Header extends React.Component {
+export class Header extends React.Component {
   static propTypes = {
     navigationItems: PropTypes.node,
     actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
-    logoHref: PropTypes.string.isRequired,
-    viewportSmall: PropTypes.bool.isRequired
+    logoHref: PropTypes.object.isRequired,
+    viewportSmall: PropTypes.bool.isRequired,
+    theme: PropTypes.object.isRequired,
+    onStickyTopChanged: PropTypes.func,
+    platform: PropTypes.instanceOf(Platform)
   }
 
   static defaultProps = {
@@ -29,12 +35,15 @@ class Header extends React.Component {
   }
 
   render () {
-    const scrollHeight = this.props.viewportSmall ? HALF_HEADER_HEIGHT_SMALL : HEADER_HEIGHT_LARGE
+    const {headerHeightSmall, headerHeightLarge} = this.props.theme.dimensions
+    const height = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
+    const scrollHeight = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
     return (
-      <Headroom scrollHeight={scrollHeight}>
+      <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}
+                positionStickyDisabled={this.props.platform.positionStickyDisabled}>
         <header className={style.header}>
           <div className={style.logoWide}>
-            <Link href={this.props.logoHref}>
+            <Link to={this.props.logoHref}>
               <img src={logoWide} />
             </Link>
           </div>
@@ -46,4 +55,7 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default compose(
+  withTheme,
+  withPlatform
+)(Header)

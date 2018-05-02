@@ -13,7 +13,9 @@
       "extras": "Extras",
       "categories": "Kategorien",
       "news": "News",
-      "noNews": "Keine News"
+      "noNews": "Keine News",
+      "noLanguages": "Nicht verfügbar in anderen Sprachen",
+      "noTranslation": "Keine Übersetzung verfügbar"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -21,7 +23,9 @@
       "extras": "Extras",
       "categories": "Categories",
       "news": "News",
-      "noNews": "No News"
+      "noNews": "No News",
+      "noLanguages": "Not available in different languages",
+      "noTranslation": "No translation available"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
@@ -30,44 +34,36 @@
       "news": "تازه​ها"
     }
   },
-  "common": {
+  "search": {
     "ar": {
-      "search": "البحث"
+      "pageTitle": "البحث"
     },
     "de": {
-      "search": "Suchen",
-      "chooseYourLanguage": "Wähle deine Sprache:",
-      "goToStart": "Zur Startseite"
+      "pageTitle": "Suche",
+      "searchCategory": "Suche nach einer Kategorie"
     },
     "en": {
-      "search": "Search",
-      "chooseYourLanguage": "Choose your language:",
-      "goToStart": "Go to start"
+      "pageTitle": "Search",
+      "searchCategory": "Search for a category"
     },
     "fa": {
-      "search": "جستجو"
+      "pageTitle": "جستجو"
     }
   },
-  "endpoint": {
+  "categories": {
     "ar": {
-      "page": {
-        "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات"
-      }
+      "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "page": {
-        "loadingFailed": "Seite konnte leider nicht geladen werden."
-      }
+      "createPdf": "Erstelle PDF",
+      "lastUpdate": "Letzte Änderung: "
     },
     "en": {
-      "page": {
-        "loadingFailed": "Sorry, but the requested page could not be loaded."
-      }
+      "createPdf": "Create PDF",
+      "lastUpdate": "Last Update: "
     },
     "fa": {
-      "page": {
-        "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
-      }
+      "lastUpdate": "آخرین به روزآوری: "
     }
   },
   "events": {
@@ -75,119 +71,142 @@
       "location": "الموقع",
       "date": "تاريخ",
       "news": "الأخبار",
+      "pageTitle": "الأخبار",
       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
     },
     "de": {
       "location": "Standort",
       "date": "Datum",
       "news": "News",
+      "pageTitle": "News",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
     },
     "en": {
       "location": "Location",
       "date": "Date",
       "news": "News",
+      "pageTitle": "News",
       "currentlyNoEvents": "No recent events available."
     },
     "fa": {
       "location": "موقعیت مکانی",
       "date": "تاریخ",
       "news": "تازه​ها",
+      "pageTitle": "تازه​ها",
       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
     }
   },
   "extras": {
     "ar": {
-      "extras": "إضافات"
+      "extras": "إضافات",
+      "pageTitle": "إضافات"
+
     },
     "en": {
-      "extras": "Extras"
+      "extras": "Extras",
+      "pageTitle": "Extras"
+
     },
     "de": {
-      "extras": "Extras"
+      "extras": "Extras",
+      "pageTitle": "Extras"
+
     },
     "fa": {
-      "extras": "اضافات"
+      "extras": "اضافات",
+      "pageTitle": "اضافات"
     }
   },
   "landing": {
     "ar": {
-      "where": "أين أنت؟"
+      "where": "أين أنت؟",
+      "pageTitle": "أين أنت؟"
     },
     "de": {
-      "where": "Wo bist du?"
+      "where": "Wo bist du?",
+      "pageTitle": "Wo bist du?",
+      "searchCity": "Suche nach deinem Ort"
     },
     "en": {
-      "where": "Where are you?"
+      "where": "Where are you?",
+      "pageTitle": "Where are you?",
+      "searchCity": "Search for your city"
     },
     "fa": {
-      "where": "تو کجایی؟"
+      "where": "تو کجایی؟",
+      "pageTitle": "تو کجایی؟"
     }
   },
-  "not-found": {
+  "error": {
     "ar": {
-      "page": {
-        "notFound": "لا يوجد سجَّلات جديدة"
-      }
+      "not-found": {
+        "category": "لا يوجد سجَّلات جديدة",
+        "disclaimer": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
+      },
+      "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات",
+      "pageTitle": "خطأ"
     },
     "de": {
-      "page": {
-        "notFound": "Seite wurde leider nicht gefunden."
-      }
+      "not-found": {
+        "language": "Deine Sprache ist hier leider nicht verfügbar.",
+        "city": "Deine Stadt wurde leider nicht verfügbar.",
+        "category": "Diese Seite wurde leider nicht gefunden.",
+        "event": "Dieses Event wurde leider nicht gefunden.",
+        "extra": "Dieses Extra wurde leider nicht gefunden.",
+        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
+        "pageTitle": "Seite nicht gefunden"
+      },
+      "loadingFailed": "Seite konnte leider nicht geladen werden.",
+      "chooseYourLanguage": "Wähle deine Sprache:",
+      "goTo": {
+        "start": "Zur Startseite",
+        "categories": "Zu den Kategorien",
+        "events": "Zu den News",
+        "extras": "Zu den Extras"
+      },
+      "pageTitle": "Fehler"
     },
     "en": {
-      "page": {
-        "notFound": "Sorry, but the requested page was not found."
-      }
+      "not-found": {
+        "language": "Sorry, but your language is not available here.",
+        "city": "Sorry, but your city could not be found.",
+        "category": "Sorry, but the requested page could not be found.",
+        "event": "Sorry, but this event could not be found.",
+        "extra": "Sorry, but this extra could not be found.",
+        "disclaimer": "Sorry, but there is no disclaimer available for this city.",
+        "pageTitle": "Page not found"
+      },
+      "loadingFailed": "Sorry, but the requested page could not be loaded.",
+      "chooseYourLanguage": "Choose your language:",
+      "goTo": {
+        "start": "Go to Start",
+        "categories": "Go to Categories",
+        "events": "Go to Events",
+        "extras": "Go to Extras"
+      },
+      "pageTitle": "Error"
     },
     "fa": {
-      "page": {
-        "notFound": "مدخل مورد نظر ‎یافت نشد."
-      }
-    }
-  },
-  "pdf-fetcher": {
-    "ar": {
-      "creatingPdf": null,
-      "downloadPdfAt": null,
-      "page": {
-        "loadingFailed": null
-      }
-    },
-    "de": {
-      "creatingPdf": "Ihre PDF wird erstellt...",
-      "downloadPdfAt": "Sie können PDF hier herunterladen:",
-      "page": {
-        "loadingFailed": "Seite konnte leider nicht geladen werden."
-      }
-    },
-    "en": {
-      "creatingPdf": "Your PDF is being created...",
-      "downloadPdfAt": "You can download the PDF at:",
-      "page": {
-        "loadingFailed": "Sorry, but the requested page could not be loaded."
-      }
-    },
-    "fa": {
-      "creatingPdf": null,
-      "downloadPdfAt": null,
-      "page": {
-        "loadingFailed": null
-      }
+      "not-found": {
+        "category": "مدخل مورد نظر ‎یافت نشد.",
+        "disclaimer": "متاسفانه برای این شهر مجوزی وجود ندارد."
+      },
+      "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است.",
+      "pageTitle": "خطا"
     }
   },
   "disclaimer": {
     "ar": {
-      "notAvailable": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
+      "pageTitle": "هيئة التحرير وجهة الاتصال"
     },
     "de": {
-      "notAvailable": "Impressum ist leider für diese Stadt nicht verfügbar."
+      "pageTitle": "Impressum und Kontakt"
     },
     "en": {
-      "notAvailable": "Sorry, but the disclaimer is not available for this city."
+      "pageTitle": "Imprint and contact"
     },
     "fa": {
-      "notAvailable": "متاسفانه برای این شهر مجوزی وجود ندارد."
+      "pageTitle": "مجوز ‎و اطلاعات تماس"
     }
   }
 }

@@ -1,168 +1,97 @@
-import { createAction, handleAction } from 'redux-actions'
+// @flow
 
-import reduceReducers from 'reduce-reducers'
 import Payload from './Payload'
-import StoreResponse from './StoreResponse'
-
-class ActionType {
-  static FINISH_FETCH = 'FINISH_FETCH_DATA'
-  static START_FETCH = 'START_FETCH_DATA'
-}
+import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import startFetchAction from './actions/startFetchAction'
+import finishFetchAction from './actions/finishFetchAction'
+import LoadingError from './errors/LoadingError'
+import MappingError from './errors/MappingError'
+import ParamMissingError from './errors/ParamMissingError'
+import type { EndpointParams, MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
 class Endpoint {
-  /**
-   * @type string
-   */
-  _stateName
-  finishFetchAction
-  startFetchAction
-  /**
-   * @type mapStateToUrlCallback
-   */
-  mapStateToUrl
+  _stateName: string
+  mapParamsToUrl: MapParamsToUrl
+  mapResponse: MapResponse
+  responseOverride: ?PayloadData
+  errorOverride: ?Error
 
-  /**
-   * Converts a fetched response to an object
-   */
-  mapResponse
-
-  /**
-   * Holds the override value for the response
-   */
-  responseOverride
-
-  /**
-   * Holds the override value for the error
-   */
-  errorOverride
-
-  /**
-   * @callback mapDataCallback
-   * @param {object} data The data which has been fetched (Possibly a plain js object)
-   * @param {object | undefined} state The state which was used in the fetch url
-   * @return {object} The mapped data
-   */
-
-  /**
-   * @callback mapStateToUrlCallback
-   * @param {object | undefined} state
-   * @return {string} The url
-   */
-
-  /**
-   * @param {string} name The name of this endpoint. This is used as key in the state and as Payload name. The Payload name is name + 'Paylaod'
-   * @param {function} mapStateToUrl The mapper which maps the state to a request url
-   * @param {function} mapResponse Transforms the response from the fetch to a result
-   * @param responseOverride {*} An override value from the API response. Useful for testing.
-   * @param errorOverride {*} An override value to simulate an error while fetching. Useful for testing.
-   */
-  constructor (name, mapStateToUrl, mapResponse, responseOverride, errorOverride) {
-    this.mapStateToUrl = mapStateToUrl
+  constructor (name: string, mapParamsToUrl: MapParamsToUrl, mapResponse: MapResponse,
+    responseOverride: ?PayloadData, errorOverride: ?Error) {
+    this.mapParamsToUrl = mapParamsToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
     this.errorOverride = errorOverride
     this._stateName = name
-
-    const actionName = name.toUpperCase()
-
-    this.finishFetchAction = createAction(`${ActionType.FINISH_FETCH}_${actionName}`, (value, error, requestUrl) => {
-      return new Payload(false, value, error, requestUrl, new Date().getTime())
-    })
-    this.startFetchAction = createAction(`${ActionType.START_FETCH}_${actionName}`, () => new Payload(true))
   }
 
-  /**
-   * @returns {string|*} The name of the linked state
-   */
-  get stateName () {
+  get stateName (): string {
     return this._stateName
   }
 
-  /**
-   * @returns {string|*} The name of the resulting payload
-   */
-  get payloadName () {
-    return `${this.stateName}Payload`
-  }
+  async loadData (dispatch: Dispatch, oldPayload: Payload, params: EndpointParams): Promise<Payload> {
+    let formattedUrl
+    try {
+      const responseOverride = this.responseOverride
+      const errorOverride = this.errorOverride
 
-  requestAction () {
-    const responseOverride = this.responseOverride
-    const errorOverride = this.errorOverride
-    /**
-     * Returns whether the correct data is available and ready for the fetcher to be displayed.
-     *
-     * @param state The state with (hopefully) all relevant params
-     * @param options The options get passed to the {@link mapResponse} function when fetching
-     * @return {function(*, *)} The Action for the redux store which can initiate a fetch
-     */
-    return (dispatch, getState) => {
-      const state = getState()
-      const payload = state[this.stateName]
-      if (payload.isFetching) {
-        return new StoreResponse(false)
+      formattedUrl = this.mapParamsToUrl(params)
+
+      const lastUrl = oldPayload.requestUrl
+
+      if (lastUrl && lastUrl === formattedUrl) {
+        // The correct data was already fetched
+        return oldPayload
       }
 
-      const formattedURL = this.mapStateToUrl(state)
-
-      if (formattedURL.includes('undefined')) {
-        throw new Error(`Some necessary params in the state were undefined: ${formattedURL}`)
-      }
-
-      const lastUrl = payload.requestUrl
-      const urlNotChanged = lastUrl && lastUrl === formattedURL
-
-      if (urlNotChanged) {
-        // Correct payload has been loaded and can now be used by the fetcher(s)
-        return new StoreResponse(true)
-      }
-
-      // Refetch if url changes or we don't have a lastUrl
-      dispatch(this.startFetchAction())
+      // Fetch if the data is not valid anymore or it hasn't been fetched yet
+      dispatch(startFetchAction(this.stateName, formattedUrl))
 
       if (errorOverride) {
-        dispatch(this.finishFetchAction(null, errorOverride, formattedURL))
-        return new StoreResponse(false, Promise.resolve(null))
+        const payload = new Payload(false, formattedUrl, null, errorOverride)
+        dispatch(finishFetchAction(this.stateName, payload))
+        return payload
       }
       if (responseOverride) {
-        const value = this.mapResponse(responseOverride, state)
-        dispatch(this.finishFetchAction(value, null, formattedURL))
-        return new StoreResponse(false, Promise.resolve(value))
+        const data = this.mapResponse(responseOverride, params)
+        const payload = new Payload(false, formattedUrl, data, null)
+        dispatch(finishFetchAction(this.stateName, payload))
+        return payload
       }
 
-      // Fetchers cannot display payload yet, since it's currently fetching
-      return new StoreResponse(false,
-        fetch(formattedURL)
-          .then(response => response.json())
-          .then(json => {
-            try {
-              const value = this.mapResponse(json, state)
-              return dispatch(this.finishFetchAction(value, null, formattedURL))
-            } catch (e) {
-              console.error(`Failed to map the json for the endpoint: ${this.stateName}`)
-              console.error(e)
-              return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
-            }
-          })
-          .catch(e => {
-            console.error(`Failed to load the request for the endpoint: ${this.stateName}`)
-            console.error(e)
-            return dispatch(this.finishFetchAction(null, 'endpoint:page.loadingFailed', formattedURL))
-          })
-      )
+      const payload = await this.fetchData(formattedUrl, params)
+      dispatch(finishFetchAction(this.stateName, payload))
+      return payload
+    } catch (e) {
+      let error
+      if (e instanceof LoadingError || e instanceof ParamMissingError || e instanceof MappingError) {
+        error = e
+      } else {
+        error = new LoadingError({endpointName: this.stateName, message: e.message})
+      }
+
+      console.error(error)
+      const payload = new Payload(false, formattedUrl, null, error)
+      dispatch(finishFetchAction(this.stateName, payload))
+      return payload
     }
   }
 
-  createReducer () {
-    const defaultState = new Payload(false)
-    const reducer = (state, action) => action.payload
-
-    return reduceReducers(
-      handleAction(this.startFetchAction, reducer, defaultState),
-      handleAction(this.finishFetchAction, reducer, defaultState)
-    )
+  async fetchData (formattedUrl: string, params: EndpointParams): Promise<Payload> {
+    const response = await fetch(formattedUrl)
+    if (!response.ok) {
+      throw new LoadingError({endpointName: this.stateName, message: `${response.status}`})
+    }
+    try {
+      const json = await response.json()
+      const fetchedData = this.mapResponse(json, params)
+      return new Payload(false, formattedUrl, fetchedData, null)
+    } catch (e) {
+      throw (e instanceof MappingError) ? e : new MappingError(this.stateName, e.message)
+    }
   }
 }
 

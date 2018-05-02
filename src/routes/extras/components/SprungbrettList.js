@@ -1,15 +1,18 @@
 // @flow
 
-import React from 'react'
-import type { Node } from 'react'
+import * as React from 'react'
 
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
 import SprungbrettListItem from './SprungbrettListItem'
 import style from './SprungbrettList.css'
+import Caption from '../../../modules/common/components/Caption'
+
+import type { Node } from 'react'
 
 type Props = {
-  jobs: Array<SprungbrettJobModel>
+  jobs: Array<SprungbrettJobModel>,
+  title: string
 }
 
 class SprungbrettList extends React.Component<Props> {
@@ -19,9 +22,12 @@ class SprungbrettList extends React.Component<Props> {
 
   render () {
     return (
-      <div className={style.list}>
-        {this.getListItems()}
-      </div>
+      <React.Fragment >
+        <Caption title={this.props.title} />
+        <div className={style.list}>
+          {this.getListItems()}
+        </div>
+      </React.Fragment>
     )
   }
 }
