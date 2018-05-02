@@ -1,15 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-
-import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector'
+import ConnectedHelmet, { Helmet } from '../Helmet'
+import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import EventModel from '../../../endpoint/models/EventModel'
-import { DISCLAIMER_ROUTE } from '../../../app/routes/disclaimer'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
 
-describe('LanguageSelector', () => {
+describe('Helmet', () => {
   const city = 'augsburg'
   const language = 'en'
   const languages = [
@@ -41,43 +39,16 @@ describe('LanguageSelector', () => {
     })]
 
   const categories = new CategoriesMapModel(categoryModels)
+  const title = 'Random title'
 
-  it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
-    const location = {
-      pathname: '/augsburg/en/disclaimer',
-      type: DISCLAIMER_ROUTE,
-      payload: {city, language}
-    }
+  const location = {pathname: '/augsburg/de/', payload: {city, language}}
 
-    const languageSelector = shallow(
-      <LanguageSelector categories={categories}
-                        events={events}
-                        languages={languages}
-                        location={location}
-                        isHeaderActionItem
-                        t={key => key} />
+  it('should render and match snapshot', () => {
+    const helmet = shallow(
+      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} />
     )
 
-    expect(languageSelector).toMatchSnapshot()
-  })
-
-  it('should render a normal Selector if it is not a header action item', () => {
-    const location = {
-      pathname: '/augsburg/en/disclaimer',
-      type: DISCLAIMER_ROUTE,
-      payload: {city, language}
-    }
-
-    const languageSelector = shallow(
-      <LanguageSelector categories={categories}
-                        events={events}
-                        languages={languages}
-                        location={location}
-                        isHeaderActionItem={false}
-                        t={key => key} />
-    )
-
-    expect(languageSelector).toMatchSnapshot()
+    expect(helmet).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
@@ -92,7 +63,7 @@ describe('LanguageSelector', () => {
     })
 
     const languageSelector = shallow(
-      <ConnectedLanguageSelector isHeaderActionItem store={store} />
+      <ConnectedHelmet title={title} store={store} />
     )
 
     expect(languageSelector.props()).toEqual({
@@ -100,7 +71,7 @@ describe('LanguageSelector', () => {
       location,
       events,
       categories,
-      isHeaderActionItem: true,
+      title,
       dispatch: expect.any(Function),
       store,
       storeSubscription: expect.any(Object)

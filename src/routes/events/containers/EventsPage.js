@@ -10,9 +10,9 @@ import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import type { I18nTranslate, State } from '../../../flowTypes'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 type Props = {
   events: Array<EventModel>,
@@ -36,9 +36,7 @@ export class EventsPage extends React.Component<Props> {
 
       if (event) {
         return <React.Fragment>
-          <Helmet>
-            <title>{event.title} - {CityModel.findCityName(cities, city)}</title>
-          </Helmet>
+          <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
           <EventDetail event={event} location={city} language={language} />
         </React.Fragment>
       } else {
@@ -47,9 +45,7 @@ export class EventsPage extends React.Component<Props> {
       }
     }
     return <React.Fragment>
-      <Helmet>
-        <title>{t('pageTitle')} - {CityModel.findCityName(cities, city)}</title>
-      </Helmet>
+      <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
       <EventList events={events} city={city} language={language} />
     </React.Fragment>
   }

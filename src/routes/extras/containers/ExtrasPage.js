@@ -14,9 +14,9 @@ import Caption from '../../../modules/common/components/Caption'
 import { translate } from 'react-i18next'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import Helmet from 'react-helmet'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { I18nTranslate, State } from '../../../flowTypes'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
@@ -60,9 +60,7 @@ export class ExtrasPage extends React.Component<Props> {
 
       if (extra && extraAlias === SPRUNGBRETT_EXTRA) {
         return <React.Fragment>
-          <Helmet>
-            <title>{extra.title} - {cityName}</title>
-          </Helmet>
+          <Helmet title={`${extra.title} - ${cityName}`} />
           {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <LoadingSpinner />}
         </React.Fragment>
       } else {
@@ -72,9 +70,7 @@ export class ExtrasPage extends React.Component<Props> {
       }
     } else {
       return <React.Fragment>
-        <Helmet>
-          <title>{t('pageTitle')} - {cityName}</title>
-        </Helmet>
+        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <Caption title={t('extras')} />
         <Tiles tiles={this.getTileModels()} />
       </React.Fragment>
