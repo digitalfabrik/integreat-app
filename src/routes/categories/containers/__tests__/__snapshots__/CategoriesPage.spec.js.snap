@@ -2,14 +2,9 @@
 
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="Augsburg"
+  />
   <Breadcrumbs
     direction="ltr"
   />
@@ -39,15 +34,9 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 
 exports[`CategoriesPage should match snapshot and render a CategoryList if the category is neither the root but has children 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Willkommen - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="Willkommen - Augsburg"
+  />
   <Breadcrumbs
     direction="ltr"
   >
@@ -89,15 +78,9 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
 
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Willkommen in Augsburg - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="Willkommen in Augsburg - Augsburg"
+  />
   <Breadcrumbs
     direction="ltr"
   >
