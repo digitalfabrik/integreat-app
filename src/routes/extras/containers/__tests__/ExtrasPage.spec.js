@@ -56,7 +56,7 @@ describe('ExtrasPage', () => {
     expect(extrasPage).toMatchSnapshot()
   })
 
-  it('should render a sprungbrett list if it is the selected extra and the jobs have not been fetched', () => {
+  it('should render a loading spinner if it is the selected extra and the jobs have not been fetched', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}

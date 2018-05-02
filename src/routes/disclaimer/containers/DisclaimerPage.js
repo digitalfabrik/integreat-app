@@ -7,9 +7,9 @@ import compose from 'lodash/fp/compose'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import Helmet from 'react-helmet'
 import { translate } from 'react-i18next'
 import type { I18nTranslate, State } from '../../../flowTypes'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 type Props = {
   disclaimer: DisclaimerModel,
@@ -26,9 +26,7 @@ export class DisclaimerPage extends React.Component<Props> {
     const {disclaimer, cities, city, t} = this.props
 
     return <React.Fragment>
-      <Helmet>
-        <title>{t('pageTitle')} - {CityModel.findCityName(cities, city)}</title>
-      </Helmet>
+      <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
       <Page title={disclaimer.title}
             content={disclaimer.content} />
     </React.Fragment>
