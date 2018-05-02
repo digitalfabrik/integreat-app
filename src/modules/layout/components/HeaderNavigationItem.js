@@ -15,7 +15,7 @@ type Props = {
 }
 
 /**
- * Renders a Link or a Span in the Header depending on the active prop
+ * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
  */
 class HeaderNavigationItem extends React.PureComponent<Props> {
   componentDidMount () {
