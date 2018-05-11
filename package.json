@@ -110,6 +110,7 @@
     "postcss-nesting": "~4.2.1",
     "postcss-selector-matches": "~3.0.1",
     "postcss-selector-not": "~3.0.1",
+    "prettier-eslint": "^8.8.1",
     "prop-types": "~15.6.1",
     "raf": "~3.4.0",
     "react-hot-loader": "~4.0.1",
