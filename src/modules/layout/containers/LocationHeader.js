@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import type {Element} from 'react'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
@@ -42,7 +43,7 @@ export class LocationHeader extends React.Component<Props> {
     ]
   }
 
-  getNavigationItems (): Array<HeaderNavigationItem> {
+  getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
     const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
     const {city, language} = location.payload
     const currentRoute = location.type
@@ -50,29 +51,37 @@ export class LocationHeader extends React.Component<Props> {
     const isEventsActive = events ? events.length > 0 : false
     const isCategoriesEnabled = isExtrasEnabled || isEventsEnabled
 
-    const extrasNavigationItem = isExtrasEnabled && <HeaderNavigationItem
-      key='extras'
-      href={goToExtras(city, language)}
-      selected={currentRoute === EXTRAS_ROUTE}
-      text={t('extras')}
-      active />
+    const items: Array<Element<typeof HeaderNavigationItem>> = []
 
-    const categoriesNavigationItem = isCategoriesEnabled && <HeaderNavigationItem
-      key='categories'
-      href={goToCategories(city, language)}
-      selected={currentRoute === CATEGORIES_ROUTE}
-      text={t('categories')}
-      active />
+    if (isExtrasEnabled) {
+      items.push(<HeaderNavigationItem
+        key='extras'
+        href={goToExtras(city, language)}
+        selected={currentRoute === EXTRAS_ROUTE}
+        text={t('extras')}
+        active />)
+    }
 
-    const eventsNavigationItem = isEventsEnabled && <HeaderNavigationItem
-      key='events'
-      href={goToEvents(city, language)}
-      selected={currentRoute === EVENTS_ROUTE}
-      text={t('news')}
-      tooltip={t('noNews')}
-      active={isEventsActive} />
+    if (isCategoriesEnabled) {
+      items.push(<HeaderNavigationItem
+        key='categories'
+        href={goToCategories(city, language)}
+        selected={currentRoute === CATEGORIES_ROUTE}
+        text={t('categories')}
+        active />)
+    }
 
-    return [extrasNavigationItem, categoriesNavigationItem, eventsNavigationItem].filter(isEnabled => isEnabled)
+    if (isEventsEnabled) {
+      items.push(<HeaderNavigationItem
+        key='events'
+        href={goToEvents(city, language)}
+        selected={currentRoute === EVENTS_ROUTE}
+        text={t('news')}
+        tooltip={t('noNews')}
+        active={isEventsActive} />)
+    }
+
+    return items
   }
 
   render () {
