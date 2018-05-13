@@ -1,10 +1,11 @@
 // @flow
 
 import { createAction } from 'redux-actions'
+import type { Action } from 'redux-first-router/dist/flow-types'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-export const goToMainDisclaimer = () => createAction(MAIN_DISCLAIMER_ROUTE)()
+export const goToMainDisclaimer = (): Action => createAction(MAIN_DISCLAIMER_ROUTE)()
 
 /**
  * MainDisclaimerRoute, matches /disclaimer

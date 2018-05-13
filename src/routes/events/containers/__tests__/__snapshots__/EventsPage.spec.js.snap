@@ -2,16 +2,9 @@
 
 exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 <React.Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      erstes Event
-       - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="erstes Event - Augsburg"
+  />
   <Translate(EventDetail)
     event={
       EventModel {
@@ -39,16 +32,9 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 
 exports[`EventsPage should match snapshot and render EventList 1`] = `
 <React.Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      pageTitle
-       - 
-      Augsburg
-    </title>
-  </HelmetWrapper>
+  <Connect(Helmet)
+    title="pageTitle - Augsburg"
+  />
   <Translate(EventList)
     city="augsburg"
     events={
@@ -106,7 +92,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
 `;
 
 exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `
-<FailureSwitcher
+<Translate(FailureSwitcher)
   error={[Error: The event 234729 does not exist here.]}
 />
 `;

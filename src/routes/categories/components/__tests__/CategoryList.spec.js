@@ -11,20 +11,20 @@ const categories = [
   {
     model: new CategoryModel({
       id: 35,
-      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg'
     }),
     children: [
       new CategoryModel({
         id: 35,
-        url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+        path: '/augsburg/de/willkommen/willkommen-in-augsburg',
         title: 'Willkommen in Augsburg'
       })]
   },
   {
     model: new CategoryModel({
       id: 35,
-      url: '/augsburg/de/willkommen/willkommen-in-augsburg',
+      path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg'
     }),
     children: []

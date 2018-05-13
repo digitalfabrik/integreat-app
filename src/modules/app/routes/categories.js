@@ -3,12 +3,15 @@
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 
 export const CATEGORIES_ROUTE = 'CATEGORIES'
 
-export const goToCategories = (city: string, language: string, categoryPath: ?string) =>
+export const goToCategories = (city: string, language: string, categoryPath: ?string): Action =>
   createAction(CATEGORIES_ROUTE)({city, language, categoryPath})
+
+export const getCategoryPath = (city: string, language: string, categoryPath: ?string): string =>
+  `/${city}/${language}${categoryPath ? `/${categoryPath}` : ''}`
 
 /**
  * CategoriesRoute, matches /augsburg/de*
