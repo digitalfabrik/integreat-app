@@ -10,8 +10,8 @@ import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import Helmet from 'react-helmet'
 import type { I18nTranslate, State } from '../../../flowTypes'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -61,10 +61,9 @@ export class SearchPage extends React.Component<Props, LocalState> {
 
     return (
       <div>
-        <Helmet>
-          <title>{t('pageTitle')} - {cityName}</title>
-        </Helmet>
+        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <SearchInput filterText={this.state.filterText}
+                     placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} />

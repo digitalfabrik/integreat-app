@@ -8,6 +8,7 @@ describe('SearchInput', () => {
   it('should render', () => {
     const mockTranslate = jest.fn(text => text)
     expect(shallow(<SearchInput filterText={'Test'}
+                                placeholderText={'Placeholder'}
                                 onFilterTextChange={() => {}}
                                 t={mockTranslate} />)).toMatchSnapshot()
   })
@@ -15,6 +16,7 @@ describe('SearchInput', () => {
   it('should render and space search', () => {
     const mockTranslate = jest.fn(text => text)
     expect(shallow(<SearchInput filterText={'Test'}
+                                placeholderText={'Placeholder'}
                                 onFilterTextChange={() => {}}
                                 t={mockTranslate}
                                 spaceSearch />)).toMatchSnapshot()
@@ -23,6 +25,7 @@ describe('SearchInput', () => {
   describe('connect', () => {
     it('should render', () => {
       expect(shallow(<ConnectedSearchInput filterText={'Test'}
+                                           placeholderText={'Placeholder'}
                                            onFilterTextChange={() => {}} />)).toMatchSnapshot()
     })
   })
@@ -33,6 +36,7 @@ describe('SearchInput', () => {
     const component = mount(
       <ThemeProvider theme={theme}>
         <ConnectedSearchInput filterText={'Test'}
+                              placeholderText={'Placeholder'}
                               onClickInput={onClickInput}
                               onFilterTextChange={outerFilterTextChange} />
       </ThemeProvider>

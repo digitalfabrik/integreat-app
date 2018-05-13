@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Helmet should render and match snapshot 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <title>
+    Random title
+  </title>
+  <link
+    hrefLang="de"
+    key="de"
+    rel="alternate"
+  />
+  <link
+    hrefLang="en"
+    key="en"
+    rel="alternate"
+  />
+  <link
+    hrefLang="ar"
+    key="ar"
+    rel="alternate"
+  />
+</HelmetWrapper>
+`;
