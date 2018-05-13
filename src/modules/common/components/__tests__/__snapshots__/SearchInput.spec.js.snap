@@ -1,11 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchInput connect should render 1`] = `
-<SearchInput
-  filterText="Test"
-  onFilterTextChange={[Function]}
-  t={[Function]}
-/>
+<SearchInputstyles__Spacer>
+  <SearchInputstyles__Wrapper>
+    <SearchInputstyles__SearchIcon />
+    <SearchInputstyles__TextInput
+      aria-label="Placeholder"
+      autoFocus={true}
+      defaultValue="Test"
+      onChange={[Function]}
+      placeholder="Placeholder"
+    />
+  </SearchInputstyles__Wrapper>
+</SearchInputstyles__Spacer>
 `;
 
 exports[`SearchInput should render 1`] = `
@@ -13,10 +20,11 @@ exports[`SearchInput should render 1`] = `
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput
+      aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
       onChange={[Function]}
-      placeholder="search"
+      placeholder="Placeholder"
     />
   </SearchInputstyles__Wrapper>
 </SearchInputstyles__Spacer>
@@ -29,10 +37,11 @@ exports[`SearchInput should render and space search 1`] = `
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput
+      aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
       onChange={[Function]}
-      placeholder="search"
+      placeholder="Placeholder"
     />
   </SearchInputstyles__Wrapper>
 </SearchInputstyles__Spacer>

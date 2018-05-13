@@ -1,7 +1,6 @@
 // @flow
 
-import React from 'react'
-import Helmet from 'react-helmet'
+import React, { Fragment } from 'react'
 import type {Node} from 'react'
 import { connect } from 'react-redux'
 
@@ -17,7 +16,9 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { State } from '../../../flowTypes'
+import type { State, UiDirection } from '../../../flowTypes'
+import CategoryTimeStamp from '../components/CategoryTimeStamp'
+import Helmet from '../../../modules/common/containers/Helmet'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -25,7 +26,7 @@ type Props = {
   path: string,
   city: string,
   language: string,
-  uiDirection: 'ltr' | 'rtl'
+  uiDirection: UiDirection
 }
 
 /**
@@ -34,7 +35,7 @@ type Props = {
 export class CategoriesPage extends React.Component<Props> {
   getTileModels (categories: Array<CategoryModel>) {
     return categories.map(category => new TileModel({
-      id: String(category.id), title: category.title, path: category.url, thumbnail: category.thumbnail, isExternalUrl: false
+      id: String(category.id), title: category.title, path: category.path, thumbnail: category.thumbnail, isExternalUrl: false
     }))
   }
 
@@ -47,13 +48,16 @@ export class CategoriesPage extends React.Component<Props> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel) {
-    const {categories, cities} = this.props
+    const {categories, cities, language} = this.props
     const children = categories.getChildren(category)
 
     if (children.length === 0) {
       // last level, our category is a simple page
-      return <Page title={category.title}
-                   content={category.content} />
+      return <Fragment>
+        <Page title={category.title}
+              content={category.content} />
+        <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />
+      </Fragment>
     } else if (category.id === 0) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -68,32 +72,35 @@ export class CategoriesPage extends React.Component<Props> {
   getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
     const {cities, categories} = this.props
     return categories.getAncestors(categoryModel)
-      .map(ancestor => ({
-        title: ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title,
-        url: ancestor.url
-      }))
-      .map(({title, url}) => <Link to={url} key={url}>{title}</Link>)
+      .map(ancestor => {
+        const title = ancestor.id === 0 ? CityModel.findCityName(cities, ancestor.title) : ancestor.title
+        return <Link to={ancestor.path} key={ancestor.path}>{title}</Link>
+      })
+  }
+
+  getPageTitle (categoryModel: CategoryModel): string {
+    const {cities, city} = this.props
+    const cityName = CityModel.findCityName(cities, city)
+
+    return `${categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}${cityName}`
   }
 
   render () {
-    const {categories, path, city, cities, language, uiDirection} = this.props
-    const categoryModel = categories.findCategoryByUrl(path)
-    const cityName = CityModel.findCityName(cities, city)
+    const {categories, path, city, language, uiDirection} = this.props
+    const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
       return <div>
-        <Helmet>
-          <title>{categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}{cityName}</title>
-        </Helmet>
+        <Helmet title={this.getPageTitle(categoryModel)} />
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
         {this.getContent(categoryModel)}
       </div>
+    } else {
+      const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
+      return <FailureSwitcher error={error} />
     }
-
-    const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
-    return <FailureSwitcher error={error} />
   }
 }
 
