@@ -14,7 +14,8 @@
       "categories": "Kategorien",
       "news": "News",
       "noNews": "Keine News",
-      "noLanguages": "Nicht verfügbar in anderen Sprachen"
+      "noLanguages": "Nicht verfügbar in anderen Sprachen",
+      "noTranslation": "Keine Übersetzung verfügbar"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -23,7 +24,8 @@
       "categories": "Categories",
       "news": "News",
       "noNews": "No News",
-      "noLanguages": "Not available in different languages"
+      "noLanguages": "Not available in different languages",
+      "noTranslation": "No translation available"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
@@ -50,14 +52,18 @@
   },
   "categories": {
     "ar": {
+      "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "createPdf": "Erstelle PDF"
+      "createPdf": "Erstelle PDF",
+      "lastUpdate": "Letzte Änderung: "
     },
     "en": {
-      "createPdf": "Create PDF"
+      "createPdf": "Create PDF",
+      "lastUpdate": "Last Update: "
     },
     "fa": {
+      "lastUpdate": "آخرین به روزآوری: "
     }
   },
   "events": {
@@ -137,7 +143,8 @@
         "category": "لا يوجد سجَّلات جديدة",
         "disclaimer": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
       },
-      "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات"
+      "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات",
+      "pageTitle": "خطأ"
     },
     "de": {
       "not-found": {
@@ -146,7 +153,8 @@
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "extra": "Dieses Extra wurde leider nicht gefunden.",
-        "disclaimer": "Impressum ist leider für diese Stadt nicht verfügbar."
+        "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
+        "pageTitle": "Seite nicht gefunden"
       },
       "loadingFailed": "Seite konnte leider nicht geladen werden.",
       "chooseYourLanguage": "Wähle deine Sprache:",
@@ -155,7 +163,8 @@
         "categories": "Zu den Kategorien",
         "events": "Zu den News",
         "extras": "Zu den Extras"
-      }
+      },
+      "pageTitle": "Fehler"
     },
     "en": {
       "not-found": {
@@ -164,7 +173,8 @@
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "extra": "Sorry, but this extra could not be found.",
-        "disclaimer": "Sorry, but the disclaimer is not available for this city."
+        "disclaimer": "Sorry, but there is no disclaimer available for this city.",
+        "pageTitle": "Page not found"
       },
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
       "chooseYourLanguage": "Choose your language:",
@@ -173,14 +183,16 @@
         "categories": "Go to Categories",
         "events": "Go to Events",
         "extras": "Go to Extras"
-      }
+      },
+      "pageTitle": "Error"
     },
     "fa": {
       "not-found": {
         "category": "مدخل مورد نظر ‎یافت نشد.",
         "disclaimer": "متاسفانه برای این شهر مجوزی وجود ندارد."
       },
-      "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است."
+      "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است.",
+      "pageTitle": "خطا"
     }
   },
   "disclaimer": {

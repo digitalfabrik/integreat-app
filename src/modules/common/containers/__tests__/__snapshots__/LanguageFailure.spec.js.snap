@@ -10,7 +10,7 @@ exports[`LanguageFailure should match snapshot 1`] = `
   >
     not-found.language chooseYourLanguage
   </p>
-  <Connect(LanguageSelector)
+  <Connect(Translate(LanguageSelector))
     isHeaderActionItem={false}
   />
 </React.Fragment>

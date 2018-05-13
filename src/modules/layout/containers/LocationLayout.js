@@ -15,11 +15,10 @@ import { DISCLAIMER_ROUTE } from '../../app/routes/disclaimer'
 import { SEARCH_ROUTE } from '../../app/routes/search'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import { CATEGORIES_REDIRECT_ROUTE } from '../../app/routes/categoriesRedirect'
 
 import type { Node } from 'react'
 
-export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE, CATEGORIES_REDIRECT_ROUTE]
+export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
 type Props = {
   city: string,

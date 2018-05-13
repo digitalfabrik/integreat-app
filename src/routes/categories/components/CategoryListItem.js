@@ -25,13 +25,13 @@ class CategoryListItem extends React.Component<Props> {
   getChildren () {
     return this.props.children.map(child =>
       <div key={child.id}>
-        <StyledLink to={child.url}>
+        <StyledLink to={child.path}>
           {
             child.thumbnail
               ? <SubCategoryThumbnail src={child.thumbnail} />
               : <SubCategoryThumbnailDiv />
           }
-          <SubCategoryCaption>{child.title}</SubCategoryCaption>
+          <SubCategoryCaption search={''}>{child.title}</SubCategoryCaption>
         </StyledLink>
       </div>
     )
@@ -47,7 +47,7 @@ class CategoryListItem extends React.Component<Props> {
     const {category} = this.props
     return (
       <Row>
-        <StyledLink to={category.url}>
+        <StyledLink to={category.path}>
           <CategoryThumbnail src={category.thumbnail || iconPlaceholder} />
           {this.getTitle()}
         </StyledLink>

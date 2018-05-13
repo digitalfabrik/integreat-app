@@ -4,12 +4,16 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 
 export const EXTRAS_ROUTE = 'EXTRAS'
-export const goToExtras = (city: string, language: string, extraAlias: ?string) =>
+
+export const goToExtras = (city: string, language: string, extraAlias: ?string): Action =>
   createAction(EXTRAS_ROUTE)({city, language, extraAlias})
+
+export const getExtraPath = (city: string, language: string, extraAlias: ?string): string =>
+  `/${city}/${language}/extras${extraAlias ? `/${extraAlias}` : ''}`
 
 /**
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras/sprungbrett
