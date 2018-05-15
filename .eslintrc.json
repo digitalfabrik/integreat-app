@@ -38,7 +38,6 @@
     "no-extra-bind": "error",
     "prefer-template": "error",
     "no-loop-func": "error",
-    "object-curly-spacing": "error",
     "curly": ["error", "all"],
     "prefer-const": "error",
     "jsx-quotes": "error",
