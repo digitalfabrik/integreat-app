@@ -9,7 +9,7 @@ import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import { List } from './CategoryList.styles'
 
 type Props = {
-  categories: Array<{model: CategoryModel, subCategories: ?Array<CategoryModel>}>,
+  categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
@@ -21,16 +21,18 @@ type Props = {
  */
 class CategoryList extends React.Component<Props> {
   render () {
+    const {categories, title, content, query} = this.props
     return (
       <div>
-        {this.props.title && <Caption title={this.props.title} />}
-        <RemoteContent centered dangerouslySetInnerHTML={{__html: this.props.content}} />
+        {title && <Caption title={title} />}
+        <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />
         <List>
-          {this.props.categories.map(({model, subCategories}) =>
+          {categories.map(({model, subCategories}) =>
             <CategoryListItem key={model.id}
                               category={model}
                               subCategories={subCategories}
-                              query={this.props.query} />)}
+                              query={query} />
+          )}
         </List>
       </div>
     )

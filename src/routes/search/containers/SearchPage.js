@@ -12,6 +12,7 @@ import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { I18nTranslate, State } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -29,7 +30,7 @@ export class SearchPage extends React.Component<Props, LocalState> {
     filterText: ''
   }
 
-  findCategories () {
+  findCategories (): Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}> {
     const categories = this.props.categories
     const filterText = this.state.filterText.toLowerCase()
 
@@ -48,7 +49,7 @@ export class SearchPage extends React.Component<Props, LocalState> {
     return categoriesWithTitle
       .filter(category => category.id !== 0)
       .concat(categoriesWithContent)
-      .map(category => ({model: category, subCategories: null}))
+      .map(category => ({model: category, subCategories: []}))
   }
 
   onFilterTextChange = (filterText: string) => this.setState({filterText: filterText})
