@@ -7,13 +7,12 @@ import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import {
   CategoryCaption,
   CategoryThumbnail, Row,
-  StyledLink, SubCategoryCaption, SubCategoryThumbnail,
-  SubCategoryThumbnailDiv
+  StyledLink, SubCategoryCaption, SubCategory
 } from './CategoryListItem.styles'
 
 type Props = {
   category: CategoryModel,
-  children: Array<CategoryModel>,
+  subCategories: ?Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string
 }
@@ -23,22 +22,21 @@ type Props = {
  */
 class CategoryListItem extends React.Component<Props> {
   getChildren () {
-    return this.props.children.map(child =>
-      <div key={child.id}>
+    const {subCategories} = this.props
+    return subCategories && subCategories.map(child =>
+      <SubCategory key={child.id}>
         <StyledLink to={child.path}>
-          {
-            child.thumbnail
-              ? <SubCategoryThumbnail src={child.thumbnail} />
-              : <SubCategoryThumbnailDiv />
-          }
-          <SubCategoryCaption search={''}>{child.title}</SubCategoryCaption>
+          <SubCategoryCaption search={''}>
+            {child.title}
+            </SubCategoryCaption>
         </StyledLink>
-      </div>
+      </SubCategory>
     )
   }
 
   getTitle () {
-    return <CategoryCaption search={this.props.query || ''}>
+    const {query, subCategories} = this.props
+    return <CategoryCaption search={query || ''} subCategories={subCategories}>
       {this.props.category.title}
     </CategoryCaption>
   }
