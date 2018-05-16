@@ -38,11 +38,9 @@ export const CategoryCaption = styled(Highlighter)`
   padding: 15px 5px;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   word-wrap: break-word;
-  font-size: ${props => props.subCategories && '1.1em'}
 `
 
 export const SubCategoryCaption = CategoryCaption.extend`
-  font-size: 1.0em;
   padding: 8px 0;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `

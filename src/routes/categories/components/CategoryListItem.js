@@ -12,7 +12,7 @@ import {
 
 type Props = {
   category: CategoryModel,
-  subCategories: ?Array<CategoryModel>,
+  subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string
 }
@@ -21,22 +21,22 @@ type Props = {
  * Displays a single CategoryListItem
  */
 class CategoryListItem extends React.Component<Props> {
-  getChildren () {
+  renderSubCategories () {
     const {subCategories} = this.props
-    return subCategories && subCategories.map(child =>
-      <SubCategory key={child.id}>
-        <StyledLink to={child.path}>
+    return subCategories.map(subCategory =>
+      <SubCategory key={subCategory.id}>
+        <StyledLink to={subCategory.path}>
           <SubCategoryCaption search={''}>
-            {child.title}
+            {subCategory.title}
             </SubCategoryCaption>
         </StyledLink>
       </SubCategory>
     )
   }
 
-  getTitle () {
-    const {query, subCategories} = this.props
-    return <CategoryCaption search={query || ''} subCategories={subCategories}>
+  renderTitle () {
+    const {query} = this.props
+    return <CategoryCaption search={query || ''}>
       {this.props.category.title}
     </CategoryCaption>
   }
@@ -47,9 +47,9 @@ class CategoryListItem extends React.Component<Props> {
       <Row>
         <StyledLink to={category.path}>
           <CategoryThumbnail src={category.thumbnail || iconPlaceholder} />
-          {this.getTitle()}
+          {this.renderTitle()}
         </StyledLink>
-        {this.getChildren()}
+        {this.renderSubCategories()}
       </Row>
     )
   }
