@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import type {Element} from 'react'
+import type { Element } from 'react'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
@@ -29,23 +29,29 @@ type Props = {
   t: I18nTranslate,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
-  onStickyTopChanged: number => {}
+  onStickyTopChanged: number => { }
 }
 
 export class LocationHeader extends React.Component<Props> {
   getActionItems (): Array<HeaderActionItem> {
-    const {location} = this.props
-    const {city, language} = location.payload
+    const { location } = this.props
+    const { city, language } = location.payload
     return [
-      new HeaderActionItem({href: goToSearch(city, language), iconSrc: searchIcon}),
-      new HeaderActionItem({href: goToLanding(language), iconSrc: landingIcon}),
-      new HeaderActionItem({node: <LanguageSelector isHeaderActionItem />})
+      new HeaderActionItem({
+        href: goToSearch(city, language),
+        iconSrc: searchIcon
+      }),
+      new HeaderActionItem({
+        href: goToLanding(language),
+        iconSrc: landingIcon
+      }),
+      new HeaderActionItem({ node: <LanguageSelector isHeaderActionItem /> })
     ]
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
-    const {city, language} = location.payload
+    const { t, isEventsEnabled, isExtrasEnabled, location, events } = this.props
+    const { city, language } = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
@@ -85,13 +91,17 @@ export class LocationHeader extends React.Component<Props> {
   }
 
   render () {
-    const {city, language} = this.props.location.payload
+    const { city, language } = this.props.location.payload
 
-    return <Header viewportSmall={this.props.viewportSmall}
-                   logoHref={goToCategories(city, language)}
-                   actionItems={this.getActionItems()}
-                   navigationItems={this.getNavigationItems()}
-                   onStickyTopChanged={this.props.onStickyTopChanged} />
+    return (
+      <Header
+        viewportSmall={this.props.viewportSmall}
+        logoHref={goToCategories(city, language)}
+        actionItems={this.getActionItems()}
+        navigationItems={this.getNavigationItems()}
+        onStickyTopChanged={this.props.onStickyTopChanged}
+      />
+    )
   }
 }
 
@@ -102,7 +112,6 @@ const mapStateToProps = (state: State) => ({
   events: state.events.data
 })
 
-export default compose(
-  connect(mapStateToProps),
-  translate('layout')
-)(LocationHeader)
+export default compose(connect(mapStateToProps), translate('layout'))(
+  LocationHeader
+)
