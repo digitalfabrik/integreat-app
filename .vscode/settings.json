@@ -2,5 +2,8 @@
     "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
     "flow.useNPMPackagedFlow": true,
     "javascript.validate.enable": false,
-    "yarn.packageJson": "package.json"
+    "yarn.packageJson": "package.json",
+    "files.associations": {
+      "*.js": "javascriptreact"
+  }
 }
