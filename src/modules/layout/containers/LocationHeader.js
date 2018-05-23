@@ -29,7 +29,7 @@ type Props = {
   t: I18nTranslate,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
-  onStickyTopChanged: number => { }
+  onStickyTopChanged: number => {}
 }
 
 export class LocationHeader extends React.Component<Props> {
@@ -60,31 +60,40 @@ export class LocationHeader extends React.Component<Props> {
     const items: Array<Element<typeof HeaderNavigationItem>> = []
 
     if (isExtrasEnabled) {
-      items.push(<HeaderNavigationItem
-        key='extras'
-        href={goToExtras(city, language)}
-        selected={currentRoute === EXTRAS_ROUTE}
-        text={t('extras')}
-        active />)
+      items.push(
+        <HeaderNavigationItem
+          key='extras'
+          href={goToExtras(city, language)}
+          selected={currentRoute === EXTRAS_ROUTE}
+          text={t('extras')}
+          active
+        />
+      )
     }
 
     if (isCategoriesEnabled) {
-      items.push(<HeaderNavigationItem
-        key='categories'
-        href={goToCategories(city, language)}
-        selected={currentRoute === CATEGORIES_ROUTE}
-        text={t('categories')}
-        active />)
+      items.push(
+        <HeaderNavigationItem
+          key='categories'
+          href={goToCategories(city, language)}
+          selected={currentRoute === CATEGORIES_ROUTE}
+          text={t('categories')}
+          active
+        />
+      )
     }
 
     if (isEventsEnabled) {
-      items.push(<HeaderNavigationItem
-        key='events'
-        href={goToEvents(city, language)}
-        selected={currentRoute === EVENTS_ROUTE}
-        text={t('news')}
-        tooltip={t('noNews')}
-        active={isEventsActive} />)
+      items.push(
+        <HeaderNavigationItem
+          key='events'
+          href={goToEvents(city, language)}
+          selected={currentRoute === EVENTS_ROUTE}
+          text={t('news')}
+          tooltip={t('noNews')}
+          active={isEventsActive}
+        />
+      )
     }
 
     return items
