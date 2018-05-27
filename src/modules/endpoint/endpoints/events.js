@@ -17,10 +17,9 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     if (!params.language) {
       throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'language')
     }
-    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v0/modified_content/events?since=1970-01-01T00:00:00Z`
+    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   })
   .withMapper((json: any): Array<EventModel> => json
-    .filter(event => event.status === 'publish')
     .map(event => {
       const allDay = event.event.all_day !== '0'
       return new EventModel({
