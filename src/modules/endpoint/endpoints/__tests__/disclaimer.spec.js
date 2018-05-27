@@ -1,5 +1,6 @@
 import disclaimer from '../disclaimer'
 import DisclaimerModel from '../../models/DisclaimerModel'
+import moment from 'moment'
 
 jest.unmock('../disclaimer')
 
@@ -37,7 +38,8 @@ describe('disclaimer', () => {
     expect(disclaimerModel).toEqual(new DisclaimerModel({
       id: pageJson.id,
       title: pageJson.title,
-      content: pageJson.content
+      content: pageJson.content,
+      lastUpdate: moment('2017-06-12 12:27:57')
     }))
   })
 })
