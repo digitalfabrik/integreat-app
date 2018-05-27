@@ -9,5 +9,6 @@ exports[`DisclaimerPage should match snapshot 1`] = `
     content="this is a test content"
     title="Feedback, Kontakt und mögliches Engagement"
   />
+  <Translate(CategoryTimeStamp) />
 </React.Fragment>
 `;
