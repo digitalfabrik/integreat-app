@@ -18,7 +18,7 @@ export const SubCategory = styled.div`
     text-align: start;
     
     @media ${props => props.theme.dimensions.smallViewport} {
-      width: calc(100% - 20px);
+      width: calc(100% - 8px);
     }
   }
 `
