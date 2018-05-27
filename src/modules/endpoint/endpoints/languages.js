@@ -13,7 +13,7 @@ export default new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
     if (!params.city) {
       throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
     }
-    return `${apiUrl}/${params.city}/de/wp-json/extensions/v3`
+    return `${apiUrl}/${params.city}/de/wp-json/extensions/v3/languages`
   })
   .withMapper((json: any): Array<LanguageModel> => json
     .map(language => new LanguageModel(
