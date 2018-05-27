@@ -3,7 +3,7 @@ import Highlighter from 'react-highlighter'
 import Link from 'redux-first-router-link'
 
 export const Row = styled.div`
-  margin: 10px 0;
+  margin: 25px 0;
   
   & > * {
     width: 100%;
