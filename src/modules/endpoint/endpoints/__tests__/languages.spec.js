@@ -20,7 +20,7 @@ describe('languages', () => {
 
   it('should map router to url', () => {
     expect(languages.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/languages/wpml'
+      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3'
     )
   })
 
