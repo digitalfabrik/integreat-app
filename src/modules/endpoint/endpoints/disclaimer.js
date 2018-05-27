@@ -6,6 +6,7 @@ import { isEmpty } from 'lodash/lang'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import type { EndpointParams } from '../../../flowTypes'
+import moment from 'moment/moment'
 
 const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
@@ -28,7 +29,7 @@ export default new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
       id: json.id,
       title: json.title,
       content: json.content,
-      lastUpdate: json.modified_gmt
+      lastUpdate: moment(json.modified_gmt)
     })
   })
   .build()
