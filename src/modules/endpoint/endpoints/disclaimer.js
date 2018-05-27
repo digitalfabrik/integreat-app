@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash/lang'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import type { EndpointParams } from '../../../flowTypes'
-import moment from 'moment/moment'
+import moment from 'moment'
 
 const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
