@@ -32,7 +32,7 @@ const childCategory = new CategoryModel({
 describe('CategoryListItem', () => {
   it('should render and match snapshot', () => {
     const wrapper = shallow(
-      <CategoryListItem category={category} children={[childCategory]} />
+      <CategoryListItem category={category} subCategories={[childCategory]} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -40,7 +40,7 @@ describe('CategoryListItem', () => {
   it('should replace empty thumbnail', () => {
     const noThumbCategory = {id: 42, path: '', title: 'GotNoThumb :O'}
     const wrapper = shallow(
-      <CategoryListItem category={noThumbCategory} children={[noThumbCategory]} />
+      <CategoryListItem category={noThumbCategory} subCategories={[noThumbCategory]} />
     )
     expect(wrapper).toMatchSnapshot()
   })
