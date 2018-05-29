@@ -51,7 +51,6 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
     categories={
       Array [
         Object {
-          "children": Array [],
           "model": CategoryModel {
             "_availableLanguages": Object {
               "ar": 397,
@@ -67,6 +66,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
             "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
             "_title": "Willkommen in Augsburg",
           },
+          "subCategories": Array [],
         },
       ]
     }
