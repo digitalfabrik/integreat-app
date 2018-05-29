@@ -10,7 +10,6 @@ describe('events', () => {
   const createEvent = (id, all_day, start_date, start_time, end_date, end_time) => ({
     id,
     title: 'Asylploitischer Frühschoppen',
-    status: 'publish',
     excerpt: 'Am Sonntag...',
     content: '<p>Am Sonntag...</p>',
     available_languages: [],
@@ -36,8 +35,7 @@ describe('events', () => {
 
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v0/modified_content/events' +
-      '?since=1970-01-01T00:00:00Z'
+      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })
 
@@ -67,9 +65,6 @@ describe('events', () => {
   }
 
   const json = [
-    {
-      status: 'trash'
-    },
     event1,
     event2,
     event3,
