@@ -24,7 +24,7 @@
       "categories": "Categories",
       "news": "News",
       "noNews": "No News",
-      "noLanguages": "Not available in different languages",
+      "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available"
     },
     "fa": {
@@ -32,6 +32,12 @@
       "extras": "اضافات",
       "categories": "دسته​ها",
       "news": "تازه​ها"
+    },
+    "fr": {
+      "imprintAndContact": "Mentions légales et contact",
+      "extras": "Extras",
+      "categories": "Catégorie",
+      "news": "Actualités"
     }
   },
   "search": {
@@ -48,6 +54,9 @@
     },
     "fa": {
       "pageTitle": "جستجو"
+    },
+    "fr": {
+      "pageTitle": "Rechercher"
     }
   },
   "categories": {
@@ -94,6 +103,13 @@
       "news": "تازه​ها",
       "pageTitle": "تازه​ها",
       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
+    },
+    "fr": {
+      "location": "Lieu",
+      "date": "Date",
+      "news": "Actualités",
+      "pageTitle": "Actualités",
+      "currentlyNoEvents": "Pas d'événements actuels disponibles."
     }
   },
   "extras": {
@@ -115,6 +131,10 @@
     "fa": {
       "extras": "اضافات",
       "pageTitle": "اضافات"
+    },
+    "fr": {
+      "extras": "Extras",
+      "pageTitle": "Extras"
     }
   },
   "landing": {
@@ -135,6 +155,10 @@
     "fa": {
       "where": "تو کجایی؟",
       "pageTitle": "تو کجایی؟"
+    },
+    "fr": {
+      "where": "Tu es où?",
+      "pageTitle": "Tu es où?"
     }
   },
   "error": {
@@ -149,14 +173,14 @@
     "de": {
       "not-found": {
         "language": "Deine Sprache ist hier leider nicht verfügbar.",
-        "city": "Deine Stadt wurde leider nicht verfügbar.",
+        "city": "Deine Stadt wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "extra": "Dieses Extra wurde leider nicht gefunden.",
         "disclaimer": "Ein Impressum ist leider für diese Stadt nicht verfügbar.",
         "pageTitle": "Seite nicht gefunden"
       },
-      "loadingFailed": "Seite konnte leider nicht geladen werden.",
+      "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
       "chooseYourLanguage": "Wähle deine Sprache:",
       "goTo": {
         "start": "Zur Startseite",
@@ -193,6 +217,9 @@
       },
       "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است.",
       "pageTitle": "خطا"
+    },
+    "fr": {
+      "chooseYourLanguage": "Choisis ta Langue:"
     }
   },
   "disclaimer": {
@@ -207,6 +234,9 @@
     },
     "fa": {
       "pageTitle": "مجوز ‎و اطلاعات تماس"
+    },
+    "fr": {
+      "pageTitle": "Mentions légales et contact"
     }
   }
 }
