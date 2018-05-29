@@ -14,22 +14,19 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
       Willkommen
     </CategoryListItemstyles__CategoryCaption>
   </CategoryListItemstyles__StyledLink>
-  <div
+  <CategoryListItemstyles__SubCategory
     key="5234"
   >
     <CategoryListItemstyles__StyledLink
       to="/augsburg/de/test"
     >
-      <CategoryListItemstyles__CategoryThumbnail
-        src="https://cms.integreat-ap…03/Beratung-150x150.png"
-      />
       <CategoryListItemstyles__CategoryCaption
         search=""
       >
         Child
       </CategoryListItemstyles__CategoryCaption>
     </CategoryListItemstyles__StyledLink>
-  </div>
+  </CategoryListItemstyles__SubCategory>
 </CategoryListItemstyles__Row>
 `;
 
@@ -47,19 +44,18 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
       GotNoThumb :O
     </CategoryListItemstyles__CategoryCaption>
   </CategoryListItemstyles__StyledLink>
-  <div
+  <CategoryListItemstyles__SubCategory
     key="42"
   >
     <CategoryListItemstyles__StyledLink
       to=""
     >
-      <CategoryListItemstyles__CategoryThumbnail />
       <CategoryListItemstyles__CategoryCaption
         search=""
       >
         GotNoThumb :O
       </CategoryListItemstyles__CategoryCaption>
     </CategoryListItemstyles__StyledLink>
-  </div>
+  </CategoryListItemstyles__SubCategory>
 </CategoryListItemstyles__Row>
 `;
