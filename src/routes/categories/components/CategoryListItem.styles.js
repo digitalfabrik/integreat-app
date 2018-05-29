@@ -3,7 +3,24 @@ import Highlighter from 'react-highlighter'
 import Link from 'redux-first-router-link'
 
 export const Row = styled.div`
-  margin: 20px 0;
+  margin: 12px 0;
+  
+  & > * {
+    width: 100%;
+  }
+`
+
+export const SubCategory = styled.div`
+  text-align: end;
+  
+  & > * {
+    width: calc(100% - 60px);
+    text-align: start;
+    
+    @media ${props => props.theme.dimensions.smallViewport} {
+      width: calc(100% - 8px);
+    }
+  }
 `
 
 export const CategoryThumbnail = styled.img`
@@ -14,31 +31,22 @@ export const CategoryThumbnail = styled.img`
   object-fit: contain;
 `
 
-export const SubCategoryThumbnail = CategoryThumbnail.extend`
-  width: 26px;
-  height: 26px;
-  padding: 5px 15px;
-`
-export const SubCategoryThumbnailDiv = SubCategoryThumbnail.withComponent('div')
-
 export const CategoryCaption = styled(Highlighter)`
   height: 100%;
-  min-width: 1px; /* needed to enabled line breaks for to long words, exact value doesn't matter, @Max: DO NOT CHANGE */
+  min-width: 1px; /* needed to enable line breaks for to long words, exact value doesn't matter */
   flex-grow: 1;
-  margin-left: 10px;
-  padding: 15px 0;
+  padding: 15px 5px;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   word-wrap: break-word;
 `
 
 export const SubCategoryCaption = CategoryCaption.extend`
-  padding: 10px 0 10px 15px;
+  padding: 8px 0;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 export const StyledLink = styled(Link)`
-  display: flex;
-  width: 100%;
+  display: inline-flex;
   align-items: center;
   margin: 0 auto;
 `
