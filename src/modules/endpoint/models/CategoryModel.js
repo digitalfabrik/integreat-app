@@ -62,6 +62,14 @@ class CategoryModel {
   get lastUpdate (): Moment {
     return this._lastUpdate
   }
+
+  isRoot (): boolean {
+    return this.id === 0
+  }
+
+  isLeaf (categories: CategoriesMapModel) {
+    return categories.getChildren(this).length === 0
+  }
 }
 
 export default CategoryModel

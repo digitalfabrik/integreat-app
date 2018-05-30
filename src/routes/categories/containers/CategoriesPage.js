@@ -19,6 +19,8 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import type { State, UiDirection } from '../../../flowTypes'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
+import type { I18nTranslate } from 'flowTypes'
+import { translate } from 'react-i18next'
 
 type Props = {
   categories: CategoriesMapModel,
@@ -26,7 +28,8 @@ type Props = {
   path: string,
   city: string,
   language: string,
-  uiDirection: UiDirection
+  uiDirection: UiDirection,
+  t: I18nTranslate
 }
 
 /**
@@ -51,14 +54,14 @@ export class CategoriesPage extends React.Component<Props> {
     const {categories, cities, language} = this.props
     const children = categories.getChildren(category)
 
-    if (children.length === 0) {
+    if (category.isLeaf(categories)) {
       // last level, our category is a simple page
       return <Fragment>
         <Page title={category.title}
               content={category.content} />
         <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />
       </Fragment>
-    } else if (category.id === 0) {
+    } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)} />
@@ -82,16 +85,18 @@ export class CategoriesPage extends React.Component<Props> {
     const {cities, city} = this.props
     const cityName = CityModel.findCityName(cities, city)
 
-    return `${categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}${cityName}`
+    return `${!categoryModel.isRoot() ? `${categoryModel.title} - ` : ''}${cityName}`
   }
 
   render () {
-    const {categories, path, city, language, uiDirection} = this.props
+    const {categories, path, city, language, uiDirection, t} = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
+      const metaDescription = categoryModel.isRoot() ? t('metaDescription') : undefined
+
       return <div>
-        <Helmet title={this.getPageTitle(categoryModel)} />
+        <Helmet title={this.getPageTitle(categoryModel)} metaDescription={metaDescription} />
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
@@ -113,4 +118,4 @@ const mapStateToProps = (state: State) => ({
   cities: state.cities.data
 })
 
-export default connect(mapStateToProps)(CategoriesPage)
+export default connect(mapStateToProps)(translate('categories')(CategoriesPage))

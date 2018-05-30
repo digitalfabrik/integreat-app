@@ -16,7 +16,8 @@ type Props = {
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   languages: Array<LanguageModel>,
-  location: Location
+  location: Location,
+  metaDescription: string
 }
 
 export class Helmet extends React.Component<Props> {
@@ -30,9 +31,10 @@ export class Helmet extends React.Component<Props> {
   }
 
   render () {
-    const title = this.props.title
+    const { title, metaDescription } = this.props
     return <ReactHelmet>
       <title>{title}</title>
+      {metaDescription && <meta name='description' content={metaDescription} />}
       {this.getLanguageLinks()}
     </ReactHelmet>
   }
