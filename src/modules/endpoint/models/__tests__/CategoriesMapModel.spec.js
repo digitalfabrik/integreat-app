@@ -1,11 +1,12 @@
 import CategoriesMapModel from '../CategoriesMapModel'
+import CategoryModel from '../CategoryModel'
 
 describe('CategoriesMapModel', () => {
   const categories = [
-    {id: 0, path: '/augsburg/de', title: 'augsburg', parentPath: ''},
-    {id: 20, path: '/augsburg/de/willkommen', parentPath: '/augsburg/de', title: 'willkommen', order: 1},
-    {id: 21, path: '/augsburg/de/erste-schritte', parentPath: '/augsburg/de', title: 'erste-schritte', order: 2},
-    {id: 22, path: '/augsburg/de/erste-schritte/asylantrag', parentPath: '/augsburg/de/erste-schritte', title: 'asylantrag'}
+    new CategoryModel({id: 0, path: '/augsburg/de', title: 'augsburg', parentPath: ''}),
+    new CategoryModel({id: 20, path: '/augsburg/de/willkommen', parentPath: '/augsburg/de', title: 'willkommen', order: 1}),
+    new CategoryModel({id: 21, path: '/augsburg/de/erste-schritte', parentPath: '/augsburg/de', title: 'erste-schritte', order: 2}),
+    new CategoryModel({id: 22, path: '/augsburg/de/erste-schritte/asylantrag', parentPath: '/augsburg/de/erste-schritte', title: 'asylantrag'})
   ]
 
   const categoriesMapModel = new CategoriesMapModel(categories)
@@ -36,5 +37,10 @@ describe('CategoriesMapModel', () => {
   it('should return all immediate children in the right order', () => {
     expect(categoriesMapModel.getChildren(category1)[0]).toEqual(category2)
     expect(categoriesMapModel.getChildren(category1)[1]).toEqual(category3)
+  })
+
+  it('should instruct CategoryModel to be leaf', () => {
+    expect(category4.isLeaf(categoriesMapModel)).toBe(true)
+    expect(category3.isLeaf(categoriesMapModel)).toBe(false)
   })
 })
