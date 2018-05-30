@@ -36,7 +36,6 @@ exports[`CategoriesPage should match snapshot and render CategoryTiles if the pa
 exports[`CategoriesPage should match snapshot and render a CategoryList if the category is neither the root but has children 1`] = `
 <div>
   <Connect(Helmet)
-    metaDescription="metaDescription"
     title="Willkommen - Augsburg"
   />
   <Breadcrumbs
@@ -81,7 +80,6 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
 exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
 <div>
   <Connect(Helmet)
-    metaDescription="metaDescription"
     title="Willkommen in Augsburg - Augsburg"
   />
   <Breadcrumbs
