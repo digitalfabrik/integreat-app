@@ -80,7 +80,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      path={categoryModels[3].path} />
+                      path={categoryModels[3].path}
+                      t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -92,7 +93,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      path={categoryModels[2].path} />
+                      path={categoryModels[2].path}
+                      t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -104,7 +106,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      path={'/augsburg/de'} />
+                      path={'/augsburg/de'}
+                      t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
