@@ -33,7 +33,6 @@ export type State = {
   +languages: Payload<Array<LanguageModel>>,
   +disclaimer: Payload<DisclaimerModel>,
   +sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
-  +extras: Payload<Array<ExtraModel>>,
   +viewport: {...any, +is: {+small: boolean, +large: boolean}},
   +uiDirection: UiDirection
 }
