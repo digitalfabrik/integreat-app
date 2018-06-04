@@ -4,7 +4,7 @@ import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams } from '../../../flowTypes'
+import type { EndpointParams, PayloadData } from '../../../flowTypes'
 
 const LANGUAGES_ENDPOINT_NAME = 'languages'
 
@@ -15,7 +15,7 @@ export default new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/de/wp-json/extensions/v3/languages`
   })
-  .withMapper((json: any): Array<LanguageModel> => json
+  .withMapper((json: any): PayloadData => json
     .map(language => new LanguageModel(
       language.code,
       language.native_name
