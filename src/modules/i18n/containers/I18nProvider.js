@@ -36,7 +36,7 @@ export class I18nProvider extends React.Component {
         debug: __DEV__
       })
 
-    this.state = {language: FALLBACK_LANGUAGE}
+    this.state = {language: FALLBACK_LANGUAGE, fonts: I18nProvider.getSelectedFonts(FALLBACK_LANGUAGE)}
   }
 
   /**
@@ -57,7 +57,7 @@ export class I18nProvider extends React.Component {
   setLanguage (language) {
     const targetLanguage = language || this.i18n.languages[0]
 
-    const fonts = I18nProvider.getSelectedFonts(targetLanguage);
+    const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})
     this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
     document.documentElement.lang = targetLanguage
@@ -78,12 +78,11 @@ export class I18nProvider extends React.Component {
 
   static getSelectedFonts (language) {
     // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
-
     return {
       lateef: ['ar', 'fa', 'ku'].includes(language),
       openSans: true,
       raleway: true
-    };
+    }
   }
 
   render () {
@@ -91,9 +90,9 @@ export class I18nProvider extends React.Component {
     return <I18nextProvider i18n={this.i18n}>
       <div style={{'direction': RTL_LANGUAGES.includes(this.state.language) ? 'rtl' : 'ltr'}}>
         <ReactHelmet>
-          {lateef && <link href="/fonts/lateef.css" rel="stylesheet" />}
-          {openSans && <link href="/fonts/open-sans.css" rel="stylesheet" />}
-          {raleway && <link href="/fonts/raleway.css" rel="stylesheet" />}
+          {lateef && <link href='/fonts/lateef.css' rel='stylesheet' />}
+          {openSans && <link href='/fonts/open-sans.css' rel='stylesheet' />}
+          {raleway && <link href='/fonts/raleway.css' rel='stylesheet' />}
         </ReactHelmet>
         {this.props.children}
       </div>
