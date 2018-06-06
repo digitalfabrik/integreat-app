@@ -81,7 +81,7 @@ describe('I18nProvider', () => {
 
     const i18n = component.find(I18nextProvider).prop('i18n')
     expect(i18n.language).toEqual('en')
-    expect(component.state()).toEqual({language: 'en'})
+    expect(component.state()).toEqual({language: 'en', fonts: {lateef: false, openSans: true, raleway: true}})
   })
 
   it('should call setLanguage on property change', () => {
@@ -113,19 +113,23 @@ describe('I18nProvider', () => {
       </I18nProvider>)
 
       const i18n = component.find(I18nextProvider).prop('i18n')
-      const instance = component.instance()
 
       const expectedLanguage = i18n.languages[0]
 
-      instance.loadFonts = jest.fn()
+      const originalGetSelectedFonts = I18nProvider.getSelectedFonts
+      I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
       i18n.changeLanguage = jest.fn()
 
       component.instance().setLanguage()
 
       expect(document.documentElement.lang).toEqual(expectedLanguage)
       expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
-      expect(instance.loadFonts).toHaveBeenCalledWith(expectedLanguage)
-      expect(component.state()).toEqual({language: expectedLanguage})
+      expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
+      expect(component.state()).toEqual({
+        language: expectedLanguage,
+        fonts: {lateef: false, openSans: true, raleway: true}
+      })
+      I18nProvider.getSelectedFonts = originalGetSelectedFonts
     })
 
     it('should take param language if param is defined', () => {
@@ -134,19 +138,23 @@ describe('I18nProvider', () => {
       </I18nProvider>)
 
       const i18n = component.find(I18nextProvider).prop('i18n')
-      const instance = component.instance()
 
       const expectedLanguage = 'ar'
 
-      instance.loadFonts = jest.fn()
+      const originalGetSelectedFonts = I18nProvider.getSelectedFonts
+      I18nProvider.getSelectedFonts = jest.fn(I18nProvider.getSelectedFonts)
       i18n.changeLanguage = jest.fn()
 
       component.instance().setLanguage(expectedLanguage)
 
       expect(document.documentElement.lang).toEqual(expectedLanguage)
       expect(i18n.changeLanguage).toHaveBeenCalledWith(expectedLanguage)
-      expect(instance.loadFonts).toHaveBeenCalledWith(expectedLanguage)
-      expect(component.state()).toEqual({language: expectedLanguage})
+      expect(I18nProvider.getSelectedFonts).toHaveBeenCalledWith(expectedLanguage)
+      expect(component.state()).toEqual({
+        language: expectedLanguage,
+        fonts: {lateef: true, openSans: true, raleway: true}
+      })
+      I18nProvider.getSelectedFonts = originalGetSelectedFonts
     })
   })
 
