@@ -36,11 +36,11 @@ exports[`I18nProvider should match snapshot 1`] = `
       link={
         Array [
           Object {
-            "href": "/fonts/open-sans.css",
+            "href": "/fonts/open-sans/open-sans.css",
             "rel": "stylesheet",
           },
           Object {
-            "href": "/fonts/raleway.css",
+            "href": "/fonts/raleway/raleway.css",
             "rel": "stylesheet",
           },
         ]
@@ -52,11 +52,11 @@ exports[`I18nProvider should match snapshot 1`] = `
         link={
           Array [
             Object {
-              "href": "/fonts/open-sans.css",
+              "href": "/fonts/open-sans/open-sans.css",
               "rel": "stylesheet",
             },
             Object {
-              "href": "/fonts/raleway.css",
+              "href": "/fonts/raleway/raleway.css",
               "rel": "stylesheet",
             },
           ]
