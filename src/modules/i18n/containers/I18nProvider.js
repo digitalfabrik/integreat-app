@@ -90,9 +90,9 @@ export class I18nProvider extends React.Component {
     return <I18nextProvider i18n={this.i18n}>
       <div style={{'direction': RTL_LANGUAGES.includes(this.state.language) ? 'rtl' : 'ltr'}}>
         <ReactHelmet>
-          {lateef && <link href='/fonts/lateef.css' rel='stylesheet' />}
-          {openSans && <link href='/fonts/open-sans.css' rel='stylesheet' />}
-          {raleway && <link href='/fonts/raleway.css' rel='stylesheet' />}
+          {lateef && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
+          {openSans && <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />}
+          {raleway && <link href='/fonts/raleway/raleway.css' rel='stylesheet' />}
         </ReactHelmet>
         {this.props.children}
       </div>
