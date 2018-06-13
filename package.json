@@ -110,6 +110,7 @@
     "postcss-nesting": "~4.2.1",
     "postcss-selector-matches": "~3.0.1",
     "postcss-selector-not": "~3.0.1",
+    "prettier-eslint": "^8.8.1",
     "prop-types": "~15.6.1",
     "raf": "~3.4.0",
     "react-hot-loader": "~4.0.1",
@@ -144,6 +145,7 @@
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
-    "test:update": "jest --config jest.config.json -u"
+    "test:update": "jest --config jest.config.json -u",
+    "locales:missing": "node tools/findMissingLocales"
   }
 }

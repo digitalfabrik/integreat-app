@@ -11,9 +11,9 @@ const isDebug = global.DEBUG === false ? false : !process.argv.includes('--relea
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 
 const basePackageValues = {
-  'name': '@integreat/shared',
-  'version': '1.0.0',
-  'main': './main.js'
+  'name': '@integreat-app/shared',
+  'version': '0.0.1',
+  'main': './index.js'
 }
 
 const versionsPackageFilename = path.resolve(__dirname, '../package.json')
@@ -38,7 +38,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/dist/',
-    filename: isDebug ? '[name].js' : '[name].js',
+    filename: 'index.js',
     sourcePrefix: '  ',
     library: '@integreat/shared',
     libraryTarget: 'umd'

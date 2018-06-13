@@ -1,14 +1,19 @@
+// @flow
+
 class LanguageModel {
-  constructor (code, name) {
+  _code: string
+  _name: string
+
+  constructor (code: string, name: string) {
     this._code = code
     this._name = name
   }
 
-  get code () {
+  get code (): string {
     return this._code
   }
 
-  get name () {
+  get name (): string {
     return this._name
   }
 }
