@@ -4,7 +4,7 @@ import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams } from '../../../flowTypes'
+import type { EndpointParams, PayloadData } from '../../../flowTypes'
 
 const LANGUAGES_ENDPOINT_NAME = 'languages'
 
@@ -13,10 +13,13 @@ export default new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
     if (!params.city) {
       throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
     }
-    return `${apiUrl}/${params.city}/de/wp-json/extensions/v0/languages/wpml`
+    return `${apiUrl}/${params.city}/de/wp-json/extensions/v3/languages`
   })
-  .withMapper((json: any): Array<LanguageModel> => json
-    .map(language => new LanguageModel(language.code, language.native_name))
+  .withMapper((json: any): PayloadData => json
+    .map(language => new LanguageModel(
+      language.code,
+      language.native_name
+    ))
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
   )
   .build()

@@ -16,8 +16,8 @@ export type UiDirection = 'ltr' | 'rtl'
 export type PayloadData = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettJobModel> |
   CategoriesMapModel | DisclaimerModel
 
-export type Payload<data: PayloadData> = {
-  data: ?data,
+export type Payload<PayloadData> = {
+  data: ?PayloadData,
   isFetching: boolean,
   error: ?Error,
   requestUrl: ?string,
@@ -33,7 +33,6 @@ export type State = {
   +languages: Payload<Array<LanguageModel>>,
   +disclaimer: Payload<DisclaimerModel>,
   +sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
-  +extras: Payload<Array<ExtraModel>>,
   +viewport: {...any, +is: {+small: boolean, +large: boolean}},
   +uiDirection: UiDirection
 }

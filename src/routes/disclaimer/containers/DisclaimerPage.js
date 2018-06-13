@@ -10,12 +10,14 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import type { I18nTranslate, State } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
+import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
 
 type Props = {
   disclaimer: DisclaimerModel,
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslate
+  t: I18nTranslate,
+  language: string
 }
 
 /**
@@ -23,12 +25,13 @@ type Props = {
  */
 export class DisclaimerPage extends React.Component<Props> {
   render () {
-    const {disclaimer, cities, city, t} = this.props
+    const {disclaimer, cities, city, t, language} = this.props
 
     return <React.Fragment>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
       <Page title={disclaimer.title}
             content={disclaimer.content} />
+      <CategoryTimeStamp lastUpdate={disclaimer.lastUpdate} language={language} />
     </React.Fragment>
   }
 }
@@ -36,7 +39,8 @@ export class DisclaimerPage extends React.Component<Props> {
 const mapStateToProps = (state: State) => ({
   disclaimer: state.disclaimer.data,
   cities: state.cities.data,
-  city: state.location.payload.city
+  city: state.location.payload.city,
+  language: state.location.payload.language
 })
 
 export default compose(
