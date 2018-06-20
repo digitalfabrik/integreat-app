@@ -10,7 +10,6 @@ exports[`ScrollingSearchBox should render 1`] = `
   >
     <SearchInput
       filterText="Test"
-      onClickInput={[Function]}
       onFilterTextChange={[Function]}
       placeholderText="Placeholder"
     />
@@ -57,7 +56,6 @@ exports[`ScrollingSearchBox should space search 1`] = `
   >
     <SearchInput
       filterText="Test"
-      onClickInput={[Function]}
       onFilterTextChange={[Function]}
       placeholderText="Placeholder"
       spaceSearch={true}
