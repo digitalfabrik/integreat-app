@@ -17,7 +17,34 @@ exports[`ScrollingSearchBox should render 1`] = `
 </div>
 `;
 
-exports[`ScrollingSearchBox should set correct reference 1`] = `undefined`;
+exports[`ScrollingSearchBox should set correct reference 1`] = `
+<div>
+  <div
+    class="Headroomstyles__HeaderWrapper-iDCIAq gEUoNd"
+  >
+    <div
+      class="SearchInputstyles__Spacer-jPTMIV hTlgQL"
+    >
+      <div
+        class="SearchInputstyles__Wrapper-eDunOl gDAAdm"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-search SearchInputstyles__SearchIcon-bXUNqg kVDGLo"
+        />
+        <input
+          aria-label="Placeholder"
+          class="SearchInputstyles__TextInput-kJgKBC lfoCjL"
+          placeholder="Placeholder"
+          type="text"
+          value="Test"
+        />
+      </div>
+    </div>
+  </div>
+  <div />
+</div>
+`;
 
 exports[`ScrollingSearchBox should space search 1`] = `
 <div>
