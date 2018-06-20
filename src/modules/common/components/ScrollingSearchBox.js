@@ -20,6 +20,15 @@ export class ScrollingSearchBox extends React.PureComponent {
     this.state = {initialized: false}
   }
 
+  setReference = node => {
+    if (node) {
+      this._node = node
+      if (!this.state.initialized) {
+        this.setState(prevState => ({...prevState, initialized: true}))
+      }
+    }
+  }
+
   render () {
     const {children, filterText, placeholderText, spaceSearch} = this.props
 
