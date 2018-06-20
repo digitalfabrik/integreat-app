@@ -26,6 +26,44 @@ exports[`I18nProvider should match snapshot 1`] = `
     }
   }
 >
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <SideEffect(NullComponent)
+      defer={true}
+      encodeSpecialCharacters={true}
+      link={
+        Array [
+          Object {
+            "href": "/fonts/open-sans/open-sans.css",
+            "rel": "stylesheet",
+          },
+          Object {
+            "href": "/fonts/raleway/raleway.css",
+            "rel": "stylesheet",
+          },
+        ]
+      }
+    >
+      <NullComponent
+        defer={true}
+        encodeSpecialCharacters={true}
+        link={
+          Array [
+            Object {
+              "href": "/fonts/open-sans/open-sans.css",
+              "rel": "stylesheet",
+            },
+            Object {
+              "href": "/fonts/raleway/raleway.css",
+              "rel": "stylesheet",
+            },
+          ]
+        }
+      />
+    </SideEffect(NullComponent)>
+  </HelmetWrapper>
   <div />
 </div>
 `;
