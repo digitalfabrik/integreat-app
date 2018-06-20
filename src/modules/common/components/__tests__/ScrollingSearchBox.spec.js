@@ -2,7 +2,6 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
-import { animateScroll } from 'react-scroll'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../app/constants/theme'
 
@@ -53,21 +52,5 @@ describe('ScrollingSearchBox', () => {
       </ThemeProvider>).find(ScrollingSearchBox)
     const node = component.instance()._node
     expect(node).toMatchSnapshot()
-  })
-
-  it('should call animateScroll on scroll()', () => {
-    const component = mount(
-      <ThemeProvider theme={theme}>
-        <ScrollingSearchBox filterText={'Test'}
-                            onFilterTextChange={() => {}}
-                            placeholderText={'Placeholder'}>
-          <MockNode />
-        </ScrollingSearchBox>
-      </ThemeProvider>).find(ScrollingSearchBox)
-
-    component.instance()._node = {offsetTop: 15}
-    component.instance().scroll()
-
-    expect(animateScroll.scrollTo).toHaveBeenCalledWith(15, {duration: 500})
   })
 })
