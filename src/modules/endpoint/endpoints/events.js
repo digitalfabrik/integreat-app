@@ -5,7 +5,7 @@ import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams } from '../../../flowTypes'
+import type { EndpointParams, PayloadData } from '../../../flowTypes'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
@@ -19,7 +19,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   })
-  .withMapper((json: any): Array<EventModel> => json
+  .withMapper((json: any): PayloadData => json
     .map(event => {
       const allDay = event.event.all_day !== '0'
       return new EventModel({

@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 import { reduce, forEach } from 'lodash/collection'
-import WebFont from 'webfontloader'
+import ReactHelmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
@@ -36,7 +36,7 @@ export class I18nProvider extends React.Component {
         debug: __DEV__
       })
 
-    this.state = {language: FALLBACK_LANGUAGE}
+    this.state = {language: FALLBACK_LANGUAGE, fonts: I18nProvider.getSelectedFonts(FALLBACK_LANGUAGE)}
   }
 
   /**
@@ -57,13 +57,13 @@ export class I18nProvider extends React.Component {
   setLanguage (language) {
     const targetLanguage = language || this.i18n.languages[0]
 
-    this.setState({language: targetLanguage})
+    const fonts = I18nProvider.getSelectedFonts(targetLanguage)
+    this.setState({language: targetLanguage, fonts})
     this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
     document.documentElement.lang = targetLanguage
 
     // Set i18next language to apps language
     this.i18n.changeLanguage(targetLanguage)
-    this.loadFonts(targetLanguage)
   }
 
   componentWillMount () {
@@ -76,23 +76,24 @@ export class I18nProvider extends React.Component {
     }
   }
 
-  loadFonts (language) {
+  static getSelectedFonts (language) {
     // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
-    const arabicFonts = ['Lateef:400', 'Raleway:400,700', 'Open+Sans:400,700']
-    // We do not need an arabic font
-    const latinFonts = ['Raleway:400,700', 'Open+Sans:400,700']
-    const families = {
-      ar: arabicFonts,
-      fa: arabicFonts,
-      ku: arabicFonts
+    return {
+      lateef: ['ar', 'fa', 'ku'].includes(language),
+      openSans: true,
+      raleway: true
     }
-
-    WebFont.load({google: {families: families[language] || latinFonts}})
   }
 
   render () {
+    const {lateef, openSans, raleway} = this.state.fonts
     return <I18nextProvider i18n={this.i18n}>
       <div style={{'direction': RTL_LANGUAGES.includes(this.state.language) ? 'rtl' : 'ltr'}}>
+        <ReactHelmet>
+          {lateef && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
+          {openSans && <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />}
+          {raleway && <link href='/fonts/raleway/raleway.css' rel='stylesheet' />}
+        </ReactHelmet>
         {this.props.children}
       </div>
     </I18nextProvider>
