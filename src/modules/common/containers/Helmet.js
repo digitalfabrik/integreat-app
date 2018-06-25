@@ -17,7 +17,7 @@ type Props = {
   events: Array<EventModel>,
   languages: Array<LanguageModel>,
   location: Location,
-  metaDescription: string
+  metaDescription: ?string
 }
 
 export class Helmet extends React.Component<Props> {
