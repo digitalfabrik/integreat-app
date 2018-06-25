@@ -7,7 +7,7 @@ import compose from 'lodash/fp/compose'
 import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
-import Helmet from 'react-helmet'
+import ReactHelmet from 'react-helmet'
 import type { I18nTranslate, State } from '../../../flowTypes'
 
 type Props = {
@@ -20,9 +20,10 @@ export class LandingPage extends React.Component<Props> {
   render () {
     const {t, language, cities} = this.props
     return <React.Fragment>
-      <Helmet>
+      <ReactHelmet>
         <title>{t('pageTitle')}</title>
-      </Helmet>
+        <meta name='description' content={t('metaDescription')} />
+      </ReactHelmet>
       <FilterableCitySelector language={language} cities={cities} />
     </React.Fragment>
   }
