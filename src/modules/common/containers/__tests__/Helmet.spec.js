@@ -45,7 +45,7 @@ describe('Helmet', () => {
 
   it('should render and match snapshot', () => {
     const helmet = shallow(
-      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} />
+      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} t={key => key} />
     )
 
     expect(helmet).toMatchSnapshot()
