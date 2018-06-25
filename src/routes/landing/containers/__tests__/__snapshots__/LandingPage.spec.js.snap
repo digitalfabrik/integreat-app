@@ -9,6 +9,10 @@ exports[`LandingPage should match snapshot 1`] = `
     <title>
       pageTitle
     </title>
+    <meta
+      content="metaDescription"
+      name="description"
+    />
   </HelmetWrapper>
   <Translate(FilterableCitySelector)
     cities={
