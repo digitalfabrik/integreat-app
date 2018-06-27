@@ -6,11 +6,11 @@ import Header from './Header'
 import HeaderActionItem from '../HeaderActionItem'
 import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
 
-type Props = {
+type PropsType = {
   viewportSmall: boolean
 }
 
-class GeneralHeader extends React.Component<Props> {
+class GeneralHeader extends React.Component<PropsType> {
   render () {
     return <Header viewportSmall={this.props.viewportSmall}
                    logoHref={goToI18nRedirect()}

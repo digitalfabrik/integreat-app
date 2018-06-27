@@ -1,16 +1,16 @@
 // @flow
 
 import Endpoint from './Endpoint'
-import type { MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
+import type { MapParamsToUrlType, MapResponseType, PayloadDataType } from '../../flowTypes'
 
 /**
  * Helper class to build a {@link Endpoint}
  */
 class EndpointBuilder {
   _name: string
-  _paramsToUrlMapper: MapParamsToUrl
-  _mapper: MapResponse
-  _responseOverride: ?PayloadData
+  _paramsToUrlMapper: MapParamsToUrlType
+  _mapper: MapResponseType
+  _responseOverride: ?PayloadDataType
   _errorOverride: ?Error
 
   /**
@@ -26,7 +26,7 @@ class EndpointBuilder {
    * @param paramsToUrlMapper The paramsToUrlMapper which is mapping the params to a url
    * @return {EndpointBuilder} The builder itself
    */
-  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrl): EndpointBuilder {
+  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrlType): EndpointBuilder {
     this._paramsToUrlMapper = paramsToUrlMapper
     return this
   }
@@ -36,7 +36,7 @@ class EndpointBuilder {
    * @param mapper The mapper which maps json from our cms to models
    * @return {EndpointBuilder} The builder itself
    */
-  withMapper (mapper: MapResponse): EndpointBuilder {
+  withMapper (mapper: MapResponseType): EndpointBuilder {
     this._mapper = mapper
     return this
   }

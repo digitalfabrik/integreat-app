@@ -3,7 +3,7 @@
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
-import type { PayloadData } from '../../../flowTypes'
+import type { PayloadDataType } from '../../../flowTypes'
 
 const stripSlashes = (path: string): string => {
   if (path.startsWith('/')) {
@@ -17,7 +17,7 @@ const stripSlashes = (path: string): string => {
 
 export default new EndpointBuilder('cities')
   .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v3/sites`)
-  .withMapper((json: any): PayloadData => json
+  .withMapper((json: any): PayloadDataType => json
     .map(city => new CityModel({
       name: city.name,
       code: stripSlashes(city.path),

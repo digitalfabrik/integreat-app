@@ -1,6 +1,5 @@
 // @flow
-
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
@@ -10,29 +9,29 @@ import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
-type Props = {
+type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
-type LocalState = {
+type LocalStateTypeType = {
   filterText: string
 }
 
-export class SearchPage extends React.Component<Props, LocalState> {
-  state = {
+export class SearchPage extends React.Component<PropsType, LocalStateTypeType> {
+  stateType = {
     filterText: ''
   }
 
   findCategories (): Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}> {
     const categories = this.props.categories
-    const filterText = this.state.filterText.toLowerCase()
+    const filterText = this.stateType.filterText.toLowerCase()
 
     // find all categories whose titles include the filter text and sort them lexicographically
     const categoriesWithTitle = categories.toArray()
@@ -63,23 +62,23 @@ export class SearchPage extends React.Component<Props, LocalState> {
     return (
       <div>
         <Helmet title={`${t('pageTitle')} - ${cityName}`} />
-        <SearchInput filterText={this.state.filterText}
+        <SearchInput filterText={this.stateType.filterText}
                      placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
-        <CategoryList categories={categories} query={this.state.filterText} />
+        <CategoryList categories={categories} query={this.stateType.filterText} />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  categories: state.categories.data,
-  cities: state.cities.data,
-  city: state.location.payload.city
+const mapStateTypeToProps = (stateType: StateType) => ({
+  categories: stateType.categories.data,
+  cities: stateType.cities.data,
+  city: stateType.location.payload.city
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateTypeToProps),
   translate('search')
 )(SearchPage)

@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { translate } from 'react-i18next'
 
@@ -9,20 +11,20 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
-import EventModel from '../../../modules/endpoint/models/EventModel'
-import type { I18nTranslate } from '../../../flowTypes'
+import EventModel from 'modules/endpoint/models/EventModel'
+import type { I18nTranslateType } from 'flowTypes'
 
-type Props = {
+type PropsType = {
   event: EventModel,
   language: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
 /**
  * Display a single event with all necessary information
  */
-class EventDetail extends React.Component<Props> {
-  getEventPlaceholder () {
+class EventDetail extends React.Component<PropsType> {
+  getEventPlaceholder (): string {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
     return placeholders[this.props.event.id % placeholders.length]
   }

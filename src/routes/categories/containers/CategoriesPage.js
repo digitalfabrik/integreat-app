@@ -1,7 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react'
-import type {Node} from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
@@ -16,27 +15,27 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { State, UiDirection } from '../../../flowTypes'
+import type { StateType, UiDirectionType } from '../../../flowTypes'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
-import type { I18nTranslate } from 'flowTypes'
+import type { I18nTranslateType } from 'flowTypes'
 import { translate } from 'react-i18next'
 
-type Props = {
+type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
   city: string,
   language: string,
-  uiDirection: UiDirection,
-  t: I18nTranslate
+  uiDirection: UiDirectionType,
+  t: I18nTranslateType
 }
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
-export class CategoriesPage extends React.Component<Props> {
-  getTileModels (categories: Array<CategoryModel>) {
+export class CategoriesPage extends React.Component<PropsType> {
+  getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => new TileModel({
       id: String(category.id), title: category.title, path: category.path, thumbnail: category.thumbnail, isExternalUrl: false
     }))
@@ -50,17 +49,17 @@ export class CategoriesPage extends React.Component<Props> {
    * @param category The current category
    * @return {*} The content to be displayed
    */
-  getContent (category: CategoryModel) {
+  getContent (category: CategoryModel): React.Node {
     const {categories, cities, language} = this.props
     const children = categories.getChildren(category)
 
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <Fragment>
+      return <React.Fragment>
         <Page title={category.title}
               content={category.content} />
         <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />
-      </Fragment>
+      </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -72,7 +71,7 @@ export class CategoriesPage extends React.Component<Props> {
                          content={category.content} />
   }
 
-  getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
+  getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
     const {cities, categories} = this.props
     return categories.getAncestors(categoryModel)
       .map(ancestor => {
@@ -109,7 +108,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   uiDirection: state.uiDirection,
   language: state.location.payload.language,
   city: state.location.payload.city,

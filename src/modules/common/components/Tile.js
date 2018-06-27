@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'redux-first-router-link'
 import { Col } from 'react-styled-flexboxgrid'
@@ -6,15 +8,19 @@ import { Col } from 'react-styled-flexboxgrid'
 import style from './Tile.css'
 import TileModel from '../models/TileModel'
 
+type PropsType = {
+  tile: TileModel
+}
+
 /**
  * Displays a single Tile
  */
-class Tile extends React.Component {
+class Tile extends React.Component<PropsType> {
   static propTypes = {
     tile: PropTypes.instanceOf(TileModel).isRequired
   }
 
-  getTileContent () {
+  getTileContent (): React.Node {
     return <React.Fragment>
       <div className={style.thumbnailSizer}>
         <div className={style.thumbnail}>
@@ -25,7 +31,7 @@ class Tile extends React.Component {
     </React.Fragment>
   }
 
-  getTile () {
+  getTile (): React.Node {
     const tile = this.props.tile
     return tile.isExternalUrl
       ? <a href={this.props.tile.path} target='_blank'>

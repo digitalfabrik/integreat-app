@@ -68,7 +68,7 @@ class CategoryModel {
     return this.id === 0
   }
 
-  isLeaf (categories: CategoriesMapModel) {
+  isLeaf (categories: CategoriesMapModel): boolean {
     return categories.getChildren(this).length === 0
   }
 }

@@ -1,25 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
 
+import * as React from 'react'
 import { CityListParent } from './CitySelector.styles'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityModel from 'modules/endpoint/models/CityModel'
 import CityEntry from './CityEntry'
 
-class CitySelector extends React.PureComponent {
-  static propTypes = {
-    cities: PropTypes.arrayOf(PropTypes.instanceOf(CityModel)),
-    filterText: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    stickyTop: PropTypes.number.isRequired
-  }
+type PropsType = {
+  cities: Array<CityModel>,
+  filterText: string,
+  language: string,
+  stickyTop: number
+}
 
+class CitySelector extends React.PureComponent<PropsType> {
   static defaultProps = {
     stickyTop: 0
   }
 
-  filter () {
+  filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
 
@@ -32,7 +32,7 @@ class CitySelector extends React.PureComponent {
     }
   }
 
-  renderList (cities) {
+  renderList (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
       result.push(<div key={key}>

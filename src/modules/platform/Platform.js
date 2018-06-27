@@ -1,3 +1,6 @@
+
+// @flow
+
 import { detect } from 'detect-browser'
 
 class Platform {
@@ -7,7 +10,7 @@ class Platform {
     this._browser = detect()
   }
 
-  get positionStickyDisabled () {
+  get positionStickyDisabled (): boolean {
     return !!(this._browser && this._browser.name === 'edge' && /^16\..*/.test(this._browser.version))
   }
 }

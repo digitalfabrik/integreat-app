@@ -14,7 +14,7 @@ import { goToEvents } from '../../../modules/app/routes/events'
 
 const EXCERPT_LENGTH = 70
 
-type Props = {
+type PropsType = {
   event: EventModel,
   city: string,
   language: string
@@ -23,12 +23,12 @@ type Props = {
 /**
  * Display a element of the EventList
  */
-class EventListElement extends React.Component<Props> {
+class EventListElement extends React.Component<PropsType> {
   /**
    * We have three placeholder thumbnails to display when cities don't provide a thumbnail
    * @returns {*} The Placeholder Thumbnail
    */
-  getEventPlaceholder () {
+  getEventPlaceholder (): string {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
     return placeholders[this.props.event.id % placeholders.length]
   }

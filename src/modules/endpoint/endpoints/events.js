@@ -5,12 +5,12 @@ import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams, PayloadData } from '../../../flowTypes'
+import type { EndpointParamsType, PayloadDataType } from '../../../flowTypes'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
 export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: EndpointParams): string => {
+  .withParamsToUrlMapper((params: EndpointParamsType): string => {
     if (!params.city) {
       throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'city')
     }
@@ -19,7 +19,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   })
-  .withMapper((json: any): PayloadData => json
+  .withMapper((json: any): PayloadDataType => json
     .map(event => {
       const allDay = event.event.all_day !== '0'
       return new EventModel({

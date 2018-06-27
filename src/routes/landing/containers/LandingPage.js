@@ -8,15 +8,15 @@ import FilterableCitySelector from 'routes/landing/components/FilterableCitySele
 import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 
-type Props = {
+type PropsType = {
   cities: Array<CityModel>,
   language: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
-export class LandingPage extends React.Component<Props> {
+export class LandingPage extends React.Component<PropsType> {
   render () {
     const {t, language, cities} = this.props
     return <React.Fragment>
@@ -29,12 +29,12 @@ export class LandingPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  language: state.location.payload.language,
-  cities: state.cities.data
+const mapStateTypeToProps = (stateType: StateType) => ({
+  language: stateType.location.payload.language,
+  cities: stateType.cities.data
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateTypeToProps),
   translate('landing')
 )(LandingPage)

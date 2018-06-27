@@ -11,22 +11,22 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
 
-type Props = {
+type PropsType = {
   events: Array<EventModel>,
   city: string,
   language: string,
   eventId?: string,
   cities: Array<CityModel>,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-export class EventsPage extends React.Component<Props> {
+export class EventsPage extends React.Component<PropsType> {
   render () {
     const {events, eventId, city, language, cities, t} = this.props
 
@@ -51,15 +51,15 @@ export class EventsPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  language: state.location.payload.language,
-  city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
-  events: state.events.data,
-  cities: state.cities.data
+const mapStateTypeToProps = (stateType: StateType) => ({
+  language: stateType.location.payload.language,
+  city: stateType.location.payload.city,
+  eventId: stateType.location.payload.eventId,
+  events: stateType.events.data,
+  cities: stateType.cities.data
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateTypeToProps),
   translate('events')
 )(EventsPage)
