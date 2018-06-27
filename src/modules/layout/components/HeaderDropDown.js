@@ -1,13 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import cx from 'classnames'
 import style from './HeaderDropDown.css'
 import onClickOutside from 'react-onclickoutside'
 
 type PropsType = {
-  children: Array<React.Element<any>>,
+  children: React.Element<any>,
   iconSrc: string
 }
 
@@ -24,11 +23,6 @@ class HeaderDropDown extends React.Component<PropsType, StateType> {
   toggleDropDown: Function
   closeDropDown: Function
   handleClickOutside: Function
-
-  static propTypes = {
-    iconSrc: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired
-  }
 
   constructor (props: PropsType) {
     super(props)
@@ -63,9 +57,9 @@ class HeaderDropDown extends React.Component<PropsType, StateType> {
           )}
         >
           {/* Pass dropDownCallback to child element */}
-          {this.props.children.map(child => React.cloneElement(child, {
+          {React.cloneElement(this.props.children, {
             closeDropDownCallback: this.closeDropDown
-          }))}
+          })}
         </div>
       </span>
     )

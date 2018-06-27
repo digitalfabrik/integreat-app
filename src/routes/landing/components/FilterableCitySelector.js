@@ -27,7 +27,7 @@ export class FilterableCitySelector extends React.Component<
 > {
   constructor (props: PropsType) {
     super(props)
-    this.setState({ filterText: '' })
+    this.state = { filterText: '' }
   }
 
   onFilterTextChange = (filterText: string) => this.setState({ filterText })
