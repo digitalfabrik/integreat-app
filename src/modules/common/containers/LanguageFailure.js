@@ -10,15 +10,15 @@ import CityModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './LanguageFailure.css'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 
-type Props = {
+type PropsType = {
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
-export class LanguageFailure extends React.PureComponent<Props> {
+export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {
     const {t, city, cities} = this.props
     const title = cities && CityModel.findCityName(cities, city)
@@ -32,11 +32,11 @@ export class LanguageFailure extends React.PureComponent<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  cities: state.cities.data
+const mapStateTypeToProps = (stateType: StateType) => ({
+  cities: stateType.cities.data
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateTypeToProps),
   translate('error')
 )(LanguageFailure)

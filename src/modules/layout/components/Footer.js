@@ -1,18 +1,24 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import style from './Footer.css'
+
+type PropsType = {
+  children: Array<React.Element<any>>
+}
 
 /**
  * The standard footer which can supplied to a Layout. Displays a list of links from the props and adds the version
  * number if it's a dev build.
  */
-class Footer extends React.Component {
+class Footer extends React.Component<PropsType> {
   static propTypes = {
     children: PropTypes.node
   }
 
-  static getVersion () {
+  static getVersion (): React.Node {
     // eslint-disable-next-line no-undef
     if (__DEV__) {
       // eslint-disable-next-line no-undef

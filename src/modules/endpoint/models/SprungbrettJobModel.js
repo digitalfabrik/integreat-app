@@ -1,34 +1,50 @@
+// @flow
+
 class SprungbrettModel {
-  constructor ({id, title, location, url, isEmployment, isApprenticeship}) {
-    this._id = id
-    this._title = title
-    this._location = location
-    this._url = url
-    this._isEmployment = isEmployment
-    this._isApprenticeship = isApprenticeship
+  _id: number
+  _title: string
+  _location: string
+  _url: string
+  _isEmployment: boolean
+  _isApprenticeship: boolean
+
+  constructor (params: {
+    id: number,
+    title: string,
+    location: string,
+    url: string,
+    isEmployment: boolean,
+    isApprenticeship: boolean
+  }) {
+    this._id = params.id
+    this._title = params.title
+    this._location = params.location
+    this._url = params.url
+    this._isEmployment = params.isEmployment
+    this._isApprenticeship = params.isApprenticeship
   }
 
-  get id () {
+  get id (): number {
     return this._id
   }
 
-  get title () {
+  get title (): string {
     return this._title
   }
 
-  get location () {
+  get location (): string {
     return this._location
   }
 
-  get url () {
+  get url (): string {
     return this._url
   }
 
-  get isEmployment () {
+  get isEmployment (): boolean {
     return this._isEmployment
   }
 
-  get isApprenticeship () {
+  get isApprenticeship (): boolean {
     return this._isApprenticeship
   }
 }

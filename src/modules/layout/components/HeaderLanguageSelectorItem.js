@@ -7,16 +7,16 @@ import Selector from '../../common/components/Selector'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import { InactiveImage } from './HeaderLanguageSelectorItem.styles'
-import type { I18nTranslate } from '../../../flowTypes'
+import type { I18nTranslateType } from '../../../flowTypes'
 import ReactTooltip from 'react-tooltip'
 
-type Props = {
+type PropsType = {
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
-class HeaderLanguageSelectorItem extends React.Component<Props> {
+class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()

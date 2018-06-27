@@ -1,24 +1,36 @@
+// @flow
+
 export default class ExtraModel {
-  constructor ({alias, title, path, thumbnail}) {
-    this._alias = alias
-    this._title = title
-    this._path = path
-    this._thumbnail = thumbnail
+  _alias: string
+  _title: string
+  _path: string
+  _thumbnail: string
+
+  constructor (params: {
+    alias: string,
+    title: string,
+    path: string,
+    thumbnail: string
+  }) {
+    this._alias = params.alias
+    this._title = params.title
+    this._path = params.path
+    this._thumbnail = params.thumbnail
   }
 
-  get alias () {
+  get alias (): string {
     return this._alias
   }
 
-  get thumbnail () {
+  get thumbnail (): string {
     return this._thumbnail
   }
 
-  get title () {
+  get title (): string {
     return this._title
   }
 
-  get path () {
+  get path (): string {
     return this._path
   }
 }

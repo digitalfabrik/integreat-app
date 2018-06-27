@@ -1,5 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
+
+import * as React from 'react'
 import { HeaderWrapper } from './Headroom.styles'
 
 const UPWARDS = 'up'
@@ -9,29 +10,37 @@ const UNPINNED = 'unpinned'
 const PINNED = 'pinned'
 const STATIC = 'static'
 
-class Headroom extends React.PureComponent {
-  static propTypes = {
-    /** The child node to be displayed as a header */
-    children: PropTypes.any.isRequired,
-    /** The maximum amount of px the header should move up when scrolling */
-    scrollHeight: PropTypes.number.isRequired,
-    /** The minimum scrollTop position where the transform should start */
-    pinStart: PropTypes.number.isRequired,
-    /** Gets rendered with a corresponding stickyTop prop as an ancestor */
-    stickyAncestor: PropTypes.node,
-    /** Used for rendering stickyTop position of stickyAncestor */
-    height: PropTypes.number,
-    /** Fired, when Headroom changes its state. Passes stickyTop of the ancestor. */
-    onStickyTopChanged: PropTypes.func,
-    /** True, if sticky position should be disabled (e.g. for edge 16 support) */
-    positionStickyDisabled: PropTypes.bool
-  }
+type ModeType = 'pinned' | 'unpinned' | 'static'
+type DirectionType = 'up' | 'down'
 
+type PropsType = {
+  /** The child node to be displayed as a header */
+  children: Array<React.Node>,
+  /** The maximum amount of px the header should move up when scrolling */
+  scrollHeight: number,
+  /** The minimum scrollTop position where the transform should start */
+  pinStart: number,
+  /** Gets rendered with a corresponding stickyTop prop as an ancestor */
+  stickyAncestor: React.Element<any>,
+  /** Used for rendering stickyTop position of stickyAncestor */
+  height: number,
+  /** Fired, when Headroom changes its state. Passes stickyTop of the ancestor. */
+  onStickyTopChanged: Function,
+  /** True, if sticky position should be disabled (e.g. for edge 16 support) */
+  positionStickyDisabled: boolean
+}
+
+type StateType = {
+  mode: ModeType,
+  transition: boolean
+}
+
+class Headroom extends React.PureComponent<PropsType, StateType> {
   static defaultProps = {
     pinStart: 0
   }
 
-  state = {mode: STATIC, transition: false}
+  state = { mode: STATIC, transition: false }
 
   /** the very last scrollTop which we know about (to determine direction changes) */
   lastKnownScrollTop = 0
@@ -39,13 +48,17 @@ class Headroom extends React.PureComponent {
   /**
    * @returns {number} the current scrollTop position of the window
    */
-  static getScrollTop () {
+  static getScrollTop (): number {
     if (window.pageYOffset !== undefined) {
       return window.pageYOffset
     } else if (window.scrollTop !== undefined) {
       return window.scrollTop
+    } else if (document.documentElement) {
+      return document.documentElement.scrollTop
+    } else if (document.body) {
+      return document.body.scrollTop
     } else {
-      return (document.documentElement || document.body.parentNode || document.body).scrollTop
+      throw new Error('Could not determine scrollTop!')
     }
   }
 
@@ -65,7 +78,7 @@ class Headroom extends React.PureComponent {
    * @param scrollTop the currentScrollTop position
    * @returns {boolean} if we should set the header static
    */
-  shouldSetStatic (scrollTop) {
+  shouldSetStatic (scrollTop: number): boolean {
     if (this.state.mode === STATIC) {
       return this.props.pinStart + this.props.scrollHeight >= scrollTop
     } else {
@@ -79,7 +92,7 @@ class Headroom extends React.PureComponent {
    * @param {string} direction
    * @returns {string} the next mode of Headroom
    */
-  determineMode (scrollTop, direction) {
+  determineMode (scrollTop: number, direction: DirectionType): ModeType {
     if (this.shouldSetStatic(scrollTop)) {
       return STATIC
     } else {
@@ -90,7 +103,7 @@ class Headroom extends React.PureComponent {
   /**
    * @returns {boolean} if we should activate css transition animations for the transform property
    */
-  shouldTransition (mode, direction) {
+  shouldTransition (mode: ModeType, direction: DirectionType): boolean {
     // If mode is static, then no transition, because we're already in the right spot
     // (and want to change transform and top properties seamlessly)
     if (mode === STATIC) {
@@ -108,14 +121,15 @@ class Headroom extends React.PureComponent {
     if (currentScrollTop === this.lastKnownScrollTop) {
       return
     }
-    const direction = this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
+    const direction =
+      this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
     const mode = this.determineMode(currentScrollTop, direction)
     const transition = this.shouldTransition(mode, direction)
     if (this.props.onStickyTopChanged && mode !== this.state.mode) {
-      const {onStickyTopChanged, height, scrollHeight} = this.props
+      const { onStickyTopChanged, height, scrollHeight } = this.props
       onStickyTopChanged(Headroom.calcStickyTop(mode, height, scrollHeight))
     }
-    this.setState({mode, transition})
+    this.setState({ mode, transition })
     this.lastKnownScrollTop = currentScrollTop
   }
 
@@ -123,26 +137,40 @@ class Headroom extends React.PureComponent {
     window.requestAnimationFrame(this.update)
   }
 
-  static calcStickyTop (mode, height, scrollHeight) {
+  static calcStickyTop (
+    mode: ModeType,
+    height: number,
+    scrollHeight: number
+  ): number {
     return mode === PINNED ? height : height - scrollHeight
   }
 
   render () {
-    const {stickyAncestor, children, height, scrollHeight, positionStickyDisabled} = this.props
-    const {mode, transition} = this.state
+    const {
+      stickyAncestor,
+      children,
+      height,
+      scrollHeight,
+      positionStickyDisabled
+    } = this.props
+    const { mode, transition } = this.state
     const transform = mode === UNPINNED ? -scrollHeight : 0
     const stickyTop = Headroom.calcStickyTop(mode, height, scrollHeight)
     const ownStickyTop = mode === STATIC ? -scrollHeight : 0
-    return <React.Fragment>
-      <HeaderWrapper translateY={transform}
-                     top={ownStickyTop}
-                     transition={transition}
-                     positionStickyDisabled={positionStickyDisabled}
-                     static={mode === STATIC}>
-        {children}
-      </HeaderWrapper>
-      {stickyAncestor && React.cloneElement(stickyAncestor, {stickyTop})}
-    </React.Fragment>
+    return (
+      <React.Fragment>
+        <HeaderWrapper
+          translateY={transform}
+          top={ownStickyTop}
+          transition={transition}
+          positionStickyDisabled={positionStickyDisabled}
+          static={mode === STATIC}
+        >
+          {children}
+        </HeaderWrapper>
+        {stickyAncestor && React.cloneElement(stickyAncestor, { stickyTop })}
+      </React.Fragment>
+    )
   }
 }
 

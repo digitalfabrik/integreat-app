@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import CityModel from 'modules/endpoint/models/CityModel'
@@ -16,29 +18,27 @@ import { SEARCH_ROUTE } from '../../app/routes/search'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 
-import type { Node } from 'react'
-
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
-type Props = {
+type PropsType = {
   city: string,
   language: string,
   cities: ?Array<CityModel>,
   categories: CategoriesMapModel,
   currentRoute: string,
   viewportSmall: boolean,
-  children?: Node,
+  children?: React.Node,
   pathname: string
 }
 
-type State = {
+type StateType = {
   asideStickyTop: number
 }
 
-export class LocationLayout extends React.Component<Props, State> {
+export class LocationLayout extends React.Component<PropsType, StateType> {
   state = {asideStickyTop: 0}
 
-  onStickyTopChanged = asideStickyTop => this.setState({asideStickyTop})
+  onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
 
   getCurrentCity (): ?CityModel {
     const cities = this.props.cities

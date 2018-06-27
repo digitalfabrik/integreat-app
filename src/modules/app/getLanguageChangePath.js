@@ -1,3 +1,5 @@
+// @flow
+
 import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
 import { EXTRAS_ROUTE, getExtraPath } from './routes/extras'
 import { DISCLAIMER_ROUTE, getDisclaimerPath } from './routes/disclaimer'
