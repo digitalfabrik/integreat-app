@@ -25,13 +25,13 @@ type LocalStateTypeType = {
 }
 
 export class SearchPage extends React.Component<PropsType, LocalStateTypeType> {
-  stateType = {
+  state = {
     filterText: ''
   }
 
   findCategories (): Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}> {
     const categories = this.props.categories
-    const filterText = this.stateType.filterText.toLowerCase()
+    const filterText = this.state.filterText.toLowerCase()
 
     // find all categories whose titles include the filter text and sort them lexicographically
     const categoriesWithTitle = categories.toArray()
@@ -62,23 +62,23 @@ export class SearchPage extends React.Component<PropsType, LocalStateTypeType> {
     return (
       <div>
         <Helmet title={`${t('pageTitle')} - ${cityName}`} />
-        <SearchInput filterText={this.stateType.filterText}
+        <SearchInput filterText={this.state.filterText}
                      placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
-        <CategoryList categories={categories} query={this.stateType.filterText} />
+        <CategoryList categories={categories} query={this.state.filterText} />
       </div>
     )
   }
 }
 
-const mapStateTypeToProps = (stateType: StateType) => ({
-  categories: stateType.categories.data,
-  cities: stateType.cities.data,
-  city: stateType.location.payload.city
+const mapStateToProps = (state: StateType) => ({
+  categories: state.categories.data,
+  cities: state.cities.data,
+  city: state.location.payload.city
 })
 
 export default compose(
-  connect(mapStateTypeToProps),
+  connect(mapStateToProps),
   translate('search')
 )(SearchPage)

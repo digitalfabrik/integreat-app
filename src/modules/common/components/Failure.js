@@ -6,7 +6,7 @@ import FontAwesome from 'react-fontawesome'
 
 import Link from 'redux-first-router-link'
 
-import { goToI18nRedirect } from 'app/routes/i18nRedirect'
+import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
 import type { Action } from 'redux-first-router/dist/flow-types'
 import type { I18nTranslateType } from 'flowTypes'
