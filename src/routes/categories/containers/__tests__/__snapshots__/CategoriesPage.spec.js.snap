@@ -3,6 +3,7 @@
 exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
 <div>
   <Connect(Helmet)
+    metaDescription="metaDescription"
     title="Augsburg"
   />
   <Breadcrumbs

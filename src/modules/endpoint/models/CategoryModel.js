@@ -1,6 +1,7 @@
 // @flow
 
 import type { Moment } from 'moment'
+import CategoriesMapModel from './CategoriesMapModel'
 
 class CategoryModel {
   _id: number
@@ -61,6 +62,14 @@ class CategoryModel {
 
   get lastUpdate (): Moment {
     return this._lastUpdate
+  }
+
+  isRoot (): boolean {
+    return this.id === 0
+  }
+
+  isLeaf (categories: CategoriesMapModel) {
+    return categories.getChildren(this).length === 0
   }
 }
 
