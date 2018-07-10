@@ -29,7 +29,6 @@ type StateType = {
 
 export class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n
-
   constructor () {
     super()
 
@@ -41,8 +40,10 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
         resources: i18nextResources,
         fallbackLng: FALLBACK_LANGUAGE,
         load: 'languageOnly',
-        // eslint-disable-next-line no-undef
+        /* eslint-disable no-undef */
+        // $FlowFixMe
         debug: __DEV__
+        /* eslint-enable no-undef */
       })
 
     this.state = {

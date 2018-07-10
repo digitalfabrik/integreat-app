@@ -19,11 +19,13 @@ class Footer extends React.Component<PropsType> {
   }
 
   static getVersion (): React.Node {
-    // eslint-disable-next-line no-undef
+    /* eslint-disable no-undef */
+    // $FlowFixMe
     if (__DEV__) {
-      // eslint-disable-next-line no-undef
+      // $FlowFixMe
       return <span className={style.item}>{__VERSION__}</span>
     }
+    /* eslint-enable no-undef */
     return null
   }
 
