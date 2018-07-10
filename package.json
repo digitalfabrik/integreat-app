@@ -78,7 +78,7 @@
     "eslint": "~4.19.1",
     "eslint-config-standard": "~11.0.0",
     "eslint-config-standard-react": "~6.0.0",
-    "eslint-plugin-flowtype": "^2.46.3",
+    "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-jest": "~21.15.0",
     "eslint-plugin-prefer-object-spread": "~1.2.1",
     "eslint-plugin-react": "~7.7.0",

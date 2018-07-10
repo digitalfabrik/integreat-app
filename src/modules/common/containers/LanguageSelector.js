@@ -30,29 +30,53 @@ type PropsType = {
  */
 export class LanguageSelector extends React.Component<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
-    const {categories, events, location, languages} = this.props
-    return languages && languages
-      .map(language =>
-        new SelectorItemModel({
+    const { categories, events, location, languages } = this.props
+    return (
+      languages &&
+      languages.map(language => {
+        const changePath = getLanguageChangePath({
+          categories,
+          events,
+          location,
+          languageCode: language.code
+        })
+
+        if (changePath == null) {
+          throw new Error('Failed to change paths!')
+        }
+
+        return new SelectorItemModel({
           code: language.code,
           name: language.name,
-          href: getLanguageChangePath({categories, events, location, languageCode: language.code})
+          href: changePath
         })
-      )
+      })
+    )
   }
 
   render () {
-    const {location, isHeaderActionItem, t} = this.props
+    const { location, isHeaderActionItem, t } = this.props
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = location.payload.language
 
     if (isHeaderActionItem) {
-      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
+      return (
+        <HeaderLanguageSelectorItem
+          selectorItems={selectorItems}
+          activeItemCode={activeItemCode}
+        />
+      )
     } else {
-      return selectorItems && <Selector verticalLayout
-                                        items={selectorItems}
-                                        activeItemCode={activeItemCode}
-                                        inactiveItemTooltip={t('noTranslation')} />
+      return (
+        selectorItems && (
+          <Selector
+            verticalLayout
+            items={selectorItems}
+            activeItemCode={activeItemCode}
+            inactiveItemTooltip={t('noTranslation')}
+          />
+        )
+      )
     }
   }
 }
@@ -64,7 +88,6 @@ const mapStateToProps = (state: StateType) => ({
   events: state.events.data
 })
 
-export default compose(
-  connect(mapStateToProps),
-  translate('layout')
-)(LanguageSelector)
+export default compose(connect(mapStateToProps), translate('layout'))(
+  LanguageSelector
+)

@@ -13,10 +13,14 @@ import type { Location } from 'redux-first-router/dist/flow-types'
 /**
  * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
  */
-const getLanguageChangePath = (params: {| location: Location, categories: CategoriesMapModel,
-  events: Array<EventModel>, languageCode: string |}) => {
-  const {location, categories, events, languageCode} = params
-  const {city, eventId, extraAlias, language} = location.payload
+const getLanguageChangePath = (params: {|
+  location: Location,
+  categories: CategoriesMapModel,
+  events: Array<EventModel>,
+  languageCode: string
+|}): string | null => {
+  const { location, categories, events, languageCode } = params
+  const { city, eventId, extraAlias, language } = location.payload
   const routeType = location.type
 
   switch (routeType) {
@@ -54,6 +58,8 @@ const getLanguageChangePath = (params: {| location: Location, categories: Catego
       return getDisclaimerPath(city, languageCode)
     case SEARCH_ROUTE:
       return getSearchPath(city, languageCode)
+    default:
+      return null
   }
 }
 

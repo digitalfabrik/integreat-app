@@ -5,7 +5,7 @@ import DisclaimerModel from '../models/DisclaimerModel'
 import { isEmpty } from 'lodash/lang'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParamsType } from '../../../flowTypes'
+import type { EndpointParamsType, PayloadDataType } from 'flowTypes'
 import moment from 'moment'
 
 const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
@@ -20,7 +20,7 @@ export default new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
   })
-  .withMapper((json: any): DisclaimerModel => {
+  .withMapper((json: any): PayloadDataType => {
     if (isEmpty(json)) {
       throw new Error('disclaimer:notAvailable')
     }
