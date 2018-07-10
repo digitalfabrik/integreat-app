@@ -39,7 +39,12 @@ const getLanguageChangePath = (params: {| location: Location, categories: Catego
       if (events && eventId) {
         const event = events.find(_event => _event.id === eventId)
         if (event) {
-          return getEventPath(city, languageCode, event.availableLanguages[languageCode])
+          const eventId = event.availableLanguages.get(languageCode)
+          if (!eventId) {
+            return null
+          }
+
+          return getEventPath(city, languageCode, eventId)
         }
       }
       return getEventPath(city, languageCode)

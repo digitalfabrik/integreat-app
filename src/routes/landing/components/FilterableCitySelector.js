@@ -42,8 +42,7 @@ export class FilterableCitySelector extends React.Component<
         <ScrollingSearchBox
           filterText={filterText}
           onFilterTextChange={this.onFilterTextChange}
-          placeholderText={t('searchCity')}
-        >
+          placeholderText={t('searchCity')}>
           <CitySelector
             cities={cities}
             filterText={filterText}
