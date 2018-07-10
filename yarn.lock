@@ -904,9 +904,9 @@
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.1.1.tgz#d1c610ddad21bc3842ecd8a5e711dc6413db292d"
 
-"@integreat-app/eslint-config@~0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.1.1.tgz#499210fdbf5e4586a980f37a8563258a99fe70f4"
+"@integreat-app/eslint-config@~0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.1.3.tgz#9c1b141a63bb0f2bdf9e2133cc2909822fe2d8c1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

@@ -10,5 +10,6 @@
   "jira.baseUrl": "https://integreat.atlassian.net/",
   "jira.projectNames": "WEBAPP",
   "jest.pathToConfig": "jest.config.json",
-  "jest.restartJestOnSnapshotUpdate": true
+  "jest.restartJestOnSnapshotUpdate": true,
+  "eslint.enable": true
 }
