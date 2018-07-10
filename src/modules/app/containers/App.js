@@ -14,7 +14,7 @@ import Switcher from './Switcher'
 import theme from '../constants/theme'
 import { Store } from 'redux'
 
-export interface PropsType {
+interface PropsType {
 }
 
 class App extends React.Component<PropsType> {

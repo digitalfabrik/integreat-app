@@ -20,11 +20,11 @@ type PropsType = {
   t: I18nTranslateType
 }
 
-type LocalStateTypeType = {
+type LocalStateType = {
   filterText: string
 }
 
-export class SearchPage extends React.Component<PropsType, LocalStateTypeType> {
+export class SearchPage extends React.Component<PropsType, LocalStateType> {
   state = {
     filterText: ''
   }
