@@ -5,12 +5,12 @@ import ExtraModel from '../models/ExtraModel'
 import EndpointBuilder from '../EndpointBuilder'
 
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams } from '../../../flowTypes'
+import type { EndpointParamsType, PayloadDataType } from 'flowTypes'
 
 const EXTRAS_ENDPOINT_NAME = 'extras'
 
 export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: EndpointParams): string => {
+  .withParamsToUrlMapper((params: EndpointParamsType): string => {
     if (!params.city) {
       throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'city')
     }
@@ -19,7 +19,7 @@ export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
   })
-  .withMapper((json: any): Array<ExtraModel> => json
+  .withMapper((json: any): PayloadDataType => json
     .map(extra => new ExtraModel({
       alias: extra.alias,
       title: extra.name,

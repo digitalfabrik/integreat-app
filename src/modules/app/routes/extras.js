@@ -27,10 +27,13 @@ export const extrasRoute = {
 
     const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
 
+    // https://github.com/gajus/eslint-plugin-flowtype/issues/342
+    // if (Array.isArray(extrasPayload.data) && extrasPayload.data instanceof Array<ExtraModel>) {
     if (Array.isArray(extrasPayload.data)) {
       if (extraAlias === 'sprungbrett') {
+        // $FlowFixMe
         const sprungbrettModel: ExtraModel = extrasPayload.data
-          .find(_extra => _extra instanceof ExtraModel && _extra.alias === extraAlias)
+          .find(extra => extra instanceof ExtraModel && extra.alias === extraAlias)
         if (sprungbrettModel) {
           await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, {city, language, url: sprungbrettModel.path})
         }

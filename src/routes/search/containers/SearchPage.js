@@ -1,6 +1,5 @@
 // @flow
-
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
@@ -10,22 +9,22 @@ import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
-type Props = {
+type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
-type LocalState = {
+type LocalStateType = {
   filterText: string
 }
 
-export class SearchPage extends React.Component<Props, LocalState> {
+export class SearchPage extends React.Component<PropsType, LocalStateType> {
   state = {
     filterText: ''
   }
@@ -73,7 +72,7 @@ export class SearchPage extends React.Component<Props, LocalState> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   categories: state.categories.data,
   cities: state.cities.data,
   city: state.location.payload.city

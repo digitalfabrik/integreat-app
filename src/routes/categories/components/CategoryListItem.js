@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
@@ -10,7 +10,7 @@ import {
   StyledLink, SubCategoryCaption, SubCategory
 } from './CategoryListItem.styles'
 
-type Props = {
+type PropsType = {
   category: CategoryModel,
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
@@ -20,8 +20,8 @@ type Props = {
 /**
  * Displays a single CategoryListItem
  */
-class CategoryListItem extends React.Component<Props> {
-  renderSubCategories () {
+class CategoryListItem extends React.Component<PropsType> {
+  renderSubCategories (): Array<React.Node> {
     const {subCategories} = this.props
     return subCategories.map(subCategory =>
       <SubCategory key={subCategory.id}>
@@ -34,7 +34,7 @@ class CategoryListItem extends React.Component<Props> {
     )
   }
 
-  renderTitle () {
+  renderTitle (): React.Node {
     const {query} = this.props
     return <CategoryCaption search={query || ''}>
       {this.props.category.title}

@@ -9,34 +9,34 @@ import EventModel from './modules/endpoint/models/EventModel'
 import CategoriesMapModel from './modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from './modules/endpoint/models/LanguageModel'
 
-export type I18nTranslate = string => string
+export type I18nTranslateType = string => string
 
-export type UiDirection = 'ltr' | 'rtl'
+export type UiDirectionType = 'ltr' | 'rtl'
 
-export type PayloadData = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettJobModel> |
+export type PayloadDataType = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettJobModel> |
   CategoriesMapModel | DisclaimerModel
 
-export type Payload<PayloadData> = {
-  data: ?PayloadData,
+export type PayloadType<PayloadDataType> = {
+  data: ?PayloadDataType,
   isFetching: boolean,
   error: ?Error,
   requestUrl: ?string,
   fetchDate: number
 }
 
-export type State = {
+export type StateType = {
   +location: LocationState,
-  +categories: Payload<CategoriesMapModel>,
-  +extras: Payload<Array<ExtraModel>>,
-  +events: Payload<Array<EventModel>>,
-  +cities: Payload<Array<CityModel>>,
-  +languages: Payload<Array<LanguageModel>>,
-  +disclaimer: Payload<DisclaimerModel>,
-  +sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
+  +categories: PayloadType<CategoriesMapModel>,
+  +extras: PayloadType<Array<ExtraModel>>,
+  +events: PayloadType<Array<EventModel>>,
+  +cities: PayloadType<Array<CityModel>>,
+  +languages: PayloadType<Array<LanguageModel>>,
+  +disclaimer: PayloadType<DisclaimerModel>,
+  +sprungbrettJobs: PayloadType<Array<SprungbrettJobModel>>,
   +viewport: {...any, +is: {+small: boolean, +large: boolean}},
-  +uiDirection: UiDirection
+  +uiDirection: UiDirectionType
 }
 
-export type EndpointParams = {city?: string, language?: string, url?: string}
-export type MapParamsToUrl = (params: EndpointParams) => string
-export type MapResponse = (json: any, params: EndpointParams) => PayloadData
+export type EndpointParamsType = {city?: string, language?: string, url?: string}
+export type MapParamsToUrlType = (params: EndpointParamsType) => string
+export type MapResponseType = (json: any, params: EndpointParamsType) => PayloadDataType

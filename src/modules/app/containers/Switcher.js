@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
@@ -31,10 +31,10 @@ import Layout from '../../layout/components/Layout'
 import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
-import type { State } from '../../../flowTypes'
+import type { StateType } from '../../../flowTypes'
 import type { Node } from 'react'
 
-type Props = {
+type PropsType = {
   currentRoute: string,
   citiesPayload: Payload,
   categoriesPayload: Payload,
@@ -51,7 +51,7 @@ type Props = {
 /**
  * Switches what content should be rendered depending on the current route
  */
-export class Switcher extends React.Component<Props> {
+export class Switcher extends React.Component<PropsType> {
   /**
    * Renders a failure component if the payload contains an error or a LoadingSpinner if the data is currently being fetched
    * @param payload The payload to check for errors or fetching process
@@ -171,7 +171,7 @@ export class Switcher extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   currentRoute: state.location.type,
   citiesPayload: state.cities,
   categoriesPayload: state.categories,

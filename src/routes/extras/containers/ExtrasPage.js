@@ -15,25 +15,25 @@ import { translate } from 'react-i18next'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
-type Props = {
+type PropsType = {
   city: string,
   language: string,
   extraAlias?: string,
   extras: Array<ExtraModel>,
   sprungbrettJobs?: Array<SprungbrettJobModel>,
-  t: I18nTranslate,
+  t: I18nTranslateType,
   cities: Array<CityModel>
 }
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
  */
-export class ExtrasPage extends React.Component<Props> {
+export class ExtrasPage extends React.Component<PropsType> {
   getSprungbrettPath (): string {
     return `/${this.props.city}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
   }
@@ -50,7 +50,7 @@ export class ExtrasPage extends React.Component<Props> {
     }))
   }
 
-  getContent () {
+  getContent (): React.Node {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
     const {extraAlias, extras, sprungbrettJobs, city, language, cities, t} = this.props
@@ -82,16 +82,16 @@ export class ExtrasPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  city: state.location.payload.city,
-  language: state.location.payload.language,
-  extraAlias: state.location.payload.extraAlias,
-  extras: state.extras.data,
-  sprungbrettJobs: state.sprungbrettJobs.data,
-  cities: state.cities.data
+const mapStateTypeToProps = (stateType: StateType) => ({
+  city: stateType.location.payload.city,
+  language: stateType.location.payload.language,
+  extraAlias: stateType.location.payload.extraAlias,
+  extras: stateType.extras.data,
+  sprungbrettJobs: stateType.sprungbrettJobs.data,
+  cities: stateType.cities.data
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateTypeToProps),
   translate('extras')
 )(ExtrasPage)

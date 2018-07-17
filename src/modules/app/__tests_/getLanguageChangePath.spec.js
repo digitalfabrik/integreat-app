@@ -16,10 +16,7 @@ describe('getLanguageChangePath', () => {
     new EventModel({
       id: '1234',
       title: 'nulltes Event',
-      availableLanguages: {
-        de: '1',
-        en: '2'
-      }
+      availableLanguages: new Map([['de', '1'], ['en', '2']])
     })]
 
   const categoryModels = [

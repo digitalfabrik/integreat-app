@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
 import { ActiveElement, Wrapper, InactiveElement } from './Selector.styles'
 import ReactTooltip from 'react-tooltip'
 
-type Props = {
+type PropsType = {
   verticalLayout: boolean,
   closeDropDownCallback?: () => {},
   items: Array<SelectorItemModel>,
@@ -17,7 +17,7 @@ type Props = {
 /**
  * Displays a Selector showing different items
  */
-class Selector extends React.Component<Props> {
+class Selector extends React.Component<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
@@ -28,7 +28,7 @@ class Selector extends React.Component<Props> {
     ReactTooltip.rebuild()
   }
 
-  getItems () {
+  getItems (): React.Node {
     const {items, activeItemCode, closeDropDownCallback, inactiveItemTooltip} = this.props
     return items.map(item => {
       if (item.href) {
