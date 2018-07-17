@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
@@ -7,19 +9,19 @@ import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import type { I18nTranslate } from '../../../flowTypes'
+import type { I18nTranslateType } from '../../../flowTypes'
 
-type Props = {
+type PropsType = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  t: I18nTranslate
+  t: I18nTranslateType
 }
 
 /**
  * Display a list of events
  */
-class EventList extends React.Component<Props> {
+class EventList extends React.Component<PropsType> {
   render () {
     const {t, city, language, events} = this.props
 

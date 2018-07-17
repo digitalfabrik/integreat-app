@@ -10,12 +10,12 @@ import Caption from '../../../modules/common/components/Caption'
 
 import type { Node } from 'react'
 
-type Props = {
+type PropsType = {
   jobs: Array<SprungbrettJobModel>,
   title: string
 }
 
-class SprungbrettList extends React.Component<Props> {
+class SprungbrettList extends React.Component<PropsType> {
   getListItems (): Array<Node> {
     return this.props.jobs.map(job => <SprungbrettListItem key={job.id} job={job} />)
   }

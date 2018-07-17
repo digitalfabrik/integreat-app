@@ -8,22 +8,22 @@ import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { I18nTranslateType, StateType } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
 
-type Props = {
+type PropsType = {
   disclaimer: DisclaimerModel,
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslate,
+  t: I18nTranslateType,
   language: string
 }
 
 /**
  * Displays the locations disclaimer matching the route /<location>/<language>/disclaimer
  */
-export class DisclaimerPage extends React.Component<Props> {
+export class DisclaimerPage extends React.Component<PropsType> {
   render () {
     const {disclaimer, cities, city, t, language} = this.props
 
@@ -36,14 +36,14 @@ export class DisclaimerPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
-  disclaimer: state.disclaimer.data,
-  cities: state.cities.data,
-  city: state.location.payload.city,
-  language: state.location.payload.language
+const mapStateTypeToProps = (stateType: StateType) => ({
+  disclaimer: stateType.disclaimer.data,
+  cities: stateType.cities.data,
+  city: stateType.location.payload.city,
+  language: stateType.location.payload.language
 })
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateTypeToProps),
   translate('disclaimer')
 )(DisclaimerPage)

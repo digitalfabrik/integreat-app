@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip'
 import { Aside, Body, RichLayout, Main } from './Layout.styles'
 import type { Node } from 'react'
 
-type Props = {
+type PropsType = {
   asideStickyTop: number,
   footer?: Node,
   header?: Node,
@@ -18,7 +18,7 @@ type Props = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-class Layout extends React.PureComponent<Props> {
+class Layout extends React.PureComponent<PropsType> {
   static defaultProps = {
     asideStickyTop: 0
   }
