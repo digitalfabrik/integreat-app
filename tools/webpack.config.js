@@ -40,17 +40,7 @@ const config = {
   // http://webpack.github.io/docs/configuration.html#devtool
   devtool: isDebug ? 'source-map' : false,
   // What information should be printed to the console
-  stats: {
-    colors: true,
-    reasons: isDebug,
-    hash: isVerbose,
-    version: isVerbose,
-    timings: true,
-    chunks: isVerbose,
-    chunkModules: isVerbose,
-    cached: isVerbose,
-    cachedAssets: isVerbose
-  },
+  stats: 'minimal',
   // The list of plugins for Webpack compiler
   plugins: [
     new StyleLintPlugin({

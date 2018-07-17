@@ -23,14 +23,13 @@ module.exports = task('run', () => new Promise(resolve => {
     stats: webpackConfig.stats
   })
 
-  compiler.plugin('done', stats => {
+  compiler.hooks.done.tap('run.js', (stats, callback) => {
     // Generate index.html page
     const bundle = stats.compilation.chunks.find(x => x.name === 'main').files[0]
     const template = fs.readFileSync('./www/index.ejs', 'utf8')
     const render = ejs.compile(template, {filename: './www/index.ejs'})
     const output = render({debug: true, bundle: `/dist/${bundle}`, config})
     fs.writeFileSync('./www/index.html', output, 'utf8')
-
     // Launch Browsersync after the initial bundling is complete
     // For more information visit https://browsersync.io/docs/options
     count += 1
