@@ -1,6 +1,6 @@
 // @flow
 
-import normalizeUrl from 'normalize-url'
+import normalizePath from 'normalize-path'
 import CategoryModel from './CategoryModel'
 
 /**
@@ -30,7 +30,7 @@ class CategoriesMapModel {
    * @return {CategoryModel | undefined} The category
    */
   findCategoryByPath (path: string): ?CategoryModel {
-    return this._categories.get(normalizeUrl(path))
+    return this._categories.get(normalizePath(path))
   }
 
   /**

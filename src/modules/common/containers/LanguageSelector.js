@@ -41,10 +41,6 @@ export class LanguageSelector extends React.Component<PropsType> {
           languageCode: language.code
         })
 
-        if (changePath == null) {
-          throw new Error('Failed to change paths!')
-        }
-
         return new SelectorItemModel({
           code: language.code,
           name: language.name,
