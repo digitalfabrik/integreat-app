@@ -900,13 +900,13 @@
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-jest/-/eslint-config-jest-0.1.1.tgz#fec96ec92de0f5535ec762a9eca4dfefd6d5d863"
 
-"@integreat-app/eslint-config-react@~0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.1.1.tgz#d1c610ddad21bc3842ecd8a5e711dc6413db292d"
-
-"@integreat-app/eslint-config@~0.1.3":
+"@integreat-app/eslint-config-react@~0.1.3":
   version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.1.3.tgz#9c1b141a63bb0f2bdf9e2133cc2909822fe2d8c1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.1.3.tgz#5226e713348b8c4b75ead154f663b4d8ed674af5"
+
+"@integreat-app/eslint-config@~0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.1.5.tgz#fcf05a3bf63e9ff22cc02ab9821ee87f064f7ee8"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
