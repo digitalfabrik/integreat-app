@@ -18,15 +18,16 @@ import { goToSearch } from '../../app/routes/search'
 import { goToLanding } from '../../app/routes/landing'
 import { connect } from 'react-redux'
 
-import type { LocationState } from 'redux-first-router/dist/flow-types'
+import type { LocationState } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
+import type { StateType } from 'flowTypes'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
-  t: I18nTranslateType,
+  t: TFunction,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => {}

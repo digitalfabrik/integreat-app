@@ -9,13 +9,13 @@ import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import type { I18nTranslateType } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 /**

@@ -10,6 +10,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 
 import localesResources from 'locales.json'
 import setUiDirection from '../actions/setUIDirection'
+import type { Dispatch } from 'redux'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGE = 'en'
@@ -17,7 +18,7 @@ const FALLBACK_LANGUAGE = 'en'
 type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
 type PropsType = {
-  children: Array<React.Node>,
+  children: React.Node,
   language: string,
   setUiDirection: Function
 }
@@ -128,7 +129,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   setUiDirection: action => dispatch(setUiDirection(action))
 })
 

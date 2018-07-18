@@ -21,8 +21,12 @@ class Payload {
     this._requestUrl = requestUrl
     this._data = data
 
-    if (requestUrl !== null && !isUrl(requestUrl)) {
-      throw new Error('requestUrl must be a valid URL')
+    if (!requestUrl) {
+      throw new Error('requestUrl must not be null')
+    }
+
+    if (!isUrl(requestUrl)) {
+      throw new Error('requestUrl must not be null')
     }
 
     if (error && data) {

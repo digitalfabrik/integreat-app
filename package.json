@@ -19,6 +19,7 @@
     "lint:fix": "yarn run eslint --fix && stylefmt -r \"src/**/*.css\"",
     "eslint": "eslint .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
+    "flow:check-all": "flow check",
     "flow:install-types": "flow-typed install",
     "locales:missing": "node tools/findMissingLocales"
   },

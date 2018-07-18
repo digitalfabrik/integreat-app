@@ -18,7 +18,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import type { StateType, UiDirectionType } from '../../../flowTypes'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
-import type { I18nTranslateType } from 'flowTypes'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
 type PropsType = {
@@ -28,7 +28,7 @@ type PropsType = {
   city: string,
   language: string,
   uiDirection: UiDirectionType,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 /**

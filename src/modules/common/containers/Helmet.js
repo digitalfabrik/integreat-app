@@ -8,7 +8,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 import ReactHelmet from 'react-helmet'
 
-import type { Location } from 'redux-first-router/dist/flow-types'
+import type { Location } from 'redux-first-router'
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 
 type PropsType = {
@@ -17,7 +17,7 @@ type PropsType = {
   events: Array<EventModel>,
   languages: Array<LanguageModel>,
   location: Location,
-  metaDescription: ?string
+  metaDescription?: string
 }
 
 export class Helmet extends React.Component<PropsType> {

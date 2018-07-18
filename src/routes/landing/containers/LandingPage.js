@@ -7,13 +7,14 @@ import compose from 'lodash/fp/compose'
 import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
+import type { StateType } from 'flowTypes'
 
 type PropsType = {
   cities: Array<CityModel>,
   language: string,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 export class LandingPage extends React.Component<PropsType> {
