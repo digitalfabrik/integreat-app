@@ -89,11 +89,11 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     this.i18n.changeLanguage(targetLanguage)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.setLanguage(this.props.language)
   }
 
-  componentWillReceiveProps (nextProps: PropsType) {
+  componentDidUpdate (nextProps: PropsType) {
     if (nextProps.language !== this.props.language) {
       this.setLanguage(nextProps.language)
     }
