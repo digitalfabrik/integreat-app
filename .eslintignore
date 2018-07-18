@@ -1,0 +1,9 @@
+/flow-typed/
+__coverage__
+/node_modules/
+/www/
+
+# Configs in root
+
+stylelint.config.js
+.babelrc.js
