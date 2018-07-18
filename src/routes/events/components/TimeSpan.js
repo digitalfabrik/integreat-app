@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { Moment } from 'moment'
+import type Moment from 'moment'
 
 type PropsType = {
   startDate: Moment,

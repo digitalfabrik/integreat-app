@@ -9,12 +9,12 @@ import CityModel from 'modules/endpoint/models/CityModel'
 
 import style from './FilterableCitySelector.css'
 import { translate } from 'react-i18next'
-import type { I18nTranslateType } from 'flowTypes'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   cities: Array<CityModel>,
   language: string,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 type StateType = {

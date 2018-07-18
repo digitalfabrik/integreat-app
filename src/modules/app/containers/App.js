@@ -12,13 +12,12 @@ import PlatformProvider from '../../platform/containers/PlatformProvider'
 import routesMap from '../routesMap'
 import Switcher from './Switcher'
 import theme from '../constants/theme'
-import { Store } from 'redux'
 
 type PropsType = {
 }
 
 class App extends React.Component<PropsType> {
-  store: Store;
+  store: any;
 
   constructor () {
     super()
