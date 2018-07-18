@@ -1,6 +1,6 @@
 // @flow
 
-import type { Moment } from 'moment'
+import type Moment from 'moment'
 import CategoriesMapModel from './CategoriesMapModel'
 
 class CategoryModel {

@@ -4,7 +4,7 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { InactiveNavigationItem, ActiveNavigationItem } from './HeaderNavigationItem.styles'
-import type { Action } from 'redux-first-router/dist/flow-types'
+import type { Action } from 'redux-first-router'
 
 type PropsType = {
   text: string,

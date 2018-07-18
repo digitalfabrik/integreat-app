@@ -1,6 +1,6 @@
 // @flow
 
-import type { Dispatch, GetState, Bag } from 'redux-first-router/dist/flow-types'
+import type { Dispatch, GetState, Bag } from 'redux-first-router'
 import citiesEndpoint from '../endpoint/endpoints/cities'
 import languagesEndpoint from '../endpoint/endpoints/languages'
 import eventsEndpoint from '../endpoint/endpoints/events'

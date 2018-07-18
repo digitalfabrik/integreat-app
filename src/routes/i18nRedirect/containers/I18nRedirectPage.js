@@ -8,8 +8,8 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import { goToLanding } from '../../../modules/app/routes/landing'
 import { goToCategories } from '../../../modules/app/routes/categories'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
-
-import type { Action } from 'redux-first-router/dist/flow-types'
+import type { Dispatch } from 'redux'
+import type { Action } from 'redux-first-router'
 import type { StateType } from '../../../flowTypes'
 
 type PropsType = {
@@ -54,7 +54,7 @@ export class I18nRedirectPage extends React.Component<PropsType> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   redirect: action => dispatch(redirect(action))
 })
 

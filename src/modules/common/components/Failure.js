@@ -8,14 +8,14 @@ import Link from 'redux-first-router-link'
 
 import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
-import type { Action } from 'redux-first-router/dist/flow-types'
-import type { I18nTranslateType } from 'flowTypes'
+import type { Action } from 'redux-first-router'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   errorMessage: string,
-  goToAction: ?Action,
-  goToMessage: ?string,
-  t: I18nTranslateType
+  goToAction?: Action,
+  goToMessage?: string,
+  t: TFunction
 }
 
 /**
