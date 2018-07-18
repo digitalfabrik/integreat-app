@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux'
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
@@ -9,7 +9,7 @@ import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-res
 import defaultRoutesMap from './routesMap'
 import onBeforeChange from './onBeforeChange'
 
-const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap): Store => {
+const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {
   const history = createHistory()
 
   const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {onBeforeChange: onBeforeChange})
