@@ -13,10 +13,10 @@ class CategoryModel {
   _thumbnail: string
   _order: number
   _availableLanguages: Map<string, string>
-  _lastUpdate: Moment
+  _lastUpdate: ?Moment
 
   constructor (params: {| id: number, path: string, title: string, content: string, thumbnail: string,
-    parentPath: string, order: number, availableLanguages: Map<string, string>, lastUpdate: Moment |}) {
+    parentPath: string, order: number, availableLanguages: Map<string, string>, lastUpdate: ?Moment |}) {
     this._id = params.id
     this._path = params.path
     this._title = params.title
@@ -60,7 +60,7 @@ class CategoryModel {
     return this._availableLanguages
   }
 
-  get lastUpdate (): Moment {
+  get lastUpdate (): ?Moment {
     return this._lastUpdate
   }
 
