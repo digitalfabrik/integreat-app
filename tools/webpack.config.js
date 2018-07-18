@@ -6,7 +6,6 @@ const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
-const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
 
 // Webpack configuration (main.js => www/dist/main.{hash}.js)
