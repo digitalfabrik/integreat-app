@@ -1,12 +1,11 @@
 // @flow
 
-import React from 'react'
-import type {Node} from 'react'
+import * as React from 'react'
 import { Breadcrumb, OrderedList, Wrapper } from './Breadcrumbs.styles'
 import type { UiDirectionType } from '../../../flowTypes'
 
 type PropsType = {
-  children: Array<Node>,
+  children: Array<React.Node>,
   direction: UiDirectionType
 }
 
