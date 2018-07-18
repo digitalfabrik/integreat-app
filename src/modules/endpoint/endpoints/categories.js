@@ -57,7 +57,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
       thumbnail: '',
       order: -1,
       availableLanguages: new Map(),
-      lastUpdate: moment()
+      lastUpdate: null
     }))
 
     return new CategoriesMapModel(categories)
