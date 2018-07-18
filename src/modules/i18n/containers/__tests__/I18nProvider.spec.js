@@ -165,6 +165,7 @@ describe('I18nProvider', () => {
     </I18nProvider>)
     expect(component.find('div').at(0).prop('style').direction).toEqual('ltr')
     component.setProps({language: 'ar'})
+    component.update()
     expect(component.find('div').at(0).prop('style').direction).toEqual('rtl')
     expect(mockSetUiDirection).toHaveBeenCalledWith('rtl')
   })
