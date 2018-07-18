@@ -20,7 +20,8 @@ type PropsType = {
 class App extends React.Component<PropsType> {
   store: Store;
 
-  componentWillMount () {
+  constructor () {
+    super()
     this.store = createReduxStore(createHistory, {}, routesMap)
   }
 
