@@ -6,7 +6,7 @@ import style from './HeaderDropDown.css'
 import onClickOutside from 'react-onclickoutside'
 
 type PropsType = {
-  children: React.Element<any>,
+  children: React.Element<any>, // fixme: Probably this type is wrong
   iconSrc: string
 }
 
