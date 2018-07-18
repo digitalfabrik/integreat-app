@@ -20,7 +20,7 @@
     "eslint": "eslint .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
     "flow:check-all": "flow check",
-    "flow:install-types": "flow-typed install",
+    "flow:install-types": "flow-typed install --ignoreDeps dev",
     "locales:missing": "node tools/findMissingLocales"
   },
   "dependencies": {
