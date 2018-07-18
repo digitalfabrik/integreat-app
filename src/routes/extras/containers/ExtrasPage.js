@@ -15,7 +15,8 @@ import { translate } from 'react-i18next'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
+import type { StateType } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 import Helmet from '../../../modules/common/containers/Helmet'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
@@ -26,7 +27,7 @@ type PropsType = {
   extraAlias?: string,
   extras: Array<ExtraModel>,
   sprungbrettJobs?: Array<SprungbrettJobModel>,
-  t: I18nTranslateType,
+  t: TFunction,
   cities: Array<CityModel>
 }
 

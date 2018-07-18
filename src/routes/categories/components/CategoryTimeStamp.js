@@ -1,14 +1,14 @@
 // @flow
 
 import React from 'react'
-import type { I18nTranslateType } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { TimeStamp } from './CategoryTimeStamp.styles'
-import { Moment } from 'moment'
+import type Moment from 'moment'
 
 type PropsType = {
   lastUpdate: Moment,
-  t: I18nTranslateType,
+  t: TFunction,
   language: string
 }
 

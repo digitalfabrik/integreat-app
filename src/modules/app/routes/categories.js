@@ -3,7 +3,7 @@
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
-import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Action, Dispatch, GetState } from 'redux-first-router'
 
 export const CATEGORIES_ROUTE = 'CATEGORIES'
 
