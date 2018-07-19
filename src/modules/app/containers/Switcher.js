@@ -109,12 +109,14 @@ export class Switcher extends React.Component<PropsType> {
           <ExtrasPage />
       case SPRUNGBRETT_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(extrasPayload) ||
           Switcher.renderFailureLoadingComponents(sprungbrettJobsPayload) ||
-          <SprungbrettExtra cityName={'test'} extra={new ExtraModel({alias: '', title: '', path: '', thumbnail: ''})} />
+          <SprungbrettExtra />
       case WOHNEN_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(extrasPayload) ||
           Switcher.renderFailureLoadingComponents(wohnenPayload) ||
-          <WohnenExtra cityName={'test'} extra={new ExtraModel({alias: '', title: '', path: '', thumbnail: ''})} />
+          <WohnenExtra />
       case DISCLAIMER_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
