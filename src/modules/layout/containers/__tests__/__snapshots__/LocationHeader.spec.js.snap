@@ -43,7 +43,7 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "extraAlias": undefined,
+          "internalExtra": undefined,
           "language": "de",
         },
         "type": "EXTRAS",
@@ -94,7 +94,7 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "extraAlias": undefined,
+          "internalExtra": undefined,
           "language": "de",
         },
         "type": "EXTRAS",
@@ -145,7 +145,7 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "extraAlias": undefined,
+          "internalExtra": undefined,
           "language": "de",
         },
         "type": "EXTRAS",
@@ -196,7 +196,7 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "extraAlias": undefined,
+          "internalExtra": undefined,
           "language": "de",
         },
         "type": "EXTRAS",
@@ -267,7 +267,7 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "extraAlias": undefined,
+          "internalExtra": undefined,
           "language": "de",
         },
         "type": "EXTRAS",
@@ -362,7 +362,7 @@ exports[`LocationHeader should match snapshot 1`] = `
           Object {
             "payload": Object {
               "city": "augsburg",
-              "extraAlias": undefined,
+              "internalExtra": undefined,
               "language": "de",
             },
             "type": "EXTRAS",
