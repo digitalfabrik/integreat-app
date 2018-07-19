@@ -11,7 +11,7 @@ type PropsType = {
 class OfferListItem extends React.Component<PropsType> {
   render () {
     const offer = this.props.offer
-
+    // todo: display offers
     // return <a href={offer.url} className={style.job} target='_blank' >
     return <div className={style.title}>{offer.email}</div>
     // <div className={style.description}>{offer.location}</div>
