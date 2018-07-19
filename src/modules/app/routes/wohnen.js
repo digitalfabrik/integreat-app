@@ -22,16 +22,9 @@ export const wohnenRoute = {
     const {city, language} = state.location.payload
 
     const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
-    const data = extrasPayload.data
+    const extras: ?Array<ExtraModel> = extrasPayload.data
 
-    if (Array.isArray(data)) {
-      const extras: Array<ExtraModel> = []
-      data.forEach(extra => {
-        if (extra instanceof ExtraModel) {
-          return extras.push(extra)
-        }
-      })
-
+    if (extras) {
       const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
       if (wohnenExtra) {
         const params = {city: 'neuburgschrobenhausenwohnraum'}

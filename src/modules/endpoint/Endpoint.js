@@ -7,20 +7,20 @@ import finishFetchAction from './actions/finishFetchAction'
 import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import ParamMissingError from './errors/ParamMissingError'
-import type { EndpointParamsType, MapParamsToUrlType, MapResponseType, PayloadDataType } from '../../flowTypes'
+import type { MapParamsToUrlType, MapResponseType } from '../../flowTypes'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
-class Endpoint {
+class Endpoint<P, T> {
   _stateName: string
-  mapParamsToUrl: MapParamsToUrlType
-  mapResponse: MapResponseType
-  responseOverride: ?PayloadDataType
+  mapParamsToUrl: MapParamsToUrlType<P>
+  mapResponse: MapResponseType<P, T>
+  responseOverride: ?T
   errorOverride: ?Error
 
-  constructor (name: string, mapParamsToUrl: MapParamsToUrlType, mapResponse: MapResponseType,
-    responseOverride: ?PayloadDataType, errorOverride: ?Error) {
+  constructor (name: string, mapParamsToUrl: MapParamsToUrlType<P>, mapResponse: MapResponseType<P, T>,
+    responseOverride: ?T, errorOverride: ?Error) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
@@ -32,7 +32,7 @@ class Endpoint {
     return this._stateName
   }
 
-  async loadData (dispatch: Dispatch, oldPayload: Payload, params: EndpointParamsType): Promise<Payload> {
+  async loadData (dispatch: Dispatch, oldPayload: Payload<T>, params: P): Promise<Payload<T>> {
     let formattedUrl
     try {
       const responseOverride = this.responseOverride
@@ -80,7 +80,7 @@ class Endpoint {
     }
   }
 
-  async fetchData (formattedUrl: string, params: EndpointParamsType): Promise<Payload> {
+  async fetchData (formattedUrl: string, params: P): Promise<Payload<T>> {
     const response = await fetch(formattedUrl)
     if (!response.ok) {
       throw new LoadingError({endpointName: this.stateName, message: `${response.status}`})
