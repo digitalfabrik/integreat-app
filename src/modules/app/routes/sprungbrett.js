@@ -22,19 +22,15 @@ export const sprungbrettRoute = {
     const {city, language} = state.location.payload
 
     const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
-    const data = extrasPayload.data
+    const extras: ?Array<ExtraModel> = extrasPayload.data
 
-    if (Array.isArray(data)) {
-      const extras: Array<ExtraModel> = []
-      data.forEach(extra => {
-        if (extra instanceof ExtraModel) {
-          return extras.push(extra)
-        }
-      })
+    if (extras) {
       const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === 'sprungbrett')
       if (sprungbrettExtra) {
         const params = {city, language, url: sprungbrettExtra.path}
-        await sprungbrettEndpoint.loadData(dispatch, state.sprungbrettJobs, params)
+        const sprungbrettEndpoint1 = sprungbrettEndpoint
+
+        await sprungbrettEndpoint1.loadData(dispatch, state.sprungbrettJobs, params)
       }
     }
   }

@@ -5,7 +5,7 @@ import Payload from '../Payload'
 
 export const finishFetchActionName = (stateName: string): string => `FINISH_FETCH_${stateName.toUpperCase()}`
 
-const finishFetchAction = (stateName: string, payload: Payload) => createAction(
+const finishFetchAction = <T>(stateName: string, payload: Payload<T>) => createAction(
   finishFetchActionName(stateName)
 )(payload)
 
