@@ -10,7 +10,7 @@ import CityModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './LanguageFailure.css'
-import type { StateType } from '../../../flowTypes'
+import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 
 type PropsType = {
