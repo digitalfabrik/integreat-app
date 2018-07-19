@@ -38,16 +38,20 @@ import type { Node } from 'react'
 import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import { WOHNEN_ROUTE } from '../routes/wohnen'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import EventModel from '../../endpoint/models/EventModel'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
+import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 
 type PropsType = {
   currentRoute: string,
-  citiesPayload: Payload,
-  categoriesPayload: Payload,
-  eventsPayload: Payload,
-  extrasPayload: Payload,
-  sprungbrettJobsPayload: Payload,
-  wohnenPayload: Payload,
-  disclaimerPayload: Payload,
+  citiesPayload: Payload<Array<CityModel>>,
+  categoriesPayload: Payload<CategoriesMapModel>,
+  eventsPayload: Payload<Array<EventModel>>,
+  extrasPayload: Payload<Array<ExtraModel>>,
+  sprungbrettJobsPayload: Payload<Array<SprungbrettExtra>>,
+  wohnenPayload: Payload<Array<WohnenOfferModel>>,
+  disclaimerPayload: Payload<DisclaimerModel>,
   languages: ?Array<LanguageModel>,
   language: ?string,
   city: ?string,
@@ -64,7 +68,7 @@ export class Switcher extends React.Component<PropsType> {
    * @param payload The payload to check for errors or fetching process
    * @return {*}
    */
-  static renderFailureLoadingComponents = (payload: Payload): Node => {
+  static renderFailureLoadingComponents = (payload: Payload<any>): Node => {
     if (payload.error) {
       return <FailureSwitcher error={payload.error} />
     } else if (payload.isFetching || !payload.data) {

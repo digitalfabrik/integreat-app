@@ -12,11 +12,11 @@ import WohnenOfferModel from './modules/endpoint/models/WohnenOfferModel'
 
 export type UiDirectionType = 'ltr' | 'rtl'
 
-export type PayloadDataType = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettJobModel> |
-  CategoriesMapModel | DisclaimerModel
+// export type PayloadDataType = Array<CityModel | LanguageModel | EventModel | ExtraModel | SprungbrettJobModel> |
+//   CategoriesMapModel | DisclaimerModel
 
-export type PayloadType<PayloadDataType> = {
-  data: ?PayloadDataType,
+export type PayloadType<T> = {
+  data: ?T,
   isFetching: boolean,
   error: ?Error,
   requestUrl: ?string,
@@ -37,6 +37,7 @@ export type StateType = {
   +uiDirection: UiDirectionType
 }
 
-export type EndpointParamsType = {city?: string, language?: string, url?: string}
-export type MapParamsToUrlType = (params: EndpointParamsType) => string
-export type MapResponseType = (json: any, params: EndpointParamsType) => PayloadDataType
+// export type EndpointParamsType = {city?: string, language?: string, url?: string}
+
+export type MapParamsToUrlType<P> = (params: P) => string
+export type MapResponseType<P, T> = (json: any, params: P) => T
