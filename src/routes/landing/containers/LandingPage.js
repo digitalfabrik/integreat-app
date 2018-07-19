@@ -9,7 +9,7 @@ import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
-import type { StateType } from 'flowTypes'
+import type { StateType } from 'modules/app/StateType'
 
 type PropsType = {
   cities: Array<CityModel>,

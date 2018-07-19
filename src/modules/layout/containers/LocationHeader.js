@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
-import type { StateType } from 'flowTypes'
+import type { StateType } from 'modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 
 type PropsType = {

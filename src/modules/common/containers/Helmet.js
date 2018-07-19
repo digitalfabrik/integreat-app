@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { StateType } from '../../../flowTypes'
+import type { StateType } from '../../app/StateType'
 import { connect } from 'react-redux'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
