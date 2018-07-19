@@ -8,6 +8,7 @@ import SprungbrettJobModel from './modules/endpoint/models/SprungbrettJobModel'
 import EventModel from './modules/endpoint/models/EventModel'
 import CategoriesMapModel from './modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from './modules/endpoint/models/LanguageModel'
+import WohnenOfferModel from './modules/endpoint/models/WohnenOfferModel'
 
 export type UiDirectionType = 'ltr' | 'rtl'
 
@@ -31,6 +32,7 @@ export type StateType = {
   +languages: PayloadType<Array<LanguageModel>>,
   +disclaimer: PayloadType<DisclaimerModel>,
   +sprungbrettJobs: PayloadType<Array<SprungbrettJobModel>>,
+  +wohnen: PayloadType<Array<WohnenOfferModel>>,
   +viewport: {...any, +is: {+small: boolean, +large: boolean}},
   +uiDirection: UiDirectionType
 }
