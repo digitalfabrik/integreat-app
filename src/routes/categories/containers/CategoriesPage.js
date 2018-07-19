@@ -15,7 +15,7 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { StateType} from '../../../modules/app/StateType'
+import type { StateType } from 'modules/app/StateType'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
@@ -38,7 +38,11 @@ type PropsType = {
 export class CategoriesPage extends React.Component<PropsType> {
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => new TileModel({
-      id: String(category.id), title: category.title, path: category.path, thumbnail: category.thumbnail, isExternalUrl: false
+      id: String(category.id),
+      title: category.title,
+      path: category.path,
+      thumbnail: category.thumbnail,
+      isExternalUrl: false
     }))
   }
 
@@ -59,7 +63,7 @@ export class CategoriesPage extends React.Component<PropsType> {
       return <React.Fragment>
         <Page title={category.title}
               content={category.content} />
-        {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} /> }
+        {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />}
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
