@@ -6,6 +6,8 @@ import { EXTRAS_ROUTE, extrasRoute } from './routes/extras'
 import { DISCLAIMER_ROUTE, disclaimerRoute } from './routes/disclaimer'
 import { SEARCH_ROUTE, searchRoute } from './routes/search'
 import { CATEGORIES_ROUTE, categoriesRoute } from './routes/categories'
+import { SPRUNGBRETT_ROUTE, sprungbrettRoute } from './routes/sprungbrett'
+import { WOHNEN_ROUTE, wohnenRoute } from './routes/wohnen'
 
 // this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
 // the order is important, routes declared first are served first, so i.e. if you put the mainDisclaimer route before
@@ -16,6 +18,8 @@ const routesMap = {
   [LANDING_ROUTE]: landingRoute,
   [EVENTS_ROUTE]: eventsRoute,
   [EXTRAS_ROUTE]: extrasRoute,
+  [SPRUNGBRETT_ROUTE]: sprungbrettRoute,
+  [WOHNEN_ROUTE]: wohnenRoute,
   [DISCLAIMER_ROUTE]: disclaimerRoute,
   [SEARCH_ROUTE]: searchRoute,
   [CATEGORIES_ROUTE]: categoriesRoute
