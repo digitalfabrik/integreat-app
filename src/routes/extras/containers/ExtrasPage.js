@@ -22,9 +22,8 @@ type PropsType = {
   city: string,
   language: string,
   extras: ?Array<ExtraModel>,
-
-  t: TFunction,
-  cities: ?Array<CityModel>
+  cities: ?Array<CityModel>,
+  t: TFunction
 }
 
 /**
@@ -56,34 +55,6 @@ export class ExtrasPage extends React.Component<PropsType> {
     )
   }
 
-  // renderExtra (
-  //   extras: Array<ExtraModel>,
-  //   internalExtra: string,
-  //   city: string,
-  //   cityName: string,
-  //   language: string
-  // ): React.Node {
-  //   const extra = extras.find(_extra => _extra.alias === internalExtra)
-  //
-  //   if (extra) {
-  //     if (internalExtra === SPRUNGBRETT_EXTRA) {
-  //       return <SprungbrettExtra extra={extra} cityName={cityName} />
-  //     } else if (internalExtra === 'wohnen') {
-  //       return <WohnenExtra />
-  //     }
-  //   } else {
-  //     // we currently only implement the sprungbrett extra, so there is no other valid extra path
-  //     const error = new ContentNotFoundError({ type: 'extra', id: internalExtra, city, language })
-  //     return <FailureSwitcher error={error} />
-  //   }
-  // }
-
-  // renderExtraTiles (extras: Array<ExtraModel>, cityName: string): React.Node {
-  //   const { t } = this.props
-  //
-  //
-  // }
-
   render () {
     const {city, cities, extras, t} = this.props
 
@@ -92,10 +63,6 @@ export class ExtrasPage extends React.Component<PropsType> {
     }
 
     const cityName = CityModel.findCityName(cities, city)
-
-    // if (internalExtra) {
-    //   return this.renderExtra(extras, internalExtra, city, cityName, language)
-    // }
 
     return (
       <React.Fragment>
