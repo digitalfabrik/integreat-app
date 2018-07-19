@@ -8,20 +8,23 @@ import Spinner from 'react-spinkit'
 import SprungbrettList from '../components/SprungbrettList'
 import type { StateType } from 'flowTypes'
 import { connect } from 'react-redux'
+import ExtraModel from 'modules/endpoint/models/ExtraModel'
 
 type PropsType = {
-  sprungbrettJobs?: Array<SprungbrettJobModel>
+  sprungbrettJobs?: Array<SprungbrettJobModel>,
+  extra: ExtraModel,
+  cityName: string
 }
 
 class SprungbrettExtra extends React.Component<PropsType> {
   render () {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
-    const jobs = this.props.sprungbrettJobs
+    const {sprungbrettJobs, extra, cityName} = this.props
     return (
       <React.Fragment>
           <Helmet title={`${extra.title} - ${cityName}`} />
-          {jobs ? <SprungbrettList title={extra.title} jobs={jobs} /> : <LoadingSpinner />}
+          {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <LoadingSpinner />}
       </React.Fragment>
     )
   }
