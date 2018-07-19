@@ -10,7 +10,7 @@ import { goToCategories } from '../../../modules/app/routes/categories'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
 import type { Dispatch } from 'redux'
 import type { Action } from 'redux-first-router'
-import type { StateType } from '../../../flowTypes'
+import type { StateType } from '../../../modules/app/StateType'
 
 type PropsType = {
   redirect: Action => void,

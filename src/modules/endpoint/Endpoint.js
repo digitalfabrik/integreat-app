@@ -7,7 +7,8 @@ import finishFetchAction from './actions/finishFetchAction'
 import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import ParamMissingError from './errors/ParamMissingError'
-import type { MapParamsToUrlType, MapResponseType } from '../../flowTypes'
+import type { MapResponseType } from './MapResponseType'
+import type { MapParamsToUrlType } from './MapParamsToUrlType'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it

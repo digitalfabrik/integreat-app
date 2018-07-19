@@ -15,11 +15,12 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { StateType, UiDirectionType } from '../../../flowTypes'
+import type { StateType} from '../../../modules/app/StateType'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
+import type { UiDirectionType } from '../../../modules/app/StateType'
 
 type PropsType = {
   categories: CategoriesMapModel,
