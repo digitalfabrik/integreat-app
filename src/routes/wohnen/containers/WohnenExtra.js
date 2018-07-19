@@ -25,16 +25,16 @@ class WohnenExtra extends React.Component<PropsType> {
 
     const {offers, extras, cities, city} = this.props
     const cityName = CityModel.findCityName(cities, city)
-    const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
+    const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
-    if (!wohnenExtra) {
+    if (!extra) {
       return null
     }
 
     return (
       <React.Fragment>
-        <Helmet title={`${wohnenExtra.title} - ${cityName}`} />
-        {offers ? <OfferList title={wohnenExtra.title} offers={offers} /> : <LoadingSpinner />}
+        <Helmet title={`${extra.title} - ${cityName}`} />
+        {offers ? <OfferList title={extra.title} offers={offers} /> : <LoadingSpinner />}
       </React.Fragment>
     )
   }
