@@ -41,7 +41,7 @@ exports[`FailureSwitcher render component not found failure should render a extr
     Object {
       "payload": Object {
         "city": "augsburg",
-        "extraAlias": undefined,
+        "internalExtra": undefined,
         "language": "de",
       },
       "type": "EXTRAS",
@@ -83,7 +83,7 @@ exports[`FailureSwitcher should render a content not found failure if there is a
       Object {
         "payload": Object {
           "city": "augsburg",
-          "extraAlias": undefined,
+          "internalExtra": undefined,
           "language": "de",
         },
         "type": "EXTRAS",
