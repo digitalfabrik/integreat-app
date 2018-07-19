@@ -7,7 +7,7 @@ import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainD
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
-import WohnenExtra from '../../../routes/extras/containers/WohnenExtra'
+import WohnenExtra from '../../../routes/wohnen/containers/WohnenExtra'
 import SprungbrettExtra from '../../../routes/sprungbrett/containers/SprungbrettExtra'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import SearchPage from '../../../routes/search/containers/SearchPage'

@@ -17,7 +17,7 @@ export default new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
   })
   .withMapper((json: any) => json
     .map(offer => new WohnenOfferModel({
-      email: json.email,
+      email: offer.email,
       createdDate: moment(offer.created_at),
       formData: new FormData()
     })))
