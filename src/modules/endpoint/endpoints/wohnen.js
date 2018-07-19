@@ -19,6 +19,6 @@ export default new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
     .map(offer => new WohnenOfferModel({
       email: offer.email,
       createdDate: moment(offer.created_at),
-      formData: new FormData()
+      formData: new FormData() // todo: parse form data
     })))
   .build()
