@@ -12,7 +12,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
 import type { Location } from 'redux-first-router'
-import type { StateType } from '../../../flowTypes'
+import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'

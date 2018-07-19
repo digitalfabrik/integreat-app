@@ -9,7 +9,7 @@ import Page from 'modules/common/components/Page'
 import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
-import type { StateType } from 'flowTypes'
+import type { StateType } from 'modules/app/StateType'
 import Helmet from 'modules/common/containers/Helmet'
 import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
 

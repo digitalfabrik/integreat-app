@@ -6,7 +6,7 @@ import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 import Helmet from 'modules/common/containers/Helmet'
 import Spinner from 'react-spinkit'
 import SprungbrettList from '../components/SprungbrettList'
-import type { StateType } from 'flowTypes'
+import type { StateType } from 'modules/app/StateType'
 import { connect } from 'react-redux'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 
