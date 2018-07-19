@@ -92,14 +92,12 @@ describe('ExtrasPage', () => {
   })
 
   it('should map state to props', () => {
-    const internalExtra = 'sprungbrett'
-    const location = {payload: {language, city, internalExtra}}
+    const location = {payload: {language, city}}
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
       extras: {data: extras},
-      sprungbrettJobs: {data: jobs},
       cities: {data: cities}
     })
 
@@ -109,11 +107,9 @@ describe('ExtrasPage', () => {
 
     expect(extrasPage.props()).toEqual({
       language,
-      internalExtra,
       city,
       extras,
       cities,
-      sprungbrettJobs: jobs,
       store: store,
       storeSubscription: expect.any(Object),
       dispatch: expect.any(Function)

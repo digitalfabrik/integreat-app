@@ -30,9 +30,7 @@ type PropsType = {
  * Displays tiles with all available extras or the page for a selected extra
  */
 export class ExtrasPage extends React.Component<PropsType> {
-
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {
-
     return extras.map(
       extra => {
         let path = extra.path
