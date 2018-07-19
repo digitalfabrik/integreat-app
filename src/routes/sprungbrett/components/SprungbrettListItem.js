@@ -1,15 +1,16 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
 import style from './SprungbrettListItem.css'
 
-class SprungbrettListItem extends React.Component {
-  static propTypes = {
-    job: PropTypes.instanceOf(SprungbrettJobModel).isRequired
-  }
+type PropsType = {
+  job: SprungbrettJobModel
+}
 
+class SprungbrettListItem extends React.Component<PropsType> {
   render () {
     const job = this.props.job
 
