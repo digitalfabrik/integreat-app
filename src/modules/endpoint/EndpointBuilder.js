@@ -47,7 +47,7 @@ class EndpointBuilder<P, T> {
    * @param responseOverride {*} The response
    * @return {EndpointBuilder} The builder itself
    */
-  withResponseOverride (responseOverride: any): EndpointBuilder<P, T> {
+  withResponseOverride (responseOverride: T): EndpointBuilder<P, T> {
     this._responseOverride = responseOverride
     return this
   }
