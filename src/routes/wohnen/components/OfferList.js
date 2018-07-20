@@ -3,14 +3,13 @@
 import * as React from 'react'
 
 import OfferListItem from './OfferListItem'
-import style from './OfferList.css'
 import Caption from '../../../modules/common/components/Caption'
 
 import type { Node } from 'react'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
 
 type PropsType = {
-  offers: Array<WohnenOfferModel>,
+  offers: Array<WohnenOfferModel<*>>,
   title: string
 }
 
@@ -23,9 +22,7 @@ class OfferList extends React.Component<PropsType> {
     return (
       <React.Fragment >
         <Caption title={this.props.title} />
-        <div className={style.list}>
           {this.getListItems()}
-        </div>
       </React.Fragment>
     )
   }
