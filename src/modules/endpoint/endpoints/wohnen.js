@@ -84,7 +84,7 @@ export default new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
             ofAdditionalServices: costs.ofAdditionalServices,
             baseRent: costs.baseRent,
             runningCosts: costs.runningCosts,
-            hotWaterInHeatingCosts: costs.hotWaterInHeatingCosts,
+            hotWaterInHeatingCosts: costs.hotWaterInHeatingCosts === 'true',
             additionalCosts: costs.additionalCosts,
             ofRunningServicesDiff: costs.ofRunningServicesDiff,
             ofAdditionalServicesDiff: costs.ofAdditionalServicesDiff
