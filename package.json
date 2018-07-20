@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.54",
-    "babel-plugin-transform-builtin-extend": "^1.1.2",
     "classnames": "^2.2.6",
     "detect-browser": "^3.0.0",
     "eslint-plugin-import": "^2.13.0",
