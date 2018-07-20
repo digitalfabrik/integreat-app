@@ -5,7 +5,6 @@ import * as React from 'react'
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 
 import SprungbrettListItem from './SprungbrettListItem'
-import style from './SprungbrettList.css'
 import Caption from '../../../modules/common/components/Caption'
 
 import type { Node } from 'react'
@@ -24,9 +23,7 @@ class SprungbrettList extends React.Component<PropsType> {
     return (
       <React.Fragment >
         <Caption title={this.props.title} />
-        <div className={style.list}>
           {this.getListItems()}
-        </div>
       </React.Fragment>
     )
   }
