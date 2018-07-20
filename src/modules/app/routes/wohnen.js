@@ -12,7 +12,7 @@ export const WOHNEN_ROUTE = 'WOHNEN'
 export const goToWohnenExtra = (city: string, language: string, offerHash: string) =>
   createAction(WOHNEN_ROUTE)({city, language, offerHash})
 
-export const getWohnenExtraPath = (city: string, language: string, offerHash: string): string =>
+export const getWohnenExtraPath = (city: string, language: string, offerHash?: string): string =>
   `/${city}/${language}/extras/wohnen${offerHash ? `/${offerHash}` : ''}`
 
 export const wohnenRoute = {

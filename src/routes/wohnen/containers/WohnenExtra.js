@@ -17,23 +17,16 @@ type PropsType = {
   offers: Array<WohnenOfferModel<*>>,
   city: string,
   language: string,
+  offerHash: string,
   extras: Array<ExtraModel>,
   cities: Array<CityModel>
 }
 
 class WohnenExtra extends React.Component<PropsType> {
   hashids = new Hashids()
+  hash = (offer: WohnenOfferModel<*>) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
 
-  constructor () {
-    super()
-    this.hash = this.hash.bind(this)
-  }
-
-  hash (offer: WohnenOfferModel): string {
-    return this.hashids.encode(offer.email.length, offer.createdDate.seconds())
-  }
-
-  findOfferByHash (hash: string): WohnenOfferModel {
+  findOfferByHash (hash: string): WohnenOfferModel<*> | void {
     return this.props.offers.find(offer => this.hash(offer) === hash)
   }
 
