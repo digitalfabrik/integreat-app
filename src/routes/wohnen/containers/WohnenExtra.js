@@ -12,7 +12,7 @@ import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import OfferList from '../components/OfferList'
 
 type PropsType = {
-  offers: Array<WohnenOfferModel>,
+  offers: Array<WohnenOfferModel<*>>,
   city: string,
   language: string,
   extras: Array<ExtraModel>,
@@ -39,6 +39,7 @@ class WohnenExtra extends React.Component<PropsType> {
     )
   }
 }
+
 const mapStateTypeToProps = (state: StateType) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
