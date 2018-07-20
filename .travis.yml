@@ -3,7 +3,7 @@ cache: yarn
 node_js:
 - '6'
 script:
-- yarn run flow
+- yarn run flow:check-now
 - yarn run lint
 - yarn run test --runInBand
 - yarn run build:debug
