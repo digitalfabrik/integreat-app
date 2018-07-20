@@ -28,7 +28,7 @@ const RowValue = styled.div`
 `
 
 const Row = styled.div`
- display: flex;
+  display: flex;
 `
 
 class Offer extends React.Component<PropsType> {

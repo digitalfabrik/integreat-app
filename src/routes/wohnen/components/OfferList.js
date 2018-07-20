@@ -12,11 +12,11 @@ type PropsType = {
   city: string,
   language: string,
   title: string,
-  hashFunction: WohnenOfferModel => string
+  hashFunction: WohnenOfferModel<*> => string
 }
 
 class OfferList extends React.Component<PropsType> {
-  getListItems (): Array<Node> {
+  getListItems (): Array<React.Node> {
     const {offers, city, language} = this.props
 
     return offers.map(offer => {
