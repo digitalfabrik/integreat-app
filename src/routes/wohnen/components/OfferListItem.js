@@ -4,7 +4,7 @@ import React from 'react'
 import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
 import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
-import ListElement from 'modules/layout/components/ListElement'
+import ListElement from 'modules/common/components/ListElement'
 
 type PropsType = {
   offer: WohnenOfferModel<*>
@@ -33,15 +33,17 @@ class OfferListItem extends React.Component<PropsType> {
     if (offer.formDataType === WohnenFormData) {
       const specificOffer: WohnenOfferModel<WohnenFormData> = offer
       const accommodation = specificOffer.formData.accommodation
+      const costs = specificOffer.formData.costs
+      const landlord = offer.formData.landlord
 
       return <ListElement>
-        <Title>{offer.formData.landlord.firstName} {offer.formData.landlord.lastName}</Title>
+        <Title>{landlord.firstName} {landlord.lastName}</Title>
         <Description>
           <div>
             <div>{accommodation.totalArea} m²</div>
             <div>{accommodation.totalRooms} Zimmer</div>
           </div>
-          <Price>{specificOffer.formData.costs.baseRent} €</Price>
+          <Price>{costs.baseRent} €</Price>
         </Description>
       </ListElement>
     } else {

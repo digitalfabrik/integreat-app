@@ -66,7 +66,7 @@
     "de": {
       "createPdf": "Erstelle PDF",
       "lastUpdate": "Letzte Änderung: ",
-      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."  
+      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
     "en": {
       "createPdf": "Create PDF",
@@ -118,17 +118,14 @@
     "ar": {
       "extras": "إضافات",
       "pageTitle": "إضافات"
-
     },
     "en": {
       "extras": "Extras",
       "pageTitle": "Extras"
-
     },
     "de": {
       "extras": "Extras",
       "pageTitle": "Extras"
-
     },
     "fa": {
       "extras": "اضافات",
@@ -241,6 +238,37 @@
     },
     "fr": {
       "pageTitle": "Mentions légales et contact"
+    }
+  },
+  "wohnen": {
+    "de": {
+      "values": {
+        "runningServices": {
+          "heating": "Heizung",
+          "water": "Wasser/Abwasser",
+          "garbage": "Müllabfuhr",
+          "chimney": "Kaminkehrer",
+          "other": "Sonstiges"
+        },
+        "additionalServices": {
+          "garage": "Garage/Stellplatz",
+          "other": "Sonstiges"
+        },
+        "rooms": {
+          "kitchen": "Küche",
+          "bath": "Bad",
+          "wc": "WC",
+          "child1": "Kinderzimmer 1",
+          "child2": "Kinderzimmer 2",
+          "child3": "Kinderzimmer 3",
+          "bed": "Schlafzimmer",
+          "livingroom": "Wohnzimmer",
+          "hallway": "Diele",
+          "store": "Abstellraum",
+          "basement": "Kellerraum",
+          "balcony": "Balkon / Terrasse"
+        }
+      }
     }
   }
 }
