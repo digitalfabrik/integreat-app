@@ -17,6 +17,7 @@ import { getSprungbrettExtraPath } from '../../../modules/app/routes/sprungbrett
 import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
+const WOHNEN_EXTRA = 'wohnen'
 
 type PropsType = {
   city: string,
@@ -36,7 +37,7 @@ export class ExtrasPage extends React.Component<PropsType> {
         let path = extra.path
         if (extra.alias === SPRUNGBRETT_EXTRA) {
           path = getSprungbrettExtraPath(this.props.city, this.props.language)
-        } else if (extra.alias === 'wohnen') {
+        } else if (extra.alias === WOHNEN_EXTRA) {
           path = getWohnenExtraPath(this.props.city, this.props.language)
         }
 
