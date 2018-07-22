@@ -14,7 +14,7 @@ type PropsType = {
   t: TFunction
 }
 
-class ToolbarRatingItem extends React.PureComponent<PropsType> {
+export class ToolbarRatingItem extends React.PureComponent<PropsType> {
   onClick = () => {
     const {pageId, isPositiveRating, city, language} = this.props
     categoriesFeedbackEndpoint.postData({

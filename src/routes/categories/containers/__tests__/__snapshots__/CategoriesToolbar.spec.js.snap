@@ -7,6 +7,18 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
     name="file-pdf-o"
     text="createPdf"
   />
+  <Translate(ToolbarRatingItem)
+    city="augsburg"
+    isPositiveRating={true}
+    language="en"
+    pageId={3649}
+  />
+  <Translate(ToolbarRatingItem)
+    city="augsburg"
+    isPositiveRating={false}
+    language="en"
+    pageId={3649}
+  />
 </Toolbar>
 `;
 
@@ -16,6 +28,18 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
     href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"
     name="file-pdf-o"
     text="createPdf"
+  />
+  <Translate(ToolbarRatingItem)
+    city="augsburg"
+    isPositiveRating={true}
+    language="en"
+    pageId={0}
+  />
+  <Translate(ToolbarRatingItem)
+    city="augsburg"
+    isPositiveRating={false}
+    language="en"
+    pageId={0}
   />
 </Toolbar>
 `;

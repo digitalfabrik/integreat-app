@@ -3,6 +3,9 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="FLOW" />
   </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="/usr/local/bin" />
   </component>
