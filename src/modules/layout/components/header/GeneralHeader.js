@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react'
-import landingIcon from '../assets/location-icon.svg'
+import landingIcon from '../../assets/location-icon.svg'
 import Header from './Header'
-import HeaderActionItem from '../HeaderActionItem'
-import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
+import HeaderActionItem from '../../HeaderActionItem'
+import { goToI18nRedirect } from '../../../app/routes/i18nRedirect'
 
 type PropsType = {
   viewportSmall: boolean

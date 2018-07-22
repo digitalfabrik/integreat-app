@@ -4,7 +4,7 @@ import { translate } from 'react-i18next'
 
 import Footer from './Footer'
 import Link from 'redux-first-router-link'
-import { goToDisclaimer } from '../../app/routes/disclaimer'
+import { goToDisclaimer } from '../../../app/routes/disclaimer'
 
 export class LocationFooter extends React.Component {
   static propTypes = {

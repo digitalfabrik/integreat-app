@@ -9,7 +9,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
-import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
+import HeaderLanguageSelectorItem from '../../layout/components/header/HeaderLanguageSelectorItem'
 
 import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'

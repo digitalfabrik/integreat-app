@@ -1,7 +1,7 @@
 import React from 'react'
 import HeaderActionBar from '../HeaderActionBar'
 import { shallow } from 'enzyme'
-import HeaderActionItem from '../../HeaderActionItem'
+import HeaderActionItem from '../../../HeaderActionItem'
 
 describe('HeaderActionBar', () => {
   it('should match snapshot', () => {
