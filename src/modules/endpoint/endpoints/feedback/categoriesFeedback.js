@@ -23,7 +23,7 @@ export default new FeedbackEndpointBuilder(CATEGORIES_FEEDBACK_ENDPOINT_NAME)
       throw new ParamMissingError(CATEGORIES_FEEDBACK_ENDPOINT_NAME, 'page id')
     }
 
-    if (params.isPositiveRating === undefined && params.comment) {
+    if (params.isPositiveRating === undefined && !params.comment) {
       throw new ParamMissingError(CATEGORIES_FEEDBACK_ENDPOINT_NAME, 'rating/comment')
     }
 

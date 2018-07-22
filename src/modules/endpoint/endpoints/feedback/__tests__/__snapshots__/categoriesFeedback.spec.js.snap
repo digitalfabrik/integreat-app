@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`categoriesFeedback should throw if both the rating and the comment to map the body are missing 1`] = `"ParamMissingError: Failed to load the categoriesFeedback endpoint because the rating/comment is missing"`;
+
+exports[`categoriesFeedback should throw if the city to map the url are missing 1`] = `"ParamMissingError: Failed to load the categoriesFeedback endpoint because the city is missing"`;
+
+exports[`categoriesFeedback should throw if the id to map the body is missing 1`] = `"ParamMissingError: Failed to load the categoriesFeedback endpoint because the page id is missing"`;
+
+exports[`categoriesFeedback should throw if the language to map the url is missing 1`] = `"ParamMissingError: Failed to load the categoriesFeedback endpoint because the language is missing"`;
