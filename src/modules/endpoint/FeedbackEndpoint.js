@@ -3,14 +3,15 @@
 import type { MapParamsToUrlType } from './MapParamsToUrlType'
 import type { MapParamsToBodyType } from './MapParamsToBodyType'
 import LoadingError from './errors/LoadingError'
+import ParamMissingError from './errors/ParamMissingError'
 
-class FeedbackEndpoint<Params, BodyType> {
+class FeedbackEndpoint<Params> {
   name: string
   mapParamsToUrl: MapParamsToUrlType<Params>
-  mapParamsToBody: MapParamsToBodyType<Params, BodyType>
+  mapParamsToBody: MapParamsToBodyType<Params>
 
   constructor (name: string, mapParamsToUrl: MapParamsToUrlType<Params>,
-    mapParamsToBody: MapParamsToBodyType<Params, BodyType>) {
+    mapParamsToBody: MapParamsToBodyType<Params>) {
     this.name = name
     this.mapParamsToUrl = mapParamsToUrl
     this.mapParamsToBody = mapParamsToBody
@@ -23,10 +24,7 @@ class FeedbackEndpoint<Params, BodyType> {
 
       const response = await fetch(formattedUrl, {
         method: 'POST',
-        body: JSON.stringify(formattedBody),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
+        body: formattedBody
       })
 
       if (!response.ok) {
@@ -34,7 +32,7 @@ class FeedbackEndpoint<Params, BodyType> {
       }
     } catch (e) {
       let error
-      if (e instanceof LoadingError) {
+      if (e instanceof LoadingError || e instanceof ParamMissingError) {
         error = e
       } else {
         error = new LoadingError({endpointName: this.name, message: e.message})
