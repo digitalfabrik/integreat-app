@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToolbarRatingItem should render a negative ToolbarRatingItem 1`] = `
+<ToolbarButton
+  name="frown-o"
+  onClick={[Function]}
+  text="negativeRating"
+/>
+`;
+
+exports[`ToolbarRatingItem should render a positive ToolbarRatingItem 1`] = `
+<ToolbarButton
+  name="smile-o"
+  onClick={[Function]}
+  text="positiveRating"
+/>
+`;
