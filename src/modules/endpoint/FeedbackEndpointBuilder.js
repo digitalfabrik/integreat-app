@@ -46,15 +46,15 @@ class EndpointBuilder<Params> {
    */
   build (): FeedbackEndpoint<Params> {
     if (!this._name) {
-      throw Error('You have to set a name to build an feedback endpoint!')
+      throw Error('You have to set a name to build a feedback endpoint!')
     }
 
     if (!this._paramsToUrlMapper) {
-      throw Error('You have to set a url mapper to build an feedback endpoint!')
+      throw Error('You have to set a url mapper to build a feedback endpoint!')
     }
 
     if (!this._paramsToBodyMapper) {
-      throw Error('You have to set a body mapper to build an feedback endpoint!')
+      throw Error('You have to set a body mapper to build a feedback endpoint!')
     }
 
     return new FeedbackEndpoint(this._name, this._paramsToUrlMapper, this._paramsToBodyMapper)

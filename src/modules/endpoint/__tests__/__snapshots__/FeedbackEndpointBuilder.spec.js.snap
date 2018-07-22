@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackEndpointBuilder should throw errors if used incorrectly 1`] = `"You have to set a name to build a feedback endpoint!"`;
+
+exports[`FeedbackEndpointBuilder should throw errors if used incorrectly 2`] = `"You have to set a url mapper to build a feedback endpoint!"`;
+
+exports[`FeedbackEndpointBuilder should throw errors if used incorrectly 3`] = `"You have to set a body mapper to build a feedback endpoint!"`;
