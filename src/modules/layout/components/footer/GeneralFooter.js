@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Footer from './Footer'
 import Link from 'redux-first-router-link'
-import { goToMainDisclaimer } from '../../app/routes/mainDisclaimer'
+import { goToMainDisclaimer } from '../../../app/routes/mainDisclaimer'
 
 class GeneralFooter extends React.Component {
   static propTypes = {

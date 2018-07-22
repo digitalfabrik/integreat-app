@@ -3,13 +3,13 @@
 import React from 'react'
 import { translate } from 'react-i18next'
 
-import Toolbar from '../../../modules/layout/components/Toolbar'
+import Toolbar from '../../../modules/layout/components/toolbar/Toolbar'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
-import ToolbarAnchor from '../../../modules/layout/components/ToolbarAnchor'
+import ToolbarAnchor from '../../../modules/layout/components/toolbar/ToolbarAnchor'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
-import RatingToolbarItem from '../../../modules/layout/components/RatingToolbarItem'
+import RatingToolbarItem from '../../../modules/layout/components/toolbar/ToolbarRatingItem'
 
 type PropsType = {
   city: string,

@@ -1,12 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import HeaderActionItem from '../../HeaderActionItem'
+import HeaderActionItem from '../../../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
-import theme from '../../../app/constants/theme'
-import Headroom from '../../../common/components/Headroom'
-import Platform from '../../../platform/Platform'
+import theme from '../../../../app/constants/theme'
+import Headroom from '../../../../common/components/Headroom'
+import Platform from '../../../../platform/Platform'
 
 describe('Header', () => {
   it('should match snapshot with smallViewport', () => {

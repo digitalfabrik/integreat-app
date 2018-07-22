@@ -1,4 +1,4 @@
-@import url('../../app/constants/helpers.css');
+@import url('../../../app/constants/helpers.css');
 
 .item {
   @mixin remove-a;

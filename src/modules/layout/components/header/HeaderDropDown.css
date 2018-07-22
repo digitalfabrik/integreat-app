@@ -1,5 +1,5 @@
-@import url('../../app/constants/dimensions.css');
-@import url('../../app/constants/colors.css');
+@import url('../../../app/constants/dimensions.css');
+@import url('../../../app/constants/colors.css');
 
 .drop-down {
   position: absolute;

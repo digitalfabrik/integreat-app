@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectorItemModel from '../../../common/models/SelectorItemModel'
+import SelectorItemModel from '../../../../common/models/SelectorItemModel'
 import { shallow } from 'enzyme'
 import HeaderLanguageSelectorItem from '../HeaderLanguageSelectorItem'
 

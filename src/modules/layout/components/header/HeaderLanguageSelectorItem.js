@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react'
-import SelectorItemModel from '../../common/models/SelectorItemModel'
+import SelectorItemModel from '../../../common/models/SelectorItemModel'
 import HeaderDropDown from './HeaderDropDown'
-import Selector from '../../common/components/Selector'
+import Selector from '../../../common/components/Selector'
 import { translate } from 'react-i18next'
-import languageIcon from '../assets/language-icon.svg'
+import languageIcon from '../../assets/language-icon.svg'
 import { InactiveImage } from './HeaderLanguageSelectorItem.styles'
 import type { TFunction } from 'react-i18next'
 import ReactTooltip from 'react-tooltip'
