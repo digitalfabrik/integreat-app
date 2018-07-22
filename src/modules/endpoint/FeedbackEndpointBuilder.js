@@ -7,10 +7,10 @@ import FeedbackEndpoint from './FeedbackEndpoint'
 /**
  * Helper class to build a {@link FeedbackEndpoint}
  */
-class EndpointBuilder<Params, BodyType> {
+class EndpointBuilder<Params> {
   _name: string
   _paramsToUrlMapper: MapParamsToUrlType<Params>
-  _paramsToBodyMapper: MapParamsToBodyType<Params, BodyType>
+  _paramsToBodyMapper: MapParamsToBodyType<Params>
 
   /**
    * Creates a new feedback endpoint builder
@@ -25,7 +25,7 @@ class EndpointBuilder<Params, BodyType> {
    * @param paramsToUrlMapper The paramsToUrlMapper which is mapping the params to a url
    * @return {EndpointBuilder} The builder itself
    */
-  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrlType<Params>): EndpointBuilder<Params, BodyType> {
+  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrlType<Params>): EndpointBuilder<Params> {
     this._paramsToUrlMapper = paramsToUrlMapper
     return this
   }
@@ -35,7 +35,7 @@ class EndpointBuilder<Params, BodyType> {
    * @param paramsToBodyMapper The paramsToBodyMapper which is mapping the params to the body to post
    * @return {EndpointBuilder} The builder itself
    */
-  withParamsToBodyMapper (paramsToBodyMapper: MapParamsToBodyType<Params, BodyType>): EndpointBuilder<Params, BodyType> {
+  withParamsToBodyMapper (paramsToBodyMapper: MapParamsToBodyType<Params>): EndpointBuilder<Params> {
     this._paramsToBodyMapper = paramsToBodyMapper
     return this
   }
@@ -44,7 +44,7 @@ class EndpointBuilder<Params, BodyType> {
    * Checks the data and builds the endpoint
    * @return {Endpoint} The final endpoint
    */
-  build (): FeedbackEndpoint<Params, BodyType> {
+  build (): FeedbackEndpoint<Params> {
     if (!this._name) {
       throw Error('You have to set a name to build an feedback endpoint!')
     }
