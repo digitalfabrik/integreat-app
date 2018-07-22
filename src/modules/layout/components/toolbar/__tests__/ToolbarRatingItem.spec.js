@@ -7,14 +7,14 @@ import categoriesFeedback from '../../../../endpoint/endpoints/feedback/categori
 describe('ToolbarRatingItem', () => {
   it('should render a positive ToolbarRatingItem', () => {
     const component = shallow(
-      <ToolbarRatingItem city={'augsburg'} language={'de'} t={(key) => key} isPositiveRating pageId={1234} />
+      <ToolbarRatingItem city={'augsburg'} language={'de'} t={key => key} isPositiveRating pageId={1234} />
     )
     expect(component).toMatchSnapshot()
   })
 
   it('should render a negative ToolbarRatingItem', () => {
     const component = shallow(
-      <ToolbarRatingItem city={'augsburg'} language={'de'} t={(key) => key} isPositiveRating={false} pageId={1234} />
+      <ToolbarRatingItem city={'augsburg'} language={'de'} t={key => key} isPositiveRating={false} pageId={1234} />
     )
     expect(component).toMatchSnapshot()
   })
@@ -24,7 +24,7 @@ describe('ToolbarRatingItem', () => {
     categoriesFeedback.postData = jest.fn()
 
     const component = mount(
-      <ToolbarRatingItem city={'augsburg'} language={'de'} t={(key) => key} isPositiveRating={false} pageId={1234} />
+      <ToolbarRatingItem city={'augsburg'} language={'de'} t={key => key} isPositiveRating={false} pageId={1234} />
     )
     component.simulate('click')
     expect(categoriesFeedback.postData).toHaveBeenCalledWith({

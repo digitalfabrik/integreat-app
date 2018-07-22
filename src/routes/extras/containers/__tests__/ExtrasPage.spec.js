@@ -21,18 +21,6 @@ describe('ExtrasPage', () => {
     new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'})
   ]
 
-  const jobs = [
-    new SprungbrettJobModel({
-      id: '0', title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true
-    }),
-    new SprungbrettJobModel({
-      id: '1', title: 'BackendDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: false
-    }),
-    new SprungbrettJobModel({
-      id: '2', title: 'Freelancer', location: 'Augsburg', isEmployment: false, isApprenticeship: true
-    })
-  ]
-
   const cities = [
     new CityModel({
       name: 'Augsburg',
