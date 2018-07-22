@@ -64,12 +64,16 @@
       "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "createPdf": "Erstelle PDF",
+      "createPdf": "PDF Erstellen",
+      "negativeRating": "Diese Seite war nicht hilfreich",
+      "positiveRating": "Diese Seite war hilfreich",
       "lastUpdate": "Letzte Änderung: ",
       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
     "en": {
       "createPdf": "Create PDF",
+      "negativeRating": "This site was not useful",
+      "positiveRating": "This site was useful",
       "lastUpdate": "Last Update: ",
       "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
     },
