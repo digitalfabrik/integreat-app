@@ -5,10 +5,11 @@ import { translate } from 'react-i18next'
 
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
-import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
+import ToolbarAnchor from '../../../modules/layout/components/ToolbarAnchor'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
+import ToolbarButton from '../../../modules/layout/components/ToolbarButton'
 
 type PropsType = {
   city: string,
@@ -27,13 +28,18 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     }
   }
 
+  logasdf = () => console.log('clicked')
+
   render () {
+    const t = this.props.t
     const category = this.props.categories.findCategoryByPath(this.props.pathname)
     if (!category) {
       return null
     }
     return <Toolbar>
-      <ToolbarItem name='file-pdf-o' text={this.props.t('createPdf')} href={this.getPdfUrl(category)} />
+      <ToolbarAnchor name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
+      <ToolbarButton name='smile-o' text={t('positiveRating')} onClick={this.logasdf} />
+      <ToolbarButton name='frown-o' text={t('negativeRating')} onClick={this.logasdf} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />

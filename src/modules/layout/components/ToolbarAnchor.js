@@ -12,7 +12,7 @@ type PropsType = {
   text: string
 }
 
-class ToolbarItem extends React.PureComponent<PropsType> {
+class ToolbarAnchor extends React.PureComponent<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
@@ -27,4 +27,4 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default ToolbarItem
+export default ToolbarAnchor

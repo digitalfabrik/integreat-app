@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ToolbarItem should render 1`] = `
+exports[`ToolbarAnchor should render 1`] = `
 <div>
   <a
     className="item"
