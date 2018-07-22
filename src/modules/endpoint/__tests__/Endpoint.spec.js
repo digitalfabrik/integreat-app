@@ -4,8 +4,6 @@ import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import startFetchAction from '../actions/startFetchAction'
 import finishFetchAction from '../actions/finishFetchAction'
-import MappingError from '../errors/MappingError'
-import LoadingError from '../errors/LoadingError'
 
 describe('Endpoint', () => {
   const stateName = 'endpoint'

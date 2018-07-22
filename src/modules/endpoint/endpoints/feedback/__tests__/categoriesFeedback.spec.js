@@ -15,11 +15,11 @@ describe('categoriesFeedback', () => {
     expect(() => categoriesFeedback.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
   })
 
-  it('should throw if the id to map the body is missing', () =>  {
+  it('should throw if the id to map the body is missing', () => {
     expect(() => categoriesFeedback.mapParamsToBody({})).toThrowErrorMatchingSnapshot()
   })
 
-  it('should throw if both the rating and the comment to map the body are missing', () =>  {
+  it('should throw if both the rating and the comment to map the body are missing', () => {
     expect(() => categoriesFeedback.mapParamsToBody({id: 1234})).toThrowErrorMatchingSnapshot()
   })
 

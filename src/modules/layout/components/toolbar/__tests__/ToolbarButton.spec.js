@@ -14,7 +14,7 @@ describe('ToolbarButton', () => {
     const original = ReactTooltip.rebuild
     ReactTooltip.rebuild = jest.fn()
 
-    mount(<ToolbarButton href='http://example.com' name='testName' text='Click here!' onClick={() =>{}} />)
+    mount(<ToolbarButton href='http://example.com' name='testName' text='Click here!' onClick={() => {}} />)
     expect(ReactTooltip.rebuild).toHaveBeenCalled()
 
     ReactTooltip.rebuild = original
