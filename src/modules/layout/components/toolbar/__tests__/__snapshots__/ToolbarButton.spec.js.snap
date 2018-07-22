@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToolbarButton should render 1`] = `
+<FontAwesome
+  className="item"
+  data-tip="Click here!"
+  name="testName"
+  onClick={[Function]}
+/>
+`;
