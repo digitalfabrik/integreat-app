@@ -42,6 +42,14 @@ class OfferDetail extends React.Component<PropsType> {
     return words.join(', ')
   }
 
+  formatMonthlyPrice (price: number): string {
+    if (price === 0) {
+      return 'Keine'
+    }
+
+    return `${price} € monatlich`
+  }
+
   render () {
     const offer = this.props.offer
 
@@ -62,15 +70,15 @@ class OfferDetail extends React.Component<PropsType> {
           </ListElement>
           <Row>
             <RowTitle>Gesamtfläche:</RowTitle>
-            <RowValue> {accommodation.totalArea} m²</RowValue>
+            <RowValue>{accommodation.totalArea} qm²</RowValue>
           </Row>
           <Row>
             <RowTitle>Zimmeranzahl:</RowTitle>
-            <RowValue> {accommodation.totalRooms}</RowValue>
+            <RowValue>{accommodation.totalRooms}</RowValue>
           </Row>
           <Row>
             <RowTitle>Zimmer:</RowTitle>
-            <RowValue> {translateRooms(accommodation.ofRooms)}</RowValue>
+            <RowValue>{translateRooms(accommodation.ofRooms)}</RowValue>
           </Row>
         </div>
 
@@ -80,11 +88,11 @@ class OfferDetail extends React.Component<PropsType> {
           </ListElement>
           <Row>
             <RowTitle>Grundmiete:</RowTitle>
-            <RowValue>{costs.baseRent} € monatlich</RowValue>
+            <RowValue>{this.formatMonthlyPrice(costs.baseRent)}</RowValue>
           </Row>
           <Row>
             <RowTitle>Nebenkosten:</RowTitle>
-            <RowValue>{costs.runningCosts} € monatlich</RowValue>
+            <RowValue>{this.formatMonthlyPrice(costs.runningCosts)}</RowValue>
           </Row>
           <Row>
             <RowTitle>In Nebenkosten enthalten:</RowTitle>
@@ -100,7 +108,7 @@ class OfferDetail extends React.Component<PropsType> {
           </Row>
           <Row>
             <RowTitle>Zusatzkosten:</RowTitle>
-            <RowValue>{costs.additionalCosts} € monatlich</RowValue>
+            <RowValue>{this.formatMonthlyPrice(costs.additionalCosts)}</RowValue>
           </Row>
           <Row>
             <RowTitle>In Zusatzkosten enthalten:</RowTitle>
