@@ -134,7 +134,7 @@ You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 4. Generate release notes in Jira
 
 5. Create a branch and create a Pull Request to develop:
-    * Update version number in package.json
+    * Update version number e.g. "2018.03.02" in package.json
 6. Merge branch in develop
 
 7. Create Pull Request to merge develop in master:
@@ -143,8 +143,7 @@ You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 9. Tag the master HEAD as "2018.03.02". Add the release notes from Jira as description.
 10. Send release notes to Slack channel #app-web
 
-11. See instructions for deployment [here](tools/deploy/README.md).
-    * Example: `tools/deploy/ssh-deploy.sh web.integreat-app.de /var/www/web.integreat-app.de/`
+11. Deploy via SSH: `tools/deploy/ssh-deploy.sh web.integreat-app.de /var/www/web.integreat-app.de/ web:web`
     
 ## Deployment to webnext.
 
