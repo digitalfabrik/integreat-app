@@ -8,7 +8,7 @@ import { getSearchPath, SEARCH_ROUTE } from './routes/search'
 import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
 import EventModel from '../endpoint/models/EventModel'
 
-import type { Location } from 'redux-first-router/dist/flow-types'
+import type { Location } from 'redux-first-router'
 
 /**
  * Maps the given languageCode to an action to go to the current route in the language specified by languageCode

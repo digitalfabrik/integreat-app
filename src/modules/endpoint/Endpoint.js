@@ -1,7 +1,7 @@
 // @flow
 
 import Payload from './Payload'
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import type { Dispatch } from 'redux-first-router'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
 import LoadingError from './errors/LoadingError'

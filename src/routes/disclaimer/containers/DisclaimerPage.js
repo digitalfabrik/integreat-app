@@ -6,17 +6,18 @@ import compose from 'lodash/fp/compose'
 
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import CityModel from 'modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
-import Helmet from '../../../modules/common/containers/Helmet'
+import type { TFunction } from 'react-i18next'
+import type { StateType } from 'flowTypes'
+import Helmet from 'modules/common/containers/Helmet'
 import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
 
 type PropsType = {
   disclaimer: DisclaimerModel,
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslateType,
+  t: TFunction,
   language: string
 }
 

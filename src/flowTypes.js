@@ -1,6 +1,6 @@
 // @flow
 
-import type { LocationState } from 'redux-first-router/dist/flow-types'
+import type { LocationState } from 'redux-first-router'
 import CityModel from './modules/endpoint/models/CityModel'
 import DisclaimerModel from './modules/endpoint/models/DisclaimerModel'
 import ExtraModel from './modules/endpoint/models/ExtraModel'
@@ -8,8 +8,6 @@ import SprungbrettJobModel from './modules/endpoint/models/SprungbrettJobModel'
 import EventModel from './modules/endpoint/models/EventModel'
 import CategoriesMapModel from './modules/endpoint/models/CategoriesMapModel'
 import LanguageModel from './modules/endpoint/models/LanguageModel'
-
-export type I18nTranslateType = string => string
 
 export type UiDirectionType = 'ltr' | 'rtl'
 

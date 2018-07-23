@@ -11,8 +11,10 @@ import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
-import type { Location } from 'redux-first-router/dist/flow-types'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
+import type { Location } from 'redux-first-router'
+import type { StateType } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
+
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 import { translate } from 'react-i18next'
 
@@ -22,7 +24,7 @@ type PropsType = {
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   isHeaderActionItem: boolean,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 /**
@@ -40,10 +42,6 @@ export class LanguageSelector extends React.Component<PropsType> {
           location,
           languageCode: language.code
         })
-
-        if (changePath == null) {
-          throw new Error('Failed to change paths!')
-        }
 
         return new SelectorItemModel({
           code: language.code,
