@@ -10,7 +10,7 @@ import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
 import CityModel from 'modules/endpoint/models/CityModel'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import OfferList from '../components/OfferList'
-import Offer from '../components/Offer'
+import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from 'modules/common/components/Caption'
 
@@ -54,7 +54,7 @@ class WohnenExtra extends React.Component<PropsType> {
       return (
         <React.Fragment>
           <Helmet title={`${extra.title} - ${cityName}`} />
-          {<Offer offer={offer} />}
+          {<OfferDetail offer={offer} />}
         </React.Fragment>
       )
     }
