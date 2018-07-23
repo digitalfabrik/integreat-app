@@ -33,7 +33,7 @@ const Row = styled.div`
   margin: 10px 0;
 `
 
-class Offer extends React.Component<PropsType> {
+class OfferDetail extends React.Component<PropsType> {
   translate (type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {
     return keys.map(key => this.props.t(`values.${type}.${key}`))
   }
@@ -136,4 +136,4 @@ class Offer extends React.Component<PropsType> {
   }
 }
 
-export default translate('wohnen')(Offer)
+export default translate('wohnen')(OfferDetail)
