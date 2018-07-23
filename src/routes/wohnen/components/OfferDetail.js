@@ -80,31 +80,31 @@ class OfferDetail extends React.Component<PropsType> {
           </ListElement>
           <Row>
             <RowTitle>Grundmiete:</RowTitle>
-            <RowValue> {costs.baseRent} € monatlich</RowValue>
+            <RowValue>{costs.baseRent} € monatlich</RowValue>
           </Row>
           <Row>
             <RowTitle>Nebenkosten:</RowTitle>
-            <RowValue> {costs.runningCosts} € monatlich</RowValue>
+            <RowValue>{costs.runningCosts} € monatlich</RowValue>
           </Row>
           <Row>
             <RowTitle>In Nebenkosten enthalten:</RowTitle>
-            <RowValue> {translateRunningServices(costs.ofRunningServices)}</RowValue>
+            <RowValue>{translateRunningServices(costs.ofRunningServices)}</RowValue>
           </Row>
           <Row>
             <RowTitle>Nicht in Nebenkosten enthalten:</RowTitle>
-            <RowValue> {translateRunningServices(costs.ofRunningServicesDiff)}</RowValue>
+            <RowValue>{translateRunningServices(costs.ofRunningServicesDiff)}</RowValue>
           </Row>
           <Row>
             <RowTitle>Warmwasser in Nebenkosten?</RowTitle>
-            <RowValue> {costs.hotWaterInHeatingCosts ? 'Ja' : 'Nein'}</RowValue>
+            <RowValue>{costs.hotWaterInHeatingCosts ? 'Ja' : 'Nein'}</RowValue>
           </Row>
           <Row>
             <RowTitle>Zusatzkosten:</RowTitle>
-            <RowValue> {costs.additionalCosts} € monatlich</RowValue>
+            <RowValue>{costs.additionalCosts} € monatlich</RowValue>
           </Row>
           <Row>
             <RowTitle>In Zusatzkosten enthalten:</RowTitle>
-            <RowValue> {translateAdditionalServices(costs.ofAdditionalServices)}</RowValue>
+            <RowValue>{translateAdditionalServices(costs.ofAdditionalServices)}</RowValue>
           </Row>
           <Row>
             <RowTitle>Nicht in Zusatzkosten enthalten:</RowTitle>
@@ -118,11 +118,11 @@ class OfferDetail extends React.Component<PropsType> {
           </ListElement>
           <Row>
             <RowTitle>Name:</RowTitle>
-            <RowValue> {landlord.firstName} {landlord.lastName}</RowValue>
+            <RowValue>{landlord.firstName} {landlord.lastName}</RowValue>
           </Row>
           <Row>
             <RowTitle>Email:</RowTitle>
-            <RowValue> {offer.email}</RowValue>
+            <RowValue><a href={`mailto:${offer.email}`}>{offer.email}</a></RowValue>
           </Row>
           <Row>
             <RowTitle>Telefon: </RowTitle>
