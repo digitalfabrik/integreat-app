@@ -17,8 +17,10 @@ import { DISCLAIMER_ROUTE } from '../../app/routes/disclaimer'
 import { SEARCH_ROUTE } from '../../app/routes/search'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
+import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
 
-export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE]
+export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
 type PropsType = {
   city: string,

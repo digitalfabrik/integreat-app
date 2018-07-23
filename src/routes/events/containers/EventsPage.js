@@ -11,7 +11,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
-import type { StateType } from '../../../flowTypes'
+import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
 

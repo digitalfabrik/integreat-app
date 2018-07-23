@@ -1,98 +1,85 @@
 // @flow
 
 import * as React from 'react'
-import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
-import SprungbrettList from '../components/SprungbrettList'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
-import Spinner from 'react-spinkit'
 import Caption from '../../../modules/common/components/Caption'
-import { translate } from 'react-i18next'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { StateType } from '../../../flowTypes'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
+import { compose } from 'recompose'
+import { getSprungbrettExtraPath } from '../../../modules/app/routes/sprungbrett'
+import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
 
 const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 type PropsType = {
   city: string,
   language: string,
-  extraAlias?: string,
-  extras: Array<ExtraModel>,
-  sprungbrettJobs?: Array<SprungbrettJobModel>,
-  t: TFunction,
-  cities: Array<CityModel>
+  extras: ?Array<ExtraModel>,
+  cities: ?Array<CityModel>,
+  t: TFunction
 }
 
 /**
  * Displays tiles with all available extras or the page for a selected extra
  */
 export class ExtrasPage extends React.Component<PropsType> {
-  getSprungbrettPath (): string {
-    return `/${this.props.city}/${this.props.language}/extras/${SPRUNGBRETT_EXTRA}`
-  }
+  toTileModels (extras: Array<ExtraModel>): Array<TileModel> {
+    return extras.map(
+      extra => {
+        let path = extra.path
+        if (extra.alias === SPRUNGBRETT_EXTRA) {
+          path = getSprungbrettExtraPath(this.props.city, this.props.language)
+        } else if (extra.alias === 'wohnen') {
+          path = getWohnenExtraPath(this.props.city, this.props.language)
+        }
 
-  getTileModels (): Array<TileModel> {
-    return this.props.extras.map(extra => new TileModel({
-      id: extra.alias,
-      title: extra.title,
-      // the url stored in the sprungbrett extra is the url of the endpoint
-      path: extra.alias === SPRUNGBRETT_EXTRA ? this.getSprungbrettPath() : extra.path,
-      thumbnail: extra.thumbnail,
-      // every extra except from the sprungbrett extra is just a link to an external site
-      isExternalUrl: extra.alias !== SPRUNGBRETT_EXTRA
-    }))
-  }
-
-  getContent (): React.Node {
-    const LoadingSpinner = () => <Spinner name='line-scale-party' />
-
-    const {extraAlias, extras, sprungbrettJobs, city, language, cities, t} = this.props
-    const cityName = CityModel.findCityName(cities, city)
-    if (extraAlias) {
-      const extra = extras.find(_extra => _extra.alias === extraAlias)
-
-      if (extra && extraAlias === SPRUNGBRETT_EXTRA) {
-        return <React.Fragment>
-          <Helmet title={`${extra.title} - ${cityName}`} />
-          {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <LoadingSpinner />}
-        </React.Fragment>
-      } else {
-      // we currently only implement the sprungbrett extra, so there is no other valid extra path
-        const error = new ContentNotFoundError({type: 'extra', id: extraAlias, city, language})
-        return <FailureSwitcher error={error} />
+        return new TileModel({
+          id: extra.alias,
+          title: extra.title,
+          // the url stored in the sprungbrett extra is the url of the endpoint
+          path: path,
+          thumbnail: extra.thumbnail,
+          // every extra except from the sprungbrett extra is just a link to an external site
+          isExternalUrl: path === extra.path
+        })
       }
-    } else {
-      return <React.Fragment>
-        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
-        <Caption title={t('extras')} />
-        <Tiles tiles={this.getTileModels()} />
-      </React.Fragment>
-    }
+    )
   }
 
   render () {
-    return this.getContent()
+    const {city, cities, extras, t} = this.props
+
+    if (!cities || !extras) {
+      throw new Error('Data not ready')
+    }
+
+    const cityName = CityModel.findCityName(cities, city)
+
+    return (
+      <React.Fragment>
+        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
+        <Caption title={t('extras')} />
+        <Tiles tiles={this.toTileModels(extras)} />
+      </React.Fragment>
+    )
   }
 }
 
-const mapStateTypeToProps = (stateType: StateType) => ({
-  city: stateType.location.payload.city,
-  language: stateType.location.payload.language,
-  extraAlias: stateType.location.payload.extraAlias,
-  extras: stateType.extras.data,
-  sprungbrettJobs: stateType.sprungbrettJobs.data,
-  cities: stateType.cities.data
+const mapStateToProps = (state: StateType) => ({
+  city: state.location.payload.city,
+  language: state.location.payload.language,
+  extras: state.extras.data,
+  cities: state.cities.data
 })
 
 export default compose(
-  connect(mapStateTypeToProps),
+  connect(mapStateToProps),
   translate('extras')
 )(ExtrasPage)

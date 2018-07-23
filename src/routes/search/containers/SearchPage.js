@@ -10,7 +10,7 @@ import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { StateType } from '../../../flowTypes'
+import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 

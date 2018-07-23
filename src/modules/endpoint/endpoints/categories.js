@@ -8,13 +8,12 @@ import { toPairs } from 'lodash/object'
 
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParamsType, PayloadDataType } from 'flowTypes'
 import moment from 'moment'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
 export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: EndpointParamsType): string => {
+  .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
@@ -23,7 +22,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
   })
-  .withMapper((json: any, params: EndpointParamsType): PayloadDataType => {
+  .withMapper((json: any, params) => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }

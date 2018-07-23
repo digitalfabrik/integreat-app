@@ -1,14 +1,13 @@
 // @flow
 
 import isUrl from 'is-url'
-import type { PayloadDataType } from '../../flowTypes'
 
 /**
  * The payload gets stored in the redux store and holds the information about a fetch
  */
-class Payload {
+class Payload<T> {
   _isFetching: boolean
-  _data: ?PayloadDataType
+  _data: ?T
   _error: ?Error
   _requestUrl: ?string
   _fetchDate: number
@@ -16,7 +15,7 @@ class Payload {
   constructor (
     isFetching: boolean,
     requestUrl: ?string = null,
-    data: ?PayloadDataType = null,
+    data: ?T = null,
     error: ?Error = null,
     fetchDate: number = new Date().getTime()
   ) {
@@ -45,7 +44,7 @@ class Payload {
     return this._isFetching
   }
 
-  get data (): ?PayloadDataType {
+  get data (): ?T {
     return this._data
   }
 
