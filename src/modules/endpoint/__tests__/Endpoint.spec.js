@@ -4,8 +4,6 @@ import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import startFetchAction from '../actions/startFetchAction'
 import finishFetchAction from '../actions/finishFetchAction'
-import MappingError from '../errors/MappingError'
-import LoadingError from '../errors/LoadingError'
 
 describe('Endpoint', () => {
   const stateName = 'endpoint'
@@ -78,6 +76,8 @@ describe('Endpoint', () => {
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
 
+    // import MappingError from '../errors/MappingError'
+    // import LoadingError from '../errors/LoadingError'
     // it('should fail if json is malformed', async () => {
     //   const endpoint = createEndpoint({
     //     jsonMapper: json => json
