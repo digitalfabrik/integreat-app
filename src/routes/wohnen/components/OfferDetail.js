@@ -126,7 +126,7 @@ class OfferDetail extends React.Component<PropsType> {
           </Row>
           <Row>
             <RowTitle>Telefon: </RowTitle>
-            <RowValue>{landlord.phone}</RowValue>
+            <RowValue><a href={`tel:${landlord.phone}`}>{landlord.phone}</a></RowValue>
           </Row>
         </div>
       </React.Fragment>

@@ -2,31 +2,31 @@
 
 import type Moment from 'moment'
 
-export type LandlordType = {
-  firstName: string,
-  lastName: string,
-  phone: string
+export interface LandlordType {
+  +firstName: string,
+  +lastName: string,
+  +phone: string
 }
 
-export type AccommodationType = {
-  ofRooms: Array<string>,
-  title: string,
-  location: string,
-  totalArea: number,
-  totalRooms: number,
-  moveInDate: Moment,
-  ofRoomsDiff: Array<string>
+export interface AccommodationType {
+  +ofRooms: Array<string>,
+  +title: string,
+  +location: string,
+  +totalArea: number,
+  +totalRooms: number,
+  +moveInDate: Moment,
+  +ofRoomsDiff: Array<string>
 }
 
-export type CostsType = {
-  ofRunningServices: Array<string>,
-  ofAdditionalServices: Array<string>,
-  baseRent: number,
-  runningCosts: number,
-  hotWaterInHeatingCosts: boolean,
-  additionalCosts: number,
-  ofRunningServicesDiff: Array<string>,
-  ofAdditionalServicesDiff: Array<string>
+export interface CostsType {
+  +ofRunningServices: Array<string>,
+  +ofAdditionalServices: Array<string>,
+  +baseRent: number,
+  +runningCosts: number,
+  +hotWaterInHeatingCosts: boolean,
+  +additionalCosts: number,
+  +ofRunningServicesDiff: Array<string>,
+  +ofAdditionalServicesDiff: Array<string>
 }
 
 export default class WohnenFormData {
