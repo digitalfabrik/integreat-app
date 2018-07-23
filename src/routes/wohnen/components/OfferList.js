@@ -14,7 +14,6 @@ type PropsType = {
 }
 
 class OfferList extends React.Component<PropsType> {
-
   render () {
     const {offers, city, language} = this.props
 

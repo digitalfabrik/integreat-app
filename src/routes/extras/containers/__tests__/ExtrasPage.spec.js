@@ -3,7 +3,6 @@ import React from 'react'
 
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
-import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 
@@ -18,18 +17,8 @@ describe('ExtrasPage', () => {
   const extras = [
     sprungbrettExtra,
     new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', title: 'Jobboerse', thumbnail: 'xy'}),
-    new ExtraModel({alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'})
-  ]
-
-  const jobs = [
-    new SprungbrettJobModel({
-      id: '0', title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true
-    }),
-    new SprungbrettJobModel({
-      id: '1', title: 'BackendDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: false
-    }),
-    new SprungbrettJobModel({
-      id: '2', title: 'Freelancer', location: 'Augsburg', isEmployment: false, isApprenticeship: true
+    new ExtraModel({
+      alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'
     })
   ]
 
