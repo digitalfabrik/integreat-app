@@ -6,12 +6,13 @@ import Spinner from 'react-spinkit'
 import Helmet from 'react-helmet'
 import type { StateType } from 'modules/app/StateType'
 import { connect } from 'react-redux'
-import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
+import CityModel from 'modules/endpoint/models/CityModel'
+import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import OfferList from '../components/OfferList'
 import Offer from '../components/Offer'
 import Hashids from 'hashids'
+import Caption from 'modules/common/components/Caption'
 
 type PropsType = {
   offers: Array<WohnenOfferModel<*>>,
@@ -61,8 +62,8 @@ class WohnenExtra extends React.Component<PropsType> {
     return (
       <React.Fragment>
         <Helmet title={`${extra.title} - ${cityName}`} />
-        <OfferList title={extra.title}
-                   city={city} language={language}
+        <Caption title={extra.title} />
+        <OfferList city={city} language={language}
                    hashFunction={this.hash}
                    offers={offers} />
       </React.Fragment>
