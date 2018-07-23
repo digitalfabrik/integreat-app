@@ -10,12 +10,13 @@ import CityModel from 'modules/endpoint/models/CityModel'
 import Caption from 'modules/common/components/Caption'
 
 import style from './LanguageFailure.css'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
+import type { StateType } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 export class LanguageFailure extends React.PureComponent<PropsType> {

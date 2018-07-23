@@ -6,7 +6,6 @@ const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
-const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
 
 // Webpack configuration (main.js => www/dist/main.{hash}.js)
@@ -40,17 +39,7 @@ const config = {
   // http://webpack.github.io/docs/configuration.html#devtool
   devtool: isDebug ? 'source-map' : false,
   // What information should be printed to the console
-  stats: {
-    colors: true,
-    reasons: isDebug,
-    hash: isVerbose,
-    version: isVerbose,
-    timings: true,
-    chunks: isVerbose,
-    chunkModules: isVerbose,
-    cached: isVerbose,
-    cachedAssets: isVerbose
-  },
+  stats: 'minimal',
   // The list of plugins for Webpack compiler
   plugins: [
     new StyleLintPlugin({

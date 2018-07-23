@@ -7,13 +7,13 @@ import Selector from '../../common/components/Selector'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import { InactiveImage } from './HeaderLanguageSelectorItem.styles'
-import type { I18nTranslateType } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 import ReactTooltip from 'react-tooltip'
 
 type PropsType = {
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 class HeaderLanguageSelectorItem extends React.Component<PropsType> {

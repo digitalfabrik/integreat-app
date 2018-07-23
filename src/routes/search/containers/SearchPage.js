@@ -8,8 +8,9 @@ import SearchInput from 'modules/common/components/SearchInput'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { I18nTranslateType, StateType } from '../../../flowTypes'
+import type { StateType } from '../../../flowTypes'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
@@ -17,7 +18,7 @@ type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
-  t: I18nTranslateType
+  t: TFunction
 }
 
 type LocalStateType = {

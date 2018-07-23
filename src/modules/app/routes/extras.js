@@ -4,12 +4,12 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
-import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Dispatch, GetState } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 
-export const goToExtras = (city: string, language: string, extraAlias: ?string): Action =>
+export const goToExtras = (city: string, language: string, extraAlias: ?string) =>
   createAction(EXTRAS_ROUTE)({city, language, extraAlias})
 
 export const getExtraPath = (city: string, language: string, extraAlias: ?string): string =>
