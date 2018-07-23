@@ -8,6 +8,7 @@ import type { AccommodationType } from '../../../modules/endpoint/models/WohnenF
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import ListElement from '../../../modules/common/components/ListElement'
+import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {
   offer: WohnenOfferModel<*>,
@@ -64,6 +65,8 @@ class OfferDetail extends React.Component<PropsType> {
       const translateRooms = keys => this.stringify(this.translate('rooms', keys))
 
       return <React.Fragment>
+        <Caption title={accommodation.title} />
+
         <div>
           <ListElement>
             <Header>Mietobjekt</Header>
@@ -77,8 +80,16 @@ class OfferDetail extends React.Component<PropsType> {
             <RowValue>{accommodation.totalRooms}</RowValue>
           </Row>
           <Row>
+            <RowTitle>Einzugsdatum:</RowTitle>
+            <RowValue>{accommodation.moveInDate.format('LL')}</RowValue>
+          </Row>
+          <Row>
             <RowTitle>Zimmer:</RowTitle>
             <RowValue>{translateRooms(accommodation.ofRooms)}</RowValue>
+          </Row>
+          <Row>
+            <RowTitle>Standort:</RowTitle>
+            <RowValue>{accommodation.location}</RowValue>
           </Row>
         </div>
 
