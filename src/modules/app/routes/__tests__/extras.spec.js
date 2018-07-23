@@ -4,18 +4,16 @@ describe('extras route', () => {
   it('should create the right action', () => {
     const city = 'augsburg'
     const language = 'de'
-    const extraAlias = 'sprungbrett'
-    expect(goToExtras(city, language, extraAlias)).toEqual({
+    expect(goToExtras(city, language)).toEqual({
       type: EXTRAS_ROUTE,
       payload: {
         city,
-        language,
-        extraAlias
+        language
       }
     })
   })
 
   it('should have the right path', () => {
-    expect(extrasRoute.path).toBe('/:city/:language/extras/:extraAlias?')
+    expect(extrasRoute.path).toBe('/:city/:language/extras')
   })
 })

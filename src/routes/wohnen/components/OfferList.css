@@ -1,0 +1,5 @@
+@import url('../../../modules/app/constants/helpers.css');
+
+.list a {
+  @mixin remove-a;
+}

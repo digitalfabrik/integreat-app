@@ -49,7 +49,7 @@ describe('ExtrasPage', () => {
                   language={language}
                   extras={extras}
                   cities={cities}
-                  extraAlias='sprungbrett'
+                  internalExtra='sprungbrett'
                   sprungbrettJobs={jobs}
                   t={key => key} />
     )
@@ -62,7 +62,7 @@ describe('ExtrasPage', () => {
                   language={language}
                   extras={extras}
                   cities={cities}
-                  extraAlias='sprungbrett'
+                  internalExtra='sprungbrett'
                   t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
@@ -85,21 +85,19 @@ describe('ExtrasPage', () => {
                   language={language}
                   cities={cities}
                   extras={extras}
-                  extraAlias={'no valid extra'}
+                  internalExtra={'no valid extra'}
                   t={key => key} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
-    const extraAlias = 'sprungbrett'
-    const location = {payload: {language, city, extraAlias}}
+    const location = {payload: {language, city}}
 
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
       extras: {data: extras},
-      sprungbrettJobs: {data: jobs},
       cities: {data: cities}
     })
 
@@ -109,11 +107,9 @@ describe('ExtrasPage', () => {
 
     expect(extrasPage.props()).toEqual({
       language,
-      extraAlias,
       city,
       extras,
       cities,
-      sprungbrettJobs: jobs,
       store: store,
       storeSubscription: expect.any(Object),
       dispatch: expect.any(Function)
