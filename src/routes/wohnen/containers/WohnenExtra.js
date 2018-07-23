@@ -53,7 +53,7 @@ class WohnenExtra extends React.Component<PropsType> {
 
       return (
         <React.Fragment>
-          <Helmet title={`${extra.title} - ${cityName}`} />
+          <Helmet title={`${offer.formData.accommodation.title} - ${extra.title} - ${cityName}`} />
           {<OfferDetail offer={offer} />}
         </React.Fragment>
       )
