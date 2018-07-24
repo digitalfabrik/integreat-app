@@ -61,7 +61,6 @@ exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = 
             "phone": "",
           },
         },
-        "_formDataType": [Function],
       }
     }
   />
@@ -148,7 +147,6 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
               "phone": "",
             },
           },
-          "_formDataType": [Function],
         },
       ]
     }
