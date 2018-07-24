@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtra'
+import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
