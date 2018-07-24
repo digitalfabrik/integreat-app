@@ -4,7 +4,7 @@ import React from 'react'
 import { translate } from 'react-i18next'
 import ToolbarButton from './ToolbarButton'
 import type { TFunction } from 'react-i18next'
-import categoriesFeedbackEndpoint from '../../../endpoint/endpoints/feedback/categoriesFeedback'
+import feedback from '../../../endpoint/endpoints/feedback'
 
 type PropsType = {
   city: string,
@@ -17,12 +17,13 @@ type PropsType = {
 export class ToolbarRatingItem extends React.PureComponent<PropsType> {
   onClick = () => {
     const {pageId, isPositiveRating, city, language} = this.props
-    categoriesFeedbackEndpoint.postData({
+    feedback.postData({
       city: city,
       language: language,
       isPositiveRating: isPositiveRating,
       id: pageId,
-      comment: undefined
+      type: pageId === 0 ? 'categories' : null,
+      comment: null
     })
   }
 
