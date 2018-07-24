@@ -92,7 +92,7 @@ describe('LocationLayout', () => {
       <ConnectedLocationLayout store={store} />
     )
 
-    expect(locationLayout.props()).toEqual({
+    expect(locationLayout.props()).toMatchObject({
       city,
       viewportSmall: false,
       language,
@@ -100,9 +100,7 @@ describe('LocationLayout', () => {
       store,
       currentRoute,
       pathname,
-      categories,
-      dispatch: expect.any(Function),
-      storeSubscription: expect.any(Object)
+      categories
     })
   })
 })

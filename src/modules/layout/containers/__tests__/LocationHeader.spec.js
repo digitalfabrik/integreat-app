@@ -162,14 +162,11 @@ describe('LocationHeader', () => {
       <ConnectedLocationHeader store={store} />
     )
 
-    expect(categoriesPage.props()).toEqual({
+    expect(categoriesPage.props()).toMatchObject({
       location: location(CATEGORIES_ROUTE),
       languages,
       events,
-      viewportSmall: false,
-      store,
-      dispatch: expect.any(Function),
-      storeSubscription: expect.any(Object)
+      viewportSmall: false
     })
   })
 
