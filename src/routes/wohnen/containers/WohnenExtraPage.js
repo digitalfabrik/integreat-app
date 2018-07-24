@@ -16,7 +16,7 @@ import Caption from 'modules/common/components/Caption'
 import FailureSwitcher from 'modules/common/components/FailureSwitcher'
 
 type PropsType = {
-  offers: ?Array<WohnenOfferModel<*>>,
+  offers: ?Array<WohnenOfferModel>,
   city: string,
   language: string,
   offerHash?: string,
@@ -26,9 +26,9 @@ type PropsType = {
 
 export class WohnenExtraPage extends React.Component<PropsType> {
   hashids = new Hashids()
-  hash = (offer: WohnenOfferModel<*>) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
+  hash = (offer: WohnenOfferModel) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
 
-  findOfferByHash (offers: Array<WohnenOfferModel<*>>, hash: string): WohnenOfferModel<*> | void {
+  findOfferByHash (offers: Array<WohnenOfferModel>, hash: string): WohnenOfferModel | void {
     return offers.find(offer => this.hash(offer) === hash)
   }
 

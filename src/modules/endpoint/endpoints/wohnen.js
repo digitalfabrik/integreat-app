@@ -56,7 +56,7 @@ export default new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
 
     return `https://api.wohnen.integreat-app.de/v0/${params.city}/offer`
   })
-  .withMapper((json: Array<OfferType>): Array<WohnenOfferModel<WohnenFormData>> => json
+  .withMapper((json: Array<OfferType>): Array<WohnenOfferModel> => json
     .map(offer => {
       const landlord = offer.formData.landlord
       const accommodation = offer.formData.accommodation
