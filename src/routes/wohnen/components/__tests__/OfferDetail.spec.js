@@ -1,6 +1,6 @@
 // @flow
 
-import { shallow, render } from 'enzyme'
+import { render, shallow } from 'enzyme'
 import React from 'react'
 import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
@@ -40,7 +40,7 @@ describe('OfferDetail', () => {
   })
 
   class InvalidForm {
-      test: string
+    test: string
   }
 
   const notRenderableOffer = new WohnenOfferModel({
@@ -49,13 +49,39 @@ describe('OfferDetail', () => {
     formData: new InvalidForm()
   })
 
-  // const offerHash = new Hashids().encode(offer.email.length, offer.createdDate.milliseconds())
-
   it('should render detail view', () => {
     const offerDetail = shallow(
       <OfferDetail offer={offer} />
     )
     expect(offerDetail).toMatchSnapshot()
+  })
+
+  it('should concat keys correctly', () => {
+    const offerDetail = shallow(
+      <OfferDetail offer={offer} />
+    )
+
+    const concatenated = offerDetail.dive().instance().stringify(['a', 'b', 'c'])
+    expect(concatenated).toBe('a, b, c')
+  })
+
+  it('should translate keys correctly', () => {
+    const offerDetail = shallow(
+      <OfferDetail offer={offer} />
+    )
+
+    const translated = offerDetail.dive().instance().translate('runningServices', ['a', 'b'])
+    expect(translated).toEqual(['wohnen:values.runningServices.a', 'wohnen:values.runningServices.b'])
+  })
+
+  it('should format price correctly', () => {
+    const offerDetail = shallow(
+      <OfferDetail offer={offer} />
+    )
+
+    const instance = offerDetail.dive().instance()
+    expect(instance.formatMonthlyPrice(0)).toBe('Keine')
+    expect(instance.formatMonthlyPrice(42)).toBe('42 € monatlich')
   })
 
   it('should throw error if form is not renderable', () => {
