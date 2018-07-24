@@ -274,5 +274,35 @@
         }
       }
     }
+  },
+  "feedback": {
+    "de": {
+      "app": "Technische Funktionen",
+      "contentOfCity": "Inhalte von",
+      "extrasOfCity": "Extras von",
+      "newsOfCity": "News von",
+      "extra": "Extra",
+      "news": "News",
+      "disclaimer": "Kontakt und Impressum",
+      "searchFor": "Suche nach",
+      "contentOfPage": "Inhalt der Seite",
+      "send": "Abschicken",
+      "feedback": "Feedback",
+      "feedbackType": "Wofür ist das Feedback?"
+    },
+    "en": {
+      "app": "Technical topics",
+      "contentOfCity": "Contents of",
+      "extrasOfCity": "Extras of",
+      "newsOfCity": "News of",
+      "extra": "Extra",
+      "news": "News",
+      "disclaimer": "Imprint and contact",
+      "searchFor": "Search for",
+      "contentOfPage": "Content of the site",
+      "send": "Send",
+      "feedback": "Feedback",
+      "feedbackType": "What is the feedback for?"
+    }
   }
 }
