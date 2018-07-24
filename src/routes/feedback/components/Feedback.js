@@ -6,9 +6,8 @@ import 'react-dropdown/style.css'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import categoriesFeedback, {
-  POSITIVE_RATING, NEGATIVE_RATING, INTEGREAT_INSTANCE, DEFAULT_FEEDBACK_LANGUAGE
+  INTEGREAT_INSTANCE, DEFAULT_FEEDBACK_LANGUAGE
 } from '../../../modules/endpoint/endpoints/feedback'
-import type { RatingType } from '../../../modules/endpoint/endpoints/feedback'
 import styled from 'styled-components'
 import FontAwesome from 'react-fontawesome'
 import FeedbackDropdown from './FeedbackDropdown'
@@ -38,6 +37,10 @@ const Title = styled.div`
   padding: 0 0 20px;
 `
 
+const Description = styled.div`
+  padding: 10px 0 5px;
+`
+
 const RatingContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -53,6 +56,7 @@ const RatingContainer = styled.div`
 const RatingItem = styled(FontAwesome)`
   cursor: pointer;
   color: ${props => props.selected ? props.theme.colors.themeColor : props.theme.colors.textSecondaryColor};
+  opacity: ${props => props.selected ? '1.0' : '0.5'}
 `
 
 const CommentField = styled.textarea`
@@ -62,11 +66,10 @@ const CommentField = styled.textarea`
 const SubmitButton = styled.div`
   margin: 15px 0;
   padding: 5px;
-  background-color: ${props => props.disabled ? props.theme.colors.textSecondaryColor : props.theme.colors.themeColor};
+  background-color: ${props => props.theme.colors.themeColor};
   color: ${props => props.theme.colors.backgroundAccentColor};
   text-align: center;
   border-radius: 0.25em;
-  cursor: ${props => props.disabled ? '' : 'pointer'}
 `
 
 type PropsType = {
@@ -77,28 +80,25 @@ type PropsType = {
   title: string,
   alias?: string,
   query?: string,
-  route: string
+  route: string,
+  isPositiveRating: boolean
 }
 
 type StateType = {
   selectedFeedbackOption: FeedbackDropdownType,
   comment: string,
-  rating: RatingType
+  isPositiveRating: boolean
 }
 
 class Feedback extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {selectedFeedbackOption: null, comment: '', rating: null}
+    this.state = {selectedFeedbackOption: null, comment: '', isPositiveRating: props.isPositiveRating}
   }
 
-  onPositiveRatingClicked = () => this.setState(prevState => ({
-    rating: prevState.rating === POSITIVE_RATING ? null : POSITIVE_RATING
-  }))
+  onPositiveRatingClicked = () => this.setState({isPositiveRating: true})
 
-  onNegativeRatingClicked = () => this.setState(prevState => ({
-    rating: prevState.rating === NEGATIVE_RATING ? null : NEGATIVE_RATING
-  }))
+  onNegativeRatingClicked = () => this.setState({isPositiveRating: false})
 
   onCommentChanged = (event: Event) => this.setState({comment: event.target.value})
 
@@ -107,36 +107,38 @@ class Feedback extends React.Component<PropsType, StateType> {
   }
 
   onSubmit = () => {
-    const {selectedFeedbackOption, rating, comment} = this.state
+    const {selectedFeedbackOption, isPositiveRating, comment} = this.state
     const {id, city, language, alias, query} = this.props
-    if (!this.isSubmitDisabled()) {
-      const feedbackData = {
-        type: selectedFeedbackOption.feedbackType,
-        rating,
-        comment,
-        id,
-        city: city || INTEGREAT_INSTANCE,
-        language: language || DEFAULT_FEEDBACK_LANGUAGE,
-        alias,
-        query
-      }
-      console.log(feedbackData)
-      categoriesFeedback.postData(feedbackData)
+    const feedbackData = {
+      feedbackType: selectedFeedbackOption.feedbackType,
+      isPositiveRating,
+      comment,
+      id,
+      city: city || INTEGREAT_INSTANCE,
+      language: language || DEFAULT_FEEDBACK_LANGUAGE,
+      alias,
+      query
     }
-  }
-
-  isSubmitDisabled = (): boolean => {
-    const {comment, rating} = this.state
-    return !rating && !comment
+    categoriesFeedback.postData(feedbackData)
   }
 
   render () {
-    const {rating, comment} = this.state
+    const {isPositiveRating, comment} = this.state
     const {t, city, cities, route, id, alias, query, title} = this.props
     return (
       <FeedbackBox>
         <Title>{t('feedback')}</Title>
-        <div>{t('feedbackType')}</div>
+        <RatingContainer>
+          <RatingItem
+            name='smile-o'
+            selected={isPositiveRating}
+            onClick={this.onPositiveRatingClicked} />
+          <RatingItem
+            name='frown-o'
+            selected={!isPositiveRating}
+            onClick={this.onNegativeRatingClicked} />
+        </RatingContainer>
+        <Description>{t('feedbackType')}</Description>
         <FeedbackDropdown
           city={city}
           title={title}
@@ -146,18 +148,9 @@ class Feedback extends React.Component<PropsType, StateType> {
           query={query}
           cities={cities}
           onFeedbackOptionChanged={this.onFeedbackOptionChanged} />
-        <RatingContainer>
-          <RatingItem
-            name='smile-o'
-            selected={rating === POSITIVE_RATING}
-            onClick={this.onPositiveRatingClicked} />
-          <RatingItem
-            name='frown-o'
-            selected={rating === NEGATIVE_RATING}
-            onClick={this.onNegativeRatingClicked} />
-        </RatingContainer>
+        <Description>{isPositiveRating ? t('positiveComment') : t('negativeComment')}</Description>
         <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
-        <SubmitButton onClick={this.onSubmit} disabled={this.isSubmitDisabled()}>{t('send')}</SubmitButton>
+        <SubmitButton onClick={this.onSubmit}>{t('send')}</SubmitButton>
       </FeedbackBox>
     )
   }

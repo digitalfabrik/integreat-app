@@ -19,7 +19,7 @@ import { translate } from 'react-i18next'
 
 export type FeedbackDropdownType = {
   value: string,
-  type: FeedbackType,
+  feedbackType: FeedbackType,
   label: string
 }
 
