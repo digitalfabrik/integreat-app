@@ -7,7 +7,7 @@ import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainD
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
-import WohnenExtra from '../../../routes/wohnen/containers/WohnenExtra'
+import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
 import SprungbrettExtra from '../../../routes/sprungbrett/containers/SprungbrettExtra'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import SearchPage from '../../../routes/search/containers/SearchPage'
@@ -116,7 +116,7 @@ export class Switcher extends React.Component<PropsType> {
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(extrasPayload) ||
           Switcher.renderFailureLoadingComponents(wohnenPayload) ||
-          <WohnenExtra />
+          <WohnenExtraPage />
       case DISCLAIMER_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
