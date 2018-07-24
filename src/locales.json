@@ -288,6 +288,8 @@
       "contentOfPage": "Inhalt der Seite",
       "send": "Abschicken",
       "feedback": "Feedback",
+      "positiveComment": "Was war hilfreich?",
+      "negativeComment": "Was können wir besser machen?",
       "feedbackType": "Wofür ist das Feedback?"
     },
     "en": {
@@ -302,6 +304,8 @@
       "contentOfPage": "Content of the site",
       "send": "Send",
       "feedback": "Feedback",
+      "positiveComment": "What can we improve?",
+      "negativeComment": "What was helpful?",
       "feedbackType": "What is the feedback for?"
     }
   }

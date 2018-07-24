@@ -20,7 +20,6 @@ export const EXTRAS_FEEDBACK_TYPE = 'extras'
 export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
-export type RatingType = POSITIVE_RATING | NEGATIVE_RATING | null
 export type FeedbackType = PAGE_FEEDBACK_TYPE | EXTRA_FEEDBACK_TYPE | SEARCH_FEEDBACK_TYPE | CATEGORIES_FEEDBACK_TYPE
   | EVENTS_FEEDBACK_TYPE | CITIES_FEEDBACK_TYPE | EXTRAS_FEEDBACK_TYPE
 
@@ -31,7 +30,7 @@ export type FeedbackDataType = {
   language: string,
   comment: string | null,
   alias?: string,
-  rating: RatingType,
+  isPositiveRating: boolean,
   query?: string
 }
 
@@ -48,19 +47,14 @@ export default new FeedbackEndpointBuilder(CATEGORIES_FEEDBACK_ENDPOINT_NAME)
       params.type ? `/${params.type}` : ''}`
   })
   .withParamsToBodyMapper((params: FeedbackDataType): FormData => {
-    if (!params.rating && !params.comment) {
-      throw new ParamMissingError(CATEGORIES_FEEDBACK_ENDPOINT_NAME, 'rating/comment')
+    if (params.isPositiveRating === undefined) {
+      throw new ParamMissingError(CATEGORIES_FEEDBACK_ENDPOINT_NAME, 'rating')
     }
-
     const formData = new FormData()
+    formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
     if (params.id) {
-      formData.append('id', `${params.id}`)
+      formData.append('id', params.id)
     }
-
-    if (params.rating) {
-      formData.append('rating', params.rating)
-    }
-
     if (params.comment) {
       formData.append('comment', params.comment)
     }
