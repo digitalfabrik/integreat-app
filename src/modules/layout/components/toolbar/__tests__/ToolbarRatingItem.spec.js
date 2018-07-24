@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 
 import { ToolbarRatingItem } from '../ToolbarRatingItem'
-import categoriesFeedback from '../../../../endpoint/endpoints/feedback/categoriesFeedback'
+import categoriesFeedback from '../../../../endpoint/endpoints/feedback'
 
 describe('ToolbarRatingItem', () => {
   it('should render a positive ToolbarRatingItem', () => {
@@ -32,7 +32,7 @@ describe('ToolbarRatingItem', () => {
       language: 'de',
       isPositiveRating: false,
       id: 1234,
-      comment: undefined
+      comment: null
     })
 
     categoriesFeedback.postData = original

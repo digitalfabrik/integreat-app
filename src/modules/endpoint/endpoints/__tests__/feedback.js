@@ -1,4 +1,4 @@
-import categoriesFeedback from '../categoriesFeedback'
+import categoriesFeedback from '../feedback'
 
 describe('categoriesFeedback', () => {
   it('should map params to url', () => {
@@ -13,10 +13,6 @@ describe('categoriesFeedback', () => {
 
   it('should throw if the language to map the url is missing', () => {
     expect(() => categoriesFeedback.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the id to map the body is missing', () => {
-    expect(() => categoriesFeedback.mapParamsToBody({})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if both the rating and the comment to map the body are missing', () => {
