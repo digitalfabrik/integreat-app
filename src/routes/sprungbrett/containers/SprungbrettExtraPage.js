@@ -19,7 +19,7 @@ type PropsType = {
   cities: Array<CityModel>
 }
 
-class SprungbrettExtra extends React.Component<PropsType> {
+class SprungbrettExtraPage extends React.Component<PropsType> {
   render () {
     const LoadingSpinner = () => <Spinner name='line-scale-party' />
 
@@ -46,4 +46,4 @@ const mapStateTypeToProps = (state: StateType) => ({
   sprungbrettJobs: state.sprungbrettJobs.data
 })
 
-export default connect(mapStateTypeToProps)(SprungbrettExtra)
+export default connect(mapStateTypeToProps)(SprungbrettExtraPage)
