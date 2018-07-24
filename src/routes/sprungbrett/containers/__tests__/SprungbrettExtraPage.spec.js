@@ -20,8 +20,6 @@ describe('SprungbrettExtraPage', () => {
 
   const extras = [sprungbrettExtra]
 
-  const sprungbrettJobs = []
-
   const cities = [
     new CityModel({
       name: 'Augsburg',
@@ -33,7 +31,7 @@ describe('SprungbrettExtraPage', () => {
     })
   ]
 
-  const jobs = [
+  const sprungbrettJobs = [
     new SprungbrettJobModel({
       id: 0,
       title: 'WebDeveloper',
@@ -61,36 +59,36 @@ describe('SprungbrettExtraPage', () => {
   ]
 
   it('should render list', () => {
-    const extrasPage = shallow(
-      <SprungbrettExtraPage sprungbrettJobs={jobs}
+    const sprunbrettPage = shallow(
+      <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs}
                             city={city}
                             language={language}
                             extras={[sprungbrettExtra]}
                             cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(sprunbrettPage).toMatchSnapshot()
   })
 
   it('should render spinner if jobs are not ready', () => {
-    const extrasPage = shallow(
+    const sprunbrettPage = shallow(
       <SprungbrettExtraPage sprungbrettJobs={null}
                             city={city}
                             language={language}
                             extras={[sprungbrettExtra]}
                             cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(sprunbrettPage).toMatchSnapshot()
   })
 
   it('should render error if extra is not supported', () => {
-    const extrasPage = shallow(
-      <SprungbrettExtraPage sprungbrettJobs={jobs}
+    const sprunbrettPage = shallow(
+      <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs}
                             city={city}
                             language={language}
                             extras={[]}
                             cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(sprunbrettPage).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
