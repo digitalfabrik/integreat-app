@@ -50,7 +50,7 @@ type PropsType = {
   eventsPayload: Payload<Array<EventModel>>,
   extrasPayload: Payload<Array<ExtraModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
-  wohnenPayload: Payload<Array<WohnenOfferModel<*>>>,
+  wohnenPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<DisclaimerModel>,
   languages: ?Array<LanguageModel>,
   language: ?string,

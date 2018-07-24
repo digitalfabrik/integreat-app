@@ -66,23 +66,21 @@ describe('WohnenExtraPage', () => {
   })
   const offerHash = new Hashids().encode(offer.email.length, offer.createdDate.milliseconds())
 
-  const offers = [
-    offer
-  ]
+  const offers = [offer]
 
   it('should render list if no hash is supplied', () => {
-    const extrasPage = shallow(
+    const wohnenPage = shallow(
       <WohnenExtraPage offers={offers}
                        city={city}
                        language={language}
                        extras={[wohnenExtra]}
                        cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(wohnenPage).toMatchSnapshot()
   })
 
   it('should render detailed offer if hash is supplied', () => {
-    const extrasPage = shallow(
+    const wohnenPage = shallow(
       <WohnenExtraPage offers={offers}
                        city={city}
                        language={language}
@@ -90,7 +88,7 @@ describe('WohnenExtraPage', () => {
                        extras={[wohnenExtra]}
                        cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(wohnenPage).toMatchSnapshot()
   })
 
   it('should render failure offer if offer is not found', () => {
@@ -106,7 +104,7 @@ describe('WohnenExtraPage', () => {
   })
 
   it('should render failure city does not support offer', () => {
-    const extrasPage = shallow(
+    const wohnenPage = shallow(
       <WohnenExtraPage offers={offers}
                        city={city}
                        language={language}
@@ -114,11 +112,11 @@ describe('WohnenExtraPage', () => {
                        extras={[]}
                        cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(wohnenPage).toMatchSnapshot()
   })
 
   it('should render spinner if offers are not ready', () => {
-    const extrasPage = shallow(
+    const wohnenPage = shallow(
       <WohnenExtraPage offers={null}
                        city={city}
                        language={language}
@@ -126,7 +124,7 @@ describe('WohnenExtraPage', () => {
                        extras={[wohnenExtra]}
                        cities={cities} />
     )
-    expect(extrasPage).toMatchSnapshot()
+    expect(wohnenPage).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
@@ -141,11 +139,11 @@ describe('WohnenExtraPage', () => {
       cities: new Payload(false, null, cities)
     })
 
-    const extrasPage = shallow(
+    const wohnenPage = shallow(
       <ConnectedWohnenExtraPage store={store} />
     )
 
-    expect(extrasPage.props()).toMatchObject({
+    expect(wohnenPage.props()).toMatchObject({
       language,
       city,
       offerHash,
