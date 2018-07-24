@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SprungbrettExtraPage should render error if extra is not supported 1`] = `
+<Translate(FailureSwitcher)
+  error={[Error: The Sprunbrett extra is not supported.]}
+/>
+`;
+
+exports[`SprungbrettExtraPage should render list 1`] = `
+<React.Fragment>
+  <Connect(Helmet)
+    title="Sprungbrett - Augsburg"
+  />
+  <SprungbrettList
+    jobs={
+      Array [
+        SprungbrettModel {
+          "_id": 0,
+          "_isApprenticeship": true,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "WebDeveloper",
+          "_url": "http://awesome-jobs.domain",
+        },
+        SprungbrettModel {
+          "_id": 1,
+          "_isApprenticeship": false,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "BackendDeveloper",
+          "_url": "http://awesome-jobs.domain",
+        },
+        SprungbrettModel {
+          "_id": 2,
+          "_isApprenticeship": true,
+          "_isEmployment": false,
+          "_location": "Augsburg",
+          "_title": "Freelancer",
+          "_url": "http://awesome-jobs.domain",
+        },
+      ]
+    }
+    title="Sprungbrett"
+  />
+</React.Fragment>
+`;
+
+exports[`SprungbrettExtraPage should render spinner if jobs are not ready 1`] = `
+<React.Fragment>
+  <Connect(Helmet)
+    title="Sprungbrett - Augsburg"
+  />
+  <Spinner
+    fadeIn="full"
+    name="line-scale-party"
+    noFadeIn={false}
+    overrideSpinnerClassName=""
+  />
+</React.Fragment>
+`;
