@@ -84,12 +84,9 @@ describe('I18nRedirectPage', () => {
         <ConnectedI18nRedirectPage store={store} />
       )
 
-      expect(i18nRedirect.props()).toEqual({
+      expect(i18nRedirect.props()).toMatchObject({
         param,
-        cities,
-        store: store,
-        storeSubscription: expect.any(Object),
-        redirect: expect.any(Function)
+        cities
       })
     })
 
