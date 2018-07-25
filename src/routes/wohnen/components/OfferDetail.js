@@ -73,7 +73,7 @@ class OfferDetail extends React.Component<PropsType> {
           </ListElement>
           <Row>
             <RowTitle>Gesamtfläche:</RowTitle>
-            <RowValue>{accommodation.totalArea} qm²</RowValue>
+            <RowValue>{accommodation.totalArea} qm</RowValue>
           </Row>
           <Row>
             <RowTitle>Zimmeranzahl:</RowTitle>
