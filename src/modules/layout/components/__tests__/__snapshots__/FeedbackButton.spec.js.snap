@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ToolbarRatingItem should render a negative ToolbarRatingItem 1`] = `
+exports[`FeedbackButton should render a negative FeedbackButton 1`] = `
 <ToolbarButton
   name="frown-o"
   onClick={[Function]}
@@ -8,7 +8,7 @@ exports[`ToolbarRatingItem should render a negative ToolbarRatingItem 1`] = `
 />
 `;
 
-exports[`ToolbarRatingItem should render a positive ToolbarRatingItem 1`] = `
+exports[`FeedbackButton should render a positive FeedbackButton 1`] = `
 <ToolbarButton
   name="smile-o"
   onClick={[Function]}

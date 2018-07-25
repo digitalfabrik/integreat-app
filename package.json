@@ -46,6 +46,7 @@
     "react-helmet": "^5.2.0",
     "react-highlighter": "^0.4.2",
     "react-i18next": "^7.8.1",
+    "react-modal": "^3.5.1",
     "react-onclickoutside": "^6.7.1",
     "react-redux": "^5.0.7",
     "react-spinkit": "^3.0.0",
