@@ -11,7 +11,7 @@ import ListElement from '../../../modules/common/components/ListElement'
 import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {
-  offer: WohnenOfferModel<*>,
+  offer: WohnenOfferModel,
   t: TFunction
 }
 
@@ -34,6 +34,8 @@ const Row = styled.div`
   margin: 10px 0;
 `
 
+// fixme: OfferList is connected to redux state because of Caption -> not a plain old component
+
 class OfferDetail extends React.Component<PropsType> {
   translate (type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {
     return keys.map(key => this.props.t(`values.${type}.${key}`))
@@ -54,10 +56,9 @@ class OfferDetail extends React.Component<PropsType> {
   render () {
     const offer = this.props.offer
 
-    if (offer.formDataType === WohnenFormData) {
-      const specificOffer: WohnenOfferModel<WohnenFormData> = offer
-      const accommodation: AccommodationType = specificOffer.formData.accommodation
-      const costs = specificOffer.formData.costs
+    if (offer.formData instanceof WohnenFormData) {
+      const accommodation: AccommodationType = offer.formData.accommodation
+      const costs = offer.formData.costs
       const landlord = offer.formData.landlord
 
       const translateRunningServices = keys => this.stringify(this.translate('runningServices', keys))
@@ -150,7 +151,7 @@ class OfferDetail extends React.Component<PropsType> {
         </div>
       </React.Fragment>
     } else {
-      throw new Error(`Failed to render form class ${offer.formDataType.name}!`)
+      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }
   }
 }

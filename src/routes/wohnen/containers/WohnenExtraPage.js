@@ -13,22 +13,23 @@ import OfferList from '../components/OfferList'
 import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from 'modules/common/components/Caption'
+import FailureSwitcher from 'modules/common/components/FailureSwitcher'
 
 type PropsType = {
-  offers: Array<WohnenOfferModel<*>>,
+  offers: ?Array<WohnenOfferModel>,
   city: string,
   language: string,
-  offerHash: string,
+  offerHash?: string,
   extras: Array<ExtraModel>,
   cities: Array<CityModel>
 }
 
-class WohnenExtra extends React.Component<PropsType> {
+export class WohnenExtraPage extends React.Component<PropsType> {
   hashids = new Hashids()
-  hash = (offer: WohnenOfferModel<*>) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
+  hash = (offer: WohnenOfferModel) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
 
-  findOfferByHash (hash: string): WohnenOfferModel<*> | void {
-    return this.props.offers.find(offer => this.hash(offer) === hash)
+  findOfferByHash (offers: Array<WohnenOfferModel>, hash: string): WohnenOfferModel | void {
+    return offers.find(offer => this.hash(offer) === hash)
   }
 
   render () {
@@ -37,7 +38,7 @@ class WohnenExtra extends React.Component<PropsType> {
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
     if (!extra) {
-      return null
+      return <FailureSwitcher error={new Error('The Wohnen extra is not supported.')} />
     }
 
     if (!offers) {
@@ -45,10 +46,10 @@ class WohnenExtra extends React.Component<PropsType> {
     }
 
     if (offerHash) {
-      const offer = this.findOfferByHash(offerHash)
+      const offer = this.findOfferByHash(offers, offerHash)
 
       if (!offer) {
-        return <div>Offer not found!</div>
+        return <FailureSwitcher error={new Error('Angebot nicht gefunden.')} />
       }
 
       return (
@@ -80,4 +81,4 @@ const mapStateTypeToProps = (state: StateType) => ({
   offers: state.wohnen.data
 })
 
-export default connect(mapStateTypeToProps)(WohnenExtra)
+export default connect(mapStateTypeToProps)(WohnenExtraPage)

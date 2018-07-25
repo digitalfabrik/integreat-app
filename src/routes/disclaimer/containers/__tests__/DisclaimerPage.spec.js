@@ -42,13 +42,10 @@ describe('DisclaimerPage', () => {
         <ConnectedDisclaimerPage store={store} />
       )
 
-      expect(disclaimerPage.props()).toEqual({
+      expect(disclaimerPage.props()).toMatchObject({
         disclaimer: disclaimer,
         city,
-        cities,
-        store: store,
-        storeSubscription: expect.any(Object),
-        dispatch: expect.any(Function)
+        cities
       })
     })
   })

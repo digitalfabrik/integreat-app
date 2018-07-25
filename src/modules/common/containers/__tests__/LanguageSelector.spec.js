@@ -95,15 +95,12 @@ describe('LanguageSelector', () => {
       <ConnectedLanguageSelector isHeaderActionItem store={store} />
     )
 
-    expect(languageSelector.props()).toEqual({
+    expect(languageSelector.props()).toMatchObject({
       languages,
       location,
       events,
       categories,
-      isHeaderActionItem: true,
-      dispatch: expect.any(Function),
-      store,
-      storeSubscription: expect.any(Object)
+      isHeaderActionItem: true
     })
   })
 })

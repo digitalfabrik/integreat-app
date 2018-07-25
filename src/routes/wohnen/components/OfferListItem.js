@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import ListElement from 'modules/common/components/ListElement'
 
 type PropsType = {
-  offer: WohnenOfferModel<*>
+  offer: WohnenOfferModel
 }
 
 const Description = styled.div`
@@ -30,8 +30,8 @@ class OfferListItem extends React.Component<PropsType> {
   render () {
     const offer = this.props.offer
 
-    if (offer.formDataType === WohnenFormData) {
-      const specificOffer: WohnenOfferModel<WohnenFormData> = offer
+    if (offer.formData instanceof WohnenFormData) {
+      const specificOffer: WohnenOfferModel = offer
       const accommodation = specificOffer.formData.accommodation
       const costs = specificOffer.formData.costs
 
@@ -46,7 +46,7 @@ class OfferListItem extends React.Component<PropsType> {
         </Description>
       </ListElement>
     } else {
-      throw new Error(`Failed to render form class ${offer.formDataType.name}!`)
+      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }
   }
 }

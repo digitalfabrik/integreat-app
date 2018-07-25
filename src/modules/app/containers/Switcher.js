@@ -7,8 +7,8 @@ import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainD
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
-import WohnenExtra from '../../../routes/wohnen/containers/WohnenExtra'
-import SprungbrettExtra from '../../../routes/sprungbrett/containers/SprungbrettExtra'
+import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
+import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import SearchPage from '../../../routes/search/containers/SearchPage'
 import { LANDING_ROUTE } from '../routes/landing'
@@ -49,8 +49,8 @@ type PropsType = {
   categoriesPayload: Payload<CategoriesMapModel>,
   eventsPayload: Payload<Array<EventModel>>,
   extrasPayload: Payload<Array<ExtraModel>>,
-  sprungbrettJobsPayload: Payload<Array<SprungbrettExtra>>,
-  wohnenPayload: Payload<Array<WohnenOfferModel<*>>>,
+  sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
+  wohnenPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<DisclaimerModel>,
   languages: ?Array<LanguageModel>,
   language: ?string,
@@ -111,12 +111,12 @@ export class Switcher extends React.Component<PropsType> {
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(extrasPayload) ||
           Switcher.renderFailureLoadingComponents(sprungbrettJobsPayload) ||
-          <SprungbrettExtra />
+          <SprungbrettExtraPage />
       case WOHNEN_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(extrasPayload) ||
           Switcher.renderFailureLoadingComponents(wohnenPayload) ||
-          <WohnenExtra />
+          <WohnenExtraPage />
       case DISCLAIMER_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
