@@ -30,7 +30,8 @@ type PropsType = {
   currentRoute: string,
   viewportSmall: boolean,
   children?: React.Node,
-  pathname: string
+  pathname: string,
+  route: string
 }
 
 type StateType = {
@@ -48,7 +49,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {language, city, currentRoute, viewportSmall, children, pathname, categories} = this.props
+    const {language, city, currentRoute, viewportSmall, children, pathname, categories, cities, route} = this.props
     const cityModel = this.getCurrentCity()
     const showCategoriesToolbar = currentRoute === CATEGORIES_ROUTE && categories
 
@@ -64,10 +65,12 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                            isExtrasEnabled={cityModel.extrasEnabled}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
                    footer={<LocationFooter city={city} language={language} />}
-                   toolbar={showCategoriesToolbar && <CategoriesToolbar city={city}
-                                                                        language={language}
-                                                                        pathname={pathname}
-                                                                        categories={categories} />}>
+                   toolbar={showCategoriesToolbar && cities && <CategoriesToolbar city={city}
+                                                                                  language={language}
+                                                                                  pathname={pathname}
+                                                                                  categories={categories}
+                                                                                  route={route}
+                                                                                  cities={cities} />}>
         {children}
       </Layout>
   }
@@ -80,7 +83,8 @@ const mapStateToProps = state => ({
   pathname: state.location.pathname,
   viewportSmall: state.viewport.is.small,
   cities: state.cities.data,
-  categories: state.categories.data
+  categories: state.categories.data,
+  route: state.location.type
 })
 
 export default connect(mapStateToProps)(LocationLayout)

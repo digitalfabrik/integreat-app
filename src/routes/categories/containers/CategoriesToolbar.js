@@ -9,13 +9,16 @@ import ToolbarAnchor from '../../../modules/layout/components/ToolbarAnchor'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
-import ToolbarRatingItem from '../../../modules/layout/components/ToolbarRatingItem'
+import FeedbackModal from '../../feedback/components/FeedbackModal'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 type PropsType = {
+  cities: Array<CityModel>,
   city: string,
   language: string,
   categories: CategoriesMapModel,
   pathname: string,
+  route: string,
   t: TFunction
 }
 
@@ -29,15 +32,29 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, city, language} = this.props
+    const {t, city, language, cities, route} = this.props
     const category = this.props.categories.findCategoryByPath(this.props.pathname)
     if (!category) {
       return null
     }
     return <Toolbar>
       <ToolbarAnchor name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
-      <ToolbarRatingItem pageId={category.id} city={city} language={language} isPositiveRating />
-      <ToolbarRatingItem pageId={category.id} city={city} language={language} isPositiveRating={false} />
+      <FeedbackModal
+        id={category.id}
+        title={category.title}
+        city={city}
+        cities={cities}
+        route={route}
+        language={language}
+        isPositiveRating />
+      <FeedbackModal
+        id={category.id}
+        title={category.title}
+        city={city}
+        cities={cities}
+        route={route}
+        language={language}
+        isPositiveRating={false} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
