@@ -7,7 +7,7 @@ exports[`OfferList should render offer item 1`] = `
   <div
     class="OfferListItem__Title-gTJMwx ifZCCX"
   >
-    Max Ammann
+    Test Angebot
   </div>
   <div
     class="OfferListItem__Description-crNkAb hnfpT"
