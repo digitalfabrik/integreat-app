@@ -3,21 +3,34 @@
 import React from 'react'
 
 import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
-
-import style from './SprungbrettListItem.css'
+import styled from 'styled-components'
+import ListElement from 'modules/common/components/ListElement'
+import CleanAnchor from 'modules/common/components/CleanAnchor'
 
 type PropsType = {
   job: SprungbrettJobModel
 }
 
+const Description = styled.div`
+  margin-left: 10px;
+  padding-bottom: 5px;
+`
+
+const Title = styled.div`
+  padding: 15px 5px 5px;
+  font-weight: 700;
+`
+
 class SprungbrettListItem extends React.Component<PropsType> {
   render () {
     const job = this.props.job
 
-    return <a href={job.url} className={style.job} target='_blank' >
-      <div className={style.title}>{job.title}</div>
-      <div className={style.description}>{job.location}</div>
-      </a>
+    return <ListElement>
+        <CleanAnchor href={job.url} target='_blank'>
+          <Title>{job.title}</Title>
+          <Description>{job.location}</Description>
+        </CleanAnchor>
+    </ListElement>
   }
 }
 
