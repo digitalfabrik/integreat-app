@@ -144,7 +144,7 @@ describe('Switcher', () => {
       <ConnectedSwitcher store={store} />
     )
 
-    expect(switcher.props()).toEqual({
+    expect(switcher.props()).toMatchObject({
       currentRoute,
       categoriesPayload: fetchingPayload,
       eventsPayload: fetchingPayload,
@@ -155,10 +155,7 @@ describe('Switcher', () => {
       viewportSmall: true,
       city: 'augsburg',
       param: 'param',
-      language: 'de',
-      store,
-      storeSubscription: expect.any(Object),
-      dispatch: expect.any(Function)
+      language: 'de'
     })
   })
 })

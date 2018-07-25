@@ -143,15 +143,12 @@ describe('CategoriesPage', () => {
       <ConnectedCategoriesPage store={store} />
     )
 
-    expect(categoriesPage.props()).toEqual({
+    expect(categoriesPage.props()).toMatchObject({
       city,
       language,
       path: pathname,
       categories,
-      cities,
-      store,
-      dispatch: expect.any(Function),
-      storeSubscription: expect.any(Object)
+      cities
     })
   })
 })

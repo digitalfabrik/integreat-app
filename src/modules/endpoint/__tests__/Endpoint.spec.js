@@ -4,6 +4,8 @@ import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import startFetchAction from '../actions/startFetchAction'
 import finishFetchAction from '../actions/finishFetchAction'
+import MappingError from '../errors/MappingError'
+import LoadingError from '../errors/LoadingError'
 
 describe('Endpoint', () => {
   const stateName = 'endpoint'
@@ -76,31 +78,29 @@ describe('Endpoint', () => {
       expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
     })
 
-    // import MappingError from '../errors/MappingError'
-    // import LoadingError from '../errors/LoadingError'
-    // it('should fail if json is malformed', async () => {
-    //   const endpoint = createEndpoint({
-    //     jsonMapper: json => json
-    //   })
-    //   const malformedJSON = 'I\'m so mean!'
-    //   const dispatch = jest.fn()
-    //   const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
-    //   const params = {var1: 'a', var2: 'b'}
-    //   fetch.mockResponse(malformedJSON)
-    //
-    //   const data = await endpoint.loadData(dispatch, oldPayload, params)
-    //   const mappingError = new MappingError(
-    //     stateName, 'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
-    //   )
-    //   const payload = new Payload(false, defaultMapParamsToUrl(params), null,
-    //     new LoadingError(endpoint.stateName, mappingError.message)
-    //   )
-    //
-    //   expect(data).toEqual(payload)
-    //   expect(dispatch).toHaveBeenCalledTimes(2)
-    //   expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
-    //   expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
-    // })
+    it('should fail if json is malformed', async () => {
+      const endpoint = createEndpoint({
+        jsonMapper: json => json
+      })
+      const malformedJSON = 'I\'m so mean!'
+      const dispatch = jest.fn()
+      const oldPayload = new Payload(false, 'https://weird-endpoint/old-url/api.json', {}, null)
+      const params = {var1: 'a', var2: 'b'}
+      fetch.mockResponse(malformedJSON)
+
+      const data = await endpoint.loadData(dispatch, oldPayload, params)
+      const mappingError = new MappingError(
+        stateName,
+        'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
+      )
+      const loadingError = new LoadingError({endpointName: stateName, message: mappingError.message})
+      const payload = new Payload(false, defaultMapParamsToUrl(params), null, loadingError)
+
+      expect(data).toEqual(payload)
+      expect(dispatch).toHaveBeenCalledTimes(2)
+      expect(dispatch).toHaveBeenCalledWith(startFetchAction(stateName, defaultMapParamsToUrl(params)))
+      expect(dispatch).toHaveBeenCalledWith(finishFetchAction(stateName, payload))
+    })
 
     it('should not fetch if data has already been fetched', async () => {
       const endpoint = createEndpoint({

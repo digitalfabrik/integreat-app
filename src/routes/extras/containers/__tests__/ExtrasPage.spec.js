@@ -57,14 +57,11 @@ describe('ExtrasPage', () => {
       <ConnectedExtrasPage store={store} />
     )
 
-    expect(extrasPage.props()).toEqual({
+    expect(extrasPage.props()).toMatchObject({
       language,
       city,
       extras,
-      cities,
-      store: store,
-      storeSubscription: expect.any(Object),
-      dispatch: expect.any(Function)
+      cities
     })
   })
 })
