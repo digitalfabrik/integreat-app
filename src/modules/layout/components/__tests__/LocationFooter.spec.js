@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import { LocationFooter } from './LocationFooter'
+import { LocationFooter } from '../LocationFooter'
 
 describe('LocationFooter', () => {
   it('should match snapshot', () => {
