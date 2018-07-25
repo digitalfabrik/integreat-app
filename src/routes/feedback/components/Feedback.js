@@ -5,13 +5,13 @@ import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
-import categoriesFeedback, {
-  INTEGREAT_INSTANCE, DEFAULT_FEEDBACK_LANGUAGE
-} from '../../../modules/endpoint/endpoints/feedback'
 import styled from 'styled-components'
 import FontAwesome from 'react-fontawesome'
 import FeedbackDropdown from './FeedbackDropdown'
 import type { FeedbackDropdownType } from './FeedbackDropdown'
+import FeedbackEndpoint, { DEFAULT_FEEDBACK_LANGUAGE, INTEGREAT_INSTANCE }
+  from '../../../modules/endpoint/FeedbackEndpoint'
+import type { TFunction } from 'react-i18next'
 
 const FeedbackBox = styled.div`
   display: flex;
@@ -81,11 +81,12 @@ type PropsType = {
   alias?: string,
   query?: string,
   route: string,
-  isPositiveRating: boolean
+  isPositiveRating: boolean,
+  t: TFunction
 }
 
 type StateType = {
-  selectedFeedbackOption: FeedbackDropdownType,
+  selectedFeedbackOption: ?FeedbackDropdownType,
   comment: string,
   isPositiveRating: boolean
 }
@@ -100,7 +101,7 @@ class Feedback extends React.Component<PropsType, StateType> {
 
   onNegativeRatingClicked = () => this.setState({isPositiveRating: false})
 
-  onCommentChanged = (event: Event) => this.setState({comment: event.target.value})
+  onCommentChanged = (event: {target: {value: string}}) => this.setState({comment: event.target.value})
 
   onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownType) => {
     this.setState({selectedFeedbackOption: selectedDropdown})
@@ -109,17 +110,20 @@ class Feedback extends React.Component<PropsType, StateType> {
   onSubmit = () => {
     const {selectedFeedbackOption, isPositiveRating, comment} = this.state
     const {id, city, language, alias, query} = this.props
-    const feedbackData = {
-      feedbackType: selectedFeedbackOption.feedbackType,
-      isPositiveRating,
-      comment,
-      id,
-      city: city || INTEGREAT_INSTANCE,
-      language: language || DEFAULT_FEEDBACK_LANGUAGE,
-      alias,
-      query
+
+    if (selectedFeedbackOption) {
+      const feedbackData = {
+        feedbackType: selectedFeedbackOption.feedbackType,
+        isPositiveRating,
+        comment,
+        id,
+        city: city || INTEGREAT_INSTANCE,
+        language: language || DEFAULT_FEEDBACK_LANGUAGE,
+        alias,
+        query
+      }
+      FeedbackEndpoint.postData(feedbackData)
     }
-    categoriesFeedback.postData(feedbackData)
   }
 
   render () {
