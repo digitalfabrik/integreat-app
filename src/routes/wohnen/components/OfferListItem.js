@@ -34,10 +34,9 @@ class OfferListItem extends React.Component<PropsType> {
       const specificOffer: WohnenOfferModel<WohnenFormData> = offer
       const accommodation = specificOffer.formData.accommodation
       const costs = specificOffer.formData.costs
-      const landlord = offer.formData.landlord
 
       return <ListElement>
-        <Title>{landlord.firstName} {landlord.lastName}</Title>
+        <Title>{accommodation.title}</Title>
         <Description>
           <div>
             <div>{accommodation.totalArea} m²</div>
