@@ -4,7 +4,7 @@ import React from 'react'
 import { translate } from 'react-i18next'
 import ToolbarButton from './ToolbarButton'
 import type { TFunction } from 'react-i18next'
-import feedback from '../../../endpoint/endpoints/feedback'
+import feedback from '../../endpoint/endpoints/feedback'
 
 type PropsType = {
   city: string,

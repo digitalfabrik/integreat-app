@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 
 import { ToolbarRatingItem } from '../ToolbarRatingItem'
-import categoriesFeedback from '../../../../endpoint/endpoints/feedback'
+import categoriesFeedback from '../../../endpoint/endpoints/feedback'
 
 describe('ToolbarRatingItem', () => {
   it('should render a positive ToolbarRatingItem', () => {

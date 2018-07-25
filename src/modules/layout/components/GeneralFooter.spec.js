@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
-import GeneralFooter from '../GeneralFooter'
+import GeneralFooter from './GeneralFooter'
 
 describe('GeneralFooter', () => {
   it('should match snapshot', () => {
