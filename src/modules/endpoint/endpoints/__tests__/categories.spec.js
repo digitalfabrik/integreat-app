@@ -62,7 +62,7 @@ describe('categories', () => {
     order: -1,
     thumbnail: '',
     parentPath: '',
-    lastUpdate: ''
+    lastUpdate: null
   })]
 
   const params = {language: 'de', city: 'augsburg'}

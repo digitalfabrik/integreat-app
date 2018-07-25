@@ -8,7 +8,7 @@ import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import { List } from './CategoryList.styles'
 
-type Props = {
+type PropsType = {
   categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
   title?: string,
   content?: string,
@@ -19,7 +19,7 @@ type Props = {
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.Component<Props> {
+class CategoryList extends React.Component<PropsType> {
   render () {
     const {categories, title, content, query} = this.props
     return (

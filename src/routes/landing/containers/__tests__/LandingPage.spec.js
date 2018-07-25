@@ -35,12 +35,9 @@ describe('LandingPage', () => {
       <ConnectedLandingPage store={store} />
     )
 
-    expect(landingPage.props()).toEqual({
+    expect(landingPage.props()).toMatchObject({
       language,
-      cities,
-      store: store,
-      storeSubscription: expect.any(Object),
-      dispatch: expect.any(Function)
+      cities
     })
   })
 })

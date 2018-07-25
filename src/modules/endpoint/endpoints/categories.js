@@ -3,18 +3,17 @@
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
-import normalizeUrl from 'normalize-url'
+import normalizePath from 'normalize-path'
 import { toPairs } from 'lodash/object'
 
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams } from '../../../flowTypes'
 import moment from 'moment'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
 export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: EndpointParams): string => {
+  .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
@@ -23,7 +22,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
   })
-  .withMapper((json: any, params: EndpointParams): CategoriesMapModel => {
+  .withMapper((json: any, params) => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
@@ -36,14 +35,14 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
       .map(category => {
         return new CategoryModel({
           id: category.id,
-          path: normalizeUrl(category.path),
+          path: normalizePath(category.path),
           title: category.title,
           content: category.content,
           thumbnail: category.thumbnail,
           order: category.order,
           availableLanguages: new Map(
-            toPairs(category.available_languages).map(([key, value]) => [key, normalizeUrl(value.path)])),
-          parentPath: normalizeUrl(category.parent.path || basePath),
+            toPairs(category.available_languages).map(([key, value]) => [key, normalizePath(value.path)])),
+          parentPath: normalizePath(category.parent.path || basePath),
           lastUpdate: moment(category.modified_gmt)
         })
       })
@@ -57,7 +56,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
       thumbnail: '',
       order: -1,
       availableLanguages: new Map(),
-      lastUpdate: ''
+      lastUpdate: null
     }))
 
     return new CategoriesMapModel(categories)

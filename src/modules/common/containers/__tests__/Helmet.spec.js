@@ -45,7 +45,7 @@ describe('Helmet', () => {
 
   it('should render and match snapshot', () => {
     const helmet = shallow(
-      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} />
+      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} t={key => key} />
     )
 
     expect(helmet).toMatchSnapshot()
@@ -66,15 +66,12 @@ describe('Helmet', () => {
       <ConnectedHelmet title={title} store={store} />
     )
 
-    expect(languageSelector.props()).toEqual({
+    expect(languageSelector.props()).toMatchObject({
       languages,
       location,
       events,
       categories,
-      title,
-      dispatch: expect.any(Function),
-      store,
-      storeSubscription: expect.any(Object)
+      title
     })
   })
 })

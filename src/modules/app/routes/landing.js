@@ -3,11 +3,11 @@
 import citiesEndpoint from '../../endpoint/endpoints/cities'
 import { createAction } from 'redux-actions'
 
-import type { Action, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
+import type { Dispatch, GetState } from 'redux-first-router'
 
 export const LANDING_ROUTE = 'LANDING'
 
-export const goToLanding = (language: string): Action => createAction(LANDING_ROUTE)({language})
+export const goToLanding = (language: string) => createAction(LANDING_ROUTE)({language})
 
 /**
  * LandingRoute, matches /landing/de

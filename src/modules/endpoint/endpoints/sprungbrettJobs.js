@@ -3,12 +3,11 @@
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { EndpointParams } from '../../../flowTypes'
 
 const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 
 export default new EndpointBuilder(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: EndpointParams): string => {
+  .withParamsToUrlMapper((params): string => {
     if (!params.url) {
       throw new ParamMissingError(SPRUNGBRETT_JOBS_ENDPOINT_NAME, 'url')
     }

@@ -37,11 +37,8 @@ describe('LanguageFailure', () => {
       <ConnectedLanguageFailure store={store} />
     )
 
-    expect(languageFailure.props()).toEqual({
-      cities,
-      dispatch: expect.any(Function),
-      store,
-      storeSubscription: expect.any(Object)
+    expect(languageFailure.props()).toMatchObject({
+      cities
     })
   })
 })

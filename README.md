@@ -129,12 +129,12 @@ You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 
 1. Create new release on Jira (should be empty)
 2. Update old issues to use the created release as Fix Version
-   * Query to find old issues: `project = "integreat-webapp" AND Sprint = "Highway to I10K!" AND Sprint != "Highway to IXIK!" AND fixVersion is empty`
+   * Query to find issues which haven't been released: `project = "integreat-webapp" AND issuetype = Task AND Sprint IS NOT EMPTY AND fixVersion IS EMPTY AND resolution = Done`
 3. Release the Jira release
 4. Generate release notes in Jira
 
 5. Create a branch and create a Pull Request to develop:
-    * Update version number in package.json
+    * Update version number e.g. "2018.03.02" in package.json
 6. Merge branch in develop
 
 7. Create Pull Request to merge develop in master:
@@ -143,8 +143,7 @@ You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 9. Tag the master HEAD as "2018.03.02". Add the release notes from Jira as description.
 10. Send release notes to Slack channel #app-web
 
-11. See instructions for deployment [here](tools/deploy/README.md).
-    * Example: `tools/deploy/ssh-deploy.sh web.integreat-app.de /var/www/web.integreat-app.de/`
+11. Deploy via SSH: `tools/deploy/ssh-deploy.sh web.integreat-app.de /var/www/web.integreat-app.de/ web:web`
     
 ## Deployment to webnext.
 

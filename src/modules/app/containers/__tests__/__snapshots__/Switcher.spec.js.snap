@@ -31,7 +31,7 @@ exports[`Switcher layout should render a location layout if the current route is
 
 exports[`Switcher should get the right page if data has been fetched and is the categories route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(CategoriesPage) />
+  <Connect(Translate(CategoriesPage)) />
 </Connect(LocationLayout)>
 `;
 

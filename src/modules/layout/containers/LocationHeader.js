@@ -18,21 +18,22 @@ import { goToSearch } from '../../app/routes/search'
 import { goToLanding } from '../../app/routes/landing'
 import { connect } from 'react-redux'
 
-import type { LocationState } from 'redux-first-router/dist/flow-types'
+import type { LocationState } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
-import type { I18nTranslate, State } from '../../../flowTypes'
+import type { StateType } from 'modules/app/StateType'
+import type { TFunction } from 'react-i18next'
 
-type Props = {
+type PropsType = {
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
-  t: I18nTranslate,
+  t: TFunction,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => {}
 }
 
-export class LocationHeader extends React.Component<Props> {
+export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
     const { location } = this.props
     const { city, language } = location.payload
@@ -114,7 +115,7 @@ export class LocationHeader extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   location: state.location,
   viewportSmall: state.viewport.is.small,
   languages: state.languages.data,

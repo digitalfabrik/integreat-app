@@ -1,7 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react'
-import type {Node} from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
@@ -16,26 +15,34 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { State, UiDirection } from '../../../flowTypes'
+import type { StateType } from 'modules/app/StateType'
 import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
+import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
+import type { UiDirectionType } from '../../../modules/app/StateType'
 
-type Props = {
+type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
   city: string,
   language: string,
-  uiDirection: UiDirection
+  uiDirection: UiDirectionType,
+  t: TFunction
 }
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
-export class CategoriesPage extends React.Component<Props> {
-  getTileModels (categories: Array<CategoryModel>) {
+export class CategoriesPage extends React.Component<PropsType> {
+  getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => new TileModel({
-      id: String(category.id), title: category.title, path: category.path, thumbnail: category.thumbnail, isExternalUrl: false
+      id: String(category.id),
+      title: category.title,
+      path: category.path,
+      thumbnail: category.thumbnail,
+      isExternalUrl: false
     }))
   }
 
@@ -47,18 +54,18 @@ export class CategoriesPage extends React.Component<Props> {
    * @param category The current category
    * @return {*} The content to be displayed
    */
-  getContent (category: CategoryModel) {
+  getContent (category: CategoryModel): React.Node {
     const {categories, cities, language} = this.props
     const children = categories.getChildren(category)
 
-    if (children.length === 0) {
+    if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <Fragment>
+      return <React.Fragment>
         <Page title={category.title}
               content={category.content} />
-        <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />
-      </Fragment>
-    } else if (category.id === 0) {
+        {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />}
+      </React.Fragment>
+    } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)} />
@@ -69,7 +76,7 @@ export class CategoriesPage extends React.Component<Props> {
                          content={category.content} />
   }
 
-  getBreadcrumbs (categoryModel: CategoryModel): Array<Node> {
+  getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
     const {cities, categories} = this.props
     return categories.getAncestors(categoryModel)
       .map(ancestor => {
@@ -82,16 +89,18 @@ export class CategoriesPage extends React.Component<Props> {
     const {cities, city} = this.props
     const cityName = CityModel.findCityName(cities, city)
 
-    return `${categoryModel.id !== 0 ? `${categoryModel.title} - ` : ''}${cityName}`
+    return `${!categoryModel.isRoot() ? `${categoryModel.title} - ` : ''}${cityName}`
   }
 
   render () {
-    const {categories, path, city, language, uiDirection} = this.props
+    const {categories, path, city, language, uiDirection, t} = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
+      const metaDescription = categoryModel.isRoot() ? t('metaDescription') : undefined
+
       return <div>
-        <Helmet title={this.getPageTitle(categoryModel)} />
+        <Helmet title={this.getPageTitle(categoryModel)} metaDescription={metaDescription} />
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
@@ -104,7 +113,7 @@ export class CategoriesPage extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   uiDirection: state.uiDirection,
   language: state.location.payload.language,
   city: state.location.payload.city,
@@ -113,4 +122,4 @@ const mapStateToProps = (state: State) => ({
   cities: state.cities.data
 })
 
-export default connect(mapStateToProps)(CategoriesPage)
+export default connect(mapStateToProps)(translate('categories')(CategoriesPage))

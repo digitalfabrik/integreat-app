@@ -7,7 +7,6 @@ import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from '../endpoint/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
-
 import onBeforeChange from './onBeforeChange'
 
 const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {

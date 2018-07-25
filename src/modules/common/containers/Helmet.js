@@ -1,26 +1,27 @@
 // @flow
 
-import React from 'react'
-import type { State } from '../../../flowTypes'
+import * as React from 'react'
+import type { StateType } from '../../app/StateType'
 import { connect } from 'react-redux'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 import ReactHelmet from 'react-helmet'
 
-import type { Location } from 'redux-first-router/dist/flow-types'
+import type { Location } from 'redux-first-router'
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 
-type Props = {
+type PropsType = {
   title: string,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   languages: Array<LanguageModel>,
-  location: Location
+  location: Location,
+  metaDescription?: string
 }
 
-export class Helmet extends React.Component<Props> {
-  getLanguageLinks () {
+export class Helmet extends React.Component<PropsType> {
+  getLanguageLinks (): React.Node {
     const {languages, events, categories, location} = this.props
     return languages && languages
       .map(language => {
@@ -30,15 +31,16 @@ export class Helmet extends React.Component<Props> {
   }
 
   render () {
-    const title = this.props.title
+    const { title, metaDescription } = this.props
     return <ReactHelmet>
       <title>{title}</title>
+      {metaDescription && <meta name='description' content={metaDescription} />}
       {this.getLanguageLinks()}
     </ReactHelmet>
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   location: state.location,
   categories: state.categories.data,
   events: state.events.data,

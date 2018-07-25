@@ -1,19 +1,18 @@
 // @flow
 
-import React from 'react'
-import type {Node} from 'react'
+import * as React from 'react'
 import { Breadcrumb, OrderedList, Wrapper } from './Breadcrumbs.styles'
-import type { UiDirection } from '../../../flowTypes'
+import type { UiDirectionType } from '../../app/StateType'
 
-type Props = {
-  children: Array<Node>,
-  direction: UiDirection
+type PropsType = {
+  children: Array<React.Node>,
+  direction: UiDirectionType
 }
 
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-class Breadcrumbs extends React.Component<Props> {
+class Breadcrumbs extends React.Component<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
   render () {

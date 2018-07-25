@@ -5,6 +5,7 @@ import Payload from '../Payload'
 import startFetchAction from '../actions/startFetchAction'
 import finishFetchAction from '../actions/finishFetchAction'
 import MappingError from '../errors/MappingError'
+import LoadingError from '../errors/LoadingError'
 
 describe('Endpoint', () => {
   const stateName = 'endpoint'
@@ -88,10 +89,12 @@ describe('Endpoint', () => {
       fetch.mockResponse(malformedJSON)
 
       const data = await endpoint.loadData(dispatch, oldPayload, params)
-      const payload = new Payload(false, defaultMapParamsToUrl(params), null,
-        new MappingError(
-          stateName, 'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
-        ))
+      const mappingError = new MappingError(
+        stateName,
+        'invalid json response body at undefined reason: Unexpected token I in JSON at position 0'
+      )
+      const loadingError = new LoadingError({endpointName: stateName, message: mappingError.message})
+      const payload = new Payload(false, defaultMapParamsToUrl(params), null, loadingError)
 
       expect(data).toEqual(payload)
       expect(dispatch).toHaveBeenCalledTimes(2)

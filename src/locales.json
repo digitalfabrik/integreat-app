@@ -65,11 +65,13 @@
     },
     "de": {
       "createPdf": "Erstelle PDF",
-      "lastUpdate": "Letzte Änderung: "
+      "lastUpdate": "Letzte Änderung: ",
+      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
     "en": {
       "createPdf": "Create PDF",
-      "lastUpdate": "Last Update: "
+      "lastUpdate": "Last Update: ",
+      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
     },
     "fa": {
       "lastUpdate": "آخرین به روزآوری: "
@@ -116,17 +118,14 @@
     "ar": {
       "extras": "إضافات",
       "pageTitle": "إضافات"
-
     },
     "en": {
       "extras": "Extras",
       "pageTitle": "Extras"
-
     },
     "de": {
       "extras": "Extras",
       "pageTitle": "Extras"
-
     },
     "fa": {
       "extras": "اضافات",
@@ -145,12 +144,14 @@
     "de": {
       "where": "Wo bist du?",
       "pageTitle": "Wo bist du?",
-      "searchCity": "Suche nach deinem Ort"
+      "searchCity": "Suche nach deinem Ort",
+      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
     "en": {
       "where": "Where are you?",
       "pageTitle": "Where are you?",
-      "searchCity": "Search for your city"
+      "searchCity": "Search for your city",
+      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
     },
     "fa": {
       "where": "تو کجایی؟",
@@ -237,6 +238,37 @@
     },
     "fr": {
       "pageTitle": "Mentions légales et contact"
+    }
+  },
+  "wohnen": {
+    "de": {
+      "values": {
+        "runningServices": {
+          "heating": "Heizung",
+          "water": "Wasser/Abwasser",
+          "garbage": "Müllabfuhr",
+          "chimney": "Kaminkehrer",
+          "other": "Sonstiges"
+        },
+        "additionalServices": {
+          "garage": "Garage/Stellplatz",
+          "other": "Sonstiges"
+        },
+        "rooms": {
+          "kitchen": "Küche",
+          "bath": "Bad",
+          "wc": "WC",
+          "child1": "Kinderzimmer 1",
+          "child2": "Kinderzimmer 2",
+          "child3": "Kinderzimmer 3",
+          "bed": "Schlafzimmer",
+          "livingroom": "Wohnzimmer",
+          "hallway": "Diele",
+          "store": "Abstellraum",
+          "basement": "Kellerraum",
+          "balcony": "Balkon / Terrasse"
+        }
+      }
     }
   }
 }

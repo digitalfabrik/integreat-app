@@ -4,9 +4,9 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { InactiveNavigationItem, ActiveNavigationItem } from './HeaderNavigationItem.styles'
-import type { Action } from 'redux-first-router/dist/flow-types'
+import type { Action } from 'redux-first-router'
 
-type Props = {
+type PropsType = {
   text: string,
   href: Action | string,
   selected: boolean,
@@ -17,7 +17,7 @@ type Props = {
 /**
  * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
  */
-class HeaderNavigationItem extends React.PureComponent<Props> {
+class HeaderNavigationItem extends React.PureComponent<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
