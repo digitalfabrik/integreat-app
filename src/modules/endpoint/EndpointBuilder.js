@@ -1,16 +1,17 @@
 // @flow
 
 import Endpoint from './Endpoint'
-import type { MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
+import type { MapResponseType } from './MapResponseType'
+import type { MapParamsToUrlType } from './MapParamsToUrlType'
 
 /**
  * Helper class to build a {@link Endpoint}
  */
-class EndpointBuilder {
+class EndpointBuilder<P, T> {
   _name: string
-  _paramsToUrlMapper: MapParamsToUrl
-  _mapper: MapResponse
-  _responseOverride: ?PayloadData
+  _paramsToUrlMapper: MapParamsToUrlType<P>
+  _mapper: MapResponseType<P, T>
+  _responseOverride: ?T
   _errorOverride: ?Error
 
   /**
@@ -26,7 +27,7 @@ class EndpointBuilder {
    * @param paramsToUrlMapper The paramsToUrlMapper which is mapping the params to a url
    * @return {EndpointBuilder} The builder itself
    */
-  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrl): EndpointBuilder {
+  withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrlType<P>): EndpointBuilder<P, T> {
     this._paramsToUrlMapper = paramsToUrlMapper
     return this
   }
@@ -36,7 +37,7 @@ class EndpointBuilder {
    * @param mapper The mapper which maps json from our cms to models
    * @return {EndpointBuilder} The builder itself
    */
-  withMapper (mapper: MapResponse): EndpointBuilder {
+  withMapper (mapper: MapResponseType<P, T>): EndpointBuilder<P, T> {
     this._mapper = mapper
     return this
   }
@@ -46,7 +47,7 @@ class EndpointBuilder {
    * @param responseOverride {*} The response
    * @return {EndpointBuilder} The builder itself
    */
-  withResponseOverride (responseOverride: any): EndpointBuilder {
+  withResponseOverride (responseOverride: T): EndpointBuilder<P, T> {
     this._responseOverride = responseOverride
     return this
   }
@@ -56,7 +57,7 @@ class EndpointBuilder {
    * @param errorOverride {*} The error
    * @return {EndpointBuilder} The builder itself
    */
-  withErrorOverride (errorOverride: Error): EndpointBuilder {
+  withErrorOverride (errorOverride: Error): EndpointBuilder<P, T> {
     this._errorOverride = errorOverride
     return this
   }
@@ -65,7 +66,7 @@ class EndpointBuilder {
    * Checks the data and builds the endpoint
    * @return {Endpoint} The final endpoint
    */
-  build (): Endpoint {
+  build (): Endpoint<P, T> {
     if (!this._name) {
       throw Error('You have to set a name to build an endpoint!')
     }

@@ -1,12 +1,14 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
+import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
+import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import SearchPage from '../../../routes/search/containers/SearchPage'
 import { LANDING_ROUTE } from '../routes/landing'
@@ -31,16 +33,25 @@ import Layout from '../../layout/components/Layout'
 import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
-import type { State } from '../../../flowTypes'
+import type { StateType } from '../StateType'
 import type { Node } from 'react'
+import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
+import ExtraModel from '../../endpoint/models/ExtraModel'
+import { WOHNEN_ROUTE } from '../routes/wohnen'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import EventModel from '../../endpoint/models/EventModel'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
+import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 
-type Props = {
+type PropsType = {
   currentRoute: string,
-  citiesPayload: Payload,
-  categoriesPayload: Payload,
-  eventsPayload: Payload,
-  extrasPayload: Payload,
-  disclaimerPayload: Payload,
+  citiesPayload: Payload<Array<CityModel>>,
+  categoriesPayload: Payload<CategoriesMapModel>,
+  eventsPayload: Payload<Array<EventModel>>,
+  extrasPayload: Payload<Array<ExtraModel>>,
+  sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
+  wohnenPayload: Payload<Array<WohnenOfferModel>>,
+  disclaimerPayload: Payload<DisclaimerModel>,
   languages: ?Array<LanguageModel>,
   language: ?string,
   city: ?string,
@@ -51,13 +62,13 @@ type Props = {
 /**
  * Switches what content should be rendered depending on the current route
  */
-export class Switcher extends React.Component<Props> {
+export class Switcher extends React.Component<PropsType> {
   /**
    * Renders a failure component if the payload contains an error or a LoadingSpinner if the data is currently being fetched
    * @param payload The payload to check for errors or fetching process
    * @return {*}
    */
-  static renderFailureLoadingComponents = (payload: Payload): Node => {
+  static renderFailureLoadingComponents = (payload: Payload<any>): Node => {
     if (payload.error) {
       return <FailureSwitcher error={payload.error} />
     } else if (payload.isFetching || !payload.data) {
@@ -73,7 +84,7 @@ export class Switcher extends React.Component<Props> {
    */
   renderPage = (): Node => {
     const {
-      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload, param
+      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload, sprungbrettJobsPayload, wohnenPayload, param
     } = this.props
 
     switch (currentRoute) {
@@ -96,6 +107,16 @@ export class Switcher extends React.Component<Props> {
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(extrasPayload) ||
           <ExtrasPage />
+      case SPRUNGBRETT_ROUTE:
+        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(extrasPayload) ||
+          Switcher.renderFailureLoadingComponents(sprungbrettJobsPayload) ||
+          <SprungbrettExtraPage />
+      case WOHNEN_ROUTE:
+        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
+          Switcher.renderFailureLoadingComponents(extrasPayload) ||
+          Switcher.renderFailureLoadingComponents(wohnenPayload) ||
+          <WohnenExtraPage />
       case DISCLAIMER_ROUTE:
         return Switcher.renderFailureLoadingComponents(citiesPayload) ||
           Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
@@ -140,21 +161,18 @@ export class Switcher extends React.Component<Props> {
     }
 
     if (currentRoute === LANDING_ROUTE) {
-      // LANDING_ROUTE
       return (
         <Layout footer={<GeneralFooter />}>
           {this.renderPage()}
         </Layout>
       )
     } else if (LocationLayoutRoutes.includes(currentRoute)) {
-      // CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE, CATEGORIES_REDIRECT_ROUTE
       return (
         <LocationLayout>
           {this.renderPage()}
         </LocationLayout>
       )
     } else if (currentRoute === I18N_REDIRECT_ROUTE) {
-      // I18N_REDIRECT_ROUTE
       return (
         <Layout>
           {this.renderPage()}
@@ -171,12 +189,14 @@ export class Switcher extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   currentRoute: state.location.type,
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
   extrasPayload: state.extras,
+  sprungbrettJobsPayload: state.sprungbrettJobs,
+  wohnenPayload: state.wohnen,
   disclaimerPayload: state.disclaimer,
   languages: state.languages.data,
   language: state.location.payload.language,

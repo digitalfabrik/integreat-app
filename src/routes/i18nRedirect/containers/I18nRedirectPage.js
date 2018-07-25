@@ -8,11 +8,11 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import { goToLanding } from '../../../modules/app/routes/landing'
 import { goToCategories } from '../../../modules/app/routes/categories'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
+import type { Dispatch } from 'redux'
+import type { Action } from 'redux-first-router'
+import type { StateType } from '../../../modules/app/StateType'
 
-import type { Action } from 'redux-first-router/dist/flow-types'
-import type { State } from '../../../flowTypes'
-
-type Props = {
+type PropsType = {
   redirect: Action => void,
   cities: Array<CityModel>,
   param: ?string
@@ -21,7 +21,7 @@ type Props = {
 /**
  * Adds the language code at the end of the current path
  */
-export class I18nRedirectPage extends React.Component<Props> {
+export class I18nRedirectPage extends React.Component<PropsType> {
   static contextTypes = {
     // we have to do this with PropTypes, because context is not known at compile time. A possible solution would be:
     // https://github.com/codemix/flow-runtime
@@ -54,11 +54,11 @@ export class I18nRedirectPage extends React.Component<Props> {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   redirect: action => dispatch(redirect(action))
 })
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: StateType) => ({
   cities: state.cities.data,
   param: state.location.payload.param
 })

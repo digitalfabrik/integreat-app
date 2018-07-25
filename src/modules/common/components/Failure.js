@@ -6,22 +6,22 @@ import FontAwesome from 'react-fontawesome'
 
 import Link from 'redux-first-router-link'
 
-import { goToI18nRedirect } from '../../app/routes/i18nRedirect'
+import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
-import type { Action } from 'redux-first-router/dist/flow-types'
-import type { I18nTranslate } from '../../../flowTypes'
+import type { Action } from 'redux-first-router'
+import type { TFunction } from 'react-i18next'
 
-type Props = {
+type PropsType = {
   errorMessage: string,
-  goToAction: ?Action,
-  goToMessage: ?string,
-  t: I18nTranslate
+  goToAction?: Action,
+  goToMessage?: string,
+  t: TFunction
 }
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
  */
-export class Failure extends React.Component<Props> {
+export class Failure extends React.Component<PropsType> {
   render () {
     const {t, errorMessage, goToAction, goToMessage} = this.props
     return <Centered>

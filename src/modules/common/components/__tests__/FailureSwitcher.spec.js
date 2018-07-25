@@ -13,7 +13,8 @@ describe('FailureSwitcher', () => {
   describe('render component not found failure', () => {
     it('should render a category not found failure and match snapshot', () => {
       const error = new ContentNotFoundError({type: 'category', id: 'willkommen', language, city})
-      expect(FailureSwitcher.renderContentNotFoundComponent(error)).toMatchSnapshot()
+      const renderContentNotFoundComponent = FailureSwitcher.renderContentNotFoundComponent(error)
+      expect(renderContentNotFoundComponent).toMatchSnapshot()
     })
 
     it('should render a extra not found failure and match snapshot', () => {

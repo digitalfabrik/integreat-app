@@ -166,13 +166,10 @@ describe('SearchPage', () => {
       <ConnectedSearchPage store={store} />
     )
 
-    expect(searchPage.props()).toEqual({
+    expect(searchPage.props()).toMatchObject({
       categories,
       cities,
-      city,
-      dispatch: expect.any(Function),
-      store,
-      storeSubscription: expect.any(Object)
+      city
     })
   })
 })

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfferList should render offer list 1`] = `
+Array [
+  <withProps(Connect(Link))
+    key="0"
+    to="/augsburg/language/extras/wohnen/mail@mail.com"
+  />,
+]
+`;

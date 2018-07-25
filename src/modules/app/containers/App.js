@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
@@ -11,23 +13,29 @@ import routesMap from '../routesMap'
 import Switcher from './Switcher'
 import theme from '../constants/theme'
 
-class App extends React.Component {
-  store
+type PropsType = {
+}
 
-  componentWillMount () {
+class App extends React.Component<PropsType> {
+  store: any;
+
+  constructor () {
+    super()
     this.store = createReduxStore(createHistory, {}, routesMap)
   }
 
   render () {
-    return <Provider store={this.store}>
-      <PlatformProvider>
-        <I18nProvider>
-          <ThemeProvider theme={theme}>
-            <Switcher />
-          </ThemeProvider>
-        </I18nProvider>
-      </PlatformProvider>
-    </Provider>
+    return (
+      <Provider store={this.store}>
+        <PlatformProvider>
+          <I18nProvider>
+            <ThemeProvider theme={theme}>
+              <Switcher />
+            </ThemeProvider>
+          </I18nProvider>
+        </PlatformProvider>
+      </Provider>
+    )
   }
 }
 

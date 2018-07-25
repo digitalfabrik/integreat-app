@@ -2,18 +2,18 @@
 
 import LoadingError from '../../endpoint/errors/LoadingError'
 
-type NotFound = 'category' | 'event' | 'extra'
+type NotFoundType = 'category' | 'event' | 'extra'
 
 class ContentNotFoundError extends Error {
-  _type: NotFound
+  _type: NotFoundType
   _id: string | number
   _city: string
   _language: string
 
-  getMessage = (type: NotFound, id: string): string =>
+  getMessage = (type: NotFoundType, id: string): string =>
     `The ${type} ${id} does not exist here.`
 
-  constructor (params: {type: NotFound, id: string, city: string, language: string}) {
+  constructor (params: { type: NotFoundType, id: string, city: string, language: string }) {
     super()
     this.message = this.getMessage(params.type, params.id)
     this._type = params.type
@@ -21,12 +21,20 @@ class ContentNotFoundError extends Error {
     this._city = params.city
     this._language = params.language
 
+    // https://github.com/babel/babel/issues/3083
+    /* eslint-disable */
+    // $FlowFixMe
+    this.constructor = ContentNotFoundError
+    // $FlowFixMe
+    this.__proto__ = ContentNotFoundError.prototype
+    /* eslint-enable */
+
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, LoadingError)
     }
   }
 
-  get type (): NotFound {
+  get type (): NotFoundType {
     return this._type
   }
 

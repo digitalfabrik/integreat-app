@@ -1,18 +1,18 @@
 // @flow
 
 import React from 'react'
-import type { I18nTranslate } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { TimeStamp } from './CategoryTimeStamp.styles'
-import { Moment } from 'moment'
+import type Moment from 'moment'
 
-type Props = {
+type PropsType = {
   lastUpdate: Moment,
-  t: I18nTranslate,
+  t: TFunction,
   language: string
 }
 
-export class CategoryTimeStamp extends React.PureComponent<Props> {
+export class CategoryTimeStamp extends React.PureComponent<PropsType> {
   render () {
     const {lastUpdate, t, language} = this.props
     lastUpdate.locale(language)

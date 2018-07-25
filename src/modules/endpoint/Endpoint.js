@@ -1,26 +1,27 @@
 // @flow
 
 import Payload from './Payload'
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import type { Dispatch } from 'redux-first-router'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
 import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import ParamMissingError from './errors/ParamMissingError'
-import type { EndpointParams, MapParamsToUrl, MapResponse, PayloadData } from '../../flowTypes'
+import type { MapResponseType } from './MapResponseType'
+import type { MapParamsToUrlType } from './MapParamsToUrlType'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
-class Endpoint {
+class Endpoint<P, T> {
   _stateName: string
-  mapParamsToUrl: MapParamsToUrl
-  mapResponse: MapResponse
-  responseOverride: ?PayloadData
+  mapParamsToUrl: MapParamsToUrlType<P>
+  mapResponse: MapResponseType<P, T>
+  responseOverride: ?T
   errorOverride: ?Error
 
-  constructor (name: string, mapParamsToUrl: MapParamsToUrl, mapResponse: MapResponse,
-    responseOverride: ?PayloadData, errorOverride: ?Error) {
+  constructor (name: string, mapParamsToUrl: MapParamsToUrlType<P>, mapResponse: MapResponseType<P, T>,
+    responseOverride: ?T, errorOverride: ?Error) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
@@ -32,7 +33,7 @@ class Endpoint {
     return this._stateName
   }
 
-  async loadData (dispatch: Dispatch, oldPayload: Payload, params: EndpointParams): Promise<Payload> {
+  async loadData (dispatch: Dispatch, oldPayload: Payload<T>, params: P): Promise<Payload<T>> {
     let formattedUrl
     try {
       const responseOverride = this.responseOverride
@@ -80,7 +81,7 @@ class Endpoint {
     }
   }
 
-  async fetchData (formattedUrl: string, params: EndpointParams): Promise<Payload> {
+  async fetchData (formattedUrl: string, params: P): Promise<Payload<T>> {
     const response = await fetch(formattedUrl)
     if (!response.ok) {
       throw new LoadingError({endpointName: this.stateName, message: `${response.status}`})

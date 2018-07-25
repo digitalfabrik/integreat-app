@@ -12,15 +12,15 @@ import Helmet from 'react-helmet'
 
 import type { Node } from 'react'
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
-import type { I18nTranslate } from '../../../flowTypes'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
-type Props = {
+type PropsType = {
   error: Error,
-  t: I18nTranslate
+  t: TFunction
 }
 
-export class FailureSwitcher extends React.Component<Props> {
+export class FailureSwitcher extends React.Component<PropsType> {
   /**
    * Renders a Failure with a link to the "home" of the route and information about what was not found
    * @param error

@@ -80,7 +80,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      path={categoryModels[3].path} />
+                      path={categoryModels[3].path}
+                      t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -92,7 +93,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      path={categoryModels[2].path} />
+                      path={categoryModels[2].path}
+                      t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -104,7 +106,8 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
-                      path={'/augsburg/de'} />
+                      path={'/augsburg/de'}
+                      t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -140,15 +143,12 @@ describe('CategoriesPage', () => {
       <ConnectedCategoriesPage store={store} />
     )
 
-    expect(categoriesPage.props()).toEqual({
+    expect(categoriesPage.props()).toMatchObject({
       city,
       language,
       path: pathname,
       categories,
-      cities,
-      store,
-      dispatch: expect.any(Function),
-      storeSubscription: expect.any(Object)
+      cities
     })
   })
 })
