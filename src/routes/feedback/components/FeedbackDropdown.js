@@ -7,19 +7,19 @@ import {
   EVENTS_FEEDBACK_TYPE, EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/endpoints/feedback'
+} from '../../../modules/endpoint/FeedbackEndpoint'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { FeedbackType } from '../../../modules/endpoint/endpoints/feedback'
 import React from 'react'
 import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 export type FeedbackDropdownType = {
   value: string,
-  feedbackType: FeedbackType,
+  feedbackType: string | null,
   label: string
 }
 
@@ -31,7 +31,8 @@ type PropsType = {
   alias?: string,
   query?: string,
   route: string,
-  onFeedbackOptionChanged: (FeedbackDropdownType) => void
+  onFeedbackOptionChanged: (FeedbackDropdownType) => void,
+  t: TFunction
 }
 
 type StateType = {
@@ -53,7 +54,7 @@ class FeedbackDropdown extends React.Component<PropsType, StateType> {
     const options = []
     const currentPageFeedbackLabel = this.getCurrentPageFeedbackLabel()
     if (currentPageFeedbackLabel) {
-      options.push(this.getFeedbackOption(currentPageFeedbackLabel, this.getCurrentPageFeedbackType))
+      options.push(this.getFeedbackOption(currentPageFeedbackLabel, this.getCurrentPageFeedbackType()))
     }
     if (city) {
       const cityTitle = CityModel.findCityName(cities, city)
@@ -67,7 +68,7 @@ class FeedbackDropdown extends React.Component<PropsType, StateType> {
     return options
   }
 
-  getFeedbackOption = (label: string, feedbackType: FeedbackType): FeedbackDropdownType =>
+  getFeedbackOption = (label: string, feedbackType: string | null): FeedbackDropdownType =>
     ({value: label, feedbackType, label})
 
   getCurrentPageFeedbackLabel = (): ?string => {
@@ -79,7 +80,7 @@ class FeedbackDropdown extends React.Component<PropsType, StateType> {
       return `${t('news')} '${title}'`
     } else if (route === EXTRAS_ROUTE && alias) {
       return `${t('extra')} '${title}'`
-    } else if (route === SEARCH_ROUTE) {
+    } else if (route === SEARCH_ROUTE && query) {
       return `${t('searchFor')} '${query}'`
     } else if (route === DISCLAIMER_ROUTE) {
       return `${t('disclaimer')}`
@@ -88,7 +89,7 @@ class FeedbackDropdown extends React.Component<PropsType, StateType> {
     }
   }
 
-  getCurrentPageFeedbackType = (): FeedbackType => {
+  getCurrentPageFeedbackType = (): string | null => {
     const {route} = this.props
     if (route === SEARCH_ROUTE) {
       return SEARCH_FEEDBACK_TYPE
