@@ -30,8 +30,17 @@ const ModalContainer = styled.div`
 `
 
 const FeedbackContainer = styled.div`
+  position: relative;
+  display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
   z-index: 4;
+  
+  @media ${props => props.theme.dimensions.smallViewport} {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+  }
 `
 
 const FeedbackToolbarItem = styled(FeedbackButton)`

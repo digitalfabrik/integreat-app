@@ -7,5 +7,5 @@ export default {
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
-  subTitleFontSize: '1.5rem'
+  subTitleFontSize: '1.8rem'
 }
