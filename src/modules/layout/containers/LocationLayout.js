@@ -31,7 +31,6 @@ type PropsType = {
   viewportSmall: boolean,
   children?: React.Node,
   pathname: string,
-  route: string,
   feedback: ?string
 }
 
@@ -50,7 +49,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {language, city, currentRoute, viewportSmall, children, pathname, categories, cities, route, feedback} = this.props
+    const {language, city, currentRoute, viewportSmall, children, pathname, categories, cities, feedback} = this.props
     const cityModel = this.getCurrentCity()
     const showCategoriesToolbar = currentRoute === CATEGORIES_ROUTE && categories
 
@@ -70,7 +69,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                                                                   language={language}
                                                                                   pathname={pathname}
                                                                                   categories={categories}
-                                                                                  route={route}
+                                                                                  route={currentRoute}
                                                                                   cities={cities}
                                                                                   feedbackType={feedback} />}>
         {children}
@@ -86,7 +85,6 @@ const mapStateToProps = state => ({
   viewportSmall: state.viewport.is.small,
   cities: state.cities.data,
   categories: state.categories.data,
-  route: state.location.type,
   feedback: state.location.query && state.location.query.feedback
 })
 

@@ -52,6 +52,7 @@ describe('LocationLayout', () => {
                       currentRoute={CATEGORIES_ROUTE}
                       pathname={pathname}
                       cities={cities}
+                      route={CATEGORIES_ROUTE}
                       viewportSmall>
         <MockNode />
       </LocationLayout>)

@@ -35,9 +35,23 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
           },
         }
       }
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
       city="city1"
+      feedbackType={undefined}
       language="de"
       pathname="/augsburg/de/willkommen"
+      route="CATEGORIES"
     />
   }
 >
