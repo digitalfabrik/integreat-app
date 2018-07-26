@@ -48,7 +48,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
         cities={cities}
         route={route}
         language={language}
-        isPositiveRating={feedbackType === POSITIVE_RATING}
+        isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
         pathname={pathname}
         isOpen={feedbackType} />
       {/* todo: Add these functionalities:

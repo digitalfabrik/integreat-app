@@ -4,7 +4,7 @@ import Dropdown from 'react-dropdown'
 import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
 import {
   CATEGORIES_FEEDBACK_TYPE,
-  EVENTS_FEEDBACK_TYPE, EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE,
+  EXTRA_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
 } from '../../../modules/endpoint/FeedbackEndpoint'
@@ -49,6 +49,18 @@ class FeedbackDropdown extends React.Component<PropsType, StateType> {
     props.onFeedbackOptionChanged(selectedFeedbackOption)
   }
 
+  componentDidUpdate (prevProps: PropsType) {
+    if (this.props !== prevProps) {
+      this.updateState(prevProps)
+    }
+  }
+
+  updateState = (): void => {
+    const feedbackOptions = this.getFeedbackOptions()
+    const selectedFeedbackOption = feedbackOptions[0]
+    this.setState({feedbackOptions, selectedFeedbackOption: selectedFeedbackOption})
+  }
+
   getFeedbackOptions = (): Array<FeedbackDropdownType> => {
     const {cities, city, t} = this.props
     const options = []
@@ -59,8 +71,6 @@ class FeedbackDropdown extends React.Component<PropsType, StateType> {
     if (city) {
       const cityTitle = CityModel.findCityName(cities, city)
       options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
-      options.push(this.getFeedbackOption(`${t('newsOfCity')} ${cityTitle}`, EVENTS_FEEDBACK_TYPE))
-      options.push(this.getFeedbackOption(`${t('extrasOfCity')} ${cityTitle}`, EXTRAS_FEEDBACK_TYPE))
     }
 
     options.push(this.getFeedbackOption(t('app'), CATEGORIES_FEEDBACK_TYPE))
