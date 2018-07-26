@@ -5,7 +5,7 @@ import { translate } from 'react-i18next'
 
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
-import ToolbarAnchor from '../../../modules/layout/components/ToolbarAnchor'
+import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
@@ -40,7 +40,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
       return null
     }
     return <Toolbar>
-      <ToolbarAnchor name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
+      <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
       <FeedbackModal
         id={category.id}
         title={category.title}
