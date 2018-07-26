@@ -12,6 +12,7 @@ import FeedbackEndpoint, { DEFAULT_FEEDBACK_LANGUAGE, INTEGREAT_INSTANCE }
   from '../../../modules/endpoint/FeedbackEndpoint'
 import type { TFunction } from 'react-i18next'
 import FeedbackButton from './FeedbackLink'
+import CleanLink from '../../../modules/common/components/CleanLink'
 
 const FeedbackBox = styled.div`
   display: flex;
@@ -26,9 +27,20 @@ const FeedbackBox = styled.div`
   padding: 20px;
 `
 
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const CloseButton = styled(CleanLink)`
+  font-size: 2rem;
+`
+
 const Title = styled.div`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
-  padding: 0 0 20px;
+  padding: 15px 0 10px;
 `
 
 const Description = styled.div`
@@ -119,7 +131,10 @@ class Feedback extends React.Component<PropsType, StateType> {
     const {t, city, cities, route, id, alias, query, title, isPositiveRating, pathname} = this.props
     return (
       <FeedbackBox>
-        <Title>{t('feedback')}</Title>
+        <Header>
+          <Title>{t('feedback')}</Title>
+          <CloseButton to={pathname}>x</CloseButton>
+        </Header>
         <RatingContainer>
           <RatingItem selected={isPositiveRating} isPositiveRatingLink pathname={pathname} />
           <RatingItem selected={!isPositiveRating} isPositiveRatingLink={false} pathname={pathname} />
