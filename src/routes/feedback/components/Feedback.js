@@ -27,15 +27,15 @@ import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 
 const FeedbackBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   width: 400px;
   height: auto;
   box-sizing: border-box;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
   border-radius: 10px;
   border-color: #585858;
   font-size: ${props => props.theme.fonts.contentFontSize};
-  padding: 20px;
 `
 
 const Header = styled.div`
@@ -50,8 +50,8 @@ const CloseButton = styled(CleanLink)`
 `
 
 const Title = styled.div`
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
   padding: 15px 0 10px;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
 const Description = styled.div`

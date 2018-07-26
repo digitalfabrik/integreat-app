@@ -10,20 +10,20 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 const Overlay = styled(CleanLink)`
   position: fixed;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
   background-color: ${props => props.theme.colors.textSecondaryColor};
-  opacity: 0.9;
   z-index: 3;
+  opacity: 0.9;
 `
 
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
   display: ${props => props.isOpen ? 'flex' : 'none'};
   align-items: center;
   justify-content: center;
@@ -31,15 +31,15 @@ const ModalContainer = styled.div`
 
 const FeedbackContainer = styled.div`
   position: relative;
+  z-index: 4;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
-  z-index: 4;
   
   @media ${props => props.theme.dimensions.smallViewport} {
     width: 100%;
     height: 100%;
-    justify-content: center;
     align-items: flex-start;
+    justify-content: center;
   }
 `
 
