@@ -4,6 +4,6 @@ import Link from 'redux-first-router-link'
 export default withProps({
   style: {
     'color': 'inherit',
-    'text-decoration': 'none'
+    'textDecoration': 'none'
   }
 })(Link)
