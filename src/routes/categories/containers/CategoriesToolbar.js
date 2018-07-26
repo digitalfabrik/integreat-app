@@ -11,6 +11,7 @@ import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 
 type PropsType = {
   cities: Array<CityModel>,
@@ -19,6 +20,7 @@ type PropsType = {
   categories: CategoriesMapModel,
   pathname: string,
   route: string,
+  feedbackType: ?string,
   t: TFunction
 }
 
@@ -32,8 +34,8 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, city, language, cities, route} = this.props
-    const category = this.props.categories.findCategoryByPath(this.props.pathname)
+    const {t, city, language, cities, route, pathname, feedbackType} = this.props
+    const category = this.props.categories.findCategoryByPath(pathname)
     if (!category) {
       return null
     }
@@ -46,15 +48,9 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
         cities={cities}
         route={route}
         language={language}
-        isPositiveRating />
-      <FeedbackModal
-        id={category.id}
-        title={category.title}
-        city={city}
-        cities={cities}
-        route={route}
-        language={language}
-        isPositiveRating={false} />
+        isPositiveRating={feedbackType === POSITIVE_RATING}
+        pathname={pathname}
+        isOpen={feedbackType} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />

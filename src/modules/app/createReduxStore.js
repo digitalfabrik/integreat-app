@@ -8,11 +8,14 @@ import endpointReducers from '../endpoint/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
 import onBeforeChange from './onBeforeChange'
+import queryString from 'query-string'
 
 const createReduxStore = (createHistory, initialState = {}, routesMap = defaultRoutesMap) => {
   const history = createHistory()
 
-  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {onBeforeChange: onBeforeChange})
+  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap,
+    {onBeforeChange: onBeforeChange, querySerializer: queryString}
+  )
 
   /**
    * The middlewares of this app, add additional middlewares here
