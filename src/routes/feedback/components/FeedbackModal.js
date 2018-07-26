@@ -3,10 +3,11 @@
 import React from 'react'
 import Feedback from './Feedback'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import FeedbackButton from '../../../modules/layout/components/FeedbackButton'
+import FeedbackButton from './FeedbackLink'
 import styled from 'styled-components'
+import CleanLink from '../../../modules/common/components/CleanLink'
 
-const Overlay = styled.div`
+const Overlay = styled(CleanLink)`
   position: fixed;
   top: 0;
   left: 0;
@@ -33,6 +34,12 @@ const FeedbackContainer = styled.div`
   z-index: 4;
 `
 
+const FeedbackToolbarItem = styled(FeedbackButton)`
+  display: inline-block;
+  margin: 0 10px;
+  padding: 8px;
+`
+
 type PropsType = {
   cities: Array<CityModel>,
   city: string,
@@ -42,30 +49,23 @@ type PropsType = {
   alias?: string,
   query?: string,
   route: string,
-  isPositiveRating: boolean
-}
-
-type StateType = {
+  isPositiveRating: boolean,
+  pathname: string,
   isOpen: boolean
 }
 
-class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = {isOpen: false}
-
-  openFeedback = () => this.setState({isOpen: true})
-  closeFeedback = () => this.setState({isOpen: false})
-
+class FeedbackModal extends React.Component<PropsType> {
   render () {
-    const {isPositiveRating} = this.props
-    const {isOpen} = this.state
+    const {pathname, isOpen} = this.props
     return (
       <div>
-        <FeedbackButton isPositiveRating={isPositiveRating} onClick={this.openFeedback} />
+        <FeedbackToolbarItem isPositiveRatingLink pathname={pathname} />
+        <FeedbackToolbarItem isPositiveRatingLink={false} pathname={pathname} />
         <ModalContainer isOpen={isOpen}>
           <FeedbackContainer>
             <Feedback {...this.props} />
           </FeedbackContainer>
-          <Overlay />
+          <Overlay to={pathname} />
         </ModalContainer>
       </div>
     )

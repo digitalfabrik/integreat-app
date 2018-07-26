@@ -6,12 +6,12 @@ import 'react-dropdown/style.css'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import FontAwesome from 'react-fontawesome'
 import FeedbackDropdown from './FeedbackDropdown'
 import type { FeedbackDropdownType } from './FeedbackDropdown'
 import FeedbackEndpoint, { DEFAULT_FEEDBACK_LANGUAGE, INTEGREAT_INSTANCE }
   from '../../../modules/endpoint/FeedbackEndpoint'
 import type { TFunction } from 'react-i18next'
+import FeedbackButton from './FeedbackLink'
 
 const FeedbackBox = styled.div`
   display: flex;
@@ -46,8 +46,7 @@ const RatingContainer = styled.div`
   }
 `
 
-const RatingItem = styled(FontAwesome)`
-  cursor: pointer;
+const RatingItem = styled(FeedbackButton)`
   color: ${props => props.selected ? props.theme.colors.themeColor : props.theme.colors.textSecondaryColor};
   opacity: ${props => props.selected ? '1.0' : '0.5'}
 `
@@ -75,24 +74,20 @@ type PropsType = {
   query?: string,
   route: string,
   isPositiveRating: boolean,
+  pathname: string,
   t: TFunction
 }
 
 type StateType = {
   selectedFeedbackOption: ?FeedbackDropdownType,
-  comment: string,
-  isPositiveRating: boolean
+  comment: string
 }
 
 class Feedback extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {selectedFeedbackOption: null, comment: '', isPositiveRating: props.isPositiveRating}
+    this.state = {selectedFeedbackOption: null, comment: ''}
   }
-
-  onPositiveRatingClicked = () => this.setState({isPositiveRating: true})
-
-  onNegativeRatingClicked = () => this.setState({isPositiveRating: false})
 
   onCommentChanged = (event: {target: {value: string}}) => this.setState({comment: event.target.value})
 
@@ -101,8 +96,8 @@ class Feedback extends React.Component<PropsType, StateType> {
   }
 
   onSubmit = () => {
-    const {selectedFeedbackOption, isPositiveRating, comment} = this.state
-    const {id, city, language, alias, query} = this.props
+    const {selectedFeedbackOption, comment} = this.state
+    const {id, city, language, alias, query, isPositiveRating} = this.props
 
     if (selectedFeedbackOption) {
       const feedbackData = {
@@ -120,20 +115,14 @@ class Feedback extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {isPositiveRating, comment} = this.state
-    const {t, city, cities, route, id, alias, query, title} = this.props
+    const {comment} = this.state
+    const {t, city, cities, route, id, alias, query, title, isPositiveRating, pathname} = this.props
     return (
       <FeedbackBox>
         <Title>{t('feedback')}</Title>
         <RatingContainer>
-          <RatingItem
-            name='smile-o'
-            selected={isPositiveRating}
-            onClick={this.onPositiveRatingClicked} />
-          <RatingItem
-            name='frown-o'
-            selected={!isPositiveRating}
-            onClick={this.onNegativeRatingClicked} />
+          <RatingItem selected={isPositiveRating} isPositiveRatingLink pathname={pathname} />
+          <RatingItem selected={!isPositiveRating} isPositiveRatingLink={false} pathname={pathname} />
         </RatingContainer>
         <Description>{t('feedbackType')}</Description>
         <FeedbackDropdown
