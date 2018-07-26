@@ -17,23 +17,17 @@ const FeedbackBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 350px;
-  width: 80%;
+  width: 350px;
   height: auto;
   box-sizing: border-box;
   border-radius: 10px;
   border-color: #585858;
-  
+  font-size: ${props => props.theme.fonts.contentFontSize};
   padding: 20px;
-  
-  @media ${props => props.theme.dimensions.smallViewport} {
-      width: 100%;
-      height: 100%;
-    }
 `
 
 const Title = styled.div`
-  font-size: 1.5rem;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
   padding: 0 0 20px;
 `
 
@@ -45,7 +39,6 @@ const RatingContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  text-align: center;
   padding: 10px;
   
   & > * {

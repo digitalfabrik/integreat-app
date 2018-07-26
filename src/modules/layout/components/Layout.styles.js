@@ -61,6 +61,7 @@ export const Aside = withPlatform(styled.aside`
   margin-top: 105px;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
+  z-index: 2;
 
   &:empty {
     display: none;
