@@ -7,17 +7,14 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
     name="file-pdf-o"
     text="createPdf"
   />
-  <Translate(FeedbackLink)
+  <FeedbackModal
     city="augsburg"
-    isPositiveRating={true}
+    id={3649}
+    isOpen={false}
+    isPositiveRatingSelected={false}
     language="en"
-    pageId={3649}
-  />
-  <Translate(FeedbackLink)
-    city="augsburg"
-    isPositiveRating={false}
-    language="en"
-    pageId={3649}
+    pathname="/augsburg/de/willkommen"
+    title="Willkommen"
   />
 </Toolbar>
 `;
@@ -29,17 +26,14 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
     name="file-pdf-o"
     text="createPdf"
   />
-  <Translate(FeedbackLink)
+  <FeedbackModal
     city="augsburg"
-    isPositiveRating={true}
+    id={0}
+    isOpen={false}
+    isPositiveRatingSelected={false}
     language="en"
-    pageId={0}
-  />
-  <Translate(FeedbackLink)
-    city="augsburg"
-    isPositiveRating={false}
-    language="en"
-    pageId={0}
+    pathname="/augsburg/de"
+    title="augsburg"
   />
 </Toolbar>
 `;

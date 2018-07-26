@@ -30,6 +30,7 @@ exports[`Heading should render 1`] = `
         "decorativeLineHeight": 1.3,
         "fontSizeAdjust": 0.55,
         "standardParagraphMargin": "0.75rem",
+        "subTitleFontSize": "1.8rem",
       },
       "helpers": Object {
         "removeLinkHighlighting": "

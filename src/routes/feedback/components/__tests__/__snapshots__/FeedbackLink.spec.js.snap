@@ -1,17 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
-<ToolbarButton
-  name="frown-o"
-  onClick={[Function]}
-  text="negativeRating"
-/>
+<withProps(Connect(Link))
+  to="undefined?feedback=down"
+>
+  <FontAwesome
+    data-tip="negativeRating"
+    name="frown-o"
+  />
+</withProps(Connect(Link))>
 `;
 
 exports[`FeedbackLink should render a positive FeedbackLink 1`] = `
-<ToolbarButton
-  name="smile-o"
-  onClick={[Function]}
-  text="positiveRating"
-/>
+<withProps(Connect(Link))
+  to="undefined?feedback=down"
+>
+  <FontAwesome
+    data-tip="negativeRating"
+    name="frown-o"
+  />
+</withProps(Connect(Link))>
 `;
