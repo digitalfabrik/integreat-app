@@ -18,7 +18,7 @@ const FeedbackBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 350px;
+  width: 400px;
   height: auto;
   box-sizing: border-box;
   border-radius: 10px;
@@ -67,7 +67,7 @@ const CommentField = styled.textarea`
   resize: none;
 `
 
-const SubmitButton = styled.div`
+const SubmitButton = styled(CleanLink)`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
@@ -85,7 +85,7 @@ type PropsType = {
   alias?: string,
   query?: string,
   route: string,
-  isPositiveRating: boolean,
+  isPositiveRatingSelected: boolean,
   pathname: string,
   t: TFunction
 }
@@ -107,14 +107,21 @@ class Feedback extends React.Component<PropsType, StateType> {
     this.setState({selectedFeedbackOption: selectedDropdown})
   }
 
+  componentDidUpdate (prevProps: PropsType) {
+    if (prevProps.pathname !== this.props.pathname) {
+      /* eslint-disable react/no-did-update-set-state */
+      this.setState({selectedFeedbackOption: null, comment: ''})
+    }
+  }
+
   onSubmit = () => {
     const {selectedFeedbackOption, comment} = this.state
-    const {id, city, language, alias, query, isPositiveRating} = this.props
+    const {id, city, language, alias, query, isPositiveRatingSelected} = this.props
 
     if (selectedFeedbackOption) {
       const feedbackData = {
         feedbackType: selectedFeedbackOption.feedbackType,
-        isPositiveRating,
+        isPositiveRating: isPositiveRatingSelected,
         comment,
         id,
         city: city || INTEGREAT_INSTANCE,
@@ -122,13 +129,14 @@ class Feedback extends React.Component<PropsType, StateType> {
         alias,
         query
       }
+      this.setState({selectedFeedbackOption: null, comment: ''})
       FeedbackEndpoint.postData(feedbackData)
     }
   }
 
   render () {
     const {comment} = this.state
-    const {t, city, cities, route, id, alias, query, title, isPositiveRating, pathname} = this.props
+    const {t, city, cities, route, id, alias, query, title, isPositiveRatingSelected, pathname} = this.props
     return (
       <FeedbackBox>
         <Header>
@@ -136,8 +144,8 @@ class Feedback extends React.Component<PropsType, StateType> {
           <CloseButton to={pathname}>x</CloseButton>
         </Header>
         <RatingContainer>
-          <RatingItem selected={isPositiveRating} isPositiveRatingLink pathname={pathname} />
-          <RatingItem selected={!isPositiveRating} isPositiveRatingLink={false} pathname={pathname} />
+          <RatingItem selected={isPositiveRatingSelected} isPositiveRatingLink pathname={pathname} />
+          <RatingItem selected={!isPositiveRatingSelected} isPositiveRatingLink={false} pathname={pathname} />
         </RatingContainer>
         <Description>{t('feedbackType')}</Description>
         <FeedbackDropdown
@@ -149,9 +157,9 @@ class Feedback extends React.Component<PropsType, StateType> {
           query={query}
           cities={cities}
           onFeedbackOptionChanged={this.onFeedbackOptionChanged} />
-        <Description>{isPositiveRating ? t('positiveComment') : t('negativeComment')}</Description>
+        <Description>{isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}</Description>
         <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
-        <SubmitButton onClick={this.onSubmit}>{t('send')}</SubmitButton>
+        <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>
       </FeedbackBox>
     )
   }
