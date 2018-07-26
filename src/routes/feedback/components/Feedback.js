@@ -6,13 +6,24 @@ import 'react-dropdown/style.css'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import FeedbackDropdown from './FeedbackDropdown'
-import type { FeedbackDropdownType } from './FeedbackDropdown'
-import FeedbackEndpoint, { DEFAULT_FEEDBACK_LANGUAGE, INTEGREAT_INSTANCE }
+import Dropdown from 'react-dropdown'
+import FeedbackEndpoint, {
+  CATEGORIES_FEEDBACK_TYPE,
+  DEFAULT_FEEDBACK_LANGUAGE,
+  EXTRA_FEEDBACK_TYPE,
+  INTEGREAT_INSTANCE,
+  PAGE_FEEDBACK_TYPE,
+  SEARCH_FEEDBACK_TYPE
+}
   from '../../../modules/endpoint/FeedbackEndpoint'
 import type { TFunction } from 'react-i18next'
-import FeedbackButton from './FeedbackLink'
 import CleanLink from '../../../modules/common/components/CleanLink'
+import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
+import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
+import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
+import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
+import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
+import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 
 const FeedbackBox = styled.div`
   display: flex;
@@ -47,22 +58,6 @@ const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const RatingContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 10px;
-  
-  & > * {
-    font-size: 2rem;
-  }
-`
-
-const RatingItem = styled(FeedbackButton)`
-  color: ${props => props.selected ? props.theme.colors.themeColor : props.theme.colors.textSecondaryColor};
-  opacity: ${props => props.selected ? '1.0' : '0.5'}
-`
-
 const CommentField = styled.textarea`
   resize: none;
 `
@@ -76,6 +71,12 @@ const SubmitButton = styled(CleanLink)`
   border-radius: 0.25em;
 `
 
+export type FeedbackDropdownType = {
+  value: string,
+  feedbackType: string | null,
+  label: string
+}
+
 type PropsType = {
   cities: Array<CityModel>,
   city: string,
@@ -87,18 +88,21 @@ type PropsType = {
   route: string,
   isPositiveRatingSelected: boolean,
   pathname: string,
+  isOpen: boolean,
   t: TFunction
 }
 
 type StateType = {
-  selectedFeedbackOption: ?FeedbackDropdownType,
+  feedbackOptions: Array<FeedbackDropdownType>,
+  selectedFeedbackOption: FeedbackDropdownType,
   comment: string
 }
 
 class Feedback extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {selectedFeedbackOption: null, comment: ''}
+    const feedbackOptions = this.getFeedbackOptions()
+    this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
   onCommentChanged = (event: {target: {value: string}}) => this.setState({comment: event.target.value})
@@ -108,55 +112,97 @@ class Feedback extends React.Component<PropsType, StateType> {
   }
 
   componentDidUpdate (prevProps: PropsType) {
-    if (prevProps.pathname !== this.props.pathname) {
+    const {isOpen} = this.props
+    const prevIsOpen = prevProps.isOpen
+
+    if (prevIsOpen !== isOpen && isOpen) {
       /* eslint-disable react/no-did-update-set-state */
-      this.setState({selectedFeedbackOption: null, comment: ''})
+      const feedbackOptions = this.getFeedbackOptions()
+      this.setState({feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''})
+      FeedbackEndpoint.postData(this.getFeedbackData())
+    }
+  }
+
+  getFeedbackData = (): FeedbackDataType => {
+    const {id, city, language, alias, query, isPositiveRatingSelected} = this.props
+    const {selectedFeedbackOption, comment} = this.state
+
+    return {
+      feedbackType: selectedFeedbackOption.feedbackType,
+      isPositiveRating: isPositiveRatingSelected,
+      comment,
+      id,
+      city: city || INTEGREAT_INSTANCE,
+      language: language || DEFAULT_FEEDBACK_LANGUAGE,
+      alias,
+      query
     }
   }
 
   onSubmit = () => {
-    const {selectedFeedbackOption, comment} = this.state
-    const {id, city, language, alias, query, isPositiveRatingSelected} = this.props
+    FeedbackEndpoint.postData(this.getFeedbackData())
+  }
 
-    if (selectedFeedbackOption) {
-      const feedbackData = {
-        feedbackType: selectedFeedbackOption.feedbackType,
-        isPositiveRating: isPositiveRatingSelected,
-        comment,
-        id,
-        city: city || INTEGREAT_INSTANCE,
-        language: language || DEFAULT_FEEDBACK_LANGUAGE,
-        alias,
-        query
-      }
-      this.setState({selectedFeedbackOption: null, comment: ''})
-      FeedbackEndpoint.postData(feedbackData)
+  getFeedbackOptions = (): Array<FeedbackDropdownType> => {
+    const {cities, city, t} = this.props
+    const options = []
+    const currentPageFeedbackLabel = this.getCurrentPageFeedbackLabel()
+    if (currentPageFeedbackLabel) {
+      options.push(this.getFeedbackOption(currentPageFeedbackLabel, this.getCurrentPageFeedbackType()))
+    }
+    if (city) {
+      const cityTitle = CityModel.findCityName(cities, city)
+      options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
+    }
+
+    options.push(this.getFeedbackOption(t('app'), CATEGORIES_FEEDBACK_TYPE))
+
+    return options
+  }
+
+  getFeedbackOption = (label: string, feedbackType: string | null): FeedbackDropdownType =>
+    ({value: label, feedbackType, label})
+
+  getCurrentPageFeedbackLabel = (): ?string => {
+    const {route, id, alias, title, query, t} = this.props
+
+    if (route === CATEGORIES_ROUTE && id) {
+      return `${t('contentOfPage')} '${title}'`
+    } else if (route === EVENTS_ROUTE && id) {
+      return `${t('news')} '${title}'`
+    } else if (route === EXTRAS_ROUTE && alias) {
+      return `${t('extra')} '${title}'`
+    } else if (route === SEARCH_ROUTE && query) {
+      return `${t('searchFor')} '${query}'`
+    } else if (route === DISCLAIMER_ROUTE) {
+      return `${t('disclaimer')}`
+    } else {
+      return null
+    }
+  }
+
+  getCurrentPageFeedbackType = (): string | null => {
+    const {route} = this.props
+    if (route === SEARCH_ROUTE) {
+      return SEARCH_FEEDBACK_TYPE
+    } else if (route === EXTRAS_ROUTE) {
+      return EXTRA_FEEDBACK_TYPE
+    } else {
+      return PAGE_FEEDBACK_TYPE
     }
   }
 
   render () {
-    const {comment} = this.state
-    const {t, city, cities, route, id, alias, query, title, isPositiveRatingSelected, pathname} = this.props
+    const {selectedFeedbackOption, feedbackOptions, comment} = this.state
+    const {t, isPositiveRatingSelected, pathname} = this.props
     return (
       <FeedbackBox>
         <Header>
           <Title>{t('feedback')}</Title>
           <CloseButton to={pathname}>x</CloseButton>
         </Header>
-        <RatingContainer>
-          <RatingItem selected={isPositiveRatingSelected} isPositiveRatingLink pathname={pathname} />
-          <RatingItem selected={!isPositiveRatingSelected} isPositiveRatingLink={false} pathname={pathname} />
-        </RatingContainer>
         <Description>{t('feedbackType')}</Description>
-        <FeedbackDropdown
-          city={city}
-          title={title}
-          route={route}
-          id={id}
-          alias={alias}
-          query={query}
-          cities={cities}
-          onFeedbackOptionChanged={this.onFeedbackOptionChanged} />
+        <Dropdown value={selectedFeedbackOption} options={feedbackOptions} onChange={this.onFeedbackOptionChanged} />
         <Description>{isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}</Description>
         <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
         <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>

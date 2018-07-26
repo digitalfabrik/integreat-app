@@ -6,8 +6,6 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import FeedbackButton from './FeedbackLink'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
-import FeedbackEndpoint, { DEFAULT_FEEDBACK_LANGUAGE, INTEGREAT_INSTANCE }
-  from '../../../modules/endpoint/FeedbackEndpoint'
 
 const Overlay = styled(CleanLink)`
   position: fixed;
@@ -66,37 +64,14 @@ type PropsType = {
 }
 
 class FeedbackModal extends React.Component<PropsType> {
-  onPositiveFeedbackClicked = (): void => this.onFeedbackClicked(true)
-  onNegativeFeedbackClicked = (): void => this.onFeedbackClicked(false)
-
-  onFeedbackClicked = (isPositiveFeedbackClicked: boolean): void => {
-    const {selectedFeedbackOption} = this.state
-    const {id, city, language, alias, query} = this.props
-
-    if (selectedFeedbackOption) {
-      const feedbackData = {
-        feedbackType: selectedFeedbackOption.feedbackType,
-        isPositiveRating: isPositiveFeedbackClicked,
-        comment: null,
-        id,
-        city: city || INTEGREAT_INSTANCE,
-        language: language || DEFAULT_FEEDBACK_LANGUAGE,
-        alias,
-        query
-      }
-      FeedbackEndpoint.postData(feedbackData)
-    }
-  }
-
   render () {
     const {pathname, isOpen} = this.props
     return (
       <div>
-        <FeedbackToolbarItem isPositiveRatingLink pathname={pathname} onClick={this.onPositiveFeedbackClicked} />
+        <FeedbackToolbarItem isPositiveRatingLink pathname={pathname} />
         <FeedbackToolbarItem
           isPositiveRatingLink={false}
-          pathname={pathname}
-          onClick={this.onNegativeFeedbackClicked} />
+          pathname={pathname} />
         <ModalContainer isOpen={isOpen}>
           <FeedbackContainer>
             <Feedback {...this.props} />
