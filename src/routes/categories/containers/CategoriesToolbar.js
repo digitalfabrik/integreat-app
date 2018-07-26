@@ -50,7 +50,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
         language={language}
         isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
         pathname={pathname}
-        isOpen={feedbackType} />
+        isOpen={feedbackType !== undefined} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
