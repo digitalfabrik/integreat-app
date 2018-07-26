@@ -23,7 +23,7 @@ export type StateType = {
   languages: Payload<Array<LanguageModel>>,
   disclaimer: Payload<DisclaimerModel>,
   sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
-  wohnen: Payload<Array<WohnenOfferModel<*>>>,
+  wohnen: Payload<Array<WohnenOfferModel>>,
   viewport: ViewportType,
   uiDirection: UiDirectionType
 }

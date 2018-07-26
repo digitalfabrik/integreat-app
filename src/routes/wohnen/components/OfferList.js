@@ -7,11 +7,13 @@ import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
 import CleanLink from '../../../modules/common/components/CleanLink'
 
 type PropsType = {
-  offers: Array<WohnenOfferModel<*>>,
+  offers: Array<WohnenOfferModel>,
   city: string,
   language: string,
-  hashFunction: WohnenOfferModel<*> => string
+  hashFunction: WohnenOfferModel => string
 }
+
+// fixme: OfferList is connected to redux state because of Link -> not a plain old component
 
 class OfferList extends React.Component<PropsType> {
   render () {
