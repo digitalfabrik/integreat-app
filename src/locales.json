@@ -273,7 +273,7 @@
   },
   "feedback": {
     "de": {
-      "app": "Technische Funktionen",
+      "technicalTopic": "Technische Funktionen",
       "contentOfCity": "Inhalte von",
       "extrasOfCity": "Extras von",
       "newsOfCity": "News von",
@@ -291,7 +291,7 @@
       "positiveRating": "Diese Seite war hilfreich"
     },
     "en": {
-      "app": "Technical topics",
+      "technicalTopic": "Technical topics",
       "contentOfCity": "Contents of",
       "extrasOfCity": "Extras of",
       "newsOfCity": "News of",

@@ -115,6 +115,7 @@ class Feedback extends React.Component<PropsType, StateType> {
     const {isOpen} = this.props
     const prevIsOpen = prevProps.isOpen
 
+    // If the Feedback is opened, we have to reset and initialize the state
     if (prevIsOpen !== isOpen && isOpen) {
       /* eslint-disable react/no-did-update-set-state */
       const feedbackOptions = this.getFeedbackOptions()
@@ -155,7 +156,7 @@ class Feedback extends React.Component<PropsType, StateType> {
       options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
     }
 
-    options.push(this.getFeedbackOption(t('app'), CATEGORIES_FEEDBACK_TYPE))
+    options.push(this.getFeedbackOption(t('technicalTopic'), CATEGORIES_FEEDBACK_TYPE))
 
     return options
   }
