@@ -54,15 +54,15 @@ const Title = styled.div`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
-const Description = styled.div`
+export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const CommentField = styled.textarea`
+export const CommentField = styled.textarea`
   resize: none;
 `
 
-const SubmitButton = styled(CleanLink)`
+export const SubmitButton = styled(CleanLink)`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
@@ -82,13 +82,15 @@ type PropsType = {
   city: string,
   language: string,
   id?: number,
-  title: string,
+  title: ?string,
   alias?: string,
   query?: string,
   route: string,
   isPositiveRatingSelected: boolean,
   pathname: string,
   isOpen: boolean,
+  commentMessageOverride: ?string,
+  hideHeader: boolean,
   t: TFunction
 }
 
@@ -99,6 +101,9 @@ type StateType = {
 }
 
 class Feedback extends React.Component<PropsType, StateType> {
+  static defaultProps = {
+    hideHeader: false
+  }
   constructor (props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
@@ -168,11 +173,11 @@ class Feedback extends React.Component<PropsType, StateType> {
   getCurrentPageFeedbackLabel = (): ?string => {
     const {route, id, alias, title, query, t} = this.props
 
-    if (route === CATEGORIES_ROUTE && id) {
+    if (route === CATEGORIES_ROUTE && id && title) {
       return `${t('contentOfPage')} '${title}'`
-    } else if (route === EVENTS_ROUTE && id) {
+    } else if (route === EVENTS_ROUTE && id && title) {
       return `${t('news')} '${title}'`
-    } else if (route === EXTRAS_ROUTE && alias) {
+    } else if (route === EXTRAS_ROUTE && alias && title) {
       return `${t('extra')} '${title}'`
     } else if (route === SEARCH_ROUTE && query) {
       return `${t('searchFor')} '${query}'`
@@ -196,16 +201,25 @@ class Feedback extends React.Component<PropsType, StateType> {
 
   render () {
     const {selectedFeedbackOption, feedbackOptions, comment} = this.state
-    const {t, isPositiveRatingSelected, pathname} = this.props
+    const {t, isPositiveRatingSelected, pathname, commentMessageOverride, hideHeader} = this.props
     return (
       <FeedbackBox>
-        <Header>
-          <Title>{t('feedback')}</Title>
-          <CloseButton to={pathname}>x</CloseButton>
-        </Header>
-        <Description>{t('feedbackType')}</Description>
-        <Dropdown value={selectedFeedbackOption} options={feedbackOptions} onChange={this.onFeedbackOptionChanged} />
-        <Description>{isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}</Description>
+        {!hideHeader && (
+          <React.Fragment>
+            <Header>
+              <Title>{t('feedback')}</Title>
+              <CloseButton to={pathname}>x</CloseButton>
+            </Header>
+            <Description>{t('feedbackType')}</Description>
+            <Dropdown
+              value={selectedFeedbackOption}
+              options={feedbackOptions}
+              onChange={this.onFeedbackOptionChanged} />
+          </React.Fragment>
+        )}
+        <Description>
+          {commentMessageOverride || (isPositiveRatingSelected ? t('positiveComment') : t('negativeComment'))}
+          </Description>
         <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
         <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>
       </FeedbackBox>
