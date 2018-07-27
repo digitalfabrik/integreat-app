@@ -119,14 +119,14 @@ class Feedback extends React.Component<PropsType, StateType> {
     if (prevIsOpen !== isOpen && isOpen) {
       /* eslint-disable react/no-did-update-set-state */
       const feedbackOptions = this.getFeedbackOptions()
+      const selectedFeedbackOption = feedbackOptions[0]
       this.setState({feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''})
-      FeedbackEndpoint.postData(this.getFeedbackData())
+      FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, ''))
     }
   }
 
-  getFeedbackData = (): FeedbackDataType => {
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownType, comment: string): FeedbackDataType => {
     const {id, city, language, alias, query, isPositiveRatingSelected} = this.props
-    const {selectedFeedbackOption, comment} = this.state
 
     return {
       feedbackType: selectedFeedbackOption.feedbackType,
@@ -141,7 +141,8 @@ class Feedback extends React.Component<PropsType, StateType> {
   }
 
   onSubmit = () => {
-    FeedbackEndpoint.postData(this.getFeedbackData())
+    const {selectedFeedbackOption, comment} = this.state
+    FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, comment))
   }
 
   getFeedbackOptions = (): Array<FeedbackDropdownType> => {
