@@ -54,15 +54,15 @@ const Title = styled.div`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
-export const Description = styled.div`
+const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-export const CommentField = styled.textarea`
+const CommentField = styled.textarea`
   resize: none;
 `
 
-export const SubmitButton = styled(CleanLink)`
+const SubmitButton = styled(CleanLink)`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
@@ -71,7 +71,7 @@ export const SubmitButton = styled(CleanLink)`
   border-radius: 0.25em;
 `
 
-export type FeedbackDropdownType = {
+type FeedbackDropdownType = {
   value: string,
   feedbackType: string | null,
   label: string
@@ -219,7 +219,7 @@ class Feedback extends React.Component<PropsType, StateType> {
         )}
         <Description>
           {commentMessageOverride || (isPositiveRatingSelected ? t('positiveComment') : t('negativeComment'))}
-          </Description>
+        </Description>
         <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
         <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>
       </FeedbackBox>
