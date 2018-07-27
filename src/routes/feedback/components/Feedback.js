@@ -82,7 +82,7 @@ type PropsType = {
   city: string,
   language: string,
   id?: number,
-  title: ?string,
+  title?: string,
   alias?: string,
   query?: string,
   route: string,

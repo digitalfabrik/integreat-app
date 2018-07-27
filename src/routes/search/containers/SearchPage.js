@@ -20,8 +20,8 @@ import Feedback from '../../feedback/components/Feedback'
 import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 
 const FeedbackButton = styled.div`
-  text-align: center;
   padding: 30px 0;
+  text-align: center;
 `
 
 const FeedbackLink = styled(CleanLink)`
