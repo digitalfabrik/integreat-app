@@ -10,6 +10,8 @@ import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
+import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 
 describe('SearchPage', () => {
   const categoryModels = [
@@ -72,7 +74,6 @@ describe('SearchPage', () => {
   ]
 
   const city = 'augsburg'
-
   const categories = new CategoriesMapModel(categoryModels)
   const t = key => key
 
@@ -92,6 +93,8 @@ describe('SearchPage', () => {
         <SearchPage cities={cities}
                     categories={categories}
                     city={city}
+                    route={SEARCH_ROUTE}
+                    pathname={'/augsburg/de/search'}
                     t={t} />
       </Provider></ThemeProvider>
     )
@@ -143,7 +146,7 @@ describe('SearchPage', () => {
     const categories = new CategoriesMapModel(categoryModels)
 
     const searchPage = shallow(
-      <SearchPage cities={cities} city={city} categories={categories} t={t} />
+      <SearchPage cities={cities} city={city} categories={categories} t={t} route={SEARCH_ROUTE} pathname={'/augsburg/de/search'} />
     ).instance()
 
     searchPage.onFilterTextChange('abc')
@@ -159,7 +162,7 @@ describe('SearchPage', () => {
     const store = mockStore({
       categories: {data: categories},
       cities: {data: cities},
-      location: {payload: {city}}
+      location: {payload: {city}, route: CATEGORIES_ROUTE, pathname: '/augsburg/de/search'}
     })
 
     const searchPage = shallow(
