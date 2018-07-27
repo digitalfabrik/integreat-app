@@ -46,11 +46,17 @@
     },
     "de": {
       "pageTitle": "Suche",
-      "searchCategory": "Suche nach einer Kategorie"
+      "searchCategory": "Suche nach einer Kategorie",
+      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
+      "informationNotFound": "Nicht das Richtige gefunden?",
+      "wantedInformation": "Welche Informationen fehlen hier?"
     },
     "en": {
       "pageTitle": "Search",
-      "searchCategory": "Search for a category"
+      "searchCategory": "Search for a category",
+      "nothingFound": "Sorry, we could not find any results.",
+      "informationNotFound": "Not found what you were looking for?",
+      "wantedInformation": "What information is missing?"
     },
     "fa": {
       "pageTitle": "جستجو"

@@ -13,11 +13,40 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import FeedbackModal from '../../feedback/components/FeedbackModal'
+import styled from 'styled-components'
+import CleanLink from '../../../modules/common/components/CleanLink'
+import Feedback from '../../feedback/components/Feedback'
+import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+
+const FeedbackButton = styled.div`
+  text-align: center;
+  padding: 30px 0;
+`
+
+const FeedbackLink = styled(CleanLink)`
+  padding: 5px 20px;
+  background-color: ${props => props.theme.colors.themeColor};
+  color: ${props => props.theme.colors.backgroundAccentColor};
+  border-radius: 0.25em;
+`
+
+const FeedbackContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+type CategoryListItemType = {|model: CategoryModel, subCategories: Array<CategoryModel>|}
 
 type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   city: string,
+  pathname: string,
+  route: string,
+  language: string,
+  feedbackType: ?string,
   t: TFunction
 }
 
@@ -30,7 +59,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     filterText: ''
   }
 
-  findCategories (): Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}> {
+  findCategories (): Array<CategoryListItemType> {
     const categories = this.props.categories
     const filterText = this.state.filterText.toLowerCase()
 
@@ -54,6 +83,50 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   onFilterTextChange = (filterText: string) => this.setState({filterText: filterText})
 
+  renderFeedback = (categories: Array<CategoryListItemType>) => {
+    const {filterText} = this.state
+    const {t, cities, city, language, route, pathname, feedbackType} = this.props
+
+    if (categories.length !== 0) {
+      return (
+        <React.Fragment>
+          {filterText && (
+            <FeedbackButton>
+              <FeedbackLink to={`${pathname}?feedback=down`}>{t('informationNotFound')}</FeedbackLink>
+            </FeedbackButton>
+          )}
+          <FeedbackModal
+            query={filterText}
+            city={city}
+            cities={cities}
+            language={language}
+            route={route}
+            pathname={pathname}
+            isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
+            isOpen={feedbackType !== undefined}
+            commentMessageOverride={t('wantedInformation')} />
+        </React.Fragment>
+      )
+    } else {
+      return (
+        <FeedbackContainer>
+          <div>{t('nothingFound')}</div>
+          <Feedback
+            query={filterText}
+            city={city}
+            cities={cities}
+            language={language}
+            route={route}
+            pathname={pathname}
+            isPositiveRatingSelected={false}
+            isOpen={feedbackType !== undefined}
+            commentMessageOverride={t('wantedInformation')}
+            hideHeader />
+        </FeedbackContainer>
+      )
+    }
+  }
+
   render () {
     const categories = this.findCategories()
     const {t, cities, city} = this.props
@@ -68,6 +141,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} />
+        {this.renderFeedback(categories)}
       </div>
     )
   }
@@ -76,7 +150,11 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 const mapStateToProps = (state: StateType) => ({
   categories: state.categories.data,
   cities: state.cities.data,
-  city: state.location.payload.city
+  city: state.location.payload.city,
+  language: state.location.payload.language,
+  route: state.location.type,
+  pathname: state.location.pathname,
+  feedbackType: state.location.query && state.location.query.feedback
 })
 
 export default compose(

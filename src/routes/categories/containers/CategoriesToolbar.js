@@ -12,6 +12,14 @@ import type { TFunction } from 'react-i18next'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import styled from 'styled-components'
+import FeedbackButton from '../../feedback/components/FeedbackLink'
+
+const FeedbackToolbarItem = styled(FeedbackButton)`
+  display: inline-block;
+  margin: 0 10px;
+  padding: 8px;
+`
 
 type PropsType = {
   cities: Array<CityModel>,
@@ -41,6 +49,10 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     }
     return <Toolbar>
       <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
+      <FeedbackToolbarItem isPositiveRatingLink pathname={pathname} />
+      <FeedbackToolbarItem
+        isPositiveRatingLink={false}
+        pathname={pathname} />
       <FeedbackModal
         id={category.id}
         title={category.title}

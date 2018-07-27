@@ -3,7 +3,6 @@
 import React from 'react'
 import Feedback from './Feedback'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import FeedbackButton from './FeedbackLink'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 
@@ -43,24 +42,19 @@ const FeedbackContainer = styled.div`
   }
 `
 
-const FeedbackToolbarItem = styled(FeedbackButton)`
-  display: inline-block;
-  margin: 0 10px;
-  padding: 8px;
-`
-
 type PropsType = {
   cities: Array<CityModel>,
   city: string,
   language: string,
   id?: number,
-  title: string,
+  title?: string,
   alias?: string,
   query?: string,
   route: string,
   isPositiveRatingSelected: boolean,
   pathname: string,
-  isOpen: boolean
+  isOpen: boolean,
+  commentMessageOverride?: string
 }
 
 class FeedbackModal extends React.Component<PropsType> {
@@ -68,10 +62,6 @@ class FeedbackModal extends React.Component<PropsType> {
     const {pathname, isOpen} = this.props
     return (
       <div>
-        <FeedbackToolbarItem isPositiveRatingLink pathname={pathname} />
-        <FeedbackToolbarItem
-          isPositiveRatingLink={false}
-          pathname={pathname} />
         <ModalContainer isOpen={isOpen}>
           <FeedbackContainer>
             <Feedback {...this.props} />
