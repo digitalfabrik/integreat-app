@@ -25,7 +25,7 @@ import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 
-const FeedbackBox = styled.div`
+const StyledFeedbackBox = styled.div`
   display: flex;
   width: 400px;
   height: auto;
@@ -100,7 +100,7 @@ type StateType = {
   comment: string
 }
 
-class Feedback extends React.Component<PropsType, StateType> {
+class FeedbackBox extends React.Component<PropsType, StateType> {
   static defaultProps = {
     hideHeader: false
   }
@@ -120,7 +120,7 @@ class Feedback extends React.Component<PropsType, StateType> {
     const {isOpen} = this.props
     const prevIsOpen = prevProps.isOpen
 
-    // If the Feedback is opened, we have to reset and initialize the state
+    // If the FeedbackBox is opened, we have to reset and initialize the state
     if (prevIsOpen !== isOpen && isOpen) {
       /* eslint-disable react/no-did-update-set-state */
       const feedbackOptions = this.getFeedbackOptions()
@@ -203,7 +203,7 @@ class Feedback extends React.Component<PropsType, StateType> {
     const {selectedFeedbackOption, feedbackOptions, comment} = this.state
     const {t, isPositiveRatingSelected, pathname, commentMessageOverride, hideHeader} = this.props
     return (
-      <FeedbackBox>
+      <StyledFeedbackBox>
         {!hideHeader && (
           <React.Fragment>
             <Header>
@@ -222,9 +222,9 @@ class Feedback extends React.Component<PropsType, StateType> {
         </Description>
         <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
         <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>
-      </FeedbackBox>
+      </StyledFeedbackBox>
     )
   }
 }
 
-export default translate('feedback')(Feedback)
+export default translate('feedback')(FeedbackBox)
