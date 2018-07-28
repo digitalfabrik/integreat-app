@@ -287,8 +287,8 @@
       "positiveComment": "Was war hilfreich?",
       "negativeComment": "Was können wir besser machen?",
       "feedbackType": "Wofür ist das Feedback?",
-      "negativeRating": "Diese Seite war nicht hilfreich",
-      "positiveRating": "Diese Seite war hilfreich"
+      "negativeRating": "Diese Seite ist nicht hilfreich",
+      "positiveRating": "Diese Seite ist hilfreich"
     },
     "en": {
       "technicalTopic": "Technical topics",
@@ -305,8 +305,8 @@
       "positiveComment": "What can we improve?",
       "negativeComment": "What was helpful?",
       "feedbackType": "What is the feedback for?",
-      "negativeRating": "This site was not useful",
-      "positiveRating": "This site was useful"
+      "negativeRating": "This site is not useful",
+      "positiveRating": "This site is useful"
     }
   }
 }

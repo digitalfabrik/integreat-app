@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import Feedback from './Feedback'
+import FeedbackBox from './FeedbackBox'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import FeedbackButton from './FeedbackLink'
 import styled from 'styled-components'
@@ -74,7 +74,7 @@ class FeedbackModal extends React.Component<PropsType> {
           pathname={pathname} />
         <ModalContainer isOpen={isOpen}>
           <FeedbackContainer>
-            <Feedback {...this.props} />
+            <FeedbackBox {...this.props} />
           </FeedbackContainer>
           <Overlay to={pathname} />
         </ModalContainer>
