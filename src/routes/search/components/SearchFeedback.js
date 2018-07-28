@@ -7,7 +7,8 @@ import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import FeedbackBox from '../../feedback/components/FeedbackBox'
 import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
-import { translate, TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 
 const FeedbackButton = styled.div`
