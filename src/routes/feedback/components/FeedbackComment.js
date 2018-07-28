@@ -16,7 +16,7 @@ type PropsType = {
   t: TFunction
 }
 
-class FeedbackComment extends React.Component<PropsType> {
+export class FeedbackComment extends React.Component<PropsType> {
   render () {
     const {commentMessageOverride, isPositiveRatingSelected, comment, onCommentChanged, t} = this.props
     return (

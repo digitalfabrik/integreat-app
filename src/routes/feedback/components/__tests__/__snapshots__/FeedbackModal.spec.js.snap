@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackComment should match snapshot 1`] = `
+<div>
+  <FeedbackModal__ModalContainer
+    isOpen={true}
+  >
+    <FeedbackModal__FeedbackContainer>
+      <Translate(FeedbackBox)
+        alias="alias"
+        cities={
+          Array [
+            CityModel {
+              "_code": "augsburg",
+              "_eventsEnabled": true,
+              "_extrasEnabled": false,
+              "_live": true,
+              "_name": "Augsburg",
+              "_sortingName": undefined,
+            },
+          ]
+        }
+        city="augsburg"
+        commentMessageOverride="wantedInformation"
+        id={1234}
+        isOpen={true}
+        isPositiveRatingSelected={true}
+        language="de"
+        pathname="/augsburg/de"
+        query="ab"
+        route="CATEGORIES"
+        title="title"
+      />
+    </FeedbackModal__FeedbackContainer>
+    <FeedbackModal__Overlay
+      to="/augsburg/de"
+    />
+  </FeedbackModal__ModalContainer>
+</div>
+`;
