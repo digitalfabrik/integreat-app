@@ -73,7 +73,7 @@ const SubmitButton = styled(CleanLink)`
 
 type FeedbackDropdownType = {
   value: string,
-  feedbackType: string | null,
+  feedbackType: ?string,
   label: string
 }
 
