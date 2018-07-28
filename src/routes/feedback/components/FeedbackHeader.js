@@ -33,7 +33,7 @@ type PropsType = {
   t: TFunction
 }
 
-class FeedbackHeader extends React.Component<PropsType> {
+export class FeedbackHeader extends React.Component<PropsType> {
   render () {
     const {t, pathname, selectedFeedbackOption, feedbackOptions, onFeedbackOptionChanged} = this.props
 
