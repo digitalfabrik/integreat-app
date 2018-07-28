@@ -46,17 +46,11 @@
     },
     "de": {
       "pageTitle": "Suche",
-      "searchCategory": "Suche nach einer Kategorie",
-      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
-      "informationNotFound": "Nicht das Richtige gefunden?",
-      "wantedInformation": "Welche Informationen fehlen hier?"
+      "searchCategory": "Suche nach einer Kategorie"
     },
     "en": {
       "pageTitle": "Search",
-      "searchCategory": "Search for a category",
-      "nothingFound": "Sorry, we could not find any results.",
-      "informationNotFound": "Not found what you were looking for?",
-      "wantedInformation": "What information is missing?"
+      "searchCategory": "Search for a category"
     },
     "fa": {
       "pageTitle": "جستجو"
@@ -294,7 +288,10 @@
       "negativeComment": "Was können wir besser machen?",
       "feedbackType": "Wofür ist das Feedback?",
       "negativeRating": "Diese Seite ist nicht hilfreich",
-      "positiveRating": "Diese Seite ist hilfreich"
+      "positiveRating": "Diese Seite ist hilfreich",
+      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
+      "informationNotFound": "Nicht das Richtige gefunden?",
+      "wantedInformation": "Welche Informationen fehlen hier?"
     },
     "en": {
       "technicalTopic": "Technical topics",
@@ -312,7 +309,10 @@
       "negativeComment": "What was helpful?",
       "feedbackType": "What is the feedback for?",
       "negativeRating": "This site is not useful",
-      "positiveRating": "This site is useful"
+      "positiveRating": "This site is useful",
+      "nothingFound": "Sorry, we could not find any results.",
+      "informationNotFound": "Not found what you were looking for?",
+      "wantedInformation": "What information is missing?"
     }
   }
 }

@@ -13,29 +13,7 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import FeedbackModal from '../../feedback/components/FeedbackModal'
-import styled from 'styled-components'
-import CleanLink from '../../../modules/common/components/CleanLink'
-import Feedback from '../../feedback/components/Feedback'
-import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
-
-const FeedbackButton = styled.div`
-  padding: 30px 0;
-  text-align: center;
-`
-
-const FeedbackLink = styled(CleanLink)`
-  padding: 5px 20px;
-  background-color: ${props => props.theme.colors.themeColor};
-  color: ${props => props.theme.colors.backgroundAccentColor};
-  border-radius: 0.25em;
-`
-
-const FeedbackContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
+import SearchFeedback from '../components/SearchFeedback'
 
 type CategoryListItemType = {|model: CategoryModel, subCategories: Array<CategoryModel>|}
 
@@ -83,53 +61,10 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   onFilterTextChange = (filterText: string) => this.setState({filterText: filterText})
 
-  renderFeedback = (categories: Array<CategoryListItemType>) => {
-    const {filterText} = this.state
-    const {t, cities, city, language, route, pathname, feedbackType} = this.props
-
-    if (categories.length !== 0) {
-      return (
-        <React.Fragment>
-          {filterText && (
-            <FeedbackButton>
-              <FeedbackLink to={`${pathname}?feedback=down`}>{t('informationNotFound')}</FeedbackLink>
-            </FeedbackButton>
-          )}
-          <FeedbackModal
-            query={filterText}
-            city={city}
-            cities={cities}
-            language={language}
-            route={route}
-            pathname={pathname}
-            isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
-            isOpen={feedbackType !== undefined}
-            commentMessageOverride={t('wantedInformation')} />
-        </React.Fragment>
-      )
-    } else {
-      return (
-        <FeedbackContainer>
-          <div>{t('nothingFound')}</div>
-          <Feedback
-            query={filterText}
-            city={city}
-            cities={cities}
-            language={language}
-            route={route}
-            pathname={pathname}
-            isPositiveRatingSelected={false}
-            isOpen={feedbackType !== undefined}
-            commentMessageOverride={t('wantedInformation')}
-            hideHeader />
-        </FeedbackContainer>
-      )
-    }
-  }
-
   render () {
     const categories = this.findCategories()
-    const {t, cities, city} = this.props
+    const {t, cities, city, language, route, feedbackType, pathname} = this.props
+    const {filterText} = this.state
 
     const cityName = CityModel.findCityName(cities, city)
 
@@ -141,7 +76,15 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} />
-        {this.renderFeedback(categories)}
+        <SearchFeedback
+          cities={cities}
+          city={city}
+          language={language}
+          feedbackType={feedbackType}
+          route={route}
+          pathname={pathname}
+          resultsFound={categories.length !== 0}
+          query={filterText} />
       </div>
     )
   }
