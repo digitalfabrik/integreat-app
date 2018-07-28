@@ -12,6 +12,10 @@ describe('FeedbackEndpoint', () => {
     formData.append('rating', 'up')
     formData.append('id', '1234')
     formData.append('comment', 'comment')
-    expect(FeedbackEndpoint.mapParamsToFormData({id: 1234, isPositiveRating: true, comment: 'comment'})).toEqual(formData)
+    formData.append('query', 'query')
+    formData.append('alias', 'alias')
+    expect(FeedbackEndpoint.mapParamsToFormData({
+      id: 1234, isPositiveRating: true, comment: 'comment', alias: 'alias', query: 'query'
+    })).toEqual(formData)
   })
 })
