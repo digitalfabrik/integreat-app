@@ -30,7 +30,7 @@ class CategoriesMapModel {
    * @return {CategoryModel | undefined} The category
    */
   findCategoryByPath (path: string): ?CategoryModel {
-    return this._categories.get(normalizePath(path))
+    return this._categories.get(decodeURIComponent(normalizePath(path)))
   }
 
   /**
