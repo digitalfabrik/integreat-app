@@ -13,6 +13,7 @@ type PropsType = {
   comment: string,
   commentMessageOverride: ?string,
   isPositiveRatingSelected: boolean,
+  onCommentChanged: (event: {target: {value: string}}) => void,
   t: TFunction
 }
 
