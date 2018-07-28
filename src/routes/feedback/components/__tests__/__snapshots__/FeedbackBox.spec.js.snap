@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
+<FeedbackBox__StyledFeedbackBox>
+  <Translate(FeedbackHeader)
+    feedbackOptions={
+      Array [
+        Object {
+          "feedbackType": "categories",
+          "label": "contentOfCity Augsburg",
+          "value": "contentOfCity Augsburg",
+        },
+        Object {
+          "feedbackType": "categories",
+          "label": "technicalTopic",
+          "value": "technicalTopic",
+        },
+      ]
+    }
+    onFeedbackOptionChanged={[Function]}
+    pathname="/augsburg/de"
+    selectedFeedbackOption={
+      Object {
+        "feedbackType": "categories",
+        "label": "contentOfCity Augsburg",
+        "value": "contentOfCity Augsburg",
+      }
+    }
+  />
+  <Translate(FeedbackComment)
+    comment=""
+    isPositiveRatingSelected={false}
+    onCommentChanged={[Function]}
+  />
+  <FeedbackBox__SubmitButton
+    onClick={[Function]}
+    to="/augsburg/de"
+  >
+    send
+  </FeedbackBox__SubmitButton>
+</FeedbackBox__StyledFeedbackBox>
+`;
+
+exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
+<FeedbackBox__StyledFeedbackBox>
+  <Translate(FeedbackComment)
+    comment=""
+    isPositiveRatingSelected={false}
+    onCommentChanged={[Function]}
+  />
+  <FeedbackBox__SubmitButton
+    onClick={[Function]}
+    to="/augsburg/de"
+  >
+    send
+  </FeedbackBox__SubmitButton>
+</FeedbackBox__StyledFeedbackBox>
+`;

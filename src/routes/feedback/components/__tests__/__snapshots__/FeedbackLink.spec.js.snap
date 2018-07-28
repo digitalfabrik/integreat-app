@@ -2,7 +2,7 @@
 
 exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 <withProps(Connect(Link))
-  to="undefined?feedback=down"
+  to="/augsburg/de?feedback=down"
 >
   <FontAwesome
     data-tip="negativeRating"
@@ -13,11 +13,11 @@ exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 
 exports[`FeedbackLink should render a positive FeedbackLink 1`] = `
 <withProps(Connect(Link))
-  to="undefined?feedback=down"
+  to="/augsburg/de?feedback=up"
 >
   <FontAwesome
-    data-tip="negativeRating"
-    name="frown-o"
+    data-tip="positiveRating"
+    name="smile-o"
   />
 </withProps(Connect(Link))>
 `;
