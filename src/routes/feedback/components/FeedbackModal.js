@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import Feedback from './Feedback'
+import FeedbackBox from './FeedbackBox'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
@@ -64,7 +64,7 @@ class FeedbackModal extends React.Component<PropsType> {
       <div>
         <ModalContainer isOpen={isOpen}>
           <FeedbackContainer>
-            <Feedback {...this.props} />
+            <FeedbackBox {...this.props} />
           </FeedbackContainer>
           <Overlay to={pathname} />
         </ModalContainer>
