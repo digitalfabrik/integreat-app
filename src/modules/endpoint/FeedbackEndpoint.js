@@ -20,7 +20,7 @@ export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
 export type FeedbackDataType = {
-  feedbackType: string | null,
+  feedbackType: ?string,
   id?: number,
   city: string,
   language: string,
