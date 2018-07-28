@@ -6,7 +6,6 @@ import 'react-dropdown/style.css'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import Dropdown from 'react-dropdown'
 import FeedbackEndpoint, {
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
@@ -24,6 +23,8 @@ import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
 import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
+import FeedbackHeader from './FeedbackHeader'
+import FeedbackComment from './FeedbackComment'
 
 const StyledFeedbackBox = styled.div`
   display: flex;
@@ -38,28 +39,8 @@ const StyledFeedbackBox = styled.div`
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const CloseButton = styled(CleanLink)`
-  font-size: 2rem;
-`
-
-const Title = styled.div`
-  padding: 15px 0 10px;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
-`
-
-const Description = styled.div`
+export const Description = styled.div`
   padding: 10px 0 5px;
-`
-
-const CommentField = styled.textarea`
-  resize: none;
 `
 
 const SubmitButton = styled(CleanLink)`
@@ -71,7 +52,7 @@ const SubmitButton = styled(CleanLink)`
   border-radius: 0.25em;
 `
 
-type FeedbackDropdownType = {
+export type FeedbackDropdownType = {
   value: string,
   feedbackType: ?string,
   label: string
@@ -100,7 +81,7 @@ type StateType = {
   comment: string
 }
 
-class FeedbackBox extends React.Component<PropsType, StateType> {
+export class FeedbackBox extends React.Component<PropsType, StateType> {
   static defaultProps = {
     hideHeader: false
   }
@@ -167,7 +148,7 @@ class FeedbackBox extends React.Component<PropsType, StateType> {
     return options
   }
 
-  getFeedbackOption = (label: string, feedbackType: string | null): FeedbackDropdownType =>
+  getFeedbackOption = (label: string, feedbackType: ?string): FeedbackDropdownType =>
     ({value: label, feedbackType, label})
 
   getCurrentPageFeedbackLabel = (): ?string => {
@@ -205,22 +186,17 @@ class FeedbackBox extends React.Component<PropsType, StateType> {
     return (
       <StyledFeedbackBox>
         {!hideHeader && (
-          <React.Fragment>
-            <Header>
-              <Title>{t('feedback')}</Title>
-              <CloseButton to={pathname}>x</CloseButton>
-            </Header>
-            <Description>{t('feedbackType')}</Description>
-            <Dropdown
-              value={selectedFeedbackOption}
-              options={feedbackOptions}
-              onChange={this.onFeedbackOptionChanged} />
-          </React.Fragment>
+          <FeedbackHeader
+            pathname={pathname}
+            selectedFeedbackOption={selectedFeedbackOption}
+            feedbackOptions={feedbackOptions}
+            onFeedbackOptionChanged={this.onFeedbackOptionChanged} />
         )}
-        <Description>
-          {commentMessageOverride || (isPositiveRatingSelected ? t('positiveComment') : t('negativeComment'))}
-        </Description>
-        <CommentField rows={3} value={comment} onChange={this.onCommentChanged} />
+        <FeedbackComment
+          comment={comment}
+          commentMessageOverride={commentMessageOverride}
+          isPositiveRatingSelected={isPositiveRatingSelected}
+          onCommentChanged={this.onCommentChanged} />
         <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>
       </StyledFeedbackBox>
     )
