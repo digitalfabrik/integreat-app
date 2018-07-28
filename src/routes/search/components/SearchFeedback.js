@@ -41,7 +41,7 @@ type PropsType = {
   t: TFunction
 }
 
-class SearchFeedback extends React.Component<PropsType> {
+export class SearchFeedback extends React.Component<PropsType> {
   renderFeedbackModal (): Node {
     const {t, cities, city, language, route, pathname, feedbackType, query} = this.props
 
