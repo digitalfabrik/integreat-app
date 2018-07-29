@@ -59,7 +59,8 @@
     "redux-responsive": "^4.3.7",
     "redux-thunk": "^2.3.0",
     "styled-components": "^3.3.3",
-    "whatwg-fetch": "^2.0.4"
+    "whatwg-fetch": "^2.0.4",
+    "normalize-path": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.54",
@@ -113,7 +114,6 @@
     "jest-fetch-mock": "^1.6.5",
     "json-loader": "^0.5.7",
     "lolex": "^2.7.1",
-    "normalize-path": "^3.0.0",
     "path-to-regexp": "^2.2.1",
     "pixrem": "^4.0.1",
     "pleeease-filters": "^4.0.0",
