@@ -7,7 +7,7 @@ pipeline {
         sh 'yarn'
         sh 'yarn run flow'
         sh 'yarn run lint'
-        sh 'yarn run test --runInBand'
+        sh 'yarn run test --coverage'
       }
     }
     stage('Build') {
