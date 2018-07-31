@@ -5,12 +5,12 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
   <Translate(FeedbackHeader)
     feedbackOptions={
       Array [
-        Object {
+        FeedbackDropdownItem {
           "feedbackType": "categories",
           "label": "contentOfCity Augsburg",
           "value": "contentOfCity Augsburg",
         },
-        Object {
+        FeedbackDropdownItem {
           "feedbackType": "categories",
           "label": "technicalTopic",
           "value": "technicalTopic",
@@ -28,7 +28,7 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
     }
     onFeedbackOptionChanged={[Function]}
     selectedFeedbackOption={
-      Object {
+      FeedbackDropdownItem {
         "feedbackType": "categories",
         "label": "contentOfCity Augsburg",
         "value": "contentOfCity Augsburg",
