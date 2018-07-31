@@ -27,6 +27,7 @@ import FeedbackHeader from './FeedbackHeader'
 import FeedbackComment from './FeedbackComment'
 import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
+import FeedbackDropdownItem from '../FeedbackDropdownItem'
 
 const StyledFeedbackBox = styled.div`
   display: flex;
@@ -54,12 +55,6 @@ const SubmitButton = styled(CleanLink)`
   border-radius: 0.25em;
 `
 
-export type FeedbackDropdownType = {
-  value: string,
-  feedbackType: ?string,
-  label: string
-}
-
 type PropsType = {
   cities: Array<CityModel>,
   title?: string,
@@ -75,8 +70,8 @@ type PropsType = {
 }
 
 type StateType = {
-  feedbackOptions: Array<FeedbackDropdownType>,
-  selectedFeedbackOption: FeedbackDropdownType,
+  feedbackOptions: Array<FeedbackDropdownItem>,
+  selectedFeedbackOption: FeedbackDropdownItem,
   comment: string
 }
 
@@ -92,7 +87,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
 
   onCommentChanged = (event: {target: {value: string}}) => this.setState({comment: event.target.value})
 
-  onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownType) => {
+  onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
     this.setState({selectedFeedbackOption: selectedDropdown})
   }
 
@@ -110,7 +105,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     }
   }
 
-  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownType, comment: string): FeedbackDataType => {
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackDataType => {
     const {location, query, isPositiveRatingSelected, id, alias} = this.props
     const {city, language} = location.payload
     return {
@@ -130,7 +125,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, comment))
   }
 
-  getFeedbackOptions = (): Array<FeedbackDropdownType> => {
+  getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {cities, location, t} = this.props
     const {city} = location.payload
 
@@ -149,8 +144,8 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     return options
   }
 
-  getFeedbackOption = (label: string, feedbackType: ?string): FeedbackDropdownType =>
-    ({value: label, feedbackType, label})
+  getFeedbackOption = (label: string, feedbackType: ?string): FeedbackDropdownItem =>
+    new FeedbackDropdownItem(label, feedbackType)
 
   getCurrentPageFeedbackLabel = (): ?string => {
     const {location, id, alias, title, query, t} = this.props
