@@ -8,6 +8,8 @@ import type { TFunction } from 'react-i18next'
 import Dropdown from 'react-dropdown'
 import { Description } from './FeedbackBox'
 import type { FeedbackDropdownType } from './FeedbackBox'
+import type { LocationState } from 'redux-first-router'
+import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 const Header = styled.div`
   display: flex;
@@ -26,7 +28,7 @@ const Title = styled.div`
 `
 
 type PropsType = {
-  pathname: string,
+  location: LocationState,
   feedbackOptions: Array<FeedbackDropdownType>,
   selectedFeedbackOption: FeedbackDropdownType,
   onFeedbackOptionChanged: (FeedbackDropdownType) => void,
@@ -35,13 +37,13 @@ type PropsType = {
 
 export class FeedbackHeader extends React.Component<PropsType> {
   render () {
-    const {t, pathname, selectedFeedbackOption, feedbackOptions, onFeedbackOptionChanged} = this.props
+    const {t, location, selectedFeedbackOption, feedbackOptions, onFeedbackOptionChanged} = this.props
 
     return (
       <React.Fragment>
         <Header>
           <Title>{t('feedback')}</Title>
-          <CloseButton to={pathname}>x</CloseButton>
+          <CloseButton to={goToFeedback(location)}>x</CloseButton>
         </Header>
         <Description>{t('feedbackType')}</Description>
         <Dropdown

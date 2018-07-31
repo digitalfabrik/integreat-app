@@ -6,10 +6,12 @@ import FeedbackModal from '../../feedback/components/FeedbackModal'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import FeedbackBox from '../../feedback/components/FeedbackBox'
-import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { LocationState } from 'redux-first-router'
+import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 const FeedbackButton = styled.div`
   padding: 30px 0;
@@ -31,11 +33,7 @@ const FeedbackContainer = styled.div`
 
 type PropsType = {
   cities: Array<CityModel>,
-  city: string,
-  pathname: string,
-  route: string,
-  language: string,
-  feedbackType: ?string,
+  location: LocationState,
   query: string,
   resultsFound: boolean,
   t: TFunction
@@ -43,22 +41,22 @@ type PropsType = {
 
 export class SearchFeedback extends React.Component<PropsType> {
   renderFeedbackModal (): Node {
-    const {t, cities, city, language, route, pathname, feedbackType, query} = this.props
+    const {t, cities, location, query} = this.props
+    const feedbackType = location.query && location.query.feedback
 
     return (
       <React.Fragment>
         {query && (
           <FeedbackButton>
-            <FeedbackLink to={`${pathname}?feedback=down`}>{t('informationNotFound')}</FeedbackLink>
+            <FeedbackLink to={goToFeedback(location, NEGATIVE_RATING)}>
+              {t('informationNotFound')}
+              </FeedbackLink>
           </FeedbackButton>
         )}
         <FeedbackModal
           query={query}
-          city={city}
           cities={cities}
-          language={language}
-          route={route}
-          pathname={pathname}
+          location={location}
           isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
           isOpen={!!feedbackType}
           commentMessageOverride={t('wantedInformation')} />
@@ -67,18 +65,16 @@ export class SearchFeedback extends React.Component<PropsType> {
   }
 
   renderFeedbackBox (): Node {
-    const {t, cities, city, language, route, pathname, feedbackType, query} = this.props
+    const {t, cities, location, query} = this.props
+    const feedbackType = location.query && location.query.feedback
 
     return (
       <FeedbackContainer>
         <div>{t('nothingFound')}</div>
         <FeedbackBox
           query={query}
-          city={city}
           cities={cities}
-          language={language}
-          route={route}
-          pathname={pathname}
+          location={location}
           isPositiveRatingSelected={false}
           isOpen={!!feedbackType}
           commentMessageOverride={t('wantedInformation')}

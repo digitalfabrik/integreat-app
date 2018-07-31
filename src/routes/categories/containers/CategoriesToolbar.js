@@ -13,9 +13,10 @@ import FeedbackModal from '../../feedback/components/FeedbackModal'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import styled from 'styled-components'
-import FeedbackButton from '../../feedback/components/FeedbackLink'
+import FeedbackLink from '../../feedback/components/FeedbackLink'
+import type { LocationState } from 'redux-first-router'
 
-const FeedbackToolbarItem = styled(FeedbackButton)`
+const FeedbackToolbarItem = styled(FeedbackLink)`
   display: inline-block;
   margin: 0 10px;
   padding: 8px;
@@ -23,46 +24,40 @@ const FeedbackToolbarItem = styled(FeedbackButton)`
 
 type PropsType = {
   cities: Array<CityModel>,
-  city: string,
-  language: string,
   categories: CategoriesMapModel,
-  pathname: string,
-  route: string,
-  feedbackType: ?string,
+  location: LocationState,
   t: TFunction
 }
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
   getPdfUrl (category: CategoryModel): string {
+    const {city, language} = this.props.location.payload
+
     if (category.id === 0) {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf`
+      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
     } else {
-      return `${apiUrl}/${this.props.city}/${this.props.language}/wp-json/ig-mpdf/v1/pdf?url=${category.path}`
+      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${category.path}`
     }
   }
 
   render () {
-    const {t, city, language, cities, route, pathname, feedbackType} = this.props
-    const category = this.props.categories.findCategoryByPath(pathname)
+    const {t, cities, location} = this.props
+    const feedbackType = location.query && location.query.feedback
+    const category = this.props.categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
     }
     return <Toolbar>
       <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
-      <FeedbackToolbarItem isPositiveRatingLink pathname={pathname} />
-      <FeedbackToolbarItem
-        isPositiveRatingLink={false}
-        pathname={pathname} />
+      <FeedbackToolbarItem isPositiveRatingLink location={location} />
+      <FeedbackToolbarItem isPositiveRatingLink={false} location={location} />
       <FeedbackModal
         id={category.id}
         title={category.title}
-        city={city}
         cities={cities}
-        route={route}
-        language={language}
         isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
-        pathname={pathname}
-        isOpen={feedbackType !== undefined} />
+        location={location}
+        isOpen={!!feedbackType} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />

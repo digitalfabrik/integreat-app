@@ -25,6 +25,8 @@ import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 import FeedbackHeader from './FeedbackHeader'
 import FeedbackComment from './FeedbackComment'
+import type { LocationState } from 'redux-first-router'
+import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 const StyledFeedbackBox = styled.div`
   display: flex;
@@ -60,15 +62,12 @@ export type FeedbackDropdownType = {
 
 type PropsType = {
   cities: Array<CityModel>,
-  city: string,
-  language: string,
-  id?: number,
   title?: string,
   alias?: string,
+  id?: number,
   query?: string,
-  route: string,
   isPositiveRatingSelected: boolean,
-  pathname: string,
+  location: LocationState,
   isOpen: boolean,
   commentMessageOverride: ?string,
   hideHeader: boolean,
@@ -112,8 +111,8 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
   }
 
   getFeedbackData = (selectedFeedbackOption: FeedbackDropdownType, comment: string): FeedbackDataType => {
-    const {id, city, language, alias, query, isPositiveRatingSelected} = this.props
-
+    const {location, query, isPositiveRatingSelected, id, alias} = this.props
+    const {city, language} = location.payload
     return {
       feedbackType: selectedFeedbackOption.feedbackType,
       isPositiveRating: isPositiveRatingSelected,
@@ -132,7 +131,9 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
   }
 
   getFeedbackOptions = (): Array<FeedbackDropdownType> => {
-    const {cities, city, t} = this.props
+    const {cities, location, t} = this.props
+    const {city} = location.payload
+
     const options = []
     const currentPageFeedbackLabel = this.getCurrentPageFeedbackLabel()
     if (currentPageFeedbackLabel) {
@@ -152,17 +153,18 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     ({value: label, feedbackType, label})
 
   getCurrentPageFeedbackLabel = (): ?string => {
-    const {route, id, alias, title, query, t} = this.props
+    const {location, id, alias, title, query, t} = this.props
+    const type = location.type
 
-    if (route === CATEGORIES_ROUTE && id && title) {
+    if (type === CATEGORIES_ROUTE && id && title) {
       return `${t('contentOfPage')} '${title}'`
-    } else if (route === EVENTS_ROUTE && id && title) {
+    } else if (type === EVENTS_ROUTE && id && title) {
       return `${t('news')} '${title}'`
-    } else if (route === EXTRAS_ROUTE && alias && title) {
+    } else if (type === EXTRAS_ROUTE && alias && title) {
       return `${t('extra')} '${title}'`
-    } else if (route === SEARCH_ROUTE && query) {
+    } else if (type === SEARCH_ROUTE && query) {
       return `${t('searchFor')} '${query}'`
-    } else if (route === DISCLAIMER_ROUTE) {
+    } else if (type === DISCLAIMER_ROUTE) {
       return `${t('disclaimer')}`
     } else {
       return null
@@ -170,10 +172,10 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
   }
 
   getCurrentPageFeedbackType = (): string | null => {
-    const {route} = this.props
-    if (route === SEARCH_ROUTE) {
+    const {type} = this.props.location
+    if (type === SEARCH_ROUTE) {
       return SEARCH_FEEDBACK_TYPE
-    } else if (route === EXTRAS_ROUTE) {
+    } else if (type === EXTRAS_ROUTE) {
       return EXTRA_FEEDBACK_TYPE
     } else {
       return PAGE_FEEDBACK_TYPE
@@ -182,12 +184,12 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
 
   render () {
     const {selectedFeedbackOption, feedbackOptions, comment} = this.state
-    const {t, isPositiveRatingSelected, pathname, commentMessageOverride, hideHeader} = this.props
+    const {t, isPositiveRatingSelected, location, commentMessageOverride, hideHeader} = this.props
     return (
       <StyledFeedbackBox>
         {!hideHeader && (
           <FeedbackHeader
-            pathname={pathname}
+            location={location}
             selectedFeedbackOption={selectedFeedbackOption}
             feedbackOptions={feedbackOptions}
             onFeedbackOptionChanged={this.onFeedbackOptionChanged} />
@@ -197,7 +199,9 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
           commentMessageOverride={commentMessageOverride}
           isPositiveRatingSelected={isPositiveRatingSelected}
           onCommentChanged={this.onCommentChanged} />
-        <SubmitButton to={pathname} onClick={this.onSubmit}>{t('send')}</SubmitButton>
+        <SubmitButton to={goToFeedback(location)} onClick={this.onSubmit}>
+          {t('send')}
+        </SubmitButton>
       </StyledFeedbackBox>
     )
   }

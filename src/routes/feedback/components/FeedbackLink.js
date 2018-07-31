@@ -7,11 +7,13 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 import FontAwesome from 'react-fontawesome'
 import ReactTooltip from 'react-tooltip'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import type { LocationState } from 'redux-first-router'
+import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 type PropsType = {
   isPositiveRatingLink: boolean,
   t: TFunction,
-  pathname: string,
+  location: LocationState,
   className: ?string
 }
 
@@ -22,12 +24,11 @@ export class FeedbackLink extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, isPositiveRatingLink, pathname, className} = this.props
-
+    const {t, isPositiveRatingLink, location, className} = this.props
     return (
       <CleanLink
         className={className}
-        to={`${pathname}?feedback=${isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING}`}>
+        to={goToFeedback(location, isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)}>
         <FontAwesome
           className={className}
           data-tip={isPositiveRatingLink ? t('positiveRating') : t('negativeRating')}
