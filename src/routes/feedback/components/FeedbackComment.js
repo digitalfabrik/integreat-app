@@ -13,7 +13,7 @@ type PropsType = {
   comment: string,
   commentMessageOverride: ?string,
   isPositiveRatingSelected: boolean,
-  onCommentChanged: (event: {target: {value: string}}) => void,
+  onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   t: TFunction
 }
 

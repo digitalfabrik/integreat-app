@@ -60,6 +60,9 @@ exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageN
       not-found.pageTitle
     </title>
   </HelmetWrapper>
+  <Connect(Translate(LanguageFailure))
+    city="augsburg"
+  />
 </React.Fragment>
 `;
 

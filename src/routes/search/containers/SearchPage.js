@@ -14,17 +14,14 @@ import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import SearchFeedback from '../components/SearchFeedback'
+import type { LocationState } from 'redux-first-router'
 
 type CategoryListItemType = {|model: CategoryModel, subCategories: Array<CategoryModel>|}
 
 type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
-  city: string,
-  pathname: string,
-  route: string,
-  language: string,
-  feedbackType: ?string,
+  location: LocationState,
   t: TFunction
 }
 
@@ -63,8 +60,9 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   render () {
     const categories = this.findCategories()
-    const {t, cities, city, language, route, feedbackType, pathname} = this.props
+    const {t, cities, location} = this.props
     const {filterText} = this.state
+    const {city} = location.payload
 
     const cityName = CityModel.findCityName(cities, city)
 
@@ -78,11 +76,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
         <CategoryList categories={categories} query={this.state.filterText} />
         <SearchFeedback
           cities={cities}
-          city={city}
-          language={language}
-          feedbackType={feedbackType}
-          route={route}
-          pathname={pathname}
+          location={location}
           resultsFound={categories.length !== 0}
           query={filterText} />
       </div>
@@ -93,11 +87,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 const mapStateToProps = (state: StateType) => ({
   categories: state.categories.data,
   cities: state.cities.data,
-  city: state.location.payload.city,
-  language: state.location.payload.language,
-  route: state.location.type,
-  pathname: state.location.pathname,
-  feedbackType: state.location.query && state.location.query.feedback
+  location: state.location
 })
 
 export default compose(

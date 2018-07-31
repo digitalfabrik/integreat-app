@@ -5,6 +5,8 @@ import FeedbackBox from './FeedbackBox'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
+import type { LocationState } from 'redux-first-router'
+import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 const Overlay = styled(CleanLink)`
   position: fixed;
@@ -44,29 +46,26 @@ const FeedbackContainer = styled.div`
 
 type PropsType = {
   cities: Array<CityModel>,
-  city: string,
-  language: string,
-  id?: number,
   title?: string,
+  id?: number,
   alias?: string,
   query?: string,
-  route: string,
   isPositiveRatingSelected: boolean,
-  pathname: string,
+  location: LocationState,
   isOpen: boolean,
   commentMessageOverride?: string
 }
 
 class FeedbackModal extends React.Component<PropsType> {
   render () {
-    const {pathname, isOpen} = this.props
+    const {location, isOpen} = this.props
     return (
       <div>
         <ModalContainer isOpen={isOpen}>
           <FeedbackContainer>
             <FeedbackBox {...this.props} />
           </FeedbackContainer>
-          <Overlay to={pathname} />
+          <Overlay to={goToFeedback(location)} />
         </ModalContainer>
       </div>
     )

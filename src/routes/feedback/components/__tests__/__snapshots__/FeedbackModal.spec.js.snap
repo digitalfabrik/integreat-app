@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedbackComment should match snapshot 1`] = `
+exports[`FeedbackModal should match snapshot 1`] = `
 <div>
   <FeedbackModal__ModalContainer
     isOpen={true}
@@ -20,20 +20,34 @@ exports[`FeedbackComment should match snapshot 1`] = `
             },
           ]
         }
-        city="augsburg"
         commentMessageOverride="wantedInformation"
         id={1234}
         isOpen={true}
         isPositiveRatingSelected={true}
-        language="de"
-        pathname="/augsburg/de"
+        location={
+          Object {
+            "payload": Object {
+              "city": "augsburg",
+              "language": "de",
+            },
+            "type": "CATEGORIES",
+          }
+        }
         query="ab"
-        route="CATEGORIES"
         title="title"
       />
     </FeedbackModal__FeedbackContainer>
     <FeedbackModal__Overlay
-      to="/augsburg/de"
+      to={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "query": undefined,
+          "type": "CATEGORIES",
+        }
+      }
     />
   </FeedbackModal__ModalContainer>
 </div>

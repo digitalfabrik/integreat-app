@@ -2,7 +2,18 @@
 
 exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 <withProps(Connect(Link))
-  to="/augsburg/de?feedback=down"
+  to={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "query": Object {
+        "feedback": "down",
+      },
+      "type": "CATEGORIES",
+    }
+  }
 >
   <FontAwesome
     data-tip="negativeRating"
@@ -13,7 +24,18 @@ exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 
 exports[`FeedbackLink should render a positive FeedbackLink 1`] = `
 <withProps(Connect(Link))
-  to="/augsburg/de?feedback=up"
+  to={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "query": Object {
+        "feedback": "up",
+      },
+      "type": "CATEGORIES",
+    }
+  }
 >
   <FontAwesome
     data-tip="positiveRating"
