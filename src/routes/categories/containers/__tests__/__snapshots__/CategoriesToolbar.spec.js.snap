@@ -3,25 +3,50 @@
 exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] = `
 <Toolbar>
   <ToolbarItem
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
+    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
     name="file-pdf-o"
     text="createPdf"
   />
   <CategoriesToolbar__FeedbackToolbarItem
     isPositiveRatingLink={true}
-    pathname="/augsburg/de/willkommen"
+    location={
+      Object {
+        "pathname": "/augsburg/de/willkommen",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
   />
   <CategoriesToolbar__FeedbackToolbarItem
     isPositiveRatingLink={false}
-    pathname="/augsburg/de/willkommen"
+    location={
+      Object {
+        "pathname": "/augsburg/de/willkommen",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
   />
   <FeedbackModal
-    city="augsburg"
     id={3649}
     isOpen={false}
     isPositiveRatingSelected={false}
-    language="en"
-    pathname="/augsburg/de/willkommen"
+    location={
+      Object {
+        "pathname": "/augsburg/de/willkommen",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
     title="Willkommen"
   />
 </Toolbar>
@@ -30,25 +55,50 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
 exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
 <Toolbar>
   <ToolbarItem
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"
+    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf"
     name="file-pdf-o"
     text="createPdf"
   />
   <CategoriesToolbar__FeedbackToolbarItem
     isPositiveRatingLink={true}
-    pathname="/augsburg/de"
+    location={
+      Object {
+        "pathname": "/augsburg/de",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
   />
   <CategoriesToolbar__FeedbackToolbarItem
     isPositiveRatingLink={false}
-    pathname="/augsburg/de"
+    location={
+      Object {
+        "pathname": "/augsburg/de",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
   />
   <FeedbackModal
-    city="augsburg"
     id={0}
     isOpen={false}
     isPositiveRatingSelected={false}
-    language="en"
-    pathname="/augsburg/de"
+    location={
+      Object {
+        "pathname": "/augsburg/de",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
     title="augsburg"
   />
 </Toolbar>

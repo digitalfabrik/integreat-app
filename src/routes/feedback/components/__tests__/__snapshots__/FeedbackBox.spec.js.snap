@@ -5,22 +5,30 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
   <Translate(FeedbackHeader)
     feedbackOptions={
       Array [
-        Object {
+        FeedbackDropdownItem {
           "feedbackType": "categories",
           "label": "contentOfCity Augsburg",
           "value": "contentOfCity Augsburg",
         },
-        Object {
+        FeedbackDropdownItem {
           "feedbackType": "categories",
           "label": "technicalTopic",
           "value": "technicalTopic",
         },
       ]
     }
-    onFeedbackOptionChanged={[Function]}
-    pathname="/augsburg/de"
-    selectedFeedbackOption={
+    location={
       Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
+    onFeedbackOptionChanged={[Function]}
+    selectedFeedbackOption={
+      FeedbackDropdownItem {
         "feedbackType": "categories",
         "label": "contentOfCity Augsburg",
         "value": "contentOfCity Augsburg",
@@ -34,7 +42,16 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
   />
   <FeedbackBox__SubmitButton
     onClick={[Function]}
-    to="/augsburg/de"
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": undefined,
+        "type": "CATEGORIES",
+      }
+    }
   >
     send
   </FeedbackBox__SubmitButton>
@@ -50,7 +67,16 @@ exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
   />
   <FeedbackBox__SubmitButton
     onClick={[Function]}
-    to="/augsburg/de"
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": undefined,
+        "type": "CATEGORIES",
+      }
+    }
   >
     send
   </FeedbackBox__SubmitButton>

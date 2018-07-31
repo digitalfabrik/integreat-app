@@ -5,7 +5,7 @@ import FeedbackModal from '../FeedbackModal'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 
-describe('FeedbackComment', () => {
+describe('FeedbackModal', () => {
   it('should match snapshot', () => {
     const cities = [
       new CityModel({
@@ -17,14 +17,13 @@ describe('FeedbackComment', () => {
       })
     ]
 
+    const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+
     expect(shallow(
     <FeedbackModal
+      location={location}
       query={'ab'}
-      city={'augsburg'}
       cities={cities}
-      language={'de'}
-      route={CATEGORIES_ROUTE}
-      pathname={'/augsburg/de'}
       id={1234}
       title={'title'}
       alias='alias'
