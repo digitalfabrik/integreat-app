@@ -1,7 +1,5 @@
 // @flow
 
-import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
-
 class LanguageNotFoundError extends Error {
   _language: string
   _city: string
@@ -15,9 +13,9 @@ class LanguageNotFoundError extends Error {
     // https://github.com/babel/babel/issues/3083
     /* eslint-disable */
     // $FlowFixMe
-    this.constructor = ContentNotFoundError
+    this.constructor = LanguageNotFoundError
     // $FlowFixMe
-    this.__proto__ = ContentNotFoundError.prototype
+    this.__proto__ = LanguageNotFoundError.prototype
     /* eslint-enable */
 
     if (Error.captureStackTrace) {

@@ -1,7 +1,5 @@
 // @flow
 
-import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
-
 class ParamMissingError extends Error {
   getMessage = (endpointName: string, paramName: string): string =>
     `ParamMissingError: Failed to load the ${endpointName} endpoint because the ${paramName} is missing`
@@ -13,9 +11,9 @@ class ParamMissingError extends Error {
     // https://github.com/babel/babel/issues/3083
     /* eslint-disable */
     // $FlowFixMe
-    this.constructor = ContentNotFoundError
+    this.constructor = ParamMissingError
     // $FlowFixMe
-    this.__proto__ = ContentNotFoundError.prototype
+    this.__proto__ = ParamMissingError.prototype
     /* eslint-enable */
 
     if (Error.captureStackTrace) {
