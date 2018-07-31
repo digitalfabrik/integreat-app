@@ -1,7 +1,5 @@
 // @flow
 
-import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
-
 class CityNotFoundError extends Error {
   _city: string
 
@@ -13,9 +11,9 @@ class CityNotFoundError extends Error {
     // https://github.com/babel/babel/issues/3083
     /* eslint-disable */
     // $FlowFixMe
-    this.constructor = ContentNotFoundError
+    this.constructor = CityNotFoundError
     // $FlowFixMe
-    this.__proto__ = ContentNotFoundError.prototype
+    this.__proto__ = CityNotFoundError.prototype
     /* eslint-enable */
 
     if (Error.captureStackTrace) {
