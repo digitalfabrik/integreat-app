@@ -1,13 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedbackComment should match snapshot 1`] = `
+exports[`FeedbackHeader should match snapshot 1`] = `
 <React.Fragment>
   <FeedbackHeader__Header>
     <FeedbackHeader__Title>
       feedback
     </FeedbackHeader__Title>
     <FeedbackHeader__CloseButton
-      to="/augsburg/de/willkommen"
+      to={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "query": undefined,
+          "type": "CATEGORIES",
+        }
+      }
     >
       x
     </FeedbackHeader__CloseButton>

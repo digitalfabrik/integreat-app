@@ -6,10 +6,7 @@ import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { FeedbackBox } from '../FeedbackBox'
 
 describe('FeedbackBox', () => {
-  const city = 'augsburg'
-  const language = 'de'
-  const route = CATEGORIES_ROUTE
-  const pathname = '/augsburg/de'
+  const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
   const cities = [
     new CityModel({
       name: 'Augsburg',
@@ -25,11 +22,8 @@ describe('FeedbackBox', () => {
     const component = shallow(
       <FeedbackBox
         query={'ab'}
-        city={city}
+        location={location}
         cities={cities}
-        language={language}
-        route={route}
-        pathname={pathname}
         isPositiveRatingSelected={false}
         isOpen
         t={t} />
@@ -41,11 +35,8 @@ describe('FeedbackBox', () => {
     const component = shallow(
       <FeedbackBox
         query={'ab'}
-        city={city}
+        location={location}
         cities={cities}
-        language={language}
-        route={route}
-        pathname={pathname}
         isPositiveRatingSelected={false}
         isOpen
         t={t}

@@ -62,7 +62,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     const categories = this.findCategories()
     const {t, cities, location} = this.props
     const {filterText} = this.state
-    const {city, language} = location.payload
+    const {city} = location.payload
 
     const cityName = CityModel.findCityName(cities, city)
 
@@ -76,8 +76,6 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
         <CategoryList categories={categories} query={this.state.filterText} />
         <SearchFeedback
           cities={cities}
-          city={city}
-          language={language}
           location={location}
           resultsFound={categories.length !== 0}
           query={filterText} />

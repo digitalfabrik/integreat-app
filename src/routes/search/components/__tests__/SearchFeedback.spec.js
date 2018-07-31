@@ -15,19 +15,15 @@ describe('SearchFeedback', () => {
     })
   ]
 
-  const city = 'augsburg'
   const t = key => key
-  const pathname = '/augsburg/de/search'
-  const language = 'de'
+  const location = {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}}
 
   it('should render a FeedbackBox if no results are found', () => {
     expect(shallow(
       <SearchFeedback
         cities={cities}
-        city={city}
-        pathname={pathname}
         route={SEARCH_ROUTE}
-        language={language}
+        location={location}
         query={'abc'}
         resultsFound={false}
         t={t} />
@@ -38,10 +34,8 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         cities={cities}
-        city={city}
-        pathname={pathname}
         route={SEARCH_ROUTE}
-        language={language}
+        location={location}
         query={'ab'}
         resultsFound
         t={t} />
@@ -52,10 +46,8 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         cities={cities}
-        city={city}
-        pathname={pathname}
         route={SEARCH_ROUTE}
-        language={language}
+        location={location}
         query={''}
         resultsFound
         t={t} />

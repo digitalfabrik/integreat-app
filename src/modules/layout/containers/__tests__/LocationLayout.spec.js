@@ -9,6 +9,7 @@ import CategoryModel from '../../../endpoint/models/CategoryModel'
 import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 
 describe('LocationLayout', () => {
+  const city = 'city1'
   const language = 'de'
   const pathname = '/augsburg/de/willkommen'
   const currentRoute = CATEGORIES_ROUTE
@@ -25,18 +26,20 @@ describe('LocationLayout', () => {
       availableLanguages: new Map()
     })
   ])
+  const location = {
+    payload: {city, language},
+    type: currentRoute,
+    pathname: pathname
+  }
 
   const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
 
   const MockNode = () => <div />
 
-  it('should show LocationHeader and LocationFooter if City is available', () => {
+  it('should show LocationHeader and LocationFooter if city is available', () => {
     const component = shallow(
-      <LocationLayout city='city1'
-                      language={language}
+      <LocationLayout location={location}
                       categories={categories}
-                      currentRoute={''}
-                      pathname={pathname}
                       cities={cities}
                       viewportSmall>
         <MockNode />
@@ -46,26 +49,19 @@ describe('LocationLayout', () => {
 
   it('should show CategoriesToolbar if current route is categories', () => {
     const component = shallow(
-      <LocationLayout city='city1'
-                      language={language}
+      <LocationLayout location={location}
                       categories={categories}
-                      currentRoute={CATEGORIES_ROUTE}
-                      pathname={pathname}
                       cities={cities}
-                      route={CATEGORIES_ROUTE}
                       viewportSmall>
         <MockNode />
       </LocationLayout>)
     expect(component).toMatchSnapshot()
   })
 
-  it('should show GeneralHeader and GeneralFooter if LocationModel is not available', () => {
+  it('should show GeneralHeader and GeneralFooter if city is not available', () => {
     const component = shallow(
-      <LocationLayout city='unavailableLocation'
+      <LocationLayout location={{payload: {city: 'invalid_city'}}}
                       categories={categories}
-                      currentRoute={currentRoute}
-                      pathname={pathname}
-                      language={language}
                       cities={cities}
                       viewportSmall>
         <MockNode />
@@ -74,13 +70,6 @@ describe('LocationLayout', () => {
   })
 
   it('should map state to props', () => {
-    const city = 'city'
-    const location = {
-      payload: {city, language},
-      type: currentRoute,
-      pathname: pathname
-    }
-
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
@@ -94,13 +83,9 @@ describe('LocationLayout', () => {
     )
 
     expect(locationLayout.props()).toMatchObject({
-      city,
       viewportSmall: false,
-      language,
       cities,
       store,
-      currentRoute,
-      pathname,
       categories
     })
   })

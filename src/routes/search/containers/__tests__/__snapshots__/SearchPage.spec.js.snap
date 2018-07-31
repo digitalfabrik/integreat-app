@@ -86,7 +86,15 @@ exports[`SearchPage should match snapshot 1`] = `
         },
       ]
     }
-    city="augsburg"
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "SEARCH",
+      }
+    }
     query=""
     resultsFound={true}
   />
