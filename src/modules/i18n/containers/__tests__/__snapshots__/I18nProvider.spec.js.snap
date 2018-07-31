@@ -13,6 +13,7 @@ Object {
   "debug": false,
   "fallbackLng": Array [
     "en",
+    "de",
   ],
   "load": "languageOnly",
 }
