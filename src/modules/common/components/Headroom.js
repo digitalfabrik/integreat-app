@@ -21,13 +21,13 @@ type PropsType = {
   /** The minimum scrollTop position where the transform should start */
   pinStart: number,
   /** Gets rendered with a corresponding stickyTop prop as an ancestor */
-  stickyAncestor: React.Element<any>,
+  stickyAncestor: React.Element<*>,
   /** Used for rendering stickyTop position of stickyAncestor */
   height: number,
   /** Fired, when Headroom changes its state. Passes stickyTop of the ancestor. */
-  onStickyTopChanged: Function,
+  onStickyTopChanged: ?(number) => void,
   /** True, if sticky position should be disabled (e.g. for edge 16 support) */
-  positionStickyDisabled: boolean
+  positionStickyDisabled: ?boolean
 }
 
 type StateType = {
@@ -164,8 +164,7 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
           top={ownStickyTop}
           transition={transition}
           positionStickyDisabled={positionStickyDisabled}
-          static={mode === STATIC}
-        >
+          static={mode === STATIC}>
           {children}
         </HeaderWrapper>
         {stickyAncestor && React.cloneElement(stickyAncestor, { stickyTop })}
