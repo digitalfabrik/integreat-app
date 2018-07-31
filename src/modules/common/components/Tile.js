@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import Link from 'redux-first-router-link'
 import { Col } from 'react-styled-flexboxgrid'
 
@@ -16,10 +15,6 @@ type PropsType = {
  * Displays a single Tile
  */
 class Tile extends React.Component<PropsType> {
-  static propTypes = {
-    tile: PropTypes.instanceOf(TileModel).isRequired
-  }
-
   getTileContent (): React.Node {
     return <React.Fragment>
       <div className={style.thumbnailSizer}>

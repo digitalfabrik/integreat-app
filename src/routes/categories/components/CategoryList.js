@@ -25,7 +25,7 @@ class CategoryList extends React.Component<PropsType> {
     return (
       <div>
         {title && <Caption title={title} />}
-        <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />
+        {content && <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />}
         <List>
           {categories.map(({model, subCategories}) =>
             <CategoryListItem key={model.id}
