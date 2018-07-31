@@ -1,7 +1,5 @@
 // @flow
 
-import ContentNotFoundError from '../../common/errors/ContentNotFoundError'
-
 class MappingError extends Error {
   getMessage = (endpointName: string, message: string): string =>
     `MappingError: Failed to map the json for the ${endpointName} endpoint. ${message}`
@@ -13,9 +11,9 @@ class MappingError extends Error {
     // https://github.com/babel/babel/issues/3083
     /* eslint-disable */
     // $FlowFixMe
-    this.constructor = ContentNotFoundError
+    this.constructor = MappingError
     // $FlowFixMe
-    this.__proto__ = ContentNotFoundError.prototype
+    this.__proto__ = MappingError.prototype
     /* eslint-enable */
 
     if (Error.captureStackTrace) {
