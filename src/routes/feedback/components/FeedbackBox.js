@@ -85,7 +85,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
-  onCommentChanged = (event: {target: {value: string}}) => this.setState({comment: event.target.value})
+  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({comment: event.target.value})
 
   onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
     this.setState({selectedFeedbackOption: selectedDropdown})

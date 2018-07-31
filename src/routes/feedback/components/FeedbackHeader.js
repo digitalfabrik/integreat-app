@@ -31,7 +31,7 @@ type PropsType = {
   location: LocationState,
   feedbackOptions: Array<FeedbackDropdownItem>,
   selectedFeedbackOption: FeedbackDropdownItem,
-  onFeedbackOptionChanged: (FeedbackDropdownItem) => void,
+  onFeedbackOptionChanged: FeedbackDropdownItem => void,
   t: TFunction
 }
 
