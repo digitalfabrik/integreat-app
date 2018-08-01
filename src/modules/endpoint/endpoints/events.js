@@ -2,6 +2,7 @@
 
 import moment from 'moment'
 import { apiUrl } from '../constants'
+import { transform } from 'lodash'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
@@ -68,9 +69,13 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   })
-  .withMapper((json: any) => json
+  .withMapper((json: Array<JsonEventType>) => json
     .map(event => {
       const allDay = event.event.all_day !== '0'
+      const languageArray = transform(event.available_languages, (result, value: JsonPathType, key: string) => {
+        result[key] = value.path
+        return result
+      }, [])
       return new EventModel({
         id: event.id,
         title: event.title,
@@ -82,7 +87,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
         endDate: moment(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`),
         allDay: allDay,
         excerpt: event.excerpt,
-        availableLanguages: event.available_languages
+        availableLanguages: new Map(languageArray)
       })
     })
     .filter(event => event.startDate.isValid())
