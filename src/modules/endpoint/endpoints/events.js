@@ -8,6 +8,56 @@ import ParamMissingError from '../errors/ParamMissingError'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
+type JsonEventInfoType = {
+  id: number,
+  start_date: string,
+  end_date: string,
+  all_day: boolean,
+  start_time: string,
+  end_time: string,
+  recurrence_id: ?string
+}
+
+type JsonLocationType = {
+  id: number,
+  name: string,
+  address: string,
+  town: string,
+  state: ?string,
+  postcode: ?string,
+  region: ?string,
+  country: string,
+  latitude: ?string,
+  longitude: ?string
+}
+
+type JsonPathType = {
+  id: number,
+  url: ?string,
+  path: ?string
+}
+
+type JsonLanguageType = {
+  [string]: JsonPathType
+}
+
+type JsonEventType = {
+  id: number,
+  url: string,
+  path: string,
+  title: string,
+  modified_gmt: string,
+  excerpt: string,
+  content: string,
+  parent: JsonPathType,
+  order: number,
+  available_languages: JsonLanguageType,
+  thumbnail: string,
+  event: JsonEventInfoType,
+  location: JsonLocationType,
+  hash: string
+}
+
 export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
