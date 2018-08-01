@@ -39,31 +39,6 @@ describe('events', () => {
     )
   })
 
-  it('should throw if the city to map the url are missing', () => {
-    expect(() => events.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the language to map the url are missing', () => {
-    expect(() => events.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
-  })
-
-  const toEventModel = json => {
-    const allDay = json.event.all_day !== '0'
-    return new EventModel({
-      id: json.id,
-      title: json.title,
-      content: json.content,
-      thumbnail: json.thumbnail,
-      address: json.location.address,
-      town: json.location.town,
-      startDate: moment(`${json.event.start_date} ${allDay ? '00:00:00' : json.event.start_time}`),
-      endDate: moment(`${json.event.end_date} ${allDay ? '23:59:59' : json.event.end_time}`),
-      allDay: allDay,
-      excerpt: json.excerpt,
-      availableLanguages: json.available_languages
-    })
-  }
-
   const json = [
     event1,
     event2,
