@@ -1,39 +1,48 @@
-import React, {Component} from 'react';
-import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
-// You can import from local files
-import styled from 'styled-components';
-// or any pure javascript modules available in npm
+// @flow
 
-export default class App extends Component {
-  render() {
-    return (
-        <View>
-          <StatusBar
-              backgroundColor="blue"
-              barStyle="light-content"
-          />
-          <BoxShadow>
-            <Image style={styles.logo}
-                   source={require('../../../../assets/logo.png')}/>
-            <Text>A</Text>
-          </BoxShadow>
-          <BoxShadow/>
-        </View>
-    );
-  }
-}
+import * as React from 'react'
+import { StatusBar } from 'react-native'
+import styled from 'styled-components'
+import logo from '../assets/integreat-app-logo.png'
+import withPlatform from '../../platform/hocs/withPlatform'
+import { mapProps } from 'recompose'
+
+type WrapperPropsType = { statusBarHeight: number }
+
+const Wrapper = styled.View`
+  flex: 1;
+  margin-top: ${(props: WrapperPropsType) => props.statusBarHeight};
+`
+
+const Logo = styled.Image`
+  flex:1;
+  width: 150px;
+  resize-mode: contain;
+`
 
 const BoxShadow = styled.View`
   elevation: 1;
   background-color: #fafafa;
-  height: 55;
-`;
+  height: 60px;
+`
 
-const styles = StyleSheet.create({
-  logo: {
-    marginTop: -20,
-    height: 128,
-    width: 150,
-    resizeMode: 'contain',
-  },
-});
+type AppPropsType = { statusBarHeight: number }
+
+class App extends React.Component<AppPropsType> {
+  render () {
+    return (
+      <Wrapper statusBarHeight={this.props.statusBarHeight}>
+        <StatusBar backgroundColor='#fafafa' barStyle='light-content' />
+        <BoxShadow>
+          <Logo source={logo} />
+        </BoxShadow>
+      </Wrapper>
+    )
+  }
+}
+
+const propsMapper = props => ({
+  statusBarHeight: props.platform.statusBarHeight
+})
+
+export default withPlatform(mapProps(propsMapper)(App))

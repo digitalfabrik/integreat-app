@@ -2,27 +2,49 @@
   "name": "integreat-react-native-app",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "react-native-scripts": "1.14.0",
-    "jest-expo": "~27.0.0",
-    "react-test-renderer": "16.3.1"
-  },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint .",
+    "flow:check-now": "flow check",
+    "flow:install-types": "flow-typed install --ignoreDeps dev"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^27.0.1",
+    "expo": "^28.0.0",
     "react": "16.3.1",
-    "react-native": "~0.55.2",
-    "styled-components": "latest",
-    "react-native-elements": "0.18.5"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
+    "react-native-elements": "0.19.1",
+    "recompose": "^0.28.0",
+    "styled-components": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/preset-flow": "^7.0.0-beta.55",
+    "@integreat-app/eslint-config": "^0.2.1",
+    "@integreat-app/eslint-config-jest": "^0.2.1",
+    "@integreat-app/eslint-config-react": "^0.2.1",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "flow-bin": "^0.77.0",
+    "flow-typed": "^2.5.1",
+    "jest-expo": "~28.0.0",
+    "react-native-scripts": "1.14.0",
+    "react-test-renderer": "16.4.1"
   }
 }

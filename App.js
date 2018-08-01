@@ -1,3 +1,3 @@
-import App from "./src/modules/app/components/App";
+import AppContainer from './src/modules/app/container/AppContainer'
 
-export default App
+export default AppContainer
