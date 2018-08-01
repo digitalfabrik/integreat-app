@@ -59,8 +59,13 @@ type JsonEventType = {
   hash: string
 }
 
+type ParamsType = {
+  city: string,
+  language: string
+}
+
 export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
+  .withParamsToUrlMapper((params: ParamsType): string => {
     if (!params.city) {
       throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'city')
     }
