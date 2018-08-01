@@ -34,7 +34,7 @@ describe('events', () => {
     excerpt: 'Am Sonntag...',
     content: '<p>Am Sonntag...</p>',
     availableLanguages: new Map(),
-    thumbnail: '',
+    thumbnail: null,
     allDay,
     startDate,
     endDate,
