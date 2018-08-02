@@ -1,48 +1,28 @@
 // @flow
 
 import * as React from 'react'
-import { StatusBar } from 'react-native'
-import styled from 'styled-components'
-import logo from '../assets/integreat-app-logo.png'
-import withPlatform from '../../platform/hocs/withPlatform'
-import { mapProps } from 'recompose'
+import { Text } from 'react-native-elements'
+import PlatformContext from '../../platform/PlatformContext'
+import Platform from '../../platform/Platform'
+import LayoutContainer from '../../layout/container/LayoutContainer'
 
-type WrapperPropsType = { statusBarHeight: number }
+class App extends React.Component<{}> {
+  platform: Platform
 
-const Wrapper = styled.View`
-  flex: 1;
-  margin-top: ${(props: WrapperPropsType) => props.statusBarHeight};
-`
+  constructor () {
+    super()
+    this.platform = new Platform()
+  }
 
-const Logo = styled.Image`
-  flex:1;
-  width: 150px;
-  resize-mode: contain;
-`
-
-const BoxShadow = styled.View`
-  elevation: 1;
-  background-color: #fafafa;
-  height: 60px;
-`
-
-type AppPropsType = { statusBarHeight: number }
-
-class App extends React.Component<AppPropsType> {
   render () {
     return (
-      <Wrapper statusBarHeight={this.props.statusBarHeight}>
-        <StatusBar backgroundColor='#fafafa' barStyle='light-content' />
-        <BoxShadow>
-          <Logo source={logo} />
-        </BoxShadow>
-      </Wrapper>
+      <PlatformContext.Provider value={this.platform}>
+        <LayoutContainer>
+          <Text>Text</Text>
+        </LayoutContainer>
+      </PlatformContext.Provider>
     )
   }
 }
 
-const propsMapper = props => ({
-  statusBarHeight: props.platform.statusBarHeight
-})
-
-export default withPlatform(mapProps(propsMapper)(App))
+export default App
