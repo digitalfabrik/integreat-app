@@ -18,7 +18,11 @@ class App extends React.Component<{}> {
     return (
       <PlatformContext.Provider value={this.platform}>
         <LayoutContainer>
-          <Text>Text</Text>
+          <Text>Tedxt</Text>
+          <Text>Tedxt</Text>
+          <Text>Tedxt</Text>
+          <Text>Tedxt</Text>
+          <Text>Tedxt</Text>
         </LayoutContainer>
       </PlatformContext.Provider>
     )

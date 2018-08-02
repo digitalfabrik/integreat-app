@@ -1,5 +1,4 @@
 {
-  "expo": {
-    "sdkVersion": "28.0.0"
-  }
+  "name": "integreatreactnativeapp",
+  "displayName": "Integreat"
 }
