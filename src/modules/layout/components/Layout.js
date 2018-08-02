@@ -33,7 +33,7 @@ class Layout extends React.Component<AppPropsType> {
   render () {
     return (
       <Wrapper statusBarHeight={this.props.statusBarHeight}>
-        <StatusBar backgroundColor='#fafafa' barStyle='light-content' />
+        <StatusBar backgroundColor='#fbda16' barStyle='light-content' />
         <BoxShadow>
           <Logo source={logo} />
         </BoxShadow>
