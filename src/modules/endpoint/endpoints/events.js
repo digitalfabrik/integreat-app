@@ -2,14 +2,70 @@
 
 import moment from 'moment'
 import { apiUrl } from '../constants'
+import { transform } from 'lodash'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
+type JsonEventInfoType = {
+  id: number,
+  start_date: string,
+  end_date: string,
+  all_day: boolean,
+  start_time: string,
+  end_time: string,
+  recurrence_id: ?string
+}
+
+type JsonLocationType = {
+  id: number,
+  name: string,
+  address: string,
+  town: string,
+  state: ?string,
+  postcode: ?string,
+  region: ?string,
+  country: string,
+  latitude: ?string,
+  longitude: ?string
+}
+
+type JsonPathType = {
+  id: number,
+  url: ?string,
+  path: ?string
+}
+
+type JsonLanguageType = {
+  [string]: JsonPathType
+}
+
+type JsonEventType = {
+  id: number,
+  url: string,
+  path: string,
+  title: string,
+  modified_gmt: string,
+  excerpt: string,
+  content: string,
+  parent: JsonPathType,
+  order: number,
+  available_languages: JsonLanguageType,
+  thumbnail: string,
+  event: JsonEventInfoType,
+  location: JsonLocationType,
+  hash: string
+}
+
+type ParamsType = {
+  city: string,
+  language: string
+}
+
 export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
+  .withParamsToUrlMapper((params: ParamsType): string => {
     if (!params.city) {
       throw new ParamMissingError(EVENTS_ENDPOINT_NAME, 'city')
     }
@@ -18,9 +74,13 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   })
-  .withMapper((json: any) => json
+  .withMapper((json: Array<JsonEventType>) => json
     .map(event => {
       const allDay = event.event.all_day !== '0'
+      const languageArray = transform(event.available_languages, (result, value: JsonPathType, key: string) => {
+        result[key] = value.path
+        return result
+      }, [])
       return new EventModel({
         id: event.id,
         title: event.title,
@@ -32,7 +92,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
         endDate: moment(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`),
         allDay: allDay,
         excerpt: event.excerpt,
-        availableLanguages: event.available_languages
+        availableLanguages: new Map(languageArray)
       })
     })
     .filter(event => event.startDate.isValid())
