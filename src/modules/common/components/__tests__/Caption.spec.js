@@ -1,9 +1,11 @@
 import React from 'react'
-import { render, shallow, mount } from 'enzyme'
 import Caption from '../Caption'
+import ShallowRenderer from 'react-test-renderer/shallow'
+// in your test:
+const renderer = new ShallowRenderer()
 
 describe('Caption', () => {
   it('should render', () => {
-    expect(shallow(<Caption title={'Test Title'} />)).toMatchSnapshot()
+    expect(renderer.render(<Caption title={'Test Title'} />)).toMatchSnapshot()
   })
 })
