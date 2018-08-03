@@ -5,6 +5,7 @@ import { Text } from 'react-native-elements'
 import PlatformContext from '../../platform/PlatformContext'
 import Platform from '../../platform/Platform'
 import LayoutContainer from '../../layout/container/LayoutContainer'
+import Navigator from './Navigator'
 
 class App extends React.Component<{}> {
   platform: Platform
@@ -18,7 +19,7 @@ class App extends React.Component<{}> {
     return (
       <PlatformContext.Provider value={this.platform}>
         <LayoutContainer>
-          <Text>Text</Text>
+          <Navigator />
         </LayoutContainer>
       </PlatformContext.Provider>
     )

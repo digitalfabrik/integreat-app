@@ -12,31 +12,17 @@ const Wrapper = styled.View`
   margin-top: ${(props: WrapperPropsType) => props.statusBarHeight};
 `
 
-const Logo = styled.Image`
-  flex:1;
-  width: 150px;
-  resize-mode: contain;
-`
-
-const BoxShadow = styled.View`
-  elevation: 1;
-  background-color: #fafafa;
-  height: 60px;
-`
-
 type AppPropsType = {
   statusBarHeight: number,
-  children: React.Node
+  children?: React.Node
 }
 
 class Layout extends React.Component<AppPropsType> {
   render () {
     return (
       <Wrapper statusBarHeight={this.props.statusBarHeight}>
-        <StatusBar backgroundColor='#fbda16' barStyle='light-content' />
-        <BoxShadow>
-          <Logo source={logo} />
-        </BoxShadow>
+        <StatusBar backgroundColor='#fbda16' barStyle='dark-content' />
+
         {this.props.children}
       </Wrapper>
     )
