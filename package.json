@@ -54,7 +54,6 @@
     "jest-fetch-mock": "^1.6.5",
     "jest-react-native": "^18.0.0",
     "lolex": "^2.7.1",
-    "react-native-mock-render": "^0.0.27",
     "react-navigation": "^2.10.0",
     "react-test-renderer": "^16.4.2"
   }
