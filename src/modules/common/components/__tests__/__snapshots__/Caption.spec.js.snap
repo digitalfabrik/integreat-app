@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Caption should render 1`] = `
+<React.Fragment>
+  <TextElement>
+    'sdf'
+  </TextElement>
+  <TextElement>
+    'sdf'
+  </TextElement>
+  <TextElement>
+    'sdf'
+  </TextElement>
+  <Component>
+    <TextElement>
+      'sdf'
+    </TextElement>
+  </Component>
+</React.Fragment>
+`;
