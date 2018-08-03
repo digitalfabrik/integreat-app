@@ -2,6 +2,9 @@ module.exports = {
   'preset': 'react-native',
   'verbose': true,
   'automock': false,
+  'setupFiles': [
+    '<rootDir>/jest.setup.js'
+  ],
   'transform': {
     '^.+\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js' // https://github.com/facebook/react-native/issues/19859 https://github.com/facebook/react/issues/13182
   },
@@ -21,5 +24,6 @@ module.exports = {
   'collectCoverageFrom': [
     '**/*.{js,jsx}'
   ],
-  'coverageDirectory': '../__coverage__'
+  'coverageDirectory': '../__coverage__',
+  'snapshotSerializers': ['enzyme-to-json/serializer']
 }

@@ -37,6 +37,9 @@
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "babel-preset-react-native": "^5",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^5.1.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^6.0.0",
@@ -54,6 +57,8 @@
     "jest-fetch-mock": "^1.6.5",
     "jest-react-native": "^18.0.0",
     "lolex": "^2.7.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.4.2",
     "react-navigation": "^2.10.0",
     "react-test-renderer": "^16.4.2"
   }
