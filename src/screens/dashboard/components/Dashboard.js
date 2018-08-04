@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Button, Text } from 'react-native-elements'
+import Caption from '../../../modules/common/components/Caption'
 
 class Dashboard extends React.Component<{}> {
   static navigationOptions = {
@@ -11,6 +12,7 @@ class Dashboard extends React.Component<{}> {
   render () {
     return (<React.Fragment>
         <Text>This is the Dashboard</Text>
+        <Caption title={'Captionfgv'} />
         <Button
           title='Go to Categories'
           onPress={this.nav}

@@ -1,7 +1,6 @@
-import * as React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Text } from 'react-native-elements'
-import { View } from 'react-native'
+import { H1 } from './Caption.styles'
 
 // fixme: Caption is connected to redux state because of H1 -> not a plain old component
 
@@ -11,12 +10,9 @@ class Caption extends React.Component {
   }
 
   render () {
-    return <React.Fragment>
-      <Text>'sdf'</Text>
-      <Text>'sdf'</Text>
-      <Text>'sdf'</Text>
-      <View><Text>'sdf'</Text></View>
-    </React.Fragment>
+    return (
+      <H1>{this.props.title}</H1>
+    )
   }
 }
 

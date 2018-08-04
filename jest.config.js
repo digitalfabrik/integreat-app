@@ -6,7 +6,12 @@ module.exports = {
     '<rootDir>/jest.setup.js'
   ],
   'transform': {
-    '^.+\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js' // https://github.com/facebook/react-native/issues/19859 https://github.com/facebook/react/issues/13182
+    // https://github.com/facebook/react-native/issues/19859 https://github.com/facebook/react/issues/13182
+    '^.+\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js'
+  },
+  'moduleNameMapper': {
+    // https://github.com/styled-components/styled-components/issues/1451
+    'styled-components': '<rootDir>/node_modules/styled-components/dist/styled-components.native.cjs.js'
   },
   'transformIgnorePatterns': [
     'node_modules/?!(antd|rc-.+)/'
@@ -24,6 +29,5 @@ module.exports = {
   'collectCoverageFrom': [
     '**/*.{js,jsx}'
   ],
-  'coverageDirectory': '../__coverage__',
-  'snapshotSerializers': ['enzyme-to-json/serializer']
+  'coverageDirectory': '../__coverage__'
 }
