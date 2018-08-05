@@ -62,7 +62,35 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
     />
   }
 >
-  <MockNode />
+  <React.Fragment>
+    <MockNode />
+    <FeedbackModal
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
+      isOpen={false}
+      isPositiveRatingSelected={false}
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+    />
+  </React.Fragment>
 </Layout>
 `;
 
@@ -142,6 +170,34 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
     />
   }
 >
-  <MockNode />
+  <React.Fragment>
+    <MockNode />
+    <FeedbackModal
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
+      isOpen={false}
+      isPositiveRatingSelected={false}
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+    />
+  </React.Fragment>
 </Layout>
 `;

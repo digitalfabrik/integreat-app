@@ -56,7 +56,7 @@ const SubmitButton = styled(CleanLink)`
 `
 
 type PropsType = {
-  cities: Array<CityModel>,
+  cities: ?Array<CityModel>,
   title?: string,
   alias?: string,
   id?: number,
@@ -134,7 +134,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     if (currentPageFeedbackLabel) {
       options.push(this.getFeedbackOption(currentPageFeedbackLabel, this.getCurrentPageFeedbackType()))
     }
-    if (city) {
+    if (city && cities) {
       const cityTitle = CityModel.findCityName(cities, city)
       options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
     }

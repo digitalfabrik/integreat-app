@@ -33,22 +33,6 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
       }
     }
   />
-  <FeedbackModal
-    id={3649}
-    isOpen={false}
-    isPositiveRatingSelected={false}
-    location={
-      Object {
-        "pathname": "/augsburg/de/willkommen",
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
-      }
-    }
-    title="Willkommen"
-  />
 </Toolbar>
 `;
 
@@ -84,22 +68,6 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
         "type": "CATEGORIES",
       }
     }
-  />
-  <FeedbackModal
-    id={0}
-    isOpen={false}
-    isPositiveRatingSelected={false}
-    location={
-      Object {
-        "pathname": "/augsburg/de",
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
-      }
-    }
-    title="augsburg"
   />
 </Toolbar>
 `;
