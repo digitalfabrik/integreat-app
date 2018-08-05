@@ -21,7 +21,6 @@ const FeedbackToolbarItem = styled(FeedbackLink)`
 `
 
 type PropsType = {
-  cities: Array<CityModel>,
   categories: CategoriesMapModel,
   location: LocationState,
   t: TFunction

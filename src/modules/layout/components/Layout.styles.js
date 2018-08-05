@@ -56,7 +56,6 @@ export const Main = styled.main`
 
 export const Aside = withPlatform(styled.aside`
   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
-  z-index: 2;
   display: inline-block;
   width: ${props => props.theme.dimensions.toolbarWidth}px;
   margin-top: 105px;
