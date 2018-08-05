@@ -16,5 +16,10 @@ pipeline {
         sh 'yarn run build:debug'
       }
     }
+    stage('Clean') {
+      steps {
+        cleanWs()
+      }
+    }
   }
 }
