@@ -9,9 +9,7 @@ import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
-import FeedbackModal from '../../feedback/components/FeedbackModal'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import styled from 'styled-components'
 import FeedbackLink from '../../feedback/components/FeedbackLink'
 import type { LocationState } from 'redux-first-router'
@@ -41,8 +39,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, cities, location} = this.props
-    const feedbackType = location.query && location.query.feedback
+    const {t, location} = this.props
     const category = this.props.categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
@@ -51,13 +48,6 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
       <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
       <FeedbackToolbarItem isPositiveRatingLink location={location} />
       <FeedbackToolbarItem isPositiveRatingLink={false} location={location} />
-      <FeedbackModal
-        id={category.id}
-        title={category.title}
-        cities={cities}
-        isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
-        location={location}
-        isOpen={!!feedbackType} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />

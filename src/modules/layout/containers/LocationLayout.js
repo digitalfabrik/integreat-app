@@ -20,8 +20,11 @@ import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import type { LocationState } from 'redux-first-router'
+import { POSITIVE_RATING } from '../../endpoint/FeedbackEndpoint'
+import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
 
-export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE, DISCLAIMER_ROUTE, SEARCH_ROUTE]
+export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
+  DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
 type PropsType = {
   cities: ?Array<CityModel>,
@@ -45,6 +48,33 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
     const city = location.payload.city
 
     return cities && cities.find(_city => _city.code === city)
+  }
+
+  renderFeedbackModal = () => {
+    const {cities, location, categories} = this.props
+    const feedbackType = location.query && location.query.feedback
+    const payload = location.payload
+
+    let id
+    let title
+    if (location.type === CATEGORIES_ROUTE && categories) {
+      const category = categories.findCategoryByPath(location.pathname)
+      if (category) {
+        id = category.id
+        title = category.title
+      }
+    }
+
+    return (
+      <FeedbackModal
+        id={id}
+        title={title}
+        alias={payload.alias}
+        cities={cities}
+        isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
+        location={location}
+        isOpen={!!feedbackType} />
+    )
   }
 
   render () {
@@ -72,7 +102,11 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                                                                   categories={categories}
                                                                                   location={location}
                                                                                   cities={cities} />}>
-        {children}
+
+        <React.Fragment>
+          {children}
+          {this.renderFeedbackModal()}
+        </React.Fragment>
       </Layout>
   }
 }
