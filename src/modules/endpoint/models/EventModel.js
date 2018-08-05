@@ -6,7 +6,7 @@ class EventModel {
   _id: number
   _title: string
   _content: string
-  _thumbnail: string
+  _thumbnail: ?string
   _address: string
   _town: string
   _startDate: moment
@@ -15,7 +15,7 @@ class EventModel {
   _excerpt: string
   _availableLanguages: Map<string, string>
 
-  constructor (obj: {|id: number, title: string, content: string, thumbnail: string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, string>|}) {
+  constructor (obj: {|id: number, title: string, content: string, thumbnail: ?string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, string>|}) {
     this._id = obj.id
     this._title = obj.title
     this._content = obj.content
@@ -37,7 +37,7 @@ class EventModel {
     return this._title
   }
 
-  get thumbnail (): string {
+  get thumbnail (): ?string {
     return this._thumbnail
   }
 

@@ -9,6 +9,7 @@ import { toPairs } from 'lodash/object'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import moment from 'moment'
+import { compose } from 'lodash/fp'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
@@ -31,18 +32,19 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     }
     const city = params.city
     const basePath = `/${city}/${params.language}`
+    const normalize = compose([decodeURIComponent, normalizePath])
     const categories = json
       .map(category => {
         return new CategoryModel({
           id: category.id,
-          path: normalizePath(category.path),
+          path: normalize(category.path),
           title: category.title,
           content: category.content,
           thumbnail: category.thumbnail,
           order: category.order,
-          availableLanguages: new Map(
-            toPairs(category.available_languages).map(([key, value]) => [key, normalizePath(value.path)])),
-          parentPath: normalizePath(category.parent.path || basePath),
+          availableLanguages: new Map(toPairs(category.available_languages)
+            .map(([key, value]) => [key, normalize(value.path)])),
+          parentPath: normalize(category.parent.path || basePath),
           lastUpdate: moment(category.modified_gmt)
         })
       })

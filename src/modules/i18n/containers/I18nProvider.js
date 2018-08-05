@@ -13,7 +13,8 @@ import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 
 const RTL_LANGUAGES = ['ar', 'fa']
-const FALLBACK_LANGUAGE = 'en'
+const FALLBACK_LANGUAGES = ['en', 'de']
+const DEFAULT_LANGUAGE = 'en'
 
 type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
@@ -39,7 +40,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
       .use(LanguageDetector)
       .init({
         resources: i18nextResources,
-        fallbackLng: FALLBACK_LANGUAGE,
+        fallbackLng: FALLBACK_LANGUAGES,
         load: 'languageOnly',
         /* eslint-disable no-undef */
         // $FlowFixMe
@@ -47,7 +48,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
         /* eslint-enable no-undef */
       })
 
-    this.state = { language: FALLBACK_LANGUAGE, fonts: I18nProvider.getSelectedFonts(FALLBACK_LANGUAGE) }
+    this.state = { language: DEFAULT_LANGUAGE, fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE) }
   }
 
   /**
