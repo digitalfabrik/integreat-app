@@ -35,20 +35,6 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
           },
         }
       }
-      cities={
-        Array [
-          CityModel {
-            "_code": "city1",
-            "_eventsEnabled": undefined,
-            "_extrasEnabled": undefined,
-            "_live": undefined,
-            "_name": "Mambo No. 5",
-            "_sortingName": undefined,
-          },
-        ]
-      }
-      city="city1"
-      language="de"
       location={
         Object {
           "pathname": "/augsburg/de/willkommen",
@@ -143,20 +129,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
           },
         }
       }
-      cities={
-        Array [
-          CityModel {
-            "_code": "city1",
-            "_eventsEnabled": undefined,
-            "_extrasEnabled": undefined,
-            "_live": undefined,
-            "_name": "Mambo No. 5",
-            "_sortingName": undefined,
-          },
-        ]
-      }
-      city="city1"
-      language="de"
       location={
         Object {
           "pathname": "/augsburg/de/willkommen",
