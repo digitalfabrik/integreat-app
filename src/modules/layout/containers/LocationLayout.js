@@ -97,11 +97,8 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                            isExtrasEnabled={cityModel.extrasEnabled}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
                    footer={<LocationFooter city={city} language={language} />}
-                   toolbar={showCategoriesToolbar && cities && <CategoriesToolbar city={city}
-                                                                                  language={language}
-                                                                                  categories={categories}
-                                                                                  location={location}
-                                                                                  cities={cities} />}>
+                   toolbar={showCategoriesToolbar && cities && <CategoriesToolbar categories={categories}
+                                                                                  location={location} />}>
 
         <React.Fragment>
           {children}
