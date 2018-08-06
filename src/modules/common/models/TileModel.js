@@ -44,7 +44,7 @@ export default class TileModel {
     return this._isExternalUrl
   }
 
-  get postData (): ?{} {
+  get postData (): ?Map<string, string> {
     return this._postData
   }
 }

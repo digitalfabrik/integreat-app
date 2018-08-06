@@ -33,13 +33,22 @@ class Tile extends React.Component<PropsType> {
 
   getTile (): React.Node {
     const tile = this.props.tile
-    return tile.isExternalUrl
-      ? <a href={this.props.tile.path} target='_blank'>
-        {this.getTileContent()}
-      </a>
-      : <Link to={this.props.tile.path}>
+    if (!tile.isExternalUrl) {
+      return <Link to={tile.path}>
         {this.getTileContent()}
       </Link>
+    } else if (!tile.postData) {
+      return <a href={tile.path} target='_blank'>
+        {this.getTileContent()}
+      </a>
+    } else {
+      const inputs = []
+      tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
+      return <form method='POST' action={tile.path} target='_blank'>
+        {inputs}
+        <button type='submit'>{this.getTileContent()}</button>
+      </form>
+    }
   }
 
   render () {
