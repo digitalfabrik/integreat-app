@@ -9,13 +9,12 @@ import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 const Overlay = styled(CleanLink)`
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background-color: ${props => props.theme.colors.textSecondaryColor};
-  z-index: 3;
   opacity: 0.9;
 `
 
@@ -25,6 +24,7 @@ const ModalContainer = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 2;
   display: ${props => props.isOpen ? 'flex' : 'none'};
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@ const ModalContainer = styled.div`
 
 const FeedbackContainer = styled.div`
   position: relative;
-  z-index: 4;
+  z-index: 3;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
   
