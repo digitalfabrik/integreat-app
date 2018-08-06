@@ -9,15 +9,8 @@ import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
-import styled from 'styled-components'
 import FeedbackLink from '../../feedback/components/FeedbackLink'
 import type { LocationState } from 'redux-first-router'
-
-const FeedbackToolbarItem = styled(FeedbackLink)`
-  display: inline-block;
-  margin: 0 10px;
-  padding: 8px;
-`
 
 type PropsType = {
   categories: CategoriesMapModel,
@@ -44,8 +37,8 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     }
     return <Toolbar>
       <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
-      <FeedbackToolbarItem isPositiveRatingLink location={location} />
-      <FeedbackToolbarItem isPositiveRatingLink={false} location={location} />
+      <FeedbackLink isPositiveRatingLink location={location} />
+      <FeedbackLink isPositiveRatingLink={false} location={location} />
       {/* todo: Add these functionalities:
               <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
               <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
