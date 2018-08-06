@@ -17,7 +17,7 @@ type PropsType = {
   isPositiveRatingLink: boolean,
   t: TFunction,
   location: LocationState,
-  className: ?string
+  className?: string
 }
 
 export class FeedbackLink extends React.PureComponent<PropsType> {
