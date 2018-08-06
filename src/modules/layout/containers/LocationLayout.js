@@ -92,19 +92,18 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       </Layout>
     }
 
-    return <Layout asideStickyTop={this.state.asideStickyTop}
-                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                           isExtrasEnabled={cityModel.extrasEnabled}
-                                           onStickyTopChanged={this.onStickyTopChanged} />}
-                   footer={<LocationFooter city={city} language={language} />}
-                   toolbar={showCategoriesToolbar && cities && <CategoriesToolbar categories={categories}
-                                                                                  location={location} />}>
-
-        <React.Fragment>
-          {children}
-          {this.renderFeedbackModal()}
-        </React.Fragment>
+    return (
+      <Layout asideStickyTop={this.state.asideStickyTop}
+              header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
+                                      isExtrasEnabled={cityModel.extrasEnabled}
+                                      onStickyTopChanged={this.onStickyTopChanged} />}
+              footer={<LocationFooter city={city} language={language} />}
+              toolbar={showCategoriesToolbar && cities && <CategoriesToolbar categories={categories}
+                                                                             location={location} />}
+              modal={this.renderFeedbackModal()}>
+        {children}
       </Layout>
+    )
   }
 }
 

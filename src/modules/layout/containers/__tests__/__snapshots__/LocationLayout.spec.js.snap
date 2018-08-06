@@ -16,6 +16,37 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
       onStickyTopChanged={[Function]}
     />
   }
+  modal={
+    <FeedbackModal
+      alias={undefined}
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
+      id={undefined}
+      isOpen={false}
+      isPositiveRatingSelected={false}
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+      title={undefined}
+    />
+  }
   toolbar={
     <Translate(CategoriesToolbar)
       categories={
@@ -48,35 +79,7 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
     />
   }
 >
-  <React.Fragment>
-    <MockNode />
-    <FeedbackModal
-      cities={
-        Array [
-          CityModel {
-            "_code": "city1",
-            "_eventsEnabled": undefined,
-            "_extrasEnabled": undefined,
-            "_live": undefined,
-            "_name": "Mambo No. 5",
-            "_sortingName": undefined,
-          },
-        ]
-      }
-      isOpen={false}
-      isPositiveRatingSelected={false}
-      location={
-        Object {
-          "pathname": "/augsburg/de/willkommen",
-          "payload": Object {
-            "city": "city1",
-            "language": "de",
-          },
-          "type": "CATEGORIES",
-        }
-      }
-    />
-  </React.Fragment>
+  <MockNode />
 </Layout>
 `;
 
@@ -110,6 +113,37 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
       onStickyTopChanged={[Function]}
     />
   }
+  modal={
+    <FeedbackModal
+      alias={undefined}
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
+      id={undefined}
+      isOpen={false}
+      isPositiveRatingSelected={false}
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+      title={undefined}
+    />
+  }
   toolbar={
     <Translate(CategoriesToolbar)
       categories={
@@ -142,34 +176,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
     />
   }
 >
-  <React.Fragment>
-    <MockNode />
-    <FeedbackModal
-      cities={
-        Array [
-          CityModel {
-            "_code": "city1",
-            "_eventsEnabled": undefined,
-            "_extrasEnabled": undefined,
-            "_live": undefined,
-            "_name": "Mambo No. 5",
-            "_sortingName": undefined,
-          },
-        ]
-      }
-      isOpen={false}
-      isPositiveRatingSelected={false}
-      location={
-        Object {
-          "pathname": "/augsburg/de/willkommen",
-          "payload": Object {
-            "city": "city1",
-            "language": "de",
-          },
-          "type": "CATEGORIES",
-        }
-      }
-    />
-  </React.Fragment>
+  <MockNode />
 </Layout>
 `;
