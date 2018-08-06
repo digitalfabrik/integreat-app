@@ -7,7 +7,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
     name="file-pdf-o"
     text="createPdf"
   />
-  <CategoriesToolbar__FeedbackToolbarItem
+  <Translate(FeedbackLink)
     isPositiveRatingLink={true}
     location={
       Object {
@@ -20,7 +20,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
       }
     }
   />
-  <CategoriesToolbar__FeedbackToolbarItem
+  <Translate(FeedbackLink)
     isPositiveRatingLink={false}
     location={
       Object {
@@ -43,7 +43,7 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
     name="file-pdf-o"
     text="createPdf"
   />
-  <CategoriesToolbar__FeedbackToolbarItem
+  <Translate(FeedbackLink)
     isPositiveRatingLink={true}
     location={
       Object {
@@ -56,7 +56,7 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
       }
     }
   />
-  <CategoriesToolbar__FeedbackToolbarItem
+  <Translate(FeedbackLink)
     isPositiveRatingLink={false}
     location={
       Object {
