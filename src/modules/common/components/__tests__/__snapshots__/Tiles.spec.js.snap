@@ -12,10 +12,10 @@ exports[`Tiles should match snapshot 1`] = `
       key="35"
       tile={
         TileModel {
-          "_id": 35,
+          "_id": "35",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-          "_postData": undefined,
+          "_postData": null,
           "_thumbnail": "some-thumnail.jpg",
           "_title": "Willkommen in Augsburg",
         }
@@ -25,10 +25,10 @@ exports[`Tiles should match snapshot 1`] = `
       key="36"
       tile={
         TileModel {
-          "_id": 36,
+          "_id": "36",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen/erste-schritte",
-          "_postData": undefined,
+          "_postData": null,
           "_thumbnail": "some-other-thumbnail.jpg",
           "_title": "Erste Schritte",
         }
