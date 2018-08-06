@@ -10,7 +10,7 @@ const EXTRAS_ENDPOINT_NAME = 'extras'
 
 const createPostMap = (jsonPost: any): Map<string, string> => {
   const map = new Map()
-  jsonPost.keys().forEach(key => map.set(key, jsonPost[key]))
+  Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
   return map
 }
 
