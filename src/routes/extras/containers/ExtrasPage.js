@@ -48,7 +48,8 @@ export class ExtrasPage extends React.Component<PropsType> {
           path: path,
           thumbnail: extra.thumbnail,
           // every extra except from the sprungbrett extra is just a link to an external site
-          isExternalUrl: path === extra.path
+          isExternalUrl: path === extra.path,
+          postData: extra.postData
         })
       }
     )
