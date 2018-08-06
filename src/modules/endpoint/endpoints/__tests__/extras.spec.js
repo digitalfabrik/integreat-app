@@ -18,20 +18,43 @@ describe('extras', () => {
       url: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
       post: null,
       thumbnail: 'some_other_thumbnail'
-    }]
+    },
+    {
+      alias: 'lehrstellen-radar',
+      name: 'Lehrstellenradar',
+      url: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
+      thumbnail: 'some_other_thumbnail',
+      post: {partner: '0006', radius: '50', plz: '86150'}
+    }
+  ]
+
+  const lehrstellenRadarPostData = new Map()
+  lehrstellenRadarPostData.set('partner', '0006')
+  lehrstellenRadarPostData.set('radius', '50')
+  lehrstellenRadarPostData.set('plz', '86150')
 
   const extraModels = [
     new ExtraModel({
       alias: 'serlo-abc',
       thumbnail: 'some_thumbnail',
       title: 'Serlo ABC',
-      path: 'https://abc-app.serlo.org/'
+      path: 'https://abc-app.serlo.org/',
+      postData: null
     }),
     new ExtraModel({
       alias: 'sprungbrett',
       thumbnail: 'some_other_thumbnail',
       title: 'Sprungbrett',
-      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg'})
+      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
+      postData: null
+    }),
+    new ExtraModel({
+      alias: 'lehrstellen-radar',
+      thumbnail: 'some_other_thumbnail',
+      title: 'Lehrstellenradar',
+      path: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
+      postData: lehrstellenRadarPostData
+    })
   ]
 
   const params = {city: 'bad-toelz', language: 'en'}
