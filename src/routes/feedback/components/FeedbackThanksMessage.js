@@ -12,7 +12,7 @@ type PropsType = {
   t: TFunction
 }
 
-class FeedbackThanksMessage extends React.Component<PropsType> {
+export class FeedbackThanksMessage extends React.Component<PropsType> {
   render () {
     const {location, t} = this.props
     return (

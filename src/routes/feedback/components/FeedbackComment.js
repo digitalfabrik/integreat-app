@@ -11,7 +11,7 @@ const CommentField = styled.textarea`
 
 type PropsType = {
   comment: string,
-  commentMessageOverride: ?string,
+  commentMessageOverride?: string,
   isPositiveRatingSelected: boolean,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   t: TFunction

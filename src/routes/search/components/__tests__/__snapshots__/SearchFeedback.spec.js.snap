@@ -14,7 +14,7 @@ exports[`SearchFeedback should render a FeedbackBox if no results are found 1`] 
           "_extrasEnabled": false,
           "_live": true,
           "_name": "Augsburg",
-          "_sortingName": undefined,
+          "_sortingName": "Augsburg",
         },
       ]
     }
@@ -68,7 +68,7 @@ exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if resu
           "_extrasEnabled": false,
           "_live": true,
           "_name": "Augsburg",
-          "_sortingName": undefined,
+          "_sortingName": "Augsburg",
         },
       ]
     }
@@ -102,7 +102,7 @@ exports[`SearchFeedback should render only a FeedbackModal if results are found 
           "_extrasEnabled": false,
           "_live": true,
           "_name": "Augsburg",
-          "_sortingName": undefined,
+          "_sortingName": "Augsburg",
         },
       ]
     }
