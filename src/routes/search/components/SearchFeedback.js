@@ -1,12 +1,11 @@
 // @flow
 
 import * as React from 'react'
-import type { Node } from 'react'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import FeedbackBox from '../../feedback/components/FeedbackBox'
-import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import { NEGATIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
@@ -40,7 +39,7 @@ type PropsType = {
 }
 
 export class SearchFeedback extends React.Component<PropsType> {
-  renderFeedbackModal (): Node {
+  renderFeedbackModal (): React.Node {
     const {t, cities, location, query} = this.props
     const feedbackType = location.query && location.query.feedback
 
@@ -57,14 +56,14 @@ export class SearchFeedback extends React.Component<PropsType> {
           query={query}
           cities={cities}
           location={location}
-          isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
+          feedbackType={feedbackType}
           isOpen={!!feedbackType}
           commentMessageOverride={t('wantedInformation')} />
       </React.Fragment>
     )
   }
 
-  renderFeedbackBox (): Node {
+  renderFeedbackBox (): React.Node {
     const {t, cities, location, query} = this.props
     const feedbackType = location.query && location.query.feedback
 

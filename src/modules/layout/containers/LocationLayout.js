@@ -20,7 +20,6 @@ import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import type { LocationState } from 'redux-first-router'
-import { POSITIVE_RATING } from '../../endpoint/FeedbackEndpoint'
 import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
@@ -50,7 +49,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
     return cities && cities.find(_city => _city.code === city)
   }
 
-  renderFeedbackModal = () => {
+  renderFeedbackModal = (): React.Node => {
     const {cities, location, categories} = this.props
     const feedbackType = location.query && location.query.feedback
     const payload = location.payload
@@ -71,7 +70,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
         title={title}
         alias={payload.alias}
         cities={cities}
-        isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
+        feedbackType={feedbackType}
         location={location}
         isOpen={!!feedbackType} />
     )

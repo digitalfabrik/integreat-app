@@ -2,7 +2,7 @@
 
 exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
 <FeedbackBox__StyledFeedbackBox>
-  <Translate(FeedbackHeader)
+  <Translate(ModalHeader)
     feedbackOptions={
       Array [
         FeedbackDropdownItem {
