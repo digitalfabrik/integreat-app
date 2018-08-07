@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedbackHeader should match snapshot 1`] = `
+exports[`ModalHeader should match snapshot 1`] = `
 <React.Fragment>
   <FeedbackHeader__Header>
     <FeedbackHeader__Title>

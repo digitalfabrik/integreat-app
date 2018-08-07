@@ -2,10 +2,10 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { CATEGORIES_FEEDBACK_TYPE, PAGE_FEEDBACK_TYPE } from '../../../../modules/endpoint/FeedbackEndpoint'
-import { FeedbackHeader } from '../FeedbackHeader'
+import { ModalHeader } from '../ModalHeader'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 
-describe('FeedbackHeader', () => {
+describe('ModalHeader', () => {
   it('should match snapshot', () => {
     const feedbackOptions = [
       {value: 'Inhalte von Willkommen', label: 'Inhalte von Willkommen', feedbackType: PAGE_FEEDBACK_TYPE},
@@ -16,7 +16,7 @@ describe('FeedbackHeader', () => {
     const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
 
     const component = shallow(
-      <FeedbackHeader
+      <ModalHeader
         location={location}
         feedbackOptions={feedbackOptions}
         selectedFeedbackOption={feedbackOptions[0]}

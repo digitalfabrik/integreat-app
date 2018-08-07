@@ -23,13 +23,15 @@ import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
 import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
-import FeedbackHeader from './FeedbackHeader'
+import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
+import Dropdown from 'react-dropdown'
+import { FEEDBACK_SENT } from './FeedbackModal'
 
-const StyledFeedbackBox = styled.div`
+export const StyledFeedbackBox = styled.div`
   display: flex;
   width: 400px;
   height: auto;
@@ -183,18 +185,23 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     return (
       <StyledFeedbackBox>
         {!hideHeader && (
-          <FeedbackHeader
-            location={location}
-            selectedFeedbackOption={selectedFeedbackOption}
-            feedbackOptions={feedbackOptions}
-            onFeedbackOptionChanged={this.onFeedbackOptionChanged} />
+          <React.Fragment>
+            <ModalHeader
+              location={location}
+              title={t('feedback')} />
+            <Description>{t('feedbackType')}</Description>
+            <Dropdown
+              value={selectedFeedbackOption}
+              options={feedbackOptions}
+              onChange={this.onFeedbackOptionChanged} />
+          </React.Fragment>
         )}
         <FeedbackComment
           comment={comment}
           commentMessageOverride={commentMessageOverride}
           isPositiveRatingSelected={isPositiveRatingSelected}
           onCommentChanged={this.onCommentChanged} />
-        <SubmitButton to={goToFeedback(location)} onClick={this.onSubmit}>
+        <SubmitButton to={goToFeedback(location, FEEDBACK_SENT)} onClick={this.onSubmit}>
           {t('send')}
         </SubmitButton>
       </StyledFeedbackBox>

@@ -1,12 +1,14 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import FeedbackBox from './FeedbackBox'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
+import FeedbackThanksMessage from './FeedbackThanksMessage'
+import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 
 const Overlay = styled(CleanLink)`
   position: absolute;
@@ -43,19 +45,33 @@ const FeedbackContainer = styled.div`
   }
 `
 
+export const FEEDBACK_SENT = 'sent'
+
 type PropsType = {
   cities: ?Array<CityModel>,
   title?: string,
   id?: number,
   alias?: string,
   query?: string,
-  isPositiveRatingSelected: boolean,
+  feedbackType: string,
   location: LocationState,
   isOpen: boolean,
   commentMessageOverride?: string
 }
 
 class FeedbackModal extends React.Component<PropsType> {
+  renderModalContent = (): React.Node => {
+    const {feedbackType} = this.props
+
+    if (feedbackType === FEEDBACK_SENT) {
+      return <FeedbackThanksMessage location={location} />
+    } else if (feedbackType === POSITIVE_RATING || feedbackType === NEGATIVE_RATING) {
+      return <FeedbackBox isPositiveRatingSelected={feedbackType === POSITIVE_RATING} {...this.props} />
+    } else {
+      return null
+    }
+  }
+
   render () {
     const {location, isOpen} = this.props
     return (
@@ -63,7 +79,7 @@ class FeedbackModal extends React.Component<PropsType> {
         <ModalContainer isOpen={isOpen}>
           <Overlay to={goToFeedback(location)} />
           <FeedbackContainer>
-            <FeedbackBox {...this.props} />
+            {this.renderModalContent()}
           </FeedbackContainer>
         </ModalContainer>
       </div>
