@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -17,7 +19,7 @@ describe('FeedbackModal', () => {
       })
     ]
 
-    const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
 
     expect(shallow(
     <FeedbackModal
@@ -27,8 +29,7 @@ describe('FeedbackModal', () => {
       id={1234}
       title={'title'}
       alias='alias'
-      isPositiveRatingSelected
-      isOpen
+      feedbackType={'up'}
       commentMessageOverride='wantedInformation' />
     )).toMatchSnapshot()
   })

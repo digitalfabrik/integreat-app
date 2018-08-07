@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
@@ -16,13 +18,12 @@ describe('SearchFeedback', () => {
   ]
 
   const t = key => key
-  const location = {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+  const location = {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
 
   it('should render a FeedbackBox if no results are found', () => {
     expect(shallow(
       <SearchFeedback
         cities={cities}
-        route={SEARCH_ROUTE}
         location={location}
         query={'abc'}
         resultsFound={false}
@@ -34,7 +35,6 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         cities={cities}
-        route={SEARCH_ROUTE}
         location={location}
         query={'ab'}
         resultsFound
@@ -46,7 +46,6 @@ describe('SearchFeedback', () => {
     expect(shallow(
       <SearchFeedback
         cities={cities}
-        route={SEARCH_ROUTE}
         location={location}
         query={''}
         resultsFound

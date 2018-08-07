@@ -33,14 +33,17 @@ exports[`FeedbackModal should match snapshot 1`] = `
           ]
         }
         commentMessageOverride="wantedInformation"
+        feedbackType="up"
         id={1234}
-        isOpen={true}
         isPositiveRatingSelected={true}
         location={
           Object {
             "payload": Object {
               "city": "augsburg",
               "language": "de",
+            },
+            "query": Object {
+              "feedback": "up",
             },
             "type": "CATEGORIES",
           }

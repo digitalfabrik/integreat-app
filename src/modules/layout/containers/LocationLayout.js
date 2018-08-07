@@ -71,8 +71,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
         alias={payload.alias}
         cities={cities}
         feedbackType={feedbackType}
-        location={location}
-        isOpen={!!feedbackType} />
+        location={location} />
     )
   }
 

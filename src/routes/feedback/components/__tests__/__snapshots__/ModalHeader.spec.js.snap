@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalHeader should match snapshot 1`] = `
+<ModalHeader__Header>
+  <ModalHeader__Title>
+    title
+  </ModalHeader__Title>
+  <ModalHeader__CloseButton
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": undefined,
+        "type": "CATEGORIES",
+      }
+    }
+  >
+    x
+  </ModalHeader__CloseButton>
+</ModalHeader__Header>
+`;

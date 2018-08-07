@@ -57,7 +57,6 @@ export class SearchFeedback extends React.Component<PropsType> {
           cities={cities}
           location={location}
           feedbackType={feedbackType}
-          isOpen={!!feedbackType}
           commentMessageOverride={t('wantedInformation')} />
       </React.Fragment>
     )

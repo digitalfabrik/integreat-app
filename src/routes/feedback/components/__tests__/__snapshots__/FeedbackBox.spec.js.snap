@@ -2,39 +2,48 @@
 
 exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
 <FeedbackBox__StyledFeedbackBox>
-  <Translate(ModalHeader)
-    feedbackOptions={
-      Array [
+  <React.Fragment>
+    <ModalHeader
+      location={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+      title="feedback"
+    />
+    <FeedbackBox__Description>
+      feedbackType
+    </FeedbackBox__Description>
+    <Dropdown
+      baseClassName="Dropdown"
+      onChange={[Function]}
+      options={
+        Array [
+          FeedbackDropdownItem {
+            "feedbackType": "categories",
+            "label": "contentOfCity Augsburg",
+            "value": "contentOfCity Augsburg",
+          },
+          FeedbackDropdownItem {
+            "feedbackType": "categories",
+            "label": "technicalTopic",
+            "value": "technicalTopic",
+          },
+        ]
+      }
+      value={
         FeedbackDropdownItem {
           "feedbackType": "categories",
           "label": "contentOfCity Augsburg",
           "value": "contentOfCity Augsburg",
-        },
-        FeedbackDropdownItem {
-          "feedbackType": "categories",
-          "label": "technicalTopic",
-          "value": "technicalTopic",
-        },
-      ]
-    }
-    location={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
+        }
       }
-    }
-    onFeedbackOptionChanged={[Function]}
-    selectedFeedbackOption={
-      FeedbackDropdownItem {
-        "feedbackType": "categories",
-        "label": "contentOfCity Augsburg",
-        "value": "contentOfCity Augsburg",
-      }
-    }
-  />
+    />
+  </React.Fragment>
   <Translate(FeedbackComment)
     comment=""
     isPositiveRatingSelected={false}
@@ -48,7 +57,9 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
           "city": "augsburg",
           "language": "de",
         },
-        "query": undefined,
+        "query": Object {
+          "feedback": "sent",
+        },
         "type": "CATEGORIES",
       }
     }
@@ -73,7 +84,9 @@ exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
           "city": "augsburg",
           "language": "de",
         },
-        "query": undefined,
+        "query": Object {
+          "feedback": "sent",
+        },
         "type": "CATEGORIES",
       }
     }
