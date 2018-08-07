@@ -3,14 +3,13 @@
 import React from 'react'
 import { translate } from 'react-i18next'
 
-import Toolbar from '../../../modules/layout/components/Toolbar'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { TFunction } from 'react-i18next'
-import FeedbackLink from '../../feedback/components/FeedbackLink'
 import type { LocationState } from 'redux-first-router'
+import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 
 type PropsType = {
   categories: CategoriesMapModel,
@@ -30,20 +29,16 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, location} = this.props
-    const category = this.props.categories.findCategoryByPath(location.pathname)
+    const {t, location, categories} = this.props
+    const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
     }
-    return <Toolbar>
-      <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
-      <FeedbackLink isPositiveRatingLink location={location} />
-      <FeedbackLink isPositiveRatingLink={false} location={location} />
-      {/* todo: Add these functionalities:
-              <ToolbarItem name='bookmark-o' text='Merken'href={this.getPdfFetchPath()} />
-              <ToolbarItem name='share' text='Teilen' href={this.getPdfFetchPath()} />
-              <ToolbarItem name='audio-description' text='Sprachausgabe' href={this.getPdfFetchPath()} /> */}
-    </Toolbar>
+    return (
+      <LocationToolbar location={location}>
+        <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
+      </LocationToolbar>
+    )
   }
 }
 

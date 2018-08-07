@@ -41,7 +41,7 @@ type PropsType = {
 export class SearchFeedback extends React.Component<PropsType> {
   renderFeedbackModal (): React.Node {
     const {t, cities, location, query} = this.props
-    const feedbackType = location.query && location.query.feedback
+    const feedbackStatus = location.query && location.query.feedback
 
     return (
       <React.Fragment>
@@ -56,7 +56,7 @@ export class SearchFeedback extends React.Component<PropsType> {
           query={query}
           cities={cities}
           location={location}
-          feedbackType={feedbackType}
+          feedbackStatus={feedbackStatus}
           commentMessageOverride={t('wantedInformation')} />
       </React.Fragment>
     )
@@ -64,7 +64,7 @@ export class SearchFeedback extends React.Component<PropsType> {
 
   renderFeedbackBox (): React.Node {
     const {t, cities, location, query} = this.props
-    const feedbackType = location.query && location.query.feedback
+    const feedbackStatus = location.query && location.query.feedback
 
     return (
       <FeedbackContainer>
@@ -74,7 +74,7 @@ export class SearchFeedback extends React.Component<PropsType> {
           cities={cities}
           location={location}
           isPositiveRatingSelected={false}
-          isOpen={!!feedbackType}
+          isOpen={!!feedbackStatus}
           commentMessageOverride={t('wantedInformation')}
           hideHeader />
       </FeedbackContainer>
