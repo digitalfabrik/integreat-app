@@ -5,6 +5,18 @@ exports[`FeedbackModal should match snapshot 1`] = `
   <FeedbackModal__ModalContainer
     isOpen={true}
   >
+    <FeedbackModal__Overlay
+      to={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "query": undefined,
+          "type": "CATEGORIES",
+        }
+      }
+    />
     <FeedbackModal__FeedbackContainer>
       <Translate(FeedbackBox)
         alias="alias"
@@ -37,18 +49,6 @@ exports[`FeedbackModal should match snapshot 1`] = `
         title="title"
       />
     </FeedbackModal__FeedbackContainer>
-    <FeedbackModal__Overlay
-      to={
-        Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "query": undefined,
-          "type": "CATEGORIES",
-        }
-      }
-    />
   </FeedbackModal__ModalContainer>
 </div>
 `;
