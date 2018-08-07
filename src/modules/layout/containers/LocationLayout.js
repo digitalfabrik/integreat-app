@@ -21,6 +21,7 @@ import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
+import LocationToolbar from '../components/LocationToolbar'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
@@ -51,7 +52,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
 
   renderFeedbackModal = (): React.Node => {
     const {cities, location, categories} = this.props
-    const feedbackType = location.query && location.query.feedback
+    const feedbackStatus = location.query && location.query.feedback
     const payload = location.payload
 
     let id
@@ -70,18 +71,31 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
         title={title}
         alias={payload.alias}
         cities={cities}
-        feedbackType={feedbackType}
+        feedbackStatus={feedbackStatus}
         location={location} />
     )
   }
 
+  renderToolbar = (): React.Node => {
+    const {location, categories} = this.props
+    const type = location.type
+
+    if (type === CATEGORIES_ROUTE) {
+      return <CategoriesToolbar categories={categories}
+                                location={location} />
+    } else if (type === EXTRAS_ROUTE || type === EVENTS_ROUTE || type === DISCLAIMER_ROUTE) {
+      return <LocationToolbar location={location} />
+    } else {
+      return null
+    }
+  }
+
   render () {
-    const {viewportSmall, children, categories, cities, location} = this.props
+    const {viewportSmall, children, location} = this.props
     const type = location.type
     const {city, language} = location.payload
 
     const cityModel = this.getCurrentCity()
-    const showCategoriesToolbar = type === CATEGORIES_ROUTE && categories
 
     if (!cityModel) {
       return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
@@ -96,8 +110,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                       isExtrasEnabled={cityModel.extrasEnabled}
                                       onStickyTopChanged={this.onStickyTopChanged} />}
               footer={<LocationFooter city={city} language={language} />}
-              toolbar={showCategoriesToolbar && cities && <CategoriesToolbar categories={categories}
-                                                                             location={location} />}
+              toolbar={this.renderToolbar()}
               modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
         {children}
       </Layout>
