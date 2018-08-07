@@ -20,13 +20,16 @@ exports[`SearchFeedback should render a FeedbackBox if no results are found 1`] 
     }
     commentMessageOverride="wantedInformation"
     hideHeader={true}
-    isOpen={false}
+    isOpen={true}
     isPositiveRatingSelected={false}
     location={
       Object {
         "payload": Object {
           "city": "augsburg",
           "language": "de",
+        },
+        "query": Object {
+          "feedback": "up",
         },
         "type": "SEARCH",
       }
@@ -70,13 +73,15 @@ exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if resu
       ]
     }
     commentMessageOverride="wantedInformation"
-    isOpen={false}
-    isPositiveRatingSelected={false}
+    feedbackType="up"
     location={
       Object {
         "payload": Object {
           "city": "augsburg",
           "language": "de",
+        },
+        "query": Object {
+          "feedback": "up",
         },
         "type": "SEARCH",
       }
@@ -102,13 +107,15 @@ exports[`SearchFeedback should render only a FeedbackModal if results are found 
       ]
     }
     commentMessageOverride="wantedInformation"
-    isOpen={false}
-    isPositiveRatingSelected={false}
+    feedbackType="up"
     location={
       Object {
         "payload": Object {
           "city": "augsburg",
           "language": "de",
+        },
+        "query": Object {
+          "feedback": "up",
         },
         "type": "SEARCH",
       }
