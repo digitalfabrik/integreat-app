@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchFeedback should render a FeedbackBox if no results are found 1`] = `
+<SearchFeedback__FeedbackContainer>
+  <div>
+    nothingFound
+  </div>
+  <Translate(FeedbackBox)
+    cities={
+      Array [
+        CityModel {
+          "_code": "augsburg",
+          "_eventsEnabled": true,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "Augsburg",
+          "_sortingName": undefined,
+        },
+      ]
+    }
+    commentMessageOverride="wantedInformation"
+    hideHeader={true}
+    isOpen={false}
+    isPositiveRatingSelected={false}
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "SEARCH",
+      }
+    }
+    query="abc"
+  />
+</SearchFeedback__FeedbackContainer>
+`;
+
+exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if results are found and the query is not empty 1`] = `
+<React.Fragment>
+  <SearchFeedback__FeedbackButton>
+    <SearchFeedback__FeedbackLink
+      to={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "query": Object {
+            "feedback": "down",
+          },
+          "type": "SEARCH",
+        }
+      }
+    >
+      informationNotFound
+    </SearchFeedback__FeedbackLink>
+  </SearchFeedback__FeedbackButton>
+  <FeedbackModal
+    cities={
+      Array [
+        CityModel {
+          "_code": "augsburg",
+          "_eventsEnabled": true,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "Augsburg",
+          "_sortingName": undefined,
+        },
+      ]
+    }
+    commentMessageOverride="wantedInformation"
+    isOpen={false}
+    isPositiveRatingSelected={false}
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "SEARCH",
+      }
+    }
+    query="ab"
+  />
+</React.Fragment>
+`;
+
+exports[`SearchFeedback should render only a FeedbackModal if results are found and the query is empty 1`] = `
+<React.Fragment>
+  <FeedbackModal
+    cities={
+      Array [
+        CityModel {
+          "_code": "augsburg",
+          "_eventsEnabled": true,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "Augsburg",
+          "_sortingName": undefined,
+        },
+      ]
+    }
+    commentMessageOverride="wantedInformation"
+    isOpen={false}
+    isPositiveRatingSelected={false}
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "SEARCH",
+      }
+    }
+    query=""
+  />
+</React.Fragment>
+`;

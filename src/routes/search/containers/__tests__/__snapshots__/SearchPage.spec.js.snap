@@ -73,5 +73,30 @@ exports[`SearchPage should match snapshot 1`] = `
     }
     query=""
   />
+  <Translate(SearchFeedback)
+    cities={
+      Array [
+        CityModel {
+          "_code": "augsburg",
+          "_eventsEnabled": true,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "Augsburg",
+          "_sortingName": undefined,
+        },
+      ]
+    }
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "SEARCH",
+      }
+    }
+    query=""
+    resultsFound={true}
+  />
 </div>
 `;

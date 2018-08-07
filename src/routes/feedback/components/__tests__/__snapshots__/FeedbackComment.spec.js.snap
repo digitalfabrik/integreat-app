@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackComment should render a comment with negative feedback description 1`] = `
+<React.Fragment>
+  <FeedbackBox__Description>
+    negativeComment
+  </FeedbackBox__Description>
+  <FeedbackComment__CommentField
+    rows={3}
+    value="Nice app!"
+  />
+</React.Fragment>
+`;
+
+exports[`FeedbackComment should render a comment with positive feedback description 1`] = `
+<React.Fragment>
+  <FeedbackBox__Description>
+    positiveComment
+  </FeedbackBox__Description>
+  <FeedbackComment__CommentField
+    rows={3}
+    value="Nice app!"
+  />
+</React.Fragment>
+`;
+
+exports[`FeedbackComment should render a comment with the commentMessageOverride 1`] = `
+<React.Fragment>
+  <FeedbackBox__Description>
+    override
+  </FeedbackBox__Description>
+  <FeedbackComment__CommentField
+    rows={3}
+    value="Nice app!"
+  />
+</React.Fragment>
+`;

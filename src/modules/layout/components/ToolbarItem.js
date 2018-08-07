@@ -4,7 +4,14 @@ import React from 'react'
 import FontAwesome from 'react-fontawesome'
 import ReactTooltip from 'react-tooltip'
 
-import style from './ToolbarItem.css'
+import styled from 'styled-components'
+import CleanAnchor from '../../common/components/CleanAnchor'
+
+export const StyledToolbarItem = styled(CleanAnchor)`
+  display: inline-block;
+  margin: 0 10px;
+  padding: 8px;
+`
 
 type PropsType = {
   href: string,
@@ -19,11 +26,12 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    return <div>
-      <a className={style.item} href={this.props.href} target='_blank' data-tip={this.props.text}>
-        <FontAwesome name={this.props.name} />
-      </a>
-    </div>
+    const {href, text, name} = this.props
+    return (
+      <StyledToolbarItem href={href} target='_blank' data-tip={text}>
+        <FontAwesome name={name} />
+      </StyledToolbarItem>
+    )
   }
 }
 
