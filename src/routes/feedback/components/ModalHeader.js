@@ -14,8 +14,8 @@ const Header = styled.div`
 `
 
 const CloseButton = styled(CleanLink)`
-  font-size: 2rem;
   align-self: center;
+  font-size: 2rem;
 `
 
 const Title = styled.div`
