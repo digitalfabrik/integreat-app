@@ -16,6 +16,37 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
       onStickyTopChanged={[Function]}
     />
   }
+  modal={
+    <FeedbackModal
+      alias={undefined}
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
+      id={undefined}
+      isOpen={false}
+      isPositiveRatingSelected={false}
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+      title={undefined}
+    />
+  }
   toolbar={
     <Translate(CategoriesToolbar)
       categories={
@@ -35,9 +66,16 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
           },
         }
       }
-      city="city1"
-      language="de"
-      pathname="/augsburg/de/willkommen"
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
     />
   }
 >
@@ -45,7 +83,7 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
 </Layout>
 `;
 
-exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationModel is not available 1`] = `
+exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is not available 1`] = `
 <Layout
   asideStickyTop={0}
   footer={<Translate(GeneralFooter) />}
@@ -59,7 +97,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if LocationM
 </Layout>
 `;
 
-exports[`LocationLayout should show LocationHeader and LocationFooter if City is available 1`] = `
+exports[`LocationLayout should show LocationHeader and LocationFooter if city is available 1`] = `
 <Layout
   asideStickyTop={0}
   footer={
@@ -75,7 +113,68 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if City is
       onStickyTopChanged={[Function]}
     />
   }
-  toolbar={false}
+  modal={
+    <FeedbackModal
+      alias={undefined}
+      cities={
+        Array [
+          CityModel {
+            "_code": "city1",
+            "_eventsEnabled": undefined,
+            "_extrasEnabled": undefined,
+            "_live": undefined,
+            "_name": "Mambo No. 5",
+            "_sortingName": undefined,
+          },
+        ]
+      }
+      id={undefined}
+      isOpen={false}
+      isPositiveRatingSelected={false}
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+      title={undefined}
+    />
+  }
+  toolbar={
+    <Translate(CategoriesToolbar)
+      categories={
+        CategoriesMapModel {
+          "_categories": Map {
+            "path01" => CategoryModel {
+              "_availableLanguages": Map {},
+              "_content": "contnentl",
+              "_id": undefined,
+              "_lastUpdate": undefined,
+              "_order": 4,
+              "_parentPath": "parent/url",
+              "_path": "path01",
+              "_thumbnail": "thumb/nail",
+              "_title": "Title10",
+            },
+          },
+        }
+      }
+      location={
+        Object {
+          "pathname": "/augsburg/de/willkommen",
+          "payload": Object {
+            "city": "city1",
+            "language": "de",
+          },
+          "type": "CATEGORIES",
+        }
+      }
+    />
+  }
 >
   <MockNode />
 </Layout>

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
+<ToolbarItem__StyledToolbarItem
+  to={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "query": Object {
+        "feedback": "down",
+      },
+      "type": "CATEGORIES",
+    }
+  }
+>
+  <FontAwesome
+    data-tip="negativeRating"
+    name="frown-o"
+  />
+</ToolbarItem__StyledToolbarItem>
+`;
+
+exports[`FeedbackLink should render a positive FeedbackLink 1`] = `
+<ToolbarItem__StyledToolbarItem
+  to={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "query": Object {
+        "feedback": "up",
+      },
+      "type": "CATEGORIES",
+    }
+  }
+>
+  <FontAwesome
+    data-tip="positiveRating"
+    name="smile-o"
+  />
+</ToolbarItem__StyledToolbarItem>
+`;

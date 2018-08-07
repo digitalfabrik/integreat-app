@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/app/constants/theme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
 
 describe('SearchPage', () => {
   const categoryModels = [
@@ -72,12 +73,13 @@ describe('SearchPage', () => {
   ]
 
   const city = 'augsburg'
-
+  const language = 'de'
   const categories = new CategoriesMapModel(categoryModels)
   const t = key => key
+  const location = {type: SEARCH_ROUTE, payload: {city, language}}
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage categories={categories} city={city} cities={cities} t={t} />)
+    const wrapper = shallow(<SearchPage categories={categories} location={location} cities={cities} t={t} />)
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -91,7 +93,7 @@ describe('SearchPage', () => {
         <Provider store={store}>
         <SearchPage cities={cities}
                     categories={categories}
-                    city={city}
+                    location={location}
                     t={t} />
       </Provider></ThemeProvider>
     )
@@ -143,7 +145,7 @@ describe('SearchPage', () => {
     const categories = new CategoriesMapModel(categoryModels)
 
     const searchPage = shallow(
-      <SearchPage cities={cities} city={city} categories={categories} t={t} />
+      <SearchPage cities={cities} location={location} categories={categories} t={t} />
     ).instance()
 
     searchPage.onFilterTextChange('abc')
@@ -159,7 +161,7 @@ describe('SearchPage', () => {
     const store = mockStore({
       categories: {data: categories},
       cities: {data: cities},
-      location: {payload: {city}}
+      location
     })
 
     const searchPage = shallow(
@@ -169,7 +171,7 @@ describe('SearchPage', () => {
     expect(searchPage.props()).toMatchObject({
       categories,
       cities,
-      city
+      location
     })
   })
 })

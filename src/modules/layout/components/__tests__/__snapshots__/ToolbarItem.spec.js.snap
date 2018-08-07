@@ -1,16 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToolbarItem should render 1`] = `
-<div>
-  <a
-    className="item"
-    data-tip="Click here!"
-    href="http://example.com"
-    target="_blank"
-  >
-    <FontAwesome
-      name="testName"
-    />
-  </a>
-</div>
+<ToolbarItem__StyledToolbarItem
+  data-tip="Click here!"
+  href="http://example.com"
+  target="_blank"
+>
+  <FontAwesome
+    name="testName"
+  />
+</ToolbarItem__StyledToolbarItem>
 `;
