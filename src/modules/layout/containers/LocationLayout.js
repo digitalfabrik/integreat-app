@@ -100,7 +100,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
               footer={<LocationFooter city={city} language={language} />}
               toolbar={showCategoriesToolbar && cities && <CategoriesToolbar categories={categories}
                                                                              location={location} />}
-              modal={this.renderFeedbackModal()}>
+              modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
         {children}
       </Layout>
     )
