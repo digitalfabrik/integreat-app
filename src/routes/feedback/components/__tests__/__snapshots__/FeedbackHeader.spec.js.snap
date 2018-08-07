@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackHeader should match snapshot 1`] = `
+<React.Fragment>
+  <FeedbackHeader__Header>
+    <FeedbackHeader__Title>
+      feedback
+    </FeedbackHeader__Title>
+    <FeedbackHeader__CloseButton
+      to={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "query": undefined,
+          "type": "CATEGORIES",
+        }
+      }
+    >
+      x
+    </FeedbackHeader__CloseButton>
+  </FeedbackHeader__Header>
+  <FeedbackBox__Description>
+    feedbackType
+  </FeedbackBox__Description>
+  <Dropdown
+    baseClassName="Dropdown"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "feedbackType": null,
+          "label": "Inhalte von Willkommen",
+          "value": "Inhalte von Willkommen",
+        },
+        Object {
+          "feedbackType": "categories",
+          "label": "Inhalte von Augsburg",
+          "value": "Inhalte von Augsburg",
+        },
+        Object {
+          "feedbackType": "categories",
+          "label": "App",
+          "value": "App",
+        },
+      ]
+    }
+    value={
+      Object {
+        "feedbackType": null,
+        "label": "Inhalte von Willkommen",
+        "value": "Inhalte von Willkommen",
+      }
+    }
+  />
+</React.Fragment>
+`;
