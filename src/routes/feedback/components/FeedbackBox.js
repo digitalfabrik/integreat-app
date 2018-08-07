@@ -66,7 +66,7 @@ type PropsType = {
   isPositiveRatingSelected: boolean,
   location: LocationState,
   isOpen: boolean,
-  commentMessageOverride: ?string,
+  commentMessageOverride?: string,
   hideHeader: boolean,
   t: TFunction
 }

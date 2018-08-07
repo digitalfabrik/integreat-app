@@ -28,13 +28,14 @@ exports[`FeedbackModal should match snapshot 1`] = `
               "_extrasEnabled": false,
               "_live": true,
               "_name": "Augsburg",
-              "_sortingName": undefined,
+              "_sortingName": "Augsburg",
             },
           ]
         }
         commentMessageOverride="wantedInformation"
         feedbackType="up"
         id={1234}
+        isOpen={true}
         isPositiveRatingSelected={true}
         location={
           Object {

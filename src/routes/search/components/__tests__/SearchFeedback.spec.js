@@ -13,11 +13,12 @@ describe('SearchFeedback', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Augsburg'
     })
   ]
 
-  const t = key => key
+  const t = (key: ?string): string => key || ''
   const location = {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
 
   it('should render a FeedbackBox if no results are found', () => {
