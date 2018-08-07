@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
+<FeedbackBox__StyledFeedbackBox>
+  <Translate(FeedbackHeader)
+    feedbackOptions={
+      Array [
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "contentOfCity Augsburg",
+          "value": "contentOfCity Augsburg",
+        },
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "technicalTopic",
+          "value": "technicalTopic",
+        },
+      ]
+    }
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
+    onFeedbackOptionChanged={[Function]}
+    selectedFeedbackOption={
+      FeedbackDropdownItem {
+        "feedbackType": "categories",
+        "label": "contentOfCity Augsburg",
+        "value": "contentOfCity Augsburg",
+      }
+    }
+  />
+  <Translate(FeedbackComment)
+    comment=""
+    isPositiveRatingSelected={false}
+    onCommentChanged={[Function]}
+  />
+  <FeedbackBox__SubmitButton
+    onClick={[Function]}
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": undefined,
+        "type": "CATEGORIES",
+      }
+    }
+  >
+    send
+  </FeedbackBox__SubmitButton>
+</FeedbackBox__StyledFeedbackBox>
+`;
+
+exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
+<FeedbackBox__StyledFeedbackBox>
+  <Translate(FeedbackComment)
+    comment=""
+    isPositiveRatingSelected={false}
+    onCommentChanged={[Function]}
+  />
+  <FeedbackBox__SubmitButton
+    onClick={[Function]}
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": undefined,
+        "type": "CATEGORIES",
+      }
+    }
+  >
+    send
+  </FeedbackBox__SubmitButton>
+</FeedbackBox__StyledFeedbackBox>
+`;

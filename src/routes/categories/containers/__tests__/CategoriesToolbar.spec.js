@@ -4,6 +4,7 @@ import { shallow } from 'enzyme'
 import { CategoriesToolbar } from '../CategoriesToolbar'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
+import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 
 describe('CategoriesToolbar', () => {
   const categoryModels = [
@@ -56,18 +57,15 @@ describe('CategoriesToolbar', () => {
     })
   ]
 
-  const categories = new CategoriesMapModel(categoryModels)
-
   const city = 'augsburg'
+  const language = 'de'
 
-  const language = 'en'
+  const categories = new CategoriesMapModel(categoryModels)
 
   it('should render nothing, if category cannot be found', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
-                         city={city}
-                         language={language}
-                         pathname={'not-a-valid-path'}
+                         location={{pathname: 'invalid_path'}}
                          t={key => key} />
     )
 
@@ -77,9 +75,7 @@ describe('CategoriesToolbar', () => {
   it('should render Toolbar, if category can be found', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
-                         city={city}
-                         language={language}
-                         pathname={categoryModels[2].path}
+                         location={{pathname: categoryModels[2].path, type: CATEGORIES_ROUTE, payload: {city, language}}}
                          t={key => key} />
     )
 
@@ -89,9 +85,7 @@ describe('CategoriesToolbar', () => {
   it('should render root-url for pdf endpoint', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
-                         city={city}
-                         language={language}
-                         pathname={categoryModels[0].path}
+                         location={{pathname: categoryModels[0].path, type: CATEGORIES_ROUTE, payload: {city, language}}}
                          t={key => key} />
     )
 
