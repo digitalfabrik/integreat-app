@@ -32,7 +32,6 @@ const ModalContainer = styled.div`
 
 const FeedbackContainer = styled.div`
   position: relative;
-  z-index: 3;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
   
@@ -62,10 +61,10 @@ class FeedbackModal extends React.Component<PropsType> {
     return (
       <div>
         <ModalContainer isOpen={isOpen}>
+          <Overlay to={goToFeedback(location)} />
           <FeedbackContainer>
             <FeedbackBox {...this.props} />
           </FeedbackContainer>
-          <Overlay to={goToFeedback(location)} />
         </ModalContainer>
       </div>
     )
