@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationToolbar should match snapshot 1`] = `
+<Toolbar>
+  <Translate(FeedbackLink)
+    isPositiveRatingLink={true}
+    location={
+      Object {
+        "pathname": "/augsburg/de/events",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "EVENTS",
+      }
+    }
+  />
+  <Translate(FeedbackLink)
+    isPositiveRatingLink={false}
+    location={
+      Object {
+        "pathname": "/augsburg/de/events",
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "EVENTS",
+      }
+    }
+  />
+</Toolbar>
+`;
