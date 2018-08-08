@@ -63,12 +63,10 @@ class FeedbackModal extends React.Component<PropsType> {
     const {feedbackStatus, location} = this.props
     if (feedbackStatus === FEEDBACK_SENT) {
       return <FeedbackThanksMessage location={location} />
-    } else if (feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING) {
-      return <FeedbackBox isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                          isOpen={!!feedbackStatus}
-                          {...this.props} />
     } else {
-      return null
+      return <FeedbackBox isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                          isOpen={feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING}
+                          {...this.props} />
     }
   }
 
