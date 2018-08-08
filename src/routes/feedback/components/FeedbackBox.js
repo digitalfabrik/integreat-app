@@ -30,6 +30,8 @@ import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import Dropdown from 'react-dropdown'
 import { FEEDBACK_SENT } from './FeedbackModal'
+import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -141,7 +143,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
       options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
     }
 
-    options.push(this.getFeedbackOption(t('technicalTopic'), CATEGORIES_FEEDBACK_TYPE))
+    options.push(this.getFeedbackOption(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
 
     return options
   }
@@ -157,7 +159,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
       return `${t('contentOfPage')} '${title}'`
     } else if (type === EVENTS_ROUTE && id && title) {
       return `${t('news')} '${title}'`
-    } else if (type === EXTRAS_ROUTE && alias && title) {
+    } else if ((type === WOHNEN_ROUTE || type === SPRUNGBRETT_ROUTE) && alias && title) {
       return `${t('extra')} '${title}'`
     } else if (type === SEARCH_ROUTE && query) {
       return `${t('searchFor')} '${query}'`

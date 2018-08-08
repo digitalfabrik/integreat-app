@@ -61,7 +61,6 @@ type PropsType = {
 class FeedbackModal extends React.Component<PropsType> {
   renderModalContent = (): React.Node => {
     const {feedbackStatus, location} = this.props
-
     if (feedbackStatus === FEEDBACK_SENT) {
       return <FeedbackThanksMessage location={location} />
     } else if (feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING) {

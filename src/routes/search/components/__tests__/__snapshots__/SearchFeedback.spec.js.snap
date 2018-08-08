@@ -73,7 +73,7 @@ exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if resu
       ]
     }
     commentMessageOverride="wantedInformation"
-    feedbackType="up"
+    feedbackStatus="up"
     location={
       Object {
         "payload": Object {
@@ -107,7 +107,7 @@ exports[`SearchFeedback should render only a FeedbackModal if results are found 
       ]
     }
     commentMessageOverride="wantedInformation"
-    feedbackType="up"
+    feedbackStatus="up"
     location={
       Object {
         "payload": Object {
