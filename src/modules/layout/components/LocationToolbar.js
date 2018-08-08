@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-import { translate } from 'react-i18next'
 
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import type { LocationState } from 'redux-first-router'
@@ -13,7 +12,7 @@ type PropsType = {
   children?: Node
 }
 
-export class LocationToolbar extends React.PureComponent<PropsType> {
+class LocationToolbar extends React.PureComponent<PropsType> {
   render () {
     const {location, children} = this.props
 
@@ -31,4 +30,4 @@ export class LocationToolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('categories')(LocationToolbar)
+export default LocationToolbar
