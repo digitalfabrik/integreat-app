@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 import CityModel from 'modules/endpoint/models/CityModel'
@@ -7,74 +9,127 @@ import configureMockStore from 'redux-mock-store'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
+import ExtraModel from '../../../endpoint/models/ExtraModel'
+import EventModel from '../../../endpoint/models/EventModel'
+import moment from 'moment-timezone'
+import { SEARCH_ROUTE } from '../../../app/routes/search'
+import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
+import LocationToolbar from '../../components/LocationToolbar'
 
 describe('LocationLayout', () => {
   const city = 'city1'
   const language = 'de'
-  const pathname = '/augsburg/de/willkommen'
-  const currentRoute = CATEGORIES_ROUTE
 
   const categories = new CategoriesMapModel([
     new CategoryModel({
-      number: 1,
+      id: 1,
       path: 'path01',
       title: 'Title10',
       content: 'contnentl',
       thumbnail: 'thumb/nail',
       parentPath: 'parent/url',
       order: 4,
-      availableLanguages: new Map()
+      availableLanguages: new Map(),
+      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
-  const location = {
-    payload: {city, language},
-    type: currentRoute,
-    pathname: pathname
-  }
 
-  const cities = [new CityModel({name: 'Mambo No. 5', code: 'city1'})]
+  const extras = [
+    new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', title: 'Jobboerse', thumbnail: 'xy'}),
+    new ExtraModel({
+      alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'
+    })
+  ]
+  const events = [
+    new EventModel({
+      id: 1234,
+      title: 'first Event',
+      availableLanguages: new Map([['de', '1235'], ['ar', '1236']]),
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      allDay: true,
+      address: 'address',
+      content: 'content',
+      excerpt: 'excerpt',
+      thumbnail: 'thumbnail',
+      town: 'town'
+    })]
+
+  const cities = [new CityModel({
+    name: 'Mambo No. 5',
+    code: 'city1',
+    live: true,
+    eventsEnabled: true,
+    extrasEnabled: false,
+    sortingName: 'Mambo'
+  })
+  ]
 
   const MockNode = () => <div />
+  const renderLocationLayout = location => <LocationLayout location={location}
+                                                           categories={categories}
+                                                           events={events}
+                                                           extras={extras}
+                                                           cities={cities}
+                                                           viewportSmall>
+    <MockNode />
+  </LocationLayout>
 
-  it('should show LocationHeader and LocationFooter if city is available', () => {
-    const component = shallow(
-      <LocationLayout location={location}
-                      categories={categories}
-                      cities={cities}
-                      viewportSmall>
-        <MockNode />
-      </LocationLayout>)
-    expect(component).toMatchSnapshot()
+  describe('renderToolbar', () => {
+    it('should render a CategoriesToolbar if current route is categories', () => {
+      const location = {
+        payload: {city, language},
+        type: '/augsburg/de/willkommen',
+        pathname: CATEGORIES_ROUTE
+      }
+      const component = shallow(renderLocationLayout(location))
+      expect(component.find(CategoriesToolbar)).not.toBeNull()
+    })
+
+    it('should not render a LocationToolbar if current route is not categories', () => {
+      const location = {
+        payload: {city, language},
+        type: SEARCH_ROUTE,
+        pathname: '/augsburg/de/search'
+      }
+      const component = shallow(renderLocationLayout(location))
+      expect(component.find(LocationToolbar)).not.toBeNull()
+    })
   })
 
-  it('should show CategoriesToolbar if current route is categories', () => {
-    const component = shallow(
-      <LocationLayout location={location}
-                      categories={categories}
-                      cities={cities}
-                      viewportSmall>
-        <MockNode />
-      </LocationLayout>)
+  it('should show LocationHeader and LocationFooter if city is available', () => {
+    const location = {
+      payload: {city, language},
+      type: CATEGORIES_ROUTE,
+      pathname: '/augsburg/de/willkommen'
+    }
+    const component = shallow(renderLocationLayout(location))
     expect(component).toMatchSnapshot()
   })
 
   it('should show GeneralHeader and GeneralFooter if city is not available', () => {
-    const component = shallow(
-      <LocationLayout location={{payload: {city: 'invalid_city'}}}
-                      categories={categories}
-                      cities={cities}
-                      viewportSmall>
-        <MockNode />
-      </LocationLayout>)
+    const location = {
+      payload: {city, language},
+      type: CATEGORIES_ROUTE,
+      pathname: '/augsburg/de/willkommen'
+    }
+    const component = shallow(renderLocationLayout(location))
     expect(component).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
+    const location = {
+      payload: {city, language},
+      type: CATEGORIES_ROUTE,
+      pathname: '/augsburg/de/willkommen'
+    }
     const mockStore = configureMockStore()
     const store = mockStore({
       location: location,
       cities: {data: cities},
       categories: {data: categories},
+      events: {data: events},
+      extras: {data: extras},
       viewport: {is: {small: false}}
     })
 
@@ -86,7 +141,9 @@ describe('LocationLayout', () => {
       viewportSmall: false,
       cities,
       store,
-      categories
+      categories,
+      events,
+      extras
     })
   })
 })

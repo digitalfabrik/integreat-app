@@ -17,18 +17,22 @@ import { DISCLAIMER_ROUTE } from '../../app/routes/disclaimer'
 import { SEARCH_ROUTE } from '../../app/routes/search'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
-import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
+import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
+import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
+import EventModel from '../../endpoint/models/EventModel'
+import ExtraModel from '../../endpoint/models/ExtraModel'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
 type PropsType = {
   cities: ?Array<CityModel>,
-  categories: CategoriesMapModel,
+  categories: ?CategoriesMapModel,
+  events: ?Array<EventModel>,
+  extras: ?Array<ExtraModel>,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState
@@ -51,12 +55,13 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   renderFeedbackModal = (): React.Node => {
-    const {cities, location, categories} = this.props
+    const {cities, location, categories, events, extras} = this.props
     const feedbackStatus = location.query && location.query.feedback
     const payload = location.payload
 
     let id
     let title
+    let alias
     if (location.type === CATEGORIES_ROUTE && categories) {
       const category = categories.findCategoryByPath(location.pathname)
       if (category) {
@@ -65,11 +70,35 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       }
     }
 
+    if (location.type === EVENTS_ROUTE && events) {
+      const event = events.find(event => event.id === payload.eventId)
+      if (event) {
+        id = event.id
+        title = event.title
+      }
+    }
+
+    if (location.type === SPRUNGBRETT_ROUTE && extras) {
+      const extra = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+      if (extra) {
+        alias = extra.alias
+        title = extra.title
+      }
+    }
+
+    if (location.type === WOHNEN_ROUTE && extras) {
+      const extra = extras.find(extra => extra.alias === WOHNEN_EXTRA)
+      if (extra) {
+        alias = extra.alias
+        title = extra.title
+      }
+    }
+
     return (
       <FeedbackModal
         id={id}
         title={title}
-        alias={payload.alias}
+        alias={alias}
         cities={cities}
         feedbackStatus={feedbackStatus}
         location={location} />
@@ -83,7 +112,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
     if (type === CATEGORIES_ROUTE) {
       return <CategoriesToolbar categories={categories}
                                 location={location} />
-    } else if (type === EXTRAS_ROUTE || type === EVENTS_ROUTE || type === DISCLAIMER_ROUTE) {
+    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
       return <LocationToolbar location={location} />
     } else {
       return null
@@ -122,7 +151,9 @@ const mapStateToProps = state => ({
   location: state.location,
   viewportSmall: state.viewport.is.small,
   cities: state.cities.data,
-  categories: state.categories.data
+  categories: state.categories.data,
+  events: state.events.data,
+  extras: state.extras.data
 })
 
 export default connect(mapStateToProps)(LocationLayout)

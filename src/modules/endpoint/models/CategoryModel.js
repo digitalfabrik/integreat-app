@@ -6,7 +6,6 @@ import CategoriesMapModel from './CategoriesMapModel'
 class CategoryModel {
   _id: number
   _path: string
-  _path: string
   _title: string
   _content: string
   _parentPath: string

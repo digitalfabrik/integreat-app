@@ -12,7 +12,7 @@ import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 
 type PropsType = {
-  categories: CategoriesMapModel,
+  categories: ?CategoriesMapModel,
   location: LocationState,
   t: TFunction
 }
