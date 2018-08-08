@@ -15,6 +15,7 @@ import moment from 'moment-timezone'
 import { SEARCH_ROUTE } from '../../../app/routes/search'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
+import DisclaimerModel from '../../../endpoint/models/DisclaimerModel'
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -33,6 +34,12 @@ describe('LocationLayout', () => {
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
+  const disclaimer = new DisclaimerModel({
+    id: 1689,
+    title: 'Feedback, Kontakt und mögliches Engagement',
+    content: 'this is a test content',
+    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+  })
 
   const extras = [
     new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', title: 'Jobboerse', thumbnail: 'xy'}),
@@ -70,6 +77,7 @@ describe('LocationLayout', () => {
                                                            categories={categories}
                                                            events={events}
                                                            extras={extras}
+                                                           disclaimer={disclaimer}
                                                            cities={cities}
                                                            viewportSmall>
     <MockNode />
@@ -130,6 +138,7 @@ describe('LocationLayout', () => {
       categories: {data: categories},
       events: {data: events},
       extras: {data: extras},
+      disclaimer: {data: disclaimer},
       viewport: {is: {small: false}}
     })
 
@@ -142,6 +151,7 @@ describe('LocationLayout', () => {
       cities,
       store,
       categories,
+      disclaimer,
       events,
       extras
     })
