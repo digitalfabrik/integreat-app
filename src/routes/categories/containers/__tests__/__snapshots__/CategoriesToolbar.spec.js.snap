@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] = `
-<Translate(LocationToolbar)
+<LocationToolbar
   location={
     Object {
       "pathname": "/augsburg/de/willkommen",
@@ -18,11 +18,11 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
     name="file-pdf-o"
     text="createPdf"
   />
-</Translate(LocationToolbar)>
+</LocationToolbar>
 `;
 
 exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
-<Translate(LocationToolbar)
+<LocationToolbar
   location={
     Object {
       "pathname": "/augsburg/de",
@@ -39,5 +39,5 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
     name="file-pdf-o"
     text="createPdf"
   />
-</Translate(LocationToolbar)>
+</LocationToolbar>
 `;
