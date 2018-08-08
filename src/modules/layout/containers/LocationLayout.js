@@ -24,6 +24,7 @@ import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
 import EventModel from '../../endpoint/models/EventModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
+import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
@@ -33,6 +34,7 @@ type PropsType = {
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
   extras: ?Array<ExtraModel>,
+  disclaimer: ?DisclaimerModel,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState
@@ -55,7 +57,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   renderFeedbackModal = (): React.Node => {
-    const {cities, location, categories, events, extras} = this.props
+    const {cities, location, categories, events, extras, disclaimer} = this.props
     const feedbackStatus = location.query && location.query.feedback
     const payload = location.payload
 
@@ -92,6 +94,10 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
         alias = extra.alias
         title = extra.title
       }
+    }
+
+    if (location.type === DISCLAIMER_ROUTE && disclaimer) {
+      id = disclaimer.id
     }
 
     return (
@@ -153,7 +159,8 @@ const mapStateToProps = state => ({
   cities: state.cities.data,
   categories: state.categories.data,
   events: state.events.data,
-  extras: state.extras.data
+  extras: state.extras.data,
+  disclaimer: state.disclaimer.data
 })
 
 export default connect(mapStateToProps)(LocationLayout)
