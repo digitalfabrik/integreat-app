@@ -30,8 +30,8 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
           },
           FeedbackDropdownItem {
             "feedbackType": "categories",
-            "label": "technicalTopic",
-            "value": "technicalTopic",
+            "label": "technicalTopics",
+            "value": "technicalTopics",
           },
         ]
       }

@@ -141,7 +141,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
       options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
     }
 
-    options.push(this.getFeedbackOption(t('technicalTopic'), CATEGORIES_FEEDBACK_TYPE))
+    options.push(this.getFeedbackOption(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
 
     return options
   }
