@@ -33,7 +33,7 @@ exports[`CategoryListItem should render and match snapshot 1`] = `
 exports[`CategoryListItem should replace empty thumbnail 1`] = `
 <CategoryListItem__Row>
   <CategoryListItem__StyledLink
-    to=""
+    to="/augsburg/de/willkommen/willkommen-in-augsburg"
   >
     <CategoryListItem__CategoryThumbnail
       src="test-file-stub"
@@ -45,10 +45,10 @@ exports[`CategoryListItem should replace empty thumbnail 1`] = `
     </CategoryListItem__CategoryCaption>
   </CategoryListItem__StyledLink>
   <CategoryListItem__SubCategory
-    key="42"
+    key="35"
   >
     <CategoryListItem__StyledLink
-      to=""
+      to="/augsburg/de/willkommen/willkommen-in-augsburg"
     >
       <CategoryListItem__CategoryCaption
         search=""

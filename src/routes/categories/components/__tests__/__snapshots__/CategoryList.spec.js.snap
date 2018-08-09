@@ -17,34 +17,38 @@ exports[`CategoryList should render and display a caption 1`] = `
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 35,
-          "_lastUpdate": undefined,
-          "_order": undefined,
-          "_parentPath": undefined,
-          "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-          "_thumbnail": undefined,
-          "_title": "Willkommen in Augsburg",
+          "_availableLanguages": Map {},
+          "_content": "",
+          "_id": 0,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": -1,
+          "_parentPath": "",
+          "_path": "/augsburg/de",
+          "_thumbnail": "no_thumbnail",
+          "_title": "augsburg",
         }
       }
-      key="35"
+      key="0"
     />
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 35,
-          "_lastUpdate": undefined,
-          "_order": undefined,
-          "_parentPath": undefined,
-          "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-          "_thumbnail": undefined,
-          "_title": "Willkommen in Augsburg",
+          "_availableLanguages": Map {
+            "en" => "4361",
+            "ar" => "4367",
+            "fa" => "4368",
+          },
+          "_content": "",
+          "_id": 3649,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": 11,
+          "_parentPath": "/augsburg/de",
+          "_path": "/augsburg/de/willkommen",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
         }
       }
-      key="35"
+      key="3649"
     />
   </CategoryList__List>
 </div>
@@ -64,34 +68,38 @@ exports[`CategoryList should render and not display a caption 1`] = `
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 35,
-          "_lastUpdate": undefined,
-          "_order": undefined,
-          "_parentPath": undefined,
-          "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-          "_thumbnail": undefined,
-          "_title": "Willkommen in Augsburg",
+          "_availableLanguages": Map {},
+          "_content": "",
+          "_id": 0,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": -1,
+          "_parentPath": "",
+          "_path": "/augsburg/de",
+          "_thumbnail": "no_thumbnail",
+          "_title": "augsburg",
         }
       }
-      key="35"
+      key="0"
     />
     <CategoryListItem
       category={
         CategoryModel {
-          "_availableLanguages": undefined,
-          "_content": undefined,
-          "_id": 35,
-          "_lastUpdate": undefined,
-          "_order": undefined,
-          "_parentPath": undefined,
-          "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-          "_thumbnail": undefined,
-          "_title": "Willkommen in Augsburg",
+          "_availableLanguages": Map {
+            "en" => "4361",
+            "ar" => "4367",
+            "fa" => "4368",
+          },
+          "_content": "",
+          "_id": 3649,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": 11,
+          "_parentPath": "/augsburg/de",
+          "_path": "/augsburg/de/willkommen",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
         }
       }
-      key="35"
+      key="3649"
     />
   </CategoryList__List>
 </div>
