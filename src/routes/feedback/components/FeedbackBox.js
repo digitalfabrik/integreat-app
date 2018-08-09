@@ -48,11 +48,10 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-const SubmitButton = styled(CleanLink)`
+export const SubmitButton = styled(CleanLink)`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
-  color: ${props => props.theme.colors.backgroundAccentColor};
   text-align: center;
   border-radius: 0.25em;
 `
@@ -66,8 +65,6 @@ type PropsType = {
   isPositiveRatingSelected: boolean,
   location: LocationState,
   isOpen: boolean,
-  commentMessageOverride?: string,
-  hideHeader: boolean,
   t: TFunction
 }
 
@@ -181,24 +178,18 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
 
   render () {
     const {selectedFeedbackOption, feedbackOptions, comment} = this.state
-    const {t, isPositiveRatingSelected, location, commentMessageOverride, hideHeader} = this.props
+    const {t, isPositiveRatingSelected, location} = this.props
     return (
       <StyledFeedbackBox>
-        {!hideHeader && (
-          <React.Fragment>
-            <ModalHeader
-              location={location}
-              title={t('feedback')} />
-            <Description>{t('feedbackType')}</Description>
-            <Dropdown
-              value={selectedFeedbackOption}
-              options={feedbackOptions}
-              onChange={this.onFeedbackOptionChanged} />
-          </React.Fragment>
-        )}
+        <ModalHeader location={location} title={t('feedback')} />
+        <Description>{t('feedbackType')}</Description>
+        <Dropdown
+          value={selectedFeedbackOption}
+          options={feedbackOptions}
+          onChange={this.onFeedbackOptionChanged} />
         <FeedbackComment
           comment={comment}
-          commentMessageOverride={commentMessageOverride}
+          commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           isPositiveRatingSelected={isPositiveRatingSelected}
           onCommentChanged={this.onCommentChanged} />
         <SubmitButton to={goToFeedback(location, FEEDBACK_SENT)} onClick={this.onSubmit}>
