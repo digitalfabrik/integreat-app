@@ -41,18 +41,18 @@ type PropsType = {
 export class SearchFeedback extends React.Component<PropsType> {
   renderFeedbackOption (): React.Node {
     const {resultsFound, query, location, t} = this.props
-    if (resultsFound) {
-      return (
-        <FeedbackButton>
-          <FeedbackLink to={goToFeedback(location, NEGATIVE_RATING)}>{t('informationNotFound')}</FeedbackLink>
-        </FeedbackButton>
-      )
-    } else {
+    if (!resultsFound) {
       return (
         <FeedbackContainer>
           <div>{t('nothingFound')}</div>
           <NothingFoundFeedbackBox location={location} query={query} />
         </FeedbackContainer>
+      )
+    } else if (query) {
+      return (
+        <FeedbackButton>
+          <FeedbackLink to={goToFeedback(location, NEGATIVE_RATING)}>{t('informationNotFound')}</FeedbackLink>
+        </FeedbackButton>
       )
     }
   }

@@ -1,58 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FeedbackModal should match snapshot 1`] = `
-<div>
-  <FeedbackModal__ModalContainer
-    isOpen={true}
-  >
-    <FeedbackModal__Overlay
-      to={
+<FeedbackModal__ModalContainer
+  isOpen={true}
+>
+  <FeedbackModal__Overlay
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": undefined,
+        "type": "CATEGORIES",
+      }
+    }
+  />
+  <FeedbackModal__FeedbackContainer>
+    <Translate(FeedbackBox)
+      alias="alias"
+      cities={
+        Array [
+          CityModel {
+            "_code": "augsburg",
+            "_eventsEnabled": true,
+            "_extrasEnabled": false,
+            "_live": true,
+            "_name": "Augsburg",
+            "_sortingName": "Augsburg",
+          },
+        ]
+      }
+      feedbackType="up"
+      id={1234}
+      isOpen={true}
+      isPositiveRatingSelected={true}
+      location={
         Object {
           "payload": Object {
             "city": "augsburg",
             "language": "de",
           },
-          "query": undefined,
+          "query": Object {
+            "feedback": "up",
+          },
           "type": "CATEGORIES",
         }
       }
+      query="ab"
+      title="title"
     />
-    <FeedbackModal__FeedbackContainer>
-      <Translate(FeedbackBox)
-        alias="alias"
-        cities={
-          Array [
-            CityModel {
-              "_code": "augsburg",
-              "_eventsEnabled": true,
-              "_extrasEnabled": false,
-              "_live": true,
-              "_name": "Augsburg",
-              "_sortingName": "Augsburg",
-            },
-          ]
-        }
-        commentMessageOverride="wantedInformation"
-        feedbackType="up"
-        id={1234}
-        isOpen={true}
-        isPositiveRatingSelected={true}
-        location={
-          Object {
-            "payload": Object {
-              "city": "augsburg",
-              "language": "de",
-            },
-            "query": Object {
-              "feedback": "up",
-            },
-            "type": "CATEGORIES",
-          }
-        }
-        query="ab"
-        title="title"
-      />
-    </FeedbackModal__FeedbackContainer>
-  </FeedbackModal__ModalContainer>
-</div>
+  </FeedbackModal__FeedbackContainer>
+</FeedbackModal__ModalContainer>
 `;

@@ -12,7 +12,7 @@ import { Description, StyledFeedbackBox, SubmitButton } from '../../feedback/com
 import FeedbackComment from '../../feedback/components/FeedbackComment'
 import 'styled-components'
 
-const StyledSubmitButton = SubmitButton.withComponent('div').extend`
+export const StyledSubmitButton = SubmitButton.withComponent('div').extend`
   cursor: pointer;
 `
 
