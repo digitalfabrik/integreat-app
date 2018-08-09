@@ -80,16 +80,8 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       }
     }
 
-    if (location.type === SPRUNGBRETT_ROUTE && extras) {
-      const extra = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-      if (extra) {
-        alias = extra.alias
-        title = extra.title
-      }
-    }
-
-    if (location.type === WOHNEN_ROUTE && extras) {
-      const extra = extras.find(extra => extra.alias === WOHNEN_EXTRA)
+    if ([SPRUNGBRETT_ROUTE, WOHNEN_ROUTE].includes(location.type) && extras) {
+      const extra = extras.find(extra => [SPRUNGBRETT_EXTRA, WOHNEN_EXTRA].includes(extra.alias))
       if (extra) {
         alias = extra.alias
         title = extra.title

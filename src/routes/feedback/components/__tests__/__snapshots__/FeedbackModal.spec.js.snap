@@ -31,7 +31,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
           },
         ]
       }
-      feedbackType="up"
+      feedbackStatus="up"
       id={1234}
       isOpen={true}
       isPositiveRatingSelected={true}
