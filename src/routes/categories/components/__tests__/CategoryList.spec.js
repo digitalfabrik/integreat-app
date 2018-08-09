@@ -59,10 +59,10 @@ const categoryModels = [
 const categories = [
   {
     model: categoryModels[0],
-    children: [categoryModels[1], categoryModels[2]]
+    subCategories: [categoryModels[1], categoryModels[2]]
   }, {
     model: categoryModels[2],
-    children: [categoryModels[3]]
+    subCategories: [categoryModels[3]]
   }
 ]
 
