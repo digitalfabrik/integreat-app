@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -16,9 +18,10 @@ describe('CategoriesPage', () => {
       title: 'augsburg',
       content: '',
       order: -1,
-      availableLanguages: {},
+      availableLanguages: new Map(),
       thumbnail: 'no_thumbnail',
-      parentPath: ''
+      parentPath: '',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }), new CategoryModel({
       id: 3650,
       path: '/augsburg/de/anlaufstellen',
@@ -26,9 +29,7 @@ describe('CategoriesPage', () => {
       content: '',
       parentPath: '/augsburg/de',
       order: 75,
-      availableLanguages: {
-        en: 4361, ar: 4367, fa: 4368
-      },
+      availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
@@ -39,9 +40,7 @@ describe('CategoriesPage', () => {
       content: '',
       parentPath: '/augsburg/de',
       order: 11,
-      availableLanguages: {
-        en: 4804, ar: 4819, fa: 4827
-      },
+      availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
@@ -52,11 +51,7 @@ describe('CategoriesPage', () => {
       content: 'some content',
       parentPath: '/augsburg/de/willkommen',
       order: 1,
-      availableLanguages: {
-        en: 390,
-        de: 711,
-        ar: 397
-      },
+      availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
       lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     })
@@ -65,14 +60,34 @@ describe('CategoriesPage', () => {
   const categories = new CategoriesMapModel(categoryModels)
 
   const cities = [
-    new CityModel({name: 'Augsburg', code: 'augsburg'}),
-    new CityModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-    new CityModel({name: 'Werne', code: 'werne'})
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: false,
+      extrasEnabled: false,
+      sortingName: 'Augsburg'}),
+    new CityModel({
+      name: 'Stadt Regensburg',
+      code: 'regensburg',
+      live: true,
+      eventsEnabled: false,
+      extrasEnabled: false,
+      sortingName: 'Regensburg'}),
+    new CityModel({
+      name: 'Werne',
+      code: 'werne',
+      live: true,
+      eventsEnabled: false,
+      extrasEnabled: false,
+      sortingName: 'City'
+    })
   ]
 
   const city = 'augsburg'
 
   const language = 'en'
+  const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render a Page if page has no children', () => {
     const wrapper = shallow(
@@ -81,7 +96,8 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       path={categoryModels[3].path}
-                      t={key => key} />
+                      uiDirection={'ltr'}
+                      t={t} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -93,8 +109,9 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
+                      uiDirection={'ltr'}
                       path={categoryModels[2].path}
-                      t={key => key} />
+                      t={t} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -106,8 +123,9 @@ describe('CategoriesPage', () => {
                       cities={cities}
                       city={city}
                       language={language}
+                      uiDirection={'ltr'}
                       path={'/augsburg/de'}
-                      t={key => key} />
+                      t={t} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -118,8 +136,10 @@ describe('CategoriesPage', () => {
       <CategoriesPage categories={categories}
                       cities={cities}
                       city={city}
+                      uiDirection={'ltr'}
                       language={language}
-                      path={'/augsburg/de/not/valid'} />
+                      path={'/augsburg/de/not/valid'}
+                      t={t} />
     )
 
     expect(wrapper).toMatchSnapshot()

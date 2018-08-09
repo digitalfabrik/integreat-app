@@ -13,7 +13,7 @@ exports[`CategoryList should render and display a caption 1`] = `
       }
     }
   />
-  <CategoryListstyles__List>
+  <CategoryList__List>
     <CategoryListItem
       category={
         CategoryModel {
@@ -46,7 +46,7 @@ exports[`CategoryList should render and display a caption 1`] = `
       }
       key="35"
     />
-  </CategoryListstyles__List>
+  </CategoryList__List>
 </div>
 `;
 
@@ -60,7 +60,7 @@ exports[`CategoryList should render and not display a caption 1`] = `
       }
     }
   />
-  <CategoryListstyles__List>
+  <CategoryList__List>
     <CategoryListItem
       category={
         CategoryModel {
@@ -93,6 +93,6 @@ exports[`CategoryList should render and not display a caption 1`] = `
       }
       key="35"
     />
-  </CategoryListstyles__List>
+  </CategoryList__List>
 </div>
 `;
