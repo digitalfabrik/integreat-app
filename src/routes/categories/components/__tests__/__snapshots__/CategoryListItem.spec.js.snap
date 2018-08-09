@@ -1,61 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryListItem should render and match snapshot 1`] = `
-<CategoryListItemstyles__Row>
-  <CategoryListItemstyles__StyledLink
+<CategoryListItem__Row>
+  <CategoryListItem__StyledLink
     to="/augsburg/de/willkommen"
   >
-    <CategoryListItemstyles__CategoryThumbnail
+    <CategoryListItem__CategoryThumbnail
       src="https://cms.integreat-ap…03/Beratung-150x150.png"
     />
-    <CategoryListItemstyles__CategoryCaption
+    <CategoryListItem__CategoryCaption
       search=""
     >
       Willkommen
-    </CategoryListItemstyles__CategoryCaption>
-  </CategoryListItemstyles__StyledLink>
-  <CategoryListItemstyles__SubCategory
+    </CategoryListItem__CategoryCaption>
+  </CategoryListItem__StyledLink>
+  <CategoryListItem__SubCategory
     key="5234"
   >
-    <CategoryListItemstyles__StyledLink
+    <CategoryListItem__StyledLink
       to="/augsburg/de/test"
     >
-      <CategoryListItemstyles__CategoryCaption
+      <CategoryListItem__CategoryCaption
         search=""
       >
         Child
-      </CategoryListItemstyles__CategoryCaption>
-    </CategoryListItemstyles__StyledLink>
-  </CategoryListItemstyles__SubCategory>
-</CategoryListItemstyles__Row>
+      </CategoryListItem__CategoryCaption>
+    </CategoryListItem__StyledLink>
+  </CategoryListItem__SubCategory>
+</CategoryListItem__Row>
 `;
 
 exports[`CategoryListItem should replace empty thumbnail 1`] = `
-<CategoryListItemstyles__Row>
-  <CategoryListItemstyles__StyledLink
+<CategoryListItem__Row>
+  <CategoryListItem__StyledLink
     to=""
   >
-    <CategoryListItemstyles__CategoryThumbnail
+    <CategoryListItem__CategoryThumbnail
       src="test-file-stub"
     />
-    <CategoryListItemstyles__CategoryCaption
+    <CategoryListItem__CategoryCaption
       search=""
     >
       GotNoThumb :O
-    </CategoryListItemstyles__CategoryCaption>
-  </CategoryListItemstyles__StyledLink>
-  <CategoryListItemstyles__SubCategory
+    </CategoryListItem__CategoryCaption>
+  </CategoryListItem__StyledLink>
+  <CategoryListItem__SubCategory
     key="42"
   >
-    <CategoryListItemstyles__StyledLink
+    <CategoryListItem__StyledLink
       to=""
     >
-      <CategoryListItemstyles__CategoryCaption
+      <CategoryListItem__CategoryCaption
         search=""
       >
         GotNoThumb :O
-      </CategoryListItemstyles__CategoryCaption>
-    </CategoryListItemstyles__StyledLink>
-  </CategoryListItemstyles__SubCategory>
-</CategoryListItemstyles__Row>
+      </CategoryListItem__CategoryCaption>
+    </CategoryListItem__StyledLink>
+  </CategoryListItem__SubCategory>
+</CategoryListItem__Row>
 `;
