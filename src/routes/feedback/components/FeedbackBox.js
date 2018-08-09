@@ -20,7 +20,6 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
 import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
-import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 import ModalHeader from './ModalHeader'
@@ -171,7 +170,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     const {type} = this.props.location
     if (type === SEARCH_ROUTE) {
       return SEARCH_FEEDBACK_TYPE
-    } else if (type === EXTRAS_ROUTE) {
+    } else if ([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
       return EXTRA_FEEDBACK_TYPE
     } else {
       return PAGE_FEEDBACK_TYPE
