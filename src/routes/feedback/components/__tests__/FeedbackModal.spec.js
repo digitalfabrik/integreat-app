@@ -30,8 +30,7 @@ describe('FeedbackModal', () => {
       id={1234}
       title={'title'}
       alias='alias'
-      feedbackStatus={'up'}
-      commentMessageOverride='wantedInformation' />
+      feedbackStatus={'up'} />
     )).toMatchSnapshot()
   })
 })

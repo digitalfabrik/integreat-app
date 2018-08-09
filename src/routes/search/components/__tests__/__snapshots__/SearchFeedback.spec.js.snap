@@ -1,45 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchFeedback should render a FeedbackBox if no results are found 1`] = `
-<SearchFeedback__FeedbackContainer>
-  <div>
-    nothingFound
-  </div>
-  <Translate(FeedbackBox)
-    cities={
-      Array [
-        CityModel {
-          "_code": "augsburg",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Augsburg",
-          "_sortingName": "Augsburg",
-        },
-      ]
-    }
-    commentMessageOverride="wantedInformation"
-    hideHeader={true}
-    isOpen={true}
-    isPositiveRatingSelected={false}
-    location={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": Object {
-          "feedback": "up",
-        },
-        "type": "SEARCH",
-      }
-    }
-    query="abc"
-  />
-</SearchFeedback__FeedbackContainer>
-`;
-
-exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if results are found and the query is not empty 1`] = `
+exports[`SearchFeedback should render a FeedbackButton if results are found and the query is not empty 1`] = `
 <React.Fragment>
   <SearchFeedback__FeedbackButton>
     <SearchFeedback__FeedbackLink
@@ -72,8 +33,8 @@ exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if resu
         },
       ]
     }
-    commentMessageOverride="wantedInformation"
-    feedbackStatus="up"
+    commentMessage="wantedInformation"
+    feedbackType="up"
     location={
       Object {
         "payload": Object {
@@ -91,7 +52,61 @@ exports[`SearchFeedback should render a FeedbackModal and FeedbackButton if resu
 </React.Fragment>
 `;
 
-exports[`SearchFeedback should render only a FeedbackModal if results are found and the query is empty 1`] = `
+exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results are found 1`] = `
+<React.Fragment>
+  <SearchFeedback__FeedbackContainer>
+    <div>
+      nothingFound
+    </div>
+    <Translate(NothingFoundFeedbackBox)
+      location={
+        Object {
+          "payload": Object {
+            "city": "augsburg",
+            "language": "de",
+          },
+          "query": Object {
+            "feedback": "up",
+          },
+          "type": "SEARCH",
+        }
+      }
+      query="abc"
+    />
+  </SearchFeedback__FeedbackContainer>
+  <FeedbackModal
+    cities={
+      Array [
+        CityModel {
+          "_code": "augsburg",
+          "_eventsEnabled": true,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "Augsburg",
+          "_sortingName": "Augsburg",
+        },
+      ]
+    }
+    commentMessage="wantedInformation"
+    feedbackType="up"
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": Object {
+          "feedback": "up",
+        },
+        "type": "SEARCH",
+      }
+    }
+    query="abc"
+  />
+</React.Fragment>
+`;
+
+exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a FeedbackButton 1`] = `
 <React.Fragment>
   <FeedbackModal
     cities={
@@ -106,8 +121,8 @@ exports[`SearchFeedback should render only a FeedbackModal if results are found 
         },
       ]
     }
-    commentMessageOverride="wantedInformation"
-    feedbackStatus="up"
+    commentMessage="wantedInformation"
+    feedbackType="up"
     location={
       Object {
         "payload": Object {
