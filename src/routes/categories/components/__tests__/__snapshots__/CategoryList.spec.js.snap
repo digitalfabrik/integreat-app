@@ -29,6 +29,40 @@ exports[`CategoryList should render and display a caption 1`] = `
         }
       }
       key="0"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {
+              "en" => "4361",
+              "ar" => "4367",
+              "fa" => "4368",
+            },
+            "_content": "",
+            "_id": 3650,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 75,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/anlaufstellen",
+            "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+            "_title": "Anlaufstellen zu sonstigen Themen",
+          },
+          CategoryModel {
+            "_availableLanguages": Map {
+              "en" => "4361",
+              "ar" => "4367",
+              "fa" => "4368",
+            },
+            "_content": "",
+            "_id": 3649,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 11,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/willkommen",
+            "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+            "_title": "Willkommen",
+          },
+        ]
+      }
     />
     <CategoryListItem
       category={
@@ -49,6 +83,25 @@ exports[`CategoryList should render and display a caption 1`] = `
         }
       }
       key="3649"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {
+              "en" => "390",
+              "ar" => "711",
+              "fa" => "397",
+            },
+            "_content": "some content",
+            "_id": 35,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 1,
+            "_parentPath": "/augsburg/de/willkommen",
+            "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+          },
+        ]
+      }
     />
   </CategoryList__List>
 </div>
@@ -80,6 +133,40 @@ exports[`CategoryList should render and not display a caption 1`] = `
         }
       }
       key="0"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {
+              "en" => "4361",
+              "ar" => "4367",
+              "fa" => "4368",
+            },
+            "_content": "",
+            "_id": 3650,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 75,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/anlaufstellen",
+            "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+            "_title": "Anlaufstellen zu sonstigen Themen",
+          },
+          CategoryModel {
+            "_availableLanguages": Map {
+              "en" => "4361",
+              "ar" => "4367",
+              "fa" => "4368",
+            },
+            "_content": "",
+            "_id": 3649,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 11,
+            "_parentPath": "/augsburg/de",
+            "_path": "/augsburg/de/willkommen",
+            "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+            "_title": "Willkommen",
+          },
+        ]
+      }
     />
     <CategoryListItem
       category={
@@ -100,6 +187,25 @@ exports[`CategoryList should render and not display a caption 1`] = `
         }
       }
       key="3649"
+      subCategories={
+        Array [
+          CategoryModel {
+            "_availableLanguages": Map {
+              "en" => "390",
+              "ar" => "711",
+              "fa" => "397",
+            },
+            "_content": "some content",
+            "_id": 35,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 1,
+            "_parentPath": "/augsburg/de/willkommen",
+            "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+          },
+        ]
+      }
     />
   </CategoryList__List>
 </div>
