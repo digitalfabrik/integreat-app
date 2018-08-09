@@ -54,8 +54,7 @@ type PropsType = {
   alias?: string,
   query?: string,
   feedbackStatus: string,
-  location: LocationState,
-  commentMessageOverride?: string
+  location: LocationState
 }
 
 class FeedbackModal extends React.Component<PropsType> {
@@ -73,14 +72,12 @@ class FeedbackModal extends React.Component<PropsType> {
   render () {
     const {location, feedbackStatus} = this.props
     return (
-      <div>
-        <ModalContainer isOpen={!!feedbackStatus}>
-          <Overlay to={goToFeedback(location)} />
-          <FeedbackContainer>
-            {this.renderModalContent()}
-          </FeedbackContainer>
-        </ModalContainer>
-      </div>
+      <ModalContainer isOpen={!!feedbackStatus}>
+        <Overlay to={goToFeedback(location)} />
+        <FeedbackContainer>
+          {this.renderModalContent()}
+        </FeedbackContainer>
+      </ModalContainer>
     )
   }
 }
