@@ -10,7 +10,7 @@ import moment from 'moment-timezone'
 const title = 'Willkommen'
 const content = 'test content'
 
-const categories = [
+const categoryModels = [
   new CategoryModel({
     id: 0,
     path: '/augsburg/de',
@@ -54,6 +54,16 @@ const categories = [
     thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
     lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   })
+]
+
+const categories = [
+  {
+    model: categoryModels[0],
+    children: [categoryModels[1], categoryModels[2]]
+  }, {
+    model: categoryModels[2],
+    children: [categoryModels[3]]
+  }
 ]
 
 describe('CategoryList', () => {

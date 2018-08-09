@@ -32,7 +32,7 @@ const childCategory = new CategoryModel({
 const noThumbCategory = new CategoryModel({
   id: 35,
   path: '/augsburg/de/willkommen/willkommen-in-augsburg',
-  title: 'Willkommen in Augsburg',
+  title: 'GotNoThumb :O',
   content: 'some content',
   parentPath: '/augsburg/de/willkommen',
   order: 1,
