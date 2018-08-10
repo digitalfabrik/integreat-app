@@ -1,7 +1,7 @@
 // @flow
 
+import type { Element } from 'react'
 import React from 'react'
-import type Node from 'react'
 
 import SearchInput from './SearchInput'
 import Headroom from './Headroom'
@@ -12,7 +12,7 @@ type PropsType = {
   filterText: string,
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
-  children: Node,
+  children: Element<*>,
   placeholderText: string
 }
 
@@ -21,14 +21,15 @@ type StateType = {
 }
 
 export class ScrollingSearchBox extends React.PureComponent<PropsType, StateType> {
-  _node: Node
+  static defaultProps = {spaceSearch: false}
+  _node: HTMLElement
 
   constructor () {
     super()
     this.state = {initialized: false}
   }
 
-  setReference = node => {
+  setReference = (node: ?HTMLElement) => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
