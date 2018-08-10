@@ -1,5 +1,6 @@
 // @flow
 
+import type { Element, Node } from 'react'
 import * as React from 'react'
 import { HeaderWrapper } from './Headroom.styles'
 
@@ -15,19 +16,19 @@ type DirectionType = 'up' | 'down'
 
 type PropsType = {
   /** The child node to be displayed as a header */
-  children: Array<React.Node>,
+  children: Node,
   /** The maximum amount of px the header should move up when scrolling */
   scrollHeight: number,
   /** The minimum scrollTop position where the transform should start */
   pinStart: number,
   /** Gets rendered with a corresponding stickyTop prop as an ancestor */
-  stickyAncestor: React.Element<*>,
+  stickyAncestor?: Element<*>,
   /** Used for rendering stickyTop position of stickyAncestor */
-  height: number,
+  height?: number,
   /** Fired, when Headroom changes its state. Passes stickyTop of the ancestor. */
-  onStickyTopChanged: ?(number) => void,
+  onStickyTopChanged?: (number) => void,
   /** True, if sticky position should be disabled (e.g. for edge 16 support) */
-  positionStickyDisabled: ?boolean
+  positionStickyDisabled?: boolean
 }
 
 type StateType = {
@@ -40,7 +41,7 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
     pinStart: 0
   }
 
-  state = { mode: STATIC, transition: false }
+  state = {mode: STATIC, transition: false}
 
   /** the very last scrollTop which we know about (to determine direction changes) */
   lastKnownScrollTop = 0
@@ -125,11 +126,11 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
       this.lastKnownScrollTop < currentScrollTop ? DOWNWARDS : UPWARDS
     const mode = this.determineMode(currentScrollTop, direction)
     const transition = this.shouldTransition(mode, direction)
-    if (this.props.onStickyTopChanged && mode !== this.state.mode) {
-      const { onStickyTopChanged, height, scrollHeight } = this.props
+    const {onStickyTopChanged, height, scrollHeight} = this.props
+    if (onStickyTopChanged && mode !== this.state.mode && height) {
       onStickyTopChanged(Headroom.calcStickyTop(mode, height, scrollHeight))
     }
-    this.setState({ mode, transition })
+    this.setState({mode, transition})
     this.lastKnownScrollTop = currentScrollTop
   }
 
@@ -153,9 +154,11 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
       scrollHeight,
       positionStickyDisabled
     } = this.props
-    const { mode, transition } = this.state
+    const {mode, transition} = this.state
     const transform = mode === UNPINNED ? -scrollHeight : 0
-    const stickyTop = Headroom.calcStickyTop(mode, height, scrollHeight)
+    if (stickyAncestor && !height) {
+      console.warn('Headroom: If you supply stickyAncestor, you must define height!')
+    }
     const ownStickyTop = mode === STATIC ? -scrollHeight : 0
     return (
       <React.Fragment>
@@ -167,7 +170,8 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
           static={mode === STATIC}>
           {children}
         </HeaderWrapper>
-        {stickyAncestor && React.cloneElement(stickyAncestor, { stickyTop })}
+        {stickyAncestor && height &&
+        React.cloneElement(stickyAncestor, {stickyTop: Headroom.calcStickyTop(mode, height, scrollHeight)})}
       </React.Fragment>
     )
   }
