@@ -2,6 +2,7 @@
 
 exports[`RemoteContent should render 1`] = `
 <RemoteContentstyles__SandBox
+  centered={false}
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",
