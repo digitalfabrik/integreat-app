@@ -125,24 +125,15 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   /**
-   * Renders a FailureSwitcher if the city or language does not exist
+   * Checks whether the city and language params are valid
    * @return {*}
    */
-  renderFailurePage (): ?React.Node {
+  checkRouteParams (): ?Error {
     const {city, citiesPayload, language, languages} = this.props
-
-    let error
     if (city && citiesPayload.data && !citiesPayload.data.find(_city => _city.code === city)) {
-      // The current city is invalid, so we want to show an error
-      error = new CityNotFoundError({city})
-    } else if (language && city && citiesPayload.data &&
-      languages && !languages.find(_language => _language.code === language)) {
-      // The current language is not available in the current city, so we want to show an error
-      error = new LanguageNotFoundError({city, language})
-    }
-
-    if (error) {
-      return <FailureSwitcher error={error} />
+      return new CityNotFoundError({city})
+    } else if (language && city && citiesPayload.data && languages && !languages.find(lang => lang.code === language)) {
+      return new LanguageNotFoundError({city, language})
     }
     return null
   }
@@ -150,10 +141,11 @@ export class Switcher extends React.Component<PropsType> {
   render () {
     const {currentRoute, viewportSmall} = this.props
 
-    if (this.renderFailurePage()) {
+    const error = this.checkRouteParams()
+    if (error) {
       return (
         <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
-          {this.renderFailurePage()}
+          <FailureSwitcher error={error} />
         </Layout>
       )
     }
