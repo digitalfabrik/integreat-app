@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import PropTypes from 'prop-types'
@@ -28,7 +30,7 @@ describe('I18nRedirectPage', () => {
   describe('get redirect action', () => {
     it('should return goToLanding action if there is no param or the param is landing', () => {
       const instanceWithoutParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} />,
+        <I18nRedirectPage cities={cities} redirect={() => {}} param={undefined} />,
         {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
       ).instance()
 
