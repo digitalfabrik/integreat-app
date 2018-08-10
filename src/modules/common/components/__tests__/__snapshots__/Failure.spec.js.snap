@@ -2,7 +2,7 @@
 
 exports[`Failure connect should match snapshot 1`] = `
 <Failure
-  error="Error Message"
+  errorMessage="Error Message"
   t={[Function]}
 />
 `;

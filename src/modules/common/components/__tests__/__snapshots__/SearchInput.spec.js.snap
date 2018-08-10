@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchInput connect should render 1`] = `
-<SearchInputstyles__Spacer>
+<SearchInputstyles__Spacer
+  space={false}
+>
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput
@@ -16,7 +18,9 @@ exports[`SearchInput connect should render 1`] = `
 `;
 
 exports[`SearchInput should render 1`] = `
-<SearchInputstyles__Spacer>
+<SearchInputstyles__Spacer
+  space={false}
+>
   <SearchInputstyles__Wrapper>
     <SearchInputstyles__SearchIcon />
     <SearchInputstyles__TextInput

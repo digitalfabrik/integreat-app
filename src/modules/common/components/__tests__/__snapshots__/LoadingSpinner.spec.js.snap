@@ -1,11 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoadingSpinner should render and match snapshot 1`] = `
-<Spinner
-  className="centered"
-  fadeIn="full"
+<LoadingSpinnerstyles__CenteredSpinner
   name="line-scale-party"
-  noFadeIn={false}
-  overrideSpinnerClassName=""
 />
 `;

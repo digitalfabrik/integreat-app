@@ -5,9 +5,6 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
-  <Caption
-    title="extras"
-  />
   <Tiles
     tiles={
       Array [
@@ -34,6 +31,7 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
         },
       ]
     }
+    title="extras"
   />
 </React.Fragment>
 `;
