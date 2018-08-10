@@ -1,9 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventsPage should match snapshot and render EventDetail 1`] = `
-<Translate(FailureSwitcher)
-  error={[Error: The event 1235 does not exist here.]}
-/>
+<React.Fragment>
+  <Connect(Helmet)
+    title="erstes Event - Augsburg"
+  />
+  <Translate(EventDetail)
+    event={
+      EventModel {
+        "_address": "address",
+        "_allDay": true,
+        "_availableLanguages": Map {
+          "en" => "1234",
+          "ar" => "1236",
+        },
+        "_content": "content",
+        "_endDate": "2017-11-18T19:30:00.000Z",
+        "_excerpt": "excerpt",
+        "_id": 1235,
+        "_startDate": "2017-11-18T09:30:00.000Z",
+        "_thumbnail": "thumbnail",
+        "_title": "erstes Event",
+        "_town": "town",
+      }
+    }
+    language="en"
+    location="augsburg"
+  />
+</React.Fragment>
 `;
 
 exports[`EventsPage should match snapshot and render EventList 1`] = `
