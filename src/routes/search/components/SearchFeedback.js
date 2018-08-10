@@ -1,17 +1,16 @@
 // @flow
 
 import * as React from 'react'
-import type { Node } from 'react'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
-import FeedbackBox from '../../feedback/components/FeedbackBox'
-import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import { NEGATIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
+import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 
 const FeedbackButton = styled.div`
   padding: 30px 0;
@@ -40,57 +39,39 @@ type PropsType = {
 }
 
 export class SearchFeedback extends React.Component<PropsType> {
-  renderFeedbackModal (): Node {
-    const {t, cities, location, query} = this.props
-    const feedbackType = location.query && location.query.feedback
+  renderFeedbackOption (): React.Node {
+    const {resultsFound, query, location, t} = this.props
+    if (!resultsFound) {
+      return (
+        <FeedbackContainer>
+          <div>{t('nothingFound')}</div>
+          <NothingFoundFeedbackBox location={location} query={query} />
+        </FeedbackContainer>
+      )
+    } else if (query) {
+      return (
+        <FeedbackButton>
+          <FeedbackLink to={goToFeedback(location, NEGATIVE_RATING)}>{t('informationNotFound')}</FeedbackLink>
+        </FeedbackButton>
+      )
+    }
+  }
+
+  render () {
+    const {query, cities, t, location} = this.props
+    const feedbackStatus = location.query && location.query.feedback
 
     return (
-      <React.Fragment>
-        {query && (
-          <FeedbackButton>
-            <FeedbackLink to={goToFeedback(location, NEGATIVE_RATING)}>
-              {t('informationNotFound')}
-              </FeedbackLink>
-          </FeedbackButton>
-        )}
+      <>
+        {this.renderFeedbackOption()}
         <FeedbackModal
           query={query}
           cities={cities}
           location={location}
-          isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
-          isOpen={!!feedbackType}
-          commentMessageOverride={t('wantedInformation')} />
-      </React.Fragment>
+          feedbackType={feedbackStatus}
+          commentMessage={t('wantedInformation')} />
+      </>
     )
-  }
-
-  renderFeedbackBox (): Node {
-    const {t, cities, location, query} = this.props
-    const feedbackType = location.query && location.query.feedback
-
-    return (
-      <FeedbackContainer>
-        <div>{t('nothingFound')}</div>
-        <FeedbackBox
-          query={query}
-          cities={cities}
-          location={location}
-          isPositiveRatingSelected={false}
-          isOpen={!!feedbackType}
-          commentMessageOverride={t('wantedInformation')}
-          hideHeader />
-      </FeedbackContainer>
-    )
-  }
-
-  render () {
-    const {resultsFound} = this.props
-
-    if (resultsFound) {
-      return this.renderFeedbackModal()
-    } else {
-      return this.renderFeedbackBox()
-    }
   }
 }
 
