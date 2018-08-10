@@ -31,9 +31,8 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
           },
         ]
       }
+      feedbackType={undefined}
       id={undefined}
-      isOpen={false}
-      isPositiveRatingSelected={false}
       location={
         Object {
           "pathname": "/augsburg/de/willkommen",
@@ -128,9 +127,8 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
           },
         ]
       }
+      feedbackType={undefined}
       id={undefined}
-      isOpen={false}
-      isPositiveRatingSelected={false}
       location={
         Object {
           "pathname": "/augsburg/de/willkommen",
