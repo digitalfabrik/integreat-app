@@ -53,7 +53,7 @@ type PropsType = {
   id?: number,
   alias?: string,
   query?: string,
-  feedbackStatus: string,
+  feedbackStatus: ?string,
   location: LocationState
 }
 
