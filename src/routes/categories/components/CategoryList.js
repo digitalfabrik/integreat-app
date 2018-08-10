@@ -6,7 +6,13 @@ import RemoteContent from 'modules/common/components/RemoteContent'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import { List } from './CategoryList.styles'
+import styled from 'styled-components'
+
+const List = styled.div`
+  & a {
+    ${props => props.theme.helpers.removeLinkHighlighting}
+  }
+`
 
 type PropsType = {
   categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
