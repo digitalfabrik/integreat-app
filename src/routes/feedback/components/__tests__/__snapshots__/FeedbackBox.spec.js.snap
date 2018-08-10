@@ -2,21 +2,7 @@
 
 exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
 <FeedbackBox__StyledFeedbackBox>
-  <Translate(FeedbackHeader)
-    feedbackOptions={
-      Array [
-        FeedbackDropdownItem {
-          "feedbackType": "categories",
-          "label": "contentOfCity Augsburg",
-          "value": "contentOfCity Augsburg",
-        },
-        FeedbackDropdownItem {
-          "feedbackType": "categories",
-          "label": "technicalTopic",
-          "value": "technicalTopic",
-        },
-      ]
-    }
+  <ModalHeader
     location={
       Object {
         "payload": Object {
@@ -26,8 +12,29 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
         "type": "CATEGORIES",
       }
     }
-    onFeedbackOptionChanged={[Function]}
-    selectedFeedbackOption={
+    title="feedback"
+  />
+  <FeedbackBox__Description>
+    feedbackType
+  </FeedbackBox__Description>
+  <Dropdown
+    baseClassName="Dropdown"
+    onChange={[Function]}
+    options={
+      Array [
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "contentOfCity Augsburg",
+          "value": "contentOfCity Augsburg",
+        },
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "technicalTopics",
+          "value": "technicalTopics",
+        },
+      ]
+    }
+    value={
       FeedbackDropdownItem {
         "feedbackType": "categories",
         "label": "contentOfCity Augsburg",
@@ -35,8 +42,9 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
       }
     }
   />
-  <Translate(FeedbackComment)
+  <FeedbackComment
     comment=""
+    commentMessage="negativeComment"
     isPositiveRatingSelected={false}
     onCommentChanged={[Function]}
   />
@@ -48,7 +56,9 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
           "city": "augsburg",
           "language": "de",
         },
-        "query": undefined,
+        "query": Object {
+          "feedback": "sent",
+        },
         "type": "CATEGORIES",
       }
     }
@@ -60,8 +70,49 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
 
 exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
 <FeedbackBox__StyledFeedbackBox>
-  <Translate(FeedbackComment)
+  <ModalHeader
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
+    title="feedback"
+  />
+  <FeedbackBox__Description>
+    feedbackType
+  </FeedbackBox__Description>
+  <Dropdown
+    baseClassName="Dropdown"
+    onChange={[Function]}
+    options={
+      Array [
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "contentOfCity Augsburg",
+          "value": "contentOfCity Augsburg",
+        },
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "technicalTopics",
+          "value": "technicalTopics",
+        },
+      ]
+    }
+    value={
+      FeedbackDropdownItem {
+        "feedbackType": "categories",
+        "label": "contentOfCity Augsburg",
+        "value": "contentOfCity Augsburg",
+      }
+    }
+  />
+  <FeedbackComment
     comment=""
+    commentMessage="negativeComment"
     isPositiveRatingSelected={false}
     onCommentChanged={[Function]}
   />
@@ -73,7 +124,9 @@ exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
           "city": "augsburg",
           "language": "de",
         },
-        "query": undefined,
+        "query": Object {
+          "feedback": "sent",
+        },
         "type": "CATEGORIES",
       }
     }
