@@ -11,6 +11,7 @@ const tile1 = new TileModel({
   path: '/augsburg/de/willkommen',
   title: 'Willkommen',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+  postData: null,
   isExternalUrl: false
 })
 
@@ -19,6 +20,7 @@ const tile2 = new TileModel({
   path: 'https://example.com',
   title: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+  postData: null,
   isExternalUrl: true
 })
 
@@ -28,7 +30,7 @@ lehrstellenRadarPostData.set('radius', '50')
 lehrstellenRadarPostData.set('plz', '86150')
 
 const tile3 = new TileModel({
-  id: 3649,
+  id: '3649',
   path: 'https://example.com',
   title: 'Example',
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
