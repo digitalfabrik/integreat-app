@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoryTimeStamp should match snapshot 1`] = `
-<CategoryTimeStampstyles__TimeStamp>
+<CategoryTimeStamp__TimeStamp>
   lastUpdate
   18. November 2017
-</CategoryTimeStampstyles__TimeStamp>
+</CategoryTimeStamp__TimeStamp>
 `;
