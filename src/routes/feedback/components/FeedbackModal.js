@@ -9,6 +9,7 @@ import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 
 const Overlay = styled(CleanLink)`
   position: absolute;
@@ -54,7 +55,8 @@ type PropsType = {
   alias?: string,
   query?: string,
   feedbackStatus: ?string,
-  location: LocationState
+  location: LocationState,
+  extras?: Array<ExtraModel>
 }
 
 class FeedbackModal extends React.Component<PropsType> {
