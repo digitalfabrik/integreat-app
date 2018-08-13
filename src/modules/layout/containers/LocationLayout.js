@@ -99,7 +99,8 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
         alias={alias}
         cities={cities}
         feedbackStatus={feedbackStatus}
-        location={location} />
+        location={location}
+        extras={extras} />
     )
   }
 
