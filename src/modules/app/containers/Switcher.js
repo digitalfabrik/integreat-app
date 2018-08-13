@@ -68,14 +68,12 @@ export class Switcher extends React.Component<PropsType> {
    * @param payloads The payloads to check for errors or fetching process
    * @return {*}
    */
-  static renderFailureLoadingComponents = (payloads: Array<Payload<any>>): Node => {
-    for (let i = 0; i < payloads.length; i++) {
-      const payload = payloads[i]
-      if (payload.error) {
-        return <FailureSwitcher error={payload.error} />
-      } else if (payload.isFetching || !payload.data) {
-        return <LoadingSpinner />
-      }
+  static renderFailureLoadingComponents = (payloads: Array<Payload<any>>): ?Node => {
+    const errorPayload = payloads.find(payload => payload.error)
+    if (payloads.find(payload => (payload.isFetching || !payload.data) && !payload.error)) {
+      return <LoadingSpinner />
+    } else if (errorPayload && errorPayload.error) {
+      return <FailureSwitcher error={errorPayload.error} />
     }
     return null
   }
