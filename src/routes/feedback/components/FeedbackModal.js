@@ -56,7 +56,7 @@ type PropsType = {
   query?: string,
   feedbackStatus: ?string,
   location: LocationState,
-  extras?: Array<ExtraModel>
+  extras?: ?Array<ExtraModel>
 }
 
 class FeedbackModal extends React.Component<PropsType> {
