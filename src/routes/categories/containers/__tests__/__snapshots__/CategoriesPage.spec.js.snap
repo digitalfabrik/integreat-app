@@ -55,10 +55,10 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       Array [
         Object {
           "model": CategoryModel {
-            "_availableLanguages": Object {
-              "ar": 397,
-              "de": 711,
-              "en": 390,
+            "_availableLanguages": Map {
+              "en" => "390",
+              "ar" => "711",
+              "fa" => "397",
             },
             "_content": "some content",
             "_id": 35,

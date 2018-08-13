@@ -273,10 +273,8 @@
   },
   "feedback": {
     "de": {
-      "technicalTopic": "Technische Funktionen",
+      "technicalTopics": "Technische Funktionen",
       "contentOfCity": "Inhalte von",
-      "extrasOfCity": "Extras von",
-      "newsOfCity": "News von",
       "extra": "Extra",
       "news": "News",
       "disclaimer": "Kontakt und Impressum",
@@ -291,13 +289,14 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "informationNotFound": "Nicht das Richtige gefunden?",
-      "wantedInformation": "Welche Informationen fehlen hier?"
+      "wantedInformation": "Welche Informationen fehlen hier?",
+      "feedbackSent": "Feedback abgeschickt",
+      "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die Integreat-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",
+      "close": "Schließen"
     },
     "en": {
-      "technicalTopic": "Technical topics",
+      "technicalTopics": "Technical topics",
       "contentOfCity": "Contents of",
-      "extrasOfCity": "Extras of",
-      "newsOfCity": "News of",
       "extra": "Extra",
       "news": "News",
       "disclaimer": "Imprint and contact",
@@ -305,14 +304,16 @@
       "contentOfPage": "Content of the site",
       "send": "Send",
       "feedback": "Feedback",
-      "positiveComment": "What can we improve?",
-      "negativeComment": "What was helpful?",
+      "positiveComment": "What was helpful?",
+      "negativeComment": "What can we improve?",
       "feedbackType": "What is the feedback for?",
       "negativeRating": "This site is not useful",
       "positiveRating": "This site is useful",
       "nothingFound": "Sorry, we could not find any results.",
       "informationNotFound": "Not found what you were looking for?",
-      "wantedInformation": "What information is missing?"
+      "wantedInformation": "What information is missing?",
+      "feedbackSent": "Feedback sent",
+      "close": "Close"
     }
   }
 }
