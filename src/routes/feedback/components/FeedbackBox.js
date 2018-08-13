@@ -8,8 +8,8 @@ import { translate } from 'react-i18next'
 import styled from 'styled-components'
 import FeedbackEndpoint, {
   CATEGORIES_FEEDBACK_TYPE,
-  DEFAULT_FEEDBACK_LANGUAGE,
-  EXTRA_FEEDBACK_TYPE,
+  DEFAULT_FEEDBACK_LANGUAGE, EVENTS_FEEDBACK_TYPE,
+  EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
@@ -31,6 +31,7 @@ import Dropdown from 'react-dropdown'
 import { FEEDBACK_SENT } from './FeedbackModal'
 import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
+import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -128,6 +129,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {cities, location, t} = this.props
     const {city} = location.payload
+    const currentRoute = location.type
 
     const options = []
     const currentPageFeedbackLabel = this.getCurrentPageFeedbackLabel()
@@ -136,7 +138,17 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     }
     if (city && cities) {
       const cityTitle = CityModel.findCityName(cities, city)
-      options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
+      let feedbackType
+      if (currentRoute === EVENTS_ROUTE) {
+        feedbackType = EVENTS_FEEDBACK_TYPE
+      } else if (currentRoute === EXTRAS_ROUTE) {
+        feedbackType = EXTRAS_FEEDBACK_TYPE
+      } else {
+        feedbackType = CATEGORIES_FEEDBACK_TYPE
+      }
+      // We don't want to differ between the content of categories, extras and events for the user, but we want to know
+      // from which route the feedback was sent
+      options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, feedbackType))
     }
 
     options.push(this.getFeedbackOption(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
