@@ -68,7 +68,7 @@ type PropsType = {
   isPositiveRatingSelected: boolean,
   location: LocationState,
   isOpen: boolean,
-  extras?: Array<ExtraModel>,
+  extras?: ?Array<ExtraModel>,
   t: TFunction
 }
 
@@ -120,7 +120,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
       id,
       city: city || INTEGREAT_INSTANCE,
       language: language || DEFAULT_FEEDBACK_LANGUAGE,
-      alias: alias || (selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE && selectedFeedbackOption.value),
+      alias: alias || (selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE ? selectedFeedbackOption.value : ''),
       query
     }
   }
@@ -152,24 +152,21 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
       }
       // We don't want to differ between the content of categories, extras and events for the user, but we want to know
       // from which route the feedback was sent
-      options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, feedbackType))
+      options.push(new FeedbackDropdownItem(`${t('contentOfCity')} ${cityTitle}`, feedbackType))
       this.getExtrasFeedbackOptions().forEach(option => options.push(option))
     }
 
-    options.push(this.getFeedbackOption(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
+    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
 
     return options
   }
-
-  getFeedbackOption = (label: string, feedbackType: ?string, value?: string): FeedbackDropdownItem =>
-    new FeedbackDropdownItem(label, feedbackType, value)
 
   getExtrasFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {extras, location, t} = this.props
     const currentRoute = location.type
     if (extras && currentRoute === EXTRAS_ROUTE) {
       return extras.map(
-        extra => this.getFeedbackOption(`${t('extra')} '${extra.title}'`, EXTRA_FEEDBACK_TYPE, extra.alias)
+        extra => new FeedbackDropdownItem(`${t('extra')} '${extra.title}'`, EXTRA_FEEDBACK_TYPE, extra.alias)
       )
     }
     return []
@@ -180,15 +177,15 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     const type = location.type
 
     if (type === CATEGORIES_ROUTE && id && title) {
-      return this.getFeedbackOption(`${t('contentOfPage')} '${title}'`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(`${t('contentOfPage')} '${title}'`, PAGE_FEEDBACK_TYPE)
     } else if (type === EVENTS_ROUTE && id && title) {
-      return this.getFeedbackOption(`${t('news')} '${title}'`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(`${t('news')} '${title}'`, PAGE_FEEDBACK_TYPE)
     } else if ((type === WOHNEN_ROUTE || type === SPRUNGBRETT_ROUTE) && alias && title) {
-      return this.getFeedbackOption(`${t('extra')} '${title}'`, EXTRA_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(`${t('extra')} '${title}'`, EXTRA_FEEDBACK_TYPE)
     } else if (type === SEARCH_ROUTE && query) {
-      return this.getFeedbackOption(`${t('searchFor')} '${query}'`, SEARCH_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(`${t('searchFor')} '${query}'`, SEARCH_FEEDBACK_TYPE)
     } else if (type === DISCLAIMER_ROUTE) {
-      return this.getFeedbackOption(`${t('disclaimer')}`, PAGE_FEEDBACK_TYPE)
+      return new FeedbackDropdownItem(`${t('disclaimer')}`, PAGE_FEEDBACK_TYPE)
     } else {
       return null
     }

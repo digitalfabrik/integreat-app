@@ -31,6 +31,22 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
           },
         ]
       }
+      extras={
+        Array [
+          ExtraModel {
+            "_alias": "ihk-lehrstellenboerse",
+            "_path": "ihk-jobborese.com",
+            "_thumbnail": "xy",
+            "_title": "Jobboerse",
+          },
+          ExtraModel {
+            "_alias": "ihk-praktikumsboerse",
+            "_path": "ihk-pratkitkumsboerse.com",
+            "_thumbnail": "xy",
+            "_title": "Praktikumsboerse",
+          },
+        ]
+      }
       feedbackStatus={undefined}
       id={undefined}
       location={
@@ -110,6 +126,22 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
             "_live": true,
             "_name": "Mambo No. 5",
             "_sortingName": "Mambo",
+          },
+        ]
+      }
+      extras={
+        Array [
+          ExtraModel {
+            "_alias": "ihk-lehrstellenboerse",
+            "_path": "ihk-jobborese.com",
+            "_thumbnail": "xy",
+            "_title": "Jobboerse",
+          },
+          ExtraModel {
+            "_alias": "ihk-praktikumsboerse",
+            "_path": "ihk-pratkitkumsboerse.com",
+            "_thumbnail": "xy",
+            "_title": "Praktikumsboerse",
           },
         ]
       }
