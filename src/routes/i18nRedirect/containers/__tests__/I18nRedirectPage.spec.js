@@ -30,7 +30,7 @@ describe('I18nRedirectPage', () => {
   describe('get redirect action', () => {
     it('should return goToLanding action if there is no param or the param is landing', () => {
       const instanceWithoutParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param={undefined} />,
+        <I18nRedirectPage cities={cities} redirect={() => {}} />,
         {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
       ).instance()
 
