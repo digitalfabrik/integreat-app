@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackThanksMessage should match snapshot 1`] = `
+<FeedbackBox__StyledFeedbackBox>
+  <ModalHeader
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": Object {
+          "feedback": "sent",
+        },
+        "type": "CATEGORIES",
+      }
+    }
+    title="feedbackSent"
+  />
+  <FeedbackBox__Description>
+    thanksMessage
+  </FeedbackBox__Description>
+</FeedbackBox__StyledFeedbackBox>
+`;
