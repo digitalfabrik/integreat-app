@@ -1,3 +1,5 @@
+// @flow
+
 import lolex from 'lolex'
 
 import Endpoint from '../Endpoint'

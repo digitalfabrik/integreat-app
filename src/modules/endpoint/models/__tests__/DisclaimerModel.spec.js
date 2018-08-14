@@ -1,3 +1,5 @@
+// @flow
+
 import DisclaimerModel from '../DisclaimerModel'
 
 describe('DisclaimerModel', () => {

@@ -1,3 +1,5 @@
+// @flow
+
 import extras from '../extras'
 import ExtraModel from '../../models/ExtraModel'
 

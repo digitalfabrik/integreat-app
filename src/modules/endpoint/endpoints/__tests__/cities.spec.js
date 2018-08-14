@@ -1,3 +1,5 @@
+// @flow
+
 import cities from '../cities'
 import CityModel from '../../models/CityModel'
 

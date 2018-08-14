@@ -1,3 +1,5 @@
+// @flow
+
 import disclaimer from '../disclaimer'
 import DisclaimerModel from '../../models/DisclaimerModel'
 import moment from 'moment'

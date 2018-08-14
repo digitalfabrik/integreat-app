@@ -1,4 +1,6 @@
-import reducers, { startFetchReducer, finishFetchReducer } from '../'
+// @flow
+
+import reducers, { finishFetchReducer, startFetchReducer } from '../'
 import startFetchAction from '../../actions/startFetchAction'
 import Payload from '../../Payload'
 import lolex from 'lolex'

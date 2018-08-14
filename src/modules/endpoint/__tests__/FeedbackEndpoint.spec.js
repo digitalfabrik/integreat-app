@@ -1,3 +1,4 @@
+// @flow
 import FeedbackEndpoint from '../FeedbackEndpoint'
 
 describe('FeedbackEndpoint', () => {

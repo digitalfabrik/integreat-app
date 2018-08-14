@@ -1,3 +1,5 @@
+// @flow
+
 import CategoryModel from '../CategoryModel'
 
 describe('CategoryModel', () => {
