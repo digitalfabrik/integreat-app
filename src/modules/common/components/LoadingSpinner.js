@@ -1,13 +1,11 @@
 // @flow
 
 import React from 'react'
-import Spinner from 'react-spinkit'
-
-import style from './LoadingSpinner.css'
+import {CenteredSpinner} from './LoadingSpinner.styles'
 
 class LoadingSpinner extends React.Component<{}> {
   render () {
-    return <Spinner className={style.centered} name='line-scale-party' />
+    return <CenteredSpinner name='line-scale-party' />
   }
 }
 

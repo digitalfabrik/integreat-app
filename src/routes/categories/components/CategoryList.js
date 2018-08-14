@@ -6,7 +6,13 @@ import RemoteContent from 'modules/common/components/RemoteContent'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import { List } from './CategoryList.styles'
+import styled from 'styled-components'
+
+const List = styled.div`
+  & a {
+    ${props => props.theme.helpers.removeLinkHighlighting}
+  }
+`
 
 type PropsType = {
   categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
@@ -25,7 +31,7 @@ class CategoryList extends React.Component<PropsType> {
     return (
       <div>
         {title && <Caption title={title} />}
-        <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />
+        {content && <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />}
         <List>
           {categories.map(({model, subCategories}) =>
             <CategoryListItem key={model.id}

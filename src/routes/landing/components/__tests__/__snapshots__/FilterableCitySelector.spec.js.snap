@@ -9,6 +9,7 @@ exports[`FilterableCitySelector should render 1`] = `
     filterText=""
     onFilterTextChange={[Function]}
     placeholderText="searchCity"
+    spaceSearch={false}
   >
     <CitySelector
       cities={
@@ -64,6 +65,7 @@ exports[`FilterableCitySelector should update filter text 1`] = `
     filterText=""
     onFilterTextChange={[Function]}
     placeholderText="searchCity"
+    spaceSearch={false}
   >
     <CitySelector
       cities={

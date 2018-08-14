@@ -5,9 +5,6 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
-  <Caption
-    title="extras"
-  />
   <Tiles
     tiles={
       Array [
@@ -15,6 +12,7 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
           "_id": "sprungbrett",
           "_isExternalUrl": false,
           "_path": "/augsburg/de/extras/sprungbrett",
+          "_postData": null,
           "_thumbnail": "xy",
           "_title": "Sprungbrett",
         },
@@ -22,6 +20,11 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
           "_id": "ihk-lehrstellenboerse",
           "_isExternalUrl": true,
           "_path": "ihk-jobborese.com",
+          "_postData": Map {
+            "partner" => "0006",
+            "radius" => "50",
+            "plz" => "86150",
+          },
           "_thumbnail": "xy",
           "_title": "Jobboerse",
         },
@@ -29,11 +32,13 @@ exports[`ExtrasPage should render extra tiles if no extra is selected 1`] = `
           "_id": "ihk-praktikumsboerse",
           "_isExternalUrl": true,
           "_path": "ihk-pratkitkumsboerse.com",
+          "_postData": null,
           "_thumbnail": "xy",
           "_title": "Praktikumsboerse",
         },
       ]
     }
+    title="extras"
   />
 </React.Fragment>
 `;
