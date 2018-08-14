@@ -6,6 +6,7 @@ exports[`Page should render 1`] = `
     title="Test Title"
   />
   <RemoteContent
+    centered={false}
     dangerouslySetInnerHTML={
       Object {
         "__html": "This is a test content",

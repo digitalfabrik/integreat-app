@@ -64,9 +64,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
       <React.Fragment>
         <Helmet title={`${extra.title} - ${cityName}`} />
         <Caption title={extra.title} />
-        <OfferList city={city} language={language}
-                   hashFunction={this.hash}
-                   offers={offers} />
+        <OfferList city={city} language={language} hashFunction={this.hash} offers={offers} />
       </React.Fragment>
     )
   }

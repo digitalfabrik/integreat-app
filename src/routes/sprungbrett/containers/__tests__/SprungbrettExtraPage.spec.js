@@ -15,7 +15,7 @@ describe('SprungbrettExtraPage', () => {
   const language = 'de'
 
   const sprungbrettExtra = new ExtraModel({
-    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy'
+    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
   })
 
   const extras = [sprungbrettExtra]

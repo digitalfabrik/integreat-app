@@ -1,3 +1,5 @@
+// @flow
+
 import styled, { css } from 'styled-components'
 
 export const SandBox = styled.div`

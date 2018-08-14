@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -9,6 +11,8 @@ describe('FailureSwitcher', () => {
   const city = 'augsburg'
 
   const language = 'de'
+
+  const mockTranslate = key => key || 'null'
 
   describe('render component not found failure', () => {
     it('should render a category not found failure and match snapshot', () => {
@@ -30,18 +34,18 @@ describe('FailureSwitcher', () => {
 
   it('should render a LanguageFailure if there is a LanguageNotFoundError', () => {
     expect(shallow(
-      <FailureSwitcher error={new LanguageNotFoundError({city, language})} t={key => key} />
+      <FailureSwitcher error={new LanguageNotFoundError({city, language})} t={mockTranslate} />
     )).toMatchSnapshot()
   })
 
   it('should render a content not found failure if there is a ContentNotFoundError', () => {
     expect(shallow(
       <FailureSwitcher error={new ContentNotFoundError({type: 'extra', id: 'sprungbrett', city, language})}
-                       t={key => key} />
+                       t={mockTranslate} />
     )).toMatchSnapshot()
   })
 
   it('should render a failure as default', () => {
-    expect(shallow(<FailureSwitcher error={new Error('error message')} t={key => key} />)).toMatchSnapshot()
+    expect(shallow(<FailureSwitcher error={new Error('error message')} t={mockTranslate} />)).toMatchSnapshot()
   })
 })
