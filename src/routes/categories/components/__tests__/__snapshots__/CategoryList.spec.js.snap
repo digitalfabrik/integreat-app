@@ -109,14 +109,6 @@ exports[`CategoryList should render and display a caption 1`] = `
 
 exports[`CategoryList should render and not display a caption 1`] = `
 <div>
-  <RemoteContent
-    centered={true}
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": undefined,
-      }
-    }
-  />
   <CategoryList__List>
     <CategoryListItem
       category={

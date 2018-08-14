@@ -39,6 +39,7 @@ exports[`EventListElement should render 1`] = `
       address, town
     </div>
     <RemoteContent
+      centered={false}
       dangerouslySetInnerHTML={
         Object {
           "__html": "excerpt...",

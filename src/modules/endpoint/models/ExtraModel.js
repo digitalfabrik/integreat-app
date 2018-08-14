@@ -5,17 +5,20 @@ export default class ExtraModel {
   _title: string
   _path: string
   _thumbnail: string
+  _postData: ?Map<string, string>
 
-  constructor (params: {
+  constructor (params: {|
     alias: string,
     title: string,
     path: string,
-    thumbnail: string
-  }) {
+    thumbnail: string,
+    postData: ?Map<string, string>
+  |}) {
     this._alias = params.alias
     this._title = params.title
     this._path = params.path
     this._thumbnail = params.thumbnail
+    this._postData = params.postData
   }
 
   get alias (): string {
@@ -32,5 +35,9 @@ export default class ExtraModel {
 
   get path (): string {
     return this._path
+  }
+
+  get postData (): ?Map<string, string> {
+    return this._postData
   }
 }
