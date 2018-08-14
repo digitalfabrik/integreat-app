@@ -119,7 +119,7 @@ export class Switcher extends React.Component<PropsType> {
           return <FailureSwitcher error={error} />
         }
     }
-    throw new Error(`For the route ${currentRoute} was no content selected in the Switcher which should be displayed.`)
+    throw new Error(`No content was selected for the route ${currentRoute} to be displayed.`)
   }
 
   /**
