@@ -8,6 +8,12 @@ import ParamMissingError from '../errors/ParamMissingError'
 
 const EXTRAS_ENDPOINT_NAME = 'extras'
 
+const createPostMap = (jsonPost: any): Map<string, string> => {
+  const map = new Map()
+  Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
+  return map
+}
+
 export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
@@ -23,6 +29,7 @@ export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
       alias: extra.alias,
       title: extra.name,
       path: extra.url,
-      thumbnail: extra.thumbnail
+      thumbnail: extra.thumbnail,
+      postData: extra.post ? createPostMap(extra.post) : null
     })))
   .build()

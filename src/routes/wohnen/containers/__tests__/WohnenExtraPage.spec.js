@@ -18,7 +18,7 @@ describe('WohnenExtraPage', () => {
   const language = 'de'
 
   const wohnenExtra = new ExtraModel({
-    alias: 'wohnen', path: 'path to fetch offers from', title: 'Raumfrei', thumbnail: 'xy'
+    alias: 'wohnen', path: 'path to fetch offers from', title: 'Raumfrei', thumbnail: 'xy', postData: null
   })
 
   const extras = [wohnenExtra]
