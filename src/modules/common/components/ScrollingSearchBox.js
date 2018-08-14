@@ -1,26 +1,35 @@
+// @flow
+
+import type { Element } from 'react'
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import SearchInput from './SearchInput'
 import Headroom from './Headroom'
 
 const SEARCH_BAR_HEIGHT = 45
 
-export class ScrollingSearchBox extends React.PureComponent {
-  static propTypes = {
-    filterText: PropTypes.string.isRequired,
-    onFilterTextChange: PropTypes.func.isRequired,
-    spaceSearch: PropTypes.bool,
-    children: PropTypes.element.isRequired,
-    placeholderText: PropTypes.string.isRequired
-  }
+type PropsType = {
+  filterText: string,
+  onFilterTextChange: (string) => void,
+  spaceSearch: boolean,
+  children: Element<*>,
+  placeholderText: string
+}
+
+type StateType = {
+  initialized: boolean
+}
+
+export class ScrollingSearchBox extends React.PureComponent<PropsType, StateType> {
+  static defaultProps = {spaceSearch: false}
+  _node: HTMLElement
 
   constructor () {
     super()
     this.state = {initialized: false}
   }
 
-  setReference = node => {
+  setReference = (node: ?HTMLElement) => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {

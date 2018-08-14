@@ -21,10 +21,7 @@ type StateType = {
   filterText: string
 }
 
-export class FilterableCitySelector extends React.Component<
-  PropsType,
-  StateType
-> {
+export class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = { filterText: '' }
@@ -42,7 +39,8 @@ export class FilterableCitySelector extends React.Component<
         <ScrollingSearchBox
           filterText={filterText}
           onFilterTextChange={this.onFilterTextChange}
-          placeholderText={t('searchCity')}>
+          placeholderText={t('searchCity')}
+          spaceSearch={false}>
           <CitySelector
             cities={cities}
             filterText={filterText}
