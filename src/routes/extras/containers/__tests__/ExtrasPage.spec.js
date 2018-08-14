@@ -1,3 +1,5 @@
+// @flow
+
 import { shallow } from 'enzyme'
 import React from 'react'
 
@@ -43,9 +45,12 @@ describe('ExtrasPage', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Augsburg'
     })
   ]
+
+  const t = (key: ?string): string => key || ''
 
   it('should render extra tiles if no extra is selected', () => {
     const extrasPage = shallow(
@@ -53,7 +58,7 @@ describe('ExtrasPage', () => {
                   language={language}
                   cities={cities}
                   extras={extras}
-                  t={key => key} />
+                  t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
   })

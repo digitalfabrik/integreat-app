@@ -32,8 +32,7 @@ export class EventsPage extends React.Component<PropsType> {
     const {events, eventId, city, language, cities, t} = this.props
 
     if (eventId) {
-      // event with the given id from this.props.id
-      const event = events.find(_event => _event.id === eventId)
+      const event = events.find(_event => `${_event.id}` === eventId)
 
       if (event) {
         return <React.Fragment>
