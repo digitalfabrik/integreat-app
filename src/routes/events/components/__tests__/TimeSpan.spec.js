@@ -1,3 +1,5 @@
+// @flow
+
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import TimeSpan from '../TimeSpan'

@@ -12,6 +12,7 @@ exports[`ScrollingSearchBox should render 1`] = `
       filterText="Test"
       onFilterTextChange={[Function]}
       placeholderText="Placeholder"
+      spaceSearch={false}
     />
   </Headroom>
 </div>
