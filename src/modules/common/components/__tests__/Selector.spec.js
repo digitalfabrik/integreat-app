@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 import Selector from '../Selector'
@@ -16,6 +18,7 @@ const selectorItems = [
   }),
   new SelectorItemModel({
     code: 'fr',
+    href: null,
     name: 'Französisch'
   })
 ]

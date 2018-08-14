@@ -1,14 +1,19 @@
 @import url('../../app/constants/helpers.css');
+@import url('../../app/constants/colors.css');
 
 .tile {
   margin-bottom: 20px;
 }
 
-.tile > a {
+.tile > a, .tile button {
   @mixin remove-a;
   display: block;
   max-width: 160px;
   margin: 0 auto;
+  padding: 0;
+  background-color: var(--background-color);
+  border: none;
+  box-shadow: none;
 }
 
 .thumbnail-sizer {
@@ -28,6 +33,8 @@
 .thumbnail img {
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   transition: transform 0.2s;
