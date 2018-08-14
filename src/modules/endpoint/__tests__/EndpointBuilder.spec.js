@@ -1,3 +1,4 @@
+// @flow
 import EndpointBuilder from '../EndpointBuilder'
 
 describe('EndpointBuilder', () => {

@@ -1,3 +1,5 @@
+// @flow
+
 import languages from '../languages'
 import LanguageModel from '../../models/LanguageModel'
 import categories from '../categories'

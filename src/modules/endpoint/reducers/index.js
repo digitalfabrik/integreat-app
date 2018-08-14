@@ -1,3 +1,5 @@
+// @flow
+
 import languagesEndpoint from '../endpoints/languages'
 import citiesEndpoint from '../endpoints/cities'
 import categoriesEndpoint from '../endpoints/categories'
@@ -41,11 +43,12 @@ const defaultState = new Payload(false)
 
 const reducers = endpoints.reduce((result, endpoint) => {
   const name = endpoint.stateName
-  result[name] = handleActions({
-    [startFetchActionName(name)]: startFetchReducer,
-    [finishFetchActionName(name)]: finishFetchReducer
-  },
-  defaultState
+  result[name] = handleActions(
+    {
+      [startFetchActionName(name)]: startFetchReducer,
+      [finishFetchActionName(name)]: finishFetchReducer
+    },
+    defaultState
   )
   return result
 }, {})

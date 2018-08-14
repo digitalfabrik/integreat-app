@@ -1,3 +1,5 @@
+// @flow
+
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
 import moment from 'moment'
