@@ -42,9 +42,19 @@ describe('LocationLayout', () => {
   })
 
   const extras = [
-    new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', title: 'Jobboerse', thumbnail: 'xy'}),
     new ExtraModel({
-      alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'
+      alias: 'ihk-lehrstellenboerse',
+      path: 'ihk-jobborese.com',
+      title: 'Jobboerse',
+      thumbnail: 'xy',
+      postData: null
+    }),
+    new ExtraModel({
+      alias: 'ihk-praktikumsboerse',
+      path: 'ihk-pratkitkumsboerse.com',
+      title: 'Praktikumsboerse',
+      thumbnail: 'xy',
+      postData: null
     })
   ]
   const events = [
