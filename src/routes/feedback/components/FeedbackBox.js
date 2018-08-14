@@ -3,14 +3,10 @@
 import * as React from 'react'
 import 'react-dropdown/style.css'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import FeedbackEndpoint, { DEFAULT_FEEDBACK_LANGUAGE, EXTRA_FEEDBACK_TYPE, INTEGREAT_INSTANCE }
-  from '../../../modules/endpoint/FeedbackEndpoint'
 import type { TFunction } from 'react-i18next'
 import CleanLink from '../../../modules/common/components/CleanLink'
-import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import type { LocationState } from 'redux-first-router'
@@ -18,8 +14,6 @@ import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import Dropdown from 'react-dropdown'
 import { FEEDBACK_SENT } from './FeedbackModal'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
-import { TECHNICAL_TOPICS_OPTION } from './FeedbackBoxContainer'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -47,20 +41,14 @@ export const SubmitButton = styled(CleanLink)`
 `
 
 type PropsType = {
-  cities: ?Array<CityModel>,
-  title?: string,
-  alias?: string,
-  id?: number,
-  query?: string,
   isPositiveRatingSelected: boolean,
   location: LocationState,
-  isOpen: boolean,
-  extras?: ?Array<ExtraModel>,
   feedbackOptions: Array<FeedbackDropdownItem>,
   selectedFeedbackOption: FeedbackDropdownItem,
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackDropdownItem => void,
+  onSubmit: () => void,
   t: TFunction
 }
 
@@ -68,52 +56,6 @@ type PropsType = {
  * Renders all necessary inputs for a Feedback and posts the data to the FeedbackEndpoint
  */
 export class FeedbackBox extends React.Component<PropsType> {
-  static defaultProps = {
-    hideHeader: false
-  }
-
-  componentDidUpdate (prevProps: PropsType) {
-    const {isOpen} = this.props
-    const prevIsOpen = prevProps.isOpen
-
-    // If the FeedbackBox is opened, we want to post the feedback
-    if (prevIsOpen !== isOpen && isOpen) {
-      /* eslint-disable react/no-did-update-set-state */
-      FeedbackEndpoint.postData(this.getFeedbackData())
-    }
-  }
-
-  /**
-   * Returns the data that should be posted to the FeedbackEndpoint
-   * @return {{feedbackType: string, isPositiveRating: boolean, comment: string, id: number, city: *, language: *,
-   * alias: string, query: string}}
-   */
-  getFeedbackData = (): FeedbackDataType => {
-    const {location, query, isPositiveRatingSelected, id, alias, selectedFeedbackOption, comment} = this.props
-    const {city, language} = location.payload
-
-    const isTechnicalTopicsOptionSelected = selectedFeedbackOption.value === TECHNICAL_TOPICS_OPTION
-    const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
-    const feedbackCity = !city || isTechnicalTopicsOptionSelected ? INTEGREAT_INSTANCE : city
-    const feedbackLanguage = !language || isTechnicalTopicsOptionSelected ? DEFAULT_FEEDBACK_LANGUAGE : language
-    const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.value : '')
-
-    return {
-      feedbackType: selectedFeedbackOption.feedbackType,
-      isPositiveRating: isPositiveRatingSelected,
-      comment,
-      id,
-      city: feedbackCity,
-      language: feedbackLanguage,
-      alias: feedbackAlias,
-      query
-    }
-  }
-
-  onSubmit = () => {
-    FeedbackEndpoint.postData(this.getFeedbackData())
-  }
-
   render () {
     const {
       selectedFeedbackOption,
@@ -123,6 +65,7 @@ export class FeedbackBox extends React.Component<PropsType> {
       location,
       onFeedbackOptionChanged,
       onCommentChanged,
+      onSubmit,
       comment
     } = this.props
 
@@ -139,7 +82,7 @@ export class FeedbackBox extends React.Component<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           isPositiveRatingSelected={isPositiveRatingSelected}
           onCommentChanged={onCommentChanged} />
-        <SubmitButton to={goToFeedback(location, FEEDBACK_SENT)} onClick={this.onSubmit}>
+        <SubmitButton to={goToFeedback(location, FEEDBACK_SENT)} onClick={onSubmit}>
           {t('send')}
         </SubmitButton>
       </StyledFeedbackBox>
