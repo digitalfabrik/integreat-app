@@ -38,7 +38,7 @@ type PropsType = {
   isPositiveRatingSelected: boolean,
   location: LocationState,
   isOpen: boolean,
-  extras?: ?Array<ExtraModel>,
+  extras: ?Array<ExtraModel>,
   t: TFunction
 }
 
