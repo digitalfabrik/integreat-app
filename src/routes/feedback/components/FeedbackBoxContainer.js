@@ -4,10 +4,10 @@ import * as React from 'react'
 import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import {
-  CATEGORIES_FEEDBACK_TYPE,
+import FeedbackEndpoint, {
+  CATEGORIES_FEEDBACK_TYPE, DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
-  EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE,
+  EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE, INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
 }
@@ -25,8 +25,9 @@ import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
 import { translate } from 'react-i18next'
+import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 
-export const TECHNICAL_TOPICS_OPTION = 'TECHNICAL TOPICS'
+const TECHNICAL_TOPICS_OPTION = 'TECHNICAL TOPICS'
 
 type PropsType = {
   cities: ?Array<CityModel>,
@@ -57,24 +58,17 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
-  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({comment: event.target.value})
-
-  onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
-    this.setState(prevState =>
-      ({selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value)})
-    )
-  }
-
   componentDidUpdate (prevProps: PropsType) {
     const {isOpen} = this.props
     const prevIsOpen = prevProps.isOpen
 
-    // If the FeedbackBoxContainer is opened, we have to reset and initialize the state
+    // If the FeedbackBoxContainer is opened, we have to reset and initialize the state and post the feedback
     if (prevIsOpen !== isOpen && isOpen) {
       /* eslint-disable react/no-did-update-set-state */
       const feedbackOptions = this.getFeedbackOptions()
       const selectedFeedbackOption = feedbackOptions[0]
       this.setState({feedbackOptions: feedbackOptions, selectedFeedbackOption: selectedFeedbackOption, comment: ''})
+      FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, ''))
     }
   }
 
@@ -155,11 +149,56 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     }
   }
 
+  /**
+   * Returns the data that should be posted to the FeedbackEndpoint
+   * @param selectedFeedbackOption
+   * @param comment
+   * @return {{feedbackType: string, isPositiveRating: boolean, comment: string, id: number, city: *, language: *,
+   * alias: string, query: string}}
+   */
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackDataType => {
+    const {location, query, isPositiveRatingSelected, id, alias} = this.props
+    const {city, language} = location.payload
+
+    const isTechnicalTopicsOptionSelected = selectedFeedbackOption.value === TECHNICAL_TOPICS_OPTION
+    const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
+    const feedbackCity = !city || isTechnicalTopicsOptionSelected ? INTEGREAT_INSTANCE : city
+    const feedbackLanguage = !language || isTechnicalTopicsOptionSelected ? DEFAULT_FEEDBACK_LANGUAGE : language
+    const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.value : '')
+
+    return {
+      feedbackType: selectedFeedbackOption.feedbackType,
+      isPositiveRating: isPositiveRatingSelected,
+      comment,
+      id,
+      city: feedbackCity,
+      language: feedbackLanguage,
+      alias: feedbackAlias,
+      query
+    }
+  }
+
+  onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => this.setState({comment: event.target.value})
+
+  onFeedbackOptionChanged = (selectedDropdown: FeedbackDropdownItem) => {
+    this.setState(prevState =>
+      ({selectedFeedbackOption: prevState.feedbackOptions.find(option => option.value === selectedDropdown.value)})
+    )
+  }
+
+  onSubmit = () => {
+    const {selectedFeedbackOption, comment} = this.state
+    FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, comment))
+  }
+
   render () {
+    const {location, isPositiveRatingSelected} = this.props
     return (
       <FeedbackBox onFeedbackOptionChanged={this.onFeedbackOptionChanged}
                    onCommentChanged={this.onCommentChanged}
-                   {...this.props}
+                   onSubmit={this.onSubmit}
+                   location={location}
+                   isPositiveRatingSelected={isPositiveRatingSelected}
                    {...this.state} />
     )
   }
