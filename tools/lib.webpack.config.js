@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const AssetsPlugin = require('assets-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
@@ -60,13 +59,6 @@ const config = {
       'process.env.NODE_ENV': '"production"',
       __DEV__: false,
       __VERSION__: JSON.stringify(getVersion())
-    }),
-    // Emit a JSON file with assets paths
-    // https://github.com/sporto/assets-webpack-plugin#options
-    new AssetsPlugin({
-      path: path.resolve(__dirname, '../www/dist'),
-      filename: 'assets.json',
-      prettyPrint: true
     }),
     new webpack.LoaderOptionsPlugin({
       debug: false,

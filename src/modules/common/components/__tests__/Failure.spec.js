@@ -1,10 +1,12 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedFailure, { Failure } from '../Failure'
 
 describe('Failure', () => {
-  const mockTranslate = jest.fn(msg => msg)
+  const mockTranslate = jest.fn(msg => (msg || 'null'))
 
   it('should match snapshot', () => {
     const wrapper = shallow(
@@ -17,7 +19,7 @@ describe('Failure', () => {
   describe('connect', () => {
     it('should match snapshot', () => {
       const wrapper = shallow(
-        <ConnectedFailure error='Error Message' />
+        <ConnectedFailure errorMessage='Error Message' />
       )
 
       expect(wrapper).toMatchSnapshot()

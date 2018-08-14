@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -6,18 +8,20 @@ import Tiles from '../Tiles'
 
 const tiles = [
   new TileModel({
-    id: 35,
+    id: '35',
     path: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
     thumbnail: 'some-thumnail.jpg',
-    isExternalUrl: false
+    isExternalUrl: false,
+    postData: null
   }),
   new TileModel({
-    id: 36,
+    id: '36',
     path: '/augsburg/de/willkommen/erste-schritte',
     title: 'Erste Schritte',
     thumbnail: 'some-other-thumbnail.jpg',
-    isExternalUrl: false
+    isExternalUrl: false,
+    postData: null
   })
 ]
 

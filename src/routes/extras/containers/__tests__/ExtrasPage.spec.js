@@ -1,3 +1,5 @@
+// @flow
+
 import { shallow } from 'enzyme'
 import React from 'react'
 
@@ -11,14 +13,29 @@ describe('ExtrasPage', () => {
   const language = 'de'
 
   const sprungbrettExtra = new ExtraModel({
-    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy'
+    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
   })
+
+  const lehrstellenRadarPostData = new Map()
+  lehrstellenRadarPostData.set('partner', '0006')
+  lehrstellenRadarPostData.set('radius', '50')
+  lehrstellenRadarPostData.set('plz', '86150')
 
   const extras = [
     sprungbrettExtra,
-    new ExtraModel({alias: 'ihk-lehrstellenboerse', path: 'ihk-jobborese.com', title: 'Jobboerse', thumbnail: 'xy'}),
     new ExtraModel({
-      alias: 'ihk-praktikumsboerse', path: 'ihk-pratkitkumsboerse.com', title: 'Praktikumsboerse', thumbnail: 'xy'
+      alias: 'ihk-lehrstellenboerse',
+      path: 'ihk-jobborese.com',
+      title: 'Jobboerse',
+      thumbnail: 'xy',
+      postData: lehrstellenRadarPostData
+    }),
+    new ExtraModel({
+      alias: 'ihk-praktikumsboerse',
+      path: 'ihk-pratkitkumsboerse.com',
+      title: 'Praktikumsboerse',
+      thumbnail: 'xy',
+      postData: null
     })
   ]
 
@@ -28,9 +45,12 @@ describe('ExtrasPage', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Augsburg'
     })
   ]
+
+  const t = (key: ?string): string => key || ''
 
   it('should render extra tiles if no extra is selected', () => {
     const extrasPage = shallow(
@@ -38,7 +58,7 @@ describe('ExtrasPage', () => {
                   language={language}
                   cities={cities}
                   extras={extras}
-                  t={key => key} />
+                  t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
   })

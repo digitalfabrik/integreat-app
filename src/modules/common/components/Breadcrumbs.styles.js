@@ -1,3 +1,5 @@
+// @flow
+
 import styled from 'styled-components'
 
 const opposite = direction => direction === 'ltr' ? 'rtl' : 'ltr'

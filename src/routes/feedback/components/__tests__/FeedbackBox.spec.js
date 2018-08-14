@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -13,10 +15,11 @@ describe('FeedbackBox', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Augsburg'
     })
   ]
-  const t = key => key
+  const t = (key: ?string): string => key || ''
 
   it('should render a FeedbackBox with Header', () => {
     const component = shallow(
