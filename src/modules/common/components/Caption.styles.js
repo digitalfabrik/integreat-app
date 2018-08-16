@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+// @flow
 
-// fixme: H1 is connected to redux state -> not a plain old component
+import styled from 'styled-components'
 
 export const H1 = styled.h1`
   margin: 25px 0;

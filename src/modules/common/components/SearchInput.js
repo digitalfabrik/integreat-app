@@ -1,17 +1,19 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { SearchIcon, Spacer, TextInput, Wrapper } from './SearchInput.styles'
 
-export class SearchInput extends React.Component {
-  static propTypes = {
-    placeholderText: PropTypes.string.isRequired,
-    filterText: PropTypes.string.isRequired,
-    onFilterTextChange: PropTypes.func.isRequired,
-    spaceSearch: PropTypes.bool,
-    onClickInput: PropTypes.func
-  }
+type PropsType = {
+  placeholderText: string,
+  filterText: string,
+  onFilterTextChange: (string) => void,
+  spaceSearch: boolean,
+  onClickInput?: () => void
+}
 
-  onFilterTextChange = event => this.props.onFilterTextChange(event.target.value)
+export class SearchInput extends React.Component<PropsType> {
+  static defaultProps = {spaceSearch: false}
+  onFilterTextChange = (event: SyntheticInputEvent<EventTarget>) => this.props.onFilterTextChange(event.target.value)
 
   render () {
     const {onClickInput, filterText, placeholderText} = this.props

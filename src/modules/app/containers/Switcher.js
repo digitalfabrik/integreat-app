@@ -64,67 +64,53 @@ type PropsType = {
  */
 export class Switcher extends React.Component<PropsType> {
   /**
-   * Renders a failure component if the payload contains an error or a LoadingSpinner if the data is currently being fetched
-   * @param payload The payload to check for errors or fetching process
+   * Renders a failure component if a payload contains an error or a LoadingSpinner if the data is still being fetched
+   * @param payloads The payloads to check for errors or fetching process
    * @return {*}
    */
-  static renderFailureLoadingComponents = (payload: Payload<any>): Node => {
-    if (payload.error) {
-      return <FailureSwitcher error={payload.error} />
-    } else if (payload.isFetching || !payload.data) {
+  static renderFailureLoadingComponents = (payloads: Array<Payload<any>>): ?Node => {
+    const errorPayload = payloads.find(payload => payload.error)
+    if (payloads.find(payload => (payload.isFetching || !payload.data) && !payload.error)) {
       return <LoadingSpinner />
-    } else {
-      return null
+    } else if (errorPayload && errorPayload.error) {
+      return <FailureSwitcher error={errorPayload.error} />
     }
+    return null
   }
 
   /**
-   * Renders the right page for the current route or a failure or loading component if there was an error during fetching
+   * Renders the right page for the current route or a failure/loading component if there was an error during fetching
    * @return {*}
    */
   renderPage = (): Node => {
     const {
-      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload, sprungbrettJobsPayload, wohnenPayload, param
+      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
+      sprungbrettJobsPayload, wohnenPayload, param
     } = this.props
 
     switch (currentRoute) {
       case I18N_REDIRECT_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) || <I18nRedirectPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload]) || <I18nRedirectPage />
       case LANDING_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) || <LandingPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload]) || <LandingPage />
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        // The CategoriesPage needs cities and categories
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(categoriesPayload) ||
-          <CategoriesPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) || <CategoriesPage />
       case EVENTS_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(eventsPayload) ||
-          <EventsPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, eventsPayload]) || <EventsPage />
       case EXTRAS_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(extrasPayload) ||
-          <ExtrasPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload]) || <ExtrasPage />
       case SPRUNGBRETT_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(extrasPayload) ||
-          Switcher.renderFailureLoadingComponents(sprungbrettJobsPayload) ||
+        return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload, sprungbrettJobsPayload]) ||
           <SprungbrettExtraPage />
       case WOHNEN_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(extrasPayload) ||
-          Switcher.renderFailureLoadingComponents(wohnenPayload) ||
+        return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload, wohnenPayload]) ||
           <WohnenExtraPage />
       case DISCLAIMER_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(disclaimerPayload) ||
-          <DisclaimerPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, disclaimerPayload]) || <DisclaimerPage />
       case SEARCH_ROUTE:
-        return Switcher.renderFailureLoadingComponents(citiesPayload) ||
-          Switcher.renderFailureLoadingComponents(categoriesPayload) ||
-          <SearchPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) || <SearchPage />
       case NOT_FOUND:
         // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
         // "disclaimer" nor a city, so we want to show an error that the param is not an available city
@@ -133,16 +119,28 @@ export class Switcher extends React.Component<PropsType> {
           return <FailureSwitcher error={error} />
         }
     }
-    throw new Error(`For the route ${currentRoute} was no content selected in the Switcher which should be displayed.`)
+    throw new Error(`No content was selected for the route ${currentRoute} to be displayed.`)
+  }
+
+  /**
+   * Checks whether the city and language params are valid
+   * @return {*}
+   */
+  checkRouteParams (): ?Error {
+    const {city, citiesPayload, language, languages} = this.props
+    if (city && citiesPayload.data && !citiesPayload.data.find(_city => _city.code === city)) {
+      return new CityNotFoundError({city})
+    } else if (language && city && citiesPayload.data && languages && !languages.find(lang => lang.code === language)) {
+      return new LanguageNotFoundError({city, language})
+    }
+    return null
   }
 
   render () {
-    const {city, citiesPayload, language, languages, currentRoute, viewportSmall} = this.props
+    const {currentRoute, viewportSmall} = this.props
 
-    // The current city is invalid, so we want to show an error
-    if (city && Array.isArray(citiesPayload.data) &&
-      !citiesPayload.data.find(_city => _city instanceof CityModel && _city.code === city)) {
-      const error = new CityNotFoundError({city})
+    const error = this.checkRouteParams()
+    if (error) {
       return (
         <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
           <FailureSwitcher error={error} />
@@ -150,38 +148,18 @@ export class Switcher extends React.Component<PropsType> {
       )
     }
 
-    // The current language is not available in the current city, so we want to show an error
-    if (language && city && languages && !languages.find(_language => _language.code === language)) {
-      const error = new LanguageNotFoundError({city, language})
-      return (
-        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
-          <FailureSwitcher error={error} />
-        </Layout>
-      )
-    }
-
-    if (currentRoute === LANDING_ROUTE) {
-      return (
-        <Layout footer={<GeneralFooter />}>
-          {this.renderPage()}
-        </Layout>
-      )
-    } else if (LocationLayoutRoutes.includes(currentRoute)) {
+    if (LocationLayoutRoutes.includes(currentRoute)) {
       return (
         <LocationLayout>
           {this.renderPage()}
         </LocationLayout>
       )
-    } else if (currentRoute === I18N_REDIRECT_ROUTE) {
-      return (
-        <Layout>
-          {this.renderPage()}
-        </Layout>
-      )
     } else {
-      // MAIN_DISCLAIMER_ROUTE, NOT_FOUND
       return (
-        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
+        <Layout footer={[LANDING_ROUTE, MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) && <GeneralFooter />}
+                header={[MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) &&
+                <GeneralHeader viewportSmall={viewportSmall} />
+                }>
           {this.renderPage()}
         </Layout>
       )

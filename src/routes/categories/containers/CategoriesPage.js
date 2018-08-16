@@ -42,7 +42,8 @@ export class CategoriesPage extends React.Component<PropsType> {
       title: category.title,
       path: category.path,
       thumbnail: category.thumbnail,
-      isExternalUrl: false
+      isExternalUrl: false,
+      postData: null
     }))
   }
 
