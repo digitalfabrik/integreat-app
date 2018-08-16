@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LocationLayout should show CategoriesToolbar if current route is categories 1`] = `
+exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is not available 1`] = `
 <Layout
   asideStickyTop={0}
   footer={
@@ -11,8 +11,8 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
   }
   header={
     <Connect(Translate(LocationHeader))
-      isEventsEnabled={undefined}
-      isExtrasEnabled={undefined}
+      isEventsEnabled={true}
+      isExtrasEnabled={false}
       onStickyTopChanged={[Function]}
     />
   }
@@ -23,15 +23,15 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
         Array [
           CityModel {
             "_code": "city1",
-            "_eventsEnabled": undefined,
-            "_extrasEnabled": undefined,
-            "_live": undefined,
+            "_eventsEnabled": true,
+            "_extrasEnabled": false,
+            "_live": true,
             "_name": "Mambo No. 5",
-            "_sortingName": undefined,
+            "_sortingName": "Mambo",
           },
         ]
       }
-      feedbackType={undefined}
+      feedbackStatus={undefined}
       id={undefined}
       location={
         Object {
@@ -54,8 +54,8 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
             "path01" => CategoryModel {
               "_availableLanguages": Map {},
               "_content": "contnentl",
-              "_id": undefined,
-              "_lastUpdate": undefined,
+              "_id": 1,
+              "_lastUpdate": "2017-11-18T09:30:00.000Z",
               "_order": 4,
               "_parentPath": "parent/url",
               "_path": "path01",
@@ -82,20 +82,6 @@ exports[`LocationLayout should show CategoriesToolbar if current route is catego
 </Layout>
 `;
 
-exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is not available 1`] = `
-<Layout
-  asideStickyTop={0}
-  footer={<Translate(GeneralFooter) />}
-  header={
-    <GeneralHeader
-      viewportSmall={true}
-    />
-  }
->
-  <MockNode />
-</Layout>
-`;
-
 exports[`LocationLayout should show LocationHeader and LocationFooter if city is available 1`] = `
 <Layout
   asideStickyTop={0}
@@ -107,8 +93,8 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
   }
   header={
     <Connect(Translate(LocationHeader))
-      isEventsEnabled={undefined}
-      isExtrasEnabled={undefined}
+      isEventsEnabled={true}
+      isExtrasEnabled={false}
       onStickyTopChanged={[Function]}
     />
   }
@@ -119,15 +105,15 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
         Array [
           CityModel {
             "_code": "city1",
-            "_eventsEnabled": undefined,
-            "_extrasEnabled": undefined,
-            "_live": undefined,
+            "_eventsEnabled": true,
+            "_extrasEnabled": false,
+            "_live": true,
             "_name": "Mambo No. 5",
-            "_sortingName": undefined,
+            "_sortingName": "Mambo",
           },
         ]
       }
-      feedbackType={undefined}
+      feedbackStatus={undefined}
       id={undefined}
       location={
         Object {
@@ -150,8 +136,8 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
             "path01" => CategoryModel {
               "_availableLanguages": Map {},
               "_content": "contnentl",
-              "_id": undefined,
-              "_lastUpdate": undefined,
+              "_id": 1,
+              "_lastUpdate": "2017-11-18T09:30:00.000Z",
               "_order": 4,
               "_parentPath": "parent/url",
               "_path": "path01",
