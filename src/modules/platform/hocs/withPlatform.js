@@ -1,19 +1,22 @@
 // @flow
 
-import React from 'react'
-import type { ComponentType } from 'react'
+import * as React from 'react'
 import { wrapDisplayName } from 'recompose'
 
 import PlatformContext from '../PlatformContext'
+import Platform from '../Platform'
 
-const withPlatform = (WrappedComponent: ComponentType<{}>) => {
-  return class extends React.Component<{}> {
+const withPlatform = <Props: {}>(WrappedComponent: React.ComponentType<Props>): React.ComponentType<$Diff<Props,
+  {platform: Platform | void}>> => {
+  return class extends React.Component<Props> {
     static displayName = wrapDisplayName(WrappedComponent, 'withPlatform')
 
     render () {
-      return <PlatformContext.Consumer>
-        {platform => <WrappedComponent {...{...this.props, platform}} />}
-      </PlatformContext.Consumer>
+      return (
+        <PlatformContext.Consumer>
+          {platform => <WrappedComponent platform={platform} {...this.props} />}
+        </PlatformContext.Consumer>
+      )
     }
   }
 }
