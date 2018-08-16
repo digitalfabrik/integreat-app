@@ -1,22 +1,34 @@
+// @flow
+
 import React from 'react'
 
 import LocationBig from '../assets/LocationBig.svg'
-import style from './Heading.css'
 import { translate } from 'react-i18next'
 import Caption from 'modules/common/components/Caption'
-import PropTypes from 'prop-types'
+import type { TFunction } from 'react-i18next'
+import styled from 'styled-components'
 
-class Heading extends React.Component {
-  static propTypes = {
-    t: PropTypes.func.isRequired
-  }
+const Logo = styled.img`
+  display: block;
+  height: 70px;
+  margin: 0 auto;
+`
 
+const StyledCaption = styled(Caption)`
+  margin: 20px 0 30px;
+`
+
+type PropsType = {
+  t: TFunction
+}
+
+class Heading extends React.Component<PropsType> {
   render () {
     const {t} = this.props
     return (
       <div>
-        <img className={style.logo} src={LocationBig} />
-        <Caption className={style.caption} title={t('where')} />
+        <Logo src={LocationBig} />
+        <StyledCaption title={t('where')} />
       </div>
     )
   }
