@@ -1,3 +1,5 @@
+// @flow
+
 import { shallow } from 'enzyme'
 import App from '../App'
 import React from 'react'
