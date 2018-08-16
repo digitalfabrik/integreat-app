@@ -17,17 +17,24 @@ import { DISCLAIMER_ROUTE } from '../../app/routes/disclaimer'
 import { SEARCH_ROUTE } from '../../app/routes/search'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
-import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
+import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
+import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
+import LocationToolbar from '../components/LocationToolbar'
+import EventModel from '../../endpoint/models/EventModel'
+import ExtraModel from '../../endpoint/models/ExtraModel'
+import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
 type PropsType = {
   cities: ?Array<CityModel>,
-  categories: CategoriesMapModel,
+  categories: ?CategoriesMapModel,
+  events: ?Array<EventModel>,
+  extras: ?Array<ExtraModel>,
+  disclaimer: ?DisclaimerModel,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState
@@ -50,12 +57,13 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   renderFeedbackModal = (): React.Node => {
-    const {cities, location, categories} = this.props
-    const feedbackType = location.query && location.query.feedback
+    const {cities, location, categories, events, extras, disclaimer} = this.props
+    const feedbackStatus = location.query && location.query.feedback
     const payload = location.payload
 
     let id
     let title
+    let alias
     if (location.type === CATEGORIES_ROUTE && categories) {
       const category = categories.findCategoryByPath(location.pathname)
       if (category) {
@@ -64,24 +72,57 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       }
     }
 
+    if (location.type === EVENTS_ROUTE && events) {
+      const event = events.find(event => event.id === payload.eventId)
+      if (event) {
+        id = event.id
+        title = event.title
+      }
+    }
+
+    if ([SPRUNGBRETT_ROUTE, WOHNEN_ROUTE].includes(location.type) && extras) {
+      const extra = extras.find(extra => [SPRUNGBRETT_EXTRA, WOHNEN_EXTRA].includes(extra.alias))
+      if (extra) {
+        alias = extra.alias
+        title = extra.title
+      }
+    }
+
+    if (location.type === DISCLAIMER_ROUTE && disclaimer) {
+      id = disclaimer.id
+    }
+
     return (
       <FeedbackModal
         id={id}
         title={title}
-        alias={payload.alias}
+        alias={alias}
         cities={cities}
-        feedbackType={feedbackType}
+        feedbackStatus={feedbackStatus}
         location={location} />
     )
   }
 
+  renderToolbar = (): React.Node => {
+    const {location, categories} = this.props
+    const type = location.type
+
+    if (type === CATEGORIES_ROUTE) {
+      return <CategoriesToolbar categories={categories}
+                                location={location} />
+    } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
+      return <LocationToolbar location={location} />
+    } else {
+      return null
+    }
+  }
+
   render () {
-    const {viewportSmall, children, categories, cities, location} = this.props
+    const {viewportSmall, children, location} = this.props
     const type = location.type
     const {city, language} = location.payload
 
     const cityModel = this.getCurrentCity()
-    const showCategoriesToolbar = type === CATEGORIES_ROUTE && categories
 
     if (!cityModel) {
       return <Layout header={<GeneralHeader viewportSmall={viewportSmall} />}
@@ -96,8 +137,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                       isExtrasEnabled={cityModel.extrasEnabled}
                                       onStickyTopChanged={this.onStickyTopChanged} />}
               footer={<LocationFooter city={city} language={language} />}
-              toolbar={showCategoriesToolbar && cities && <CategoriesToolbar categories={categories}
-                                                                             location={location} />}
+              toolbar={this.renderToolbar()}
               modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
         {children}
       </Layout>
@@ -109,7 +149,10 @@ const mapStateToProps = state => ({
   location: state.location,
   viewportSmall: state.viewport.is.small,
   cities: state.cities.data,
-  categories: state.categories.data
+  categories: state.categories.data,
+  events: state.events.data,
+  extras: state.extras.data,
+  disclaimer: state.disclaimer.data
 })
 
 export default connect(mapStateToProps)(LocationLayout)

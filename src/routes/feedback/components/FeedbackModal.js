@@ -53,29 +53,26 @@ type PropsType = {
   id?: number,
   alias?: string,
   query?: string,
-  feedbackType: string,
+  feedbackStatus: ?string,
   location: LocationState
 }
 
 class FeedbackModal extends React.Component<PropsType> {
   renderModalContent = (): React.Node => {
-    const {feedbackType, location} = this.props
-
-    if (feedbackType === FEEDBACK_SENT) {
+    const {feedbackStatus, location} = this.props
+    if (feedbackStatus === FEEDBACK_SENT) {
       return <FeedbackThanksMessage location={location} />
-    } else if (feedbackType === POSITIVE_RATING || feedbackType === NEGATIVE_RATING) {
-      return <FeedbackBox isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
-                          isOpen={!!feedbackType}
-                          {...this.props} />
     } else {
-      return null
+      return <FeedbackBox isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                          isOpen={feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING}
+                          {...this.props} />
     }
   }
 
   render () {
-    const {location, feedbackType} = this.props
+    const {location, feedbackStatus} = this.props
     return (
-      <ModalContainer isOpen={!!feedbackType}>
+      <ModalContainer isOpen={!!feedbackStatus}>
         <Overlay to={goToFeedback(location)} />
         <FeedbackContainer>
           {this.renderModalContent()}

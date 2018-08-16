@@ -8,8 +8,8 @@ import { translate } from 'react-i18next'
 import styled from 'styled-components'
 import FeedbackEndpoint, {
   CATEGORIES_FEEDBACK_TYPE,
-  DEFAULT_FEEDBACK_LANGUAGE,
-  EXTRA_FEEDBACK_TYPE,
+  DEFAULT_FEEDBACK_LANGUAGE, EVENTS_FEEDBACK_TYPE,
+  EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
@@ -20,7 +20,6 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
 import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
-import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
 import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 import ModalHeader from './ModalHeader'
@@ -30,6 +29,9 @@ import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import Dropdown from 'react-dropdown'
 import { FEEDBACK_SENT } from './FeedbackModal'
+import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
+import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -127,6 +129,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {cities, location, t} = this.props
     const {city} = location.payload
+    const currentRoute = location.type
 
     const options = []
     const currentPageFeedbackLabel = this.getCurrentPageFeedbackLabel()
@@ -135,7 +138,17 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     }
     if (city && cities) {
       const cityTitle = CityModel.findCityName(cities, city)
-      options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, CATEGORIES_FEEDBACK_TYPE))
+      let feedbackType
+      if (currentRoute === EVENTS_ROUTE) {
+        feedbackType = EVENTS_FEEDBACK_TYPE
+      } else if (currentRoute === EXTRAS_ROUTE) {
+        feedbackType = EXTRAS_FEEDBACK_TYPE
+      } else {
+        feedbackType = CATEGORIES_FEEDBACK_TYPE
+      }
+      // We don't want to differ between the content of categories, extras and events for the user, but we want to know
+      // from which route the feedback was sent
+      options.push(this.getFeedbackOption(`${t('contentOfCity')} ${cityTitle}`, feedbackType))
     }
 
     options.push(this.getFeedbackOption(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
@@ -154,7 +167,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
       return `${t('contentOfPage')} '${title}'`
     } else if (type === EVENTS_ROUTE && id && title) {
       return `${t('news')} '${title}'`
-    } else if (type === EXTRAS_ROUTE && alias && title) {
+    } else if ((type === WOHNEN_ROUTE || type === SPRUNGBRETT_ROUTE) && alias && title) {
       return `${t('extra')} '${title}'`
     } else if (type === SEARCH_ROUTE && query) {
       return `${t('searchFor')} '${query}'`
@@ -169,7 +182,7 @@ export class FeedbackBox extends React.Component<PropsType, StateType> {
     const {type} = this.props.location
     if (type === SEARCH_ROUTE) {
       return SEARCH_FEEDBACK_TYPE
-    } else if (type === EXTRAS_ROUTE) {
+    } else if ([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
       return EXTRA_FEEDBACK_TYPE
     } else {
       return PAGE_FEEDBACK_TYPE

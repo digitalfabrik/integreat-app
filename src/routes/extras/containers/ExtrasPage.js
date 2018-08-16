@@ -12,11 +12,8 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import { compose } from 'recompose'
-import { getSprungbrettExtraPath } from '../../../modules/app/routes/sprungbrett'
-import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
-
-const SPRUNGBRETT_EXTRA = 'sprungbrett'
-const WOHNEN_EXTRA = 'wohnen'
+import { getSprungbrettExtraPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
+import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
 
 type PropsType = {
   city: string,
