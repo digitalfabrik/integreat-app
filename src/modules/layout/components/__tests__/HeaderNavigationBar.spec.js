@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 import HeaderNavigationBar from '../HeaderNavigationBar'
@@ -15,7 +17,7 @@ describe('HeaderNavigationBar', () => {
   })
 
   it('should add a class when no items supplied', () => {
-    const component = shallow(<HeaderNavigationBar />)
+    const component = shallow(<HeaderNavigationBar><div>MockNode</div></HeaderNavigationBar>)
     expect(component.find('div').prop('className')).toEqual('navigationBar hidden')
   })
 })

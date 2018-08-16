@@ -2,7 +2,7 @@
 
 exports[`HeaderNavigationBar should match snapshot 1`] = `
 <div
-  className="testClass navigationBar"
+  className="navigationBar testClass"
 >
   <HeaderNavigationItem
     active={true}
