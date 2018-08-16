@@ -36,12 +36,14 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
           ExtraModel {
             "_alias": "ihk-lehrstellenboerse",
             "_path": "ihk-jobborese.com",
+            "_postData": null,
             "_thumbnail": "xy",
             "_title": "Jobboerse",
           },
           ExtraModel {
             "_alias": "ihk-praktikumsboerse",
             "_path": "ihk-pratkitkumsboerse.com",
+            "_postData": null,
             "_thumbnail": "xy",
             "_title": "Praktikumsboerse",
           },
@@ -134,12 +136,14 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
           ExtraModel {
             "_alias": "ihk-lehrstellenboerse",
             "_path": "ihk-jobborese.com",
+            "_postData": null,
             "_thumbnail": "xy",
             "_title": "Jobboerse",
           },
           ExtraModel {
             "_alias": "ihk-praktikumsboerse",
             "_path": "ihk-pratkitkumsboerse.com",
+            "_postData": null,
             "_thumbnail": "xy",
             "_title": "Praktikumsboerse",
           },
