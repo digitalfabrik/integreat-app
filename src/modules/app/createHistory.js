@@ -1,6 +1,9 @@
-import createBrowserHistory from 'history/createBrowserHistory'
+// @flow
 
-const createHistory = (history = createBrowserHistory()) => {
+import createBrowserHistory from 'history/createBrowserHistory'
+import type { BrowserHistory } from 'history'
+
+const createHistory = (history: BrowserHistory = createBrowserHistory()): BrowserHistory => {
   history.listen((location, action) => {
     // Keep default behavior of restoring scroll position when user:
     // - clicked back button
