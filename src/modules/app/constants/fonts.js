@@ -1,3 +1,5 @@
+// @flow
+
 export default {
   fontSizeAdjust: 0.55,
   decorativeFontFamily: `'Raleway', 'Lateef', sans-serif`,

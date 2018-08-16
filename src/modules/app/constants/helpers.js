@@ -1,3 +1,5 @@
+// @flow
+
 export default {
   removeLinkHighlighting: `
     color: inherit;
