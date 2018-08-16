@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 
 import { FilterableCitySelector } from '../FilterableCitySelector'
@@ -5,6 +7,8 @@ import { shallow } from 'enzyme'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('FilterableCitySelector', () => {
+  const t = (key: ?string): string => key || ''
+
   const cities = [
     new CityModel({
       name: 'City',
@@ -45,7 +49,7 @@ describe('FilterableCitySelector', () => {
       <FilterableCitySelector
         language='de'
         cities={cities}
-        t={key => key} />
+        t={t} />
     )
 
     expect(component).toMatchSnapshot()
@@ -54,7 +58,7 @@ describe('FilterableCitySelector', () => {
   it('should update filter text', () => {
     const wrapper = shallow(
         <FilterableCitySelector
-          t={key => key}
+          t={t}
           language='de'
           cities={cities} />
     )
