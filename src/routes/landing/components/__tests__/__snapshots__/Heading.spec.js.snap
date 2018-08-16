@@ -46,22 +46,32 @@ exports[`Heading should render 1`] = `
       t={[Function]}
     >
       <div>
-        <img
-          className="logo"
+        <Heading__Logo
           src="test-file-stub"
-        />
-        <Caption
-          className="caption"
+        >
+          <img
+            className="Heading__Logo-FZtoB jLStHp"
+            src="test-file-stub"
+          />
+        </Heading__Logo>
+        <Heading__StyledCaption
           title="landing:where"
         >
-          <Captionstyles__H1>
-            <h1
-              className="Captionstyles__H1-fhVIYI kAGJkW"
+          <Caption
+            className="Heading__StyledCaption-ieIBJH eBTOae"
+            title="landing:where"
+          >
+            <Captionstyles__H1
+              className="Heading__StyledCaption-ieIBJH eBTOae"
             >
-              landing:where
-            </h1>
-          </Captionstyles__H1>
-        </Caption>
+              <h1
+                className="Heading__StyledCaption-ieIBJH eBTOae Captionstyles__H1-fhVIYI kAGJkW"
+              >
+                landing:where
+              </h1>
+            </Captionstyles__H1>
+          </Caption>
+        </Heading__StyledCaption>
       </div>
     </Heading>
   </Translate(Heading)>
