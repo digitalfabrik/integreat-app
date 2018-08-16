@@ -27,8 +27,6 @@ import FeedbackBox from './FeedbackBox'
 import { translate } from 'react-i18next'
 import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 
-const TECHNICAL_TOPICS_OPTION = 'TECHNICAL TOPICS'
-
 type PropsType = {
   cities: ?Array<CityModel>,
   title?: string,
@@ -106,7 +104,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       this.getExtrasFeedbackOptions().forEach(option => options.push(option))
     }
 
-    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE, TECHNICAL_TOPICS_OPTION))
+    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
 
     return options
   }
@@ -138,7 +136,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       return new FeedbackDropdownItem(`${t('contentOfPage')} '${title}'`, PAGE_FEEDBACK_TYPE)
     } else if (type === EVENTS_ROUTE && id && title) {
       return new FeedbackDropdownItem(`${t('news')} '${title}'`, PAGE_FEEDBACK_TYPE)
-    } else if ((type === WOHNEN_ROUTE || type === SPRUNGBRETT_ROUTE) && alias && title) {
+    } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
       return new FeedbackDropdownItem(`${t('extra')} '${title}'`, EXTRA_FEEDBACK_TYPE)
     } else if (type === SEARCH_ROUTE && query) {
       return new FeedbackDropdownItem(`${t('searchFor')} '${query}'`, SEARCH_FEEDBACK_TYPE)
