@@ -160,10 +160,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const {location, query, isPositiveRatingSelected, id, alias} = this.props
     const {city, language} = location.payload
 
-    const isTechnicalTopicsOptionSelected = selectedFeedbackOption.value === TECHNICAL_TOPICS_OPTION
     const isExtraOptionSelected = selectedFeedbackOption.feedbackType === EXTRA_FEEDBACK_TYPE
-    const feedbackCity = !city || isTechnicalTopicsOptionSelected ? INTEGREAT_INSTANCE : city
-    const feedbackLanguage = !language || isTechnicalTopicsOptionSelected ? DEFAULT_FEEDBACK_LANGUAGE : language
     const feedbackAlias = alias || (isExtraOptionSelected ? selectedFeedbackOption.value : '')
 
     return {
@@ -171,8 +168,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       isPositiveRating: isPositiveRatingSelected,
       comment,
       id,
-      city: feedbackCity,
-      language: feedbackLanguage,
+      city: city || INTEGREAT_INSTANCE,
+      language: language || DEFAULT_FEEDBACK_LANGUAGE,
       alias: feedbackAlias,
       query
     }
