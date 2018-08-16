@@ -3,13 +3,26 @@
 exports[`Footer should insert items 1`] = `
 <footer
   className="footer"
-/>
+>
+  <div>
+    MockNode
+  </div>
+  <div>
+    AnotherMockNode
+  </div>
+</footer>
 `;
 
 exports[`Footer should show Version on dev builds 1`] = `
 <footer
   className="footer"
 >
+  <div>
+    MockNode
+  </div>
+  <div>
+    AnotherMockNode
+  </div>
   <span
     className="item"
   >

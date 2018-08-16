@@ -8,7 +8,7 @@ import style from './HeaderNavigationBar.css'
 
 type PropsType = {
   className?: string,
-  children: React.Node
+  children?: React.Node
 }
 
 /**
