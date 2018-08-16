@@ -398,6 +398,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       />,
     ]
   }
+  onStickyTopChanged={[Function]}
   viewportSmall={true}
 />
 `;

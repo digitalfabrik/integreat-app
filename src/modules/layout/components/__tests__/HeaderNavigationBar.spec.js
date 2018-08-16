@@ -17,7 +17,7 @@ describe('HeaderNavigationBar', () => {
   })
 
   it('should add a class when no items supplied', () => {
-    const component = shallow(<HeaderNavigationBar><div>MockNode</div></HeaderNavigationBar>)
+    const component = shallow(<HeaderNavigationBar />)
     expect(component.find('div').prop('className')).toEqual('navigationBar hidden')
   })
 })
