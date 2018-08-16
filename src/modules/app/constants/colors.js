@@ -1,3 +1,5 @@
+// @flow
+
 export default {
   themeColor: '#fbda16',
   themeDarkColor: '#c4a900',

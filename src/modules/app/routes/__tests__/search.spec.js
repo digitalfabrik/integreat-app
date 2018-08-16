@@ -1,3 +1,5 @@
+// @flow
+
 import { goToSearch, SEARCH_ROUTE, searchRoute } from '../search'
 
 describe('search route', () => {
