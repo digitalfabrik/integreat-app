@@ -8,9 +8,6 @@ type PropsType = {
   children: Array<React.Element<*>>
 }
 
-declare var __DEV__: boolean
-declare var __VERSION__: string
-
 /**
  * The standard footer which can supplied to a Layout. Displays a list of links from the props and adds the version
  * number if it's a dev build.
