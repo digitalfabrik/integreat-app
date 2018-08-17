@@ -1,3 +1,17 @@
+// @flow
+
+export type FontsType = {
+  fontSizeAdjust: number,
+  decorativeFontFamily: string,
+  decorativeFontSize: string,
+  decorativeLineHeight: number,
+  contentFontFamily: string,
+  contentFontSize: string,
+  contentLineHeight: number,
+  standardParagraphMargin: string,
+  subTitleFontSize: string
+}
+
 export default {
   fontSizeAdjust: 0.55,
   decorativeFontFamily: `'Raleway', 'Lateef', sans-serif`,
