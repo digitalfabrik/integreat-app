@@ -1,3 +1,15 @@
+// @flow
+
+export type ColorType = {
+  themeColor: string,
+  themeDarkColor: string,
+  backgroundAccentColor: string,
+  textColor: string,
+  textSecondaryColor: string,
+  textDecorationColor: string,
+  backgroundColor: string
+}
+
 export default {
   themeColor: '#fbda16',
   themeDarkColor: '#c4a900',
