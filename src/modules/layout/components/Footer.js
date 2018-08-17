@@ -5,7 +5,7 @@ import * as React from 'react'
 import style from './Footer.css'
 
 type PropsType = {
-  children: Array<React.Element<*>>
+  children: Array<React.Node>
 }
 
 /**
