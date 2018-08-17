@@ -79,15 +79,34 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * @return {Array}
    */
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
-    const {cities, location, t} = this.props
-    const {city} = location.payload
-    const currentRoute = location.type
+    const {t} = this.props
 
     const options = []
     const currentPageFeedbackOption = this.getCurrentPageFeedbackOption()
     if (currentPageFeedbackOption) {
       options.push(currentPageFeedbackOption)
     }
+
+    const contentFeedbackOption = this.getContentFeedbackOption()
+    if (contentFeedbackOption) {
+      options.push(contentFeedbackOption)
+    }
+
+    this.getExtrasFeedbackOptions().forEach(option => options.push(option))
+    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
+
+    return options
+  }
+
+  /**
+   * Returns a feedback option for the content of the current city
+   * @return {FeedbackDropdownItem}
+   */
+  getContentFeedbackOption = (): ?FeedbackDropdownItem => {
+    const {cities, location, t} = this.props
+    const {city} = location.payload
+    const currentRoute = location.type
+
     if (city && cities) {
       const cityTitle = CityModel.findCityName(cities, city)
       let feedbackType
@@ -100,13 +119,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       }
       // We don't want to differ between the content of categories, extras and events for the user, but we want to know
       // from which route the feedback was sent
-      options.push(new FeedbackDropdownItem(`${t('contentOfCity')} ${cityTitle}`, feedbackType))
-      this.getExtrasFeedbackOptions().forEach(option => options.push(option))
+      return new FeedbackDropdownItem(`${t('contentOfCity')} ${cityTitle}`, feedbackType)
     }
-
-    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
-
-    return options
   }
 
   /**

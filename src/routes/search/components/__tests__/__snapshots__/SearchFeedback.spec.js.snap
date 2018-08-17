@@ -33,7 +33,6 @@ exports[`SearchFeedback should render a FeedbackButton if results are found and 
         },
       ]
     }
-    commentMessage="wantedInformation"
     extras={null}
     feedbackStatus="up"
     location={
@@ -88,7 +87,6 @@ exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results ar
         },
       ]
     }
-    commentMessage="wantedInformation"
     extras={null}
     feedbackStatus="up"
     location={
@@ -123,7 +121,6 @@ exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a Fe
         },
       ]
     }
-    commentMessage="wantedInformation"
     extras={null}
     feedbackStatus="up"
     location={
