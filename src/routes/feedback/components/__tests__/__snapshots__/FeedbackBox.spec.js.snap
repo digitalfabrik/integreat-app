@@ -24,21 +24,16 @@ exports[`FeedbackBox should render a FeedbackBox with Header 1`] = `
       Array [
         FeedbackDropdownItem {
           "feedbackType": "categories",
-          "label": "contentOfCity Augsburg",
-          "value": "contentOfCity Augsburg",
-        },
-        FeedbackDropdownItem {
-          "feedbackType": "categories",
-          "label": "technicalTopics",
-          "value": "technicalTopics",
+          "label": "label",
+          "value": "label",
         },
       ]
     }
     value={
       FeedbackDropdownItem {
         "feedbackType": "categories",
-        "label": "contentOfCity Augsburg",
-        "value": "contentOfCity Augsburg",
+        "label": "label",
+        "value": "label",
       }
     }
   />
@@ -92,21 +87,16 @@ exports[`FeedbackBox should render a FeedbackBox without Header 1`] = `
       Array [
         FeedbackDropdownItem {
           "feedbackType": "categories",
-          "label": "contentOfCity Augsburg",
-          "value": "contentOfCity Augsburg",
-        },
-        FeedbackDropdownItem {
-          "feedbackType": "categories",
-          "label": "technicalTopics",
-          "value": "technicalTopics",
+          "label": "label",
+          "value": "label",
         },
       ]
     }
     value={
       FeedbackDropdownItem {
         "feedbackType": "categories",
-        "label": "contentOfCity Augsburg",
-        "value": "contentOfCity Augsburg",
+        "label": "label",
+        "value": "label",
       }
     }
   />
