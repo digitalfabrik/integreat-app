@@ -19,8 +19,8 @@ type PropsType = {
 }
 
 const Paragraph = styled.p`
-  text-align: center;
   padding: 25px 0;
+  text-align: center;
 `
 
 // fixme: OfferList is connected to redux state because of Link -> not a plain old component
