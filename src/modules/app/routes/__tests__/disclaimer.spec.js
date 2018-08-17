@@ -1,3 +1,5 @@
+// @flow
+
 import { DISCLAIMER_ROUTE, disclaimerRoute, goToDisclaimer } from '../disclaimer'
 
 describe('disclaimer route', () => {

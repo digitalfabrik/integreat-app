@@ -1,3 +1,5 @@
+// @flow
+
 import { goToI18nRedirect, I18N_REDIRECT_ROUTE, i18nRedirectRoute } from '../i18nRedirect'
 
 describe('i18nRedirect route', () => {
