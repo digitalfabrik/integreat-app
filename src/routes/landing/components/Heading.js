@@ -14,10 +14,6 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-const StyledCaption = styled(Caption)`
-  margin: 20px 0 30px;
-`
-
 type PropsType = {
   t: TFunction
 }
@@ -28,7 +24,7 @@ class Heading extends React.Component<PropsType> {
     return (
       <div>
         <Logo src={LocationBig} />
-        <StyledCaption title={t('where')} />
+        <Caption title={t('where')} />
       </div>
     )
   }

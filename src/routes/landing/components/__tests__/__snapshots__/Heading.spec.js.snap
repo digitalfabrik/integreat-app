@@ -54,24 +54,17 @@ exports[`Heading should render 1`] = `
             src="test-file-stub"
           />
         </Heading__Logo>
-        <Heading__StyledCaption
+        <Caption
           title="landing:where"
         >
-          <Caption
-            className="Heading__StyledCaption-ieIBJH eBTOae"
-            title="landing:where"
-          >
-            <Captionstyles__H1
-              className="Heading__StyledCaption-ieIBJH eBTOae"
+          <Captionstyles__H1>
+            <h1
+              className="Captionstyles__H1-fhVIYI kAGJkW"
             >
-              <h1
-                className="Heading__StyledCaption-ieIBJH eBTOae Captionstyles__H1-fhVIYI kAGJkW"
-              >
-                landing:where
-              </h1>
-            </Captionstyles__H1>
-          </Caption>
-        </Heading__StyledCaption>
+              landing:where
+            </h1>
+          </Captionstyles__H1>
+        </Caption>
       </div>
     </Heading>
   </Translate(Heading)>
