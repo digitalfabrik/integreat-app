@@ -15,7 +15,6 @@ import type { Dispatch } from 'redux'
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
 const DEFAULT_LANGUAGE = 'en'
-declare var __DEV__: boolean
 
 type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
