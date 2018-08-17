@@ -27,7 +27,7 @@ import FeedbackBox from './FeedbackBox'
 import { translate } from 'react-i18next'
 import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 
-type PropsType = {
+type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
   alias?: string,
@@ -38,13 +38,13 @@ type PropsType = {
   isOpen: boolean,
   extras: ?Array<ExtraModel>,
   t: TFunction
-}
+|}
 
-type StateType = {
+type StateType = {|
   feedbackOptions: Array<FeedbackDropdownItem>,
   selectedFeedbackOption: FeedbackDropdownItem,
   comment: string
-}
+|}
 
 /**
  * Renders a FeedbackBox with all possible feedback options the User can select
