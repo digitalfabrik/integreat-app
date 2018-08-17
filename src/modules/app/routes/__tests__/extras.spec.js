@@ -1,3 +1,5 @@
+// @flow
+
 import { EXTRAS_ROUTE, extrasRoute, goToExtras } from '../extras'
 
 describe('extras route', () => {
