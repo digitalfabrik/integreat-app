@@ -80,10 +80,14 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       }
     }
 
-    if ([SPRUNGBRETT_ROUTE, WOHNEN_ROUTE].includes(location.type) && extras) {
-      const extra = extras.find(extra => [SPRUNGBRETT_EXTRA, WOHNEN_EXTRA].includes(extra.alias))
+    if (location.type === SPRUNGBRETT_ROUTE) {
+      alias = SPRUNGBRETT_EXTRA
+    } else if (location.type === WOHNEN_ROUTE) {
+      alias = WOHNEN_EXTRA
+    }
+    if (alias && extras) {
+      const extra = extras.find(extra => extra.alias === alias)
       if (extra) {
-        alias = extra.alias
         title = extra.title
       }
     }
@@ -99,7 +103,8 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
         alias={alias}
         cities={cities}
         feedbackStatus={feedbackStatus}
-        location={location} />
+        location={location}
+        extras={extras} />
     )
   }
 
