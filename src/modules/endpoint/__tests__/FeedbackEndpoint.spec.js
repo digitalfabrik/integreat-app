@@ -3,7 +3,13 @@ import FeedbackEndpoint from '../FeedbackEndpoint'
 
 describe('FeedbackEndpoint', () => {
   it('should map params to url', () => {
-    expect(FeedbackEndpoint.mapParamsToUrl({city: 'augsburg', language: 'de'})).toEqual(
+    expect(FeedbackEndpoint.mapParamsToUrl({
+      city: 'augsburg',
+      language: 'de',
+      comment: null,
+      feedbackType: null,
+      isPositiveRating: true
+    })).toEqual(
       'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/feedback'
     )
   })
@@ -16,7 +22,14 @@ describe('FeedbackEndpoint', () => {
     formData.append('query', 'query')
     formData.append('alias', 'alias')
     expect(FeedbackEndpoint.mapParamsToFormData({
-      id: 1234, isPositiveRating: true, comment: 'comment', alias: 'alias', query: 'query'
+      city: 'augsburg',
+      language: 'de',
+      id: 1234,
+      isPositiveRating: true,
+      feedbackType: 'categories',
+      comment: 'comment',
+      alias: 'alias',
+      query: 'query'
     })).toEqual(formData)
   })
 })
