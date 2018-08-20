@@ -103,11 +103,11 @@ describe('categories', () => {
   })
 
   it('should throw if the city to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if the language to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
@@ -117,11 +117,11 @@ describe('categories', () => {
   })
 
   it('should throw if city to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapResponse('json', {city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if language to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {city: 'city'})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapResponse('json', {city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should encode urls components correctly', () => {

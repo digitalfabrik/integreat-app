@@ -27,8 +27,8 @@ const endpoints = [
   wohnenEndpoint
 ]
 
-export const startFetchReducer = (oldPayload, action) => action.payload
-export const finishFetchReducer = (oldPayload, action) => {
+export const startFetchReducer = (oldPayload: Payload<*>, action) => action.payload
+export const finishFetchReducer = (oldPayload: Payload<*>, action) => {
   // Only stores the data if the requestUrl hasn't changed since the start of the fetching process.
   // For example the data of "Nürnberg" is very large and could take a while to load, in which time one could change to
   // another city, which data could be overridden then by the data from "Nürnberg"
