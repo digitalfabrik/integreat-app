@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import FeedbackBox from './FeedbackBox'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
@@ -9,6 +8,8 @@ import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import FeedbackBoxContainer from './FeedbackBoxContainer'
 
 const Overlay = styled(CleanLink)`
   position: absolute;
@@ -53,29 +54,27 @@ type PropsType = {
   id?: number,
   alias?: string,
   query?: string,
-  feedbackType: string,
-  location: LocationState
+  feedbackStatus: ?string,
+  location: LocationState,
+  extras: ?Array<ExtraModel>
 }
 
 class FeedbackModal extends React.Component<PropsType> {
   renderModalContent = (): React.Node => {
-    const {feedbackType, location} = this.props
-
-    if (feedbackType === FEEDBACK_SENT) {
+    const {feedbackStatus, location} = this.props
+    if (feedbackStatus === FEEDBACK_SENT) {
       return <FeedbackThanksMessage location={location} />
-    } else if (feedbackType === POSITIVE_RATING || feedbackType === NEGATIVE_RATING) {
-      return <FeedbackBox isPositiveRatingSelected={feedbackType === POSITIVE_RATING}
-                          isOpen={!!feedbackType}
-                          {...this.props} />
     } else {
-      return null
+      return <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                                   isOpen={feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING}
+                                   {...this.props} />
     }
   }
 
   render () {
-    const {location, feedbackType} = this.props
+    const {location, feedbackStatus} = this.props
     return (
-      <ModalContainer isOpen={!!feedbackType}>
+      <ModalContainer isOpen={!!feedbackStatus}>
         <Overlay to={goToFeedback(location)} />
         <FeedbackContainer>
           {this.renderModalContent()}

@@ -1,3 +1,5 @@
+// @flow
+
 import { goToLanding, LANDING_ROUTE, landingRoute } from '../landing'
 
 describe('landing route', () => {

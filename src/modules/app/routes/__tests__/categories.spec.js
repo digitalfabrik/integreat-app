@@ -1,3 +1,5 @@
+// @flow
+
 import { CATEGORIES_ROUTE, categoriesRoute, goToCategories } from '../categories'
 
 describe('categories route', () => {
