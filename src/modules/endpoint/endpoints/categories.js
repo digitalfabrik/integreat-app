@@ -10,10 +10,13 @@ import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import moment from 'moment'
 import { compose } from 'lodash/fp'
+import MappingError from '../errors/MappingError'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
-export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
+type ParamsType = { city: ?string, language: ?string }
+
+export default new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
@@ -23,7 +26,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
   })
-  .withMapper((json: any, params) => {
+  .withMapper((json, params) => {
     if (!params.city) {
       throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
     }
@@ -33,6 +36,9 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     const city = params.city
     const basePath = `/${city}/${params.language}`
     const normalize = compose([decodeURIComponent, normalizePath])
+    if (!(json instanceof Array)) {
+      throw new MappingError(CATEGORIES_ENDPOINT_NAME, 'JSON is not an array.')
+    }
     const categories = json
       .map(category => {
         return new CategoryModel({

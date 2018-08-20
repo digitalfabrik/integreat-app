@@ -1,6 +1,7 @@
 // @flow
 
 import CategoryModel from '../CategoryModel'
+import moment from 'moment'
 
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({
@@ -11,7 +12,8 @@ describe('CategoryModel', () => {
     parentPath: '/augsburg/en',
     order: 75,
     availableLanguages: new Map([['de', '/augsburg/de/']]),
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+    lastUpdate: moment()
   })
 
   const category = new CategoryModel({
@@ -22,7 +24,8 @@ describe('CategoryModel', () => {
     parentPath: '/augsburg/en',
     order: 75,
     availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
-    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+    thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+    lastUpdate: moment()
   })
 
   it('should be conscious about being a root', () => {

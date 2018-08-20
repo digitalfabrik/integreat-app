@@ -31,7 +31,7 @@ describe('languages', () => {
   })
 
   it('should map fetched data to models', () => {
-    const languageModels = languages.mapResponse(languagesJson)
+    const languageModels = languages.mapResponse(languagesJson, params)
     expect(languageModels).toEqual([
       new LanguageModel('de', 'Deutsch'),
       new LanguageModel('en', 'English')
