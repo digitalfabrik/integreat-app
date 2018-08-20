@@ -1,3 +1,5 @@
+// @flow
+
 import { goToNotFound } from '../notFound'
 import { NOT_FOUND } from 'redux-first-router'
 

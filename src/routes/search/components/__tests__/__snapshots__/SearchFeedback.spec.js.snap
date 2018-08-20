@@ -34,7 +34,8 @@ exports[`SearchFeedback should render a FeedbackButton if results are found and 
       ]
     }
     commentMessage="wantedInformation"
-    feedbackType="up"
+    extras={null}
+    feedbackStatus="up"
     location={
       Object {
         "payload": Object {
@@ -88,7 +89,8 @@ exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results ar
       ]
     }
     commentMessage="wantedInformation"
-    feedbackType="up"
+    extras={null}
+    feedbackStatus="up"
     location={
       Object {
         "payload": Object {
@@ -122,7 +124,8 @@ exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a Fe
       ]
     }
     commentMessage="wantedInformation"
-    feedbackType="up"
+    extras={null}
+    feedbackStatus="up"
     location={
       Object {
         "payload": Object {
