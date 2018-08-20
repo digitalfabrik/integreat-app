@@ -8,13 +8,27 @@ import ParamMissingError from '../errors/ParamMissingError'
 
 const EXTRAS_ENDPOINT_NAME = 'extras'
 
-const createPostMap = (jsonPost: any): Map<string, string> => {
+const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> => {
   const map = new Map()
   Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
   return map
 }
 
-export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
+type JsonExtraPostType = {
+  [key: string]: string
+}
+
+type JsonExtraType = {
+  alias: string,
+  name: string,
+  url: string,
+  thumbnail: string,
+  post: ?JsonExtraPostType
+}
+
+type ParamsType = { city: ?string, language: ?string }
+
+export default new EndpointBuilder<ParamsType, Array<ExtraModel>>(EXTRAS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'city')
@@ -24,7 +38,7 @@ export default new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
     }
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
   })
-  .withMapper((json: any): Array<ExtraModel> => json
+  .withMapper((json: Array<JsonExtraType>) => json
     .map(extra => new ExtraModel({
       alias: extra.alias,
       title: extra.name,
