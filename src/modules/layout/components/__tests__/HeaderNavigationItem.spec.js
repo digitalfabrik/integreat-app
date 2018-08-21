@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { shallow } from 'enzyme'
@@ -17,7 +19,7 @@ describe('HeaderNavigationItem', () => {
 
   it('should render an InactiveNavigationItem', () => {
     const headerNavigationItem = shallow(
-      <HeaderNavigationItem text={text} active={false} selected={false} tooltip={tooltip} />
+      <HeaderNavigationItem text={text} href={href} active={false} selected={false} tooltip={tooltip} />
     )
 
     expect(headerNavigationItem).toMatchSnapshot()
