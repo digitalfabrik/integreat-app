@@ -1,6 +1,6 @@
 // @flow
 
-import type { Node } from 'react'
+import type { Element } from 'react'
 import React from 'react'
 
 import SearchInput from './SearchInput'
@@ -12,7 +12,7 @@ type PropsType = {
   filterText: string,
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
-  children: Node,
+  children: Element<*>,
   placeholderText: string
 }
 
