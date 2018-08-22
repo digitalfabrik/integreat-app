@@ -37,6 +37,7 @@ type PropsType = {|
   location: LocationState,
   isOpen: boolean,
   extras: ?Array<ExtraModel>,
+  postFeedbackDataOverride?: FeedbackDataType => void,
   t: TFunction
 |}
 
@@ -66,7 +67,17 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       const feedbackOptions = this.getFeedbackOptions()
       const selectedFeedbackOption = feedbackOptions[0]
       this.setState({feedbackOptions: feedbackOptions, selectedFeedbackOption: selectedFeedbackOption, comment: ''})
-      FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, ''))
+      this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, ''))
+    }
+  }
+
+  postFeedbackData = (feedbackData: FeedbackDataType) => {
+    const {postFeedbackDataOverride} = this.props
+
+    if (postFeedbackDataOverride) {
+      postFeedbackDataOverride(feedbackData)
+    } else {
+      FeedbackEndpoint.postData(feedbackData)
     }
   }
 
@@ -197,7 +208,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   onSubmit = () => {
     const {selectedFeedbackOption, comment} = this.state
-    FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, comment))
+    this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
   }
 
   render () {

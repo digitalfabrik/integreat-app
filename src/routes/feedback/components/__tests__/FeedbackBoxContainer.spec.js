@@ -6,15 +6,13 @@ import { shallow } from 'enzyme'
 import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
-import FeedbackEndpoint, {
+import {
   CATEGORIES_FEEDBACK_TYPE, EVENTS_FEEDBACK_TYPE, EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE
 } from '../../../../modules/endpoint/FeedbackEndpoint'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
 import { EXTRAS_ROUTE } from '../../../../modules/app/routes/extras'
 import { EVENTS_ROUTE } from '../../../../modules/app/routes/events'
 import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
-
-jest.mock('../../../../modules/endpoint/FeedbackEndpoint')
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -47,6 +45,8 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it('should post feedback and if feedback is opened', () => {
+    const mockPostFeedbackData = jest.fn()
+
     const component = shallow(
       <FeedbackBoxContainer
         location={location}
@@ -58,17 +58,12 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         isOpen={false}
         extras={null}
+        postFeedbackDataOverride={mockPostFeedbackData}
         t={t} />
     )
 
-    const prevPostData = FeedbackEndpoint.postData
-    // $FlowFixMe, flow claims methods are not writable
-    FeedbackEndpoint.postData = jest.fn()
-
     component.setProps({isOpen: true})
-    expect(FeedbackEndpoint.postData).toHaveBeenCalledTimes(1)
-    // $FlowFixMe
-    FeedbackEndpoint.postData = prevPostData
+    expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
   })
 
   describe('getFeedbackOptions', () => {
@@ -277,6 +272,8 @@ describe('FeedbackBoxContainer', () => {
   }) */
 
   it('should post data on submit', () => {
+    const mockPostFeedbackData = jest.fn()
+
     const component = shallow(
       <FeedbackBoxContainer
         location={location}
@@ -288,17 +285,12 @@ describe('FeedbackBoxContainer', () => {
         isPositiveRatingSelected
         isOpen={false}
         extras={null}
+        postFeedbackDataOverride={mockPostFeedbackData}
         t={t} />
     )
 
-    const prevPostData = FeedbackEndpoint.postData
-    // $FlowFixMe
-    FeedbackEndpoint.postData = jest.fn()
-
     component.instance().onSubmit()
-    expect(FeedbackEndpoint.postData).toHaveBeenCalledTimes(1)
-    // $FlowFixMe
-    FeedbackEndpoint.postData = prevPostData
+    expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
   })
 
   it('should update state onCommentChanged', () => {
