@@ -10,16 +10,16 @@ import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
-import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  eventId?: string,
+  eventId?: number,
   cities: Array<CityModel>,
   t: TFunction
 }
@@ -30,9 +30,8 @@ type PropsType = {
 export class EventsPage extends React.Component<PropsType> {
   render () {
     const {events, eventId, city, language, cities, t} = this.props
-
     if (eventId) {
-      const event = events.find(_event => `${_event.id}` === eventId)
+      const event = events.find(_event => _event.id === eventId)
 
       if (event) {
         return <React.Fragment>
