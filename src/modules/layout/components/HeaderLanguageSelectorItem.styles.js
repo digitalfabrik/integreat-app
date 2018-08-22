@@ -1,3 +1,5 @@
+// @flow
+
 import styled from 'styled-components'
 
 export const InactiveImage = styled.img`

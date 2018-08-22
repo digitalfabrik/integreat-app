@@ -1,3 +1,5 @@
+// @flow
+
 import { shallow } from 'enzyme'
 import React from 'react'
 import ConnectedLocationHeader, { LocationHeader } from '../LocationHeader'
@@ -15,37 +17,54 @@ describe('LocationHeader', () => {
     new LanguageModel('en', 'English'),
     new LanguageModel('ar', 'Arabic')
   ]
+  const t = (key: ?string): string => key || ''
 
   const events = [
     new EventModel({
       id: 1234,
       title: 'first Event',
-      availableLanguages: {de: '1235', ar: '1236'},
+      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
+      allDay: true,
+      address: 'address',
+      content: 'content',
+      excerpt: 'excerpt',
+      thumbnail: 'thumbnail',
+      town: 'town'
     }),
     new EventModel({
       id: 1235,
       title: 'erstes Event',
-      availableLanguages: {en: '1234', ar: '1236'},
+      availableLanguages: new Map([['en', 1234], ['ar', 1236]]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
+      allDay: true,
+      address: 'address',
+      content: 'content',
+      excerpt: 'excerpt',
+      thumbnail: 'thumbnail',
+      town: 'town'
     }),
     new EventModel({
       id: 2,
       title: 'second Event',
+      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true
+      allDay: true,
+      address: 'address',
+      content: 'content',
+      excerpt: 'excerpt',
+      thumbnail: 'thumbnail',
+      town: 'town'
     })
   ]
 
   const language = 'de'
   const city = 'augsburg'
-
   const location = route => ({type: route, payload: {city, language}})
+  const onStickyTopChanged = (value: number) => {}
 
   describe('NavigationItems', () => {
     it('should be empty, if extras and news are both disabled', () => {
@@ -55,7 +74,8 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled={false}
                                                 viewportSmall
                                                 events={events}
-                                                t={() => {}} />)
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
@@ -66,14 +86,16 @@ describe('LocationHeader', () => {
                                                  isEventsEnabled={false}
                                                  viewportSmall
                                                  events={events}
-                                                 t={key => key} />)
+                                                 onStickyTopChanged={onStickyTopChanged}
+                                                 t={t} />)
       const eventsComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
                                                  languages={languages}
                                                  isExtrasEnabled={false}
                                                  isEventsEnabled
                                                  viewportSmall
                                                  events={events}
-                                                 t={key => key} />)
+                                                 onStickyTopChanged={onStickyTopChanged}
+                                                 t={t} />)
 
       expect(extrasComp.instance().getNavigationItems()).toMatchSnapshot()
       expect(eventsComp.instance().getNavigationItems()).toMatchSnapshot()
@@ -86,7 +108,8 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
-                                                t={key => key} />)
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
@@ -97,7 +120,8 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
-                                                t={key => key} />)
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
@@ -108,7 +132,8 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
-                                                t={key => key} />)
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
 
@@ -119,7 +144,8 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
-                                                t={key => key} />)
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
     })
   })
@@ -132,7 +158,8 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
-                                                t={key => key} />)
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
 
       expect(component.instance().getActionItems()).toMatchSnapshot()
     })
@@ -145,7 +172,8 @@ describe('LocationHeader', () => {
                                               isEventsEnabled
                                               viewportSmall
                                               events={events}
-                                              t={key => key} />)
+                                              onStickyTopChanged={onStickyTopChanged}
+                                              t={t} />)
     expect(component).toMatchSnapshot()
   })
 
@@ -159,7 +187,7 @@ describe('LocationHeader', () => {
     })
 
     const categoriesPage = shallow(
-      <ConnectedLocationHeader store={store} />
+      <ConnectedLocationHeader store={store} onStickyTopChanged={onStickyTopChanged} />
     )
 
     expect(categoriesPage.props()).toMatchObject({
