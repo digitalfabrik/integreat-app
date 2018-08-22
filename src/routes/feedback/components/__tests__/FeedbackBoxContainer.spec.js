@@ -7,12 +7,21 @@ import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 import {
-  CATEGORIES_FEEDBACK_TYPE, EVENTS_FEEDBACK_TYPE, EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE
+  CATEGORIES_FEEDBACK_TYPE,
+  EVENTS_FEEDBACK_TYPE,
+  EXTRA_FEEDBACK_TYPE,
+  EXTRAS_FEEDBACK_TYPE,
+  PAGE_FEEDBACK_TYPE,
+  SEARCH_FEEDBACK_TYPE
 } from '../../../../modules/endpoint/FeedbackEndpoint'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
 import { EXTRAS_ROUTE } from '../../../../modules/app/routes/extras'
 import { EVENTS_ROUTE } from '../../../../modules/app/routes/events'
 import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
+import { WOHNEN_ROUTE } from '../../../../modules/app/routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../../../modules/app/routes/sprungbrett'
+import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
+import { DISCLAIMER_ROUTE } from '../../../../modules/app/routes/disclaimer'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -232,16 +241,16 @@ describe('FeedbackBoxContainer', () => {
     expect(component.instance().getExtrasFeedbackOptions()).toMatchSnapshot()
   })
 
-  /* todo requires jest version 23.0 or higher
   describe('getCurrentPageFeedbackOption', () => {
     const categoriesOption = new FeedbackDropdownItem(`contentOfPage 'Willkommen'`, PAGE_FEEDBACK_TYPE)
     const eventsOption = new FeedbackDropdownItem(`news 'Event1'`, PAGE_FEEDBACK_TYPE)
-    const wohnenOption = new FeedbackDropdownItem(`extra 'Wohnungsboerse'`, PAGE_FEEDBACK_TYPE)
+    const wohnenOption = new FeedbackDropdownItem(`extra 'Wohnungsboerse'`, EXTRA_FEEDBACK_TYPE)
     const sprungbrettOption = new FeedbackDropdownItem(`extra 'Sprungbrett'`, EXTRA_FEEDBACK_TYPE)
-    const searchOption = new FeedbackDropdownItem(`searchFor 'myquery'`, SEARCH_FEEDBACK_TYPE)
+    const searchOption = new FeedbackDropdownItem(`searchFor 'my query'`, SEARCH_FEEDBACK_TYPE)
     const disclaimerOption = new FeedbackDropdownItem(`disclaimer`, PAGE_FEEDBACK_TYPE)
     const extrasOption = null
 
+    // $FlowFixMe
     it.each`
     type                 | id      | alias           | title              | query         | result
     ${CATEGORIES_ROUTE}  | ${1234} | ${''}           | ${'Willkommen'}    | ${''}         | ${categoriesOption}
@@ -269,7 +278,7 @@ describe('FeedbackBoxContainer', () => {
 
   expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
 })
-  }) */
+  })
 
   it('should post data on submit', () => {
     const mockPostFeedbackData = jest.fn()
