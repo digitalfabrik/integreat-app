@@ -13,9 +13,8 @@ class EventModel {
   _endDate: moment
   _allDay: boolean
   _excerpt: string
-  _availableLanguages: Map<string, string>
 
-  constructor (obj: {|id: number, title: string, content: string, thumbnail: ?string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, string>|}) {
+  constructor (obj: {| id: number, title: string, content: string, thumbnail: ?string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, number> |}) {
     this._id = obj.id
     this._title = obj.title
     this._content = obj.content
@@ -28,6 +27,8 @@ class EventModel {
     this._excerpt = obj.excerpt
     this._availableLanguages = obj.availableLanguages
   }
+
+  _availableLanguages: Map<string, number>
 
   get id (): number {
     return this._id
@@ -73,7 +74,10 @@ class EventModel {
     return this._excerpt
   }
 
-  get availableLanguages (): Map<string, string> {
+  /**
+   * Maps language codes (like 'de') to an event id (!)
+   */
+  get availableLanguages (): Map<string, number> {
     return this._availableLanguages
   }
 }
