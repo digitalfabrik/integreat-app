@@ -16,8 +16,6 @@ import type { Store } from 'redux'
 import startFetchAction from '../endpoint/actions/startFetchAction'
 import finishFetchAction from '../endpoint/actions/finishFetchAction'
 
-declare var __DEV__: boolean
-
 type ActionType = startFetchAction | finishFetchAction<*>
 
 // todo: Change type to correct State type,

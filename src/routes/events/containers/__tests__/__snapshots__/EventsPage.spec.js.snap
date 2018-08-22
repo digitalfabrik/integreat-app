@@ -11,8 +11,8 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
         "_address": "address",
         "_allDay": true,
         "_availableLanguages": Map {
-          "en" => "1234",
-          "ar" => "1236",
+          "en" => 1234,
+          "ar" => 1236,
         },
         "_content": "content",
         "_endDate": "2017-11-18T19:30:00.000Z",
@@ -43,8 +43,8 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_address": "address",
           "_allDay": true,
           "_availableLanguages": Map {
-            "de" => "1235",
-            "ar" => "1236",
+            "de" => 1235,
+            "ar" => 1236,
           },
           "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
@@ -59,8 +59,8 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_address": "address",
           "_allDay": true,
           "_availableLanguages": Map {
-            "en" => "1234",
-            "ar" => "1236",
+            "en" => 1234,
+            "ar" => 1236,
           },
           "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
@@ -75,8 +75,8 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_address": "address",
           "_allDay": true,
           "_availableLanguages": Map {
-            "de" => "1235",
-            "ar" => "1236",
+            "de" => 1235,
+            "ar" => 1236,
           },
           "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
