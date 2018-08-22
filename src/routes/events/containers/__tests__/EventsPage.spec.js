@@ -64,7 +64,7 @@ describe('EventsPage', () => {
     })
   ]
   const language = 'en'
-  const id = '1235'
+  const id = 1235
   const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render EventList', () => {
@@ -97,7 +97,7 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  eventId={'234729'} />
+                  eventId={234729} />
     )
     expect(wrapper).toMatchSnapshot()
   })
