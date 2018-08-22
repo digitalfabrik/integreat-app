@@ -6,10 +6,14 @@ import Heading from './Heading'
 import ScrollingSearchBox from 'modules/common/components/ScrollingSearchBox'
 import CitySelector from './CitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
+import styled from 'styled-components'
 
-import style from './FilterableCitySelector.css'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+
+const Container = styled.div`
+  padding-top: 22px;
+`
 
 type PropsType = {
   cities: Array<CityModel>,
@@ -34,7 +38,7 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
     const filterText = this.state.filterText
 
     return (
-      <div className={style.topSpacing}>
+      <Container>
         <Heading />
         <ScrollingSearchBox
           filterText={filterText}
@@ -47,7 +51,7 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
             language={language}
           />
         </ScrollingSearchBox>
-      </div>
+      </Container>
     )
   }
 }
