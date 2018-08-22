@@ -13,6 +13,7 @@ class EventModel {
   _endDate: moment
   _allDay: boolean
   _excerpt: string
+  _availableLanguages: Map<string, number>
 
   constructor (obj: {| id: number, title: string, content: string, thumbnail: ?string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, number> |}) {
     this._id = obj.id
@@ -27,8 +28,6 @@ class EventModel {
     this._excerpt = obj.excerpt
     this._availableLanguages = obj.availableLanguages
   }
-
-  _availableLanguages: Map<string, number>
 
   get id (): number {
     return this._id
