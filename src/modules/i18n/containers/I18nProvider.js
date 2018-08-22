@@ -42,10 +42,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
         resources: i18nextResources,
         fallbackLng: FALLBACK_LANGUAGES,
         load: 'languageOnly',
-        /* eslint-disable no-undef */
-        // $FlowFixMe
         debug: __DEV__
-        /* eslint-enable no-undef */
       })
 
     this.state = { language: DEFAULT_LANGUAGE, fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE) }

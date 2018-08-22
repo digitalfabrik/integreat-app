@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import HeaderActionBar from '../HeaderActionBar'
 import { shallow } from 'enzyme'
