@@ -1,5 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
+
+import * as React from 'react'
 import style from './Header.css'
 import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
@@ -10,7 +11,19 @@ import Headroom from '../../common/components/Headroom'
 import { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
-import { compose } from 'redux'
+import type { Action } from 'redux-first-router'
+import compose from 'lodash/fp/compose'
+import type { ThemeType } from '../../app/constants/theme'
+
+type PropsType = {
+  navigationItems: React.Node,
+  actionItems: Array<HeaderActionItem>,
+  logoHref: Action | string,
+  viewportSmall: boolean,
+  theme: ThemeType,
+  onStickyTopChanged: number => void,
+  platform: Platform
+}
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -18,37 +31,30 @@ import { compose } from 'redux'
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-export class Header extends React.Component {
-  static propTypes = {
-    navigationItems: PropTypes.node,
-    actionItems: PropTypes.arrayOf(PropTypes.instanceOf(HeaderActionItem)).isRequired,
-    logoHref: PropTypes.object.isRequired,
-    viewportSmall: PropTypes.bool.isRequired,
-    theme: PropTypes.object.isRequired,
-    onStickyTopChanged: PropTypes.func,
-    platform: PropTypes.instanceOf(Platform)
-  }
-
+export class Header extends React.Component<PropsType> {
   static defaultProps = {
     navigationItems: null,
     actionItems: []
   }
 
   render () {
-    const {headerHeightSmall, headerHeightLarge} = this.props.theme.dimensions
-    const height = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
-    const scrollHeight = this.props.viewportSmall ? headerHeightSmall : headerHeightLarge
+    const {theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform} = this.props
+    const {headerHeightSmall, headerHeightLarge} = theme.dimensions
+    const height = viewportSmall ? headerHeightSmall : headerHeightLarge
+    const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
     return (
-      <Headroom onStickyTopChanged={this.props.onStickyTopChanged} scrollHeight={scrollHeight} height={height}
-                positionStickyDisabled={this.props.platform.positionStickyDisabled}>
+      <Headroom onStickyTopChanged={onStickyTopChanged}
+                scrollHeight={scrollHeight}
+                height={height}
+                positionStickyDisabled={platform.positionStickyDisabled}>
         <header className={style.header}>
           <div className={style.logoWide}>
-            <Link to={this.props.logoHref}>
+            <Link to={logoHref}>
               <img src={logoWide} />
             </Link>
           </div>
-          <HeaderNavigationBar className={style.navigationBar}>{this.props.navigationItems}</HeaderNavigationBar>
-          <HeaderActionBar className={style.actionBar} items={this.props.actionItems} />
+          <HeaderNavigationBar className={style.navigationBar}>{navigationItems}</HeaderNavigationBar>
+          <HeaderActionBar className={style.actionBar} items={actionItems} />
         </header>
       </Headroom>
     )
@@ -56,6 +62,7 @@ export class Header extends React.Component {
 }
 
 export default compose(
-  withTheme,
-  withPlatform
+  withPlatform,
+  // $FlowFixMe https://github.com/styled-components/styled-components/issues/1785
+  withTheme
 )(Header)
