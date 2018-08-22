@@ -5,9 +5,11 @@ import React from 'react'
 import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
 import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
-import OfferList from '../OfferList'
+import { OfferList } from '../OfferList'
 
 describe('OfferList', () => {
+  const mockTranslate = (key: ?string) => key || 'null'
+
   const offer = new WohnenOfferModel({
     email: 'mail@mail.com',
     createdDate: moment('2018-07-24T00:00:00.000Z'),
@@ -41,8 +43,16 @@ describe('OfferList', () => {
 
   it('should render offer list', () => {
     const offerList = shallow(
-        <OfferList city={'augsburg'} language={'language'} offers={[offer]}
-                   hashFunction={offer => offer.email} />
+      <OfferList city={'augsburg'} language={'language'} offers={[offer]}
+                 hashFunction={offer => offer.email} t={mockTranslate} />
+    )
+    expect(offerList).toMatchSnapshot()
+  })
+
+  it('should render paragraph if offers is empty', () => {
+    const offerList = shallow(
+      <OfferList city={'augsburg'} language={'language'} offers={[]}
+                 hashFunction={offer => offer.email} t={mockTranslate} />
     )
     expect(offerList).toMatchSnapshot()
   })

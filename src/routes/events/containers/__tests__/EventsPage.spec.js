@@ -14,7 +14,7 @@ describe('EventsPage', () => {
     new EventModel({
       id: 1234,
       title: 'first Event',
-      availableLanguages: new Map([['de', '1235'], ['ar', '1236']]),
+      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true,
@@ -27,7 +27,7 @@ describe('EventsPage', () => {
     new EventModel({
       id: 1235,
       title: 'erstes Event',
-      availableLanguages: new Map([['en', '1234'], ['ar', '1236']]),
+      availableLanguages: new Map([['en', 1234], ['ar', 1236]]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true,
@@ -40,7 +40,7 @@ describe('EventsPage', () => {
     new EventModel({
       id: 2,
       title: 'second Event',
-      availableLanguages: new Map([['de', '1235'], ['ar', '1236']]),
+      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true,
@@ -64,7 +64,7 @@ describe('EventsPage', () => {
     })
   ]
   const language = 'en'
-  const id = '1235'
+  const id = 1235
   const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render EventList', () => {
@@ -97,7 +97,7 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  eventId={'234729'} />
+                  eventId={234729} />
     )
     expect(wrapper).toMatchSnapshot()
   })

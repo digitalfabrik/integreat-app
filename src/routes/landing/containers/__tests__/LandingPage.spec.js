@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
@@ -16,8 +18,10 @@ describe('LandingPage', () => {
     })
   ]
 
+  const t = (key: ?string): string => key || ''
+
   it('should match snapshot', () => {
-    expect(shallow(<LandingPage cities={cities} language={'de'} t={key => key} />)).toMatchSnapshot()
+    expect(shallow(<LandingPage cities={cities} language={'de'} t={t} />)).toMatchSnapshot()
   })
 
   it('should map state to props', () => {

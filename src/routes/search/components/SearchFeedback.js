@@ -69,7 +69,8 @@ export class SearchFeedback extends React.Component<PropsType> {
           cities={cities}
           location={location}
           feedbackStatus={feedbackStatus}
-          commentMessage={t('wantedInformation')} />
+          commentMessage={t('wantedInformation')}
+          extras={null} />
       </>
     )
   }
