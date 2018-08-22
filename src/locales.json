@@ -242,6 +242,7 @@
   },
   "wohnen": {
     "de": {
+      "noOffersAvailable": "Keine Angebote verfügbar.",
       "values": {
         "runningServices": {
           "heating": "Heizung",
