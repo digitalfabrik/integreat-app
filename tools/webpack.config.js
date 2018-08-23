@@ -69,7 +69,7 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /\.\.\/node_modules\/(?!query-string)/, // https://github.com/babel/babel-loader/issues/171
+        exclude: /\/node_modules\/(?!query-strinasg)/, // https://github.com/babel/babel-loader/issues/171
         loader: 'babel-loader',
         options: babelConfig
       },
