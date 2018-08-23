@@ -40,7 +40,7 @@ export const SubmitButton = styled(CleanLink)`
   border-radius: 0.25em;
 `
 
-type PropsType = {
+type PropsType = {|
   isPositiveRatingSelected: boolean,
   location: LocationState,
   feedbackOptions: Array<FeedbackDropdownItem>,
@@ -50,7 +50,7 @@ type PropsType = {
   onFeedbackOptionChanged: FeedbackDropdownItem => void,
   onSubmit: () => void,
   t: TFunction
-}
+|}
 
 /**
  * Renders all necessary inputs for a Feedback and posts the data to the FeedbackEndpoint
