@@ -27,7 +27,7 @@ import FeedbackBox from './FeedbackBox'
 import { translate } from 'react-i18next'
 import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 
-type PropsType = {
+type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
   alias?: string,
@@ -37,14 +37,15 @@ type PropsType = {
   location: LocationState,
   isOpen: boolean,
   extras: ?Array<ExtraModel>,
+  postFeedbackDataOverride?: FeedbackDataType => void,
   t: TFunction
-}
+|}
 
-type StateType = {
+type StateType = {|
   feedbackOptions: Array<FeedbackDropdownItem>,
   selectedFeedbackOption: FeedbackDropdownItem,
   comment: string
-}
+|}
 
 /**
  * Renders a FeedbackBox with all possible feedback options the User can select
@@ -66,7 +67,17 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       const feedbackOptions = this.getFeedbackOptions()
       const selectedFeedbackOption = feedbackOptions[0]
       this.setState({feedbackOptions: feedbackOptions, selectedFeedbackOption: selectedFeedbackOption, comment: ''})
-      FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, ''))
+      this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, ''))
+    }
+  }
+
+  postFeedbackData = (feedbackData: FeedbackDataType) => {
+    const {postFeedbackDataOverride} = this.props
+
+    if (postFeedbackDataOverride) {
+      postFeedbackDataOverride(feedbackData)
+    } else {
+      FeedbackEndpoint.postData(feedbackData)
     }
   }
 
@@ -79,15 +90,34 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * @return {Array}
    */
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
-    const {cities, location, t} = this.props
-    const {city} = location.payload
-    const currentRoute = location.type
+    const {t} = this.props
 
     const options = []
     const currentPageFeedbackOption = this.getCurrentPageFeedbackOption()
     if (currentPageFeedbackOption) {
       options.push(currentPageFeedbackOption)
     }
+
+    const contentFeedbackOption = this.getContentFeedbackOption()
+    if (contentFeedbackOption) {
+      options.push(contentFeedbackOption)
+    }
+
+    this.getExtrasFeedbackOptions().forEach(option => options.push(option))
+    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
+
+    return options
+  }
+
+  /**
+   * Returns a feedback option for the content of the current city
+   * @return {FeedbackDropdownItem}
+   */
+  getContentFeedbackOption = (): ?FeedbackDropdownItem => {
+    const {cities, location, t} = this.props
+    const {city} = location.payload
+    const currentRoute = location.type
+
     if (city && cities) {
       const cityTitle = CityModel.findCityName(cities, city)
       let feedbackType
@@ -100,13 +130,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       }
       // We don't want to differ between the content of categories, extras and events for the user, but we want to know
       // from which route the feedback was sent
-      options.push(new FeedbackDropdownItem(`${t('contentOfCity')} ${cityTitle}`, feedbackType))
-      this.getExtrasFeedbackOptions().forEach(option => options.push(option))
+      return new FeedbackDropdownItem(`${t('contentOfCity')} ${cityTitle}`, feedbackType)
     }
-
-    options.push(new FeedbackDropdownItem(t('technicalTopics'), CATEGORIES_FEEDBACK_TYPE))
-
-    return options
   }
 
   /**
@@ -183,7 +208,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   onSubmit = () => {
     const {selectedFeedbackOption, comment} = this.state
-    FeedbackEndpoint.postData(this.getFeedbackData(selectedFeedbackOption, comment))
+    this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
   }
 
   render () {

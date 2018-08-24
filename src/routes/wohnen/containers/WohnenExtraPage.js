@@ -53,19 +53,19 @@ export class WohnenExtraPage extends React.Component<PropsType> {
       }
 
       return (
-        <React.Fragment>
+        <>
           <Helmet title={`${offer.formData.accommodation.title} - ${extra.title} - ${cityName}`} />
-          {<OfferDetail offer={offer} />}
-        </React.Fragment>
+          <OfferDetail offer={offer} />
+        </>
       )
     }
 
     return (
-      <React.Fragment>
+      <>
         <Helmet title={`${extra.title} - ${cityName}`} />
         <Caption title={extra.title} />
         <OfferList city={city} language={language} hashFunction={this.hash} offers={offers} />
-      </React.Fragment>
+      </>
     )
   }
 }

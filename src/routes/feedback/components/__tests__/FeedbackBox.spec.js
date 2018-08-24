@@ -16,12 +16,11 @@ describe('FeedbackBox', () => {
   const onFeedbackOptionChanged = (option: FeedbackDropdownItem) => {}
   const onSubmit = () => {}
 
-  it('should render a FeedbackBox with Header', () => {
+  it('should match snapshot', () => {
     const component = shallow(
       <FeedbackBox
         location={location}
         isPositiveRatingSelected={false}
-        isOpen
         comment={''}
         feedbackOptions={feedbackOptions}
         selectedFeedbackOption={feedbackOptions[0]}
@@ -29,24 +28,6 @@ describe('FeedbackBox', () => {
         onFeedbackOptionChanged={onFeedbackOptionChanged}
         onSubmit={onSubmit}
         t={t} />
-    )
-    expect(component).toMatchSnapshot()
-  })
-
-  it('should render a FeedbackBox without Header', () => {
-    const component = shallow(
-      <FeedbackBox
-        location={location}
-        isPositiveRatingSelected={false}
-        isOpen
-        t={t}
-        comment={''}
-        feedbackOptions={feedbackOptions}
-        selectedFeedbackOption={feedbackOptions[0]}
-        onCommentChanged={onCommentChanged}
-        onFeedbackOptionChanged={onFeedbackOptionChanged}
-        onSubmit={onSubmit}
-        hideHeader />
     )
     expect(component).toMatchSnapshot()
   })
