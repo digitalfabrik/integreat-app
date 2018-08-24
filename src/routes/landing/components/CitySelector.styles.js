@@ -1,3 +1,5 @@
+// @flow
+
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'

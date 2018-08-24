@@ -3,8 +3,14 @@
 exports[`OfferList should render offer list 1`] = `
 Array [
   <withProps(Connect(Link))
-    key="0"
+    key="mail@mail.com"
     to="/augsburg/language/extras/wohnen/mail@mail.com"
   />,
 ]
+`;
+
+exports[`OfferList should render paragraph if offers is empty 1`] = `
+<OfferList__Paragraph>
+  noOffersAvailable
+</OfferList__Paragraph>
 `;

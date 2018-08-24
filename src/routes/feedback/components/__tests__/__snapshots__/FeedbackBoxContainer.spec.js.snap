@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackBoxContainer getExtrasFeedbackOptions should return the right options 1`] = `
+Array [
+  FeedbackDropdownItem {
+    "feedbackType": "extra",
+    "label": "extra 'Serlo ABC'",
+    "value": "serlo-abc",
+  },
+  FeedbackDropdownItem {
+    "feedbackType": "extra",
+    "label": "extra 'Sprungbrett'",
+    "value": "sprungbrett",
+  },
+  FeedbackDropdownItem {
+    "feedbackType": "extra",
+    "label": "extra 'Lehrstellenradar'",
+    "value": "lehrstellen-radar",
+  },
+]
+`;
+
+exports[`FeedbackBoxContainer should match snapshot 1`] = `
+<Translate(FeedbackBox)
+  comment=""
+  feedbackOptions={
+    Array [
+      FeedbackDropdownItem {
+        "feedbackType": null,
+        "label": "contentOfPage 'title'",
+        "value": "contentOfPage 'title'",
+      },
+      FeedbackDropdownItem {
+        "feedbackType": "categories",
+        "label": "contentOfCity Augsburg",
+        "value": "contentOfCity Augsburg",
+      },
+      FeedbackDropdownItem {
+        "feedbackType": "categories",
+        "label": "technicalTopics",
+        "value": "technicalTopics",
+      },
+    ]
+  }
+  isPositiveRatingSelected={true}
+  location={
+    Object {
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "query": Object {
+        "feedback": "up",
+      },
+      "type": "CATEGORIES",
+    }
+  }
+  onCommentChanged={[Function]}
+  onFeedbackOptionChanged={[Function]}
+  onSubmit={[Function]}
+  selectedFeedbackOption={
+    FeedbackDropdownItem {
+      "feedbackType": null,
+      "label": "contentOfPage 'title'",
+      "value": "contentOfPage 'title'",
+    }
+  }
+/>
+`;

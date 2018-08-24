@@ -1,6 +1,6 @@
 {
   "name": "integreat-webapp",
-  "version": "2018.07.2",
+  "version": "2018.08.3",
   "private": true,
   "engines": {
     "node": ">=6",
@@ -11,6 +11,7 @@
     "build": "node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "build:lib": "node tools/lib.build.js",
+    "check:built": "yarn es-check es5 ./www/**/*.js",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
@@ -38,6 +39,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
+    "normalize-path": "^3.0.0",
     "normalize.css": "^8.0.0",
     "query-string": "^6.1.0",
     "react": "^16.4.1",
@@ -61,8 +63,7 @@
     "redux-responsive": "^4.3.7",
     "redux-thunk": "^2.3.0",
     "styled-components": "^3.3.3",
-    "whatwg-fetch": "^2.0.4",
-    "normalize-path": "^3.0.0"
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.54",
@@ -81,7 +82,7 @@
     "autoprefixer": "^9.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0-beta.3",
-    "babel-jest": "22.4.4",
+    "babel-jest": "23.4.2",
     "babel-loader": "^8.0.0-beta.4",
     "babel-plugin-styled-components": "^1.5.1",
     "browser-sync": "^2.24.5",
@@ -91,6 +92,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
+    "es-check": "^2.1.0",
     "escape-string-regexp": "^1.0.5",
     "eslint": "^5.4.0",
     "eslint-config-standard": "^11.0.0",
@@ -112,7 +114,7 @@
     "imagemin": "^5.3.1",
     "img-loader": "^3.0.0",
     "is-url": "^1.2.4",
-    "jest": "22.4.4",
+    "jest": "23.5.0",
     "jest-fetch-mock": "^1.6.5",
     "json-loader": "^0.5.7",
     "lolex": "^2.7.1",

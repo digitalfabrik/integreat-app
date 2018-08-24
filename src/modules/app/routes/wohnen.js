@@ -27,8 +27,8 @@ export const wohnenRoute = {
 
     if (extras) {
       const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
-      if (wohnenExtra) {
-        const params = {city: 'neuburgschrobenhausenwohnraum'} // fixme: Hardcoded city
+      if (wohnenExtra && wohnenExtra.postData) {
+        const params = {city: wohnenExtra.postData.get('api-name')}
         await wohnenEndpoint.loadData(dispatch, state.wohnen, params)
       }
     }
