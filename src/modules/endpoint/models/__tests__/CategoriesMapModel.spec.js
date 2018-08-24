@@ -30,7 +30,7 @@ describe('CategoriesMapModel', () => {
       parentPath: '',
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment(),
+      lastUpdate: moment('2016-01-07 10:36:24'),
       order: 0,
       thumbnail: 'thumb-nail'
     }),
@@ -42,7 +42,7 @@ describe('CategoriesMapModel', () => {
       order: 1,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment(),
+      lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
@@ -53,7 +53,7 @@ describe('CategoriesMapModel', () => {
       order: 2,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment(),
+      lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
@@ -64,7 +64,7 @@ describe('CategoriesMapModel', () => {
       order: 3,
       availableLanguages: new Map(),
       content: 'exampleContent0',
-      lastUpdate: moment(),
+      lastUpdate: moment('2016-01-07 10:36:24'),
       thumbnail: 'thumb-nail'
     })
   ]
