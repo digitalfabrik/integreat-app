@@ -1,7 +1,9 @@
 // @flow
 
+import type { Store } from 'redux'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import type { RoutesMap } from 'redux-first-router'
 import { connectRoutes } from 'redux-first-router'
 import { createLogger } from 'redux-logger'
 
@@ -11,17 +13,13 @@ import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-res
 import defaultRoutesMap from './routesMap'
 import onBeforeChange from './onBeforeChange'
 import queryString from 'query-string'
-import type { RoutesMap } from 'redux-first-router'
-import type { Store } from 'redux'
-import startFetchAction from '../endpoint/actions/startFetchAction'
-import finishFetchAction from '../endpoint/actions/finishFetchAction'
+import Payload from '../endpoint/Payload'
 
-type ActionType = startFetchAction | finishFetchAction<*>
+export type ActionType<T> = { type: string, payload: Payload<T> }
 
 // todo: Change type to correct State type,
 // https://blog.callstack.io/type-checking-react-and-redux-thunk-with-flow-part-2-206ce5f6e705
-const createReduxStore = (createHistory: () => History, initialState: {} = {},
-  routesMap: RoutesMap = defaultRoutesMap): Store<ActionType, any> => {
+const createReduxStore = (createHistory: () => History, initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
   const history = createHistory()
 
   const {reducer, middleware, enhancer} = connectRoutes(history, routesMap,

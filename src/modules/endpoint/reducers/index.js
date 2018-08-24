@@ -12,9 +12,10 @@ import { handleActions } from 'redux-actions'
 import Payload from '../Payload'
 import { startFetchActionName } from '../actions/startFetchAction'
 import { finishFetchActionName } from '../actions/finishFetchAction'
+import type { ActionType } from '../../app/createReduxStore'
 
 /**
- * Contains all reducers from all endpoints which are defined in {@link './endpoints/'}
+ * Contains all endpoints which are defined in {@link './endpoints/'}
  */
 const endpoints = [
   languagesEndpoint,
@@ -27,8 +28,8 @@ const endpoints = [
   wohnenEndpoint
 ]
 
-export const startFetchReducer = (oldPayload: Payload<*>, action) => action.payload
-export const finishFetchReducer = (oldPayload: Payload<*>, action) => {
+export const startFetchReducer = <T> (oldPayload: Payload<T>, action: ActionType<T>): Payload<T> => action.payload
+export const finishFetchReducer = <T> (oldPayload: Payload<T>, action: ActionType<T>): Payload<T> => {
   // Only stores the data if the requestUrl hasn't changed since the start of the fetching process.
   // For example the data of "Nürnberg" is very large and could take a while to load, in which time one could change to
   // another city, which data could be overridden then by the data from "Nürnberg"
@@ -41,16 +42,17 @@ export const finishFetchReducer = (oldPayload: Payload<*>, action) => {
 
 const defaultState = new Payload(false)
 
-const reducers = endpoints.reduce((result, endpoint) => {
-  const name = endpoint.stateName
-  result[name] = handleActions(
-    {
-      [startFetchActionName(name)]: startFetchReducer,
-      [finishFetchActionName(name)]: finishFetchReducer
-    },
-    defaultState
-  )
-  return result
-}, {})
+const reducers: { [actionName: string]: startFetchReducer<*> | finishFetchReducer<*> } = endpoints.reduce(
+  (result, endpoint) => {
+    const name = endpoint.stateName
+    result[name] = handleActions(
+      {
+        [startFetchActionName(name)]: startFetchReducer,
+        [finishFetchActionName(name)]: finishFetchReducer
+      },
+      defaultState
+    )
+    return result
+  }, {})
 
 export default reducers

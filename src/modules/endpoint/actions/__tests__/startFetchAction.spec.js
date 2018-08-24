@@ -21,6 +21,7 @@ describe('startFetchAction', () => {
   })
 
   it('should create the right action', () => {
-    expect(startFetchAction('endpoint')).toEqual({type: startFetchActionName('endpoint'), payload: new Payload(true)})
+    expect(startFetchAction('endpoint', 'http://some.com/url'))
+      .toEqual({type: startFetchActionName('endpoint'), payload: new Payload(true, 'http://some.com/url')})
   })
 })
