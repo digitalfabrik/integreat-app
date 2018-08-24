@@ -9,7 +9,7 @@ describe('DisclaimerModel', () => {
       id: 1689,
       title: 'Feedback, Kontakt und mögliches Engagement',
       content: 'test content blablabla',
-      lastUpdate: moment()
+      lastUpdate: moment('2016-01-07 10:36:24')
     }
     const disclaimer = new DisclaimerModel(props)
     expect(disclaimer.id).toBe(props.id)
