@@ -69,7 +69,8 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /\/node_modules\/(?!query-string)/, // https://github.com/babel/babel-loader/issues/171
+        // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
+        exclude: /node_modules\/(?!(query-string|strict-uri-encode)\/).*/,
         loader: 'babel-loader',
         options: babelConfig
       },
