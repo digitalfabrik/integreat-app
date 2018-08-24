@@ -7,7 +7,6 @@ import lolex from 'lolex'
 import finishFetchAction from '../../actions/finishFetchAction'
 
 describe('endpoint reducers', () => {
-
   let clock
 
   beforeEach(() => {
@@ -54,7 +53,6 @@ describe('endpoint reducers', () => {
   })
 
   describe('reducers', () => {
-
     it('should reduce cities fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
       if (typeof reducers.cities !== 'function') {
@@ -66,61 +64,61 @@ describe('endpoint reducers', () => {
     })
 
     it('should reduce languages fetch actions', () => {
-      const payload = new Payload(false, null, 'data', null)
-      if (typeof reducers.cities !== 'function') {
+      const payload = new Payload(false, 'http://example.com', 'data', null)
+      if (typeof reducers.languages !== 'function') {
         return expect(true).toBe(false)
       }
-      const reducer: Function = reducers.cities
+      const reducer: Function = reducers.languages
       expect(reducer(undefined, startFetchAction('languages', 'http://example.com'))).toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('languages', payload))).toEqual(payload)
     })
 
     it('should reduce disclaimer fetch actions', () => {
-      const payload = new Payload(false, null, 'data', null)
-      if (typeof reducers.cities !== 'function') {
+      const payload = new Payload(false, 'http://example.com', 'data', null)
+      if (typeof reducers.disclaimer !== 'function') {
         return expect(true).toBe(false)
       }
-      const reducer: Function = reducers.cities
-      expect(reducer(undefined, startFetchAction('disclaimer', 'http://example.com'))).toEqual(new Payload(true))
+      const reducer: Function = reducers.disclaimer
+      expect(reducer(undefined, startFetchAction('disclaimer', 'http://example.com'))).toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('disclaimer', payload))).toEqual(payload)
     })
 
     it('should reduce events fetch actions', () => {
-      const payload = new Payload(false, null, 'data', null)
-      if (typeof reducers.cities !== 'function') {
+      const payload = new Payload(false, 'http://example.com', 'data', null)
+      if (typeof reducers.events !== 'function') {
         return expect(true).toBe(false)
       }
-      const reducer: Function = reducers.cities
+      const reducer: Function = reducers.events
       expect(reducer(undefined, startFetchAction('events', 'http://example.com'))).toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('events', payload))).toEqual(payload)
     })
 
     it('should reduce extras fetch actions', () => {
-      const payload = new Payload(false, null, 'data', null)
-      if (typeof reducers.cities !== 'function') {
+      const payload = new Payload(false, 'http://example.com', 'data', null)
+      if (typeof reducers.extras !== 'function') {
         return expect(true).toBe(false)
       }
-      const reducer: Function = reducers.cities
+      const reducer: Function = reducers.extras
       expect(reducer(undefined, startFetchAction('extras', 'http://example.com'))).toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('extras', payload))).toEqual(payload)
     })
 
     it('should reduce categories fetch actions', () => {
-      const payload = new Payload(false, null, 'data', null)
-      if (typeof reducers.cities !== 'function') {
+      const payload = new Payload(false, 'http://example.com', 'data', null)
+      if (typeof reducers.categories !== 'function') {
         return expect(true).toBe(false)
       }
-      const reducer: Function = reducers.cities
+      const reducer: Function = reducers.categories
       expect(reducer(undefined, startFetchAction('categories', 'http://example.com'))).toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('categories', payload))).toEqual(payload)
     })
 
     it('should reduce sprungbrettJobs fetch actions', () => {
-      const payload = new Payload(false, null, 'data', null)
-      if (typeof reducers.cities !== 'function') {
+      const payload = new Payload(false, 'http://example.com', 'data', null)
+      if (typeof reducers.sprungbrettJobs !== 'function') {
         return expect(true).toBe(false)
       }
-      const reducer: Function = reducers.cities
+      const reducer: Function = reducers.sprungbrettJobs
       expect(reducer(undefined, startFetchAction('sprungbrettJobs', 'http://example.com'))).toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('sprungbrettJobs', payload))).toEqual(payload)
     })
