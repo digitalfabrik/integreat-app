@@ -30,7 +30,7 @@ type PropsType = {
   t: TFunction,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
-  onStickyTopChanged: number => {}
+  onStickyTopChanged: number => void
 }
 
 export class LocationHeader extends React.Component<PropsType> {
