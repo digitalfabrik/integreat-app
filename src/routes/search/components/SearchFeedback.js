@@ -30,13 +30,13 @@ const FeedbackContainer = styled.div`
   align-items: center;
 `
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   location: LocationState,
   query: string,
   resultsFound: boolean,
   t: TFunction
-}
+|}
 
 export class SearchFeedback extends React.Component<PropsType> {
   renderFeedbackOption (): React.Node {
@@ -58,7 +58,7 @@ export class SearchFeedback extends React.Component<PropsType> {
   }
 
   render () {
-    const {query, cities, t, location} = this.props
+    const {query, cities, location} = this.props
     const feedbackStatus = location.query && location.query.feedback
 
     return (
@@ -69,7 +69,6 @@ export class SearchFeedback extends React.Component<PropsType> {
           cities={cities}
           location={location}
           feedbackStatus={feedbackStatus}
-          commentMessage={t('wantedInformation')}
           extras={null} />
       </>
     )
