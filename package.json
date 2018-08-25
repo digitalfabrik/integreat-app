@@ -12,17 +12,20 @@
     "flow:install-types": "flow-typed install --ignoreDeps dev"
   },
   "dependencies": {
+    "i18next": "^11.6.0",
     "is-url": "^1.2.4",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "normalize-path": "^3.0.0",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
+    "react-i18next": "^7.10.1",
     "react-native": "0.56.0",
     "react-native-elements": "0.19.1",
     "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.10.0",
     "react-navigation-header-buttons": "^2.1.0",
-    "recompose": "^0.28.0",
+    "recompose": "^0.28.2",
     "redux": "^4.0.0",
     "redux-actions": "^2.6.1",
     "styled-components": "^3.3.3"
@@ -36,6 +39,7 @@
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-react-native": "^5",
     "eslint": "^5.1.0",
     "eslint-config-standard": "^11.0.0",
@@ -54,7 +58,6 @@
     "jest-fetch-mock": "^1.6.5",
     "jest-react-native": "^18.0.0",
     "lolex": "^2.7.1",
-    "react-navigation": "^2.10.0",
     "react-test-renderer": "^16.4.2"
   }
 }
