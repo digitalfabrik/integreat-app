@@ -12,6 +12,7 @@ export default createStackNavigator(
     initialRouteName: 'Dashboard',
     navigationOptions: {
       header: Header
-    }
+    },
+    cardStyle: { backgroundColor: theme.colors.backgroundColor }
   }
 )
