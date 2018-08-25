@@ -12,6 +12,7 @@ class Dashboard extends React.Component<{}> {
   render () {
     return (<React.Fragment>
         <Text>This is the Dashboard</Text>
+        <Text>{this.props.navigation.getParam('city').name}</Text>
         <Caption title={'Captionfgv'} />
         <Button
           title='Go to Categories'

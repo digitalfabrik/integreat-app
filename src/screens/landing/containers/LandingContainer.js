@@ -15,6 +15,7 @@ import { translate } from 'react-i18next'
 
 const Wrapper = styled.View`
   padding-top: 22px;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 type PropType = {
@@ -48,15 +49,20 @@ class LandingContainer extends React.Component<PropType, StateType> {
     this.fetchData()
   }
 
+  navigateToDashboard = city => {
+    this.props.navigation.navigate('Dashboard', {city})
+  }
+
   render () {
     if (!this.state.data) {
-      return <Text>Test</Text>
+      return <Text>Tesft</Text>
     }
 
     return <ScrollView>
-      <Wrapper>
+      <Wrapper theme={this.props.theme}>
         <Heading />
-        <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.state.data} t={this.props.t}/>
+        <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.state.data} t={this.props.t}
+                                navigateToDashboard={this.navigateToDashboard} />
       </Wrapper>
     </ScrollView>
   }

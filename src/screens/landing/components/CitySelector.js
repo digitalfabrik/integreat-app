@@ -24,6 +24,7 @@ type PropsType = {
   filterText: string,
   language: string,
   stickyTop: number,
+  navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType
 }
 
@@ -54,7 +55,8 @@ class CitySelector extends React.PureComponent<PropsType> {
           key={city.code}
           city={city}
           language={this.props.language}
-          filterText={this.props.filterText} />)}
+          filterText={this.props.filterText}
+          navigateToDashboard={this.props.navigateToDashboard}/>)}
       </View>)
     }, [])
   }

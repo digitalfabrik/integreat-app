@@ -5,7 +5,6 @@ import React from 'react'
 import CitySelector from './CitySelector'
 
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
 import SearchInput from './SearchInput'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { ThemeType } from '../../../modules/layout/constants/theme'
@@ -13,6 +12,7 @@ import type { ThemeType } from '../../../modules/layout/constants/theme'
 type PropsType = {
   cities: Array<CityModel>,
   language: string,
+  navigateToDashboard: (city: CityModel) => void,
   t: TFunction,
   theme: ThemeType
 }
@@ -45,6 +45,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
           cities={cities}
           filterText={filterText}
           language={language}
+          navigateToDashboard={this.props.navigateToDashboard}
           theme={theme}
         />
       </React.Fragment>
