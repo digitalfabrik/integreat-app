@@ -6,9 +6,7 @@
       <script value="android" />
     </scripts>
     <node-interpreter value="project" />
-    <envs>
-      <env name="ANDROID_HOME" value="/media/other/android-sdk" />
-    </envs>
+    <envs />
     <method v="2" />
   </configuration>
 </component>
