@@ -5,7 +5,25 @@
   ],
   "env": {
     "development": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
     }
-  }
+  },
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "extensions": [
+          ".ios.js",
+          ".android.js",
+          ".js",
+          ".json"
+        ]
+      }
+    ]
+  ]
 }
