@@ -1,15 +1,18 @@
 import { createStackNavigator } from 'react-navigation'
 import Dashboard from '../../../screens/dashboard/components/Dashboard'
-import Categories from '../../../screens/categories/components/Categories'
 import Header from '../../layout/components/Header'
+import CategoriesContainer from '../../../screens/categories/container/CategoriesContainer'
+import LandingContainer from '../../../screens/landing/containers/LandingContainer'
+import theme from 'modules/layout/constants/theme'
 
 export default createStackNavigator(
   {
+    'Landing': LandingContainer,
     'Dashboard': Dashboard,
-    'Categories': Categories
+    'Categories': CategoriesContainer
   },
   {
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'LandingContainer',
     navigationOptions: {
       header: Header
     },
