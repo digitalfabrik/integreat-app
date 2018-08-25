@@ -8,6 +8,7 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
 import { View } from 'react-native'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
 export const CityListParent = styled.View`
   height: 30px;
@@ -22,7 +23,8 @@ type PropsType = {
   cities: Array<CityModel>,
   filterText: string,
   language: string,
-  stickyTop: number
+  stickyTop: number,
+  theme: ThemeType
 }
 
 class CitySelector extends React.PureComponent<PropsType> {
@@ -47,7 +49,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
       result.push(<View key={key}>
-        <CityListParent><Text>{key}</Text></CityListParent>
+        <CityListParent theme={this.props.theme}><Text>{key}</Text></CityListParent>
         {cities.map(city => <CityEntry
           key={city.code}
           city={city}

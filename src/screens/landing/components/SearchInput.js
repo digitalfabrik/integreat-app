@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
 export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}
@@ -42,25 +43,28 @@ type PropsType = {
   filterText: string,
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
-  onClickInput?: () => void
+  onClickInput?: () => void,
+  theme: ThemeType
 }
 
-export class SearchInput extends React.Component<PropsType> {
+class SearchInput extends React.Component<PropsType> {
   static defaultProps = {spaceSearch: false}
   onFilterTextChange = (text: string) => this.props.onFilterTextChange(text)
 
   render () {
     const {onClickInput, filterText, placeholderText} = this.props
     return (
-      <Spacer space={this.props.spaceSearch}>
-        <Wrapper>
+      <Spacer space={this.props.spaceSearch} theme={this.props.theme}>
+        <Wrapper theme={this.props.theme}>
           <SearchIcon />
-          <Input placeholder={placeholderText}
-                 aria-label={placeholderText}
-                 defaultValue={filterText}
-                 onChangeText={this.onFilterTextChange}
-                 onClick={onClickInput}
-                 autoFocus />
+          <Input
+            theme={this.props.theme}
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            defaultValue={filterText}
+            onChangeText={this.onFilterTextChange}
+            onClick={onClickInput}
+            autoFocus />
         </Wrapper>
       </Spacer>
     )

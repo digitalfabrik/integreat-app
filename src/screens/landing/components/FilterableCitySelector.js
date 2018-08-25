@@ -8,18 +8,20 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import SearchInput from './SearchInput'
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
 type PropsType = {
   cities: Array<CityModel>,
   language: string,
-  t: TFunction
+  t: TFunction,
+  theme: ThemeType
 }
 
 type StateType = {
   filterText: string
 }
 
-export class FilterableCitySelector extends React.Component<PropsType, StateType> {
+class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = {filterText: ''}
@@ -28,7 +30,7 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
   onFilterTextChange = (filterText: string) => this.setState({filterText})
 
   render () {
-    const {cities, language, t} = this.props
+    const {cities, language, t, theme} = this.props
     const filterText = this.state.filterText
 
     return (
@@ -37,15 +39,17 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
           filterText={filterText}
           onFilterTextChange={this.onFilterTextChange}
           placeholderText={t('searchCity')}
-          spaceSearch={false} />
+          spaceSearch={false}
+          theme={theme} />
         <CitySelector
           cities={cities}
           filterText={filterText}
           language={language}
+          theme={theme}
         />
       </React.Fragment>
     )
   }
 }
 
-export default translate('landing')(FilterableCitySelector)
+export default FilterableCitySelector

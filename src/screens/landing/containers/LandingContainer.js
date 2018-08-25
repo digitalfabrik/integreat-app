@@ -5,10 +5,13 @@ import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import { Text } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import FilterableCitySelector from '../components/FilterableCitySelector'
 import { ScrollView } from 'react-native'
 import Heading from '../components/Heading'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
+import FilterableCitySelector from '../components/FilterableCitySelector'
+import type { TFunction } from 'react-i18next'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
+import { translate } from 'react-i18next'
 
 const Wrapper = styled.View`
   padding-top: 22px;
@@ -16,7 +19,9 @@ const Wrapper = styled.View`
 
 type PropType = {
   language: string,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  t: TFunction,
+  theme: ThemeType
 }
 
 type StateType = {
@@ -47,14 +52,14 @@ class LandingContainer extends React.Component<PropType, StateType> {
     if (!this.state.data) {
       return <Text>Test</Text>
     }
-    const {language, cities} = this.props
+
     return <ScrollView>
       <Wrapper>
         <Heading />
-        <FilterableCitySelector language={'de'} cities={this.state.data} />
+        <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.state.data} t={this.props.t}/>
       </Wrapper>
     </ScrollView>
   }
 }
 
-export default LandingContainer
+export default withTheme(translate('landing')(LandingContainer))

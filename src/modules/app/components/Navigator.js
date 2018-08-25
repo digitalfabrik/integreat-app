@@ -12,7 +12,7 @@ export default createStackNavigator(
     'Categories': CategoriesContainer
   },
   {
-    initialRouteName: 'LandingContainer',
+    initialRouteName: 'Landing',
     navigationOptions: {
       header: Header
     },

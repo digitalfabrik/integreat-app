@@ -5,7 +5,6 @@ import { translate } from 'react-i18next'
 import Caption from 'modules/common/components/Caption'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { View } from 'react-native'
 
 const LocationImage = styled.Image`
   height: 70px;
