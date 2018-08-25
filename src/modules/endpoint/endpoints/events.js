@@ -77,7 +77,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     .map((event: JsonEventType) => {
       const allDay = event.event.all_day !== '0'
       const availableLanguages = new Map()
-      Object.keys(availableLanguages)
+      Object.keys(event.available_languages)
         .forEach(language => availableLanguages.set(language, event.available_languages[language].id))
       return new EventModel({
         id: event.id,
