@@ -1,9 +1,6 @@
 // @flow
 
 import Payload from './Payload'
-import type { Dispatch } from 'redux-first-router'
-import startFetchAction from './actions/startFetchAction'
-import finishFetchAction from './actions/finishFetchAction'
 import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import ParamMissingError from './errors/ParamMissingError'
@@ -33,7 +30,7 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async loadData (dispatch: Dispatch, oldPayload: Payload<T>, params: P): Promise<Payload<T>> {
+  async loadData (params: P): Promise<Payload<T>> {
     let formattedUrl
     try {
       const responseOverride = this.responseOverride
@@ -41,31 +38,15 @@ class Endpoint<P, T> {
 
       formattedUrl = this.mapParamsToUrl(params)
 
-      const lastUrl = oldPayload.requestUrl
-
-      if (lastUrl && lastUrl === formattedUrl) {
-        // The correct data was already fetched
-        return oldPayload
-      }
-
-      // Fetch if the data is not valid anymore or it hasn't been fetched yet
-      dispatch(startFetchAction(this.stateName, formattedUrl))
-
       if (errorOverride) {
-        const payload = new Payload(false, formattedUrl, null, errorOverride)
-        dispatch(finishFetchAction(this.stateName, payload))
-        return payload
+        return new Payload(false, formattedUrl, null, errorOverride)
       }
       if (responseOverride) {
         const data = this.mapResponse(responseOverride, params)
-        const payload = new Payload(false, formattedUrl, data, null)
-        dispatch(finishFetchAction(this.stateName, payload))
-        return payload
+        return new Payload(false, formattedUrl, data, null)
       }
 
-      const payload = await this.fetchData(formattedUrl, params)
-      dispatch(finishFetchAction(this.stateName, payload))
-      return payload
+      return await this.fetchData(formattedUrl, params)
     } catch (e) {
       let error
       if (e instanceof LoadingError || e instanceof ParamMissingError || e instanceof MappingError) {
@@ -75,9 +56,7 @@ class Endpoint<P, T> {
       }
 
       console.error(error)
-      const payload = new Payload(false, formattedUrl, null, error)
-      dispatch(finishFetchAction(this.stateName, payload))
-      return payload
+      return new Payload(false, formattedUrl, null, error)
     }
   }
 
