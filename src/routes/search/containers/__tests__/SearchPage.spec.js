@@ -12,7 +12,7 @@ import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
 import moment from 'moment-timezone'
-import CustomThemeProvider from '../../../../modules/app/containers/CustomThemeProvider'
+import CustomThemeProvider from '../../../../modules/theme/containers/CustomThemeProvider'
 
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''

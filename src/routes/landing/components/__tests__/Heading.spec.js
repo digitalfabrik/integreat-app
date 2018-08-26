@@ -4,7 +4,7 @@ import React from 'react'
 
 import Heading from '../Heading'
 import { mount } from 'enzyme'
-import CustomThemeProvider from '../../../../modules/app/containers/CustomThemeProvider'
+import CustomThemeProvider from '../../../../modules/theme/containers/CustomThemeProvider'
 
 jest.mock('react-i18next')
 

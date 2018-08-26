@@ -43,7 +43,8 @@ class Footer extends React.Component<PropsType> {
   }
 
   render () {
-    return <FooterContainer>
+    const {children, ...otherProps} = this.props
+    return <FooterContainer {...otherProps}>
       {this.props.children}
       {Footer.getVersion()}
     </FooterContainer>

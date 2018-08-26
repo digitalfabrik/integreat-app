@@ -1,27 +1,26 @@
 // @flow
 
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
 import { brightTheme, darkTheme } from '../constants/theme'
 
 type PropsType = {
-  children: React.Node
+  children: React.Node,
+  darkMode: boolean
 }
 
 class CustomThemeProvider extends React.Component<PropsType> {
-  useDarkTheme: boolean
-
-  constructor () {
-    super()
-    this.useDarkTheme = !!(window.localStorage && window.localStorage.getItem('dark-theme')) || false
-  }
-
   render () {
-    return <ThemeProvider theme={this.useDarkTheme ? darkTheme : brightTheme}>
+    return <ThemeProvider theme={this.props.darkMode ? darkTheme : brightTheme}>
       {this.props.children}
     </ThemeProvider>
   }
 }
 
-export default CustomThemeProvider
+const mapStateToProps = state => ({
+  darkMode: state.darkMode
+})
+
+export default connect(mapStateToProps)(CustomThemeProvider)
