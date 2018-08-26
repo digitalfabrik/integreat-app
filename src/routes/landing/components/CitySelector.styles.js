@@ -10,7 +10,7 @@ export const CityListParent = withPlatform(styled.div`
   margin-top: 10px;
   line-height: 30px;
   transition: top 0.2s ease-out;
-  background-color: white;
+  background-color: ${props => props.theme.colors.backgroundColor};
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `)
 
