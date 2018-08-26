@@ -14,9 +14,9 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'
-import { translate } from 'react-i18next'
 
 type PropsType = {
   languages: Array<LanguageModel>,
@@ -32,7 +32,7 @@ type PropsType = {
  */
 export class LanguageSelector extends React.Component<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
-    const { categories, events, location, languages } = this.props
+    const {categories, events, location, languages} = this.props
     return (
       languages &&
       languages.map(language => {
@@ -53,29 +53,22 @@ export class LanguageSelector extends React.Component<PropsType> {
   }
 
   render () {
-    const { location, isHeaderActionItem, t } = this.props
+    const {location, isHeaderActionItem, t} = this.props
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = location.payload.language
 
     if (isHeaderActionItem) {
-      return (
-        <HeaderLanguageSelectorItem
-          selectorItems={selectorItems}
-          activeItemCode={activeItemCode}
-        />
-      )
-    } else {
-      return (
-        selectorItems && (
-          <Selector
-            verticalLayout
-            items={selectorItems}
-            activeItemCode={activeItemCode}
-            inactiveItemTooltip={t('noTranslation')}
-          />
-        )
-      )
+      return <HeaderLanguageSelectorItem
+        selectorItems={selectorItems}
+        activeItemCode={activeItemCode} />
     }
+
+    return selectorItems &&
+      <Selector
+        verticalLayout
+        items={selectorItems}
+        activeItemCode={activeItemCode}
+        inactiveItemTooltip={t('noTranslation')} />
   }
 }
 
