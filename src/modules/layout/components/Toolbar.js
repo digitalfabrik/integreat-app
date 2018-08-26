@@ -22,11 +22,11 @@ const ToolbarContainer = styled.div`
     opacity: 1;
   }
 
-@media ${props => props.theme.dimensions.smallViewport} {
-  width: 100%;
-  flex-direction: row;
-  justify-content: center;
-}
+  @media ${props => props.theme.dimensions.smallViewport} {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+  }
 `
 
 type PropsType = {
