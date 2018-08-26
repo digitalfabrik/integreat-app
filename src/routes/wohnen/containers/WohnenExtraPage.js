@@ -20,8 +20,8 @@ type PropsType = {
   city: string,
   language: string,
   offerHash?: string,
-  extras: Array<ExtraModel>,
-  cities: Array<CityModel>
+  extras: ?Array<ExtraModel>,
+  cities: ?Array<CityModel>
 }
 
 export class WohnenExtraPage extends React.Component<PropsType> {
@@ -34,6 +34,10 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
   render () {
     const {offers, extras, cities, city, language, offerHash} = this.props
+    if (!cities || !extras) {
+      throw new Error('Data not ready')
+    }
+
     const cityName = CityModel.findCityName(cities, city)
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
@@ -73,10 +77,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
-  offerHash: state.location.payload.offerHash,
-  extras: state.extras.data,
-  cities: state.cities.data,
-  offers: state.wohnen.data
+  offerHash: state.location.payload.offerHash
 })
 
 export default connect(mapStateTypeToProps)(WohnenExtraPage)

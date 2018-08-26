@@ -53,9 +53,7 @@ export class EventsPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
-  events: state.events.data,
-  cities: state.cities.data
+  eventId: state.location.payload.eventId
 })
 
 export default compose(
