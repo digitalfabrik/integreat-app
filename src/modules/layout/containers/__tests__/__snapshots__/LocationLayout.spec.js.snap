@@ -3,7 +3,7 @@
 exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is not available 1`] = `
 <Layout
   asideStickyTop={0}
-  darkMode={false}
+  darkMode={true}
   footer={
     <Translate(LocationFooter)
       city="city1"
@@ -101,7 +101,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
 exports[`LocationLayout should show LocationHeader and LocationFooter if city is available 1`] = `
 <Layout
   asideStickyTop={0}
-  darkMode={false}
+  darkMode={true}
   footer={
     <Translate(LocationFooter)
       city="city1"
