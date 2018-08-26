@@ -7,10 +7,10 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
-import Link from 'redux-first-router-link'
 import EventModel from '../../../modules/endpoint/models/EventModel'
 import { goToEvents } from '../../../modules/app/routes/events'
 import styled from 'styled-components'
+import CleanLink from '../../../modules/common/components/CleanLink'
 
 const EXCERPT_LENGTH = 70
 
@@ -20,7 +20,7 @@ type PropsType = {
   language: string
 }
 
-const EventLink = styled(Link)`
+const EventLink = styled(CleanLink)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
 `
