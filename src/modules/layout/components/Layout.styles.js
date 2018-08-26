@@ -24,8 +24,8 @@ export const Body = styled.div`
 
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
   @media ${props => props.theme.dimensions.minMaxWidth} {
-    padding-right: calc((200% - 100vw - var(--max-width)) / 2);
-    padding-left: calc((100vw - var(--max-width)) / 2);
+    padding-right: calc((200% - 100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${props => props.theme.dimensions.maxWidth}px) / 2);
   }
 
   @media ${props => props.theme.dimensions.smallViewport} {
