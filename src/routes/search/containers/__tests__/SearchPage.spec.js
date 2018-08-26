@@ -187,12 +187,12 @@ describe('SearchPage', () => {
     })
 
     const searchPage = shallow(
-      <ConnectedSearchPage store={store} />
+      <ConnectedSearchPage store={store} cities={cities} categories={categories} />
     )
 
     expect(searchPage.props()).toMatchObject({
-      categories,
       cities,
+      categories,
       location
     })
   })

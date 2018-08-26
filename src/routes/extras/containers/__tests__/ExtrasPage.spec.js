@@ -74,7 +74,7 @@ describe('ExtrasPage', () => {
     })
 
     const extrasPage = shallow(
-      <ConnectedExtrasPage store={store} />
+      <ConnectedExtrasPage store={store} cities={cities} extras={extras} />
     )
 
     expect(extrasPage.props()).toMatchObject({
