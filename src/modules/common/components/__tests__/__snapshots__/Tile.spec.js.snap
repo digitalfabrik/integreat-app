@@ -1,73 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tile should render a Link if path is not an external url 1`] = `
-<Col
-  className="tile"
+<Tile__StyledCol
   md={3}
   sm={4}
   xs={6}
 >
-  <Connect(Link)
+  <CleanLink
     to="/augsburg/de/willkommen"
   >
     <React.Fragment>
-      <div
-        className="thumbnailSizer"
-      >
-        <div
-          className="thumbnail"
-        >
+      <Tile__ThumbnailSizer>
+        <Tile__Thumbnail>
           <img
             src="https://cms.integreat-ap…03/Beratung-150x150.png"
           />
-        </div>
-      </div>
-      <div
-        className="title"
-      >
+        </Tile__Thumbnail>
+      </Tile__ThumbnailSizer>
+      <Tile__TileTitle>
         Willkommen
-      </div>
+      </Tile__TileTitle>
     </React.Fragment>
-  </Connect(Link)>
-</Col>
+  </CleanLink>
+</Tile__StyledCol>
 `;
 
 exports[`Tile should render a a-Tag if path is not an external url 1`] = `
-<Col
-  className="tile"
+<Tile__StyledCol
   md={3}
   sm={4}
   xs={6}
 >
-  <a
+  <CleanAnchor
     href="https://example.com"
     target="_blank"
   >
     <React.Fragment>
-      <div
-        className="thumbnailSizer"
-      >
-        <div
-          className="thumbnail"
-        >
+      <Tile__ThumbnailSizer>
+        <Tile__Thumbnail>
           <img
             src="https://cms.integreat-ap…03/Beratung-150x150.png"
           />
-        </div>
-      </div>
-      <div
-        className="title"
-      >
+        </Tile__Thumbnail>
+      </Tile__ThumbnailSizer>
+      <Tile__TileTitle>
         Example
-      </div>
+      </Tile__TileTitle>
     </React.Fragment>
-  </a>
-</Col>
+  </CleanAnchor>
+</Tile__StyledCol>
 `;
 
 exports[`Tile should render a form-Tag if path is not an external url and has postData 1`] = `
-<Col
-  className="tile"
+<Tile__StyledCol
   md={3}
   sm={4}
   xs={6}
@@ -99,24 +84,18 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
       type="submit"
     >
       <React.Fragment>
-        <div
-          className="thumbnailSizer"
-        >
-          <div
-            className="thumbnail"
-          >
+        <Tile__ThumbnailSizer>
+          <Tile__Thumbnail>
             <img
               src="https://cms.integreat-ap…03/Beratung-150x150.png"
             />
-          </div>
-        </div>
-        <div
-          className="title"
-        >
+          </Tile__Thumbnail>
+        </Tile__ThumbnailSizer>
+        <Tile__TileTitle>
           Example
-        </div>
+        </Tile__TileTitle>
       </React.Fragment>
     </button>
   </form>
-</Col>
+</Tile__StyledCol>
 `;
