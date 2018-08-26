@@ -2,7 +2,7 @@
 
 exports[`OfferList should render offer list 1`] = `
 Array [
-  <withProps(Connect(Link))
+  <CleanLink
     key="mail@mail.com"
     to="/augsburg/language/extras/wohnen/mail@mail.com"
   />,

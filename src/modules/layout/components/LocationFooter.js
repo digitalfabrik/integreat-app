@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 
 import Footer from './Footer'
-import Link from 'redux-first-router-link'
 import { goToDisclaimer } from '../../app/routes/disclaimer'
+import CleanLink from '../../common/components/CleanLink'
+import CleanAnchor from '../../common/components/CleanAnchor'
 
 type PropsType = {
   city: string,
@@ -19,10 +20,8 @@ export class LocationFooter extends React.Component<PropsType> {
     const {t, city, language} = this.props
 
     return <Footer>
-      <Link to={goToDisclaimer(city, language)}>
-        {t('imprintAndContact')}
-      </Link>
-      <a href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</a>
+      <CleanLink to={goToDisclaimer(city, language)}>{t('imprintAndContact')}</CleanLink>
+      <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
     </Footer>
   }
 }
