@@ -1,9 +1,27 @@
 // @flow
 
 import * as React from 'react'
-import cx from 'classnames'
-import style from './HeaderDropDown.css'
 import onClickOutside from 'react-onclickoutside'
+import styled from 'styled-components'
+
+export const DropDownContainer = styled.div`
+  position: absolute;
+  top: ${props => props.theme.dimensions.headerHeightLarge}px;
+  right: 0;
+  width: 100%;
+  transform: scale(${props => props.active ? '1' : '0.9'});
+  transform-origin: center top;
+  justify-content: center;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+  opacity: ${props => props.active ? '1' : '0'};
+  transition: transform 0.2s, opacity 0.2s;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  pointer-events: ${props => props.active ? 'auto' : 'none'};
+
+  @media ${props => props.theme.dimensions.smallViewport} {
+    top: ${props => props.theme.dimensions.headerHeightSmall}px;
+  }
+`
 
 type PropsType = {
   children: React.Element<*>,
@@ -19,7 +37,7 @@ type StateType = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-class HeaderDropDown extends React.Component<PropsType, StateType> {
+export class HeaderDropDown extends React.Component<PropsType, StateType> {
   toggleDropDown: Function
   closeDropDown: Function
   handleClickOutside: Function
@@ -50,17 +68,11 @@ class HeaderDropDown extends React.Component<PropsType, StateType> {
     return (
       <span>
         <img src={this.props.iconSrc} onClick={this.toggleDropDown} />
-        <div
-          className={cx(
-            style.dropDown,
-            this.state.dropDownActive ? style.dropDownActive : ''
-          )}
-        >
-          {/* Pass dropDownCallback to child element */}
+        <DropDownContainer active={this.state.dropDownActive}>
           {React.cloneElement(this.props.children, {
             closeDropDownCallback: this.closeDropDown
           })}
-        </div>
+        </DropDownContainer>
       </span>
     )
   }
