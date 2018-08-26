@@ -28,7 +28,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-const Identifier = styled.div`
+const Identifier = styled.span`
   font-weight: 700;
 `
 
@@ -44,7 +44,7 @@ class EventDetail extends React.Component<PropsType> {
   render () {
     const event = this.props.event
     return (
-      <div>
+      <>
         <Thumbnail src={event.thumbnail || this.getEventPlaceholder()} />
         <Caption title={event.title} />
         <div>
@@ -59,7 +59,7 @@ class EventDetail extends React.Component<PropsType> {
           <span>{event.address}</span>
         </div>
         <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} />
-      </div>
+      </>
     )
   }
 }
