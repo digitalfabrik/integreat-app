@@ -40,7 +40,8 @@ type PropsType = {
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
-  toggleDarkMode: () => void
+  toggleDarkMode: () => void,
+  darkMode: boolean
 }
 
 type StateType = {
@@ -139,7 +140,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {viewportSmall, children, location} = this.props
+    const {viewportSmall, children, location, darkMode} = this.props
     const type = location.type
     const {city, language} = location.payload
 
@@ -159,7 +160,8 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                       onStickyTopChanged={this.onStickyTopChanged} />}
               footer={<LocationFooter city={city} language={language} onClick={this.onFooterClicked} />}
               toolbar={this.renderToolbar()}
-              modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
+              modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
+              darkMode={darkMode}>
         {children}
       </Layout>
     )
@@ -173,7 +175,8 @@ const mapStateToProps = state => ({
   categories: state.categories.data,
   events: state.events.data,
   extras: state.extras.data,
-  disclaimer: state.disclaimer.data
+  disclaimer: state.disclaimer.data,
+  darkMode: state.darkMode
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => ({

@@ -25,5 +25,6 @@ export type StateType = {
   sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
   wohnen: Payload<Array<WohnenOfferModel>>,
   viewport: ViewportType,
-  uiDirection: UiDirectionType
+  uiDirection: UiDirectionType,
+  darkMode: boolean
 }
