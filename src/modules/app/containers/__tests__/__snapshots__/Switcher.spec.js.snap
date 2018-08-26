@@ -3,6 +3,7 @@
 exports[`Switcher layout should render a layout with a footer if the current route is the landing route 1`] = `
 <Layout
   asideStickyTop={0}
+  darkMode={false}
   footer={<Translate(GeneralFooter) />}
   header={false}
 >
@@ -26,6 +27,7 @@ exports[`Switcher layout should render a layout with a footer if the current rou
 exports[`Switcher layout should render a layout with a header and a footer as default 1`] = `
 <Layout
   asideStickyTop={0}
+  darkMode={false}
   footer={<Translate(GeneralFooter) />}
   header={
     <GeneralHeader
@@ -215,6 +217,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 exports[`Switcher should get the right page if data has been fetched and is the i18nRedirect route 1`] = `
 <Layout
   asideStickyTop={0}
+  darkMode={false}
   footer={false}
   header={false}
 >
@@ -238,6 +241,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 exports[`Switcher should get the right page if data has been fetched and is the landing route 1`] = `
 <Layout
   asideStickyTop={0}
+  darkMode={false}
   footer={<Translate(GeneralFooter) />}
   header={false}
 >
@@ -261,6 +265,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 exports[`Switcher should get the right page if data has been fetched and is the main disclaimer route 1`] = `
 <Layout
   asideStickyTop={0}
+  darkMode={false}
   footer={<Translate(GeneralFooter) />}
   header={
     <GeneralHeader
@@ -457,4 +462,4 @@ exports[`Switcher should return a failure if there was an error during fetching 
 />
 `;
 
-exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<LoadingSpinner />`;
+exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<WithTheme(LoadingSpinner) />`;

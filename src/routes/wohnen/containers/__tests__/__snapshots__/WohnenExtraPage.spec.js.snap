@@ -154,11 +154,4 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
 </React.Fragment>
 `;
 
-exports[`WohnenExtraPage should render spinner if offers are not ready 1`] = `
-<Spinner
-  fadeIn="full"
-  name="line-scale-party"
-  noFadeIn={false}
-  overrideSpinnerClassName=""
-/>
-`;
+exports[`WohnenExtraPage should render spinner if offers are not ready 1`] = `<WithTheme(LoadingSpinner) />`;
