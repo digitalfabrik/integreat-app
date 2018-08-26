@@ -5,9 +5,7 @@ exports[`EventList should render a list of events 1`] = `
   <Caption
     title="events:news"
   />
-  <div
-    className="list"
-  >
+  <EventList__List>
     <EventListElement
       city="augsburg"
       event={
@@ -77,19 +75,17 @@ exports[`EventList should render a list of events 1`] = `
       key="2"
       language="en"
     />
-  </div>
+  </EventList__List>
 </React.Fragment>
 `;
 
 exports[`EventList should render no events 1`] = `
-<div>
+<React.Fragment>
   <Caption
     title="events:news"
   />
-  <div
-    className="noEvents"
-  >
+  <EventList__NoEvents>
     events:currentlyNoEvents
-  </div>
-</div>
+  </EventList__NoEvents>
+</React.Fragment>
 `;

@@ -1,15 +1,15 @@
 // @flow
 
 import * as React from 'react'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
 import EventListElement from './EventListElement'
 import Caption from 'modules/common/components/Caption'
 
-import style from './EventList.css'
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import type { TFunction } from 'react-i18next'
+import styled from 'styled-components'
 
 type PropsType = {
   events: Array<EventModel>,
@@ -17,6 +17,16 @@ type PropsType = {
   language: string,
   t: TFunction
 }
+
+const NoEvents = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+`
+
+const List = styled.div`
+  border-top: 2px solid ${props => props.theme.colors.themeColor};
+`
 
 /**
  * Display a list of events
@@ -27,29 +37,20 @@ class EventList extends React.Component<PropsType> {
 
     if (isEmpty(events)) {
       return (
-        <div>
+        <>
           <Caption title={t('news')} />
-          <div className={style.noEvents}>
-            {t('currentlyNoEvents')}
-          </div>
-        </div>
+          <NoEvents>{t('currentlyNoEvents')}</NoEvents>
+        </>
       )
     }
 
-    const elements = events.map(event =>
-      <EventListElement key={event.id}
-                        event={event}
-                        city={city}
-                        language={language} />
-    )
-
     return (
-      <React.Fragment>
+      <>
         <Caption title={t('news')} />
-        <div className={style.list}>
-          {elements}
-        </div>
-      </React.Fragment>
+        <List>
+          {events.map(event => <EventListElement key={event.id} event={event} city={city} language={language} />)}
+        </List>
+      </>
     )
   }
 }
