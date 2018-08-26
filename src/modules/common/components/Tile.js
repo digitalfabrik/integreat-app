@@ -39,14 +39,15 @@ const ThumbnailSizer = styled.div`
 
 const TileTitle = styled.div`
   margin: 5px 0;
-  text-align: center;
   color: ${props => props.theme.colors.textColor};
+  text-align: center;
 `
 
 const TileContainer = styled(Col)`
-  
   margin-bottom: 20px;
-  & > a, & button {
+  
+  & > a,
+  & button {
     display: block;
     max-width: 160px;
     margin: 0 auto;
@@ -57,7 +58,8 @@ const TileContainer = styled(Col)`
     cursor: pointer;
   }
   
-  & > a:hover img, & button:hover img {
+  & > a:hover img,
+  & button:hover img {
     transform: scale(1.01);
   }
 `
