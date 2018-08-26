@@ -56,7 +56,8 @@ type PropsType = {
   language: ?string,
   city: ?string,
   param: ?string,
-  viewportSmall: boolean
+  viewportSmall: boolean,
+  darkMode: boolean
 }
 
 /**
@@ -145,12 +146,12 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   render () {
-    const {currentRoute, viewportSmall} = this.props
+    const {currentRoute, viewportSmall, darkMode} = this.props
 
     const error = this.checkRouteParams()
     if (error) {
       return (
-        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />}>
+        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />} darkMode={darkMode}>
           <FailureSwitcher error={error} />
         </Layout>
       )
@@ -165,9 +166,11 @@ export class Switcher extends React.Component<PropsType> {
     } else {
       return (
         <Layout footer={[LANDING_ROUTE, MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) && <GeneralFooter />}
-                header={[MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) &&
-                <GeneralHeader viewportSmall={viewportSmall} />
-                }>
+                header={
+                  [MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) &&
+                  <GeneralHeader viewportSmall={viewportSmall} />
+                }
+                darkMode={darkMode}>
           {this.renderPage()}
         </Layout>
       )
@@ -188,7 +191,8 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   param: state.location.prev.payload.param,
-  viewportSmall: state.viewport.is.small
+  viewportSmall: state.viewport.is.small,
+  darkMode: state.darkMode
 })
 
 export default connect(mapStateToProps)(Switcher)
