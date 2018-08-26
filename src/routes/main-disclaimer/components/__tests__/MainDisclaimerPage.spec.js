@@ -3,10 +3,11 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import MainDisclaimerPage from '../MainDisclaimerPage'
-import CustomThemeProvider from '../../../../modules/theme/containers/CustomThemeProvider'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/theme/constants/theme'
 
 describe('MainDisclaimerPage', () => {
   it('should render', () => {
-    mount(<CustomThemeProvider><MainDisclaimerPage /></CustomThemeProvider>)
+    mount(<ThemeProvider theme={theme}><MainDisclaimerPage /></ThemeProvider>)
   })
 })

@@ -8,11 +8,12 @@ import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/theme/constants/theme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
 import moment from 'moment-timezone'
-import CustomThemeProvider from '../../../../modules/theme/containers/CustomThemeProvider'
 
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
@@ -90,13 +91,13 @@ describe('SearchPage', () => {
     })
 
     const tree = mount(
-      <CustomThemeProvider>
+      <ThemeProvider theme={theme}>
         <Provider store={store}>
         <SearchPage cities={cities}
                     categories={categories}
                     location={location}
                     t={t} />
-        </Provider></CustomThemeProvider>
+        </Provider></ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
