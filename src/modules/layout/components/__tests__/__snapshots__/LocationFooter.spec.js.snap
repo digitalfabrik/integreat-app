@@ -2,7 +2,7 @@
 
 exports[`LocationFooter should match snapshot 1`] = `
 <Footer>
-  <Connect(Link)
+  <CleanLink
     to={
       Object {
         "payload": Object {
@@ -14,11 +14,11 @@ exports[`LocationFooter should match snapshot 1`] = `
     }
   >
     imprintAndContact
-  </Connect(Link)>
-  <a
+  </CleanLink>
+  <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
   >
     privacy
-  </a>
+  </CleanAnchor>
 </Footer>
 `;
