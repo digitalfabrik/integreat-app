@@ -5,11 +5,9 @@ exports[`LanguageFailure should match snapshot 1`] = `
   <Caption
     title="Augsburg"
   />
-  <p
-    className="chooseLanguage"
-  >
+  <LanguageFailure__ChooseLanguage>
     not-found.language chooseYourLanguage
-  </p>
+  </LanguageFailure__ChooseLanguage>
   <Connect(Translate(LanguageSelector))
     isHeaderActionItem={false}
   />
