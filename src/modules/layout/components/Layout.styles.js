@@ -9,8 +9,8 @@ export const RichLayout = styled.div`
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  font-family: ${props => props.theme.fonts.decorativeFontFamily};
   color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontFamily};
   font-size-adjust: ${props => props.theme.fonts.fontSizeAdjust};
   background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
