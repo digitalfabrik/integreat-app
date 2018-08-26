@@ -7,8 +7,8 @@ import compose from 'lodash/fp/compose'
 import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
 import Page from 'modules/common/components/Page'
 import CityModel from 'modules/endpoint/models/CityModel'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import type { StateType } from 'modules/app/StateType'
 import Helmet from 'modules/common/containers/Helmet'
 import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
@@ -38,8 +38,6 @@ export class DisclaimerPage extends React.Component<PropsType> {
 }
 
 const mapStateTypeToProps = (stateType: StateType) => ({
-  disclaimer: stateType.disclaimer.data,
-  cities: stateType.cities.data,
   city: stateType.location.payload.city,
   language: stateType.location.payload.language
 })

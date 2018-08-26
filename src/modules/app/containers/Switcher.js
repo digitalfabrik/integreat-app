@@ -1,5 +1,6 @@
 // @flow
 
+import type { Node } from 'react'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
@@ -34,7 +35,6 @@ import LocationLayout, { LocationLayoutRoutes } from '../../layout/containers/Lo
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
-import type { Node } from 'react'
 import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import { WOHNEN_ROUTE } from '../routes/wohnen'
@@ -72,8 +72,8 @@ export class Switcher extends React.Component<PropsType> {
     const errorPayload = payloads.find(payload => payload.error)
     if (payloads.find(payload => (payload.isFetching || !payload.data) && !payload.error)) {
       return <LoadingSpinner />
-    } else if (errorPayload && errorPayload.error) {
-      return <FailureSwitcher error={errorPayload.error} />
+    } else if ((errorPayload && errorPayload.error) || payloads.find(payload => !payload.data)) {
+      return <FailureSwitcher error={(errorPayload && errorPayload.error) || new Error('error.. :/')} />
     }
     return null
   }
@@ -90,27 +90,35 @@ export class Switcher extends React.Component<PropsType> {
 
     switch (currentRoute) {
       case I18N_REDIRECT_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload]) || <I18nRedirectPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload]) ||
+          <I18nRedirectPage cities={citiesPayload.data} />
       case LANDING_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload]) || <LandingPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload]) ||
+          <LandingPage cities={citiesPayload.data} />
       case MAIN_DISCLAIMER_ROUTE:
         return <MainDisclaimerPage />
       case CATEGORIES_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) || <CategoriesPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) ||
+          <CategoriesPage categories={categoriesPayload.data} cities={citiesPayload.data} />
       case EVENTS_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload, eventsPayload]) || <EventsPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, eventsPayload]) ||
+          <EventsPage cities={citiesPayload.data} events={eventsPayload.data} />
       case EXTRAS_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload]) || <ExtrasPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload]) ||
+          <ExtrasPage cities={citiesPayload.data} extras={extrasPayload.data} />
       case SPRUNGBRETT_ROUTE:
         return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload, sprungbrettJobsPayload]) ||
-          <SprungbrettExtraPage />
+          <SprungbrettExtraPage cities={citiesPayload.data} extras={extrasPayload.data}
+                                sprungbrettJobs={sprungbrettJobsPayload.data} />
       case WOHNEN_ROUTE:
         return Switcher.renderFailureLoadingComponents([citiesPayload, extrasPayload, wohnenPayload]) ||
-          <WohnenExtraPage />
+          <WohnenExtraPage cities={citiesPayload.data} extras={extrasPayload.data} offers={wohnenPayload.data} />
       case DISCLAIMER_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload, disclaimerPayload]) || <DisclaimerPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, disclaimerPayload]) ||
+          <DisclaimerPage cities={citiesPayload.data} disclaimer={disclaimerPayload.data} />
       case SEARCH_ROUTE:
-        return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) || <SearchPage />
+        return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) ||
+          <SearchPage cities={citiesPayload.data} categories={categoriesPayload.data} />
       case NOT_FOUND:
         // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
         // "disclaimer" nor a city, so we want to show an error that the param is not an available city

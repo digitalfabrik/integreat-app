@@ -7,8 +7,8 @@ import SearchInput from 'modules/common/components/SearchInput'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
@@ -85,8 +85,6 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 }
 
 const mapStateToProps = (state: StateType) => ({
-  categories: state.categories.data,
-  cities: state.cities.data,
   location: state.location
 })
 

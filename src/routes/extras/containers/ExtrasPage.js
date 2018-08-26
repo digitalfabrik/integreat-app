@@ -71,9 +71,7 @@ export class ExtrasPage extends React.Component<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city,
-  language: state.location.payload.language,
-  extras: state.extras.data,
-  cities: state.cities.data
+  language: state.location.payload.language
 })
 
 export default compose(
