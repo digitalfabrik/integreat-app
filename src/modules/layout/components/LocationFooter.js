@@ -17,9 +17,9 @@ type PropsType = {
 
 export class LocationFooter extends React.Component<PropsType> {
   render () {
-    const {t, city, language} = this.props
+    const {t, city, language, ...otherProps} = this.props
 
-    return <Footer>
+    return <Footer {...otherProps}>
       <CleanLink to={goToDisclaimer(city, language)}>{t('imprintAndContact')}</CleanLink>
       <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
     </Footer>

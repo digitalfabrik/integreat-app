@@ -4,7 +4,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
-import CustomThemeProvider from '../../../app/containers/CustomThemeProvider'
+import CustomThemeProvider from '../../../theme/containers/CustomThemeProvider'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />

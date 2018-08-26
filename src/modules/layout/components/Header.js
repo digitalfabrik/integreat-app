@@ -12,7 +12,7 @@ import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
 import type { Action } from 'redux-first-router'
 import compose from 'lodash/fp/compose'
-import type { ThemeType } from '../../app/constants/theme'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {
   navigationItems: React.Node,

@@ -15,9 +15,9 @@ type PropsType = {
 
 class GeneralFooter extends React.Component<PropsType> {
   render () {
-    const {t} = this.props
+    const {t, ...otherProps} = this.props
     return (
-      <Footer>
+      <Footer {...otherProps}>
         <CleanLink to={goToMainDisclaimer()}>{t('imprintAndContact')}</CleanLink>
         <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
       </Footer>

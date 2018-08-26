@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import HeaderActionItem from '../../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
-import { darkTheme } from '../../../app/constants/theme'
+import { darkTheme } from '../../../theme/constants/theme'
 import Headroom from '../../../common/components/Headroom'
 import Platform from '../../../platform/Platform'
 
