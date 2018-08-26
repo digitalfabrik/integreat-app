@@ -11,6 +11,8 @@ export const RichLayout = styled.div`
   justify-content: space-between;
   font-family: ${props => props.theme.fonts.decorativeFontFamily};
   font-size-adjust: ${props => props.theme.fonts.fontSizeAdjust};
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
 `
 
