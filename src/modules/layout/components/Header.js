@@ -41,6 +41,7 @@ const HeaderContainer = styled.header`
   
   @media ${props => props.theme.dimensions.smallViewport} {
     flex-wrap: wrap;
+    
     & > div {
       height: ${props => props.theme.dimensions.headerHeightSmall}px;
     }
@@ -70,6 +71,7 @@ const LogoWide = styled.div`
   
   @media ${props => props.theme.dimensions.smallViewport} {
     flex: 1 1 100px;
+    
     & a {
       max-height: 75%;
     }
