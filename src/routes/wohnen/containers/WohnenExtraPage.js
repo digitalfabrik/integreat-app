@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 
-import Spinner from 'react-spinkit'
 import Helmet from 'react-helmet'
 import type { StateType } from 'modules/app/StateType'
 import { connect } from 'react-redux'
@@ -14,6 +13,7 @@ import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from 'modules/common/components/Caption'
 import FailureSwitcher from 'modules/common/components/FailureSwitcher'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 type PropsType = {
   offers: ?Array<WohnenOfferModel>,
@@ -46,7 +46,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
     }
 
     if (!offers) {
-      return <Spinner name='line-scale-party' />
+      return <LoadingSpinner />
     }
 
     if (offerHash) {

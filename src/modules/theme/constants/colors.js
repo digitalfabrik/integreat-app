@@ -24,8 +24,8 @@ export const darkColors: ColorsType = {
   themeColor: '#fbda16',
   themeDarkColor: '#c4a900',
   backgroundAccentColor: '#000000',
-  textColor: '#999999',
-  textSecondaryColor: '#585858',
-  textDecorationColor: '#333333',
+  textColor: '#BBBBBB',
+  textSecondaryColor: '#888888',
+  textDecorationColor: '#555555',
   backgroundColor: '#222222'
 }
