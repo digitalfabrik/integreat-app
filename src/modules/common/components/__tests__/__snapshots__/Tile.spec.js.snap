@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tile should render a Link if path is not an external url 1`] = `
-<Tile__StyledCol
+<Tile__TileContainer
   md={3}
   sm={4}
   xs={6}
@@ -22,11 +22,11 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
       </Tile__TileTitle>
     </React.Fragment>
   </CleanLink>
-</Tile__StyledCol>
+</Tile__TileContainer>
 `;
 
 exports[`Tile should render a a-Tag if path is not an external url 1`] = `
-<Tile__StyledCol
+<Tile__TileContainer
   md={3}
   sm={4}
   xs={6}
@@ -48,11 +48,11 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
       </Tile__TileTitle>
     </React.Fragment>
   </CleanAnchor>
-</Tile__StyledCol>
+</Tile__TileContainer>
 `;
 
 exports[`Tile should render a form-Tag if path is not an external url and has postData 1`] = `
-<Tile__StyledCol
+<Tile__TileContainer
   md={3}
   sm={4}
   xs={6}
@@ -97,5 +97,5 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
       </React.Fragment>
     </button>
   </form>
-</Tile__StyledCol>
+</Tile__TileContainer>
 `;

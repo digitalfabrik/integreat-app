@@ -29,10 +29,6 @@ const Thumbnail = styled.div`
     transition: transform 0.2s;
     object-fit: contain;
   }
-
-  & img:hover {
-    transform: scale(1.01);
-  }
 `
 
 const ThumbnailSizer = styled.div`
@@ -44,11 +40,26 @@ const ThumbnailSizer = styled.div`
 const TileTitle = styled.div`
   margin: 5px 0;
   text-align: center;
+  color: ${props => props.theme.colors.textColor};
 `
 
-const StyledCol = styled(Col)`
-  margin: 5px 0;
-  text-align: center;
+const TileContainer = styled(Col)`
+  
+  margin-bottom: 20px;
+  & > a, & button {
+    display: block;
+    max-width: 160px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: ${props => props.theme.colors.backgroundColor};
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+  }
+  
+  & > a:hover img, & button:hover img {
+    transform: scale(1.01);
+  }
 `
 
 /**
@@ -82,9 +93,9 @@ class Tile extends React.Component<PropsType> {
 
   render () {
     return (
-      <StyledCol xs={6} sm={4} md={3}>
+      <TileContainer xs={6} sm={4} md={3}>
         {this.getTile()}
-      </StyledCol>
+      </TileContainer>
     )
   }
 }
