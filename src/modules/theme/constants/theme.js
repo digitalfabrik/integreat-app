@@ -29,3 +29,5 @@ export const darkTheme = {
   fonts,
   helpers
 }
+
+export default brightTheme
