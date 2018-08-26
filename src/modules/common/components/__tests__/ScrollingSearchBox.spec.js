@@ -4,8 +4,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../app/constants/theme'
+import CustomThemeProvider from '../../../app/containers/CustomThemeProvider'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
@@ -30,13 +29,13 @@ describe('ScrollingSearchBox', () => {
   it('should pass onFilterTextChange', () => {
     const outerFilterTextChange = jest.fn()
     const component = mount(
-      <ThemeProvider theme={theme}>
+      <CustomThemeProvider>
         <ScrollingSearchBox filterText={'Test'}
                             placeholderText={'Placeholder'}
                             onFilterTextChange={outerFilterTextChange}>
           <MockNode />
         </ScrollingSearchBox>
-      </ThemeProvider>).find(ScrollingSearchBox)
+      </CustomThemeProvider>).find(ScrollingSearchBox)
 
     component.find(SearchInput).prop('onFilterTextChange')('test')
 
@@ -45,13 +44,13 @@ describe('ScrollingSearchBox', () => {
 
   it('should set correct reference', () => {
     const component = mount(
-      <ThemeProvider theme={theme}>
+      <CustomThemeProvider>
         <ScrollingSearchBox filterText={'Test'}
                             onFilterTextChange={() => {}}
                             placeholderText={'Placeholder'}>
           <MockNode />
         </ScrollingSearchBox>
-      </ThemeProvider>).find(ScrollingSearchBox)
+      </CustomThemeProvider>).find(ScrollingSearchBox)
     const node = component.instance()._node
     expect(node).toMatchSnapshot()
   })

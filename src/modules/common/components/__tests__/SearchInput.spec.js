@@ -3,8 +3,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedSearchInput, { SearchInput } from '../SearchInput'
-import theme from '../../../app/constants/theme'
-import { ThemeProvider } from 'styled-components'
+import CustomThemeProvider from '../../../app/containers/CustomThemeProvider'
 
 describe('SearchInput', () => {
   it('should render', () => {
@@ -36,12 +35,12 @@ describe('SearchInput', () => {
     const outerFilterTextChange = jest.fn()
     const onClickInput = jest.fn()
     const component = mount(
-      <ThemeProvider theme={theme}>
+      <CustomThemeProvider>
         <ConnectedSearchInput filterText={'Test'}
                               placeholderText={'Placeholder'}
                               onClickInput={onClickInput}
                               onFilterTextChange={outerFilterTextChange} />
-      </ThemeProvider>
+      </CustomThemeProvider>
     )
     component.find('input').simulate('click')
     expect(onClickInput).toHaveBeenCalled()
