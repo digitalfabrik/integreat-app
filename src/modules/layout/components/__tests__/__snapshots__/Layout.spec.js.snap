@@ -30,6 +30,7 @@ exports[`Layout should render all components 1`] = `
     effect="solid"
     insecure={true}
     resizeHide={true}
+    type="dark"
     wrapper="div"
   />
 </Layoutstyles__RichLayout>
