@@ -89,7 +89,7 @@ describe('LocationLayout', () => {
                                                            extras={extras}
                                                            disclaimer={disclaimer}
                                                            cities={cities}
-                                                           viewportSmall>
+                                                           viewportSmall toggleDarkMode={() => {}}>
     <MockNode />
   </LocationLayout>
 
