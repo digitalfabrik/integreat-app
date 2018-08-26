@@ -23,7 +23,7 @@ export const brightColors: ColorsType = {
 export const darkColors: ColorsType = {
   themeColor: '#fbda16',
   themeDarkColor: '#c4a900',
-  backgroundAccentColor: '#000000',
+  backgroundAccentColor: '#111111',
   textColor: '#BBBBBB',
   textSecondaryColor: '#888888',
   textDecorationColor: '#555555',
