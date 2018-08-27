@@ -1,3 +1,5 @@
+// @flow
+
 import languages from '../languages'
 import LanguageModel from '../../models/LanguageModel'
 import categories from '../categories'
@@ -25,11 +27,11 @@ describe('languages', () => {
   })
 
   it('should throw if the city to map the url are missing', () => {
-    expect(() => categories.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
-    const languageModels = languages.mapResponse(languagesJson)
+    const languageModels = languages.mapResponse(languagesJson, params)
     expect(languageModels).toEqual([
       new LanguageModel('de', 'Deutsch'),
       new LanguageModel('en', 'English')

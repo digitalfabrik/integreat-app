@@ -306,7 +306,7 @@ Array [
 `;
 
 exports[`LocationHeader should match snapshot 1`] = `
-<WithTheme(withPlatform(Header))
+<withPlatform(WithTheme(Header))
   actionItems={
     Array [
       HeaderActionItem {
@@ -398,6 +398,7 @@ exports[`LocationHeader should match snapshot 1`] = `
       />,
     ]
   }
+  onStickyTopChanged={[Function]}
   viewportSmall={true}
 />
 `;

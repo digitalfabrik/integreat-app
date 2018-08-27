@@ -1,3 +1,5 @@
+// @flow
+
 import CityModel from '../CityModel'
 
 describe('CityModel', () => {

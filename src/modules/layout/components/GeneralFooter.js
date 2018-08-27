@@ -1,20 +1,26 @@
+// @flow
+
 import React from 'react'
 import { translate } from 'react-i18next'
-import PropTypes from 'prop-types'
+import type { TFunction } from 'react-i18next'
 
 import Footer from './Footer'
 import Link from 'redux-first-router-link'
 import { goToMainDisclaimer } from '../../app/routes/mainDisclaimer'
 
-class GeneralFooter extends React.Component {
-  static propTypes = {
-    t: PropTypes.func.isRequired
-  }
+type PropsType = {
+  t: TFunction
+}
+
+class GeneralFooter extends React.Component<PropsType> {
   render () {
-    return <Footer>
-      <Link to={goToMainDisclaimer()}>{this.props.t('imprintAndContact')}</Link>
-      <a href={'https://integreat-app.de/datenschutz/'}>{this.props.t('privacy')}</a>
-    </Footer>
+    const {t} = this.props
+    return (
+      <Footer>
+        <Link to={goToMainDisclaimer()}>{t('imprintAndContact')}</Link>
+        <a href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</a>
+      </Footer>
+    )
   }
 }
 
