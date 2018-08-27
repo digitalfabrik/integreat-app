@@ -59,8 +59,8 @@ type JsonEventType = {
 }
 
 type ParamsType = {
-  city: string,
-  language: string
+  city: ?string,
+  language: ?string
 }
 
 export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)

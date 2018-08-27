@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -9,6 +11,7 @@ import Headroom from '../../../common/components/Headroom'
 import Platform from '../../../platform/Platform'
 
 describe('Header', () => {
+  const onStickyTopChanged = (value: number) => void
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
@@ -16,6 +19,7 @@ describe('Header', () => {
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
         actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        onStickyTopChanged={onStickyTopChanged}
         navigationItems={
           <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
         }
@@ -31,6 +35,7 @@ describe('Header', () => {
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
         actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        onStickyTopChanged={onStickyTopChanged}
         navigationItems={
           <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
         }

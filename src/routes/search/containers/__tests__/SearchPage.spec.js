@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
@@ -11,8 +13,11 @@ import theme from '../../../../modules/app/constants/theme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
+import moment from 'moment-timezone'
 
 describe('SearchPage', () => {
+  const t = (key: ?string): string => key || ''
+
   const categoryModels = [
     new CategoryModel({
       id: 0,
@@ -20,45 +25,42 @@ describe('SearchPage', () => {
       title: 'augsburg',
       content: '',
       order: -1,
-      availableLanguages: {},
-      thumbnail: 'no_thumbnail'
+      availableLanguages: new Map(),
+      thumbnail: 'no_thumbnail',
+      parentPath: '',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }), new CategoryModel({
       id: 3650,
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
-      parentUrl: '/augsburg/de',
+      parentPath: '/augsburg/de',
       order: 75,
-      availableLanguages: {
-        en: 4361, ar: 4367, fa: 4368
-      },
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+      availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 3649,
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
-      parentUrl: '/augsburg/de',
+      parentPath: '/augsburg/de',
       order: 11,
-      availableLanguages: {
-        en: 4804, ar: 4819, fa: 4827
-      },
-      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png'
+      availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
+      thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 35,
       path: '/augsburg/de/willkommen/willkommen-in-augsburg',
       title: 'Willkommen in Augsburg',
-      content: '<p>Willkommen in Augsbur…er Stadt Augsburg</p>\n',
-      parentUrl: '/augsburg/de/willkommen',
+      content: 'some content',
+      parentPath: '/augsburg/de/willkommen',
       order: 1,
-      availableLanguages: {
-        en: '390',
-        de: '711',
-        ar: '397'
-      },
-      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png'
+      availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
+      thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     })
   ]
 
@@ -68,14 +70,14 @@ describe('SearchPage', () => {
       code: 'augsburg',
       live: true,
       eventsEnabled: true,
-      extrasEnabled: false
+      extrasEnabled: false,
+      sortingName: 'Augsburg'
     })
   ]
 
   const city = 'augsburg'
   const language = 'de'
   const categories = new CategoriesMapModel(categoryModels)
-  const t = key => key
   const location = {type: SEARCH_ROUTE, payload: {city, language}}
 
   it('should match snapshot', () => {
@@ -117,28 +119,48 @@ describe('SearchPage', () => {
         id: 1,
         path: '/abc',
         title: 'abc',
-        content: ''
+        content: '',
+        parentPath: '/',
+        order: 1,
+        availableLanguages: new Map(),
+        thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
       new CategoryModel({
         id: 2,
         path: '/defabc',
         title: 'defabc',
-        content: ''
+        content: '',
+        parentPath: '/',
+        order: 1,
+        availableLanguages: new Map(),
+        thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       new CategoryModel({
         id: 3,
         path: '/def',
         title: 'def',
-        content: 'abc'
+        content: 'abc',
+        parentPath: '/',
+        order: 1,
+        availableLanguages: new Map(),
+        thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
       new CategoryModel({
         id: 4,
         path: '/ghi',
         title: 'ghi',
-        content: 'abc'
+        content: 'abc',
+        parentPath: '/',
+        order: 1,
+        availableLanguages: new Map(),
+        thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       })
     ]
 

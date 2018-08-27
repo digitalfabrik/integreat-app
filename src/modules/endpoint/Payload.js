@@ -17,7 +17,7 @@ class Payload<T> {
     requestUrl: ?string = null,
     data: ?T = null,
     error: ?Error = null,
-    fetchDate: number = new Date().getTime()
+    fetchDate: number = Date.now()
   ) {
     this._isFetching = isFetching
     this._fetchDate = fetchDate

@@ -1,3 +1,5 @@
+// @flow
+
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
 import moment from 'moment'
@@ -21,26 +23,49 @@ describe('CategoriesMapModel', () => {
   })
 
   const categories = [
-    new CategoryModel({id: 0, path: '/augsburg/de', title: 'augsburg', parentPath: ''}),
+    new CategoryModel({
+      id: 0,
+      path: '/augsburg/de',
+      title: 'augsburg',
+      parentPath: '',
+      availableLanguages: new Map(),
+      content: 'exampleContent0',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      order: 0,
+      thumbnail: 'thumb-nail'
+    }),
     new CategoryModel({
       id: 20,
       path: '/augsburg/de/willkommen',
       parentPath: '/augsburg/de',
       title: 'willkommen',
-      order: 1
+      order: 1,
+      availableLanguages: new Map(),
+      content: 'exampleContent0',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
       id: 21,
       path: '/augsburg/de/erste-schritte',
       parentPath: '/augsburg/de',
       title: 'erste-schritte',
-      order: 2
+      order: 2,
+      availableLanguages: new Map(),
+      content: 'exampleContent0',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumb-nail'
     }),
     new CategoryModel({
       id: 22,
       path: '/augsburg/de/erste-schritte/asylantrag',
       parentPath: '/augsburg/de/erste-schritte',
-      title: 'asylantrag'
+      title: 'asylantrag',
+      order: 3,
+      availableLanguages: new Map(),
+      content: 'exampleContent0',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumb-nail'
     })
   ]
 

@@ -48,7 +48,7 @@ const FeedbackContainer = styled.div`
 
 export const FEEDBACK_SENT = 'sent'
 
-type PropsType = {
+type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
   id?: number,
@@ -57,17 +57,17 @@ type PropsType = {
   feedbackStatus: ?string,
   location: LocationState,
   extras: ?Array<ExtraModel>
-}
+|}
 
 class FeedbackModal extends React.Component<PropsType> {
   renderModalContent = (): React.Node => {
-    const {feedbackStatus, location} = this.props
+    const {feedbackStatus, ...otherProps} = this.props
     if (feedbackStatus === FEEDBACK_SENT) {
-      return <FeedbackThanksMessage location={location} />
+      return <FeedbackThanksMessage location={otherProps.location} />
     } else {
       return <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
                                    isOpen={feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING}
-                                   {...this.props} />
+                                   {...otherProps} />
     }
   }
 

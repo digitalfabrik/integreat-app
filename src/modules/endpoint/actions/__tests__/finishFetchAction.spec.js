@@ -1,3 +1,5 @@
+// @flow
+
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
 import Payload from '../../Payload'
 import lolex from 'lolex'
