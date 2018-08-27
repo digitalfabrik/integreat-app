@@ -7,7 +7,7 @@ exports[`SprungbrettExtraPage should render error if extra is not supported 1`] 
 `;
 
 exports[`SprungbrettExtraPage should render list 1`] = `
-<React.Fragment>
+<Fragment>
   <Connect(Helmet)
     title="Sprungbrett - Augsburg"
   />
@@ -42,11 +42,11 @@ exports[`SprungbrettExtraPage should render list 1`] = `
     }
     title="Sprungbrett"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`SprungbrettExtraPage should render spinner if jobs are not ready 1`] = `
-<React.Fragment>
+<Fragment>
   <Connect(Helmet)
     title="Sprungbrett - Augsburg"
   />
@@ -56,5 +56,5 @@ exports[`SprungbrettExtraPage should render spinner if jobs are not ready 1`] = 
     noFadeIn={false}
     overrideSpinnerClassName=""
   />
-</React.Fragment>
+</Fragment>
 `;

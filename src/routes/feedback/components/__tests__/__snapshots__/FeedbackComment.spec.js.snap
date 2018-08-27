@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FeedbackComment should match snapshot 1`] = `
-<React.Fragment>
+<Fragment>
   <FeedbackBox__Description>
     message
   </FeedbackBox__Description>
@@ -10,5 +10,5 @@ exports[`FeedbackComment should match snapshot 1`] = `
     rows={3}
     value="Nice app!"
   />
-</React.Fragment>
+</Fragment>
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SprungbrettList should match snapshot 1`] = `
-<React.Fragment>
+<Fragment>
   <Caption
     title="Sprungbrett"
   />
@@ -44,5 +44,5 @@ exports[`SprungbrettList should match snapshot 1`] = `
     }
     key="2"
   />
-</React.Fragment>
+</Fragment>
 `;
