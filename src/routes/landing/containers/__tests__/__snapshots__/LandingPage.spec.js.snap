@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LandingPage should match snapshot 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -29,5 +29,5 @@ exports[`LandingPage should match snapshot 1`] = `
     }
     language="de"
   />
-</React.Fragment>
+</Fragment>
 `;

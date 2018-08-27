@@ -25,7 +25,7 @@ const Element = styled(Link)`
   }
 `
 
-export const ActiveElement = Element.extend`
+export const ActiveElement = styled(Element)`
   ${props => props.selected
     ? `font-weight: 700;`
     : `:hover {
@@ -35,7 +35,7 @@ export const ActiveElement = Element.extend`
   color: ${props => props.theme.colors.textColor};
 `
 
-export const InactiveElement = Element.withComponent('span').extend`
+export const InactiveElement = styled(Element.withComponent('span'))`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 

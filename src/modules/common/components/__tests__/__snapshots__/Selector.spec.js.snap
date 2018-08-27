@@ -4,28 +4,28 @@ exports[`Selector should be vertical and match snapshot 1`] = `
 <Selectorstyles__Wrapper
   vertical={true}
 >
-  <Selectorstyles__Element
+  <Selectorstyles__ActiveElement
     key="en"
     onClick={[Function]}
     selected={false}
     to="/augsburg/en/"
   >
     English
-  </Selectorstyles__Element>
-  <Selectorstyles__Element
+  </Selectorstyles__ActiveElement>
+  <Selectorstyles__ActiveElement
     key="de"
     onClick={[Function]}
     selected={true}
     to="/augsburg/de/"
   >
     Deutsch
-  </Selectorstyles__Element>
-  <Selectorstyles__Element
+  </Selectorstyles__ActiveElement>
+  <Selectorstyles__InactiveElement
     data-tip="random tooltip"
     key="fr"
   >
     Französisch
-  </Selectorstyles__Element>
+  </Selectorstyles__InactiveElement>
 </Selectorstyles__Wrapper>
 `;
 
@@ -33,27 +33,27 @@ exports[`Selector should match snapshot 1`] = `
 <Selectorstyles__Wrapper
   vertical={false}
 >
-  <Selectorstyles__Element
+  <Selectorstyles__ActiveElement
     key="en"
     onClick={[Function]}
     selected={false}
     to="/augsburg/en/"
   >
     English
-  </Selectorstyles__Element>
-  <Selectorstyles__Element
+  </Selectorstyles__ActiveElement>
+  <Selectorstyles__ActiveElement
     key="de"
     onClick={[Function]}
     selected={true}
     to="/augsburg/de/"
   >
     Deutsch
-  </Selectorstyles__Element>
-  <Selectorstyles__Element
+  </Selectorstyles__ActiveElement>
+  <Selectorstyles__InactiveElement
     data-tip="random tooltip"
     key="fr"
   >
     Französisch
-  </Selectorstyles__Element>
+  </Selectorstyles__InactiveElement>
 </Selectorstyles__Wrapper>
 `;
