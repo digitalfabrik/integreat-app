@@ -51,7 +51,7 @@ exports[`FailureSwitcher render component not found failure should render a extr
 `;
 
 exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageNotFoundError 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -63,11 +63,11 @@ exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageN
   <Connect(Translate(LanguageFailure))
     city="augsburg"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -89,11 +89,11 @@ exports[`FailureSwitcher should render a content not found failure if there is a
     }
     goToMessage="goTo.extras"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`FailureSwitcher should render a failure as default 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -105,5 +105,5 @@ exports[`FailureSwitcher should render a failure as default 1`] = `
   <Translate(Failure)
     errorMessage="error message"
   />
-</React.Fragment>
+</Fragment>
 `;

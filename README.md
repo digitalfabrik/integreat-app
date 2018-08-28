@@ -68,12 +68,6 @@ Currently we do not use TypeScript but plan to look into Flow.
 [Redux](http://redux.js.org/) is used for the global application state. 
 The data which is received through the restful api of the CMS is "cached" and stored in this state container.
 
-Used Redux extensions:
-* redux-actions - Makes the creation of actions easier
-* reduce-reducers
-* redux-thunk - Makes async state modification possible
-* redux-logger - A neat debugging feature
-
 ### Testing
 * [Jest](https://facebook.github.io/jest/) is used for testing.
 * [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility
@@ -140,17 +134,13 @@ You'll  also have to bump the version in [`lib.build.js`](tools/lib.build.js).
 7. Create Pull Request to merge develop in master:
 8. Merge develop in master
 
-9. Tag the master HEAD as "2018.03.02". Add the release notes from Jira as description.
-10. Send release notes to Slack channel #app-web
+9. The app gets deployed automatically to  [web.integreat-app.de](https://web.integreat-app.de/) by our jenkins.
 
-11. Deploy via SSH: `tools/deploy/ssh-deploy.sh web.integreat-app.de /var/www/web.integreat-app.de/ web:web`
-    
+
+10. Tag the master HEAD as "2018.03.02". Add the release notes from Jira as description.
+11. Send release notes to Slack channel #app-web
+
 ## Deployment to webnext.
 
-1.  When pushing to any branch a [travis](https://travis-ci.org/Integreat/integreat-webapp) build ist triggered. When 
-    pushing to **develop** the app also gets deployed to [Github Releases](https://help.github.com/articles/about-releases/).
-2.  The deployment task creates a Git tag and creates a release. A **www.tar** tarball is attached to the release as asset.
-3.  Github sends a release event to the Integreat servers where our [webhook server](https://github.com/Integreat/github-webhook-publish) is running.
-4. The webhook server makes the www.tar available to a web server.
-
-A live preview of this app is available [here](https://webnext.integreat-app.de/).
+When pushing to any branch a [jenkins](https://build.integreat-app.de/job/integreat-webapp/) build ist triggered. When 
+pushing to **develop** the app also gets deployed to  [webnext.integreat-app.de](https://webnext.integreat-app.de/). 

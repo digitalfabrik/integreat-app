@@ -1,15 +1,16 @@
 // @flow
 
 import React from 'react'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import FontAwesome from 'react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFrown } from 'modules/app/constants/icons'
 
 import Link from 'redux-first-router-link'
 
 import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
 import type { Action } from 'redux-first-router'
-import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   errorMessage: string,
@@ -26,7 +27,7 @@ export class Failure extends React.Component<PropsType> {
     const {t, errorMessage, goToAction, goToMessage} = this.props
     return <Centered>
       <div>{t(errorMessage)}</div>
-      <div><FontAwesome name='frown-o' size='5x' /></div>
+      <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
       <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goTo.start')}</Link>
     </Centered>
   }

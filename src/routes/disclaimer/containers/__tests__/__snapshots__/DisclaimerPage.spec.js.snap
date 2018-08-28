@@ -1,17 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisclaimerPage should match snapshot 1`] = `
-<React.Fragment>
+<Fragment>
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
   <Page
     content="this is a test content"
+    onInternLinkClick={[Function]}
     title="Feedback, Kontakt und mögliches Engagement"
   />
   <Translate(CategoryTimeStamp)
     language="de"
     lastUpdate={"2017-11-18T19:30:00.000Z"}
   />
-</React.Fragment>
+</Fragment>
 `;
