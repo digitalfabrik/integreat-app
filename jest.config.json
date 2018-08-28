@@ -25,5 +25,6 @@
   "coverageDirectory": "../__coverage__",
   "snapshotSerializers": [
     "enzyme-to-json/serializer"
-  ]
+  ],
+  "reporters": [ "default", "jest-junit" ]
 }
