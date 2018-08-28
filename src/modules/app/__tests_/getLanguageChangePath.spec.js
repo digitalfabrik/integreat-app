@@ -21,8 +21,8 @@ describe('getLanguageChangePath', () => {
       title: 'nulltes Event',
       address: 'Adresse 0',
       allDay: false,
-      startDate: moment(0),
-      endDate: moment(0),
+      startDate: moment('2099-01-07 10:36:24'),
+      endDate: moment('2099-01-07 10:36:24'),
       content: 'Huiiii',
       excerpt: 'Buuuuh',
       thumbnail: 'Ich hab deine Nase!',
@@ -38,7 +38,7 @@ describe('getLanguageChangePath', () => {
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
-      lastUpdate: moment(0),
+      lastUpdate: moment('2099-01-07 10:36:24'),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })
@@ -50,7 +50,7 @@ describe('getLanguageChangePath', () => {
     const location = {
       pathname: '/augsburg/en/events/1234',
       type: EVENTS_ROUTE,
-      payload: {city, language, eventId: '1234'}
+      payload: {city, language, eventId: 1234}
     }
 
     expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
