@@ -1,0 +1,44 @@
+@import url('../../app/constants/helpers.css');
+
+.tile {
+  margin-bottom: 20px;
+}
+
+.tile > a {
+  @mixin remove-a;
+  display: block;
+  max-width: 160px;
+  margin: 0 auto;
+}
+
+.thumbnail-sizer {
+  width: 150px;
+  max-width: 33.3vw;
+  margin: 0 auto;
+}
+
+.thumbnail {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 100%;
+}
+
+.thumbnail img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+
+.thumbnail img:hover {
+  transform: scale(1.01);
+}
+
+.title {
+  margin: 5px 0;
+  text-align: center;
+}

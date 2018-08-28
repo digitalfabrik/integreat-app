@@ -1,7 +1,7 @@
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import Dashboard from '../../../screens/dashboard/components/Dashboard'
 import Header from '../../layout/components/Header'
-import CategoriesContainer from '../../../screens/categories/container/CategoriesContainer'
+import CategoriesContainer from '../../../screens/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../screens/landing/containers/LandingContainer'
 import theme from 'modules/layout/constants/theme'
 

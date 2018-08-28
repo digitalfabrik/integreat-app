@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoriesPage should match snapshot and render CategoryTiles if the path is the root category 1`] = `
+<div>
+  <Connect(Helmet)
+    metaDescription="metaDescription"
+    title="Augsburg"
+  />
+  <Breadcrumbs
+    direction="ltr"
+  />
+  <Tiles
+    tiles={
+      Array [
+        TileModel {
+          "_id": "3649",
+          "_isExternalUrl": false,
+          "_path": "/augsburg/de/willkommen",
+          "_thumbnail": "https://cms.integreat-ap…03/Beratung-150x150.png",
+          "_title": "Willkommen",
+        },
+        TileModel {
+          "_id": "3650",
+          "_isExternalUrl": false,
+          "_path": "/augsburg/de/anlaufstellen",
+          "_thumbnail": "https://cms.integreat-ap…/03/Hotline-150x150.png",
+          "_title": "Anlaufstellen zu sonstigen Themen",
+        },
+      ]
+    }
+    title="Augsburg"
+  />
+</div>
+`;
+
+exports[`CategoriesPage should match snapshot and render a CategoryList if the category is neither the root but has children 1`] = `
+<div>
+  <Connect(Helmet)
+    title="Willkommen - Augsburg"
+  />
+  <Breadcrumbs
+    direction="ltr"
+  >
+    <Connect(Link)
+      key="/augsburg/de"
+      to="/augsburg/de"
+    >
+      Augsburg
+    </Connect(Link)>
+  </Breadcrumbs>
+  <CategoryList
+    categories={
+      Array [
+        Object {
+          "model": CategoryModel {
+            "_availableLanguages": Object {
+              "ar": 397,
+              "de": 711,
+              "en": 390,
+            },
+            "_content": "some content",
+            "_id": 35,
+            "_lastUpdate": "2017-11-18T19:30:00.000Z",
+            "_order": 1,
+            "_parentPath": "/augsburg/de/willkommen",
+            "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
+            "_thumbnail": "https://cms.integreat-ap…09/heart295-150x150.png",
+            "_title": "Willkommen in Augsburg",
+          },
+          "subCategories": Array [],
+        },
+      ]
+    }
+    content=""
+    title="Willkommen"
+  />
+</div>
+`;
+
+exports[`CategoriesPage should match snapshot and render a Page if page has no children 1`] = `
+<div>
+  <Connect(Helmet)
+    title="Willkommen in Augsburg - Augsburg"
+  />
+  <Breadcrumbs
+    direction="ltr"
+  >
+    <Connect(Link)
+      key="/augsburg/de"
+      to="/augsburg/de"
+    >
+      Augsburg
+    </Connect(Link)>
+    <Connect(Link)
+      key="/augsburg/de/willkommen"
+      to="/augsburg/de/willkommen"
+    >
+      Willkommen
+    </Connect(Link)>
+  </Breadcrumbs>
+  <React.Fragment>
+    <Page
+      content="some content"
+      title="Willkommen in Augsburg"
+    />
+    <Translate(CategoryTimeStamp)
+      language="en"
+      lastUpdate={"2017-11-18T19:30:00.000Z"}
+    />
+  </React.Fragment>
+</div>
+`;
+
+exports[`CategoriesPage should match snapshot and render an Error if path is not valid 1`] = `
+<Translate(FailureSwitcher)
+  error={[Error: The category /augsburg/de/not/valid does not exist here.]}
+/>
+`;
