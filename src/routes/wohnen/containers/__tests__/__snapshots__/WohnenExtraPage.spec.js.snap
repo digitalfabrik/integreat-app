@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -64,7 +64,7 @@ exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = 
       }
     }
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`WohnenExtraPage should render failure city does not support offer 1`] = `
@@ -80,7 +80,7 @@ exports[`WohnenExtraPage should render failure offer if offer is not found 1`] =
 `;
 
 exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -151,7 +151,7 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
       ]
     }
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`WohnenExtraPage should render spinner if offers are not ready 1`] = `
