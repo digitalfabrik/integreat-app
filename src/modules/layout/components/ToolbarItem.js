@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import FontAwesome from 'react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactTooltip from 'react-tooltip'
 
 import styled from 'styled-components'
@@ -13,11 +13,11 @@ export const StyledToolbarItem = styled(CleanAnchor)`
   padding: 8px;
 `
 
-type PropsType = {
+type PropsType = {|
   href: string,
-  name: string,
+  icon: {},
   text: string
-}
+|}
 
 class ToolbarItem extends React.PureComponent<PropsType> {
   componentDidMount () {
@@ -26,10 +26,10 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {href, text, name} = this.props
+    const {href, text, icon} = this.props
     return (
       <StyledToolbarItem href={href} target='_blank' data-tip={text}>
-        <FontAwesome name={name} />
+        <FontAwesomeIcon icon={icon} />
       </StyledToolbarItem>
     )
   }

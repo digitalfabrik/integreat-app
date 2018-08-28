@@ -920,6 +920,35 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
+"@fortawesome/fontawesome-common-types@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.3.tgz#bcdffc26f2289ada8f6beb7808b45b05439b6718"
+
+"@fortawesome/fontawesome-svg-core@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.3.tgz#e393f63e5e15da1f5af4601616a2cd58d1701a9e"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.3"
+
+"@fortawesome/free-regular-svg-icons@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.3.0.tgz#034283057eba8a1f9318378b8c071aaa8d2b45b2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.3"
+
+"@fortawesome/free-solid-svg-icons@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.3.0.tgz#6aab98a8b5451489236e62654fe1d19b74b90fc6"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.3"
+
+"@fortawesome/react-fontawesome@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.2.tgz#baad4a6508867567aea20c1551bf62ff090d8121"
+  dependencies:
+    humps "^2.0.1"
+    prop-types "^15.5.10"
+
 "@integreat-app/eslint-config-jest@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-jest/-/eslint-config-jest-0.2.1.tgz#92cf9a9c221883b6194da2cde723f02945b625d1"
@@ -4037,10 +4066,6 @@ follow-redirects@^1.2.5:
   dependencies:
     debug "^3.1.0"
 
-font-awesome@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
-
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -4626,6 +4651,10 @@ https-proxy-agent@^2.2.0:
   dependencies:
     agent-base "^4.1.0"
     debug "^3.1.0"
+
+humps@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
 
 i18next-browser-languagedetector@^2.2.2:
   version "2.2.2"
@@ -7459,7 +7488,7 @@ prop-types@15.5.10:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -7640,12 +7669,6 @@ react-dropdown@^1.5.0:
   resolved "https://registry.yarnpkg.com/react-dropdown/-/react-dropdown-1.5.0.tgz#3a08f0dd574b64d8eddde60ce51e45b72edc81c3"
   dependencies:
     classnames "^2.2.3"
-
-react-fontawesome@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.6.1.tgz#eddce17e7dc731aa09fd4a186688a61793a16c5c"
-  dependencies:
-    prop-types "^15.5.6"
 
 react-helmet@^5.2.0:
   version "5.2.0"
