@@ -19,28 +19,28 @@ class RemoteContent extends React.Component<PropsType> {
     hosts: ['cms.integreat-app.de', 'web.integreat-app.de']
   }
 
-  sandBoxRef: any
+  sandBoxRef: { current: null | React$ElementRef<*> }
 
-  handleClick = event => {
+  handleClick = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
-    console.log(event)
-    this.props.onInternLinkClick(new URL(event.target.href).pathname)
+    this.props.onInternLinkClick(new URL(event.currentTarget.href).pathname)
   }
 
   constructor () {
     super()
-    this.sandBoxRef = React.createRef()
+    this.sandBoxRef = React.createRef<*>()
   }
 
   hijackATags () {
-    console.log(this.sandBoxRef)
-    const nodelist: HTMLCollection<> = this.sandBoxRef.current.getElementsByTagName('a')
-    for (let i = 0; i < nodelist.length; i++) {
-      const node = nodelist.item(i)
+    if (!this.sandBoxRef.current) {
+      return
+    }
+    const collection: HTMLCollection<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
+    Array.from(collection).forEach(node => {
       if (this.props.hosts.includes(new URL(node.href).host)) {
         node.onclick = this.handleClick
       }
-    }
+    })
   }
 
   componentDidMount () {
@@ -51,7 +51,7 @@ class RemoteContent extends React.Component<PropsType> {
     this.hijackATags()
   }
 
-  render (): React.Node {
+  render () {
     return <SandBox centered={this.props.centered}
                     dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
                     innerRef={this.sandBoxRef} />

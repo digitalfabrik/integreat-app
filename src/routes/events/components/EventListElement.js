@@ -17,7 +17,8 @@ const EXCERPT_LENGTH = 70
 type PropsType = {
   event: EventModel,
   city: string,
-  language: string
+  language: string,
+  onInternalLinkClick: string => void
 }
 
 /**
@@ -34,7 +35,7 @@ class EventListElement extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, language, event} = this.props
+    const {city, language, event, onInternalLinkClick} = this.props
     return (
       <Link to={goToEvents(city, language, event.id)} className={style.event}>
         <img className={style.eventThumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
@@ -47,7 +48,8 @@ class EventListElement extends React.Component<PropsType> {
                       locale={language} />
             , {event.address}
           </div>
-          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}} />
+          <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}}
+                         onInternLinkClick={onInternalLinkClick} />
         </div>
       </Link>
     )

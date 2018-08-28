@@ -21,7 +21,7 @@ import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { UiDirectionType } from '../../../modules/app/StateType'
-import { Dispatch } from 'redux'
+import type { Dispatch } from 'redux'
 import { pathToAction, redirect } from 'redux-first-router'
 
 type PropsType = {
@@ -32,7 +32,8 @@ type PropsType = {
   language: string,
   uiDirection: UiDirectionType,
   t: TFunction,
-  redirect: string => void
+  redirect: string => void,
+  routesMap: {}
 }
 
 /**
@@ -50,7 +51,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     }))
   }
 
-  redirectToPath = (path) => {
+  redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
     this.props.redirect(action)
   }
