@@ -73,7 +73,9 @@ describe('EventsPage', () => {
                   city={city}
                   cities={cities}
                   t={t}
-                  language={language} />
+                  language={language}
+                  redirect={() => {}}
+                  routesMap={{}} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -85,7 +87,9 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  eventId={id} />
+                  eventId={id}
+                  redirect={() => {}}
+                  routesMap={{}} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -97,7 +101,9 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  eventId={234729} />
+                  eventId={234729}
+                  redirect={() => {}}
+                  routesMap={{}} />
     )
     expect(wrapper).toMatchSnapshot()
   })

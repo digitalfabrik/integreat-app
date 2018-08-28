@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
@@ -9,7 +10,6 @@ import Caption from 'modules/common/components/Caption'
 
 import style from './EventList.css'
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   events: Array<EventModel>,
@@ -17,6 +17,8 @@ type PropsType = {
   language: string,
   t: TFunction
 }
+
+const noop = () => {}
 
 /**
  * Display a list of events
@@ -40,7 +42,8 @@ class EventList extends React.Component<PropsType> {
       <EventListElement key={event.id}
                         event={event}
                         city={city}
-                        language={language} />
+                        language={language}
+                        onInternalLinkClick={noop} />
     )
 
     return (
