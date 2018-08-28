@@ -70,6 +70,7 @@ exports[`SearchPage should match snapshot 1`] = `
         },
       ]
     }
+    onInternLinkClick={[Function]}
     query=""
   />
   <Translate(SearchFeedback)

@@ -30,6 +30,7 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="1234"
       language="en"
+      onInternalLinkClick={[Function]}
     />
     <EventListElement
       city="augsburg"
@@ -53,6 +54,7 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="1235"
       language="en"
+      onInternalLinkClick={[Function]}
     />
     <EventListElement
       city="augsburg"
@@ -76,6 +78,7 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="2"
       language="en"
+      onInternalLinkClick={[Function]}
     />
   </div>
 </React.Fragment>
