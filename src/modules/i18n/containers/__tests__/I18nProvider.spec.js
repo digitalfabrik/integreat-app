@@ -92,7 +92,7 @@ describe('I18nProvider', () => {
     component.instance().setLanguage = jest.fn()
 
     component.setProps({language: 'de'})
-    expect(component.prototype.setLanguage).toHaveBeenCalledWith('de')
+    expect(component.instance().setLanguage).toHaveBeenCalledWith('de')
   })
 
   it('should connect to the store', () => {
