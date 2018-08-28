@@ -12,6 +12,13 @@ exports[`Page should render 1`] = `
         "__html": "This is a test content",
       }
     }
+    hosts={
+      Array [
+        "cms.integreat-app.de",
+        "web.integreat-app.de",
+      ]
+    }
+    onInternLinkClick={[Function]}
   />
 </div>
 `;

@@ -8,6 +8,11 @@ exports[`RemoteContent should render 1`] = `
       "__html": "<div> Test html </div>",
     }
   }
+  innerRef={
+    Object {
+      "current": null,
+    }
+  }
 />
 `;
 
@@ -17,6 +22,11 @@ exports[`RemoteContent should render and have centered props 1`] = `
   dangerouslySetInnerHTML={
     Object {
       "__html": "<div> Test html </div>",
+    }
+  }
+  innerRef={
+    Object {
+      "current": null,
     }
   }
 />
