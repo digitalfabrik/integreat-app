@@ -1,17 +1,17 @@
+// @flow
 import React from 'react'
-import PropTypes from 'prop-types'
 import { H1 } from './Caption.styles'
 
-// fixme: Caption is connected to redux state because of H1 -> not a plain old component
+type PropsType = {
+  title: string,
+  className?: string
+}
 
-class Caption extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired
-  }
-
+class Caption extends React.Component<PropsType> {
   render () {
+    const {title, className} = this.props
     return (
-      <H1>{this.props.title}</H1>
+      <H1 className={className}>{title}</H1>
     )
   }
 }

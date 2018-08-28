@@ -48,7 +48,9 @@ type OfferType = {
   createdDate: string
 }
 
-export default new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
+type ParamsType = { city: ?string }
+
+export default new EndpointBuilder<ParamsType, Array<WohnenOfferModel>>(WOHNEN_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(WOHNEN_ENDPOINT_NAME, 'city')

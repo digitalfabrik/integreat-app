@@ -16,7 +16,7 @@ exports[`EventListElement should render 1`] = `
 >
   <img
     className="eventThumbnail"
-    src="test-file-stub"
+    src="thumbnail"
   />
   <div
     className="eventDescription"
@@ -30,17 +30,19 @@ exports[`EventListElement should render 1`] = `
       className="eventDate"
     >
       <TimeSpan
-        allDay={false}
-        endDate={"2017-11-27T21:30:00.000Z"}
+        allDay={true}
+        endDate={"2017-11-18T19:30:00.000Z"}
         locale="en"
-        startDate={"2017-11-27T19:30:00.000Z"}
+        startDate={"2017-11-18T09:30:00.000Z"}
       />
       , 
+      address, town
     </div>
     <RemoteContent
+      centered={false}
       dangerouslySetInnerHTML={
         Object {
-          "__html": "...",
+          "__html": "excerpt...",
         }
       }
     />

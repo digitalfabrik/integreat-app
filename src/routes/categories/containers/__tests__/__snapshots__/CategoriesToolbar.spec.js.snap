@@ -1,21 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] = `
-<Toolbar>
+<LocationToolbar
+  location={
+    Object {
+      "pathname": "/augsburg/de/willkommen",
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "type": "CATEGORIES",
+    }
+  }
+>
   <ToolbarItem
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
+    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
     name="file-pdf-o"
     text="createPdf"
   />
-</Toolbar>
+</LocationToolbar>
 `;
 
 exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
-<Toolbar>
+<LocationToolbar
+  location={
+    Object {
+      "pathname": "/augsburg/de",
+      "payload": Object {
+        "city": "augsburg",
+        "language": "de",
+      },
+      "type": "CATEGORIES",
+    }
+  }
+>
   <ToolbarItem
-    href="https://cms.integreat-app.de/augsburg/en/wp-json/ig-mpdf/v1/pdf"
+    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf"
     name="file-pdf-o"
     text="createPdf"
   />
-</Toolbar>
+</LocationToolbar>
 `;

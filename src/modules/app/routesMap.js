@@ -1,3 +1,5 @@
+// @flow
+
 import { I18N_REDIRECT_ROUTE, i18nRedirectRoute } from './routes/i18nRedirect'
 import { LANDING_ROUTE, landingRoute } from './routes/landing'
 import { MAIN_DISCLAIMER_ROUTE, mainDisclaimerRoute } from './routes/mainDisclaimer'

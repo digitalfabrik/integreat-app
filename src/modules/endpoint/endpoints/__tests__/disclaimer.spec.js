@@ -1,3 +1,5 @@
+// @flow
+
 import disclaimer from '../disclaimer'
 import DisclaimerModel from '../../models/DisclaimerModel'
 import moment from 'moment'
@@ -22,19 +24,19 @@ describe('disclaimer', () => {
   })
 
   it('should throw if the city to map the url are missing', () => {
-    expect(() => disclaimer.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+    expect(() => disclaimer.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if the language to map the url are missing', () => {
-    expect(() => disclaimer.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+    expect(() => disclaimer.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if there is no disclaimer', () => {
-    expect(() => disclaimer.mapResponse(undefined)).toThrowErrorMatchingSnapshot()
+    expect(() => disclaimer.mapResponse(null, params)).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
-    const disclaimerModel = disclaimer.mapResponse(pageJson)
+    const disclaimerModel = disclaimer.mapResponse(pageJson, params)
     expect(disclaimerModel).toEqual(new DisclaimerModel({
       id: pageJson.id,
       title: pageJson.title,

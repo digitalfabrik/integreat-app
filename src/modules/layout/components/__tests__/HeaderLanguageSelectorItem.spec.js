@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import SelectorItemModel from '../../../common/models/SelectorItemModel'
 import { shallow } from 'enzyme'
