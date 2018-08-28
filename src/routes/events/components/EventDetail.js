@@ -16,7 +16,8 @@ import EventModel from 'modules/endpoint/models/EventModel'
 type PropsType = {
   event: EventModel,
   language: string,
-  t: TFunction
+  t: TFunction,
+  onInternalLinkClick: string => void
 }
 
 const Thumbnail = styled.img`
@@ -42,7 +43,7 @@ class EventDetail extends React.Component<PropsType> {
   }
 
   render () {
-    const event = this.props.event
+    const {event, onInternalLinkClick} = this.props
     return (
       <>
         <Thumbnail src={event.thumbnail || this.getEventPlaceholder()} />
@@ -58,7 +59,7 @@ class EventDetail extends React.Component<PropsType> {
           <Identifier>{this.props.t('location')}: </Identifier>
           <span>{event.address}</span>
         </div>
-        <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} />
+        <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} onInternLinkClick={onInternalLinkClick} />
       </>
     )
   }

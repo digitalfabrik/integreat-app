@@ -23,7 +23,6 @@ const config = {
   // The entry point for the bundle
   entry: [
     '!!style-loader!css-loader!normalize.css/normalize.css',
-    '!!style-loader!css-loader!font-awesome/css/font-awesome.min.css',
     /* The main entry point of your JavaScript application */
     './main.js'
   ],

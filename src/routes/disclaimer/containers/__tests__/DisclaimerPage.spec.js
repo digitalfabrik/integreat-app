@@ -34,7 +34,8 @@ describe('DisclaimerPage', () => {
 
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <DisclaimerPage disclaimer={disclaimer} city={city} cities={cities} t={t} language={language} />)
+      <DisclaimerPage disclaimer={disclaimer} city={city} cities={cities} t={t} language={language} routesMap={{}}
+                      redirect={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 

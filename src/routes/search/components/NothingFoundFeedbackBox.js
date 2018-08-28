@@ -3,16 +3,15 @@
 import * as React from 'react'
 import 'react-dropdown/style.css'
 
-import { translate } from 'react-i18next'
-import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE }
-  from '../../../modules/endpoint/FeedbackEndpoint'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
+import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/FeedbackEndpoint'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox, SubmitButton } from '../../feedback/components/FeedbackBox'
 import FeedbackComment from '../../feedback/components/FeedbackComment'
-import 'styled-components'
+import styled from 'styled-components'
 
-export const StyledSubmitButton = SubmitButton.withComponent('div').extend`
+export const StyledSubmitButton = styled(SubmitButton.withComponent('div'))`
   cursor: pointer;
 `
 

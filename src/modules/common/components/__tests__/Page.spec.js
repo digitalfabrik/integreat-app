@@ -6,6 +6,7 @@ import Page from '../Page'
 
 describe('Page', () => {
   it('should render', () => {
-    expect(shallow(<Page title={'Test Title'} content={'This is a test content'} />)).toMatchSnapshot()
+    expect(shallow(<Page title={'Test Title'} content={'This is a test content'}
+                         onInternLinkClick={() => {}} />)).toMatchSnapshot()
   })
 })

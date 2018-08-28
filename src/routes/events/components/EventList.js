@@ -18,6 +18,8 @@ type PropsType = {
   t: TFunction
 }
 
+const noop = () => {}
+
 const NoEvents = styled.div`
   display: flex;
   justify-content: center;
@@ -43,6 +45,14 @@ class EventList extends React.Component<PropsType> {
         </>
       )
     }
+
+    const elements = events.map(event =>
+      <EventListElement key={event.id}
+                        event={event}
+                        city={city}
+                        language={language}
+                        onInternalLinkClick={noop} />
+    )
 
     return (
       <>

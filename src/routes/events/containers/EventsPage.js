@@ -14,6 +14,8 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
+import { pathToAction, redirect } from 'redux-first-router'
+import type { Dispatch } from 'redux'
 
 type PropsType = {
   events: Array<EventModel>,
@@ -21,13 +23,20 @@ type PropsType = {
   language: string,
   eventId?: number,
   cities: Array<CityModel>,
-  t: TFunction
+  t: TFunction,
+  redirect: string => void,
+  routesMap: {}
 }
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export class EventsPage extends React.Component<PropsType> {
+  redirectToPath = (path: string) => {
+    const action = pathToAction(path, this.props.routesMap)
+    this.props.redirect(action)
+  }
+
   render () {
     const {events, eventId, city, language, cities, t} = this.props
     if (eventId) {
@@ -36,7 +45,7 @@ export class EventsPage extends React.Component<PropsType> {
       if (event) {
         return <React.Fragment>
           <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
-          <EventDetail event={event} location={city} language={language} />
+          <EventDetail event={event} location={city} language={language} onInternalLinkClick={this.redirectToPath} />
         </React.Fragment>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
@@ -56,7 +65,11 @@ const mapStateTypeToProps = (state: StateType) => ({
   eventId: state.location.payload.eventId
 })
 
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+  redirect: action => dispatch(redirect(action))
+})
+
 export default compose(
-  connect(mapStateTypeToProps),
+  connect(mapStateTypeToProps, mapDispatchToProps),
   translate('events')
 )(EventsPage)

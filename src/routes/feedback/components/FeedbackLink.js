@@ -1,10 +1,12 @@
 // @flow
 
 import React from 'react'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import CleanLink from '../../../modules/common/components/CleanLink'
-import FontAwesome from 'react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFrown, faSmile } from 'modules/app/constants/icons'
+
 import ReactTooltip from 'react-tooltip'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import type { LocationState } from 'redux-first-router'
@@ -32,10 +34,10 @@ export class FeedbackLink extends React.PureComponent<PropsType> {
       <StyledLink
         className={className}
         to={goToFeedback(location, isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)}>
-        <FontAwesome
+        <FontAwesomeIcon
           className={className}
           data-tip={isPositiveRatingLink ? t('positiveRating') : t('negativeRating')}
-          name={isPositiveRatingLink ? 'smile-o' : 'frown-o'} />
+          icon={isPositiveRatingLink ? faSmile : faFrown} />
       </StyledLink>
     )
   }

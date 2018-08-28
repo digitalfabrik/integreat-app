@@ -1,13 +1,14 @@
 // @flow
 
 import React from 'react'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
+import { faFilePdf } from 'modules/app/constants/icons'
 
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import type { TFunction } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 
@@ -36,7 +37,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     }
     return (
       <LocationToolbar location={location}>
-        <ToolbarItem name='file-pdf-o' text={t('createPdf')} href={this.getPdfUrl(category)} />
+        <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} />
       </LocationToolbar>
     )
   }
