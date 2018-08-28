@@ -133,3 +133,7 @@ www/workbox-sw.prod.v*.js.map
 
 # Jest testing
 /__coverage__/
+junit.xml
+
+# CI
+www.tar.gz

@@ -58,7 +58,7 @@ exports[`FilterableCitySelector should update filter text 1`] = `
 <FilterableCitySelector__Container>
   <Translate(Heading) />
   <ScrollingSearchBox
-    filterText=""
+    filterText="City"
     onFilterTextChange={[Function]}
     placeholderText="searchCity"
     spaceSearch={false}
@@ -100,7 +100,7 @@ exports[`FilterableCitySelector should update filter text 1`] = `
           },
         ]
       }
-      filterText=""
+      filterText="City"
       language="de"
       stickyTop={0}
     />

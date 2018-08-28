@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventList should render a list of events 1`] = `
-<React.Fragment>
+<Fragment>
   <Caption
     title="events:news"
   />
@@ -81,7 +81,7 @@ exports[`EventList should render a list of events 1`] = `
       onInternalLinkClick={[Function]}
     />
   </div>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`EventList should render no events 1`] = `
