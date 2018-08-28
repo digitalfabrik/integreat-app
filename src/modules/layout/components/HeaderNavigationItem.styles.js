@@ -17,11 +17,11 @@ const NavigationItem = styled(Link)`
   }
 `
 
-export const InactiveNavigationItem = NavigationItem.withComponent('span').extend`
+export const InactiveNavigationItem = styled(NavigationItem.withComponent('span'))`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-export const ActiveNavigationItem = NavigationItem.extend`
+export const ActiveNavigationItem = styled(NavigationItem)`
   ${props => props.selected
     ? `font-weight: 700;`
     : `:hover {

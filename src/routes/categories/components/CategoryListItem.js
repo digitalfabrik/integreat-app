@@ -46,7 +46,7 @@ const CategoryCaption = styled(Highlighter)`
   word-wrap: break-word;
 `
 
-const SubCategoryCaption = CategoryCaption.extend`
+const SubCategoryCaption = styled(CategoryCaption)`
   padding: 8px 0;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `

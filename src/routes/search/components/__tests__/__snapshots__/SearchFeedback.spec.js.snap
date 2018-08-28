@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchFeedback should render a FeedbackButton if results are found and the query is not empty 1`] = `
-<React.Fragment>
+<Fragment>
   <SearchFeedback__FeedbackButton>
     <SearchFeedback__FeedbackLink
       to={
@@ -49,11 +49,11 @@ exports[`SearchFeedback should render a FeedbackButton if results are found and 
     }
     query="ab"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results are found 1`] = `
-<React.Fragment>
+<Fragment>
   <SearchFeedback__FeedbackContainer>
     <div>
       nothingFound
@@ -103,11 +103,11 @@ exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results ar
     }
     query="abc"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a FeedbackButton 1`] = `
-<React.Fragment>
+<Fragment>
   <FeedbackModal
     cities={
       Array [
@@ -137,5 +137,5 @@ exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a Fe
     }
     query=""
   />
-</React.Fragment>
+</Fragment>
 `;

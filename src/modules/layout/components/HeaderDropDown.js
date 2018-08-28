@@ -20,16 +20,13 @@ type StateType = {
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
 class HeaderDropDown extends React.Component<PropsType, StateType> {
-  toggleDropDown: Function
-  closeDropDown: Function
-  handleClickOutside: Function
-
   constructor (props: PropsType) {
     super(props)
     this.state = { dropDownActive: false }
-    this.toggleDropDown = this.toggleDropDown.bind(this)
-    this.closeDropDown = this.closeDropDown.bind(this)
-    this.handleClickOutside = this.handleClickOutside.bind(this)
+    const self: any = this // https://github.com/facebook/flow/issues/5874
+    self.handleClickOutside = this.handleClickOutside.bind(this)
+    self.toggleDropDown = this.toggleDropDown.bind(this)
+    self.closeDropDown = this.closeDropDown.bind(this)
   }
 
   toggleDropDown () {
