@@ -7,7 +7,7 @@ import SprungbrettJobModel from '../../../../modules/endpoint/models/Sprungbrett
 
 describe('SprungbrettListItem', () => {
   const job = new SprungbrettJobModel({
-    id: '0', title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true
+    id: 0, title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true, url: 'http://e.com'
   })
   it('should match snapshot', () => {
     const wrapper = shallow(<SprungbrettListItem job={job} />)
