@@ -1,3 +1,5 @@
+// @flow
+
 import 'polyfills'
 
 import React from 'react'
@@ -7,10 +9,17 @@ import App from 'modules/app/containers/App'
 
 const container = document.getElementById('container')
 
+if (container == null) {
+  throw new Error(`Couldn't find element with id container.`)
+}
+
 ReactDOM.render(<App />, container)
 
 // Sets the splash to hidden when the page is rendered
-document.getElementById('splash').className += ' splash-hidden'
+const splash = document.getElementById('splash')
+if (splash) {
+  splash.className += ' splash-hidden'
+}
 
 // Currently we do not have service workers. Unregister all previous ones:
 if (navigator.serviceWorker) {
@@ -20,6 +29,7 @@ if (navigator.serviceWorker) {
 }
 
 // Enables hot-module-reloading if it's enabled
+// $FlowFixMe
 if (module.hot) {
   module.hot.accept()
 }
