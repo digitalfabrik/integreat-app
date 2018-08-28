@@ -55,10 +55,12 @@ describe('EventList', () => {
   const language = 'en'
 
   it('should render a list of events', () => {
-    expect(shallow(<EventList events={events} language={language} city={city} />).dive()).toMatchSnapshot()
+    expect(shallow(<EventList events={events} language={language} city={city}
+                              onInternalLinkClick={() => {}} />).dive()).toMatchSnapshot()
   })
 
   it('should render no events', () => {
-    expect(shallow(<EventList events={[]} language={language} city={city} />).dive()).toMatchSnapshot()
+    expect(shallow(<EventList events={[]} language={language} city={city}
+                              onInternalLinkClick={() => {}} />).dive()).toMatchSnapshot()
   })
 })

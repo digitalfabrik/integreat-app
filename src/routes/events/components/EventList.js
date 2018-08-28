@@ -15,10 +15,9 @@ type PropsType = {
   events: Array<EventModel>,
   city: string,
   language: string,
-  t: TFunction
+  t: TFunction,
+  onInternalLinkClick: string => void
 }
-
-const noop = () => {}
 
 const NoEvents = styled.div`
   display: flex;
@@ -35,7 +34,7 @@ const List = styled.div`
  */
 class EventList extends React.Component<PropsType> {
   render () {
-    const {t, city, language, events} = this.props
+    const {t, city, language, events, onInternalLinkClick} = this.props
 
     if (isEmpty(events)) {
       return (
@@ -46,19 +45,15 @@ class EventList extends React.Component<PropsType> {
       )
     }
 
-    const elements = events.map(event =>
-      <EventListElement key={event.id}
-                        event={event}
-                        city={city}
-                        language={language}
-                        onInternalLinkClick={noop} />
-    )
-
     return (
       <>
         <Caption title={t('news')} />
         <List>
-          {events.map(event => <EventListElement key={event.id} event={event} city={city} language={language} />)}
+          {events.map(event => <EventListElement key={event.id}
+                                                 event={event}
+                                                 city={city}
+                                                 language={language}
+                                                 onInternalLinkClick={onInternalLinkClick} />)}
         </List>
       </>
     )
