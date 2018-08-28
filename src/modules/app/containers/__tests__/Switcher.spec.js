@@ -1,4 +1,6 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import ConnectedSwitcher, { Switcher } from '../Switcher'
 import Payload from '../../../endpoint/Payload'
 import { shallow } from 'enzyme'
@@ -11,24 +13,151 @@ import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
 import { SEARCH_ROUTE } from '../../routes/search'
 import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
 import configureMockStore from 'redux-mock-store'
+import CityModel from '../../../endpoint/models/CityModel'
+import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
+import EventModel from '../../../endpoint/models/EventModel'
+import ExtraModel from '../../../endpoint/models/ExtraModel'
+import DisclaimerModel from '../../../endpoint/models/DisclaimerModel'
+import CategoryModel from '../../../endpoint/models/CategoryModel'
+import moment from 'moment-timezone'
+import LanguageModel from '../../../endpoint/models/LanguageModel'
+import SprungbrettJobModel from '../../../endpoint/models/SprungbrettJobModel'
+import WohnenFormData from '../../../endpoint/models/WohnenFormData'
+import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
+import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
+import { WOHNEN_ROUTE } from '../../routes/wohnen'
 
 describe('Switcher', () => {
-  const errorPayload = new Payload(false, 'https://random.api.json', null, 'fake news')
-  const dataPayload = new Payload(false, 'https://random.api.json', 'fetched fake news :D', null)
-  const idlePayload = new Payload(false)
+  const categories = new CategoriesMapModel([
+    new CategoryModel({
+      id: 1,
+      path: 'path01',
+      title: 'Title10',
+      content: 'contnentl',
+      thumbnail: 'thumb/nail',
+      parentPath: 'parent/url',
+      order: 4,
+      availableLanguages: new Map(),
+      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+    })
+  ])
+  const disclaimer = new DisclaimerModel({
+    id: 1689,
+    title: 'Feedback, Kontakt und mögliches Engagement',
+    content: 'this is a test content',
+    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+  })
+
+  const extras = [
+    new ExtraModel({
+      alias: 'ihk-lehrstellenboerse',
+      path: 'ihk-jobborese.com',
+      title: 'Jobboerse',
+      thumbnail: 'xy',
+      postData: null
+    }),
+    new ExtraModel({
+      alias: 'ihk-praktikumsboerse',
+      path: 'ihk-pratkitkumsboerse.com',
+      title: 'Praktikumsboerse',
+      thumbnail: 'xy',
+      postData: null
+    })
+  ]
+  const events = [
+    new EventModel({
+      id: 1234,
+      title: 'first Event',
+      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      allDay: true,
+      address: 'address',
+      content: 'content',
+      excerpt: 'excerpt',
+      thumbnail: 'thumbnail',
+      town: 'town'
+    })]
+
+  const cities = [
+    new CityModel({
+      name: 'Mambo No. 5',
+      code: 'city1',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: false,
+      sortingName: 'Mambo'
+    })
+  ]
+  const languages = [
+    new LanguageModel('de', 'Deutsch'),
+    new LanguageModel('en', 'English')
+  ]
+  const sprungbrettJobs = [
+    new SprungbrettJobModel({
+      id: 0,
+      title: 'WebDeveloper',
+      location: 'Augsburg',
+      isEmployment: true,
+      isApprenticeship: true,
+      url: 'http://awesome-jobs.domain'
+    })
+  ]
+  const wohnenOffers = [
+    new WohnenOfferModel({
+      email: 'mail@mail.com',
+      createdDate: moment('2018-07-24T00:00:00.000Z'),
+      formDataType: WohnenFormData,
+      formData: new WohnenFormData(
+        {
+          firstName: 'Max',
+          lastName: 'Ammann',
+          phone: ''
+        },
+        {
+          ofRooms: ['kitchen', 'child2', 'child1', 'bed'],
+          title: 'Test Angebot',
+          location: 'Augsburg',
+          totalArea: 120,
+          totalRooms: 4,
+          moveInDate: moment('2018-07-19T15:35:12.000Z'),
+          ofRoomsDiff: ['bath', 'wc', 'child3', 'livingroom', 'hallway', 'store', 'basement', 'balcony']
+        },
+        {
+          ofRunningServices: ['chimney', 'other'],
+          ofAdditionalServices: ['garage'],
+          baseRent: 1000,
+          runningCosts: 1200,
+          hotWaterInHeatingCosts: true,
+          additionalCosts: 200,
+          ofRunningServicesDiff: ['heating', 'water', 'garbage'],
+          ofAdditionalServicesDiff: []
+        })
+    })
+  ]
+
+  const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
+  const eventsPayload = new Payload(false, 'https://random.api.json', events, null)
+  const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
+  const disclaimerPayload = new Payload(false, 'https://random.api.json', disclaimer, null)
+  const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
+  const languagesPayload = new Payload(false, 'https://random.api.json', languages, null)
+  const sprungbrettPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
+  const wohnenPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
+
+  const errorPayload = new Payload(false, 'https://random.api.json', null, new Error('fake news'))
   const fetchingPayload = new Payload(true)
 
-  const createSwitcher = ({currentRoute, citiesPayload = idlePayload, categoriesPayload = idlePayload,
-    eventsPayload = idlePayload, extrasPayload = idlePayload,
-    disclaimerPayload = idlePayload}) =>
+  const createSwitcher = (currentRoute: string): React.Node =>
     <Switcher viewportSmall={false} currentRoute={currentRoute} citiesPayload={citiesPayload}
               categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
-              disclaimerPayload={disclaimerPayload} />
+              disclaimerPayload={disclaimerPayload} languages={languages} city={'city1'} language={'de'}
+              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} param={'param'} />
 
   describe('layout', () => {
     it('should render a location layout if the current route is a location layout route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: CATEGORIES_ROUTE})
+        createSwitcher(CATEGORIES_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -36,7 +165,7 @@ describe('Switcher', () => {
 
     it('should render a layout with a footer if the current route is the landing route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: LANDING_ROUTE})
+        createSwitcher(LANDING_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -44,7 +173,7 @@ describe('Switcher', () => {
 
     it('should render a layout with a header and a footer as default', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: MAIN_DISCLAIMER_ROUTE})
+        createSwitcher(MAIN_DISCLAIMER_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -52,17 +181,17 @@ describe('Switcher', () => {
   })
 
   it('should return a spinner if the data has not been fetched yet', () => {
-    expect(Switcher.renderFailureLoadingComponents(fetchingPayload)).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents([fetchingPayload])).toMatchSnapshot()
   })
 
   it('should return a failure if there was an error during fetching', () => {
-    expect(Switcher.renderFailureLoadingComponents(errorPayload)).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents([errorPayload])).toMatchSnapshot()
   })
 
   describe('should get the right page if data has been fetched and', () => {
     it('is the categories route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: CATEGORIES_ROUTE, categoriesPayload: dataPayload, citiesPayload: dataPayload})
+        createSwitcher(CATEGORIES_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -70,7 +199,7 @@ describe('Switcher', () => {
 
     it('is the extras route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: EXTRAS_ROUTE, extrasPayload: dataPayload, citiesPayload: dataPayload})
+        createSwitcher(EXTRAS_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -78,7 +207,7 @@ describe('Switcher', () => {
 
     it('is the events route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: EVENTS_ROUTE, eventsPayload: dataPayload, citiesPayload: dataPayload})
+        createSwitcher(EVENTS_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -86,7 +215,7 @@ describe('Switcher', () => {
 
     it('is the disclaimer route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: DISCLAIMER_ROUTE, disclaimerPayload: dataPayload, citiesPayload: dataPayload})
+        createSwitcher(DISCLAIMER_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -94,7 +223,7 @@ describe('Switcher', () => {
 
     it('is the search route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: SEARCH_ROUTE, categoriesPayload: dataPayload, citiesPayload: dataPayload})
+        createSwitcher(SEARCH_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -102,7 +231,7 @@ describe('Switcher', () => {
 
     it('is the main disclaimer route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: MAIN_DISCLAIMER_ROUTE})
+        createSwitcher(MAIN_DISCLAIMER_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -110,7 +239,7 @@ describe('Switcher', () => {
 
     it('is the landing route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: LANDING_ROUTE, citiesPayload: dataPayload})
+        createSwitcher(LANDING_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -118,7 +247,23 @@ describe('Switcher', () => {
 
     it('is the i18nRedirect route', () => {
       const switcher = shallow(
-        createSwitcher({currentRoute: I18N_REDIRECT_ROUTE, citiesPayload: dataPayload})
+        createSwitcher(I18N_REDIRECT_ROUTE)
+      )
+
+      expect(switcher).toMatchSnapshot()
+    })
+
+    it('is the wohnen route', () => {
+      const switcher = shallow(
+        createSwitcher(WOHNEN_ROUTE)
+      )
+
+      expect(switcher).toMatchSnapshot()
+    })
+
+    it('is the sprungbrett route', () => {
+      const switcher = shallow(
+        createSwitcher(SPRUNGBRETT_ROUTE)
       )
 
       expect(switcher).toMatchSnapshot()
@@ -131,12 +276,12 @@ describe('Switcher', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
       location,
-      events: fetchingPayload,
-      cities: fetchingPayload,
-      categories: fetchingPayload,
-      disclaimer: fetchingPayload,
-      extras: fetchingPayload,
-      languages: dataPayload,
+      events: eventsPayload,
+      cities: citiesPayload,
+      categories: categoriesPayload,
+      disclaimer: disclaimerPayload,
+      extras: extrasPayload,
+      languages: languagesPayload,
       viewport: {is: {small: true}}
     })
 
@@ -146,12 +291,12 @@ describe('Switcher', () => {
 
     expect(switcher.props()).toMatchObject({
       currentRoute,
-      categoriesPayload: fetchingPayload,
-      eventsPayload: fetchingPayload,
-      extrasPayload: fetchingPayload,
-      citiesPayload: fetchingPayload,
-      disclaimerPayload: fetchingPayload,
-      languages: 'fetched fake news :D',
+      categoriesPayload,
+      eventsPayload,
+      extrasPayload,
+      citiesPayload,
+      disclaimerPayload,
+      languages,
       viewportSmall: true,
       city: 'augsburg',
       param: 'param',

@@ -6,14 +6,20 @@ import ParamMissingError from '../errors/ParamMissingError'
 
 const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 
-export default new EndpointBuilder(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
+type ParamsType = { url: ?string }
+
+type JsonSprungbrettJobType = {
+  title: string, zip: string, city: string, url: string, employment: string, apprenticeship: string
+}
+
+export default new EndpointBuilder<ParamsType, Array<SprungbrettJobModel>>(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.url) {
       throw new ParamMissingError(SPRUNGBRETT_JOBS_ENDPOINT_NAME, 'url')
     }
     return params.url
   })
-  .withMapper((json: any): Array<SprungbrettJobModel> => json.results
+  .withMapper((json: { results: Array<JsonSprungbrettJobType> }): Array<SprungbrettJobModel> => json.results
     .map((job, index) => new SprungbrettJobModel({
       id: index,
       title: job.title,

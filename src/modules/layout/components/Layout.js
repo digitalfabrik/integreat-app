@@ -10,6 +10,7 @@ type PropsType = {
   footer?: Node,
   header?: Node,
   toolbar?: Node,
+  modal?: Node,
   children?: Node
 }
 
@@ -24,7 +25,7 @@ class Layout extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {asideStickyTop, footer, header, toolbar, children} = this.props
+    const {asideStickyTop, footer, header, toolbar, modal, children} = this.props
     return (
       <RichLayout>
         <div>
@@ -37,6 +38,7 @@ class Layout extends React.PureComponent<PropsType> {
               {children}
             </Main>
           </Body>
+          {modal}
         </div>
         {footer}
         <ReactTooltip effect='solid' delayShow={0} />

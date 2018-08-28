@@ -1,14 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilterableCitySelector should render 1`] = `
-<div
-  className="topSpacing"
->
+<FilterableCitySelector__Container>
   <Translate(Heading) />
   <ScrollingSearchBox
     filterText=""
     onFilterTextChange={[Function]}
     placeholderText="searchCity"
+    spaceSearch={false}
   >
     <CitySelector
       cities={
@@ -52,18 +51,17 @@ exports[`FilterableCitySelector should render 1`] = `
       stickyTop={0}
     />
   </ScrollingSearchBox>
-</div>
+</FilterableCitySelector__Container>
 `;
 
 exports[`FilterableCitySelector should update filter text 1`] = `
-<div
-  className="topSpacing"
->
+<FilterableCitySelector__Container>
   <Translate(Heading) />
   <ScrollingSearchBox
     filterText=""
     onFilterTextChange={[Function]}
     placeholderText="searchCity"
+    spaceSearch={false}
   >
     <CitySelector
       cities={
@@ -107,5 +105,5 @@ exports[`FilterableCitySelector should update filter text 1`] = `
       stickyTop={0}
     />
   </ScrollingSearchBox>
-</div>
+</FilterableCitySelector__Container>
 `;

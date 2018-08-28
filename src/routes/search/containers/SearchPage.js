@@ -13,11 +13,15 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import SearchFeedback from '../components/SearchFeedback'
+import type { LocationState } from 'redux-first-router'
+
+type CategoryListItemType = {|model: CategoryModel, subCategories: Array<CategoryModel>|}
 
 type PropsType = {
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
-  city: string,
+  location: LocationState,
   t: TFunction
 }
 
@@ -30,7 +34,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     filterText: ''
   }
 
-  findCategories (): Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}> {
+  findCategories (): Array<CategoryListItemType> {
     const categories = this.props.categories
     const filterText = this.state.filterText.toLowerCase()
 
@@ -56,7 +60,9 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   render () {
     const categories = this.findCategories()
-    const {t, cities, city} = this.props
+    const {t, cities, location} = this.props
+    const {filterText} = this.state
+    const {city} = location.payload
 
     const cityName = CityModel.findCityName(cities, city)
 
@@ -68,6 +74,11 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} />
+        <SearchFeedback
+          cities={cities}
+          location={location}
+          resultsFound={categories.length !== 0}
+          query={filterText} />
       </div>
     )
   }
@@ -76,7 +87,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 const mapStateToProps = (state: StateType) => ({
   categories: state.categories.data,
   cities: state.cities.data,
-  city: state.location.payload.city
+  location: state.location
 })
 
 export default compose(

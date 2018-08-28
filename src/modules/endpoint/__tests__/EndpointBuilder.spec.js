@@ -1,3 +1,4 @@
+// @flow
 import EndpointBuilder from '../EndpointBuilder'
 
 describe('EndpointBuilder', () => {
@@ -6,7 +7,7 @@ describe('EndpointBuilder', () => {
     const name = 'endpoint'
     const mapper = json => json
     const responseOverride = {test: 'random'}
-    const errorOverride = 'Error No. 5'
+    const errorOverride = new Error('Error No. 5')
     const mapParamsToUrl = () => url
 
     const endpoint = new EndpointBuilder(name)
@@ -24,8 +25,6 @@ describe('EndpointBuilder', () => {
   })
 
   it('should throw errors if used incorrectly', () => {
-    expect(() => new EndpointBuilder(undefined).build()).toThrowErrorMatchingSnapshot()
-
     const builder = new EndpointBuilder('endpoint')
     expect(() => builder.build()).toThrowErrorMatchingSnapshot()
     builder.withParamsToUrlMapper(() => 'https://someurl')

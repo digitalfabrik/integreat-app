@@ -8,20 +8,20 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
   <Translate(EventDetail)
     event={
       EventModel {
-        "_address": undefined,
+        "_address": "address",
         "_allDay": true,
-        "_availableLanguages": Object {
-          "ar": "1236",
-          "en": "1234",
+        "_availableLanguages": Map {
+          "en" => 1234,
+          "ar" => 1236,
         },
-        "_content": undefined,
+        "_content": "content",
         "_endDate": "2017-11-18T19:30:00.000Z",
-        "_excerpt": undefined,
-        "_id": "1235",
+        "_excerpt": "excerpt",
+        "_id": 1235,
         "_startDate": "2017-11-18T09:30:00.000Z",
-        "_thumbnail": undefined,
+        "_thumbnail": "thumbnail",
         "_title": "erstes Event",
-        "_town": undefined,
+        "_town": "town",
       }
     }
     language="en"
@@ -40,49 +40,52 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
     events={
       Array [
         EventModel {
-          "_address": undefined,
+          "_address": "address",
           "_allDay": true,
-          "_availableLanguages": Object {
-            "ar": "1236",
-            "de": "1235",
+          "_availableLanguages": Map {
+            "de" => 1235,
+            "ar" => 1236,
           },
-          "_content": undefined,
+          "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": undefined,
-          "_id": "1234",
+          "_excerpt": "excerpt",
+          "_id": 1234,
           "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": undefined,
+          "_thumbnail": "thumbnail",
           "_title": "first Event",
-          "_town": undefined,
+          "_town": "town",
         },
         EventModel {
-          "_address": undefined,
+          "_address": "address",
           "_allDay": true,
-          "_availableLanguages": Object {
-            "ar": "1236",
-            "en": "1234",
+          "_availableLanguages": Map {
+            "en" => 1234,
+            "ar" => 1236,
           },
-          "_content": undefined,
+          "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": undefined,
-          "_id": "1235",
+          "_excerpt": "excerpt",
+          "_id": 1235,
           "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": undefined,
+          "_thumbnail": "thumbnail",
           "_title": "erstes Event",
-          "_town": undefined,
+          "_town": "town",
         },
         EventModel {
-          "_address": undefined,
+          "_address": "address",
           "_allDay": true,
-          "_availableLanguages": undefined,
-          "_content": undefined,
+          "_availableLanguages": Map {
+            "de" => 1235,
+            "ar" => 1236,
+          },
+          "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": undefined,
-          "_id": "2",
+          "_excerpt": "excerpt",
+          "_id": 2,
           "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": undefined,
+          "_thumbnail": "thumbnail",
           "_title": "second Event",
-          "_town": undefined,
+          "_town": "town",
         },
       ]
     }

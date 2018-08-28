@@ -7,14 +7,18 @@ import ParamMissingError from '../errors/ParamMissingError'
 
 const LANGUAGES_ENDPOINT_NAME = 'languages'
 
-export default new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
+type ParamsType = { city: ?string }
+
+type JsonLanguageType = { code: string, native_name: string }
+
+export default new EndpointBuilder<ParamsType, Array<LanguageModel>>(LANGUAGES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
     }
     return `${apiUrl}/${params.city}/de/wp-json/extensions/v3/languages`
   })
-  .withMapper((json: any) => json
+  .withMapper((json: Array<JsonLanguageType>) => json
     .map(language => new LanguageModel(
       language.code,
       language.native_name

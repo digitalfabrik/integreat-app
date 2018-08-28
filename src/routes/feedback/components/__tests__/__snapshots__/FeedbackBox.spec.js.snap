@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackBox should match snapshot 1`] = `
+<FeedbackBox__StyledFeedbackBox>
+  <ModalHeader
+    location={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "type": "CATEGORIES",
+      }
+    }
+    title="feedback"
+  />
+  <FeedbackBox__Description>
+    feedbackType
+  </FeedbackBox__Description>
+  <Dropdown
+    baseClassName="Dropdown"
+    onChange={[Function]}
+    options={
+      Array [
+        FeedbackDropdownItem {
+          "feedbackType": "categories",
+          "label": "label",
+          "value": "label",
+        },
+      ]
+    }
+    value={
+      FeedbackDropdownItem {
+        "feedbackType": "categories",
+        "label": "label",
+        "value": "label",
+      }
+    }
+  />
+  <FeedbackComment
+    comment=""
+    commentMessage="negativeComment"
+    isPositiveRatingSelected={false}
+    onCommentChanged={[Function]}
+  />
+  <FeedbackBox__SubmitButton
+    onClick={[Function]}
+    to={
+      Object {
+        "payload": Object {
+          "city": "augsburg",
+          "language": "de",
+        },
+        "query": Object {
+          "feedback": "sent",
+        },
+        "type": "CATEGORIES",
+      }
+    }
+  >
+    send
+  </FeedbackBox__SubmitButton>
+</FeedbackBox__StyledFeedbackBox>
+`;

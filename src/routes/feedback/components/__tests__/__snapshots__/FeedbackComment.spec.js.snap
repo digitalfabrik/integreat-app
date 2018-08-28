@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackComment should match snapshot 1`] = `
+<React.Fragment>
+  <FeedbackBox__Description>
+    message
+  </FeedbackBox__Description>
+  <FeedbackComment__CommentField
+    onChange={[Function]}
+    rows={3}
+    value="Nice app!"
+  />
+</React.Fragment>
+`;

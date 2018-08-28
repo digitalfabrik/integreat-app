@@ -6,18 +6,14 @@ import { connect } from 'react-redux'
 import TileModel from 'modules/common/models/TileModel'
 import Tiles from 'modules/common/components/Tiles'
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import Caption from '../../../modules/common/components/Caption'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import { compose } from 'recompose'
-import { getSprungbrettExtraPath } from '../../../modules/app/routes/sprungbrett'
-import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
-
-const SPRUNGBRETT_EXTRA = 'sprungbrett'
-const WOHNEN_EXTRA = 'wohnen'
+import { getSprungbrettExtraPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
+import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
 
 type PropsType = {
   city: string,
@@ -48,7 +44,8 @@ export class ExtrasPage extends React.Component<PropsType> {
           path: path,
           thumbnail: extra.thumbnail,
           // every extra except from the sprungbrett extra is just a link to an external site
-          isExternalUrl: path === extra.path
+          isExternalUrl: path === extra.path,
+          postData: extra.postData
         })
       }
     )
@@ -66,8 +63,7 @@ export class ExtrasPage extends React.Component<PropsType> {
     return (
       <React.Fragment>
         <Helmet title={`${t('pageTitle')} - ${cityName}`} />
-        <Caption title={t('extras')} />
-        <Tiles tiles={this.toTileModels(extras)} />
+        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
       </React.Fragment>
     )
   }

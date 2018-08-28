@@ -1,3 +1,5 @@
+// @flow
+
 import categories from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
@@ -44,16 +46,16 @@ describe('categories', () => {
     parent: {
       id: 4827,
       url: 'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-' +
-      '%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/',
+        '%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/',
       path: '/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-' +
-      '%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/'
+        '%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/'
     },
     order: 3,
     available_languages: {
       ar: {
         id: 1370,
         url: 'https://cms.integreat-app.de/augsburg/ar/erste-schritte/%d8%ae%d8%b1%d9%8a%d8%b7%d8%a9-' +
-        '%d8%a7%d9%84%d9%85%d8%af%d9%8a%d9%86%d8%a9/',
+          '%d8%a7%d9%84%d9%85%d8%af%d9%8a%d9%86%d8%a9/',
         path: '/augsburg/ar/erste-schritte/%d8%ae%d8%b1%d9%8a%d8%b7%d8%a9-%d8%a7%d9%84%d9%85%d8%af%d9%8a%d9%86%d8%a9/'
       }
     },
@@ -101,11 +103,11 @@ describe('categories', () => {
   })
 
   it('should throw if the city to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if the language to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: 'city'})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
@@ -115,11 +117,11 @@ describe('categories', () => {
   })
 
   it('should throw if city to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapResponse('json', {city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if language to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {city: 'city'})).toThrowErrorMatchingSnapshot()
+    expect(() => categories.mapResponse('json', {city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should encode urls components correctly', () => {

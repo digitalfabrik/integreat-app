@@ -3,12 +3,12 @@
 import * as React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import { ActiveElement, Wrapper, InactiveElement } from './Selector.styles'
+import { ActiveElement, InactiveElement, Wrapper } from './Selector.styles'
 import ReactTooltip from 'react-tooltip'
 
 type PropsType = {
   verticalLayout: boolean,
-  closeDropDownCallback?: () => {},
+  closeDropDownCallback?: () => void,
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
   inactiveItemTooltip: string

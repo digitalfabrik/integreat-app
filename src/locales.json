@@ -64,7 +64,7 @@
       "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "createPdf": "Erstelle PDF",
+      "createPdf": "PDF Erstellen",
       "lastUpdate": "Letzte Änderung: ",
       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
@@ -242,6 +242,7 @@
   },
   "wohnen": {
     "de": {
+      "noOffersAvailable": "Keine Angebote verfügbar.",
       "values": {
         "runningServices": {
           "heating": "Heizung",
@@ -269,6 +270,51 @@
           "balcony": "Balkon / Terrasse"
         }
       }
+    }
+  },
+  "feedback": {
+    "de": {
+      "technicalTopics": "Technische Funktionen",
+      "contentOfCity": "Inhalte von",
+      "extra": "Extra",
+      "news": "News",
+      "disclaimer": "Kontakt und Impressum",
+      "searchFor": "Suche nach",
+      "contentOfPage": "Inhalt der Seite",
+      "send": "Abschicken",
+      "feedback": "Feedback",
+      "positiveComment": "Was war hilfreich?",
+      "negativeComment": "Was können wir besser machen?",
+      "feedbackType": "Wofür ist das Feedback?",
+      "negativeRating": "Diese Seite ist nicht hilfreich",
+      "positiveRating": "Diese Seite ist hilfreich",
+      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
+      "informationNotFound": "Nicht das Richtige gefunden?",
+      "wantedInformation": "Welche Informationen fehlen hier?",
+      "feedbackSent": "Feedback abgeschickt",
+      "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die Integreat-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",
+      "close": "Schließen"
+    },
+    "en": {
+      "technicalTopics": "Technical topics",
+      "contentOfCity": "Contents of",
+      "extra": "Extra",
+      "news": "News",
+      "disclaimer": "Imprint and contact",
+      "searchFor": "Search for",
+      "contentOfPage": "Content of the site",
+      "send": "Send",
+      "feedback": "Feedback",
+      "positiveComment": "What was helpful?",
+      "negativeComment": "What can we improve?",
+      "feedbackType": "What is the feedback for?",
+      "negativeRating": "This site is not useful",
+      "positiveRating": "This site is useful",
+      "nothingFound": "Sorry, we could not find any results.",
+      "informationNotFound": "Not found what you were looking for?",
+      "wantedInformation": "What information is missing?",
+      "feedbackSent": "Feedback sent",
+      "close": "Close"
     }
   }
 }

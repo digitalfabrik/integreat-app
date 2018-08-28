@@ -79,7 +79,7 @@ class EndpointBuilder<P, T> {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    return new Endpoint(this._name, this._paramsToUrlMapper, this._mapper, this._responseOverride, this._errorOverride)
+    return new Endpoint<P, T>(this._name, this._paramsToUrlMapper, this._mapper, this._responseOverride, this._errorOverride)
   }
 }
 

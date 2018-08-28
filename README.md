@@ -107,9 +107,9 @@ Go to:
    
 If you want you can associate the *.snap files with the file type JavaScript.
 
-# Bug Tracker
+# Issue Tracker
 
-You can [view our bugs](https://integreat.atlassian.net/) or [create new ones](https://integreat.atlassian.net/secure/CreateIssue!default.jspa) on our jira.
+You can [view our issues](https://issues.integreat-app.de/projects/WEBAPP) or [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
 
 # Deployment
 

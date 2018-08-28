@@ -89,7 +89,7 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
   <Caption
     title="Raumfrei"
   />
-  <OfferList
+  <Translate(OfferList)
     city="augsburg"
     hashFunction={[Function]}
     language="de"
