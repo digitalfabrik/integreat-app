@@ -21,9 +21,10 @@ class RemoteContent extends React.Component<PropsType> {
 
   sandBoxRef: { current: null | React$ElementRef<*> }
 
-  handleClick = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault()
-    this.props.onInternLinkClick(new URL(event.currentTarget.href).pathname)
+  handleClick = (event: MouseEvent) => {
+    // https://stackoverflow.com/a/1000606
+    event.preventDefault ? event.preventDefault() : ((event: any).returnValue = false)
+    this.props.onInternLinkClick(new URL((event.currentTarget: any).href).pathname)
   }
 
   constructor () {
@@ -37,8 +38,8 @@ class RemoteContent extends React.Component<PropsType> {
     }
     const collection: HTMLCollection<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
-      if (this.props.hosts.includes(new URL(node.href).host)) {
-        node.onclick = this.handleClick
+      if (this.props.hosts.includes(new URL(node.href).hostname)) {
+        node.addEventListener('click', this.handleClick)
       }
     })
   }
