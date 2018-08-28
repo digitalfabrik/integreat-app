@@ -4,7 +4,7 @@ import i18n from 'i18next'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
-import { reduce, forEach } from 'lodash/collection'
+import { forEach, reduce } from 'lodash/collection'
 import ReactHelmet from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
@@ -20,7 +20,7 @@ type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
 type PropsType = {
   children: React.Node,
-  language: string,
+  language?: string,
   setUiDirection: Function
 }
 
@@ -55,8 +55,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
    * @returns {object} transformed resources suplliable to i18next instance
    */
   static transformResources (resources: {
-    namespace: string,
-    language: { langauge: string, languageCode: string }
+    [namespace: string]: { [language: string]: { [key: string]: string } }
   }): { key: string, value: string } {
     return reduce(
       resources,
@@ -73,7 +72,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     )
   }
 
-  setLanguage (language: string) {
+  setLanguage (language: ?string) {
     const targetLanguage = language || this.i18n.languages[0]
 
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
