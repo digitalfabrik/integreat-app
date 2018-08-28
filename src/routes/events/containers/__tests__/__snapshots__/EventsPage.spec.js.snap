@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventsPage should match snapshot and render EventDetail 1`] = `
-<React.Fragment>
+<Fragment>
   <Connect(Helmet)
     title="erstes Event - Augsburg"
   />
@@ -27,11 +27,11 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
     language="en"
     location="augsburg"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`EventsPage should match snapshot and render EventList 1`] = `
-<React.Fragment>
+<Fragment>
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
@@ -91,7 +91,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
     }
     language="en"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `

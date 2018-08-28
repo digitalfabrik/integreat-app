@@ -1,7 +1,8 @@
 // @flow
 
 import styled from 'styled-components'
-import FontAwesome from 'react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from 'modules/app/constants/icons'
 
 const searchLogoWidth = '25px'
 
@@ -34,7 +35,7 @@ export const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-export const SearchIcon = styled(FontAwesome).attrs({name: 'search'})`
+export const SearchIcon = styled(FontAwesomeIcon).attrs({icon: faSearch})`
   width: 25px;
   font-size: 1.2em;
   text-align: center;

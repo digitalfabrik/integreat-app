@@ -10,24 +10,22 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
   <Connect(Link)
     to="/augsburg/de/willkommen"
   >
-    <React.Fragment>
+    <div
+      className="thumbnailSizer"
+    >
       <div
-        className="thumbnailSizer"
+        className="thumbnail"
       >
-        <div
-          className="thumbnail"
-        >
-          <img
-            src="https://cms.integreat-ap…03/Beratung-150x150.png"
-          />
-        </div>
+        <img
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
       </div>
-      <div
-        className="title"
-      >
-        Willkommen
-      </div>
-    </React.Fragment>
+    </div>
+    <div
+      className="title"
+    >
+      Willkommen
+    </div>
   </Connect(Link)>
 </Col>
 `;
@@ -43,24 +41,22 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
     href="https://example.com"
     target="_blank"
   >
-    <React.Fragment>
+    <div
+      className="thumbnailSizer"
+    >
       <div
-        className="thumbnailSizer"
+        className="thumbnail"
       >
-        <div
-          className="thumbnail"
-        >
-          <img
-            src="https://cms.integreat-ap…03/Beratung-150x150.png"
-          />
-        </div>
+        <img
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
       </div>
-      <div
-        className="title"
-      >
-        Example
-      </div>
-    </React.Fragment>
+    </div>
+    <div
+      className="title"
+    >
+      Example
+    </div>
   </a>
 </Col>
 `;
@@ -98,24 +94,22 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
     <button
       type="submit"
     >
-      <React.Fragment>
+      <div
+        className="thumbnailSizer"
+      >
         <div
-          className="thumbnailSizer"
+          className="thumbnail"
         >
-          <div
-            className="thumbnail"
-          >
-            <img
-              src="https://cms.integreat-ap…03/Beratung-150x150.png"
-            />
-          </div>
+          <img
+            src="https://cms.integreat-ap…03/Beratung-150x150.png"
+          />
         </div>
-        <div
-          className="title"
-        >
-          Example
-        </div>
-      </React.Fragment>
+      </div>
+      <div
+        className="title"
+      >
+        Example
+      </div>
     </button>
   </form>
 </Col>

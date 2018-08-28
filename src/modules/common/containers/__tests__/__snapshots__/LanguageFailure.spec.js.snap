@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LanguageFailure should match snapshot 1`] = `
-<React.Fragment>
+<Fragment>
   <Caption
     title="Augsburg"
   />
@@ -13,5 +13,5 @@ exports[`LanguageFailure should match snapshot 1`] = `
   <Connect(Translate(LanguageSelector))
     isHeaderActionItem={false}
   />
-</React.Fragment>
+</Fragment>
 `;
