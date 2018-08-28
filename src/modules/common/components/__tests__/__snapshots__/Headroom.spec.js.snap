@@ -117,7 +117,7 @@ exports[`Headroom should render correct if state is unpinned, transition 1`] = `
 `;
 
 exports[`Headroom should render with no stickyAncestor supplied 1`] = `
-<React.Fragment>
+<Fragment>
   <Headroomstyles__HeaderWrapper
     static={true}
     top={-50}
@@ -126,7 +126,7 @@ exports[`Headroom should render with no stickyAncestor supplied 1`] = `
   >
     <MockNode />
   </Headroomstyles__HeaderWrapper>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`Headroom should render with values from its state 1`] = `
