@@ -28,7 +28,6 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="1234"
       language="en"
-      onInternalLinkClick={[Function]}
     />
     <EventListElement
       city="augsburg"
@@ -52,7 +51,6 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="1235"
       language="en"
-      onInternalLinkClick={[Function]}
     />
     <EventListElement
       city="augsburg"
@@ -76,19 +74,18 @@ exports[`EventList should render a list of events 1`] = `
       }
       key="2"
       language="en"
-      onInternalLinkClick={[Function]}
     />
   </EventList__List>
 </Fragment>
 `;
 
 exports[`EventList should render no events 1`] = `
-<React.Fragment>
+<Fragment>
   <Caption
     title="events:news"
   />
   <EventList__NoEvents>
     events:currentlyNoEvents
   </EventList__NoEvents>
-</React.Fragment>
+</Fragment>
 `;
