@@ -20,6 +20,26 @@
   <meta name="msapplication-starturl" content="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="dns-prefetch" href="https://cms.integreat-app.de/" />
+  <link rel="preconnect" href="https://cms.integreat-app.de/" />
+
+  <link rel="preload" href="<%= bundle %>" as="script" type="text/javascript" />
+
+  <link rel="preload" href="https://cms.integreat-app.de/wp-json/extensions/v3/sites" as="fetch" crossorigin />
+
+  <link rel="stylesheet" href="/fonts/open-sans/open-sans.css" as="style" type="text/css" />
+  <link rel="preload"
+        href="/fonts/open-sans/open-sans-v15-greek_cyrillic-ext_vietnamese_latin_cyrillic_greek-ext-700.woff2" as="font"
+        type="font/woff2" crossorigin />
+  <link rel="preload"
+        href="/fonts/open-sans/open-sans-v15-greek_cyrillic-ext_vietnamese_latin_cyrillic_greek-ext-regular.woff2"
+        as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="/fonts/raleway/raleway.css" type="text/css" />
+  <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-700.woff2" as="font" type="font/woff2"
+        crossorigin />
+  <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-regular.woff2" as="font" type="font/woff2"
+        crossorigin />
 
   <link rel="icon" type="image/png"  sizes="16x16" href="/favicon-16x16.png">
   <link rel="icon" type="image/png"  sizes="48x48" href="/favicon-48x48.png">
