@@ -9,18 +9,16 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
   <CleanLink
     to="/augsburg/de/willkommen"
   >
-    <React.Fragment>
-      <Tile__ThumbnailSizer>
-        <Tile__Thumbnail>
-          <img
-            src="https://cms.integreat-ap…03/Beratung-150x150.png"
-          />
-        </Tile__Thumbnail>
-      </Tile__ThumbnailSizer>
-      <Tile__TileTitle>
-        Willkommen
-      </Tile__TileTitle>
-    </React.Fragment>
+    <Tile__ThumbnailSizer>
+      <Tile__Thumbnail>
+        <img
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
+      </Tile__Thumbnail>
+    </Tile__ThumbnailSizer>
+    <Tile__TileTitle>
+      Willkommen
+    </Tile__TileTitle>
   </CleanLink>
 </Tile__TileContainer>
 `;
@@ -35,18 +33,16 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
     href="https://example.com"
     target="_blank"
   >
-    <React.Fragment>
-      <Tile__ThumbnailSizer>
-        <Tile__Thumbnail>
-          <img
-            src="https://cms.integreat-ap…03/Beratung-150x150.png"
-          />
-        </Tile__Thumbnail>
-      </Tile__ThumbnailSizer>
-      <Tile__TileTitle>
-        Example
-      </Tile__TileTitle>
-    </React.Fragment>
+    <Tile__ThumbnailSizer>
+      <Tile__Thumbnail>
+        <img
+          src="https://cms.integreat-ap…03/Beratung-150x150.png"
+        />
+      </Tile__Thumbnail>
+    </Tile__ThumbnailSizer>
+    <Tile__TileTitle>
+      Example
+    </Tile__TileTitle>
   </CleanAnchor>
 </Tile__TileContainer>
 `;
@@ -83,18 +79,16 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
     <button
       type="submit"
     >
-      <React.Fragment>
-        <Tile__ThumbnailSizer>
-          <Tile__Thumbnail>
-            <img
-              src="https://cms.integreat-ap…03/Beratung-150x150.png"
-            />
-          </Tile__Thumbnail>
-        </Tile__ThumbnailSizer>
-        <Tile__TileTitle>
-          Example
-        </Tile__TileTitle>
-      </React.Fragment>
+      <Tile__ThumbnailSizer>
+        <Tile__Thumbnail>
+          <img
+            src="https://cms.integreat-ap…03/Beratung-150x150.png"
+          />
+        </Tile__Thumbnail>
+      </Tile__ThumbnailSizer>
+      <Tile__TileTitle>
+        Example
+      </Tile__TileTitle>
     </button>
   </form>
 </Tile__TileContainer>

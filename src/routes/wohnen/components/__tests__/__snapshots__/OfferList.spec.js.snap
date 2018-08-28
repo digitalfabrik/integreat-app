@@ -62,7 +62,7 @@ exports[`OfferList should render offer list 1`] = `
       }
     }
   />
-</withProps(Connect(Link))>
+</CleanLink>
 `;
 
 exports[`OfferList should render paragraph if offers is empty 1`] = `
