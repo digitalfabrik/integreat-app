@@ -7,8 +7,8 @@ import SearchInput from 'modules/common/components/SearchInput'
 
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
@@ -28,6 +28,8 @@ type PropsType = {
 type LocalStateType = {
   filterText: string
 }
+
+const noop = () => {}
 
 export class SearchPage extends React.Component<PropsType, LocalStateType> {
   state = {
@@ -73,7 +75,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
                      placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
-        <CategoryList categories={categories} query={this.state.filterText} />
+        <CategoryList categories={categories} query={this.state.filterText} onInternLinkClick={noop} />
         <SearchFeedback
           cities={cities}
           location={location}

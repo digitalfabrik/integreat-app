@@ -21,6 +21,8 @@ import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { UiDirectionType } from '../../../modules/app/StateType'
+import type { Dispatch } from 'redux'
+import { pathToAction, redirect } from 'redux-first-router'
 
 type PropsType = {
   categories: CategoriesMapModel,
@@ -29,7 +31,9 @@ type PropsType = {
   city: string,
   language: string,
   uiDirection: UiDirectionType,
-  t: TFunction
+  t: TFunction,
+  redirect: string => void,
+  routesMap: {}
 }
 
 /**
@@ -47,6 +51,11 @@ export class CategoriesPage extends React.Component<PropsType> {
     }))
   }
 
+  redirectToPath = (path: string) => {
+    const action = pathToAction(path, this.props.routesMap)
+    this.props.redirect(action)
+  }
+
   /**
    * Returns the content to be displayed, based on the current category, which is
    * a) page with information
@@ -58,12 +67,10 @@ export class CategoriesPage extends React.Component<PropsType> {
   getContent (category: CategoryModel): React.Node {
     const {categories, cities, language} = this.props
     const children = categories.getChildren(category)
-
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
       return <React.Fragment>
-        <Page title={category.title}
-              content={category.content} />
+        <Page title={category.title} content={category.content} onInternLinkClick={this.redirectToPath} />
         {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />}
       </React.Fragment>
     } else if (category.isRoot()) {
@@ -73,7 +80,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
-                         title={category.title}
+                         title={category.title} onInternLinkClick={this.redirectToPath}
                          content={category.content} />
   }
 
@@ -117,10 +124,15 @@ export class CategoriesPage extends React.Component<PropsType> {
 const mapStateToProps = (state: StateType) => ({
   uiDirection: state.uiDirection,
   language: state.location.payload.language,
+  routesMap: state.location.routesMap,
   city: state.location.payload.city,
   path: state.location.pathname,
   categories: state.categories.data,
   cities: state.cities.data
 })
 
-export default connect(mapStateToProps)(translate('categories')(CategoriesPage))
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+  redirect: action => dispatch(redirect(action))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(translate('categories')(CategoriesPage))

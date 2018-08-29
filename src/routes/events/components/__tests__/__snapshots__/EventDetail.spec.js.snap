@@ -21,6 +21,7 @@ exports[`EventDetail should render 1`] = `
     }
   }
   language="en"
+  onInternalLinkClick={[Function]}
   t={[Function]}
 />
 `;

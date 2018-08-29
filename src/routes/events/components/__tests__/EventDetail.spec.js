@@ -25,6 +25,6 @@ describe('EventDetail', () => {
   const language = 'en'
 
   it('should render', () => {
-    expect(shallow(<EventDetail event={event} language={language} />)).toMatchSnapshot()
+    expect(shallow(<EventDetail event={event} language={language} onInternalLinkClick={() => {}} />)).toMatchSnapshot()
   })
 })
