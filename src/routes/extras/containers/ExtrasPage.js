@@ -61,10 +61,10 @@ export class ExtrasPage extends React.Component<PropsType> {
     const cityName = CityModel.findCityName(cities, city)
 
     return (
-      <React.Fragment>
+      <>
         <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
-      </React.Fragment>
+      </>
     )
   }
 }

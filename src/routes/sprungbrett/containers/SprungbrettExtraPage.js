@@ -35,11 +35,11 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
     }
 
     return (
-      <React.Fragment>
+      <>
         <Helmet title={`${extra.title} - ${cityName}`} />
         {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <Spinner
           name='line-scale-party' />}
-      </React.Fragment>
+      </>
     )
   }
 }

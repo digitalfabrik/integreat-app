@@ -161,7 +161,7 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
     }
     const ownStickyTop = mode === STATIC ? -scrollHeight : 0
     return (
-      <React.Fragment>
+      <>
         <HeaderWrapper
           translateY={transform}
           top={ownStickyTop}
@@ -172,7 +172,7 @@ class Headroom extends React.PureComponent<PropsType, StateType> {
         </HeaderWrapper>
         {stickyAncestor && height &&
         React.cloneElement(stickyAncestor, {stickyTop: Headroom.calcStickyTop(mode, height, scrollHeight)})}
-      </React.Fragment>
+      </>
     )
   }
 }
