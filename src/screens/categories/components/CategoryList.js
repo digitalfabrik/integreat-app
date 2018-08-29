@@ -5,7 +5,6 @@ import React from 'react'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import RemoteContent from '../../../modules/common/components/RemoteContent'
 
 type PropsType = {
   categories: Array<{| model: CategoryModel, subCategories: Array<CategoryModel> |}>,

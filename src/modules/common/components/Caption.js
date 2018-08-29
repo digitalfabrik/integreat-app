@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { H1 } from './Caption.styles'
+import styled from 'styled-components'
 
-// fixme: Caption is connected to redux state because of H1 -> not a plain old component
+const H1 = styled.Text`
+  margin: 25px 0;
+  font-size: 20px;
+  text-align: center;
+`
 
 class Caption extends React.Component {
   static propTypes = {

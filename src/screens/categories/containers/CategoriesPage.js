@@ -72,9 +72,9 @@ export class CategoriesPage extends React.Component<PropsType> {
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
-      return <div>
+      return <>
         {this.getContent(categoryModel)}
-      </div>
+      </>
     } else {
       const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
       return <FailureSwitcher error={error} />

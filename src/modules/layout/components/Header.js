@@ -25,7 +25,6 @@ const Title = styled.Text`
 `
 
 const BoxShadow = styled.View`
-  elevation: 1;
   background-color: #fafafa;
   height: 60px;
 `

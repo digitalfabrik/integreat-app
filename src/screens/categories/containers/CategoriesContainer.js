@@ -43,7 +43,7 @@ export default class CategoriesContainer extends React.Component<PropType, State
     if (!this.state.cities) {
       return <Text>Test</Text>
     }
-    return <CategoriesPage categories={this.state.categories} cities={this.state.categories}
+    return <CategoriesPage categories={this.state.categories} cities={this.state.cities}
                            language={'de'}
                            city={this.props.navigation.getParam('city')}
                            path={'/augsburg/de'}

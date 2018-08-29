@@ -4,11 +4,47 @@ import * as React from 'react'
 
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import {
-  CategoryCaption,
-  CategoryThumbnail, Row,
-  StyledLink, SubCategoryCaption, SubCategory
-} from './CategoryListItem.styles'
+import styled from 'styled-components'
+
+const Row = styled.View`
+  margin: 12px 0;
+  
+  & > * {
+    width: 100%;
+  }
+`
+
+const SubCategory = styled.View`
+  text-align: end;
+`
+
+const CategoryThumbnail = styled.Image`
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  padding: 8px;
+  object-fit: contain;
+`
+
+const CategoryCaption = styled.View`
+  height: 100%;
+  min-width: 1px; /* needed to enable line breaks for to long words, exact value doesn't matter */
+  flex-grow: 1;
+  padding: 15px 5px;
+  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  word-wrap: break-word;
+`
+
+const SubCategoryCaption = styled(CategoryCaption)`
+  padding: 8px 0;
+  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+`
+
+const StyledLink = styled.Text`
+  display: inline-flex;
+  align-items: center;
+  margin: 0 auto;
+`
 
 type PropsType = {
   category: CategoryModel,
@@ -28,7 +64,7 @@ class CategoryListItem extends React.Component<PropsType> {
         <StyledLink to={subCategory.path}>
           <SubCategoryCaption search={''}>
             {subCategory.title}
-            </SubCategoryCaption>
+          </SubCategoryCaption>
         </StyledLink>
       </SubCategory>
     )
