@@ -12,6 +12,13 @@ exports[`CategoryList should render and display a caption 1`] = `
         "__html": "test content",
       }
     }
+    hosts={
+      Array [
+        "cms.integreat-app.de",
+        "web.integreat-app.de",
+      ]
+    }
+    onInternLinkClick={[Function]}
   />
   <CategoryList__List>
     <CategoryListItem

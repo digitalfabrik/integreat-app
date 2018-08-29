@@ -6,7 +6,8 @@ import RemoteContent from 'modules/common/components/RemoteContent'
 
 type PropsType = {
   title: string,
-  content: string
+  content: string,
+  onInternLinkClick: string => void
 }
 
 class Page extends React.Component<PropsType> {
@@ -14,7 +15,8 @@ class Page extends React.Component<PropsType> {
     return (
       <div>
         <Caption title={this.props.title} />
-        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.content}} centered={false} />
+        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.content}} centered={false}
+                       onInternLinkClick={this.props.onInternLinkClick} />
       </div>
     )
   }

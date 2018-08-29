@@ -74,6 +74,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
       ]
     }
     content=""
+    onInternLinkClick={[Function]}
     title="Willkommen"
   />
 </div>
@@ -102,6 +103,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
   </Breadcrumbs>
   <Page
     content="some content"
+    onInternLinkClick={[Function]}
     title="Willkommen in Augsburg"
   />
   <Translate(CategoryTimeStamp)

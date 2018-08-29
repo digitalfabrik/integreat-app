@@ -26,6 +26,7 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
     }
     language="en"
     location="augsburg"
+    onInternalLinkClick={[Function]}
   />
 </Fragment>
 `;

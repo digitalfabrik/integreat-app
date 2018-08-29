@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
 import RemoteContent from 'modules/common/components/RemoteContent'
@@ -12,12 +13,12 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import Caption from 'modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
 import EventModel from 'modules/endpoint/models/EventModel'
-import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   event: EventModel,
   language: string,
-  t: TFunction
+  t: TFunction,
+  onInternalLinkClick: string => void
 }
 
 /**
@@ -30,7 +31,7 @@ class EventDetail extends React.Component<PropsType> {
   }
 
   render () {
-    const event = this.props.event
+    const {event, onInternalLinkClick} = this.props
     return (
       <div>
         <img className={style.thumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
@@ -47,7 +48,7 @@ class EventDetail extends React.Component<PropsType> {
           <span className={style.identifier}>{this.props.t('location')}: </span>
           <span className={style.date}>{event.address}</span>
         </div>
-        <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} />
+        <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} onInternLinkClick={onInternalLinkClick} />
       </div>
     )
   }
