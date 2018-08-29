@@ -3,11 +3,12 @@
 import * as React from 'react'
 
 import styled from 'styled-components'
-import { View, Image } from 'react-native'
+import { TouchableOpacity, Dimensions } from 'react-native'
 import TileModel from '../models/TileModel'
 
 type PropsType = {
-  tile: TileModel
+  tile: TileModel,
+  onTilePress: (tile: TileModel) => void
 }
 
 const Thumbnail = styled.Image`
@@ -23,12 +24,14 @@ const TileTitle = styled.Text`
 
 const TileContainer = styled.View`
   margin-bottom: 20px;
+  width: ${Dimensions.get('window').width / 2.2}
 `
 
 /**
  * Displays a single Tile
  */
 class Tile extends React.Component<PropsType> {
+
   getTileContent (): React.Node {
     return <>
       <Thumbnail source={{uri: this.props.tile.thumbnail}} />
@@ -36,12 +39,14 @@ class Tile extends React.Component<PropsType> {
     </>
   }
 
+  onTilePress = () => {
+    this.props.onTilePress(this.props.tile)
+  }
+
   getTile (): React.Node {
     const tile = this.props.tile
     if (!tile.isExternalUrl) {
-      return <View to={tile.path}>{this.getTileContent()}</View>
-    } else if (!tile.postData) {
-      return <View href={tile.path} target='_blank'>{this.getTileContent()}</View>
+      return <TouchableOpacity onPress={this.onTilePress}>{this.getTileContent()}</TouchableOpacity>
     }
   }
 

@@ -1,19 +1,17 @@
 import * as React from 'react'
-import { Button, Text } from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import Caption from '../../../modules/common/components/Caption'
 
 class Dashboard extends React.Component<{}> {
   static navigationOptions = {
-    headerTitle: 'Dashboard'
+    // headerTitle: 'Dashboard'
   }
 
   nav = () => this.props.navigation.navigate('Categories')
 
   render () {
     return (<React.Fragment>
-        <Text>This is the Dashboard</Text>
-        <Text>{this.props.navigation.getParam('city').name}</Text>
-        <Caption title={'Captionfgv'} />
+        <Caption title={this.props.navigation.getParam('city').name} />
         <Button
           title='Go to Categories'
           onPress={this.nav}

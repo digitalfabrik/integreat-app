@@ -56,7 +56,8 @@ class CitySelector extends React.PureComponent<PropsType> {
           city={city}
           language={this.props.language}
           filterText={this.props.filterText}
-          navigateToDashboard={this.props.navigateToDashboard}/>)}
+          navigateToDashboard={this.props.navigateToDashboard}
+          theme={this.props.theme} />)}
       </View>)
     }, [])
   }

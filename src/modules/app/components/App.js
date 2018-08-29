@@ -22,11 +22,11 @@ class App extends React.Component<{}> {
     return (
       <I18nextProvider i18n={i18n}>
         <ThemeProvider theme={theme}>
-        <PlatformContext.Provider value={this.platform}>
-          <LayoutContainer>
-            <Navigator />
-          </LayoutContainer>
-        </PlatformContext.Provider>
+          <PlatformContext.Provider value={this.platform}>
+            <LayoutContainer>
+              <Navigator />
+            </LayoutContainer>
+          </PlatformContext.Provider>
         </ThemeProvider>
       </I18nextProvider>
     )

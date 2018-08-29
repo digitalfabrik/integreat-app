@@ -7,14 +7,19 @@ import Tile from './Tile'
 
 import styled from 'styled-components'
 import TileModel from '../models/TileModel'
-import { View } from 'react-native'
 
 type PropsType = {
   title: ?string,
-  tiles: TileModel[]
+  tiles: TileModel[],
+  onTilePress: (tile: TileModel) => void
 }
 
 const TilesRow = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   padding: 10px 0;
 `
 
@@ -24,12 +29,12 @@ const TilesRow = styled.View`
 class Tiles extends React.Component<PropsType> {
   render () {
     return (
-      <View>
+      <>
         {this.props.title && <Caption title={this.props.title} />}
         <TilesRow>
-          {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} />)}
+          {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} onTilePress={this.props.onTilePress} />)}
         </TilesRow>
-      </View>
+      </>
     )
   }
 }

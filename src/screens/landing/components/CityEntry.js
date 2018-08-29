@@ -5,6 +5,8 @@ import React from 'react'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
+import { View } from 'react-native'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
 export const CityListItem = styled.TouchableHighlight`
   padding: 7px;
@@ -14,7 +16,8 @@ type PropType = {
   city: CityModel,
   language: string,
   filterText: string,
-  navigateToDashboard: (city: CityModel) => void
+  navigateToDashboard: (city: CityModel) => void,
+  theme: ThemeType
 }
 
 class CityEntry extends React.PureComponent<PropType> {
@@ -25,9 +28,11 @@ class CityEntry extends React.PureComponent<PropType> {
   render () {
     const {city} = this.props
     return (
-      <CityListItem onPress={this.navigateToDashboard}>
-        <Text>{city.name}</Text>
-      </CityListItem>
+      <View>
+        <CityListItem onPress={this.navigateToDashboard} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+          <Text>{city.name}</Text>
+        </CityListItem>
+      </View>
     )
   }
 }

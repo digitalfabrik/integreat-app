@@ -5,6 +5,9 @@ import * as React from 'react'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
+import { Text } from 'react-native-elements'
+import { View } from 'react-native'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
 const Row = styled.View`
   margin: 12px 0;
@@ -16,12 +19,11 @@ const SubCategory = styled.View`
 const CategoryThumbnail = styled.Image`
   width: 40px;
   height: 40px;
-  flex-shrink: 0;
+  resize-mode: contain;
   padding: 8px;
 `
 
 const CategoryCaption = styled.Text`
-  height: 100%;
   flex-grow: 1;
   padding: 15px 5px;
   border-bottom-width: 2px;
@@ -34,16 +36,20 @@ const SubCategoryCaption = styled(CategoryCaption)`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const StyledLink = styled.View`
-  align-items: center;
+const StyledLink = styled.TouchableHighlight`
+  display: flex;
+  flex-direction: row;
+  justifyContent:center;
   margin: 0 auto;
+  width: 80%;
 `
 
 type PropsType = {
   category: CategoryModel,
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
-  query?: string
+  query?: string,
+  theme: ThemeType
 }
 
 /**
@@ -54,9 +60,9 @@ class CategoryListItem extends React.Component<PropsType> {
     const {subCategories} = this.props
     return subCategories.map(subCategory =>
       <SubCategory key={subCategory.id}>
-        <StyledLink to={subCategory.path}>
+        <StyledLink onPress={() => {}} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <SubCategoryCaption search={''}>
-            {subCategory.title}
+            <Text>{subCategory.title}</Text>
           </SubCategoryCaption>
         </StyledLink>
       </SubCategory>
@@ -66,7 +72,7 @@ class CategoryListItem extends React.Component<PropsType> {
   renderTitle (): React.Node {
     const {query} = this.props
     return <CategoryCaption search={query || ''}>
-      {this.props.category.title}
+      <Text>{this.props.category.title}</Text>
     </CategoryCaption>
   }
 
@@ -74,9 +80,11 @@ class CategoryListItem extends React.Component<PropsType> {
     const {category} = this.props
     return (
       <Row>
-        <StyledLink to={category.path}>
-          <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder} />
-          {this.renderTitle()}
+        <StyledLink onPress={() => {}} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+          <>
+            <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder} />
+            {this.renderTitle()}
+          </>
         </StyledLink>
         {this.renderSubCategories()}
       </Row>

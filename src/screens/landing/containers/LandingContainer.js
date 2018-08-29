@@ -5,7 +5,7 @@ import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import { Text } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableHighlight } from 'react-native'
 import Heading from '../components/Heading'
 import styled, { withTheme } from 'styled-components'
 import FilterableCitySelector from '../components/FilterableCitySelector'
@@ -14,7 +14,7 @@ import type { ThemeType } from '../../../modules/layout/constants/theme'
 import { translate } from 'react-i18next'
 
 const Wrapper = styled.View`
-  padding-top: 22px;
+  padding: 22px 10px 0;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
@@ -38,7 +38,7 @@ class LandingContainer extends React.Component<PropType, StateType> {
     this.state = {data: null}
   }
 
-  async fetchData (): void {
+  async fetchData (): Promise<void> {
     const payload = await citiesEndpoint.loadData({language: 'de'})
     console.log(payload)
     // eslint-disable-next-line react/no-did-mount-set-state

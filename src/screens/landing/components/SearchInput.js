@@ -10,7 +10,6 @@ export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}
 `
 
-// width: calc(100% - ${searchLogoWidth} - 5px);
 export const Input = styled.TextInput.attrs({
   multiline: false,
   textColor: props => props.theme.colors.textSecondaryColor,
@@ -27,7 +26,6 @@ export const Wrapper = styled.View`
   display: flex;
   flex-direction: row;
   justifyContent:center;
-  width: 100%;
   padding: 10px 10%;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
@@ -63,8 +61,7 @@ class SearchInput extends React.Component<PropsType> {
             aria-label={placeholderText}
             defaultValue={filterText}
             onChangeText={this.onFilterTextChange}
-            onClick={onClickInput}
-            autoFocus />
+            onClick={onClickInput} />
         </Wrapper>
       </Spacer>
     )

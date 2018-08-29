@@ -27,6 +27,9 @@ node_modules/react-native/flow/
 node_modules/react-native/flow-github/
 
 [options]
+module.system.node.resolve_dirname=node_modules
+# See for information about the "./" https://github.com/facebook/flow/issues/5180
+module.system.node.resolve_dirname=./src
 emoji=true
 
 module.system=haste

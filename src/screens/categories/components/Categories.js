@@ -13,16 +13,18 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import CategoryTimeStamp from './CategoryTimeStamp'
-import { translate } from 'react-i18next'
 import { ScrollView } from 'react-native'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
-type PropsType = {
+type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
   city: string,
-  language: string
-}
+  onTilePress: (tile: TileModel) => void,
+  language: string,
+  theme: ThemeType
+|}
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
@@ -60,12 +62,13 @@ export class Categories extends React.Component<PropsType> {
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={CityModel.findCityName(cities, category.title)} />
+                    title={CityModel.findCityName(cities, category.title)} onTilePress={this.props.onTilePress} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
                          title={category.title}
-                         content={category.content} />
+                         content={category.content}
+                         theme={this.props.theme}/>
   }
 
   render () {
