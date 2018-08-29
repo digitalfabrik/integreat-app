@@ -12,7 +12,6 @@ pipeline {
     stage('Test') {
       steps {
         sh 'yarn'
-        sh 'yarn run check:flow-annotations'
         sh 'yarn run flow'
         sh 'yarn run lint'
         sh 'yarn run test --ci'
