@@ -1,14 +1,14 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
+import ConnectedCategoriesPage, { Categories } from '../Categories'
 import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment-timezone'
 
-describe('CategoriesPage', () => {
+describe('Categories', () => {
   const categoryModels = [
     new CategoryModel({
       id: 0,
@@ -76,12 +76,12 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render a Page if page has no children', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      path={categoryModels[3].path}
-                      t={key => key} />
+      <Categories categories={categories}
+                  cities={cities}
+                  city={city}
+                  language={language}
+                  path={categoryModels[3].path}
+                  t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -89,12 +89,12 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render a CategoryList if the category is neither the root but has children', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      path={categoryModels[2].path}
-                      t={key => key} />
+      <Categories categories={categories}
+                  cities={cities}
+                  city={city}
+                  language={language}
+                  path={categoryModels[2].path}
+                  t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -102,12 +102,12 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render CategoryTiles if the path is the root category', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      path={'/augsburg/de'}
-                      t={key => key} />
+      <Categories categories={categories}
+                  cities={cities}
+                  city={city}
+                  language={language}
+                  path={'/augsburg/de'}
+                  t={key => key} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -115,11 +115,11 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render an Error if path is not valid', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      path={'/augsburg/de/not/valid'} />
+      <Categories categories={categories}
+                  cities={cities}
+                  city={city}
+                  language={language}
+                  path={'/augsburg/de/not/valid'} />
     )
 
     expect(wrapper).toMatchSnapshot()

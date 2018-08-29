@@ -8,14 +8,9 @@ import styled from 'styled-components'
 
 const Row = styled.View`
   margin: 12px 0;
-  
-  & > * {
-    width: 100%;
-  }
 `
 
 const SubCategory = styled.View`
-  text-align: end;
 `
 
 const CategoryThumbnail = styled.Image`
@@ -23,25 +18,23 @@ const CategoryThumbnail = styled.Image`
   height: 40px;
   flex-shrink: 0;
   padding: 8px;
-  object-fit: contain;
 `
 
-const CategoryCaption = styled.View`
+const CategoryCaption = styled.Text`
   height: 100%;
-  min-width: 1px; /* needed to enable line breaks for to long words, exact value doesn't matter */
   flex-grow: 1;
   padding: 15px 5px;
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
-  word-wrap: break-word;
+  border-bottom-width: 2px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
 const SubCategoryCaption = styled(CategoryCaption)`
   padding: 8px 0;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const StyledLink = styled.Text`
-  display: inline-flex;
+const StyledLink = styled.View`
   align-items: center;
   margin: 0 auto;
 `
@@ -82,7 +75,7 @@ class CategoryListItem extends React.Component<PropsType> {
     return (
       <Row>
         <StyledLink to={category.path}>
-          <CategoryThumbnail src={category.thumbnail || iconPlaceholder} />
+          <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder} />
           {this.renderTitle()}
         </StyledLink>
         {this.renderSubCategories()}

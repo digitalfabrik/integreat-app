@@ -9,8 +9,8 @@ import styled from 'styled-components'
 const TimeStamp = styled.Text`
   padding-top: 15px;
   color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.contentFontFamily};
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  /*font-family: ${props => props.theme.fonts.contentFontFamily};*/
+  /*font-size: ${props => props.theme.fonts.contentFontSize};*/
 `
 
 type PropsType = {

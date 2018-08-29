@@ -10,15 +10,9 @@ type PropsType = {
   tile: TileModel
 }
 
-const Thumbnail = styled.View`
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 100%;
-`
-
-const ThumbnailSizer = styled.View`
-  width: 150px;
-  margin: 0 auto;
+const Thumbnail = styled.Image`
+  height: 150px;
+  resize-mode: contain;
 `
 
 const TileTitle = styled.Text`
@@ -37,9 +31,7 @@ const TileContainer = styled.View`
 class Tile extends React.Component<PropsType> {
   getTileContent (): React.Node {
     return <>
-      <ThumbnailSizer>
-        <Thumbnail><Image source={{uri: this.props.tile.thumbnail}} /></Thumbnail>
-      </ThumbnailSizer>
+      <Thumbnail source={{uri: this.props.tile.thumbnail}} />
       <TileTitle>{this.props.tile.title}</TileTitle>
     </>
   }

@@ -1,10 +1,11 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { View } from 'react-native'
 
 type PropsType = {
   categories: Array<{| model: CategoryModel, subCategories: Array<CategoryModel> |}>,
@@ -21,9 +22,9 @@ class CategoryList extends React.Component<PropsType> {
   render () {
     const {categories, title, content, query} = this.props
     return (
-      <div>
+      <View>
         {title && <Caption title={title} />}
-        <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />
+        {/*<RemoteContent centered dangerouslySetInnerHTML={{__html: content}} />*/}
         <React.Fragment>
           {categories.map(({model, subCategories}) =>
             <CategoryListItem key={model.id}
@@ -32,7 +33,7 @@ class CategoryList extends React.Component<PropsType> {
                               query={query} />
           )}
         </React.Fragment>
-      </div>
+      </View>
     )
   }
 }

@@ -6,7 +6,7 @@ import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import { Text } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
-import { CategoriesPage } from './CategoriesPage'
+import { Categories } from '../components/Categories'
 
 type PropType = {
   navigation: NavigationScreenProp<*>
@@ -43,10 +43,10 @@ export default class CategoriesContainer extends React.Component<PropType, State
     if (!this.state.cities) {
       return <Text>Test</Text>
     }
-    return <CategoriesPage categories={this.state.categories} cities={this.state.cities}
-                           language={'de'}
-                           city={this.props.navigation.getParam('city')}
-                           path={'/augsburg/de'}
-                           navigation={this.props.navigation} />
+    return <Categories categories={this.state.categories} cities={this.state.cities}
+                       language={'de'}
+                       city={this.props.navigation.getParam('city')}
+                       path={'/augsburg/de/willkommen/stadtplan'}
+                       navigation={this.props.navigation} />
   }
 }
