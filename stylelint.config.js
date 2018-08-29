@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 module.exports = {
   processors: ['stylelint-processor-styled-components'],
   plugins: ['stylelint-order'],
@@ -10,10 +12,10 @@ module.exports = {
         except: [
           'blockless-after-same-name-blockless',
           'blockless-after-blockless',
-          'first-nested',
+          'first-nested'
         ],
-        ignore: ['after-comment'],
-      },
+        ignore: ['after-comment']
+      }
     ],
     'at-rule-name-case': 'lower',
     'at-rule-no-unknown': [
@@ -30,9 +32,9 @@ module.exports = {
           'mixin',
           'define-mixin',
           'return',
-          'while',
-        ],
-      },
+          'while'
+        ]
+      }
     ],
     'at-rule-no-vendor-prefix': true,
     'block-closing-brace-newline-after': 'always',
@@ -49,8 +51,8 @@ module.exports = {
     'declaration-block-no-duplicate-properties': [
       true,
       {
-        ignore: ['consecutive-duplicates-with-different-values'],
-      },
+        ignore: ['consecutive-duplicates-with-different-values']
+      }
     ],
     'declaration-block-no-redundant-longhand-properties': true,
     'declaration-block-no-shorthand-property-overrides': true,
@@ -66,8 +68,8 @@ module.exports = {
     'max-line-length': [
       120,
       {
-        ignorePattern: ['/^@import\\s+/', '/^\\s*@include/', '/^\\s*@return/', '/<svg/'],
-      },
+        ignorePattern: ['/^@import\\s+/', '/^\\s*@include/', '/^\\s*@return/', '/<svg/']
+      }
     ],
     'max-nesting-depth': 4,
     'no-invalid-double-slash-comments': true,
@@ -205,7 +207,7 @@ module.exports = {
         'src'
       ],
       {
-        unspecified: 'ignore',
+        unspecified: 'ignore'
       }
     ],
     'property-case': 'lower',
@@ -215,7 +217,7 @@ module.exports = {
       'always',
       {
         except: ['first-nested'],
-        ignore: ['after-comment'],
+        ignore: ['after-comment']
       }
     ],
     'selector-list-comma-newline-after': 'always',
@@ -231,7 +233,7 @@ module.exports = {
       'in',
       'mm',
       'pc',
-      'pt',
+      'pt'
       // 'px', // most likely to be introduced later this year. Prefer rem
     ],
     'unit-case': 'lower',
