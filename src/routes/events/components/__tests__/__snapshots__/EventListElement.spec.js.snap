@@ -45,12 +45,7 @@ exports[`EventListElement should render 1`] = `
           "__html": "excerpt...",
         }
       }
-      hosts={
-        Array [
-          "cms.integreat-app.de",
-          "web.integreat-app.de",
-        ]
-      }
+      hijackRegExp={/https\\?:\\\\/\\\\/\\(cms\\.integreat-app\\.de\\|web\\.integreat-app\\.de\\|integreat\\.app\\)\\(\\?!\\\\/\\[\\^\\\\/\\]\\*\\\\/\\(wp-content\\|wp-admin\\|wp-json\\)\\\\/\\.\\*\\)\\.\\*/}
       onInternLinkClick={[Function]}
     />
   </div>
