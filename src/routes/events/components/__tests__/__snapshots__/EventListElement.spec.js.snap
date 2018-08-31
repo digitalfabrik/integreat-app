@@ -45,7 +45,7 @@ exports[`EventListElement should render 1`] = `
           "__html": "excerpt...",
         }
       }
-      hijackRegExp={/https\\?:\\\\/\\\\/\\(cms\\.integreat-app\\.de\\|web\\.integreat-app\\.de\\|integreat\\.app\\)\\(\\?!\\\\/\\[\\^\\\\/\\]\\*\\\\/\\(wp-content\\|wp-admin\\|wp-json\\)\\\\/\\.\\*\\)\\.\\*/}
+      hijackRegExp={/https\\?:\\\\/\\\\/\\(cms\\\\\\.integreat-app\\\\\\.de\\|web\\\\\\.integreat-app\\\\\\.de\\|integreat\\\\\\.app\\)\\(\\?!\\\\/\\[\\^\\\\/\\]\\*\\\\/\\(wp-content\\|wp-admin\\|wp-json\\)\\\\/\\.\\*\\)\\.\\*/}
       onInternLinkClick={[Function]}
     />
   </div>
