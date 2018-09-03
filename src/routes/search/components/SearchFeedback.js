@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import FeedbackModal from '../../feedback/components/FeedbackModal'
+import FeedbackModal from '../../../modules/feedback/components/FeedbackModal'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import { NEGATIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { LocationState } from 'redux-first-router'
 import { goToFeedback } from '../../../modules/app/routes/feedback'

@@ -3,9 +3,9 @@
 import * as React from 'react'
 import 'react-dropdown/style.css'
 
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import type { TFunction } from 'react-i18next'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'

@@ -1,11 +1,11 @@
 // @flow
 
+import type { Node } from 'react'
 import React from 'react'
 
 import Toolbar from '../../../modules/layout/components/Toolbar'
 import type { LocationState } from 'redux-first-router'
-import FeedbackLink from '../../../routes/feedback/components/FeedbackLink'
-import type { Node } from 'react'
+import FeedbackLink from '../../feedback/components/FeedbackLink'
 
 type PropsType = {
   location: LocationState,

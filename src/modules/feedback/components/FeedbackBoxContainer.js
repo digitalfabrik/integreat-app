@@ -4,15 +4,19 @@ import * as React from 'react'
 import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 import FeedbackEndpoint, {
-  CATEGORIES_FEEDBACK_TYPE, DEFAULT_FEEDBACK_LANGUAGE,
+  CATEGORIES_FEEDBACK_TYPE,
+  DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
-  EXTRA_FEEDBACK_TYPE, EXTRAS_FEEDBACK_TYPE, INTEGREAT_INSTANCE,
+  EXTRA_FEEDBACK_TYPE,
+  EXTRAS_FEEDBACK_TYPE,
+  INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-}
-  from '../../../modules/endpoint/FeedbackEndpoint'
+} from '../../../modules/endpoint/FeedbackEndpoint'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
 import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
@@ -24,8 +28,6 @@ import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
 import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
-import { translate } from 'react-i18next'
-import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
