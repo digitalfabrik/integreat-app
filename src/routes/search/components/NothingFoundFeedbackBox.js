@@ -7,8 +7,8 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/FeedbackEndpoint'
 import type { LocationState } from 'redux-first-router'
-import { Description, StyledFeedbackBox, SubmitButton } from '../../feedback/components/FeedbackBox'
-import FeedbackComment from '../../feedback/components/FeedbackComment'
+import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
+import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
 import styled from 'styled-components'
 
 export const StyledSubmitButton = styled(SubmitButton.withComponent('div'))`
