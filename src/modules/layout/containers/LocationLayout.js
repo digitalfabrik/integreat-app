@@ -29,6 +29,8 @@ import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
+export type FeedbackRatingType = 'up' | 'down'
+
 type PropsType = {
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
@@ -41,11 +43,12 @@ type PropsType = {
 }
 
 type StateType = {
-  asideStickyTop: number
+  asideStickyTop: number,
+  feedbackModalRating: ?FeedbackRatingType
 }
 
 export class LocationLayout extends React.Component<PropsType, StateType> {
-  state = {asideStickyTop: 0}
+  state = {asideStickyTop: 0, feedbackModalRating: null}
 
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
 
@@ -57,8 +60,11 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   renderFeedbackModal = (): React.Node => {
+    if (!this.state.feedbackModalRating) {
+      return null
+    }
+
     const {cities, location, categories, events, extras, disclaimer} = this.props
-    const feedbackStatus = location.query && location.query.feedback
     const payload = location.payload
 
     let id
@@ -96,27 +102,30 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       id = disclaimer.id
     }
 
-    return (
-      <FeedbackModal
-        id={id}
-        title={title}
-        alias={alias}
-        cities={cities}
-        feedbackStatus={feedbackStatus}
-        location={location}
-        extras={extras} />
-    )
+    return <FeedbackModal
+      id={id}
+      title={title}
+      alias={alias}
+      cities={cities}
+      feedbackStatus={this.state.feedbackModalRating}
+      closeFeedbackModal={this.closeFeedbackModal}
+      location={location}
+      extras={extras} />
   }
+
+  openFeedbackModal = (rating: FeedbackRatingType) => this.setState({feedbackModalRating: rating})
+
+  closeFeedbackModal = () => this.setState({feedbackModalRating: null})
 
   renderToolbar = (): React.Node => {
     const {location, categories} = this.props
     const type = location.type
 
     if (type === CATEGORIES_ROUTE) {
-      return <CategoriesToolbar categories={categories}
-                                location={location} />
+      return <CategoriesToolbar categories={categories} location={location}
+                                openFeedbackModal={this.openFeedbackModal} />
     } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
-      return <LocationToolbar location={location} />
+      return <LocationToolbar openFeedbackModal={this.openFeedbackModal} />
     } else {
       return null
     }
@@ -136,17 +145,15 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
       </Layout>
     }
 
-    return (
-      <Layout asideStickyTop={this.state.asideStickyTop}
-              header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                      isExtrasEnabled={cityModel.extrasEnabled}
-                                      onStickyTopChanged={this.onStickyTopChanged} />}
-              footer={<LocationFooter city={city} language={language} />}
-              toolbar={this.renderToolbar()}
-              modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
-        {children}
-      </Layout>
-    )
+    return <Layout asideStickyTop={this.state.asideStickyTop}
+                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel.extrasEnabled}
+                                           onStickyTopChanged={this.onStickyTopChanged} />}
+                   footer={<LocationFooter city={city} language={language} />}
+                   toolbar={this.renderToolbar()}
+                   modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
+      {children}
+    </Layout>
   }
 }
 

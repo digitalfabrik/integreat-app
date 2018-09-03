@@ -37,9 +37,10 @@ type PropsType = {|
   query?: string,
   isPositiveRatingSelected: boolean,
   location: LocationState,
-  isOpen: boolean,
   extras: ?Array<ExtraModel>,
   postFeedbackDataOverride?: FeedbackDataType => void,
+  closeFeedbackModal: () => void,
+  onSubmit: () => void,
   t: TFunction
 |}
 
@@ -57,20 +58,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
-  }
-
-  componentDidUpdate (prevProps: PropsType) {
-    const {isOpen} = this.props
-    const prevIsOpen = prevProps.isOpen
-
-    // If the FeedbackBoxContainer is opened, we have to reset and initialize the state and post the feedback
-    if (prevIsOpen !== isOpen && isOpen) {
-      /* eslint-disable react/no-did-update-set-state */
-      const feedbackOptions = this.getFeedbackOptions()
-      const selectedFeedbackOption = feedbackOptions[0]
-      this.setState({feedbackOptions: feedbackOptions, selectedFeedbackOption: selectedFeedbackOption, comment: ''})
-      this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, ''))
-    }
   }
 
   postFeedbackData = (feedbackData: FeedbackDataType) => {
@@ -211,18 +198,17 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   onSubmit = () => {
     const {selectedFeedbackOption, comment} = this.state
     this.postFeedbackData(this.getFeedbackData(selectedFeedbackOption, comment))
+    this.props.onSubmit()
   }
 
   render () {
-    const {location, isPositiveRatingSelected} = this.props
-    return (
-      <FeedbackBox onFeedbackOptionChanged={this.onFeedbackOptionChanged}
-                   onCommentChanged={this.onCommentChanged}
-                   onSubmit={this.onSubmit}
-                   location={location}
-                   isPositiveRatingSelected={isPositiveRatingSelected}
-                   {...this.state} />
-    )
+    const {closeFeedbackModal, isPositiveRatingSelected} = this.props
+    return <FeedbackBox onFeedbackOptionChanged={this.onFeedbackOptionChanged}
+                        onCommentChanged={this.onCommentChanged}
+                        onSubmit={this.onSubmit}
+                        closeFeedbackModal={closeFeedbackModal}
+                        isPositiveRatingSelected={isPositiveRatingSelected}
+                        {...this.state} />
   }
 }
 
