@@ -51,23 +51,19 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     const {feedbackSent, comment} = this.state
     const {t} = this.props
 
-    if (feedbackSent) {
-      return (
-        <StyledFeedbackBox>
-          <Description >{t('thanksMessage')}</Description>
-        </StyledFeedbackBox>
-      )
-    } else {
-      return (
-        <StyledFeedbackBox>
-          <FeedbackComment
-            comment={comment}
-            commentMessage={t('wantedInformation')}
-            onCommentChanged={this.onCommentChanged} />
-          <StyledSubmitButton onClick={this.onSubmit}>{t('send')}</StyledSubmitButton>
-        </StyledFeedbackBox>
-      )
-    }
+    return <StyledFeedbackBox>
+      {
+        feedbackSent
+          ? <Description>{t('thanksMessage')}</Description>
+          : <>
+            <FeedbackComment
+              comment={comment}
+              commentMessage={t('wantedInformation')}
+              onCommentChanged={this.onCommentChanged} />
+            <StyledSubmitButton onClick={this.onSubmit}>{t('send')}</StyledSubmitButton>
+          </>
+      }
+    </StyledFeedbackBox>
   }
 }
 
