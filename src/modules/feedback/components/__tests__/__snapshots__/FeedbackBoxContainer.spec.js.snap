@@ -43,18 +43,6 @@ exports[`FeedbackBoxContainer should match snapshot 1`] = `
     ]
   }
   isPositiveRatingSelected={true}
-  location={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "query": Object {
-        "feedback": "up",
-      },
-      "type": "CATEGORIES",
-    }
-  }
   onCommentChanged={[Function]}
   onFeedbackOptionChanged={[Function]}
   onSubmit={[Function]}
