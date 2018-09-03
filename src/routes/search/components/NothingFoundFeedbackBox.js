@@ -9,11 +9,8 @@ import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoin
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
-import styled from 'styled-components'
 
-export const StyledSubmitButton = styled(SubmitButton.withComponent('div'))`
-  cursor: pointer;
-`
+export const StyledSubmitButton = SubmitButton.withComponent('div')
 
 type PropsType = {
   query?: string,
@@ -67,9 +64,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
             comment={comment}
             commentMessage={t('wantedInformation')}
             onCommentChanged={this.onCommentChanged} />
-          <StyledSubmitButton onClick={this.onSubmit}>
-            {t('send')}
-          </StyledSubmitButton>
+          <StyledSubmitButton onClick={this.onSubmit}>{t('send')}</StyledSubmitButton>
         </StyledFeedbackBox>
       )
     }

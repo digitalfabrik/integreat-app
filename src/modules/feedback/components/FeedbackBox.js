@@ -6,14 +6,10 @@ import 'react-dropdown/style.css'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import CleanLink from '../../../modules/common/components/CleanLink'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
-import type { LocationState } from 'redux-first-router'
-import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import Dropdown from 'react-dropdown'
-import { FEEDBACK_SENT } from './FeedbackModal'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -32,24 +28,25 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 
-export const SubmitButton = styled(CleanLink)`
+export const SubmitButton = styled.span`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
   text-align: center;
   border-radius: 0.25em;
+  cursor: pointer;
 `
 
 type PropsType = {|
   isPositiveRatingSelected: boolean,
-  location: LocationState,
   feedbackOptions: Array<FeedbackDropdownItem>,
   selectedFeedbackOption: FeedbackDropdownItem,
   comment: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
   onFeedbackOptionChanged: FeedbackDropdownItem => void,
   onSubmit: () => void,
-  t: TFunction
+  t: TFunction,
+  closeFeedbackModal: () => void
 |}
 
 /**
@@ -62,16 +59,16 @@ export class FeedbackBox extends React.Component<PropsType> {
       feedbackOptions,
       t,
       isPositiveRatingSelected,
-      location,
       onFeedbackOptionChanged,
       onCommentChanged,
       onSubmit,
-      comment
+      comment,
+      closeFeedbackModal
     } = this.props
 
     return (
       <StyledFeedbackBox>
-        <ModalHeader location={location} title={t('feedback')} />
+        <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
         <Dropdown
           value={selectedFeedbackOption}
@@ -82,7 +79,7 @@ export class FeedbackBox extends React.Component<PropsType> {
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
           isPositiveRatingSelected={isPositiveRatingSelected}
           onCommentChanged={onCommentChanged} />
-        <SubmitButton to={goToFeedback(location, FEEDBACK_SENT)} onClick={onSubmit}>
+        <SubmitButton onClick={onSubmit}>
           {t('send')}
         </SubmitButton>
       </StyledFeedbackBox>

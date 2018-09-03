@@ -3,21 +3,20 @@
 import React from 'react'
 import { Description, StyledFeedbackBox } from './FeedbackBox'
 import ModalHeader from './ModalHeader'
-import type { LocationState } from 'redux-first-router'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
 type PropsType = {
-  location: LocationState,
+  closeFeedbackModal: () => void,
   t: TFunction
 }
 
 export class FeedbackThanksMessage extends React.Component<PropsType> {
   render () {
-    const {location, t} = this.props
+    const {closeFeedbackModal, t} = this.props
     return (
       <StyledFeedbackBox>
-        <ModalHeader location={location} title={t('feedbackSent')} />
+        <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedbackSent')} />
         <Description>{t('thanksMessage')}</Description>
       </StyledFeedbackBox>
     )
