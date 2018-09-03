@@ -3,15 +3,6 @@
 exports[`FeedbackBox should match snapshot 1`] = `
 <FeedbackBox__StyledFeedbackBox>
   <ModalHeader
-    location={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
-      }
-    }
     title="feedback"
   />
   <FeedbackBox__Description>
@@ -45,18 +36,6 @@ exports[`FeedbackBox should match snapshot 1`] = `
   />
   <FeedbackBox__SubmitButton
     onClick={[Function]}
-    to={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": Object {
-          "feedback": "sent",
-        },
-        "type": "CATEGORIES",
-      }
-    }
   >
     send
   </FeedbackBox__SubmitButton>
