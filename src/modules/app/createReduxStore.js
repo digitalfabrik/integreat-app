@@ -9,6 +9,7 @@ import { createLogger } from 'redux-logger'
 
 import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from '../endpoint/reducers'
+import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import defaultRoutesMap from './routesMap'
 import onBeforeChange from './onBeforeChange'
@@ -41,7 +42,8 @@ const createReduxStore = (createHistory: () => History, initialState: {} = {}, r
     ...endpointReducers,
     viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
     location: reducer,
-    uiDirection: uiDirectionReducer
+    uiDirection: uiDirectionReducer,
+    darkMode: toggleDarkModeReducer
   })
 
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))

@@ -6,12 +6,12 @@ exports[`HeaderDropDown should match snapshot 1`] = `
     onClick={[Function]}
     src="/someImg"
   />
-  <div
-    className="dropDown"
+  <HeaderDropDown__DropDownContainer
+    active={false}
   >
     <MockNode
       closeDropDownCallback={[Function]}
     />
-  </div>
+  </HeaderDropDown__DropDownContainer>
 </span>
 `;

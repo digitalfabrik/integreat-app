@@ -83,7 +83,7 @@ describe('I18nRedirectPage', () => {
       })
 
       const i18nRedirect = shallow(
-        <ConnectedI18nRedirectPage store={store} />
+        <ConnectedI18nRedirectPage store={store} cities={cities} />
       )
 
       expect(i18nRedirect.props()).toMatchObject({
@@ -102,7 +102,7 @@ describe('I18nRedirectPage', () => {
 
       mount(
         <Provider store={store}>
-          <ConnectedI18nRedirectPage />
+          <ConnectedI18nRedirectPage cities={cities} />
         </Provider>,
         {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
       )

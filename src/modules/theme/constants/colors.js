@@ -1,6 +1,6 @@
 // @flow
 
-export type ColorType = {
+export type ColorsType = {
   themeColor: string,
   themeDarkColor: string,
   backgroundAccentColor: string,
@@ -10,7 +10,7 @@ export type ColorType = {
   backgroundColor: string
 }
 
-export default {
+export const brightColors: ColorsType = {
   themeColor: '#fbda16',
   themeDarkColor: '#c4a900',
   backgroundAccentColor: '#fafafa',
@@ -18,4 +18,14 @@ export default {
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
   backgroundColor: '#ffffff'
+}
+
+export const darkColors: ColorsType = {
+  themeColor: '#fbda16',
+  themeDarkColor: '#c4a900',
+  backgroundAccentColor: '#111111',
+  textColor: '#BBBBBB',
+  textSecondaryColor: '#888888',
+  textDecorationColor: '#555555',
+  backgroundColor: '#222222'
 }

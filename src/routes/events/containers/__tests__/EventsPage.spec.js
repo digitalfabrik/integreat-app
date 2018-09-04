@@ -74,7 +74,7 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  redirect={() => {}}
+                  dispatch={() => {}}
                   routesMap={{}} />
     )
     expect(wrapper).toMatchSnapshot()
@@ -88,7 +88,7 @@ describe('EventsPage', () => {
                   t={t}
                   language={language}
                   eventId={id}
-                  redirect={() => {}}
+                  dispatch={() => {}}
                   routesMap={{}} />
     )
     expect(wrapper).toMatchSnapshot()
@@ -102,7 +102,7 @@ describe('EventsPage', () => {
                   t={t}
                   language={language}
                   eventId={234729}
-                  redirect={() => {}}
+                  dispatch={() => {}}
                   routesMap={{}} />
     )
     expect(wrapper).toMatchSnapshot()
@@ -119,7 +119,7 @@ describe('EventsPage', () => {
     })
 
     const categoriesPage = shallow(
-      <ConnectedEventsPage store={store} />
+      <ConnectedEventsPage store={store} cities={cities} events={events} />
     )
 
     expect(categoriesPage.props()).toMatchObject({

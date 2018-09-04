@@ -152,7 +152,7 @@ describe('Switcher', () => {
     <Switcher viewportSmall={false} currentRoute={currentRoute} citiesPayload={citiesPayload}
               categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
               disclaimerPayload={disclaimerPayload} languages={languages} city={'city1'} language={'de'}
-              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} param={'param'} />
+              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} param={'param'} darkMode />
 
   describe('layout', () => {
     it('should render a location layout if the current route is a location layout route', () => {
@@ -272,7 +272,11 @@ describe('Switcher', () => {
 
   it('should map state to props', () => {
     const currentRoute = 'RANDOM_ROUTE'
-    const location = {type: currentRoute, payload: {city: 'augsburg', language: 'de'}, prev: {payload: {param: 'param'}}}
+    const location = {
+      type: currentRoute,
+      payload: {city: 'augsburg', language: 'de'},
+      prev: {payload: {param: 'param'}}
+    }
     const mockStore = configureMockStore()
     const store = mockStore({
       location,
