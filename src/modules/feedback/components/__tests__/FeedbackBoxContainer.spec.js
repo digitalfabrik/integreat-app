@@ -47,9 +47,10 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen
         extras={null}
-        t={t} />
+        t={t}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}} />
     )).toMatchSnapshot()
   })
 
@@ -65,10 +66,11 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
         extras={null}
         postFeedbackDataOverride={mockPostFeedbackData}
-        t={t} />
+        t={t}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}} />
     )
 
     component.setProps({isOpen: true})
@@ -86,7 +88,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -109,7 +112,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -132,7 +136,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -156,7 +161,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -180,7 +186,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         t={t} />
     )
@@ -233,7 +240,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={extras}
         t={t} />
     )
@@ -271,7 +279,8 @@ describe('FeedbackBoxContainer', () => {
           title={title}
           alias={alias}
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
   )
@@ -292,7 +301,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         t={t} />
@@ -312,7 +322,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         t={t} />
     ).instance()
@@ -333,7 +344,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         t={t} />
     ).instance()
