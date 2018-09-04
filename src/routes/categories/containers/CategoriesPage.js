@@ -22,7 +22,8 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { UiDirectionType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
-import { pathToAction, redirect } from 'redux-first-router'
+import { pathToAction, setKind } from 'redux-first-router'
+import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
 type PropsType = {
   categories: CategoriesMapModel,
@@ -32,7 +33,7 @@ type PropsType = {
   language: string,
   uiDirection: UiDirectionType,
   t: TFunction,
-  redirect: string => void,
+  dispatch: ReceivedAction => void,
   routesMap: {}
 }
 
@@ -53,7 +54,8 @@ export class CategoriesPage extends React.Component<PropsType> {
 
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
-    this.props.redirect(action)
+    setKind(action, 'push')
+    this.props.dispatch(action)
   }
 
   /**
@@ -130,7 +132,7 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  redirect: action => dispatch(redirect(action))
+  dispatch
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(translate('categories')(CategoriesPage))
