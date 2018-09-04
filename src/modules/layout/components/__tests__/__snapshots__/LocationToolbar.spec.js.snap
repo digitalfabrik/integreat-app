@@ -7,9 +7,11 @@ exports[`LocationToolbar should match snapshot 1`] = `
   </div>
   <Translate(FeedbackLink)
     isPositiveRatingLink={true}
+    openFeedbackModal={[Function]}
   />
   <Translate(FeedbackLink)
     isPositiveRatingLink={false}
+    openFeedbackModal={[Function]}
   />
 </Toolbar>
 `;

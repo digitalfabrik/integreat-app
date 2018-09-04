@@ -5,7 +5,9 @@ exports[`ModalHeader should match snapshot 1`] = `
   <ModalHeader__Title>
     title
   </ModalHeader__Title>
-  <ModalHeader__CloseButton>
+  <ModalHeader__CloseButton
+    onClick={[Function]}
+  >
     x
   </ModalHeader__CloseButton>
 </ModalHeader__Header>

@@ -3,6 +3,7 @@
 exports[`FeedbackBox should match snapshot 1`] = `
 <FeedbackBox__StyledFeedbackBox>
   <ModalHeader
+    closeFeedbackModal={[Function]}
     title="feedback"
   />
   <FeedbackBox__Description>
