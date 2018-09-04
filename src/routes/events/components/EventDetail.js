@@ -3,10 +3,9 @@
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-
+import styled from 'styled-components'
 import RemoteContent from 'modules/common/components/RemoteContent'
 
-import style from './EventDetail.css'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
@@ -21,6 +20,19 @@ type PropsType = {
   onInternalLinkClick: string => void
 }
 
+const Thumbnail = styled.img`
+  display: flex;
+  width: 300px;
+  height: 300px;
+  margin: 10px auto;
+  padding-bottom: 10px;
+  object-fit: contain;
+`
+
+const Identifier = styled.span`
+  font-weight: 700;
+`
+
 /**
  * Display a single event with all necessary information
  */
@@ -33,23 +45,22 @@ class EventDetail extends React.Component<PropsType> {
   render () {
     const {event, onInternalLinkClick} = this.props
     return (
-      <div>
-        <img className={style.thumbnail} src={event.thumbnail || this.getEventPlaceholder()} />
+      <>
+        <Thumbnail src={event.thumbnail || this.getEventPlaceholder()} />
         <Caption title={event.title} />
         <div>
-          <span className={style.identifier}>{this.props.t('date')}: </span>
-          <TimeSpan className={style.date}
-                    allDay={event.allDay}
+          <Identifier>{this.props.t('date')}: </Identifier>
+          <TimeSpan allDay={event.allDay}
                     startDate={event.startDate}
                     endDate={event.endDate}
                     locale={this.props.language} />
         </div>
         <div>
-          <span className={style.identifier}>{this.props.t('location')}: </span>
-          <span className={style.date}>{event.address}</span>
+          <Identifier>{this.props.t('location')}: </Identifier>
+          <span>{event.address}</span>
         </div>
         <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} onInternLinkClick={onInternalLinkClick} />
-      </div>
+      </>
     )
   }
 }

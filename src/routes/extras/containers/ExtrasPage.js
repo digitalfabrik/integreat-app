@@ -61,19 +61,17 @@ export class ExtrasPage extends React.Component<PropsType> {
     const cityName = CityModel.findCityName(cities, city)
 
     return (
-      <React.Fragment>
+      <>
         <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
-      </React.Fragment>
+      </>
     )
   }
 }
 
 const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city,
-  language: state.location.payload.language,
-  extras: state.extras.data,
-  cities: state.cities.data
+  language: state.location.payload.language
 })
 
 export default compose(

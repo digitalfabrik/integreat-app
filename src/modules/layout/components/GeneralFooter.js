@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 
 import Footer from './Footer'
-import Link from 'redux-first-router-link'
 import { goToMainDisclaimer } from '../../app/routes/mainDisclaimer'
+import CleanAnchor from '../../common/components/CleanAnchor'
+import CleanLink from '../../common/components/CleanLink'
 
 type PropsType = {
   t: TFunction
@@ -14,11 +15,11 @@ type PropsType = {
 
 class GeneralFooter extends React.Component<PropsType> {
   render () {
-    const {t} = this.props
+    const {t, ...otherProps} = this.props
     return (
-      <Footer>
-        <Link to={goToMainDisclaimer()}>{t('imprintAndContact')}</Link>
-        <a href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</a>
+      <Footer {...otherProps}>
+        <CleanLink to={goToMainDisclaimer()}>{t('imprintAndContact')}</CleanLink>
+        <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
       </Footer>
     )
   }

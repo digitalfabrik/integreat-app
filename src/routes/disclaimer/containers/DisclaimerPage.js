@@ -12,8 +12,9 @@ import { translate } from 'react-i18next'
 import type { StateType } from 'modules/app/StateType'
 import Helmet from 'modules/common/containers/Helmet'
 import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
-import { pathToAction, redirect } from 'redux-first-router'
+import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
+import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
 type PropsType = {
   disclaimer: DisclaimerModel,
@@ -21,7 +22,7 @@ type PropsType = {
   city: string,
   t: TFunction,
   language: string,
-  redirect: string => void,
+  dispatch: ReceivedAction => void,
   routesMap: {}
 }
 
@@ -31,31 +32,28 @@ type PropsType = {
 export class DisclaimerPage extends React.Component<PropsType> {
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
-    this.props.redirect(action)
+    setKind(action, 'push')
+    this.props.dispatch(action)
   }
 
   render () {
     const {disclaimer, cities, city, t, language} = this.props
 
-    return <React.Fragment>
+    return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <Page title={disclaimer.title}
-            content={disclaimer.content}
-            onInternLinkClick={this.redirectToPath} />
+      <Page title={disclaimer.title} content={disclaimer.content} onInternLinkClick={this.redirectToPath} />
       <CategoryTimeStamp lastUpdate={disclaimer.lastUpdate} language={language} />
-    </React.Fragment>
+    </>
   }
 }
 
 const mapStateTypeToProps = (stateType: StateType) => ({
-  disclaimer: stateType.disclaimer.data,
-  cities: stateType.cities.data,
   city: stateType.location.payload.city,
   language: stateType.location.payload.language
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  redirect: action => dispatch(redirect(action))
+  dispatch
 })
 
 export default compose(

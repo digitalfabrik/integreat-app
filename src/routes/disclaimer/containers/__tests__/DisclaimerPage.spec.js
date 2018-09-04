@@ -35,7 +35,7 @@ describe('DisclaimerPage', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage disclaimer={disclaimer} city={city} cities={cities} t={t} language={language} routesMap={{}}
-                      redirect={() => {}} />)
+                      dispatch={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -49,7 +49,7 @@ describe('DisclaimerPage', () => {
 
     it('should map state and fetched data to props', () => {
       const disclaimerPage = shallow(
-        <ConnectedDisclaimerPage store={store} />
+        <ConnectedDisclaimerPage store={store} cities={cities} disclaimer={disclaimer} />
       )
 
       expect(disclaimerPage.props()).toMatchObject({

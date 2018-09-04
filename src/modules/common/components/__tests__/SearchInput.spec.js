@@ -3,7 +3,7 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedSearchInput, { SearchInput } from '../SearchInput'
-import theme from '../../../app/constants/theme'
+import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 
 describe('SearchInput', () => {

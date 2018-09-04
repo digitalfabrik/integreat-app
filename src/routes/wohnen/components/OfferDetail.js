@@ -65,7 +65,7 @@ class OfferDetail extends React.Component<PropsType> {
       const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys))
       const translateRooms = keys => this.stringify(this.translate('rooms', keys))
 
-      return <React.Fragment>
+      return <>
         <Caption title={accommodation.title} />
 
         <div>
@@ -149,7 +149,7 @@ class OfferDetail extends React.Component<PropsType> {
             <RowValue><a href={`tel:${landlord.phone}`}>{landlord.phone}</a></RowValue>
           </Row>
         </div>
-      </React.Fragment>
+      </>
     } else {
       throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }

@@ -14,8 +14,9 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
-import { pathToAction, redirect } from 'redux-first-router'
+import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
+import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
 type PropsType = {
   events: Array<EventModel>,
@@ -24,7 +25,7 @@ type PropsType = {
   eventId?: number,
   cities: Array<CityModel>,
   t: TFunction,
-  redirect: string => void,
+  dispatch: ReceivedAction => void,
   routesMap: {}
 }
 
@@ -34,7 +35,8 @@ type PropsType = {
 export class EventsPage extends React.Component<PropsType> {
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
-    this.props.redirect(action)
+    setKind(action, 'push')
+    this.props.dispatch(action)
   }
 
   render () {
@@ -43,32 +45,30 @@ export class EventsPage extends React.Component<PropsType> {
       const event = events.find(_event => _event.id === eventId)
 
       if (event) {
-        return <React.Fragment>
+        return <>
           <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
           <EventDetail event={event} location={city} language={language} onInternalLinkClick={this.redirectToPath} />
-        </React.Fragment>
+        </>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
         return <FailureSwitcher error={error} />
       }
     }
-    return <React.Fragment>
+    return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <EventList events={events} city={city} language={language} />
-    </React.Fragment>
+      <EventList events={events} city={city} language={language} onInternalLinkClick={this.redirectToPath} />
+    </>
   }
 }
 
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
-  events: state.events.data,
-  cities: state.cities.data
+  eventId: state.location.payload.eventId
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  redirect: action => dispatch(redirect(action))
+  dispatch
 })
 
 export default compose(
