@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import styled from 'styled-components'
-import { TouchableOpacity, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
 
 type PropsType = {
@@ -24,14 +24,13 @@ const TileTitle = styled.Text`
 
 const TileContainer = styled.View`
   margin-bottom: 20px;
-  width: ${Dimensions.get('window').width / 2.2}
+  width: 50%;
 `
 
 /**
  * Displays a single Tile
  */
 class Tile extends React.Component<PropsType> {
-
   getTileContent (): React.Node {
     return <>
       <Thumbnail source={{uri: this.props.tile.thumbnail}} />

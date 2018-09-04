@@ -19,8 +19,13 @@ const TilesRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 10px 0;
+
+`
+
+const Wrapper = styled.View`
+
 `
 
 /**
@@ -31,9 +36,11 @@ class Tiles extends React.Component<PropsType> {
     return (
       <>
         {this.props.title && <Caption title={this.props.title} />}
-        <TilesRow>
-          {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} onTilePress={this.props.onTilePress} />)}
-        </TilesRow>
+        <Wrapper>
+          <TilesRow>
+            {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} onTilePress={this.props.onTilePress} />)}
+          </TilesRow>
+        </Wrapper>
       </>
     )
   }
