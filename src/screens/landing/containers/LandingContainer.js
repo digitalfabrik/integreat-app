@@ -10,11 +10,16 @@ import styled, { withTheme } from 'styled-components'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from 'modules/theme/constants/theme'
 
 const Wrapper = styled.View`
-  padding: 22px 10px 0;
+  position: absolute;  
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
+  padding: 22px 10px 0;
 `
 
 type PropType = {
@@ -53,17 +58,18 @@ class LandingContainer extends React.Component<PropType, StateType> {
   }
 
   render () {
-    if (!this.state.data) {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
-
-    return <ScrollView>
-      <Wrapper theme={this.props.theme}>
-        <Heading />
-        <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.state.data} t={this.props.t}
-                                navigateToDashboard={this.navigateToDashboard} />
-      </Wrapper>
-    </ScrollView>
+    return <Wrapper theme={this.props.theme}>
+      <ScrollView>
+        {!this.state.data
+          ? <ActivityIndicator size='large' color='#0000ff' />
+          : <>
+            <Heading />
+            <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.state.data} t={this.props.t}
+                                    navigateToDashboard={this.navigateToDashboard} />
+          </>
+        }
+      </ScrollView>
+    </Wrapper>
   }
 }
 
