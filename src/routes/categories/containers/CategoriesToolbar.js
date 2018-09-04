@@ -32,7 +32,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, categories, openFeedbackModal} = this.props
+    const {t, location, categories, openFeedbackModal} = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
