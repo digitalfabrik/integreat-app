@@ -5,7 +5,7 @@ import Caption from './Caption'
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('screen').height - 60 - StatusBar.currentHeight // height of header and caption
+    height: Dimensions.get('screen').height - 60 - StatusBar.currentHeight // height of header and caption fixme ios
   }
 })
 
