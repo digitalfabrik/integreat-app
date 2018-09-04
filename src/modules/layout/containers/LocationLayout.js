@@ -25,6 +25,8 @@ import LocationToolbar from '../components/LocationToolbar'
 import EventModel from '../../endpoint/models/EventModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
+import type { Dispatch } from 'redux'
+import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
@@ -39,18 +41,33 @@ type PropsType = {
   disclaimer: ?DisclaimerModel,
   viewportSmall: boolean,
   children?: React.Node,
-  location: LocationState
+  location: LocationState,
+  toggleDarkMode: () => void,
+  darkMode: boolean
 }
 
 type StateType = {
   asideStickyTop: number,
-  feedbackModalRating: ?FeedbackRatingType
+  feedbackModalRating: ?FeedbackRatingType,
+  footerClicked: number
 }
 
+const DARK_THEME_CLICK_COUNT = 5
+
 export class LocationLayout extends React.Component<PropsType, StateType> {
-  state = {asideStickyTop: 0, feedbackModalRating: null}
+  state = {asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0}
 
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
+
+  onFooterClicked = () => {
+    this.setState(prevState => {
+      if (prevState.footerClicked < DARK_THEME_CLICK_COUNT) {
+        return ({...prevState, footerClicked: prevState.footerClicked + 1})
+      } else {
+        this.props.toggleDarkMode()
+      }
+    })
+  }
 
   getCurrentCity (): ?CityModel {
     const {location, cities} = this.props
@@ -132,7 +149,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {viewportSmall, children, location} = this.props
+    const {viewportSmall, children, location, darkMode} = this.props
     const type = location.type
     const {city, language} = location.payload
 
@@ -151,7 +168,8 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                                            onStickyTopChanged={this.onStickyTopChanged} />}
                    footer={<LocationFooter city={city} language={language} />}
                    toolbar={this.renderToolbar()}
-                   modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}>
+                   modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
+                   darkMode={darkMode}>
       {children}
     </Layout>
   }
@@ -164,7 +182,12 @@ const mapStateToProps = state => ({
   categories: state.categories.data,
   events: state.events.data,
   extras: state.extras.data,
-  disclaimer: state.disclaimer.data
+  disclaimer: state.disclaimer.data,
+  darkMode: state.darkMode
 })
 
-export default connect(mapStateToProps)(LocationLayout)
+const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => ({
+  toggleDarkMode: action => dispatch(toggleDarkModeAction(action))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LocationLayout)

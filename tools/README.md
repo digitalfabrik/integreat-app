@@ -3,9 +3,9 @@
 ```bash
 ├── build.js                    # Compiles the app from source code
 ├── config.js                   # General application settings
+├── findMissingLocales.js       # Tool for finding missing locales in locales.json
 ├── lib.build.js                # Compiles the library from /src/lib.js to /dist
 ├── lib.webpack.config.js       # Bundling and optimization config for the shared library
-├── postcss.config.js           # PostCSS settings for compiling CSS files
 ├── run.js                      # Compiles the app in watch mode and runs dev server
 ├── task.js                     # A custom minimalistic script/task runner
 └── webpack.config.js           # Bundling and optimization settings

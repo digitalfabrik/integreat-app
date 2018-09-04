@@ -37,19 +37,17 @@ export class DisclaimerPage extends React.Component<PropsType> {
   render () {
     const {disclaimer, cities, city, t, language} = this.props
 
-    return <React.Fragment>
+    return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
       <Page title={disclaimer.title}
             content={disclaimer.content}
             onInternLinkClick={this.redirectToPath} />
       <CategoryTimeStamp lastUpdate={disclaimer.lastUpdate} language={language} />
-    </React.Fragment>
+    </>
   }
 }
 
 const mapStateTypeToProps = (stateType: StateType) => ({
-  disclaimer: stateType.disclaimer.data,
-  cities: stateType.cities.data,
   city: stateType.location.payload.city,
   language: stateType.location.payload.language
 })

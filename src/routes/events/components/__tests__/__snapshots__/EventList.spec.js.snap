@@ -5,9 +5,7 @@ exports[`EventList should render a list of events 1`] = `
   <Caption
     title="events:news"
   />
-  <div
-    className="list"
-  >
+  <EventList__List>
     <EventListElement
       city="augsburg"
       event={
@@ -80,19 +78,17 @@ exports[`EventList should render a list of events 1`] = `
       language="en"
       onInternalLinkClick={[Function]}
     />
-  </div>
+  </EventList__List>
 </Fragment>
 `;
 
 exports[`EventList should render no events 1`] = `
-<div>
+<Fragment>
   <Caption
     title="events:news"
   />
-  <div
-    className="noEvents"
-  >
+  <EventList__NoEvents>
     events:currentlyNoEvents
-  </div>
-</div>
+  </EventList__NoEvents>
+</Fragment>
 `;
