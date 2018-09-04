@@ -6,8 +6,8 @@ import compose from 'lodash/fp/compose'
 
 import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
 import CityModel from 'modules/endpoint/models/CityModel'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
 import type { StateType } from 'modules/app/StateType'
 
@@ -20,19 +20,18 @@ type PropsType = {
 export class LandingPage extends React.Component<PropsType> {
   render () {
     const {t, language, cities} = this.props
-    return <React.Fragment>
+    return <>
       <ReactHelmet>
         <title>{t('pageTitle')}</title>
         <meta name='description' content={t('metaDescription')} />
       </ReactHelmet>
       <FilterableCitySelector language={language} cities={cities} />
-    </React.Fragment>
+    </>
   }
 }
 
-const mapStateTypeToProps = (stateType: StateType) => ({
-  language: stateType.location.payload.language,
-  cities: stateType.cities.data
+const mapStateTypeToProps = (state: StateType) => ({
+  language: state.location.payload.language
 })
 
 export default compose(

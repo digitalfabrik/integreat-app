@@ -87,8 +87,6 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 }
 
 const mapStateToProps = (state: StateType) => ({
-  categories: state.categories.data,
-  cities: state.cities.data,
   location: state.location
 })
 

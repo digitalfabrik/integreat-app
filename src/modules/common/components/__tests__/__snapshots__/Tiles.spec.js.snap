@@ -5,9 +5,7 @@ exports[`Tiles should match snapshot 1`] = `
   <Caption
     title="Augsburg"
   />
-  <Row
-    className="tiles"
-  >
+  <Tiles__TilesRow>
     <Tile
       key="35"
       tile={
@@ -34,6 +32,6 @@ exports[`Tiles should match snapshot 1`] = `
         }
       }
     />
-  </Row>
+  </Tiles__TilesRow>
 </div>
 `;

@@ -43,28 +43,26 @@ export class EventsPage extends React.Component<PropsType> {
       const event = events.find(_event => _event.id === eventId)
 
       if (event) {
-        return <React.Fragment>
+        return <>
           <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
           <EventDetail event={event} location={city} language={language} onInternalLinkClick={this.redirectToPath} />
-        </React.Fragment>
+        </>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
         return <FailureSwitcher error={error} />
       }
     }
-    return <React.Fragment>
+    return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <EventList events={events} city={city} language={language} />
-    </React.Fragment>
+      <EventList events={events} city={city} language={language} onInternalLinkClick={this.redirectToPath} />
+    </>
   }
 }
 
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
-  events: state.events.data,
-  cities: state.cities.data
+  eventId: state.location.payload.eventId
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({

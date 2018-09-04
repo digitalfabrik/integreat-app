@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OfferList should render offer list 1`] = `
-<withProps(Connect(Link))
+<CleanLink
   key="mail@mail.com"
   to="/augsburg/language/extras/wohnen/mail@mail.com"
 >
@@ -62,7 +62,7 @@ exports[`OfferList should render offer list 1`] = `
       }
     }
   />
-</withProps(Connect(Link))>
+</CleanLink>
 `;
 
 exports[`OfferList should render paragraph if offers is empty 1`] = `

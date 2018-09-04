@@ -69,10 +69,10 @@ export class CategoriesPage extends React.Component<PropsType> {
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <React.Fragment>
+      return <>
         <Page title={category.title} content={category.content} onInternLinkClick={this.redirectToPath} />
         {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />}
-      </React.Fragment>
+      </>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -126,9 +126,7 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   routesMap: state.location.routesMap,
   city: state.location.payload.city,
-  path: state.location.pathname,
-  categories: state.categories.data,
-  cities: state.cities.data
+  path: state.location.pathname
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({

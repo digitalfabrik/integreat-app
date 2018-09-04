@@ -1,12 +1,15 @@
 // @flow
 
 import React from 'react'
-import {CenteredSpinner} from './LoadingSpinner.styles'
+import { CenteredSpinner } from './LoadingSpinner.styles'
+import { withTheme } from 'styled-components'
+import type { ThemeType } from '../../theme/constants/theme'
 
-class LoadingSpinner extends React.Component<{}> {
+export class LoadingSpinner extends React.Component<{ theme: ThemeType }> {
   render () {
-    return <CenteredSpinner name='line-scale-party' />
+    return <CenteredSpinner name='line-scale-party' color={this.props.theme.colors.textColor} />
   }
 }
 
-export default LoadingSpinner
+// $FlowFixMe https://github.com/styled-components/styled-components/issues/1785
+export default withTheme(LoadingSpinner)

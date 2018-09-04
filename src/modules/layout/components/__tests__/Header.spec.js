@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import HeaderActionItem from '../../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
-import theme from '../../../app/constants/theme'
+import { darkTheme } from '../../../theme/constants/theme'
 import Headroom from '../../../common/components/Headroom'
 import Platform from '../../../platform/Platform'
 
@@ -15,7 +15,7 @@ describe('Header', () => {
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
-        theme={theme}
+        theme={darkTheme}
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
         actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
@@ -31,7 +31,7 @@ describe('Header', () => {
   it('should match snapshot with largeViewport', () => {
     const component = shallow(
       <Header
-        theme={theme}
+        theme={darkTheme}
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
         actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
@@ -49,7 +49,7 @@ describe('Header', () => {
 
     const component = shallow(
       <Header
-        theme={theme}
+        theme={darkTheme}
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
         actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}

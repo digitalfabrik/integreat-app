@@ -2,6 +2,7 @@
 
 exports[`LoadingSpinner should render and match snapshot 1`] = `
 <LoadingSpinnerstyles__CenteredSpinner
+  color="#BBBBBB"
   name="line-scale-party"
 />
 `;

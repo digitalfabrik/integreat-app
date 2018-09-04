@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventListElement should render 1`] = `
-<Connect(Link)
-  className="event"
+<EventListElement__EventLink
   to={
     Object {
       "payload": Object {
@@ -14,21 +13,14 @@ exports[`EventListElement should render 1`] = `
     }
   }
 >
-  <img
-    className="eventThumbnail"
+  <EventListElement__EventThumbnail
     src="thumbnail"
   />
-  <div
-    className="eventDescription"
-  >
-    <div
-      className="eventTitle"
-    >
+  <EventListElement__EventDescription>
+    <EventListElement__EventTitle>
       first Event
-    </div>
-    <div
-      className="eventDate"
-    >
+    </EventListElement__EventTitle>
+    <EventListElement__EventDate>
       <TimeSpan
         allDay={true}
         endDate={"2017-11-18T19:30:00.000Z"}
@@ -37,7 +29,7 @@ exports[`EventListElement should render 1`] = `
       />
       , 
       address, town
-    </div>
+    </EventListElement__EventDate>
     <RemoteContent
       centered={false}
       dangerouslySetInnerHTML={
@@ -53,6 +45,6 @@ exports[`EventListElement should render 1`] = `
       }
       onInternLinkClick={[Function]}
     />
-  </div>
-</Connect(Link)>
+  </EventListElement__EventDescription>
+</EventListElement__EventLink>
 `;

@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 
-import Spinner from 'react-spinkit'
 import Helmet from 'react-helmet'
 import type { StateType } from 'modules/app/StateType'
 import { connect } from 'react-redux'
@@ -14,14 +13,15 @@ import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from 'modules/common/components/Caption'
 import FailureSwitcher from 'modules/common/components/FailureSwitcher'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 type PropsType = {
   offers: ?Array<WohnenOfferModel>,
   city: string,
   language: string,
   offerHash?: string,
-  extras: Array<ExtraModel>,
-  cities: Array<CityModel>
+  extras: ?Array<ExtraModel>,
+  cities: ?Array<CityModel>
 }
 
 export class WohnenExtraPage extends React.Component<PropsType> {
@@ -34,6 +34,10 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
   render () {
     const {offers, extras, cities, city, language, offerHash} = this.props
+    if (!cities || !extras) {
+      throw new Error('Data not ready')
+    }
+
     const cityName = CityModel.findCityName(cities, city)
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
@@ -42,7 +46,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
     }
 
     if (!offers) {
-      return <Spinner name='line-scale-party' />
+      return <LoadingSpinner />
     }
 
     if (offerHash) {
@@ -73,10 +77,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   city: state.location.payload.city,
   language: state.location.payload.language,
-  offerHash: state.location.payload.offerHash,
-  extras: state.extras.data,
-  cities: state.cities.data,
-  offers: state.wohnen.data
+  offerHash: state.location.payload.offerHash
 })
 
 export default connect(mapStateTypeToProps)(WohnenExtraPage)

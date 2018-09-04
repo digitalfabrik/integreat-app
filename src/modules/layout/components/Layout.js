@@ -1,9 +1,9 @@
 // @flow
 
+import type { Node } from 'react'
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import { Aside, Body, RichLayout, Main } from './Layout.styles'
-import type { Node } from 'react'
+import { Aside, Body, Main, RichLayout } from './Layout.styles'
 
 type PropsType = {
   asideStickyTop: number,
@@ -11,7 +11,8 @@ type PropsType = {
   header?: Node,
   toolbar?: Node,
   modal?: Node,
-  children?: Node
+  children?: Node,
+  darkMode?: boolean
 }
 
 /**
@@ -21,11 +22,12 @@ type PropsType = {
  */
 class Layout extends React.PureComponent<PropsType> {
   static defaultProps = {
-    asideStickyTop: 0
+    asideStickyTop: 0,
+    darkMode: false
   }
 
   render () {
-    const {asideStickyTop, footer, header, toolbar, modal, children} = this.props
+    const {asideStickyTop, footer, header, toolbar, modal, children, darkMode} = this.props
     return (
       <RichLayout>
         <div>
@@ -41,7 +43,7 @@ class Layout extends React.PureComponent<PropsType> {
           {modal}
         </div>
         {footer}
-        <ReactTooltip effect='solid' delayShow={0} />
+        <ReactTooltip effect='solid' type={darkMode ? 'light' : 'dark'} delayShow={0} />
       </RichLayout>
     )
   }

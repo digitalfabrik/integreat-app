@@ -1,32 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OfferList should render offer item 1`] = `
-<div
-  class="ListElement-gkbwyC iluJEc"
->
-  <div
-    class="OfferListItem__Title-gTJMwx ifZCCX"
-  >
+<ListElement>
+  <OfferListItem__Title>
     Test Angebot
-  </div>
-  <div
-    class="OfferListItem__Description-crNkAb hnfpT"
-  >
+  </OfferListItem__Title>
+  <OfferListItem__Description>
     <div>
       <div>
-        120 m²
+        120
+         m²
       </div>
       <div>
-        4 Zimmer
+        4
+         Zimmer
       </div>
     </div>
-    <div
-      class="OfferListItem__Price-bcToCP liGMWP"
-    >
-      1000 €
-    </div>
-  </div>
-</div>
+    <OfferListItem__Price>
+      1000
+       €
+    </OfferListItem__Price>
+  </OfferListItem__Description>
+</ListElement>
 `;
 
 exports[`OfferList should throw error if form is not renderable 1`] = `"Failed to render form {} because it is not supported!"`;
