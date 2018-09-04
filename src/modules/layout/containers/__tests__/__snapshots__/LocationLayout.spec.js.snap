@@ -8,7 +8,6 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
     <Translate(LocationFooter)
       city="city1"
       language="de"
-      onClick={[Function]}
     />
   }
   header={
@@ -64,7 +63,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
     <Translate(LocationFooter)
       city="city1"
       language="de"
-      onClick={[Function]}
     />
   }
   header={
