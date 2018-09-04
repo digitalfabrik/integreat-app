@@ -2,16 +2,17 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import HeaderDropDown from '../HeaderDropDown'
+import ClickOutsideHeaderDropDown, { DropDownContainer, HeaderDropDown } from '../HeaderDropDown'
+import fileMock from '../../../../__mocks__/fileMock'
 
 describe('HeaderDropDown', () => {
   const MockNode = () => <div>Here comes the DropDown</div>
   let wrapperComponent
 
   beforeEach(() => {
-    wrapperComponent = shallow(<HeaderDropDown iconSrc='/someImg'>
+    wrapperComponent = shallow(<ClickOutsideHeaderDropDown iconSrc='/someImg'>
       <MockNode />
-    </HeaderDropDown>)
+    </ClickOutsideHeaderDropDown>)
   })
 
   it('should match snapshot', () => {
@@ -73,9 +74,9 @@ describe('HeaderDropDown', () => {
   })
 
   it('should add class if active', () => {
-    const component = wrapperComponent.dive()
-    expect(component.find('.dropDown').hasClass('dropDownActive')).toEqual(false)
+    const component = shallow(<HeaderDropDown iconSrc={fileMock}><MockNode /></HeaderDropDown>)
+    expect(component.find(DropDownContainer).prop('active')).toBe(false)
     component.setState({dropDownActive: true})
-    expect(component.find('.dropDown').hasClass('dropDownActive')).toEqual(true)
+    expect(component.find(DropDownContainer).prop('active')).toBe(true)
   })
 })

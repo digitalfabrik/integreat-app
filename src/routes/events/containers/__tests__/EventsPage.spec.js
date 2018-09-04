@@ -119,7 +119,7 @@ describe('EventsPage', () => {
     })
 
     const categoriesPage = shallow(
-      <ConnectedEventsPage store={store} />
+      <ConnectedEventsPage store={store} cities={cities} events={events} />
     )
 
     expect(categoriesPage.props()).toMatchObject({

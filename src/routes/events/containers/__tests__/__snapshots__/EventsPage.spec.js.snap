@@ -91,6 +91,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
       ]
     }
     language="en"
+    onInternalLinkClick={[Function]}
   />
 </Fragment>
 `;

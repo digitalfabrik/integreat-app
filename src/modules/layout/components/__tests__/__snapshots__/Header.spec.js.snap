@@ -8,12 +8,8 @@ exports[`Header should match snapshot with largeViewport 1`] = `
   positionStickyDisabled={false}
   scrollHeight={85}
 >
-  <header
-    className="header"
-  >
-    <div
-      className="logoWide"
-    >
+  <Header__HeaderContainer>
+    <Header__LogoWide>
       <Connect(Link)
         to={
           Object {
@@ -25,10 +21,8 @@ exports[`Header should match snapshot with largeViewport 1`] = `
           src="test-file-stub"
         />
       </Connect(Link)>
-    </div>
-    <HeaderNavigationBar
-      className="navigationBar"
-    >
+    </Header__LogoWide>
+    <Header__NavigationBar>
       <HeaderNavigationItem
         active={true}
         href={
@@ -40,9 +34,8 @@ exports[`Header should match snapshot with largeViewport 1`] = `
         text="text1"
         tooltip="tooltip1"
       />
-    </HeaderNavigationBar>
-    <HeaderActionBar
-      className="actionBar"
+    </Header__NavigationBar>
+    <Header__ActionBar
       items={
         Array [
           HeaderActionItem {
@@ -55,6 +48,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
         ]
       }
     />
-  </header>
+  </Header__HeaderContainer>
 </Headroom>
 `;
