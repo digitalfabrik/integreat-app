@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import createReduxStore from 'modules/app/createReduxStore'
 import createHistory from 'modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/app/constants/theme'
+import theme from '../../../../modules/theme/constants/theme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
@@ -97,7 +97,7 @@ describe('SearchPage', () => {
                     categories={categories}
                     location={location}
                     t={t} />
-      </Provider></ThemeProvider>
+        </Provider></ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()
     const searchInputProps = tree.find('SearchInput').props()
@@ -187,12 +187,12 @@ describe('SearchPage', () => {
     })
 
     const searchPage = shallow(
-      <ConnectedSearchPage store={store} />
+      <ConnectedSearchPage store={store} cities={cities} categories={categories} />
     )
 
     expect(searchPage.props()).toMatchObject({
-      categories,
       cities,
+      categories,
       location
     })
   })

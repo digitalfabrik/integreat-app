@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import type { Action } from 'redux-first-router'
 import { redirect } from 'redux-first-router'
 import { connect } from 'react-redux'
 import CityModel from '../../../modules/endpoint/models/CityModel'
@@ -9,12 +10,11 @@ import { goToLanding } from '../../../modules/app/routes/landing'
 import { goToCategories } from '../../../modules/app/routes/categories'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
 import type { Dispatch } from 'redux'
-import type { Action } from 'redux-first-router'
 import type { StateType } from '../../../modules/app/StateType'
 
 type PropsType = {
   redirect: Action => void,
-  cities: Array<CityModel>,
+  cities: ?Array<CityModel>,
   param?: string
 }
 
@@ -30,6 +30,10 @@ export class I18nRedirectPage extends React.Component<PropsType> {
 
   getRedirectAction (): Action {
     const {param, cities} = this.props
+    if (!cities) {
+      throw new Error('Payload not available')
+    }
+
     const i18n = this.context.i18n
 
     // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
@@ -59,7 +63,6 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 })
 
 const mapStateToProps = (state: StateType) => ({
-  cities: state.cities.data,
   param: state.location.payload.param
 })
 

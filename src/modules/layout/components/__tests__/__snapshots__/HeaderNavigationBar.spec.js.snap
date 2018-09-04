@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderNavigationBar should match snapshot 1`] = `
-<div
-  className="navigationBar testClass"
+<HeaderNavigationBar__NavigationBarContainer
+  className="testClass"
+  hidden={false}
 >
   <HeaderNavigationItem
     active={true}
@@ -25,5 +26,5 @@ exports[`HeaderNavigationBar should match snapshot 1`] = `
     text="text2"
     tooltip="tooltip1"
   />
-</div>
+</HeaderNavigationBar__NavigationBarContainer>
 `;

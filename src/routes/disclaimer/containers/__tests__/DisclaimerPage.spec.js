@@ -49,7 +49,7 @@ describe('DisclaimerPage', () => {
 
     it('should map state and fetched data to props', () => {
       const disclaimerPage = shallow(
-        <ConnectedDisclaimerPage store={store} />
+        <ConnectedDisclaimerPage store={store} cities={cities} disclaimer={disclaimer} />
       )
 
       expect(disclaimerPage.props()).toMatchObject({

@@ -36,7 +36,7 @@ describe('LandingPage', () => {
     })
 
     const landingPage = shallow(
-      <ConnectedLandingPage store={store} />
+      <ConnectedLandingPage store={store} cities={cities} />
     )
 
     expect(landingPage.props()).toMatchObject({

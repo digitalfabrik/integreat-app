@@ -2,7 +2,7 @@
 
 exports[`GeneralFooter should match snapshot 1`] = `
 <Footer>
-  <Connect(Link)
+  <CleanLink
     to={
       Object {
         "type": "MAIN_DISCLAIMER",
@@ -10,11 +10,11 @@ exports[`GeneralFooter should match snapshot 1`] = `
     }
   >
     layout:imprintAndContact
-  </Connect(Link)>
-  <a
+  </CleanLink>
+  <CleanAnchor
     href="https://integreat-app.de/datenschutz/"
   >
     layout:privacy
-  </a>
+  </CleanAnchor>
 </Footer>
 `;

@@ -46,9 +46,9 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   render () {
-    return <React.Fragment>
+    return <>
       {this.renderList(this.filter())}
-    </React.Fragment>
+    </>
   }
 }
 

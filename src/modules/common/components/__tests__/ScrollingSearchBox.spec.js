@@ -5,7 +5,7 @@ import { mount, shallow } from 'enzyme'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../app/constants/theme'
+import theme from '../../../theme/constants/theme'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />

@@ -83,13 +83,9 @@ describe('LocationLayout', () => {
   ]
 
   const MockNode = () => <div />
-  const renderLocationLayout = location => <LocationLayout location={location}
-                                                           categories={categories}
-                                                           events={events}
-                                                           extras={extras}
-                                                           disclaimer={disclaimer}
-                                                           cities={cities}
-                                                           viewportSmall>
+  const renderLocationLayout = location => <LocationLayout location={location} categories={categories} events={events}
+                                                           extras={extras} disclaimer={disclaimer} cities={cities}
+                                                           viewportSmall toggleDarkMode={() => {}} darkMode>
     <MockNode />
   </LocationLayout>
 

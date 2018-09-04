@@ -83,36 +83,6 @@ const config = {
         loaders: [{loader: 'style-loader'}, {loader: 'css-loader'}]
       },
       {
-        test: /\.(css|pcss)/,
-        include: [/src/],
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              camelCase: 'dashes',
-              sourceMap: isDebug,
-              importLoaders: true,
-              // CSS Modules https://github.com/css-modules/css-modules
-              modules: true,
-              localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-              // CSS Nano http://cssnano.co/options/
-              minimize: !isDebug
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              config: {
-                path: './tools/postcss.config.js'
-              }
-            }
-          }
-        ]
-      },
-      {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
         use: [
           {

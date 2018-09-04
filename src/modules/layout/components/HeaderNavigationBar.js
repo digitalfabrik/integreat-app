@@ -1,15 +1,20 @@
 // @flow
 
 import * as React from 'react'
-import cx from 'classnames'
 import { isEmpty } from 'lodash/lang'
 
-import style from './HeaderNavigationBar.css'
+import styled from 'styled-components'
 
 type PropsType = {
   className?: string,
   children?: React.Node
 }
+
+export const NavigationBarContainer = styled.div`
+  display: ${props => props.hidden ? 'none' : 'flex'};
+  align-items: center;
+  justify-content: center;
+`
 
 /**
  * Designed to work with Header. In the MenuBar you can display textual links. Should be used for navigating as a
@@ -18,19 +23,7 @@ type PropsType = {
 class HeaderNavigationBar extends React.Component<PropsType> {
   render () {
     const {className, children} = this.props
-    const combinedClassName = {
-      [style.navigationBar]: true,
-      [style.hidden]: isEmpty(children)
-    }
-    if (className) {
-      combinedClassName[className] = className
-    }
-
-    return (
-      <div className={cx(combinedClassName)}>
-        {children}
-      </div>
-    )
+    return <NavigationBarContainer hidden={isEmpty(children)} className={className}>{children}</NavigationBarContainer>
   }
 }
 
