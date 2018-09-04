@@ -22,6 +22,7 @@ type PropsType = {|
   path: string,
   city: string,
   onTilePress: (tile: TileModel) => void,
+  onItemPress: (tile: CategoryModel) => void,
   language: string,
   theme: ThemeType
 |}
@@ -62,13 +63,15 @@ export class Categories extends React.Component<PropsType> {
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
-                    title={CityModel.findCityName(cities, category.title)} onTilePress={this.props.onTilePress} />
+                    title={CityModel.findCityName(cities, category.title)}
+                    onTilePress={this.props.onTilePress} />
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
                          title={category.title}
                          content={category.content}
-                         theme={this.props.theme}/>
+                         onItemPress={this.props.onItemPress}
+                         theme={this.props.theme} />
   }
 
   render () {

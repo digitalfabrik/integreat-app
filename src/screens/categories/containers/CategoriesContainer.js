@@ -5,15 +5,17 @@ import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import { Text } from 'react-native-elements'
-import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigationScreenProp, NavigationState } from 'react-navigation'
 import { Categories } from '../components/Categories'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import TileModel from '../../../modules/common/models/TileModel'
 import type { ThemeType } from '../../../modules/layout/constants/theme'
 import { withTheme } from 'styled-components'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { ActivityIndicator } from 'react-native'
 
 type PropType = {
-  navigation: NavigationScreenProp<*>,
+  navigation: NavigationScreenProp<NavigationState>,
   theme: ThemeType
 }
 
@@ -52,31 +54,39 @@ class CategoriesContainer extends React.Component<PropType, StateType> {
   }
 
   onTilePress = (tile: TileModel) => {
-    // Alert.alert(tile.path)
-    if (!this.props.navigation.push) {
-      return
-    }
-    this.props.navigation.push('Categories', {
-      path: tile.path,
+    this.navigate(tile.path)
+  }
+
+  onItemPress = (category: CategoryModel) => {
+    this.navigate(category.path)
+  }
+
+  navigate = (path: string) => {
+    const params = {
+      path: path,
       categories: this.getCategories(),
       cities: this.getCities()
-    })
+    }
+    if (this.props.navigation.push) {
+      this.props.navigation.push('Categories', params)
+    }
   }
 
   render () {
     const categories = this.getCategories()
     if (!categories) {
-      return <Text>Test</Text>
+      return <ActivityIndicator size='large' color='#0000ff' />
     }
     const cities = this.getCities()
     if (!cities) {
-      return <Text>Test</Text>
+      return <ActivityIndicator size='large' color='#0000ff' />
     }
+    const city = this.props.navigation.getParam('city')
+    const path = this.props.navigation.getParam('path') || '/augsburg/de'
     return <Categories categories={categories} cities={cities}
-                       language={'de'}
-                       city={this.props.navigation.getParam('city')}
-                       path={this.props.navigation.getParam('path') || '/augsburg/de'}
-                       onTilePress={this.onTilePress} theme={this.props.theme} />
+                       language={'de'} city={city}
+                       path={path}
+                       onTilePress={this.onTilePress} onItemPress={this.onItemPress} theme={this.props.theme} />
   }
 }
 

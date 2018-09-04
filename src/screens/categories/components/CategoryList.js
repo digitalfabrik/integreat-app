@@ -5,7 +5,6 @@ import * as React from 'react'
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import { Dimensions } from 'react-native'
 import HTML from 'react-native-render-html'
 import type { ThemeType } from '../../../modules/layout/constants/theme'
 
@@ -15,7 +14,8 @@ type PropsType = {
   content?: string,
   /** A search query to highlight in the categories titles */
   query?: string,
-  theme: ThemeType
+  theme: ThemeType,
+  onItemPress: (tile: CategoryModel) => void
 }
 
 /**
@@ -36,7 +36,8 @@ class CategoryList extends React.Component<PropsType> {
                               category={model}
                               subCategories={subCategories}
                               query={query}
-            theme={this.props.theme}/>
+                              theme={this.props.theme}
+                              onItemPress={this.props.onItemPress} />
           )}
         </>
       </>

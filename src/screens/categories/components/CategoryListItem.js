@@ -2,12 +2,11 @@
 
 import * as React from 'react'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
-import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/layout/constants/theme'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 const Row = styled.View`
   margin: 12px 0;
@@ -49,18 +48,23 @@ type PropsType = {
   subCategories: Array<CategoryModel>,
   /** A search query to highlight in the category title */
   query?: string,
-  theme: ThemeType
+  theme: ThemeType,
+  onItemPress: (tile: CategoryModel) => void
 }
 
 /**
  * Displays a single CategoryListItem
  */
 class CategoryListItem extends React.Component<PropsType> {
+  onItemPress = () => {
+    this.props.onItemPress(this.props.category)
+  }
+
   renderSubCategories (): Array<React.Node> {
     const {subCategories} = this.props
     return subCategories.map(subCategory =>
       <SubCategory key={subCategory.id}>
-        <StyledLink onPress={() => {}} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+        <StyledLink onPress={this.onItemPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <SubCategoryCaption search={''}>
             <Text>{subCategory.title}</Text>
           </SubCategoryCaption>
@@ -80,7 +84,7 @@ class CategoryListItem extends React.Component<PropsType> {
     const {category} = this.props
     return (
       <Row>
-        <StyledLink onPress={() => {}} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+        <StyledLink onPress={this.onItemPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <>
             <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder} />
             {this.renderTitle()}
