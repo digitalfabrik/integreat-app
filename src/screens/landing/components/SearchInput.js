@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from 'modules/theme/constants/theme'
 
 export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}

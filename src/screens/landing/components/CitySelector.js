@@ -8,7 +8,7 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
 import { View } from 'react-native'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 export const CityListParent = styled.View`
   height: 30px;

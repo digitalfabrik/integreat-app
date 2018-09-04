@@ -7,7 +7,7 @@ import CitySelector from './CitySelector'
 import type { TFunction } from 'react-i18next'
 import SearchInput from './SearchInput'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {
   cities: Array<CityModel>,
