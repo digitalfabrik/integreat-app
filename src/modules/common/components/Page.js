@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Dimensions, Linking, StyleSheet, View, WebView, StatusBar } from 'react-native'
+import Caption from './Caption'
 
-import Caption from 'modules/common/components/Caption'
-import { Dimensions, Linking, View } from 'react-native'
-import HTML from 'react-native-render-html'
+const styles = StyleSheet.create({
+  container: {
+    height: Dimensions.get('screen').height - 60 - StatusBar.currentHeight // height of header and caption
+  }
+})
 
 class Page extends React.Component {
   static propTypes = {
@@ -17,11 +21,15 @@ class Page extends React.Component {
 
   render () {
     return (
-      <View>
-        <Caption title={this.props.title} />
-        <HTML html={this.props.content} imagesMaxWidth={Dimensions.get('window').width}
-              onLinkPress={this.onLinkPress} />
-      </View>
+      <>
+        {/*<Caption title={this.props.title} style={styles.caption} />*/}
+        <View style={styles.container}>
+          <WebView
+            source={{html: this.props.content}}
+            originWhitelist={['*']}
+          />
+        </View>
+      </>
     )
   }
 }

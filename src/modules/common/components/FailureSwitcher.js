@@ -6,7 +6,7 @@ import { Text } from 'react-native-elements'
 export class FailureSwitcher extends React.Component<{}> {
   render () {
     return <Text>
-      Error
+      {this.props.error.message}
     </Text>
   }
 }

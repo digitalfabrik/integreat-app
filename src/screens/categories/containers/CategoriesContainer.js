@@ -30,7 +30,7 @@ class CategoriesContainer extends React.Component<PropType, StateType> {
   }
 
   async fetchData (): Promise<void> {
-    const categoriesPayload = await categoriesEndpoint.loadData({language: 'de', city: 'augsburg'})
+    const categoriesPayload = await categoriesEndpoint.loadData({language: 'de', city: 'nuernberg'})
     const citiesPayload = await citiesEndpoint.loadData({language: 'de'})
 
     // eslint-disable-next-line react/no-did-mount-set-state
@@ -81,7 +81,7 @@ class CategoriesContainer extends React.Component<PropType, StateType> {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
     const city = this.props.navigation.getParam('city')
-    const path = this.props.navigation.getParam('path') || '/augsburg/de'
+    const path = this.props.navigation.getParam('path') || '/nuernberg/de'
     return <Categories categories={categories} cities={cities}
                        language={'de'} city={city}
                        path={path}

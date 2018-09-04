@@ -7,6 +7,7 @@ import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import HTML from 'react-native-render-html'
 import type { ThemeType } from '../../../modules/layout/constants/theme'
+import { ScrollView } from 'react-native'
 
 type PropsType = {
   categories: Array<{| model: CategoryModel, subCategories: Array<CategoryModel> |}>,
@@ -25,7 +26,7 @@ class CategoryList extends React.Component<PropsType> {
   render () {
     const {categories, title, content, query} = this.props
     return (
-      <>
+      <ScrollView>
         {title && <Caption title={title} />}
         {!!content &&
         <HTML html={content} />
@@ -40,7 +41,7 @@ class CategoryList extends React.Component<PropsType> {
                               onItemPress={this.props.onItemPress} />
           )}
         </>
-      </>
+      </ScrollView>
     )
   }
 }
