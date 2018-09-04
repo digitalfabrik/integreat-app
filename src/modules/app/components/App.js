@@ -3,32 +3,35 @@
 import * as React from 'react'
 import PlatformContext from '../../platform/PlatformContext'
 import Platform from '../../platform/Platform'
-import LayoutContainer from '../../layout/container/LayoutContainer'
+
+import { Provider } from 'react-redux'
+import I18nProvider from 'modules/i18n/containers/I18nProvider'
+import createReduxStore from '../createReduxStore'
+import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import Navigator from './Navigator'
-import { I18nextProvider } from 'react-i18next'
-import i18n from '../i18n'
-import { ThemeProvider } from 'styled-components'
-import theme from 'modules/layout/constants/theme'
 
 class App extends React.Component<{}> {
   platform: Platform
 
+  store: any
+
   constructor () {
     super()
+    this.store = createReduxStore({})
     this.platform = new Platform()
   }
 
   render () {
     return (
-      <I18nextProvider i18n={i18n}>
-        <ThemeProvider theme={theme}>
-          <PlatformContext.Provider value={this.platform}>
-            <LayoutContainer>
+      <Provider store={this.store}>
+        <I18nProvider>
+          <CustomThemeProvider>
+            <PlatformContext.Provider value={this.platform}>
               <Navigator />
-            </LayoutContainer>
-          </PlatformContext.Provider>
-        </ThemeProvider>
-      </I18nextProvider>
+            </PlatformContext.Provider>
+          </CustomThemeProvider>
+        </I18nProvider>
+      </Provider>
     )
   }
 }
