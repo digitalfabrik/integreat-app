@@ -1,6 +1,3 @@
-// flow-typed signature: 15c46eb6cf1a947bc98c3883621daab1
-// flow-typed version: c5a5cbd1f4/react-navigation_v2.x.x/flow_>=v0.60.x
-
 // @flow
 
 declare module 'react-navigation' {
@@ -69,7 +66,7 @@ declare module 'react-navigation' {
    */
 
   declare export type NavigationParams = {
-    [key: string]: mixed,
+    +[key: string]: mixed,
   };
 
   declare export type NavigationBackAction = {|
@@ -280,9 +277,9 @@ declare module 'react-navigation' {
   declare export type NavigationScreenConfig<Options> =
     | Options
     | (({
-        ...$Exact<NavigationScreenConfigProps>,
-        navigationOptions: Options,
-      }) => Options);
+          ...$Exact<NavigationScreenConfigProps>,
+          navigationOptions: Options,
+        }) => Options);
 
   declare export type NavigationComponent =
     | NavigationScreenComponent<NavigationRoute, *, *>
@@ -296,7 +293,7 @@ declare module 'react-navigation' {
     Route: NavigationRoute,
     Options: {},
     Props: {}
-  > = React$ComponentType<{
+    > = React$ComponentType<{
     ...Props,
     ...NavigationNavigatorProps<Options, Route>,
   }> &
@@ -310,7 +307,7 @@ declare module 'react-navigation' {
     State: NavigationState,
     Options: {},
     Props: {}
-  > = React$ComponentType<{
+    > = React$ComponentType<{
     ...Props,
     ...NavigationNavigatorProps<Options, State>,
   }> &
@@ -320,17 +317,17 @@ declare module 'react-navigation' {
   declare export type NavigationRouteConfig =
     | NavigationComponent
     | ({
-        navigationOptions?: NavigationScreenConfig<*>,
-        path?: string,
-      } & NavigationScreenRouteConfig);
+    navigationOptions?: NavigationScreenConfig<*>,
+    path?: string,
+  } & NavigationScreenRouteConfig);
 
   declare export type NavigationScreenRouteConfig =
     | {
-        screen: NavigationComponent,
-      }
+    screen: NavigationComponent,
+  }
     | {
-        getScreen: () => NavigationComponent,
-      };
+    getScreen: () => NavigationComponent,
+  };
 
   declare export type NavigationPathsConfig = {
     [routeName: string]: string,
@@ -348,16 +345,16 @@ declare module 'react-navigation' {
 
   declare export type HeaderProps = $Shape<
     NavigationSceneRendererProps & {
-      mode: HeaderMode,
-      router: NavigationRouter<NavigationState, NavigationStackScreenOptions>,
-      getScreenDetails: NavigationScene => NavigationScreenDetails<
-        NavigationStackScreenOptions
+    mode: HeaderMode,
+    router: NavigationRouter<NavigationState, NavigationStackScreenOptions>,
+    getScreenDetails: NavigationScene => NavigationScreenDetails<
+      NavigationStackScreenOptions
       >,
-      leftInterpolator: (props: NavigationSceneRendererProps) => {},
-      titleInterpolator: (props: NavigationSceneRendererProps) => {},
-      rightInterpolator: (props: NavigationSceneRendererProps) => {},
-    }
-  >;
+    leftInterpolator: (props: NavigationSceneRendererProps) => {},
+    titleInterpolator: (props: NavigationSceneRendererProps) => {},
+    rightInterpolator: (props: NavigationSceneRendererProps) => {},
+  }
+    >;
 
   /**
    * Stack Navigator
@@ -456,9 +453,9 @@ declare module 'react-navigation' {
     tabBarVisible?: boolean,
     tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string },
     tabBarOnPress?: ({
-      navigation: NavigationScreenProp<NavigationRoute>,
-      defaultHandler: () => void,
-    }) => void,
+                       navigation: NavigationScreenProp<NavigationRoute>,
+                       defaultHandler: () => void,
+                     }) => void,
   |};
 
   /**
@@ -526,11 +523,11 @@ declare module 'react-navigation' {
       routeName:
         | string
         | {
-            routeName: string,
-            params?: NavigationParams,
-            action?: NavigationNavigateAction,
-            key?: string,
-          },
+        routeName: string,
+        params?: NavigationParams,
+        action?: NavigationNavigateAction,
+        key?: string,
+      },
       params?: NavigationParams,
       action?: NavigationNavigateAction
     ) => boolean,
@@ -575,7 +572,7 @@ declare module 'react-navigation' {
   };
   declare export var NavigationEvents: React$ComponentType<
     _NavigationEventsProps
-  >;
+    >;
 
   /**
    * Navigation container
@@ -585,7 +582,7 @@ declare module 'react-navigation' {
     State: NavigationState,
     Options: {},
     Props: {}
-  > = React$ComponentType<{
+    > = React$ComponentType<{
     ...Props,
     ...NavigationContainerProps<State, Options>,
   }> &
@@ -971,7 +968,7 @@ declare module 'react-navigation' {
   } & NavigationNavigatorProps<NavigationStackScreenOptions, NavigationState>;
   declare export var CardStackTransitioner: React$ComponentType<
     _CardStackTransitionerProps
-  >;
+    >;
 
   declare type _CardStackProps = {
     screenProps?: {},
@@ -1043,7 +1040,7 @@ declare module 'react-navigation' {
   };
   declare export var HeaderBackButton: React$ComponentType<
     _HeaderBackButtonProps
-  >;
+    >;
 
   declare type _DrawerViewProps = {
     drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open',
@@ -1125,10 +1122,10 @@ declare module 'react-navigation' {
       previousScene: NavigationRoute,
       scene: TabScene
     ) => ({
-      previousScene: NavigationRoute,
-      scene: TabScene,
-      jumpToIndex: (index: number) => void,
-    }) => void,
+            previousScene: NavigationRoute,
+            scene: TabScene,
+            jumpToIndex: (index: number) => void,
+          }) => void,
     renderIcon: (scene: TabScene) => React$Element<*>,
     labelStyle?: TextStyleProp,
     iconStyle?: ViewStyleProp,
@@ -1152,10 +1149,10 @@ declare module 'react-navigation' {
       previousScene: NavigationRoute,
       scene: TabScene
     ) => ({
-      previousScene: NavigationRoute,
-      scene: TabScene,
-      jumpToIndex: (index: number) => void,
-    }) => void,
+            previousScene: NavigationRoute,
+            scene: TabScene,
+            jumpToIndex: (index: number) => void,
+          }) => void,
     getTestIDProps: (scene: TabScene) => (scene: TabScene) => any,
     renderIcon: (scene: TabScene) => React$Node,
     style?: ViewStyleProp,
@@ -1174,8 +1171,8 @@ declare module 'react-navigation' {
       {
         navigation: NavigationScreenProp<NavigationStateRoute> | void,
       }
-    >
-  >;
+      >
+    >;
   declare export function withNavigationFocus<Props: {}>(
     Component: React$ComponentType<Props>
   ): React$ComponentType<$Diff<Props, { isFocused: boolean | void }>>;
