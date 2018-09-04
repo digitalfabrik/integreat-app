@@ -1,22 +1,22 @@
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import Dashboard from '../../../screens/dashboard/components/Dashboard'
 import Header from '../../layout/components/Header'
-import CategoriesContainer from '../../../screens/categories/containers/CategoriesContainer'
-import LandingContainer from '../../../screens/landing/containers/LandingContainer'
-import theme from 'modules/layout/constants/theme'
+import CategoriesContainer from 'screens/categories/containers/CategoriesContainer'
+import LandingContainer from 'screens/landing/containers/LandingContainer'
+import DashboardContainer from 'screens/dashboard/containers/DashboardContainer'
+import withLayout from '../../layout/hocs/withLayout'
 
-const AppStack = createStackNavigator(
+const LayoutedDashboardContainer = withLayout(DashboardContainer)
+const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
+
+export const AppStack = createStackNavigator(
   {
-    'Dashboard': Dashboard,
-    'Categories': CategoriesContainer
+    'Dashboard': LayoutedDashboardContainer,
+    'Categories': LayoutedCategoriesContainer
   },
   {
     initialRouteName: 'Dashboard',
     navigationOptions: {
       header: Header
-    },
-    cardStyle: {
-      backgroundColor: theme.colors.backgroundColor
     }
   }
 )
