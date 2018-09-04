@@ -54,29 +54,6 @@ describe('FeedbackBoxContainer', () => {
     )).toMatchSnapshot()
   })
 
-  it('should post feedback and if feedback is opened', () => {
-    const mockPostFeedbackData = jest.fn()
-
-    const component = shallow(
-      <FeedbackBoxContainer
-        location={location}
-        query={'ab'}
-        cities={cities}
-        id={1234}
-        title={'title'}
-        alias='alias'
-        isPositiveRatingSelected
-        extras={null}
-        postFeedbackDataOverride={mockPostFeedbackData}
-        t={t}
-        onSubmit={() => {}}
-        closeFeedbackModal={() => {}} />
-    )
-
-    component.setProps({isOpen: true})
-    expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
-  })
-
   describe('getFeedbackOptions', () => {
     it('should add an option for the current page if returned by getCurrentPageFeedbackOption', () => {
       const instance = shallow(
