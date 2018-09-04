@@ -2,16 +2,15 @@
 
 import * as React from 'react'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
-import { Text } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { ScrollView, TouchableHighlight } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import Heading from '../components/Heading'
 import styled, { withTheme } from 'styled-components'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
 import { translate } from 'react-i18next'
+import type { ThemeType } from '../../../modules/layout/constants/theme'
 
 const Wrapper = styled.View`
   padding: 22px 10px 0;
@@ -55,7 +54,7 @@ class LandingContainer extends React.Component<PropType, StateType> {
 
   render () {
     if (!this.state.data) {
-      return <Text>Tesft</Text>
+      return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return <ScrollView>
@@ -68,4 +67,5 @@ class LandingContainer extends React.Component<PropType, StateType> {
   }
 }
 
+// $FlowFixMe
 export default withTheme(translate('landing')(LandingContainer))
