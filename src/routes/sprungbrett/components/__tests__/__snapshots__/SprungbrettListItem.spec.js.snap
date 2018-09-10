@@ -3,6 +3,7 @@
 exports[`SprungbrettListItem should match snapshot 1`] = `
 <ListElement>
   <CleanAnchor
+    rel="noreferrer"
     target="_blank"
   >
     <SprungbrettListItem__Title>
