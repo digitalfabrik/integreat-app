@@ -99,6 +99,7 @@ describe('CategoriesPage', () => {
                       uiDirection={'ltr'}
                       t={t}
                       dispatch={action => {}}
+                      categoryPath={'willkommen/willkommen-in-augsburg'}
                       routesMap={{}} />
     )
 
@@ -113,6 +114,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       uiDirection={'ltr'}
                       path={categoryModels[2].path}
+                      categoryPath={'willkommen'}
                       t={t}
                       dispatch={action => {}}
                       routesMap={{}} />
@@ -129,6 +131,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       uiDirection={'ltr'}
                       path={'/augsburg/de'}
+                      categoryPath={''}
                       t={t}
                       dispatch={action => {}}
                       routesMap={{}} />
@@ -137,7 +140,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot and render an Error if path is not valid', () => {
+  it('should match snapshot and render an error if path is not valid', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}
@@ -147,6 +150,24 @@ describe('CategoriesPage', () => {
                       path={'/augsburg/de/not/valid'}
                       t={t}
                       dispatch={action => {}}
+                      categoryPath={'not/valid'}
+                      routesMap={{}} />
+    )
+
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should match snapshot and render an extra not found error if it is an invalid extra path', () => {
+    const wrapper = shallow(
+      <CategoriesPage categories={categories}
+                      cities={cities}
+                      city={city}
+                      uiDirection={'ltr'}
+                      language={language}
+                      path={'/augsburg/de/extras/invalid_extra'}
+                      t={t}
+                      dispatch={action => {}}
+                      categoryPath={'extras/invalid_extra'}
                       routesMap={{}} />
     )
 
@@ -156,7 +177,7 @@ describe('CategoriesPage', () => {
   it('should map state to props', () => {
     const pathname = '/augsburg/en/willkommen'
     const location = {
-      payload: {city: city, language: language},
+      payload: {city: city, language: language, categoryPath: 'willkommen'},
       pathname: pathname
     }
 
