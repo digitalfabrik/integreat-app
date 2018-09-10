@@ -86,7 +86,7 @@ class Tile extends React.Component<PropsType> {
     } else {
       const inputs = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
-      return <form method='POST' action={tile.path} target='_blank' rel='noreferrer'>
+      return <form method='POST' action={tile.path} target='_blank'>
         {inputs}
         <button type='submit'>{this.getTileContent()}</button>
       </form>
