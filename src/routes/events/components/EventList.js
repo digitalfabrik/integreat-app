@@ -11,13 +11,13 @@ import Caption from 'modules/common/components/Caption'
 import EventModel from '../../../modules/endpoint/models/EventModel'
 import styled from 'styled-components'
 
-type PropsType = {
+type PropsType = {|
   events: Array<EventModel>,
   city: string,
   language: string,
   t: TFunction,
   onInternalLinkClick: string => void
-}
+|}
 
 const NoEvents = styled.div`
   display: flex;

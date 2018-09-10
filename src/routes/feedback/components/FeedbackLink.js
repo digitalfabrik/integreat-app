@@ -15,12 +15,12 @@ import { StyledToolbarItem } from '../../../modules/layout/components/ToolbarIte
 
 const StyledLink = StyledToolbarItem.withComponent(CleanLink)
 
-type PropsType = {
+type PropsType = {|
   isPositiveRatingLink: boolean,
   t: TFunction,
   location: LocationState,
   className?: string
-}
+|}
 
 export class FeedbackLink extends React.PureComponent<PropsType> {
   componentDidMount () {

@@ -15,16 +15,16 @@ export const StyledSubmitButton = styled(SubmitButton.withComponent('div'))`
   cursor: pointer;
 `
 
-type PropsType = {
+type PropsType = {|
   query?: string,
   location: LocationState,
   t: TFunction
-}
+|}
 
-type StateType = {
+type StateType = {|
   comment: string,
   feedbackSent: boolean
-}
+|}
 
 export class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {

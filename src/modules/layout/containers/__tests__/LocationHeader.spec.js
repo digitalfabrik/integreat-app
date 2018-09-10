@@ -69,7 +69,6 @@ describe('LocationHeader', () => {
   describe('NavigationItems', () => {
     it('should be empty, if extras and news are both disabled', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                languages={languages}
                                                 isExtrasEnabled={false}
                                                 isEventsEnabled={false}
                                                 viewportSmall
@@ -81,7 +80,6 @@ describe('LocationHeader', () => {
 
     it('should show categories, if extras or news are enabled', () => {
       const extrasComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                 languages={languages}
                                                  isExtrasEnabled
                                                  isEventsEnabled={false}
                                                  viewportSmall
@@ -89,7 +87,6 @@ describe('LocationHeader', () => {
                                                  onStickyTopChanged={onStickyTopChanged}
                                                  t={t} />)
       const eventsComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                 languages={languages}
                                                  isExtrasEnabled={false}
                                                  isEventsEnabled
                                                  viewportSmall
@@ -103,7 +100,6 @@ describe('LocationHeader', () => {
 
     it('should show extras, categories, events in this order', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                languages={languages}
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
@@ -115,7 +111,6 @@ describe('LocationHeader', () => {
 
     it('should highlight categories if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
-                                                languages={languages}
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
@@ -127,7 +122,6 @@ describe('LocationHeader', () => {
 
     it('should highlight events if route corresponds', () => {
       const component = shallow(<LocationHeader location={location(EVENTS_ROUTE)}
-                                                languages={languages}
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
@@ -139,7 +133,6 @@ describe('LocationHeader', () => {
 
     it('should highlight extras if extras route is selected', () => {
       const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
-                                                languages={languages}
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
@@ -153,7 +146,6 @@ describe('LocationHeader', () => {
   describe('ActionItems', () => {
     it('should match snapshot', () => {
       const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
-                                                languages={languages}
                                                 isExtrasEnabled
                                                 isEventsEnabled
                                                 viewportSmall
@@ -167,7 +159,6 @@ describe('LocationHeader', () => {
 
   it('should match snapshot', () => {
     const component = shallow(<LocationHeader location={location(EXTRAS_ROUTE)}
-                                              languages={languages}
                                               isExtrasEnabled
                                               isEventsEnabled
                                               viewportSmall

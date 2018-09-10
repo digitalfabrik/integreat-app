@@ -12,11 +12,11 @@ import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 
-type PropsType = {
+type PropsType = {|
   categories: ?CategoriesMapModel,
   location: LocationState,
   t: TFunction
-}
+|}
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
   getPdfUrl (category: CategoryModel): string {

@@ -15,13 +15,13 @@ import { compose } from 'recompose'
 import { getSprungbrettExtraPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
 import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
 
-type PropsType = {
+type PropsType = {|
   city: string,
   language: string,
   extras: ?Array<ExtraModel>,
   cities: ?Array<CityModel>,
   t: TFunction
-}
+|}
 
 /**
  * Displays tiles with all available extras or the page for a selected extra

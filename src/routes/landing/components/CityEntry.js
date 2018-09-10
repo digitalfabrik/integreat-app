@@ -7,11 +7,11 @@ import { CityListItem } from './CitySelector.styles'
 import { goToCategories } from '../../../modules/app/routes/categories'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 
-type PropsType = {
+type PropsType = {|
   language: string,
   city: CityModel,
   filterText: string
-}
+|}
 
 class CityEntry extends React.PureComponent<PropsType> {
   render () {
