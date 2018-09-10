@@ -5,7 +5,7 @@ import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { NavigationScene } from 'react-navigation'
+import type { NavigationScene } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
 
 const Horizonal = styled.View`
@@ -53,8 +53,13 @@ type PropsType = {
 
 class Header extends React.PureComponent<PropsType> {
   render () {
-    const {options} = this.props.scene.descriptor
-    const headerTitle = options.headerTitle
+    let headerTitle = ''
+
+    // $FlowFixMe
+    if (this.props.scene.descriptor) {
+      const {options} = this.props.scene.descriptor
+      headerTitle = options.headerTitle
+    }
 
     return (
       <BoxShadow theme={this.props.theme}>

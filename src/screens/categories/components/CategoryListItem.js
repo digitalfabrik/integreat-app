@@ -5,7 +5,7 @@ import * as React from 'react'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from 'modules/theme/constants/theme'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 const Row = styled.View`

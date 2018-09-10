@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import type { HeaderProps } from 'react-navigation'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import CategoriesContainer from 'screens/categories/containers/CategoriesContainer'
 import LandingContainer from 'screens/landing/containers/LandingContainer'
@@ -19,7 +20,7 @@ export const AppStack = createStackNavigator(
   {
     initialRouteName: 'Dashboard',
     navigationOptions: {
-      header: headerProps => <HeaderContainer scene={headerProps.scene} />
+      header: (headerProps: HeaderProps) => <HeaderContainer scene={headerProps.scene} />
     }
   }
 )

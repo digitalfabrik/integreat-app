@@ -17,7 +17,10 @@
 .*/Libraries/polyfills/.*
 
 ; Ignore metro
-.*/node_modules/metro/.*
+.*/node_modules/metro/.*;
+
+ Ignore react-navigation-header-buttons
+.*/node_modules/react-navigation-header-buttons/.*
 
 [include]
 

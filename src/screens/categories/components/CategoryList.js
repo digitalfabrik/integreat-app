@@ -4,9 +4,9 @@ import * as React from 'react'
 
 import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import CategoryModel from 'modules/endpoint/models/CategoryModel'
 import HTML from 'react-native-render-html'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from 'modules/theme/constants/theme'
 import { ScrollView } from 'react-native'
 
 type PropsType = {

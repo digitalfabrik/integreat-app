@@ -16,7 +16,7 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType> {
-  onLinkPress = (event, url) => {
+  onLinkPress = (event: *, url: string) => {
     Linking.openURL(url)
   }
 

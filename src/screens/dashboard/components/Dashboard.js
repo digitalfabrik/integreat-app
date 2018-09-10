@@ -12,7 +12,7 @@ type PropsType = {
 
 class Dashboard extends React.Component<PropsType> {
   static navigationOptions = {
-    // headerTitle: 'Dashboard'
+    headerTitle: 'Dashboard'
   }
 
   categories = () => this.props.navigation.navigate('Categories')
