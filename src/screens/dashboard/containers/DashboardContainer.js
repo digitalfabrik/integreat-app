@@ -7,7 +7,7 @@ import Dashboard from '../components/Dashboard'
 import toggleDarkMode from 'modules/theme/actions/toggleDarkMode'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  toggleTheme: action => dispatch(toggleDarkMode(action))
+  toggleTheme: () => dispatch(toggleDarkMode())
 })
 const mapStateToProps = () => ({})
 
