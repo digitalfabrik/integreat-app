@@ -27,6 +27,7 @@ import ExtraModel from '../../endpoint/models/ExtraModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 import type { Dispatch } from 'redux'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
+import type { StateType } from '../../app/StateType'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
@@ -41,17 +42,19 @@ type PropsType = {|
   children?: React.Node,
   location: LocationState,
   toggleDarkMode: () => void,
-  darkMode: boolean
+  darkMode: boolean,
+  // Custom redux state for testing purposes
+  store?: StateType
 |}
 
-type StateType = {|
+type LocalStateType = {|
   asideStickyTop: number,
   footerClicked: number
 |}
 
 const DARK_THEME_CLICK_COUNT = 5
 
-export class LocationLayout extends React.Component<PropsType, StateType> {
+export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   state = {asideStickyTop: 0, footerClicked: 0}
 
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})

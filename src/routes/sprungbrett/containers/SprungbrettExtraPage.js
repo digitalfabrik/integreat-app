@@ -17,7 +17,9 @@ type PropsType = {|
   city: string,
   language: string,
   extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>
+  cities: ?Array<CityModel>,
+  // Custom redux state for testing purposes
+  store?: StateType
 |}
 
 export class SprungbrettExtraPage extends React.Component<PropsType> {

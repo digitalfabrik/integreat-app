@@ -15,7 +15,9 @@ import type { StateType } from '../../../modules/app/StateType'
 type PropsType = {|
   redirect: Action => void,
   cities: ?Array<CityModel>,
-  param?: string
+  param?: string,
+  // Custom redux state for testing purposes
+  store?: StateType
 |}
 
 /**

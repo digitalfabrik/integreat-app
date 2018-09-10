@@ -21,7 +21,9 @@ type PropsType = {|
   language: string,
   offerHash?: string,
   extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>
+  cities: ?Array<CityModel>,
+  // Custom redux state for testing purposes
+  store?: StateType
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
