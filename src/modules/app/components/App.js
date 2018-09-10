@@ -9,6 +9,8 @@ import I18nProvider from 'modules/i18n/containers/I18nProvider'
 import createReduxStore from '../createReduxStore'
 import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import Navigator from './Navigator'
+import IOSSafeAreaView from 'modules/platform/components/IOSSafeAreaView'
+import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
 
 class App extends React.Component<{}> {
   platform: Platform
@@ -27,7 +29,10 @@ class App extends React.Component<{}> {
         <I18nProvider>
           <CustomThemeProvider>
             <PlatformContext.Provider value={this.platform}>
-              <Navigator />
+              <AndroidStatusBarContainer />
+              <IOSSafeAreaView>
+                <Navigator />
+              </IOSSafeAreaView>
             </PlatformContext.Provider>
           </CustomThemeProvider>
         </I18nProvider>
