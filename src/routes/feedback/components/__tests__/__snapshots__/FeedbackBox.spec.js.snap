@@ -40,7 +40,6 @@ exports[`FeedbackBox should match snapshot 1`] = `
   <FeedbackComment
     comment=""
     commentMessage="negativeComment"
-    isPositiveRatingSelected={false}
     onCommentChanged={[Function]}
   />
   <FeedbackBox__SubmitButton
