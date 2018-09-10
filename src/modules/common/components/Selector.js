@@ -6,13 +6,13 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import { ActiveElement, InactiveElement, Wrapper } from './Selector.styles'
 import ReactTooltip from 'react-tooltip'
 
-type PropsType = {
+type PropsType = {|
   verticalLayout: boolean,
   closeDropDownCallback?: () => void,
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
   inactiveItemTooltip: string
-}
+|}
 
 /**
  * Displays a Selector showing different items

@@ -37,7 +37,7 @@ exports[`FailureSwitcher render component not found failure should render a even
 exports[`FailureSwitcher render component not found failure should render a extra not found failure and match snapshot 1`] = `
 <Translate(Failure)
   errorMessage="not-found.extra"
-  goTo={
+  goToAction={
     Object {
       "payload": Object {
         "city": "augsburg",
@@ -78,7 +78,7 @@ exports[`FailureSwitcher should render a content not found failure if there is a
   </HelmetWrapper>
   <Translate(Failure)
     errorMessage="not-found.extra"
-    goTo={
+    goToAction={
       Object {
         "payload": Object {
           "city": "augsburg",

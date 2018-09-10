@@ -5,7 +5,11 @@ import { CenteredSpinner } from './LoadingSpinner.styles'
 import { withTheme } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 
-export class LoadingSpinner extends React.Component<{ theme: ThemeType }> {
+type PropsType = {|
+  theme: ThemeType
+|}
+
+export class LoadingSpinner extends React.Component<PropsType> {
   render () {
     return <CenteredSpinner name='line-scale-party' color={this.props.theme.colors.textColor} />
   }

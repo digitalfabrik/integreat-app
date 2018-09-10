@@ -37,13 +37,11 @@ describe('LanguageFailure', () => {
     })
   ]
 
-  const language = 'tu'
 
   it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageFailure cities={cities}
                        city={city}
-                       language={language}
                        t={key => key || 'null'} />
     )
 
