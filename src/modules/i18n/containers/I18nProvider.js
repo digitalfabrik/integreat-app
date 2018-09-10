@@ -18,16 +18,16 @@ const DEFAULT_LANGUAGE = 'en'
 
 type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
-type PropsType = {
+type PropsType = {|
   children: React.Node,
   language?: string,
   setUiDirection: Function
-}
+|}
 
-type StateType = {
+type StateType = {|
   language: string,
   fonts: FontMapType
-}
+|}
 
 export class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n

@@ -7,10 +7,10 @@ import type { LocationState } from 'redux-first-router'
 import FeedbackLink from '../../../routes/feedback/components/FeedbackLink'
 import type { Node } from 'react'
 
-type PropsType = {
+type PropsType = {|
   location: LocationState,
   children?: Node
-}
+|}
 
 class LocationToolbar extends React.PureComponent<PropsType> {
   render () {

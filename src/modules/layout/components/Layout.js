@@ -5,7 +5,7 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import { Aside, Body, Main, RichLayout } from './Layout.styles'
 
-type PropsType = {
+type PropsType = {|
   asideStickyTop: number,
   footer?: Node,
   header?: Node,
@@ -13,7 +13,7 @@ type PropsType = {
   modal?: Node,
   children?: Node,
   darkMode?: boolean
-}
+|}
 
 /**
  * The standard Layout, used for any view in this app as a container.

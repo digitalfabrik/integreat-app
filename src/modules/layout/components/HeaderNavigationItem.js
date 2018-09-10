@@ -6,13 +6,13 @@ import ReactTooltip from 'react-tooltip'
 import { InactiveNavigationItem, ActiveNavigationItem } from './HeaderNavigationItem.styles'
 import type { Action } from 'redux-first-router'
 
-type PropsType = {
+type PropsType = {|
   text: string,
   href: Action | string,
   selected: boolean,
   active: boolean,
   tooltip?: string
-}
+|}
 
 /**
  * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop

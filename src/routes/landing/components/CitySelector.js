@@ -7,12 +7,12 @@ import { groupBy } from 'lodash/collection'
 import CityModel from 'modules/endpoint/models/CityModel'
 import CityEntry from './CityEntry'
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
   language: string,
   stickyTop: number
-}
+|}
 
 class CitySelector extends React.PureComponent<PropsType> {
   static defaultProps = {

@@ -31,7 +31,7 @@ import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
 
-type PropsType = {
+type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
@@ -42,12 +42,12 @@ type PropsType = {
   location: LocationState,
   toggleDarkMode: () => void,
   darkMode: boolean
-}
+|}
 
-type StateType = {
+type StateType = {|
   asideStickyTop: number,
   footerClicked: number
-}
+|}
 
 const DARK_THEME_CLICK_COUNT = 5
 

@@ -14,7 +14,7 @@ import type { Action } from 'redux-first-router'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
 
-type PropsType = {
+type PropsType = {|
   navigationItems: React.Node,
   actionItems: Array<HeaderActionItem>,
   logoHref: Action | string,
@@ -22,7 +22,7 @@ type PropsType = {
   theme: ThemeType,
   onStickyTopChanged: number => void,
   platform: Platform
-}
+|}
 
 const HeaderContainer = styled.header`
   display: flex;

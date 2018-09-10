@@ -19,16 +19,16 @@ import type { LocationState } from 'redux-first-router'
 
 type CategoryListItemType = {|model: CategoryModel, subCategories: Array<CategoryModel>|}
 
-type PropsType = {
+type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   location: LocationState,
   t: TFunction
-}
+|}
 
-type LocalStateType = {
+type LocalStateType = {|
   filterText: string
-}
+|}
 
 const noop = () => {}
 

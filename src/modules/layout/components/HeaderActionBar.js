@@ -6,10 +6,10 @@ import Link from 'redux-first-router-link'
 import { ActionItems } from './HeaderActionBar.styles'
 import HeaderActionItem from '../HeaderActionItem'
 
-type PropsType = {
+type PropsType = {|
   className?: string,
   items: Array<HeaderActionItem>
-}
+|}
 
 /**
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
