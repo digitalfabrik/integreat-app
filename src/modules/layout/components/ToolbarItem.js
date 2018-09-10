@@ -29,7 +29,7 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   render () {
     const {href, text, icon} = this.props
     return (
-      <StyledToolbarItem href={href} target='_blank' data-tip={text}>
+      <StyledToolbarItem href={href} target='_blank' rel='noopener' data-tip={text}>
         <FontAwesomeIcon icon={icon} />
       </StyledToolbarItem>
     )
