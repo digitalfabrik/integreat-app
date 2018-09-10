@@ -12,12 +12,12 @@ import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
 import { Centered } from './Failure.styles'
 import type { Action } from 'redux-first-router'
 
-type PropsType = {
+type PropsType = {|
   errorMessage: string,
   goToAction?: Action,
   goToMessage?: string,
   t: TFunction
-}
+|}
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure

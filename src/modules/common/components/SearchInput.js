@@ -3,13 +3,13 @@
 import React from 'react'
 import { SearchIcon, Spacer, TextInput, Wrapper } from './SearchInput.styles'
 
-type PropsType = {
+type PropsType = {|
   placeholderText: string,
   filterText: string,
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
   onClickInput?: () => void
-}
+|}
 
 export class SearchInput extends React.Component<PropsType> {
   static defaultProps = {spaceSearch: false}

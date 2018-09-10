@@ -3,10 +3,10 @@
 import React from 'react'
 import { H1 } from './Caption.styles'
 
-type PropsType = {
+type PropsType = {|
   title: string,
   className?: string
-}
+|}
 
 class Caption extends React.Component<PropsType> {
   render () {

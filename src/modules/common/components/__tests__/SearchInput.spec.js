@@ -8,19 +8,15 @@ import { ThemeProvider } from 'styled-components'
 
 describe('SearchInput', () => {
   it('should render', () => {
-    const mockTranslate = jest.fn(text => text)
     expect(shallow(<SearchInput filterText={'Test'}
                                 placeholderText={'Placeholder'}
-                                onFilterTextChange={() => {}}
-                                t={mockTranslate} />)).toMatchSnapshot()
+                                onFilterTextChange={() => {}} />)).toMatchSnapshot()
   })
 
   it('should render and space search', () => {
-    const mockTranslate = jest.fn(text => text)
     expect(shallow(<SearchInput filterText={'Test'}
                                 placeholderText={'Placeholder'}
                                 onFilterTextChange={() => {}}
-                                t={mockTranslate}
                                 spaceSearch />)).toMatchSnapshot()
   })
 
