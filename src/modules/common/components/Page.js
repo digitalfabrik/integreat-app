@@ -1,20 +1,21 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Dimensions, Linking, StyleSheet, View, WebView, StatusBar } from 'react-native'
-import Caption from './Caption'
+import { Dimensions, Linking, WebView } from 'react-native'
+import styled from 'styled-components'
+import type { ThemeType } from '../../theme/constants/theme'
 
-const styles = StyleSheet.create({
-  container: {
-    height: Dimensions.get('screen').height - 60 - StatusBar.currentHeight // height of header and caption fixme ios
-  }
-})
+const WebContainer = styled.View`
+  flex: 1;
+  height: ${props => Dimensions.get('screen').height - 60}
+`
+type PropType = {
+  title: string,
+  content: string,
+  theme: ThemeType
+}
 
-class Page extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired
-  }
-
+class Page extends React.Component<PropType> {
   onLinkPress = (event, url) => {
     Linking.openURL(url)
   }
@@ -22,13 +23,12 @@ class Page extends React.Component {
   render () {
     return (
       <>
-        {/*<Caption title={this.props.title} style={styles.caption} />*/}
-        <View style={styles.container}>
+        <WebContainer theme={this.props.theme} >
           <WebView
             source={{html: this.props.content}}
             originWhitelist={['*']}
           />
-        </View>
+        </WebContainer>
       </>
     )
   }
