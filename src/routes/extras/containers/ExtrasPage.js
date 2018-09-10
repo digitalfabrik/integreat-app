@@ -20,7 +20,9 @@ type PropsType = {|
   language: string,
   extras: ?Array<ExtraModel>,
   cities: ?Array<CityModel>,
-  t: TFunction
+  t: TFunction,
+  // Custom redux state for testing purposes
+  store?: StateType
 |}
 
 /**
