@@ -1,9 +1,12 @@
+// @flow
+
 import * as React from 'react'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { StyleSheet } from 'react-native'
+import { NavigationScene } from 'react-navigation'
+import type { ThemeType } from 'modules/theme/constants/theme'
 
 const Horizonal = styled.View`
   flex:1;
@@ -25,15 +28,15 @@ const Title = styled.Text`
 `
 
 const BoxShadow = styled.View`
-  background-color: #fafafa;
-  height: 60px;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  height: ${props => props.theme.dimensions.headerHeight};
 `
 
 const MaterialHeaderButton = props => (
   <HeaderButton {...props} IconComponent={MaterialIcons} iconSize={23} color='black' />
 )
 
-export const MaterialHeaderButtons = props => {
+const MaterialHeaderButtons = props => {
   return (
     <HeaderButtons
       HeaderButtonComponent={MaterialHeaderButton}
@@ -43,29 +46,30 @@ export const MaterialHeaderButtons = props => {
   )
 }
 
-const styles = StyleSheet.create({
-  headerButtons: {
-    alignSelf: 'flex-end'
+type PropsType = {
+  scene: NavigationScene,
+  theme: ThemeType
+}
+
+class Header extends React.PureComponent<PropsType> {
+  render () {
+    const {options} = this.props.scene.descriptor
+    const headerTitle = options.headerTitle
+
+    return (
+      <BoxShadow theme={this.props.theme}>
+        <Horizonal>
+          <Logo source={logo} />
+          <Title>{headerTitle}</Title>
+          <MaterialHeaderButtons>
+            <Item title='add' iconName='search' onPress={() => console.warn('add')} />
+            <Item title='edit' iconName='edit' onPress={() => console.warn('edit')} />
+            <Item title='asdf' show='never' onPress={() => console.warn('edit')} />
+          </MaterialHeaderButtons>
+        </Horizonal>
+      </BoxShadow>
+    )
   }
-})
-
-const Header = props => {
-  const {options} = props.scene.descriptor
-  const headerTitle = options.headerTitle
-
-  return (
-    <BoxShadow>
-      <Horizonal>
-        <Logo source={logo} />
-        <Title>{headerTitle}</Title>
-        <MaterialHeaderButtons>
-          <Item title='add' iconName='search' onPress={() => console.warn('add')} />
-          <Item title='edit' iconName='edit' onPress={() => console.warn('edit')} />
-          <Item title='asdf' show='never' onPress={() => console.warn('edit')} />
-        </MaterialHeaderButtons>
-      </Horizonal>
-    </BoxShadow>
-  )
 }
 
 export default Header
