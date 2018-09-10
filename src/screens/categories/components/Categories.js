@@ -12,9 +12,7 @@ import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import CategoryTimeStamp from './CategoryTimeStamp'
-import { ScrollView } from 'react-native'
-import type { ThemeType } from '../../../modules/layout/constants/theme'
+import type { ThemeType } from 'modules/theme/constants/theme'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -50,15 +48,15 @@ export class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   getContent (category: CategoryModel): React.Node {
-    const {categories, cities, language} = this.props
+    const {categories, cities} = this.props
     const children = categories.getChildren(category)
 
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
       return <React.Fragment>
         <Page title={category.title}
-              content={category.content} />
-        {/* {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />} can not be used because of WebView */}
+              content={category.content}
+              theme={this.props.theme} />
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
