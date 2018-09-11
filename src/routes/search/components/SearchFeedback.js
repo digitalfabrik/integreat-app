@@ -1,26 +1,23 @@
 // @flow
 
 import * as React from 'react'
-import FeedbackModal from '../../feedback/components/FeedbackModal'
 import styled from 'styled-components'
-import CleanLink from '../../../modules/common/components/CleanLink'
-import { NEGATIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { LocationState } from 'redux-first-router'
-import { goToFeedback } from '../../../modules/app/routes/feedback'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
+import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/FeedbackEndpoint'
 
 const FeedbackButton = styled.div`
   padding: 30px 0;
   text-align: center;
 `
 
-const FeedbackLink = styled(CleanLink)`
+const FeedbackLink = styled.span`
   padding: 5px 20px;
   background-color: ${props => props.theme.colors.themeColor};
-  color: ${props => props.theme.colors.backgroundAccentColor};
+  color: ${props => props.theme.colors.textColor};
   border-radius: 0.25em;
 `
 
@@ -28,6 +25,10 @@ const FeedbackContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`
+
+const NothingFound = styled.div`
+  margin-top: 30px;
 `
 
 type PropsType = {|
@@ -38,40 +39,39 @@ type PropsType = {|
   t: TFunction
 |}
 
-export class SearchFeedback extends React.Component<PropsType> {
-  renderFeedbackOption (): React.Node {
-    const {resultsFound, query, location, t} = this.props
-    if (!resultsFound) {
-      return (
-        <FeedbackContainer>
-          <div>{t('nothingFound')}</div>
-          <NothingFoundFeedbackBox location={location} query={query} />
-        </FeedbackContainer>
-      )
-    } else if (query) {
-      return (
-        <FeedbackButton>
-          <FeedbackLink to={goToFeedback(location, NEGATIVE_RATING)}>{t('informationNotFound')}</FeedbackLink>
-        </FeedbackButton>
-      )
-    }
+type StateType = {|
+  boxOpenedForQuery: ?string
+|}
+
+export class SearchFeedback extends React.Component<PropsType, StateType> {
+  state = {boxOpenedForQuery: null}
+
+  openFeedbackBox = () => {
+    const {location, query} = this.props
+    const {city, language} = location.payload
+    FeedbackEndpoint.postData({
+      feedbackType: SEARCH_FEEDBACK_TYPE,
+      isPositiveRating: false,
+      comment: '',
+      city,
+      language,
+      query
+    })
+    this.setState({boxOpenedForQuery: this.props.query})
   }
 
-  render () {
-    const {query, cities, location} = this.props
-    const feedbackStatus = location.query && location.query.feedback
-
-    return (
-      <>
-        {this.renderFeedbackOption()}
-        <FeedbackModal
-          query={query}
-          cities={cities}
-          location={location}
-          feedbackStatus={feedbackStatus}
-          extras={null} />
-      </>
-    )
+  render (): React.Node {
+    const {resultsFound, query, location, t} = this.props
+    if (!resultsFound || query === this.state.boxOpenedForQuery) {
+      return <FeedbackContainer>
+        <NothingFound>{t('nothingFound')}</NothingFound>
+        <NothingFoundFeedbackBox location={location} query={query} />
+      </FeedbackContainer>
+    } else {
+      return <FeedbackButton>
+        <FeedbackLink onClick={this.openFeedbackBox}>{t('informationNotFound')}</FeedbackLink>
+      </FeedbackButton>
+    }
   }
 }
 

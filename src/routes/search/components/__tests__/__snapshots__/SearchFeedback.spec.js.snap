@@ -1,94 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchFeedback should render a FeedbackButton if results are found and the query is not empty 1`] = `
-<Fragment>
-  <SearchFeedback__FeedbackButton>
-    <SearchFeedback__FeedbackLink
-      to={
-        Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "query": Object {
-            "feedback": "down",
-          },
-          "type": "SEARCH",
-        }
-      }
-    >
-      informationNotFound
-    </SearchFeedback__FeedbackLink>
-  </SearchFeedback__FeedbackButton>
-  <FeedbackModal
-    cities={
-      Array [
-        CityModel {
-          "_code": "augsburg",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Augsburg",
-          "_sortingName": "Augsburg",
-        },
-      ]
-    }
-    extras={null}
-    feedbackStatus="up"
-    location={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": Object {
-          "feedback": "up",
-        },
-        "type": "SEARCH",
-      }
-    }
-    query="ab"
-  />
-</Fragment>
+<SearchFeedback__FeedbackButton>
+  <SearchFeedback__FeedbackLink
+    onClick={[Function]}
+  >
+    informationNotFound
+  </SearchFeedback__FeedbackLink>
+</SearchFeedback__FeedbackButton>
 `;
 
 exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results are found 1`] = `
-<Fragment>
-  <SearchFeedback__FeedbackContainer>
-    <div>
-      nothingFound
-    </div>
-    <Translate(NothingFoundFeedbackBox)
-      location={
-        Object {
-          "payload": Object {
-            "city": "augsburg",
-            "language": "de",
-          },
-          "query": Object {
-            "feedback": "up",
-          },
-          "type": "SEARCH",
-        }
-      }
-      query="abc"
-    />
-  </SearchFeedback__FeedbackContainer>
-  <FeedbackModal
-    cities={
-      Array [
-        CityModel {
-          "_code": "augsburg",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Augsburg",
-          "_sortingName": "Augsburg",
-        },
-      ]
-    }
-    extras={null}
-    feedbackStatus="up"
+<SearchFeedback__FeedbackContainer>
+  <SearchFeedback__NothingFound>
+    nothingFound
+  </SearchFeedback__NothingFound>
+  <Translate(NothingFoundFeedbackBox)
     location={
       Object {
         "payload": Object {
@@ -103,39 +30,15 @@ exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results ar
     }
     query="abc"
   />
-</Fragment>
+</SearchFeedback__FeedbackContainer>
 `;
 
 exports[`SearchFeedback should render neither a NothingFoundFeedbackBox nor a FeedbackButton 1`] = `
-<Fragment>
-  <FeedbackModal
-    cities={
-      Array [
-        CityModel {
-          "_code": "augsburg",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Augsburg",
-          "_sortingName": "Augsburg",
-        },
-      ]
-    }
-    extras={null}
-    feedbackStatus="up"
-    location={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": Object {
-          "feedback": "up",
-        },
-        "type": "SEARCH",
-      }
-    }
-    query=""
-  />
-</Fragment>
+<SearchFeedback__FeedbackButton>
+  <SearchFeedback__FeedbackLink
+    onClick={[Function]}
+  >
+    informationNotFound
+  </SearchFeedback__FeedbackLink>
+</SearchFeedback__FeedbackButton>
 `;

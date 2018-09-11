@@ -7,29 +7,11 @@ exports[`LocationToolbar should match snapshot 1`] = `
   </div>
   <Translate(FeedbackLink)
     isPositiveRatingLink={true}
-    location={
-      Object {
-        "pathname": "/augsburg/de/events",
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "EVENTS",
-      }
-    }
+    openFeedbackModal={[Function]}
   />
   <Translate(FeedbackLink)
     isPositiveRatingLink={false}
-    location={
-      Object {
-        "pathname": "/augsburg/de/events",
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "EVENTS",
-      }
-    }
+    openFeedbackModal={[Function]}
   />
 </Toolbar>
 `;

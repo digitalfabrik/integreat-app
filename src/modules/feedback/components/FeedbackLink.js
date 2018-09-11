@@ -3,22 +3,18 @@
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import CleanLink from '../../../modules/common/components/CleanLink'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from 'modules/app/constants/icons'
 
 import ReactTooltip from 'react-tooltip'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
-import type { LocationState } from 'redux-first-router'
-import { goToFeedback } from '../../../modules/app/routes/feedback'
 import { StyledToolbarItem } from '../../../modules/layout/components/ToolbarItem'
-
-const StyledLink = StyledToolbarItem.withComponent(CleanLink)
+import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
 type PropsType = {
   isPositiveRatingLink: boolean,
   t: TFunction,
-  location: LocationState,
+  openFeedbackModal: FeedbackRatingType => void,
   className?: string
 }
 
@@ -28,17 +24,19 @@ export class FeedbackLink extends React.PureComponent<PropsType> {
     ReactTooltip.rebuild()
   }
 
+  onLinkClick = () => this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
+
   render () {
-    const {t, isPositiveRatingLink, location, className} = this.props
+    const {t, isPositiveRatingLink, className} = this.props
     return (
-      <StyledLink
+      <StyledToolbarItem
         className={className}
-        to={goToFeedback(location, isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)}>
+        onClick={this.onLinkClick}>
         <FontAwesomeIcon
           className={className}
           data-tip={isPositiveRatingLink ? t('positiveRating') : t('negativeRating')}
           icon={isPositiveRatingLink ? faSmile : faFrown} />
-      </StyledLink>
+      </StyledToolbarItem>
     )
   }
 }

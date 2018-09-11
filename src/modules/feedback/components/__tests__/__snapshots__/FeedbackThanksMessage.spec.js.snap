@@ -3,18 +3,7 @@
 exports[`FeedbackThanksMessage should match snapshot 1`] = `
 <FeedbackBox__StyledFeedbackBox>
   <ModalHeader
-    location={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": Object {
-          "feedback": "sent",
-        },
-        "type": "CATEGORIES",
-      }
-    }
+    closeFeedbackModal={[Function]}
     title="feedbackSent"
   />
   <FeedbackBox__Description>
