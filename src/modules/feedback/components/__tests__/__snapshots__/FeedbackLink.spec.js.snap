@@ -2,18 +2,7 @@
 
 exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 <ToolbarItem__StyledToolbarItem
-  to={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "query": Object {
-        "feedback": "down",
-      },
-      "type": "CATEGORIES",
-    }
-  }
+  onClick={[Function]}
 >
   <FontAwesomeIcon
     border={false}
@@ -50,18 +39,7 @@ exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 
 exports[`FeedbackLink should render a positive FeedbackLink 1`] = `
 <ToolbarItem__StyledToolbarItem
-  to={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "query": Object {
-        "feedback": "up",
-      },
-      "type": "CATEGORIES",
-    }
-  }
+  onClick={[Function]}
 >
   <FontAwesomeIcon
     border={false}

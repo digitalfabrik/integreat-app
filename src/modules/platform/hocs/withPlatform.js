@@ -12,11 +12,9 @@ const withPlatform = <Props: {}>(WrappedComponent: React.ComponentType<Props>): 
     static displayName = wrapDisplayName(WrappedComponent, 'withPlatform')
 
     render () {
-      return (
-        <PlatformContext.Consumer>
+      return <PlatformContext.Consumer>
           {platform => <WrappedComponent platform={platform} {...this.props} />}
         </PlatformContext.Consumer>
-      )
     }
   }
 }

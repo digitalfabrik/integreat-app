@@ -17,14 +17,14 @@ import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
 
-type CategoryListItemType = {|model: CategoryModel, subCategories: Array<CategoryModel>|}
+type CategoryListItemType = {| model: CategoryModel, subCategories: Array<CategoryModel> |}
 
-type PropsType = {
+type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   location: LocationState,
   t: TFunction
-}
+|}
 
 type LocalStateType = {
   filterText: string

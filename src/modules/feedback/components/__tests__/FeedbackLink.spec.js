@@ -12,6 +12,7 @@ describe('FeedbackLink', () => {
   it('should render a positive FeedbackLink', () => {
     const component = shallow(
       <FeedbackLink
+        openFeedbackModal={() => {}}
         location={{type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}}
         t={t}
         isPositiveRatingLink />
@@ -22,6 +23,7 @@ describe('FeedbackLink', () => {
   it('should render a negative FeedbackLink', () => {
     const component = shallow(
       <FeedbackLink
+        openFeedbackModal={() => {}}
         location={{type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}}
         t={t}
         isPositiveRatingLink={false} />

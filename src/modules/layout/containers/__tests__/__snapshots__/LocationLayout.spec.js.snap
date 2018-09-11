@@ -8,7 +8,6 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
     <Translate(LocationFooter)
       city="city1"
       language="de"
-      onClick={[Function]}
     />
   }
   header={
@@ -18,50 +17,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
       onStickyTopChanged={[Function]}
     />
   }
-  modal={
-    <FeedbackModal
-      cities={
-        Array [
-          CityModel {
-            "_code": "city1",
-            "_eventsEnabled": true,
-            "_extrasEnabled": false,
-            "_live": true,
-            "_name": "Mambo No. 5",
-            "_sortingName": "Mambo",
-          },
-        ]
-      }
-      extras={
-        Array [
-          ExtraModel {
-            "_alias": "ihk-lehrstellenboerse",
-            "_path": "ihk-jobborese.com",
-            "_postData": null,
-            "_thumbnail": "xy",
-            "_title": "Jobboerse",
-          },
-          ExtraModel {
-            "_alias": "ihk-praktikumsboerse",
-            "_path": "ihk-pratkitkumsboerse.com",
-            "_postData": null,
-            "_thumbnail": "xy",
-            "_title": "Praktikumsboerse",
-          },
-        ]
-      }
-      location={
-        Object {
-          "pathname": "/augsburg/de/willkommen",
-          "payload": Object {
-            "city": "city1",
-            "language": "de",
-          },
-          "type": "CATEGORIES",
-        }
-      }
-    />
-  }
+  modal={null}
   toolbar={
     <Translate(CategoriesToolbar)
       categories={
@@ -91,6 +47,7 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
           "type": "CATEGORIES",
         }
       }
+      openFeedbackModal={[Function]}
     />
   }
 >
@@ -106,7 +63,6 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
     <Translate(LocationFooter)
       city="city1"
       language="de"
-      onClick={[Function]}
     />
   }
   header={
@@ -116,50 +72,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
       onStickyTopChanged={[Function]}
     />
   }
-  modal={
-    <FeedbackModal
-      cities={
-        Array [
-          CityModel {
-            "_code": "city1",
-            "_eventsEnabled": true,
-            "_extrasEnabled": false,
-            "_live": true,
-            "_name": "Mambo No. 5",
-            "_sortingName": "Mambo",
-          },
-        ]
-      }
-      extras={
-        Array [
-          ExtraModel {
-            "_alias": "ihk-lehrstellenboerse",
-            "_path": "ihk-jobborese.com",
-            "_postData": null,
-            "_thumbnail": "xy",
-            "_title": "Jobboerse",
-          },
-          ExtraModel {
-            "_alias": "ihk-praktikumsboerse",
-            "_path": "ihk-pratkitkumsboerse.com",
-            "_postData": null,
-            "_thumbnail": "xy",
-            "_title": "Praktikumsboerse",
-          },
-        ]
-      }
-      location={
-        Object {
-          "pathname": "/augsburg/de/willkommen",
-          "payload": Object {
-            "city": "city1",
-            "language": "de",
-          },
-          "type": "CATEGORIES",
-        }
-      }
-    />
-  }
+  modal={null}
   toolbar={
     <Translate(CategoriesToolbar)
       categories={
@@ -189,6 +102,7 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
           "type": "CATEGORIES",
         }
       }
+      openFeedbackModal={[Function]}
     />
   }
 >

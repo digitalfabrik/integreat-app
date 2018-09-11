@@ -10,7 +10,7 @@ describe('FeedbackThanksMessage', () => {
     const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'sent'}}
     const t = (key: ?string): string => key || ''
     expect(shallow(
-      <FeedbackThanksMessage location={location} t={t} />
+      <FeedbackThanksMessage location={location} closeFeedbackModal={() => {}} t={t} />
     )).toMatchSnapshot()
   })
 })
