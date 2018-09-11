@@ -65,7 +65,7 @@ export class ExtrasPage extends React.Component<PropsType> {
 
     if (extraId) {
       // If there is an extraId, the route is invalid, because every internal extra has a separate route
-      const error = new ContentNotFoundError({type: 'extra', id: this.props.path, city: city, language})
+      const error = new ContentNotFoundError({type: 'extra', id: extraId, city: city, language})
       return <FailureSwitcher error={error} />
     }
 
