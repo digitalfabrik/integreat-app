@@ -118,9 +118,3 @@ exports[`CategoriesPage should match snapshot and render an error if path is not
   error={[Error: The category /augsburg/de/not/valid does not exist here.]}
 />
 `;
-
-exports[`CategoriesPage should match snapshot and render an extra not found error if it is an invalid extra path 1`] = `
-<Translate(FailureSwitcher)
-  error={[Error: The extra /augsburg/de/extras/invalid_extra does not exist here.]}
-/>
-`;

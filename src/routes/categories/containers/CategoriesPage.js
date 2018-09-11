@@ -34,8 +34,7 @@ type PropsType = {
   uiDirection: UiDirectionType,
   t: TFunction,
   dispatch: ReceivedAction => void,
-  routesMap: {},
-  categoryPath: string
+  routesMap: {}
 }
 
 /**
@@ -104,7 +103,7 @@ export class CategoriesPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {categories, path, city, language, uiDirection, categoryPath, t} = this.props
+    const {categories, path, city, language, uiDirection, t} = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
@@ -118,8 +117,7 @@ export class CategoriesPage extends React.Component<PropsType> {
         {this.getContent(categoryModel)}
       </div>
     } else {
-      const errorType = categoryPath.indexOf('extras') === 0 ? 'extra' : 'category'
-      const error = new ContentNotFoundError({type: errorType, id: path, city: city, language})
+      const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
       return <FailureSwitcher error={error} />
     }
   }
@@ -130,8 +128,7 @@ const mapStateToProps = (state: StateType) => ({
   language: state.location.payload.language,
   routesMap: state.location.routesMap,
   city: state.location.payload.city,
-  path: state.location.pathname,
-  categoryPath: state.location.payload.categoryPath
+  path: state.location.pathname
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
