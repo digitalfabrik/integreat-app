@@ -99,7 +99,6 @@ describe('CategoriesPage', () => {
                       uiDirection={'ltr'}
                       t={t}
                       dispatch={action => {}}
-                      categoryPath={'willkommen/willkommen-in-augsburg'}
                       routesMap={{}} />
     )
 
@@ -114,7 +113,6 @@ describe('CategoriesPage', () => {
                       language={language}
                       uiDirection={'ltr'}
                       path={categoryModels[2].path}
-                      categoryPath={'willkommen'}
                       t={t}
                       dispatch={action => {}}
                       routesMap={{}} />
@@ -131,7 +129,6 @@ describe('CategoriesPage', () => {
                       language={language}
                       uiDirection={'ltr'}
                       path={'/augsburg/de'}
-                      categoryPath={''}
                       t={t}
                       dispatch={action => {}}
                       routesMap={{}} />
@@ -150,7 +147,6 @@ describe('CategoriesPage', () => {
                       path={'/augsburg/de/not/valid'}
                       t={t}
                       dispatch={action => {}}
-                      categoryPath={'not/valid'}
                       routesMap={{}} />
     )
 
