@@ -23,6 +23,7 @@
     "react-i18next": "^7.10.1",
     "react-native": "0.56.0",
     "react-native-elements": "0.19.1",
+    "react-native-offline": "^3.11.2",
     "react-native-render-html": "^3.10.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.10.0",
