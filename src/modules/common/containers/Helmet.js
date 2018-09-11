@@ -17,9 +17,7 @@ type PropsType = {|
   events: Array<EventModel>,
   languages: Array<LanguageModel>,
   location: Location,
-  metaDescription?: string,
-  // Custom redux state for testing purposes
-  store?: StateType
+  metaDescription?: string
 |}
 
 export class Helmet extends React.Component<PropsType> {
