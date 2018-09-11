@@ -1,12 +1,16 @@
 // @flow
 
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import React from 'react'
 
 import ExtraModel from 'modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
-import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
+import createHistory from '../../../../modules/app/createHistory'
+import theme from '../../../../modules/theme/constants/theme'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
 
 describe('ExtrasPage', () => {
   const city = 'augsburg'
@@ -65,19 +69,18 @@ describe('ExtrasPage', () => {
 
   it('should map state to props', () => {
     const location = {payload: {language, city}}
+    const store = createReduxStore(createHistory, {})
+    store.getState().location = location
 
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
-      extras: {data: extras},
-      cities: {data: cities}
-    })
-
-    const extrasPage = shallow(
-      <ConnectedExtrasPage store={store} cities={cities} extras={extras} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedExtrasPage cities={cities} extras={extras} />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(extrasPage.props()).toMatchObject({
+    expect(tree.find(ExtrasPage).props()).toMatchObject({
       language,
       city,
       extras,
