@@ -84,22 +84,14 @@ class Endpoint<P, T> {
   * fetch (action: ActionType<P>): Saga<void> {
     try {
       const payload = yield call(this._loadData.bind(this), action.params)
-      yield put({type: `${this.stateName}_FETCH_SUCCEEDED`, payload: payload})
+      yield put({type: `${this.stateName.toUpperCase()}_FETCH_SUCCEEDED`, payload: payload})
     } catch (e) {
-      yield put({type: `${this.stateName}_FETCH_FAILED`, message: e.message})
+      yield put({type: `${this.stateName.toUpperCase()}_FETCH_FAILED`, message: e.message})
     }
   }
 
   * fetchSaga (): Saga<void> {
-    yield takeLatest(`FETCH_${this.stateName}_REQUEST`, this.fetch.bind(this))
-  }
-
-  * saga (): Generator<*, *, *> {
-    yield all([
-      fork(this.fetchSaga.bind(this)),
-      fork(networkEventsListenerSaga, {
-      })
-    ])
+    yield takeLatest(`FETCH_${this.stateName.toUpperCase()}_REQUEST`, this.fetch.bind(this))
   }
 }
 

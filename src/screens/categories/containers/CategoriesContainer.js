@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
-import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import type { NavigationScreenProp, NavigationState } from 'react-navigation'
 import { Categories } from '../components/Categories'
@@ -12,44 +10,19 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import { withTheme } from 'styled-components'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import { ActivityIndicator } from 'react-native'
+import { connect } from 'react-redux'
 
 type PropType = {
   navigation: NavigationScreenProp<NavigationState>,
-  theme: ThemeType
+  cities: Array<CityModel>,
+  categories: CategoriesMapModel,
+  theme: ThemeType,
+  fetch: { language: string, city: string } => void
 }
 
-type StateType = {
-  categories: ?CategoriesMapModel | null,
-  cities: ?Array<CityModel> | null
-}
-
-class CategoriesContainer extends React.Component<PropType, StateType> {
-  constructor () {
-    super()
-    this.state = {categories: null, cities: null}
-  }
-
-  async fetchData (): Promise<void> {
-    const categoriesPayload = await categoriesEndpoint.loadData({language: 'de', city: 'nuernberg'})
-    const citiesPayload = await citiesEndpoint.loadData({language: 'de'})
-
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({categories: categoriesPayload.data})
-    this.setState({cities: citiesPayload.data})
-  }
-
+class CategoriesContainer extends React.Component<PropType> {
   componentDidMount () {
-    if (!this.getCategories() || !this.getCities()) {
-      this.fetchData()
-    }
-  }
-
-  getCategories (): ?CategoriesMapModel | null {
-    return this.props.navigation.getParam('categories') || this.state.categories
-  }
-
-  getCities (): ?Array<CityModel> | null {
-    return this.props.navigation.getParam('cities') || this.state.cities
+    this.props.fetch({language: 'de', city: 'nuernberg'})
   }
 
   onTilePress = (tile: TileModel) => {
@@ -63,8 +36,8 @@ class CategoriesContainer extends React.Component<PropType, StateType> {
   navigate = (path: string) => {
     const params = {
       path: path,
-      categories: this.getCategories(),
-      cities: this.getCities()
+      categories: this.props.categories,
+      cities: this.props.cities
     }
     if (this.props.navigation.push) {
       this.props.navigation.push('Categories', params)
@@ -72,11 +45,11 @@ class CategoriesContainer extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const categories = this.getCategories()
+    const categories = this.props.categories
     if (!categories) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
-    const cities = this.getCities()
+    const cities = this.props.cities
     if (!cities) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
@@ -89,5 +62,16 @@ class CategoriesContainer extends React.Component<PropType, StateType> {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    cities: state.cities.data,
+    categories: state.categories.data
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {fetch: params => dispatch({type: 'FETCH_CATEGORIES_REQUEST', params, meta: {retry: true}})}
+}
+
 // $FlowFixMe
-export default withTheme(CategoriesContainer)
+export default withTheme(connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer))

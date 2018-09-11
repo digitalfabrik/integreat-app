@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import type { NavigationScreenProp } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { ActivityIndicator, ScrollView } from 'react-native'
@@ -25,10 +24,11 @@ const Wrapper = styled.View`
 
 type PropType = {
   language: string,
+  cities: Array<CityModel>,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
   theme: ThemeType,
-  fetch: any => void
+  fetch: { language: string } => void
 }
 
 /**
@@ -64,7 +64,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {fetch: params => dispatch({type: 'FETCH_cities_REQUEST', params, meta: {retry: true}})}
+  return {fetch: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})}
 }
 
 // $FlowFixMe
