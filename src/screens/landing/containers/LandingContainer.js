@@ -11,6 +11,7 @@ import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { ThemeType } from 'modules/theme/constants/theme'
+import { connect } from 'react-redux'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -26,31 +27,16 @@ type PropType = {
   language: string,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  theme: ThemeType
-}
-
-type StateType = {
-  data: Array<CityModel> | null
+  theme: ThemeType,
+  fetch: any => void
 }
 
 /**
  * This shows the landing screen. This is a container because it depends on endpoints.
  */
-class LandingContainer extends React.Component<PropType, StateType> {
-  constructor () {
-    super()
-    this.state = {data: null}
-  }
-
-  async fetchData (): Promise<void> {
-    const payload = await citiesEndpoint.loadData({language: 'de'})
-    console.log(payload)
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({data: payload.data})
-  }
-
+class LandingContainer extends React.Component<PropType> {
   componentDidMount () {
-    this.fetchData()
+    this.props.fetch({language: 'de'})
   }
 
   navigateToDashboard = city => {
@@ -60,11 +46,11 @@ class LandingContainer extends React.Component<PropType, StateType> {
   render () {
     return <Wrapper theme={this.props.theme}>
       <ScrollView>
-        {!this.state.data
+        {!this.props.cities
           ? <ActivityIndicator size='large' color='#0000ff' />
           : <>
             <Heading />
-            <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.state.data} t={this.props.t}
+            <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.props.cities} t={this.props.t}
                                     navigateToDashboard={this.navigateToDashboard} />
           </>
         }
@@ -73,5 +59,13 @@ class LandingContainer extends React.Component<PropType, StateType> {
   }
 }
 
+const mapStateToProps = state => {
+  return {cities: state.cities.data}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {fetch: params => dispatch({type: 'FETCH_cities_REQUEST', params, meta: {retry: true}})}
+}
+
 // $FlowFixMe
-export default withTheme(translate('landing')(LandingContainer))
+export default withTheme(translate('landing')(connect(mapStateToProps, mapDispatchToProps)(LandingContainer)))

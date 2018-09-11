@@ -11,31 +11,43 @@ import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import Navigator from './Navigator'
 import IOSSafeAreaView from 'modules/platform/components/IOSSafeAreaView'
 import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
+import { withNetworkConnectivity } from 'react-native-offline'
 
-class App extends React.Component<{}> {
+const NETWORK = withNetworkConnectivity({
+  withRedux: true
+})(I18nProvider)
+
+class App extends React.Component<{}, { waitingForStore: boolean }> {
   platform: Platform
 
   store: any
 
   constructor () {
     super()
-    this.store = createReduxStore({})
+    this.state = {waitingForStore: true}
+    this.store = createReduxStore(() => { this.setState({waitingForStore: false}) })
     this.platform = new Platform()
   }
 
   render () {
+    if (this.state.waitingForStore) {
+      return null
+    }
+
     return (
       <Provider store={this.store}>
-        <I18nProvider>
-          <CustomThemeProvider>
-            <PlatformContext.Provider value={this.platform}>
-              <AndroidStatusBarContainer />
-              <IOSSafeAreaView>
-                <Navigator />
-              </IOSSafeAreaView>
-            </PlatformContext.Provider>
-          </CustomThemeProvider>
-        </I18nProvider>
+        <NETWORK>
+          <I18nProvider>
+            <CustomThemeProvider>
+              <PlatformContext.Provider value={this.platform}>
+                <AndroidStatusBarContainer />
+                <IOSSafeAreaView>
+                  <Navigator />
+                </IOSSafeAreaView>
+              </PlatformContext.Provider>
+            </CustomThemeProvider>
+          </I18nProvider>
+        </NETWORK>
       </Provider>
     )
   }
