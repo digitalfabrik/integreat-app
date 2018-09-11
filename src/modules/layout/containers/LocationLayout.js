@@ -27,7 +27,6 @@ import ExtraModel from '../../endpoint/models/ExtraModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 import type { Dispatch } from 'redux'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
-import type { StateType } from '../../app/StateType'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
@@ -42,9 +41,7 @@ type PropsType = {|
   children?: React.Node,
   location: LocationState,
   toggleDarkMode: () => void,
-  darkMode: boolean,
-  // Custom redux state for testing purposes
-  store?: StateType
+  darkMode: boolean
 |}
 
 type LocalStateType = {|
