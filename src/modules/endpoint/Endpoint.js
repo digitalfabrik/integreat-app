@@ -90,8 +90,16 @@ class Endpoint<P, T> {
     }
   }
 
-  * saga (): Saga<void> {
+  * fetchSaga (): Saga<void> {
     yield takeLatest(`FETCH_${this.stateName}_REQUEST`, this.fetch.bind(this))
+  }
+
+  * saga (): Generator<*, *, *> {
+    yield all([
+      fork(this.fetchSaga.bind(this)),
+      fork(networkEventsListenerSaga, {
+      })
+    ])
   }
 }
 
