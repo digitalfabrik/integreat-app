@@ -156,7 +156,7 @@ describe('CategoriesPage', () => {
   it('should map state to props', () => {
     const pathname = '/augsburg/en/willkommen'
     const location = {
-      payload: {city: city, language: language, categoryPath: 'willkommen'},
+      payload: {city: city, language: language},
       pathname: pathname
     }
 
