@@ -1,3 +1,5 @@
+// @flow
+
 import { handleAction } from 'redux-actions'
 import { toggleDarkModeAction } from '../actions/toggleDarkMode'
 
