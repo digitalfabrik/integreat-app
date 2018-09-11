@@ -63,8 +63,20 @@ describe('ExtrasPage', () => {
     expect(extrasPage).toMatchSnapshot()
   })
 
+  it('should render a ExtraNotFoundError if there is an extraId', () => {
+    const extrasPage = shallow(
+      <ExtrasPage city={city}
+                  language={language}
+                  cities={cities}
+                  extras={extras}
+                  extraId={'invalid_extra'}
+                  t={t} />
+    )
+    expect(extrasPage).toMatchSnapshot()
+  })
+
   it('should map state to props', () => {
-    const location = {payload: {language, city}}
+    const location = {payload: {language, city, extraId: 'invalid_extra'}}
 
     const mockStore = configureMockStore()
     const store = mockStore({
@@ -81,7 +93,8 @@ describe('ExtrasPage', () => {
       language,
       city,
       extras,
-      cities
+      cities,
+      extraId: 'invalid_extra'
     })
   })
 })

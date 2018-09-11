@@ -157,23 +157,6 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot and render an extra not found error if it is an invalid extra path', () => {
-    const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      uiDirection={'ltr'}
-                      language={language}
-                      path={'/augsburg/de/extras/invalid_extra'}
-                      t={t}
-                      dispatch={action => {}}
-                      categoryPath={'extras/invalid_extra'}
-                      routesMap={{}} />
-    )
-
-    expect(wrapper).toMatchSnapshot()
-  })
-
   it('should map state to props', () => {
     const pathname = '/augsburg/en/willkommen'
     const location = {
