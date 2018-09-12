@@ -65,6 +65,7 @@
     "redux-responsive": "^4.3.8",
     "redux-thunk": "^2.3.0",
     "styled-components": "^3.4.5",
+    "url-polyfill": "^1.1.0",
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
