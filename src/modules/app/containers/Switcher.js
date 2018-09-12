@@ -42,6 +42,7 @@ import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
+import { POINTS_OF_INTEREST_ROUTE } from '../routes/pointsOfInterest'
 
 type PropsType = {
   currentRoute: string,
@@ -120,6 +121,8 @@ export class Switcher extends React.Component<PropsType> {
       case SEARCH_ROUTE:
         return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) ||
           <SearchPage cities={citiesPayload.data} categories={categoriesPayload.data} />
+      case POINTS_OF_INTEREST_ROUTE:
+        return <div>Nothing here yet</div>
       case NOT_FOUND:
         // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
         // "disclaimer" nor a city, so we want to show an error that the param is not an available city
