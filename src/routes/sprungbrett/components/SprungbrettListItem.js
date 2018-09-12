@@ -26,7 +26,7 @@ class SprungbrettListItem extends React.Component<PropsType> {
     const job = this.props.job
 
     return <ListElement>
-        <CleanAnchor href={job.url} target='_blank' rel='noreferrer'>
+        <CleanAnchor href={job.url}>
           <Title>{job.title}</Title>
           <Description>{job.location}</Description>
         </CleanAnchor>
