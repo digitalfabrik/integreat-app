@@ -9,17 +9,20 @@ import toggleDarkModeReducer from '../theme/reducers'
 import Payload from '../endpoint/Payload'
 import {
   checkInternetConnection,
-  createNetworkMiddleware, networkEventsListenerSaga,
+  createNetworkMiddleware,
+  networkEventsListenerSaga,
   offlineActionTypes,
   reducer as reactNativeOfflineReducer
 } from 'react-native-offline'
-import createSagaMiddleware from 'redux-saga'
 import type { Saga } from 'redux-saga'
-import { all, fork} from 'redux-saga/effects'
+import createSagaMiddleware from 'redux-saga'
+import { all, fork } from 'redux-saga/effects'
 import citiesEndpoint from '../endpoint/endpoints/cities'
 import CityModel from '../endpoint/models/CityModel'
 import categoriesEndpoint from '../endpoint/endpoints/categories'
 import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
+import { persistReducer, persistStore } from 'redux-persist'
+import { AsyncStorage } from 'react-native'
 
 type StateType = {
   cities: Payload<Array<CityModel>>
@@ -59,29 +62,44 @@ function * rootSaga (): Saga<void> {
 
 // todo: Change type to correct State type,
 // https://blog.callstack.io/type-checking-react-and-redux-thunk-with-flow-part-2-206ce5f6e705
-const createReduxStore = (callback: () => void, initialState: StateType = {cities: new Payload(false), categories: new Payload(false)}): Store<StateType, ActionType> => {
+const createReduxStore = (callback: () => void, initialState: StateType = {
+  cities: new Payload(false),
+  categories: new Payload(false)
+}): Store<StateType, ActionType> => {
   const sagaMiddleware = createSagaMiddleware()
+  const persistConfig = {
+    key: 'network',
+    storage: AsyncStorage
+  }
 
   const rootReducer = combineReducers({
     uiDirection: uiDirectionReducer,
     language: languageReducer,
     darkMode: toggleDarkModeReducer,
-    network: reactNativeOfflineReducer,
+    network: persistReducer(persistConfig, reactNativeOfflineReducer),
     cities: citiesReducer,
     categories: categoriesReducer
   })
 
   const middleware = applyMiddleware(createNetworkMiddleware(), sagaMiddleware, createLogger())
-  const store = createStore(rootReducer, initialState, middleware)
+  const store = createStore(rootReducer, middleware)
   sagaMiddleware.run(rootSaga)
-  checkInternetConnection().then(isConnected => {
-    store.dispatch({
-      type: offlineActionTypes.CONNECTION_CHANGE,
-      payload: isConnected
-    })
 
-    callback()
-  })
+  persistStore(
+    store,
+    null,
+    () => {
+      // After rehydration completes, we detect initial connection
+      checkInternetConnection().then(isConnected => {
+        store.dispatch({
+          type: offlineActionTypes.CONNECTION_CHANGE,
+          payload: isConnected
+        })
+
+        callback()
+      })
+    }
+  )
 
   return store
 }
