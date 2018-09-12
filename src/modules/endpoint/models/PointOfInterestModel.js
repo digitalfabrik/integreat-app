@@ -8,7 +8,7 @@ class PointOfInterestModel {
   _title: string
   _content: string
   _thumbnail: string
-  _availableLanguages: Map<string, string>
+  _availableLanguages: Map<string, number>
   _excerpt: string
   _address: ?string
   _town: ?string
@@ -19,7 +19,7 @@ class PointOfInterestModel {
 
   constructor ({id, path, title, content, thumbnail, availableLanguages, excerpt, address, town, postcode, longitude,
     latitude, lastUpdate}: {id: number, path: string, title: string, content: string, thumbnail: string,
-    availableLanguages: Map<string, string>, excerpt: string, address: ?string, town: ?string, postcode: ?string,
+    availableLanguages: Map<string, number>, excerpt: string, address: ?string, town: ?string, postcode: ?string,
     latitude: ?string, longitude: ?string, lastUpdate: moment}) {
     this._id = id
     this._title = title
@@ -56,7 +56,7 @@ class PointOfInterestModel {
     return this._thumbnail
   }
 
-  get availableLanguages (): Map<string, string> {
+  get availableLanguages (): Map<string, number> {
     return this._availableLanguages
   }
 
