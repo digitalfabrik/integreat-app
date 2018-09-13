@@ -16,6 +16,6 @@ describe('extras route', () => {
   })
 
   it('should have the right path', () => {
-    expect(extrasRoute.path).toBe('/:city/:language/extras')
+    expect(extrasRoute.path).toBe('/:city/:language/extras/:extraId?')
   })
 })
