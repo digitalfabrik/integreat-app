@@ -11,18 +11,27 @@ import { withTheme } from 'styled-components'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import { ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
+import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
+import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 
 type PropType = {
   navigation: NavigationScreenProp<NavigationState>,
-  cities: Array<CityModel>,
-  categories: CategoriesMapModel,
+  cities?: Array<CityModel>,
+  categories?: CategoriesMapModel,
   theme: ThemeType,
-  fetch: { language: string, city: string } => void
+  fetchCategories: { language: string, city: string } => void,
+  fetchCities: { language: string } => void
 }
 
 class CategoriesContainer extends React.Component<PropType> {
   componentDidMount () {
-    this.props.fetch({language: 'de', city: 'nuernberg'})
+    if (!this.props.cities) {
+      this.props.fetchCategories({language: 'de', city: 'nuernberg'})
+    }
+
+    if (!this.props.categories) {
+      this.props.fetchCities({language: 'de'})
+    }
   }
 
   onTilePress = (tile: TileModel) => {
@@ -63,14 +72,23 @@ class CategoriesContainer extends React.Component<PropType> {
 }
 
 const mapStateToProps = state => {
+  const cities = state.data.cities
+  const categories = state.data.categories
+
+  if (!cities || !categories) {
+    return {}
+  }
   return {
-    cities: state.cities.data,
-    categories: state.categories.data
+    cities: citiesEndpoint.mapResponse(cities),
+    categories: categoriesEndpoint.mapResponse(categories, {language: 'de', city: 'nuernberg'})
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {fetch: params => dispatch({type: 'FETCH_CATEGORIES_REQUEST', params, meta: {retry: true}})}
+  return {
+    fetchCategories: params => dispatch({type: 'FETCH_CATEGORIES_REQUEST', params, meta: {retry: true}}),
+    fetchCities: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})
+  }
 }
 
 // $FlowFixMe

@@ -11,6 +11,8 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { connect } from 'react-redux'
+import type { StateType } from '../../../modules/app/StateType'
+import citiesEndpoint from 'modules/endpoint/endpoints/cities'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -24,11 +26,11 @@ const Wrapper = styled.View`
 
 type PropType = {
   language: string,
-  cities: Array<CityModel>,
+  cities?: Array<CityModel>,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
   theme: ThemeType,
-  fetch: { language: string } => void
+  fetchCities: { language: string } => void
 }
 
 /**
@@ -36,7 +38,9 @@ type PropType = {
  */
 class LandingContainer extends React.Component<PropType> {
   componentDidMount () {
-    this.props.fetch({language: 'de'})
+    if (!this.props.cities) {
+      this.props.fetchCities({language: 'de'})
+    }
   }
 
   navigateToDashboard = city => {
@@ -59,12 +63,17 @@ class LandingContainer extends React.Component<PropType> {
   }
 }
 
-const mapStateToProps = state => {
-  return {cities: state.cities.data}
+const mapStateToProps = (state: StateType) => {
+  if (!state.data.cities) {
+    return {}
+  }
+  return {cities: citiesEndpoint.mapResponse(state.data.cities)}
 }
 
 const mapDispatchToProps = dispatch => {
-  return {fetch: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})}
+  return {
+    fetchCities: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})
+  }
 }
 
 // $FlowFixMe
