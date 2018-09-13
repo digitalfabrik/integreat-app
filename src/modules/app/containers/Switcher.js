@@ -122,7 +122,8 @@ export class Switcher extends React.Component<PropsType> {
         return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) ||
           <SearchPage cities={citiesPayload.data} categories={categoriesPayload.data} />
       case POINTS_OF_INTEREST_ROUTE:
-        return <div>Nothing here yet</div>
+        const error = new Error('Nothing here yet')
+        return <FailureSwitcher error={error} />
       case NOT_FOUND:
         // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
         // "disclaimer" nor a city, so we want to show an error that the param is not an available city
