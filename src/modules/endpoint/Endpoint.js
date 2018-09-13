@@ -49,7 +49,7 @@ class Endpoint<P, T> {
         return new Payload(false, formattedUrl, null, errorOverride)
       }
       if (responseOverride) {
-        const data = this.mapResponse(responseOverride, params)
+        const data = responseOverride
         return new Payload(false, formattedUrl, data, null)
       }
 
@@ -74,24 +74,11 @@ class Endpoint<P, T> {
     }
     try {
       const json = await response.json()
-      const fetchedData = this.mapResponse(json, params)
+      const fetchedData = json
       return new Payload(false, formattedUrl, fetchedData, null)
     } catch (e) {
       throw (e instanceof MappingError) ? e : new MappingError(this.stateName, e.message)
     }
-  }
-
-  * fetch (action: ActionType<P>): Saga<void> {
-    try {
-      const payload = yield call(this._loadData.bind(this), action.params)
-      yield put({type: `${this.stateName.toUpperCase()}_FETCH_SUCCEEDED`, payload: payload})
-    } catch (e) {
-      yield put({type: `${this.stateName.toUpperCase()}_FETCH_FAILED`, message: e.message})
-    }
-  }
-
-  * fetchSaga (): Saga<void> {
-    yield takeLatest(`FETCH_${this.stateName.toUpperCase()}_REQUEST`, this.fetch.bind(this))
   }
 }
 
