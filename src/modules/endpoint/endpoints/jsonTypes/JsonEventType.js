@@ -1,6 +1,6 @@
 // @flow
 
-import type { JsonLanguageType, JsonLocationType, JsonPathType } from './JsonCommonTypes'
+import type { JsonAvailableLanguagesType, JsonLocationType, JsonPathType } from './JsonCommonTypes'
 
 type JsonEventInfoType = {
   id: number,
@@ -22,7 +22,7 @@ export type JsonEventType = {
   content: string,
   parent: JsonPathType,
   order: number,
-  available_languages: JsonLanguageType,
+  available_languages: JsonAvailableLanguagesType,
   thumbnail: string,
   event: JsonEventInfoType,
   location: JsonLocationType,

@@ -1,6 +1,6 @@
 // @flow
 
-import type { JsonLanguageType, JsonLocationType } from './JsonCommonTypes'
+import type { JsonAvailableLanguagesType, JsonLocationType } from './JsonCommonTypes'
 
 export type JsonPointOfInterestType = {
   id: number,
@@ -10,7 +10,7 @@ export type JsonPointOfInterestType = {
   modified_gmt: string,
   excerpt: string,
   content: string,
-  available_languages: JsonLanguageType,
+  available_languages: JsonAvailableLanguagesType,
   thumbnail: string,
   location: JsonLocationType,
   hash: string
