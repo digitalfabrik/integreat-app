@@ -6,7 +6,7 @@ export type JsonPathType = {
   path: ?string
 }
 
-export type JsonLanguageType = {
+export type JsonAvailableLanguagesType = {
   [string]: JsonPathType
 }
 
