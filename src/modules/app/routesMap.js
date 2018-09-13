@@ -19,9 +19,9 @@ const routesMap = {
   [I18N_REDIRECT_ROUTE]: i18nRedirectRoute,
   [LANDING_ROUTE]: landingRoute,
   [EVENTS_ROUTE]: eventsRoute,
-  [EXTRAS_ROUTE]: extrasRoute,
   [SPRUNGBRETT_ROUTE]: sprungbrettRoute,
   [WOHNEN_ROUTE]: wohnenRoute,
+  [EXTRAS_ROUTE]: extrasRoute,
   [DISCLAIMER_ROUTE]: disclaimerRoute,
   [SEARCH_ROUTE]: searchRoute,
   [CATEGORIES_ROUTE]: categoriesRoute
