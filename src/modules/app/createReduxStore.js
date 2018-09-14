@@ -16,7 +16,6 @@ import {
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, fork } from 'redux-saga/effects'
-import { AsyncStorage } from 'react-native'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
@@ -56,7 +55,7 @@ function * rootSaga (): Saga<void> {
 const createReduxStore = (callback: () => void): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
   const persistConfig: PersistConfig = {
-    key: 'asdf',
+    key: 'root',
     storage: FilesystemStorage,
     debug: true
   }
