@@ -13,6 +13,8 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import citiesEndpoint from 'modules/endpoint/endpoints/cities'
+import type { Dispatch } from 'redux'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -43,8 +45,8 @@ class LandingContainer extends React.Component<PropType> {
     }
   }
 
-  navigateToDashboard = city => {
-    this.props.navigation.navigate('Dashboard', {city})
+  navigateToDashboard = cityModel => {
+    this.props.navigation.navigate('Dashboard', {cityModel})
   }
 
   render () {
@@ -64,13 +66,13 @@ class LandingContainer extends React.Component<PropType> {
 }
 
 const mapStateToProps = (state: StateType) => {
-  if (!state.data.cities) {
+  if (!state.data.cities.json) {
     return {}
   }
-  return {cities: citiesEndpoint.mapResponse(state.data.cities)}
+  return {cities: citiesEndpoint.mapResponse(state.data.cities.json)}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
     fetchCities: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})
   }

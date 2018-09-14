@@ -4,6 +4,7 @@ import * as React from 'react'
 import { Button } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
 import Caption from '../../../modules/common/components/Caption'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -15,13 +16,17 @@ class Dashboard extends React.Component<PropsType> {
     headerTitle: 'Dashboard'
   }
 
-  categories = () => this.props.navigation.navigate('Categories')
+  categories = () => this.props.navigation.navigate('Categories', {city: this.getCityParam().code})
 
   landing = () => this.props.navigation.navigate('Landing')
 
+  getCityParam (): CityModel {
+    return this.props.navigation.getParam('cityModel')
+  }
+
   render () {
     return (<React.Fragment>
-        <Caption title={this.props.navigation.getParam('city').name} />
+        <Caption title={this.getCityParam().name} />
         <Button
           title='Go to Categories'
           onPress={this.categories}

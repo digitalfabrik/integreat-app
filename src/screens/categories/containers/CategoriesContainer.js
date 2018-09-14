@@ -13,11 +13,15 @@ import { ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
+import type { Dispatch } from 'redux'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { StateType } from '../../../modules/app/StateType'
 
 type PropType = {
   navigation: NavigationScreenProp<NavigationState>,
   cities?: Array<CityModel>,
   categories?: CategoriesMapModel,
+  language: string,
   theme: ThemeType,
   fetchCategories: { language: string, city: string } => void,
   fetchCities: { language: string } => void
@@ -26,11 +30,11 @@ type PropType = {
 class CategoriesContainer extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
-      this.props.fetchCategories({language: 'de', city: 'nuernberg'})
+      this.props.fetchCities({language: this.props.language})
     }
 
     if (!this.props.categories) {
-      this.props.fetchCities({language: 'de'})
+      this.props.fetchCategories({language: this.props.language, city: this.getCityParam()})
     }
   }
 
@@ -45,46 +49,56 @@ class CategoriesContainer extends React.Component<PropType> {
   navigate = (path: string) => {
     const params = {
       path: path,
-      categories: this.props.categories,
-      cities: this.props.cities
+      city: this.getCityParam()
     }
     if (this.props.navigation.push) {
       this.props.navigation.push('Categories', params)
     }
   }
 
+  getCityParam (): string {
+    return this.props.navigation.getParam('city')
+  }
+
+  getCurrentPath (): string {
+    const city = this.getCityParam()
+    const language = this.props.language
+    const path = this.props.navigation.getParam('path')
+    if (!path) {
+      return `/${city}/${language}`
+    }
+
+    return path
+  }
+
   render () {
     const categories = this.props.categories
-    if (!categories) {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
     const cities = this.props.cities
-    if (!cities) {
+    if (!categories || !cities) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
-    const city = this.props.navigation.getParam('city')
-    const path = this.props.navigation.getParam('path') || '/nuernberg/de'
+
     return <Categories categories={categories} cities={cities}
-                       language={'de'} city={city}
-                       path={path}
-                       onTilePress={this.onTilePress} onItemPress={this.onItemPress} theme={this.props.theme} />
+                       language={this.props.language} city={this.getCityParam()}
+                       path={this.getCurrentPath()}
+                       onTilePress={this.onTilePress} onItemPress={this.onItemPress}
+                       theme={this.props.theme} />
   }
 }
 
-const mapStateToProps = state => {
-  const cities = state.data.cities
-  const categories = state.data.categories
+const mapStateToProps = (state: StateType, ownProps) => {
+  const cities = state.data.cities.json
+  const categories = state.data.categories.json
+  const categoriesParams = {language: state.language, city: ownProps.navigation.getParam('city')}
 
-  if (!cities || !categories) {
-    return {}
-  }
   return {
-    cities: citiesEndpoint.mapResponse(cities),
-    categories: categoriesEndpoint.mapResponse(categories, {language: 'de', city: 'nuernberg'})
+    language: state.language,
+    cities: cities ? citiesEndpoint.mapResponse(cities) : undefined,
+    categories: categories ? categoriesEndpoint.mapResponse(categories, categoriesParams) : undefined
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
     fetchCategories: params => dispatch({type: 'FETCH_CATEGORIES_REQUEST', params, meta: {retry: true}}),
     fetchCities: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})
