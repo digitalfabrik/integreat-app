@@ -20,23 +20,25 @@ import { AsyncStorage } from 'react-native'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
-import type { StoreActionType } from './StoreActionType'
+import type { CategoriesActionType, CitiesActionType, StoreActionType } from './StoreActionType'
 import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
 
-const citiesReducer = (state = null, action): any => {
+const citiesReducer = (state = {json: undefined}, action: CitiesActionType): any => {
   switch (action.type) {
     case 'CITIES_FETCH_SUCCEEDED':
-      return action.payload.data
+      return {...state, json: action.payload.data}
     default:
       return state
   }
 }
 
-const categoriesReducer = (state = null, action): any => {
+const categoriesReducer = (state = {json: undefined, city: undefined}, action: CategoriesActionType): any => {
   switch (action.type) {
+    case 'FETCH_CATEGORIES_REQUEST':
+      return {...state, city: action.params.city}
     case 'CATEGORIES_FETCH_SUCCEEDED':
-      return action.payload.data
+      return {...state, json: action.payload.data}
     default:
       return state
   }
@@ -65,8 +67,8 @@ const createReduxStore = (callback: () => void): Store<StateType, StoreActionTyp
     darkMode: false,
     network: {isConnected: false, actionQueue: []},
     data: {
-      cities: undefined,
-      categories: undefined
+      cities: {json: undefined},
+      categories: {json: undefined, city: undefined}
     },
     _persist: {
       version: 0,
@@ -93,13 +95,13 @@ const createReduxStore = (callback: () => void): Store<StateType, StoreActionTyp
 
   const middleware = applyMiddleware(createNetworkMiddleware(), sagaMiddleware, createLogger())
 
-  const store = createStore(rootReducer, initialState, middleware)
+  const store = createStore(rootReducer, undefined, middleware)
 
   persistStore(
     store,
     null,
     () => {
-      checkInternetConnection().then(isConnected => {
+      checkInternetConnection().then((isConnected: boolean) => {
         store.dispatch({
           type: offlineActionTypes.CONNECTION_CHANGE,
           payload: isConnected
