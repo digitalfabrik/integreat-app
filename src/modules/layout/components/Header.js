@@ -8,6 +8,7 @@ import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-butto
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { NavigationScene } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
+import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
 
 const Horizonal = styled.View`
   flex:1;
@@ -60,10 +61,16 @@ const MaterialHeaderButtons = props => {
 
 type PropsType = {
   scene: NavigationScene,
+  navigation: any,
   theme: ThemeType
 }
 
 class Header extends React.PureComponent<PropsType> {
+  goBack = () => {
+    // Go back on next tick because button ripple effect needs to happen on Android
+    this.props.scene.descriptor.navigation.goBack(this.props.scene.descriptor.key)
+  }
+
   render () {
     let headerTitle = ''
 
@@ -77,15 +84,15 @@ class Header extends React.PureComponent<PropsType> {
       <BoxShadow theme={this.props.theme}>
         <Horizonal>
           <HorizonalLeft>
-            <BackButton name='arrow-back' size={30} color='black' />
+            <HeaderBackButton onPress={this.goBack} />
             <Logo source={logo} />
             <Title>{headerTitle}</Title>
           </HorizonalLeft>
           <MaterialHeaderButtons>
-            <Item title='add' iconName='search' onPress={() => console.warn('add')} />
-            <Item title='language' iconName='language' onPress={() => console.warn('edit')} />
-            <Item title='location' iconName='edit-location' onPress={() => console.warn('edit')} />
-            <Item title='asdf' show='never' onPress={() => console.warn('edit')} />
+            <Item title='add' iconName='search' />
+            <Item title='language' iconName='language' />
+            <Item title='location' iconName='edit-location' />
+            <Item title='asdf' show='never' />
           </MaterialHeaderButtons>
         </Horizonal>
       </BoxShadow>
