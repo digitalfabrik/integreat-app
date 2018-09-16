@@ -12,5 +12,5 @@ export type StateType = {
     +cities: { +json: any | void },
     +categories: { +json: any | void, +city: string | void }
   },
-  +_persist: PersistState
+  +_persist?: PersistState
 }

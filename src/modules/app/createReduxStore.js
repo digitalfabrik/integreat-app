@@ -3,6 +3,7 @@
 import type { Store } from 'redux'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { createLogger } from 'redux-logger'
+import { AsyncStorage } from 'react-native'
 
 import { languageReducer, uiDirectionReducer } from 'modules/i18n/reducers'
 import toggleDarkModeReducer from '../theme/reducers'
@@ -22,7 +23,6 @@ import type { StateType } from './StateType'
 import type { CategoriesActionType, CitiesActionType, StoreActionType } from './StoreActionType'
 import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
-import FSStorage from 'redux-persist-fs-storage'
 
 const citiesReducer = (state = {json: undefined}, action: CitiesActionType): any => {
   switch (action.type) {
@@ -55,9 +55,10 @@ function * rootSaga (): Saga<void> {
 const createReduxStore = (callback: () => void): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
   const persistConfig: PersistConfig = {
-    key: 'root',
-    storage: FSStorage(),
-    debug: true
+    key: 'data',
+    storage: AsyncStorage,
+    debug: true,
+    whitelist: ['data']
   }
 
   const initialState: StateType = {
@@ -68,10 +69,6 @@ const createReduxStore = (callback: () => void): Store<StateType, StoreActionTyp
     data: {
       cities: {json: undefined},
       categories: {json: undefined, city: undefined}
-    },
-    _persist: {
-      version: 0,
-      rehydrated: false
     }
   }
 
