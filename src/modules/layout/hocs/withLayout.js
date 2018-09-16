@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { wrapDisplayName } from 'recompose'
 
-import LayoutContainer from '../container/LayoutContainer'
+import LayoutContainer from '../containers/LayoutContainer'
 
 const withLayout = (WrappedComponent: React.ComponentType<*>) => {
   return class extends React.Component<{}> {
