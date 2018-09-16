@@ -41,7 +41,7 @@ type PropType = {
 class LandingContainer extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
-      this.props.fetchCities({language: 'de'})
+      this.props.fetchCities({language: this.props.language})
     }
   }
 
@@ -56,7 +56,8 @@ class LandingContainer extends React.Component<PropType> {
           ? <ActivityIndicator size='large' color='#0000ff' />
           : <>
             <Heading />
-            <FilterableCitySelector theme={this.props.theme} language={'de'} cities={this.props.cities} t={this.props.t}
+            <FilterableCitySelector theme={this.props.theme} language={this.props.language} cities={this.props.cities}
+                                    t={this.props.t}
                                     navigateToDashboard={this.navigateToDashboard} />
           </>
         }
@@ -69,7 +70,7 @@ const mapStateToProps = (state: StateType) => {
   if (!state.data.cities.json) {
     return {}
   }
-  return {cities: citiesEndpoint.mapResponse(state.data.cities.json)}
+  return {language: state.language, cities: citiesEndpoint.mapResponse(state.data.cities.json)}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
