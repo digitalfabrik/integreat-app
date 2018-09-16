@@ -61,7 +61,6 @@ const MaterialHeaderButtons = props => {
 
 type PropsType = {
   scene: NavigationScene,
-  navigation: any,
   theme: ThemeType
 }
 

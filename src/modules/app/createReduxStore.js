@@ -58,7 +58,7 @@ const createReduxStore = (callback: () => void): Store<StateType, StoreActionTyp
     key: 'data',
     storage: AsyncStorage,
     debug: true,
-    whitelist: ['data']
+    whitelist: []
   }
 
   const initialState: StateType = {
