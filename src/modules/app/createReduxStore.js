@@ -22,7 +22,7 @@ import type { StateType } from './StateType'
 import type { CategoriesActionType, CitiesActionType, StoreActionType } from './StoreActionType'
 import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
-import FilesystemStorage from 'redux-persist-filesystem-storage'
+import FSStorage from 'redux-persist-fs-storage'
 
 const citiesReducer = (state = {json: undefined}, action: CitiesActionType): any => {
   switch (action.type) {
@@ -56,7 +56,7 @@ const createReduxStore = (callback: () => void): Store<StateType, StoreActionTyp
   const sagaMiddleware = createSagaMiddleware()
   const persistConfig: PersistConfig = {
     key: 'root',
-    storage: FilesystemStorage,
+    storage: FSStorage(),
     debug: true
   }
 
