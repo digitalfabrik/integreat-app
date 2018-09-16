@@ -3,7 +3,6 @@ package com.integreat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,7 +25,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFSPackage(),
             new RNFetchBlobPackage(),
             new VectorIconsPackage()
       );
