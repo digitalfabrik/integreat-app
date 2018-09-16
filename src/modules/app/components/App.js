@@ -11,16 +11,20 @@ import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import Navigator from './Navigator'
 import IOSSafeAreaView from 'modules/platform/components/IOSSafeAreaView'
 import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
+import type { Store } from 'redux'
+import type { StateType } from '../StateType'
+import type { StoreActionType } from '../StoreActionType'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   platform: Platform
 
-  store: any
+  store: Store<StateType, StoreActionType>
 
   constructor () {
     super()
     this.state = {waitingForStore: true}
-    this.store = createReduxStore(() => { this.setState({waitingForStore: false}) })
+    const storeConfig = createReduxStore(() => { this.setState({waitingForStore: false}) }, false)
+    this.store = storeConfig.store
     this.platform = new Platform()
   }
 
@@ -31,16 +35,16 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
 
     return (
       <Provider store={this.store}>
-          <I18nProvider>
-            <CustomThemeProvider>
-              <PlatformContext.Provider value={this.platform}>
-                <AndroidStatusBarContainer />
-                <IOSSafeAreaView>
-                  <Navigator />
-                </IOSSafeAreaView>
-              </PlatformContext.Provider>
-            </CustomThemeProvider>
-          </I18nProvider>
+        <I18nProvider>
+          <CustomThemeProvider>
+            <PlatformContext.Provider value={this.platform}>
+              <AndroidStatusBarContainer />
+              <IOSSafeAreaView>
+                <Navigator />
+              </IOSSafeAreaView>
+            </PlatformContext.Provider>
+          </CustomThemeProvider>
+        </I18nProvider>
       </Provider>
     )
   }

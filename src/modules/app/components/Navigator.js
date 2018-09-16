@@ -3,11 +3,11 @@
 import * as React from 'react'
 import type { HeaderProps } from 'react-navigation'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import CategoriesContainer from 'screens/categories/containers/CategoriesContainer'
-import LandingContainer from 'screens/landing/containers/LandingContainer'
-import DashboardContainer from 'screens/dashboard/containers/DashboardContainer'
+import CategoriesContainer from 'routes/categories/containers/CategoriesContainer'
+import LandingContainer from 'routes/landing/containers/LandingContainer'
+import DashboardContainer from 'routes/dashboard/containers/DashboardContainer'
 import withLayout from '../../layout/hocs/withLayout'
-import HeaderContainer from '../../layout/container/HeaderContainer'
+import HeaderContainer from '../../layout/containers/HeaderContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
