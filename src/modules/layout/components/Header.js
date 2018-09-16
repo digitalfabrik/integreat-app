@@ -89,10 +89,10 @@ class Header extends React.PureComponent<PropsType> {
             <Title>{headerTitle}</Title>
           </HorizonalLeft>
           <MaterialHeaderButtons>
-            <Item title='add' iconName='search' />
-            <Item title='language' iconName='language' />
-            <Item title='location' iconName='edit-location' />
-            <Item title='asdf' show='never' />
+            <Item title='Seach' iconName='search' />
+            <Item title='Change Language' iconName='language' />
+            <Item title='Change Location' iconName='edit-location' show='never' />
+            <Item title='Settings' show='never' />
           </MaterialHeaderButtons>
         </Horizonal>
       </BoxShadow>
