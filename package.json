@@ -59,7 +59,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-standard": "^3.1.0",
-    "flow-bin": "^0.75.0",
+    "flow-bin": "^0.80.0",
     "flow-typed": "^2.5.1",
     "http-proxy": "^1.17.0",
     "jest": "^23.4.2",

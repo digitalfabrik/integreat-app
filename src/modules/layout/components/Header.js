@@ -68,6 +68,7 @@ type PropsType = {
 class Header extends React.PureComponent<PropsType> {
   goBack = () => {
     // Go back on next tick because button ripple effect needs to happen on Android
+    // $FlowFixMe
     this.props.scene.descriptor.navigation.goBack(this.props.scene.descriptor.key)
   }
 
