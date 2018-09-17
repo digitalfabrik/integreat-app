@@ -12,3 +12,6 @@
 
 ## i18n
  * RTL layout
+
+
+Grand permissions during runtime: https://facebook.github.io/react-native/docs/permissionsandroid.html
