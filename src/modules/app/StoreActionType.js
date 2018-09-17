@@ -11,7 +11,7 @@ export type CitiesActionType =
   | CitiesFetchFailedActionType
 
 export type FetchCategoriesRequestActionType = { type: 'FETCH_CATEGORIES_REQUEST', params: { language: string, city: string } }
-export type CategoriesFetchSucceededActionType = { type: 'CATEGORIES_FETCH_SUCCEEDED', payload: any }
+export type CategoriesFetchSucceededActionType = { type: 'CATEGORIES_FETCH_SUCCEEDED', payload: any, city: string, language: string }
 export type CategoriesFetchFailedActionType = { type: 'CATEGORIES_FETCH_FAILED', message: string }
 export type CategoriesActionType =
   FetchCategoriesRequestActionType

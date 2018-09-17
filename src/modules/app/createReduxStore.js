@@ -1,7 +1,7 @@
 // @flow
 
 import type { Store } from 'redux'
-import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import { createLogger } from 'redux-logger'
 import { AsyncStorage } from 'react-native'
 
@@ -20,25 +20,15 @@ import { all, fork } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
-import type { CategoriesActionType, CitiesActionType, StoreActionType } from './StoreActionType'
+import type { CitiesActionType, StoreActionType } from './StoreActionType'
 import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
+import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 
 const citiesReducer = (state = {json: undefined}, action: CitiesActionType): any => {
   switch (action.type) {
     case 'CITIES_FETCH_SUCCEEDED':
-      return {...state, json: action.payload.data}
-    default:
-      return state
-  }
-}
-
-const categoriesReducer = (state = {json: undefined, city: undefined}, action: CategoriesActionType): any => {
-  switch (action.type) {
-    case 'FETCH_CATEGORIES_REQUEST':
-      return {...state, city: action.params.city}
-    case 'CATEGORIES_FETCH_SUCCEEDED':
       return {...state, json: action.payload.data}
     default:
       return state
@@ -53,24 +43,27 @@ function * rootSaga (): Saga<void> {
   ])
 }
 
-const createReduxStore = (callback: () => void, persist = false): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+const createReduxStore = (callback: () => void, persist: boolean = false): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+  if (!persist) {
+    AsyncStorage.clear()
+  }
+
   const sagaMiddleware = createSagaMiddleware()
   const persistConfig: PersistConfig = {
     version: 0,
     key: 'root',
     storage: AsyncStorage,
-    stateReconciler: hardSet
+    stateReconciler: hardSet,
+    whitelist: persist ? ['cities', 'categories'] : []
   }
 
   const initialState: StateType = {
     uiDirection: 'ltr',
-    language: undefined,
+    language: 'en',
     darkMode: false,
     network: {isConnected: false, actionQueue: []},
-    data: {
-      cities: {json: undefined},
-      categories: {json: undefined, city: undefined}
-    }
+    cities: {json: undefined},
+    categories: {jsons: {}, city: undefined}
   }
 
   const persitedReducer = persistCombineReducers(persistConfig, {
@@ -78,10 +71,8 @@ const createReduxStore = (callback: () => void, persist = false): { store: Store
     language: languageReducer,
     darkMode: toggleDarkModeReducer,
     network: reactNativeOfflineReducer,
-    data: combineReducers({
-      cities: citiesReducer,
-      categories: categoriesReducer
-    })
+    cities: citiesReducer,
+    categories: categoriesReducer
   })
 
   const rootReducer = (state, action) => {
@@ -99,7 +90,7 @@ const createReduxStore = (callback: () => void, persist = false): { store: Store
     store,
     undefined,
     async () => {
-      const isConnected = await checkInternetConnection()
+      const isConnected: boolean = await checkInternetConnection()
       store.dispatch({
         type: offlineActionTypes.CONNECTION_CHANGE,
         payload: isConnected
@@ -108,10 +99,6 @@ const createReduxStore = (callback: () => void, persist = false): { store: Store
       callback()
     }
   )
-
-  if (!persist) {
-    persistor.purge().then(() => console.log('Persisted store has been purged!'))
-  }
 
   return {store, persistor}
 }

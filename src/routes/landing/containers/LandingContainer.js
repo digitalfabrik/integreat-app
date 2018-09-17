@@ -16,7 +16,7 @@ import citiesEndpoint from 'modules/endpoint/endpoints/cities'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
-const Wrapper = styled.View`
+const Wrapper = styled(ScrollView)`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -51,26 +51,24 @@ class LandingContainer extends React.Component<PropType> {
 
   render () {
     return <Wrapper theme={this.props.theme}>
-      <ScrollView>
-        {!this.props.cities
-          ? <ActivityIndicator size='large' color='#0000ff' />
-          : <>
-            <Heading />
-            <FilterableCitySelector theme={this.props.theme} language={this.props.language} cities={this.props.cities}
-                                    t={this.props.t}
-                                    navigateToDashboard={this.navigateToDashboard} />
-          </>
-        }
-      </ScrollView>
+      {!this.props.cities
+        ? <ActivityIndicator size='large' color='#0000ff' />
+        : <>
+          <Heading />
+          <FilterableCitySelector theme={this.props.theme} language={this.props.language} cities={this.props.cities}
+                                  t={this.props.t}
+                                  navigateToDashboard={this.navigateToDashboard} />
+        </>
+      }
     </Wrapper>
   }
 }
 
 const mapStateToProps = (state: StateType) => {
-  if (!state.data.cities.json) {
+  if (!state.cities.json) {
     return {}
   }
-  return {language: state.language, cities: citiesEndpoint.mapResponse(state.data.cities.json)}
+  return {language: state.language, cities: citiesEndpoint.mapResponse(state.cities.json)}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {

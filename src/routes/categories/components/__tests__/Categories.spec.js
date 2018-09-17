@@ -8,7 +8,7 @@ import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment-timezone'
 
-describe('Categories', () => {
+describe('CategoriesStateType', () => {
   const categoryModels = [
     new CategoryModel({
       id: 0,
