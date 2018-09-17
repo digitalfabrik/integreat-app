@@ -5168,7 +5168,7 @@ react-native-vector-icons@^5.0.0:
 
 "react-native-webview@https://github.com/react-native-community/react-native-webview":
   version "0.1.0"
-  resolved "https://github.com/react-native-community/react-native-webview#8da81b22d48314bc8dad89d0d13abef6b628efd7"
+  resolved "https://github.com/react-native-community/react-native-webview#ca0e50e91bc06ffb93241bcabbe159afee2114d5"
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"
