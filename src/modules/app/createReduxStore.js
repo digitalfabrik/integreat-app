@@ -66,6 +66,7 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
     categories: {jsons: {}, city: undefined}
   }
 
+  // Create this reducer only once. It is not pure!
   const persitedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
     language: languageReducer,
