@@ -14,7 +14,13 @@ import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import RNFetchblob from 'rn-fetch-blob'
-import { WebView } from 'react-native'
+import { WebView } from 'react-native-webview'
+import styled from 'styled-components'
+
+const WebContainer = styled.View`
+  flex: 1;
+  height: 500px;
+`
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   platform: Platform
@@ -28,17 +34,17 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
     this.store = storeConfig.store
     this.platform = new Platform()
 
-    //   const session = RNFetchblob.session()
-    //   RNFetchblob.config({
-    //     path: `${RNFetchblob.fs.dirs.DocumentDir}/test.jpg`
-    //   })
-    //     .fetch('GET', 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2015/09/BMFSFJ_DemokratieLeben.jpg')
-    //     .then(res => {
-    //       console.log('The file saved to ', res.path())
-    //       console.log('The file saved to ', RNFetchblob.wrap(res.path()))
-    //     })
-    //   // file:///data/user/0/com.integreat/files/test.jpg
-    //   session.list()
+    const session = RNFetchblob.session()
+    RNFetchblob.config({
+      path: `${RNFetchblob.fs.dirs.DocumentDir}/red.png`
+    })
+      .fetch('GET', 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Solid_red.png', {'Cache-Control': 'no-store'})
+      .then(res => {
+        console.log('The file saved to ', res.path())
+        console.log('The file saved to ', RNFetchblob.wrap(res.path()))
+      })
+    // file:///data/user/0/com.integreat/files/test.jpg
+    session.list()
   }
 
   render () {
@@ -53,19 +59,24 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
             <PlatformContext.Provider value={this.platform}>
               <AndroidStatusBarContainer />
               <IOSSafeAreaView>
-                <WebView
-                  onError={alert}
-                  source={{
-                    baseUrl: RNFetchblob.fs.dirs.DocumentDir,
-                    html: '<html><body><img src="' + RNFetchblob.fs.dirs.DocumentDir + '/test.jpg">asdf</body></html>'
-                  }}
-                  mixedContentMode={'always'}
-                  javaScriptEnabled
-                  allowUniversalAccessFromFileURLs
-                  geolocationEnabled
-                  domStorageEnabled
-                  originWhitelist={['*']}
-                />
+                <WebContainer>
+                  <WebView
+                    onError={alert}
+                    style={{
+                      backgroundColor: 'yellow',
+                      height: 100
+                    }}
+                    source={{
+                      baseUrl: RNFetchblob.fs.dirs.DocumentDir,
+                      // html: '<html><body><a href="file:///data/user/0/com.integreat/files/red.png">asdf</a></body></html>'
+
+                      // html: '<html><body><img src="file:///sdcard/test.png">asdf</body></html>'
+                      html: '<html><body><img src="file:///data/user/0/com.integreat/files/red.png">asdf</body></html>'
+                    }}
+                    allowFileAccess
+                    originWhitelist={['*']}
+                  />
+                </WebContainer>
               </IOSSafeAreaView>
             </PlatformContext.Provider>
           </CustomThemeProvider>
