@@ -53,46 +53,74 @@
   <style>
     @keyframes show {
       0% {
-        visibility: hidden;
+        opacity: 0;
       }
-      99% {
-        visibility: hidden;
+      86% {
+        opacity: 0;
       }
       100% {
-        visibility: visible;
+        opacity: 1;
       }
     }
 
-    .splash {
+    #splash {
       position: fixed;
       top: 0;
       left: 0;
-
-      background-color: #fbda16;
-
+      z-index: 1;
       height: 100vh;
       width: 100vw;
 
-      animation-name: show;
-      animation-duration: 1s;
-
+      animation: show 1.5s forwards;
       display: flex;
       justify-content: center;
       align-items: center;
+      pointer-events: none;
+    }
+
+    #splash > div {
+      background-color: #fbda16;
+      width: 100%;
+      height: 100%;
+      transition: opacity 0.2s ease-in;
     }
 
     .splash-hidden {
-      visibility: hidden;
-      animation: none;
+      animation-play-state: paused;
     }
 
-    .splash-logo {
+    .splash-hidden > div {
+      opacity: 0;
+    }
+
+    #splash img {
       height: 50%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .no-js {
+      position: fixed;
+      z-index: 2;
+      text-align: center;
+      top: 0;
+      left: 0;
+      right: 0;
     }
   </style>
 </head>
 <body>
-<div id="splash" class="splash"><img class="splash-logo" src="/progressive-logo.jpg"></div>
+<div id="splash">
+  <div><img src="/progressive-logo.jpg"></div>
+</div>
+<noscript class="no-js">
+  <p>Please enable JavaScript to use this page!</p>
+  <p>
+    If you don't know how to activate JavaScript, click
+    <a href="https://www.enable-javascript.com/" rel="noreferrer" target="_blank">here</a>
+    or ask your administrator for help.
+  </p>
+</noscript>
 <div id="container"></div>
 <script src="<%= bundle %>"></script>
 </body>
