@@ -18,7 +18,7 @@ export const getExtraPath = (city: string, language: string, internalExtra: ?str
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 export const extrasRoute = {
-  path: '/:city/:language/extras',
+  path: '/:city/:language/extras/:extraId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
