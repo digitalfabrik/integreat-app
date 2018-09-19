@@ -57,9 +57,7 @@ type PropsType = {|
   city: ?string,
   param: ?string,
   viewportSmall: boolean,
-  darkMode: boolean,
-  // Custom redux state for testing purposes
-  store?: StateType
+  darkMode: boolean
 |}
 
 /**
