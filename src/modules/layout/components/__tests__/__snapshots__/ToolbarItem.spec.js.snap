@@ -4,7 +4,6 @@ exports[`ToolbarItem should render 1`] = `
 <ToolbarItem__StyledToolbarItem
   data-tip="Click here!"
   href="http://example.com"
-  target="_blank"
 >
   <FontAwesomeIcon
     border={false}
