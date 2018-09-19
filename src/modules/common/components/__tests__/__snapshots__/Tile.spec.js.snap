@@ -31,7 +31,7 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
 >
   <CleanAnchor
     href="https://example.com"
-    target="_blank"
+    newTab={true}
   >
     <Tile__ThumbnailSizer>
       <Tile__Thumbnail>
