@@ -1,9 +1,9 @@
 // @flow
 
-import type { CategoriesActionType } from '../../app/StoreActionType'
+import type { CategoriesFetchActionType } from '../../app/StoreActionType'
 import type { CategoriesStateType } from '../../app/StateType'
 
-export default (state: CategoriesStateType = {jsons: {}, city: undefined}, action: CategoriesActionType): any => {
+export default (state: CategoriesStateType = {jsons: {}, city: undefined}, action: CategoriesFetchActionType): any => {
   switch (action.type) {
     case 'CATEGORIES_FETCH_SUCCEEDED':
       const city = action.city

@@ -14,13 +14,7 @@ import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import RNFetchblob from 'rn-fetch-blob'
-import { WebView } from 'react-native-webview'
-import styled from 'styled-components'
-
-const WebContainer = styled.View`
-  flex: 1;
-  height: 500px;
-`
+import Navigator from './Navigator'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   platform: Platform
@@ -44,6 +38,7 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
         console.log('The file saved to ', RNFetchblob.wrap(res.path()))
       })
     // file:///data/user/0/com.integreat/files/test.jpg
+    // /var/mobile/Containers/Data/Application/B11F8743-5778-4B4D-B455-F5B3B1AEB17D/Documents/red.png
     session.list()
   }
 
@@ -59,24 +54,7 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
             <PlatformContext.Provider value={this.platform}>
               <AndroidStatusBarContainer />
               <IOSSafeAreaView>
-                <WebContainer>
-                  <WebView
-                    onError={alert}
-                    style={{
-                      backgroundColor: 'yellow',
-                      height: 100
-                    }}
-                    source={{
-                      baseUrl: RNFetchblob.fs.dirs.DocumentDir,
-                      // html: '<html><body><a href="file:///data/user/0/com.integreat/files/red.png">asdf</a></body></html>'
-
-                      // html: '<html><body><img src="file:///sdcard/test.png">asdf</body></html>'
-                      html: '<html><body><img src="file:///data/user/0/com.integreat/files/red.png">asdf</body></html>'
-                    }}
-                    allowFileAccess
-                    originWhitelist={['*']}
-                  />
-                </WebContainer>
+                <Navigator />
               </IOSSafeAreaView>
             </PlatformContext.Provider>
           </CustomThemeProvider>
