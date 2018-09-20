@@ -23,18 +23,18 @@ type PropType = {
   categories?: CategoriesMapModel,
   language: string,
   theme: ThemeType,
-  fetchCategories: { language: string, city: string } => void,
-  fetchCities: { language: string } => void
+  fetchCategories: (prioritisedLanguage: string, city: string) => void,
+  fetchCities: (language: string) => void
 }
 
 class CategoriesContainer extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
-      this.props.fetchCities({language: this.props.language})
+      this.props.fetchCities(this.props.language)
     }
 
     if (!this.props.categories) {
-      this.props.fetchCategories({language: this.props.language, city: this.getCityParam()})
+      this.props.fetchCategories(this.props.language, this.getCityParam())
     }
   }
 
@@ -101,8 +101,16 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
-    fetchCategories: params => dispatch({type: 'FETCH_CATEGORIES_REQUEST', params, meta: {retry: true}}),
-    fetchCities: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})
+    fetchCategories: (prioritisedLanguage: string, city: string) => dispatch({
+      type: 'FETCH_CATEGORIES_REQUEST',
+      params: {prioritisedLanguage, city},
+      meta: {retry: true}
+    }),
+    fetchCities: (language: string) => dispatch({
+      type: 'FETCH_CITIES_REQUEST',
+      params: {language},
+      meta: {retry: true}
+    })
   }
 }
 
