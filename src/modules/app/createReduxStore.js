@@ -15,8 +15,8 @@ import {
   reducer as reactNativeOfflineReducer
 } from 'react-native-offline'
 import type { Saga } from 'redux-saga'
-import createSagaMiddleware from 'redux-saga'
-import { all, fork } from 'redux-saga/effects'
+import createSagaMiddleware, { channel } from 'redux-saga'
+import { all, call, fork } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
@@ -38,11 +38,16 @@ const citiesReducer = (state = {json: undefined}, action: CitiesFetchActionType)
 }
 
 function * rootSaga (): Saga<void> {
+  const chan = yield call(channel)
+
+  for (let i = 0; i < 2; i++) {
+    yield fork(fetchResources, chan)
+  }
+
   yield all([
     fork(fetchCities),
     fork(fetchCategories),
-    fork(parseResources),
-    fork(fetchResources),
+    fork(parseResources, chan),
     fork(networkEventsListenerSaga, {})
   ])
 }
