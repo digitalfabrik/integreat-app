@@ -13,6 +13,8 @@
     "flow:install-types": "flow-typed install --ignoreDeps dev"
   },
   "dependencies": {
+    "fnv-plus": "^1.2.12",
+    "htmlparser2": "^3.9.2",
     "i18next": "^11.9.0",
     "is-url": "^1.2.4",
     "lodash": "^4.17.11",
