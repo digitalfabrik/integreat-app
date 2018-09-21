@@ -1,10 +1,12 @@
 // @flow
 
-import type { CategoriesFetchActionType } from '../../app/StoreActionType'
+import type { CategoriesFetchActionType, ResourcesDownloadSucceededActionType } from '../../app/StoreActionType'
 import type { CategoriesStateType } from '../../app/StateType'
 
-export default (state: CategoriesStateType = {jsons: {}, city: undefined}, action: CategoriesFetchActionType): any => {
+export default (state: CategoriesStateType = {jsons: {}, city: undefined}, action: CategoriesFetchActionType | ResourcesDownloadSucceededActionType): any => {
   switch (action.type) {
+    case 'RESOURCES_DOWNLOAD_SUCCEEDED':
+      return {...state, hashes: action.downloaded}
     case 'CATEGORIES_FETCH_SUCCEEDED':
       const city = action.city
       const language = action.language

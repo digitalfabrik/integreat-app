@@ -27,13 +27,13 @@ export default function * fetchResources (chan: Channel): Saga<void> {
   while (true) {
     const payload = yield take(chan)
 
-    const hashes = new Map<string, string>()
+    const downloaded = {}
 
     for (const url: string of payload.urls) {
       const hash = yield call(fetchResource, url)
-      hashes.set(hash, url)
+      downloaded[hash] = url
     }
 
-    yield put({type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: payload.city, language: payload.language, hashes})
+    yield put({type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: payload.city, language: payload.language, downloaded})
   }
 }

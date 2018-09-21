@@ -13,7 +13,6 @@ import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBa
 import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
-import RNFetchblob from 'rn-fetch-blob'
 import Navigator from './Navigator'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
@@ -27,19 +26,6 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
     const storeConfig = createReduxStore(() => { this.setState({waitingForStore: false}) }, false)
     this.store = storeConfig.store
     this.platform = new Platform()
-
-    const session = RNFetchblob.session()
-    RNFetchblob.config({
-      path: `${RNFetchblob.fs.dirs.DocumentDir}/red.png`
-    })
-      .fetch('GET', 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Solid_red.png', {'Cache-Control': 'no-store'})
-      .then(res => {
-        console.log('The file saved to ', res.path())
-        console.log('The file saved to ', RNFetchblob.wrap(res.path()))
-      })
-    // file:///data/user/0/com.integreat/files/test.jpg
-    // /var/mobile/Containers/Data/Application/B11F8743-5778-4B4D-B455-F5B3B1AEB17D/Documents/red.png
-    session.list()
   }
 
   render () {
