@@ -14,9 +14,11 @@ const getExtension = (url: string) => {
 }
 
 function * parseResources (channel: Channel, action: CategoriesFetchSucceededActionType): Saga<void> {
+  const city = action.city
+  const language = action.language
   const categoriesMap: CategoriesMapModel = categoriesEndpoint.mapResponse(action.payload.data, {
-    city: action.city,
-    language: action.language
+    city,
+    language
   })
   const categories = categoriesMap.toArray()
 
@@ -37,11 +39,7 @@ function * parseResources (channel: Channel, action: CategoriesFetchSucceededAct
 
   parser.end()
 
-  console.log(urls)
-
-  for (const url: string of urls) {
-    yield put(channel, {url})
-  }
+  yield put(channel, {urls, city, language})
 }
 
 export default function * fetchSaga (channel: Channel): Saga<void> {

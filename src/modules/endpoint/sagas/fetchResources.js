@@ -1,20 +1,39 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { take } from 'redux-saga/effects'
-import RNFetchblob from 'rn-fetch-blob'
 import { Channel } from 'redux-saga'
+import { call, put, take } from 'redux-saga/effects'
+import RNFetchBlob from 'rn-fetch-blob'
 import fnv from 'fnv-plus'
 
-export default function * handleRequest (chan: Channel): Saga<void> {
+const fetchResource = async (url: string) => {
+  try {
+    const hash = fnv.hash(url).hex()
+    const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${hash}`
+
+    if (RNFetchBlob.fs.exists(path)) {
+      return hash
+    }
+
+    const config = RNFetchBlob.config({path})
+    await config.fetch('GET', url)
+    return hash
+  } catch (e) {
+    console.error('Failed to download url  ', url)
+  }
+}
+
+export default function * fetchResources (chan: Channel): Saga<void> {
   while (true) {
     const payload = yield take(chan)
-    RNFetchblob.config({
-      path: `${RNFetchblob.fs.dirs.DocumentDir}/${fnv.hash(payload.url).hex()}`
-    })
-      .fetch('GET', payload.url, {'Cache-Control': 'no-store'})
-      .then(res => {
-        console.log('The file saved to ', res.path())
-      })
+
+    const hashes = new Map<string, string>()
+
+    for (const url: string of payload.urls) {
+      const hash = yield call(fetchResource, url)
+      hashes.set(hash, url)
+    }
+
+    yield put({type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: payload.city, language: payload.language, hashes})
   }
 }
