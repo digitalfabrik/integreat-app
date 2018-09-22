@@ -13,6 +13,7 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { ThemeType } from 'modules/theme/constants/theme'
+import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -20,7 +21,7 @@ type PropsType = {|
   path: string,
   city: string,
   onTilePress: (tile: TileModel) => void,
-  onItemPress: (tile: CategoryModel) => void,
+  onItemPress: (tile: { id: number, title: string, thumbnail: string }) => void,
   language: string,
   files: { [url: string]: string },
   theme: ThemeType
@@ -31,13 +32,38 @@ type PropsType = {|
  */
 export class Categories extends React.Component<PropsType> {
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
-    return categories.map(category => new TileModel({
-      id: String(category.id),
+    return categories.map(category => {
+      let cachedThumbnail = this.props.files[category.thumbnail]
+      if (cachedThumbnail) {
+        cachedThumbnail = URL_PREFIX + cachedThumbnail
+      }
+
+      return new TileModel({
+        id: String(category.id),
+        title: category.title,
+        path: category.path,
+        thumbnail: cachedThumbnail || category.thumbnail,
+        isExternalUrl: false
+      })
+    })
+  }
+
+  getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string } {
+    let cachedThumbnail = this.props.files[category.thumbnail]
+    if (cachedThumbnail) {
+      cachedThumbnail = URL_PREFIX + cachedThumbnail
+    }
+
+    return {
+      id: category.id,
       title: category.title,
       path: category.path,
-      thumbnail: category.thumbnail,
-      isExternalUrl: false
-    }))
+      thumbnail: cachedThumbnail || category.thumbnail
+    }
+  }
+
+  getListModels (categories: Array<CategoryModel>): Array<{ id: number, title: string, thumbnail: string }> {
+    return categories.map(category => this.getListModel(category))
   }
 
   /**
@@ -67,11 +93,12 @@ export class Categories extends React.Component<PropsType> {
                     onTilePress={this.props.onTilePress} />
     }
     // some level between, we want to display a list
-    return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
-                         title={category.title}
-                         content={category.content}
-                         onItemPress={this.props.onItemPress}
-                         theme={this.props.theme} />
+    return <CategoryList
+      categories={children.map((model: CategoryModel) => ({model: this.getListModel(model), subCategories: this.getListModels(categories.getChildren(model))}))}
+      title={category.title}
+      content={category.content}
+      onItemPress={this.props.onItemPress}
+      theme={this.props.theme} />
   }
 
   render () {

@@ -33,7 +33,7 @@ const TileContainer = styled.View`
 class Tile extends React.Component<PropsType> {
   getTileContent (): React.Node {
     return <>
-      <Thumbnail source={{uri: this.props.tile.thumbnail}} />
+      <Thumbnail fadeDuration={100} source={{uri: this.props.tile.thumbnail}} />
       <TileTitle>{this.props.tile.title}</TileTitle>
     </>
   }

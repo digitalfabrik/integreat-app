@@ -44,12 +44,12 @@ const StyledLink = styled.TouchableHighlight`
 `
 
 type PropsType = {
-  category: CategoryModel,
-  subCategories: Array<CategoryModel>,
+  category: {id: number, title: string, thumbnail: string},
+  subCategories: Array<{id: number, title: string, thumbnail: string}>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: CategoryModel) => void
+  onItemPress: (tile: {id: number, title: string, thumbnail: string}) => void
 }
 
 /**
