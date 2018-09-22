@@ -11,7 +11,7 @@ const fetchResource = async (url: string) => {
     const hash = fnv.hash(url).hex()
     const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${hash}`
 
-    if (RNFetchBlob.fs.exists(path)) {
+    if (RNFetchBlob.fs.exists(path)) { // todo: can this fail due to parallel downloads of languages?
       return hash
     }
 
