@@ -10,7 +10,8 @@
     "test": "jest --config jest.config.json",
     "lint": "eslint .",
     "flow:check-now": "flow check",
-    "flow:install-types": "flow-typed install --ignoreDeps dev"
+    "flow:install-types": "flow-typed install --ignoreDeps dev",
+    "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
     "fnv-plus": "^1.2.12",
