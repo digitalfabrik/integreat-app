@@ -34,6 +34,10 @@ const parseCategories = (categories, city: string, code: string) => {
 
   for (const category: CategoryModel of categories) {
     parser.write(category.content)
+
+    if (category.thumbnail) {
+      urls.add(category.thumbnail)
+    }
   }
 
   parser.end()

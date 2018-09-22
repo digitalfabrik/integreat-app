@@ -15,7 +15,7 @@ import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import type { StateType } from '../../../modules/app/StateType'
+import type { DownloadedStateType, StateType } from '../../../modules/app/StateType'
 
 type PropType = {
   navigation: NavigationScreenProp<NavigationState>,
@@ -24,7 +24,8 @@ type PropType = {
   language: string,
   theme: ThemeType,
   fetchCategories: (prioritisedLanguage: string, city: string) => void,
-  fetchCities: (language: string) => void
+  fetchCities: (language: string) => void,
+  downloaded: DownloadedStateType
 }
 
 class CategoriesContainer extends React.Component<PropType> {
@@ -74,7 +75,7 @@ class CategoriesContainer extends React.Component<PropType> {
   render () {
     const categories = this.props.categories
     const cities = this.props.cities
-    if (!categories || !cities) {
+    if (!categories || !cities || !this.props.downloaded) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
@@ -88,6 +89,7 @@ class CategoriesContainer extends React.Component<PropType> {
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const city = ownProps.navigation.getParam('city')
+
   const cities = state.cities.json
   const categories = state.categories.jsons[city]?.[state.language]
 
@@ -96,7 +98,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
   return {
     language: state.language,
     cities: cities ? citiesEndpoint.mapResponse(cities) : undefined,
-    categories: categories ? categoriesEndpoint.mapResponse(categories, categoriesParams) : undefined
+    categories: categories ? categoriesEndpoint.mapResponse(categories, categoriesParams) : undefined,
+    downloaded: state.categories.downloaded ? state.categories.downloaded[city] : false
   }
 }
 

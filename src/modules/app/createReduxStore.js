@@ -63,7 +63,7 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
     darkMode: false,
     network: {isConnected: false, actionQueue: []},
     cities: {json: undefined},
-    categories: {jsons: {}, city: undefined, downloaded: false}
+    categories: {jsons: {}, city: undefined, downloaded: undefined}
   }
 
   // Create this reducer only once. It is not pure!
