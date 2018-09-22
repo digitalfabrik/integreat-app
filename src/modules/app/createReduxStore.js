@@ -26,7 +26,7 @@ import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 
-const citiesReducer = (state = {json: undefined}, action: CitiesFetchActionType): any => {
+const citiesReducer = (state = {json: undefined, error_message: undefined}, action: CitiesFetchActionType): any => {
   switch (action.type) {
     case 'CITIES_FETCH_SUCCEEDED':
       return {...state, json: action.payload.data}
@@ -49,24 +49,25 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
   }
 
   const sagaMiddleware = createSagaMiddleware()
-  const persistConfig: PersistConfig = {
-    version: 0,
-    key: 'root',
-    storage: AsyncStorage,
-    stateReconciler: hardSet,
-    whitelist: persist ? ['cities', 'categories'] : []
-  }
 
   const initialState: StateType = {
     uiDirection: 'ltr',
     language: 'en',
     darkMode: false,
     network: {isConnected: false, actionQueue: []},
-    cities: {json: undefined},
+    cities: {json: undefined, error_message: undefined},
     categories: {
       // current_city: undefined,
       cities: {}
     }
+  }
+
+  const persistConfig: PersistConfig = {
+    version: 1,
+    key: 'root',
+    storage: AsyncStorage,
+    stateReconciler: hardSet,
+    whitelist: persist ? ['cities', 'categories', 'network'] : []
   }
 
   // Create this reducer only once. It is not pure!
