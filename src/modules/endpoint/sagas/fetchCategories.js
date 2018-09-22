@@ -40,7 +40,8 @@ function * fetch (action: FetchCategoriesRequestActionType): Saga<void> {
 
   const otherCodes = codes.filter(value => value !== prioritised)
   for (const code: string of otherCodes) {
-    yield fork(fetchByLanguage, city, code)
+    const task = fork(fetchByLanguage, city, code)
+    yield task
   }
 }
 

@@ -87,10 +87,11 @@ class CategoriesContainer extends React.Component<PropType> {
 }
 
 const mapStateToProps = (state: StateType, ownProps) => {
+  const city = ownProps.navigation.getParam('city')
   const cities = state.cities.json
-  const categories = state.categories.jsons[state.categories.city || '']?.[state.language]
+  const categories = state.categories.jsons[city]?.[state.language]
 
-  const categoriesParams = {language: state.language, city: ownProps.navigation.getParam('city')}
+  const categoriesParams = {language: state.language, city: city}
 
   return {
     language: state.language,

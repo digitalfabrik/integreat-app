@@ -6,7 +6,8 @@ import type { PersistState } from 'redux-persist/src/types'
 export type CategoriesStateType = {
   +jsons: { [city: string]: { [language: string]: any } },
   +city: string | void,
-  +hashes: { [city: string]: { [language: string]: { [hash: string]: string } } }
+  +hashes: { [city: string]: { [language: string]: { [hash: string]: string } } },
+  downloaded_languages: []
 }
 
 export type StateType = {
