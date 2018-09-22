@@ -11,9 +11,15 @@ export type CategoriesStateType = {|
     [city: string]: {
       +json: { [language: string]: any },
       +files: DownloadedStateType,
-      +download_finished: boolean
+      +download_finished: boolean,
+      +error_message: string | void
     }
   }
+|}
+
+type CitiesStateType = {|
+  +json: any | void,
+  +error_message: string | void
 |}
 
 export type StateType = {|
@@ -21,7 +27,7 @@ export type StateType = {|
   +language: string,
   +darkMode: boolean,
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
-  +cities: {| +json: any | void |},
+  +cities: CitiesStateType,
   +categories: CategoriesStateType,
   +_persist?: PersistState
 |}
