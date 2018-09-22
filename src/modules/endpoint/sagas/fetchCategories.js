@@ -30,7 +30,7 @@ const parseCategories = (categories, city: string, code: string) => {
   }
 
   // const urls = new Set()
-  const parser = new htmlparser2.Parser({onattribute})
+  const parser = new htmlparser2.Parser({onattribute}, {decodeEntities: true})
 
   for (const category: CategoryModel of categories) {
     parser.write(category.content)
