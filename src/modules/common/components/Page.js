@@ -35,8 +35,9 @@ class Page extends React.Component<PropType> {
               html: `<html><body style="display:none">${this.props.content}</body></html>`
             }}
             allowFileAccess
-            injectedJavaScript={injected(this.props.files, this.props.urlPrefix)}
+            injectedJavaScript={injected(this.props.files)}
             originWhitelist={['*']}
+            useWebKit={false}
           />
         </WebContainer>
       </>
