@@ -10,11 +10,12 @@ import type {
   ResourcesDownloadPartiallySucceededActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
+import getExtension from '../getExtension'
 
 const fetchResource = async (city: string, url: string) => {
   try {
     const hash = fnv.hash(url).hex()
-    const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}`
+    const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}.${getExtension(url)}`
 
     if (await RNFetchBlob.fs.exists(path)) {
       return path

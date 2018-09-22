@@ -13,12 +13,9 @@ import CategoriesMapModel from '../models/CategoriesMapModel'
 import htmlparser2 from 'htmlparser2'
 import CategoryModel from '../models/CategoryModel'
 import downloadResources from './downloadResources'
+import getExtension from '../getExtension'
 
-const getExtension = (url: string) => {
-  return url.substring(url.lastIndexOf('.') + 1)
-}
-
-const parseCategories = (categories, city: string, code: string) => {
+const parseCategories = (categories) => {
   const urls = new Set<string>()
 
   const onattribute = (name: string, value: string) => {
@@ -56,7 +53,7 @@ function * fetchByLanguage (city: string, code: string, urls: Set<string>): Saga
     })
     const categories = categoriesMap.toArray()
 
-    parseCategories(categories, city, code).forEach(url => urls.add(url))
+    parseCategories(categories).forEach(url => urls.add(url))
 
     const success: CategoriesFetchActionType = {
       type: `CATEGORIES_FETCH_SUCCEEDED`,
