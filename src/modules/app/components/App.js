@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import PlatformContext from '../../platform/PlatformContext'
-import Platform from '../../platform/Platform'
 
 import { Provider } from 'react-redux'
 import I18nProvider from 'modules/i18n/containers/I18nProvider'
@@ -16,8 +14,6 @@ import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
-  platform: Platform
-
   store: Store<StateType, StoreActionType>
 
   constructor () {
@@ -25,7 +21,6 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
     this.state = {waitingForStore: true}
     const storeConfig = createReduxStore(() => { this.setState({waitingForStore: false}) }, false)
     this.store = storeConfig.store
-    this.platform = new Platform()
   }
 
   render () {
@@ -37,12 +32,12 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
       <Provider store={this.store}>
         <I18nProvider>
           <CustomThemeProvider>
-            <PlatformContext.Provider value={this.platform}>
+            <>
               <AndroidStatusBarContainer />
               <IOSSafeAreaView>
                 <Navigator />
               </IOSSafeAreaView>
-            </PlatformContext.Provider>
+            </>
           </CustomThemeProvider>
         </I18nProvider>
       </Provider>
