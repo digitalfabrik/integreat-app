@@ -1,9 +1,11 @@
 // @flow
 
+import { URL_PREFIX } from '../../platform/constants/webview'
+
 export default (files: { [url: string]: string }) => `
   var hrefs = document.querySelectorAll('[href]');
-  var srcs = document.querySelectorAll('[src]')
-  var urls =${JSON.stringify(files)};
+  var srcs = document.querySelectorAll('[src]');
+  var urls = ${JSON.stringify(files)};
   
   console.debug('Urls to inject:');
   console.debug(urls);
@@ -14,7 +16,7 @@ export default (files: { [url: string]: string }) => `
     var newHref = urls[decodeURI(item.href)];
     if (newHref) {
       console.debug('Replaced ' + item.href + ' with ' + newHref);
-      item.href = newHref;
+      item.href = '${URL_PREFIX}' + newHref;
     }
   }
   
@@ -24,7 +26,7 @@ export default (files: { [url: string]: string }) => `
     var newSrc = urls[decodeURI(item.src)];
     if (newSrc) {
       console.debug('Replaced ' + item.src + ' with ' + newSrc);
-      item.src = 'file://' + newSrc;
+      item.src = '${URL_PREFIX}' + newSrc;
     }
   }
   
