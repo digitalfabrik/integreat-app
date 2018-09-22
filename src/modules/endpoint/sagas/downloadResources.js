@@ -21,10 +21,10 @@ const fetchResource = async (city: string, url: string) => {
     }
 
     const config = RNFetchBlob.config({path})
-    await config.fetch('GET', url)
+    await config.fetch('GET', encodeURI(url)) // encode url so there are no unsupported chars
     return path
   } catch (e) {
-    console.error('Failed to download url  ', url)
+    console.error(e)
   }
 }
 
