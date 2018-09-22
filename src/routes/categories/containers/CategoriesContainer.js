@@ -19,12 +19,14 @@ import type { DownloadedStateType, StateType } from '../../../modules/app/StateT
 
 type PropType = {
   navigation: NavigationScreenProp<NavigationState>,
-  cities?: Array<CityModel>,
-  categories?: CategoriesMapModel,
-  language: string,
   theme: ThemeType,
+
   fetchCategories: (prioritisedLanguage: string, city: string) => void,
   fetchCities: (language: string) => void,
+
+  language: string,
+  cities?: Array<CityModel>,
+  categories?: CategoriesMapModel,
   files: DownloadedStateType,
   download_finished: boolean
 }
@@ -84,6 +86,7 @@ class CategoriesContainer extends React.Component<PropType> {
                        language={this.props.language} city={this.getCityParam()}
                        path={this.getCurrentPath()}
                        onTilePress={this.onTilePress} onItemPress={this.onItemPress}
+                       files={this.props.files}
                        theme={this.props.theme} />
   }
 }

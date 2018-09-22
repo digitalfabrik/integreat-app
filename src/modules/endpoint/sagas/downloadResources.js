@@ -17,7 +17,7 @@ const fetchResource = async (city: string, url: string) => {
     const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}`
 
     if (await RNFetchBlob.fs.exists(path)) {
-      return hash
+      return path
     }
 
     const config = RNFetchBlob.config({path})

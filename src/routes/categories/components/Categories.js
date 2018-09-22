@@ -22,6 +22,7 @@ type PropsType = {|
   onTilePress: (tile: TileModel) => void,
   onItemPress: (tile: CategoryModel) => void,
   language: string,
+  files: { [url: string]: string },
   theme: ThemeType
 |}
 
@@ -56,7 +57,8 @@ export class Categories extends React.Component<PropsType> {
       return <React.Fragment>
         <Page title={category.title}
               content={category.content}
-              theme={this.props.theme} />
+              theme={this.props.theme}
+              files={this.props.files} />
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories

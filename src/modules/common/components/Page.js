@@ -1,9 +1,11 @@
 // @flow
 
 import React from 'react'
-import { Dimensions, Linking, WebView } from 'react-native'
+import { Dimensions, Linking } from 'react-native'
+import { WebView } from 'react-native-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
+import injected from './injected.js'
 
 const WebContainer = styled.View`
   flex: 1;
@@ -12,7 +14,8 @@ const WebContainer = styled.View`
 type PropType = {
   title: string,
   content: string,
-  theme: ThemeType
+  theme: ThemeType,
+  files: { [url: string]: string }
 }
 
 class Page extends React.Component<PropType> {
@@ -23,10 +26,14 @@ class Page extends React.Component<PropType> {
   render () {
     return (
       <>
-        <WebContainer theme={this.props.theme} >
+        <WebContainer theme={this.props.theme}>
           <WebView
-            source={{html: this.props.content}}
-            originWhitelist={['*']}
+            source={{
+              baseUrl: '',
+              html: `<html><body style="display:none">${this.props.content}</body></html>`
+            }}
+            allowFileAccess
+            injectedJavaScript={injected(this.props.files)}
           />
         </WebContainer>
       </>
