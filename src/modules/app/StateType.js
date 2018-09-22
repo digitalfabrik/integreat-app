@@ -6,10 +6,14 @@ import type { PersistState } from 'redux-persist/src/types'
 export type DownloadedStateType = { [city: string]: { [hash: string]: string } }
 
 export type CategoriesStateType = {|
-  +jsons: { [city: string]: { [language: string]: any } },
-  +city: string | void,
-  +downloaded: DownloadedStateType,
-  +download_finished: boolean
+  // +current_city: string | void,
+  +cities: {
+    [city: string]: {
+      +json: { [language: string]: any },
+      +files: DownloadedStateType,
+      +download_finished: boolean
+    }
+  }
 |}
 
 export type StateType = {|

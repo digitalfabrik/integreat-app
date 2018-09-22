@@ -25,7 +25,8 @@ type PropType = {
   theme: ThemeType,
   fetchCategories: (prioritisedLanguage: string, city: string) => void,
   fetchCities: (language: string) => void,
-  downloaded: DownloadedStateType
+  files: DownloadedStateType,
+  download_finished: boolean
 }
 
 class CategoriesContainer extends React.Component<PropType> {
@@ -75,7 +76,7 @@ class CategoriesContainer extends React.Component<PropType> {
   render () {
     const categories = this.props.categories
     const cities = this.props.cities
-    if (!categories || !cities || !this.props.downloaded) {
+    if (!categories || !cities || !this.props.download_finished) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
@@ -88,18 +89,36 @@ class CategoriesContainer extends React.Component<PropType> {
 }
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const city = ownProps.navigation.getParam('city')
+  const targetCity = ownProps.navigation.getParam('city')
 
+  const language = state.language
   const cities = state.cities.json
-  const categories = state.categories.jsons[city]?.[state.language]
+  const cityInState = state.categories.cities[targetCity]
 
-  const categoriesParams = {language: state.language, city: city}
+  const notReadyProps = {
+    language: language,
+    cities: undefined,
+    categories: undefined,
+    download_finished: false,
+    files: {}
+  }
+
+  if (!cities || !cityInState) {
+    return notReadyProps
+  }
+
+  const json = cityInState.json[language]
+
+  if (!json || !cityInState.download_finished) {
+    return notReadyProps
+  }
 
   return {
-    language: state.language,
-    cities: cities ? citiesEndpoint.mapResponse(cities) : undefined,
-    categories: categories ? categoriesEndpoint.mapResponse(categories, categoriesParams) : undefined,
-    downloaded: state.categories.downloaded ? state.categories.downloaded[city] : false
+    language: language,
+    cities: citiesEndpoint.mapResponse(cities),
+    categories: categoriesEndpoint.mapResponse(json, {language, city: targetCity}),
+    download_finished: true,
+    files: cityInState.files
   }
 }
 
