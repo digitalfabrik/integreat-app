@@ -3,19 +3,18 @@
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
 
-export type CategoriesStateType = {
+export type CategoriesStateType = {|
   +jsons: { [city: string]: { [language: string]: any } },
   +city: string | void,
-  +hashes: { [city: string]: { [language: string]: { [hash: string]: string } } },
-  downloaded_languages: []
-}
+  +downloaded: { [city: string]: { [hash: string]: string } } | false
+|}
 
-export type StateType = {
+export type StateType = {|
   +uiDirection: string,
   +language: string,
   +darkMode: boolean,
-  +network: { +isConnected: boolean, +actionQueue: Array<StoreActionType> },
-  +cities: { +json: any | void },
+  +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
+  +cities: {| +json: any | void |},
   +categories: CategoriesStateType,
   +_persist?: PersistState
-}
+|}

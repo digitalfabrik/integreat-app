@@ -10,8 +10,7 @@ import type { CategoriesStateType } from '../../app/StateType'
 const initialState: CategoriesStateType = {
   jsons: {},
   city: undefined,
-  hashes: {},
-  downloaded_languages: []
+  hashes: {}
 }
 
 export default (state: CategoriesStateType = initialState, action: ResourcesDownloadSucceededActionType | CategoriesFetchSucceededActionType | FetchCategoriesRequestActionType): any => {
@@ -23,10 +22,9 @@ export default (state: CategoriesStateType = initialState, action: ResourcesDown
       return initialState
     case 'RESOURCES_DOWNLOAD_SUCCEEDED':
       city = action.city
-      language = action.language
 
       const hashesByCity = {...state.hashes, [city]: action.downloaded}
-      return {...state, hashes: hashesByCity, downloaded_languages: [...state.downloaded_languages, action.language]}
+      return {...state, hashes: hashesByCity}
     case 'CATEGORIES_FETCH_SUCCEEDED':
       city = action.city
       language = action.language
