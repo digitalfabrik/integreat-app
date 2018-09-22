@@ -7,6 +7,7 @@ import fnv from 'fnv-plus'
 import { chunk } from 'lodash/array'
 import type {
   DownloadResourcesRequestActionType,
+  ResourcesDownloadPartiallySucceededActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
 
@@ -15,22 +16,28 @@ const fetchResource = async (city: string, url: string) => {
     const hash = fnv.hash(url).hex()
     const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}`
 
-    if (RNFetchBlob.fs.exists(path)) {
+    if (await RNFetchBlob.fs.exists(path)) {
       return hash
     }
 
     const config = RNFetchBlob.config({path})
     await config.fetch('GET', url)
-    return hash
+    return path
   } catch (e) {
     console.error('Failed to download url  ', url)
   }
 }
 
 function * downloadResources (city: string, urls: Array<string>): Saga<void> {
+  const downloaded = {}
   for (const url: string of urls) {
-    yield call(fetchResource, city, url)
+    downloaded[url] = yield call(fetchResource, city, url)
   }
+
+  const downloadSuccess: ResourcesDownloadPartiallySucceededActionType = {
+    type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, downloaded
+  }
+  yield put(downloadSuccess)
 }
 
 export default function * prepare (city: string, urls: Array<string>): Saga<void> {
@@ -51,7 +58,7 @@ export default function * prepare (city: string, urls: Array<string>): Saga<void
   }
 
   const downloadSuccess: ResourcesDownloadSucceededActionType = {
-    type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city, downloaded: urls
+    type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city
   }
   yield put(downloadSuccess)
 }

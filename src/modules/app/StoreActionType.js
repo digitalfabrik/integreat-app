@@ -21,11 +21,13 @@ export type CategoriesFetchActionType =
 export type ConnectionChangeActionType = {| type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean |}
 
 export type DownloadResourcesRequestActionType = {| type: 'DOWNLOAD_RESOURCES_REQUEST' |}
-export type ResourcesDownloadSucceededActionType = {| type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, downloaded: string[] |}
+export type ResourcesDownloadPartiallySucceededActionType = {| type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city: string, downloaded: {[url: string]: string} |}
+export type ResourcesDownloadSucceededActionType = {| type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string|}
 export type ResourcesDownloadFailedActionType = {| type: 'RESOURCES_DOWNLOAD_FAILED', message: string |}
 export type ResourcesDownloadActionType =
   DownloadResourcesRequestActionType
   | ResourcesDownloadSucceededActionType
+  | ResourcesDownloadPartiallySucceededActionType
   | ResourcesDownloadFailedActionType
 
 export type StoreActionType =
