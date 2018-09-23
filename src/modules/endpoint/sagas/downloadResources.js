@@ -1,15 +1,10 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, fork, join, put } from 'redux-saga/effects'
+import { call, fork, put } from 'redux-saga/effects'
 import RNFetchBlob from 'rn-fetch-blob'
 import fnv from 'fnv-plus'
 import { chunk } from 'lodash/array'
-import type {
-  DownloadResourcesRequestActionType,
-  ResourcesDownloadPartiallySucceededActionType,
-  ResourcesDownloadSucceededActionType
-} from '../../app/StoreActionType'
 import getExtension from '../getExtension'
 
 const fetchResource = async (city: string, url: string) => {
@@ -35,31 +30,28 @@ function * downloadResources (city: string, urls: Array<string>): Saga<void> {
     downloaded[url] = yield call(fetchResource, city, url)
   }
 
-  const downloadSuccess: ResourcesDownloadPartiallySucceededActionType = {
-    type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, downloaded
+  yield put({type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, downloaded})
+}
+
+function * downloadResourcesChunks (city: string, chunks: Array<Array<string>>): Saga<void> {
+  for (const chunk: Array<string> of chunks) {
+    yield fork(downloadResources, city, chunk)
   }
-  yield put(downloadSuccess)
 }
 
 export default function * prepare (city: string, urls: Array<string>): Saga<void> {
-  const downloadRequest: DownloadResourcesRequestActionType = {type: 'DOWNLOAD_RESOURCES_REQUEST'}
-  yield put(downloadRequest)
+  yield put({type: 'DOWNLOAD_RESOURCES_REQUEST'})
 
-  const downloadTasks = []
-  const chunks: Array<Array<string>> = chunk(urls, urls.length / 2)
+  try {
+    const chunks: Array<Array<string>> = chunk(urls, urls.length / 2)
 
-  if (chunks.length) {
-    for (const chunk: Array<string> of chunks) {
-      const task = yield fork(downloadResources, city, chunk)
-      downloadTasks.push(task)
+    if (chunks.length) {
+      yield call(downloadResourcesChunks, city, chunks)
     }
 
-    // $FlowFixMe
-    yield join(...downloadTasks)
+    yield put({type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city})
+  } catch (e) {
+    yield put({type: `RESOURCES_DOWNLOAD_FAILED`, message: e.message})
+    throw e
   }
-
-  const downloadSuccess: ResourcesDownloadSucceededActionType = {
-    type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city
-  }
-  yield put(downloadSuccess)
 }

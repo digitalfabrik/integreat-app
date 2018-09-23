@@ -11,10 +11,12 @@ export type CitiesFetchActionType =
   | CitiesFetchFailedActionType
 
 export type FetchCategoriesRequestActionType = {| type: 'FETCH_CATEGORIES_REQUEST', params: {| prioritisedLanguage: string, city: string |}, meta: {| retry: boolean |} |}
-export type CategoriesFetchSucceededActionType = {| type: 'CATEGORIES_FETCH_SUCCEEDED', payload: any, city: string, language: string |}
+export type CategoriesFetchPartiallySucceededActionType = {| type: 'CATEGORIES_FETCH_PARTIALLY_SUCCEEDED', payload: any, city: string, language: string |}
+export type CategoriesFetchSucceededActionType = {| type: 'CATEGORIES_FETCH_SUCCEEDED', city: string |}
 export type CategoriesFetchFailedActionType = {| type: 'CATEGORIES_FETCH_FAILED', message: string |}
 export type CategoriesFetchActionType =
   FetchCategoriesRequestActionType
+  | CategoriesFetchPartiallySucceededActionType
   | CategoriesFetchSucceededActionType
   | CategoriesFetchFailedActionType
 

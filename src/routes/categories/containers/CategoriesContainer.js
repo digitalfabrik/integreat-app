@@ -96,19 +96,25 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.language
   const cities = state.cities.json
 
+  if (!cities) {
+    return {
+      language: language,
+      cities: undefined,
+      categories: undefined,
+      fileCache: {},
+      fileCacheReady: false
+    }
+  }
+
+  const categories = state.categories[targetCity]
+
   const notReadyProps = {
     language: language,
-    cities: undefined,
+    cities: cities,
     categories: undefined,
     fileCache: {},
     fileCacheReady: false
   }
-
-  if (!cities) {
-    return notReadyProps
-  }
-
-  const categories = state.categories[targetCity]
 
   if (!categories) {
     return notReadyProps

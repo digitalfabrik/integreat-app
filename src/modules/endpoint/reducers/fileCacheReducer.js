@@ -1,13 +1,9 @@
 // @flow
 
-import type {
-  CategoriesFetchSucceededActionType,
-  FetchCategoriesRequestActionType,
-  ResourcesDownloadActionType
-} from '../../app/StoreActionType'
+import type { ResourcesDownloadActionType } from '../../app/StoreActionType'
 import type { FileCacheStateType } from '../../app/StateType'
 
-export default (state: FileCacheStateType = {}, action: ResourcesDownloadActionType | CategoriesFetchSucceededActionType | FetchCategoriesRequestActionType): any => {
+export default (state: FileCacheStateType = {}, action: ResourcesDownloadActionType): any => {
   const initialCity = {files: {}, ready: false, error: undefined}
   let city
   let newCity

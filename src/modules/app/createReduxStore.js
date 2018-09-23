@@ -20,21 +20,13 @@ import { all, fork } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
-import type { CitiesFetchActionType, StoreActionType } from './StoreActionType'
+import type { StoreActionType } from './StoreActionType'
 import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
-
-const citiesReducer = (state = {json: undefined, error_message: undefined}, action: CitiesFetchActionType): any => {
-  switch (action.type) {
-    case 'CITIES_FETCH_SUCCEEDED':
-      return {...state, json: action.payload.data}
-    default:
-      return state
-  }
-}
+import citiesReducer from '../endpoint/reducers/cititesReducer'
 
 function * rootSaga (): Saga<void> {
   yield all([

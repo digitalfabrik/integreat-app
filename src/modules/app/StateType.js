@@ -20,7 +20,7 @@ export type FileCacheStateType = {
   |}
 }
 
-type CitiesStateType = {|
+export type CitiesStateType = {|
   +json: any | void,
   +error: string | void
 |}
