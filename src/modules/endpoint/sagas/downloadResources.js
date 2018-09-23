@@ -8,20 +8,16 @@ import { chunk } from 'lodash/array'
 import getExtension from '../getExtension'
 
 const fetchResource = async (city: string, url: string) => {
-  try {
-    const hash = fnv.hash(url).hex()
-    const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}.${getExtension(url)}`
+  const hash = fnv.hash(url).hex()
+  const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}.${getExtension(url)}`
 
-    if (await RNFetchBlob.fs.exists(path)) {
-      return path
-    }
-
-    const config = RNFetchBlob.config({path})
-    await config.fetch('GET', encodeURI(url)) // encode url so there are no unsupported chars
+  if (await RNFetchBlob.fs.exists(path)) {
     return path
-  } catch (e) {
-    console.error(e)
   }
+
+  const config = RNFetchBlob.config({path})
+  await config.fetch('GET', encodeURI(url)) // encode url so there are no unsupported chars
+  return path
 }
 
 function * downloadResources (city: string, urls: Array<string>): Saga<void> {
@@ -51,7 +47,7 @@ export default function * prepare (city: string, urls: Array<string>): Saga<void
 
     yield put({type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city})
   } catch (e) {
-    yield put({type: `RESOURCES_DOWNLOAD_FAILED`, message: e.message})
+    yield put({type: `RESOURCES_DOWNLOAD_FAILED`, city, message: e.message})
     throw e
   }
 }

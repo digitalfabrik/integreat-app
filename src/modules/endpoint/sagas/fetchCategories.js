@@ -74,21 +74,23 @@ function * fetchAllLanguages (city: string, codes: Array<string>, prioritised: s
 }
 
 function * fetch (action: FetchCategoriesRequestActionType): Saga<void> {
-  try {
-    const city: string = action.params.city
+  const city: string = action.params.city
 
+  try {
     const prioritised: string = action.params.prioritisedLanguage
 
-    const languagesPayload = yield call(languagesEndpoint._loadData.bind(languagesEndpoint), {city: city})
-    const languageModels: Array<LanguageModel> = languagesEndpoint.mapResponse(languagesPayload.data, {city: city})
+    const params = {city}
+
+    const languagesPayload = yield call(languagesEndpoint._loadData.bind(languagesEndpoint), params)
+    const languageModels: Array<LanguageModel> = languagesEndpoint.mapResponse(languagesPayload.data, params)
     const codes = languageModels.map(model => model.code)
 
     const urls = yield call(fetchAllLanguages, city, codes, prioritised)
 
-    yield put({type: `CATEGORIES_FETCH_SUCCEEDED`, city: city})
+    yield put({type: `CATEGORIES_FETCH_SUCCEEDED`, city})
     yield call(downloadResources, city, Array.from(urls))
   } catch (e) {
-    yield put({type: `CATEGORIES_FETCH_FAILED`, message: e.message})
+    yield put({type: `CATEGORIES_FETCH_FAILED`, city, message: e.message})
   }
 }
 

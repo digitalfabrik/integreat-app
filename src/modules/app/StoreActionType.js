@@ -13,7 +13,7 @@ export type CitiesFetchActionType =
 export type FetchCategoriesRequestActionType = {| type: 'FETCH_CATEGORIES_REQUEST', params: {| prioritisedLanguage: string, city: string |}, meta: {| retry: boolean |} |}
 export type CategoriesFetchPartiallySucceededActionType = {| type: 'CATEGORIES_FETCH_PARTIALLY_SUCCEEDED', payload: any, city: string, language: string |}
 export type CategoriesFetchSucceededActionType = {| type: 'CATEGORIES_FETCH_SUCCEEDED', city: string |}
-export type CategoriesFetchFailedActionType = {| type: 'CATEGORIES_FETCH_FAILED', message: string |}
+export type CategoriesFetchFailedActionType = {| type: 'CATEGORIES_FETCH_FAILED', city: string, message: string |}
 export type CategoriesFetchActionType =
   FetchCategoriesRequestActionType
   | CategoriesFetchPartiallySucceededActionType
@@ -23,9 +23,9 @@ export type CategoriesFetchActionType =
 export type ConnectionChangeActionType = {| type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean |}
 
 export type DownloadResourcesRequestActionType = {| type: 'DOWNLOAD_RESOURCES_REQUEST' |}
-export type ResourcesDownloadPartiallySucceededActionType = {| type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city: string, downloaded: {[url: string]: string} |}
+export type ResourcesDownloadPartiallySucceededActionType = {| type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city: string, files: {[url: string]: string} |}
 export type ResourcesDownloadSucceededActionType = {| type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string|}
-export type ResourcesDownloadFailedActionType = {| type: 'RESOURCES_DOWNLOAD_FAILED', message: string |}
+export type ResourcesDownloadFailedActionType = {| type: 'RESOURCES_DOWNLOAD_FAILED', city: string, message: string |}
 export type ResourcesDownloadActionType =
   DownloadResourcesRequestActionType
   | ResourcesDownloadSucceededActionType

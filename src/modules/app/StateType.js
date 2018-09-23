@@ -7,14 +7,14 @@ export type DownloadedStateType = { [url: string]: string }
 
 export type CategoriesStateType = {
   [city: string]: {|
-    +json: { [language: string]: any },
+    +json: { [language: string]: any } | void,
     +error: string | void
   |}
 }
 
 export type FileCacheStateType = {
   [city: string]: {|
-    +files: DownloadedStateType,
+    +files: DownloadedStateType | void,
     +ready: boolean,
     +error: string | void
   |}
