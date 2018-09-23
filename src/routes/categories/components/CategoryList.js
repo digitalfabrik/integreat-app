@@ -10,15 +10,15 @@ import { ScrollView } from 'react-native'
 
 type PropsType = {
   categories: Array<{|
-    model: { id: number, title: string, thumbnail: string },
-    subCategories: Array<{ id: number, title: string, thumbnail: string }>
+    model: { id: number, title: string, thumbnail: string, path: string },
+    subCategories: Array<{ id: number, title: string, thumbnail: string, path: string }>
   |}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { id: number, title: string, thumbnail: string }) => void
+  onItemPress: (tile: { id: number, title: string, thumbnail: string, path: string }) => void
 }
 
 /**

@@ -6,7 +6,6 @@ import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
 import type { ThemeType } from 'modules/theme/constants/theme'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 
 const Row = styled.View`
   margin: 12px 0;
@@ -44,12 +43,12 @@ const StyledLink = styled.TouchableHighlight`
 `
 
 type PropsType = {
-  category: {id: number, title: string, thumbnail: string},
-  subCategories: Array<{id: number, title: string, thumbnail: string}>,
+  category: { id: number, title: string, thumbnail: string, path: string },
+  subCategories: Array<{ id: number, title: string, thumbnail: string, path: string }>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: {id: number, title: string, thumbnail: string}) => void
+  onItemPress: (tile: { id: number, title: string, thumbnail: string, path: string }) => void
 }
 
 /**

@@ -21,9 +21,9 @@ type PropsType = {|
   path: string,
   city: string,
   onTilePress: (tile: TileModel) => void,
-  onItemPress: (tile: { id: number, title: string, thumbnail: string }) => void,
+  onItemPress: (item: { id: number, title: string, thumbnail: string, path: string }) => void,
   language: string,
-  files: { [url: string]: string },
+  fileCache: { [url: string]: string },
   theme: ThemeType
 |}
 
@@ -33,7 +33,7 @@ type PropsType = {|
 export class Categories extends React.Component<PropsType> {
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.props.files[category.thumbnail]
+      let cachedThumbnail = this.props.fileCache[category.thumbnail]
       if (cachedThumbnail) {
         cachedThumbnail = URL_PREFIX + cachedThumbnail
       }
@@ -48,8 +48,8 @@ export class Categories extends React.Component<PropsType> {
     })
   }
 
-  getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string } {
-    let cachedThumbnail = this.props.files[category.thumbnail]
+  getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
+    let cachedThumbnail = this.props.fileCache[category.thumbnail]
     if (cachedThumbnail) {
       cachedThumbnail = URL_PREFIX + cachedThumbnail
     }
@@ -62,7 +62,7 @@ export class Categories extends React.Component<PropsType> {
     }
   }
 
-  getListModels (categories: Array<CategoryModel>): Array<{ id: number, title: string, thumbnail: string }> {
+  getListModels (categories: Array<CategoryModel>): Array<{ id: number, title: string, thumbnail: string, path: string }> {
     return categories.map(category => this.getListModel(category))
   }
 
@@ -84,7 +84,7 @@ export class Categories extends React.Component<PropsType> {
         <Page title={category.title}
               content={category.content}
               theme={this.props.theme}
-              files={this.props.files} />
+              files={this.props.fileCache} />
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories

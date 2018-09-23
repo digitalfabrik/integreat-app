@@ -25,6 +25,7 @@ import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
+import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
 
 const citiesReducer = (state = {json: undefined, error_message: undefined}, action: CitiesFetchActionType): any => {
   switch (action.type) {
@@ -54,12 +55,12 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
     uiDirection: 'ltr',
     language: 'en',
     darkMode: false,
-    network: {isConnected: false, actionQueue: []},
-    cities: {json: undefined, error_message: undefined},
-    categories: {
-      // current_city: undefined,
-      cities: {}
-    }
+
+    cities: {json: undefined, error: undefined},
+    categories: {},
+    fileCache: {},
+
+    network: {isConnected: false, actionQueue: []}
   }
 
   const persistConfig: PersistConfig = {
@@ -75,9 +76,12 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
     uiDirection: uiDirectionReducer,
     language: languageReducer,
     darkMode: toggleDarkModeReducer,
-    network: reactNativeOfflineReducer,
+
     cities: citiesReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
+    fileCache: fileCacheReducer,
+
+    network: reactNativeOfflineReducer
   })
 
   const rootReducer = (state, action) => {

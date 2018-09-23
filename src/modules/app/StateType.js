@@ -5,29 +5,35 @@ import type { PersistState } from 'redux-persist/src/types'
 
 export type DownloadedStateType = { [url: string]: string }
 
-export type CategoriesStateType = {|
-  // +current_city: string | void,
-  +cities: {
-    [city: string]: {
-      +json: { [language: string]: any },
-      +files: DownloadedStateType,
-      +download_finished: boolean,
-      +error_message: string | void
-    }
-  }
-|}
+export type CategoriesStateType = {
+  [city: string]: {|
+    +json: { [language: string]: any },
+    +error: string | void
+  |}
+}
+
+export type FileCacheStateType = {
+  [city: string]: {|
+    +files: DownloadedStateType,
+    +ready: boolean,
+    +error: string | void
+  |}
+}
 
 type CitiesStateType = {|
   +json: any | void,
-  +error_message: string | void
+  +error: string | void
 |}
 
 export type StateType = {|
   +uiDirection: string,
   +language: string,
   +darkMode: boolean,
-  +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
+
   +cities: CitiesStateType,
   +categories: CategoriesStateType,
+  +fileCache: FileCacheStateType,
+
+  +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState
 |}

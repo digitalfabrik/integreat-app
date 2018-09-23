@@ -8,7 +8,6 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import TileModel from '../../../modules/common/models/TileModel'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { withTheme } from 'styled-components'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import { ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
@@ -27,8 +26,8 @@ type PropType = {
   language: string,
   cities?: Array<CityModel>,
   categories?: CategoriesMapModel,
-  files: DownloadedStateType,
-  download_finished: boolean
+  fileCache: DownloadedStateType,
+  fileCacheReady: boolean
 }
 
 class CategoriesContainer extends React.Component<PropType> {
@@ -46,7 +45,7 @@ class CategoriesContainer extends React.Component<PropType> {
     this.navigate(tile.path)
   }
 
-  onItemPress = (category: CategoryModel) => {
+  onItemPress = (category: { id: number, title: string, thumbnail: string, path: string }) => {
     this.navigate(category.path)
   }
 
@@ -78,7 +77,7 @@ class CategoriesContainer extends React.Component<PropType> {
   render () {
     const categories = this.props.categories
     const cities = this.props.cities
-    if (!categories || !cities || !this.props.download_finished) {
+    if (!categories || !cities || !this.props.fileCacheReady) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
@@ -86,7 +85,7 @@ class CategoriesContainer extends React.Component<PropType> {
                        language={this.props.language} city={this.getCityParam()}
                        path={this.getCurrentPath()}
                        onTilePress={this.onTilePress} onItemPress={this.onItemPress}
-                       files={this.props.files}
+                       fileCache={this.props.fileCache}
                        theme={this.props.theme} />
   }
 }
@@ -96,23 +95,34 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const language = state.language
   const cities = state.cities.json
-  const cityInState = state.categories.cities[targetCity]
 
   const notReadyProps = {
     language: language,
     cities: undefined,
     categories: undefined,
-    download_finished: false,
-    files: {}
+    fileCache: {},
+    fileCacheReady: false
   }
 
-  if (!cities || !cityInState) {
+  if (!cities) {
     return notReadyProps
   }
 
-  const json = cityInState.json[language]
+  const categories = state.categories[targetCity]
 
-  if (!json || !cityInState.download_finished) {
+  if (!categories) {
+    return notReadyProps
+  }
+
+  const json = categories.json[language]
+
+  if (!json) {
+    return notReadyProps
+  }
+
+  const fileCache = state.fileCache[targetCity]
+
+  if (!fileCache || !fileCache.ready) {
     return notReadyProps
   }
 
@@ -120,8 +130,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: citiesEndpoint.mapResponse(cities),
     categories: categoriesEndpoint.mapResponse(json, {language, city: targetCity}),
-    download_finished: true,
-    files: cityInState.files
+    fileCache: fileCache.files,
+    fileCacheReady: true
   }
 }
 

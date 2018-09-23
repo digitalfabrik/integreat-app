@@ -3,7 +3,7 @@
 ## Language change
  * rebuild stack of pages
 ## Page json download
- * Download all languages of all cities
+ * Download all languages of all cities [ok]
  * Hashes in api v3
  * versioning and migration: https://github.com/rt2zz/redux-persist/blob/master/docs/migrations.md
 ## Image downloads
