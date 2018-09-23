@@ -8,7 +8,9 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
-  toggleTheme: () => void
+  toggleTheme: () => void,
+  goOffline: () => void,
+  goOnline: () => void
 }
 
 class Dashboard extends React.Component<PropsType> {
@@ -38,6 +40,15 @@ class Dashboard extends React.Component<PropsType> {
         <Button
           title='Toggle theme'
           onPress={this.props.toggleTheme}
+        />
+        <Button
+          title='Go Offline'
+          onPress={this.props.goOffline}
+        />
+
+        <Button
+          title='Go Online'
+          onPress={this.props.goOnline}
         />
       </React.Fragment>
     )

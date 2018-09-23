@@ -22,6 +22,7 @@ type PropType = {
 
   fetchCategories: (prioritisedLanguage: string, city: string) => void,
   fetchCities: (language: string) => void,
+  cancelFetchCategories: () => void,
 
   language: string,
   cities?: Array<CityModel>,
@@ -38,6 +39,12 @@ class CategoriesContainer extends React.Component<PropType> {
 
     if (!this.props.categories) {
       this.props.fetchCategories(this.props.language, this.getCityParam())
+
+      // Cancels the fetch if you navigate away
+      const didBlurSubscription = this.props.navigation.addListener('didBlur', () => {
+        this.props.cancelFetchCategories()
+        didBlurSubscription.remove()
+      })
     }
   }
 
@@ -143,10 +150,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
+    cancelFetchCategories: () => dispatch({
+      type: 'FETCH_CATEGORIES_CANCEL'
+    }),
     fetchCategories: (prioritisedLanguage: string, city: string) => dispatch({
       type: 'FETCH_CATEGORIES_REQUEST',
       params: {prioritisedLanguage, city},
-      meta: {retry: true}
+      meta: {retry: true, dismiss: ['FETCH_CATEGORIES_CANCEL']}
     }),
     fetchCities: (language: string) => dispatch({
       type: 'FETCH_CITIES_REQUEST',
