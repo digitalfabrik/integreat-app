@@ -23,7 +23,7 @@ export const AppStack = createStackNavigator(
   {
     initialRouteName: 'Dashboard',
     navigationOptions: {
-      header: (headerProps: HeaderProps) => <HeaderContainer scene={headerProps.scene} />
+      header: (headerProps: HeaderProps) => <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
     }
   }
 )

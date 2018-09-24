@@ -11,7 +11,7 @@ type PropsType = {
 class AndroidStatusBar extends React.PureComponent<PropsType> {
   render () {
     return (
-      <StatusBar backgroundColor={this.props.theme.colors.themeColor} barStyle='dark-content' />
+      <StatusBar backgroundColor={this.props.theme.colors.backgroundAccentColor} barStyle='dark-content' />
     )
   }
 }

@@ -9,6 +9,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { NavigationScene } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
+import { SearchBar } from 'react-native-elements'
 
 const Horizonal = styled.View`
   flex:1;
@@ -35,11 +36,6 @@ const Title = styled.Text`
  margin-left: 10px;
 `
 
-const BackButton = styled(MaterialIcon)`
-  margin-left: 10px;
-  margin-right: 10px;
-`
-
 const BoxShadow = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
@@ -61,17 +57,42 @@ const MaterialHeaderButtons = props => {
 
 type PropsType = {
   scene: NavigationScene,
+  scenes: Array<NavigationScene>,
   theme: ThemeType
 }
 
-class Header extends React.PureComponent<PropsType> {
+type StateType = {
+  searchActive: boolean
+}
+
+class Header extends React.PureComponent<PropsType, StateType> {
+  constructor () {
+    super()
+    this.state = {searchActive: false}
+  }
+
+  _getLastScene (scene: NavigationScene): NavigationScene | void {
+    return this.props.scenes.find(s => s.index === scene.index - 1)
+  }
+
   goBack = () => {
-    // Go back on next tick because button ripple effect needs to happen on Android
     // $FlowFixMe
     this.props.scene.descriptor.navigation.goBack(this.props.scene.descriptor.key)
   }
 
+  showSearchBar = () => {
+    this.setState({searchActive: true})
+  }
+
   render () {
+    if (this.state.searchActive) {
+      return <BoxShadow theme={this.props.theme}><HorizonalLeft>
+        <HeaderBackButton onPress={this.goBack} />
+        <SearchBar lightTheme containerStyle={{'flexGrow': 1}} />
+      </HorizonalLeft>
+      </BoxShadow>
+    }
+
     let headerTitle = ''
 
     // $FlowFixMe
@@ -84,12 +105,12 @@ class Header extends React.PureComponent<PropsType> {
       <BoxShadow theme={this.props.theme}>
         <Horizonal>
           <HorizonalLeft>
-            <HeaderBackButton onPress={this.goBack} />
+            {this._getLastScene(this.props.scene) && <HeaderBackButton onPress={this.goBack} />}
             <Logo source={logo} />
             <Title>{headerTitle}</Title>
           </HorizonalLeft>
           <MaterialHeaderButtons>
-            <Item title='Seach' iconName='search' />
+            <Item title='Seach' iconName='search' onPress={this.showSearchBar} />
             <Item title='Change Language' iconName='language' />
             <Item title='Change Location' iconName='edit-location' show='never' />
             <Item title='Settings' show='never' />
