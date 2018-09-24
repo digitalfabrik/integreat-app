@@ -32,7 +32,14 @@ class Page extends React.Component<PropType> {
 
   onShouldStartLoadWithRequest = (event: WebViewEvent) => {
     console.debug(event)
-    return false
+    if (event.url.includes('.pdf')) {
+      Linking.openURL(event.url).catch(err => console.error('An error occurred', err))
+      return false
+    }
+    if (!event.url.endsWith('/Documents')) {
+      return false
+    }
+    return true
   }
 
   renderError = (errorDomain: ?string, errorCode: number, errorDesc: string) => {
@@ -61,11 +68,11 @@ ${this.props.content}
         <WebContainer theme={this.props.theme}>
           <WebView
             source={{
-              baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.CacheDir,
+              baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.DocumentDir,
               html: this.renderHtml()
             }}
             allowFileAccess
-            originWhitelist={[]}
+            originWhitelist={['*']}
             useWebKit={false}
             javaScriptEnabled
 

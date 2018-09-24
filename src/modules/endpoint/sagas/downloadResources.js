@@ -9,7 +9,7 @@ import getExtension from '../getExtension'
 
 const fetchResource = async (city: string, url: string) => {
   const hash = fnv.hash(url).hex()
-  const path = `${RNFetchBlob.fs.dirs.CacheDir}/${city}/${hash}.${getExtension(url)}`
+  const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}.${getExtension(url)}`
 
   if (await RNFetchBlob.fs.exists(path)) {
     return path
@@ -21,12 +21,12 @@ const fetchResource = async (city: string, url: string) => {
 }
 
 function * downloadResources (city: string, urls: Array<string>): Saga<void> {
-  const downloaded = {}
+  const files = {}
   for (const url: string of urls) {
-    downloaded[url] = yield call(fetchResource, city, url)
+    files[url] = yield call(fetchResource, city, url)
   }
 
-  yield put({type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, downloaded})
+  yield put({type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, files})
 }
 
 function * downloadResourcesChunks (city: string, chunks: Array<Array<string>>): Saga<void> {
