@@ -26,7 +26,7 @@ class Page extends React.Component<PropType> {
   onLinkPress = (url: string) => {
     console.debug(url)
     if (url.includes('.pdf')) {
-      // this.props.navigation.navigate('PDF', {url})
+      this.props.navigation.navigate('PDF', {url})
     } else if (url.includes('.png') || url.includes('.jpg')) {
       this.props.navigation.navigate('Image', {url})
     } else {
