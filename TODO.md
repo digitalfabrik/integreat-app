@@ -1,20 +1,17 @@
-## PDF:
- * pdfjs bei android
-## Language change
- * rebuild stack of pages
-## Page json download
- * Download all languages of all cities [ok]
- * Hashes in api v3
- * versioning and migration: https://github.com/rt2zz/redux-persist/blob/master/docs/migrations.md
-## Image downloads
- * Download images for react-native Image components and webview [ok]
-## Handle clicks on links in webview
+# Required
+- [x] Download resources
+- [x] Use them in WebView and Image components 
+- [x] Fetch and store all languages of a city
+- [ ] Open PDFs in custom reader on Android
+- [ ] Open links in WebView externally
+- [ ] Allow dynamic changing of language (rebuild navigation stack)
+- [ ] Incrementally update fetched cities (use API v3 and hashes)
+- [ ] Grant permissions during runtime
 
-## i18n
- * RTL layout
-
-
-Grand permissions during runtime: https://facebook.github.io/react-native/docs/permissionsandroid.html
-
-
-https://www.html5rocks.com/en/tutorials/security/content-security-policy/
+# Nice to have
+- [ ] Disallow [remote loading](https://www.html5rocks.com/en/tutorials/security/content-security-policy/
+) of images in WebView
+- [ ] Version [persisted data](https://github.com/rt2zz/redux-persist/blob/master/docs/migrations.md) and test it
+- [ ] Dynamically support LTR/RTL
+- [ ] Display error messages in state
+- [ ] Visible debug messages in WebView
