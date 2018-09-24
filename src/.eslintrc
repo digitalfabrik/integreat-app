@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "@integreat-app/eslint-config-jest",
+    "@integreat-app/eslint-config-flow",
+    "@integreat-app/eslint-config-react",
+    "@integreat-app/eslint-config-babel"
+  ],
+  "globals": {
+    "__DEV__": false,
+    "__VERSION__": false
+  }
+}
