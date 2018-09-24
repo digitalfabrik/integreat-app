@@ -1,13 +1,14 @@
 // @flow
 
 import React from 'react'
-import { Dimensions, Linking } from 'react-native'
+import { ActivityIndicator, Dimensions, Linking, Text } from 'react-native'
 import { WebView } from 'react-native-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
-import injected from './injected.js'
 import RNFetchblob from 'rn-fetch-blob'
 import { URL_PREFIX } from '../../platform/constants/webview'
+import type { WebViewEvent, WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
+import injected from './injected'
 
 const WebContainer = styled.View`
   flex: 1;
@@ -25,19 +26,57 @@ class Page extends React.Component<PropType> {
     Linking.openURL(url)
   }
 
+  onNavigate = (event: WebViewNavigation) => {
+    console.debug(event)
+  }
+
+  onShouldStartLoadWithRequest = (event: WebViewEvent) => {
+    console.debug(event)
+    return false
+  }
+
+  renderError = (errorDomain: ?string, errorCode: number, errorDesc: string) => {
+    return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
+  }
+
+  renderLoading = () => {
+    return <ActivityIndicator size='large' color='#0000ff' />
+  }
+
+  renderHtml = () => {
+    // language=HTML
+    return `
+<html>
+<body>
+${this.props.content}
+<script>${injected(this.props.files)}</script>
+</body>
+</html>
+`
+  }
+
   render () {
     return (
       <>
         <WebContainer theme={this.props.theme}>
           <WebView
             source={{
-              baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.DocumentDir,
-              html: `<html><body style="display:none">${this.props.content}</body></html>`
+              baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.CacheDir,
+              html: this.renderHtml()
             }}
             allowFileAccess
-            injectedJavaScript={injected(this.props.files)}
-            originWhitelist={['*']}
+            originWhitelist={[]}
             useWebKit={false}
+            javaScriptEnabled
+
+            mediaPlaybackRequiresUserAction
+            dataDetectorTypes={'all'}
+
+            domStorageEnabled={false}
+
+            onNavigationStateChange={this.onNavigate}
+            onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+            renderError={this.renderError}
           />
         </WebContainer>
       </>

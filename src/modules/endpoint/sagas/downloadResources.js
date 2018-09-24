@@ -9,7 +9,7 @@ import getExtension from '../getExtension'
 
 const fetchResource = async (city: string, url: string) => {
   const hash = fnv.hash(url).hex()
-  const path = `${RNFetchBlob.fs.dirs.DocumentDir}/${city}/${hash}.${getExtension(url)}`
+  const path = `${RNFetchBlob.fs.dirs.CacheDir}/${city}/${hash}.${getExtension(url)}`
 
   if (await RNFetchBlob.fs.exists(path)) {
     return path

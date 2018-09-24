@@ -7,7 +7,7 @@
  * Hashes in api v3
  * versioning and migration: https://github.com/rt2zz/redux-persist/blob/master/docs/migrations.md
 ## Image downloads
- * Download images for react-native Image components and webview
+ * Download images for react-native Image components and webview [ok]
 ## Handle clicks on links in webview
 
 ## i18n
@@ -15,3 +15,6 @@
 
 
 Grand permissions during runtime: https://facebook.github.io/react-native/docs/permissionsandroid.html
+
+
+https://www.html5rocks.com/en/tutorials/security/content-security-policy/
