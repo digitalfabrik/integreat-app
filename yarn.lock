@@ -888,17 +888,25 @@
     camelcase "^5.0.0"
     prettier "^1.13.7"
 
+"@integreat-app/eslint-config-babel@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.0.tgz#7af98e4b68ddccd8ef3109d5a4355097fc2b03b0"
+
+"@integreat-app/eslint-config-flow@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-flow/-/eslint-config-flow-0.3.0.tgz#da515210ebc1becc7dd4358860084a9c0634fdf4"
+
 "@integreat-app/eslint-config-jest@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-jest/-/eslint-config-jest-0.2.1.tgz#92cf9a9c221883b6194da2cde723f02945b625d1"
 
+"@integreat-app/eslint-config-node@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-node/-/eslint-config-node-0.3.0.tgz#add06fe388d3aa2ab8d04b81175e16cf91e8f01f"
+
 "@integreat-app/eslint-config-react@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.2.1.tgz#7f9037ac3a675ba73c329c2f83c2cf72e8ca41ea"
-
-"@integreat-app/eslint-config@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.2.1.tgz#0f82f1b7c9d22367b95134d92c4c21156c2b26c2"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -3378,9 +3386,9 @@ eslint-plugin-prefer-object-spread@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prefer-object-spread/-/eslint-plugin-prefer-object-spread-1.2.1.tgz#27fb91853690cceb3ae6101d9c8aecc6a67a402c"
 
-eslint-plugin-promise@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-4.0.0.tgz#bc15a4aa04fa6116113b6c47488c421821b758fc"
+eslint-plugin-promise@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-4.0.1.tgz#2d074b653f35a23d1ba89d8e976a985117d1c6a2"
 
 eslint-plugin-react@^7.11.1:
   version "7.11.1"
@@ -9468,10 +9476,6 @@ url-parse-lax@^1.0.0:
   resolved "https://registry.yarnpkg.com/url-parse-lax/-/url-parse-lax-1.0.0.tgz#7af8f303645e9bd79a272e7a14ac68bc0609da73"
   dependencies:
     prepend-http "^1.0.1"
-
-url-polyfill@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.0.14.tgz#1baf108b0c09eacaa1915c067409f639a2a7e061"
 
 url-template@^2.0.8:
   version "2.0.8"
