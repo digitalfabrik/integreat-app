@@ -37,7 +37,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
                         goToMessage={'goTo.events'}
                         errorMessage={'not-found.event'} />
       case 'extra':
-        return <Failure goTo={goToExtras(error.city, error.language)}
+        return <Failure goToAction={goToExtras(error.city, error.language)}
                         goToMessage={'goTo.extras'}
                         errorMessage={'not-found.extra'} />
     }
