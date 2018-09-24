@@ -5176,6 +5176,10 @@ react-native-vector-icons@^5.0.0:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
+react-native-view-pdf@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-view-pdf/-/react-native-view-pdf-0.4.1.tgz#059c362c10935da21f793bad5f29745944da9655"
+
 "react-native-webview@https://github.com/react-native-community/react-native-webview":
   version "0.1.0"
   resolved "https://github.com/react-native-community/react-native-webview#861e5538f577a595d2895bd9b0e982a0d8ca6094"

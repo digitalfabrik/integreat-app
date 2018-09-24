@@ -1,4 +1,6 @@
 rootProject.name = 'Integreat'
+include ':react-native-view-pdf'
+project(':react-native-view-pdf').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-view-pdf/android')
 include ':react-native-webview'
 project(':react-native-webview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview/android')
 include ':rn-fetch-blob'

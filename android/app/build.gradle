@@ -150,6 +150,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-view-pdf')
     implementation project(':react-native-webview')
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-vector-icons')

@@ -51,6 +51,7 @@
 		ECD2A9CCBB0B444AB4C50859 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DECF425438744508BE907CA6 /* Zocial.ttf */; };
 		2133F2F9DA5D4041A46712BD /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD4174329E642A1BCC1860C /* libRNFetchBlob.a */; };
 		76C0898D26F04B51893C0B18 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D71E1110F084B0CBD707FFB /* libRNCWebView.a */; };
+		B11D1726BCC2416B906C2320 /* libReactNativeViewPDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3C8F90E3A2A4EABAEB3E87B /* libReactNativeViewPDF.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -373,6 +374,8 @@
 		1DD4174329E642A1BCC1860C /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		540A80F514BB439A9976A0BC /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; name = "RNCWebView.xcodeproj"; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		8D71E1110F084B0CBD707FFB /* libRNCWebView.a */ = {isa = PBXFileReference; name = "libRNCWebView.a"; path = "libRNCWebView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		BDDDC3BA620F45CDA8EC3CA8 /* ReactNativeViewPDF.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeViewPDF.xcodeproj"; path = "../node_modules/react-native-view-pdf/ReactNativeViewPDF.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F3C8F90E3A2A4EABAEB3E87B /* libReactNativeViewPDF.a */ = {isa = PBXFileReference; name = "libReactNativeViewPDF.a"; path = "libReactNativeViewPDF.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -404,6 +407,7 @@
 				6402E2441CCD41FBB63DF36A /* libRNVectorIcons.a in Frameworks */,
 				2133F2F9DA5D4041A46712BD /* libRNFetchBlob.a in Frameworks */,
 				76C0898D26F04B51893C0B18 /* libRNCWebView.a in Frameworks */,
+				B11D1726BCC2416B906C2320 /* libReactNativeViewPDF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +597,7 @@
 				06EBAED962094AFF8F0C1898 /* RNVectorIcons.xcodeproj */,
 				E8BD6550B38045FF82C6F13C /* RNFetchBlob.xcodeproj */,
 				540A80F514BB439A9976A0BC /* RNCWebView.xcodeproj */,
+				BDDDC3BA620F45CDA8EC3CA8 /* ReactNativeViewPDF.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1251,12 +1256,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Debug;
@@ -1278,12 +1285,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Release;
@@ -1308,6 +1317,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Debug;
@@ -1331,6 +1341,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Release;
@@ -1361,12 +1372,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Debug;
@@ -1397,12 +1410,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Release;
@@ -1432,12 +1447,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Debug;
@@ -1467,12 +1484,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
+					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
 				);
 			};
 			name = Release;

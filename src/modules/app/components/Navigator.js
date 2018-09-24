@@ -8,12 +8,14 @@ import LandingContainer from 'routes/landing/containers/LandingContainer'
 import DashboardContainer from 'routes/dashboard/containers/DashboardContainer'
 import withLayout from '../../layout/hocs/withLayout'
 import HeaderContainer from '../../layout/containers/HeaderContainer'
+import PDF from '../../../routes/pdf/components/PDF'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
 export const AppStack = createStackNavigator(
   {
+    'PDF': PDF,
     'Dashboard': LayoutedDashboardContainer,
     'Categories': LayoutedCategoriesContainer
   },

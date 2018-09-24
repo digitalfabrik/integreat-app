@@ -29,6 +29,7 @@
     "react-native-offline": "^3.12.0",
     "react-native-render-html": "^3.10.0",
     "react-native-vector-icons": "^5.0.0",
+    "react-native-view-pdf": "^0.4.1",
     "react-native-webview": "https://github.com/react-native-community/react-native-webview",
     "react-navigation": "^2.14.2",
     "react-navigation-header-buttons": "^2.1.0",

@@ -9,6 +9,7 @@ import RNFetchblob from 'rn-fetch-blob'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import type { WebViewEvent, WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import injected from './injected'
+import { withNavigation } from 'react-navigation'
 
 const WebContainer = styled.View`
   flex: 1;
@@ -33,7 +34,8 @@ class Page extends React.Component<PropType> {
   onShouldStartLoadWithRequest = (event: WebViewEvent) => {
     console.debug(event)
     if (event.url.includes('.pdf')) {
-      Linking.openURL(event.url).catch(err => console.error('An error occurred', err))
+      // Linking.openURL(event.url).catch(err => console.error('An error occurred', err))
+      this.props.navigation.push('PDF', {file: event.url})
       return false
     }
     if (!event.url.endsWith('/Documents')) {
@@ -91,4 +93,4 @@ ${this.props.content}
   }
 }
 
-export default Page
+export default withNavigation(Page)
