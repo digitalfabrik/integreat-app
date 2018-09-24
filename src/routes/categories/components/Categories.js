@@ -23,7 +23,7 @@ type PropsType = {|
   onTilePress: (tile: TileModel) => void,
   onItemPress: (item: { id: number, title: string, thumbnail: string, path: string }) => void,
   language: string,
-  fileCache: { [url: string]: string },
+  files: { [url: string]: string },
   theme: ThemeType
 |}
 
@@ -33,7 +33,7 @@ type PropsType = {|
 export class Categories extends React.Component<PropsType> {
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.props.fileCache[category.thumbnail]
+      let cachedThumbnail = this.props.files[category.thumbnail]
       if (cachedThumbnail) {
         cachedThumbnail = URL_PREFIX + cachedThumbnail
       }
@@ -49,7 +49,7 @@ export class Categories extends React.Component<PropsType> {
   }
 
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.props.fileCache[category.thumbnail]
+    let cachedThumbnail = this.props.files[category.thumbnail]
     if (cachedThumbnail) {
       cachedThumbnail = URL_PREFIX + cachedThumbnail
     }
@@ -84,7 +84,7 @@ export class Categories extends React.Component<PropsType> {
         <Page title={category.title}
               content={category.content}
               theme={this.props.theme}
-              files={this.props.fileCache} />
+              files={this.props.files} />
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories

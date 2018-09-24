@@ -27,7 +27,7 @@ type PropType = {
   language: string,
   cities?: Array<CityModel>,
   categories?: CategoriesMapModel,
-  fileCache: DownloadedStateType,
+  files: DownloadedStateType,
   fileCacheReady: boolean
 }
 
@@ -92,7 +92,7 @@ class CategoriesContainer extends React.Component<PropType> {
                        language={this.props.language} city={this.getCityParam()}
                        path={this.getCurrentPath()}
                        onTilePress={this.onTilePress} onItemPress={this.onItemPress}
-                       fileCache={this.props.fileCache}
+                       files={this.props.files}
                        theme={this.props.theme} />
   }
 }
@@ -108,7 +108,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
       language: language,
       cities: undefined,
       categories: undefined,
-      fileCache: {},
+      files: {},
       fileCacheReady: false
     }
   }
@@ -119,7 +119,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: cities,
     categories: undefined,
-    fileCache: {},
+    files: {},
     fileCacheReady: false
   }
 
@@ -143,7 +143,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: citiesEndpoint.mapResponse(cities),
     categories: categoriesEndpoint.mapResponse(json, {language, city: targetCity}),
-    fileCache: fileCache.files,
+    files: fileCache.files,
     fileCacheReady: true
   }
 }
