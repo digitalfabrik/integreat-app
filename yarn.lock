@@ -888,13 +888,13 @@
     camelcase "^5.0.0"
     prettier "^1.13.7"
 
-"@integreat-app/eslint-config-babel@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.0.tgz#7af98e4b68ddccd8ef3109d5a4355097fc2b03b0"
+"@integreat-app/eslint-config-babel@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.1.tgz#179379daa944cdf36f245550b803c853885d2596"
 
-"@integreat-app/eslint-config-flow@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-flow/-/eslint-config-flow-0.3.0.tgz#da515210ebc1becc7dd4358860084a9c0634fdf4"
+"@integreat-app/eslint-config-flow@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-flow/-/eslint-config-flow-0.3.1.tgz#f585c016f4f65b05ec58cb9946c3ccf74594fd13"
 
 "@integreat-app/eslint-config-jest@^0.2.1":
   version "0.2.1"
