@@ -3,6 +3,7 @@
 import { URL_PREFIX } from '../platform/constants/webview'
 import type { FilesStateType } from '../app/StateType'
 
+// language=JavaScript
 const renderJS = (files: FilesStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
@@ -31,6 +32,8 @@ const renderJS = (files: FilesStateType) => `
       item.src = '${URL_PREFIX}' + newSrc
     }
   }
+  
+  document.body.style.display = 'block'
 })();
 `
 
@@ -38,7 +41,7 @@ export default (html: string, files: FilesStateType) => {
   // language=HTML
   return `
 <html>
-<body>
+<body style="display: none;">
 ${html}
 <script>${renderJS(files)}</script>
 </body>
