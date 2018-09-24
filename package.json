@@ -26,11 +26,12 @@
     "react-i18next": "^7.12.0",
     "react-native": "0.57.0",
     "react-native-elements": "0.19.1",
+    "react-native-image-zoom-viewer": "^2.2.18",
     "react-native-offline": "^3.12.0",
     "react-native-render-html": "^3.10.0",
     "react-native-vector-icons": "^5.0.0",
     "react-native-view-pdf": "^0.4.1",
-    "react-native-webview": "https://github.com/react-native-community/react-native-webview",
+    "react-native-webview": "https://github.com/maxammann/react-native-webview/",
     "react-navigation": "^2.14.2",
     "react-navigation-header-buttons": "^2.1.0",
     "react-redux": "^5.0.7",
@@ -66,6 +67,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "flow-bin": "^0.81.0",
     "flow-typed": "^2.5.1",
+    "get-dev-paths": "^0.1.0",
     "http-proxy": "^1.17.0",
     "jest": "^23.6.0",
     "jest-fetch-mock": "^1.6.6",
@@ -73,5 +75,11 @@
     "lolex": "^2.7.4",
     "metro-react-native-babel-preset": "^0.45.0",
     "react-test-renderer": "^16.5.1"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**"
+    ]
   }
 }

@@ -3,7 +3,7 @@
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
 
-export type DownloadedStateType = { [url: string]: string }
+export type FilesStateType = { [url: string]: string }
 
 export type CategoriesStateType = {
   [city: string]: {|
@@ -14,7 +14,7 @@ export type CategoriesStateType = {
 
 export type FileCacheStateType = {
   [city: string]: {|
-    +files: DownloadedStateType | void,
+    +files: FilesStateType | void,
     +ready: boolean,
     +error: string | void
   |}

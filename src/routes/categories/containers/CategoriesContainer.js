@@ -14,7 +14,7 @@ import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import type { DownloadedStateType, StateType } from '../../../modules/app/StateType'
+import type { FilesStateType, StateType } from '../../../modules/app/StateType'
 
 type PropType = {
   navigation: NavigationScreenProp<NavigationState>,
@@ -27,7 +27,7 @@ type PropType = {
   language: string,
   cities?: Array<CityModel>,
   categories?: CategoriesMapModel,
-  files: DownloadedStateType,
+  files: FilesStateType,
   fileCacheReady: boolean
 }
 

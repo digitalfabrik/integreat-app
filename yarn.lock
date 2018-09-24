@@ -2730,6 +2730,12 @@ get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
 
+get-dev-paths@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/get-dev-paths/-/get-dev-paths-0.1.0.tgz#eaf98ef50441d0fba3c5cbf81d6b4ba394facb77"
+  dependencies:
+    type-error "^1.0.3"
+
 get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
@@ -5124,6 +5130,16 @@ react-native-elements@0.19.1:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
+react-native-image-pan-zoom@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.9.tgz#0a838330bda2468b00a0e5051e71149d86a44ad7"
+
+react-native-image-zoom-viewer@^2.2.18:
+  version "2.2.18"
+  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.18.tgz#99304592a3b256c859cb07c0677726986f82ccb8"
+  dependencies:
+    react-native-image-pan-zoom "^2.1.9"
+
 react-native-offline@^3.12.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/react-native-offline/-/react-native-offline-3.12.0.tgz#44d7c3b393357f0b0111ad1e8370fe8a7114e169"
@@ -5180,9 +5196,9 @@ react-native-view-pdf@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/react-native-view-pdf/-/react-native-view-pdf-0.4.1.tgz#059c362c10935da21f793bad5f29745944da9655"
 
-"react-native-webview@https://github.com/react-native-community/react-native-webview":
+"react-native-webview@https://github.com/maxammann/react-native-webview/":
   version "0.1.0"
-  resolved "https://github.com/react-native-community/react-native-webview#861e5538f577a595d2895bd9b0e982a0d8ca6094"
+  resolved "https://github.com/maxammann/react-native-webview/#1ac7126f24f88d84bec4ed8b8480aebf2948a93f"
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"
@@ -6250,6 +6266,10 @@ type-check@~0.3.2:
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
   dependencies:
     prelude-ls "~1.1.2"
+
+type-error@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/type-error/-/type-error-1.0.3.tgz#4cec6ebbb8a8f57fb9b7ef33ca0ec93b1bd87ab2"
 
 typedarray@^0.0.6:
   version "0.0.6"

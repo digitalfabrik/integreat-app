@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import RNFetchblob from 'rn-fetch-blob'
 import { URL_PREFIX } from '../../platform/constants/webview'
-import type { WebViewEvent, WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
-import injected from './injected'
+import type { WebViewEvent } from 'react-native-webview/js/WebViewTypes'
 import { withNavigation } from 'react-navigation'
+import renderHtml from '../renderHtml'
 
 const WebContainer = styled.View`
   flex: 1;
@@ -23,45 +23,36 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType> {
-  onLinkPress = (event: *, url: string) => {
-    Linking.openURL(url)
+  onLinkPress = (url: string) => {
+    console.debug(url)
+    if (url.includes('.pdf')) {
+      // this.props.navigation.navigate('PDF', {url})
+    } else if (url.includes('.png') || url.includes('.jpg')) {
+      this.props.navigation.navigate('Image', {url})
+    } else {
+      Linking.openURL(url).catch(err => console.error('An error occurred', err))
+    }
   }
 
-  onNavigate = (event: WebViewNavigation) => {
-    console.debug(event)
-  }
-
+  // For iOS
   onShouldStartLoadWithRequest = (event: WebViewEvent) => {
-    console.debug(event)
-    if (event.url.includes('.pdf')) {
-      // Linking.openURL(event.url).catch(err => console.error('An error occurred', err))
-      this.props.navigation.push('PDF', {file: event.url})
-      return false
+    const url = event.url
+    if (url.endsWith('/Documents')) {
+      return true
     }
-    if (!event.url.endsWith('/Documents')) {
-      return false
-    }
-    return true
+
+    this.onLinkPress(url)
+
+    return false
+  }
+
+  // For android
+  onOverrideUrlLoading = event => {
+    this.onLinkPress(event.nativeEvent.url)
   }
 
   renderError = (errorDomain: ?string, errorCode: number, errorDesc: string) => {
     return <Text>${errorDomain} ${errorCode} ${errorDesc}</Text>
-  }
-
-  renderLoading = () => {
-    return <ActivityIndicator size='large' color='#0000ff' />
-  }
-
-  renderHtml = () => {
-    // language=HTML
-    return `
-<html>
-<body>
-${this.props.content}
-<script>${injected(this.props.files)}</script>
-</body>
-</html>
-`
   }
 
   render () {
@@ -71,21 +62,21 @@ ${this.props.content}
           <WebView
             source={{
               baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.DocumentDir,
-              html: this.renderHtml()
+              html: renderHtml(this.props.content, this.props.files)
             }}
-            allowFileAccess
-            originWhitelist={['*']}
-            useWebKit={false}
+            allowFileAccess // Needed by android to access file:// urls
+            originWhitelist={['*']} // Needed by iOS to load the initial html
+            useWebKit={false} // If true iOS does not load file:// urls
             javaScriptEnabled
 
-            mediaPlaybackRequiresUserAction
             dataDetectorTypes={'all'}
-
             domStorageEnabled={false}
 
-            onNavigationStateChange={this.onNavigate}
-            onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
             renderError={this.renderError}
+
+            urlOverridingEnabled
+            onOverrideUrlLoading={this.onOverrideUrlLoading}
+            onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </WebContainer>
       </>

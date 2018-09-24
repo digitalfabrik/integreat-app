@@ -15,3 +15,5 @@
 - [ ] Dynamically support LTR/RTL
 - [ ] Display error messages in state
 - [ ] Visible debug messages in WebView
+- [ ] Support Custom Tabs on android
+

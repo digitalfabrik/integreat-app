@@ -1,9 +1,9 @@
 // @flow
 
-import { URL_PREFIX } from '../../platform/constants/webview'
+import { URL_PREFIX } from '../platform/constants/webview'
+import type { FilesStateType } from '../app/StateType'
 
-// language=JavaScript
-export default (files: { [url: string]: string }) => `
+const renderJS = (files: FilesStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
@@ -33,3 +33,15 @@ export default (files: { [url: string]: string }) => `
   }
 })();
 `
+
+export default (html: string, files: FilesStateType) => {
+  // language=HTML
+  return `
+<html>
+<body>
+${html}
+<script>${renderJS(files)}</script>
+</body>
+</html>
+`
+}
