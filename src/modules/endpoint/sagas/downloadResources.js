@@ -6,6 +6,11 @@ import RNFetchBlob from 'rn-fetch-blob'
 import fnv from 'fnv-plus'
 import { chunk } from 'lodash/array'
 import getExtension from '../getExtension'
+import type {
+  ResourcesDownloadFailedActionType,
+  ResourcesDownloadPartiallySucceededActionType,
+  ResourcesDownloadSucceededActionType
+} from '../../app/StoreActionType'
 
 const fetchResource = async (city: string, url: string) => {
   const hash = fnv.hash(url).hex()
@@ -26,7 +31,10 @@ function * downloadResources (city: string, urls: Array<string>): Saga<void> {
     files[url] = yield call(fetchResource, city, url)
   }
 
-  yield put({type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, files})
+  const partially: ResourcesDownloadPartiallySucceededActionType = {
+    type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, files
+  }
+  yield put(partially)
 }
 
 function * downloadResourcesChunks (city: string, chunks: Array<Array<string>>): Saga<void> {
@@ -36,7 +44,6 @@ function * downloadResourcesChunks (city: string, chunks: Array<Array<string>>):
 }
 
 export default function * prepare (city: string, urls: Array<string>): Saga<void> {
-  yield put({type: 'DOWNLOAD_RESOURCES_REQUEST'})
 
   try {
     const chunks: Array<Array<string>> = chunk(urls, urls.length / 2)
@@ -45,9 +52,11 @@ export default function * prepare (city: string, urls: Array<string>): Saga<void
       yield call(downloadResourcesChunks, city, chunks)
     }
 
-    yield put({type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city})
+    const success: ResourcesDownloadSucceededActionType = {type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city}
+    yield put(success)
   } catch (e) {
-    yield put({type: `RESOURCES_DOWNLOAD_FAILED`, city, message: e.message})
+    const failed: ResourcesDownloadFailedActionType = {type: `RESOURCES_DOWNLOAD_FAILED`, city, message: e.message}
+    yield put(failed)
     throw e
   }
 }

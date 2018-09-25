@@ -12,6 +12,11 @@ export type CitiesFetchActionType =
   | CitiesFetchSucceededActionType
   | CitiesFetchFailedActionType
 
+export type LanguagesFetchSucceededActionType = {| type: 'LANGUAGES_FETCH_SUCCEEDED', payload: any, city: string |}
+export type LanguagesFetchFailedActionType = {| type: 'LANGUAGES_FETCH_FAILED', message: string, city: string |}
+export type LanguagesFetchActionType =
+  | LanguagesFetchSucceededActionType
+  | LanguagesFetchFailedActionType
 
 export type FetchCategoriesRequestActionType = {| type: 'FETCH_CATEGORIES_REQUEST', params: {| prioritisedLanguage: string, city: string |}, meta: MetaType |}
 export type FetchCategoriesCancelActionType = {| type: 'FETCH_CATEGORIES_CANCEL' |}
@@ -27,12 +32,10 @@ export type CategoriesFetchActionType =
 
 export type ConnectionChangeActionType = {| type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean |}
 
-export type DownloadResourcesRequestActionType = {| type: 'DOWNLOAD_RESOURCES_REQUEST' |}
 export type ResourcesDownloadPartiallySucceededActionType = {| type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city: string, files: { [url: string]: string } |}
 export type ResourcesDownloadSucceededActionType = {| type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string |}
 export type ResourcesDownloadFailedActionType = {| type: 'RESOURCES_DOWNLOAD_FAILED', city: string, message: string |}
 export type ResourcesDownloadActionType =
-  DownloadResourcesRequestActionType
   | ResourcesDownloadSucceededActionType
   | ResourcesDownloadPartiallySucceededActionType
   | ResourcesDownloadFailedActionType

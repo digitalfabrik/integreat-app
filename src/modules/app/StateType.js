@@ -20,6 +20,13 @@ export type FileCacheStateType = {
   |}
 }
 
+export type LanguagesStateType = {
+  [city: string]: {|
+    +languages: { [language: string]: any } | void,
+    +error: string | void
+  |}
+}
+
 export type CitiesStateType = {|
   +json: any | void,
   +error: string | void
@@ -32,6 +39,7 @@ export type StateType = {|
 
   +cities: CitiesStateType,
   +categories: CategoriesStateType,
+  +languages: LanguagesStateType,
   +fileCache: FileCacheStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},

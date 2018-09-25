@@ -27,6 +27,7 @@ import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
 import citiesReducer from '../endpoint/reducers/cititesReducer'
+import languagesReducer from '../endpoint/reducers/languagesReducer'
 
 function * rootSaga (): Saga<void> {
   yield all([
@@ -50,6 +51,7 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
 
     cities: {json: undefined, error: undefined},
     categories: {},
+    languages: {},
     fileCache: {},
 
     network: {isConnected: false, actionQueue: []}
@@ -71,6 +73,7 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
 
     cities: citiesReducer,
     categories: categoriesReducer,
+    languages: languagesReducer,
     fileCache: fileCacheReducer,
 
     network: reactNativeOfflineReducer
