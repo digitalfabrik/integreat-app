@@ -3,8 +3,16 @@
 import PDFView from 'react-native-view-pdf'
 import * as React from 'react'
 import { View } from 'react-native'
+import type { NavigationScreenProp } from 'react-navigation'
 
-export default class PDFViewer extends React.Component {
+type PropsType = {
+  navigation: NavigationScreenProp<*>,
+  url: string
+}
+
+export default class PDFViewModal extends React.Component<PropsType> {
+  onError = error => console.log('Cannot render PDF', error)
+
   render () {
     return (
       <View style={{flex: 1}}>
@@ -13,7 +21,7 @@ export default class PDFViewer extends React.Component {
           style={{flex: 1}}
           resource={this.props.navigation.getParam('url')}
           resourceType={'url'}
-          onError={error => console.log('Cannot render PDF', error)}
+          onError={this.error}
         />
       </View>
     )

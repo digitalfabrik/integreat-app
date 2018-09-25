@@ -8,8 +8,8 @@ import LandingContainer from 'routes/landing/containers/LandingContainer'
 import DashboardContainer from 'routes/dashboard/containers/DashboardContainer'
 import withLayout from '../../layout/hocs/withLayout'
 import HeaderContainer from '../../layout/containers/HeaderContainer'
-import PDFViewer from '../../../routes/pdf/components/PDFViewer'
-import SingleImageView from '../../../routes/image/components/SingleImageView'
+import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
+import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -41,8 +41,8 @@ export const LandingStack = createSwitchNavigator(
 export default createStackNavigator(
   {
     'LandingStack': LandingStack,
-    'PDF': PDFViewer,
-    'Image': SingleImageView
+    'PDFViewModal': PDFViewModal,
+    'ImageViewModal': ImageViewModal
   },
   {
     mode: 'modal',
