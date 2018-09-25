@@ -1,14 +1,14 @@
 // @flow
 
 import React from 'react'
-import { ActivityIndicator, Dimensions, Linking, Text } from 'react-native'
+import { Dimensions, Linking, Text } from 'react-native'
 import { WebView } from 'react-native-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import RNFetchblob from 'rn-fetch-blob'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import type { WebViewEvent } from 'react-native-webview/js/WebViewTypes'
-import { withNavigation } from 'react-navigation'
+import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 
 const WebContainer = styled.View`
@@ -19,6 +19,7 @@ type PropType = {
   title: string,
   content: string,
   theme: ThemeType,
+  navigation: NavigationScreenProp<*>,
   files: { [url: string]: string }
 }
 

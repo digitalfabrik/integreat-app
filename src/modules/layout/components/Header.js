@@ -3,10 +3,9 @@
 import * as React from 'react'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components'
-import { View } from 'react-native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import type { NavigationScene } from 'react-navigation'
+import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
 import { SearchBar } from 'react-native-elements'
@@ -55,6 +54,21 @@ const MaterialHeaderButtons = props => {
   )
 }
 
+const ThemedSearchBar = styled(SearchBar).attrs({
+  containerStyle: props => ({
+    flexGrow: 1,
+    backgroundColor: props.theme.colors.backgroundAccentColor,
+    borderTopColor: props.theme.colors.backgroundAccentColor,
+    borderBottomColor: props.theme.colors.backgroundAccentColor
+  }),
+  inputContainerStyle: props => ({
+    backgroundColor: props.theme.colors.backgroundColor
+  }),
+  inputStyle: props => ({
+    backgroundColor: props.theme.colors.backgroundColor
+  })
+})``
+
 type PropsType = {
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
@@ -71,48 +85,66 @@ class Header extends React.PureComponent<PropsType, StateType> {
     this.state = {searchActive: false}
   }
 
-  _getLastScene (scene: NavigationScene): NavigationScene | void {
-    return this.props.scenes.find(s => s.index === scene.index - 1)
+  canGoBackInStack (): boolean {
+    return !!this.getLastSceneInStack()
   }
 
-  goBack = () => {
+  getLastSceneInStack (): NavigationScene | void {
+    return this.props.scenes.find((s: NavigationScene) => s.index === this.props.scene.index - 1)
+  }
+
+  getDescriptor (): { [key: string]: any } {
     // $FlowFixMe
-    this.props.scene.descriptor.navigation.goBack(this.props.scene.descriptor.key)
+    return this.props.scene.descriptor
+  }
+
+  getNavigation (): NavigationScreenProp<*> {
+    return this.getDescriptor().navigation
+  }
+
+  goBackInStack = () => {
+    this.getNavigation().goBack(this.getDescriptor().key)
   }
 
   showSearchBar = () => {
-    this.setState({searchActive: true})
+    this.setState(state => ({...state, searchActive: true}))
+  }
+
+  closeSearchBar = () => {
+    this.setState(state => ({...state, searchActive: false}))
+  }
+
+  goToLanding = () => {
+    this.getNavigation().navigate('Landing')
+  }
+
+  goToLanguageChange = () => {
+    this.getNavigation().navigate('ChangeLanguageModal')
   }
 
   render () {
     if (this.state.searchActive) {
       return <BoxShadow theme={this.props.theme}><HorizonalLeft>
-        <HeaderBackButton onPress={this.goBack} />
-        <SearchBar lightTheme containerStyle={{'flexGrow': 1}} />
+        <HeaderBackButton onPress={this.closeSearchBar} />
+        <ThemedSearchBar />
       </HorizonalLeft>
       </BoxShadow>
     }
 
-    let headerTitle = ''
-
-    // $FlowFixMe
-    if (this.props.scene.descriptor) {
-      const {options} = this.props.scene.descriptor
-      headerTitle = options.headerTitle
-    }
+    const headerTitle = this.getDescriptor().headerTitle || ''
 
     return (
       <BoxShadow theme={this.props.theme}>
         <Horizonal>
           <HorizonalLeft>
-            {this._getLastScene(this.props.scene) && <HeaderBackButton onPress={this.goBack} />}
+            {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
             <Logo source={logo} />
             <Title>{headerTitle}</Title>
           </HorizonalLeft>
           <MaterialHeaderButtons>
-            <Item title='Seach' iconName='search' onPress={this.showSearchBar} />
-            <Item title='Change Language' iconName='language' />
-            <Item title='Change Location' iconName='edit-location' show='never' />
+            <Item title='Search' iconName='search' onPress={this.showSearchBar} />
+            <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
+            <Item title='Change Location' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' />
           </MaterialHeaderButtons>
         </Horizonal>

@@ -2,8 +2,8 @@
 - [x] Download resources
 - [x] Use them in WebView and Image components 
 - [x] Fetch and store all languages of a city
-- [ ] Open PDFs in custom reader on Android
-- [ ] Open links in WebView externally
+- [x] Open PDFs in custom reader on Android
+- [x] Open links in WebView externally
 - [ ] Allow dynamic changing of language (rebuild navigation stack)
 - [ ] Incrementally update fetched cities (use API v3 and hashes)
 - [ ] Grant permissions during runtime

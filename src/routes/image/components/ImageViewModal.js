@@ -3,9 +3,15 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import { ImageViewer } from 'react-native-image-zoom-viewer'
+import type { NavigationScreenProp } from 'react-navigation'
 
-export default class ImageViewModal extends React.Component {
-  renderNothing (): React.ReactElement<any> {
+type PropsType = {
+  navigation: NavigationScreenProp<*>,
+  url: string
+}
+
+export default class ImageViewModal extends React.Component<PropsType> {
+  renderNothing (): React.Node {
     return null
   }
 

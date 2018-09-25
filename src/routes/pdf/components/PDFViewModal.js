@@ -11,7 +11,7 @@ type PropsType = {
 }
 
 export default class PDFViewModal extends React.Component<PropsType> {
-  onError = error => console.log('Cannot render PDF', error)
+  onError = (error: Error) => console.log('Cannot render PDF', error)
 
   render () {
     return (
@@ -21,7 +21,7 @@ export default class PDFViewModal extends React.Component<PropsType> {
           style={{flex: 1}}
           resource={this.props.navigation.getParam('url')}
           resourceType={'url'}
-          onError={this.error}
+          onError={this.onError}
         />
       </View>
     )

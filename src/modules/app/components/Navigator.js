@@ -10,6 +10,7 @@ import withLayout from '../../layout/hocs/withLayout'
 import HeaderContainer from '../../layout/containers/HeaderContainer'
 import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModal from '../../../routes/image/components/ImageViewModal'
+import ChangeLanguageModal from '../../../routes/language/components/ChangeLanguageModal'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -41,6 +42,7 @@ export const LandingStack = createSwitchNavigator(
 export default createStackNavigator(
   {
     'LandingStack': LandingStack,
+    'ChangeLanguageModal': ChangeLanguageModal,
     'PDFViewModal': PDFViewModal,
     'ImageViewModal': ImageViewModal
   },
