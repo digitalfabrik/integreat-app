@@ -15,6 +15,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import citiesEndpoint from 'modules/endpoint/endpoints/cities'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import setCurrentCity from '../../categories/actions/setCurrentCity'
 
 const Wrapper = styled(ScrollView)`
   position: absolute;  
@@ -32,7 +33,8 @@ type PropType = {
   navigation: NavigationScreenProp<*>,
   t: TFunction,
   theme: ThemeType,
-  fetchCities: { language: string } => void
+  fetchCities: (language: string) => void,
+  setCurrentCity: (city: string) => void
 }
 
 /**
@@ -41,11 +43,12 @@ type PropType = {
 class LandingContainer extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
-      this.props.fetchCities({language: this.props.language})
+      this.props.fetchCities(this.props.language)
     }
   }
 
   navigateToDashboard = cityModel => {
+    this.props.setCurrentCity(cityModel.code)
     this.props.navigation.navigate('Dashboard', {cityModel})
   }
 
@@ -73,7 +76,12 @@ const mapStateToProps = (state: StateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
-    fetchCities: params => dispatch({type: 'FETCH_CITIES_REQUEST', params, meta: {retry: true}})
+    fetchCities: (language: string) => dispatch({
+      type: 'FETCH_CITIES_REQUEST',
+      params: {language},
+      meta: {retry: true}
+    }),
+    setCurrentCity: (city: string) => dispatch(setCurrentCity(city))
   }
 }
 

@@ -1,7 +1,18 @@
-import { handleAction } from 'redux-actions'
-import { setUiDirectionAction } from '../actions/setUIDirection'
-import { setLanguageAction } from '../actions/setLanguage'
+// @flow
 
-export const uiDirectionReducer = handleAction(setUiDirectionAction, (state, action) => action.payload, 'ltr')
+import { type ActionType, handleAction } from 'redux-actions'
+import setUIDirection from '../actions/setUIDirection'
+import setLanguage from '../actions/setLanguage'
+import type { DirectionStateType, LanguageStateType } from '../../app/StateType'
 
-export const languageReducer = handleAction(setLanguageAction, (state, action) => action.payload, 'en')
+export const uiDirectionReducer = handleAction(
+  'SET_UI_DIRECTION',
+  (state: DirectionStateType, {payload}: ActionType<typeof setUIDirection>) => payload,
+  'ltr'
+)
+
+export const languageReducer = handleAction(
+  'SET_LANGUAGE_ACTION',
+  (state: LanguageStateType, {payload}: ActionType<typeof setLanguage>) => payload,
+  'en'
+)

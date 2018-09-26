@@ -1,9 +1,6 @@
 // @flow
 
 import { createAction } from 'redux-actions'
+import type { SetLanguageActionType } from '../../app/StoreActionType'
 
-export const setLanguageAction = 'SET_LANGUAGE'
-
-const setLanguage = (language: string) => createAction(setLanguageAction)(language)
-
-export default setLanguage
+export default (language: string): SetLanguageActionType => createAction('SET_LANGUAGE')(language)

@@ -14,16 +14,18 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
+import type { FilesStateType } from '../../../modules/app/StateType'
 
 type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
+  language: string,
+
   path: string,
   city: string,
-  onTilePress: (tile: TileModel) => void,
-  onItemPress: (item: { id: number, title: string, thumbnail: string, path: string }) => void,
-  language: string,
-  files: { [url: string]: string },
+  navigateToCategories: (path: string) => void,
+
+  files: FilesStateType,
   theme: ThemeType
 |}
 
@@ -31,6 +33,14 @@ type PropsType = {|
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
 export class Categories extends React.Component<PropsType> {
+  onTilePress = (tile: TileModel) => {
+    this.props.navigateToCategories(tile.path)
+  }
+
+  onItemPress = (category: { id: number, title: string, thumbnail: string, path: string }) => {
+    this.props.navigateToCategories(category.path)
+  }
+
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
       let cachedThumbnail = this.props.files[category.thumbnail]
@@ -90,14 +100,14 @@ export class Categories extends React.Component<PropsType> {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)}
-                    onTilePress={this.props.onTilePress} />
+                    onTilePress={this.onTilePress} />
     }
     // some level between, we want to display a list
     return <CategoryList
       categories={children.map((model: CategoryModel) => ({model: this.getListModel(model), subCategories: this.getListModels(categories.getChildren(model))}))}
       title={category.title}
       content={category.content}
-      onItemPress={this.props.onItemPress}
+      onItemPress={this.onItemPress}
       theme={this.props.theme} />
   }
 

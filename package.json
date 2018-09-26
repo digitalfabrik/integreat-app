@@ -75,11 +75,5 @@
     "lolex": "^2.7.4",
     "metro-react-native-babel-preset": "^0.45.0",
     "react-test-renderer": "^16.5.1"
-  },
-  "workspaces": {
-    "nohoist": [
-      "**/react-native",
-      "**/react-native/**"
-    ]
   }
 }

@@ -8,7 +8,21 @@ import setLanguage from '../../../modules/i18n/actions/setLanguage'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components'
 
-const mapStateToProps = (state: StateType) => ({})
+const mapStateToProps = (state: StateType) => {
+  const city = state.currentCity
+
+  if (!city) {
+    throw new Error(`There is no current city`)
+  }
+
+  const cityInState = state.languages[city]
+
+  if (!cityInState) {
+    throw new Error(`No languages for ${city} found`)
+  }
+
+  return {languages: cityInState.languages}
+}
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {

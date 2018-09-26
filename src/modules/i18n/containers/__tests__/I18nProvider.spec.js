@@ -106,7 +106,7 @@ describe('I18nProvider', () => {
     expect(i18n.find(I18nProvider).props()).toMatchSnapshot()
   })
 
-  describe('setLanguage', () => {
+  describe('setCurrentCity', () => {
     it('should take first i18next language if param is undefined', () => {
       const component = mount(<I18nProvider setUiDirection={() => {}}>
         <div />

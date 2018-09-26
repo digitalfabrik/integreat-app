@@ -7,34 +7,41 @@ export type FilesStateType = { [url: string]: string }
 
 export type CategoriesStateType = {
   [city: string]: {|
-    +json: { [language: string]: any } | void,
-    +error: string | void
+    +json: { [language: string]: any },
+    +error: ?string
   |}
 }
 
 export type FileCacheStateType = {
   [city: string]: {|
-    +files: FilesStateType | void,
+    +files: FilesStateType,
     +ready: boolean,
-    +error: string | void
+    +error: ?string
   |}
 }
 
 export type LanguagesStateType = {
   [city: string]: {|
-    +languages: { [language: string]: any } | void,
-    +error: string | void
+    +languages: { [language: string]: any },
+    +error: ?string
   |}
 }
 
 export type CitiesStateType = {|
-  +json: any | void,
-  +error: string | void
+  +json: ?any,
+  +error: ?string
 |}
 
+export type DirectionStateType = 'ltr' | 'rtl'
+
+export type LanguageStateType = string
+
+export type CurrentCityStateType = ?string
+
 export type StateType = {|
-  +uiDirection: string,
-  +language: string,
+  +uiDirection: DirectionStateType,
+  +language: LanguageStateType,
+  +currentCity: CurrentCityStateType,
   +darkMode: boolean,
 
   +cities: CitiesStateType,

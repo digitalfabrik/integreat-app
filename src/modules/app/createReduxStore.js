@@ -28,6 +28,7 @@ import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
 import citiesReducer from '../endpoint/reducers/cititesReducer'
 import languagesReducer from '../endpoint/reducers/languagesReducer'
+import currentCityReducer from '../../routes/categories/reducers/currentCityReducer'
 
 function * rootSaga (): Saga<void> {
   yield all([
@@ -47,9 +48,10 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
   const initialState: StateType = {
     uiDirection: 'ltr',
     language: 'en',
+    currentCity: null,
     darkMode: false,
 
-    cities: {json: undefined, error: undefined},
+    cities: {json: null, error: null},
     categories: {},
     languages: {},
     fileCache: {},
@@ -69,6 +71,7 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
   const persitedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
     language: languageReducer,
+    currentCity: currentCityReducer,
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,

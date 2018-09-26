@@ -40,8 +40,17 @@ export type ResourcesDownloadActionType =
   | ResourcesDownloadPartiallySucceededActionType
   | ResourcesDownloadFailedActionType
 
+export type SetLanguageActionType = { type: 'SET_LANGUAGE', payload: string }
+
+export type SetCurrentCityActionType = { type: 'SET_CURRENT_CITY', payload: string }
+
+export type SetUiDirectionActionType = { type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl' }
+
 export type StoreActionType =
   ConnectionChangeActionType
   | CitiesFetchActionType
   | CategoriesFetchActionType
   | ResourcesDownloadActionType
+  | SetLanguageActionType
+  | SetCurrentCityActionType
+  | SetUiDirectionActionType
