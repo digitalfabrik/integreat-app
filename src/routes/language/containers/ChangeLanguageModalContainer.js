@@ -7,6 +7,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import setLanguage from '../../../modules/i18n/actions/setLanguage'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components'
+import languagesEndpoint from 'modules/endpoint/endpoints/languages'
 
 const mapStateToProps = (state: StateType) => {
   const city = state.currentCity
@@ -21,7 +22,7 @@ const mapStateToProps = (state: StateType) => {
     throw new Error(`No languages for ${city} found`)
   }
 
-  return {languages: cityInState.languages}
+  return {languages: languagesEndpoint.mapResponse(cityInState.languages)}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {

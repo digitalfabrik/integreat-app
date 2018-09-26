@@ -6,28 +6,23 @@ import type { DimensionsType } from './dimensions'
 import dimensions from './dimensions'
 import type { FontsType } from './fonts'
 import fonts from './fonts'
-import type { HelpersType } from './helpers'
-import helpers from './helpers'
 
 export type ThemeType = {
   colors: ColorsType,
   dimensions: DimensionsType,
-  fonts: FontsType,
-  helpers: HelpersType
+  fonts: FontsType
 }
 
 export const brightTheme = {
   colors: brightColors,
   dimensions,
-  fonts,
-  helpers
+  fonts
 }
 
 export const darkTheme = {
   colors: darkColors,
   dimensions,
-  fonts,
-  helpers
+  fonts
 }
 
 export default brightTheme

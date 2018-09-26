@@ -29,10 +29,33 @@ type PropsType = {|
   theme: ThemeType
 |}
 
+type StateType = {|
+  categoryModel: ?CategoryModel
+|}
+
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
-export class Categories extends React.Component<PropsType> {
+export class Categories extends React.Component<PropsType, StateType> {
+  constructor (props: PropsType) {
+    super(props)
+    this.state = {categoryModel: props.categories.findCategoryByPath(props.path)}
+  }
+
+  static getDerivedStateFromProps (props: PropsType, state: StateType): StateType {
+    const previous = state.categoryModel
+
+    if (previous) {
+      const path = previous.availableLanguages.get(props.language)
+
+      if (path) {
+        return {categoryModel: props.categories.findCategoryByPath(path)}
+      }
+    }
+
+    return {categoryModel: props.categories.findCategoryByPath(props.path)}
+  }
+
   onTilePress = (tile: TileModel) => {
     this.props.navigateToCategories(tile.path)
   }
@@ -104,7 +127,10 @@ export class Categories extends React.Component<PropsType> {
     }
     // some level between, we want to display a list
     return <CategoryList
-      categories={children.map((model: CategoryModel) => ({model: this.getListModel(model), subCategories: this.getListModels(categories.getChildren(model))}))}
+      categories={children.map((model: CategoryModel) => ({
+        model: this.getListModel(model),
+        subCategories: this.getListModels(categories.getChildren(model))
+      }))}
       title={category.title}
       content={category.content}
       onItemPress={this.onItemPress}
@@ -112,13 +138,13 @@ export class Categories extends React.Component<PropsType> {
   }
 
   render () {
-    const {categories, path, city, language} = this.props
-    const categoryModel = categories.findCategoryByPath(path)
+    const {city, language} = this.props
+    const categoryModel = this.state.categoryModel
 
     if (categoryModel) {
       return this.getContent(categoryModel)
     } else {
-      const error = new ContentNotFoundError({type: 'category', id: this.props.path, city: city, language})
+      const error = new ContentNotFoundError({type: 'category', id: '??', city: city, language})
       return <FailureSwitcher error={error} />
     }
   }

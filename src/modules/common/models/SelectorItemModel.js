@@ -2,12 +2,12 @@
 export default class SelectorItemModel {
   _code: string
   _name: string
-  _href: string | null
+  _onPress: () => void
 
-  constructor (params: { code: string, name: string, href: string | null }) {
+  constructor (params: { code: string, name: string, onPress: () => void }) {
     this._code = params.code
     this._name = params.name
-    this._href = params.href
+    this._onPress = params.onPress
   }
 
   get code (): string {
@@ -18,7 +18,7 @@ export default class SelectorItemModel {
     return this._name
   }
 
-  get href (): string | null {
-    return this._href
+  get onPress (): () => void {
+    return this._onPress
   }
 }

@@ -12,7 +12,7 @@ export const uiDirectionReducer = handleAction(
 )
 
 export const languageReducer = handleAction(
-  'SET_LANGUAGE_ACTION',
+  'SET_LANGUAGE',
   (state: LanguageStateType, {payload}: ActionType<typeof setLanguage>) => payload,
   'en'
 )

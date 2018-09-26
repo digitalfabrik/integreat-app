@@ -7,6 +7,8 @@ import { NavigationActions, StackActions } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
 import { Text } from 'react-native'
+import Selector from '../../../modules/common/components/Selector'
+import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -17,20 +19,6 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-// const resetAction = StackActions.reset({
-//   index: 1,
-//   actions: [
-//     NavigationActions.navigate({
-//       routeName: 'Dashboard',
-//       params: {cityModel: new CityModel({name: 'Ahaus', code: 'ahaus'})}
-//     }),
-//     NavigationActions.navigate({
-//       routeName: 'Dashboard',
-//       params: {cityModel: new CityModel({name: 'Augsburg', code: 'augsburg'})}
-//     })]
-// })
-// this.getNavigation().dispatch(resetAction)
-
 type PropsType = {
   theme: ThemeType,
   languages: Array<LanguageModel>,
@@ -38,9 +26,18 @@ type PropsType = {
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
+  onPress = (model: LanguageModel) => {
+    this.props.changeLanguage(model.code)
+  }
+
   render () {
+    console.log()
     return <Wrapper theme={this.props.theme}>
-      <Text>${JSON.stringify(this.props.languages)}</Text>
+      <Selector verticalLayout items={this.props.languages.map(languageModel => new SelectorItemModel({
+        code: languageModel.code,
+        name: languageModel.name,
+        onPress: () => this.onPress(languageModel)
+      }))} />
     </Wrapper>
   }
 }

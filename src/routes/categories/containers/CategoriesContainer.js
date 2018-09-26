@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import type { StateType } from '../../../modules/app/StateType'
+import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
@@ -45,10 +46,11 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
+  const categoriesMap: CategoriesMapModel = categoriesEndpoint.mapResponse(json, {language, city: targetCity})
   return {
     language: language,
     cities: citiesEndpoint.mapResponse(cities),
-    categories: categoriesEndpoint.mapResponse(json, {language, city: targetCity}),
+    categories: categoriesMap,
     files: fileCache.files,
     path: targetPath,
     city: targetCity,
