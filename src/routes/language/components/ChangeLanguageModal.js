@@ -3,10 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { NavigationActions, StackActions } from 'react-navigation'
-import CityModel from '../../../modules/endpoint/models/CityModel'
 import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
-import { Text } from 'react-native'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 

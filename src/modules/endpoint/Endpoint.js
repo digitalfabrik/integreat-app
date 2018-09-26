@@ -6,14 +6,6 @@ import MappingError from './errors/MappingError'
 import ParamMissingError from './errors/ParamMissingError'
 import type { MapResponseType } from './MapResponseType'
 import type { MapParamsToUrlType } from './MapParamsToUrlType'
-import { call, fork, put, takeLatest, all } from 'redux-saga/effects'
-import type { Saga } from 'redux-saga'
-import { networkEventsListenerSaga } from 'react-native-offline'
-
-type ActionType<P> = {
-  +type: string,
-  +params: P
-}
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it

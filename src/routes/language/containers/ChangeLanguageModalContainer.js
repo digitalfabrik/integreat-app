@@ -23,7 +23,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 
   return {
-    languages: languagesEndpoint.mapResponse(cityInState.languages),
+    languages: languagesEndpoint.mapResponse(cityInState.languages, {city}),
     closeModal: () => ownProps.navigation.goBack()
   }
 }

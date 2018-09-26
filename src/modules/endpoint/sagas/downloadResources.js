@@ -44,7 +44,6 @@ function * downloadResourcesChunks (city: string, chunks: Array<Array<string>>):
 }
 
 export default function * prepare (city: string, urls: Array<string>): Saga<void> {
-
   try {
     const chunks: Array<Array<string>> = chunk(urls, urls.length / 2)
 

@@ -6,11 +6,9 @@ import styled from 'styled-components'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
-import { NavigationActions, StackActions } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
 import { SearchBar } from 'react-native-elements'
-import CityModel from '../../endpoint/models/CityModel'
 
 const Horizonal = styled.View`
   flex:1;
