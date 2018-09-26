@@ -9,7 +9,7 @@ import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components'
 import languagesEndpoint from 'modules/endpoint/endpoints/languages'
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: StateType, ownProps) => {
   const city = state.currentCity
 
   if (!city) {
@@ -22,7 +22,10 @@ const mapStateToProps = (state: StateType) => {
     throw new Error(`No languages for ${city} found`)
   }
 
-  return {languages: languagesEndpoint.mapResponse(cityInState.languages)}
+  return {
+    languages: languagesEndpoint.mapResponse(cityInState.languages),
+    closeModal: () => ownProps.navigation.goBack()
+  }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {

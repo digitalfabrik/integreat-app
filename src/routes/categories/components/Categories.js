@@ -21,6 +21,7 @@ type PropsType = {|
   cities: Array<CityModel>,
   language: string,
 
+  categoryModel: ?CategoryModel,
   path: string,
   city: string,
   navigateToCategories: (path: string) => void,
@@ -29,33 +30,46 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-type StateType = {|
-  categoryModel: ?CategoryModel
-|}
+function makeLanguageAgnostic<Props: { path: string, categories: CategoriesMapModel, language: string }> (
+  Component: React.ComponentType<Props>
+): React.ComponentType<$Diff<Props, { categoryModel: ?CategoryModel }>> {
+  type StateType = {|
+    categoryModel: ?CategoryModel
+  |}
+
+  class LanguageAgnosticCategories extends React.Component<Props, StateType> {
+    constructor (props: Props) {
+      super(props)
+      this.state = {categoryModel: props.categories.findCategoryByPath(props.path)}
+    }
+
+    static getDerivedStateFromProps (props: PropsType, state: StateType): StateType {
+      const previous = state.categoryModel
+
+      if (previous) {
+        const path = previous.availableLanguages.get(props.language)
+
+        if (path) {
+          return {categoryModel: props.categories.findCategoryByPath(path)}
+        }
+      }
+
+      return {categoryModel: props.categories.findCategoryByPath(props.path)}
+    }
+
+    render () {
+      console.warn('testd')
+      return <Component {...this.props} categoryModel={this.state.categoryModel} />
+    }
+  }
+
+  return LanguageAgnosticCategories
+}
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
-export class Categories extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
-    super(props)
-    this.state = {categoryModel: props.categories.findCategoryByPath(props.path)}
-  }
-
-  static getDerivedStateFromProps (props: PropsType, state: StateType): StateType {
-    const previous = state.categoryModel
-
-    if (previous) {
-      const path = previous.availableLanguages.get(props.language)
-
-      if (path) {
-        return {categoryModel: props.categories.findCategoryByPath(path)}
-      }
-    }
-
-    return {categoryModel: props.categories.findCategoryByPath(props.path)}
-  }
-
+class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
     this.props.navigateToCategories(tile.path)
   }
@@ -138,8 +152,8 @@ export class Categories extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {city, language} = this.props
-    const categoryModel = this.state.categoryModel
+    const {city, language, categoryModel} = this.props
+    console.debug(this.props)
 
     if (categoryModel) {
       return this.getContent(categoryModel)
@@ -150,4 +164,4 @@ export class Categories extends React.Component<PropsType, StateType> {
   }
 }
 
-export default Categories
+export default makeLanguageAgnostic(Categories)

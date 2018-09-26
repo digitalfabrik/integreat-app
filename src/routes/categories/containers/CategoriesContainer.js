@@ -1,6 +1,6 @@
 // @flow
 
-import { Categories } from '../components/Categories'
+import Categories from '../components/Categories'
 import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'

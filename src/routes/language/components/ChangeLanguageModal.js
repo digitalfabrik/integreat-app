@@ -22,16 +22,17 @@ const Wrapper = styled.View`
 type PropsType = {
   theme: ThemeType,
   languages: Array<LanguageModel>,
-  changeLanguage: (language: string) => void
+  changeLanguage: (language: string) => void,
+  closeModal: () => void
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
     this.props.changeLanguage(model.code)
+    this.props.closeModal()
   }
 
   render () {
-    console.log()
     return <Wrapper theme={this.props.theme}>
       <Selector verticalLayout items={this.props.languages.map(languageModel => new SelectorItemModel({
         code: languageModel.code,
