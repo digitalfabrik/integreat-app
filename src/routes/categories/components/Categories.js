@@ -21,7 +21,7 @@ type PropsType = {|
   cities: Array<CityModel>,
   language: string,
 
-  categoryModel: ?CategoryModel,
+  categoryModel: CategoryModel,
   path: string,
   city: string,
   navigateToCategories: (path: string) => void,
@@ -32,34 +32,48 @@ type PropsType = {|
 
 function makeLanguageAgnostic<Props: { path: string, categories: CategoriesMapModel, language: string }> (
   Component: React.ComponentType<Props>
-): React.ComponentType<$Diff<Props, { categoryModel: ?CategoryModel }>> {
+): React.ComponentType<$Diff<Props, { categoryModel: CategoryModel | void }>> {
   type StateType = {|
-    categoryModel: ?CategoryModel
+    categoryModel: ?CategoryModel,
+    path: ?string
   |}
 
-  class LanguageAgnosticCategories extends React.Component<Props, StateType> {
+  class LanguageAgnosticCategories extends React.PureComponent<Props, StateType> {
     constructor (props: Props) {
       super(props)
-      this.state = {categoryModel: props.categories.findCategoryByPath(props.path)}
+      this.state = {
+        categoryModel: null,
+        path: null
+      }
     }
 
-    static getDerivedStateFromProps (props: PropsType, state: StateType): StateType {
+    static getDerivedStateFromProps (props: PropsType, state: StateType): StateType | null {
       const previous = state.categoryModel
 
       if (previous) {
         const path = previous.availableLanguages.get(props.language)
 
         if (path) {
-          return {categoryModel: props.categories.findCategoryByPath(path)}
+          return {categoryModel: props.categories.findCategoryByPath(path), path}
         }
       }
 
-      return {categoryModel: props.categories.findCategoryByPath(props.path)}
+      return {categoryModel: props.categories.findCategoryByPath(props.path), path: props.path}
     }
 
     render () {
-      console.warn('testd')
-      return <Component {...this.props} categoryModel={this.state.categoryModel} />
+      const categoryModel = this.state.categoryModel
+      if (!categoryModel) {
+        const error = new ContentNotFoundError({
+          type: 'category',
+          id: this.state.path || '??',
+          city: '??',
+          language: this.props.language
+        })
+        return <FailureSwitcher error={error} />
+      }
+
+      return <Component {...this.props} categoryModel={categoryModel} />
     }
   }
 
@@ -121,7 +135,9 @@ class Categories extends React.Component<PropsType> {
    * @param category The current category
    * @return {*} The content to be displayed
    */
-  getContent (category: CategoryModel): React.Node {
+  render () {
+    const category = this.props.categoryModel
+
     const {categories, cities} = this.props
     const children = categories.getChildren(category)
 
@@ -149,18 +165,6 @@ class Categories extends React.Component<PropsType> {
       content={category.content}
       onItemPress={this.onItemPress}
       theme={this.props.theme} />
-  }
-
-  render () {
-    const {city, language, categoryModel} = this.props
-    console.debug(this.props)
-
-    if (categoryModel) {
-      return this.getContent(categoryModel)
-    } else {
-      const error = new ContentNotFoundError({type: 'category', id: '??', city: city, language})
-      return <FailureSwitcher error={error} />
-    }
   }
 }
 
