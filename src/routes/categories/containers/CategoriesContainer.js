@@ -57,4 +57,5 @@ const mapStateToProps = (state: StateType, ownProps) => {
 }
 
 // $FlowFixMe
-export default withTheme(connect(mapStateToProps)(Categories))
+const themed = withTheme(Categories)
+export default connect(mapStateToProps)(themed)
