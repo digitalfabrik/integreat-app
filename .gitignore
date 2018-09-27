@@ -225,3 +225,6 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+# OSM map files
+*.mbtiles
+
