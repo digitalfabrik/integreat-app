@@ -44,7 +44,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const notReadyProps = {
     cityModel: targetCity,
-    language: language
+    language: language,
+    cities
   }
 
   if (!cities) {
