@@ -4,9 +4,9 @@
 - [x] Fetch and store all languages of a city
 - [x] Open PDFs in custom reader on Android
 - [x] Open links in WebView externally
-- [ ] Allow dynamic changing of language (rebuild navigation stack)
+- [x] Allow dynamic changing of language ~~(rebuild navigation stack)~~
 - [ ] Incrementally update fetched cities (use API v3 and hashes)
-- [ ] Grant permissions during runtime
+
 
 # Nice to have
 - [ ] Disallow [remote loading](https://www.html5rocks.com/en/tutorials/security/content-security-policy/
@@ -16,4 +16,5 @@
 - [ ] Display error messages in state
 - [ ] Visible debug messages in WebView
 - [ ] Support Custom Tabs on android
+- [ ] ~~Grant permissions during runtime [how to](https://facebook.github.io/react-native/docs/permissionsandroid)~~
 
