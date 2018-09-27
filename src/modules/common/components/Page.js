@@ -26,9 +26,9 @@ type PropType = {
 class Page extends React.Component<PropType> {
   onLinkPress = (url: string) => {
     if (url.includes('.pdf')) {
-      this.props.navigation.navigate('PDF', {url})
+      this.props.navigation.navigate('PDFViewModal', {url})
     } else if (url.includes('.png') || url.includes('.jpg')) {
-      this.props.navigation.navigate('Image', {url})
+      this.props.navigation.navigate('ImageViewModal', {url})
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
     }
@@ -61,7 +61,7 @@ class Page extends React.Component<PropType> {
         <WebContainer theme={this.props.theme}>
           <WebView
             source={{
-              baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.DocumentDir,
+              baseUrl: URL_PREFIX + RNFetchblob.fs.dirs.CacheDir,
               html: renderHtml(this.props.content, this.props.files)
             }}
             allowFileAccess // Needed by android to access file:// urls
