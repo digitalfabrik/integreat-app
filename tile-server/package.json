@@ -1,0 +1,11 @@
+{
+  "name": "tile-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mbtiles": "^0.9.0",
+    "tilelive": "^5.12.3"
+  }
+}
