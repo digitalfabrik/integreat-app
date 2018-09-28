@@ -26,9 +26,10 @@ const InactiveNavigationItem = styled(NavigationItem.withComponent('span'))`
 `
 
 const ActiveNavigationItem = styled(NavigationItem)`
-  ${props => props.selected
-  ? `font-weight: 700;`
-  : `:hover {
+  ${
+  props => props.selected
+    ? `font-weight: 700;`
+    : `:hover {
         font-weight: 700;
        }`}
 `

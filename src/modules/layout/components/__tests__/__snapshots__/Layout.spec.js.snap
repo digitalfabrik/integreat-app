@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout should render all components 1`] = `
-<Layoutstyles__RichLayout>
+<Layout__RichLayout>
   <div>
     <header />
-    <Layoutstyles__Body>
-      <withPlatform(Layoutstyles__Aside)
+    <Layout__Body>
+      <withPlatform(Layout__Aside)
         style={
           Object {
             "top": "40px",
@@ -15,14 +15,14 @@ exports[`Layout should render all components 1`] = `
         <div>
           toolybar
         </div>
-      </withPlatform(Layoutstyles__Aside)>
-      <Layoutstyles__Main>
+      </withPlatform(Layout__Aside)>
+      <Layout__Main>
         <p>
            
           content right here
         </p>
-      </Layoutstyles__Main>
-    </Layoutstyles__Body>
+      </Layout__Main>
+    </Layout__Body>
   </div>
   <footer />
   <ReactTooltip
@@ -33,5 +33,5 @@ exports[`Layout should render all components 1`] = `
     type="dark"
     wrapper="div"
   />
-</Layoutstyles__RichLayout>
+</Layout__RichLayout>
 `;

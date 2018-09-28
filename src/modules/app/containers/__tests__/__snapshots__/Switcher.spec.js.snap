@@ -462,4 +462,4 @@ exports[`Switcher should return a failure if there was an error during fetching 
 />
 `;
 
-exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<WithTheme(LoadingSpinner) />`;
+exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<LoadingSpinner />`;
