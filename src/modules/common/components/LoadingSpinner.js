@@ -1,9 +1,14 @@
 // @flow
 
 import React from 'react'
-import { CenteredSpinner } from './LoadingSpinner.styles'
-import { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
+import Spinner from 'react-spinkit'
+
+const CenteredSpinner = styled(Spinner)`
+  margin-top: 50px;
+  text-align: center;
+`
 
 export class LoadingSpinner extends React.Component<{ theme: ThemeType }> {
   render () {
