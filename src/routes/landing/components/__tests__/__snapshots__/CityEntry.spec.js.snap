@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CityEntry should match snapshot 1`] = `
-<CitySelectorstyles__CityListItem
+<CityEntry__CityListItem
   to={
     Object {
       "payload": Object {
@@ -22,5 +22,5 @@ exports[`CityEntry should match snapshot 1`] = `
   >
     Augsburg
   </Highlighter>
-</CitySelectorstyles__CityListItem>
+</CityEntry__CityListItem>
 `;

@@ -30,9 +30,10 @@ const Element = styled(Link)`
 `
 
 const ActiveElement = styled(Element)`
-  ${props => props.selected
-  ? `font-weight: 700;`
-  : `:hover {
+  ${
+  props => props.selected
+    ? `font-weight: 700;`
+    : `:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
