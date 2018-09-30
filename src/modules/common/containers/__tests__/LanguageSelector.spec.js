@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -8,6 +10,7 @@ import { DISCLAIMER_ROUTE } from '../../../app/routes/disclaimer'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
+import moment from 'moment'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
@@ -20,13 +23,19 @@ describe('LanguageSelector', () => {
 
   const events = [
     new EventModel({
-      id: '1234',
+      id: 1234,
       title: 'nulltes Event',
-      availableLanguages: {
-        de: '1',
-        en: '2'
-      }
-    })]
+      address: 'Adresse 0',
+      allDay: false,
+      startDate: moment(0),
+      endDate: moment(0),
+      content: 'Huiiii',
+      excerpt: 'Buuuuh',
+      thumbnail: 'Ich hab deine Nase!',
+      town: 'Schloss Burgeck',
+      availableLanguages: new Map([['de', 1], ['en', 2]])
+    })
+  ]
 
   const categoryModels = [
     new CategoryModel({
@@ -36,6 +45,7 @@ describe('LanguageSelector', () => {
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
+      lastUpdate: moment(0),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })]
@@ -55,7 +65,7 @@ describe('LanguageSelector', () => {
                         languages={languages}
                         location={location}
                         isHeaderActionItem
-                        t={key => key} />
+                        t={key => key || 'null'} />
     )
 
     expect(languageSelector).toMatchSnapshot()
@@ -74,7 +84,7 @@ describe('LanguageSelector', () => {
                         languages={languages}
                         location={location}
                         isHeaderActionItem={false}
-                        t={key => key} />
+                        t={key => key || 'null'} />
     )
 
     expect(languageSelector).toMatchSnapshot()

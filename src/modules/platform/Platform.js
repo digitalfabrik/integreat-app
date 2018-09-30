@@ -1,4 +1,3 @@
-
 // @flow
 
 import { detect } from 'detect-browser'

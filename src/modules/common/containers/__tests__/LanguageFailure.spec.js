@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 
@@ -9,9 +11,30 @@ describe('LanguageFailure', () => {
   const city = 'augsburg'
 
   const cities = [
-    new CityModel({name: 'Augsburg', code: 'augsburg'}),
-    new CityModel({name: 'Stadt Regensburg', code: 'regensburg'}),
-    new CityModel({name: 'Werne', code: 'werne'})
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      eventsEnabled: true,
+      extrasEnabled: false,
+      sortingName: 'augsburg',
+      live: true
+    }),
+    new CityModel({
+      name: 'Stadt Regensburg',
+      code: 'regensburg',
+      eventsEnabled: true,
+      extrasEnabled: true,
+      sortingName: 'regensburg',
+      live: true
+    }),
+    new CityModel({
+      name: 'Werne',
+      code: 'werne',
+      eventsEnabled: true,
+      extrasEnabled: true,
+      sortingName: 'regensburg',
+      live: false
+    })
   ]
 
   const language = 'tu'
@@ -21,7 +44,7 @@ describe('LanguageFailure', () => {
       <LanguageFailure cities={cities}
                        city={city}
                        language={language}
-                       t={key => key} />
+                       t={key => key || 'null'} />
     )
 
     expect(wrapper).toMatchSnapshot()

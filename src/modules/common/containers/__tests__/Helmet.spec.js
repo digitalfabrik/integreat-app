@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import { shallow } from 'enzyme'
 import ConnectedHelmet, { Helmet } from '../Helmet'
@@ -6,6 +8,7 @@ import LanguageModel from '../../../endpoint/models/LanguageModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
+import moment from 'moment'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -18,12 +21,17 @@ describe('Helmet', () => {
 
   const events = [
     new EventModel({
-      id: '1234',
+      id: 1234,
       title: 'nulltes Event',
-      availableLanguages: {
-        de: '1',
-        en: '2'
-      }
+      address: 'Adresse 0',
+      allDay: false,
+      startDate: moment(0),
+      endDate: moment(0),
+      content: 'Huiiii',
+      excerpt: 'Buuuuh',
+      thumbnail: 'Ich hab deine Nase!',
+      town: 'Schloss Burgeck',
+      availableLanguages: new Map([['de', 1], ['en', 2]])
     })]
 
   const categoryModels = [
@@ -34,6 +42,7 @@ describe('Helmet', () => {
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
+      lastUpdate: moment(0),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })]
