@@ -2,9 +2,6 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import type { LocationState } from 'redux-first-router'
-import CleanLink from '../../../modules/common/components/CleanLink'
-import { goToFeedback } from '../../../modules/app/routes/feedback'
 
 const Header = styled.div`
   display: flex;
@@ -13,9 +10,10 @@ const Header = styled.div`
   justify-content: space-between;
 `
 
-const CloseButton = styled(CleanLink)`
+const CloseButton = styled.span`
   align-self: center;
   font-size: 2rem;
+  cursor: pointer;
 `
 
 const Title = styled.div`
@@ -24,18 +22,18 @@ const Title = styled.div`
 `
 
 type PropsType = {|
-  location: LocationState,
+  closeFeedbackModal: () => void,
   title: string
 |}
 
 export class ModalHeader extends React.Component<PropsType> {
   render () {
-    const {title, location} = this.props
+    const {title, closeFeedbackModal} = this.props
 
     return (
       <Header>
         <Title>{title}</Title>
-        <CloseButton to={goToFeedback(location)}>x</CloseButton>
+        <CloseButton onClick={closeFeedbackModal}>x</CloseButton>
       </Header>
     )
   }

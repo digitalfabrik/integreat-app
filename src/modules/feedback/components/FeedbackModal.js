@@ -3,15 +3,14 @@
 import * as React from 'react'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
-import CleanLink from '../../../modules/common/components/CleanLink'
 import type { LocationState } from 'redux-first-router'
-import { goToFeedback } from '../../../modules/app/routes/feedback'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
-import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
+import { POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
+import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
-const Overlay = styled(CleanLink)`
+const Overlay = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -28,7 +27,7 @@ const ModalContainer = styled.div`
   bottom: 0;
   left: 0;
   z-index: 2;
-  display: ${props => props.isOpen ? 'flex' : 'none'};
+  display: flex;
   align-items: center;
   justify-content: center;
 `
@@ -46,41 +45,47 @@ const FeedbackContainer = styled.div`
   }
 `
 
-export const FEEDBACK_SENT = 'sent'
-
 type PropsType = {|
   cities: ?Array<CityModel>,
   title?: string,
   id?: number,
   alias?: string,
   query?: string,
-  feedbackStatus: ?string,
+  feedbackStatus: FeedbackRatingType,
+  closeFeedbackModal: () => void,
   location: LocationState,
   extras: ?Array<ExtraModel>
 |}
 
-class FeedbackModal extends React.Component<PropsType> {
-  renderModalContent = (): React.Node => {
-    const {feedbackStatus, ...otherProps} = this.props
-    if (feedbackStatus === FEEDBACK_SENT) {
-      return <FeedbackThanksMessage location={otherProps.location} />
-    } else {
-      return <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
-                                   isOpen={feedbackStatus === POSITIVE_RATING || feedbackStatus === NEGATIVE_RATING}
-                                   {...otherProps} />
-    }
+type StateType = {|
+  feedbackSent: boolean
+|}
+
+class FeedbackModal extends React.Component<PropsType, StateType> {
+  state = {feedbackSent: false}
+
+  onSubmit = () => this.setState({feedbackSent: true})
+
+  closeFeedbackModal = () => {
+    this.setState({feedbackSent: false})
+    this.props.closeFeedbackModal()
   }
 
   render () {
-    const {location, feedbackStatus} = this.props
-    return (
-      <ModalContainer isOpen={!!feedbackStatus}>
-        <Overlay to={goToFeedback(location)} />
-        <FeedbackContainer>
-          {this.renderModalContent()}
-        </FeedbackContainer>
-      </ModalContainer>
-    )
+    const {feedbackStatus, ...otherProps} = this.props
+    const {feedbackSent} = this.state
+
+    return <ModalContainer>
+      <Overlay onClick={this.closeFeedbackModal} />
+      <FeedbackContainer>
+        {
+          feedbackSent
+            ? <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
+            : <FeedbackBoxContainer isPositiveRatingSelected={feedbackStatus === POSITIVE_RATING}
+                                    {...otherProps} onSubmit={this.onSubmit} />
+        }
+      </FeedbackContainer>
+    </ModalContainer>
   }
 }
 

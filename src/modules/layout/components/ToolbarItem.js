@@ -11,6 +11,7 @@ export const StyledToolbarItem = styled(CleanAnchor)`
   display: inline-block;
   margin: 0 10px;
   padding: 8px;
+  cursor: pointer;
 `
 
 type PropsType = {|
@@ -28,7 +29,7 @@ class ToolbarItem extends React.PureComponent<PropsType> {
   render () {
     const {href, text, icon} = this.props
     return (
-      <StyledToolbarItem href={href} target='_blank' data-tip={text}>
+      <StyledToolbarItem href={href} data-tip={text}>
         <FontAwesomeIcon icon={icon} />
       </StyledToolbarItem>
     )

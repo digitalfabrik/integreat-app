@@ -20,7 +20,7 @@ import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import type { LocationState } from 'redux-first-router'
-import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
+import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
 import EventModel from '../../endpoint/models/EventModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
@@ -30,6 +30,8 @@ import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE]
+
+export type FeedbackRatingType = 'up' | 'down'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -46,13 +48,14 @@ type PropsType = {|
 
 type LocalStateType = {|
   asideStickyTop: number,
+  feedbackModalRating: ?FeedbackRatingType,
   footerClicked: number
 |}
 
 const DARK_THEME_CLICK_COUNT = 5
 
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
-  state = {asideStickyTop: 0, footerClicked: 0}
+  state = {asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0}
 
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
 
@@ -74,8 +77,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   renderFeedbackModal = (): React.Node => {
+    if (!this.state.feedbackModalRating) {
+      return null
+    }
+
     const {cities, location, categories, events, extras, disclaimer} = this.props
-    const feedbackStatus = location.query && location.query.feedback
     const payload = location.payload
 
     let id
@@ -113,27 +119,30 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       id = disclaimer.id
     }
 
-    return (
-      <FeedbackModal
-        id={id}
-        title={title}
-        alias={alias}
-        cities={cities}
-        feedbackStatus={feedbackStatus}
-        location={location}
-        extras={extras} />
-    )
+    return <FeedbackModal
+      id={id}
+      title={title}
+      alias={alias}
+      cities={cities}
+      feedbackStatus={this.state.feedbackModalRating}
+      closeFeedbackModal={this.closeFeedbackModal}
+      location={location}
+      extras={extras} />
   }
+
+  openFeedbackModal = (rating: FeedbackRatingType) => this.setState({feedbackModalRating: rating})
+
+  closeFeedbackModal = () => this.setState({feedbackModalRating: null})
 
   renderToolbar = (): React.Node => {
     const {location, categories} = this.props
     const type = location.type
 
     if (type === CATEGORIES_ROUTE) {
-      return <CategoriesToolbar categories={categories}
-                                location={location} />
+      return <CategoriesToolbar categories={categories} location={location}
+                                openFeedbackModal={this.openFeedbackModal} />
     } else if ([EXTRAS_ROUTE, EVENTS_ROUTE, DISCLAIMER_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) {
-      return <LocationToolbar location={location} />
+      return <LocationToolbar openFeedbackModal={this.openFeedbackModal} />
     } else {
       return null
     }
@@ -153,18 +162,16 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       </Layout>
     }
 
-    return (
-      <Layout asideStickyTop={this.state.asideStickyTop}
-              header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
-                                      isExtrasEnabled={cityModel.extrasEnabled}
-                                      onStickyTopChanged={this.onStickyTopChanged} />}
-              footer={<LocationFooter city={city} language={language} onClick={this.onFooterClicked} />}
-              toolbar={this.renderToolbar()}
-              modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
-              darkMode={darkMode}>
-        {children}
-      </Layout>
-    )
+    return <Layout asideStickyTop={this.state.asideStickyTop}
+                   header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
+                                           isExtrasEnabled={cityModel.extrasEnabled}
+                                           onStickyTopChanged={this.onStickyTopChanged} />}
+                   footer={<LocationFooter city={city} language={language} />}
+                   toolbar={this.renderToolbar()}
+                   modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
+                   darkMode={darkMode}>
+      {children}
+    </Layout>
   }
 }
 

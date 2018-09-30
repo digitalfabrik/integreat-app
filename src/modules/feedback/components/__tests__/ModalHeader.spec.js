@@ -12,6 +12,7 @@ describe('ModalHeader', () => {
 
     const component = shallow(
       <ModalHeader
+        closeFeedbackModal={() => {}}
         location={location}
         title={'title'} />
     )

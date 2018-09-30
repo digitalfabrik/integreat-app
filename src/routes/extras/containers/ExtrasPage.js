@@ -14,12 +14,15 @@ import Helmet from '../../../modules/common/containers/Helmet'
 import { compose } from 'recompose'
 import { getSprungbrettExtraPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
 import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
 type PropsType = {|
   city: string,
   language: string,
   extras: ?Array<ExtraModel>,
   cities: ?Array<CityModel>,
+  extraId: ?string,
   t: TFunction
 |}
 
@@ -52,13 +55,19 @@ export class ExtrasPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, cities, extras, t} = this.props
+    const {city, cities, extras, extraId, language, t} = this.props
 
     if (!cities || !extras) {
       throw new Error('Data not ready')
     }
 
     const cityName = CityModel.findCityName(cities, city)
+
+    if (extraId) {
+      // If there is an extraId, the route is invalid, because every internal extra has a separate route
+      const error = new ContentNotFoundError({type: 'extra', id: extraId, city: city, language})
+      return <FailureSwitcher error={error} />
+    }
 
     return (
       <>
@@ -71,7 +80,8 @@ export class ExtrasPage extends React.Component<PropsType> {
 
 const mapStateToProps = (state: StateType) => ({
   city: state.location.payload.city,
-  language: state.location.payload.language
+  language: state.location.payload.language,
+  extraId: state.location.payload.extraId
 })
 
 export default compose(

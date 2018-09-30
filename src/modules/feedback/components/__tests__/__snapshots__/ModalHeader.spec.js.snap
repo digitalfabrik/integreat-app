@@ -6,16 +6,7 @@ exports[`ModalHeader should match snapshot 1`] = `
     title
   </ModalHeader__Title>
   <ModalHeader__CloseButton
-    to={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": undefined,
-        "type": "CATEGORIES",
-      }
-    }
+    onClick={[Function]}
   >
     x
   </ModalHeader__CloseButton>
