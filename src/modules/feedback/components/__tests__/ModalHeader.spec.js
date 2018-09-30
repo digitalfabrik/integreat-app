@@ -7,7 +7,6 @@ import { ModalHeader } from '../ModalHeader'
 
 describe('ModalHeader', () => {
   it('should match snapshot', () => {
-
     const component = shallow(
       <ModalHeader
         closeFeedbackModal={() => {}}
