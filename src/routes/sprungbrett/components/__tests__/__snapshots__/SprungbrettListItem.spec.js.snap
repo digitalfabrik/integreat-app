@@ -4,7 +4,7 @@ exports[`SprungbrettListItem should match snapshot 1`] = `
 <ListElement>
   <CleanAnchor
     href="http://e.com"
-    target="_blank"
+    newTab={true}
   >
     <SprungbrettListItem__Title>
       WebDeveloper

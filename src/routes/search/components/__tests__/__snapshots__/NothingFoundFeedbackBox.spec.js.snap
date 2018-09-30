@@ -7,11 +7,11 @@ exports[`NothingFoundFeedbackBox should match snapshot 1`] = `
     commentMessage="wantedInformation"
     onCommentChanged={[Function]}
   />
-  <NothingFoundFeedbackBox__StyledSubmitButton
+  <FeedbackBox__SubmitButton
     onClick={[Function]}
   >
     send
-  </NothingFoundFeedbackBox__StyledSubmitButton>
+  </FeedbackBox__SubmitButton>
 </FeedbackBox__StyledFeedbackBox>
 `;
 

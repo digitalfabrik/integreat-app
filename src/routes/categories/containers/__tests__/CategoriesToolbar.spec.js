@@ -67,7 +67,8 @@ describe('CategoriesToolbar', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
                          location={{pathname: 'invalid_path'}}
-                         t={t} />
+                         t={t}
+                         openFeedbackModal={() => {}} />
     )
 
     expect(component.equals(null)).toBe(true)
@@ -78,7 +79,8 @@ describe('CategoriesToolbar', () => {
       <CategoriesToolbar
         categories={categories}
         location={{pathname: categoryModels[2].path, type: CATEGORIES_ROUTE, payload: {city, language}}}
-        t={t} />
+        t={t}
+        openFeedbackModal={() => {}} />
     )
 
     expect(component).toMatchSnapshot()
@@ -89,7 +91,8 @@ describe('CategoriesToolbar', () => {
       <CategoriesToolbar
         categories={categories}
         location={{pathname: categoryModels[0].path, type: CATEGORIES_ROUTE, payload: {city, language}}}
-        t={t} />
+        t={t}
+        openFeedbackModal={() => {}} />
     )
 
     expect(component).toMatchSnapshot()

@@ -1,20 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FeedbackModal should match snapshot 1`] = `
-<FeedbackModal__ModalContainer
-  isOpen={true}
->
+<FeedbackModal__ModalContainer>
   <FeedbackModal__Overlay
-    to={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "query": undefined,
-        "type": "CATEGORIES",
-      }
-    }
+    onClick={[Function]}
   />
   <FeedbackModal__FeedbackContainer>
     <Translate(FeedbackBoxContainer)
@@ -31,9 +20,9 @@ exports[`FeedbackModal should match snapshot 1`] = `
           },
         ]
       }
+      closeFeedbackModal={[Function]}
       extras={null}
       id={1234}
-      isOpen={true}
       isPositiveRatingSelected={true}
       location={
         Object {
@@ -47,6 +36,7 @@ exports[`FeedbackModal should match snapshot 1`] = `
           "type": "CATEGORIES",
         }
       }
+      onSubmit={[Function]}
       query="ab"
       title="title"
     />

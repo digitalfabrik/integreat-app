@@ -1,6 +1,6 @@
 {
   "name": "integreat-webapp",
-  "version": "2018.08.4",
+  "version": "2018.09.1",
   "private": true,
   "engines": {
     "node": ">=6.9",
@@ -34,7 +34,7 @@
     "detect-browser": "^3.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-promise": "^4.0.1",
     "hashids": "^1.1.4",
     "history": "^4.7.2",
     "i18next": "^11.6.0",
@@ -65,6 +65,7 @@
     "redux-responsive": "^4.3.8",
     "redux-thunk": "^2.3.0",
     "styled-components": "^3.4.5",
+    "url-polyfill": "^1.1.0",
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
@@ -89,9 +90,11 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.0.0",
-    "@integreat-app/eslint-config": "^0.2.1",
+    "@integreat-app/eslint-config-babel": "^0.3.1",
+    "@integreat-app/eslint-config-flow": "^0.3.2",
     "@integreat-app/eslint-config-jest": "^0.2.1",
-    "@integreat-app/eslint-config-react": "^0.2.1",
+    "@integreat-app/eslint-config-node": "^0.3.2",
+    "@integreat-app/eslint-config-react": "^0.3.3",
     "assets-webpack-plugin": "^3.9.6",
     "autoprefixer": "^9.1.3",
     "babel-core": "^7.0.0-bridge.0",

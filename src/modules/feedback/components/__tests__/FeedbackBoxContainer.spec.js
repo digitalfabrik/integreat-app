@@ -47,32 +47,11 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen
         extras={null}
-        t={t} />
+        t={t}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}} />
     )).toMatchSnapshot()
-  })
-
-  it('should post feedback and if feedback is opened', () => {
-    const mockPostFeedbackData = jest.fn()
-
-    const component = shallow(
-      <FeedbackBoxContainer
-        location={location}
-        query={'ab'}
-        cities={cities}
-        id={1234}
-        title={'title'}
-        alias='alias'
-        isPositiveRatingSelected
-        isOpen={false}
-        extras={null}
-        postFeedbackDataOverride={mockPostFeedbackData}
-        t={t} />
-    )
-
-    component.setProps({isOpen: true})
-    expect(mockPostFeedbackData).toHaveBeenCalledTimes(1)
   })
 
   describe('getFeedbackOptions', () => {
@@ -86,7 +65,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -109,7 +89,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -132,7 +113,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -156,7 +138,8 @@ describe('FeedbackBoxContainer', () => {
           title={'title'}
           alias='alias'
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
       ).instance()
@@ -180,7 +163,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         t={t} />
     )
@@ -233,7 +217,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={extras}
         t={t} />
     )
@@ -271,7 +256,8 @@ describe('FeedbackBoxContainer', () => {
           title={title}
           alias={alias}
           isPositiveRatingSelected
-          isOpen={false}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
           extras={null}
           t={t} />
   )
@@ -292,7 +278,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         t={t} />
@@ -312,7 +299,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         t={t} />
     ).instance()
@@ -333,7 +321,8 @@ describe('FeedbackBoxContainer', () => {
         title={'title'}
         alias='alias'
         isPositiveRatingSelected
-        isOpen={false}
+        onSubmit={() => {}}
+        closeFeedbackModal={() => {}}
         extras={null}
         t={t} />
     ).instance()

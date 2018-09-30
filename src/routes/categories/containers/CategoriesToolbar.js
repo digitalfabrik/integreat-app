@@ -11,10 +11,12 @@ import { apiUrl } from '../../../modules/endpoint/constants'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
+import type { FeedbackRatingType } from '../../../modules/layout/containers/LocationLayout'
 
 type PropsType = {|
   categories: ?CategoriesMapModel,
   location: LocationState,
+  openFeedbackModal: FeedbackRatingType => void,
   t: TFunction
 |}
 
@@ -30,13 +32,13 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, location, categories} = this.props
+    const {t, location, categories, openFeedbackModal} = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
     }
     return (
-      <LocationToolbar location={location}>
+      <LocationToolbar location={location} openFeedbackModal={openFeedbackModal}>
         <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} />
       </LocationToolbar>
     )

@@ -137,7 +137,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot and render an Error if path is not valid', () => {
+  it('should match snapshot and render an error if path is not valid', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}
