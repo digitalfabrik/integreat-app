@@ -4,7 +4,8 @@ import * as React from 'react'
 import type { UiDirectionType } from '../../app/StateType'
 import styled from 'styled-components'
 
-const opposite = direction => direction === 'ltr' ? 'rtl' : 'ltr'
+const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
+
 const Wrapper = styled.div`
   margin: 10px 0;
   text-align: end;
