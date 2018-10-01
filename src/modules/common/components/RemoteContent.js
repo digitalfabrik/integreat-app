@@ -8,7 +8,7 @@ type PropsType = {
   dangerouslySetInnerHTML: {
     __html: string
   },
-  hijackRegExp: RegExp,
+  hijackRegExp?: RegExp,
   onInternLinkClick: string => void,
   centered: boolean
 }
@@ -17,8 +17,7 @@ const HIJACK = /https?:\/\/(cms\.integreat-app\.de|web\.integreat-app\.de|integr
 
 class RemoteContent extends React.Component<PropsType> {
   static defaultProps = {
-    centered: false,
-    hijackRegExp: HIJACK
+    centered: false
   }
 
   sandBoxRef: { current: null | React$ElementRef<*> }
@@ -40,7 +39,7 @@ class RemoteContent extends React.Component<PropsType> {
     }
     const collection: HTMLCollection<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
-      if (this.props.hijackRegExp.test(node.href)) {
+      if ((this.props.hijackRegExp || HIJACK).test(node.href)) {
         node.addEventListener('click', this.handleClick)
       }
     })
