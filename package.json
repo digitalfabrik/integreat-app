@@ -9,7 +9,7 @@
     "android": "react-native run-android",
     "android:release": "yarn android --variant=release",
     "ios": "react-native run-ios",
-    "test": "jest --config jest.config.json",
+    "test": "jest --config ./jest.config.json",
     "lint": "eslint .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
