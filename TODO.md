@@ -6,6 +6,7 @@
 - [x] Open links in WebView externally
 - [x] Allow dynamic changing of language ~~(rebuild navigation stack)~~
 - [ ] Incrementally update fetched cities (use API v3 and hashes)
+- [ ] Improve performance of resource downloading
 
 
 # Nice to have
@@ -21,6 +22,7 @@
 - [ ] FastImage https://github.com/DylanVann/react-native-fast-image
 - [ ] After Effects https://github.com/react-community/lottie-react-native
 - [ ] Show nearest city (by gps)
+- [ ] Use https://cocoapods.org/
 
 # Resources
 
