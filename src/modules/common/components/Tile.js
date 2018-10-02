@@ -5,15 +5,15 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
+import FastImage from 'react-native-fast-image'
 
 type PropsType = {
   tile: TileModel,
   onTilePress: (tile: TileModel) => void
 }
 
-const Thumbnail = styled.Image`
+const Thumbnail = styled(FastImage)`
   height: 150px;
-  resize-mode: contain;
 `
 
 const TileTitle = styled.Text`
@@ -33,7 +33,7 @@ const TileContainer = styled.View`
 class Tile extends React.Component<PropsType> {
   getTileContent (): React.Node {
     return <>
-      <Thumbnail fadeDuration={100} source={{uri: this.props.tile.thumbnail}} />
+      <Thumbnail source={{uri: this.props.tile.thumbnail}} resizeMode={FastImage.resizeMode.contain} />
       <TileTitle>{this.props.tile.title}</TileTitle>
     </>
   }
