@@ -11,11 +11,11 @@ import type {
   ResourcesDownloadPartiallySucceededActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
-import { OFFLINE_CACHE_DIR_URL } from '../../platform/constants/webview'
+import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
 
 const fetchResource = async (city: string, url: string) => {
   const hash = fnv.hash(url).hex()
-  const path = `${OFFLINE_CACHE_DIR_URL}/${city}/${hash}.${getExtension(url)}`
+  const path = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
 
   if (await RNFetchBlob.fs.exists(path)) {
     return path

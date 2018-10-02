@@ -5,8 +5,7 @@ import { Dimensions, Linking, Text } from 'react-native'
 import { WebView, type WebViewUrlOverrideEvent } from 'react-native-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
-import RNFetchblob from 'rn-fetch-blob'
-import { OFFLINE_CACHE_DIR_URL, URL_PREFIX } from '../../platform/constants/webview'
+import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
 import type { WebViewNativeEvent } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
@@ -37,7 +36,7 @@ class Page extends React.Component<PropType> {
   // For iOS
   onShouldStartLoadWithRequest = (event: WebViewNativeEvent) => {
     const url = event.url
-    if (url === OFFLINE_CACHE_DIR_URL) {
+    if (url === URL_PREFIX + OFFLINE_CACHE_PATH) {
       return true
     }
 
@@ -61,7 +60,7 @@ class Page extends React.Component<PropType> {
         <WebContainer theme={this.props.theme}>
           <WebView
             source={{
-              baseUrl: OFFLINE_CACHE_DIR_URL,
+              baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
               html: renderHtml(this.props.content, this.props.files)
             }}
             allowFileAccess // Needed by android to access file:// urls
