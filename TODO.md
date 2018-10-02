@@ -20,6 +20,7 @@
 - [ ] App Intro: https://github.com/FuYaoDe/react-native-app-intro
 - [ ] FastImage https://github.com/DylanVann/react-native-fast-image
 - [ ] After Effects https://github.com/react-community/lottie-react-native
+- [ ] Show nearest city (by gps)
 
 # Resources
 
