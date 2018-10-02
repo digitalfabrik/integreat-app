@@ -14,8 +14,8 @@ type StateType = {
   percentage: number
 }
 
-MapboxGL.setTelemetryEnabled(false)
 MapboxGL.setAccessToken('pk.')
+MapboxGL.setTelemetryEnabled(false)
 
 class MapViewModal extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
