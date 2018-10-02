@@ -29,6 +29,7 @@ import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
 import citiesReducer from '../endpoint/reducers/cititesReducer'
 import languagesReducer from '../endpoint/reducers/languagesReducer'
 import currentCityReducer from '../../routes/categories/reducers/currentCityReducer'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 function * rootSaga (): Saga<void> {
   yield all([
@@ -89,9 +90,11 @@ const createReduxStore = (callback: () => void, persist: boolean = false): { sto
     return persitedReducer(state, action)
   }
 
+  // TODO: Disable logger and dev tools in production
+
   const middleware = applyMiddleware(createNetworkMiddleware(), sagaMiddleware, createLogger())
 
-  const store = createStore(rootReducer, initialState, middleware)
+  const store = createStore(rootReducer, initialState, composeWithDevTools(middleware))
 
   const persistor = persistStore(
     store,
