@@ -1,6 +1,7 @@
 /flow-typed/
 __coverage__
 /node_modules/
+/tile-server/
 /www/
 
 # Configs in root

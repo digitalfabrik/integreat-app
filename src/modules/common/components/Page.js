@@ -10,9 +10,11 @@ import type { WebViewNativeEvent } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 
+const HEADER_HEIGHT = 60
+
 const WebContainer = styled.View`
   flex: 1;
-  height: ${props => Dimensions.get('screen').height - 60}
+  height: ${props => Dimensions.get('screen').height - HEADER_HEIGHT}
 `
 type PropType = {
   title: string,

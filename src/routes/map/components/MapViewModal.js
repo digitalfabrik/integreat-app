@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 // @flow
 
 import * as React from 'react'

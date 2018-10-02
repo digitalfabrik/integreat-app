@@ -5,7 +5,6 @@ import { Button } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
 import Caption from '../../../modules/common/components/Caption'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import { ActivityIndicator } from 'react-native'
 import type { FilesStateType } from '../../../modules/app/StateType'
 
