@@ -22,7 +22,7 @@ type PropsType = {
 
   language: string,
   cities?: Array<CityModel>,
-  categories?: CategoriesMapModel,
+  categoriesLoaded: boolean,
   files?: FilesStateType
 }
 
@@ -36,7 +36,7 @@ class Dashboard extends React.Component<PropsType> {
       this.props.fetchCities(this.props.language)
     }
 
-    if (!this.props.categories) {
+    if (!this.props.categoriesLoaded) {
       this.props.fetchCategories(this.props.language, this.props.cityModel.code)
 
       // Cancels the fetch if you navigate away
@@ -47,17 +47,17 @@ class Dashboard extends React.Component<PropsType> {
     }
   }
 
-  categories = () => this.props.navigation.navigate('Categories', {city: this.props.cityModel.code})
+  navigateCategories = () => this.props.navigation.navigate('Categories', {city: this.props.cityModel.code})
 
   landing = () => this.props.navigation.navigate('Landing')
 
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const categories = this.props.categories
+    const categoriesLoaded = this.props.categoriesLoaded
     const cities = this.props.cities
 
-    if (!categories || !cities || !this.props.files) {
+    if (!categoriesLoaded || !cities || !this.props.files) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
@@ -65,7 +65,7 @@ class Dashboard extends React.Component<PropsType> {
         <Caption title={this.props.cityModel.name} />
         <Button
           title='Go to Categories'
-          onPress={this.categories}
+          onPress={this.navigateCategories}
         />
         <Button
           title='Go to Landing'

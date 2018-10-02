@@ -8,7 +8,6 @@ import toggleDarkMode from 'modules/theme/actions/toggleDarkMode'
 import { offlineActionTypes } from 'react-native-offline'
 import type { StateType } from '../../../modules/app/StateType'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
-import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
@@ -45,6 +44,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const notReadyProps = {
     cityModel: targetCity,
     language: language,
+    categoriesLoaded: false,
     cities
   }
 
@@ -74,7 +74,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     cityModel: targetCity,
     language: language,
     cities: citiesEndpoint.mapResponse(cities),
-    categories: categoriesEndpoint.mapResponse(json, {language, city: targetCity.code}),
+    categoriesLoaded: true,
     files: fileCache.files
   }
 }
