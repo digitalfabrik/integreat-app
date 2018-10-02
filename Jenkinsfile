@@ -7,8 +7,8 @@ pipeline {
         sh 'yarn'
         sh 'yarn run flow:check-now'
         sh 'yarn run lint'
-        sh 'yarn run test --ci'
-        sh 'yarn run test:coverage --ci'
+        // sh 'yarn run test --ci'
+        // sh 'yarn run test:coverage --ci'
       }
     }
     stage('Build Bundle') {
