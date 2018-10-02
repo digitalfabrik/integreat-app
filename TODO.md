@@ -9,14 +9,20 @@
 - [ ] Improve performance of resource downloading
 
 
+# Design
+- [ ] Dynamically change background of thumbnail SVGs "dynamic_thumbnail"
+
 # Nice to have
 - [ ] Disallow [remote loading](https://www.html5rocks.com/en/tutorials/security/content-security-policy/
 ) of images in WebView
+- [ ] Deep Linking
+- [ ] Share button (fb/whatsapp)
 - [ ] Version [persisted data](https://github.com/rt2zz/redux-persist/blob/master/docs/migrations.md) and test it
-- [ ] Dynamically support LTR/RTL
+- [ ] Dynamically support LTR/RTL (should stay like system language)
 - [ ] Display error messages in state
 - [ ] Visible debug messages in WebView
 - [ ] Support Custom Tabs on android
+- [ ] Matamo Analytics: https://reactnavigation.org/docs/en/screen-tracking.html
 - [ ] ~~Grant permissions during runtime [how to](https://facebook.github.io/react-native/docs/permissionsandroid)~~
 - [ ] App Intro: https://github.com/FuYaoDe/react-native-app-intro
 - [ ] FastImage https://github.com/DylanVann/react-native-fast-image
