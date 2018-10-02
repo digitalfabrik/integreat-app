@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
+    "bundle": "react-native bundle --entry-file index.js --bundle-output bundle.js",
     "start:reset": "react-native start --reset-cache",
     "android": "react-native run-android",
+    "android:release": "yarn android --variant=release",
     "ios": "react-native run-ios",
     "test": "jest --config jest.config.json",
     "lint": "eslint .",
