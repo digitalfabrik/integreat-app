@@ -6,6 +6,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
+import { InteractionManager } from 'react-native'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -25,8 +26,10 @@ type PropsType = {
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    this.props.changeLanguage(model.code)
     this.props.closeModal()
+    InteractionManager.runAfterInteractions(() => {
+      this.props.changeLanguage(model.code)
+    })
   }
 
   render () {
