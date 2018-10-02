@@ -5213,6 +5213,10 @@ react-native-elements@1.0.0-beta5:
     prop-types "^15.5.8"
     react-native-touchable-scale "2.0.0"
 
+react-native-fast-image@^5.0.10:
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-5.0.10.tgz#56d229b4a872e4f01bb5ecb7fe465eee34e5238f"
+
 react-native-image-pan-zoom@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.9.tgz#0a838330bda2468b00a0e5051e71149d86a44ad7"

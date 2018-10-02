@@ -150,12 +150,15 @@ android {
 }
 
 dependencies {
-    compile project(':@mapbox_react-native-mapbox-gl') {
+    implementation (project(':react-native-fast-image')) {
+        exclude group: "com.android.support"
+    }
+    implementation project(':@mapbox_react-native-mapbox-gl') {
             compile ('com.squareup.okhttp3:okhttp:3.6.0') {
                 force = true
             }
     }
-    compile project(':react-native-view-pdf')
+    implementation project(':react-native-view-pdf')
     implementation project(':react-native-webview')
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-vector-icons')

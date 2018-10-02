@@ -27,6 +27,7 @@
     "react-i18next": "^7.12.0",
     "react-native": "0.57.0",
     "react-native-elements": "1.0.0-beta5",
+    "react-native-fast-image": "^5.0.10",
     "react-native-image-zoom-viewer": "^2.2.18",
     "react-native-maps": "^0.21.0",
     "react-native-offline": "^3.12.0",
