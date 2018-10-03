@@ -166,7 +166,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
-                   footer={<LocationFooter city={city} language={language} />}
+                   footer={<LocationFooter city={city} language={language} onClick={this.onFooterClicked} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>

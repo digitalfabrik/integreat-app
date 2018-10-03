@@ -4,11 +4,15 @@ import React from 'react'
 import SelectorItemModel from '../../common/models/SelectorItemModel'
 import HeaderDropDown from './HeaderDropDown'
 import Selector from '../../common/components/Selector'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
-import { InactiveImage } from './HeaderLanguageSelectorItem.styles'
-import type { TFunction } from 'react-i18next'
 import ReactTooltip from 'react-tooltip'
+import styled from 'styled-components'
+
+const InactiveImage = styled.img`
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
 
 type PropsType = {
   selectorItems: Array<SelectorItemModel>,
