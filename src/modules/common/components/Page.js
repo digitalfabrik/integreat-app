@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react'
-import Caption from 'modules/common/components/Caption'
-import RemoteContent from 'modules/common/components/RemoteContent'
+import Caption from './Caption'
+import RemoteContent from './RemoteContent'
 
 type PropsType = {
   title: string,
