@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Breadcrumb, OrderedList, Wrapper } from './Breadcrumbs.styles'
-import type { UiDirectionType } from '../../app/StateType'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 type PropsType = {
   children: Array<React.Node>,
