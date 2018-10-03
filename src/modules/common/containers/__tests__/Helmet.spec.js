@@ -13,6 +13,7 @@ import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../../app/createReduxStore'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
+import PoiModel from '../../../endpoint/models/PoiModel'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -49,7 +50,26 @@ describe('Helmet', () => {
       lastUpdate: moment(0),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
-    })]
+    })
+  ]
+
+  const pois = [
+    new PoiModel({
+      id: 493,
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer/',
+      title: 'Cafe Tür an Tür',
+      content: 'Leckeres Essen!',
+      thumbnail: 'Random thumbnail',
+      address: 'Wertachstraße 29',
+      town: 'Augsburg',
+      excerpt: 'Random excerpt',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer/']]),
+      postcode: '86153',
+      latitude: '48,3782461',
+      longitude: '10,8881861',
+      lastUpdate: moment('2099-01-07 10:36:24')
+    })
+  ]
 
   const categories = new CategoriesMapModel(categoryModels)
   const title = 'Random title'
@@ -58,7 +78,12 @@ describe('Helmet', () => {
 
   it('should render and match snapshot', () => {
     const helmet = shallow(
-      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} />
+      <Helmet title={title}
+              categories={categories}
+              location={location}
+              events={events}
+              pois={pois}
+              languages={languages} />
     )
 
     expect(helmet).toMatchSnapshot()
@@ -70,7 +95,8 @@ describe('Helmet', () => {
     const store = createReduxStore(createHistory, {
       languages: {data: languages},
       categories: {data: categories},
-      events: {data: events}
+      events: {data: events},
+      pois: {data: pois}
     })
     store.getState().location = location
 
@@ -87,6 +113,7 @@ describe('Helmet', () => {
       location,
       events,
       categories,
+      pois,
       title,
       dispatch: expect.any(Function)
     })

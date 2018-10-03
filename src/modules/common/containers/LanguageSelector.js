@@ -35,6 +35,9 @@ type PropsType = {|
 export class LanguageSelector extends React.Component<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
     const {categories, events, pois, location, languages} = this.props
+    const activeItemCode = location.payload.language
+    const pathname = location.pathname
+
     return (
       languages &&
       languages.map(language => {
@@ -49,7 +52,7 @@ export class LanguageSelector extends React.Component<PropsType> {
         return new SelectorItemModel({
           code: language.code,
           name: language.name,
-          href: changePath
+          href: language.code !== activeItemCode ? changePath : pathname
         })
       })
     )

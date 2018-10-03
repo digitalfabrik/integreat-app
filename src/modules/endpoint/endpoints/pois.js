@@ -5,6 +5,8 @@ import EndpointBuilder from '../EndpointBuilder'
 import PoiModel from '../models/PoiModel'
 import moment from 'moment'
 import type { JsonPoiType } from '../types'
+import { compose } from 'lodash/fp'
+import normalizePath from 'normalize-path'
 
 const POIS_ENDPOINT_NAME = 'pois'
 
@@ -16,11 +18,12 @@ export default new EndpointBuilder(POIS_ENDPOINT_NAME)
   .withMapper((json: Array<JsonPoiType>) =>
     json.map(poi => {
       const availableLanguages = new Map()
+      const normalize = compose([decodeURIComponent, normalizePath])
       Object.keys(poi.available_languages)
-        .forEach(language => availableLanguages.set(language, poi.available_languages[language].path))
+        .forEach(language => availableLanguages.set(language, normalize(poi.available_languages[language].path)))
       return new PoiModel({
         id: poi.id,
-        path: poi.path,
+        path: normalize(poi.path),
         title: poi.title,
         content: poi.content,
         thumbnail: poi.thumbnail,
