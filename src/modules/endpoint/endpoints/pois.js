@@ -2,9 +2,9 @@
 
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
-import PointOfInterestModel from '../models/PointOfInterestModel'
-import type { JsonPointOfInterestType } from './jsonTypes/JsonPointOfInterestType'
+import PoiModel from '../models/PoiModel'
 import moment from 'moment'
+import type { JsonPoiType } from '../types'
 
 const POINTS_OF_INTEREST_ENDPOINT_NAME = 'pointsOfInterest'
 
@@ -13,12 +13,12 @@ type ParamsType = { city: string, language: string }
 export default new EndpointBuilder(POINTS_OF_INTEREST_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
-  .withMapper((json: Array<JsonPointOfInterestType>) =>
+  .withMapper((json: Array<JsonPoiType>) =>
     json.map(pointOfInterest => {
       const availableLanguages = new Map()
       Object.keys(pointOfInterest.available_languages)
         .forEach(language => availableLanguages.set(language, pointOfInterest.available_languages[language].id))
-      return new PointOfInterestModel({
+      return new PoiModel({
         id: pointOfInterest.id,
         path: pointOfInterest.path,
         title: pointOfInterest.title,

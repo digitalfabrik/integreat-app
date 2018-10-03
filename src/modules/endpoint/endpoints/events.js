@@ -5,7 +5,7 @@ import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { JsonEventType } from './jsonTypes/JsonEventType'
+import type { JsonEventType } from '../types'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 

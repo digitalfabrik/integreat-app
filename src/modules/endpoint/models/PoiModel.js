@@ -2,7 +2,7 @@
 
 import moment from 'moment'
 
-class PointOfInterestModel {
+class PoiModel {
   _id: number
   _path: string
   _title: string
@@ -89,4 +89,4 @@ class PointOfInterestModel {
   }
 }
 
-export default PointOfInterestModel
+export default PoiModel

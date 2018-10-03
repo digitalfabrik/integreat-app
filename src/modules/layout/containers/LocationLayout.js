@@ -27,7 +27,7 @@ import ExtraModel from '../../endpoint/models/ExtraModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 import type { Dispatch } from 'redux'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
-import { POINTS_OF_INTEREST_ROUTE } from '../../app/routes/pointsOfInterest'
+import { POINTS_OF_INTEREST_ROUTE } from '../../app/routes/pois'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE, POINTS_OF_INTEREST_ROUTE]
