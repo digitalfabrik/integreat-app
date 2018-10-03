@@ -28,5 +28,5 @@ export type StateType = {
   viewport: ViewportType,
   uiDirection: UiDirectionType,
   darkMode: boolean,
-  pois: Array<PoiModel>
+  pois: Payload<Array<PoiModel>>
 }
