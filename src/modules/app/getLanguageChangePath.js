@@ -9,17 +9,15 @@ import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
 import EventModel from '../endpoint/models/EventModel'
 
 import type { Location } from 'redux-first-router'
+import { getWohnenExtraPath, WOHNEN_ROUTE } from './routes/wohnen'
+import { getSprungbrettExtraPath, SPRUNGBRETT_ROUTE } from './routes/sprungbrett'
 
 /**
  * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
  */
-const getLanguageChangePath = (params: {|
-  location: Location,
-  categories: CategoriesMapModel,
-  events: Array<EventModel>,
-  languageCode: string
+const getLanguageChangePath = ({location, categories, events, languageCode}: {|
+  location: Location, categories: CategoriesMapModel, events: Array<EventModel>, languageCode: string
 |}): string | null => {
-  const { location, categories, events, languageCode } = params
   const { city, eventId, extraAlias, language } = location.payload
   const routeType = location.type
 
@@ -58,6 +56,10 @@ const getLanguageChangePath = (params: {|
       return getDisclaimerPath(city, languageCode)
     case SEARCH_ROUTE:
       return getSearchPath(city, languageCode)
+    case WOHNEN_ROUTE:
+      return getWohnenExtraPath(city, languageCode)
+    case SPRUNGBRETT_ROUTE:
+      return getSprungbrettExtraPath(city, languageCode)
     default:
       return null
   }
