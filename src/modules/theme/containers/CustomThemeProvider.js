@@ -6,10 +6,10 @@ import { ThemeProvider } from 'styled-components'
 
 import { brightTheme, darkTheme } from '../constants/theme'
 
-type PropsType = {
+type PropsType = {|
   children: React.Node,
   darkMode: boolean
-}
+|}
 
 class CustomThemeProvider extends React.Component<PropsType> {
   render () {

@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import ListElement from 'modules/common/components/ListElement'
 import CleanAnchor from 'modules/common/components/CleanAnchor'
 
-type PropsType = {
+type PropsType = {|
   job: SprungbrettJobModel
-}
+|}
 
 const Description = styled.div`
   margin-left: 10px;
@@ -26,7 +26,7 @@ class SprungbrettListItem extends React.Component<PropsType> {
     const job = this.props.job
 
     return <ListElement>
-        <CleanAnchor href={job.url} target='_blank'>
+        <CleanAnchor href={job.url}>
           <Title>{job.title}</Title>
           <Description>{job.location}</Description>
         </CleanAnchor>

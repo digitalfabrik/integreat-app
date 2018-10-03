@@ -23,14 +23,14 @@ export const DropDownContainer = styled.div`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   children: React.Element<*>,
   iconSrc: string
-}
+|}
 
-type StateType = {
+type StateType = {|
   dropDownActive: boolean
-}
+|}
 
 /**
  * Designed to work as an item of a HeaderActionBar. Once clicked, the child node becomes visible right underneath the

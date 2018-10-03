@@ -2,7 +2,7 @@
 
 import type { Element, Node } from 'react'
 import * as React from 'react'
-import { HeaderWrapper } from './Headroom.styles'
+import styled from 'styled-components'
 
 const UPWARDS = 'up'
 const DOWNWARDS = 'down'
@@ -14,7 +14,7 @@ const STATIC = 'static'
 type ModeType = 'pinned' | 'unpinned' | 'static'
 type DirectionType = 'up' | 'down'
 
-type PropsType = {
+type PropsType = {|
   /** The child node to be displayed as a header */
   children: Node,
   /** The maximum amount of px the header should move up when scrolling */
@@ -29,12 +29,21 @@ type PropsType = {
   onStickyTopChanged?: (number) => void,
   /** True, if sticky position should be disabled (e.g. for edge 16 support) */
   positionStickyDisabled?: boolean
-}
+|}
 
-type StateType = {
+type StateType = {|
   mode: ModeType,
   transition: boolean
-}
+|}
+
+const HeaderWrapper = styled.div`
+  position: ${props => props.positionStickyDisabled ? 'static' : 'sticky'};
+  top: ${props => props.top}px;
+  z-index: 1;
+  transform: translateY(${props => props.translateY}px);
+  ${props => props.transition && `transition: transform 0.2s ease-out;`}
+  ${props => props.static && `transition: none;`}
+`
 
 class Headroom extends React.PureComponent<PropsType, StateType> {
   static defaultProps = {

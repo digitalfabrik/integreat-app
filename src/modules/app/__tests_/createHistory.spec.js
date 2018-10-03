@@ -1,3 +1,5 @@
+// @flow
+
 import createHistory from '../createHistory'
 import { createMemoryHistory } from 'history'
 

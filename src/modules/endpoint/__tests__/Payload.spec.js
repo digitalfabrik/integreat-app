@@ -1,4 +1,5 @@
 // @flow
+
 import Payload from '../Payload'
 
 describe('Payload', () => {
