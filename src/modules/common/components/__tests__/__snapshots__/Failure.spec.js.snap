@@ -8,7 +8,7 @@ exports[`Failure connect should match snapshot 1`] = `
 `;
 
 exports[`Failure should match snapshot 1`] = `
-<Failurestyles__Centered>
+<Failure__Centered>
   <div>
     Error Message
   </div>
@@ -55,5 +55,5 @@ exports[`Failure should match snapshot 1`] = `
   >
     goTo.start
   </Connect(Link)>
-</Failurestyles__Centered>
+</Failure__Centered>
 `;

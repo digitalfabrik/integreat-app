@@ -57,13 +57,13 @@ exports[`Heading should render 1`] = `
         <Caption
           title="landing:where"
         >
-          <Captionstyles__H1>
+          <Caption__H1>
             <h1
-              className="Captionstyles__H1-fhVIYI kAGJkW"
+              className="Caption__H1-hGgjGS gAhTFE"
             >
               landing:where
             </h1>
-          </Captionstyles__H1>
+          </Caption__H1>
         </Caption>
       </div>
     </Heading>

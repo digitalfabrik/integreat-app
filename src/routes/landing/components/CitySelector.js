@@ -1,11 +1,22 @@
 // @flow
 
 import * as React from 'react'
-import { CityListParent } from './CitySelector.styles'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityModel from 'modules/endpoint/models/CityModel'
 import CityEntry from './CityEntry'
+import withPlatform from '../../../modules/platform/hocs/withPlatform'
+import styled from 'styled-components'
+
+const CityListParent = withPlatform(styled.div`
+  position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
+  height: 30px;
+  margin-top: 10px;
+  line-height: 30px;
+  transition: top 0.2s ease-out;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+`)
 
 type PropsType = {|
   cities: Array<CityModel>,

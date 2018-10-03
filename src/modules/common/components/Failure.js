@@ -9,8 +9,16 @@ import { faFrown } from 'modules/app/constants/icons'
 import Link from 'redux-first-router-link'
 
 import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
-import { Centered } from './Failure.styles'
 import type { Action } from 'redux-first-router'
+import styled from 'styled-components'
+
+const Centered = styled.div`
+  & > * {
+    display: block;
+    margin-top: 50px;
+    text-align: center;
+  }
+`
 
 type PropsType = {|
   errorMessage: string,
