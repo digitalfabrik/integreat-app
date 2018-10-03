@@ -1,8 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoadingSpinner should render and match snapshot 1`] = `
-<LoadingSpinnerstyles__CenteredSpinner
-  color="#BBBBBB"
-  name="line-scale-party"
-/>
+<LoadingSpinner>
+  <Spinner
+    className="LoadingSpinner-kBZrgG jLKjsb"
+    color="#BBBBBB"
+    fadeIn="full"
+    name="line-scale-party"
+    noFadeIn={false}
+    overrideSpinnerClassName=""
+  >
+    <div
+      className="sk-fade-in sk-spinner LoadingSpinner-kBZrgG jLKjsb line-scale-party"
+      color="#BBBBBB"
+      style={
+        Object {
+          "color": "#BBBBBB",
+        }
+      }
+    >
+      <div
+        key="0"
+      />
+      <div
+        key="1"
+      />
+      <div
+        key="2"
+      />
+      <div
+        key="3"
+      />
+    </div>
+  </Spinner>
+</LoadingSpinner>
 `;
