@@ -20,6 +20,7 @@ pipeline {
     }
     stage('Build') {
       steps {
+        sh 'yarn run build:lib'
         sh 'yarn run build:debug'
         sh 'yarn run check:built'
       }
