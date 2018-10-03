@@ -3,8 +3,7 @@
 import moment from 'moment'
 
 class PoiModel {
-  _id: number
-  _path: string
+  _id: string
   _title: string
   _content: string
   _thumbnail: string
@@ -18,7 +17,7 @@ class PoiModel {
   _lastUpdate: moment
 
   constructor ({id, path, title, content, thumbnail, availableLanguages, excerpt, address, town, postcode, longitude,
-    latitude, lastUpdate}: {id: number, path: string, title: string, content: string, thumbnail: string,
+    latitude, lastUpdate}: {id: string, title: string, content: string, thumbnail: string,
     availableLanguages: Map<string, number>, excerpt: string, address: ?string, town: ?string, postcode: ?string,
     latitude: ?string, longitude: ?string, lastUpdate: moment}) {
     this._id = id
@@ -33,15 +32,10 @@ class PoiModel {
     this._latitude = latitude
     this._longitude = longitude
     this._lastUpdate = lastUpdate
-    this._path = path
   }
 
-  get id (): number {
+  get id (): string {
     return this._id
-  }
-
-  get path (): string {
-    return this._path
   }
 
   get title (): string {
