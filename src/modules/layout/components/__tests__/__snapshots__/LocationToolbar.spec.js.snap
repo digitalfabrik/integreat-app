@@ -5,11 +5,11 @@ exports[`LocationToolbar should match snapshot 1`] = `
   <div>
     MockNode
   </div>
-  <Translate(FeedbackLink)
+  <Translate(FeedbackToolbarItem)
     isPositiveRatingLink={true}
     openFeedbackModal={[Function]}
   />
-  <Translate(FeedbackLink)
+  <Translate(FeedbackToolbarItem)
     isPositiveRatingLink={false}
     openFeedbackModal={[Function]}
   />
