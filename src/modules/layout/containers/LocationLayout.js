@@ -27,10 +27,10 @@ import ExtraModel from '../../endpoint/models/ExtraModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 import type { Dispatch } from 'redux'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
-import { POI_ROUTE } from '../../app/routes/pois'
+import { POIS_ROUTE } from '../../app/routes/pois'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
-  DISCLAIMER_ROUTE, SEARCH_ROUTE, POI_ROUTE]
+  DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
 
 export type FeedbackRatingType = 'up' | 'down'
 

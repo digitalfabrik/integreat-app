@@ -42,7 +42,7 @@ import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
-import { POI_ROUTE } from '../routes/pois'
+import { POIS_ROUTE } from '../routes/pois'
 
 type PropsType = {|
   currentRoute: string,
@@ -121,7 +121,7 @@ export class Switcher extends React.Component<PropsType> {
       case SEARCH_ROUTE:
         return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) ||
           <SearchPage cities={citiesPayload.data} categories={categoriesPayload.data} />
-      case POI_ROUTE:
+      case POIS_ROUTE:
         const error = new Error('Nothing here yet')
         return <FailureSwitcher error={error} />
       case NOT_FOUND:

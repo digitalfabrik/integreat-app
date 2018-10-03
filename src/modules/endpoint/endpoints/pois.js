@@ -6,11 +6,11 @@ import PoiModel from '../models/PoiModel'
 import moment from 'moment'
 import type { JsonPoiType } from '../types'
 
-const POI__ENDPOINT_NAME = 'pois'
+const POIS_ENDPOINT_NAME = 'pois'
 
 type ParamsType = { city: string, language: string }
 
-export default new EndpointBuilder(POI__ENDPOINT_NAME)
+export default new EndpointBuilder(POIS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
   .withMapper((json: Array<JsonPoiType>) =>
