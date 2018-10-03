@@ -7,20 +7,20 @@ exports[`Headroom should render correct if state is pinned, transition 1`] = `
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <Headroomstyles__HeaderWrapper
+  <Headroom__HeaderWrapper
     static={false}
     top={0}
     transition={true}
     translateY={0}
   >
     <div
-      className="Headroomstyles__HeaderWrapper-jYoiGy kNRfRu"
+      className="Headroom__HeaderWrapper-bwshZw jvjlYC"
     >
       <MockNode>
         <div />
       </MockNode>
     </div>
-  </Headroomstyles__HeaderWrapper>
+  </Headroom__HeaderWrapper>
   <MockAncestor
     stickyTop={100}
   >
@@ -36,20 +36,20 @@ exports[`Headroom should render correct if state is static, no transition 1`] = 
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <Headroomstyles__HeaderWrapper
+  <Headroom__HeaderWrapper
     static={true}
     top={-50}
     transition={false}
     translateY={0}
   >
     <div
-      className="Headroomstyles__HeaderWrapper-jYoiGy gUuBwh"
+      className="Headroom__HeaderWrapper-bwshZw bHQXko"
     >
       <MockNode>
         <div />
       </MockNode>
     </div>
-  </Headroomstyles__HeaderWrapper>
+  </Headroom__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
@@ -65,20 +65,20 @@ exports[`Headroom should render correct if state is unpinned, no transition 1`] 
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <Headroomstyles__HeaderWrapper
+  <Headroom__HeaderWrapper
     static={false}
     top={0}
     transition={false}
     translateY={-50}
   >
     <div
-      className="Headroomstyles__HeaderWrapper-jYoiGy cxGhof"
+      className="Headroom__HeaderWrapper-bwshZw gHairi"
     >
       <MockNode>
         <div />
       </MockNode>
     </div>
-  </Headroomstyles__HeaderWrapper>
+  </Headroom__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
@@ -94,20 +94,20 @@ exports[`Headroom should render correct if state is unpinned, transition 1`] = `
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <Headroomstyles__HeaderWrapper
+  <Headroom__HeaderWrapper
     static={false}
     top={0}
     transition={true}
     translateY={-50}
   >
     <div
-      className="Headroomstyles__HeaderWrapper-jYoiGy icihRv"
+      className="Headroom__HeaderWrapper-bwshZw eftrUN"
     >
       <MockNode>
         <div />
       </MockNode>
     </div>
-  </Headroomstyles__HeaderWrapper>
+  </Headroom__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
@@ -118,14 +118,14 @@ exports[`Headroom should render correct if state is unpinned, transition 1`] = `
 
 exports[`Headroom should render with no stickyAncestor supplied 1`] = `
 <Fragment>
-  <Headroomstyles__HeaderWrapper
+  <Headroom__HeaderWrapper
     static={true}
     top={-50}
     transition={false}
     translateY={0}
   >
     <MockNode />
-  </Headroomstyles__HeaderWrapper>
+  </Headroom__HeaderWrapper>
 </Fragment>
 `;
 
@@ -136,20 +136,20 @@ exports[`Headroom should render with values from its state 1`] = `
   scrollHeight={50}
   stickyAncestor={<MockAncestor />}
 >
-  <Headroomstyles__HeaderWrapper
+  <Headroom__HeaderWrapper
     static={true}
     top={-50}
     transition={false}
     translateY={0}
   >
     <div
-      className="Headroomstyles__HeaderWrapper-jYoiGy gUuBwh"
+      className="Headroom__HeaderWrapper-bwshZw bHQXko"
     >
       <MockNode>
         <div />
       </MockNode>
     </div>
-  </Headroomstyles__HeaderWrapper>
+  </Headroom__HeaderWrapper>
   <MockAncestor
     stickyTop={50}
   >
