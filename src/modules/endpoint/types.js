@@ -2,8 +2,8 @@
 
 export type JsonPathType = {
   id: number,
-  url: ?string,
-  path: ?string
+  url: string,
+  path: string
 }
 
 export type JsonAvailableLanguagesType = {

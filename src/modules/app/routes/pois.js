@@ -9,9 +9,6 @@ export const POIS_ROUTE = 'POI'
 export const goToPois = (city: string, language: string, poiId: ?string) =>
   createAction(POIS_ROUTE)({city, language, poiId})
 
-export const getPoisPath = (city: string, language: string, poiId: ?string): string =>
-  `/${city}/${language}/locations${poiId ? `/${poiId}` : ''}`
-
 export const poisRoute = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {

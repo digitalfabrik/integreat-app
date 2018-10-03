@@ -17,10 +17,10 @@ export default new EndpointBuilder(POIS_ENDPOINT_NAME)
     json.map(poi => {
       const availableLanguages = new Map()
       Object.keys(poi.available_languages)
-        .forEach(language => availableLanguages.set(language, poi.available_languages[language].id))
-      const id = poi.path.split('/')[4]
+        .forEach(language => availableLanguages.set(language, poi.available_languages[language].path))
       return new PoiModel({
-        id: id,
+        id: poi.id,
+        path: poi.path,
         title: poi.title,
         content: poi.content,
         thumbnail: poi.thumbnail,
