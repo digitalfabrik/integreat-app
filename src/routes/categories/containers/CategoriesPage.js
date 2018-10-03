@@ -20,10 +20,10 @@ import CategoryTimeStamp from '../components/CategoryTimeStamp'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import type { UiDirectionType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 
 type PropsType = {
   categories: CategoriesMapModel,

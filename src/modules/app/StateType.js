@@ -10,8 +10,8 @@ import DisclaimerModel from '../endpoint/models/DisclaimerModel'
 import SprungbrettJobModel from '../endpoint/models/SprungbrettJobModel'
 import WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
 import type { LocationState } from 'redux-first-router'
+import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
-export type UiDirectionType = 'ltr' | 'rtl'
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 
 export type StateType = {
