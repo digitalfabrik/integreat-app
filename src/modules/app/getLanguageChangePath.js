@@ -9,7 +9,7 @@ import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
 import EventModel from '../endpoint/models/EventModel'
 
 import type { Location } from 'redux-first-router'
-import { POIS_ROUTE } from './routes/pois'
+import { getPoisPath, POIS_ROUTE } from './routes/pois'
 import PoiModel from '../endpoint/models/PoiModel'
 
 /**
@@ -21,8 +21,8 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
   events: ?Array<EventModel>,
   pois: ?Array<PoiModel>,
   languageCode: string
-|}): ?string => {
-  const {payload, path, type} = location
+|}): string | null => {
+  const {payload, pathname, type} = location
   const {city, eventId, extraAlias, language, poiId} = payload
 
   switch (type) {
@@ -56,12 +56,13 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
       return getEventPath(city, languageCode)
     case POIS_ROUTE:
       if (pois && poiId) {
-        const poi = pois.find(_poi => _poi.path === path)
-        if (poi) {
-          return poi.availableLanguages.get(languageCode)
+        const poi = pois.find(_poi => _poi.path === pathname)
+        if (!poi) {
+          return null
         }
+        return poi.availableLanguages.get(languageCode) || null
       }
-      return getEventPath(city, languageCode)
+      return getPoisPath(city, languageCode)
     case EXTRAS_ROUTE:
       return getExtraPath(city, languageCode, extraAlias)
     case DISCLAIMER_ROUTE:
