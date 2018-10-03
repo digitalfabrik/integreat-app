@@ -10,20 +10,18 @@ import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 
-type PropsType = {
+type PropsType = {|
   offers: Array<WohnenOfferModel>,
   city: string,
   language: string,
   hashFunction: WohnenOfferModel => string,
   t: TFunction
-}
+|}
 
 const Paragraph = styled.p`
   padding: 25px 0;
   text-align: center;
 `
-
-// fixme: OfferList is connected to redux state because of Link -> not a plain old component
 
 export class OfferList extends React.Component<PropsType> {
   render () {

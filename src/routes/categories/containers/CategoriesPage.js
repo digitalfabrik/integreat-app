@@ -25,7 +25,7 @@ import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
-type PropsType = {
+type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
@@ -35,7 +35,7 @@ type PropsType = {
   t: TFunction,
   dispatch: ReceivedAction => void,
   routesMap: {}
-}
+|}
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*

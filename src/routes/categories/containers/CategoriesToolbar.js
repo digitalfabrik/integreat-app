@@ -38,7 +38,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
       return null
     }
     return (
-      <LocationToolbar location={location} openFeedbackModal={openFeedbackModal}>
+      <LocationToolbar openFeedbackModal={openFeedbackModal}>
         <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} />
       </LocationToolbar>
     )

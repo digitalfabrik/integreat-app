@@ -9,17 +9,18 @@ import { goToDisclaimer } from '../../app/routes/disclaimer'
 import CleanLink from '../../common/components/CleanLink'
 import CleanAnchor from '../../common/components/CleanAnchor'
 
-type PropsType = {
+type PropsType = {|
   city: string,
   language: string,
+  onClick: () => void,
   t: TFunction
-}
+|}
 
 export class LocationFooter extends React.Component<PropsType> {
   render () {
-    const {t, city, language, ...otherProps} = this.props
+    const {t, city, language, onClick} = this.props
 
-    return <Footer {...otherProps}>
+    return <Footer onClick={onClick}>
       <CleanLink to={goToDisclaimer(city, language)}>{t('imprintAndContact')}</CleanLink>
       <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
     </Footer>
