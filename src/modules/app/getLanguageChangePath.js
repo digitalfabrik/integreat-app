@@ -9,21 +9,23 @@ import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
 import EventModel from '../endpoint/models/EventModel'
 
 import type { Location } from 'redux-first-router'
+import { POIS_ROUTE } from './routes/pois'
+import PoiModel from '../endpoint/models/PoiModel'
 
 /**
  * Maps the given languageCode to an action to go to the current route in the language specified by languageCode
  */
-const getLanguageChangePath = (params: {|
+const getLanguageChangePath = ({location, categories, events, pois, languageCode}: {|
   location: Location,
-  categories: CategoriesMapModel,
-  events: Array<EventModel>,
+  categories: ?CategoriesMapModel,
+  events: ?Array<EventModel>,
+  pois: ?Array<PoiModel>,
   languageCode: string
-|}): string | null => {
-  const { location, categories, events, languageCode } = params
-  const { city, eventId, extraAlias, language } = location.payload
-  const routeType = location.type
+|}): ?string => {
+  const {payload, path, type} = location
+  const {city, eventId, extraAlias, language, poiId} = payload
 
-  switch (routeType) {
+  switch (type) {
     case CATEGORIES_ROUTE:
       if (categories) {
         const category = categories.findCategoryByPath(location.pathname)
@@ -49,6 +51,14 @@ const getLanguageChangePath = (params: {|
           }
 
           return getEventPath(city, languageCode, eventId)
+        }
+      }
+      return getEventPath(city, languageCode)
+    case POIS_ROUTE:
+      if (pois && poiId) {
+        const poi = pois.find(_poi => _poi.path === path)
+        if (poi) {
+          return poi.availableLanguages.get(languageCode)
         }
       }
       return getEventPath(city, languageCode)
