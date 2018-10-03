@@ -1,7 +1,17 @@
 // @flow
 
 import React from 'react'
-import { H1 } from './Caption.styles'
+import styled from 'styled-components'
+
+const H1 = styled.h1`
+  margin: 25px 0;
+  font-size: 2rem;
+  text-align: center;
+  
+  @media ${props => props.theme.dimensions.smallViewport} {
+    margin: 10px 0;
+  }
+`
 
 type PropsType = {
   title: string,

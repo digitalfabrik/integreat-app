@@ -154,4 +154,4 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
 </Fragment>
 `;
 
-exports[`WohnenExtraPage should render spinner if offers are not ready 1`] = `<WithTheme(LoadingSpinner) />`;
+exports[`WohnenExtraPage should render spinner if offers are not ready 1`] = `<LoadingSpinner />`;
