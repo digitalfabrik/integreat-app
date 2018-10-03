@@ -33,7 +33,7 @@ export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUT
 
 export type FeedbackRatingType = 'up' | 'down'
 
-type PropsType = {
+type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
@@ -44,17 +44,17 @@ type PropsType = {
   location: LocationState,
   toggleDarkMode: () => void,
   darkMode: boolean
-}
+|}
 
-type StateType = {
+type LocalStateType = {|
   asideStickyTop: number,
   feedbackModalRating: ?FeedbackRatingType,
   footerClicked: number
-}
+|}
 
 const DARK_THEME_CLICK_COUNT = 5
 
-export class LocationLayout extends React.Component<PropsType, StateType> {
+export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   state = {asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0}
 
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
@@ -166,7 +166,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
-                   footer={<LocationFooter city={city} language={language} onClick={this.onFooterClicked} />}
+                   footer={<LocationFooter onClick={this.onFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>

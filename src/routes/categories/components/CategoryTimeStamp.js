@@ -13,11 +13,11 @@ const TimeStamp = styled.p`
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
-type PropsType = {
+type PropsType = {|
   lastUpdate: Moment,
   t: TFunction,
   language: string
-}
+|}
 
 export class CategoryTimeStamp extends React.PureComponent<PropsType> {
   render () {

@@ -44,10 +44,10 @@ const Breadcrumb = styled.li`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   children: Array<React.Node>,
   direction: UiDirectionType
-}
+|}
 
 /**
  * Displays breadcrumbs (Links) for lower category levels

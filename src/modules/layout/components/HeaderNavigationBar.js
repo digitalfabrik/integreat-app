@@ -5,10 +5,10 @@ import { isEmpty } from 'lodash/lang'
 
 import styled from 'styled-components'
 
-type PropsType = {
+type PropsType = {|
   className?: string,
   children?: React.Node
-}
+|}
 
 export const NavigationBarContainer = styled.div`
   display: ${props => props.hidden ? 'none' : 'flex'};

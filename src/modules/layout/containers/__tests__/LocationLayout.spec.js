@@ -1,11 +1,10 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import CityModel from 'modules/endpoint/models/CityModel'
 
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import configureMockStore from 'redux-mock-store'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
@@ -16,6 +15,11 @@ import { SEARCH_ROUTE } from '../../../app/routes/search'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
 import DisclaimerModel from '../../../endpoint/models/DisclaimerModel'
+import createHistory from '../../../app/createHistory'
+import theme from '../../../theme/constants/theme'
+import createReduxStore from '../../../app/createReduxStore'
+import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -137,29 +141,36 @@ describe('LocationLayout', () => {
       type: CATEGORIES_ROUTE,
       pathname: '/augsburg/de/willkommen'
     }
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
-      cities: {data: cities},
+
+    const store = createReduxStore(createHistory, {
       categories: {data: categories},
       events: {data: events},
       extras: {data: extras},
       disclaimer: {data: disclaimer},
-      viewport: {is: {small: false}}
+      viewport: {is: {small: false}},
+      cities: {data: null},
+      darkMode: true
     })
+    store.getState().location = location
 
-    const locationLayout = shallow(
-      <ConnectedLocationLayout store={store} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedLocationLayout />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(locationLayout.props()).toMatchObject({
+    expect(tree.find(LocationLayout).props()).toEqual({
       viewportSmall: false,
-      cities,
-      store,
+      cities: null,
       categories,
       disclaimer,
       events,
-      extras
+      extras,
+      location,
+      darkMode: true,
+      toggleDarkMode: expect.any(Function)
     })
   })
 })
