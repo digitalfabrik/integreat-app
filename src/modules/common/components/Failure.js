@@ -9,15 +9,23 @@ import { faFrown } from 'modules/app/constants/icons'
 import Link from 'redux-first-router-link'
 
 import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
-import { Centered } from './Failure.styles'
 import type { Action } from 'redux-first-router'
+import styled from 'styled-components'
 
-type PropsType = {
+const Centered = styled.div`
+  & > * {
+    display: block;
+    margin-top: 50px;
+    text-align: center;
+  }
+`
+
+type PropsType = {|
   errorMessage: string,
   goToAction?: Action,
   goToMessage?: string,
   t: TFunction
-}
+|}
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure

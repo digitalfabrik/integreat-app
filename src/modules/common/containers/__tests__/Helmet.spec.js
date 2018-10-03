@@ -1,11 +1,18 @@
+// @flow
+
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import ConnectedHelmet, { Helmet } from '../Helmet'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
-import configureMockStore from 'redux-mock-store'
+import moment from 'moment'
+import createHistory from '../../../app/createHistory'
+import theme from '../../../theme/constants/theme'
+import createReduxStore from '../../../app/createReduxStore'
+import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -18,12 +25,17 @@ describe('Helmet', () => {
 
   const events = [
     new EventModel({
-      id: '1234',
+      id: 1234,
       title: 'nulltes Event',
-      availableLanguages: {
-        de: '1',
-        en: '2'
-      }
+      address: 'Adresse 0',
+      allDay: false,
+      startDate: moment(0),
+      endDate: moment(0),
+      content: 'Huiiii',
+      excerpt: 'Buuuuh',
+      thumbnail: 'Ich hab deine Nase!',
+      town: 'Schloss Burgeck',
+      availableLanguages: new Map([['de', 1], ['en', 2]])
     })]
 
   const categoryModels = [
@@ -34,6 +46,7 @@ describe('Helmet', () => {
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
+      lastUpdate: moment(0),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })]
@@ -45,7 +58,7 @@ describe('Helmet', () => {
 
   it('should render and match snapshot', () => {
     const helmet = shallow(
-      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} t={key => key} />
+      <Helmet title={title} categories={categories} location={location} events={events} languages={languages} />
     )
 
     expect(helmet).toMatchSnapshot()
@@ -54,24 +67,28 @@ describe('Helmet', () => {
   it('should map state to props', () => {
     const location = {type: 'DISCLAIMER', payload: {city, language}, pathname: '/augsburg/de/disclaimer'}
 
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
+    const store = createReduxStore(createHistory, {
       languages: {data: languages},
       categories: {data: categories},
       events: {data: events}
     })
+    store.getState().location = location
 
-    const languageSelector = shallow(
-      <ConnectedHelmet title={title} store={store} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedHelmet title={title} />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(languageSelector.props()).toMatchObject({
+    expect(tree.find(Helmet).props()).toEqual({
       languages,
       location,
       events,
       categories,
-      title
+      title,
+      dispatch: expect.any(Function)
     })
   })
 })

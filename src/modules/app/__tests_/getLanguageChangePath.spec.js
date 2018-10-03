@@ -1,3 +1,5 @@
+// @flow
+
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import { DISCLAIMER_ROUTE } from '../routes/disclaimer'
 import { EVENTS_ROUTE } from '../routes/events'
@@ -7,6 +9,7 @@ import CategoryModel from '../../endpoint/models/CategoryModel'
 import { SEARCH_ROUTE } from '../routes/search'
 import getLanguageChangePath from '../getLanguageChangePath'
 import EventModel from '../../endpoint/models/EventModel'
+import moment from 'moment'
 
 describe('getLanguageChangePath', () => {
   const city = 'augsburg'
@@ -14,9 +17,17 @@ describe('getLanguageChangePath', () => {
 
   const events = [
     new EventModel({
-      id: '1234',
+      id: 1234,
       title: 'nulltes Event',
-      availableLanguages: new Map([['de', '1'], ['en', '2']])
+      address: 'Adresse 0',
+      allDay: false,
+      startDate: moment('2099-01-07 10:36:24'),
+      endDate: moment('2099-01-07 10:36:24'),
+      content: 'Huiiii',
+      excerpt: 'Buuuuh',
+      thumbnail: 'Ich hab deine Nase!',
+      town: 'Schloss Burgeck',
+      availableLanguages: new Map([['de', 1], ['en', 2]])
     })]
 
   const categoryModels = [
@@ -27,6 +38,7 @@ describe('getLanguageChangePath', () => {
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
+      lastUpdate: moment('2099-01-07 10:36:24'),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })
@@ -38,7 +50,7 @@ describe('getLanguageChangePath', () => {
     const location = {
       pathname: '/augsburg/en/events/1234',
       type: EVENTS_ROUTE,
-      payload: {city, language, eventId: '1234'}
+      payload: {city, language, eventId: 1234}
     }
 
     expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
@@ -132,6 +144,7 @@ describe('getLanguageChangePath', () => {
         parentPath: '/augsburg/en',
         order: 75,
         availableLanguages: new Map(),
+        lastUpdate: moment(0),
         thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
       })])
 

@@ -4,7 +4,9 @@ import React from 'react'
 import Caption from '../../../modules/common/components/Caption'
 import { Helmet } from 'react-helmet'
 
-class MainDisclaimerPage extends React.Component<{}> {
+type PropsType = {||}
+
+class MainDisclaimerPage extends React.Component<PropsType> {
   render () {
     return (
       <div>

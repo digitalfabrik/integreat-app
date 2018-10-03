@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
@@ -25,9 +26,9 @@ type PropsType = {|
   t: TFunction
 |}
 
-type LocalStateType = {
+type LocalStateType = {|
   filterText: string
-}
+|}
 
 const noop = () => {}
 

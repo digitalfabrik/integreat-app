@@ -44,7 +44,7 @@ import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
 import { POINTS_OF_INTEREST_ROUTE } from '../routes/pointsOfInterest'
 
-type PropsType = {
+type PropsType = {|
   currentRoute: string,
   citiesPayload: Payload<Array<CityModel>>,
   categoriesPayload: Payload<CategoriesMapModel>,
@@ -59,7 +59,7 @@ type PropsType = {
   param: ?string,
   viewportSmall: boolean,
   darkMode: boolean
-}
+|}
 
 /**
  * Switches what content should be rendered depending on the current route

@@ -18,14 +18,14 @@ import { translate } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 
-type PropsType = {
+type PropsType = {|
   languages: Array<LanguageModel>,
   location: Location,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   isHeaderActionItem: boolean,
   t: TFunction
-}
+|}
 
 /**
  * Displays a dropDown menu to handle changing of the language

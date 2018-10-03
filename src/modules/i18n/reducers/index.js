@@ -1,3 +1,5 @@
+// @flow
+
 import { handleAction } from 'redux-actions'
 import { setUiDirectionAction } from '../actions/setUIDirection'
 

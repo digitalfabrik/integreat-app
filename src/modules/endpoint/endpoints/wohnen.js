@@ -93,5 +93,6 @@ export default new EndpointBuilder<ParamsType, Array<WohnenOfferModel>>(WOHNEN_E
           }),
         formDataType: WohnenFormData
       })
-    }))
+    })
+    .sort((model1, model2) => model1.createdDate.isBefore(model2.createdDate) ? 1 : -1))
   .build()

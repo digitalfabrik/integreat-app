@@ -11,14 +11,14 @@ import ReactHelmet from 'react-helmet'
 import type { Location } from 'redux-first-router'
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 
-type PropsType = {
+type PropsType = {|
   title: string,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   languages: Array<LanguageModel>,
   location: Location,
   metaDescription?: string
-}
+|}
 
 export class Helmet extends React.Component<PropsType> {
   getLanguageLinks (): React.Node {
