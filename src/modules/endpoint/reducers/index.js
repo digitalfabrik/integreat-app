@@ -8,7 +8,7 @@ import disclaimerEndpoint from '../endpoints/disclaimer'
 import extrasEndpoint from '../endpoints/extras'
 import sprungbrettJobEndpoint from '../endpoints/sprungbrettJobs'
 import wohnenEndpoint from '../endpoints/wohnen'
-import pointsOfInterestEndpoint from '../endpoints/pois'
+import poisEndpoint from '../endpoints/pois'
 
 import { handleActions } from 'redux-actions'
 import Payload from '../Payload'
@@ -28,7 +28,7 @@ const endpoints = [
   extrasEndpoint,
   sprungbrettJobEndpoint,
   wohnenEndpoint,
-  pointsOfInterestEndpoint
+  poisEndpoint
 ]
 
 export const startFetchReducer = <T> (oldPayload: Payload<T>, action: ActionType<T>): Payload<T> => action.payload
