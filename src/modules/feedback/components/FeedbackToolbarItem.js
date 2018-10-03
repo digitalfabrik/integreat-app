@@ -18,9 +18,9 @@ type PropsType = {
   className?: string
 }
 
-const FeedbackToolbarItem = StyledToolbarItem.withComponent('div')
+const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('div')
 
-export class FeedbackLink extends React.PureComponent<PropsType> {
+export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()
@@ -31,16 +31,14 @@ export class FeedbackLink extends React.PureComponent<PropsType> {
   render () {
     const {t, isPositiveRatingLink, className} = this.props
     return (
-      <FeedbackToolbarItem
-        className={className}
-        onClick={this.onLinkClick}>
+      <StyledFeedbackToolbarItem className={className} onClick={this.onLinkClick}>
         <FontAwesomeIcon
           className={className}
           data-tip={isPositiveRatingLink ? t('positiveRating') : t('negativeRating')}
           icon={isPositiveRatingLink ? faSmile : faFrown} />
-      </FeedbackToolbarItem>
+      </StyledFeedbackToolbarItem>
     )
   }
 }
 
-export default translate('feedback')(FeedbackLink)
+export default translate('feedback')(FeedbackToolbarItem)

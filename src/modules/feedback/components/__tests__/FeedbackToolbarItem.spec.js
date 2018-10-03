@@ -3,15 +3,15 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { FeedbackLink } from '../FeedbackLink'
+import { FeedbackToolbarItem } from '../FeedbackToolbarItem'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 
-describe('FeedbackLink', () => {
+describe('FeedbackToolbarItem', () => {
   const t = (key: ?string): string => key || ''
 
-  it('should render a positive FeedbackLink', () => {
+  it('should render a positive FeedbackToolbarItem', () => {
     const component = shallow(
-      <FeedbackLink
+      <FeedbackToolbarItem
         openFeedbackModal={() => {}}
         location={{type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}}
         t={t}
@@ -20,9 +20,9 @@ describe('FeedbackLink', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should render a negative FeedbackLink', () => {
+  it('should render a negative FeedbackToolbarItem', () => {
     const component = shallow(
-      <FeedbackLink
+      <FeedbackToolbarItem
         openFeedbackModal={() => {}}
         location={{type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}}
         t={t}

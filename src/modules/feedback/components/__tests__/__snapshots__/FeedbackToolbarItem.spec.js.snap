@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
+exports[`FeedbackToolbarItem should render a negative FeedbackToolbarItem 1`] = `
 <ToolbarItem__StyledToolbarItem
   onClick={[Function]}
 >
@@ -37,7 +37,7 @@ exports[`FeedbackLink should render a negative FeedbackLink 1`] = `
 </ToolbarItem__StyledToolbarItem>
 `;
 
-exports[`FeedbackLink should render a positive FeedbackLink 1`] = `
+exports[`FeedbackToolbarItem should render a positive FeedbackToolbarItem 1`] = `
 <ToolbarItem__StyledToolbarItem
   onClick={[Function]}
 >
