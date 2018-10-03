@@ -10,7 +10,7 @@ import DisclaimerModel from '../endpoint/models/DisclaimerModel'
 import SprungbrettJobModel from '../endpoint/models/SprungbrettJobModel'
 import WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
 import type { LocationState } from 'redux-first-router'
-import PointOfInterestModel from '../endpoint/models/PointOfInterestModel'
+import PoiModel from '../endpoint/models/PoiModel'
 
 export type UiDirectionType = 'ltr' | 'rtl'
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
@@ -28,5 +28,5 @@ export type StateType = {
   viewport: ViewportType,
   uiDirection: UiDirectionType,
   darkMode: boolean,
-  pointsOfInterest: Array<PointOfInterestModel>
+  pois: Array<PoiModel>
 }
