@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
-import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
+import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
+import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
 import type { AccommodationType } from '../../../modules/endpoint/models/WohnenFormData'
 import type { TFunction } from 'react-i18next'

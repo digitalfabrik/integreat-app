@@ -3,7 +3,7 @@
 import type { Node } from 'react'
 import * as React from 'react'
 
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
+import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
 
 import SprungbrettListItem from './SprungbrettListItem'
 import Caption from '../../../modules/common/components/Caption'

@@ -4,11 +4,11 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFrown } from 'modules/app/constants/icons'
+import { faFrown } from '../../../modules/app/constants/icons'
 
 import Link from 'redux-first-router-link'
 
-import { goToI18nRedirect } from 'modules/app/routes/i18nRedirect'
+import { goToI18nRedirect } from '../../../modules/app/routes/i18nRedirect'
 import type { Action } from 'redux-first-router'
 import styled from 'styled-components'
 

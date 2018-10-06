@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import Caption from 'modules/common/components/Caption'
+import Caption from '../../../modules/common/components/Caption'
 import Tile from './Tile'
 import { Row } from 'react-styled-flexboxgrid'
 

@@ -6,9 +6,9 @@ import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
-import LanguageSelector from 'modules/common/containers/LanguageSelector'
-import CityModel from 'modules/endpoint/models/CityModel'
-import Caption from 'modules/common/components/Caption'
+import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import Caption from '../../../modules/common/components/Caption'
 
 import styled from 'styled-components'
 import type { StateType } from '../../app/StateType'

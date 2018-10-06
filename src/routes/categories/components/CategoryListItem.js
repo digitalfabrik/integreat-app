@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
+import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
 import Highlighter from 'react-highlighter'

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import CityModel from 'modules/endpoint/models/CityModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'

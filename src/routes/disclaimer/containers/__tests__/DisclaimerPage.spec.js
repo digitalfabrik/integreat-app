@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
-import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
+import DisclaimerModel from '../../../../modules/endpoint/models/DisclaimerModel'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 

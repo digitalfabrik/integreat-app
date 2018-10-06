@@ -3,7 +3,7 @@
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import { faFilePdf } from 'modules/app/constants/icons'
+import { faFilePdf } from '../../../modules/app/constants/icons'
 
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'

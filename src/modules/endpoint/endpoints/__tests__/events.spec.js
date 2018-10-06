@@ -5,7 +5,7 @@ import lolex from 'lolex'
 import Moment from 'moment'
 import EventModel from '../../models/EventModel'
 
-jest.unmock('modules/endpoint/endpoints/events')
+jest.unmock('../events')
 
 describe('events', () => {
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime) => ({

@@ -4,7 +4,7 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFrown, faSmile } from 'modules/app/constants/icons'
+import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 
 import ReactTooltip from 'react-tooltip'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
