@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import EventModel from 'modules/endpoint/models/EventModel'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import EventModel from 'modules/endpoint/models/EventModel'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'

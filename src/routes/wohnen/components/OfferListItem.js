@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
-import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
+import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
+import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
-import ListElement from 'modules/common/components/ListElement'
+import ListElement from '../../../modules/common/components/ListElement'
 
 type PropsType = {
   offer: WohnenOfferModel

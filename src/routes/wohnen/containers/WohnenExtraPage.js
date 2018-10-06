@@ -3,16 +3,16 @@
 import * as React from 'react'
 
 import Helmet from 'react-helmet'
-import type { StateType } from 'modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
-import CityModel from 'modules/endpoint/models/CityModel'
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import OfferList from '../components/OfferList'
 import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
-import Caption from 'modules/common/components/Caption'
-import FailureSwitcher from 'modules/common/components/FailureSwitcher'
+import Caption from '../../../modules/common/components/Caption'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 type PropsType = {

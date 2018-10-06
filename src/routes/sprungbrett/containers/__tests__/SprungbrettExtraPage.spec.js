@@ -3,12 +3,12 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedSprungbrettExtraPage, { SprungbrettExtraPage } from '../SprungbrettExtraPage'
 import configureMockStore from 'redux-mock-store'
-import CityModel from 'modules/endpoint/models/CityModel'
-import Payload from 'modules/endpoint/Payload'
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import Payload from '../../../../modules/endpoint/Payload'
+import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 
 describe('SprungbrettExtraPage', () => {
   const city = 'augsburg'

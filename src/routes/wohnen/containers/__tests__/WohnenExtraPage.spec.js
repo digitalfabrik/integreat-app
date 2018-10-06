@@ -3,15 +3,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
 import configureMockStore from 'redux-mock-store'
-import CityModel from 'modules/endpoint/models/CityModel'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
-import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
+import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
 import Hashids from 'hashids'
-import Payload from 'modules/endpoint/Payload'
+import Payload from '../../../../modules/endpoint/Payload'
 
 describe('WohnenExtraPage', () => {
   const city = 'augsburg'

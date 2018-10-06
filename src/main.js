@@ -1,11 +1,11 @@
 // @flow
 
-import 'polyfills'
+import './polyfills'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from 'modules/app/containers/App'
+import App from './modules/app/containers/App'
 
 const container = document.getElementById('container')
 

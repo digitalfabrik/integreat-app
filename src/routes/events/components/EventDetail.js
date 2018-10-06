@@ -4,14 +4,14 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import styled from 'styled-components'
-import RemoteContent from 'modules/common/components/RemoteContent'
+import RemoteContent from '../../../modules/common/components/RemoteContent'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import Caption from 'modules/common/components/Caption'
+import Caption from '../../../modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
-import EventModel from 'modules/endpoint/models/EventModel'
+import EventModel from '../../../modules/endpoint/models/EventModel'
 
 type PropsType = {
   event: EventModel,

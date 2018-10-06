@@ -3,9 +3,9 @@
 import React from 'react'
 
 import Heading from './Heading'
-import ScrollingSearchBox from 'modules/common/components/ScrollingSearchBox'
+import ScrollingSearchBox from '../../../modules/common/components/ScrollingSearchBox'
 import CitySelector from './CitySelector'
-import CityModel from 'modules/endpoint/models/CityModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 
 import { translate } from 'react-i18next'
