@@ -11,12 +11,12 @@ import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/Feed
 import { StyledToolbarItem } from '../../../modules/layout/components/ToolbarItem'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
-type PropsType = {
+type PropsType = {|
   isPositiveRatingLink: boolean,
   t: TFunction,
   openFeedbackModal: FeedbackRatingType => void,
   className?: string
-}
+|}
 
 export class FeedbackLink extends React.PureComponent<PropsType> {
   componentDidMount () {

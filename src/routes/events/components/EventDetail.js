@@ -13,12 +13,12 @@ import Caption from '../../../modules/common/components/Caption'
 import TimeSpan from './TimeSpan'
 import EventModel from '../../../modules/endpoint/models/EventModel'
 
-type PropsType = {
+type PropsType = {|
   event: EventModel,
   language: string,
   t: TFunction,
   onInternalLinkClick: string => void
-}
+|}
 
 const Thumbnail = styled.img`
   display: flex;

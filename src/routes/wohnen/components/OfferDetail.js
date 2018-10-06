@@ -10,10 +10,10 @@ import { translate } from 'react-i18next'
 import ListElement from '../../../modules/common/components/ListElement'
 import Caption from '../../../modules/common/components/Caption'
 
-type PropsType = {
+type PropsType = {|
   offer: WohnenOfferModel,
   t: TFunction
-}
+|}
 
 const Header = styled.div`
   padding: 15px 5px 5px;
@@ -33,8 +33,6 @@ const Row = styled.div`
   
   margin: 10px 0;
 `
-
-// fixme: OfferList is connected to redux state because of Caption -> not a plain old component
 
 class OfferDetail extends React.Component<PropsType> {
   translate (type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {

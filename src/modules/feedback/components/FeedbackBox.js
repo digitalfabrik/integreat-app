@@ -77,7 +77,6 @@ export class FeedbackBox extends React.Component<PropsType> {
         <FeedbackComment
           comment={comment}
           commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
-          isPositiveRatingSelected={isPositiveRatingSelected}
           onCommentChanged={onCommentChanged} />
         <SubmitButton onClick={onSubmit}>
           {t('send')}

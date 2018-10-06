@@ -12,13 +12,13 @@ import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
-type PropsType = {
+type PropsType = {|
   sprungbrettJobs: ?Array<SprungbrettJobModel>,
   city: string,
   language: string,
   extras: ?Array<ExtraModel>,
   cities: ?Array<CityModel>
-}
+|}
 
 export class SprungbrettExtraPage extends React.Component<PropsType> {
   render () {

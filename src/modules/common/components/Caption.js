@@ -13,10 +13,10 @@ const H1 = styled.h1`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   title: string,
   className?: string
-}
+|}
 
 class Caption extends React.Component<PropsType> {
   render () {

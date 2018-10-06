@@ -12,16 +12,16 @@ import FeedbackComment from '../../../modules/feedback/components/FeedbackCommen
 
 export const StyledSubmitButton = SubmitButton.withComponent('div')
 
-type PropsType = {
+type PropsType = {|
   query?: string,
   location: LocationState,
   t: TFunction
-}
+|}
 
-type StateType = {
+type StateType = {|
   comment: string,
   feedbackSent: boolean
-}
+|}
 
 export class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {

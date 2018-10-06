@@ -11,11 +11,11 @@ import { translate } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
 import type { StateType } from '../../../modules/app/StateType'
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   language: string,
   t: TFunction
-}
+|}
 
 export class LandingPage extends React.Component<PropsType> {
   render () {

@@ -15,14 +15,14 @@ import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
-type PropsType = {
+type PropsType = {|
   offers: ?Array<WohnenOfferModel>,
   city: string,
   language: string,
   offerHash?: string,
   extras: ?Array<ExtraModel>,
   cities: ?Array<CityModel>
-}
+|}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
   hashids = new Hashids()

@@ -3,12 +3,12 @@
 import React from 'react'
 import type Moment from 'moment'
 
-type PropsType = {
+type PropsType = {|
   startDate: Moment,
   endDate: Moment,
   allDay: boolean,
   locale: string
-}
+|}
 
 class TimeSpan extends React.Component<PropsType> {
   /**

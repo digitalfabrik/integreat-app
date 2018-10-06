@@ -18,12 +18,12 @@ const CityListParent = withPlatform(styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `)
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
   language: string,
   stickyTop: number
-}
+|}
 
 class CitySelector extends React.PureComponent<PropsType> {
   static defaultProps = {

@@ -62,13 +62,13 @@ const Wrapper = styled.div`
   `}
 `
 
-type PropsType = {
+type PropsType = {|
   verticalLayout: boolean,
   closeDropDownCallback?: () => void,
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
   inactiveItemTooltip: string
-}
+|}
 
 /**
  * Displays a Selector showing different items

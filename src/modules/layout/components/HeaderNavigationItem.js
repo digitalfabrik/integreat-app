@@ -34,13 +34,13 @@ const ActiveNavigationItem = styled(NavigationItem)`
        }`}
 `
 
-type PropsType = {
+type PropsType = {|
   text: string,
   href: Action | string,
   selected: boolean,
   active: boolean,
   tooltip?: string
-}
+|}
 
 /**
  * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
