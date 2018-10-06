@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import ListElement from '../../../modules/common/components/ListElement'
 import CleanAnchor from '../../../modules/common/components/CleanAnchor'
 
-type PropsType = {
+type PropsType = {|
   job: SprungbrettJobModel
-}
+|}
 
 const Description = styled.div`
   margin-left: 10px;

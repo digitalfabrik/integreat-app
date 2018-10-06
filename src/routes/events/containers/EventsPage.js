@@ -18,7 +18,7 @@ import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
-type PropsType = {
+type PropsType = {|
   events: Array<EventModel>,
   city: string,
   language: string,
@@ -27,7 +27,7 @@ type PropsType = {
   t: TFunction,
   dispatch: ReceivedAction => void,
   routesMap: {}
-}
+|}
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
@@ -47,7 +47,7 @@ export class EventsPage extends React.Component<PropsType> {
       if (event) {
         return <>
           <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
-          <EventDetail event={event} location={city} language={language} onInternalLinkClick={this.redirectToPath} />
+          <EventDetail event={event} language={language} onInternalLinkClick={this.redirectToPath} />
         </>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})

@@ -12,8 +12,7 @@ import routesMap from '../routesMap'
 import Switcher from './Switcher'
 import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 
-type PropsType = {
-}
+type PropsType = {||}
 
 class App extends React.Component<PropsType> {
   store: any;

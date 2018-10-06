@@ -8,9 +8,9 @@ import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
 
-type PropsType = {
+type PropsType = {|
   tile: TileModel
-}
+|}
 
 const Thumbnail = styled.div`
   position: relative;

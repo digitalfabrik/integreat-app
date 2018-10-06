@@ -4,12 +4,12 @@ import React from 'react'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
 
-type PropsType = {
+type PropsType = {|
   title: string,
   content: string,
   onInternLinkClick: string => void,
   hijackRegExp?: RegExp
-}
+|}
 
 class Page extends React.Component<PropsType> {
   render () {

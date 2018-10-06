@@ -6,9 +6,9 @@ import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
 import ListElement from '../../../modules/common/components/ListElement'
 
-type PropsType = {
+type PropsType = {|
   offer: WohnenOfferModel
-}
+|}
 
 const Description = styled.div`
   display: flex;

@@ -14,12 +14,12 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 
 const EXCERPT_LENGTH = 70
 
-type PropsType = {
+type PropsType = {|
   event: EventModel,
   city: string,
   language: string,
   onInternalLinkClick: string => void
-}
+|}
 
 const EventLink = styled(CleanLink)`
   display: flex;

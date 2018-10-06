@@ -23,7 +23,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 
-type PropsType = {
+type PropsType = {|
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
@@ -31,7 +31,7 @@ type PropsType = {
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void
-}
+|}
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {

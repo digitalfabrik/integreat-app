@@ -86,7 +86,7 @@ const Aside = withPlatform(styled.aside`
   }
 `)
 
-type PropsType = {
+type PropsType = {|
   asideStickyTop: number,
   footer?: Node,
   header?: Node,
@@ -94,7 +94,7 @@ type PropsType = {
   modal?: Node,
   children?: Node,
   darkMode?: boolean
-}
+|}
 
 /**
  * The standard Layout, used for any view in this app as a container.

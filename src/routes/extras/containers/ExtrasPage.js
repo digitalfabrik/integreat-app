@@ -17,14 +17,14 @@ import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wo
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
-type PropsType = {
+type PropsType = {|
   city: string,
   language: string,
   extras: ?Array<ExtraModel>,
   cities: ?Array<CityModel>,
   extraId: ?string,
   t: TFunction
-}
+|}
 
 /**
  * Displays tiles with all available extras or the page for a selected extra

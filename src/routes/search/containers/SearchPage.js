@@ -26,9 +26,9 @@ type PropsType = {|
   t: TFunction
 |}
 
-type LocalStateType = {
+type LocalStateType = {|
   filterText: string
-}
+|}
 
 const noop = () => {}
 
