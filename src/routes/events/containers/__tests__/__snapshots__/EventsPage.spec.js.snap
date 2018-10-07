@@ -3,7 +3,7 @@
 exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 <Fragment>
   <Connect(Helmet)
-    title="erstes Event - Augsburg"
+    title="first Event - Augsburg"
   />
   <Translate(EventDetail)
     event={
@@ -11,16 +11,17 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
         "_address": "address",
         "_allDay": true,
         "_availableLanguages": Map {
-          "en" => 1234,
-          "ar" => 1236,
+          "de" => "/augsburg/de/events/erstes_event",
+          "ar" => "/augsburg/ar/events/erstes_event",
         },
         "_content": "content",
         "_endDate": "2017-11-18T19:30:00.000Z",
         "_excerpt": "excerpt",
-        "_id": 1235,
+        "_id": 1,
+        "_path": "/augsburg/en/events/first_event",
         "_startDate": "2017-11-18T09:30:00.000Z",
         "_thumbnail": "thumbnail",
-        "_title": "erstes Event",
+        "_title": "first Event",
         "_town": "town",
       }
     }
@@ -43,13 +44,14 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_address": "address",
           "_allDay": true,
           "_availableLanguages": Map {
-            "de" => 1235,
-            "ar" => 1236,
+            "de" => "/augsburg/de/events/erstes_event",
+            "ar" => "/augsburg/ar/events/erstes_event",
           },
           "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
           "_excerpt": "excerpt",
-          "_id": 1234,
+          "_id": 1,
+          "_path": "/augsburg/en/events/first_event",
           "_startDate": "2017-11-18T09:30:00.000Z",
           "_thumbnail": "thumbnail",
           "_title": "first Event",
@@ -59,32 +61,34 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           "_address": "address",
           "_allDay": true,
           "_availableLanguages": Map {
-            "en" => 1234,
-            "ar" => 1236,
+            "en" => "/augsburg/de/events/zwotes_event",
+            "ar" => "/augsburg/ar/events/zwotes_event",
           },
           "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
           "_excerpt": "excerpt",
-          "_id": 1235,
+          "_id": 2,
+          "_path": "/augsburg/en/events/second_event",
           "_startDate": "2017-11-18T09:30:00.000Z",
           "_thumbnail": "thumbnail",
-          "_title": "erstes Event",
+          "_title": "second Event",
           "_town": "town",
         },
         EventModel {
           "_address": "address",
           "_allDay": true,
           "_availableLanguages": Map {
-            "de" => 1235,
-            "ar" => 1236,
+            "de" => "/augsburg/de/events/drittes_event",
+            "ar" => "/augsburg/ar/events/erstes_event",
           },
           "_content": "content",
           "_endDate": "2017-11-18T19:30:00.000Z",
           "_excerpt": "excerpt",
-          "_id": 2,
+          "_id": 3,
+          "_path": "/augsburg/en/events/third_event",
           "_startDate": "2017-11-18T09:30:00.000Z",
           "_thumbnail": "thumbnail",
-          "_title": "second Event",
+          "_title": "third Event",
           "_town": "town",
         },
       ]
@@ -97,6 +101,6 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
 
 exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `
 <Translate(FailureSwitcher)
-  error={[Error: The event 234729 does not exist here.]}
+  error={[Error: The event invalid_event does not exist here.]}
 />
 `;

@@ -25,6 +25,7 @@ describe('LanguageSelector', () => {
   const events = [
     new EventModel({
       id: 1234,
+      path: '/augsburg/en/events/nulltes_event',
       title: 'nulltes Event',
       address: 'Adresse 0',
       allDay: false,
@@ -34,7 +35,8 @@ describe('LanguageSelector', () => {
       excerpt: 'Buuuuh',
       thumbnail: 'Ich hab deine Nase!',
       town: 'Schloss Burgeck',
-      availableLanguages: new Map([['de', 1], ['en', 2]])
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']])
     })
   ]
 
