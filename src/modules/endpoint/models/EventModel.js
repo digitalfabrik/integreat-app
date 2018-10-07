@@ -17,8 +17,8 @@ class EventModel {
   _availableLanguages: Map<string, string>
 
   constructor ({id, path, title, content, thumbnail, address, town, startDate, endDate, allDay, excerpt,
-    availableLanguages}: {|id: number, title: string, content: string, thumbnail: ?string, address: string,
-    town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string,
+    availableLanguages}: {|id: number, path: string, title: string, content: string, thumbnail: ?string,
+    address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string,
     availableLanguages: Map<string, string>|}) {
     this._id = id
     this._path = path
