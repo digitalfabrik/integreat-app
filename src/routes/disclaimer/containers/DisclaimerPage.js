@@ -16,7 +16,7 @@ import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
-type PropsType = {
+type PropsType = {|
   disclaimer: DisclaimerModel,
   cities: Array<CityModel>,
   city: string,
@@ -24,7 +24,7 @@ type PropsType = {
   language: string,
   dispatch: ReceivedAction => void,
   routesMap: {}
-}
+|}
 
 /**
  * Displays the locations disclaimer matching the route /<location>/<language>/disclaimer

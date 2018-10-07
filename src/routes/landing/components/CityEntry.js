@@ -22,11 +22,11 @@ const CityListItem = styled(Link)`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   language: string,
   city: CityModel,
   filterText: string
-}
+|}
 
 class CityEntry extends React.PureComponent<PropsType> {
   render () {

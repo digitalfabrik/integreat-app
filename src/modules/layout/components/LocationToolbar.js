@@ -7,10 +7,10 @@ import Toolbar from '../../../modules/layout/components/Toolbar'
 import FeedbackToolbarItem from '../../feedback/components/FeedbackToolbarItem'
 import type { FeedbackRatingType } from '../containers/LocationLayout'
 
-type PropsType = {
+type PropsType = {|
   openFeedbackModal: FeedbackRatingType => void,
   children?: Node
-}
+|}
 
 class LocationToolbar extends React.PureComponent<PropsType> {
   render () {

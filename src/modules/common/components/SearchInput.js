@@ -42,13 +42,13 @@ const SearchIcon = styled(FontAwesomeIcon).attrs({icon: faSearch})`
   text-align: center;
 `
 
-type PropsType = {
+type PropsType = {|
   placeholderText: string,
   filterText: string,
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
   onClickInput?: () => void
-}
+|}
 
 export class SearchInput extends React.Component<PropsType> {
   static defaultProps = {spaceSearch: false}

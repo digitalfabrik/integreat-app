@@ -20,12 +20,12 @@ const Centered = styled.div`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   errorMessage: string,
   goToAction?: Action,
   goToMessage?: string,
   t: TFunction
-}
+|}
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
