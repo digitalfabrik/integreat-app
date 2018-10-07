@@ -33,7 +33,7 @@ type JsonEventInfoType = {
   recurrence_id: ?string
 }
 
-export type JsonEventType = {
+export type JsonPageType = {
   id: number,
   url: string,
   path: string,
@@ -41,25 +41,11 @@ export type JsonEventType = {
   modified_gmt: string,
   excerpt: string,
   content: string,
-  parent: JsonPathType,
-  order: number,
+  parent?: JsonPathType,
+  order?: number,
   available_languages: JsonAvailableLanguagesType,
   thumbnail: string,
-  event: JsonEventInfoType,
-  location: JsonLocationType,
-  hash: string
-}
-
-export type JsonPoiType = {
-  id: number,
-  url: string,
-  path: string,
-  title: string,
-  modified_gmt: string,
-  excerpt: string,
-  content: string,
-  available_languages: JsonAvailableLanguagesType,
-  thumbnail: string,
-  location: JsonLocationType,
+  event?: JsonEventInfoType,
+  location?: JsonLocationType,
   hash: string
 }
