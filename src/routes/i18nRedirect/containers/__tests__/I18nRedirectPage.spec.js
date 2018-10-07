@@ -5,13 +5,13 @@ import { mount, shallow } from 'enzyme'
 import PropTypes from 'prop-types'
 import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import configureMockStore from 'redux-mock-store'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import createHistory from '../../../../modules/app/createHistory'
 import { Provider } from 'react-redux'
 import { goToLanding } from '../../../../modules/app/routes/landing'
 import { goToNotFound } from '../../../../modules/app/routes/notFound'
 import { goToCategories } from '../../../../modules/app/routes/categories'
+import { createBrowserHistory } from 'history'
 
 describe('I18nRedirectPage', () => {
   const language = 'de'
@@ -73,29 +73,25 @@ describe('I18nRedirectPage', () => {
   describe('connect', () => {
     it('should map state to props', () => {
       const param = 'param'
-
       const location = {payload: {param}}
+      const store = createReduxStore(createBrowserHistory, {})
+      store.getState().location = location
 
-      const mockStore = configureMockStore()
-      const store = mockStore({
-        location: location,
-        cities: {data: cities}
-      })
-
-      const i18nRedirect = shallow(
-        <ConnectedI18nRedirectPage store={store} cities={cities} />
+      const tree = mount(
+        <Provider store={store}>
+          <ConnectedI18nRedirectPage cities={cities} />
+        </Provider>,
+        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
       )
 
-      expect(i18nRedirect.props()).toMatchObject({
-        param,
-        cities
+      expect(tree.find(I18nRedirectPage).props()).toEqual({
+        cities,
+        redirect: expect.any(Function)
       })
     })
 
     it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        cities: {data: cities}
-      })
+      const store = createReduxStore(createHistory, {})
 
       store.dispatch = jest.fn()
       expect(store.dispatch).not.toHaveBeenCalled()

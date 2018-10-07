@@ -14,14 +14,14 @@ const List = styled.div`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
   query?: string,
   onInternLinkClick: string => void
-}
+|}
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail

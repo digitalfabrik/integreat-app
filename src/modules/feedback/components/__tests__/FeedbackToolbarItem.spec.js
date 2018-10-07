@@ -4,7 +4,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { FeedbackToolbarItem } from '../FeedbackToolbarItem'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 
 describe('FeedbackToolbarItem', () => {
   const t = (key: ?string): string => key || ''
@@ -13,7 +12,6 @@ describe('FeedbackToolbarItem', () => {
     const component = shallow(
       <FeedbackToolbarItem
         openFeedbackModal={() => {}}
-        location={{type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}}
         t={t}
         isPositiveRatingLink />
     )
@@ -24,7 +22,6 @@ describe('FeedbackToolbarItem', () => {
     const component = shallow(
       <FeedbackToolbarItem
         openFeedbackModal={() => {}}
-        location={{type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}}
         t={t}
         isPositiveRatingLink={false} />
     )

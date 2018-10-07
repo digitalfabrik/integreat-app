@@ -8,11 +8,11 @@ const CommentField = styled.textarea`
   resize: none;
 `
 
-type PropsType = {
+type PropsType = {|
   comment: string,
   commentMessage: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void
-}
+|}
 
 class FeedbackComment extends React.Component<PropsType> {
   render () {

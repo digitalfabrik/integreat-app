@@ -14,9 +14,9 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-type PropsType = {
+type PropsType = {|
   t: TFunction
-}
+|}
 
 class Heading extends React.Component<PropsType> {
   render () {

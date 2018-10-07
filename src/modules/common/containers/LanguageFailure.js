@@ -18,11 +18,11 @@ const ChooseLanguage = styled.p`
   text-align: center;
 `
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   city: string,
   t: TFunction
-}
+|}
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {

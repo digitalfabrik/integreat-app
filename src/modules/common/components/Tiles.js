@@ -9,10 +9,10 @@ import { Row } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
 import TileModel from '../models/TileModel'
 
-type PropsType = {
+type PropsType = {|
   title: ?string,
   tiles: TileModel[]
-}
+|}
 
 const TilesRow = styled(Row)`
   padding: 10px 0;

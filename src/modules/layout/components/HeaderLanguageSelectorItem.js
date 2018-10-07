@@ -14,11 +14,11 @@ const InactiveImage = styled.img`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-type PropsType = {
+type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
   t: TFunction
-}
+|}
 
 class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   componentDidMount () {

@@ -12,11 +12,11 @@ import { goToNotFound } from '../../../modules/app/routes/notFound'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 
-type PropsType = {
+type PropsType = {|
   redirect: Action => void,
   cities: ?Array<CityModel>,
   param?: string
-}
+|}
 
 /**
  * Adds the language code at the end of the current path

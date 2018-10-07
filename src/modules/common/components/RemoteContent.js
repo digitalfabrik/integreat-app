@@ -46,14 +46,14 @@ const SandBox = styled.div`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   dangerouslySetInnerHTML: {
     __html: string
   },
   hijackRegExp: RegExp,
   onInternLinkClick: string => void,
   centered: boolean
-}
+|}
 
 const HIJACK = /https?:\/\/(cms\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
 

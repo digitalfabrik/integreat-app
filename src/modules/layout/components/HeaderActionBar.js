@@ -29,10 +29,10 @@ const ActionItems = styled.div`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   className?: string,
   items: Array<HeaderActionItem>
-}
+|}
 
 /**
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like

@@ -15,10 +15,10 @@ import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
-type PropsType = {
+type PropsType = {|
   error: Error,
   t: TFunction
-}
+|}
 
 export class FailureSwitcher extends React.Component<PropsType> {
   /**

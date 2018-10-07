@@ -8,10 +8,10 @@ import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
 import SprungbrettListItem from './SprungbrettListItem'
 import Caption from '../../../modules/common/components/Caption'
 
-type PropsType = {
+type PropsType = {|
   jobs: Array<SprungbrettJobModel>,
   title: string
-}
+|}
 
 class SprungbrettList extends React.Component<PropsType> {
   getListItems (): Array<Node> {

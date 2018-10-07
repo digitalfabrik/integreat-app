@@ -14,7 +14,7 @@ const STATIC = 'static'
 type ModeType = 'pinned' | 'unpinned' | 'static'
 type DirectionType = 'up' | 'down'
 
-type PropsType = {
+type PropsType = {|
   /** The child node to be displayed as a header */
   children: Node,
   /** The maximum amount of px the header should move up when scrolling */
@@ -29,12 +29,12 @@ type PropsType = {
   onStickyTopChanged?: (number) => void,
   /** True, if sticky position should be disabled (e.g. for edge 16 support) */
   positionStickyDisabled?: boolean
-}
+|}
 
-type StateType = {
+type StateType = {|
   mode: ModeType,
   transition: boolean
-}
+|}
 
 const HeaderWrapper = styled.div`
   position: ${props => props.positionStickyDisabled ? 'static' : 'sticky'};
