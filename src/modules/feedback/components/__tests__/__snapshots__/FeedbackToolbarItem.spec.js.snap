@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FeedbackToolbarItem should render a negative FeedbackToolbarItem 1`] = `
-<ToolbarItem__StyledToolbarItem
+<StyledToolbarItem
   onClick={[Function]}
 >
   <FontAwesomeIcon
@@ -34,11 +34,11 @@ exports[`FeedbackToolbarItem should render a negative FeedbackToolbarItem 1`] = 
     symbol={false}
     transform={null}
   />
-</ToolbarItem__StyledToolbarItem>
+</StyledToolbarItem>
 `;
 
 exports[`FeedbackToolbarItem should render a positive FeedbackToolbarItem 1`] = `
-<ToolbarItem__StyledToolbarItem
+<StyledToolbarItem
   onClick={[Function]}
 >
   <FontAwesomeIcon
@@ -71,5 +71,5 @@ exports[`FeedbackToolbarItem should render a positive FeedbackToolbarItem 1`] = 
     symbol={false}
     transform={null}
   />
-</ToolbarItem__StyledToolbarItem>
+</StyledToolbarItem>
 `;
