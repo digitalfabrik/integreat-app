@@ -49,7 +49,7 @@ class EventList extends React.Component<PropsType> {
       <>
         <Caption title={t('news')} />
         <List>
-          {events.map(event => <EventListElement key={event.id}
+          {events.map(event => <EventListElement key={event.path}
                                                  event={event}
                                                  city={city}
                                                  language={language}
