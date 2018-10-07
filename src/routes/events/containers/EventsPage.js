@@ -21,11 +21,12 @@ import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 type PropsType = {|
   events: Array<EventModel>,
   city: string,
+  eventId: ?string,
   language: string,
-  eventId?: number,
   cities: Array<CityModel>,
   t: TFunction,
   dispatch: ReceivedAction => void,
+  path: string,
   routesMap: {}
 |}
 
@@ -40,9 +41,9 @@ export class EventsPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {events, eventId, city, language, cities, t} = this.props
+    const {events, path, eventId, city, language, cities, t} = this.props
     if (eventId) {
-      const event = events.find(_event => _event.id === eventId)
+      const event = events.find(_event => _event.path === path)
 
       if (event) {
         return <>
@@ -64,7 +65,8 @@ export class EventsPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId
+  eventId: state.location.payload.eventId,
+  path: state.location.pathname
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({

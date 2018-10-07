@@ -67,7 +67,7 @@ class EventListElement extends React.Component<PropsType> {
   render () {
     const {city, language, event, onInternalLinkClick} = this.props
     return (
-      <EventLink to={goToEvents(city, language, event.id)}>
+      <EventLink to={event.path}>
         <EventThumbnail src={event.thumbnail || this.getEventPlaceholder()} />
         <EventDescription>
           <EventTitle>{event.title}</EventTitle>
