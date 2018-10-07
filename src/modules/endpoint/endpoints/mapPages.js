@@ -10,14 +10,13 @@ import PageModel from '../models/PageModel'
 
 const normalize = compose([decodeURIComponent, normalizePath])
 
-const pagesMapper = (json: Array<JsonPageType>) => json
+const mapPages = (json: Array<JsonPageType>): Array<PageModel> => json
   .map((page: JsonPageType) => {
-    const allDay = page.event && page.event.all_day !== '0'
-
-    const date = page.event ? new DateModel({
-      startDate: moment(`${page.event.start_date} ${allDay ? '00:00:00' : page.event.start_time}`),
-      endDate: moment(`${page.event.end_date} ${allDay ? '23:59:59' : page.event.end_time}`),
-      allDay
+    const dateJson = page.event
+    const date = dateJson ? new DateModel({
+      startDate: moment(`${dateJson.start_date} ${dateJson.all_day !== '0' ? '00:00:00' : dateJson.start_time}`),
+      endDate: moment(`${dateJson.end_date} ${dateJson.all_day !== '0' ? '23:59:59' : dateJson.end_time}`),
+      allDay: dateJson.all_day !== '0'
     }) : null
 
     const location = page.location ? new LocationModel({
@@ -38,19 +37,22 @@ const pagesMapper = (json: Array<JsonPageType>) => json
       title: page.title,
       content: page.content,
       thumbnail: page.thumbnail,
-      date,
+      date: date,
       location,
       excerpt: page.excerpt,
       parent: page.parent && page.parent.path,
-      availableLanguages: availableLanguages
+      availableLanguages: availableLanguages,
+      lastUpdate: moment(page.modified_gmt)
     })
   })
   .sort((page1, page2) => {
-    if (page1.date && page2.date) {
-      if (page1.date.startDate.isBefore(page2.date.startDate)) { return -1 }
-      if (page1.date.startDate.isAfter(page2.date.startDate)) { return 1 }
-      return 0
+    const date1 = page1.date
+    const date2 = page2.date
+    if (date1 && date2) {
+      if (date1.startDate.isBefore(date2.startDate)) { return -1 }
+      if (date1.startDate.isAfter(date2.startDate)) { return 1 }
     }
+    return 0
   })
 
-export default pagesMapper
+export default mapPages
