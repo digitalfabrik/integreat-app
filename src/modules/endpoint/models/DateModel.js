@@ -21,7 +21,7 @@ class DateModel {
     return this._endDate
   }
 
-  get allDay (): moment {
+  get allDay (): boolean {
     return this._allDay
   }
 }
