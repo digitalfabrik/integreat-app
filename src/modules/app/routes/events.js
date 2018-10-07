@@ -4,8 +4,7 @@ import { createAction } from 'redux-actions'
 
 export const EVENTS_ROUTE = 'EVENTS'
 
-export const goToEvents = (city: string, language: string, eventId: ?string) =>
-  createAction(EVENTS_ROUTE)({city, language, eventId})
+export const goToEvents = (city: string, language: string) => createAction(EVENTS_ROUTE)({city, language})
 
 export const getEventsPath = (city: string, language: string): string => `/${city}/${language}/events`
 

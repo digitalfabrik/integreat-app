@@ -24,7 +24,6 @@ exports[`FailureSwitcher render component not found failure should render a even
     Object {
       "payload": Object {
         "city": "augsburg",
-        "eventId": undefined,
         "language": "de",
       },
       "type": "EVENTS",
