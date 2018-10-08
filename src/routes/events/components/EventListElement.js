@@ -8,7 +8,6 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import { goToEvents } from '../../../modules/app/routes/events'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 
@@ -16,7 +15,6 @@ const EXCERPT_LENGTH = 70
 
 type PropsType = {|
   event: EventModel,
-  city: string,
   language: string,
   onInternalLinkClick: string => void
 |}
@@ -72,11 +70,8 @@ class EventListElement extends React.Component<PropsType> {
         <EventDescription>
           <EventTitle>{event.title}</EventTitle>
           <EventDate>
-            <TimeSpan startDate={event.startDate}
-                      endDate={event.endDate}
-                      allDay={event.allDay}
-                      locale={language} />
-            , {event.address}
+            <TimeSpan date={event.date} locale={language} />
+            , {event.location.location}
           </EventDate>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}}
                          onInternLinkClick={onInternalLinkClick} />

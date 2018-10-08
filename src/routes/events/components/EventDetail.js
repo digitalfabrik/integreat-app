@@ -43,21 +43,18 @@ class EventDetail extends React.Component<PropsType> {
   }
 
   render () {
-    const {event, onInternalLinkClick} = this.props
+    const {event, onInternalLinkClick, t} = this.props
     return (
       <>
         <Thumbnail src={event.thumbnail || this.getEventPlaceholder()} />
         <Caption title={event.title} />
         <div>
-          <Identifier>{this.props.t('date')}: </Identifier>
-          <TimeSpan allDay={event.allDay}
-                    startDate={event.startDate}
-                    endDate={event.endDate}
-                    locale={this.props.language} />
+          <Identifier>{t('date')}: </Identifier>
+          <TimeSpan date={event.date} locale={this.props.language} />
         </div>
         <div>
-          <Identifier>{this.props.t('location')}: </Identifier>
-          <span>{event.address}</span>
+          <Identifier>{t('location')}: </Identifier>
+          <span>{event.location.location}</span>
         </div>
         <RemoteContent dangerouslySetInnerHTML={{__html: event.content}} onInternLinkClick={onInternalLinkClick} />
       </>

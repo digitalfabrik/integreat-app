@@ -49,3 +49,10 @@ export type JsonPageType = {
   location?: JsonLocationType,
   hash: string
 }
+
+export type JsonDisclaimerType = {
+  id: number,
+  title: string,
+  content: string,
+  modified_gmt: string
+}
