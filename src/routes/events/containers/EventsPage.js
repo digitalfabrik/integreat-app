@@ -57,7 +57,7 @@ export class EventsPage extends React.Component<PropsType> {
     }
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <EventList events={events} city={city} language={language} onInternalLinkClick={this.redirectToPath} />
+      <EventList events={events} language={language} onInternalLinkClick={this.redirectToPath} />
     </>
   }
 }
