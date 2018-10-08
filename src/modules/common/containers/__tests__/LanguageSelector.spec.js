@@ -51,7 +51,7 @@ describe('LanguageSelector', () => {
   const pois = [
     new PoiModel({
       id: 493,
-      path: '/augsburg/en/locations/cafe-tuer-an-tuer/',
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer',
       title: 'Cafe Tür an Tür',
       content: 'Leckeres Essen!',
       thumbnail: 'Random thumbnail',
@@ -63,7 +63,7 @@ describe('LanguageSelector', () => {
         longitude: '10,8881861'
       }),
       excerpt: 'Random excerpt',
-      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer/']]),
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer']]),
       lastUpdate: moment('2099-01-07 10:36:24')
     })
   ]

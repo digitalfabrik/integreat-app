@@ -24,5 +24,10 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
       }
       return new EventModel({date, location, ...pageProps})
     })
+    .sort((event1, event2) => {
+      if (event1.date.startDate.isBefore(event2.date.startDate)) { return -1 }
+      if (event1.date.startDate.isAfter(event2.date.startDate)) { return 1 }
+      return 0
+    })
   )
   .build()

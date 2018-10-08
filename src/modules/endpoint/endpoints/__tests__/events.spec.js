@@ -1,7 +1,6 @@
 // @flow
 
 import events from '../events'
-import lolex from 'lolex'
 import moment from 'moment'
 import type Moment from 'moment'
 import EventModel from '../../models/EventModel'
@@ -18,7 +17,7 @@ describe('events', () => {
     excerpt: 'Am Sonntag...',
     content: '<p>Am Sonntag...</p>',
     available_languages: [],
-    thumbnail: null,
+    thumbnail: '',
     event: {
       all_day: allDay,
       start_date: startDate,
@@ -28,8 +27,10 @@ describe('events', () => {
     },
     location: {
       address: 'Wertachstr. 29',
-      town: 'Augsburg'
-    }
+      town: 'Augsburg',
+      postcode: '86353'
+    },
+    modified_gmt: '2017-01-09'
   })
 
   const createEventModel = (id, allDay, startDate: Moment, endDate: Moment) => new EventModel({
@@ -78,40 +79,15 @@ describe('events', () => {
     event4
   ]
 
-  describe('should map fetched data to models', () => {
-    it('if one event has already passed', () => {
-      const clock = lolex.install({now: Date.parse('2016-01-31')})
-      const eventsModels = events.mapResponse(json, params)
+  it('should map fetched data to models', () => {
+    const eventsModels = events.mapResponse(json, params)
 
-      expect(eventsModels).toEqual([
-        eventModel1,
-        eventModel3,
-        eventModel4
-      ])
-
-      clock.uninstall()
-    })
-    it('if no event has passed', () => {
-      const clock = lolex.install({now: Date.parse('2015-11-29')})
-      const eventsModels = events.mapResponse(json, params)
-
-      const value = [
-        eventModel2,
-        eventModel1,
-        eventModel3,
-        eventModel4
-      ]
-      expect(eventsModels).toEqual(value)
-      clock.uninstall()
-    })
-    it('while one event is currently happening', () => {
-      const clock = lolex.install({now: Date.parse('2018-03-08')})
-      const eventsModels = events.mapResponse(json, params)
-
-      expect(eventsModels).toEqual([
-        eventModel4
-      ])
-      clock.uninstall()
-    })
+    const value = [
+      eventModel2,
+      eventModel1,
+      eventModel3,
+      eventModel4
+    ]
+    expect(eventsModels).toEqual(value)
   })
 })
