@@ -10,6 +10,8 @@ import { SEARCH_ROUTE } from '../routes/search'
 import getLanguageChangePath from '../getLanguageChangePath'
 import EventModel from '../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
+import { WOHNEN_ROUTE } from '../routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
 import PoiModel from '../../endpoint/models/PoiModel'
 import { POIS_ROUTE } from '../routes/pois'
 import LocationModel from '../../endpoint/models/LocationModel'
@@ -166,6 +168,28 @@ describe('getLanguageChangePath', () => {
 
     expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/search')
+  })
+
+  it('should return the wohnen path', () => {
+    const location = {
+      pathname: '/augsburg/en/extras/wohnen',
+      type: WOHNEN_ROUTE,
+      payload: {city, language}
+    }
+
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
+      .toBe('/augsburg/de/extras/wohnen')
+  })
+
+  it('should return the sprungbrett path', () => {
+    const location = {
+      pathname: '/augsburg/en/extras/sprungbrett',
+      type: SPRUNGBRETT_ROUTE,
+      payload: {city, language}
+    }
+
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
+      .toBe('/augsburg/de/extras/sprungbrett')
   })
 
   it('should return the categories path if it is the root category', () => {
