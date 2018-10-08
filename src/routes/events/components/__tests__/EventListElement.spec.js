@@ -32,13 +32,12 @@ describe('EventListElement', () => {
     thumbnail: 'thumbnail'
   })
 
-  const city = 'augsburg'
   const language = 'en'
   const noop = () => {}
 
   it('should render', () => {
     expect(shallow(
-      <EventListElement event={event} city={city} language={language} onInternalLinkClick={noop} />
+      <EventListElement event={event} language={language} onInternalLinkClick={noop} />
     )).toMatchSnapshot()
   })
 })

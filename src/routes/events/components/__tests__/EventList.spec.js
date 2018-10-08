@@ -76,17 +76,17 @@ describe('EventList', () => {
     })
   ]
 
-  const city = 'augsburg'
-
   const language = 'en'
 
   it('should render a list of events', () => {
-    expect(shallow(<EventList events={events} language={language} city={city}
-                              onInternalLinkClick={() => {}} />).dive()).toMatchSnapshot()
+    expect(shallow(
+      <EventList events={events} language={language} onInternalLinkClick={() => {}} />
+    ).dive()).toMatchSnapshot()
   })
 
   it('should render no events', () => {
-    expect(shallow(<EventList events={[]} language={language} city={city}
-                              onInternalLinkClick={() => {}} />).dive()).toMatchSnapshot()
+    expect(shallow(
+      <EventList events={[]} language={language} onInternalLinkClick={() => {}} />
+    ).dive()).toMatchSnapshot()
   })
 })
