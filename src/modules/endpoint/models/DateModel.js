@@ -1,23 +1,23 @@
 // @flow
 
-import moment from 'moment'
+import type Moment from 'moment'
 
 class DateModel {
-  _startDate: moment
-  _endDate: moment
+  _startDate: Moment
+  _endDate: Moment
   _allDay: boolean
 
-  constructor ({startDate, endDate, allDay}: {|startDate: moment, endDate: moment, allDay: boolean|}) {
+  constructor ({startDate, endDate, allDay}: {|startDate: Moment, endDate: Moment, allDay: boolean|}) {
     this._allDay = allDay
     this._startDate = startDate
     this._endDate = endDate
   }
 
-  get startDate (): moment {
+  get startDate (): Moment {
     return this._startDate
   }
 
-  get endDate (): moment {
+  get endDate (): Moment {
     return this._endDate
   }
 

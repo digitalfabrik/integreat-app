@@ -1,37 +1,26 @@
 // @flow
 
-import DateModel from './DateModel'
-import LocationModel from './LocationModel'
-import moment from 'moment'
+import type Moment from 'moment'
 
 class PageModel {
   _id: number
   _path: string
   _title: string
   _content: string
-  _thumbnail: ?string
-  _location: ?LocationModel
-  _date: ?DateModel
+  _thumbnail: string
   _excerpt: string
-  _order: ?number
-  _parentPath: ?string
   _availableLanguages: Map<string, string>
-  _lastUpdate: moment
+  _lastUpdate: ?Moment
 
-  constructor ({id, path, title, content, parentPath, thumbnail, date, location, excerpt, lastUpdate, availableLanguages,
-    order}: {|id: number, path: string, title: string, content: string, thumbnail: ?string, date: ?DateModel,
-    parentPath: ?string, location: ?LocationModel, excerpt: string, order?: number, lastUpdate: moment,
+  constructor ({id, path, title, content, thumbnail, excerpt, lastUpdate, availableLanguages}: {|id: number,
+    path: string, title: string, content: string, thumbnail: string, excerpt: string, lastUpdate: Moment,
     availableLanguages: Map<string, string>|}) {
     this._id = id
     this._path = path
     this._title = title
     this._content = content
     this._thumbnail = thumbnail
-    this._date = date
-    this._location = location
-    this._parentPath = parentPath
     this._excerpt = excerpt
-    this._order = order
     this._lastUpdate = lastUpdate
     this._availableLanguages = availableLanguages
   }
@@ -44,15 +33,11 @@ class PageModel {
     return this._path
   }
 
-  get parentPath (): ?string {
-    return this._parentPath
-  }
-
   get title (): string {
     return this._title
   }
 
-  get thumbnail (): ?string {
+  get thumbnail (): string {
     return this._thumbnail
   }
 
@@ -60,23 +45,11 @@ class PageModel {
     return this._content
   }
 
-  get date (): ?DateModel {
-    return this._date
-  }
-
-  get location (): ?LocationModel {
-    return this._location
-  }
-
   get excerpt (): string {
     return this._excerpt
   }
 
-  get order (): ?number {
-    return this._order
-  }
-
-  get lastUpdate (): moment {
+  get lastUpdate (): ?Moment {
     return this._lastUpdate
   }
 
