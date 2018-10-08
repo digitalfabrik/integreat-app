@@ -12,6 +12,8 @@ import EventModel from '../../endpoint/models/EventModel'
 import moment from 'moment'
 import { WOHNEN_ROUTE } from '../routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
+import PoiModel from '../../endpoint/models/PoiModel'
+import { POIS_ROUTE } from '../routes/pois'
 
 describe('getLanguageChangePath', () => {
   const city = 'augsburg'
@@ -46,16 +48,56 @@ describe('getLanguageChangePath', () => {
     })
   ]
 
+  const pois = [
+    new PoiModel({
+      id: 493,
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer',
+      title: 'Cafe Tür an Tür',
+      content: 'Leckeres Essen!',
+      thumbnail: 'Random thumbnail',
+      address: 'Wertachstraße 29',
+      town: 'Augsburg',
+      excerpt: 'Random excerpt',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer']]),
+      postcode: '86153',
+      latitude: '48,3782461',
+      longitude: '10,8881861',
+      lastUpdate: moment('2099-01-07 10:36:24')
+    })
+  ]
+
   const categories = new CategoriesMapModel(categoryModels)
+
+  it('should return the path of a single poi if there is an poi is selected', () => {
+    const location = {
+      pathname: '/augsburg/en/locations/cafe-tuer-an-tuer',
+      type: POIS_ROUTE,
+      payload: {city, language, poiId: 'cafe-tuer-an-tuer'}
+    }
+
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
+      .toBe('/augsburg/de/locations/cafe-tuer-an-tuer')
+  })
+
+  it('should return the pois path', () => {
+    const location = {
+      pathname: '/augsburg/en/locations',
+      type: POIS_ROUTE,
+      payload: {city, language}
+    }
+
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
+      .toBe('/augsburg/de/locations')
+  })
 
   it('should return the path of a single event if there is an event is selected', () => {
     const location = {
-      pathname: '/augsburg/en/events/1234',
+      pathname: '/augsburg/en/events',
       type: EVENTS_ROUTE,
       payload: {city, language, eventId: 1234}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/events/1')
   })
 
@@ -66,7 +108,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/events')
   })
 
@@ -77,7 +119,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language, extraAlias: 'sprungbrett'}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/extras/sprungbrett')
   })
 
@@ -88,7 +130,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/extras')
   })
 
@@ -99,7 +141,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/disclaimer')
   })
 
@@ -110,7 +152,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/search')
   })
 
@@ -143,7 +185,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de')
   })
 
@@ -154,7 +196,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/willkommen')
   })
 
@@ -179,7 +221,7 @@ describe('getLanguageChangePath', () => {
     }
 
     expect(getLanguageChangePath(
-      {location, categories: categoriesWithoutAvailableLanguages, events, languageCode: 'de'})
+      {location, categories: categoriesWithoutAvailableLanguages, events, pois, languageCode: 'de'})
     ).toBeNull()
   })
 })

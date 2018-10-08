@@ -17,12 +17,14 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'
+import PoiModel from '../../endpoint/models/PoiModel'
 
 type PropsType = {|
   languages: Array<LanguageModel>,
   location: Location,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
+  pois: Array<PoiModel>,
   isHeaderActionItem: boolean,
   t: TFunction
 |}
@@ -32,7 +34,10 @@ type PropsType = {|
  */
 export class LanguageSelector extends React.Component<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
-    const {categories, events, location, languages} = this.props
+    const {categories, events, pois, location, languages} = this.props
+    const activeItemCode = location.payload.language
+    const pathname = location.pathname
+
     return (
       languages &&
       languages.map(language => {
@@ -40,13 +45,14 @@ export class LanguageSelector extends React.Component<PropsType> {
           categories,
           events,
           location,
+          pois,
           languageCode: language.code
         })
 
         return new SelectorItemModel({
           code: language.code,
           name: language.name,
-          href: changePath
+          href: language.code !== activeItemCode ? changePath : pathname
         })
       })
     )
@@ -76,7 +82,8 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location,
   languages: state.languages.data,
   categories: state.categories.data,
-  events: state.events.data
+  events: state.events.data,
+  pois: state.pois.data
 })
 
 export default compose(connect(mapStateToProps), translate('layout'))(
