@@ -10,6 +10,7 @@ jest.unmock('../events')
 describe('events', () => {
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime) => ({
     id,
+    path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylploitischer Frühschoppen',
     excerpt: 'Am Sonntag...',
     content: '<p>Am Sonntag...</p>',
@@ -30,6 +31,7 @@ describe('events', () => {
 
   const createEventModel = (id, allDay, startDate: Moment, endDate: Moment) => new EventModel({
     id,
+    path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylploitischer Frühschoppen',
     excerpt: 'Am Sonntag...',
     content: '<p>Am Sonntag...</p>',

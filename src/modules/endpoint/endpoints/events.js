@@ -5,58 +5,11 @@ import { apiUrl } from '../constants'
 import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
+import type { JsonEventType } from '../types'
+import { compose } from 'lodash/fp'
+import normalizePath from 'normalize-path'
 
 const EVENTS_ENDPOINT_NAME = 'events'
-
-type JsonEventInfoType = {
-  id: number,
-  start_date: string,
-  end_date: string,
-  all_day: boolean,
-  start_time: string,
-  end_time: string,
-  recurrence_id: ?string
-}
-
-type JsonLocationType = {
-  id: number,
-  name: string,
-  address: string,
-  town: string,
-  state: ?string,
-  postcode: ?string,
-  region: ?string,
-  country: string,
-  latitude: ?string,
-  longitude: ?string
-}
-
-type JsonPathType = {
-  id: number,
-  url: ?string,
-  path: ?string
-}
-
-type JsonLanguageType = {
-  [string]: JsonPathType
-}
-
-type JsonEventType = {
-  id: number,
-  url: string,
-  path: string,
-  title: string,
-  modified_gmt: string,
-  excerpt: string,
-  content: string,
-  parent: JsonPathType,
-  order: number,
-  available_languages: JsonLanguageType,
-  thumbnail: string,
-  event: JsonEventInfoType,
-  location: JsonLocationType,
-  hash: string
-}
 
 type ParamsType = {
   city: ?string,
@@ -76,11 +29,13 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   .withMapper((json: Array<JsonEventType>) => json
     .map((event: JsonEventType) => {
       const allDay = event.event.all_day !== '0'
+      const normalize = compose([decodeURIComponent, normalizePath])
       const availableLanguages = new Map()
       Object.keys(event.available_languages)
-        .forEach(language => availableLanguages.set(language, event.available_languages[language].id))
+        .forEach(language => availableLanguages.set(language, normalize(event.available_languages[language].path)))
       return new EventModel({
         id: event.id,
+        path: normalize(event.path),
         title: event.title,
         content: event.content,
         thumbnail: event.thumbnail,

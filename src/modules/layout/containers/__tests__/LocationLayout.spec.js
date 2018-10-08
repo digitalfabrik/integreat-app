@@ -63,9 +63,11 @@ describe('LocationLayout', () => {
   ]
   const events = [
     new EventModel({
-      id: 1234,
+      id: 1,
+      path: '/augsburg/en/events/first_event',
       title: 'first Event',
-      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
       startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
       endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
       allDay: true,

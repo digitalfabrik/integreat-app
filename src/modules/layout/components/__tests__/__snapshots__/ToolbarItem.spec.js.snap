@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToolbarItem should render 1`] = `
-<ToolbarItem__StyledToolbarItem
+<StyledToolbarItem
   data-tip="Click here!"
   href="http://example.com"
 >
@@ -34,5 +34,5 @@ exports[`ToolbarItem should render 1`] = `
     symbol={false}
     transform={null}
   />
-</ToolbarItem__StyledToolbarItem>
+</StyledToolbarItem>
 `;

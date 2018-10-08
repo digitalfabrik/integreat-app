@@ -6,13 +6,11 @@ describe('events route', () => {
   it('should create the right action', () => {
     const city = 'augsburg'
     const language = 'de'
-    const eventId = 1234
-    expect(goToEvents(city, language, eventId)).toEqual({
+    expect(goToEvents(city, language)).toEqual({
       type: EVENTS_ROUTE,
       payload: {
         city,
-        language,
-        eventId
+        language
       }
     })
   })
