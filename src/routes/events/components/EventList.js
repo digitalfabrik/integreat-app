@@ -13,7 +13,6 @@ import styled from 'styled-components'
 
 type PropsType = {|
   events: Array<EventModel>,
-  city: string,
   language: string,
   t: TFunction,
   onInternalLinkClick: string => void
@@ -34,7 +33,7 @@ const List = styled.div`
  */
 class EventList extends React.Component<PropsType> {
   render () {
-    const {t, city, language, events, onInternalLinkClick} = this.props
+    const {t, language, events, onInternalLinkClick} = this.props
 
     if (isEmpty(events)) {
       return (
@@ -51,7 +50,6 @@ class EventList extends React.Component<PropsType> {
         <List>
           {events.map(event => <EventListElement key={event.path}
                                                  event={event}
-                                                 city={city}
                                                  language={language}
                                                  onInternalLinkClick={onInternalLinkClick} />)}
         </List>
