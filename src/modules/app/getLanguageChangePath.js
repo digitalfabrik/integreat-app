@@ -9,6 +9,8 @@ import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
 import EventModel from '../endpoint/models/EventModel'
 
 import type { Location } from 'redux-first-router'
+import { getWohnenExtraPath, WOHNEN_ROUTE } from './routes/wohnen'
+import { getSprungbrettExtraPath, SPRUNGBRETT_ROUTE } from './routes/sprungbrett'
 import { getPoisPath, POIS_ROUTE } from './routes/pois'
 import PoiModel from '../endpoint/models/PoiModel'
 
@@ -34,7 +36,7 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
           if (path) {
             return path
           } else if (language === languageCode) {
-            return location.pathname
+            return pathname
           } else {
             return null
           }
@@ -65,6 +67,10 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
       return getDisclaimerPath(city, languageCode)
     case SEARCH_ROUTE:
       return getSearchPath(city, languageCode)
+    case WOHNEN_ROUTE:
+      return getWohnenExtraPath(city, languageCode)
+    case SPRUNGBRETT_ROUTE:
+      return getSprungbrettExtraPath(city, languageCode)
     default:
       return null
   }
