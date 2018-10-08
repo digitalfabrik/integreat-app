@@ -14,6 +14,7 @@ describe('categories', () => {
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
+      excerpt: 'excerpt',
       parent: {id: 0, path: null, url: null},
       order: 75,
       available_languages: {
@@ -27,6 +28,7 @@ describe('categories', () => {
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
+      excerpt: 'excerpt',
       parent: {id: 0, path: null, url: null},
       order: 11,
       available_languages: {
@@ -43,6 +45,7 @@ describe('categories', () => {
     title: 'نقشه شهر',
     modified_gmt: '2016-01-07 10:36:24',
     content: '',
+    excerpt: 'excerpt',
     parent: {
       id: 4827,
       url: 'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-' +
@@ -93,8 +96,8 @@ describe('categories', () => {
     order: -1,
     thumbnail: '',
     parentPath: '',
-    excerpt: 'excerpt',
-    lastUpdate: moment('2017-01-09')
+    excerpt: '',
+    lastUpdate: moment(0)
   })]
 
   const params = {language: 'de', city: 'augsburg'}

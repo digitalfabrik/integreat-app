@@ -61,7 +61,7 @@ describe('getLanguageChangePath', () => {
   const pois = [
     new PoiModel({
       id: 493,
-      path: '/augsburg/en/locations/cafe-tuer-an-tuer/',
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer',
       title: 'Cafe Tür an Tür',
       content: 'Leckeres Essen!',
       thumbnail: 'Random thumbnail',
@@ -73,14 +73,14 @@ describe('getLanguageChangePath', () => {
         longitude: '10,8881861'
       }),
       excerpt: 'Random excerpt',
-      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer/']]),
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer']]),
       lastUpdate: moment('2099-01-07 10:36:24')
     })
   ]
 
   const categories = new CategoriesMapModel(categoryModels)
 
-  it('should return the path of a single poi if there is an poi is selected', () => {
+  it('should return the path of a single poi if there is a poi selected', () => {
     const location = {
       pathname: '/augsburg/en/locations/cafe-tuer-an-tuer',
       type: POIS_ROUTE,
@@ -102,7 +102,7 @@ describe('getLanguageChangePath', () => {
       .toBe('/augsburg/de/locations')
   })
 
-  it('should return the path of a single event if there is an event is selected', () => {
+  it('should return the path of a single event if there is an event selected', () => {
     const location = {
       pathname: '/augsburg/en/events/first_event',
       type: EVENTS_ROUTE,

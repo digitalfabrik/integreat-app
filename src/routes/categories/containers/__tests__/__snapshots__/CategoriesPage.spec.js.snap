@@ -61,6 +61,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
               "fa" => "397",
             },
             "_content": "some content",
+            "_excerpt": "excerpt",
             "_id": 35,
             "_lastUpdate": "2017-11-18T19:30:00.000Z",
             "_order": 1,
