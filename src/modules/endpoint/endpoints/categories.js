@@ -20,10 +20,10 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     const basePath = `/${params.city}/${params.language}`
     const categories = mapPages(json, basePath).map(page => {
       const {order, parentPath, date, location, ...pageProps} = page
-      if (!order) {
-        throw new Error('A location is required to create an CategoryModel')
+      if (!order && order !== 0) {
+        throw new Error(`The order of ${pageProps.path} is missing`)
       } else if (!parentPath) {
-        throw new Error('A parentPath is required to create an CategoryModel')
+        throw new Error(`The parentPath of ${pageProps.path} is missing`)
       }
       return new CategoryModel({order, parentPath, ...pageProps})
     })
