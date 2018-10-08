@@ -20,6 +20,8 @@ import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../../app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
+import DateModel from '../../../endpoint/models/DateModel'
+import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -35,7 +37,8 @@ describe('LocationLayout', () => {
       parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
+      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      excerpt: 'excerpt'
     })
   ])
   const disclaimer = new DisclaimerModel({
@@ -68,15 +71,22 @@ describe('LocationLayout', () => {
       title: 'first Event',
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
-      content: 'content',
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
       excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
-    })]
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      content: 'content',
+      thumbnail: 'thumbnail'
+    })
+  ]
 
   const cities = [new CityModel({
     name: 'Mambo No. 5',

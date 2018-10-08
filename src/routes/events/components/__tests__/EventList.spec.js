@@ -6,6 +6,8 @@ import moment from 'moment-timezone'
 
 import EventModel from 'modules/endpoint/models/EventModel'
 import EventList from '../EventList'
+import DateModel from '../../../../modules/endpoint/models/DateModel'
+import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 
 describe('EventList', () => {
   const events = [
@@ -15,14 +17,20 @@ describe('EventList', () => {
       title: 'first Event',
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
-      content: 'content',
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
       excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      content: 'content',
+      thumbnail: 'thumbnail'
     }),
     new EventModel({
       id: 2,
@@ -30,14 +38,20 @@ describe('EventList', () => {
       title: 'second Event',
       availableLanguages: new Map(
         [['en', '/augsburg/de/events/zwotes_event'], ['ar', '/augsburg/ar/events/zwotes_event']]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
       content: 'content',
       excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumbnail'
     }),
     new EventModel({
       id: 3,
@@ -45,14 +59,20 @@ describe('EventList', () => {
       title: 'third Event',
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/drittes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
       content: 'content',
       excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumbnail'
     })
   ]
 
