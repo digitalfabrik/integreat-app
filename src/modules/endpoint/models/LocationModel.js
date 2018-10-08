@@ -8,7 +8,7 @@ class LocationModel {
   _longitude: ?string
 
   constructor ({address, town, postcode, latitude, longitude}: {|address: string, town: string, postcode: ?string,
-    latitude: ?string, longitude: ?string|}) {
+    latitude?: ?string, longitude?: ?string|}) {
     this._address = address
     this._town = town
     this._postcode = postcode
