@@ -4,6 +4,7 @@ import moment from 'moment'
 import { shallow } from 'enzyme'
 import TimeSpan from '../TimeSpan'
 import React from 'react'
+import DateModel from '../../../../modules/endpoint/models/DateModel'
 
 describe('TimeSpan', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
@@ -13,9 +14,10 @@ describe('TimeSpan', () => {
     const startDate = moment('2017-11-27 19:30:00')
     const endDate = moment('2017-11-27 21:30:00')
     const allDay = false
+    const date = new DateModel({startDate, endDate, allDay})
 
     const wrapper = shallow(
-      <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+      <TimeSpan date={date} locale={locale} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -25,9 +27,10 @@ describe('TimeSpan', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('2017-11-28 21:30:00')
       const allDay = false
+      const date = new DateModel({startDate, endDate, allDay})
 
       const timeSpan = shallow(
-        <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+        <TimeSpan date={date} locale={locale} />
       ).instance()
 
       expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
@@ -37,9 +40,10 @@ describe('TimeSpan', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('2017-11-27 21:30:00')
       const allDay = false
+      const date = new DateModel({startDate, endDate, allDay})
 
       const timeSpan = shallow(
-        <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+        <TimeSpan date={date} locale={locale} />
       ).instance()
 
       expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
@@ -49,9 +53,10 @@ describe('TimeSpan', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('2017-11-27 19:30:00')
       const allDay = false
+      const date = new DateModel({startDate, endDate, allDay})
 
       const timeSpan = shallow(
-        <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+        <TimeSpan date={date} locale={locale} />
       ).instance()
 
       expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
@@ -61,9 +66,10 @@ describe('TimeSpan', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('2017-11-28 21:30:00')
       const allDay = true
+      const date = new DateModel({startDate, endDate, allDay})
 
       const timeSpan = shallow(
-        <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+        <TimeSpan date={date} locale={locale} />
       ).instance()
 
       expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
@@ -73,9 +79,10 @@ describe('TimeSpan', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('2017-11-27 21:30:00')
       const allDay = true
+      const date = new DateModel({startDate, endDate, allDay})
 
       const timeSpan = shallow(
-        <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+        <TimeSpan date={date} locale={locale} />
       ).instance()
 
       expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
@@ -85,9 +92,10 @@ describe('TimeSpan', () => {
       const startDate = moment('2017-11-27 19:30:00')
       const endDate = moment('')
       const allDay = false
+      const date = new DateModel({startDate, endDate, allDay})
 
       const timeSpan = shallow(
-        <TimeSpan startDate={startDate} endDate={endDate} allDay={allDay} locale={locale} />
+        <TimeSpan date={date} locale={locale} />
       ).instance()
 
       expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()

@@ -19,7 +19,8 @@ describe('CategoriesMapModel', () => {
         '/augsburg/ar/erste-schritte/خريطة-المدينة'
       ]
     ]),
-    lastUpdate: moment('2016-01-07 10:36:24')
+    lastUpdate: moment('2016-01-07 10:36:24'),
+    excerpt: 'excerpt'
   })
 
   const categories = [
@@ -32,7 +33,8 @@ describe('CategoriesMapModel', () => {
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
       order: 0,
-      thumbnail: 'thumb-nail'
+      thumbnail: 'thumb-nail',
+      excerpt: 'excerpt'
     }),
     new CategoryModel({
       id: 20,
@@ -43,7 +45,8 @@ describe('CategoriesMapModel', () => {
       availableLanguages: new Map(),
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumb-nail'
+      thumbnail: 'thumb-nail',
+      excerpt: 'excerpt'
     }),
     new CategoryModel({
       id: 21,
@@ -54,7 +57,8 @@ describe('CategoriesMapModel', () => {
       availableLanguages: new Map(),
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumb-nail'
+      thumbnail: 'thumb-nail',
+      excerpt: 'excerpt'
     }),
     new CategoryModel({
       id: 22,
@@ -65,7 +69,8 @@ describe('CategoriesMapModel', () => {
       availableLanguages: new Map(),
       content: 'exampleContent0',
       lastUpdate: moment('2016-01-07 10:36:24'),
-      thumbnail: 'thumb-nail'
+      thumbnail: 'thumb-nail',
+      excerpt: 'excerpt'
     })
   ]
 

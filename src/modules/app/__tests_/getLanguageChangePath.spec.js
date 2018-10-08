@@ -12,6 +12,8 @@ import EventModel from '../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 import PoiModel from '../../endpoint/models/PoiModel'
 import { POIS_ROUTE } from '../routes/pois'
+import LocationModel from '../../endpoint/models/LocationModel'
+import DateModel from '../../endpoint/models/DateModel'
 
 describe('getLanguageChangePath', () => {
   const city = 'augsburg'
@@ -24,14 +26,20 @@ describe('getLanguageChangePath', () => {
       title: 'first Event',
       availableLanguages: new Map(
         [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: '11111'
+      }),
       content: 'content',
       excerpt: 'excerpt',
       thumbnail: 'thumbnail',
-      town: 'town'
+      lastUpdate: moment('2099-01-07 10:36:24')
     })
   ]
 
@@ -45,24 +53,27 @@ describe('getLanguageChangePath', () => {
       order: 75,
       lastUpdate: moment('2099-01-07 10:36:24'),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+      excerpt: 'excerpt'
     })
   ]
 
   const pois = [
     new PoiModel({
       id: 493,
-      path: '/augsburg/en/locations/cafe-tuer-an-tuer',
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer/',
       title: 'Cafe Tür an Tür',
       content: 'Leckeres Essen!',
       thumbnail: 'Random thumbnail',
-      address: 'Wertachstraße 29',
-      town: 'Augsburg',
+      location: new LocationModel({
+        address: 'Wertachstraße 29',
+        town: 'Augsburg',
+        postcode: '86153',
+        latitude: '48,3782461',
+        longitude: '10,8881861'
+      }),
       excerpt: 'Random excerpt',
-      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer']]),
-      postcode: '86153',
-      latitude: '48,3782461',
-      longitude: '10,8881861',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer/']]),
       lastUpdate: moment('2099-01-07 10:36:24')
     })
   ]
@@ -190,7 +201,8 @@ describe('getLanguageChangePath', () => {
         order: 75,
         availableLanguages: new Map(),
         lastUpdate: moment(0),
-        thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
+        thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+        excerpt: 'Random excerpt'
       })])
 
     const location = {
