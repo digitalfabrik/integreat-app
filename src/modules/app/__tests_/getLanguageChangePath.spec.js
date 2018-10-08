@@ -163,7 +163,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/extras/wohnen')
   })
 
@@ -174,7 +174,7 @@ describe('getLanguageChangePath', () => {
       payload: {city, language}
     }
 
-    expect(getLanguageChangePath({location, categories, events, languageCode: 'de'}))
+    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
       .toBe('/augsburg/de/extras/sprungbrett')
   })
 
