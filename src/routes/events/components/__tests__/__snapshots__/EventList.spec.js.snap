@@ -7,7 +7,6 @@ exports[`EventList should render a list of events 1`] = `
   />
   <EventList__List>
     <EventListElement
-      city="augsburg"
       event={
         EventModel {
           "_address": "address",
@@ -32,7 +31,6 @@ exports[`EventList should render a list of events 1`] = `
       onInternalLinkClick={[Function]}
     />
     <EventListElement
-      city="augsburg"
       event={
         EventModel {
           "_address": "address",
@@ -57,7 +55,6 @@ exports[`EventList should render a list of events 1`] = `
       onInternalLinkClick={[Function]}
     />
     <EventListElement
-      city="augsburg"
       event={
         EventModel {
           "_address": "address",

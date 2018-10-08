@@ -37,7 +37,6 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
     title="pageTitle - Augsburg"
   />
   <Translate(EventList)
-    city="augsburg"
     events={
       Array [
         EventModel {
