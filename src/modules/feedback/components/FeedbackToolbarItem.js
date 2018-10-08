@@ -8,7 +8,7 @@ import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 
 import ReactTooltip from 'react-tooltip'
 import { NEGATIVE_RATING, POSITIVE_RATING } from '../../../modules/endpoint/FeedbackEndpoint'
-import StyledToolbarItem from 'modules/layout/components/StyledToolbarItem'
+import StyledToolbarItem from '../../../modules/layout/components/StyledToolbarItem'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 
 type PropsType = {|

@@ -11,6 +11,7 @@ import SprungbrettJobModel from '../endpoint/models/SprungbrettJobModel'
 import WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
 import type { LocationState } from 'redux-first-router'
 import PoiModel from '../endpoint/models/PoiModel'
+import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 
