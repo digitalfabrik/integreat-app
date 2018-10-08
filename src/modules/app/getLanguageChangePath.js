@@ -3,7 +3,7 @@
 import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
 import { EXTRAS_ROUTE, getExtraPath } from './routes/extras'
 import { DISCLAIMER_ROUTE, getDisclaimerPath } from './routes/disclaimer'
-import { EVENTS_ROUTE, getEventPath } from './routes/events'
+import { EVENTS_ROUTE, getEventsPath } from './routes/events'
 import { getSearchPath, SEARCH_ROUTE } from './routes/search'
 import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
 import EventModel from '../endpoint/models/EventModel'
@@ -45,17 +45,13 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
       return getCategoryPath(city, languageCode)
     case EVENTS_ROUTE:
       if (events && eventId) {
-        const event = events.find(_event => _event.id === eventId)
-        if (event) {
-          const eventId = event.availableLanguages.get(languageCode)
-          if (!eventId) {
-            return null
-          }
-
-          return getEventPath(city, languageCode, eventId)
+        const event = events.find(_event => _event.path === pathname)
+        if (!event) {
+          return null
         }
+        return event.availableLanguages.get(languageCode) || null
       }
-      return getEventPath(city, languageCode)
+      return getEventsPath(city, languageCode)
     case POIS_ROUTE:
       if (pois && poiId) {
         const poi = pois.find(_poi => _poi.path === pathname)

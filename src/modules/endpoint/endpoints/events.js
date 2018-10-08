@@ -6,6 +6,8 @@ import EventModel from '../models/EventModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import type { JsonEventType } from '../types'
+import { compose } from 'lodash/fp'
+import normalizePath from 'normalize-path'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
@@ -27,11 +29,13 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   .withMapper((json: Array<JsonEventType>) => json
     .map((event: JsonEventType) => {
       const allDay = event.event.all_day !== '0'
+      const normalize = compose([decodeURIComponent, normalizePath])
       const availableLanguages = new Map()
       Object.keys(event.available_languages)
-        .forEach(language => availableLanguages.set(language, event.available_languages[language].id))
+        .forEach(language => availableLanguages.set(language, normalize(event.available_languages[language].path)))
       return new EventModel({
         id: event.id,
+        path: normalize(event.path),
         title: event.title,
         content: event.content,
         thumbnail: event.thumbnail,

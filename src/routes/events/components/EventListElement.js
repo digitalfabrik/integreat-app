@@ -8,18 +8,10 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from 'modules/common/components/RemoteContent'
 import TimeSpan from './TimeSpan'
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import { goToEvents } from '../../../modules/app/routes/events'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
 
 const EXCERPT_LENGTH = 70
-
-type PropsType = {|
-  event: EventModel,
-  city: string,
-  language: string,
-  onInternalLinkClick: string => void
-|}
 
 const EventLink = styled(CleanLink)`
   display: flex;
@@ -51,6 +43,12 @@ const EventDate = styled.div`
   padding-bottom: 10px;
 `
 
+type PropsType = {|
+  event: EventModel,
+  language: string,
+  onInternalLinkClick: string => void
+|}
+
 /**
  * Display a element of the EventList
  */
@@ -65,9 +63,9 @@ class EventListElement extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, language, event, onInternalLinkClick} = this.props
+    const {language, event, onInternalLinkClick} = this.props
     return (
-      <EventLink to={goToEvents(city, language, event.id)}>
+      <EventLink to={event.path}>
         <EventThumbnail src={event.thumbnail || this.getEventPlaceholder()} />
         <EventDescription>
           <EventTitle>{event.title}</EventTitle>

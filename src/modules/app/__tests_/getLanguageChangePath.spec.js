@@ -9,7 +9,7 @@ import CategoryModel from '../../endpoint/models/CategoryModel'
 import { SEARCH_ROUTE } from '../routes/search'
 import getLanguageChangePath from '../getLanguageChangePath'
 import EventModel from '../../endpoint/models/EventModel'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { WOHNEN_ROUTE } from '../routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
 import PoiModel from '../../endpoint/models/PoiModel'
@@ -21,18 +21,21 @@ describe('getLanguageChangePath', () => {
 
   const events = [
     new EventModel({
-      id: 1234,
-      title: 'nulltes Event',
-      address: 'Adresse 0',
-      allDay: false,
-      startDate: moment('2099-01-07 10:36:24'),
-      endDate: moment('2099-01-07 10:36:24'),
-      content: 'Huiiii',
-      excerpt: 'Buuuuh',
-      thumbnail: 'Ich hab deine Nase!',
-      town: 'Schloss Burgeck',
-      availableLanguages: new Map([['de', 1], ['en', 2]])
-    })]
+      id: 1,
+      path: '/augsburg/en/events/first_event',
+      title: 'first Event',
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      allDay: true,
+      address: 'address',
+      content: 'content',
+      excerpt: 'excerpt',
+      thumbnail: 'thumbnail',
+      town: 'town'
+    })
+  ]
 
   const categoryModels = [
     new CategoryModel({
@@ -92,18 +95,18 @@ describe('getLanguageChangePath', () => {
 
   it('should return the path of a single event if there is an event is selected', () => {
     const location = {
-      pathname: '/augsburg/en/events',
+      pathname: '/augsburg/en/events/first_event',
       type: EVENTS_ROUTE,
-      payload: {city, language, eventId: 1234}
+      payload: {city, language, eventId: 'first_event'}
     }
 
     expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
-      .toBe('/augsburg/de/events/1')
+      .toBe('/augsburg/de/events/erstes_event')
   })
 
   it('should return the events path', () => {
     const location = {
-      pathname: '/augsburg/en/events/1234',
+      pathname: '/augsburg/en/events',
       type: EVENTS_ROUTE,
       payload: {city, language}
     }
