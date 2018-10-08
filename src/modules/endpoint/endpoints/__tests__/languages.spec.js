@@ -2,7 +2,6 @@
 
 import languages from '../languages'
 import LanguageModel from '../../models/LanguageModel'
-import categories from '../categories'
 
 jest.unmock('modules/endpoint/endpoints/languages')
 
@@ -27,7 +26,7 @@ describe('languages', () => {
   })
 
   it('should throw if the city to map the url are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
+    expect(() => languages.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
