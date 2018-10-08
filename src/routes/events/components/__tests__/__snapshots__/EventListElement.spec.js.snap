@@ -2,16 +2,7 @@
 
 exports[`EventListElement should render 1`] = `
 <EventListElement__EventLink
-  to={
-    Object {
-      "payload": Object {
-        "city": "augsburg",
-        "eventId": 1234,
-        "language": "en",
-      },
-      "type": "EVENTS",
-    }
-  }
+  to="/augsburg/en/events/first_event"
 >
   <EventListElement__EventThumbnail
     src="thumbnail"

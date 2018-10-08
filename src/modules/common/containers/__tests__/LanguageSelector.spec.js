@@ -11,6 +11,7 @@ import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
+import PoiModel from '../../../endpoint/models/PoiModel'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
@@ -24,6 +25,7 @@ describe('LanguageSelector', () => {
   const events = [
     new EventModel({
       id: 1234,
+      path: '/augsburg/en/events/nulltes_event',
       title: 'nulltes Event',
       address: 'Adresse 0',
       allDay: false,
@@ -33,7 +35,26 @@ describe('LanguageSelector', () => {
       excerpt: 'Buuuuh',
       thumbnail: 'Ich hab deine Nase!',
       town: 'Schloss Burgeck',
-      availableLanguages: new Map([['de', 1], ['en', 2]])
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']])
+    })
+  ]
+
+  const pois = [
+    new PoiModel({
+      id: 493,
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer/',
+      title: 'Cafe Tür an Tür',
+      content: 'Leckeres Essen!',
+      thumbnail: 'Random thumbnail',
+      address: 'Wertachstraße 29',
+      town: 'Augsburg',
+      excerpt: 'Random excerpt',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer/']]),
+      postcode: '86153',
+      latitude: '48,3782461',
+      longitude: '10,8881861',
+      lastUpdate: moment('2099-01-07 10:36:24')
     })
   ]
 
@@ -64,6 +85,7 @@ describe('LanguageSelector', () => {
                         events={events}
                         languages={languages}
                         location={location}
+                        pois={pois}
                         isHeaderActionItem
                         t={key => key || 'null'} />
     )
@@ -82,6 +104,7 @@ describe('LanguageSelector', () => {
       <LanguageSelector categories={categories}
                         events={events}
                         languages={languages}
+                        pois={pois}
                         location={location}
                         isHeaderActionItem={false}
                         t={key => key || 'null'} />
@@ -98,6 +121,7 @@ describe('LanguageSelector', () => {
       location: location,
       languages: {data: languages},
       categories: {data: categories},
+      pois: {data: pois},
       events: {data: events}
     })
 
@@ -109,6 +133,7 @@ describe('LanguageSelector', () => {
       languages,
       location,
       events,
+      pois,
       categories,
       isHeaderActionItem: true
     })

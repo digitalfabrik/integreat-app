@@ -4,6 +4,7 @@ import moment from 'moment'
 
 class EventModel {
   _id: number
+  _path: string
   _title: string
   _content: string
   _thumbnail: ?string
@@ -13,24 +14,32 @@ class EventModel {
   _endDate: moment
   _allDay: boolean
   _excerpt: string
-  _availableLanguages: Map<string, number>
+  _availableLanguages: Map<string, string>
 
-  constructor (obj: {| id: number, title: string, content: string, thumbnail: ?string, address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string, availableLanguages: Map<string, number> |}) {
-    this._id = obj.id
-    this._title = obj.title
-    this._content = obj.content
-    this._thumbnail = obj.thumbnail
-    this._address = obj.address
-    this._town = obj.town
-    this._startDate = obj.startDate
-    this._endDate = obj.endDate
-    this._allDay = obj.allDay
-    this._excerpt = obj.excerpt
-    this._availableLanguages = obj.availableLanguages
+  constructor ({id, path, title, content, thumbnail, address, town, startDate, endDate, allDay, excerpt,
+    availableLanguages}: {|id: number, path: string, title: string, content: string, thumbnail: ?string,
+    address: string, town: string, startDate: moment, endDate: moment, allDay: boolean, excerpt: string,
+    availableLanguages: Map<string, string>|}) {
+    this._id = id
+    this._path = path
+    this._title = title
+    this._content = content
+    this._thumbnail = thumbnail
+    this._address = address
+    this._town = town
+    this._startDate = startDate
+    this._endDate = endDate
+    this._allDay = allDay
+    this._excerpt = excerpt
+    this._availableLanguages = availableLanguages
   }
 
   get id (): number {
     return this._id
+  }
+
+  get path (): string {
+    return this._path
   }
 
   get title (): string {
@@ -73,10 +82,7 @@ class EventModel {
     return this._excerpt
   }
 
-  /**
-   * Maps language codes (like 'de') to an event id (!)
-   */
-  get availableLanguages (): Map<string, number> {
+  get availableLanguages (): Map<string, string> {
     return this._availableLanguages
   }
 }

@@ -10,7 +10,7 @@ import DisclaimerModel from '../endpoint/models/DisclaimerModel'
 import SprungbrettJobModel from '../endpoint/models/SprungbrettJobModel'
 import WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
 import type { LocationState } from 'redux-first-router'
-import type { UiDirectionType } from '../i18n/types/UiDirectionType'
+import PoiModel from '../endpoint/models/PoiModel'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
 
@@ -26,5 +26,6 @@ export type StateType = {
   wohnen: Payload<Array<WohnenOfferModel>>,
   viewport: ViewportType,
   uiDirection: UiDirectionType,
-  darkMode: boolean
+  darkMode: boolean,
+  pois: Payload<Array<PoiModel>>
 }
