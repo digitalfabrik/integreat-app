@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react'
-import type Moment from 'moment'
+import DateModel from '../../../modules/endpoint/models/DateModel'
 
 type PropsType = {|
-  startDate: Moment,
-  endDate: Moment,
-  allDay: boolean,
+  date: DateModel,
   locale: string
 |}
 
@@ -17,13 +15,12 @@ class TimeSpan extends React.Component<PropsType> {
    * @return {String} The formatted span string
    */
   toTimeSpanString (locale: string): string {
-    const startDate = this.props.startDate
-    const endDate = this.props.endDate
+    const {startDate, endDate, allDay} = this.props.date
 
     startDate.locale(locale)
 
     // if allDay: only date, else: date + time
-    let span = this.props.allDay ? startDate.format('LL') : startDate.format('LLL')
+    let span = allDay ? startDate.format('LL') : startDate.format('LLL')
 
     if (endDate.isValid() && !startDate.isSame(endDate)) {
       // endDate is valid and different from startDate
@@ -33,13 +30,13 @@ class TimeSpan extends React.Component<PropsType> {
         // startDate and endDate are on the same day
 
         // if allDay: we don't need anything more, because we are on the same day, else: only time
-        span += this.props.allDay ? '' : ` - ${endDate.format('LT')}`
+        span += allDay ? '' : ` - ${endDate.format('LT')}`
       } else {
         // startDate and endDate are not on the same day
 
         span += ' - '
         // if allDay: only date, else: date + time
-        span += this.props.allDay ? endDate.format('LL') : endDate.format('LLL')
+        span += allDay ? endDate.format('LL') : endDate.format('LLL')
       }
     }
     return span

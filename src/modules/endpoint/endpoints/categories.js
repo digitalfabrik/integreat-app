@@ -1,36 +1,44 @@
 // @flow
 
+import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
+import moment from 'moment'
 import type { JsonPageType } from '../types'
 import mapPages from './mapPages'
-import PageModel from '../models/PageModel'
-import moment from 'moment'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
-type ParamsType = { city: string, language: string }
+type ParamsType = {city: string, language: string}
 
-export default new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: ParamsType): string => {
-    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
-  })
+export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: ParamsType): string =>
+    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
+  )
   .withMapper((json: Array<JsonPageType>, params: ParamsType): CategoriesMapModel => {
-    const categories = mapPages(json)
-    categories.push(new PageModel({
+    const basePath = `/${params.city}/${params.language}`
+    const categories = mapPages(json, basePath).map(page => {
+      const {order, parentPath, date, location, ...pageProps} = page
+      if (!order) {
+        throw new Error('A location is required to create an CategoryModel')
+      } else if (!parentPath) {
+        throw new Error('A parentPath is required to create an CategoryModel')
+      }
+      return new CategoryModel({order, parentPath, ...pageProps})
+    })
+
+    categories.push(new CategoryModel({
       id: 0,
-      path: `/${params.city}/${params.language}`,
+      path: basePath,
       title: params.city,
       parentPath: '',
       content: '',
-      thumbnail: null,
-      location: null,
-      date: null,
-      excerpt: '',
+      thumbnail: '',
       order: -1,
       availableLanguages: new Map(),
-      lastUpdate: moment()
+      lastUpdate: moment(),
+      excerpt: ''
     }))
 
     return new CategoriesMapModel(categories)
