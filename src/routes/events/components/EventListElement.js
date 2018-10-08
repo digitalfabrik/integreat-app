@@ -13,12 +13,6 @@ import CleanLink from '../../../modules/common/components/CleanLink'
 
 const EXCERPT_LENGTH = 70
 
-type PropsType = {|
-  event: EventModel,
-  language: string,
-  onInternalLinkClick: string => void
-|}
-
 const EventLink = styled(CleanLink)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
@@ -48,6 +42,12 @@ const EventTitle = styled.div`
 const EventDate = styled.div`
   padding-bottom: 10px;
 `
+
+type PropsType = {|
+  event: EventModel,
+  language: string,
+  onInternalLinkClick: string => void
+|}
 
 /**
  * Display a element of the EventList
