@@ -4,7 +4,7 @@ import DateModel from './DateModel'
 import LocationModel from './LocationModel'
 import moment from 'moment'
 
-class EventModel {
+class PageModel {
   _id: number
   _path: string
   _title: string
@@ -18,9 +18,9 @@ class EventModel {
   _availableLanguages: Map<string, string>
   _lastUpdate: moment
 
-  constructor ({id, path, title, content, parent, thumbnail, date, location, excerpt, lastUpdate, availableLanguages,
+  constructor ({id, path, title, content, parentPath, thumbnail, date, location, excerpt, lastUpdate, availableLanguages,
     order}: {|id: number, path: string, title: string, content: string, thumbnail: ?string, date: ?DateModel,
-    parent: ?string, location: ?LocationModel, excerpt: string, order?: number, lastUpdate: moment,
+    parentPath: ?string, location: ?LocationModel, excerpt: string, order?: number, lastUpdate: moment,
     availableLanguages: Map<string, string>|}) {
     this._id = id
     this._path = path
@@ -29,6 +29,7 @@ class EventModel {
     this._thumbnail = thumbnail
     this._date = date
     this._location = location
+    this._parentPath = parentPath
     this._excerpt = excerpt
     this._order = order
     this._lastUpdate = lastUpdate
@@ -84,4 +85,4 @@ class EventModel {
   }
 }
 
-export default EventModel
+export default PageModel

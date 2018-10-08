@@ -40,7 +40,7 @@ const mapPages = (json: Array<JsonPageType>): Array<PageModel> => json
       date: date,
       location,
       excerpt: page.excerpt,
-      parent: page.parent && page.parent.path,
+      parentPath: page.parent && normalize(page.parent.path),
       availableLanguages: availableLanguages,
       lastUpdate: moment(page.modified_gmt)
     })

@@ -102,26 +102,10 @@ describe('categories', () => {
     )
   })
 
-  it('should throw if the city to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the language to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
-  })
-
   it('should map fetched data to models', () => {
     const response = categories.mapResponse(categoriesJSON, params)
     const categoriesMapModel = new CategoriesMapModel(categoryModels)
     expect(response).toEqual(categoriesMapModel)
-  })
-
-  it('should throw if city to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if language to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should encode urls components correctly', () => {
