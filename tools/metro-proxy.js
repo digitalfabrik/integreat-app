@@ -5,7 +5,7 @@ const METRO_PORT = 8081
 
 const proxy = httpProxy.createProxyServer({
   target: {
-    host: 'max-arch',
+    host: process.argv[2],
     port: 8081
   }
 })
