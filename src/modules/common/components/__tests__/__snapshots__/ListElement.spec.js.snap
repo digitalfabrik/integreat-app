@@ -1,29 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventListElementInfo should render 1`] = `
-<EventListElement__EventLink
+exports[`ListElement should render a Link an match snapshot 1`] = `
+<ListElement__Link
   to="/augsburg/en/events/first_event"
 >
-  <EventListElement__EventThumbnail
+  <ListElement__Thumbnail
     src="thumbnail"
   />
-  <EventListElement__EventDescription>
-    <EventListElement__EventTitle>
+  <ListElement__Description>
+    <ListElement__Title>
       first Event
-    </EventListElement__EventTitle>
-    <EventListElement__EventDate>
-      November 18, 2017
-      address, postcode town
-    </EventListElement__EventDate>
-    <RemoteContent
-      centered={false}
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "excerpt...",
-        }
-      }
-      onInternLinkClick={[Function]}
-    />
-  </EventListElement__EventDescription>
-</EventListElement__EventLink>
+    </ListElement__Title>
+  </ListElement__Description>
+</ListElement__Link>
+`;
+
+exports[`ListElement should render an Anchor an match snapshot 1`] = `
+<ListElement__Anchor
+  href="/augsburg/en/events/first_event"
+>
+  <ListElement__Thumbnail
+    src="thumbnail"
+  />
+  <ListElement__Description>
+    <ListElement__Title>
+      first Event
+    </ListElement__Title>
+  </ListElement__Description>
+</ListElement__Anchor>
 `;

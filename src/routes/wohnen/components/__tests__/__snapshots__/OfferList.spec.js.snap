@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfferList should render offer list 1`] = `
+<StyledList>
+  <ListElement
+    isExternalUrl={false}
+    key="mail@mail.com"
+    path="/augsburg/language/extras/wohnen/mail@mail.com"
+    title="Test Angebot"
+  >
+    <OfferListItemInfo
+      baseRent={1000}
+      totalArea={120}
+      totalRooms={4}
+    />
+  </ListElement>
+</StyledList>
+`;
+
+exports[`OfferList should render paragraph if offers is empty 1`] = `
+<OfferList__Paragraph>
+  noOffersAvailable
+</OfferList__Paragraph>
+`;
+
+exports[`OfferList should throw if a offer is not renderable 1`] = `"Failed to render form {} because it is not supported!"`;
