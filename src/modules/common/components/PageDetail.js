@@ -6,7 +6,6 @@ import { translate } from 'react-i18next'
 import styled from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
-import TimeSpan from '../../../routes/events/components/TimeSpan'
 import DateModel from '../../endpoint/models/DateModel'
 import LocationModel from '../../endpoint/models/LocationModel'
 import type Moment from 'moment'
@@ -48,7 +47,7 @@ export class PageDetail extends React.Component<PropsType> {
       return (
         <div>
           <Identifier>{t('date')}: </Identifier>
-          <TimeSpan date={date} locale={language} />
+          <span>{date.toFormattedString(language)}</span>
         </div>
       )
     }
