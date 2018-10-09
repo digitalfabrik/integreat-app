@@ -71,14 +71,14 @@ Shake the device or press Ctrl+M to enter the menu. If you are connected though 
 run: `adb shell input keyevent 82`
 
 #### Reload the app
-You can [enter the development menu](#Enter the development menu) and click "Reload" or use adb: `adb shell input text "RR"`
+You can [enter the development menu](#enter-the-development-menu) and click "Reload" or use adb: `adb shell input text "RR"`
 
 #### Steps to get started with debugging:
 * Start react-native-debugger
 * Start the metro bundler
 * Connect a real device or run an emulator though adb (e.g. `$ANDROID_HOME/emulator/emulator -avd <avd>`)
-* Setup network connectivity from the emulator/device to the host where the bundler is running (see [here](#Gettings connectivity from device to metro))
-* [Enter the development menu](#Enter the development menu) and enable "Remote JS Debugging"
+* Setup network connectivity from the emulator/device to the host where the bundler is running (see [here](#setup-connectivity-from-device-to-metro))
+* [Enter the development menu](#enter-the-development-menu) and enable "Remote JS Debugging"
 * The app should reload now and the debugger should connect to the device
 
 #### Setup connectivity from device to metro
