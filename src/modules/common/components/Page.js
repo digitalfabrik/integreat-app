@@ -1,13 +1,14 @@
 // @flow
 
 import React from 'react'
-import Caption from 'modules/common/components/Caption'
-import RemoteContent from 'modules/common/components/RemoteContent'
+import Caption from './Caption'
+import RemoteContent from './RemoteContent'
 
 type PropsType = {|
   title: string,
   content: string,
-  onInternLinkClick: string => void
+  onInternLinkClick: string => void,
+  hijackRegExp?: RegExp
 |}
 
 class Page extends React.Component<PropsType> {
@@ -16,7 +17,7 @@ class Page extends React.Component<PropsType> {
       <div>
         <Caption title={this.props.title} />
         <RemoteContent dangerouslySetInnerHTML={{__html: this.props.content}} centered={false}
-                       onInternLinkClick={this.props.onInternLinkClick} />
+                       onInternLinkClick={this.props.onInternLinkClick} hijackRegExp={this.props.hijackRegExp} />
       </div>
     )
   }

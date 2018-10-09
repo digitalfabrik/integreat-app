@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
-import CityModel from 'modules/endpoint/models/CityModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 import CityEntry from './CityEntry'
 import withPlatform from '../../../modules/platform/hocs/withPlatform'
 import styled from 'styled-components'

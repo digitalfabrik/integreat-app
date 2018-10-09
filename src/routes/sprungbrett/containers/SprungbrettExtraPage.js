@@ -2,15 +2,15 @@
 
 import * as React from 'react'
 
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
-import Helmet from 'modules/common/containers/Helmet'
+import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
+import Helmet from '../../../modules/common/containers/Helmet'
 import Spinner from 'react-spinkit'
 import SprungbrettList from '../components/SprungbrettList'
-import type { StateType } from 'modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import CityModel from 'modules/endpoint/models/CityModel'
-import FailureSwitcher from 'modules/common/components/FailureSwitcher'
+import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 
 type PropsType = {|
   sprungbrettJobs: ?Array<SprungbrettJobModel>,

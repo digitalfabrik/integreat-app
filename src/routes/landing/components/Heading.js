@@ -4,7 +4,7 @@ import React from 'react'
 
 import LocationBig from '../assets/LocationBig.svg'
 import { translate } from 'react-i18next'
-import Caption from 'modules/common/components/Caption'
+import Caption from '../../../modules/common/components/Caption'
 import type { TFunction } from 'react-i18next'
 import styled from 'styled-components'
 

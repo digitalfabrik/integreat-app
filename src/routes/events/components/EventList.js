@@ -6,7 +6,7 @@ import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
 import EventListElement from './EventListElement'
-import Caption from 'modules/common/components/Caption'
+import Caption from '../../../modules/common/components/Caption'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
 import styled from 'styled-components'

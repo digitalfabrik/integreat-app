@@ -8,7 +8,7 @@ import { forEach, reduce } from 'lodash/collection'
 import ReactHelmet from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import localesResources from 'locales.json'
+import localesResources from '../../../locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 
