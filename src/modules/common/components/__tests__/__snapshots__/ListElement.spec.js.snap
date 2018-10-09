@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventListElement should render 1`] = `
+exports[`EventListElementInfo should render 1`] = `
 <EventListElement__EventLink
   to="/augsburg/en/events/first_event"
 >

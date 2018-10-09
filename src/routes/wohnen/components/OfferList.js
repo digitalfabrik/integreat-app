@@ -1,14 +1,16 @@
 // @flow
 
 import * as React from 'react'
-import OfferListItem from './OfferListItem'
+import OfferListItemInfo from './OfferListItemInfo'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
 import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
-import CleanLink from '../../../modules/common/components/CleanLink'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
+import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
+import ListElement from '../../../modules/common/components/ListElement'
+import StyledList from '../../../modules/common/components/StyledList'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -24,20 +26,40 @@ const Paragraph = styled.p`
 `
 
 export class OfferList extends React.Component<PropsType> {
+  renderOffer (offer: WohnenOfferModel): React.Node {
+    const {city, language} = this.props
+
+    if (offer.formData instanceof WohnenFormData) {
+      const hash = this.props.hashFunction(offer)
+      const offerPath = getWohnenExtraPath(city, language, hash)
+      const specificOffer: WohnenOfferModel = offer
+      const accommodation = specificOffer.formData.accommodation
+      const costs = specificOffer.formData.costs
+
+      return (
+        <ListElement key={hash} path={offerPath} title={accommodation.title}>
+          <OfferListItemInfo baseRent={costs.baseRent}
+                             totalRooms={accommodation.totalRooms}
+                             totalArea={accommodation.totalArea} />
+        </ListElement>
+      )
+    } else {
+      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
+    }
+  }
+
   render () {
-    const {offers, city, language, t} = this.props
+    const {offers, t} = this.props
 
     if (isEmpty(offers)) {
       return <Paragraph>{t('noOffersAvailable')}</Paragraph>
     }
 
-    return offers.map(offer => {
-      const hash = this.props.hashFunction(offer)
-      const offerPath = getWohnenExtraPath(city, language, hash)
-      return <CleanLink key={hash} to={offerPath}>
-        <OfferListItem offer={offer} />
-      </CleanLink>
-    })
+    return (
+      <StyledList>
+        {offers.map(offer => this.renderOffer(offer))}
+      </StyledList>
+    )
   }
 }
 

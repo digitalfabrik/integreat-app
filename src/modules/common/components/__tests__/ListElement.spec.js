@@ -4,10 +4,10 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
-import EventListElement from '../EventListElement'
-import EventModel from '../../../../modules/endpoint/models/EventModel'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import EventListElement from '../ListElement'
+import EventModel from '../../../endpoint/models/EventModel'
+import DateModel from '../../../endpoint/models/DateModel'
+import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('EventListElement', () => {
   const event = new EventModel({
