@@ -56,4 +56,21 @@ describe('OfferList', () => {
     )
     expect(offerList).toMatchSnapshot()
   })
+
+  it('should throw if a offer is not renderable', () => {
+    class InvalidForm {
+      test: string
+    }
+
+    const notRenderableOffer = new WohnenOfferModel({
+      email: 'mail@mail.com',
+      createdDate: moment('2018-07-24T00:00:00.000Z'),
+      formData: new InvalidForm()
+    })
+
+    expect(() => shallow(
+      <OfferList city={'augsburg'} language={'language'} offers={[notRenderableOffer]}
+                 hashFunction={offer => offer.email} t={mockTranslate} />
+    )).toThrowErrorMatchingSnapshot()
+  })
 })

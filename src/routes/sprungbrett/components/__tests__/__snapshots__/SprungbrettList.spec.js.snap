@@ -5,44 +5,37 @@ exports[`SprungbrettList should match snapshot 1`] = `
   <Caption
     title="Sprungbrett"
   />
-  <SprungbrettListItem
-    job={
-      SprungbrettModel {
-        "_id": 0,
-        "_isApprenticeship": true,
-        "_isEmployment": true,
-        "_location": "Augsburg",
-        "_title": "WebDeveloper",
-        "_url": "http://example.com",
-      }
-    }
-    key="0"
-  />
-  <SprungbrettListItem
-    job={
-      SprungbrettModel {
-        "_id": 1,
-        "_isApprenticeship": false,
-        "_isEmployment": true,
-        "_location": "Augsburg",
-        "_title": "BackendDeveloper",
-        "_url": "http://example.com",
-      }
-    }
-    key="1"
-  />
-  <SprungbrettListItem
-    job={
-      SprungbrettModel {
-        "_id": 2,
-        "_isApprenticeship": true,
-        "_isEmployment": false,
-        "_location": "Augsburg",
-        "_title": "Freelancer",
-        "_url": "http://example.com",
-      }
-    }
-    key="2"
-  />
+  <StyledList>
+    <ListElement
+      isExternalUrl={true}
+      key="0"
+      path="http://example.com"
+      title="WebDeveloper"
+    >
+      <div>
+        Augsburg
+      </div>
+    </ListElement>
+    <ListElement
+      isExternalUrl={true}
+      key="1"
+      path="http://example.com"
+      title="BackendDeveloper"
+    >
+      <div>
+        Augsburg
+      </div>
+    </ListElement>
+    <ListElement
+      isExternalUrl={true}
+      key="2"
+      path="http://example.com"
+      title="Freelancer"
+    >
+      <div>
+        Augsburg
+      </div>
+    </ListElement>
+  </StyledList>
 </Fragment>
 `;
