@@ -10,7 +10,7 @@ class PageModel {
   _thumbnail: string
   _excerpt: string
   _availableLanguages: Map<string, string>
-  _lastUpdate: ?Moment
+  _lastUpdate: Moment
 
   constructor ({id, path, title, content, thumbnail, excerpt, lastUpdate, availableLanguages}: {|id: number,
     path: string, title: string, content: string, thumbnail: string, excerpt: string, lastUpdate: Moment,
@@ -49,7 +49,7 @@ class PageModel {
     return this._excerpt
   }
 
-  get lastUpdate (): ?Moment {
+  get lastUpdate (): Moment {
     return this._lastUpdate
   }
 

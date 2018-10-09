@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventDetail should render 1`] = `
+<Fragment>
+  <PageDetail__Thumbnail
+    src="thumbnail"
+  />
+  <Caption
+    title="first Event"
+  />
+  <div>
+    <PageDetail__Identifier>
+      date
+      : 
+    </PageDetail__Identifier>
+    <TimeSpan
+      date={
+        DateModel {
+          "_allDay": true,
+          "_endDate": "2017-11-18T19:30:00.000Z",
+          "_startDate": "2017-11-18T09:30:00.000Z",
+        }
+      }
+      locale="en"
+    />
+  </div>
+  <div>
+    <PageDetail__Identifier>
+      location
+      : 
+    </PageDetail__Identifier>
+    <span>
+      address, postcode town
+    </span>
+  </div>
+  <RemoteContent
+    centered={false}
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "content",
+      }
+    }
+    onInternLinkClick={[Function]}
+  />
+  <Translate(LastUpdateInfo)
+    language="en"
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
+  />
+</Fragment>
+`;
