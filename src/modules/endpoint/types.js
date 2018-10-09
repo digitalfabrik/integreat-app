@@ -33,7 +33,7 @@ type JsonEventInfoType = {
   recurrence_id: ?string
 }
 
-export type JsonPageType = {
+export type JsonCategoryType = {
   id: number,
   url: string,
   path: string,
@@ -41,18 +41,40 @@ export type JsonPageType = {
   modified_gmt: string,
   excerpt: string,
   content: string,
-  parent?: JsonPathType,
-  order?: number,
   available_languages: JsonAvailableLanguagesType,
   thumbnail: string,
-  event?: JsonEventInfoType,
-  location?: JsonLocationType,
-  hash: string
+  hash: string,
+  parent: JsonPathType,
+  order: number
 }
 
-export type JsonDisclaimerType = {
+export type JsonDisclaimerType = JsonCategoryType
+
+export type JsonPoiType = {
   id: number,
+  url: string,
+  path: string,
   title: string,
+  modified_gmt: string,
+  excerpt: string,
   content: string,
-  modified_gmt: string
+  available_languages: JsonAvailableLanguagesType,
+  thumbnail: string,
+  hash: string,
+  location: JsonLocationType
+}
+
+export type JsonEventType = {
+  id: number,
+  url: string,
+  path: string,
+  title: string,
+  modified_gmt: string,
+  excerpt: string,
+  content: string,
+  available_languages: JsonAvailableLanguagesType,
+  thumbnail: string,
+  hash: string,
+  event: JsonEventInfoType,
+  location: JsonLocationType
 }
