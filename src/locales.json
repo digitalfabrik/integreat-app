@@ -316,5 +316,27 @@
       "feedbackSent": "Feedback sent",
       "close": "Close"
     }
+  },
+  "common": {
+    "ar": {
+      "location": "الموقع",
+      "date": "تاريخ"
+    },
+    "de": {
+      "location": "Standort",
+      "date": "Datum"
+    },
+    "en": {
+      "location": "Location",
+      "date": "Date"
+    },
+    "fa": {
+      "location": "موقعیت مکانی",
+      "date": "تاریخ"
+    },
+    "fr": {
+      "location": "Lieu",
+      "date": "Date"
+    }
   }
 }
