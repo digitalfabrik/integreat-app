@@ -3,14 +3,17 @@
 import * as React from 'react'
 import { Button } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
-import Caption from '../../../modules/common/components/Caption'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { ActivityIndicator } from 'react-native'
 import type { FilesStateType } from '../../../modules/app/StateType'
+import Categories from '../../categories/components/Categories'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
+import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
   cityModel: CityModel,
+  path: string,
 
   toggleTheme: () => void,
   goOffline: () => void,
@@ -18,10 +21,12 @@ type PropsType = {
   fetchCategories: (prioritisedLanguage: string, city: string) => void,
   fetchCities: (language: string) => void,
   cancelFetchCategories: () => void,
+  navigateToCategories: (path: string) => void,
+  theme: ThemeType,
 
   language: string,
   cities?: Array<CityModel>,
-  categoriesLoaded: boolean,
+  categories?: CategoriesMapModel,
   files?: FilesStateType
 }
 
@@ -35,7 +40,7 @@ class Dashboard extends React.Component<PropsType> {
       this.props.fetchCities(this.props.language)
     }
 
-    if (!this.props.categoriesLoaded) {
+    if (!this.props.categories) {
       this.props.fetchCategories(this.props.language, this.props.cityModel.code)
 
       // Cancels the fetch if you navigate away
@@ -53,19 +58,21 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const categoriesLoaded = this.props.categoriesLoaded
+    const categories = this.props.categories
     const cities = this.props.cities
 
-    if (!categoriesLoaded || !cities || !this.props.files) {
+    if (!categories || !cities || !this.props.files) {
+      console.log(this.props)
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return (<React.Fragment>
-        <Caption title={this.props.cityModel.name} />
-        <Button
-          title='Go to Categories'
-          onPress={this.navigateCategories}
-        />
+        <Categories categories={categories} cities={cities} files={this.props.files}
+                    language={this.props.language}
+                    city={this.props.cityModel.code}
+                    path={this.props.path}
+                    navigateToCategories={this.props.navigateToCategories} theme={this.props.theme} />
+
         <Button
           title='Go to Landing'
           onPress={this.landing}
@@ -88,6 +95,7 @@ class Dashboard extends React.Component<PropsType> {
           title='Go to maps'
           onPress={this.goMaps}
         />
+
       </React.Fragment>
     )
   }

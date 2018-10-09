@@ -9,6 +9,30 @@ import { offlineActionTypes } from 'react-native-offline'
 import type { StateType } from '../../../modules/app/StateType'
 import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import CityModel from '../../../modules/endpoint/models/CityModel'
+import { withTheme } from 'styled-components'
+import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import { createSelector } from 'reselect'
+import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
+
+const categoriesJsonSelector = (state: StateType, props) => state.categories[props.targetCity].json[props.language]
+
+const targetCitySelector = (state: StateType, props) => props.targetCity
+
+const languageSelector = (state: StateType, props) => props.language
+
+const categoriesSelector = createSelector(
+  [categoriesJsonSelector, targetCitySelector, languageSelector],
+  (json, targetCity, language) => {
+    return categoriesEndpoint.mapResponse(json, {language, city: targetCity})
+  }
+)
+
+const citiesJsonSelector = (state: StateType) => state.cities.json
+
+const citiesSelector = createSelector(
+  citiesJsonSelector,
+  json => citiesEndpoint.mapResponse(json)
+)
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -36,15 +60,15 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
-
   const language = state.language
   const cities = state.cities.json
+
+  const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
+  const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity.code}/${language}`
 
   const notReadyProps = {
     cityModel: targetCity,
     language: language,
-    categoriesLoaded: false,
     cities
   }
 
@@ -70,13 +94,25 @@ const mapStateToProps = (state: StateType, ownProps) => {
     return notReadyProps
   }
 
+  const navigateToCategories = (path: string) => {
+    const params = {path, city: targetCity.code}
+    if (ownProps.navigation.push) {
+      ownProps.navigation.push('Categories', params)
+    }
+  }
+
+  const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity: targetCity.code})
   return {
     cityModel: targetCity,
     language: language,
-    cities: citiesEndpoint.mapResponse(cities),
-    categoriesLoaded: true,
+    cities: citiesSelector(state),
+    navigateToCategories,
+    path: targetPath,
+    categories: categoriesMap,
     files: fileCache.files
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+// $FlowFixMe
+const themed = withTheme(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(themed)
