@@ -16,7 +16,7 @@ import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { StateType } from '../../../modules/app/StateType'
-import CategoryTimeStamp from '../components/CategoryTimeStamp'
+import CategoryTimeStamp from '../../../modules/common/components/LastUpdateInfo'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
@@ -24,6 +24,7 @@ import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
+import PageDetail from '../../../modules/common/components/PageDetail'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -71,10 +72,11 @@ export class CategoriesPage extends React.Component<PropsType> {
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <>
-        <Page title={category.title} content={category.content} onInternLinkClick={this.redirectToPath} />
-        {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />}
-      </>
+      return <PageDetail title={category.title}
+                         content={category.content}
+                         lastUpdate={category.lastUpdate}
+                         language={language}
+                         onInternalLinkClick={this.redirectToPath} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}

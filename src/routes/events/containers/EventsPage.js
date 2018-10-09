@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import EventDetail from '../components/EventDetail'
+import PageDetail from '../../../modules/common/components/PageDetail'
 import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -48,7 +48,14 @@ export class EventsPage extends React.Component<PropsType> {
       if (event) {
         return <>
           <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
-          <EventDetail event={event} language={language} onInternalLinkClick={this.redirectToPath} />
+          <PageDetail thumbnail={event.thumbnail}
+                      lastUpdate={event.lastUpdate}
+                      content={event.content}
+                      title={event.title}
+                      date={event.date}
+                      location={event.location}
+                      language={language}
+                      onInternalLinkClick={this.redirectToPath} />
         </>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
