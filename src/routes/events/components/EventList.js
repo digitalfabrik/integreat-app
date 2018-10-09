@@ -5,7 +5,7 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
-import ListElement from './ListElement'
+import ListElement from '../../../modules/common/components/ListElement'
 import Caption from '../../../modules/common/components/Caption'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
@@ -14,6 +14,7 @@ import EventListElementInfo from './EventListElementInfo'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
+import StyledList from '../../../modules/common/components/StyledList'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -26,10 +27,6 @@ const NoEvents = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 25px;
-`
-
-const List = styled.div`
-  border-top: 2px solid ${props => props.theme.colors.themeColor};
 `
 
 /**
@@ -60,12 +57,11 @@ class EventList extends React.Component<PropsType> {
     return (
       <>
         <Caption title={t('news')} />
-        <List>
+        <StyledList>
           {events.map(event => <ListElement key={event.path}
                                             thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
                                             title={event.title}
-                                            path={event.path}
-                                            onInternalLinkClick={onInternalLinkClick} >
+                                            path={event.path}>
             <EventListElementInfo language={language}
                                   onInternalLinkClick={onInternalLinkClick}
                                   location={event.location}
@@ -74,7 +70,7 @@ class EventList extends React.Component<PropsType> {
 
           </ListElement>)
           }
-        </List>
+        </StyledList>
       </>
     )
   }

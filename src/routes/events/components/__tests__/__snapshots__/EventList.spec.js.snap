@@ -6,7 +6,7 @@ exports[`EventList should render a list of events 1`] = `
     title="events:news"
   />
   <EventList__List>
-    <EventListElement
+    <EventListElementInfo
       event={
         EventModel {
           "_availableLanguages": Map {
@@ -38,7 +38,7 @@ exports[`EventList should render a list of events 1`] = `
       language="en"
       onInternalLinkClick={[Function]}
     />
-    <EventListElement
+    <EventListElementInfo
       event={
         EventModel {
           "_availableLanguages": Map {
@@ -70,7 +70,7 @@ exports[`EventList should render a list of events 1`] = `
       language="en"
       onInternalLinkClick={[Function]}
     />
-    <EventListElement
+    <EventListElementInfo
       event={
         EventModel {
           "_availableLanguages": Map {

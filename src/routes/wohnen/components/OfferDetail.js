@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import type { AccommodationType } from '../../../modules/endpoint/models/WohnenFormData'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import ListElement from '../../../modules/common/components/ListElement'
 import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
@@ -32,6 +31,11 @@ const Row = styled.div`
   display: flex;
   
   margin: 10px 0;
+`
+
+const ListElement = styled.div`
+  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  margin-bottom: 10px;
 `
 
 class OfferDetail extends React.Component<PropsType> {

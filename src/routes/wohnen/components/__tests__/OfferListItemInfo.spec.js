@@ -5,7 +5,7 @@ import React from 'react'
 import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
 import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
-import OfferListItem from '../OfferListItem'
+import OfferListItemInfo from '../OfferListItemInfo'
 
 describe('OfferList', () => {
   const offer = new WohnenOfferModel({
@@ -51,12 +51,12 @@ describe('OfferList', () => {
 
   it('should render offer item', () => {
     const offerDetail = shallow(
-      <OfferListItem offer={offer} />
+      <OfferListItemInfo offer={offer} />
     )
     expect(offerDetail).toMatchSnapshot()
   })
 
   it('should throw error if form is not renderable', () => {
-    expect(() => shallow(<OfferListItem offer={notRenderableOffer} />)).toThrowErrorMatchingSnapshot()
+    expect(() => shallow(<OfferListItemInfo offer={notRenderableOffer} />)).toThrowErrorMatchingSnapshot()
   })
 })

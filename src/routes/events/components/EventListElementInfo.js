@@ -25,7 +25,7 @@ class EventListElementInfo extends React.Component<PropsType> {
     return (
       <>
         <div>
-          <div>{date.toFormattedString(language)}</div>
+          {date && <div>{date.toFormattedString(language)}</div>}
           <div>{location.location}</div>
         </div>
         <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}}
