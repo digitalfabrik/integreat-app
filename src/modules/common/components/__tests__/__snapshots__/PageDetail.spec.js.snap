@@ -13,16 +13,9 @@ exports[`EventDetail should render 1`] = `
       date
       : 
     </PageDetail__Identifier>
-    <TimeSpan
-      date={
-        DateModel {
-          "_allDay": true,
-          "_endDate": "2017-11-18T19:30:00.000Z",
-          "_startDate": "2017-11-18T09:30:00.000Z",
-        }
-      }
-      locale="en"
-    />
+    <span>
+      November 18, 2017
+    </span>
   </div>
   <div>
     <PageDetail__Identifier>

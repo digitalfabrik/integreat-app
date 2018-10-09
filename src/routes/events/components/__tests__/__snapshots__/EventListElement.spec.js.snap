@@ -12,17 +12,7 @@ exports[`EventListElement should render 1`] = `
       first Event
     </EventListElement__EventTitle>
     <EventListElement__EventDate>
-      <TimeSpan
-        date={
-          DateModel {
-            "_allDay": true,
-            "_endDate": "2017-11-18T19:30:00.000Z",
-            "_startDate": "2017-11-18T09:30:00.000Z",
-          }
-        }
-        locale="en"
-      />
-      , 
+      November 18, 2017
       address, postcode town
     </EventListElement__EventDate>
     <RemoteContent
