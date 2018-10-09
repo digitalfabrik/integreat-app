@@ -2,9 +2,13 @@
 
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonPageType } from '../types'
-import mapPages from './mapPages'
+import type { JsonEventType } from '../types'
 import EventModel from '../models/EventModel'
+import normalizePath from '../normalizePath'
+import mapAvailableLanguages from '../mapAvailableLanguages'
+import moment from 'moment'
+import DateModel from '../models/DateModel'
+import LocationModel from '../models/LocationModel'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
@@ -14,15 +18,31 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   )
-  .withMapper((json: Array<JsonPageType>): Array<EventModel> => mapPages(json)
-    .map(page => {
-      const {order, parentPath, date, location, ...pageProps} = page
-      if (!date) {
-        throw new Error('A date is required to create an EventModel')
-      } else if (!location) {
-        throw new Error('A location is required to create an EventModel')
-      }
-      return new EventModel({date, location, ...pageProps})
+  .withMapper((json: Array<JsonEventType>): Array<EventModel> => json
+    .map((event: JsonEventType) => {
+      const allDay = event.event.all_day !== '0'
+      return new EventModel({
+        id: event.id,
+        path: normalizePath(event.path),
+        title: event.title,
+        content: event.content,
+        thumbnail: event.thumbnail,
+        date: new DateModel({
+          startDate: moment(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`),
+          endDate: moment(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`),
+          allDay: allDay
+        }),
+        location: new LocationModel({
+          address: event.location.address,
+          town: event.location.town,
+          postcode: event.location.postcode,
+          latitude: event.location.latitude,
+          longitude: event.location.longitude
+        }),
+        excerpt: event.excerpt,
+        availableLanguages: mapAvailableLanguages(event.available_languages),
+        lastUpdate: moment(event.modified_gmt)
+      })
     })
     .sort((event1, event2) => {
       if (event1.date.startDate.isBefore(event2.date.startDate)) { return -1 }
