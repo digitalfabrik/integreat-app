@@ -11,10 +11,11 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
-import CategoryTimeStamp from '../../categories/components/CategoryTimeStamp'
+import CategoryTimeStamp from '../../../modules/common/components/LastUpdateInfo'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import PageDetail from '../../../modules/common/components/PageDetail'
 
 type PropsType = {|
   disclaimer: DisclaimerModel,
@@ -41,8 +42,11 @@ export class DisclaimerPage extends React.Component<PropsType> {
 
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <Page title={disclaimer.title} content={disclaimer.content} onInternLinkClick={this.redirectToPath} />
-      <CategoryTimeStamp lastUpdate={disclaimer.lastUpdate} language={language} />
+      <PageDetail lastUpdate={disclaimer.lastUpdate}
+                  title={disclaimer.title}
+                  content={disclaimer.content}
+                  language={language}
+                  onInternalLinkClick={this.redirectToPath} />
     </>
   }
 }
