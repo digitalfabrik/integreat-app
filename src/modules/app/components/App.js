@@ -19,7 +19,7 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
   constructor () {
     super()
     this.state = {waitingForStore: true}
-    const storeConfig = createReduxStore(() => { this.setState({waitingForStore: false}) }, false)
+    const storeConfig = createReduxStore(() => { this.setState({waitingForStore: false}) })
     this.store = storeConfig.store
   }
 

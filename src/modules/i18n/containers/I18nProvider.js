@@ -75,7 +75,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 
   setLanguage (language: string) {
-    const targetLanguage = language || this.i18n.languages[0]
+    const targetLanguage = language || this.i18n.languages[0] // fixme what is 0?
 
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})
