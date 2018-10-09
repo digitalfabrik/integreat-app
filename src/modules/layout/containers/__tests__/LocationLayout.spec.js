@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
-import CityModel from 'modules/endpoint/models/CityModel'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'

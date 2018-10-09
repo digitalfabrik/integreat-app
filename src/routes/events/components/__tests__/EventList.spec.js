@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
-import EventModel from 'modules/endpoint/models/EventModel'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 import EventList from '../EventList'
 import DateModel from '../../../../modules/endpoint/models/DateModel'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'

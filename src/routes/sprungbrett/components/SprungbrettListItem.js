@@ -2,10 +2,10 @@
 
 import React from 'react'
 
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
+import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
 import styled from 'styled-components'
-import ListElement from 'modules/common/components/ListElement'
-import CleanAnchor from 'modules/common/components/CleanAnchor'
+import ListElement from '../../../modules/common/components/ListElement'
+import CleanAnchor from '../../../modules/common/components/CleanAnchor'
 
 type PropsType = {|
   job: SprungbrettJobModel

@@ -12,7 +12,6 @@ exports[`CategoryList should render and display a caption 1`] = `
         "__html": "test content",
       }
     }
-    hijackRegExp={/https\\?:\\\\/\\\\/\\(cms\\\\\\.integreat-app\\\\\\.de\\|web\\\\\\.integreat-app\\\\\\.de\\|integreat\\\\\\.app\\)\\(\\?!\\\\/\\[\\^\\\\/\\]\\*\\\\/\\(wp-content\\|wp-admin\\|wp-json\\)\\\\/\\.\\*\\)\\.\\*/}
     onInternLinkClick={[Function]}
   />
   <CategoryList__List>

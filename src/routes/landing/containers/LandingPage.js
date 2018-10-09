@@ -4,12 +4,12 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import FilterableCitySelector from 'routes/landing/components/FilterableCitySelector'
-import CityModel from 'modules/endpoint/models/CityModel'
+import FilterableCitySelector from '../../landing/components/FilterableCitySelector'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
-import type { StateType } from 'modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 
 type PropsType = {|
   cities: Array<CityModel>,

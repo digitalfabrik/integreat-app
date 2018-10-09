@@ -8,7 +8,7 @@ import compose from 'lodash/fp/compose'
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
-import Header from 'modules/layout/components/Header'
+import Header from '../../../modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
-import type { StateType } from 'modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 
 type PropsType = {|

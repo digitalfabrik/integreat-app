@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import EventModel from 'modules/endpoint/models/EventModel'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import createHistory from '../../../../modules/app/createHistory'

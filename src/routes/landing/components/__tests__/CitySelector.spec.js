@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CityModel from 'modules/endpoint/models/CityModel'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 import CitySelector from '../CitySelector'
 

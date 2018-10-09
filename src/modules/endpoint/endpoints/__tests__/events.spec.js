@@ -7,7 +7,7 @@ import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import LocationModel from '../../models/LocationModel'
 
-jest.unmock('modules/endpoint/endpoints/events')
+jest.unmock('../events')
 
 describe('events', () => {
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime) => ({

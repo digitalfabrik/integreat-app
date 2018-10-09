@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import OfferListItem from './OfferListItem'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
+import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
 import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
 import CleanLink from '../../../modules/common/components/CleanLink'
 import type { TFunction } from 'react-i18next'

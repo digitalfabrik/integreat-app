@@ -3,11 +3,12 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedSprungbrettExtraPage, { SprungbrettExtraPage } from '../SprungbrettExtraPage'
-import CityModel from 'modules/endpoint/models/CityModel'
-import Payload from 'modules/endpoint/Payload'
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
+
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import Payload from '../../../../modules/endpoint/Payload'
+import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import createHistory from '../../../../modules/app/createHistory'
 import theme from '../../../../modules/theme/constants/theme'

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { UiDirectionType } from '../../app/StateType'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 import styled from 'styled-components'
 
 const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'

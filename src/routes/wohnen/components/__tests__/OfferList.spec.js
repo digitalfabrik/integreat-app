@@ -2,9 +2,9 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
+import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
-import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
+import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
 import { OfferList } from '../OfferList'
 
 describe('OfferList', () => {

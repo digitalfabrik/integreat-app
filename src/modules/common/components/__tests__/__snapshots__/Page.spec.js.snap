@@ -12,7 +12,6 @@ exports[`Page should render 1`] = `
         "__html": "This is a test content",
       }
     }
-    hijackRegExp={/https\\?:\\\\/\\\\/\\(cms\\\\\\.integreat-app\\\\\\.de\\|web\\\\\\.integreat-app\\\\\\.de\\|integreat\\\\\\.app\\)\\(\\?!\\\\/\\[\\^\\\\/\\]\\*\\\\/\\(wp-content\\|wp-admin\\|wp-json\\)\\\\/\\.\\*\\)\\.\\*/}
     onInternLinkClick={[Function]}
   />
 </div>
