@@ -652,6 +652,6 @@
   ],
   "tilejson": "2.0.0",
   "tiles": [
-    "http://max-arch:7777/v2/tiles/{z}/{x}/{y}.pbf"
+    "http://web.integreat-app.de:7777/v2/tiles/{z}/{x}/{y}.pbf"
   ]
 }

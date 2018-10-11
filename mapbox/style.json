@@ -41,7 +41,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "http://max-arch:8080/tiles.json"
+      "url": "http://web.integreat-app.de:7778/tiles.json"
     }
   },
   "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",

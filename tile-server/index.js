@@ -4,7 +4,7 @@ var app = express()
 var tilelive = require('tilelive')
 require('mbtiles').registerProtocols(tilelive)
 
-tilelive.load('mbtiles:///media/temporary/Downloads/2017-07-03_germany_augsburg.mbtiles', function (err, source) {
+tilelive.load('mbtiles://./tiles.mbtiles', function (err, source) {
   if (err) {
     throw err
   }
