@@ -7,7 +7,6 @@ import Tile from './Tile'
 
 import styled from 'styled-components'
 import TileModel from '../models/TileModel'
-import { ScrollView } from 'react-native'
 
 type PropsType = {
   title: ?string,
@@ -35,14 +34,14 @@ const Wrapper = styled.View`
 class Tiles extends React.Component<PropsType> {
   render () {
     return (
-      <ScrollView>
+      <>
         {this.props.title && <Caption title={this.props.title} />}
         <Wrapper>
           <TilesRow>
             {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} onTilePress={this.props.onTilePress} />)}
           </TilesRow>
         </Wrapper>
-      </ScrollView>
+      </>
     )
   }
 }

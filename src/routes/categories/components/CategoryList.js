@@ -6,7 +6,6 @@ import Caption from 'modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import HTML from 'react-native-render-html'
 import type { ThemeType } from 'modules/theme/constants/theme'
-import { ScrollView } from 'react-native'
 
 type PropsType = {
   categories: Array<{|
@@ -28,20 +27,18 @@ class CategoryList extends React.Component<PropsType> {
   render () {
     const {categories, title, content, query} = this.props
     return (
-      <ScrollView>
+      <>
         {title && <Caption title={title} />}
         {!!content && <HTML html={content} />}
-        <>
-          {categories.map(({model, subCategories}) =>
-            <CategoryListItem key={model.id}
-                              category={model}
-                              subCategories={subCategories}
-                              query={query}
-                              theme={this.props.theme}
-                              onItemPress={this.props.onItemPress} />
-          )}
-        </>
-      </ScrollView>
+        {categories.map(({model, subCategories}) =>
+          <CategoryListItem key={model.id}
+                            category={model}
+                            subCategories={subCategories}
+                            query={query}
+                            theme={this.props.theme}
+                            onItemPress={this.props.onItemPress} />
+        )}
+      </>
     )
   }
 }

@@ -9,6 +9,8 @@ import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import type { StateType } from '../../../modules/app/StateType'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import { createSelector } from 'reselect'
+import { ScrollView } from 'react-native'
+import React from 'react'
 
 const categoriesJsonSelector = (state: StateType, props) => state.categories[props.targetCity].json[props.language]
 
@@ -78,5 +80,5 @@ const mapStateToProps = (state: StateType, ownProps) => {
 }
 
 // $FlowFixMe
-const themed = withTheme(Categories)
+const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 export default connect(mapStateToProps)(themed)

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Button } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import type { FilesStateType } from '../../../modules/app/StateType'
 import Categories from '../../categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -66,7 +66,7 @@ class Dashboard extends React.Component<PropsType> {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return (<React.Fragment>
+    return (<ScrollView>
         <Categories categories={categories} cities={cities} files={this.props.files}
                     language={this.props.language}
                     city={this.props.cityModel.code}
@@ -96,7 +96,7 @@ class Dashboard extends React.Component<PropsType> {
           onPress={this.goMaps}
         />
 
-      </React.Fragment>
+      </ScrollView>
     )
   }
 }
