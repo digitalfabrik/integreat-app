@@ -10,8 +10,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { withTheme } from 'styled-components'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
-import categoriesSelector from '../../categories/selectors/categoriesSelector'
-import citiesSelector from '../../categories/selectors/citiesSelector'
+import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
+import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),

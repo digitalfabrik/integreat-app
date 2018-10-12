@@ -8,7 +8,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import citiesEndpoint from 'modules/endpoint/endpoints/cities'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import setCurrentCity from '../../categories/actions/setCurrentCity'
+import setCurrentCity from '../../../modules/categories/actions/setCurrentCity'
 import Landing from '../components/Landing'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 

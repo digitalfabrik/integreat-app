@@ -1,7 +1,7 @@
 // @flow
 
 import
-  Categories from '../components/Categories'
+  Categories from '../../../modules/categories/components/Categories'
 import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
@@ -9,8 +9,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import { ScrollView } from 'react-native'
 import React from 'react'
-import categoriesSelector from '../selectors/categoriesSelector'
-import citiesSelector from '../selectors/citiesSelector'
+import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
+import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
 
 
 const mapStateToProps = (state: StateType, ownProps) => {

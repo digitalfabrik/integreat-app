@@ -6,7 +6,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import type { FilesStateType } from '../../../modules/app/StateType'
-import Categories from '../../categories/components/Categories'
+import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 

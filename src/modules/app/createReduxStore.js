@@ -28,7 +28,7 @@ import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
 import citiesReducer from '../endpoint/reducers/cititesReducer'
 import languagesReducer from '../endpoint/reducers/languagesReducer'
-import currentCityReducer from '../../routes/categories/reducers/currentCityReducer'
+import currentCityReducer from '../categories/reducers/currentCityReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 function * rootSaga (): Saga<void> {
