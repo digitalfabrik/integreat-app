@@ -33,9 +33,9 @@ class MapViewModal extends React.Component<PropsType, StateType> {
     // await MapboxGL.offlineManager.deletePack('augsburg')
     await MapboxGL.offlineManager.createPack({
       name: 'augsburg',
-      styleURL: 'http://max-arch:8080/style.json',
-      minZoom: 14,
-      maxZoom: 20,
+      styleURL: 'http://web.integreat-app.de:7778/style.json',
+      minZoom: 13,
+      maxZoom: 15,
       bounds: [[10.749338, 48.280761], [10.962173, 48.469737]]
     }, progressListener)
   }
@@ -54,12 +54,17 @@ class MapViewModal extends React.Component<PropsType, StateType> {
           <MapboxGL.MapView
             centerCoordinate={[10.898158, 48.368972]}
             logoEnabled={false}
-            styleURL={'http://max-arch:8080/style.json'}
+            styleURL={'http://web.integreat-app.de:7778/style.json'}
             style={{
               width: '100%',
               height: '100%'
             }}
-            zoomLevel={10}
+            zoomLevel={13}
+            minZoomLevel={13}
+            maxZoomLevel={15}
+            rotateEnabled={false}
+            attributionEnabled={false}
+            surfaceView
           >
             <MapboxGL.PointAnnotation
               key={'perlach'}
