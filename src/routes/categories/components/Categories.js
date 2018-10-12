@@ -10,11 +10,10 @@ import CategoryList from './CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import type { FilesStateType } from '../../../modules/app/StateType'
+import makeLanguageAgnostic from '../hocs/makeLanguageAgnostic'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -29,56 +28,6 @@ type PropsType = {|
   files: FilesStateType,
   theme: ThemeType
 |}
-
-function makeLanguageAgnostic<Props: { path: string, categories: CategoriesMapModel, language: string }> (
-  Component: React.ComponentType<Props>
-): React.ComponentType<$Diff<Props, { categoryModel: CategoryModel | void }>> {
-  type StateType = {|
-    categoryModel: ?CategoryModel,
-    path: ?string
-  |}
-
-  class LanguageAgnosticCategories extends React.PureComponent<Props, StateType> {
-    constructor (props: Props) {
-      super(props)
-      this.state = {
-        categoryModel: null,
-        path: null
-      }
-    }
-
-    static getDerivedStateFromProps (props: PropsType, state: StateType): StateType | null {
-      const previous = state.categoryModel
-
-      if (previous) {
-        const path = previous.availableLanguages.get(props.language)
-
-        if (path) {
-          return {categoryModel: props.categories.findCategoryByPath(path), path}
-        }
-      }
-
-      return {categoryModel: props.categories.findCategoryByPath(props.path), path: props.path}
-    }
-
-    render () {
-      const categoryModel = this.state.categoryModel
-      if (!categoryModel) {
-        const error = new ContentNotFoundError({
-          type: 'category',
-          id: this.state.path || '??',
-          city: '??',
-          language: this.props.language
-        })
-        return <FailureSwitcher error={error} />
-      }
-
-      return <Component {...this.props} categoryModel={categoryModel} />
-    }
-  }
-
-  return LanguageAgnosticCategories
-}
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*

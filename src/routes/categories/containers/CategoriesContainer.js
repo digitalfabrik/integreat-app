@@ -1,34 +1,17 @@
 // @flow
 
-import Categories from '../components/Categories'
+import
+  Categories from '../components/Categories'
 import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
-import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
-import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
 import type { StateType } from '../../../modules/app/StateType'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
-import { createSelector } from 'reselect'
 import { ScrollView } from 'react-native'
 import React from 'react'
+import categoriesSelector from '../selectors/categoriesSelector'
+import citiesSelector from '../selectors/citiesSelector'
 
-const categoriesJsonSelector = (state: StateType, props) => state.categories[props.targetCity].json[props.language]
-
-const targetCitySelector = (state: StateType, props) => props.targetCity
-
-const languageSelector = (state: StateType, props) => props.language
-
-const categoriesSelector = createSelector(
-  [categoriesJsonSelector, targetCitySelector, languageSelector],
-  (json, targetCity, language) => categoriesEndpoint.mapResponse(json, {language, city: targetCity})
-)
-
-const citiesJsonSelector = (state: StateType) => state.cities.json
-
-const citiesSelector = createSelector(
-  citiesJsonSelector,
-  json => citiesEndpoint.mapResponse(json)
-)
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language

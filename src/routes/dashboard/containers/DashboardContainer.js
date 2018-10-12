@@ -7,32 +7,11 @@ import Dashboard from '../components/Dashboard'
 import toggleDarkMode from 'modules/theme/actions/toggleDarkMode'
 import { offlineActionTypes } from 'react-native-offline'
 import type { StateType } from '../../../modules/app/StateType'
-import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import { withTheme } from 'styled-components'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
-import { createSelector } from 'reselect'
-import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
-
-const categoriesJsonSelector = (state: StateType, props) => state.categories[props.targetCity].json[props.language]
-
-const targetCitySelector = (state: StateType, props) => props.targetCity
-
-const languageSelector = (state: StateType, props) => props.language
-
-const categoriesSelector = createSelector(
-  [categoriesJsonSelector, targetCitySelector, languageSelector],
-  (json, targetCity, language) => {
-    return categoriesEndpoint.mapResponse(json, {language, city: targetCity})
-  }
-)
-
-const citiesJsonSelector = (state: StateType) => state.cities.json
-
-const citiesSelector = createSelector(
-  citiesJsonSelector,
-  json => citiesEndpoint.mapResponse(json)
-)
+import categoriesSelector from '../../categories/selectors/categoriesSelector'
+import citiesSelector from '../../categories/selectors/citiesSelector'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
