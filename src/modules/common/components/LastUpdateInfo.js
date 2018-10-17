@@ -31,4 +31,4 @@ export class LastUpdateInfo extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('categories')(LastUpdateInfo)
+export default translate('common')(LastUpdateInfo)
