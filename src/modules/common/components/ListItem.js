@@ -53,7 +53,7 @@ type PropsType = {|
 /**
  * Display a element of the EventList
  */
-class ListElement extends React.Component<PropsType> {
+class ListItem extends React.Component<PropsType> {
   static defaultProps = {
     isExternalUrl: false
   }
@@ -90,4 +90,4 @@ class ListElement extends React.Component<PropsType> {
   }
 }
 
-export default ListElement
+export default ListItem

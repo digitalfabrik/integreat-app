@@ -7,7 +7,7 @@ import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJob
 
 import Caption from '../../../modules/common/components/Caption'
 import StyledList from '../../../modules/common/components/StyledList'
-import ListElement from '../../../modules/common/components/ListElement'
+import ListItem from '../../../modules/common/components/ListItem'
 
 type PropsType = {|
   jobs: Array<SprungbrettJobModel>,
@@ -17,9 +17,9 @@ type PropsType = {|
 class SprungbrettList extends React.Component<PropsType> {
   getListItems (): Array<Node> {
     return this.props.jobs.map(job => (
-      <ListElement key={job.id} title={job.title} path={job.url} isExternalUrl>
+      <ListItem key={job.id} title={job.title} path={job.url} isExternalUrl>
         <div>{job.location}</div>
-      </ListElement>
+      </ListItem>
     ))
   }
 

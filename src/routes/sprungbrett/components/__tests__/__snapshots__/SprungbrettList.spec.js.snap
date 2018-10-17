@@ -6,7 +6,7 @@ exports[`SprungbrettList should match snapshot 1`] = `
     title="Sprungbrett"
   />
   <StyledList>
-    <ListElement
+    <ListItem
       isExternalUrl={true}
       key="0"
       path="http://example.com"
@@ -15,8 +15,8 @@ exports[`SprungbrettList should match snapshot 1`] = `
       <div>
         Augsburg
       </div>
-    </ListElement>
-    <ListElement
+    </ListItem>
+    <ListItem
       isExternalUrl={true}
       key="1"
       path="http://example.com"
@@ -25,8 +25,8 @@ exports[`SprungbrettList should match snapshot 1`] = `
       <div>
         Augsburg
       </div>
-    </ListElement>
-    <ListElement
+    </ListItem>
+    <ListItem
       isExternalUrl={true}
       key="2"
       path="http://example.com"
@@ -35,7 +35,7 @@ exports[`SprungbrettList should match snapshot 1`] = `
       <div>
         Augsburg
       </div>
-    </ListElement>
+    </ListItem>
   </StyledList>
 </Fragment>
 `;

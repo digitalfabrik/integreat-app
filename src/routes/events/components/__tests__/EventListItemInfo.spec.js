@@ -5,9 +5,9 @@ import DateModel from '../../../../modules/endpoint/models/DateModel'
 import moment from 'moment'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 import { shallow } from 'enzyme'
-import EventListElementInfo from '../EventListElementInfo'
+import EventListItemInfo from '../EventListItemInfo'
 
-describe('EventListElementInfo', () => {
+describe('EventListItemInfo', () => {
   it('should render and match snapshot', () => {
     const date = new DateModel({
       startDate: moment('2017-11-27 19:30:00'),
@@ -23,8 +23,8 @@ describe('EventListElementInfo', () => {
     const onInternalLinkClick = () => {}
 
     expect(shallow(
-      <EventListElementInfo location={location} date={date} excerpt={excerpt} language={'de'}
-                            onInternalLinkClick={onInternalLinkClick} />
+      <EventListItemInfo location={location} date={date} excerpt={excerpt} language={'de'}
+                         onInternalLinkClick={onInternalLinkClick} />
     )).toMatchSnapshot()
   })
 })

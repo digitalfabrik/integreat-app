@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventListElementInfo should render and match snapshot 1`] = `
+exports[`EventListItemInfo should render and match snapshot 1`] = `
 <Fragment>
   <div>
     <div>
