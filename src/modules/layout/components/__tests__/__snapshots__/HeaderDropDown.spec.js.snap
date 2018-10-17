@@ -2,6 +2,7 @@
 
 exports[`HeaderDropDown should match snapshot 1`] = `
 <span
+  aria-label="some text"
   data-tip="some text"
 >
   <img
