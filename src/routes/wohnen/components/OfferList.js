@@ -9,7 +9,7 @@ import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
-import ListElement from '../../../modules/common/components/ListElement'
+import ListItem from '../../../modules/common/components/ListItem'
 import StyledList from '../../../modules/common/components/StyledList'
 
 type PropsType = {|
@@ -37,11 +37,11 @@ export class OfferList extends React.Component<PropsType> {
       const costs = specificOffer.formData.costs
 
       return (
-        <ListElement key={hash} path={offerPath} title={accommodation.title}>
+        <ListItem key={hash} path={offerPath} title={accommodation.title}>
           <OfferListItemInfo baseRent={costs.baseRent}
                              totalRooms={accommodation.totalRooms}
                              totalArea={accommodation.totalArea} />
-        </ListElement>
+        </ListItem>
       )
     } else {
       throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)

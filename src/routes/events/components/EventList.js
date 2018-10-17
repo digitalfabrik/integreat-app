@@ -5,12 +5,12 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { isEmpty } from 'lodash/lang'
 
-import ListElement from '../../../modules/common/components/ListElement'
+import ListItem from '../../../modules/common/components/ListItem'
 import Caption from '../../../modules/common/components/Caption'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
 import styled from 'styled-components'
-import EventListElementInfo from './EventListElementInfo'
+import EventListItemInfo from './EventListItemInfo'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
@@ -58,17 +58,17 @@ class EventList extends React.Component<PropsType> {
       <>
         <Caption title={t('news')} />
         <StyledList>
-          {events.map(event => <ListElement key={event.path}
-                                            thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
-                                            title={event.title}
-                                            path={event.path}>
-            <EventListElementInfo language={language}
-                                  onInternalLinkClick={onInternalLinkClick}
-                                  location={event.location}
-                                  excerpt={event.excerpt}
-                                  date={event.date} />
+          {events.map(event => <ListItem key={event.path}
+                                         thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
+                                         title={event.title}
+                                         path={event.path}>
+            <EventListItemInfo language={language}
+                               onInternalLinkClick={onInternalLinkClick}
+                               location={event.location}
+                               excerpt={event.excerpt}
+                               date={event.date} />
 
-          </ListElement>)
+          </ListItem>)
           }
         </StyledList>
       </>

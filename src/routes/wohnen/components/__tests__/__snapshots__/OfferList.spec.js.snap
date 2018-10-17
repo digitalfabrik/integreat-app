@@ -2,7 +2,7 @@
 
 exports[`OfferList should render offer list 1`] = `
 <StyledList>
-  <ListElement
+  <ListItem
     isExternalUrl={false}
     key="mail@mail.com"
     path="/augsburg/language/extras/wohnen/mail@mail.com"
@@ -13,7 +13,7 @@ exports[`OfferList should render offer list 1`] = `
       totalArea={120}
       totalRooms={4}
     />
-  </ListElement>
+  </ListItem>
 </StyledList>
 `;
 

@@ -6,14 +6,14 @@ exports[`EventList should render a list of events 1`] = `
     title="events:news"
   />
   <StyledList>
-    <ListElement
+    <ListItem
       isExternalUrl={false}
       key="/augsburg/en/events/first_event"
       path="/augsburg/en/events/first_event"
       thumbnail="thumbnail"
       title="first Event"
     >
-      <EventListElementInfo
+      <EventListItemInfo
         date={
           DateModel {
             "_allDay": true,
@@ -34,15 +34,15 @@ exports[`EventList should render a list of events 1`] = `
         }
         onInternalLinkClick={[Function]}
       />
-    </ListElement>
-    <ListElement
+    </ListItem>
+    <ListItem
       isExternalUrl={false}
       key="/augsburg/en/events/second_event"
       path="/augsburg/en/events/second_event"
       thumbnail="thumbnail"
       title="second Event"
     >
-      <EventListElementInfo
+      <EventListItemInfo
         date={
           DateModel {
             "_allDay": true,
@@ -63,15 +63,15 @@ exports[`EventList should render a list of events 1`] = `
         }
         onInternalLinkClick={[Function]}
       />
-    </ListElement>
-    <ListElement
+    </ListItem>
+    <ListItem
       isExternalUrl={false}
       key="/augsburg/en/events/third_event"
       path="/augsburg/en/events/third_event"
       thumbnail="thumbnail"
       title="third Event"
     >
-      <EventListElementInfo
+      <EventListItemInfo
         date={
           DateModel {
             "_allDay": true,
@@ -92,7 +92,7 @@ exports[`EventList should render a list of events 1`] = `
         }
         onInternalLinkClick={[Function]}
       />
-    </ListElement>
+    </ListItem>
   </StyledList>
 </Fragment>
 `;

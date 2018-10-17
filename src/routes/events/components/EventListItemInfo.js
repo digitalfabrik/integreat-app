@@ -15,7 +15,7 @@ type PropsType = {|
   onInternalLinkClick: string => void
 |}
 
-class EventListElementInfo extends React.Component<PropsType> {
+class EventListItemInfo extends React.Component<PropsType> {
   formatExcerpt (excerptLength: number): string {
     return `${this.props.excerpt.slice(0, excerptLength)}...`
   }
@@ -35,4 +35,4 @@ class EventListElementInfo extends React.Component<PropsType> {
   }
 }
 
-export default EventListElementInfo
+export default EventListItemInfo
