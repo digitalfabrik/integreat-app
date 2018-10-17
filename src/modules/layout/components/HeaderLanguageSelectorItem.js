@@ -35,7 +35,7 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
     const {selectorItems, activeItemCode, t} = this.props
 
     return selectorItems && selectorItems.length > 0
-      ? <HeaderDropDown iconSrc={languageIcon}>
+      ? <HeaderDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
         <Selector verticalLayout={false}
                   items={selectorItems}
                   activeItemCode={activeItemCode}
