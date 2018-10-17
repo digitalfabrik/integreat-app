@@ -37,8 +37,7 @@ describe('LocationLayout', () => {
       parentPath: 'parent/url',
       order: 4,
       availableLanguages: new Map(),
-      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      excerpt: 'excerpt'
+      lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
   const disclaimer = new DisclaimerModel({

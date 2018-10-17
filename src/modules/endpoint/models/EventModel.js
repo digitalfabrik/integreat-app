@@ -8,14 +8,16 @@ import PageModel from './PageModel'
 class EventModel extends PageModel {
   _date: DateModel
   _location: LocationModel
+  _excerpt: string
 
   constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string,
     date: DateModel, location: LocationModel, excerpt: string, availableLanguages: Map<string, string>,
     lastUpdate: Moment|}) {
-    const {date, location, ...other} = params
+    const {date, location, excerpt, ...other} = params
     super(other)
     this._date = date
     this._location = location
+    this._excerpt = excerpt
   }
 
   get date (): DateModel {
@@ -24,6 +26,10 @@ class EventModel extends PageModel {
 
   get location (): LocationModel {
     return this._location
+  }
+
+  get excerpt (): string {
+    return this._excerpt
   }
 }
 

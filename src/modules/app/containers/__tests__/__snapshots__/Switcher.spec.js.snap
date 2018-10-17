@@ -48,7 +48,6 @@ exports[`Switcher layout should render a location layout if the current route is
           "path01" => CategoryModel {
             "_availableLanguages": Map {},
             "_content": "contnentl",
-            "_excerpt": "excerpt",
             "_id": 1,
             "_lastUpdate": "2017-11-18T09:30:00.000Z",
             "_order": 4,
@@ -85,7 +84,6 @@ exports[`Switcher should get the right page if data has been fetched and is the 
           "path01" => CategoryModel {
             "_availableLanguages": Map {},
             "_content": "contnentl",
-            "_excerpt": "excerpt",
             "_id": 1,
             "_lastUpdate": "2017-11-18T09:30:00.000Z",
             "_order": 4,
@@ -297,7 +295,6 @@ exports[`Switcher should get the right page if data has been fetched and is the 
           "path01" => CategoryModel {
             "_availableLanguages": Map {},
             "_content": "contnentl",
-            "_excerpt": "excerpt",
             "_id": 1,
             "_lastUpdate": "2017-11-18T09:30:00.000Z",
             "_order": 4,

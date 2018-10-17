@@ -8,19 +8,17 @@ class PageModel {
   _title: string
   _content: string
   _thumbnail: string
-  _excerpt: string
   _availableLanguages: Map<string, string>
   _lastUpdate: Moment
 
-  constructor ({id, path, title, content, thumbnail, excerpt, lastUpdate, availableLanguages}: {|id: number,
-    path: string, title: string, content: string, thumbnail: string, excerpt: string, lastUpdate: Moment,
+  constructor ({id, path, title, content, thumbnail, lastUpdate, availableLanguages}: {|id: number,
+    path: string, title: string, content: string, thumbnail: string, lastUpdate: Moment,
     availableLanguages: Map<string, string>|}) {
     this._id = id
     this._path = path
     this._title = title
     this._content = content
     this._thumbnail = thumbnail
-    this._excerpt = excerpt
     this._lastUpdate = lastUpdate
     this._availableLanguages = availableLanguages
   }
@@ -43,10 +41,6 @@ class PageModel {
 
   get content (): string {
     return this._content
-  }
-
-  get excerpt (): string {
-    return this._excerpt
   }
 
   get lastUpdate (): Moment {
