@@ -12,8 +12,12 @@ exports[`EventListElement should render 1`] = `
       first Event
     </EventListElement__EventTitle>
     <EventListElement__EventDate>
-      November 18, 2017
-      address, postcode town
+      <div>
+        November 18, 2017
+      </div>
+      <div>
+        address, postcode town
+      </div>
     </EventListElement__EventDate>
     <RemoteContent
       centered={false}
