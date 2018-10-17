@@ -3,6 +3,7 @@
 exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Selector if there are selectorItems 1`] = `
 <OnClickOutside(HeaderDropDown)
   iconSrc="test-file-stub"
+  text="layout:changeLanguage"
 >
   <Selector
     activeItemCode="de"

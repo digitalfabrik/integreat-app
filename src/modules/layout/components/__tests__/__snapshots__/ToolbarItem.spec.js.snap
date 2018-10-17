@@ -2,12 +2,12 @@
 
 exports[`ToolbarItem should render 1`] = `
 <StyledToolbarItem
-  data-tip="Click here!"
   href="http://example.com"
 >
   <FontAwesomeIcon
     border={false}
     className=""
+    data-tip="Click here!"
     fixedWidth={false}
     flip={null}
     icon={
