@@ -31,8 +31,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
           order: category.order,
           availableLanguages: mapAvailableLanguages(category.available_languages),
           parentPath: normalizePath(category.parent.path || basePath),
-          lastUpdate: moment(category.modified_gmt),
-          excerpt: category.excerpt
+          lastUpdate: moment(category.modified_gmt)
         })
       })
 
@@ -45,8 +44,7 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
       thumbnail: '',
       order: -1,
       availableLanguages: new Map(),
-      lastUpdate: moment(0),
-      excerpt: ''
+      lastUpdate: moment(0)
     }))
 
     return new CategoriesMapModel(categories)

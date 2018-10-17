@@ -20,8 +20,7 @@ const categoryModels = [
     availableLanguages: new Map(),
     thumbnail: 'no_thumbnail',
     parentPath: '',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    excerpt: 'excerpt'
+    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   }), new CategoryModel({
     id: 3650,
     path: '/augsburg/de/anlaufstellen',
@@ -31,8 +30,7 @@ const categoryModels = [
     order: 75,
     availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    excerpt: 'excerpt'
+    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   }),
   new CategoryModel({
     id: 3649,
@@ -43,8 +41,7 @@ const categoryModels = [
     order: 11,
     availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    excerpt: 'excerpt'
+    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   }),
   new CategoryModel({
     id: 35,
@@ -55,8 +52,7 @@ const categoryModels = [
     order: 1,
     availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
     thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
-    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-    excerpt: 'excerpt'
+    lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
   })
 ]
 
