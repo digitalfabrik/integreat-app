@@ -55,8 +55,7 @@ describe('getLanguageChangePath', () => {
       order: 75,
       lastUpdate: moment('2099-01-07 10:36:24'),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      excerpt: 'excerpt'
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })
   ]
 
@@ -225,8 +224,7 @@ describe('getLanguageChangePath', () => {
         order: 75,
         availableLanguages: new Map(),
         lastUpdate: moment(0),
-        thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-        excerpt: 'Random excerpt'
+        thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
       })])
 
     const location = {

@@ -8,7 +8,7 @@ class CategoryModel extends PageModel {
   _parentPath: string
   _order: number
 
-  constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string, excerpt: string,
+  constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string,
     parentPath: string, order: number, availableLanguages: Map<string, string>, lastUpdate: Moment|}) {
     const {order, parentPath, ...other} = params
     super(other)
