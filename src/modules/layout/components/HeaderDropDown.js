@@ -71,7 +71,7 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   render () {
     const {iconSrc, text, children} = this.props
     return (
-      <span data-tip={text}>
+      <span data-tip={text} aria-label={text}>
         <img src={iconSrc} onClick={this.toggleDropDown} />
         <DropDownContainer active={this.state.dropDownActive}>
           {React.cloneElement(children, {
