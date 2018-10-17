@@ -80,8 +80,7 @@ describe('Helmet', () => {
       order: 75,
       lastUpdate: moment(0),
       availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
-      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      excerpt: 'excerpt'
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png'
     })
   ]
 

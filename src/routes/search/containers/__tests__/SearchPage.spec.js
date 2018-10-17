@@ -28,8 +28,7 @@ describe('SearchPage', () => {
       availableLanguages: new Map(),
       thumbnail: 'no_thumbnail',
       parentPath: '',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      excerpt: 'excerpt'
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }), new CategoryModel({
       id: 3650,
       path: '/augsburg/de/anlaufstellen',
@@ -39,8 +38,7 @@ describe('SearchPage', () => {
       order: 75,
       availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      excerpt: 'excerpt'
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 3649,
@@ -51,8 +49,7 @@ describe('SearchPage', () => {
       order: 11,
       availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      excerpt: 'excerpt'
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     }),
     new CategoryModel({
       id: 35,
@@ -63,8 +60,7 @@ describe('SearchPage', () => {
       order: 1,
       availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      excerpt: 'excerpt'
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
     })
   ]
 
@@ -128,8 +124,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-        excerpt: 'excerpt'
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 2nd because 'abc' is in the title but it is lexicographically bigger than category 1
       new CategoryModel({
@@ -141,8 +136,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-        excerpt: 'excerpt'
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 3rd because 'abc' is only in the content and the title is lexicographically smaller than category 4
       new CategoryModel({
@@ -154,8 +148,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-        excerpt: 'excerpt'
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       }),
       // should be 4th because 'abc' is only in the content and the title is lexicographically bigger than category 3
       new CategoryModel({
@@ -167,8 +160,7 @@ describe('SearchPage', () => {
         order: 1,
         availableLanguages: new Map(),
         thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-        excerpt: 'excerpt'
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
       })
     ]
 
