@@ -13,7 +13,7 @@ import Helmet from '../../../modules/common/containers/Helmet'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
-import PageDetail from '../../../modules/common/components/PageDetail'
+import Page from '../../../modules/common/components/Page'
 
 type PropsType = {|
   disclaimer: BasePageModel,
@@ -40,11 +40,11 @@ export class DisclaimerPage extends React.Component<PropsType> {
 
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <PageDetail lastUpdate={disclaimer.lastUpdate}
-                  title={disclaimer.title}
-                  content={disclaimer.content}
-                  language={language}
-                  onInternalLinkClick={this.redirectToPath} />
+      <Page lastUpdate={disclaimer.lastUpdate}
+            title={disclaimer.title}
+            content={disclaimer.content}
+            language={language}
+            onInternalLinkClick={this.redirectToPath} />
     </>
   }
 }

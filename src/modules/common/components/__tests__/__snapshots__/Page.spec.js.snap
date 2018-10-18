@@ -1,18 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Page should render 1`] = `
-<div>
+<Fragment>
+  <Page__Thumbnail
+    src="thumbnail"
+  />
   <Caption
-    title="Test Title"
+    title="first Event"
   />
   <RemoteContent
     centered={false}
     dangerouslySetInnerHTML={
       Object {
-        "__html": "This is a test content",
+        "__html": "content",
       }
     }
     onInternLinkClick={[Function]}
   />
-</div>
+  <Translate(LastUpdateInfo)
+    language="en"
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
+  />
+</Fragment>
 `;
