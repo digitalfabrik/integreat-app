@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
-import { Page } from '../Page'
+import Page from '../Page'
 
 describe('Page', () => {
   const title = 'first Event'
@@ -13,16 +13,13 @@ describe('Page', () => {
 
   const language = 'en'
 
-  const t = (key: ?string): string => key || ''
-
   it('should render', () => {
     expect(shallow(<Page title={title}
                          lastUpdate={lastUpdate}
                          content={content}
                          thumbnail={thumbnail}
                          language={language}
-                         onInternalLinkClick={() => {}}
-                         t={t} />
+                         onInternalLinkClick={() => {}} />
     )).toMatchSnapshot()
   })
 })
