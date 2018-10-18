@@ -3,9 +3,9 @@
 import type Moment from 'moment'
 import LocationModel from './LocationModel'
 import DateModel from './DateModel'
-import PageModel from './PageModel'
+import ExtendedPageModel from './ExtendedPageModel'
 
-class EventModel extends PageModel {
+class EventModel extends ExtendedPageModel {
   _date: DateModel
   _location: LocationModel
   _excerpt: string

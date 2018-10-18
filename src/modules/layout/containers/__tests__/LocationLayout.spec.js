@@ -14,7 +14,7 @@ import moment from 'moment-timezone'
 import { SEARCH_ROUTE } from '../../../app/routes/search'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
-import DisclaimerModel from '../../../endpoint/models/DisclaimerModel'
+import BasePageModel from '../../../endpoint/models/BasePageModel'
 import createHistory from '../../../app/createHistory'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../../app/createReduxStore'
@@ -40,7 +40,7 @@ describe('LocationLayout', () => {
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
-  const disclaimer = new DisclaimerModel({
+  const disclaimer = new BasePageModel({
     id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',

@@ -1,50 +1,29 @@
 // @flow
 
 import type Moment from 'moment'
+import BasePageModel from './BasePageModel'
 
-class PageModel {
-  _id: number
+class ExtendedPageModel extends BasePageModel {
   _path: string
-  _title: string
-  _content: string
   _thumbnail: string
   _availableLanguages: Map<string, string>
-  _lastUpdate: Moment
 
-  constructor ({id, path, title, content, thumbnail, lastUpdate, availableLanguages}: {|id: number,
+  constructor (params: {|id: number,
     path: string, title: string, content: string, thumbnail: string, lastUpdate: Moment,
     availableLanguages: Map<string, string>|}) {
-    this._id = id
+    const {path, thumbnail, availableLanguages, ...other} = params
+    super(other)
     this._path = path
-    this._title = title
-    this._content = content
     this._thumbnail = thumbnail
-    this._lastUpdate = lastUpdate
     this._availableLanguages = availableLanguages
-  }
-
-  get id (): number {
-    return this._id
   }
 
   get path (): string {
     return this._path
   }
 
-  get title (): string {
-    return this._title
-  }
-
   get thumbnail (): string {
     return this._thumbnail
-  }
-
-  get content (): string {
-    return this._content
-  }
-
-  get lastUpdate (): Moment {
-    return this._lastUpdate
   }
 
   get availableLanguages (): Map<string, string> {
@@ -52,4 +31,4 @@ class PageModel {
   }
 }
 
-export default PageModel
+export default ExtendedPageModel
