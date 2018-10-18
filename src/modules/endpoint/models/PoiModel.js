@@ -2,9 +2,9 @@
 
 import type Moment from 'moment'
 import LocationModel from './LocationModel'
-import PageModel from './PageModel'
+import ExtendedPageModel from './ExtendedPageModel'
 
-class PoiModel extends PageModel {
+class PoiModel extends ExtendedPageModel {
   _location: LocationModel
   _excerpt: string
 
