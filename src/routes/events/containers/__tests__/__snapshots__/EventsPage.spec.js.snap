@@ -5,30 +5,23 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
   <Connect(Helmet)
     title="first Event - Augsburg"
   />
-  <Translate(PageDetail)
+  <Translate(Page)
     content="content"
-    date={
-      DateModel {
-        "_allDay": true,
-        "_endDate": "2017-11-18T19:30:00.000Z",
-        "_startDate": "2017-11-18T09:30:00.000Z",
-      }
-    }
     language="en"
     lastUpdate={"2016-01-07T09:36:24.000Z"}
-    location={
-      LocationModel {
-        "_address": "address",
-        "_latitude": undefined,
-        "_longitude": undefined,
-        "_postcode": "postcode",
-        "_town": "town",
-      }
-    }
     onInternalLinkClick={[Function]}
     thumbnail="thumbnail"
     title="first Event"
-  />
+  >
+    <PageDetail
+      identifier="date"
+      information="November 18, 2017"
+    />
+    <PageDetail
+      identifier="location"
+      information="address, postcode town"
+    />
+  </Translate(Page)>
 </Fragment>
 `;
 
