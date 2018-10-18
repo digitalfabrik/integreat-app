@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
 import styled from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
@@ -24,7 +22,6 @@ type PropsType = {|
   content: string,
   lastUpdate: Moment,
   language: string,
-  t: TFunction,
   onInternalLinkClick: string => void,
   hijackRegExp?: RegExp,
   children?: Array<React.Node>
@@ -33,7 +30,7 @@ type PropsType = {|
 /**
  * Display a single page with all necessary information
  */
-export class Page extends React.Component<PropsType> {
+class Page extends React.Component<PropsType> {
   render () {
     const {title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick} = this.props
     return (
@@ -50,4 +47,4 @@ export class Page extends React.Component<PropsType> {
   }
 }
 
-export default translate('common')(Page)
+export default Page

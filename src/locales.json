@@ -311,28 +311,16 @@
   },
   "common": {
     "ar": {
-      "location": "الموقع",
-      "date": "تاريخ",
       "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "location": "Standort",
-      "date": "Datum",
       "lastUpdate": "Letzte Änderung: "
     },
     "en": {
-      "location": "Location",
-      "date": "Date",
       "lastUpdate": "Last Update: "
     },
     "fa": {
-      "location": "موقعیت مکانی",
-      "date": "تاریخ",
       "lastUpdate": "آخرین به روزآوری: "
-    },
-    "fr": {
-      "location": "Lieu",
-      "date": "Date"
     }
   }
 }
