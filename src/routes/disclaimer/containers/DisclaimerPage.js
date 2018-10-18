@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import DisclaimerModel from '../../../modules/endpoint/models/DisclaimerModel'
+import BasePageModel from '../../../modules/endpoint/models/BasePageModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
@@ -16,7 +16,7 @@ import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import PageDetail from '../../../modules/common/components/PageDetail'
 
 type PropsType = {|
-  disclaimer: DisclaimerModel,
+  disclaimer: BasePageModel,
   cities: Array<CityModel>,
   city: string,
   t: TFunction,

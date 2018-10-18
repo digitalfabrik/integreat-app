@@ -6,7 +6,7 @@ import ExtraModel from '../endpoint/models/ExtraModel'
 import EventModel from '../endpoint/models/EventModel'
 import CityModel from '../endpoint/models/CityModel'
 import LanguageModel from '../endpoint/models/LanguageModel'
-import DisclaimerModel from '../endpoint/models/DisclaimerModel'
+import BasePageModel from '../endpoint/models/BasePageModel'
 import SprungbrettJobModel from '../endpoint/models/SprungbrettJobModel'
 import WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
 import type { LocationState } from 'redux-first-router'
@@ -22,7 +22,7 @@ export type StateType = {
   events: Payload<Array<EventModel>>,
   cities: Payload<Array<CityModel>>,
   languages: Payload<Array<LanguageModel>>,
-  disclaimer: Payload<DisclaimerModel>,
+  disclaimer: Payload<BasePageModel>,
   sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
   wohnen: Payload<Array<WohnenOfferModel>>,
   viewport: ViewportType,
