@@ -2,7 +2,7 @@
 
 exports[`ToolbarItem should render 1`] = `
 <StyledToolbarItem
-  aria-lablel="Click here!"
+  aria-label="Click here!"
   href="http://example.com"
 >
   <FontAwesomeIcon
