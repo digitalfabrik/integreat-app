@@ -33,16 +33,17 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
 
   render () {
     const {selectorItems, activeItemCode, t} = this.props
+    const noLanguagesHint = t('noLanguages')
 
     return selectorItems && selectorItems.length > 0
-      ? <HeaderDropDown iconSrc={languageIcon}>
+      ? <HeaderDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
         <Selector verticalLayout={false}
                   items={selectorItems}
                   activeItemCode={activeItemCode}
                   inactiveItemTooltip={t('noTranslation')} />
       </HeaderDropDown>
       : <span>
-        <InactiveImage data-tip={t('noLanguages')} src={languageIcon} data-place='bottom' />
+        <InactiveImage data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
       </span>
   }
 }
