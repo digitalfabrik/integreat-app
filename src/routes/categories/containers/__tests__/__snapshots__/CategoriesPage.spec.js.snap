@@ -101,7 +101,7 @@ exports[`CategoriesPage should match snapshot and render a Page if page has no c
       Willkommen
     </Connect(Link)>
   </Breadcrumbs>
-  <Translate(PageDetail)
+  <Page
     content="some content"
     language="en"
     lastUpdate={"2017-11-18T19:30:00.000Z"}
