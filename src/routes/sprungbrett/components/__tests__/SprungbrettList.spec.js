@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { shallow } from 'enzyme'
-import SprungbrettList from '../SprungbrettList'
+import { SprungbrettList } from '../SprungbrettList'
 import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 
 describe('SprungbrettList', () => {
@@ -33,8 +33,10 @@ describe('SprungbrettList', () => {
     })
   ]
 
+  const t = (key: ?string): string => key || ''
+
   it('should match snapshot', () => {
-    const wrapper = shallow(<SprungbrettList jobs={jobs} title={'Sprungbrett'} />)
+    const wrapper = shallow(<SprungbrettList jobs={jobs} title={'Sprungbrett'} t={t} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

@@ -5,7 +5,9 @@ exports[`EventList should render a list of events 1`] = `
   <Caption
     title="events:news"
   />
-  <StyledList>
+  <List
+    noItemsMessage="events:currentlyNoEvents"
+  >
     <ListItem
       isExternalUrl={false}
       key="/augsburg/en/events/first_event"
@@ -93,7 +95,7 @@ exports[`EventList should render a list of events 1`] = `
         onInternalLinkClick={[Function]}
       />
     </ListItem>
-  </StyledList>
+  </List>
 </Fragment>
 `;
 
@@ -102,8 +104,8 @@ exports[`EventList should render no events 1`] = `
   <Caption
     title="events:news"
   />
-  <EventList__NoEvents>
-    events:currentlyNoEvents
-  </EventList__NoEvents>
+  <List
+    noItemsMessage="events:currentlyNoEvents"
+  />
 </Fragment>
 `;

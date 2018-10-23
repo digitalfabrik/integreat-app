@@ -11,7 +11,7 @@ exports[`SprungbrettExtraPage should render list 1`] = `
   <Connect(Helmet)
     title="Sprungbrett - Augsburg"
   />
-  <SprungbrettList
+  <Translate(SprungbrettList)
     jobs={
       Array [
         SprungbrettModel {
