@@ -3,18 +3,16 @@
 import * as React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import { isEmpty } from 'lodash/lang'
 
 import ListItem from '../../../modules/common/components/ListItem'
 import Caption from '../../../modules/common/components/Caption'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import styled from 'styled-components'
 import EventListItemInfo from './EventListItemInfo'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import StyledList from '../../../modules/common/components/StyledList'
+import List from '../../../modules/common/components/List'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -22,12 +20,6 @@ type PropsType = {|
   t: TFunction,
   onInternalLinkClick: string => void
 |}
-
-const NoEvents = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 25px;
-`
 
 /**
  * Display a list of events
@@ -42,35 +34,30 @@ class EventList extends React.Component<PropsType> {
     return placeholders[id % placeholders.length]
   }
 
+  renderListItems (): Array<React.Node> {
+    const {language, events, onInternalLinkClick} = this.props
+    return events.map(event =>
+      <ListItem key={event.path}
+                thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
+                title={event.title}
+                path={event.path}>
+        <EventListItemInfo language={language}
+                           onInternalLinkClick={onInternalLinkClick}
+                           location={event.location}
+                           excerpt={event.excerpt}
+                           date={event.date} />
+      </ListItem>
+    )
+  }
+
   render () {
-    const {t, language, events, onInternalLinkClick} = this.props
-
-    if (isEmpty(events)) {
-      return (
-        <>
-          <Caption title={t('news')} />
-          <NoEvents>{t('currentlyNoEvents')}</NoEvents>
-        </>
-      )
-    }
-
+    const t = this.props.t
     return (
       <>
         <Caption title={t('news')} />
-        <StyledList>
-          {events.map(event => <ListItem key={event.path}
-                                         thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
-                                         title={event.title}
-                                         path={event.path}>
-            <EventListItemInfo language={language}
-                               onInternalLinkClick={onInternalLinkClick}
-                               location={event.location}
-                               excerpt={event.excerpt}
-                               date={event.date} />
-
-          </ListItem>)
-          }
-        </StyledList>
+        <List noItemsMessage={t('currentlyNoEvents')}>
+          {this.renderListItems()}
+        </List>
       </>
     )
   }
