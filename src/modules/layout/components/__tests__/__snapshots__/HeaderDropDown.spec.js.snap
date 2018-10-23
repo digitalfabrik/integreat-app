@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderDropDown should match snapshot 1`] = `
-<span>
+<span
+  aria-label="some text"
+  data-tip="some text"
+>
   <img
     onClick={[Function]}
     src="/someImg"

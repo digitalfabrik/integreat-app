@@ -3,6 +3,7 @@
 import * as React from 'react'
 import onClickOutside from 'react-onclickoutside'
 import styled from 'styled-components'
+import ReactTooltip from 'react-tooltip'
 
 export const DropDownContainer = styled.div`
   position: absolute;
@@ -25,7 +26,8 @@ export const DropDownContainer = styled.div`
 
 type PropsType = {|
   children: React.Element<*>,
-  iconSrc: string
+  iconSrc: string,
+  text: string
 |}
 
 type StateType = {|
@@ -38,6 +40,11 @@ type StateType = {|
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
 export class HeaderDropDown extends React.Component<PropsType, StateType> {
+  componentDidUpdate () {
+    /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
+    ReactTooltip.rebuild()
+  }
+
   constructor (props: PropsType) {
     super(props)
     this.state = { dropDownActive: false }
@@ -62,11 +69,12 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   }
 
   render () {
+    const {iconSrc, text, children} = this.props
     return (
-      <span>
-        <img src={this.props.iconSrc} onClick={this.toggleDropDown} />
+      <span data-tip={text} aria-label={text}>
+        <img src={iconSrc} onClick={this.toggleDropDown} />
         <DropDownContainer active={this.state.dropDownActive}>
-          {React.cloneElement(this.props.children, {
+          {React.cloneElement(children, {
             closeDropDownCallback: this.closeDropDown
           })}
         </DropDownContainer>

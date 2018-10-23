@@ -37,18 +37,22 @@ type PropsType = {|
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
-    const { location } = this.props
+    const { location, t } = this.props
     const { city, language } = location.payload
     return [
       new HeaderActionItem({
         href: goToSearch(city, language),
-        iconSrc: searchIcon
+        iconSrc: searchIcon,
+        text: t('search')
       }),
       new HeaderActionItem({
         href: goToLanding(language),
-        iconSrc: landingIcon
+        iconSrc: landingIcon,
+        text: t('changeLocation')
       }),
-      new HeaderActionItem({ node: <LanguageSelector isHeaderActionItem /> })
+      new HeaderActionItem({
+        node: <LanguageSelector isHeaderActionItem />
+      })
     ]
   }
 
