@@ -9,8 +9,8 @@ const StyledList = styled.div`
 `
 
 const NoItemsMessage = styled.div`
-  text-align: center;
   padding-top: 25px;
+  text-align: center;
 `
 
 type PropsType = {|

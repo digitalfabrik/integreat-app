@@ -5,7 +5,9 @@ exports[`SprungbrettList should match snapshot 1`] = `
   <Caption
     title="Sprungbrett"
   />
-  <StyledList>
+  <List
+    noItemsMessage="noOffersAvailable"
+  >
     <ListItem
       isExternalUrl={true}
       key="0"
@@ -36,6 +38,6 @@ exports[`SprungbrettList should match snapshot 1`] = `
         Augsburg
       </div>
     </ListItem>
-  </StyledList>
+  </List>
 </Fragment>
 `;

@@ -26,9 +26,9 @@ const Thumbnail = styled.img`
 
 const Description = styled.div`
   display: flex;
-  flex-direction: column;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  flex-direction: column;
   flex-grow: 1;
   padding: 15px 10px 0;
   word-wrap: break-word;
