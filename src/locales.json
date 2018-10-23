@@ -327,5 +327,13 @@
     "de": {
       "noOffersAvailable": "Keine Angebote verfügbar"
     }
+  },
+  "pois": {
+    "en": {
+      "location": "Location",
+      "noPois": "No Points of Interest available",
+      "pois": "Points of Interest",
+      "pageTitle": "Points of Interest"
+    }
   }
 }

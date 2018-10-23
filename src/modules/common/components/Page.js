@@ -24,7 +24,7 @@ type PropsType = {|
   language: string,
   onInternalLinkClick: string => void,
   hijackRegExp?: RegExp,
-  children?: Array<React.Node>
+  children?: Array<React.Node> | React.Node
 |}
 
 /**
