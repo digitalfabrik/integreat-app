@@ -1,21 +1,23 @@
 // @flow
 
-import type { Node } from 'react'
 import * as React from 'react'
 
 import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
 
 import Caption from '../../../modules/common/components/Caption'
-import StyledList from '../../../modules/common/components/StyledList'
 import ListItem from '../../../modules/common/components/ListItem'
+import List from '../../../modules/common/components/List'
+import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {|
   jobs: Array<SprungbrettJobModel>,
-  title: string
+  title: string,
+  t: TFunction
 |}
 
-class SprungbrettList extends React.Component<PropsType> {
-  getListItems (): Array<Node> {
+export class SprungbrettList extends React.Component<PropsType> {
+  renderListItems (): Array<React.Node> {
     return this.props.jobs.map(job => (
       <ListItem key={job.id} title={job.title} path={job.url} isExternalUrl>
         <div>{job.location}</div>
@@ -24,15 +26,16 @@ class SprungbrettList extends React.Component<PropsType> {
   }
 
   render () {
+    const {title, t} = this.props
     return (
       <>
-        <Caption title={this.props.title} />
-        <StyledList>
-          {this.getListItems()}
-        </StyledList>
+        <Caption title={title} />
+        <List noItemsMessage={t('noOffersAvailable')}>
+          {this.renderListItems()}
+        </List>
       </>
     )
   }
 }
 
-export default SprungbrettList
+export default translate('sprungbrett')(SprungbrettList)
