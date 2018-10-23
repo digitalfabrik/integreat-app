@@ -22,6 +22,8 @@ import type { LocationState } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
 import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
+import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -69,7 +71,7 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='extras'
           href={goToExtras(city, language)}
-          selected={currentRoute === EXTRAS_ROUTE}
+          selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
           text={t('extras')}
           active
         />
