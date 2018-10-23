@@ -2,9 +2,9 @@
 
 import type Moment from 'moment'
 import CategoriesMapModel from './CategoriesMapModel'
-import PageModel from './PageModel'
+import ExtendedPageModel from './ExtendedPageModel'
 
-class CategoryModel extends PageModel {
+class CategoryModel extends ExtendedPageModel {
   _parentPath: string
   _order: number
 

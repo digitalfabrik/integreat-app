@@ -71,26 +71,36 @@
   },
   "events": {
     "ar": {
+      "location": "الموقع",
+      "date": "تاريخ",
       "news": "الأخبار",
       "pageTitle": "الأخبار",
       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
     },
     "de": {
+      "location": "Standort",
+      "date": "Datum",
       "news": "News",
       "pageTitle": "News",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
     },
     "en": {
+      "location": "Location",
+      "date": "Date",
       "news": "News",
       "pageTitle": "News",
       "currentlyNoEvents": "No recent events available."
     },
     "fa": {
+      "location": "موقعیت مکانی",
+      "date": "تاریخ",
       "news": "تازه​ها",
       "pageTitle": "تازه​ها",
       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
     },
     "fr": {
+      "location": "Lieu",
+      "date": "Date",
       "news": "Actualités",
       "pageTitle": "Actualités",
       "currentlyNoEvents": "Pas d'événements actuels disponibles."
@@ -301,28 +311,16 @@
   },
   "common": {
     "ar": {
-      "location": "الموقع",
-      "date": "تاريخ",
       "lastUpdate": "اخر تحديث: "
     },
     "de": {
-      "location": "Standort",
-      "date": "Datum",
       "lastUpdate": "Letzte Änderung: "
     },
     "en": {
-      "location": "Location",
-      "date": "Date",
       "lastUpdate": "Last Update: "
     },
     "fa": {
-      "location": "موقعیت مکانی",
-      "date": "تاریخ",
       "lastUpdate": "آخرین به روزآوری: "
-    },
-    "fr": {
-      "location": "Lieu",
-      "date": "Date"
     }
   }
 }

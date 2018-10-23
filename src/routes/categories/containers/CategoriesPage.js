@@ -22,7 +22,7 @@ import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
-import PageDetail from '../../../modules/common/components/PageDetail'
+import Page from '../../../modules/common/components/Page'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -70,11 +70,11 @@ export class CategoriesPage extends React.Component<PropsType> {
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <PageDetail title={category.title}
-                         content={category.content}
-                         lastUpdate={category.lastUpdate}
-                         language={language}
-                         onInternalLinkClick={this.redirectToPath} />
+      return <Page title={category.title}
+                   content={category.content}
+                   lastUpdate={category.lastUpdate}
+                   language={language}
+                   onInternalLinkClick={this.redirectToPath} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}

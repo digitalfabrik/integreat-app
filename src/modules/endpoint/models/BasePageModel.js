@@ -2,7 +2,7 @@
 
 import type Moment from 'moment'
 
-class DisclaimerModel {
+class BasePageModel {
   _id: number
   _title: string
   _content: string
@@ -32,4 +32,4 @@ class DisclaimerModel {
   }
 }
 
-export default DisclaimerModel
+export default BasePageModel

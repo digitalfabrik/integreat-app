@@ -5,7 +5,7 @@ exports[`DisclaimerPage should match snapshot 1`] = `
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
-  <Translate(PageDetail)
+  <Page
     content="this is a test content"
     language="de"
     lastUpdate={"2017-11-18T19:30:00.000Z"}
