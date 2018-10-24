@@ -25,8 +25,14 @@ class RemoteContent extends React.Component<PropsType> {
 
   handleClick = (event: MouseEvent) => {
     // https://stackoverflow.com/a/1000606
-    event.preventDefault ? event.preventDefault() : ((event: any).returnValue = false)
-    this.props.onInternLinkClick(new URL((event.currentTarget: any).href).pathname)
+    // $FlowFixMe
+    event.preventDefault ? event.preventDefault() : (event.returnValue = false)
+    const target: EventTarget | null = event.currentTarget
+
+    if (target instanceof HTMLAnchorElement) {
+      const href = target.href
+      this.props.onInternLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+    }
   }
 
   constructor () {
