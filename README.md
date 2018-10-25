@@ -1,6 +1,35 @@
 versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
 # integreat-react-native-app
 
+## Setup
+
+* Clone the repository
+* Install Android Studio and try to setup a test project
+* If you plan to use an Emulator try to run it with the test project and make sure it works
+* Open the project with an IDE of your choice
+* Run `yarn`
+
+## Running the App for development
+
+* Run `yarn start` to start the bundler
+* Run your Android Emulator or connect a device
+* Run `yarn android`
+
+
+### If you encounter problems:
+    
+#### `ERROR watch... ENOSPC` when running `yarn start` on Linux
+
+Increase the number of inotify watches by running  
+`echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+
+### adb not found
+Copy or link `~/Android/sdk/platform-tools/adb` (the sdk you installed with Android Studio) to `/usr/bin/adb`.
+
+#### 'adb server version (x) doesn't match this client (y)'
+
+Replace `/usr/bin/adb` with the adb client you installed (usually the one at `~/Android/sdk/platform-tools/adb`)
+
 ## Conventions
 
 For naming we follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/react). 
