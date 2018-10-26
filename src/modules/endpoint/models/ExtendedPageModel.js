@@ -1,9 +1,9 @@
 // @flow
 
 import type Moment from 'moment'
-import BasePageModel from './BasePageModel'
+import PageModel from './PageModel'
 
-class ExtendedPageModel extends BasePageModel {
+class ExtendedPageModel extends PageModel {
   _path: string
   _thumbnail: string
   _availableLanguages: Map<string, string>

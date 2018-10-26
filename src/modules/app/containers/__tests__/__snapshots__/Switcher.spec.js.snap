@@ -127,7 +127,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
       ]
     }
     disclaimer={
-      BasePageModel {
+      PageModel {
         "_content": "this is a test content",
         "_id": 1689,
         "_lastUpdate": "2017-11-18T09:30:00.000Z",
