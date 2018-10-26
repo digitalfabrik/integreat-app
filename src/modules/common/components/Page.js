@@ -20,7 +20,7 @@ type PropsType = {|
   title: string,
   thumbnail?: string,
   content: string,
-  lastUpdate: Moment,
+  lastUpdate?: Moment,
   language: string,
   onInternalLinkClick: string => void,
   hijackRegExp?: RegExp,
@@ -41,7 +41,7 @@ class Page extends React.Component<PropsType> {
         <RemoteContent dangerouslySetInnerHTML={{__html: content}}
                        onInternLinkClick={onInternalLinkClick}
                        hijackRegExp={hijackRegExp} />
-        <LastUpdateInfo lastUpdate={lastUpdate} language={language} />
+        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} />}
       </>
     )
   }
