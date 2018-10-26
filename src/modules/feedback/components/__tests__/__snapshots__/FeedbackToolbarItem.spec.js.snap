@@ -5,6 +5,7 @@ exports[`FeedbackToolbarItem should render a negative FeedbackToolbarItem 1`] = 
   onClick={[Function]}
 >
   <FontAwesomeIcon
+    aria-label="negativeRating"
     border={false}
     className=""
     data-tip="negativeRating"
@@ -42,6 +43,7 @@ exports[`FeedbackToolbarItem should render a positive FeedbackToolbarItem 1`] = 
   onClick={[Function]}
 >
   <FontAwesomeIcon
+    aria-label="positiveRating"
     border={false}
     className=""
     data-tip="positiveRating"
