@@ -1,7 +1,7 @@
 // @flow
 
 import disclaimer from '../disclaimer'
-import BasePageModel from '../../models/BasePageModel'
+import PageModel from '../../models/PageModel'
 import moment from 'moment'
 
 jest.unmock('../disclaimer')
@@ -29,7 +29,7 @@ describe('disclaimer', () => {
 
   it('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse(pageJson, params)
-    expect(disclaimerModel).toEqual(new BasePageModel({
+    expect(disclaimerModel).toEqual(new PageModel({
       id: pageJson.id,
       title: pageJson.title,
       content: pageJson.content,
