@@ -43,14 +43,14 @@ class EventDetail extends React.Component<PropsType> {
   }
 
   render () {
-    const {event, onInternalLinkClick, t} = this.props
+    const {language, event, onInternalLinkClick, t} = this.props
     return (
       <>
         <Thumbnail src={event.thumbnail || this.getEventPlaceholder()} />
         <Caption title={event.title} />
         <div>
           <Identifier>{t('date')}: </Identifier>
-          <TimeSpan date={event.date} locale={this.props.language} />
+          <TimeSpan date={event.date} locale={language} />
         </div>
         <div>
           <Identifier>{t('location')}: </Identifier>
