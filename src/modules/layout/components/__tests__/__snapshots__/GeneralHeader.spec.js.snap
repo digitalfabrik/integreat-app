@@ -13,6 +13,7 @@ exports[`GeneralHeader should match snapshot 1`] = `
         },
         "_iconSrc": "test-file-stub",
         "_node": undefined,
+        "_text": undefined,
       },
     ]
   }

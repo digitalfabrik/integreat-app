@@ -12,6 +12,8 @@ import EventModel from '../../../endpoint/models/EventModel'
 import configureMockStore from 'redux-mock-store'
 import DateModel from '../../../endpoint/models/DateModel'
 import LocationModel from '../../../endpoint/models/LocationModel'
+import { WOHNEN_ROUTE } from '../../../app/routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../../app/routes/sprungbrett'
 
 describe('LocationHeader', () => {
   const languages = [
@@ -143,7 +145,7 @@ describe('LocationHeader', () => {
                                                 events={events}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()).toMatchSnapshot()
+      expect(component.instance().getNavigationItems()[1].props.selected).toBe(true)
     })
 
     it('should highlight events if route corresponds', () => {
@@ -154,7 +156,7 @@ describe('LocationHeader', () => {
                                                 events={events}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()).toMatchSnapshot()
+      expect(component.instance().getNavigationItems()[2].props.selected).toBe(true)
     })
 
     it('should highlight extras if extras route is selected', () => {
@@ -165,7 +167,29 @@ describe('LocationHeader', () => {
                                                 events={events}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
-      expect(component.instance().getNavigationItems()).toMatchSnapshot()
+      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+    })
+
+    it('should highlight extras if sprungbrett route is selected', () => {
+      const component = shallow(<LocationHeader location={location(SPRUNGBRETT_ROUTE)}
+                                                isExtrasEnabled
+                                                isEventsEnabled
+                                                viewportSmall
+                                                events={events}
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
+      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
+    })
+
+    it('should highlight extras if wohnen route is selected', () => {
+      const component = shallow(<LocationHeader location={location(WOHNEN_ROUTE)}
+                                                isExtrasEnabled
+                                                isEventsEnabled
+                                                viewportSmall
+                                                events={events}
+                                                onStickyTopChanged={onStickyTopChanged}
+                                                t={t} />)
+      expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
     })
   })
 
