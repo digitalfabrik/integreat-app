@@ -16,7 +16,7 @@ import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
-import BasePageModel from '../../../endpoint/models/BasePageModel'
+import PageModel from '../../../endpoint/models/PageModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import moment from 'moment-timezone'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
@@ -47,7 +47,7 @@ describe('Switcher', () => {
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
-  const disclaimer = new BasePageModel({
+  const disclaimer = new PageModel({
     id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',

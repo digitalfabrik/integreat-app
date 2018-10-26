@@ -2,7 +2,7 @@
 
 import type Moment from 'moment'
 
-class BasePageModel {
+class PageModel {
   _id: number
   _title: string
   _content: string
@@ -32,4 +32,4 @@ class BasePageModel {
   }
 }
 
-export default BasePageModel
+export default PageModel
