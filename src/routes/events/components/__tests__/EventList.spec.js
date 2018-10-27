@@ -83,10 +83,4 @@ describe('EventList', () => {
       <EventList events={events} language={language} onInternalLinkClick={() => {}} />
     ).dive()).toMatchSnapshot()
   })
-
-  it('should render no events', () => {
-    expect(shallow(
-      <EventList events={[]} language={language} onInternalLinkClick={() => {}} />
-    ).dive()).toMatchSnapshot()
-  })
 })
