@@ -17,22 +17,20 @@ type PropsType = {|
 |}
 
 export class SprungbrettList extends React.Component<PropsType> {
-  renderListItems (): Array<React.Node> {
-    return this.props.jobs.map(job => (
+  renderSprungbrettJob (job: SprungbrettJobModel): React.Node {
+    return (
       <ListItem key={job.id} title={job.title} path={job.url} isExternalUrl>
         <div>{job.location}</div>
       </ListItem>
-    ))
+    )
   }
 
   render () {
-    const {title, t} = this.props
+    const {jobs, title, t} = this.props
     return (
       <>
         <Caption title={title} />
-        <List noItemsMessage={t('noOffersAvailable')}>
-          {this.renderListItems()}
-        </List>
+        <List noItemsMessage={t('noOffersAvailable')} items={jobs} renderItem={this.renderSprungbrettJob} />
       </>
     )
   }

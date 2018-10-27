@@ -14,11 +14,13 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import List from '../../../modules/common/components/List'
 
+type OnInternalLinkClickType = string => void
+
 type PropsType = {|
   events: Array<EventModel>,
   language: string,
   t: TFunction,
-  onInternalLinkClick: string => void
+  onInternalLinkClick: OnInternalLinkClickType
 |}
 
 /**
@@ -34,30 +36,31 @@ class EventList extends React.Component<PropsType> {
     return placeholders[id % placeholders.length]
   }
 
-  renderListItems (): Array<React.Node> {
-    const {language, events, onInternalLinkClick} = this.props
-    return events.map(event =>
-      <ListItem key={event.path}
-                thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
-                title={event.title}
-                path={event.path}>
-        <EventListItemInfo language={language}
-                           onInternalLinkClick={onInternalLinkClick}
-                           location={event.location}
-                           excerpt={event.excerpt}
-                           date={event.date} />
-      </ListItem>
-    )
+  renderEvent (language: string, onInternalLinkClick: OnInternalLinkClickType): EventModel => React.Node {
+    return (event: EventModel): React.Node => {
+      return (
+        <ListItem key={event.path}
+                  thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
+                  title={event.title}
+                  path={event.path}>
+          <EventListItemInfo language={language}
+                             onInternalLinkClick={onInternalLinkClick}
+                             location={event.location}
+                             excerpt={event.excerpt}
+                             date={event.date} />
+        </ListItem>
+      )
+    }
   }
 
   render () {
-    const t = this.props.t
+    const {events, language, onInternalLinkClick, t} = this.props
     return (
       <>
         <Caption title={t('news')} />
-        <List noItemsMessage={t('currentlyNoEvents')}>
-          {this.renderListItems()}
-        </List>
+        <List noItemsMessage={t('currentlyNoEvents')}
+              items={events}
+              renderItem={this.renderEvent(language, onInternalLinkClick)} />
       </>
     )
   }

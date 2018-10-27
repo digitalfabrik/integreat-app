@@ -8,7 +8,7 @@ import ListItem from '../ListItem'
 describe('ListItem', () => {
   const path = '/augsburg/en/events/first_event'
 
-  it('should render a Link an match snapshot', () => {
+  it('should render a Link and match snapshot', () => {
     expect(shallow(
       <ListItem thumbnail={'thumbnail'}
                 title={'first Event'}
@@ -17,7 +17,7 @@ describe('ListItem', () => {
     )).toMatchSnapshot()
   })
 
-  it('should render an Anchor an match snapshot', () => {
+  it('should render an Anchor and match snapshot', () => {
     expect(shallow(
       <ListItem thumbnail={'thumbnail'}
                 title={'first Event'}

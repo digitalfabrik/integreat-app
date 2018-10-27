@@ -6,38 +6,36 @@ exports[`SprungbrettList should match snapshot 1`] = `
     title="Sprungbrett"
   />
   <List
+    items={
+      Array [
+        SprungbrettModel {
+          "_id": 0,
+          "_isApprenticeship": true,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "WebDeveloper",
+          "_url": "http://example.com",
+        },
+        SprungbrettModel {
+          "_id": 1,
+          "_isApprenticeship": false,
+          "_isEmployment": true,
+          "_location": "Augsburg",
+          "_title": "BackendDeveloper",
+          "_url": "http://example.com",
+        },
+        SprungbrettModel {
+          "_id": 2,
+          "_isApprenticeship": true,
+          "_isEmployment": false,
+          "_location": "Augsburg",
+          "_title": "Freelancer",
+          "_url": "http://example.com",
+        },
+      ]
+    }
     noItemsMessage="noOffersAvailable"
-  >
-    <ListItem
-      isExternalUrl={true}
-      key="0"
-      path="http://example.com"
-      title="WebDeveloper"
-    >
-      <div>
-        Augsburg
-      </div>
-    </ListItem>
-    <ListItem
-      isExternalUrl={true}
-      key="1"
-      path="http://example.com"
-      title="BackendDeveloper"
-    >
-      <div>
-        Augsburg
-      </div>
-    </ListItem>
-    <ListItem
-      isExternalUrl={true}
-      key="2"
-      path="http://example.com"
-      title="Freelancer"
-    >
-      <div>
-        Augsburg
-      </div>
-    </ListItem>
-  </List>
+    renderItem={[Function]}
+  />
 </Fragment>
 `;

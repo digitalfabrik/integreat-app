@@ -57,7 +57,7 @@ describe('OfferList', () => {
     expect(offerList).toMatchSnapshot()
   })
 
-  it('should throw if a offer is not renderable', () => {
+  it('should throw if an offer is not renderable', () => {
     class InvalidForm {
       test: string
     }

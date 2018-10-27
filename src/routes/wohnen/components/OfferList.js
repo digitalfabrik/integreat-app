@@ -44,9 +44,7 @@ export class OfferList extends React.Component<PropsType> {
   render () {
     const {offers, t} = this.props
     return (
-      <List noItemsMessage={t('noOffersAvailable')}>
-        {offers.map(offer => this.renderOffer(offer))}
-      </List>
+      <List noItemsMessage={t('noOffersAvailable')} items={offers} renderItem={this.renderOffer} />
     )
   }
 }
