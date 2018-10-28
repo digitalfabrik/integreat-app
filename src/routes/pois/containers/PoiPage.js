@@ -34,7 +34,7 @@ type PropsType = {|
 |}
 
 /**
- * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
+ * Displays a list of pois or a single poi, matching the route /<city>/<language>/locations(/<id>)
  */
 export class PoiPage extends React.Component<PropsType> {
   renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />

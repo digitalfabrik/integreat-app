@@ -8,9 +8,6 @@ type PropsType = {|
   poi: PoiModel
 |}
 
-/**
- * Display a list of pois
- */
 class PoiListItem extends React.Component<PropsType> {
   render () {
     const {poi} = this.props
