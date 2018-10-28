@@ -16,7 +16,7 @@ import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
-import DisclaimerModel from '../../../endpoint/models/DisclaimerModel'
+import PageModel from '../../../endpoint/models/PageModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import moment from 'moment-timezone'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
@@ -30,6 +30,8 @@ import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
+import DateModel from '../../../endpoint/models/DateModel'
+import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -45,7 +47,7 @@ describe('Switcher', () => {
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
-  const disclaimer = new DisclaimerModel({
+  const disclaimer = new PageModel({
     id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
@@ -68,21 +70,28 @@ describe('Switcher', () => {
       postData: null
     })
   ]
+
   const events = [
     new EventModel({
-      id: 1,
-      path: '/augsburg/en/events/first_event',
-      title: 'first Event',
+      id: 1234,
+      path: '/augsburg/en/events/nulltes_event',
+      title: 'nulltes Event',
+      date: new DateModel({
+        allDay: false,
+        startDate: moment(0),
+        endDate: moment(0)
+      }),
+      content: 'Huiiii',
+      excerpt: 'Buuuuh',
+      thumbnail: 'Ich hab deine Nase!',
+      location: new LocationModel({
+        town: 'Schloss Burgeck',
+        address: 'Adresse 0',
+        postcode: 'postcode'
+      }),
       availableLanguages: new Map(
-        [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
-      content: 'content',
-      excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
+        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
+      lastUpdate: moment(0)
     })
   ]
 

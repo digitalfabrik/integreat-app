@@ -70,11 +70,8 @@ class EventListElement extends React.Component<PropsType> {
         <EventDescription>
           <EventTitle>{event.title}</EventTitle>
           <EventDate>
-            <TimeSpan startDate={event.startDate}
-                      endDate={event.endDate}
-                      allDay={event.allDay}
-                      locale={language} />
-            , {event.address}
+            <TimeSpan date={event.date} locale={language} />
+            , {event.location.location}
           </EventDate>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}}
                          onInternLinkClick={onInternalLinkClick} />

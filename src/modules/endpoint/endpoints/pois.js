@@ -2,11 +2,12 @@
 
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
-import PoiModel from '../models/PoiModel'
-import moment from 'moment'
 import type { JsonPoiType } from '../types'
-import { compose } from 'lodash/fp'
-import normalizePath from 'normalize-path'
+import PoiModel from '../models/PoiModel'
+import normalizePath from '../normalizePath'
+import mapAvailableLanguages from '../mapAvailableLanguages'
+import moment from 'moment'
+import LocationModel from '../models/LocationModel'
 
 const POIS_ENDPOINT_NAME = 'pois'
 
@@ -17,23 +18,21 @@ export default new EndpointBuilder(POIS_ENDPOINT_NAME)
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
   .withMapper((json: Array<JsonPoiType>) =>
     json.map(poi => {
-      const availableLanguages = new Map()
-      const normalize = compose([decodeURIComponent, normalizePath])
-      Object.keys(poi.available_languages)
-        .forEach(language => availableLanguages.set(language, normalize(poi.available_languages[language].path)))
       return new PoiModel({
         id: poi.id,
-        path: normalize(poi.path),
+        path: normalizePath(poi.path),
         title: poi.title,
         content: poi.content,
         thumbnail: poi.thumbnail,
-        availableLanguages: availableLanguages,
+        availableLanguages: mapAvailableLanguages(poi.available_languages),
         excerpt: poi.excerpt,
-        address: poi.location.address,
-        town: poi.location.town,
-        postcode: poi.location.postcode,
-        longitude: poi.location.longitude,
-        latitude: poi.location.latitude,
+        location: new LocationModel({
+          address: poi.location.address,
+          town: poi.location.town,
+          postcode: poi.location.postcode,
+          longitude: poi.location.longitude,
+          latitude: poi.location.latitude
+        }),
         lastUpdate: moment(poi.modified_gmt)
       })
     }))
