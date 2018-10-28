@@ -1,50 +1,48 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
+import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
 import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
+import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
-import ListElement from '../../../modules/common/components/ListElement'
-
-type PropsType = {|
-  offer: WohnenOfferModel
-|}
 
 const Description = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-left: 10px;
-  padding-bottom: 5px;
+  flex-direction: column;
 `
 
-const Title = styled.div`
-  padding: 15px 5px 5px;
-  font-weight: 700;
-`
-
-const Price = styled.div`
+const Price = styled.span`
   align-self: flex-end;
 `
 
-class OfferListItem extends React.Component<PropsType> {
+type PropsType = {|
+  offer: WohnenOfferModel,
+  language: string,
+  city: string,
+  hashFunction: WohnenOfferModel => string
+|}
+
+class OfferListItem extends React.PureComponent<PropsType> {
   render () {
-    const offer = this.props.offer
+    const {offer, city, language, hashFunction} = this.props
 
     if (offer.formData instanceof WohnenFormData) {
+      const hash = hashFunction(offer)
+      const offerPath = getWohnenExtraPath(city, language, hash)
       const specificOffer: WohnenOfferModel = offer
       const accommodation = specificOffer.formData.accommodation
       const costs = specificOffer.formData.costs
 
-      return <ListElement>
-        <Title>{accommodation.title}</Title>
-        <Description>
-          <div>
+      return (
+        <ListItem path={offerPath} title={accommodation.title}>
+          <Description>
             <div>{accommodation.totalArea} m²</div>
             <div>{accommodation.totalRooms} Zimmer</div>
-          </div>
-          <Price>{costs.baseRent} €</Price>
-        </Description>
-      </ListElement>
+            <Price>{costs.baseRent} €</Price>
+          </Description>
+        </ListItem>
+      )
     } else {
       throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }

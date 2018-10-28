@@ -30,8 +30,11 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
-  <Translate(EventList)
-    events={
+  <Caption
+    title="news"
+  />
+  <List
+    items={
       Array [
         EventModel {
           "_availableLanguages": Map {
@@ -110,8 +113,8 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
         },
       ]
     }
-    language="en"
-    onInternalLinkClick={[Function]}
+    noItemsMessage="currentlyNoEvents"
+    renderItem={[Function]}
   />
 </Fragment>
 `;

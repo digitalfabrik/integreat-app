@@ -1,15 +1,17 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
-import moment from 'moment-timezone'
-
-import EventListElement from '../EventListElement'
 import EventModel from '../../../../modules/endpoint/models/EventModel'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import DateModel from '../../../../modules/endpoint/models/DateModel'
+import moment from 'moment-timezone'
+import { shallow } from 'enzyme'
+import EventListItem from '../EventListItem'
 
-describe('EventListElement', () => {
+describe('EventListItem', () => {
+  const onInternalLinkClick = (link: string) => {}
+  const language = 'de'
+
   const event = new EventModel({
     id: 1,
     path: '/augsburg/en/events/first_event',
@@ -26,18 +28,15 @@ describe('EventListElement', () => {
       town: 'town',
       postcode: 'postcode'
     }),
-    excerpt: 'excerpt',
+    excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),
     content: 'content',
     thumbnail: 'thumbnail'
   })
 
-  const language = 'en'
-  const noop = () => {}
-
-  it('should render', () => {
+  it('should render and match snapshot', () => {
     expect(shallow(
-      <EventListElement event={event} language={language} onInternalLinkClick={noop} />
+      <EventListItem event={event} language={language} onInternalLinkClick={onInternalLinkClick} />
     )).toMatchSnapshot()
   })
 })

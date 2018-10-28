@@ -63,24 +63,16 @@ describe('SprungbrettExtraPage', () => {
     })
   ]
 
+  const t = (key: ?string): string => key || ''
+
   it('should render list', () => {
     const sprunbrettPage = shallow(
       <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs}
                             city={city}
                             language={language}
                             extras={[sprungbrettExtra]}
-                            cities={cities} />
-    )
-    expect(sprunbrettPage).toMatchSnapshot()
-  })
-
-  it('should render spinner if jobs are not ready', () => {
-    const sprunbrettPage = shallow(
-      <SprungbrettExtraPage sprungbrettJobs={null}
-                            city={city}
-                            language={language}
-                            extras={[sprungbrettExtra]}
-                            cities={cities} />
+                            cities={cities}
+                            t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
@@ -91,7 +83,8 @@ describe('SprungbrettExtraPage', () => {
                             city={city}
                             language={language}
                             extras={[]}
-                            cities={cities} />
+                            cities={cities}
+                            t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
