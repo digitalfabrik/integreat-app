@@ -4,7 +4,7 @@ import React from 'react'
 import PoiModel from '../../../../modules/endpoint/models/PoiModel'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 import moment from 'moment-timezone'
-import ConnectedPoiPage, { PoiPage } from '../PoiPage'
+import { PoiPage } from '../PoiPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { shallow } from 'enzyme'
 
