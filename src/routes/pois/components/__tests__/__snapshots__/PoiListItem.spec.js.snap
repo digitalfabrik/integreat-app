@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PoiListItem should render and match snapshot 1`] = `
+<ListItem
+  isExternalUrl={false}
+  key="/augsburg/en/locations/first_poi"
+  path="/augsburg/en/locations/first_poi"
+  thumbnail="thumbnail"
+  title="first Event"
+>
+  <div>
+    address, postcode town
+  </div>
+</ListItem>
+`;
