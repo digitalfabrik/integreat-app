@@ -8,12 +8,16 @@ import { connect } from 'react-redux'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
-import OfferList from '../components/OfferList'
 import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
+import OfferListItem from '../components/OfferListItem'
+import List from '../../../modules/common/components/List'
+import { translate } from 'react-i18next'
+import compose from 'lodash/fp/compose'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {|
   offers: ?Array<WohnenOfferModel>,
@@ -21,7 +25,8 @@ type PropsType = {|
   language: string,
   offerHash?: string,
   extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>
+  cities: ?Array<CityModel>,
+  t: TFunction
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
@@ -32,8 +37,16 @@ export class WohnenExtraPage extends React.Component<PropsType> {
     return offers.find(offer => this.hash(offer) === hash)
   }
 
+  renderOfferListItem = ({city, language, hashFunction}: {city: string, language: string,
+    hashFunction: WohnenOfferModel => string}) => (offer: WohnenOfferModel) =>
+    <OfferListItem key={hashFunction(offer)}
+                   offer={offer}
+                   language={language}
+                   city={city}
+                   hashFunction={hashFunction} />
+
   render () {
-    const {offers, extras, cities, city, language, offerHash} = this.props
+    const {offers, extras, cities, city, language, offerHash, t} = this.props
     if (!cities || !extras) {
       throw new Error('Data not ready')
     }
@@ -68,7 +81,9 @@ export class WohnenExtraPage extends React.Component<PropsType> {
       <>
         <Helmet title={`${extra.title} - ${cityName}`} />
         <Caption title={extra.title} />
-        <OfferList city={city} language={language} hashFunction={this.hash} offers={offers} />
+        <List noItemsMessage={t('noOffersAvailable')}
+              items={offers}
+              renderItem={this.renderOfferListItem({city, language, hashFunction: this.hash})} />
       </>
     )
   }
@@ -80,4 +95,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   offerHash: state.location.payload.offerHash
 })
 
-export default connect(mapStateTypeToProps)(WohnenExtraPage)
+export default compose(
+  connect(mapStateTypeToProps),
+  translate('wohnen')
+)(WohnenExtraPage)
