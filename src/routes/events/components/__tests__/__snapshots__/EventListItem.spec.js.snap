@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventListItem should render and match snapshot 1`] = `
+<ListItem
+  isExternalUrl={false}
+  path="/augsburg/en/events/first_event"
+  thumbnail="thumbnail"
+  title="first Event"
+>
+  <div>
+    <div>
+      18. November 2017
+    </div>
+    <div>
+      address, postcode town
+    </div>
+  </div>
+  <RemoteContent
+    centered={false}
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo...",
+      }
+    }
+    onInternLinkClick={[Function]}
+  />
+</ListItem>
+`;

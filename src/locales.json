@@ -349,5 +349,10 @@
     "fa": {
       "lastUpdate": "آخرین به روزآوری: "
     }
+  },
+  "sprungbrett": {
+    "de": {
+      "noOffersAvailable": "Keine Angebote verfügbar"
+    }
   }
 }

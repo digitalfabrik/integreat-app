@@ -1,13 +1,13 @@
 // @flow
 
-import { shallow } from 'enzyme'
 import React from 'react'
 import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
-import moment from 'moment'
 import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
+import moment from 'moment'
+import { shallow } from 'enzyme'
 import OfferListItem from '../OfferListItem'
 
-describe('OfferList', () => {
+describe('OfferListItem', () => {
   const offer = new WohnenOfferModel({
     email: 'mail@mail.com',
     createdDate: moment('2018-07-24T00:00:00.000Z'),
@@ -31,7 +31,7 @@ describe('OfferList', () => {
         ofRunningServices: ['chimney', 'other'],
         ofAdditionalServices: ['garage'],
         baseRent: 1000,
-        runningCosts: 0,
+        runningCosts: 1200,
         hotWaterInHeatingCosts: true,
         additionalCosts: 200,
         ofRunningServicesDiff: ['heating', 'water', 'garbage'],
@@ -39,24 +39,14 @@ describe('OfferList', () => {
       })
   })
 
-  class InvalidForm {
-    test: string
-  }
+  const language = 'de'
+  const city = 'Augsburg'
 
-  const notRenderableOffer = new WohnenOfferModel({
-    email: 'mail@mail.com',
-    createdDate: moment('2018-07-24T00:00:00.000Z'),
-    formData: new InvalidForm()
-  })
+  const hash = (offer: WohnenOfferModel) => offer.email
 
-  it('should render offer item', () => {
-    const offerDetail = shallow(
-      <OfferListItem offer={offer} />
-    )
-    expect(offerDetail).toMatchSnapshot()
-  })
-
-  it('should throw error if form is not renderable', () => {
-    expect(() => shallow(<OfferListItem offer={notRenderableOffer} />)).toThrowErrorMatchingSnapshot()
+  it('should render and match snapshot', () => {
+    expect(shallow(
+      <OfferListItem offer={offer} language={language} city={city} hashFunction={hash} />
+    )).toMatchSnapshot()
   })
 })
