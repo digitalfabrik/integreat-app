@@ -324,7 +324,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the sprungbrett route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(SprungbrettExtraPage)
+  <Connect(Translate(SprungbrettExtraPage))
     cities={
       Array [
         CityModel {
@@ -373,7 +373,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the wohnen route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(WohnenExtraPage)
+  <Connect(Translate(WohnenExtraPage))
     cities={
       Array [
         CityModel {
