@@ -1,26 +1,10 @@
 // @flow
 
 import moment from 'moment'
-import { shallow } from 'enzyme'
-import TimeSpan from '../TimeSpan'
-import React from 'react'
 import DateModel from '../../../../modules/endpoint/models/DateModel'
 
-describe('TimeSpan', () => {
+describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
-  const locale = 'de'
-
-  it('should render', () => {
-    const startDate = moment('2017-11-27 19:30:00')
-    const endDate = moment('2017-11-27 21:30:00')
-    const allDay = false
-    const date = new DateModel({startDate, endDate, allDay})
-
-    const wrapper = shallow(
-      <TimeSpan date={date} locale={locale} />
-    )
-    expect(wrapper).toMatchSnapshot()
-  })
 
   describe('toTimeSpanString()', () => {
     it('should return start date + time and end date + time', () => {
@@ -29,11 +13,7 @@ describe('TimeSpan', () => {
       const allDay = false
       const date = new DateModel({startDate, endDate, allDay})
 
-      const timeSpan = shallow(
-        <TimeSpan date={date} locale={locale} />
-      ).instance()
-
-      expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date + time and end time if the dates are the same', () => {
@@ -42,11 +22,7 @@ describe('TimeSpan', () => {
       const allDay = false
       const date = new DateModel({startDate, endDate, allDay})
 
-      const timeSpan = shallow(
-        <TimeSpan date={date} locale={locale} />
-      ).instance()
-
-      expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date + time if start and end are the same', () => {
@@ -55,11 +31,7 @@ describe('TimeSpan', () => {
       const allDay = false
       const date = new DateModel({startDate, endDate, allDay})
 
-      const timeSpan = shallow(
-        <TimeSpan date={date} locale={locale} />
-      ).instance()
-
-      expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date + end date if allDay is true', () => {
@@ -68,11 +40,7 @@ describe('TimeSpan', () => {
       const allDay = true
       const date = new DateModel({startDate, endDate, allDay})
 
-      const timeSpan = shallow(
-        <TimeSpan date={date} locale={locale} />
-      ).instance()
-
-      expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
     })
 
     it('should return only start date if allDay is true and the dates are the same', () => {
@@ -81,11 +49,7 @@ describe('TimeSpan', () => {
       const allDay = true
       const date = new DateModel({startDate, endDate, allDay})
 
-      const timeSpan = shallow(
-        <TimeSpan date={date} locale={locale} />
-      ).instance()
-
-      expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
     })
 
     it('should only return start date (+ time) if endDate is not valid', () => {
@@ -94,11 +58,7 @@ describe('TimeSpan', () => {
       const allDay = false
       const date = new DateModel({startDate, endDate, allDay})
 
-      const timeSpan = shallow(
-        <TimeSpan date={date} locale={locale} />
-      ).instance()
-
-      expect(locales.map(locale => `${locale}: ${timeSpan.toTimeSpanString(locale)}`)).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(locale)}`)).toMatchSnapshot()
     })
   })
 })

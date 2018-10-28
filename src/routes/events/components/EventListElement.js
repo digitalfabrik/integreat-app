@@ -6,7 +6,6 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import RemoteContent from '../../../modules/common/components/RemoteContent'
-import TimeSpan from './TimeSpan'
 import EventModel from '../../../modules/endpoint/models/EventModel'
 import styled from 'styled-components'
 import CleanLink from '../../../modules/common/components/CleanLink'
@@ -70,8 +69,8 @@ class EventListElement extends React.Component<PropsType> {
         <EventDescription>
           <EventTitle>{event.title}</EventTitle>
           <EventDate>
-            <TimeSpan date={event.date} locale={language} />
-            , {event.location.location}
+            <div>{event.date.toFormattedString(language)}</div>
+            <div>{event.location.location}</div>
           </EventDate>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}}
                          onInternLinkClick={onInternalLinkClick} />

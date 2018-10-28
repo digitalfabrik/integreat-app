@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
-import EventDetail from '../components/EventDetail'
+import Page from '../../../modules/common/components/Page'
 import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -17,6 +17,7 @@ import Helmet from '../../../modules/common/containers/Helmet'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import PageDetail from '../../../modules/common/components/PageDetail'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -48,7 +49,15 @@ export class EventsPage extends React.Component<PropsType> {
       if (event) {
         return <>
           <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
-          <EventDetail event={event} language={language} onInternalLinkClick={this.redirectToPath} />
+          <Page thumbnail={event.thumbnail}
+                lastUpdate={event.lastUpdate}
+                content={event.content}
+                title={event.title}
+                language={language}
+                onInternalLinkClick={this.redirectToPath}>
+            <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
+            <PageDetail identifier={t('location')} information={event.location.location} />
+          </Page>
         </>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
