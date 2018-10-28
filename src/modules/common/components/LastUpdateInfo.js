@@ -19,7 +19,7 @@ type PropsType = {|
   language: string
 |}
 
-export class CategoryTimeStamp extends React.PureComponent<PropsType> {
+export class LastUpdateInfo extends React.PureComponent<PropsType> {
   render () {
     const {lastUpdate, t, language} = this.props
     lastUpdate.locale(language)
@@ -31,4 +31,4 @@ export class CategoryTimeStamp extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('categories')(CategoryTimeStamp)
+export default translate('common')(LastUpdateInfo)
