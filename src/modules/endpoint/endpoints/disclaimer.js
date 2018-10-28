@@ -1,7 +1,7 @@
 // @flow
 
 import { apiUrl } from '../constants'
-import BasePageModel from '../models/BasePageModel'
+import PageModel from '../models/PageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment'
 import type { JsonDisclaimerType } from '../types'
@@ -10,16 +10,16 @@ const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
 type ParamsType = {city: string, language: string}
 
-export default new EndpointBuilder<ParamsType, BasePageModel>(DISCLAIMER_ENDPOINT_NAME)
+export default new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
   )
-  .withMapper((json: ?JsonDisclaimerType): BasePageModel => {
+  .withMapper((json: ?JsonDisclaimerType): PageModel => {
     if (!json) {
       throw new Error('disclaimer:notAvailable')
     }
 
-    return new BasePageModel({
+    return new PageModel({
       id: json.id,
       title: json.title,
       content: json.content,

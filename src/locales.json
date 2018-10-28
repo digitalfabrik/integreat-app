@@ -5,7 +5,11 @@
       "privacy": "حماية المعلومات",
       "extras": "إضافات",
       "categories": "الفئات",
-      "news": "الأخبار"
+      "news": "الأخبار",
+      "noNews": "لا توجد أخبار",
+      "noLanguages": "غير متوفر بلغات أخرى",
+      "noTranslation": "لا توجد ترجمة متاحة",
+      "search": "البحث"
     },
     "de": {
       "imprintAndContact": "Impressum und Kontakt",
@@ -15,7 +19,10 @@
       "news": "News",
       "noNews": "Keine News",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
-      "noTranslation": "Keine Übersetzung verfügbar"
+      "noTranslation": "Keine Übersetzung verfügbar",
+      "search": "Suchen",
+      "changeLocation": "Standort wechseln",
+      "changeLanguage": "Sprache wechseln"
     },
     "en": {
       "imprintAndContact": "Imprint and contact",
@@ -25,19 +32,30 @@
       "news": "News",
       "noNews": "No News",
       "noLanguages": "Not available in other languages",
-      "noTranslation": "No translation available"
+      "noTranslation": "No translation available",
+      "search": "Search",
+      "changeLocation": "Change location",
+      "changeLanguage": "Change language"
     },
     "fa": {
       "imprintAndContact": "مجوز ‎و اطلاعات تماس",
       "extras": "اضافات",
       "categories": "دسته​ها",
-      "news": "تازه​ها"
+      "news": "تازه​ها",
+      "noNews": "خبری موجود نیست",
+      "noLanguages": "در زبان های دیگر موجود نیست",
+      "noTranslation": "ترجمه موجود نیست",
+      "search": "جستجو"
     },
     "fr": {
       "imprintAndContact": "Mentions légales et contact",
       "extras": "Extras",
       "categories": "Catégorie",
-      "news": "Actualités"
+      "news": "Actualités",
+      "noNews": "Aucune news",
+      "noLanguages": "Non disponible dans d'autres langues",
+      "noTranslation": "Aucune traduction disponible",
+      "search": "Rechercher"
     }
   },
   "search": {
@@ -60,6 +78,9 @@
     }
   },
   "categories": {
+    "ar": {
+      "createPdf": "إنشاء ملف PDF"
+    },
     "de": {
       "createPdf": "PDF Erstellen",
       "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
@@ -67,6 +88,12 @@
     "en": {
       "createPdf": "Create PDF",
       "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+    },
+    "fa": {
+      "createPdf": "Créer PDF"
+    },
+    "fr": {
+      "createPdf": "پی دی اف بسازید"
     }
   },
   "events": {

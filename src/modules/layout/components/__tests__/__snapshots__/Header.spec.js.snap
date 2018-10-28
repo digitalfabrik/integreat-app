@@ -44,6 +44,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
             },
             "_iconSrc": undefined,
             "_node": undefined,
+            "_text": undefined,
           },
         ]
       }
