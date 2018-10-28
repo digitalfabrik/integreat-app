@@ -50,9 +50,6 @@ type PropsType = {|
   children?: React.Node
 |}
 
-/**
- * Display a element of the EventList
- */
 class ListItem extends React.Component<PropsType> {
   static defaultProps = {
     isExternalUrl: false

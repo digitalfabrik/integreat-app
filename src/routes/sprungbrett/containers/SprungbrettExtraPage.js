@@ -19,8 +19,8 @@ type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
   city: string,
   language: string,
-  extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>,
+  extras: Array<ExtraModel>,
+  cities: Array<CityModel>,
   t: TFunction
 |}
 
@@ -29,10 +29,6 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
 
   render () {
     const {sprungbrettJobs, extras, cities, city, t} = this.props
-    if (!extras || !cities) {
-      throw new Error('Payload not available')
-    }
-
     const cityName = CityModel.findCityName(cities, city)
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'sprungbrett')
 
