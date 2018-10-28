@@ -17,7 +17,9 @@ import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiModel from '../../../modules/endpoint/models/PoiModel'
-import PoiList from '../components/PoiList'
+import PoiListItem from '../components/PoiListItem'
+import Caption from '../../../modules/common/components/Caption'
+import List from '../../../modules/common/components/List'
 
 type PropsType = {|
   pois: Array<PoiModel>,
@@ -35,6 +37,8 @@ type PropsType = {|
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
  */
 export class PoiPage extends React.Component<PropsType> {
+  renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
+
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
     setKind(action, 'push')
@@ -65,7 +69,8 @@ export class PoiPage extends React.Component<PropsType> {
     }
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <PoiList pois={pois} />
+      <Caption title={t('pois')} />
+      <List noItemsMessage={t('noPois')} items={pois} renderItem={this.renderPoiListItem} />
     </>
   }
 }
