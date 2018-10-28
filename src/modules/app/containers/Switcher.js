@@ -41,7 +41,7 @@ import { WOHNEN_ROUTE } from '../routes/wohnen'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
-import BasePageModel from '../../endpoint/models/BasePageModel'
+import PageModel from '../../endpoint/models/PageModel'
 import { POIS_ROUTE } from '../routes/pois'
 import PoiModel from '../../endpoint/models/PoiModel'
 import PoiPage from '../../../routes/pois/containers/PoiPage'
@@ -55,7 +55,7 @@ type PropsType = {|
   extrasPayload: Payload<Array<ExtraModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
-  disclaimerPayload: Payload<BasePageModel>,
+  disclaimerPayload: Payload<PageModel>,
   languages: ?Array<LanguageModel>,
   language: ?string,
   city: ?string,

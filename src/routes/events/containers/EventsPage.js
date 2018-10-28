@@ -6,7 +6,6 @@ import compose from 'lodash/fp/compose'
 
 import EventModel from '../../../modules/endpoint/models/EventModel'
 import Page from '../../../modules/common/components/Page'
-import EventList from '../components/EventList'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
@@ -18,6 +17,9 @@ import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import PageDetail from '../../../modules/common/components/PageDetail'
+import EventListItem from '../components/EventListItem'
+import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -35,6 +37,9 @@ type PropsType = {|
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export class EventsPage extends React.Component<PropsType> {
+  renderEventListItem = (language: string, onInternalLinkClick: string => void) => (event: EventModel) =>
+    <EventListItem event={event} language={language} onInternalLinkClick={onInternalLinkClick} key={event.path} />
+
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
     setKind(action, 'push')
@@ -66,7 +71,10 @@ export class EventsPage extends React.Component<PropsType> {
     }
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <EventList events={events} language={language} onInternalLinkClick={this.redirectToPath} />
+      <Caption title={t('news')} />
+      <List noItemsMessage={t('currentlyNoEvents')}
+            items={events}
+            renderItem={this.renderEventListItem(language, this.redirectToPath)} />
     </>
   }
 }
