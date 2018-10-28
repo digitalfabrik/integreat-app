@@ -70,6 +70,7 @@ describe('WohnenExtraPage', () => {
   const offerHash = new Hashids().encode(offer.email.length, offer.createdDate.milliseconds())
 
   const offers = [offer]
+  const t = (key: ?string): string => key || ''
 
   it('should render list if no hash is supplied', () => {
     const wohnenPage = shallow(
@@ -77,7 +78,8 @@ describe('WohnenExtraPage', () => {
                        city={city}
                        language={language}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -89,7 +91,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -101,7 +104,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={'invalid hash'}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -113,7 +117,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -125,7 +130,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -152,7 +158,8 @@ describe('WohnenExtraPage', () => {
       extras,
       cities,
       offers,
-      dispatch: expect.any(Function)
+      dispatch: expect.any(Function),
+      t: expect.any(Function)
     })
   })
 })
