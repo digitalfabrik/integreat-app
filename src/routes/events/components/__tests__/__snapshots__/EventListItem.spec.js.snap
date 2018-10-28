@@ -1,13 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventListItemInfo should render and match snapshot 1`] = `
-<Fragment>
+exports[`EventListItem should render and match snapshot 1`] = `
+<ListItem
+  isExternalUrl={false}
+  path="/augsburg/en/events/first_event"
+  thumbnail="thumbnail"
+  title="first Event"
+>
   <div>
     <div>
-      27. November 2017 19:30 - 28. November 2017 21:30
+      18. November 2017
     </div>
     <div>
-      address, 11111 town
+      address, postcode town
     </div>
   </div>
   <RemoteContent
@@ -19,5 +24,5 @@ exports[`EventListItemInfo should render and match snapshot 1`] = `
     }
     onInternLinkClick={[Function]}
   />
-</Fragment>
+</ListItem>
 `;

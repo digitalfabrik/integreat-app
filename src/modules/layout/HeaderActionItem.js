@@ -9,12 +9,14 @@ import type { Action } from 'redux-first-router'
 class HeaderActionItem {
   _iconSrc: ?string
   _href: ?Action
-  _node: ?React.Node;
+  _node: ?React.Node
+  _text: ?string
 
-  constructor (params: {| iconSrc?: string, href?: Action, node?: React.Node |}) {
-    this._iconSrc = params.iconSrc
-    this._href = params.href
-    this._node = params.node
+  constructor ({iconSrc, href, node, text}: {| iconSrc?: string, href?: Action, node?: React.Node, text?: string|}) {
+    this._iconSrc = iconSrc
+    this._href = href
+    this._node = node
+    this._text = text
   }
 
   get iconSrc (): ?string {
@@ -27,6 +29,10 @@ class HeaderActionItem {
 
   get node (): ?React.Node {
     return this._node
+  }
+
+  get text (): ?string {
+    return this._text
   }
 }
 

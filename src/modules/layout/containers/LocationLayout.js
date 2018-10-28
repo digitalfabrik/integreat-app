@@ -24,7 +24,7 @@ import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
 import EventModel from '../../endpoint/models/EventModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import BasePageModel from '../../endpoint/models/BasePageModel'
+import PageModel from '../../endpoint/models/PageModel'
 import type { Dispatch } from 'redux'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import { POIS_ROUTE } from '../../app/routes/pois'
@@ -39,7 +39,7 @@ type PropsType = {|
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
   extras: ?Array<ExtraModel>,
-  disclaimer: ?BasePageModel,
+  disclaimer: ?PageModel,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,

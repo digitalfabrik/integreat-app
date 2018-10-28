@@ -13,21 +13,22 @@ const NoItemsMessage = styled.div`
   text-align: center;
 `
 
-type PropsType = {|
-  children: Array<React.Node>,
-  noItemsMessage: string
+type PropsType<T> = {|
+  items: Array<T>,
+  noItemsMessage: string,
+  renderItem: T => React.Node
 |}
 
-class List extends React.PureComponent<PropsType> {
+class List<T> extends React.PureComponent<PropsType<T>> {
   render () {
-    const {children, noItemsMessage} = this.props
-    if (isEmpty(children)) {
+    const {items, renderItem, noItemsMessage} = this.props
+    if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
     return (
       <StyledList>
-        {children}
+        {items.map(item => renderItem(item))}
       </StyledList>
     )
   }
