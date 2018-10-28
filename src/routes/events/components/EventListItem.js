@@ -37,7 +37,7 @@ class EventListItem extends React.PureComponent<PropsType> {
                 title={event.title}
                 path={event.path}>
           <div>
-            {event.date && <div>{event.date.toFormattedString(language)}</div>}
+            <div>{event.date.toFormattedString(language)}</div>
             <div>{event.location.location}</div>
           </div>
           <RemoteContent dangerouslySetInnerHTML={{__html: this.formatExcerpt(EXCERPT_LENGTH)}}

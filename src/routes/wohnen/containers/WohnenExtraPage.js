@@ -12,7 +12,6 @@ import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
 import { translate } from 'react-i18next'
@@ -20,12 +19,12 @@ import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
 
 type PropsType = {|
-  offers: ?Array<WohnenOfferModel>,
+  offers: Array<WohnenOfferModel>,
   city: string,
   language: string,
   offerHash?: string,
-  extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>,
+  extras: Array<ExtraModel>,
+  cities: Array<CityModel>,
   t: TFunction
 |}
 
@@ -47,19 +46,11 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
   render () {
     const {offers, extras, cities, city, language, offerHash, t} = this.props
-    if (!cities || !extras) {
-      throw new Error('Data not ready')
-    }
-
     const cityName = CityModel.findCityName(cities, city)
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
     if (!extra) {
       return <FailureSwitcher error={new Error('The Wohnen extra is not supported.')} />
-    }
-
-    if (!offers) {
-      return <LoadingSpinner />
     }
 
     if (offerHash) {

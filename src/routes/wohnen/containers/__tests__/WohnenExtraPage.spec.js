@@ -123,19 +123,6 @@ describe('WohnenExtraPage', () => {
     expect(wohnenPage).toMatchSnapshot()
   })
 
-  it('should render spinner if offers are not ready', () => {
-    const wohnenPage = shallow(
-      <WohnenExtraPage offers={null}
-                       city={city}
-                       language={language}
-                       offerHash={offerHash}
-                       extras={[wohnenExtra]}
-                       cities={cities}
-                       t={t} />
-    )
-    expect(wohnenPage).toMatchSnapshot()
-  })
-
   it('should map state to props', () => {
     const offerHash = 'hASH'
     const location = {payload: {language, city, offerHash}}
