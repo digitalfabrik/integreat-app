@@ -12,6 +12,8 @@ import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
 import PoiModel from '../../../endpoint/models/PoiModel'
+import DateModel from '../../../endpoint/models/DateModel'
+import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
@@ -27,33 +29,41 @@ describe('LanguageSelector', () => {
       id: 1234,
       path: '/augsburg/en/events/nulltes_event',
       title: 'nulltes Event',
-      address: 'Adresse 0',
-      allDay: false,
-      startDate: moment(0),
-      endDate: moment(0),
+      date: new DateModel({
+        allDay: false,
+        startDate: moment(0),
+        endDate: moment(0)
+      }),
       content: 'Huiiii',
       excerpt: 'Buuuuh',
       thumbnail: 'Ich hab deine Nase!',
-      town: 'Schloss Burgeck',
+      location: new LocationModel({
+        town: 'Schloss Burgeck',
+        address: 'Adresse 0',
+        postcode: 'postcode'
+      }),
       availableLanguages: new Map(
-        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']])
+        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
+      lastUpdate: moment(0)
     })
   ]
 
   const pois = [
     new PoiModel({
       id: 493,
-      path: '/augsburg/en/locations/cafe-tuer-an-tuer/',
+      path: '/augsburg/en/locations/cafe-tuer-an-tuer',
       title: 'Cafe Tür an Tür',
       content: 'Leckeres Essen!',
       thumbnail: 'Random thumbnail',
-      address: 'Wertachstraße 29',
-      town: 'Augsburg',
+      location: new LocationModel({
+        address: 'Wertachstraße 29',
+        town: 'Augsburg',
+        postcode: '86153',
+        latitude: '48,3782461',
+        longitude: '10,8881861'
+      }),
       excerpt: 'Random excerpt',
-      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer/']]),
-      postcode: '86153',
-      latitude: '48,3782461',
-      longitude: '10,8881861',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/cafe-tuer-an-tuer']]),
       lastUpdate: moment('2099-01-07 10:36:24')
     })
   ]
