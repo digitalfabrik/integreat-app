@@ -15,7 +15,7 @@ jest.mock('../../createReduxStore', () => jest.fn().mockImplementation(() => moc
 
 describe('App', () => {
   it('should render', () => {
-    shallow(<App />)
+    expect(shallow(<App />)).toMatchSnapshot()
   })
 
   it('should create correct store and pass it to Provider', () => {
