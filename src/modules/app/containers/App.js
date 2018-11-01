@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 
 import createReduxStore from '../createReduxStore'
@@ -15,7 +15,7 @@ import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 type PropsType = {||}
 
 class App extends React.Component<PropsType> {
-  store: any;
+  store: any
 
   constructor () {
     super()
@@ -23,7 +23,8 @@ class App extends React.Component<PropsType> {
   }
 
   render () {
-    return (
+    // $FlowFixMe https://github.com/facebook/flow/issues/6107 StrictMode not yet available in flow
+    return <React.StrictMode>
       <Provider store={this.store}>
         <PlatformProvider>
           <I18nProvider>
@@ -33,7 +34,7 @@ class App extends React.Component<PropsType> {
           </I18nProvider>
         </PlatformProvider>
       </Provider>
-    )
+    </React.StrictMode>
   }
 }
 
