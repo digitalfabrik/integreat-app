@@ -1030,6 +1030,11 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.3.3.tgz#673d392648ec1b5c18bc1750841b16d1716147b2"
   integrity sha512-8t9mkec8YyBqGllMpFZ/HnS14vsJNQEy1mdnpYG18t3lBqkC6UyCjRrPdGT/x+mjM6sKyu9Ck5Xwmz8Nq4HxTw==
 
+"@integreat-app/sticky-headroom@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/sticky-headroom/-/sticky-headroom-1.0.1.tgz#134141a1403c65f88dcf04b679fe9597588fbc6a"
+  integrity sha512-JjnkWBcCz20j+GiifSvna3XR5lHDgOu7A0E0gYSNZu7wKF65ECeoSzJUJZEXGWEt9l2LmIF8JL34UwrePakYCA==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
