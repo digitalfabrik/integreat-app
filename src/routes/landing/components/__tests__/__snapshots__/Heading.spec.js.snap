@@ -9,6 +9,7 @@ exports[`Heading should render 1`] = `
         "backgroundColor": "#ffffff",
         "textColor": "#000000",
         "textDecorationColor": "#c7c7c7",
+        "textDisabledColor": "#dddddd",
         "textSecondaryColor": "#585858",
         "themeColor": "#fbda16",
         "themeDarkColor": "#c4a900",

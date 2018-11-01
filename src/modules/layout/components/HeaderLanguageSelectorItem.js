@@ -10,8 +10,8 @@ import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
-const InactiveImage = styled.img`
-  color: ${props => props.theme.colors.textSecondaryColor};
+const DisabledImage = styled.img`
+  color: ${props => props.theme.colors.textDisabledColor};
 `
 
 type PropsType = {|
@@ -40,10 +40,10 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
         <Selector verticalLayout={false}
                   items={selectorItems}
                   activeItemCode={activeItemCode}
-                  inactiveItemTooltip={t('noTranslation')} />
+                  disabledItemTooltip={t('noTranslation')} />
       </HeaderDropDown>
       : <span>
-        <InactiveImage data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
+        <DisabledImage data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
       </span>
   }
 }
