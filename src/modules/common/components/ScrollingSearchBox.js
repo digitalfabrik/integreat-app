@@ -4,7 +4,7 @@ import type { Element } from 'react'
 import React from 'react'
 
 import SearchInput from './SearchInput'
-import Headroom from './Headroom'
+import Headroom from '@integreat-app/sticky-headroom'
 
 const SEARCH_BAR_HEIGHT = 45
 
