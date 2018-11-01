@@ -40,8 +40,8 @@ const ActiveElement = styled(Element)`
   color: ${props => props.theme.colors.textColor};
 `
 
-const InactiveElement = styled(Element.withComponent('span'))`
-  color: ${props => props.theme.colors.textSecondaryColor};
+const DisabledElement = styled(Element.withComponent('span'))`
+  color: ${props => props.theme.colors.textDisabledColor};
 `
 
 const Wrapper = styled.div`
@@ -67,7 +67,7 @@ type PropsType = {|
   closeDropDownCallback?: () => void,
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
-  inactiveItemTooltip: string
+  disabledItemTooltip: string
 |}
 
 /**
@@ -85,7 +85,7 @@ class Selector extends React.Component<PropsType> {
   }
 
   getItems (): React.Node {
-    const {items, activeItemCode, closeDropDownCallback, inactiveItemTooltip} = this.props
+    const {items, activeItemCode, closeDropDownCallback, disabledItemTooltip} = this.props
     return items.map(item => {
       if (item.href) {
         return (
@@ -98,9 +98,9 @@ class Selector extends React.Component<PropsType> {
         )
       } else {
         return (
-          <InactiveElement data-tip={inactiveItemTooltip} key={item.code}>
+          <DisabledElement data-tip={disabledItemTooltip} key={item.code}>
             {item.name}
-          </InactiveElement>
+          </DisabledElement>
         )
       }
     })

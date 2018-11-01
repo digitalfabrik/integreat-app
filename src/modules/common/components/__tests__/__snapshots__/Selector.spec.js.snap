@@ -20,12 +20,12 @@ exports[`Selector should be vertical and match snapshot 1`] = `
   >
     Deutsch
   </Selector__ActiveElement>
-  <Selector__InactiveElement
+  <Selector__DisabledElement
     data-tip="random tooltip"
     key="fr"
   >
     Französisch
-  </Selector__InactiveElement>
+  </Selector__DisabledElement>
 </Selector__Wrapper>
 `;
 
@@ -49,11 +49,11 @@ exports[`Selector should match snapshot 1`] = `
   >
     Deutsch
   </Selector__ActiveElement>
-  <Selector__InactiveElement
+  <Selector__DisabledElement
     data-tip="random tooltip"
     key="fr"
   >
     Französisch
-  </Selector__InactiveElement>
+  </Selector__DisabledElement>
 </Selector__Wrapper>
 `;
