@@ -1,7 +1,7 @@
 // @flow
 
 import disclaimer from '../disclaimer'
-import DisclaimerModel from '../../models/DisclaimerModel'
+import PageModel from '../../models/PageModel'
 import moment from 'moment'
 
 jest.unmock('../disclaimer')
@@ -23,21 +23,13 @@ describe('disclaimer', () => {
     )
   })
 
-  it('should throw if the city to map the url are missing', () => {
-    expect(() => disclaimer.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the language to map the url are missing', () => {
-    expect(() => disclaimer.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
-  })
-
   it('should throw if there is no disclaimer', () => {
     expect(() => disclaimer.mapResponse(null, params)).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse(pageJson, params)
-    expect(disclaimerModel).toEqual(new DisclaimerModel({
+    expect(disclaimerModel).toEqual(new PageModel({
       id: pageJson.id,
       title: pageJson.title,
       content: pageJson.content,

@@ -127,7 +127,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
       ]
     }
     disclaimer={
-      DisclaimerModel {
+      PageModel {
         "_content": "this is a test content",
         "_id": 1689,
         "_lastUpdate": "2017-11-18T09:30:00.000Z",
@@ -156,20 +156,29 @@ exports[`Switcher should get the right page if data has been fetched and is the 
     events={
       Array [
         EventModel {
-          "_address": "address",
-          "_allDay": true,
           "_availableLanguages": Map {
-            "de" => 1235,
-            "ar" => 1236,
+            "de" => "/augsburg/de/events/nulltes_event",
+            "ar" => "/augsburg/ar/events/nulltes_event",
           },
-          "_content": "content",
-          "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": "excerpt",
+          "_content": "Huiiii",
+          "_date": DateModel {
+            "_allDay": false,
+            "_endDate": "1970-01-01T00:00:00.000Z",
+            "_startDate": "1970-01-01T00:00:00.000Z",
+          },
+          "_excerpt": "Buuuuh",
           "_id": 1234,
-          "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": "thumbnail",
-          "_title": "first Event",
-          "_town": "town",
+          "_lastUpdate": "1970-01-01T00:00:00.000Z",
+          "_location": LocationModel {
+            "_address": "Adresse 0",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "Schloss Burgeck",
+          },
+          "_path": "/augsburg/en/events/nulltes_event",
+          "_thumbnail": "Ich hab deine Nase!",
+          "_title": "nulltes Event",
         },
       ]
     }
@@ -315,7 +324,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the sprungbrett route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(SprungbrettExtraPage)
+  <Connect(Translate(SprungbrettExtraPage))
     cities={
       Array [
         CityModel {
@@ -364,7 +373,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the wohnen route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(WohnenExtraPage)
+  <Connect(Translate(WohnenExtraPage))
     cities={
       Array [
         CityModel {
@@ -462,4 +471,4 @@ exports[`Switcher should return a failure if there was an error during fetching 
 />
 `;
 
-exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<WithTheme(LoadingSpinner) />`;
+exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<LoadingSpinner />`;

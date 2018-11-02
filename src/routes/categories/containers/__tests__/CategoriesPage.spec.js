@@ -4,8 +4,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import CategoryModel from 'modules/endpoint/models/CategoryModel'
-import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
+import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
+import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment-timezone'
@@ -137,7 +137,7 @@ describe('CategoriesPage', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should match snapshot and render an Error if path is not valid', () => {
+  it('should match snapshot and render an error if path is not valid', () => {
     const wrapper = shallow(
       <CategoriesPage categories={categories}
                       cities={cities}

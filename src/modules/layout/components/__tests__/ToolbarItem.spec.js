@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import { faSmile } from 'modules/app/constants/icons'
+import { faSmile } from '../../../../modules/app/constants/icons'
 
 import ToolbarItem from '../ToolbarItem'
 import ReactTooltip from 'react-tooltip'

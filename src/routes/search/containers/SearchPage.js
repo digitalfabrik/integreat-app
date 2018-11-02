@@ -1,11 +1,12 @@
 // @flow
+
 import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import SearchInput from 'modules/common/components/SearchInput'
+import SearchInput from '../../../modules/common/components/SearchInput'
 
-import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
+import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import CategoryList from '../../categories/components/CategoryList'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
@@ -25,9 +26,9 @@ type PropsType = {|
   t: TFunction
 |}
 
-type LocalStateType = {
+type LocalStateType = {|
   filterText: string
-}
+|}
 
 const noop = () => {}
 

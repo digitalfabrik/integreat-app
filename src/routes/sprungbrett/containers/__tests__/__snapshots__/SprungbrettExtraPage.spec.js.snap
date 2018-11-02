@@ -11,8 +11,8 @@ exports[`SprungbrettExtraPage should render list 1`] = `
   <Connect(Helmet)
     title="Sprungbrett - Augsburg"
   />
-  <SprungbrettList
-    jobs={
+  <List
+    items={
       Array [
         SprungbrettModel {
           "_id": 0,
@@ -40,21 +40,8 @@ exports[`SprungbrettExtraPage should render list 1`] = `
         },
       ]
     }
-    title="Sprungbrett"
-  />
-</Fragment>
-`;
-
-exports[`SprungbrettExtraPage should render spinner if jobs are not ready 1`] = `
-<Fragment>
-  <Connect(Helmet)
-    title="Sprungbrett - Augsburg"
-  />
-  <Spinner
-    fadeIn="full"
-    name="line-scale-party"
-    noFadeIn={false}
-    overrideSpinnerClassName=""
+    noItemsMessage="noOffersAvailable"
+    renderItem={[Function]}
   />
 </Fragment>
 `;

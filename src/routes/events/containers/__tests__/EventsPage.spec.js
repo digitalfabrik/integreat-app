@@ -1,54 +1,82 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import EventModel from 'modules/endpoint/models/EventModel'
-import configureMockStore from 'redux-mock-store'
+import EventModel from '../../../../modules/endpoint/models/EventModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import createHistory from '../../../../modules/app/createHistory'
+import { Provider } from 'react-redux'
+import DateModel from '../../../../modules/endpoint/models/DateModel'
+import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 
 describe('EventsPage', () => {
   const events = [
     new EventModel({
-      id: 1234,
+      id: 1,
+      path: '/augsburg/en/events/first_event',
       title: 'first Event',
-      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
-      content: 'content',
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
       excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
-    }),
-    new EventModel({
-      id: 1235,
-      title: 'erstes Event',
-      availableLanguages: new Map([['en', 1234], ['ar', 1236]]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
+      lastUpdate: moment('2016-01-07 10:36:24'),
       content: 'content',
-      excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
+      thumbnail: 'thumbnail'
     }),
     new EventModel({
       id: 2,
+      path: '/augsburg/en/events/second_event',
       title: 'second Event',
-      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
+      availableLanguages: new Map(
+        [['en', '/augsburg/de/events/zwotes_event'], ['ar', '/augsburg/ar/events/zwotes_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
       content: 'content',
       excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumbnail'
+    }),
+    new EventModel({
+      id: 3,
+      path: '/augsburg/en/events/third_event',
+      title: 'third Event',
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/drittes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      content: 'content',
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumbnail'
     })
   ]
 
@@ -64,7 +92,6 @@ describe('EventsPage', () => {
     })
   ]
   const language = 'en'
-  const id = 1235
   const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render EventList', () => {
@@ -72,6 +99,8 @@ describe('EventsPage', () => {
       <EventsPage events={events}
                   city={city}
                   cities={cities}
+                  path={'/augsburg/en/events'}
+                  eventId={undefined}
                   t={t}
                   language={language}
                   dispatch={() => {}}
@@ -87,7 +116,8 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  eventId={id}
+                  path={'/augsburg/en/events/first_event'}
+                  eventId={'first_event'}
                   dispatch={() => {}}
                   routesMap={{}} />
     )
@@ -101,7 +131,8 @@ describe('EventsPage', () => {
                   cities={cities}
                   t={t}
                   language={language}
-                  eventId={234729}
+                  path={'/augsburg/en/events/invalid_event'}
+                  eventId={'invalid_event'}
                   dispatch={() => {}}
                   routesMap={{}} />
     )
@@ -109,25 +140,25 @@ describe('EventsPage', () => {
   })
 
   it('should map state to props', () => {
-    const location = {payload: {city: city, language: language, eventId: id}}
+    const location = {payload: {city: city, language: language, eventId: 'id'}, pathname: '/augsburg/en/events/id'}
+    const store = createReduxStore(createHistory, {})
+    store.getState().location = location
 
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
-      events: {data: events},
-      cities: {data: cities}
-    })
-
-    const categoriesPage = shallow(
-      <ConnectedEventsPage store={store} cities={cities} events={events} />
+    const tree = mount(
+      <Provider store={store}>
+        <ConnectedEventsPage cities={cities} events={events} />
+      </Provider>
     )
 
-    expect(categoriesPage.props()).toMatchObject({
+    expect(tree.find(EventsPage).props()).toEqual({
       city,
       language,
-      eventId: id,
+      eventId: 'id',
+      path: '/augsburg/en/events/id',
       events,
-      cities
+      cities,
+      dispatch: expect.any(Function),
+      t: expect.any(Function)
     })
   })
 

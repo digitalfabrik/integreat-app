@@ -12,6 +12,7 @@ Array [
     },
     "_iconSrc": "test-file-stub",
     "_node": undefined,
+    "_text": "search",
   },
   HeaderActionItem {
     "_href": Object {
@@ -22,6 +23,7 @@ Array [
     },
     "_iconSrc": "test-file-stub",
     "_node": undefined,
+    "_text": "changeLocation",
   },
   HeaderActionItem {
     "_href": undefined,
@@ -29,161 +31,12 @@ Array [
     "_node": <Connect(Translate(LanguageSelector))
       isHeaderActionItem={true}
     />,
+    "_text": undefined,
   },
 ]
 `;
 
 exports[`LocationHeader NavigationItems should be empty, if extras and news are both disabled 1`] = `Array []`;
-
-exports[`LocationHeader NavigationItems should highlight categories if route corresponds 1`] = `
-Array [
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "EXTRAS",
-      }
-    }
-    selected={false}
-    text="extras"
-  />,
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "categoryPath": undefined,
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
-      }
-    }
-    selected={true}
-    text="categories"
-  />,
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "eventId": undefined,
-          "language": "de",
-        },
-        "type": "EVENTS",
-      }
-    }
-    selected={false}
-    text="news"
-    tooltip="noNews"
-  />,
-]
-`;
-
-exports[`LocationHeader NavigationItems should highlight events if route corresponds 1`] = `
-Array [
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "EXTRAS",
-      }
-    }
-    selected={false}
-    text="extras"
-  />,
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "categoryPath": undefined,
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
-      }
-    }
-    selected={false}
-    text="categories"
-  />,
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "eventId": undefined,
-          "language": "de",
-        },
-        "type": "EVENTS",
-      }
-    }
-    selected={true}
-    text="news"
-    tooltip="noNews"
-  />,
-]
-`;
-
-exports[`LocationHeader NavigationItems should highlight extras if extras route is selected 1`] = `
-Array [
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "EXTRAS",
-      }
-    }
-    selected={true}
-    text="extras"
-  />,
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "categoryPath": undefined,
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "CATEGORIES",
-      }
-    }
-    selected={false}
-    text="categories"
-  />,
-  <HeaderNavigationItem
-    active={true}
-    href={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "eventId": undefined,
-          "language": "de",
-        },
-        "type": "EVENTS",
-      }
-    }
-    selected={false}
-    text="news"
-    tooltip="noNews"
-  />,
-]
-`;
 
 exports[`LocationHeader NavigationItems should show categories, if extras or news are enabled 1`] = `
 Array [
@@ -242,7 +95,6 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "eventId": undefined,
           "language": "de",
         },
         "type": "EVENTS",
@@ -292,7 +144,6 @@ Array [
       Object {
         "payload": Object {
           "city": "augsburg",
-          "eventId": undefined,
           "language": "de",
         },
         "type": "EVENTS",
@@ -319,6 +170,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         },
         "_iconSrc": "test-file-stub",
         "_node": undefined,
+        "_text": "search",
       },
       HeaderActionItem {
         "_href": Object {
@@ -329,6 +181,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         },
         "_iconSrc": "test-file-stub",
         "_node": undefined,
+        "_text": "changeLocation",
       },
       HeaderActionItem {
         "_href": undefined,
@@ -336,6 +189,7 @@ exports[`LocationHeader should match snapshot 1`] = `
         "_node": <Connect(Translate(LanguageSelector))
           isHeaderActionItem={true}
         />,
+        "_text": undefined,
       },
     ]
   }
@@ -386,7 +240,6 @@ exports[`LocationHeader should match snapshot 1`] = `
           Object {
             "payload": Object {
               "city": "augsburg",
-              "eventId": undefined,
               "language": "de",
             },
             "type": "EVENTS",

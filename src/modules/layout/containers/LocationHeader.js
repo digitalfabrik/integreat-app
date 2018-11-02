@@ -8,7 +8,7 @@ import compose from 'lodash/fp/compose'
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
-import Header from 'modules/layout/components/Header'
+import Header from '../../../modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
 import { EXTRAS_ROUTE, goToExtras } from '../../app/routes/extras'
@@ -20,10 +20,12 @@ import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
-import type { StateType } from 'modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
+import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 
-type PropsType = {
+type PropsType = {|
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
@@ -31,22 +33,26 @@ type PropsType = {
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
   onStickyTopChanged: number => void
-}
+|}
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
-    const { location } = this.props
+    const { location, t } = this.props
     const { city, language } = location.payload
     return [
       new HeaderActionItem({
         href: goToSearch(city, language),
-        iconSrc: searchIcon
+        iconSrc: searchIcon,
+        text: t('search')
       }),
       new HeaderActionItem({
         href: goToLanding(language),
-        iconSrc: landingIcon
+        iconSrc: landingIcon,
+        text: t('changeLocation')
       }),
-      new HeaderActionItem({ node: <LanguageSelector isHeaderActionItem /> })
+      new HeaderActionItem({
+        node: <LanguageSelector isHeaderActionItem />
+      })
     ]
   }
 
@@ -65,7 +71,7 @@ export class LocationHeader extends React.Component<PropsType> {
         <HeaderNavigationItem
           key='extras'
           href={goToExtras(city, language)}
-          selected={currentRoute === EXTRAS_ROUTE}
+          selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
           text={t('extras')}
           active
         />

@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react'
 import styled from 'styled-components'
 import { Description } from './FeedbackBox'
@@ -7,11 +8,11 @@ const CommentField = styled.textarea`
   resize: none;
 `
 
-type PropsType = {
+type PropsType = {|
   comment: string,
   commentMessage: string,
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void
-}
+|}
 
 class FeedbackComment extends React.Component<PropsType> {
   render () {
