@@ -1,14 +1,23 @@
+// @flow
+
 import React from 'react'
+import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import { shallow } from 'enzyme'
 import SprungbrettListItem from '../SprungbrettListItem'
-import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 
 describe('SprungbrettListItem', () => {
   const job = new SprungbrettJobModel({
-    id: '0', title: 'WebDeveloper', location: 'Augsburg', isEmployment: true, isApprenticeship: true
+    id: 0,
+    title: 'WebDeveloper',
+    location: 'Augsburg',
+    isEmployment: true,
+    isApprenticeship: true,
+    url: 'http://awesome-jobs.domain'
   })
-  it('should match snapshot', () => {
-    const wrapper = shallow(<SprungbrettListItem job={job} />)
-    expect(wrapper).toMatchSnapshot()
+
+  it('should render and match snapshot', () => {
+    expect(shallow(
+      <SprungbrettListItem job={job} />
+    )).toMatchSnapshot()
   })
 })

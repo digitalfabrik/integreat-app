@@ -4,17 +4,21 @@ import React from 'react'
 import SelectorItemModel from '../../common/models/SelectorItemModel'
 import HeaderDropDown from './HeaderDropDown'
 import Selector from '../../common/components/Selector'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
-import { InactiveImage } from './HeaderLanguageSelectorItem.styles'
-import type { TFunction } from 'react-i18next'
 import ReactTooltip from 'react-tooltip'
+import styled from 'styled-components'
 
-type PropsType = {
+const InactiveImage = styled.img`
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
+type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
   t: TFunction
-}
+|}
 
 class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   componentDidMount () {
@@ -29,16 +33,17 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
 
   render () {
     const {selectorItems, activeItemCode, t} = this.props
+    const noLanguagesHint = t('noLanguages')
 
     return selectorItems && selectorItems.length > 0
-      ? <HeaderDropDown iconSrc={languageIcon}>
+      ? <HeaderDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
         <Selector verticalLayout={false}
                   items={selectorItems}
                   activeItemCode={activeItemCode}
                   inactiveItemTooltip={t('noTranslation')} />
       </HeaderDropDown>
       : <span>
-        <InactiveImage data-tip={t('noLanguages')} src={languageIcon} data-place='bottom' />
+        <InactiveImage data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
       </span>
   }
 }

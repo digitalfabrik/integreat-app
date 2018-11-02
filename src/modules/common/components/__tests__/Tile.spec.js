@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import TileModel from 'modules/common/models/TileModel'
+import TileModel from '../../../../modules/common/models/TileModel'
 import Tile from '../Tile'
 
 const tile1 = new TileModel({

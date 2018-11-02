@@ -3,7 +3,7 @@
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import { faFilePdf } from 'modules/app/constants/icons'
+import { faFilePdf } from '../../../modules/app/constants/icons'
 
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
@@ -38,7 +38,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
       return null
     }
     return (
-      <LocationToolbar location={location} openFeedbackModal={openFeedbackModal}>
+      <LocationToolbar openFeedbackModal={openFeedbackModal}>
         <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} />
       </LocationToolbar>
     )

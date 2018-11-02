@@ -13,8 +13,7 @@
     "js"
   ],
   "moduleDirectories": [
-    "node_modules",
-    "src"
+    "node_modules"
   ],
   "globals": {
     "__DEV__": false

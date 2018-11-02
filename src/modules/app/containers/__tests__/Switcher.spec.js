@@ -3,7 +3,7 @@
 import * as React from 'react'
 import ConnectedSwitcher, { Switcher } from '../Switcher'
 import Payload from '../../../endpoint/Payload'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import { CATEGORIES_ROUTE } from '../../routes/categories'
 import { LANDING_ROUTE } from '../../routes/landing'
 import { MAIN_DISCLAIMER_ROUTE } from '../../routes/mainDisclaimer'
@@ -12,12 +12,11 @@ import { EVENTS_ROUTE } from '../../routes/events'
 import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
 import { SEARCH_ROUTE } from '../../routes/search'
 import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
-import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
-import DisclaimerModel from '../../../endpoint/models/DisclaimerModel'
+import PageModel from '../../../endpoint/models/PageModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import moment from 'moment-timezone'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
@@ -26,6 +25,13 @@ import WohnenFormData from '../../../endpoint/models/WohnenFormData'
 import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
 import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
 import { WOHNEN_ROUTE } from '../../routes/wohnen'
+import createHistory from '../../createHistory'
+import theme from '../../../theme/constants/theme'
+import createReduxStore from '../../createReduxStore'
+import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
+import DateModel from '../../../endpoint/models/DateModel'
+import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -41,7 +47,7 @@ describe('Switcher', () => {
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
-  const disclaimer = new DisclaimerModel({
+  const disclaimer = new PageModel({
     id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
@@ -64,20 +70,30 @@ describe('Switcher', () => {
       postData: null
     })
   ]
+
   const events = [
     new EventModel({
       id: 1234,
-      title: 'first Event',
-      availableLanguages: new Map([['de', 1235], ['ar', 1236]]),
-      startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
-      endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
-      allDay: true,
-      address: 'address',
-      content: 'content',
-      excerpt: 'excerpt',
-      thumbnail: 'thumbnail',
-      town: 'town'
-    })]
+      path: '/augsburg/en/events/nulltes_event',
+      title: 'nulltes Event',
+      date: new DateModel({
+        allDay: false,
+        startDate: moment(0),
+        endDate: moment(0)
+      }),
+      content: 'Huiiii',
+      excerpt: 'Buuuuh',
+      thumbnail: 'Ich hab deine Nase!',
+      location: new LocationModel({
+        town: 'Schloss Burgeck',
+        address: 'Adresse 0',
+        postcode: 'postcode'
+      }),
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
+      lastUpdate: moment(0)
+    })
+  ]
 
   const cities = [
     new CityModel({
@@ -271,40 +287,52 @@ describe('Switcher', () => {
   })
 
   it('should map state to props', () => {
-    const currentRoute = 'RANDOM_ROUTE'
+    const currentRoute = CATEGORIES_ROUTE
     const location = {
       type: currentRoute,
       payload: {city: 'augsburg', language: 'de'},
       prev: {payload: {param: 'param'}}
     }
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location,
+
+    const store = createReduxStore(createHistory, {
       events: eventsPayload,
       cities: citiesPayload,
       categories: categoriesPayload,
       disclaimer: disclaimerPayload,
       extras: extrasPayload,
       languages: languagesPayload,
-      viewport: {is: {small: true}}
+      wohnen: wohnenPayload,
+      sprungbrettJobs: sprungbrettPayload,
+      viewport: {is: {small: true}},
+      darkMode: true
     })
+    store.getState().location = location
+    store.getState().cities = citiesPayload
 
-    const switcher = shallow(
-      <ConnectedSwitcher store={store} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedSwitcher />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(switcher.props()).toMatchObject({
+    expect(tree.find(Switcher).props()).toEqual({
       currentRoute,
       categoriesPayload,
       eventsPayload,
       extrasPayload,
       citiesPayload,
       disclaimerPayload,
+      sprungbrettJobsPayload: sprungbrettPayload,
+      wohnenPayload,
       languages,
+      dispatch: expect.any(Function),
       viewportSmall: true,
       city: 'augsburg',
       param: 'param',
-      language: 'de'
+      language: 'de',
+      darkMode: true
     })
   })
 })

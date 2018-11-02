@@ -8,17 +8,17 @@ import Headroom from './Headroom'
 
 const SEARCH_BAR_HEIGHT = 45
 
-type PropsType = {
+type PropsType = {|
   filterText: string,
   onFilterTextChange: (string) => void,
   spaceSearch: boolean,
   children: Element<*>,
   placeholderText: string
-}
+|}
 
-type StateType = {
+type StateType = {|
   initialized: boolean
-}
+|}
 
 export class ScrollingSearchBox extends React.PureComponent<PropsType, StateType> {
   static defaultProps = {spaceSearch: false}

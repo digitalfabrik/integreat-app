@@ -1,14 +1,19 @@
 // @flow
 
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedSprungbrettExtraPage, { SprungbrettExtraPage } from '../SprungbrettExtraPage'
-import configureMockStore from 'redux-mock-store'
-import CityModel from 'modules/endpoint/models/CityModel'
-import Payload from 'modules/endpoint/Payload'
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
+
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import Payload from '../../../../modules/endpoint/Payload'
+import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import createHistory from '../../../../modules/app/createHistory'
+import theme from '../../../../modules/theme/constants/theme'
+import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 
 describe('SprungbrettExtraPage', () => {
   const city = 'augsburg'
@@ -58,24 +63,16 @@ describe('SprungbrettExtraPage', () => {
     })
   ]
 
+  const t = (key: ?string): string => key || ''
+
   it('should render list', () => {
     const sprunbrettPage = shallow(
       <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs}
                             city={city}
                             language={language}
                             extras={[sprungbrettExtra]}
-                            cities={cities} />
-    )
-    expect(sprunbrettPage).toMatchSnapshot()
-  })
-
-  it('should render spinner if jobs are not ready', () => {
-    const sprunbrettPage = shallow(
-      <SprungbrettExtraPage sprungbrettJobs={null}
-                            city={city}
-                            language={language}
-                            extras={[sprungbrettExtra]}
-                            cities={cities} />
+                            cities={cities}
+                            t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
@@ -86,7 +83,8 @@ describe('SprungbrettExtraPage', () => {
                             city={city}
                             language={language}
                             extras={[]}
-                            cities={cities} />
+                            cities={cities}
+                            t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
@@ -95,19 +93,22 @@ describe('SprungbrettExtraPage', () => {
     const offerHash = 'hASH'
     const location = {payload: {language, city, offerHash}}
 
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
+    const store = createReduxStore(createHistory, {
       extras: new Payload(false, null, extras),
       sprungbrettJobs: new Payload(false, null, sprungbrettJobs),
       cities: new Payload(false, null, cities)
     })
+    store.getState().location = location
 
-    const extrasPage = shallow(
-      <ConnectedSprungbrettExtraPage store={store} cities={cities} extras={extras} sprungbrettJobs={sprungbrettJobs} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedSprungbrettExtraPage cities={cities} extras={extras} sprungbrettJobs={sprungbrettJobs} />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(extrasPage.props()).toMatchObject({
+    expect(tree.find(SprungbrettExtraPage).props()).toMatchObject({
       language,
       city,
       extras,

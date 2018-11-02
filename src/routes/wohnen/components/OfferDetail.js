@@ -1,19 +1,18 @@
 // @flow
 
 import React from 'react'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
-import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
+import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
+import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
 import type { AccommodationType } from '../../../modules/endpoint/models/WohnenFormData'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import ListElement from '../../../modules/common/components/ListElement'
 import Caption from '../../../modules/common/components/Caption'
 
-type PropsType = {
+type PropsType = {|
   offer: WohnenOfferModel,
   t: TFunction
-}
+|}
 
 const Header = styled.div`
   padding: 15px 5px 5px;
@@ -34,7 +33,10 @@ const Row = styled.div`
   margin: 10px 0;
 `
 
-// fixme: OfferList is connected to redux state because of Caption -> not a plain old component
+const ListElement = styled.div`
+  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  margin-bottom: 10px;
+`
 
 class OfferDetail extends React.Component<PropsType> {
   translate (type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {

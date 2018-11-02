@@ -5,12 +5,12 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
-import DisclaimerModel from 'modules/endpoint/models/DisclaimerModel'
+import PageModel from '../../../../modules/endpoint/models/PageModel'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('DisclaimerPage', () => {
-  const disclaimer = new DisclaimerModel({
+  const disclaimer = new PageModel({
     id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',

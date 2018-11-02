@@ -7,12 +7,10 @@ exports[`DisclaimerPage should match snapshot 1`] = `
   />
   <Page
     content="this is a test content"
-    onInternLinkClick={[Function]}
-    title="Feedback, Kontakt und mögliches Engagement"
-  />
-  <Translate(CategoryTimeStamp)
     language="de"
     lastUpdate={"2017-11-18T19:30:00.000Z"}
+    onInternalLinkClick={[Function]}
+    title="Feedback, Kontakt und mögliches Engagement"
   />
 </Fragment>
 `;
