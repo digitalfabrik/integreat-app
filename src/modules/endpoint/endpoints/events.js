@@ -20,7 +20,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   )
   .withMapper((json: Array<JsonEventType>): Array<EventModel> => json
     .map((event: JsonEventType) => {
-      const allDay = event.event.all_day !== '0'
+      const allDay = event.event.all_day
       return new EventModel({
         id: event.id,
         path: normalizePath(event.path),
