@@ -18,7 +18,7 @@ export const brightColors: ColorsType = {
   textColor: '#000000',
   textSecondaryColor: '#585858',
   textDecorationColor: '#c7c7c7',
-  textDisabledColor: '#dddddd',
+  textDisabledColor: '#d0d0d0',
   backgroundColor: '#ffffff'
 }
 
