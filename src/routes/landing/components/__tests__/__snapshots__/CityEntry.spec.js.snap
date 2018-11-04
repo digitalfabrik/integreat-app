@@ -15,8 +15,10 @@ exports[`CityEntry should match snapshot 1`] = `
 >
   <Highlighter
     caseSensitive={false}
+    diacriticsBlacklist=""
+    ignoreDiacritics={false}
     matchClass="highlight"
-    matchElement="strong"
+    matchElement="mark"
     matchStyle={Object {}}
     search=""
   >
