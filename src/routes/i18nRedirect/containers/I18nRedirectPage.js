@@ -11,6 +11,7 @@ import { goToNotFound } from '../../../modules/app/routes/notFound'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { withI18n } from 'react-i18next'
+import i18n from 'i18next'
 import { compose } from 'recompose'
 
 type PropsType = {|
