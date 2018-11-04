@@ -4,7 +4,6 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 
 import createReduxStore from '../createReduxStore'
-import createHistory from '../createHistory'
 import I18nProvider from '../../i18n/containers/I18nProvider'
 
 import PlatformProvider from '../../platform/containers/PlatformProvider'
@@ -19,7 +18,7 @@ class App extends React.Component<PropsType> {
 
   constructor () {
     super()
-    this.store = createReduxStore(createHistory, {}, routesMap)
+    this.store = createReduxStore({}, routesMap)
   }
 
   render () {

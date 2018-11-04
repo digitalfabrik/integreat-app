@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
-import createHistory from '../../../../modules/app/createHistory'
 import { Provider } from 'react-redux'
 import { goToLanding } from '../../../../modules/app/routes/landing'
 import { goToNotFound } from '../../../../modules/app/routes/notFound'
@@ -91,7 +90,7 @@ describe('I18nRedirectPage', () => {
     })
 
     it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {})
+      const store = createReduxStore()
 
       store.dispatch = jest.fn()
       expect(store.dispatch).not.toHaveBeenCalled()

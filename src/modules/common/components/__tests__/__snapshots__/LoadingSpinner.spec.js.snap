@@ -2,36 +2,65 @@
 
 exports[`LoadingSpinner should render and match snapshot 1`] = `
 <LoadingSpinner>
-  <Spinner
-    className="LoadingSpinner-kBZrgG jLKjsb"
-    color="#BBBBBB"
-    fadeIn="full"
-    name="line-scale-party"
-    noFadeIn={false}
-    overrideSpinnerClassName=""
-  >
-    <div
-      className="sk-fade-in sk-spinner LoadingSpinner-kBZrgG jLKjsb line-scale-party"
-      color="#BBBBBB"
-      style={
-        Object {
-          "color": "#BBBBBB",
-        }
+  <StyledComponent
+    forwardedClass={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Object {
+          "color": [Function],
+          "name": "line-scale-party",
+        },
+        "componentStyle": ComponentStyle {
+          "componentId": "LoadingSpinner-sc-17lopqu-0",
+          "isStatic": false,
+          "lastClassName": "gZOwbV",
+          "rules": Array [
+            "margin-top:50px;text-align:center;",
+          ],
+        },
+        "displayName": "LoadingSpinner",
+        "render": [Function],
+        "styledComponentId": "LoadingSpinner-sc-17lopqu-0",
+        "target": [Function],
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+        Symbol(Symbol.hasInstance): [Function],
       }
+    }
+    forwardedRef={null}
+  >
+    <Spinner
+      className="LoadingSpinner-sc-17lopqu-0 gZOwbV"
+      color="#BBBBBB"
+      fadeIn="full"
+      name="line-scale-party"
+      noFadeIn={false}
+      overrideSpinnerClassName=""
     >
       <div
-        key="0"
-      />
-      <div
-        key="1"
-      />
-      <div
-        key="2"
-      />
-      <div
-        key="3"
-      />
-    </div>
-  </Spinner>
+        className="sk-fade-in sk-spinner LoadingSpinner-sc-17lopqu-0 gZOwbV line-scale-party"
+        color="#BBBBBB"
+        style={
+          Object {
+            "color": "#BBBBBB",
+          }
+        }
+      >
+        <div
+          key="0"
+        />
+        <div
+          key="1"
+        />
+        <div
+          key="2"
+        />
+        <div
+          key="3"
+        />
+      </div>
+    </Spinner>
+  </StyledComponent>
 </LoadingSpinner>
 `;
