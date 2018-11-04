@@ -23,8 +23,7 @@ declare module 'hashids' {
  * needed.
  */
 declare module 'hashids/dist/hashids-esm' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'hashids/dist/hashids' {
@@ -36,8 +35,7 @@ declare module 'hashids/dist/hashids.min' {
 }
 
 declare module 'hashids/dist/index' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'hashids/lib/hashids' {
@@ -45,8 +43,7 @@ declare module 'hashids/lib/hashids' {
 }
 
 declare module 'hashids/tests-mjs/importing' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'hashids/tests/bad-input' {
@@ -86,14 +83,12 @@ declare module 'hashids/tests/min-length' {
 }
 
 declare module 'hashids/tests/requiring' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 // Filename aliases
 declare module 'hashids/dist/hashids-esm.js' {
-  declare module .exports: $Exports<'hashids/dist/hashids-esm'>
-;
+  declare module.exports: $Exports<'hashids/dist/hashids-esm'>;
 }
 declare module 'hashids/dist/hashids.js' {
   declare module.exports: $Exports<'hashids/dist/hashids'>;
@@ -102,15 +97,13 @@ declare module 'hashids/dist/hashids.min.js' {
   declare module.exports: $Exports<'hashids/dist/hashids.min'>;
 }
 declare module 'hashids/dist/index.js' {
-  declare module .exports: $Exports<'hashids/dist/index'>
-;
+  declare module.exports: $Exports<'hashids/dist/index'>;
 }
 declare module 'hashids/lib/hashids.js' {
   declare module.exports: $Exports<'hashids/lib/hashids'>;
 }
 declare module 'hashids/tests-mjs/importing.js' {
-  declare module .exports: $Exports<'hashids/tests-mjs/importing'>
-;
+  declare module.exports: $Exports<'hashids/tests-mjs/importing'>;
 }
 declare module 'hashids/tests/bad-input.js' {
   declare module.exports: $Exports<'hashids/tests/bad-input'>;
@@ -140,6 +133,5 @@ declare module 'hashids/tests/min-length.js' {
   declare module.exports: $Exports<'hashids/tests/min-length'>;
 }
 declare module 'hashids/tests/requiring.js' {
-  declare module .exports: $Exports<'hashids/tests/requiring'>
-;
+  declare module.exports: $Exports<'hashids/tests/requiring'>;
 }

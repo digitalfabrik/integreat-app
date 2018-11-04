@@ -35,8 +35,7 @@ declare module 'react-styled-flexboxgrid/dist/styled-flexboxgrid.min' {
 }
 
 declare module 'react-styled-flexboxgrid/emotion' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/karma.conf' {
@@ -76,53 +75,43 @@ declare module 'react-styled-flexboxgrid/lib/config.test' {
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Col' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Col.test' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Grid' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Grid.test' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Row' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Row.test' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/config' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/config.test' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/index' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/emotion/index.test' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'react-styled-flexboxgrid/lib/index' {
@@ -184,8 +173,7 @@ declare module 'react-styled-flexboxgrid/dist/styled-flexboxgrid.min.js' {
   declare module.exports: $Exports<'react-styled-flexboxgrid/dist/styled-flexboxgrid.min'>;
 }
 declare module 'react-styled-flexboxgrid/emotion.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/emotion'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/emotion'>;
 }
 declare module 'react-styled-flexboxgrid/karma.conf.js' {
   declare module.exports: $Exports<'react-styled-flexboxgrid/karma.conf'>;
@@ -215,44 +203,34 @@ declare module 'react-styled-flexboxgrid/lib/config.test.js' {
   declare module.exports: $Exports<'react-styled-flexboxgrid/lib/config.test'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Col.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Col'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Col'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Col.test.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Col.test'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Col.test'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Grid.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Grid'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Grid'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Grid.test.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Grid.test'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Grid.test'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Row.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Row'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Row'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/components/Row.test.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Row.test'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/components/Row.test'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/config.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/config'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/config'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/config.test.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/config.test'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/config.test'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/index.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/index'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/index'>;
 }
 declare module 'react-styled-flexboxgrid/lib/emotion/index.test.js' {
-  declare module .exports: $Exports<'react-styled-flexboxgrid/lib/emotion/index.test'>
-;
+  declare module.exports: $Exports<'react-styled-flexboxgrid/lib/emotion/index.test'>;
 }
 declare module 'react-styled-flexboxgrid/lib/index.js' {
   declare module.exports: $Exports<'react-styled-flexboxgrid/lib/index'>;

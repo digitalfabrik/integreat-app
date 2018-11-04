@@ -95,13 +95,11 @@ declare module 'eslint-plugin-node/lib/rules/prefer-global/process' {
 }
 
 declare module 'eslint-plugin-node/lib/rules/prefer-global/text-decoder' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-node/lib/rules/prefer-global/text-encoder' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module 'eslint-plugin-node/lib/rules/prefer-global/url-search-params' {
@@ -256,12 +254,10 @@ declare module 'eslint-plugin-node/lib/rules/prefer-global/process.js' {
   declare module.exports: $Exports<'eslint-plugin-node/lib/rules/prefer-global/process'>;
 }
 declare module 'eslint-plugin-node/lib/rules/prefer-global/text-decoder.js' {
-  declare module .exports: $Exports<'eslint-plugin-node/lib/rules/prefer-global/text-decoder'>
-;
+  declare module.exports: $Exports<'eslint-plugin-node/lib/rules/prefer-global/text-decoder'>;
 }
 declare module 'eslint-plugin-node/lib/rules/prefer-global/text-encoder.js' {
-  declare module .exports: $Exports<'eslint-plugin-node/lib/rules/prefer-global/text-encoder'>
-;
+  declare module.exports: $Exports<'eslint-plugin-node/lib/rules/prefer-global/text-encoder'>;
 }
 declare module 'eslint-plugin-node/lib/rules/prefer-global/url-search-params.js' {
   declare module.exports: $Exports<'eslint-plugin-node/lib/rules/prefer-global/url-search-params'>;
