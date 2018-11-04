@@ -12,4 +12,7 @@ export const translate = <Props> (namespace: string) => (Component: React.Compon
 
 export const I18nextProvider = ({children}: { children: React.Node }) => children
 
-export const withI18n = () => (Component: React.ComponentType) => () => <Component i18n={i18next.createInstance()} />
+export const withI18n = () => {
+  const i18n = i18next.createInstance()
+  return (Component: React.ComponentType) => props => <Component i18n={i18n} {...props} />
+}
