@@ -315,8 +315,7 @@ declare module '@fortawesome/free-solid-svg-icons/faBlender' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faBlenderPhone' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faBlind' {
@@ -348,8 +347,7 @@ declare module '@fortawesome/free-solid-svg-icons/faBook' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faBookDead' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faBookmark' {
@@ -477,8 +475,7 @@ declare module '@fortawesome/free-solid-svg-icons/faCameraRetro' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCampground' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCannabis' {
@@ -550,8 +547,7 @@ declare module '@fortawesome/free-solid-svg-icons/faCartPlus' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCat' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCertificate' {
@@ -559,8 +555,7 @@ declare module '@fortawesome/free-solid-svg-icons/faCertificate' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faChair' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faChalkboard' {
@@ -724,38 +719,31 @@ declare module '@fortawesome/free-solid-svg-icons/faCloudDownloadAlt' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudMeatball' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudMoon' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudMoonRain' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudRain' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudShowersHeavy' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudSun' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudSunRain' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faCloudUploadAlt' {
@@ -907,8 +895,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDeaf' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDemocrat' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDesktop' {
@@ -928,13 +915,11 @@ declare module '@fortawesome/free-solid-svg-icons/faDice' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDiceD20' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDiceD6' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDiceFive' {
@@ -982,8 +967,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDna' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDog' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDollarSign' {
@@ -1027,8 +1011,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDraftingCompass' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDragon' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDrawPolygon' {
@@ -1044,8 +1027,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDrumSteelpan' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDrumstickBite' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDumbbell' {
@@ -1053,8 +1035,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDumbbell' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faDungeon' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faEdit' {
@@ -1198,8 +1179,7 @@ declare module '@fortawesome/free-solid-svg-icons/faFileContract' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faFileCsv' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faFileDownload' {
@@ -1303,8 +1283,7 @@ declare module '@fortawesome/free-solid-svg-icons/faFish' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faFistRaised' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faFlag' {
@@ -1316,8 +1295,7 @@ declare module '@fortawesome/free-solid-svg-icons/faFlagCheckered' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faFlagUsa' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faFlask' {
@@ -1401,8 +1379,7 @@ declare module '@fortawesome/free-solid-svg-icons/faGenderless' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faGhost' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faGift' {
@@ -1522,8 +1499,7 @@ declare module '@fortawesome/free-solid-svg-icons/faGripVertical' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHammer' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHamsa' {
@@ -1599,8 +1575,7 @@ declare module '@fortawesome/free-solid-svg-icons/faHandSpock' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHanukiah' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHashtag' {
@@ -1608,8 +1583,7 @@ declare module '@fortawesome/free-solid-svg-icons/faHashtag' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHatWizard' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHaykal' {
@@ -1653,13 +1627,11 @@ declare module '@fortawesome/free-solid-svg-icons/faHighlighter' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHiking' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHippo' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHistory' {
@@ -1675,8 +1647,7 @@ declare module '@fortawesome/free-solid-svg-icons/faHome' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHorse' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHospital' {
@@ -1716,13 +1687,11 @@ declare module '@fortawesome/free-solid-svg-icons/faHourglassStart' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHouseDamage' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHryvnia' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faHSquare' {
@@ -2022,8 +1991,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMarsStrokeV' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faMask' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faMedal' {
@@ -2059,8 +2027,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMercury' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faMeteor' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faMicrochip' {
@@ -2152,8 +2119,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMotorcycle' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faMountain' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faMousePointer' {
@@ -2165,8 +2131,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMusic' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faNetworkWired' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faNeuter' {
@@ -2314,8 +2279,7 @@ declare module '@fortawesome/free-solid-svg-icons/faPercentage' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faPersonBooth' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faPhone' {
@@ -2403,8 +2367,7 @@ declare module '@fortawesome/free-solid-svg-icons/faPoop' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faPooStorm' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faPortrait' {
@@ -2484,8 +2447,7 @@ declare module '@fortawesome/free-solid-svg-icons/faQuran' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRainbow' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRandom' {
@@ -2521,8 +2483,7 @@ declare module '@fortawesome/free-solid-svg-icons/faReplyAll' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRepublican' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRetweet' {
@@ -2534,8 +2495,7 @@ declare module '@fortawesome/free-solid-svg-icons/faRibbon' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRing' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRoad' {
@@ -2583,8 +2543,7 @@ declare module '@fortawesome/free-solid-svg-icons/faRulerVertical' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRunning' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faRupeeSign' {
@@ -2612,8 +2571,7 @@ declare module '@fortawesome/free-solid-svg-icons/faScrewdriver' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faScroll' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSearch' {
@@ -2737,13 +2695,11 @@ declare module '@fortawesome/free-solid-svg-icons/faSkull' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSkullCrossbones' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSlash' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSlidersH' {
@@ -2763,8 +2719,7 @@ declare module '@fortawesome/free-solid-svg-icons/faSmileWink' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSmog' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSmoking' {
@@ -2832,8 +2787,7 @@ declare module '@fortawesome/free-solid-svg-icons/faSpaceShuttle' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSpider' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faSpinner' {
@@ -3049,13 +3003,11 @@ declare module '@fortawesome/free-solid-svg-icons/faTeethOpen' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faTemperatureHigh' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faTemperatureLow' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faTerminal' {
@@ -3155,8 +3107,7 @@ declare module '@fortawesome/free-solid-svg-icons/faToggleOn' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faToiletPaper' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faToolbox' {
@@ -3176,8 +3127,7 @@ declare module '@fortawesome/free-solid-svg-icons/faToriiGate' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faTractor' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faTrademark' {
@@ -3337,8 +3287,7 @@ declare module '@fortawesome/free-solid-svg-icons/faUserGraduate' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faUserInjured' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faUserLock' {
@@ -3458,8 +3407,7 @@ declare module '@fortawesome/free-solid-svg-icons/faVolumeUp' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faVoteYea' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faVrCardboard' {
@@ -3479,8 +3427,7 @@ declare module '@fortawesome/free-solid-svg-icons/faWarehouse' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faWater' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faWeight' {
@@ -3520,8 +3467,7 @@ declare module '@fortawesome/free-solid-svg-icons/faWindowRestore' {
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faWineBottle' {
-  declare module .exports: any
-;
+  declare module.exports: any;
 }
 
 declare module '@fortawesome/free-solid-svg-icons/faWineGlass' {
@@ -3777,8 +3723,7 @@ declare module '@fortawesome/free-solid-svg-icons/faBlender.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faBlender'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faBlenderPhone.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faBlenderPhone'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faBlenderPhone'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faBlind.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faBlind'>;
@@ -3802,8 +3747,7 @@ declare module '@fortawesome/free-solid-svg-icons/faBook.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faBook'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faBookDead.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faBookDead'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faBookDead'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faBookmark.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faBookmark'>;
@@ -3899,8 +3843,7 @@ declare module '@fortawesome/free-solid-svg-icons/faCameraRetro.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCameraRetro'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCampground.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCampground'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCampground'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCannabis.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCannabis'>;
@@ -3954,15 +3897,13 @@ declare module '@fortawesome/free-solid-svg-icons/faCartPlus.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCartPlus'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCat.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCat'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCat'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCertificate.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCertificate'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faChair.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faChair'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faChair'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faChalkboard.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faChalkboard'>;
@@ -4085,32 +4026,25 @@ declare module '@fortawesome/free-solid-svg-icons/faCloudDownloadAlt.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudDownloadAlt'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudMeatball.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudMeatball'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudMeatball'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudMoon.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudMoon'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudMoon'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudMoonRain.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudMoonRain'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudMoonRain'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudRain.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudRain'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudRain'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudShowersHeavy.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudShowersHeavy'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudShowersHeavy'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudSun.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudSun'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudSun'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudSunRain.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudSunRain'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudSunRain'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faCloudUploadAlt.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faCloudUploadAlt'>;
@@ -4224,8 +4158,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDeaf.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDeaf'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDemocrat.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDemocrat'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDemocrat'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDesktop.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDesktop'>;
@@ -4240,12 +4173,10 @@ declare module '@fortawesome/free-solid-svg-icons/faDice.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDice'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDiceD20.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDiceD20'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDiceD20'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDiceD6.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDiceD6'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDiceD6'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDiceFive.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDiceFive'>;
@@ -4281,8 +4212,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDna.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDna'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDog.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDog'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDog'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDollarSign.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDollarSign'>;
@@ -4315,8 +4245,7 @@ declare module '@fortawesome/free-solid-svg-icons/faDraftingCompass.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDraftingCompass'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDragon.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDragon'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDragon'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDrawPolygon.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDrawPolygon'>;
@@ -4328,15 +4257,13 @@ declare module '@fortawesome/free-solid-svg-icons/faDrumSteelpan.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDrumSteelpan'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDrumstickBite.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDrumstickBite'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDrumstickBite'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDumbbell.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDumbbell'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faDungeon.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faDungeon'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faDungeon'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faEdit.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faEdit'>;
@@ -4444,8 +4371,7 @@ declare module '@fortawesome/free-solid-svg-icons/faFileContract.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFileContract'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faFileCsv.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faFileCsv'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFileCsv'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faFileDownload.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFileDownload'>;
@@ -4523,8 +4449,7 @@ declare module '@fortawesome/free-solid-svg-icons/faFish.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFish'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faFistRaised.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faFistRaised'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFistRaised'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faFlag.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFlag'>;
@@ -4533,8 +4458,7 @@ declare module '@fortawesome/free-solid-svg-icons/faFlagCheckered.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFlagCheckered'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faFlagUsa.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faFlagUsa'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFlagUsa'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faFlask.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faFlask'>;
@@ -4597,8 +4521,7 @@ declare module '@fortawesome/free-solid-svg-icons/faGenderless.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faGenderless'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faGhost.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faGhost'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faGhost'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faGift.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faGift'>;
@@ -4688,8 +4611,7 @@ declare module '@fortawesome/free-solid-svg-icons/faGripVertical.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faGripVertical'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHammer.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHammer'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHammer'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHamsa.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHamsa'>;
@@ -4746,15 +4668,13 @@ declare module '@fortawesome/free-solid-svg-icons/faHandSpock.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHandSpock'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHanukiah.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHanukiah'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHanukiah'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHashtag.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHashtag'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHatWizard.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHatWizard'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHatWizard'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHaykal.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHaykal'>;
@@ -4787,12 +4707,10 @@ declare module '@fortawesome/free-solid-svg-icons/faHighlighter.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHighlighter'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHiking.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHiking'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHiking'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHippo.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHippo'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHippo'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHistory.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHistory'>;
@@ -4804,8 +4722,7 @@ declare module '@fortawesome/free-solid-svg-icons/faHome.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHome'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHorse.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHorse'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHorse'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHospital.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHospital'>;
@@ -4835,12 +4752,10 @@ declare module '@fortawesome/free-solid-svg-icons/faHourglassStart.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHourglassStart'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHouseDamage.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHouseDamage'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHouseDamage'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHryvnia.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faHryvnia'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHryvnia'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faHSquare.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faHSquare'>;
@@ -5065,8 +4980,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMarsStrokeV.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMarsStrokeV'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faMask.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faMask'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMask'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faMedal.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMedal'>;
@@ -5093,8 +5007,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMercury.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMercury'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faMeteor.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faMeteor'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMeteor'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faMicrochip.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMicrochip'>;
@@ -5163,8 +5076,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMotorcycle.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMotorcycle'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faMountain.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faMountain'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMountain'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faMousePointer.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMousePointer'>;
@@ -5173,8 +5085,7 @@ declare module '@fortawesome/free-solid-svg-icons/faMusic.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faMusic'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faNetworkWired.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faNetworkWired'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faNetworkWired'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faNeuter.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faNeuter'>;
@@ -5201,8 +5112,7 @@ declare module '@fortawesome/free-solid-svg-icons/faOm.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faOm'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faOtter.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faOtter'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faOtter'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faOutdent.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faOutdent'>;
@@ -5286,8 +5196,7 @@ declare module '@fortawesome/free-solid-svg-icons/faPercentage.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faPercentage'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faPersonBooth.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faPersonBooth'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faPersonBooth'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faPhone.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faPhone'>;
@@ -5353,8 +5262,7 @@ declare module '@fortawesome/free-solid-svg-icons/faPoop.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faPoop'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faPooStorm.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faPooStorm'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faPooStorm'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faPortrait.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faPortrait'>;
@@ -5414,8 +5322,7 @@ declare module '@fortawesome/free-solid-svg-icons/faQuran.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faQuran'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRainbow.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faRainbow'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRainbow'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRandom.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRandom'>;
@@ -5442,8 +5349,7 @@ declare module '@fortawesome/free-solid-svg-icons/faReplyAll.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faReplyAll'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRepublican.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faRepublican'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRepublican'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRetweet.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRetweet'>;
@@ -5452,8 +5358,7 @@ declare module '@fortawesome/free-solid-svg-icons/faRibbon.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRibbon'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRing.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faRing'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRing'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRoad.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRoad'>;
@@ -5489,8 +5394,7 @@ declare module '@fortawesome/free-solid-svg-icons/faRulerVertical.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRulerVertical'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRunning.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faRunning'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRunning'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faRupeeSign.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faRupeeSign'>;
@@ -5511,8 +5415,7 @@ declare module '@fortawesome/free-solid-svg-icons/faScrewdriver.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faScrewdriver'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faScroll.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faScroll'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faScroll'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSearch.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSearch'>;
@@ -5605,12 +5508,10 @@ declare module '@fortawesome/free-solid-svg-icons/faSkull.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSkull'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSkullCrossbones.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faSkullCrossbones'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSkullCrossbones'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSlash.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faSlash'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSlash'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSlidersH.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSlidersH'>;
@@ -5625,8 +5526,7 @@ declare module '@fortawesome/free-solid-svg-icons/faSmileWink.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSmileWink'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSmog.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faSmog'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSmog'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSmoking.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSmoking'>;
@@ -5677,8 +5577,7 @@ declare module '@fortawesome/free-solid-svg-icons/faSpaceShuttle.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSpaceShuttle'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSpider.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faSpider'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSpider'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faSpinner.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faSpinner'>;
@@ -5840,12 +5739,10 @@ declare module '@fortawesome/free-solid-svg-icons/faTeethOpen.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faTeethOpen'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faTemperatureHigh.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faTemperatureHigh'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faTemperatureHigh'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faTemperatureLow.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faTemperatureLow'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faTemperatureLow'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faTerminal.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faTerminal'>;
@@ -5920,8 +5817,7 @@ declare module '@fortawesome/free-solid-svg-icons/faToggleOn.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faToggleOn'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faToiletPaper.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faToiletPaper'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faToiletPaper'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faToolbox.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faToolbox'>;
@@ -5936,8 +5832,7 @@ declare module '@fortawesome/free-solid-svg-icons/faToriiGate.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faToriiGate'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faTractor.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faTractor'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faTractor'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faTrademark.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faTrademark'>;
@@ -6057,8 +5952,7 @@ declare module '@fortawesome/free-solid-svg-icons/faUserGraduate.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faUserGraduate'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faUserInjured.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faUserInjured'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faUserInjured'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faUserLock.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faUserLock'>;
@@ -6148,12 +6042,10 @@ declare module '@fortawesome/free-solid-svg-icons/faVolumeUp.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faVolumeUp'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faVoteYea.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faVoteYea'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faVoteYea'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faVrCardboard.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faVrCardboard'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faVrCardboard'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWalking.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWalking'>;
@@ -6165,8 +6057,7 @@ declare module '@fortawesome/free-solid-svg-icons/faWarehouse.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWarehouse'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWater.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faWater'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWater'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWeight.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWeight'>;
@@ -6181,8 +6072,7 @@ declare module '@fortawesome/free-solid-svg-icons/faWifi.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWifi'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWind.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faWind'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWind'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWindowClose.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWindowClose'>;
@@ -6197,8 +6087,7 @@ declare module '@fortawesome/free-solid-svg-icons/faWindowRestore.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWindowRestore'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWineBottle.js' {
-  declare module .exports: $Exports<'@fortawesome/free-solid-svg-icons/faWineBottle'>
-;
+  declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWineBottle'>;
 }
 declare module '@fortawesome/free-solid-svg-icons/faWineGlass.js' {
   declare module.exports: $Exports<'@fortawesome/free-solid-svg-icons/faWineGlass'>;
