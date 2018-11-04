@@ -8,11 +8,6 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
-import styled from 'styled-components'
-
-const DisabledImage = styled.img`
-  color: ${props => props.theme.colors.textDisabledColor};
-`
 
 type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
@@ -43,7 +38,7 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
                   disabledItemTooltip={t('noTranslation')} />
       </HeaderDropDown>
       : <span>
-        <DisabledImage data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
+        <img data-tip={noLanguagesHint} aria-label={noLanguagesHint} src={languageIcon} data-place='bottom' />
       </span>
   }
 }
