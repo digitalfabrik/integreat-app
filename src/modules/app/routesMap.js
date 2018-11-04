@@ -12,10 +12,12 @@ import { SPRUNGBRETT_ROUTE, sprungbrettRoute } from './routes/sprungbrett'
 import { WOHNEN_ROUTE, wohnenRoute } from './routes/wohnen'
 import { POIS_ROUTE, poisRoute } from './routes/pois'
 
+import type { Route } from 'redux-first-router'
+
 // this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
 // the order is important, routes declared first are served first, so i.e. if you put the mainDisclaimer route before
 // the i18nRedirect route, "/disclaimer" also matches the i18nRedirect route
-const routesMap = {
+const routesMap: {[string]: Route} = {
   [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRoute,
   [I18N_REDIRECT_ROUTE]: i18nRedirectRoute,
   [LANDING_ROUTE]: landingRoute,
