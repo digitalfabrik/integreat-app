@@ -74,7 +74,7 @@ export class LanguageSelector extends React.Component<PropsType> {
         verticalLayout
         items={selectorItems}
         activeItemCode={activeItemCode}
-        inactiveItemTooltip={t('noTranslation')} />
+        disabledItemTooltip={t('noTranslation')} />
   }
 }
 
