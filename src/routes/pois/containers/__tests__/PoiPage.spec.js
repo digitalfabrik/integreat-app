@@ -7,6 +7,7 @@ import moment from 'moment-timezone'
 import { PoiPage } from '../PoiPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { shallow } from 'enzyme'
+import List from '../../../../modules/common/components/List'
 
 describe('PoiPage', () => {
   const pois = [
@@ -117,5 +118,21 @@ describe('PoiPage', () => {
                poiId={undefined}
                routesMap={routesMap} />
     )).toMatchSnapshot()
+  })
+
+  it('should sort the pois alphabetically', () => {
+    const tree = shallow(
+      <PoiPage pois={[pois[2], pois[1], pois[0]]}
+               t={t}
+               city={city}
+               cities={cities}
+               language={language}
+               dispatch={dispatch}
+               path={'/augsburg/en/locations'}
+               poiId={undefined}
+               routesMap={routesMap} />
+    )
+
+    expect(tree.find(List).props().items).toEqual(pois)
   })
 })

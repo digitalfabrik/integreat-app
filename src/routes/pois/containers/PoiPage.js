@@ -20,6 +20,7 @@ import PoiModel from '../../../modules/endpoint/models/PoiModel'
 import PoiListItem from '../components/PoiListItem'
 import Caption from '../../../modules/common/components/Caption'
 import List from '../../../modules/common/components/List'
+import EventPlaceholder1 from '../../events/assets/EventPlaceholder1.jpg'
 
 type PropsType = {|
   pois: Array<PoiModel>,
@@ -67,10 +68,12 @@ export class PoiPage extends React.Component<PropsType> {
         return <FailureSwitcher error={error} />
       }
     }
+
+    const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
       <Caption title={t('pois')} />
-      <List noItemsMessage={t('noPois')} items={pois} renderItem={this.renderPoiListItem} />
+      <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={this.renderPoiListItem} />
     </>
   }
 }
