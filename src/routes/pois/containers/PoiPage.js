@@ -20,7 +20,6 @@ import PoiModel from '../../../modules/endpoint/models/PoiModel'
 import PoiListItem from '../components/PoiListItem'
 import Caption from '../../../modules/common/components/Caption'
 import List from '../../../modules/common/components/List'
-import EventPlaceholder1 from '../../events/assets/EventPlaceholder1.jpg'
 
 type PropsType = {|
   pois: Array<PoiModel>,
