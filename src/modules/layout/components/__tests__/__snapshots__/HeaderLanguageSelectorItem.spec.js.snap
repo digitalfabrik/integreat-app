@@ -7,7 +7,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
 >
   <Selector
     activeItemCode="de"
-    inactiveItemTooltip="layout:noTranslation"
+    disabledItemTooltip="layout:noTranslation"
     items={
       Array [
         SelectorItemModel {
@@ -29,7 +29,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
 
 exports[`HeaderLanguageSelectorItem should render an icon with a tooltip if there are no selectorItems 1`] = `
 <span>
-  <HeaderLanguageSelectorItem__InactiveImage
+  <img
     aria-label="layout:noLanguages"
     data-place="bottom"
     data-tip="layout:noLanguages"

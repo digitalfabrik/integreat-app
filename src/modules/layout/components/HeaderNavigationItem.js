@@ -21,8 +21,8 @@ const NavigationItem = styled(Link)`
   }
 `
 
-const InactiveNavigationItem = styled(NavigationItem.withComponent('span'))`
-  color: ${props => props.theme.colors.textSecondaryColor};
+const DisabledNavigationItem = styled(NavigationItem.withComponent('span'))`
+  color: ${props => props.theme.colors.textDisabledColor};
 `
 
 const ActiveNavigationItem = styled(NavigationItem)`
@@ -58,9 +58,9 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
         {text}
       </ActiveNavigationItem>
     } else {
-      return <InactiveNavigationItem key={text} data-tip={tooltip}>
+      return <DisabledNavigationItem key={text} data-tip={tooltip}>
         {text}
-      </InactiveNavigationItem>
+      </DisabledNavigationItem>
     }
   }
 }
