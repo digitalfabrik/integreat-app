@@ -13,7 +13,6 @@ class PoiListItem extends React.Component<PropsType> {
     const {poi} = this.props
     return (
       <ListItem key={poi.path}
-                thumbnail={poi.thumbnail}
                 title={poi.title}
                 path={poi.path}>
         <div>{poi.location.location}</div>
