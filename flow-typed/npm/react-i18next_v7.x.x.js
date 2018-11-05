@@ -1,4 +1,4 @@
-// flow-typed signature: 65d42f62f8de603dcc631ea5a6b00580
+// flow-typed signature: b7f853070604d3d34b15100b093fe210
 // flow-typed version: f3f13164e0/react-i18next_v7.x.x/flow_>=v0.64.x
 
 declare module "react-i18next" {

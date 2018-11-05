@@ -3,7 +3,7 @@
 import citiesEndpoint from '../../endpoint/endpoints/cities'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
 
 export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
@@ -14,7 +14,7 @@ export const goToI18nRedirect = (param: ?string) => createAction(I18N_REDIRECT_R
  * Matches / and /param
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const i18nRedirectRoute = {
+export const i18nRedirectRoute: Route = {
   path: '/:param?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
