@@ -4,7 +4,7 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 
 export const WOHNEN_ROUTE = 'WOHNEN'
@@ -16,7 +16,7 @@ export const goToWohnenExtra = (city: string, language: string, offerHash: strin
 export const getWohnenExtraPath = (city: string, language: string, offerHash?: string): string =>
   `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
-export const wohnenRoute = {
+export const wohnenRoute: Route = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
