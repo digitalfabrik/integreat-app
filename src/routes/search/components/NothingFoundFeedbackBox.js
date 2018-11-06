@@ -35,7 +35,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     const {query, location} = this.props
     const {city, language} = location.payload
     const {comment} = this.state
-    feedback.fetchData({
+    feedback.request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment,
