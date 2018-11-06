@@ -50,7 +50,7 @@ type PropsType = {|
 |}
 
 /**
- * Renders all necessary inputs for a Feedback and posts the data to the feedback endpointjhkhji
+ * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
  */
 export class FeedbackBox extends React.Component<PropsType> {
   render () {

@@ -43,7 +43,7 @@ async function fetchData<P, T> (
       return payload
     }
 
-    const payload = await endpoint.fetchData(params, formattedUrl)
+    const payload = await endpoint.request(params, formattedUrl)
     dispatch(finishFetchAction(endpoint.stateName, payload))
     return payload
   } catch (e) {

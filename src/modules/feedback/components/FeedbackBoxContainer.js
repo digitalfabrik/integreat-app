@@ -66,7 +66,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      feedback.fetchData(feedbackData)
+      feedback.request(feedbackData)
     }
   }
 
@@ -76,7 +76,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * * Feedback for the content of the current city if the current route is a LocationRoute
    * * Feedback for all available extras if the current page is the extras page
    * * Feedback for technical topics
-   * @return {Array}
    */
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {t} = this.props
@@ -100,7 +99,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns a feedback option for the content of the current city
-   * @return {FeedbackDropdownItem}
    */
   getContentFeedbackOption = (): ?FeedbackDropdownItem => {
     const {cities, location, t} = this.props
@@ -125,7 +123,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns a feedback option for every available extra
-   * @return {*}
    */
   getExtrasFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {extras, location, t} = this.props
@@ -140,7 +137,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns a feedback option for the current page or null if there shouldn't be one
-   * @return {*}
    */
   getCurrentPageFeedbackOption = (): ?FeedbackDropdownItem => {
     const {location, id, alias, title, query, t} = this.props
@@ -163,10 +159,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns the data that should be posted to the feedback endpoint
-   * @param selectedFeedbackOption
-   * @param comment
-   * @return {{feedbackType: string, isPositiveRating: boolean, comment: string, id: number, city: *, language: *,
-   * alias: string, query: string}}
    */
   getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
     const {location, query, isPositiveRatingSelected, id, alias} = this.props

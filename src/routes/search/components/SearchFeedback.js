@@ -49,7 +49,7 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   openFeedbackBox = () => {
     const {location, query} = this.props
     const {city, language} = location.payload
-    feedback.fetchData({
+    feedback.request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment: '',
