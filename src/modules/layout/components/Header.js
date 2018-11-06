@@ -10,14 +10,14 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
 import { SearchBar } from 'react-native-elements'
 
-const Horizonal = styled.View`
+const Horizontal = styled.View`
   flex:1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
 
-const HorizonalLeft = styled.View`
+const HorizontalLeft = styled.View`
   flex:1;
   flex-direction: row;
   align-items: center;
@@ -124,10 +124,10 @@ class Header extends React.PureComponent<PropsType, StateType> {
 
   render () {
     if (this.state.searchActive) {
-      return <BoxShadow theme={this.props.theme}><HorizonalLeft>
+      return <BoxShadow theme={this.props.theme}><HorizontalLeft>
         <HeaderBackButton onPress={this.closeSearchBar} />
         <ThemedSearchBar />
-      </HorizonalLeft>
+      </HorizontalLeft>
       </BoxShadow>
     }
 
@@ -135,19 +135,19 @@ class Header extends React.PureComponent<PropsType, StateType> {
 
     return (
       <BoxShadow theme={this.props.theme}>
-        <Horizonal>
-          <HorizonalLeft>
+        <Horizontal>
+          <HorizontalLeft>
             {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
             <Logo source={logo} />
             <Title>{headerTitle}</Title>
-          </HorizonalLeft>
+          </HorizontalLeft>
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
             <Item title='Change Location' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>
-        </Horizonal>
+        </Horizontal>
       </BoxShadow>
     )
   }
