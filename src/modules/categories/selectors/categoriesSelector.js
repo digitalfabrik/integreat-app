@@ -1,3 +1,5 @@
+// @flow
+
 import type { StateType } from '../../../modules/app/StateType'
 import { createSelector } from 'reselect'
 import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'

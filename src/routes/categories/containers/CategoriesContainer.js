@@ -1,7 +1,6 @@
 // @flow
 
-import
-  Categories from '../../../modules/categories/components/Categories'
+import Categories from '../../../modules/categories/components/Categories'
 import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
@@ -11,7 +10,6 @@ import { ScrollView } from 'react-native'
 import React from 'react'
 import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
 import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
-
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language

@@ -6027,9 +6027,9 @@ react-native-view-pdf@^0.4.1:
   resolved "https://registry.yarnpkg.com/react-native-view-pdf/-/react-native-view-pdf-0.4.1.tgz#059c362c10935da21f793bad5f29745944da9655"
   integrity sha512-G+lAmt3tKnMpkG0IJCZwQ7m5bB/vhYSFD93EkNjCW14ZGLnOOE/nfKeUA3HIr6Wo99mjIRQFbA6viUAvA6scVg==
 
-"react-native-webview@https://github.com/maxammann/react-native-webview/":
-  version "0.1.0"
-  resolved "https://github.com/maxammann/react-native-webview/#1ac7126f24f88d84bec4ed8b8480aebf2948a93f"
+"react-native-webview@https://github.com/maxammann/react-native-webview/#android-onShouldStartLoadWithRequest":
+  version "2.5.0"
+  resolved "https://github.com/maxammann/react-native-webview/#989877920f129c850bca24ed85468917d987c39e"
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"

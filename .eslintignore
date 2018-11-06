@@ -1,4 +1,5 @@
 /flow-typed/
+/coverage/
 __coverage__
 /node_modules/
 /tile-server/

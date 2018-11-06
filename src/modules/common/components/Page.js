@@ -2,11 +2,13 @@
 
 import React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import { WebView, type WebViewUrlOverrideEvent } from 'react-native-webview'
+import { WebView } from 'react-native-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
-import type { WebViewNativeEvent } from 'react-native-webview/js/WebViewTypes'
+import type {
+  WebViewNavigation
+} from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 
@@ -35,8 +37,7 @@ class Page extends React.Component<PropType> {
     }
   }
 
-  // For iOS
-  onShouldStartLoadWithRequest = (event: WebViewNativeEvent) => {
+  onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
     const url = event.url
     if (url === URL_PREFIX + OFFLINE_CACHE_PATH) {
       return true
@@ -45,11 +46,6 @@ class Page extends React.Component<PropType> {
     this.onLinkPress(url)
 
     return false
-  }
-
-  // For android
-  onOverrideUrlLoading = (event: WebViewUrlOverrideEvent) => {
-    this.onLinkPress(event.nativeEvent.url)
   }
 
   renderError = (errorDomain: ?string, errorCode: number, errorDesc: string) => {
@@ -76,7 +72,6 @@ class Page extends React.Component<PropType> {
             renderError={this.renderError}
 
             urlOverridingEnabled
-            onOverrideUrlLoading={this.onOverrideUrlLoading}
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </WebContainer>
