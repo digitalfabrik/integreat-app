@@ -4,6 +4,6 @@ import { createAction } from 'redux-actions'
 
 export const setUiDirectionAction = 'SET_UI_DIRECTION'
 
-const setUiDirection = (direction: 'ltr' | 'rtl') => createAction(setUiDirectionAction)(direction)
+export type SetUiDirectionActionType = { type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl' }
 
-export default setUiDirection
+export default (direction: 'ltr' | 'rtl'): SetUiDirectionActionType => createAction('SET_UI_DIRECTION')(direction)
