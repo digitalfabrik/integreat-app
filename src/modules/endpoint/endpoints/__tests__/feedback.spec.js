@@ -27,7 +27,7 @@ describe('feedback', () => {
 
     // For flow inspection
     if (!feedback.mapParamsToBody) {
-      return
+      throw new Error('Should not happen because the previous assertion')
     }
 
     expect(feedback.mapParamsToBody({
