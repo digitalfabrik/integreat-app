@@ -12,9 +12,15 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 ## Running the App for development
 
 * Run `yarn start` to start the bundler
+
+### Android
+
 * Run your Android Emulator or connect a device
 * Run `yarn android`
 
+### iOS
+* Update CocoaPods
+* Run `yarn ios`
 
 ### If you encounter problems:
     
