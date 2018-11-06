@@ -7,7 +7,7 @@ import type { Dispatch, GetState, Route } from 'redux-first-router'
 
 export const LANDING_ROUTE = 'LANDING'
 
-export const goToLanding = (language: string) => createAction(LANDING_ROUTE)({language})
+export const goToLanding = (language: string) => createAction<string, { language: string }>(LANDING_ROUTE)({language})
 
 /**
  * LandingRoute, matches /landing/de

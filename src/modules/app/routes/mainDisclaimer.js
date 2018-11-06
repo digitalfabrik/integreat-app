@@ -5,7 +5,7 @@ import type { Route } from 'redux-first-router'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-export const goToMainDisclaimer = () => createAction(MAIN_DISCLAIMER_ROUTE)()
+export const goToMainDisclaimer = () => createAction<string, void>(MAIN_DISCLAIMER_ROUTE)()
 
 /**
  * MainDisclaimerRoute, matches /disclaimer

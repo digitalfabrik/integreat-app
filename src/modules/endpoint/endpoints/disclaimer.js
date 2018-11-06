@@ -5,12 +5,13 @@ import PageModel from '../models/PageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment'
 import type { JsonDisclaimerType } from '../types'
+import Endpoint from '../Endpoint'
 
 const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
 type ParamsType = {city: string, language: string}
 
-export default new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
   )
@@ -27,3 +28,5 @@ export default new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NA
     })
   })
   .build()
+
+export default endpoint

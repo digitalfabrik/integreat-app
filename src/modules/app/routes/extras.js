@@ -8,7 +8,7 @@ import type { Dispatch, GetState, Route } from 'redux-first-router'
 export const EXTRAS_ROUTE = 'EXTRAS'
 
 export const goToExtras = (city: string, language: string) =>
-  createAction(EXTRAS_ROUTE)({city, language})
+  createAction<string, { city: string, language: string }>(EXTRAS_ROUTE)({city, language})
 
 export const getExtraPath = (city: string, language: string, internalExtra: ?string): string =>
   `/${city}/${language}/extras${internalExtra ? `/${internalExtra}` : ''}`
