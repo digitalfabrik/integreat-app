@@ -7,7 +7,7 @@ describe('Endpoint', () => {
   const defaultJsonMapper = json => json
 
   it('should have correct state name', () => {
-    const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, defaultJsonMapper)
+    const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
 
     expect(endpoint.stateName).toBe('endpoint')
   })

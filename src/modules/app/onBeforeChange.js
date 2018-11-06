@@ -6,6 +6,7 @@ import languagesEndpoint from '../endpoint/endpoints/languages'
 import eventsEndpoint from '../endpoint/endpoints/events'
 
 import { LocationLayoutRoutes } from '../layout/containers/LocationLayout'
+import fetchData from './fetchData'
 
 /**
  * This handles the loading of additional data for the location layout
@@ -19,9 +20,9 @@ const onBeforeChange = async (dispatch: Dispatch, getState: GetState, bag: Bag) 
 
   // in the following routes we have a location layout, so we need cities, languages and events
   if (LocationLayoutRoutes.includes(route)) {
-    await Promise.all([citiesEndpoint.loadData(dispatch, state.cities),
-      languagesEndpoint.loadData(dispatch, state.languages, params),
-      eventsEndpoint.loadData(dispatch, state.events, params)])
+    await Promise.all([fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(languagesEndpoint, dispatch, state.languages, params),
+      fetchData(eventsEndpoint, dispatch, state.events, params)])
   }
 }
 
