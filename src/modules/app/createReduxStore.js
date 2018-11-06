@@ -23,7 +23,10 @@ export type ActionType<T> = { type: string, payload: Payload<T> }
 const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
   const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
     onBeforeChange: onBeforeChange,
-    querySerializer: queryString
+    querySerializer: {
+      stringify: params => queryString.stringify(params),
+      parse: (str: string) => queryString.parse(str)
+    }
   })
 
   /**
@@ -45,6 +48,7 @@ const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultR
     darkMode: toggleDarkModeReducer
   })
 
+  // $FlowFixMe WEBAPP-400 This can not be fixed until our store has a type
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
 
   return createStore(rootReducer, initialState, enhancers)

@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import i18next from 'i18next'
 
 // this mock makes sure any components using the translate HoC receive the t function as a prop
 export const translate = <Props> (namespace: string) => (Component: React.ComponentType<Props>) => {
@@ -10,9 +9,4 @@ export const translate = <Props> (namespace: string) => (Component: React.Compon
   return Translated
 }
 
-export const I18nextProvider = ({children}: { children: React.Node }) => children
-
-export const withI18n = () => {
-  const i18n = i18next.createInstance()
-  return (Component: React.ComponentType) => props => <Component i18n={i18n} {...props} />
-}
+export const I18nextProvider = ({ children }: { children: React.Node }) => children

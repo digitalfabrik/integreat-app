@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react'
+import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
@@ -26,7 +26,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @param error
    * @return {*}
    */
-  static renderContentNotFoundComponent (error: ContentNotFoundError): Node {
+  static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
     switch (error.type) {
       case 'category':
         return <Failure goToAction={goToCategories(error.city, error.language)}
@@ -41,13 +41,15 @@ export class FailureSwitcher extends React.Component<PropsType> {
                         goToMessage={'goTo.extras'}
                         errorMessage={'not-found.extra'} />
     }
+
+    throw new Error('Failed to find component to render a content error')
   }
 
   /**
    * Decides which kind of error should be rendered
    * @return {*}
    */
-  renderErrorComponent (): Node {
+  renderErrorComponent (): React.Node {
     const error = this.props.error
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
@@ -69,12 +71,12 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 
   render () {
-    return <Fragment>
+    return <React.Fragment>
       <Helmet>
         <title>{this.getErrorName()}</title>
       </Helmet>
       {this.renderErrorComponent()}
-    </Fragment>
+    </React.Fragment>
   }
 }
 

@@ -3,6 +3,7 @@
 import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
+import Endpoint from '../Endpoint'
 
 const stripSlashes = (path: string): string => {
   if (path.startsWith('/')) {
@@ -23,7 +24,7 @@ type JsonCityType = {
   name_without_prefix: string
 }
 
-export default new EndpointBuilder<void, Array<CityModel>>('cities')
+const endpoint: Endpoint<void, Array<CityModel>> = new EndpointBuilder('cities')
   .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v3/sites`)
   .withMapper((json: Array<JsonCityType>) => json.map(city => new CityModel({
     name: city.name,
@@ -34,3 +35,5 @@ export default new EndpointBuilder<void, Array<CityModel>>('cities')
     sortingName: city.name_without_prefix
   })).sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName)))
   .build()
+
+export default endpoint

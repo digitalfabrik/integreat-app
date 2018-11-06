@@ -14,6 +14,7 @@ import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 type PropsType = {||}
 
 class App extends React.Component<PropsType> {
+  // $FlowFixme WEBAPP-400 Fix types for flow
   store: any
 
   constructor () {
