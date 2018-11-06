@@ -5,6 +5,7 @@ import LoadingError from './errors/LoadingError'
 import MappingError from './errors/MappingError'
 import type { MapResponseType } from './MapResponseType'
 import type { MapParamsToUrlType } from './MapParamsToUrlType'
+import type { MapParamsToBodyType } from './MapParamsToBody'
 
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -12,13 +13,19 @@ import type { MapParamsToUrlType } from './MapParamsToUrlType'
 class Endpoint<P, T> {
   _stateName: string
   mapParamsToUrl: MapParamsToUrlType<P>
+  mapParamsToBody: MapParamsToBodyType<P>
   mapResponse: MapResponseType<P, T>
   responseOverride: ?T
   errorOverride: ?Error
 
-  constructor (name: string, mapParamsToUrl: MapParamsToUrlType<P>, mapResponse: MapResponseType<P, T>,
-    responseOverride: ?T, errorOverride: ?Error) {
+  constructor (
+    name: string,
+    mapParamsToUrl: MapParamsToUrlType<P>, mapParamsToBody: MapParamsToBodyType<P>,
+    mapResponse: MapResponseType<P, T>,
+    responseOverride: ?T, errorOverride: ?Error
+  ) {
     this.mapParamsToUrl = mapParamsToUrl
+    this.mapParamsToBody = mapParamsToBody
     this.mapResponse = mapResponse
     this.responseOverride = responseOverride
     this.errorOverride = errorOverride
@@ -29,11 +36,23 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
+  async postFormData (url: string, params: P): Promise<Response> {
+    const formattedBody = this.mapParamsToBody(params)
+
+    return fetch(url, {
+      method: 'POST',
+      body: formattedBody
+    })
+  }
+
   async fetchData (formattedUrl: string, params: P): Promise<Payload<T>> {
-    const response = await fetch(formattedUrl)
+    const url = this.mapParamsToUrl(params)
+    const response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
+
     if (!response.ok) {
       throw new LoadingError({endpointName: this.stateName, message: `${response.status}`})
     }
+
     try {
       const json = await response.json()
       const fetchedData = this.mapResponse(json, params)
