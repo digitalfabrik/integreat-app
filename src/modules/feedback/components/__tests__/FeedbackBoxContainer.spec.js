@@ -13,7 +13,7 @@ import {
   EXTRAS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../../modules/endpoint/FeedbackEndpoint'
+} from '../../../../modules/endpoint/endpoints/feedback'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
 import { EXTRAS_ROUTE } from '../../../../modules/app/routes/extras'
 import { EVENTS_ROUTE } from '../../../../modules/app/routes/events'

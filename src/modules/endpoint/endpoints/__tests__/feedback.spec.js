@@ -23,7 +23,7 @@ describe('feedback', () => {
     formData.append('query', 'query')
     formData.append('alias', 'alias')
 
-    expect(feedback.mapParamsToBody).toExist()
+    expect(feedback.mapParamsToBody).not.toBeNull()
 
     // For flow inspection
     if (!feedback.mapParamsToBody) {
