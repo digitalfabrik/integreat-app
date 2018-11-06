@@ -2,9 +2,9 @@
 
 import reducers, { finishFetchReducer, startFetchReducer } from '../'
 import startFetchAction from '../../../app/actions/startFetchAction'
-import Payload from '../../Payload'
 import lolex from 'lolex'
 import finishFetchAction from '../../../app/actions/finishFetchAction'
+import Payload from '../../../endpoint/Payload'
 
 describe('endpoint reducers', () => {
   let clock
