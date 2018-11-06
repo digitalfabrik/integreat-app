@@ -1,10 +1,10 @@
 // @flow
 
-import FeedbackEndpoint from '../FeedbackEndpoint'
+import feedback from '../feedback'
 
-describe('FeedbackEndpoint', () => {
+describe('feedback', () => {
   it('should map params to url', () => {
-    expect(FeedbackEndpoint.mapParamsToUrl({
+    expect(feedback.mapParamsToUrl({
       city: 'augsburg',
       language: 'de',
       comment: null,
@@ -22,7 +22,15 @@ describe('FeedbackEndpoint', () => {
     formData.append('comment', 'comment')
     formData.append('query', 'query')
     formData.append('alias', 'alias')
-    expect(FeedbackEndpoint.mapParamsToFormData({
+
+    expect(feedback.mapParamsToBody).toExist()
+
+    // For flow inspection
+    if (!feedback.mapParamsToBody) {
+      return
+    }
+
+    expect(feedback.mapParamsToBody({
       city: 'augsburg',
       language: 'de',
       id: 1234,
