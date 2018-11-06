@@ -3,6 +3,7 @@
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
+import type { JsonSprungbrettJobType } from '../types'
 
 const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 
