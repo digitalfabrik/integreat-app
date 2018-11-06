@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import Payload from '../Payload'
+import Payload from '../../endpoint/Payload'
 
 export const finishFetchActionName = (stateName: string): string => `FINISH_FETCH_${stateName.toUpperCase()}`
 
