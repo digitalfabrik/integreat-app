@@ -187,8 +187,9 @@ const mapStateToProps = state => ({
   darkMode: state.darkMode
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => ({
-  toggleDarkMode: action => dispatch(toggleDarkModeAction(action))
+// fixme: WEBAPP-400 Dispatch type is not correct
+const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+  toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationLayout)
