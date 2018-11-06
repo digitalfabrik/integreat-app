@@ -7,7 +7,7 @@ import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
-import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/FeedbackEndpoint'
+import feedback, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/endpoints/feedback'
 
 const FeedbackButton = styled.div`
   padding: 30px 0;
@@ -49,7 +49,7 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   openFeedbackBox = () => {
     const {location, query} = this.props
     const {city, language} = location.payload
-    FeedbackEndpoint.postData({
+    feedback.fetchData({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment: '',

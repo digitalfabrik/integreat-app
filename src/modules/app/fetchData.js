@@ -19,7 +19,7 @@ async function fetchData<P, T> (
     const responseOverride = endpoint.responseOverride
     const errorOverride = endpoint.errorOverride
 
-    formattedUrl = this.mapParamsToUrl(params)
+    formattedUrl = endpoint.mapParamsToUrl(params)
 
     const lastUrl = oldPayload.requestUrl
 
@@ -29,34 +29,34 @@ async function fetchData<P, T> (
     }
 
     // Fetch if the data is not valid anymore or it hasn't been fetched yet
-    dispatch(startFetchAction(this.stateName, formattedUrl))
+    dispatch(startFetchAction(endpoint.stateName, formattedUrl))
 
     if (errorOverride) {
       const payload = new Payload(false, formattedUrl, null, errorOverride)
-      dispatch(finishFetchAction(this.stateName, payload))
+      dispatch(finishFetchAction(endpoint.stateName, payload))
       return payload
     }
     if (responseOverride) {
-      const data = this.mapResponse(responseOverride, params)
+      const data = endpoint.mapResponse(responseOverride, params)
       const payload = new Payload(false, formattedUrl, data, null)
-      dispatch(finishFetchAction(this.stateName, payload))
+      dispatch(finishFetchAction(endpoint.stateName, payload))
       return payload
     }
 
-    const payload = await this.fetchData(formattedUrl, params)
-    dispatch(finishFetchAction(this.stateName, payload))
+    const payload = await endpoint.fetchData(params, formattedUrl)
+    dispatch(finishFetchAction(endpoint.stateName, payload))
     return payload
   } catch (e) {
     let error
     if (e instanceof LoadingError || e instanceof ParamMissingError || e instanceof MappingError) {
       error = e
     } else {
-      error = new LoadingError({endpointName: this.stateName, message: e.message})
+      error = new LoadingError({endpointName: endpoint.stateName, message: e.message})
     }
 
     console.error(error)
     const payload = new Payload(false, formattedUrl, null, error)
-    dispatch(finishFetchAction(this.stateName, payload))
+    dispatch(finishFetchAction(endpoint.stateName, payload))
     return payload
   }
 }

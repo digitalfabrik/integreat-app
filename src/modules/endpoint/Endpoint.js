@@ -48,8 +48,8 @@ class Endpoint<P, T> {
     })
   }
 
-  async fetchData (formattedUrl: string, params: P): Promise<Payload<T>> {
-    const url = this.mapParamsToUrl(params)
+  async fetchData (params: P, overrideUrl?: string): Promise<Payload<T>> {
+    const url = overrideUrl || this.mapParamsToUrl(params)
     const response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
 
     if (!response.ok) {
@@ -59,7 +59,7 @@ class Endpoint<P, T> {
     try {
       const json = await response.json()
       const fetchedData = this.mapResponse(json, params)
-      return new Payload(false, formattedUrl, fetchedData, null)
+      return new Payload(false, url, fetchedData, null)
     } catch (e) {
       throw (e instanceof MappingError) ? e : new MappingError(this.stateName, e.message)
     }

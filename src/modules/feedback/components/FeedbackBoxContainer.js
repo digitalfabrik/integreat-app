@@ -4,8 +4,8 @@ import * as React from 'react'
 import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
-import FeedbackEndpoint, {
+import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
+import feedback, {
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -14,7 +14,7 @@ import FeedbackEndpoint, {
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/FeedbackEndpoint'
+} from '../../../modules/endpoint/endpoints/feedback'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
@@ -38,7 +38,7 @@ type PropsType = {|
   isPositiveRatingSelected: boolean,
   location: LocationState,
   extras: ?Array<ExtraModel>,
-  postFeedbackDataOverride?: FeedbackDataType => void,
+  postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   onSubmit: () => void,
   t: TFunction
@@ -60,13 +60,13 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
-  postFeedbackData = (feedbackData: FeedbackDataType) => {
+  postFeedbackData = (feedbackData: FeedbackParamsType) => {
     const {postFeedbackDataOverride} = this.props
 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      FeedbackEndpoint.postData(feedbackData)
+      feedback.fetchData(feedbackData)
     }
   }
 
@@ -162,13 +162,13 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   /**
-   * Returns the data that should be posted to the FeedbackEndpoint
+   * Returns the data that should be posted to the feedback endpoint
    * @param selectedFeedbackOption
    * @param comment
    * @return {{feedbackType: string, isPositiveRating: boolean, comment: string, id: number, city: *, language: *,
    * alias: string, query: string}}
    */
-  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackDataType => {
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
     const {location, query, isPositiveRatingSelected, id, alias} = this.props
     const {city, language} = location.payload
 
