@@ -13,14 +13,14 @@ import type { MapParamsToBodyType } from './MapParamsToBody'
 class Endpoint<P, T> {
   _stateName: string
   mapParamsToUrl: MapParamsToUrlType<P>
-  mapParamsToBody: MapParamsToBodyType<P>
+  mapParamsToBody: ?MapParamsToBodyType<P>
   mapResponse: MapResponseType<P, T>
   responseOverride: ?T
   errorOverride: ?Error
 
   constructor (
     name: string,
-    mapParamsToUrl: MapParamsToUrlType<P>, mapParamsToBody: MapParamsToBodyType<P>,
+    mapParamsToUrl: MapParamsToUrlType<P>, mapParamsToBody: ?MapParamsToBodyType<P>,
     mapResponse: MapResponseType<P, T>,
     responseOverride: ?T, errorOverride: ?Error
   ) {
@@ -37,6 +37,9 @@ class Endpoint<P, T> {
   }
 
   async postFormData (url: string, params: P): Promise<Response> {
+    if (!this.mapParamsToBody) {
+      throw new Error(`The endpoint ${this.stateName} is not able to post form data!`)
+    }
     const formattedBody = this.mapParamsToBody(params)
 
     return fetch(url, {

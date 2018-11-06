@@ -3,6 +3,7 @@
 import { createAction } from 'redux-actions'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import poisEndpoint from '../../endpoint/endpoints/pois'
+import fetchData from '../fetchData'
 
 export const POIS_ROUTE = 'POI'
 
@@ -18,6 +19,6 @@ export const poisRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await poisEndpoint.loadData(dispatch, state.pois, {city, language})
+    await fetchData(poisEndpoint, dispatch, state.pois, {city, language})
   }
 }

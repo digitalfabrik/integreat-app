@@ -6,6 +6,7 @@ import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
+import fetchData from '../fetchData'
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
@@ -22,14 +23,14 @@ export const wohnenRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
+    const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
     const extras: ?Array<ExtraModel> = extrasPayload.data
 
     if (extras) {
       const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
       if (wohnenExtra && wohnenExtra.postData) {
         const params = {city: wohnenExtra.postData.get('api-name')}
-        await wohnenEndpoint.loadData(dispatch, state.wohnen, params)
+        await fetchData(wohnenEndpoint, dispatch, state.wohnen, params)
       }
     }
   }
