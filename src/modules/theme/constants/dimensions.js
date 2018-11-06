@@ -5,5 +5,6 @@ export type DimensionsType = {
 }
 
 export default {
-  headerHeight: 60
+  headerHeight: 60,
+  modalHeaderHeight: 40
 }

@@ -12,13 +12,13 @@ import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
+import ModalHeaderContainer from '../../layout/containers/ModalHeaderContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
 export const AppStack = createStackNavigator(
   {
-
     'Dashboard': LayoutedDashboardContainer,
     'Categories': LayoutedCategoriesContainer
   },
@@ -40,11 +40,23 @@ export const LandingStack = createSwitchNavigator(
   }
 )
 
+export const ModalStack = createStackNavigator(
+  {
+    'PDFViewModal': PDFViewModal
+  },
+  {
+    navigationOptions: {
+      header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
+                                                                  scenes={headerProps.scenes} />
+    }
+  }
+)
+
 export default createStackNavigator(
   {
     'LandingStack': LandingStack,
     'ChangeLanguageModal': ChangeLanguageModalContainer,
-    'PDFViewModal': PDFViewModal,
+    'ModalStack': ModalStack,
     'MapViewModal': MapViewModal,
     'ImageViewModal': ImageViewModal
   },
