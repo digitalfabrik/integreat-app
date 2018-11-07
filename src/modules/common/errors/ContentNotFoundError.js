@@ -2,7 +2,7 @@
 
 import LoadingError from '../../endpoint/errors/LoadingError'
 
-type NotFoundType = 'category' | 'event' | 'extra'
+type NotFoundType = 'category' | 'event' | 'extra' | 'poi'
 
 class ContentNotFoundError extends Error {
   _type: NotFoundType
