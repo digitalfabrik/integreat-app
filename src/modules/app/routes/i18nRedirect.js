@@ -4,6 +4,7 @@ import citiesEndpoint from '../../endpoint/endpoints/cities'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../fetchData'
 
 export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
@@ -20,6 +21,6 @@ export const i18nRedirectRoute: Route = {
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
 
-    await citiesEndpoint.loadData(dispatch, state.cities)
+    await fetchData(citiesEndpoint, dispatch, state.cities)
   }
 }

@@ -4,6 +4,7 @@ import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../fetchData'
 
 export const DISCLAIMER_ROUTE: string = 'DISCLAIMER'
 
@@ -25,6 +26,6 @@ export const disclaimerRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await disclaimerEndpoint.loadData(dispatch, state.disclaimer, {city, language})
+    await fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
   }
 }
