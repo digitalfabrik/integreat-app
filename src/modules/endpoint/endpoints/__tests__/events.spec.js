@@ -54,10 +54,10 @@ describe('events', () => {
     lastUpdate: moment('2017-01-09')
   })
 
-  const event1 = createEvent(2730, '0', '2016-01-31', '10:00:00', '2016-01-31', '13:00:00')
-  const event2 = createEvent(1889, '0', '2015-11-29', '10:00:00', '2015-11-29', '13:00:00')
-  const event3 = createEvent(4768, '1', '2017-09-29', '09:00:00', '2017-09-29', '15:00:00') // we get these from cms
-  const event4 = createEvent(4826, '1', '2018-03-01', '00:00:00', '2018-06-01', '23:59:59')
+  const event1 = createEvent(2730, false, '2016-01-31', '10:00:00', '2016-01-31', '13:00:00')
+  const event2 = createEvent(1889, false, '2015-11-29', '10:00:00', '2015-11-29', '13:00:00')
+  const event3 = createEvent(4768, true, '2017-09-29', '09:00:00', '2017-09-29', '15:00:00') // we get these from cms
+  const event4 = createEvent(4826, true, '2018-03-01', '00:00:00', '2018-06-01', '23:59:59')
 
   const eventModel1 = createEventModel(2730, false, moment('2016-01-31 10:00:00'), moment('2016-01-31 13:00:00'))
   const eventModel2 = createEventModel(1889, false, moment('2015-11-29 10:00:00'), moment('2015-11-29 13:00:00'))

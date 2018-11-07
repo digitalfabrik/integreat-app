@@ -3,7 +3,7 @@
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 
@@ -17,7 +17,7 @@ export const getExtraPath = (city: string, language: string, internalExtra: ?str
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras/sprungbrett
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const extrasRoute = {
+export const extrasRoute: Route = {
   path: '/:city/:language/extras/:extraId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

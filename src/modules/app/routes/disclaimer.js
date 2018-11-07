@@ -3,7 +3,7 @@
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
@@ -15,7 +15,7 @@ export const getDisclaimerPath = (city: string, language: string): string => `/$
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const disclaimerRoute = {
+export const disclaimerRoute: Route = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

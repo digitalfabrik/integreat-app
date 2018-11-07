@@ -30,7 +30,7 @@ describe('Selector', () => {
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
                 activeItemCode={'de'}
-                inactiveItemTooltip={'random tooltip'} />
+                disabledItemTooltip={'random tooltip'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -41,7 +41,7 @@ describe('Selector', () => {
                 closeDropDownCallback={() => {}}
                 items={selectorItems}
                 activeItemCode={'de'}
-                inactiveItemTooltip={'random tooltip'} />
+                disabledItemTooltip={'random tooltip'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
