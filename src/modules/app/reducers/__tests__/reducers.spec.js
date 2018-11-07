@@ -1,10 +1,10 @@
 // @flow
 
 import reducers, { finishFetchReducer, startFetchReducer } from '../'
-import startFetchAction from '../../actions/startFetchAction'
-import Payload from '../../Payload'
+import startFetchAction from '../../../app/actions/startFetchAction'
 import lolex from 'lolex'
-import finishFetchAction from '../../actions/finishFetchAction'
+import finishFetchAction from '../../../app/actions/finishFetchAction'
+import Payload from '../../../endpoint/Payload'
 
 describe('endpoint reducers', () => {
   let clock

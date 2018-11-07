@@ -6,6 +6,7 @@ import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
+import fetchData from '../fetchData'
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
@@ -22,7 +23,7 @@ export const sprungbrettRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
+    const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
     const extras: ?Array<ExtraModel> = extrasPayload.data
 
     if (extras) {
@@ -31,7 +32,7 @@ export const sprungbrettRoute: Route = {
         const params = {city, language, url: sprungbrettExtra.path}
         const sprungbrettEndpoint1 = sprungbrettEndpoint
 
-        await sprungbrettEndpoint1.loadData(dispatch, state.sprungbrettJobs, params)
+        await fetchData(sprungbrettEndpoint1, dispatch, state.sprungbrettJobs, params)
       }
     }
   }

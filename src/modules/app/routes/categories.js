@@ -4,6 +4,7 @@ import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
 import type { Action, Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../fetchData'
 
 export const CATEGORIES_ROUTE = 'CATEGORIES'
 
@@ -23,6 +24,6 @@ export const categoriesRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
+    await fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
   }
 }
