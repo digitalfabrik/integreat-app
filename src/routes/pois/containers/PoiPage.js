@@ -4,7 +4,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import EventModel from '../../../modules/endpoint/models/EventModel'
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -17,14 +16,15 @@ import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import PageDetail from '../../../modules/common/components/PageDetail'
-import EventListItem from '../components/EventListItem'
-import List from '../../../modules/common/components/List'
+import PoiModel from '../../../modules/endpoint/models/PoiModel'
+import PoiListItem from '../components/PoiListItem'
 import Caption from '../../../modules/common/components/Caption'
+import List from '../../../modules/common/components/List'
 
 type PropsType = {|
-  events: Array<EventModel>,
+  pois: Array<PoiModel>,
   city: string,
-  eventId: ?string,
+  poiId: ?string,
   language: string,
   cities: Array<CityModel>,
   t: TFunction,
@@ -34,11 +34,10 @@ type PropsType = {|
 |}
 
 /**
- * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
+ * Displays a list of pois or a single poi, matching the route /<city>/<language>/locations(/<id>)
  */
-export class EventsPage extends React.Component<PropsType> {
-  renderEventListItem = (language: string, onInternalLinkClick: string => void) => (event: EventModel) =>
-    <EventListItem event={event} language={language} onInternalLinkClick={onInternalLinkClick} key={event.path} />
+export class PoiPage extends React.Component<PropsType> {
+  renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
@@ -47,36 +46,33 @@ export class EventsPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {events, path, eventId, city, language, cities, t} = this.props
-    if (eventId) {
-      const event = events.find(_event => _event.path === path)
+    const {pois, path, poiId, city, language, cities, t} = this.props
+    if (poiId) {
+      const poi = pois.find(_poi => _poi.path === path)
 
-      if (event) {
+      if (poi) {
         return <>
-          <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
-          <Page thumbnail={event.thumbnail}
-                lastUpdate={event.lastUpdate}
-                content={event.content}
-                title={event.title}
+          <Helmet title={`${poi.title} - ${CityModel.findCityName(cities, city)}`} />
+          <Page thumbnail={poi.thumbnail}
+                lastUpdate={poi.lastUpdate}
+                content={poi.content}
+                title={poi.title}
                 language={language}
                 onInternalLinkClick={this.redirectToPath}>
-            <>
-              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              <PageDetail identifier={t('location')} information={event.location.location} />
-            </>
+            <PageDetail identifier={t('location')} information={poi.location.location} />
           </Page>
         </>
       } else {
-        const error = new ContentNotFoundError({type: 'event', id: eventId, city, language})
+        const error = new ContentNotFoundError({type: 'poi', id: poiId, city, language})
         return <FailureSwitcher error={error} />
       }
     }
+
+    const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
     return <>
       <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
-      <Caption title={t('news')} />
-      <List noItemsMessage={t('currentlyNoEvents')}
-            items={events}
-            renderItem={this.renderEventListItem(language, this.redirectToPath)} />
+      <Caption title={t('pois')} />
+      <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={this.renderPoiListItem} />
     </>
   }
 }
@@ -84,7 +80,7 @@ export class EventsPage extends React.Component<PropsType> {
 const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
-  eventId: state.location.payload.eventId,
+  poiId: state.location.payload.poiId,
   path: state.location.pathname
 })
 
@@ -94,5 +90,5 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 export default compose(
   connect(mapStateTypeToProps, mapDispatchToProps),
-  translate('events')
-)(EventsPage)
+  translate('pois')
+)(PoiPage)

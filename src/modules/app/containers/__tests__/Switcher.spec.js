@@ -32,6 +32,8 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import DateModel from '../../../endpoint/models/DateModel'
 import LocationModel from '../../../endpoint/models/LocationModel'
+import PoiModel from '../../../endpoint/models/PoiModel'
+import { POIS_ROUTE } from '../../routes/pois'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -152,6 +154,25 @@ describe('Switcher', () => {
     })
   ]
 
+  const pois = [
+    new PoiModel({
+      id: 1,
+      path: '/augsburg/en/locations/first_poi',
+      title: 'first Event',
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/locations/erster_poi'], ['ar', '/augsburg/ar/locations/erster_poi']]),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      content: 'content',
+      thumbnail: 'thumbnail'
+    })
+  ]
+
   const categoriesPayload = new Payload(false, 'https://random.api.json', categories, null)
   const eventsPayload = new Payload(false, 'https://random.api.json', events, null)
   const extrasPayload = new Payload(false, 'https://random.api.json', extras, null)
@@ -160,6 +181,7 @@ describe('Switcher', () => {
   const languagesPayload = new Payload(false, 'https://random.api.json', languages, null)
   const sprungbrettPayload = new Payload(false, 'https://random.api.json', sprungbrettJobs, null)
   const wohnenPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
+  const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
 
   const errorPayload = new Payload(false, 'https://random.api.json', null, new Error('fake news'))
   const fetchingPayload = new Payload(true)
@@ -167,6 +189,7 @@ describe('Switcher', () => {
   const createSwitcher = (currentRoute: string): React.Node =>
     <Switcher viewportSmall={false} currentRoute={currentRoute} citiesPayload={citiesPayload}
               categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
+              poisPayload={poisPayload}
               disclaimerPayload={disclaimerPayload} languages={languages} city={'city1'} language={'de'}
               sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} param={'param'} darkMode />
 
@@ -284,6 +307,14 @@ describe('Switcher', () => {
 
       expect(switcher).toMatchSnapshot()
     })
+
+    it('is the pois route', () => {
+      const switcher = shallow(
+        createSwitcher(POIS_ROUTE)
+      )
+
+      expect(switcher).toMatchSnapshot()
+    })
   })
 
   it('should map state to props', () => {
@@ -301,6 +332,7 @@ describe('Switcher', () => {
       disclaimer: disclaimerPayload,
       extras: extrasPayload,
       languages: languagesPayload,
+      pois: poisPayload,
       wohnen: wohnenPayload,
       sprungbrettJobs: sprungbrettPayload,
       viewport: {is: {small: true}},
@@ -325,6 +357,7 @@ describe('Switcher', () => {
       citiesPayload,
       disclaimerPayload,
       sprungbrettJobsPayload: sprungbrettPayload,
+      poisPayload,
       wohnenPayload,
       languages,
       dispatch: expect.any(Function),
