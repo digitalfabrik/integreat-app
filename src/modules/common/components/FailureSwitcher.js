@@ -10,7 +10,6 @@ import { goToCategories } from '../../app/routes/categories'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
-import type { Node } from 'react'
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
