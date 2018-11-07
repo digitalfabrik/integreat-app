@@ -5,7 +5,7 @@ import 'react-dropdown/style.css'
 
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import FeedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/FeedbackEndpoint'
+import feedback, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/endpoints/feedback'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
@@ -35,7 +35,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     const {query, location} = this.props
     const {city, language} = location.payload
     const {comment} = this.state
-    FeedbackEndpoint.postData({
+    feedback.request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment,
