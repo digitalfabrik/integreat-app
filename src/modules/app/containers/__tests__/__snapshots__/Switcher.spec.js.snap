@@ -286,6 +286,49 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 </Layout>
 `;
 
+exports[`Switcher should get the right page if data has been fetched and is the pois route 1`] = `
+<Connect(LocationLayout)>
+  <Connect(Translate(PoiPage))
+    cities={
+      Array [
+        CityModel {
+          "_code": "city1",
+          "_eventsEnabled": true,
+          "_extrasEnabled": false,
+          "_live": true,
+          "_name": "Mambo No. 5",
+          "_sortingName": "Mambo",
+        },
+      ]
+    }
+    pois={
+      Array [
+        PoiModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/locations/erster_poi",
+            "ar" => "/augsburg/ar/locations/erster_poi",
+          },
+          "_content": "content",
+          "_excerpt": "excerpt",
+          "_id": 1,
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/locations/first_poi",
+          "_thumbnail": "thumbnail",
+          "_title": "first Event",
+        },
+      ]
+    }
+  />
+</Connect(LocationLayout)>
+`;
+
 exports[`Switcher should get the right page if data has been fetched and is the search route 1`] = `
 <Connect(LocationLayout)>
   <Connect(Translate(SearchPage))
