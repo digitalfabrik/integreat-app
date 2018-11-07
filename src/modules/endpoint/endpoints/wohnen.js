@@ -5,49 +5,10 @@ import ParamMissingError from '../errors/ParamMissingError'
 import WohnenOfferModel from '../models/WohnenOfferModel'
 import WohnenFormData from '../models/WohnenFormData'
 import moment from 'moment'
+import type { OfferType } from '../types'
 import Endpoint from '../Endpoint'
 
 const WOHNEN_ENDPOINT_NAME = 'wohnen'
-
-// Generated with: https://transform.now.sh/json-to-flow-types/
-type AccommodationType = {
-  ofRooms: string[],
-  title: string,
-  location: string,
-  totalArea: number,
-  totalRooms: number,
-  moveInDate: string,
-  ofRoomsDiff: string[]
-}
-
-type CostsType = {
-  ofRunningServices: string[],
-  ofAdditionalServices: string[],
-  baseRent: number,
-  runningCosts: number,
-  hotWaterInHeatingCosts: boolean,
-  additionalCosts: number,
-  ofRunningServicesDiff: string[],
-  ofAdditionalServicesDiff: string[]
-}
-
-type LandlordType = {
-  firstName: string,
-  lastName: string,
-  phone: string
-}
-
-type FormDataType = {
-  landlord: LandlordType,
-  accommodation: AccommodationType,
-  costs: CostsType
-}
-
-type OfferType = {
-  email: string,
-  formData: FormDataType,
-  createdDate: string
-}
 
 type ParamsType = { city: ?string }
 

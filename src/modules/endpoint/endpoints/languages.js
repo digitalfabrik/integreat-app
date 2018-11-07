@@ -4,13 +4,12 @@ import LanguageModel from '../models/LanguageModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
+import type { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 
 const LANGUAGES_ENDPOINT_NAME = 'languages'
 
 type ParamsType = { city: ?string }
-
-type JsonLanguageType = { code: string, native_name: string }
 
 const endpoint: Endpoint<ParamsType, Array<LanguageModel>> = new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
@@ -27,5 +26,6 @@ const endpoint: Endpoint<ParamsType, Array<LanguageModel>> = new EndpointBuilder
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
   )
   .build()
+
 
 export default endpoint

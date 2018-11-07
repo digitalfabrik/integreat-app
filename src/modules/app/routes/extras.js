@@ -4,6 +4,7 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../fetchData'
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 
@@ -23,6 +24,6 @@ export const extrasRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
+    await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
   }
 }

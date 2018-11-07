@@ -4,6 +4,7 @@ import CityModel from '../models/CityModel'
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
+import type { JsonCityType } from '../types'
 
 const stripSlashes = (path: string): string => {
   if (path.startsWith('/')) {
@@ -13,15 +14,6 @@ const stripSlashes = (path: string): string => {
     path = path.substr(0, path.length - 1)
   }
   return path
-}
-
-type JsonCityType = {
-  name: string,
-  path: string,
-  live: boolean,
-  events: boolean,
-  extras: boolean,
-  name_without_prefix: string
 }
 
 const endpoint: Endpoint<void, Array<CityModel>> = new EndpointBuilder('cities')

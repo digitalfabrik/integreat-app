@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
-import { CATEGORIES_FEEDBACK_TYPE } from '../../../../modules/endpoint/FeedbackEndpoint'
+import { CATEGORIES_FEEDBACK_TYPE } from '../../../../modules/endpoint/endpoints/feedback'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''
