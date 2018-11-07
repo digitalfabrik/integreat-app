@@ -11,10 +11,10 @@ exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
 `;
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
-<HeaderNavigationItem__InactiveNavigationItem
+<HeaderNavigationItem__DisabledNavigationItem
   data-tip="random tooltip"
   key="Kategorien"
 >
   Kategorien
-</HeaderNavigationItem__InactiveNavigationItem>
+</HeaderNavigationItem__DisabledNavigationItem>
 `;

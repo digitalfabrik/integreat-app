@@ -4,7 +4,7 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
@@ -16,7 +16,7 @@ export const goToSprungbrettExtra = (city: string, language: string) =>
 export const getSprungbrettExtraPath = (city: string, language: string): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
-export const sprungbrettRoute = {
+export const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
