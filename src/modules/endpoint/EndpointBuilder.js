@@ -10,7 +10,7 @@ import type { MapParamsToBodyType } from './MapParamsToBody'
  */
 class EndpointBuilder<P, T> {
   name: string
-  paramsToBodyMapper: MapParamsToBodyType<P>
+  paramsToBodyMapper: ?MapParamsToBodyType<P>
   paramsToUrlMapper: MapParamsToUrlType<P>
   mapper: MapResponseType<P, T>
   responseOverride: ?T
@@ -34,7 +34,7 @@ class EndpointBuilder<P, T> {
     return this
   }
 
-  withParamsToBodyMapper (paramsToBodyMapper: MapParamsToBodyType<P>): EndpointBuilder<P, T> {
+  withParamsToBodyMapper (paramsToBodyMapper: ?MapParamsToBodyType<P>): EndpointBuilder<P, T> {
     this.paramsToBodyMapper = paramsToBodyMapper
     return this
   }
