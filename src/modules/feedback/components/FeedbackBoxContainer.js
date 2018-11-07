@@ -5,7 +5,7 @@ import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
-import feedback, {
+import feedbackEndpoint, {
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -66,7 +66,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      feedback.request(feedbackData)
+      feedbackEndpoint.request(feedbackData)
     }
   }
 
