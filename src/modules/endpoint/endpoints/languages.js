@@ -27,5 +27,4 @@ const endpoint: Endpoint<ParamsType, Array<LanguageModel>> = new EndpointBuilder
   )
   .build()
 
-
 export default endpoint
