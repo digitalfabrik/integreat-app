@@ -15,13 +15,16 @@ import defaultRoutesMap from './routesMap'
 import onBeforeChange from './onBeforeChange'
 import queryString from 'query-string'
 import Payload from '../endpoint/Payload'
+import createHistory from './createHistory'
 
 export type ActionType<T> = { type: string, payload: Payload<T> }
 
 // todo: Change type to correct State type,
 // https://blog.callstack.io/type-checking-react-and-redux-thunk-with-flow-part-2-206ce5f6e705
 const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
-  const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
+  const history = createHistory()
+
+  const { reducer, middleware, enhancer } = connectRoutes(history, routesMap, {
     onBeforeChange: onBeforeChange,
     querySerializer: {
       stringify: params => queryString.stringify(params),
