@@ -218,6 +218,7 @@
         "event": "Sorry, but this event could not be found.",
         "extra": "Sorry, but this extra could not be found.",
         "disclaimer": "Sorry, but there is no disclaimer available for this city.",
+        "pois": "Points of Interest",
         "pageTitle": "Page not found"
       },
       "loadingFailed": "Sorry, but the requested page could not be loaded.",

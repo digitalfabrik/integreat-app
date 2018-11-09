@@ -14,6 +14,7 @@ import type { Node } from 'react'
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
+import { goToPois } from '../../app/routes/pois'
 
 type PropsType = {|
   error: Error,
@@ -40,6 +41,10 @@ export class FailureSwitcher extends React.Component<PropsType> {
         return <Failure goToAction={goToExtras(error.city, error.language)}
                         goToMessage={'goTo.extras'}
                         errorMessage={'not-found.extra'} />
+      case 'pois':
+        return <Failure goToAction={goToPois(error.city, error.language)}
+                        goToMessage={'goTo.pois'}
+                        errorMessage={'not-found.pois'} />
     }
   }
 
