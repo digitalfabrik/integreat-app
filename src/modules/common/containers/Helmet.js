@@ -9,8 +9,8 @@ import LanguageModel from '../../endpoint/models/LanguageModel'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
-import getLanguageChangePath from '../../app/getLanguageChangePath'
 import PoiModel from '../../endpoint/models/PoiModel'
+import { getLanguageChangePath } from '../../app/routes'
 
 type PropsType = {|
   title: string,
@@ -27,7 +27,14 @@ export class Helmet extends React.Component<PropsType> {
     const {languages, events, pois, categories, location} = this.props
     return languages && languages
       .map(language => {
-        const path = getLanguageChangePath({events, pois, categories, languageCode: language.code, location})
+        const path = getLanguageChangePath[location.type]({
+          events,
+          pois,
+          categories,
+          city: location.payload.city,
+          language: language.code,
+          location
+        })
         return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
       })
   }

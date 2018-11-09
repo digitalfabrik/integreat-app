@@ -3,7 +3,7 @@
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
-import type { Action, Dispatch, GetState, Route } from 'redux-first-router'
+import type { Action, Dispatch, GetState, Route, Location } from 'redux-first-router'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import CityModel from '../../endpoint/models/CityModel'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
@@ -19,6 +19,17 @@ export const getCategoryPath = (city: string, language: string, categoryPath: ?s
 
 export const renderCategoriesPage = (props: {|categories: CategoriesMapModel, cities: Array<CityModel>|}) =>
   <CategoriesPage {...props} />
+
+export const getCategoriesLanguageChangePath = ({language, location, categories, city}: {location: Location,
+  categories: CategoriesMapModel, language: string, city: string}) => {
+  if (categories) {
+    const category = categories.findCategoryByPath(location.pathname)
+    if (category && category.id !== 0) {
+      return category.availableLanguages.get(language) || null
+    }
+  }
+  return getCategoryPath(city, language)
+}
 
 /**
  * CategoriesRoute, matches /augsburg/de*
