@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PoiPage should render a Failure if poi is invalid 1`] = `
+exports[`PoisPage should render a Failure if poi is invalid 1`] = `
 <Translate(FailureSwitcher)
   error={[Error: The poi invalid_poi does not exist here.]}
 />
 `;
 
-exports[`PoiPage should render a Page if a poi is selected 1`] = `
+exports[`PoisPage should render a Page if a poi is selected 1`] = `
 <Fragment>
   <Connect(Helmet)
     title="third Event - Augsburg"
@@ -27,7 +27,7 @@ exports[`PoiPage should render a Page if a poi is selected 1`] = `
 </Fragment>
 `;
 
-exports[`PoiPage should render a list of pois if no poi is selected 1`] = `
+exports[`PoisPage should render a list of pois if no poi is selected 1`] = `
 <Fragment>
   <Connect(Helmet)
     title="pageTitle - Augsburg"

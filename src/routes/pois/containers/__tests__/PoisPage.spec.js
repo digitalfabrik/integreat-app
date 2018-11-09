@@ -4,12 +4,12 @@ import React from 'react'
 import PoiModel from '../../../../modules/endpoint/models/PoiModel'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 import moment from 'moment-timezone'
-import { PoiPage } from '../PoiPage'
+import { PoisPage } from '../PoisPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { shallow } from 'enzyme'
 import List from '../../../../modules/common/components/List'
 
-describe('PoiPage', () => {
+describe('PoisPage', () => {
   const pois = [
     new PoiModel({
       id: 1,
@@ -80,57 +80,57 @@ describe('PoiPage', () => {
 
   it('should render a Page if a poi is selected', () => {
     expect(shallow(
-      <PoiPage pois={pois}
-               t={t}
-               city={city}
-               cities={cities}
-               language={language}
-               dispatch={dispatch}
-               path={'/augsburg/en/locations/third_poi'}
-               poiId={'third_poi'}
-               routesMap={routesMap} />
+      <PoisPage pois={pois}
+                t={t}
+                city={city}
+                cities={cities}
+                language={language}
+                dispatch={dispatch}
+                path={'/augsburg/en/locations/third_poi'}
+                poiId={'third_poi'}
+                routesMap={routesMap} />
     )).toMatchSnapshot()
   })
 
   it('should render a Failure if poi is invalid', () => {
     expect(shallow(
-      <PoiPage pois={pois}
-               t={t}
-               city={city}
-               cities={cities}
-               language={language}
-               dispatch={dispatch}
-               path={'/augsburg/en/locations/invalid_poi'}
-               poiId={'invalid_poi'}
-               routesMap={routesMap} />
+      <PoisPage pois={pois}
+                t={t}
+                city={city}
+                cities={cities}
+                language={language}
+                dispatch={dispatch}
+                path={'/augsburg/en/locations/invalid_poi'}
+                poiId={'invalid_poi'}
+                routesMap={routesMap} />
     )).toMatchSnapshot()
   })
 
   it('should render a list of pois if no poi is selected', () => {
     expect(shallow(
-      <PoiPage pois={pois}
-               t={t}
-               city={city}
-               cities={cities}
-               language={language}
-               dispatch={dispatch}
-               path={'/augsburg/en/locations'}
-               poiId={undefined}
-               routesMap={routesMap} />
+      <PoisPage pois={pois}
+                t={t}
+                city={city}
+                cities={cities}
+                language={language}
+                dispatch={dispatch}
+                path={'/augsburg/en/locations'}
+                poiId={undefined}
+                routesMap={routesMap} />
     )).toMatchSnapshot()
   })
 
   it('should sort the pois alphabetically', () => {
     const tree = shallow(
-      <PoiPage pois={[pois[2], pois[1], pois[0]]}
-               t={t}
-               city={city}
-               cities={cities}
-               language={language}
-               dispatch={dispatch}
-               path={'/augsburg/en/locations'}
-               poiId={undefined}
-               routesMap={routesMap} />
+      <PoisPage pois={[pois[2], pois[1], pois[0]]}
+                t={t}
+                city={city}
+                cities={cities}
+                language={language}
+                dispatch={dispatch}
+                path={'/augsburg/en/locations'}
+                poiId={undefined}
+                routesMap={routesMap} />
     )
 
     expect(tree.find(List).props().items).toEqual(pois)

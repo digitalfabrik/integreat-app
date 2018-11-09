@@ -36,7 +36,7 @@ type PropsType = {|
 /**
  * Displays a list of pois or a single poi, matching the route /<city>/<language>/locations(/<id>)
  */
-export class PoiPage extends React.Component<PropsType> {
+export class PoisPage extends React.Component<PropsType> {
   renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   redirectToPath = (path: string) => {
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 export default compose(
   connect(mapStateTypeToProps, mapDispatchToProps),
   translate('pois')
-)(PoiPage)
+)(PoisPage)
