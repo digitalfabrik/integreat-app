@@ -102,7 +102,7 @@ export class Switcher extends React.Component<PropsType> {
     }
 
     const payloads = requiredPayloads[currentRoute](allPayloads)
-    const props = reduce(payloads, (obj, payload, name) => ({...obj, [name]: payload.data}), {})
+    const props = reduce(payloads, (obj, value, key: string) => ({...obj, [key]: value.data}), {})
     return Switcher.renderFailureLoadingComponents(payloads) ||
       pages[currentRoute](props)
   }

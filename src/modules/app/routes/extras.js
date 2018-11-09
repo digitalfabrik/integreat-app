@@ -14,7 +14,7 @@ export const EXTRAS_ROUTE = 'EXTRAS'
 export const goToExtras = (city: string, language: string) =>
   createAction(EXTRAS_ROUTE)({city, language})
 
-export const getExtraPath = (city: string, language: string): string => `/${city}/${language}/extras`
+export const getExtrasPath = (city: string, language: string): string => `/${city}/${language}/extras`
 
 export const renderExtrasPage = (props: {|extras: Array<ExtraModel>, cities: Array<CityModel>|}) =>
   <ExtrasPage {...props} />

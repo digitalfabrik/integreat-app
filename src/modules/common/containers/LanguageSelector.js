@@ -16,8 +16,8 @@ import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
-import getLanguageChangePath from '../../app/getLanguageChangePath'
 import PoiModel from '../../endpoint/models/PoiModel'
+import { getLanguageChangePath } from '../../app/routes'
 
 type PropsType = {|
   languages: Array<LanguageModel>,
@@ -41,12 +41,13 @@ export class LanguageSelector extends React.Component<PropsType> {
     return (
       languages &&
       languages.map(language => {
-        const changePath = getLanguageChangePath({
+        const changePath = getLanguageChangePath[location.type]({
           categories,
           events,
           location,
           pois,
-          languageCode: language.code
+          language: language.code,
+          city: location.payload.city
         })
 
         return new SelectorItemModel({

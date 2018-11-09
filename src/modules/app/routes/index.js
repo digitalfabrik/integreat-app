@@ -1,7 +1,7 @@
 // @flow
 
-import { CATEGORIES_ROUTE, renderCategoriesPage } from './categories'
-import { EVENTS_ROUTE, renderEventsPage } from './events'
+import { CATEGORIES_ROUTE, categoriesRoute, getCategoriesLanguageChangePath, renderCategoriesPage } from './categories'
+import { EVENTS_ROUTE, eventsRoute, getEventsLanguageChangePath, renderEventsPage } from './events'
 import PoiModel from '../../endpoint/models/PoiModel'
 import EventModel from '../../endpoint/models/EventModel'
 import PageModel from '../../endpoint/models/PageModel'
@@ -11,15 +11,16 @@ import Payload from '../../endpoint/Payload'
 import CityModel from '../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import { EXTRAS_ROUTE, renderExtrasPage } from './extras'
-import { DISCLAIMER_ROUTE, renderDisclaimerPage } from './disclaimer'
-import { POIS_ROUTE, renderPoisPage } from './pois'
-import { renderSprungbrettPage, SPRUNGBRETT_ROUTE } from './sprungbrett'
-import { renderWohnenPage, WOHNEN_ROUTE } from './wohnen'
-import { renderSearchPage, SEARCH_ROUTE } from './search'
-import { MAIN_DISCLAIMER_ROUTE, renderMainDisclaimerPage } from './mainDisclaimer'
-import { I18N_REDIRECT_ROUTE, renderI18nPage } from './i18nRedirect'
-import { LANDING_ROUTE, renderLandingPage } from './landing'
+import { EXTRAS_ROUTE, extrasRoute, getExtrasPath, renderExtrasPage } from './extras'
+import { DISCLAIMER_ROUTE, disclaimerRoute, getDisclaimerPath, renderDisclaimerPage } from './disclaimer'
+import { getPoisPath, POIS_ROUTE, poisRoute, renderPoisPage } from './pois'
+import { getSprungbrettExtraPath, renderSprungbrettPage, SPRUNGBRETT_ROUTE, sprungbrettRoute } from './sprungbrett'
+import { getWohnenExtraPath, renderWohnenPage, WOHNEN_ROUTE, wohnenRoute } from './wohnen'
+import { getSearchPath, renderSearchPage, SEARCH_ROUTE, searchRoute } from './search'
+import { MAIN_DISCLAIMER_ROUTE, mainDisclaimerRoute, renderMainDisclaimerPage } from './mainDisclaimer'
+import { I18N_REDIRECT_ROUTE, i18nRedirectRoute, renderI18nPage } from './i18nRedirect'
+import { LANDING_ROUTE, landingRoute, renderLandingPage } from './landing'
+import type { Route } from 'redux-first-router'
 
 export type AllPayloadsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -66,4 +67,32 @@ export const pages = {
   [MAIN_DISCLAIMER_ROUTE]: renderMainDisclaimerPage,
   [I18N_REDIRECT_ROUTE]: renderI18nPage,
   [LANDING_ROUTE]: renderLandingPage
+}
+
+export const getLanguageChangePath = {
+  [CATEGORIES_ROUTE]: getCategoriesLanguageChangePath,
+  [EVENTS_ROUTE]: getEventsLanguageChangePath,
+  [EXTRAS_ROUTE]: getExtrasPath,
+  [DISCLAIMER_ROUTE]: getDisclaimerPath,
+  [POIS_ROUTE]: getPoisPath,
+  [SPRUNGBRETT_ROUTE]: getSprungbrettExtraPath,
+  [WOHNEN_ROUTE]: getWohnenExtraPath,
+  [SEARCH_ROUTE]: getSearchPath
+}
+
+// this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
+// the order is important, routes declared first are served first, so i.e. if you put the mainDisclaimer route after
+// the i18nRedirect route, "/disclaimer" also matches the i18nRedirect route
+export const routesMap: {[string]: Route} = {
+  [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRoute,
+  [I18N_REDIRECT_ROUTE]: i18nRedirectRoute,
+  [LANDING_ROUTE]: landingRoute,
+  [EVENTS_ROUTE]: eventsRoute,
+  [SPRUNGBRETT_ROUTE]: sprungbrettRoute,
+  [WOHNEN_ROUTE]: wohnenRoute,
+  [EXTRAS_ROUTE]: extrasRoute,
+  [DISCLAIMER_ROUTE]: disclaimerRoute,
+  [SEARCH_ROUTE]: searchRoute,
+  [POIS_ROUTE]: poisRoute,
+  [CATEGORIES_ROUTE]: categoriesRoute
 }
