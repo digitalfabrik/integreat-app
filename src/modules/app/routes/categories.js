@@ -4,6 +4,10 @@ import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
 import type { Action, Dispatch, GetState, Route } from 'redux-first-router'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import CityModel from '../../endpoint/models/CityModel'
+import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
+import React from 'react'
 
 export const CATEGORIES_ROUTE = 'CATEGORIES'
 
@@ -12,6 +16,9 @@ export const goToCategories = (city: string, language: string, categoryPath: ?st
 
 export const getCategoryPath = (city: string, language: string, categoryPath: ?string): string =>
   `/${city}/${language}${categoryPath ? `/${categoryPath}` : ''}`
+
+export const renderCategoriesPage = (props: {|categories: CategoriesMapModel, cities: Array<CityModel>|}) =>
+  <CategoriesPage {...props} />
 
 /**
  * CategoriesRoute, matches /augsburg/de*

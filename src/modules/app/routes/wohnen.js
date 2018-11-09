@@ -6,6 +6,10 @@ import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
+import CityModel from '../../endpoint/models/CityModel'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
+import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
+import React from 'react'
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
@@ -15,6 +19,9 @@ export const goToWohnenExtra = (city: string, language: string, offerHash: strin
 
 export const getWohnenExtraPath = (city: string, language: string, offerHash?: string): string =>
   `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
+
+export const renderWohnenPage = (props: {|offers: Array<WohnenOfferModel>, extras: Array<ExtraModel>,
+  cities: Array<CityModel>|}) => <WohnenExtraPage {...props} />
 
 export const wohnenRoute: Route = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,

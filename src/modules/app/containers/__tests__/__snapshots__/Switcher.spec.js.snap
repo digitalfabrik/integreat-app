@@ -288,7 +288,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the pois route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(Translate(PoiPage))
+  <Connect(Translate(PoisPage))
     cities={
       Array [
         CityModel {
