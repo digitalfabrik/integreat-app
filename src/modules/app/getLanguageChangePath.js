@@ -25,7 +25,7 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
   languageCode: string
 |}): string | null => {
   const {payload, pathname, type} = location
-  const {city, eventId, extraAlias, language, poiId} = payload
+  const {city, eventId, language, poiId} = payload
 
   switch (type) {
     case CATEGORIES_ROUTE:
@@ -62,7 +62,7 @@ const getLanguageChangePath = ({location, categories, events, pois, languageCode
       }
       return getPoisPath(city, languageCode)
     case EXTRAS_ROUTE:
-      return getExtraPath(city, languageCode, extraAlias)
+      return getExtraPath(city, languageCode)
     case DISCLAIMER_ROUTE:
       return getDisclaimerPath(city, languageCode)
     case SEARCH_ROUTE:

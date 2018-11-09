@@ -14,18 +14,17 @@ export const EXTRAS_ROUTE = 'EXTRAS'
 export const goToExtras = (city: string, language: string) =>
   createAction(EXTRAS_ROUTE)({city, language})
 
-export const getExtraPath = (city: string, language: string, internalExtra: ?string): string =>
-  `/${city}/${language}/extras${internalExtra ? `/${internalExtra}` : ''}`
+export const getExtraPath = (city: string, language: string): string => `/${city}/${language}/extras`
 
 export const renderExtrasPage = (props: {|extras: Array<ExtraModel>, cities: Array<CityModel>|}) =>
   <ExtrasPage {...props} />
 
 /**
- * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras/sprungbrett
+ * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 export const extrasRoute: Route = {
-  path: '/:city/:language/extras/:extraId?',
+  path: '/:city/:language/extras',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
