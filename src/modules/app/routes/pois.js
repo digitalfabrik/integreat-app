@@ -1,25 +1,28 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import type { Dispatch, GetState, Route, Location } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType, Location } from 'redux-first-router'
 import poisEndpoint from '../../endpoint/endpoints/pois'
 import CityModel from '../../endpoint/models/CityModel'
 import PoiModel from '../../endpoint/models/PoiModel'
 import PoisPage from '../../../routes/pois/containers/PoisPage'
 import React from 'react'
+import Route from './Route'
+import type { AllPayloadsType } from './types'
+import Payload from '../../endpoint/Payload'
 
-export const POIS_ROUTE = 'POI'
+const POIS_ROUTE = 'POI'
 
-export const goToPois = (city: string, language: string, poiId: ?string) =>
+const goToPois = (city: string, language: string, poiId: ?string) =>
   createAction(POIS_ROUTE)({city, language, poiId})
 
-export const getPoisPath = (city: string, language: string): string =>
+const getPoisPath = (city: string, language: string): string =>
   `/${city}/${language}/locations`
 
-export const renderPoisPage = (props: {|pois: Array<PoiModel>, cities: Array<CityModel>|}) =>
-  <PoisPage {...props} />
+const renderPoisPage = ({pois, cities}: {|pois: Payload<Array<PoiModel>>, cities: Payload<Array<CityModel>>|}) =>
+  <PoisPage pois={pois} cities={cities} />
 
-export const getPoisLanguageChangePath = ({pois, location, language, city}: {pois: Array<PoiModel>,
+const getLanguageChangePath = ({pois, location, language, city}: {pois: Array<PoiModel>,
   language: string, location: Location, city: string}) => {
   const {poiId} = location.payload
   if (pois && poiId) {
@@ -29,7 +32,10 @@ export const getPoisLanguageChangePath = ({pois, location, language, city}: {poi
   return getPoisPath(city, language)
 }
 
-export const poisRoute: Route = {
+const getRequiredPayloads = (payloads: AllPayloadsType) =>
+  ({pois: payloads.poisPayload, cities: payloads.citiesPayload})
+
+const poisRoute: RouterRouteType = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -38,3 +44,13 @@ export const poisRoute: Route = {
     await poisEndpoint.loadData(dispatch, state.pois, {city, language})
   }
 }
+
+export default new Route({
+  name: POIS_ROUTE,
+  goToRoute: goToPois,
+  getRoutePath: getPoisPath,
+  getLanguageChangePath: getLanguageChangePath,
+  renderPage: renderPoisPage,
+  route: poisRoute,
+  getRequiredPayloads: getRequiredPayloads
+})
