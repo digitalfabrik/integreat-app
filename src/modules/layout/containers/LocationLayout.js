@@ -61,12 +61,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
 
   onFooterClicked = () => {
+    if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
+      this.props.toggleDarkMode()
+    }
     this.setState(prevState => {
-      if (prevState.footerClicked < DARK_THEME_CLICK_COUNT) {
-        return ({...prevState, footerClicked: prevState.footerClicked + 1})
-      } else {
-        this.props.toggleDarkMode()
-      }
+      return ({...prevState, footerClicked: prevState.footerClicked + 1})
     })
   }
 
