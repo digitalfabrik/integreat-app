@@ -8,8 +8,8 @@ import CitySelector from './CitySelector'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 
 const Container = styled.div`
   padding-top: 22px;
@@ -29,16 +29,16 @@ type StateType = {|
 export class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { filterText: '', stickyTop: 0 }
+    this.state = {filterText: '', stickyTop: 0}
   }
 
-  onFilterTextChange = (filterText: string) => this.setState({ filterText })
+  onFilterTextChange = (filterText: string) => this.setState({filterText})
 
-  onStickyTopChanged = (stickyTop: number) => this.setState({ stickyTop })
+  onStickyTopChanged = (stickyTop: number) => this.setState({stickyTop})
 
   render () {
-    const { cities, language, t } = this.props
-    const filterText = this.state.filterText
+    const {cities, language, t} = this.props
+    const {filterText, stickyTop} = this.state
 
     return (
       <Container>
@@ -50,7 +50,7 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
           spaceSearch={false}
           onStickyTopChanged={this.onStickyTopChanged}>
           <CitySelector
-            stickyTop={this.state.stickyTop}
+            stickyTop={stickyTop}
             cities={cities}
             filterText={filterText}
             language={language}
