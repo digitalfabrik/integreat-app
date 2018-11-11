@@ -36,7 +36,7 @@ describe('EventListItem', () => {
 
   it('should render and match snapshot', () => {
     expect(shallow(
-      <EventListItem event={event} language={language} onInternalLinkClick={onInternalLinkClick} />
+      <EventListItem event={event} language={language} />
     )).toMatchSnapshot()
   })
 })
