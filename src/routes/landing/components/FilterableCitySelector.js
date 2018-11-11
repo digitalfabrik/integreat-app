@@ -22,16 +22,19 @@ type PropsType = {|
 |}
 
 type StateType = {|
-  filterText: string
+  filterText: string,
+  stickyTop: number
 |}
 
 export class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = { filterText: '' }
+    this.state = { filterText: '', stickyTop: 0 }
   }
 
   onFilterTextChange = (filterText: string) => this.setState({ filterText })
+
+  onStickyTopChanged = (stickyTop: number) => this.setState({ stickyTop })
 
   render () {
     const { cities, language, t } = this.props
@@ -44,8 +47,10 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
           filterText={filterText}
           onFilterTextChange={this.onFilterTextChange}
           placeholderText={t('searchCity')}
-          spaceSearch={false}>
+          spaceSearch={false}
+          onStickyTopChanged={this.onStickyTopChanged}>
           <CitySelector
+            stickyTop={this.state.stickyTop}
             cities={cities}
             filterText={filterText}
             language={language}

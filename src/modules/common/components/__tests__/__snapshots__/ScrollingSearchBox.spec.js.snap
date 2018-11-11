@@ -6,7 +6,6 @@ exports[`ScrollingSearchBox should render 1`] = `
     height={45}
     pinStart={0}
     scrollHeight={45}
-    stickyAncestor={<MockNode />}
   >
     <SearchInput
       filterText="Test"
@@ -15,6 +14,7 @@ exports[`ScrollingSearchBox should render 1`] = `
       spaceSearch={false}
     />
   </Headroom>
+  <MockNode />
 </div>
 `;
 
@@ -63,7 +63,6 @@ exports[`ScrollingSearchBox should space search 1`] = `
     height={45}
     pinStart={0}
     scrollHeight={45}
-    stickyAncestor={<MockNode />}
   >
     <SearchInput
       filterText="Test"
@@ -72,5 +71,6 @@ exports[`ScrollingSearchBox should space search 1`] = `
       spaceSearch={true}
     />
   </Headroom>
+  <MockNode />
 </div>
 `;
