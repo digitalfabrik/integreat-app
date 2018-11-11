@@ -1,33 +1,41 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import type { Route, Location } from 'redux-first-router'
+import type { Route as RouterRouteType, Location } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
 import CityModel from '../../endpoint/models/CityModel'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import React from 'react'
+import type { AllPayloadsType } from './types'
+import Route from './Route'
+import Payload from '../../endpoint/Payload'
 
-export const EVENTS_ROUTE = 'EVENTS'
+const name = 'EVENTS'
 
-export const goToEvents = (city: string, language: string) => createAction(EVENTS_ROUTE)({city, language})
+const goToRoute = (city: string, language: string) => createAction(name)({city, language})
 
-export const getEventsPath = (city: string, language: string): string => `/${city}/${language}/events`
+const getRoutePath = (city: string, language: string): string => `/${city}/${language}/events`
 
-export const renderEventsPage = (props: {|events: Array<EventModel>, cities: Array<CityModel>|}) =>
-  <EventsPage {...props} />
+const renderPage = ({events, cities}: {|events: Payload<Array<EventModel>>, cities: Payload<Array<CityModel>>|}) =>
+  <EventsPage events={events} cities={cities} />
 
-export const getEventsLanguageChangePath = ({events, location, language, city}: {events: Array<EventModel>,
+const getLanguageChangePath = ({events, location, language, city}: {events: Array<EventModel>,
   language: string, location: Location, city: string}) => {
   const {eventId} = location.payload
   if (events && eventId) {
     const event = events.find(_event => _event.path === location.pathname)
     return (event && event.availableLanguages.get(language)) || null
   }
-  return getEventsPath(city, language)
+  return getRoutePath(city, language)
 }
+
+const getRequiredPayloads = (payloads: AllPayloadsType) =>
+  ({events: payloads.eventsPayload, cities: payloads.citiesPayload})
 
 /**
  * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const eventsRoute: Route = '/:city/:language/events/:eventId?'
+const route: RouterRouteType = '/:city/:language/events/:eventId?'
+
+export default new Route({name, goToRoute, getRoutePath, renderPage, getLanguageChangePath, route, getRequiredPayloads})

@@ -3,27 +3,33 @@
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
 import React from 'react'
+import Payload from '../../endpoint/Payload'
+import type { AllPayloadsType } from './types'
+import Route from './Route'
 
-export const EXTRAS_ROUTE = 'EXTRAS'
+const EXTRAS_ROUTE = 'EXTRAS'
 
-export const goToExtras = (city: string, language: string) =>
+const goToExtras = (city: string, language: string) =>
   createAction(EXTRAS_ROUTE)({city, language})
 
-export const getExtrasPath = (city: string, language: string): string => `/${city}/${language}/extras`
+const getExtrasPath = (city: string, language: string): string => `/${city}/${language}/extras`
 
-export const renderExtrasPage = (props: {|extras: Array<ExtraModel>, cities: Array<CityModel>|}) =>
-  <ExtrasPage {...props} />
+const renderExtrasPage = ({extras, cities}: {|extras: Payload<Array<ExtraModel>>,
+  cities: Payload<Array<CityModel>>|}) => <ExtrasPage extras={extras} cities={cities} />
+
+const getRequiredPayloads = (payloads: AllPayloadsType) =>
+  ({extras: payloads.extrasPayload, cities: payloads.citiesPayload})
 
 /**
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const extrasRoute: Route = {
+const extrasRoute: RouterRouteType = {
   path: '/:city/:language/extras',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -32,3 +38,12 @@ export const extrasRoute: Route = {
     await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
   }
 }
+
+export default new Route({
+  name: EXTRAS_ROUTE,
+  goToRoute: goToExtras,
+  getLanguageChangePath: getExtrasPath,
+  renderPage: renderExtrasPage,
+  route: extrasRoute,
+  getRequiredPayloads
+})

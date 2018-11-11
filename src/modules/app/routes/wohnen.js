@@ -4,26 +4,30 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import CityModel from '../../endpoint/models/CityModel'
-import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
 import React from 'react'
+import Payload from '../../endpoint/Payload'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
+import Route from './Route'
+import type { AllPayloadsType } from './types'
 
-export const WOHNEN_ROUTE = 'WOHNEN'
+const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
 
-export const goToWohnenExtra = (city: string, language: string, offerHash: string) =>
+const goToWohnenExtra = (city: string, language: string, offerHash: string) =>
   createAction(WOHNEN_ROUTE)({city, language, offerHash})
 
-export const getWohnenExtraPath = (city: string, language: string, offerHash?: string): string =>
-  `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
+const renderWohnenPage =  ({offers, extras, cities}: {|offers: Payload<Array<WohnenOfferModel>>,
+  extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>>|}) =>
+  <WohnenExtraPage offers={offers.data} extras={extras.data} cities={cities.data} />
 
-export const renderWohnenPage = (props: {|offers: Array<WohnenOfferModel>, extras: Array<ExtraModel>,
-  cities: Array<CityModel>|}) => <WohnenExtraPage {...props} />
+const getRequiredPayloads = (payloads: AllPayloadsType) =>
+  ({offers: payloads.wohnenPayload, cities: payloads.citiesPayload, extras: payloads.extrasPayload})
 
-export const wohnenRoute: Route = {
+const wohnenRoute = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -41,3 +45,12 @@ export const wohnenRoute: Route = {
     }
   }
 }
+
+export default new Route({
+  name: WOHNEN_ROUTE,
+  goToRoute: goToWohnenExtra,
+  getLanguageChangeAction: goToWohnenExtra,
+  renderPage: renderWohnenPage,
+  route: wohnenRoute,
+  getRequiredPayloads
+})

@@ -3,25 +3,35 @@
 import citiesEndpoint from '../../endpoint/endpoints/cities'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import React from 'react'
+import Route from './Route'
 
-export const LANDING_ROUTE = 'LANDING'
+const LANDING_ROUTE = 'LANDING'
 
-export const goToLanding = (language: string) => createAction(LANDING_ROUTE)({language})
+const goToLanding = (language: string) => createAction(LANDING_ROUTE)({language})
 
-export const renderLandingPage = (props: {|cities: Array<CityModel>|}) =>
-  <LandingPage {...props} />
+const renderLandingPage = ({cities}: {|cities: Payload<Array<CityModel>>|}) =>
+  <LandingPage cities={cities.data} />
 
 /**
  * LandingRoute, matches /landing/de
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const landingRoute: Route = {
+const landingRoute = {
   path: '/landing/:language',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     await citiesEndpoint.loadData(dispatch, getState().cities)
   }
 }
+
+export default new Route({
+  name: LANDING_ROUTE,
+  goToRoute: goToLanding,
+  renderPage: renderLandingPage,
+  route: landingRoute,
+  getRequiredPayloads: () => ({})
+})
+

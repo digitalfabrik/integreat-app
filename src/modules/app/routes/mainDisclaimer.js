@@ -1,18 +1,26 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import type { Route } from 'redux-first-router'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import React from 'react'
+import Route from './Route'
 
-export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
+const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-export const goToMainDisclaimer = () => createAction(MAIN_DISCLAIMER_ROUTE)()
+const goToMainDisclaimer = () => createAction(MAIN_DISCLAIMER_ROUTE)()
 
-export const renderMainDisclaimerPage = () => <MainDisclaimerPage />
+const renderMainDisclaimerPage = () => <MainDisclaimerPage />
 
 /**
  * MainDisclaimerRoute, matches /disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const mainDisclaimerRoute: Route = '/disclaimer'
+const mainDisclaimerRoute = '/disclaimer'
+
+export default new Route({
+  name: MAIN_DISCLAIMER_ROUTE,
+  goToRoute: goToMainDisclaimer,
+  renderPage: renderMainDisclaimerPage,
+  route: mainDisclaimerRoute,
+  getRequiredPayloads: () => ({})
+})

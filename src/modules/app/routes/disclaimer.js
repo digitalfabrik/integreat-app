@@ -3,26 +3,30 @@
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import PageModel from '../../endpoint/models/PageModel'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import React from 'react'
+import Route from './Route'
+import Payload from '../../endpoint/Payload'
+import type { AllPayloadsType } from './types'
 
-export const DISCLAIMER_ROUTE = 'DISCLAIMER'
+const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
-export const goToDisclaimer = (city: string, language: string) => createAction(DISCLAIMER_ROUTE)({city, language})
+const goToDisclaimer = (city: string, language: string) => createAction(DISCLAIMER_ROUTE)({city, language})
 
-export const getDisclaimerPath = (city: string, language: string): string => `/${city}/${language}/disclaimer`
+const renderDisclaimerPage = ({disclaimer, cities}: {|disclaimer: Payload<PageModel>,
+  cities: Payload<Array<CityModel>>|}) => <DisclaimerPage disclaimer={disclaimer} cities={cities} />
 
-export const renderDisclaimerPage = (props: {|disclaimer: PageModel, cities: Array<CityModel>|}) =>
-  <DisclaimerPage {...props} />
+const getRequiredPayloads = (payloads: AllPayloadsType) =>
+  ({disclaimer: payloads.disclaimerPayload, cities: payloads.citiesPayload})
 
 /**
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const disclaimerRoute: Route = {
+const disclaimerRoute = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -31,3 +35,12 @@ export const disclaimerRoute: Route = {
     await disclaimerEndpoint.loadData(dispatch, state.disclaimer, {city, language})
   }
 }
+
+export default new Route({
+  name: DISCLAIMER_ROUTE,
+  goToRoute: goToDisclaimer,
+  getLanguageChangeAction: goToDisclaimer,
+  renderPage: renderDisclaimerPage,
+  route: disclaimerRoute,
+  getRequiredPayloads
+})
