@@ -9,7 +9,6 @@ import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'
 
 describe('EventListItem', () => {
-  const onInternalLinkClick = (link: string) => {}
   const language = 'de'
 
   const event = new EventModel({
