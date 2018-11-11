@@ -3,23 +3,25 @@
 import Endpoint from './Endpoint'
 import type { MapResponseType } from './MapResponseType'
 import type { MapParamsToUrlType } from './MapParamsToUrlType'
+import type { MapParamsToBodyType } from './MapParamsToBody'
 
 /**
  * Helper class to build a {@link Endpoint}
  */
 class EndpointBuilder<P, T> {
-  _name: string
-  _paramsToUrlMapper: MapParamsToUrlType<P>
-  _mapper: MapResponseType<P, T>
-  _responseOverride: ?T
-  _errorOverride: ?Error
+  name: string
+  paramsToBodyMapper: ?MapParamsToBodyType<P>
+  paramsToUrlMapper: MapParamsToUrlType<P>
+  mapper: MapResponseType<P, T>
+  responseOverride: ?T
+  errorOverride: ?Error
 
   /**
    * Creates a new endpoint builder
    * @param {string} name The name of the endpoint to build
    */
   constructor (name: string) {
-    this._name = name
+    this.name = name
   }
 
   /**
@@ -28,7 +30,12 @@ class EndpointBuilder<P, T> {
    * @return {EndpointBuilder} The builder itself
    */
   withParamsToUrlMapper (paramsToUrlMapper: MapParamsToUrlType<P>): EndpointBuilder<P, T> {
-    this._paramsToUrlMapper = paramsToUrlMapper
+    this.paramsToUrlMapper = paramsToUrlMapper
+    return this
+  }
+
+  withParamsToBodyMapper (paramsToBodyMapper: ?MapParamsToBodyType<P>): EndpointBuilder<P, T> {
+    this.paramsToBodyMapper = paramsToBodyMapper
     return this
   }
 
@@ -38,7 +45,7 @@ class EndpointBuilder<P, T> {
    * @return {EndpointBuilder} The builder itself
    */
   withMapper (mapper: MapResponseType<P, T>): EndpointBuilder<P, T> {
-    this._mapper = mapper
+    this.mapper = mapper
     return this
   }
 
@@ -48,7 +55,7 @@ class EndpointBuilder<P, T> {
    * @return {EndpointBuilder} The builder itself
    */
   withResponseOverride (responseOverride: T): EndpointBuilder<P, T> {
-    this._responseOverride = responseOverride
+    this.responseOverride = responseOverride
     return this
   }
 
@@ -58,7 +65,7 @@ class EndpointBuilder<P, T> {
    * @return {EndpointBuilder} The builder itself
    */
   withErrorOverride (errorOverride: Error): EndpointBuilder<P, T> {
-    this._errorOverride = errorOverride
+    this.errorOverride = errorOverride
     return this
   }
 
@@ -67,19 +74,23 @@ class EndpointBuilder<P, T> {
    * @return {Endpoint} The final endpoint
    */
   build (): Endpoint<P, T> {
-    if (!this._name) {
+    if (!this.name) {
       throw Error('You have to set a name to build an endpoint!')
     }
 
-    if (!this._paramsToUrlMapper) {
+    if (!this.paramsToUrlMapper) {
       throw Error('You have to set a url mapper to build an endpoint!')
     }
 
-    if (!this._mapper) {
+    if (!this.mapper) {
       throw Error('You have to set a mapper to build an endpoint!')
     }
 
-    return new Endpoint<P, T>(this._name, this._paramsToUrlMapper, this._mapper, this._responseOverride, this._errorOverride)
+    return new Endpoint<P, T>(
+      this.name,
+      this.paramsToUrlMapper, this.paramsToBodyMapper, this.mapper,
+      this.responseOverride, this.errorOverride
+    )
   }
 }
 
