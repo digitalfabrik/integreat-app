@@ -60,8 +60,10 @@ export class EventsPage extends React.Component<PropsType> {
                 title={event.title}
                 language={language}
                 onInternalLinkClick={this.redirectToPath}>
-            <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-            <PageDetail identifier={t('location')} information={event.location.location} />
+            <>
+              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
+              <PageDetail identifier={t('location')} information={event.location.location} />
+            </>
           </Page>
         </>
       } else {

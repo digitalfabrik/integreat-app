@@ -1,8 +1,9 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
 import poisEndpoint from '../../endpoint/endpoints/pois'
+import fetchData from '../fetchData'
 
 export const POIS_ROUTE = 'POI'
 
@@ -12,12 +13,12 @@ export const goToPois = (city: string, language: string, poiId: ?string) =>
 export const getPoisPath = (city: string, language: string): string =>
   `/${city}/${language}/locations`
 
-export const poisRoute = {
+export const poisRoute: Route = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await poisEndpoint.loadData(dispatch, state.pois, {city, language})
+    await fetchData(poisEndpoint, dispatch, state.pois, {city, language})
   }
 }

@@ -3,14 +3,11 @@
 import SprungbrettJobModel from '../models/SprungbrettJobModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
+import type { JsonSprungbrettJobType } from '../types'
 
 const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 
 type ParamsType = { url: ?string }
-
-type JsonSprungbrettJobType = {
-  title: string, zip: string, city: string, url: string, employment: string, apprenticeship: string
-}
 
 export default new EndpointBuilder<ParamsType, Array<SprungbrettJobModel>>(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {

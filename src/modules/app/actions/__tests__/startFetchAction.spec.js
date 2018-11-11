@@ -1,7 +1,7 @@
 // @flow
 
 import startFetchAction, { startFetchActionName } from '../startFetchAction'
-import Payload from '../../Payload'
+import Payload from '../../../endpoint/Payload'
 import lolex from 'lolex'
 
 describe('startFetchAction', () => {

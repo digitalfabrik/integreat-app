@@ -3,7 +3,8 @@
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../fetchData'
 
 export const SEARCH_ROUTE = 'SEARCH'
 
@@ -15,12 +16,12 @@ export const getSearchPath = (city: string, language: string): string => `/${cit
  * SearchRoute, matches /augsburg/de/search
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const searchRoute = {
+export const searchRoute: Route = {
   path: '/:city/:language/search',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
+    await fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
   }
 }
