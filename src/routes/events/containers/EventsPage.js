@@ -37,8 +37,8 @@ type PropsType = {|
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export class EventsPage extends React.Component<PropsType> {
-  renderEventListItem = (language: string, onInternalLinkClick: string => void) => (event: EventModel) =>
-    <EventListItem event={event} language={language} onInternalLinkClick={onInternalLinkClick} key={event.path} />
+  renderEventListItem = (language: string) => (event: EventModel) =>
+    <EventListItem event={event} language={language} key={event.path} />
 
   redirectToPath = (path: string) => {
     const action = pathToAction(path, this.props.routesMap)
@@ -76,7 +76,7 @@ export class EventsPage extends React.Component<PropsType> {
       <Caption title={t('news')} />
       <List noItemsMessage={t('currentlyNoEvents')}
             items={events}
-            renderItem={this.renderEventListItem(language, this.redirectToPath)} />
+            renderItem={this.renderEventListItem(language)} />
     </>
   }
 }
