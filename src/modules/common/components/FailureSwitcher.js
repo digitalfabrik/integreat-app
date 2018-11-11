@@ -70,12 +70,12 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 
   render () {
-    return <React.Fragment>
+    return <>
       <Helmet>
         <title>{this.getErrorName()}</title>
       </Helmet>
       {this.renderErrorComponent()}
-    </React.Fragment>
+    </>
   }
 }
 
