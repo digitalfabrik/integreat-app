@@ -36,6 +36,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "hashids": "^1.1.4",
+    "he": "^1.2.0",
     "history": "^4.7.2",
     "i18next": "^11.6.0",
     "i18next-browser-languagedetector": "^2.2.3",

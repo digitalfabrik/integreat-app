@@ -5,6 +5,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import type { JsonEventType } from '../types'
 import EventModel from '../models/EventModel'
 import normalizePath from '../normalizePath'
+import { decode } from 'he'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment'
 import DateModel from '../models/DateModel'
@@ -39,7 +40,7 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
           latitude: event.location.latitude,
           longitude: event.location.longitude
         }),
-        excerpt: event.excerpt,
+        excerpt: decode(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
         lastUpdate: moment(event.modified_gmt)
       })
