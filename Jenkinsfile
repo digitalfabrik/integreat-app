@@ -20,8 +20,15 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'yarn run build:lib'
-        sh 'yarn run build:debug'
+        script {
+          if (env.BRANCH_NAME == 'master') {
+            sh 'yarn run build'
+
+          } else {
+            sh 'yarn run build:lib'
+            sh 'yarn run build:debug'
+          }
+        }
         sh 'yarn run check:built'
       }
     }

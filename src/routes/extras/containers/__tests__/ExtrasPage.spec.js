@@ -6,7 +6,6 @@ import React from 'react'
 import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import createHistory from '../../../../modules/app/createHistory'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
@@ -82,7 +81,7 @@ describe('ExtrasPage', () => {
 
   it('should map state to props', () => {
     const location = {payload: {language, city, extraId: 'invalid_extra'}}
-    const store = createReduxStore(createHistory, {})
+    const store = createReduxStore()
     store.getState().location = location
 
     const tree = mount(

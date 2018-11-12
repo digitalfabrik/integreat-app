@@ -1,10 +1,11 @@
 // @flow
 
-import LoadingError from './errors/LoadingError'
-import ParamMissingError from './errors/ParamMissingError'
-import { apiUrl } from './constants'
+import { apiUrl } from '../constants'
+import EndpointBuilder from '../EndpointBuilder'
+import Endpoint from '../Endpoint'
 
 const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
+
 export const POSITIVE_RATING = 'up'
 export const NEGATIVE_RATING = 'down'
 
@@ -19,7 +20,7 @@ export const EXTRAS_FEEDBACK_TYPE = 'extras'
 export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
-export type FeedbackDataType = {
+export type ParamsType = {
   feedbackType: ?string,
   id?: number,
   city: string,
@@ -30,13 +31,12 @@ export type FeedbackDataType = {
   query?: string
 }
 
-class FeedbackEndpoint {
-  static mapParamsToUrl (params: FeedbackDataType): string {
+const endpoint: Endpoint<ParamsType, {}> = new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params): string => {
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
       params.feedbackType ? `/${params.feedbackType}` : ''}`
-  }
-
-  static mapParamsToFormData (params: FeedbackDataType): FormData {
+  })
+  .withParamsToBodyMapper((params: ParamsType): FormData => {
     const formData = new FormData()
     formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
     if (params.id) {
@@ -52,31 +52,8 @@ class FeedbackEndpoint {
       formData.append('alias', params.alias)
     }
     return formData
-  }
+  })
+  .withMapper(() => ({}))
+  .build()
 
-  static async postData (params: FeedbackDataType): Promise<void> {
-    try {
-      const formattedUrl = this.mapParamsToUrl(params)
-      const formattedBody = this.mapParamsToFormData(params)
-
-      const response = await fetch(formattedUrl, {
-        method: 'POST',
-        body: formattedBody
-      })
-
-      if (!response.ok) {
-        throw new LoadingError({endpointName: FEEDBACK_ENDPOINT_NAME, message: `${response.status}`})
-      }
-    } catch (e) {
-      let error
-      if (e instanceof LoadingError || e instanceof ParamMissingError) {
-        error = e
-      } else {
-        error = new LoadingError({endpointName: FEEDBACK_ENDPOINT_NAME, message: e.message})
-      }
-      console.error(error)
-    }
-  }
-}
-
-export default FeedbackEndpoint
+export default endpoint
