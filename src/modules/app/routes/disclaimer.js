@@ -3,7 +3,7 @@
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Action } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import PageModel from '../../endpoint/models/PageModel'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
@@ -12,12 +12,14 @@ import Route from './Route'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 
+type RequiredPayloadType = {|disclaimer: Payload<PageModel>, cities: Payload<Array<CityModel>>|}
+
 const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
-const goToDisclaimer = (city: string, language: string) => createAction(DISCLAIMER_ROUTE)({city, language})
+const goToDisclaimer = (city: string, language: string): Action => createAction(DISCLAIMER_ROUTE)({city, language})
 
-const renderDisclaimerPage = ({disclaimer, cities}: {|disclaimer: Payload<PageModel>,
-  cities: Payload<Array<CityModel>>|}) => <DisclaimerPage disclaimer={disclaimer} cities={cities} />
+const renderDisclaimerPage = ({disclaimer, cities}: RequiredPayloadType) =>
+  <DisclaimerPage disclaimer={disclaimer} cities={cities} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType) =>
   ({disclaimer: payloads.disclaimerPayload, cities: payloads.citiesPayload})
@@ -36,7 +38,7 @@ const disclaimerRoute = {
   }
 }
 
-export default new Route({
+export default new Route<RequiredPayloadType, city: string, language: string>({
   name: DISCLAIMER_ROUTE,
   goToRoute: goToDisclaimer,
   getLanguageChangeAction: goToDisclaimer,

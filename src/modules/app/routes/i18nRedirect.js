@@ -11,14 +11,16 @@ import Route from './Route'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 
+type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
+
 const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
-const goToI18nRedirect = (param: ?string) => createAction(I18N_REDIRECT_ROUTE)({param})
+const goToI18nRedirect = (param?: string) => createAction(I18N_REDIRECT_ROUTE)({param})
 
-const renderI18nPage = ({cities}: {|cities: Payload<Array<CityModel>>|}) =>
-  <I18nRedirectPage cities={cities} />
+const renderI18nPage = ({cities}: RequiredPayloadType) =>
+  <I18nRedirectPage cities={cities.data} />
 
-const getRequiredPayloads = (payloads: AllPayloadsType) => ({cities: payloads.citiesPayload})
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => ({cities: payloads.citiesPayload})
 
 /**
  * I18nRoute to redirect if no language is specified or to the not found route if the param is invalid.
@@ -34,7 +36,7 @@ const i18nRedirectRoute = {
   }
 }
 
-export default new Route({
+export default new Route<RequiredPayloadType, param?: string>({
   name: I18N_REDIRECT_ROUTE,
   goToRoute: goToI18nRedirect,
   renderPage: renderI18nPage,

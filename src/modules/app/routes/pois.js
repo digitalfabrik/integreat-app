@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import type { Dispatch, GetState, Route as RouterRouteType, Location } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType, Action } from 'redux-first-router'
 import poisEndpoint from '../../endpoint/endpoints/pois'
 import CityModel from '../../endpoint/models/CityModel'
 import PoiModel from '../../endpoint/models/PoiModel'
@@ -11,28 +11,18 @@ import Route from './Route'
 import type { AllPayloadsType } from './types'
 import Payload from '../../endpoint/Payload'
 
+type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>, cities: Payload<Array<CityModel>>|}
+
 const POIS_ROUTE = 'POI'
 
-const goToPois = (city: string, language: string, poiId: ?string) =>
-  createAction(POIS_ROUTE)({city, language, poiId})
+const goToPois = (city: string, language: string) => createAction(POIS_ROUTE)({city, language})
 
 const getPoisPath = (city: string, language: string): string =>
   `/${city}/${language}/locations`
 
-const renderPoisPage = ({pois, cities}: {|pois: Payload<Array<PoiModel>>, cities: Payload<Array<CityModel>>|}) =>
-  <PoisPage pois={pois} cities={cities} />
+const renderPoisPage = ({pois, cities}: RequiredPayloadType): Action => <PoisPage pois={pois} cities={cities} />
 
-const getLanguageChangePath = ({pois, location, language, city}: {pois: Array<PoiModel>,
-  language: string, location: Location, city: string}) => {
-  const {poiId} = location.payload
-  if (pois && poiId) {
-    const poi = pois.find(_poi => _poi.path === location.pathname)
-    return (poi && poi.availableLanguages.get(language)) || null
-  }
-  return getPoisPath(city, language)
-}
-
-const getRequiredPayloads = (payloads: AllPayloadsType) =>
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({pois: payloads.poisPayload, cities: payloads.citiesPayload})
 
 const poisRoute: RouterRouteType = {
@@ -45,11 +35,10 @@ const poisRoute: RouterRouteType = {
   }
 }
 
-export default new Route({
+export default new Route<RequiredPayloadType, city: string, language: string>({
   name: POIS_ROUTE,
   goToRoute: goToPois,
   getRoutePath: getPoisPath,
-  getLanguageChangePath: getLanguageChangePath,
   renderPage: renderPoisPage,
   route: poisRoute,
   getRequiredPayloads: getRequiredPayloads

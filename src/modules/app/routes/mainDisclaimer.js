@@ -4,10 +4,11 @@ import { createAction } from 'redux-actions'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import React from 'react'
 import Route from './Route'
+import type { Action } from 'redux-first-router'
 
 const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-const goToMainDisclaimer = () => createAction(MAIN_DISCLAIMER_ROUTE)()
+const goToMainDisclaimer = (): Action => createAction(MAIN_DISCLAIMER_ROUTE)()
 
 const renderMainDisclaimerPage = () => <MainDisclaimerPage />
 
@@ -17,10 +18,10 @@ const renderMainDisclaimerPage = () => <MainDisclaimerPage />
  */
 const mainDisclaimerRoute = '/disclaimer'
 
-export default new Route({
+export default new Route<void, void>({
   name: MAIN_DISCLAIMER_ROUTE,
   goToRoute: goToMainDisclaimer,
   renderPage: renderMainDisclaimerPage,
   route: mainDisclaimerRoute,
-  getRequiredPayloads: () => ({})
+  getRequiredPayloads: () => {}
 })

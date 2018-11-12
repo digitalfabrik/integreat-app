@@ -24,20 +24,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import PageModel from '../../endpoint/models/PageModel'
 import PoiModel from '../../endpoint/models/PoiModel'
-import { pages, requiredPayloads } from '../routes'
-import find from 'lodash/find'
-import reduce from 'lodash/reduce'
-
-export type AllPayloadsType = {|
-  citiesPayload: Payload<Array<CityModel>>,
-  categoriesPayload: Payload<CategoriesMapModel>,
-  poisPayload: Payload<Array<PoiModel>>,
-  eventsPayload: Payload<Array<EventModel>>,
-  extrasPayload: Payload<Array<ExtraModel>>,
-  sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
-  wohnenPayload: Payload<Array<WohnenOfferModel>>,
-  disclaimerPayload: Payload<PageModel>
-|}
+import routes from '../routes'
 
 type PropsType = {|
   currentRoute: string,
@@ -66,9 +53,9 @@ export class Switcher extends React.Component<PropsType> {
    * @param payloads The payloads to check for errors or fetching process
    * @return {*}
    */
-  static renderFailureLoadingComponents = (payloads: AllPayloadsType): ?React.Node => {
-    const errorPayload = find(payloads, payload => payload.error)
-    if (find(payloads, payload => (payload.isFetching || !payload.data) && !payload.error)) {
+  static renderFailureLoadingComponents = (payloads: Array<Payload<any>>): ?React.Node => {
+    const errorPayload = payloads.find(payload => payload.error)
+    if (payloads.find(payload => (payload.isFetching || !payload.data) && !payload.error)) {
       return <LoadingSpinner />
     } else if (errorPayload) {
       return <FailureSwitcher error={errorPayload.error} />
@@ -101,10 +88,9 @@ export class Switcher extends React.Component<PropsType> {
       }
     }
 
-    const payloads = requiredPayloads[currentRoute](allPayloads)
-    const props = reduce(payloads, (obj, value, key: string) => ({...obj, [key]: value.data}), {})
+    const payloads = routes[currentRoute].getRequiredPayloads(allPayloads)
     return Switcher.renderFailureLoadingComponents(payloads) ||
-      pages[currentRoute](props)
+      routes[currentRoute].renderPage(payloads)
   }
 
   /**

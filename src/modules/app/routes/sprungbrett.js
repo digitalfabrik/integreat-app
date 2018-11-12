@@ -4,7 +4,7 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Action } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import CityModel from '../../endpoint/models/CityModel'
 import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
@@ -14,20 +14,22 @@ import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 import Route from './Route'
 
+type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, sprungbrettJobs: Payload<Array<SprungbrettModel>>,
+  cities: Payload<Array<CityModel>>|}
+
 const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
-const goToSprungbrettExtra = (city: string, language: string) =>
+const goToSprungbrettExtra = (city: string, language: string): Action =>
   createAction(SPRUNGBRETT_ROUTE)({ city, language })
 
 const getSprungbrettExtraPath = (city: string, language: string): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
-const renderSprungbrettPage = ({ sprungbrettJobs, extras, cities }: {|sprungbrettJobs: Payload<Array<SprungbrettModel>>,
-  extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>>|}) =>
+const renderSprungbrettPage = ({ sprungbrettJobs, extras, cities }: RequiredPayloadType) =>
   <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs.data} extras={extras.data} cities={cities.data} />
 
-const getRequiredPayloads = (payloads: AllPayloadsType) =>
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload, cities: payloads.citiesPayload})
 
 const sprungbrettRoute = {
@@ -51,10 +53,9 @@ const sprungbrettRoute = {
   }
 }
 
-export default new Route({
+export default new Route<RequiredPayloadType, city: string, language: string>({
   name: SPRUNGBRETT_ROUTE,
   goToRoute: goToSprungbrettExtra,
-  getLanguageChangeAction: goToSprungbrettExtra,
   renderPage: renderSprungbrettPage,
   route: sprungbrettRoute,
   getRequiredPayloads
