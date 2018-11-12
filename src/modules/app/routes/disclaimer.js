@@ -1,9 +1,7 @@
 // @flow
 
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
-import { createAction } from 'redux-actions'
-
-import type { Dispatch, GetState, Action } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import PageModel from '../../endpoint/models/PageModel'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
@@ -17,12 +15,6 @@ type RequiredPayloadType = {|disclaimer: Payload<PageModel>, cities: Payload<Arr
 type RouteParamsType = {|city: string, language: string|}
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
-
-export const goToDisclaimer = (city: string, language: string): Action =>
-  createAction<string, { city: string, language: string }>(DISCLAIMER_ROUTE)({
-    city,
-    language
-  })
 
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/disclaimer`
 

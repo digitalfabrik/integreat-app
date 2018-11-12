@@ -1,20 +1,12 @@
 // @flow
 
-import categoriesRoute, { CATEGORIES_ROUTE, goToCategories } from '../categories'
+import categoriesRoute from '../categories'
 
 describe('categories route', () => {
-  it('should create the right action', () => {
+  it('should create the right path', () => {
     const city = 'augsburg'
     const language = 'de'
-    const categoryPath = 'willkommen'
-    expect(goToCategories(city, language, categoryPath)).toEqual({
-      type: CATEGORIES_ROUTE,
-      payload: {
-        city,
-        language,
-        categoryPath
-      }
-    })
+    expect(categoriesRoute.getRoutePath({city, language})).toBe('/augsburg/de')
   })
 
   it('should have the right path', () => {

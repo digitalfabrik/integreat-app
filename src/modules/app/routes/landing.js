@@ -1,9 +1,7 @@
 // @flow
 
 import citiesEndpoint from '../../endpoint/endpoints/cities'
-import { createAction } from 'redux-actions'
-
-import type { Dispatch, GetState, Action } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import LandingPage from '../../../routes/landing/containers/LandingPage'
 import React from 'react'
@@ -16,9 +14,6 @@ type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 type RouteParamsType = {|language: string|}
 
 export const LANDING_ROUTE = 'LANDING'
-
-export const goToLanding = (language: string): Action => createAction<string, { language: string }>
-(LANDING_ROUTE)({language})
 
 const getRoutePath = ({language}: RouteParamsType): string => `/${language}`
 

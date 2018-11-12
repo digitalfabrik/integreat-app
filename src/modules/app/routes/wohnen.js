@@ -2,9 +2,7 @@
 
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
-import { createAction } from 'redux-actions'
-
-import type { Dispatch, GetState, Action } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import CityModel from '../../endpoint/models/CityModel'
 import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
@@ -21,9 +19,6 @@ type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
-
-const goToWohnenExtra = (city: string, language: string, offerHash: string): Action =>
-  createAction<string, { city: string, language: string }>(WOHNEN_ROUTE)({city, language, offerHash})
 
 const getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
   `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`

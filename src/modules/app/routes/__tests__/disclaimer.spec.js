@@ -1,18 +1,12 @@
 // @flow
 
-import disclaimerRoute, { DISCLAIMER_ROUTE, goToDisclaimer } from '../disclaimer'
+import disclaimerRoute from '../disclaimer'
 
 describe('disclaimer route', () => {
-  it('should create the right action', () => {
+  it('should create the right path', () => {
     const city = 'augsburg'
     const language = 'de'
-    expect(goToDisclaimer(city, language)).toEqual({
-      type: DISCLAIMER_ROUTE,
-      payload: {
-        city,
-        language
-      }
-    })
+    expect(disclaimerRoute.getRoutePath({city, language})).toBe('/augsburg/de/disclaimer')
   })
 
   it('should have the right path', () => {

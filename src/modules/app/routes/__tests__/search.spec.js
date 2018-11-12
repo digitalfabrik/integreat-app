@@ -1,18 +1,12 @@
 // @flow
 
-import searchRoute, { goToSearch, SEARCH_ROUTE } from '../search'
+import searchRoute from '../search'
 
 describe('search route', () => {
-  it('should create the right action', () => {
+  it('should create the right path', () => {
     const city = 'augsburg'
     const language = 'de'
-    expect(goToSearch(city, language)).toEqual({
-      type: SEARCH_ROUTE,
-      payload: {
-        city,
-        language
-      }
-    })
+    expect(searchRoute.getRoutePath({city, language})).toBe('/augsburg/de/search')
   })
 
   it('should have the right path', () => {
