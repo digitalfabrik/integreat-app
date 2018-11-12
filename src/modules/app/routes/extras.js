@@ -3,7 +3,7 @@
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType, Action } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
@@ -12,17 +12,17 @@ import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 import Route from './Route'
 
+type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>>|}
+
 const EXTRAS_ROUTE = 'EXTRAS'
 
-const goToExtras = (city: string, language: string) =>
-  createAction(EXTRAS_ROUTE)({city, language})
+const goToExtras = (city: string, language: string): Action => createAction(EXTRAS_ROUTE)({city, language})
 
 const getExtrasPath = (city: string, language: string): string => `/${city}/${language}/extras`
 
-const renderExtrasPage = ({extras, cities}: {|extras: Payload<Array<ExtraModel>>,
-  cities: Payload<Array<CityModel>>|}) => <ExtrasPage extras={extras} cities={cities} />
+const renderExtrasPage = ({extras, cities}: RequiredPayloadType) => <ExtrasPage extras={extras} cities={cities} />
 
-const getRequiredPayloads = (payloads: AllPayloadsType) =>
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({extras: payloads.extrasPayload, cities: payloads.citiesPayload})
 
 /**
@@ -39,10 +39,9 @@ const extrasRoute: RouterRouteType = {
   }
 }
 
-export default new Route({
+export default new Route<RequiredPayloadType, city: string, language: string>({
   name: EXTRAS_ROUTE,
   goToRoute: goToExtras,
-  getLanguageChangePath: getExtrasPath,
   renderPage: renderExtrasPage,
   route: extrasRoute,
   getRequiredPayloads

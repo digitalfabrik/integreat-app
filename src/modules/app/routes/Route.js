@@ -4,24 +4,19 @@ import type { Node } from 'react'
 import type { Route as RouterRouteType, Action } from 'redux-first-router'
 import type { AllPayloadsType } from './types'
 
-type GetLanguageChangeActionType<P> = ({language: string, location: Location, city: string, data: P}) => Action | null
-type GoToRouteType = (city: string, language: string, id: string) => Action
-
 class Route<T, P> {
   _name: string
-  _goToRoute: GoToRouteType
-  _getLanguageChangeAction: ?GetLanguageChangeActionType<P>
+  _goToRoute: P => Action
   _renderPage: T => Node
   _route: RouterRouteType
   _getRequiredPayloads: AllPayloadsType => T
 
   constructor ({ name, goToRoute, getLanguageChangeAction, renderPage, route, getRequiredPayloads }: {
-    name: string, goToRoute: GoToRouteType, getLanguageChangeAction?: GetLanguageChangeActionType<P>,
-    renderPage: T => Node, route: RouterRouteType, getRequiredPayloads: AllPayloadsType => T
+    name: string, goToRoute: P => Action, renderPage: T => Node, route: RouterRouteType,
+    getRequiredPayloads: AllPayloadsType => T
   }) {
     this._name = name
     this._goToRoute = goToRoute
-    this._getLanguageChangeAction = getLanguageChangeAction
     this._renderPage = renderPage
     this._route = route
     this._getRequiredPayloads = getRequiredPayloads
@@ -31,12 +26,8 @@ class Route<T, P> {
     return this._name
   }
 
-  get goToRoute (): GoToRouteType {
+  get goToRoute (): P => Action {
     return this._goToRoute
-  }
-
-  get getLanguageChangeAction (): ?GetLanguageChangeActionType<P> {
-    return this._getLanguageChangeAction
   }
 
   get renderPage (): T => Node {

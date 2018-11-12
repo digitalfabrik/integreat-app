@@ -3,7 +3,7 @@
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Action } from 'redux-first-router'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import CityModel from '../../endpoint/models/CityModel'
 import SearchPage from '../../../routes/search/containers/SearchPage'
@@ -12,16 +12,18 @@ import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 import Route from './Route'
 
+type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
+
 const SEARCH_ROUTE = 'SEARCH'
 
-const goToSearch = (city: string, language: string) => createAction(SEARCH_ROUTE)({city, language})
+const goToSearch = (city: string, language: string): Action => createAction(SEARCH_ROUTE)({city, language})
 
 const getSearchPath = (city: string, language: string): string => `/${city}/${language}/search`
 
-const renderSearchPage = ({ categories, cities }: {|categories: Payload<CategoriesMapModel>,
-  cities: Payload<Array<CityModel>>|}) => <SearchPage categories={categories} cities={cities} />
+const renderSearchPage = ({ categories, cities }: RequiredPayloadType) =>
+  <SearchPage categories={categories} cities={cities} />
 
-const getRequiredPayloads = (payloads: AllPayloadsType) =>
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
 
 /**
@@ -38,10 +40,9 @@ const searchRoute = {
   }
 }
 
-export default new Route({
+export default new Route<RequiredPayloadType, city: string, language: string>({
   name: SEARCH_ROUTE,
   goToRoute: goToSearch,
-  getLanguageChangeAction: goToSearch,
   renderPage: renderSearchPage,
   route: searchRoute,
   getRequiredPayloads
