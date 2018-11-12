@@ -10,12 +10,13 @@ import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
+import Endpoint from '../Endpoint'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
-type ParamsType = {city: string, language: string}
+type ParamsType = { city: string, language: string }
 
-export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EVENTS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   )
@@ -52,3 +53,5 @@ export default new EndpointBuilder(EVENTS_ENDPOINT_NAME)
     })
   )
   .build()
+
+export default endpoint

@@ -8,7 +8,6 @@ import LanguageModel from '../../../endpoint/models/LanguageModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import moment from 'moment'
-import createHistory from '../../../app/createHistory'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../../app/createReduxStore'
 import { Provider } from 'react-redux'
@@ -105,7 +104,7 @@ describe('Helmet', () => {
   it('should map state to props', () => {
     const location = {type: 'DISCLAIMER', payload: {city, language}, pathname: '/augsburg/de/disclaimer'}
 
-    const store = createReduxStore(createHistory, {
+    const store = createReduxStore({
       languages: {data: languages},
       categories: {data: categories},
       events: {data: events},

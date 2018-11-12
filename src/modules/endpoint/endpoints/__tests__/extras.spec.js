@@ -5,7 +5,7 @@ import ExtraModel from '../../models/ExtraModel'
 
 jest.unmock('../extras')
 
-describe('extras', () => {
+describe('endpoint', () => {
   const pageJson = [
     {
       name: 'Serlo ABC',
