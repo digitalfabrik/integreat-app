@@ -1,6 +1,6 @@
 // @flow
 
-import { EVENTS_ROUTE, eventsRoute, goToEvents } from '../events'
+import eventsRoute, { EVENTS_ROUTE, goToEvents } from '../events'
 
 describe('events route', () => {
   it('should create the right action', () => {
@@ -16,6 +16,6 @@ describe('events route', () => {
   })
 
   it('should have the right path', () => {
-    expect(eventsRoute).toBe('/:city/:language/events/:eventId?')
+    expect(eventsRoute.route).toBe('/:city/:language/events/:eventId?')
   })
 })

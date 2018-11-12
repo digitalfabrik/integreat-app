@@ -17,14 +17,15 @@ import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, sprungbrettJobs: Payload<Array<SprungbrettModel>>,
   cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
 
-const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
+export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 const goToSprungbrettExtra = (city: string, language: string): Action =>
   createAction<string, { city: string, language: string }>(SPRUNGBRETT_ROUTE)({ city, language })
 
-const getSprungbrettExtraPath = (city: string, language: string): string =>
+const getRoutePath = ({city, language}: RouteParamsType): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
 const renderSprungbrettPage = ({ sprungbrettJobs, extras, cities }: RequiredPayloadType) =>
@@ -54,9 +55,9 @@ const sprungbrettRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: SPRUNGBRETT_ROUTE,
-  goToRoute: goToSprungbrettExtra,
+  getRoutePath,
   renderPage: renderSprungbrettPage,
   route: sprungbrettRoute,
   getRequiredPayloads

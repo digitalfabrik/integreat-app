@@ -1,6 +1,6 @@
 // @flow
 
-import { goToI18nRedirect, I18N_REDIRECT_ROUTE, i18nRedirectRoute } from '../i18nRedirect'
+import i18nRedirectRoute, { goToI18nRedirect, I18N_REDIRECT_ROUTE } from '../i18nRedirect'
 
 describe('i18nRedirect route', () => {
   it('should create the right action', () => {
@@ -14,6 +14,6 @@ describe('i18nRedirect route', () => {
   })
 
   it('should have the right path', () => {
-    expect(i18nRedirectRoute.path).toBe('/:param?')
+    expect(i18nRedirectRoute.route.path).toBe('/:param?')
   })
 })

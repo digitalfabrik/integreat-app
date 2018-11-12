@@ -13,10 +13,14 @@ import type { AllPayloadsType } from './types'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|language: string|}
 
-const LANDING_ROUTE = 'LANDING'
+export const LANDING_ROUTE = 'LANDING'
 
-const goToLanding = (language: string): Action => createAction<string, { language: string }>(LANDING_ROUTE)({language})
+export const goToLanding = (language: string): Action => createAction<string, { language: string }>
+(LANDING_ROUTE)({language})
+
+const getRoutePath = ({language}: RouteParamsType): string => `/${language}`
 
 const renderLandingPage = ({cities}: RequiredPayloadType) =>
   <LandingPage cities={cities.data} />
@@ -34,9 +38,9 @@ const landingRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: LANDING_ROUTE,
-  goToRoute: goToLanding,
+  getRoutePath,
   renderPage: renderLandingPage,
   route: landingRoute,
   getRequiredPayloads: getRequiredPayloads

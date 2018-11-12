@@ -1,6 +1,6 @@
 // @flow
 
-import { DISCLAIMER_ROUTE, disclaimerRoute, goToDisclaimer } from '../disclaimer'
+import disclaimerRoute, { DISCLAIMER_ROUTE, goToDisclaimer } from '../disclaimer'
 
 describe('disclaimer route', () => {
   it('should create the right action', () => {
@@ -16,6 +16,6 @@ describe('disclaimer route', () => {
   })
 
   it('should have the right path', () => {
-    expect(disclaimerRoute.path).toBe('/:city/:language/disclaimer')
+    expect(disclaimerRoute.route.path).toBe('/:city/:language/disclaimer')
   })
 })

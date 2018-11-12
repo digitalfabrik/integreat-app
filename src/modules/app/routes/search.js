@@ -14,13 +14,14 @@ import Route from './Route'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
 
-const SEARCH_ROUTE = 'SEARCH'
+export const SEARCH_ROUTE = 'SEARCH'
 
-const goToSearch = (city: string, language: string): Action =>
+export const goToSearch = (city: string, language: string): Action =>
   createAction<string, { city: string, language: string }>(SEARCH_ROUTE)({city, language})
 
-const getSearchPath = (city: string, language: string): string => `/${city}/${language}/search`
+const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/search`
 
 const renderSearchPage = ({ categories, cities }: RequiredPayloadType) =>
   <SearchPage categories={categories} cities={cities} />
@@ -42,9 +43,9 @@ const searchRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: SEARCH_ROUTE,
-  goToRoute: goToSearch,
+  getRoutePath,
   renderPage: renderSearchPage,
   route: searchRoute,
   getRequiredPayloads

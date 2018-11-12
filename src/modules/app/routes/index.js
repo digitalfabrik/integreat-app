@@ -14,7 +14,16 @@ import landingRoute from './landing'
 import type { Route as RouterRouteType } from 'redux-first-router'
 import Route from './Route'
 
-export const LocationRoutes = []
+export const LocationRoutes = [
+  categoriesRoute.name,
+  eventsRoute.name,
+  extrasRoute.name,
+  poisRoute.name,
+  disclaimerRoute.name,
+  sprungbrettRoute.name,
+  wohnenRoute.name,
+  searchRoute.name
+]
 
 // this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
 // the order is important, routes declared first are served first, so i.e. if you put the mainDisclaimer route after

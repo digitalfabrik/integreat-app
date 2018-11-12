@@ -13,14 +13,13 @@ import Payload from '../../endpoint/Payload'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>, cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
 
-const POIS_ROUTE = 'POI'
+export const POIS_ROUTE = 'POI'
 export const goToPois = (city: string, language: string, poiId: ?string) =>
   createAction<string, { city: string, language: string, poiId: ?string }>(POIS_ROUTE)({city, language, poiId})
 
-const goToPois = (city: string, language: string) => createAction(POIS_ROUTE)({city, language})
-
-const getPoisPath = (city: string, language: string): string =>
+const getRoutePath = ({city, language}: RouteParamsType): string =>
   `/${city}/${language}/locations`
 
 const renderPoisPage = ({pois, cities}: RequiredPayloadType): Action => <PoisPage pois={pois} cities={cities} />
@@ -38,10 +37,9 @@ const poisRoute: RouterRouteType = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: POIS_ROUTE,
-  goToRoute: goToPois,
-  getRoutePath: getPoisPath,
+  getRoutePath,
   renderPage: renderPoisPage,
   route: poisRoute,
   getRequiredPayloads: getRequiredPayloads

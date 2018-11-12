@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
-import { getWohnenExtraPath } from '../../../modules/app/routes/wohnen'
+import wohnenRoute from '../../../modules/app/routes/wohnen'
 import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
@@ -29,7 +29,7 @@ class OfferListItem extends React.PureComponent<PropsType> {
 
     if (offer.formData instanceof WohnenFormData) {
       const hash = hashFunction(offer)
-      const offerPath = getWohnenExtraPath(city, language, hash)
+      const offerPath = wohnenRoute.getRoutePath({city, language, offerHash: hash})
       const specificOffer: WohnenOfferModel = offer
       const accommodation = specificOffer.formData.accommodation
       const costs = specificOffer.formData.costs

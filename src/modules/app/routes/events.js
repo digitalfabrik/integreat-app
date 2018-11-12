@@ -11,12 +11,14 @@ import Route from './Route'
 import Payload from '../../endpoint/Payload'
 
 type RequiredPayloadType = {|events: Payload<Array<EventModel>>, cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
 
-const name = 'EVENTS'
+export const EVENTS_ROUTE = 'EVENTS'
 
- const goToRoute = (city: string, language: string): Action => createAction<string, { city: string, language: string }>(name)({city, language})
+export const goToEvents = (city: string, language: string): Action =>
+  createAction<string, { city: string, language: string }>(EVENTS_ROUTE)({city, language})
 
-const getRoutePath = (city: string, language: string): string => `/${city}/${language}/events`
+const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/events`
 
 const renderPage = ({ events, cities }: RequiredPayloadType) =>
   <EventsPage events={events} cities={cities} />
@@ -30,9 +32,9 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
  */
 const route: RouterRouteType = '/:city/:language/events/:eventId?'
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
-  name,
-  goToRoute,
+export default new Route<RequiredPayloadType, RouteParamsType>({
+  name: EVENTS_ROUTE,
+  getRoutePath,
   renderPage,
   route,
   getRequiredPayloads

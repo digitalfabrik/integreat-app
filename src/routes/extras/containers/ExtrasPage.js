@@ -12,8 +12,8 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import { compose } from 'recompose'
-import { getSprungbrettExtraPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
-import { getWohnenExtraPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
+import sprungbrettRoute, { SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
+import wohnenRoute, { WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
@@ -31,13 +31,14 @@ type PropsType = {|
  */
 export class ExtrasPage extends React.Component<PropsType> {
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {
+    const {city, language} = this.props
     return extras.map(
       extra => {
         let path = extra.path
         if (extra.alias === SPRUNGBRETT_EXTRA) {
-          path = getSprungbrettExtraPath(this.props.city, this.props.language)
+          path = sprungbrettRoute.getRoutePath({city, language})
         } else if (extra.alias === WOHNEN_EXTRA) {
-          path = getWohnenExtraPath(this.props.city, this.props.language)
+          path = wohnenRoute.getRoutePath({city, language})
         }
 
         return new TileModel({

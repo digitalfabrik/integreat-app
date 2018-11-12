@@ -14,11 +14,14 @@ import Route from './Route'
 import type { AllPayloadsType } from './types'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
+export const CATEGORIES_ROUTE = 'CATEGORIES'
 
-const CATEGORIES_ROUTE = 'CATEGORIES'
+export const goToCategories = (city: string, language: string, categoryPath ?:string): Action =>
+  createAction<string, { city: string, language: string, categoryPath: ?string }>
+(CATEGORIES_ROUTE)({city, language, categoryPath})
 
-const goToCategories = (city: string, language: string, categoryPath ?:string): Action =>
-  createAction<string, { city: string, language: string, categoryPath: ?string }>(CATEGORIES_ROUTE)({city, language, categoryPath})
+const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}`
 
 const renderCategoriesPage = ({ categories, cities }: RequiredPayloadType) =>
   <CategoriesPage categories={categories} cities={cities} />
@@ -40,9 +43,9 @@ const categoriesRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string, categoryPath?: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: CATEGORIES_ROUTE,
-  goToRoute: goToCategories,
+  getRoutePath,
   renderPage: renderCategoriesPage,
   route: categoriesRoute,
   getRequiredPayloads
