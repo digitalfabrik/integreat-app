@@ -1,7 +1,6 @@
 // @flow
 
-import { createAction } from 'redux-actions'
-import type { Route as RouterRouteType, Location, Action } from 'redux-first-router'
+import type { Route as RouterRouteType } from 'redux-first-router'
 import EventModel from '../../endpoint/models/EventModel'
 import CityModel from '../../endpoint/models/CityModel'
 import EventsPage from '../../../routes/events/containers/EventsPage'
@@ -14,9 +13,6 @@ type RequiredPayloadType = {|events: Payload<Array<EventModel>>, cities: Payload
 type RouteParamsType = {|city: string, language: string|}
 
 export const EVENTS_ROUTE = 'EVENTS'
-
-export const goToEvents = (city: string, language: string): Action =>
-  createAction<string, { city: string, language: string }>(EVENTS_ROUTE)({city, language})
 
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/events`
 

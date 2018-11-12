@@ -1,7 +1,6 @@
 // @flow
 
-import { createAction } from 'redux-actions'
-import type { Dispatch, GetState, Route as RouterRouteType, Action } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import poisEndpoint from '../../endpoint/endpoints/pois'
 import CityModel from '../../endpoint/models/CityModel'
 import PoiModel from '../../endpoint/models/PoiModel'
@@ -16,13 +15,11 @@ type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>, cities: Payload<Arr
 type RouteParamsType = {|city: string, language: string|}
 
 export const POIS_ROUTE = 'POI'
-export const goToPois = (city: string, language: string, poiId: ?string) =>
-  createAction<string, { city: string, language: string, poiId: ?string }>(POIS_ROUTE)({city, language, poiId})
 
 const getRoutePath = ({city, language}: RouteParamsType): string =>
   `/${city}/${language}/locations`
 
-const renderPoisPage = ({pois, cities}: RequiredPayloadType): Action => <PoisPage pois={pois} cities={cities} />
+const renderPoisPage = ({pois, cities}: RequiredPayloadType) => <PoisPage pois={pois} cities={cities} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({pois: payloads.poisPayload, cities: payloads.citiesPayload})

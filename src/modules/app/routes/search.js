@@ -1,9 +1,7 @@
 // @flow
 
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
-import { createAction } from 'redux-actions'
-
-import type { Dispatch, GetState, Action } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import CityModel from '../../endpoint/models/CityModel'
 import SearchPage from '../../../routes/search/containers/SearchPage'
@@ -17,9 +15,6 @@ type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Pa
 type RouteParamsType = {|city: string, language: string|}
 
 export const SEARCH_ROUTE = 'SEARCH'
-
-export const goToSearch = (city: string, language: string): Action =>
-  createAction<string, { city: string, language: string }>(SEARCH_ROUTE)({city, language})
 
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/search`
 

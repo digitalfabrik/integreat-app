@@ -3,7 +3,7 @@
 import React from 'react'
 import Highlighter from 'react-highlighter'
 
-import { goToCategories } from '../../../modules/app/routes/categories'
+import categoriesRoute from '../../../modules/app/routes/categories'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
@@ -32,7 +32,7 @@ class CityEntry extends React.PureComponent<PropsType> {
   render () {
     const {city, language, filterText} = this.props
     return (
-      <CityListItem to={goToCategories(city.code, language)}>
+      <CityListItem to={categoriesRoute.getRoutePath({city: city.code, language})}>
         <Highlighter search={filterText}>
           {city.name}
         </Highlighter>

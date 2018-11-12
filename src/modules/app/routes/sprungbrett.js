@@ -2,9 +2,7 @@
 
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
-import { createAction } from 'redux-actions'
-
-import type { Dispatch, GetState, Action } from 'redux-first-router'
+import type { Dispatch, GetState } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import CityModel from '../../endpoint/models/CityModel'
 import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
@@ -21,9 +19,6 @@ type RouteParamsType = {|city: string, language: string|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
-
-const goToSprungbrettExtra = (city: string, language: string): Action =>
-  createAction<string, { city: string, language: string }>(SPRUNGBRETT_ROUTE)({ city, language })
 
 const getRoutePath = ({city, language}: RouteParamsType): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`

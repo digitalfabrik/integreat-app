@@ -1,18 +1,12 @@
 // @flow
 
-import eventsRoute, { EVENTS_ROUTE, goToEvents } from '../events'
+import eventsRoute from '../events'
 
 describe('events route', () => {
-  it('should create the right action', () => {
+  it('should create the right path', () => {
     const city = 'augsburg'
     const language = 'de'
-    expect(goToEvents(city, language)).toEqual({
-      type: EVENTS_ROUTE,
-      payload: {
-        city,
-        language
-      }
-    })
+    expect(eventsRoute.getRoutePath({city, language})).toBe('/augsburg/de/events')
   })
 
   it('should have the right path', () => {

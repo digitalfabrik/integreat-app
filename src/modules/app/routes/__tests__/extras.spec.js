@@ -1,18 +1,12 @@
 // @flow
 
-import extrasRoute, { EXTRAS_ROUTE, goToExtras } from '../extras'
+import extrasRoute from '../extras'
 
 describe('extras route', () => {
-  it('should create the right action', () => {
+  it('should create the right path', () => {
     const city = 'augsburg'
     const language = 'de'
-    expect(goToExtras(city, language)).toEqual({
-      type: EXTRAS_ROUTE,
-      payload: {
-        city,
-        language
-      }
-    })
+    expect(extrasRoute.getRoutePath({city, language})).toBe('/augsburg/de/extras')
   })
 
   it('should have the right path', () => {

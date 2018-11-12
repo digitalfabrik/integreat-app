@@ -1,16 +1,11 @@
 // @flow
 
-import i18nRedirectRoute, { goToI18nRedirect, I18N_REDIRECT_ROUTE } from '../i18nRedirect'
+import i18nRedirectRoute from '../i18nRedirect'
 
 describe('i18nRedirect route', () => {
-  it('should create the right action', () => {
+  it('should create the right path', () => {
     const param = 'param'
-    expect(goToI18nRedirect(param)).toEqual({
-      type: I18N_REDIRECT_ROUTE,
-      payload: {
-        param
-      }
-    })
+    expect(i18nRedirectRoute.getRoutePath({param})).toBe('/param')
   })
 
   it('should have the right path', () => {

@@ -1,14 +1,10 @@
 // @flow
 
-import { createAction } from 'redux-actions'
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import React from 'react'
 import Route from './Route'
-import type { Action } from 'redux-first-router'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
-
-export const goToMainDisclaimer = (): Action => createAction<string, void>(MAIN_DISCLAIMER_ROUTE)()
 
 const getRoutePath = (): string => '/disclaimer'
 

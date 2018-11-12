@@ -8,9 +8,8 @@ import { faFrown } from '../../../modules/app/constants/icons'
 
 import Link from 'redux-first-router-link'
 
-import { goToI18nRedirect } from '../../../modules/app/routes/i18nRedirect'
-import type { Action } from 'redux-first-router'
 import styled from 'styled-components'
+import i18nRedirectRoute from '../../app/routes/i18nRedirect'
 
 const Centered = styled.div`
   & > * {
@@ -22,7 +21,7 @@ const Centered = styled.div`
 
 type PropsType = {|
   errorMessage: string,
-  goToAction?: Action,
+  goToPath?: string,
   goToMessage?: string,
   t: TFunction
 |}
@@ -32,11 +31,11 @@ type PropsType = {|
  */
 export class Failure extends React.Component<PropsType> {
   render () {
-    const {t, errorMessage, goToAction, goToMessage} = this.props
+    const {t, errorMessage, goToPath, goToMessage} = this.props
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goTo.start')}</Link>
+      <Link to={goToPath || i18nRedirectRoute.getRoutePath({})}>{t(goToMessage || 'goTo.start')}</Link>
     </Centered>
   }
 }

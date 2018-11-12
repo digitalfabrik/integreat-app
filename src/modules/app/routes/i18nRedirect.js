@@ -1,8 +1,6 @@
 // @flow
 
 import citiesEndpoint from '../../endpoint/endpoints/cities'
-import { createAction } from 'redux-actions'
-
 import type { Dispatch, GetState } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
@@ -16,9 +14,6 @@ type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 type RouteParamsType = {|param?: string|}
 
 export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
-
-export const goToI18nRedirect = (param?: string) =>
-  createAction<string, { param: ?string }>(I18N_REDIRECT_ROUTE)({param})
 
 const getRoutePath = ({param}: RouteParamsType): string => `/${param || ''}`
 
