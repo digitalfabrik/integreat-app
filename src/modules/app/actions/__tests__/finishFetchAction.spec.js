@@ -1,8 +1,8 @@
 // @flow
 
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
-import Payload from '../../Payload'
 import lolex from 'lolex'
+import Payload from '../../../endpoint/Payload'
 
 describe('finishFetchAction', () => {
   let clock

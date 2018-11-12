@@ -13,8 +13,8 @@ describe('events', () => {
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime) => ({
     id,
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
-    title: 'Asylploitischer Frühschoppen',
-    excerpt: 'Am Sonntag...',
+    title: 'Asylpolitischer Frühschoppen',
+    excerpt: 'Asylpolitischer Fr&uuml;hschoppen',
     content: '<p>Am Sonntag...</p>',
     available_languages: [],
     thumbnail: '',
@@ -36,8 +36,8 @@ describe('events', () => {
   const createEventModel = (id, allDay, startDate: Moment, endDate: Moment) => new EventModel({
     id,
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
-    title: 'Asylploitischer Frühschoppen',
-    excerpt: 'Am Sonntag...',
+    title: 'Asylpolitischer Frühschoppen',
+    excerpt: 'Asylpolitischer Frühschoppen',
     content: '<p>Am Sonntag...</p>',
     availableLanguages: new Map(),
     thumbnail: '',

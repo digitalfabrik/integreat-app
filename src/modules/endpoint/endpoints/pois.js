@@ -8,15 +8,16 @@ import normalizePath from '../normalizePath'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment'
 import LocationModel from '../models/LocationModel'
+import Endpoint from '../Endpoint'
 
 const POIS_ENDPOINT_NAME = 'pois'
 
 type ParamsType = { city: string, language: string }
 
-export default new EndpointBuilder(POIS_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, Array<PoiModel>> = new EndpointBuilder(POIS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
-  .withMapper((json: Array<JsonPoiType>) =>
+  .withMapper((json: Array<JsonPoiType>): Array<PoiModel> =>
     json.map(poi => {
       return new PoiModel({
         id: poi.id,
@@ -37,3 +38,5 @@ export default new EndpointBuilder(POIS_ENDPOINT_NAME)
       })
     }))
   .build()
+
+export default endpoint

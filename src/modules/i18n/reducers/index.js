@@ -1,6 +1,15 @@
 // @flow
 
-import { handleAction } from 'redux-actions'
-import { setUiDirectionAction } from '../actions/setUIDirection'
+import { type ActionType, handleAction, type ReduxReducer } from 'redux-actions'
+import setUIDirection from '../actions/setUIDirection'
 
-export default handleAction(setUiDirectionAction, (state, action) => action.payload, 'ltr')
+export type DirectionStateType = 'ltr' | 'rtl'
+
+const uiDirectionReducer: ReduxReducer<DirectionStateType, { type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl' }> =
+  handleAction(
+    'SET_UI_DIRECTION',
+    (state: DirectionStateType, {payload}: ActionType<typeof setUIDirection>) => payload,
+    'ltr'
+  )
+
+export default uiDirectionReducer
