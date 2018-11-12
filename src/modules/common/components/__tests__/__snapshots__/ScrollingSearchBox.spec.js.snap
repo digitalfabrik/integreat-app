@@ -22,7 +22,7 @@ exports[`ScrollingSearchBox should render 1`] = `
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="Headroom__HeaderWrapper-qwvfn8-0 evItzt"
+    class="Headroom__HeaderWrapper-sc-16d3zk-0 jLNFic"
   >
     <div
       class="SearchInput__Spacer-sc-18knujq-0 lmcbCl"
