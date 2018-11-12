@@ -6,12 +6,13 @@ import WohnenOfferModel from '../models/WohnenOfferModel'
 import WohnenFormData from '../models/WohnenFormData'
 import moment from 'moment'
 import type { OfferType } from '../types'
+import Endpoint from '../Endpoint'
 
 const WOHNEN_ENDPOINT_NAME = 'wohnen'
 
 type ParamsType = { city: ?string }
 
-export default new EndpointBuilder<ParamsType, Array<WohnenOfferModel>>(WOHNEN_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, Array<WohnenOfferModel>> = new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(WOHNEN_ENDPOINT_NAME, 'city')
@@ -57,3 +58,5 @@ export default new EndpointBuilder<ParamsType, Array<WohnenOfferModel>>(WOHNEN_E
     })
     .sort((model1, model2) => model1.createdDate.isBefore(model2.createdDate) ? 1 : -1))
   .build()
+
+export default endpoint
