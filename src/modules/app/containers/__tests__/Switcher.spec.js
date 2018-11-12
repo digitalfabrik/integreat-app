@@ -25,7 +25,6 @@ import WohnenFormData from '../../../endpoint/models/WohnenFormData'
 import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
 import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
 import { WOHNEN_ROUTE } from '../../routes/wohnen'
-import createHistory from '../../createHistory'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
@@ -325,7 +324,7 @@ describe('Switcher', () => {
       prev: {payload: {param: 'param'}}
     }
 
-    const store = createReduxStore(createHistory, {
+    const store = createReduxStore({
       events: eventsPayload,
       cities: citiesPayload,
       categories: categoriesPayload,

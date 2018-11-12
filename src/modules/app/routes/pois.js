@@ -8,7 +8,7 @@ import fetchData from '../fetchData'
 export const POIS_ROUTE = 'POI'
 
 export const goToPois = (city: string, language: string, poiId: ?string) =>
-  createAction(POIS_ROUTE)({city, language, poiId})
+  createAction<string, { city: string, language: string, poiId: ?string }>(POIS_ROUTE)({city, language, poiId})
 
 export const getPoisPath = (city: string, language: string): string =>
   `/${city}/${language}/locations`

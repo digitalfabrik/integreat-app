@@ -8,7 +8,6 @@ import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import EventModel from '../../../../modules/endpoint/models/EventModel'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
-import createHistory from '../../../../modules/app/createHistory'
 import { Provider } from 'react-redux'
 import DateModel from '../../../../modules/endpoint/models/DateModel'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
@@ -141,7 +140,7 @@ describe('EventsPage', () => {
 
   it('should map state to props', () => {
     const location = {payload: {city: city, language: language, eventId: 'id'}, pathname: '/augsburg/en/events/id'}
-    const store = createReduxStore(createHistory, {})
+    const store = createReduxStore()
     store.getState().location = location
 
     const tree = mount(

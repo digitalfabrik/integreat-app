@@ -230,7 +230,7 @@ exports[`Switcher should get the right page if data has been fetched and is the 
   footer={false}
   header={false}
 >
-  <Connect(I18nRedirectPage)
+  <Component
     cities={
       Array [
         CityModel {
@@ -514,4 +514,4 @@ exports[`Switcher should return a failure if there was an error during fetching 
 />
 `;
 
-exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<LoadingSpinner />`;
+exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<ForwardRef />`

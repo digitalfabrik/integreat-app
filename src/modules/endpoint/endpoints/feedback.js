@@ -2,6 +2,7 @@
 
 import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
+import Endpoint from '../Endpoint'
 
 const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 
@@ -30,7 +31,7 @@ export type ParamsType = {
   query?: string
 }
 
-export default new EndpointBuilder<ParamsType, {}>(FEEDBACK_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, {}> = new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
       params.feedbackType ? `/${params.feedbackType}` : ''}`
@@ -54,3 +55,5 @@ export default new EndpointBuilder<ParamsType, {}>(FEEDBACK_ENDPOINT_NAME)
   })
   .withMapper(() => ({}))
   .build()
+
+export default endpoint
