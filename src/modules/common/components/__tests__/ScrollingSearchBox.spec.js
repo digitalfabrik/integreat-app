@@ -6,7 +6,7 @@ import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../theme/constants/theme'
-import Headroom from '@integreat-app/sticky-headroom/index'
+import Headroom from '@integreat-app/react-sticky-headroom'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
