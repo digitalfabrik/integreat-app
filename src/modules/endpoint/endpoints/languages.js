@@ -5,12 +5,13 @@ import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import type { JsonLanguageType } from '../types'
+import Endpoint from '../Endpoint'
 
 const LANGUAGES_ENDPOINT_NAME = 'languages'
 
 type ParamsType = { city: ?string }
 
-export default new EndpointBuilder<ParamsType, Array<LanguageModel>>(LANGUAGES_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, Array<LanguageModel>> = new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params): string => {
     if (!params.city) {
       throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
@@ -25,3 +26,5 @@ export default new EndpointBuilder<ParamsType, Array<LanguageModel>>(LANGUAGES_E
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
   )
   .build()
+
+export default endpoint

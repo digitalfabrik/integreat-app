@@ -11,7 +11,6 @@ import moment from 'moment'
 import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
 import Hashids from 'hashids'
 import { Provider } from 'react-redux'
-import createHistory from '../../../../modules/app/createHistory'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
@@ -127,7 +126,7 @@ describe('WohnenExtraPage', () => {
     const offerHash = 'hASH'
     const location = {payload: {language, city, offerHash}}
 
-    const store = createReduxStore(createHistory, {})
+    const store = createReduxStore()
     store.getState().location = location
 
     const tree = mount(

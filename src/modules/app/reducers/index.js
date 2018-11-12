@@ -31,8 +31,17 @@ const endpoints = [
   poisEndpoint
 ]
 
-export const startFetchReducer = <T> (oldPayload: Payload<T>, action: ActionType<T>): Payload<T> => action.payload
-export const finishFetchReducer = <T> (oldPayload: Payload<T>, action: ActionType<T>): Payload<T> => {
+// fixme: WEBAPP-400 This type should be removed
+export type ReducerType<T> = <T> (oldPayload?: Payload<T>, action: ActionType<T>) => Payload<T>
+
+export const startFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> =>
+  action.payload
+
+export const finishFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> => {
+  if (!oldPayload) {
+    return action.payload
+  }
+
   // Only stores the data if the requestUrl hasn't changed since the start of the fetching process.
   // For example the data of "Nürnberg" is very large and could take a while to load, in which time one could change to
   // another city, which data could be overridden then by the data from "Nürnberg"
@@ -45,7 +54,7 @@ export const finishFetchReducer = <T> (oldPayload: Payload<T>, action: ActionTyp
 
 const defaultState = new Payload(false)
 
-const reducers: { [actionName: string]: startFetchReducer<*> | finishFetchReducer<*> } = endpoints.reduce(
+const reducers: { [actionName: string]: ReducerType<*> } = endpoints.reduce(
   (result, endpoint) => {
     const name = endpoint.stateName
     result[name] = handleActions(

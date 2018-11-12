@@ -15,7 +15,6 @@ import { SEARCH_ROUTE } from '../../../app/routes/search'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
 import PageModel from '../../../endpoint/models/PageModel'
-import createHistory from '../../../app/createHistory'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../../app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
@@ -153,7 +152,7 @@ describe('LocationLayout', () => {
       pathname: '/augsburg/de/willkommen'
     }
 
-    const store = createReduxStore(createHistory, {
+    const store = createReduxStore({
       categories: {data: categories},
       events: {data: events},
       extras: {data: extras},
