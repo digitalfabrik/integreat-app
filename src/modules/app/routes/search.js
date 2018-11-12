@@ -8,7 +8,8 @@ import fetchData from '../fetchData'
 
 export const SEARCH_ROUTE = 'SEARCH'
 
-export const goToSearch = (city: string, language: string) => createAction(SEARCH_ROUTE)({city, language})
+export const goToSearch = (city: string, language: string) =>
+  createAction<string, { city: string, language: string }>(SEARCH_ROUTE)({city, language})
 
 export const getSearchPath = (city: string, language: string): string => `/${city}/${language}/search`
 

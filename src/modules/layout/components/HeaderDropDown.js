@@ -83,4 +83,4 @@ export class HeaderDropDown extends React.Component<PropsType, StateType> {
   }
 }
 
-export default onClickOutside(HeaderDropDown)
+export default onClickOutside<PropsType, StateType>(HeaderDropDown)
