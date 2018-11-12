@@ -14,12 +14,14 @@ import Route from './Route'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
 
-const EXTRAS_ROUTE = 'EXTRAS'
+export const EXTRAS_ROUTE = 'EXTRAS'
 
-const goToExtras = (city: string, language: string): Action => createAction<string, { city: string, language: string }>(EXTRAS_ROUTE)({city, language})
+export const goToExtras = (city: string, language: string): Action =>
+  createAction<string, { city: string, language: string }>(EXTRAS_ROUTE)({city, language})
 
-const getExtrasPath = (city: string, language: string): string => `/${city}/${language}/extras`
+const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/extras`
 
 const renderExtrasPage = ({extras, cities}: RequiredPayloadType) => <ExtrasPage extras={extras} cities={cities} />
 
@@ -40,9 +42,9 @@ const extrasRoute: RouterRouteType = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: EXTRAS_ROUTE,
-  goToRoute: goToExtras,
+  getRoutePath,
   renderPage: renderExtrasPage,
   route: extrasRoute,
   getRequiredPayloads

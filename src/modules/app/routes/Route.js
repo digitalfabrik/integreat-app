@@ -1,22 +1,22 @@
 // @flow
 
 import type { Node } from 'react'
-import type { Route as RouterRouteType, Action } from 'redux-first-router'
+import type { Route as RouterRouteType } from 'redux-first-router'
 import type { AllPayloadsType } from './types'
 
 class Route<T, P> {
   _name: string
-  _goToRoute: P => Action
+  _getRoutePath: P => string
   _renderPage: T => Node
   _route: RouterRouteType
   _getRequiredPayloads: AllPayloadsType => T
 
-  constructor ({ name, goToRoute, getLanguageChangeAction, renderPage, route, getRequiredPayloads }: {
-    name: string, goToRoute: P => Action, renderPage: T => Node, route: RouterRouteType,
+  constructor ({ name, getRoutePath, getLanguageChangeAction, renderPage, route, getRequiredPayloads }: {|
+    name: string, getRoutePath: P => string, renderPage: T => Node, route: RouterRouteType,
     getRequiredPayloads: AllPayloadsType => T
-  }) {
+  |}) {
     this._name = name
-    this._goToRoute = goToRoute
+    this._getRoutePath = getRoutePath
     this._renderPage = renderPage
     this._route = route
     this._getRequiredPayloads = getRequiredPayloads
@@ -26,8 +26,8 @@ class Route<T, P> {
     return this._name
   }
 
-  get goToRoute (): P => Action {
-    return this._goToRoute
+  get getRoutePath (): P => string {
+    return this._getRoutePath
   }
 
   get renderPage (): T => Node {

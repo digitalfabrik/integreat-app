@@ -4,16 +4,16 @@ import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
-import eventsRoute from '../../app/routes/events'
-import extrasRoute from '../../app/routes/extras'
-import categoriesRoute from '../../app/routes/categories'
-import poisRoute from '../../app/routes/pois'
+import { goToEvents } from '../../app/routes/events'
+import { goToExtras } from '../../app/routes/extras'
+import { goToCategories } from '../../app/routes/categories'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
+import { goToPois } from '../../app/routes/pois'
 
 type PropsType = {|
   error: Error,
@@ -30,19 +30,19 @@ export class FailureSwitcher extends React.Component<PropsType> {
     const {city, language} = error
     switch (error.type) {
       case 'category':
-        return <Failure goToAction={categoriesRoute.goToRoute({city, language})}
+        return <Failure goToAction={goToCategories(city, language)}
                         goToMessage={'goTo.categories'}
                         errorMessage={'not-found.category'} />
       case 'event':
-        return <Failure goToAction={eventsRoute.goToRoute({city, language})}
+        return <Failure goToAction={goToEvents(city, language)}
                         goToMessage={'goTo.events'}
                         errorMessage={'not-found.event'} />
       case 'extra':
-        return <Failure goToAction={extrasRoute.goToRoute({city, language})}
+        return <Failure goToAction={goToExtras(city, language)}
                         goToMessage={'goTo.extras'}
                         errorMessage={'not-found.extra'} />
       case 'poi':
-        return <Failure goToAction={poisRoute.goToRoute({city, language})}
+        return <Failure goToAction={goToPois(city, language)}
                         goToMessage={'goTo.pois'}
                         errorMessage={'not-found.pois'} />
     }

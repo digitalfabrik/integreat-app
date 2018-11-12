@@ -8,7 +8,7 @@ import { faFrown } from '../../../modules/app/constants/icons'
 
 import Link from 'redux-first-router-link'
 
-import i18nRedirectRoute from '../../../modules/app/routes/i18nRedirect'
+import { goToI18nRedirect } from '../../../modules/app/routes/i18nRedirect'
 import type { Action } from 'redux-first-router'
 import styled from 'styled-components'
 
@@ -36,7 +36,7 @@ export class Failure extends React.Component<PropsType> {
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToAction || i18nRedirectRoute.goToRoute({})}>{t(goToMessage || 'goTo.start')}</Link>
+      <Link to={goToAction || goToI18nRedirect()}>{t(goToMessage || 'goTo.start')}</Link>
     </Centered>
   }
 }

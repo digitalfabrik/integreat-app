@@ -17,12 +17,16 @@ import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>,
   cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 
-const WOHNEN_ROUTE = 'WOHNEN'
+export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
 
 const goToWohnenExtra = (city: string, language: string, offerHash: string): Action =>
   createAction<string, { city: string, language: string }>(WOHNEN_ROUTE)({city, language, offerHash})
+
+const getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
+  `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
 const renderWohnenPage =  ({offers, extras, cities}: RequiredPayloadType) =>
   <WohnenExtraPage offers={offers.data} extras={extras.data} cities={cities.data} />
@@ -49,9 +53,9 @@ const wohnenRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: WOHNEN_ROUTE,
-  goToRoute: goToWohnenExtra,
+  getRoutePath,
   renderPage: renderWohnenPage,
   route: wohnenRoute,
   getRequiredPayloads

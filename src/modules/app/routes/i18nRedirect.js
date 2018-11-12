@@ -13,11 +13,14 @@ import type { AllPayloadsType } from './types'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|param?: string|}
 
-const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
+export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
-const goToI18nRedirect = (param?: string) =>
+export const goToI18nRedirect = (param?: string) =>
   createAction<string, { param: ?string }>(I18N_REDIRECT_ROUTE)({param})
+
+const getRoutePath = ({param}: RouteParamsType): string => `/${param || ''}`
 
 const renderI18nPage = ({cities}: RequiredPayloadType) =>
   <I18nRedirectPage cities={cities.data} />
@@ -38,9 +41,9 @@ const i18nRedirectRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, param?: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: I18N_REDIRECT_ROUTE,
-  goToRoute: goToI18nRedirect,
+  getRoutePath,
   renderPage: renderI18nPage,
   route: i18nRedirectRoute,
   getRequiredPayloads

@@ -1,12 +1,12 @@
 // @flow
 
-import landingRoute from '../landing'
+import landingRoute, { goToLanding, LANDING_ROUTE } from '../landing'
 
 describe('landing route', () => {
   it('should create the right action', () => {
     const language = 'de'
-    expect(landingRoute.goToRoute(language)).toEqual({
-      type: landingRoute.name,
+    expect(goToLanding(language)).toEqual({
+      type: LANDING_ROUTE,
       payload: {
         language
       }

@@ -1,6 +1,6 @@
 // @flow
 
-import { EXTRAS_ROUTE, extrasRoute, goToExtras } from '../extras'
+import extrasRoute, { EXTRAS_ROUTE, goToExtras } from '../extras'
 
 describe('extras route', () => {
   it('should create the right action', () => {
@@ -16,6 +16,6 @@ describe('extras route', () => {
   })
 
   it('should have the right path', () => {
-    expect(extrasRoute.path).toBe('/:city/:language/extras/:extraId?')
+    expect(extrasRoute.route.path).toBe('/:city/:language/extras/:extraId?')
   })
 })

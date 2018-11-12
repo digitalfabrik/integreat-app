@@ -14,14 +14,17 @@ import type { AllPayloadsType } from './types'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|disclaimer: Payload<PageModel>, cities: Payload<Array<CityModel>>|}
+type RouteParamsType = {|city: string, language: string|}
 
-const DISCLAIMER_ROUTE: string = 'DISCLAIMER'
+export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
-const goToDisclaimer = (city: string, language: string): Action =>
+export const goToDisclaimer = (city: string, language: string): Action =>
   createAction<string, { city: string, language: string }>(DISCLAIMER_ROUTE)({
     city,
     language
   })
+
+const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/disclaimer`
 
 const renderDisclaimerPage = ({disclaimer, cities}: RequiredPayloadType) =>
   <DisclaimerPage disclaimer={disclaimer} cities={cities} />
@@ -43,10 +46,9 @@ const disclaimerRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, city: string, language: string>({
+export default new Route<RequiredPayloadType, RouteParamsType>({
   name: DISCLAIMER_ROUTE,
-  goToRoute: goToDisclaimer,
-  getLanguageChangeAction: goToDisclaimer,
+  getRoutePath,
   renderPage: renderDisclaimerPage,
   route: disclaimerRoute,
   getRequiredPayloads

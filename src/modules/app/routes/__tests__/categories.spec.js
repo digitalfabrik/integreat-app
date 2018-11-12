@@ -1,6 +1,6 @@
 // @flow
 
-import { CATEGORIES_ROUTE, categoriesRoute, goToCategories } from '../categories'
+import categoriesRoute, { CATEGORIES_ROUTE, goToCategories } from '../categories'
 
 describe('categories route', () => {
   it('should create the right action', () => {
@@ -18,6 +18,6 @@ describe('categories route', () => {
   })
 
   it('should have the right path', () => {
-    expect(categoriesRoute.path).toBe('/:city/:language/:categoryPath*')
+    expect(categoriesRoute.route.path).toBe('/:city/:language/:categoryPath*')
   })
 })
