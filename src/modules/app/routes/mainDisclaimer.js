@@ -8,7 +8,7 @@ import type { Action } from 'redux-first-router'
 
 const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-const goToMainDisclaimer = (): Action => createAction(MAIN_DISCLAIMER_ROUTE)()
+const goToMainDisclaimer = (): Action => createAction<string, void>(MAIN_DISCLAIMER_ROUTE)()
 
 const renderMainDisclaimerPage = () => <MainDisclaimerPage />
 

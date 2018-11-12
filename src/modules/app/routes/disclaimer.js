@@ -11,12 +11,17 @@ import React from 'react'
 import Route from './Route'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|disclaimer: Payload<PageModel>, cities: Payload<Array<CityModel>>|}
 
-const DISCLAIMER_ROUTE = 'DISCLAIMER'
+const DISCLAIMER_ROUTE: string = 'DISCLAIMER'
 
-const goToDisclaimer = (city: string, language: string): Action => createAction(DISCLAIMER_ROUTE)({city, language})
+const goToDisclaimer = (city: string, language: string): Action =>
+  createAction<string, { city: string, language: string }>(DISCLAIMER_ROUTE)({
+    city,
+    language
+  })
 
 const renderDisclaimerPage = ({disclaimer, cities}: RequiredPayloadType) =>
   <DisclaimerPage disclaimer={disclaimer} cities={cities} />
@@ -34,7 +39,7 @@ const disclaimerRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await disclaimerEndpoint.loadData(dispatch, state.disclaimer, {city, language})
+    await fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
   }
 }
 

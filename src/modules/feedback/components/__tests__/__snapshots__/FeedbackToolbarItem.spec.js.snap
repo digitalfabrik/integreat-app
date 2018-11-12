@@ -33,6 +33,7 @@ exports[`FeedbackToolbarItem should render a negative FeedbackToolbarItem 1`] = 
     size={null}
     spin={false}
     symbol={false}
+    title=""
     transform={null}
   />
 </StyledToolbarItem>
@@ -71,6 +72,7 @@ exports[`FeedbackToolbarItem should render a positive FeedbackToolbarItem 1`] = 
     size={null}
     spin={false}
     symbol={false}
+    title=""
     transform={null}
   />
 </StyledToolbarItem>

@@ -13,6 +13,7 @@ import React from 'react'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 import Route from './Route'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, sprungbrettJobs: Payload<Array<SprungbrettModel>>,
   cities: Payload<Array<CityModel>>|}
@@ -21,7 +22,7 @@ const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 const goToSprungbrettExtra = (city: string, language: string): Action =>
-  createAction(SPRUNGBRETT_ROUTE)({ city, language })
+  createAction<string, { city: string, language: string }>(SPRUNGBRETT_ROUTE)({ city, language })
 
 const getSprungbrettExtraPath = (city: string, language: string): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
@@ -38,7 +39,7 @@ const sprungbrettRoute = {
     const state = getState()
     const { city, language } = state.location.payload
 
-    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, { city, language })
+    const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, { city, language })
     const extras: ?Array<ExtraModel> = extrasPayload.data
 
     if (extras) {
@@ -47,7 +48,7 @@ const sprungbrettRoute = {
         const params = { city, language, url: sprungbrettExtra.path }
         const sprungbrettEndpoint1 = sprungbrettEndpoint
 
-        await sprungbrettEndpoint1.loadData(dispatch, state.sprungbrettJobs, params)
+        await fetchData(sprungbrettEndpoint1, dispatch, state.sprungbrettJobs, params)
       }
     }
   }

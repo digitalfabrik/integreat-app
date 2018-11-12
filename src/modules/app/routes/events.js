@@ -14,7 +14,7 @@ type RequiredPayloadType = {|events: Payload<Array<EventModel>>, cities: Payload
 
 const name = 'EVENTS'
 
-const goToRoute = (city: string, language: string): Action => createAction(name)({ city, language })
+ const goToRoute = (city: string, language: string): Action => createAction<string, { city: string, language: string }>(name)({city, language})
 
 const getRoutePath = (city: string, language: string): string => `/${city}/${language}/events`
 

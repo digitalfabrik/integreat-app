@@ -10,13 +10,14 @@ import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
 import PoiModel from '../../endpoint/models/PoiModel'
-import { getLanguageChangePath } from '../../app/routes'
+import CityModel from '../../endpoint/models/CityModel'
 
 type PropsType = {|
   title: string,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   pois: Array<PoiModel>,
+  cities: Array<CityModel>,
   languages: Array<LanguageModel>,
   location: Location,
   metaDescription?: string
@@ -40,9 +41,12 @@ export class Helmet extends React.Component<PropsType> {
   }
 
   render () {
-    const { title, metaDescription } = this.props
+    const { title, metaDescription, cities, location } = this.props
+    const city = cities && cities.find(city => city.code === location.payload.city)
+
     return <ReactHelmet>
       <title>{title}</title>
+      {city && !city.live && <meta name='robots' content='noindex' />}
       {metaDescription && <meta name='description' content={metaDescription} />}
       {this.getLanguageLinks()}
     </ReactHelmet>
@@ -54,6 +58,7 @@ const mapStateToProps = (state: StateType) => ({
   categories: state.categories.data,
   events: state.events.data,
   pois: state.pois.data,
+  cities: state.cities.data,
   languages: state.languages.data
 })
 

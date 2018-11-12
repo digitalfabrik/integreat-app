@@ -6,6 +6,7 @@ exports[`FilterableCitySelector should render 1`] = `
   <ScrollingSearchBox
     filterText=""
     onFilterTextChange={[Function]}
+    onStickyTopChanged={[Function]}
     placeholderText="searchCity"
     spaceSearch={false}
   >
@@ -60,6 +61,7 @@ exports[`FilterableCitySelector should update filter text 1`] = `
   <ScrollingSearchBox
     filterText="City"
     onFilterTextChange={[Function]}
+    onStickyTopChanged={[Function]}
     placeholderText="searchCity"
     spaceSearch={false}
   >

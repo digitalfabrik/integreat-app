@@ -10,10 +10,13 @@ import React from 'react'
 import Route from './Route'
 import type { AllPayloadsType } from './types'
 import Payload from '../../endpoint/Payload'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>, cities: Payload<Array<CityModel>>|}
 
 const POIS_ROUTE = 'POI'
+export const goToPois = (city: string, language: string, poiId: ?string) =>
+  createAction<string, { city: string, language: string, poiId: ?string }>(POIS_ROUTE)({city, language, poiId})
 
 const goToPois = (city: string, language: string) => createAction(POIS_ROUTE)({city, language})
 
@@ -31,7 +34,7 @@ const poisRoute: RouterRouteType = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await poisEndpoint.loadData(dispatch, state.pois, {city, language})
+    await fetchData(poisEndpoint, dispatch, state.pois, {city, language})
   }
 }
 

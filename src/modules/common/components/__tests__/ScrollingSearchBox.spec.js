@@ -6,15 +6,18 @@ import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../theme/constants/theme'
+import Headroom from '@integreat-app/react-sticky-headroom'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
+  const onStickyTopChanged = () => {}
 
   it('should render', () => {
     const component = (
       <ScrollingSearchBox filterText={'Test'}
                           placeholderText={'Placeholder'}
-                          onFilterTextChange={() => {}}>
+                          onFilterTextChange={() => {}}
+                          onStickyTopChanged={onStickyTopChanged}>
         <MockNode />
       </ScrollingSearchBox>)
     expect(shallow(component)).toMatchSnapshot()
@@ -24,23 +27,30 @@ describe('ScrollingSearchBox', () => {
     expect(shallow(<ScrollingSearchBox filterText={'Test'}
                                        placeholderText={'Placeholder'}
                                        onFilterTextChange={() => {}}
-                                       spaceSearch><MockNode /></ScrollingSearchBox>)).toMatchSnapshot()
+                                       spaceSearch
+                                       onStickyTopChanged={onStickyTopChanged}>
+      <MockNode />
+    </ScrollingSearchBox>)).toMatchSnapshot()
   })
 
-  it('should pass onFilterTextChange', () => {
+  it('should pass onFilterTextChange and onStickyTopChanged', () => {
     const outerFilterTextChange = jest.fn()
+    const outerStickyTopChanged = jest.fn()
     const component = mount(
       <ThemeProvider theme={theme}>
         <ScrollingSearchBox filterText={'Test'}
                             placeholderText={'Placeholder'}
-                            onFilterTextChange={outerFilterTextChange}>
+                            onFilterTextChange={outerFilterTextChange}
+                            onStickyTopChanged={outerStickyTopChanged}>
           <MockNode />
         </ScrollingSearchBox>
       </ThemeProvider>).find(ScrollingSearchBox)
 
     component.find(SearchInput).prop('onFilterTextChange')('test')
+    component.find(Headroom).prop('onStickyTopChanged')(5)
 
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
+    expect(outerStickyTopChanged).toHaveBeenCalledWith(5)
   })
 
   it('should set correct reference', () => {
@@ -48,7 +58,8 @@ describe('ScrollingSearchBox', () => {
       <ThemeProvider theme={theme}>
         <ScrollingSearchBox filterText={'Test'}
                             onFilterTextChange={() => {}}
-                            placeholderText={'Placeholder'}>
+                            placeholderText={'Placeholder'}
+                            onStickyTopChanged={onStickyTopChanged}>
           <MockNode />
         </ScrollingSearchBox>
       </ThemeProvider>).find(ScrollingSearchBox)
