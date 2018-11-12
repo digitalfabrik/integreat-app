@@ -7,7 +7,6 @@ import Caption from '../../../modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import styled from 'styled-components'
-import iconPlaceholder from '../assets/IconPlaceholder.svg'
 
 const List = styled.div`
   & a {
@@ -45,7 +44,7 @@ class CategoryList extends React.Component<PropsType> {
     const {categories, title, thumbnail, content, query, onInternLinkClick} = this.props
     return (
       <div>
-        {thumbnail && <Centering><CategoryIcon src={thumbnail || iconPlaceholder} /></Centering>}
+        {thumbnail && <Centering><CategoryIcon src={thumbnail} /></Centering>}
         {title && <Caption title={title} />}
         {content &&
         <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} onInternLinkClick={onInternLinkClick} />}
