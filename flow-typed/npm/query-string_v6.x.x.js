@@ -20,8 +20,8 @@ declare module 'query-string' {
 
   declare module.exports: {
     extract(str: string): string,
-    parse (str: string, opts?: ParseOptions): QueryParameters,
-    parseUrl (str: string, opts?: ParseOptions): { url: string, query: QueryParameters },
-    stringify (obj: QueryParameters, opts?: StringifyOptions): string,
+    parse(str: string, opts?: ParseOptions): QueryParameters,
+    parseUrl(str: string, opts?: ParseOptions): { url: string, query: QueryParameters },
+    stringify(obj: QueryParameters, opts?: StringifyOptions): string,
   }
 }

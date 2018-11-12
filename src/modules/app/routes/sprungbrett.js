@@ -12,7 +12,7 @@ export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 export const goToSprungbrettExtra = (city: string, language: string) =>
-  createAction(SPRUNGBRETT_ROUTE)({city, language})
+  createAction<string, { city: string, language: string }>(SPRUNGBRETT_ROUTE)({city, language})
 
 export const getSprungbrettExtraPath = (city: string, language: string): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
