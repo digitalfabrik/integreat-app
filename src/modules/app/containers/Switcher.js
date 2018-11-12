@@ -203,4 +203,5 @@ const mapStateToProps = (state: StateType) => ({
   darkMode: state.darkMode
 })
 
+// $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default connect(mapStateToProps)(Switcher)
