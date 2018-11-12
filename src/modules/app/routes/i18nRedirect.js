@@ -10,12 +10,14 @@ import React from 'react'
 import Route from './Route'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 
 const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
 
-const goToI18nRedirect = (param?: string) => createAction(I18N_REDIRECT_ROUTE)({param})
+const goToI18nRedirect = (param?: string) =>
+  createAction<string, { param: ?string }>(I18N_REDIRECT_ROUTE)({param})
 
 const renderI18nPage = ({cities}: RequiredPayloadType) =>
   <I18nRedirectPage cities={cities.data} />
@@ -32,7 +34,7 @@ const i18nRedirectRoute = {
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
 
-    await citiesEndpoint.loadData(dispatch, state.cities)
+    await fetchData(citiesEndpoint, dispatch, state.cities)
   }
 }
 

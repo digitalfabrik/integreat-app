@@ -13,6 +13,7 @@ import Payload from '../../endpoint/Payload'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import Route from './Route'
 import type { AllPayloadsType } from './types'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>,
   cities: Payload<Array<CityModel>>|}
@@ -21,7 +22,7 @@ const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
 
 const goToWohnenExtra = (city: string, language: string, offerHash: string): Action =>
-  createAction(WOHNEN_ROUTE)({city, language, offerHash})
+  createAction<string, { city: string, language: string }>(WOHNEN_ROUTE)({city, language, offerHash})
 
 const renderWohnenPage =  ({offers, extras, cities}: RequiredPayloadType) =>
   <WohnenExtraPage offers={offers.data} extras={extras.data} cities={cities.data} />
@@ -35,14 +36,14 @@ const wohnenRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    const extrasPayload = await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
+    const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
     const extras: ?Array<ExtraModel> = extrasPayload.data
 
     if (extras) {
       const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
       if (wohnenExtra && wohnenExtra.postData) {
         const params = {city: wohnenExtra.postData.get('api-name')}
-        await wohnenEndpoint.loadData(dispatch, state.wohnen, params)
+        await fetchData(wohnenEndpoint, dispatch, state.wohnen, params)
       }
     }
   }

@@ -11,12 +11,13 @@ import React from 'react'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 import Route from './Route'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>>|}
 
 const EXTRAS_ROUTE = 'EXTRAS'
 
-const goToExtras = (city: string, language: string): Action => createAction(EXTRAS_ROUTE)({city, language})
+const goToExtras = (city: string, language: string): Action => createAction<string, { city: string, language: string }>(EXTRAS_ROUTE)({city, language})
 
 const getExtrasPath = (city: string, language: string): string => `/${city}/${language}/extras`
 
@@ -35,7 +36,7 @@ const extrasRoute: RouterRouteType = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await extrasEndpoint.loadData(dispatch, state.extras, {city, language})
+    await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
   }
 }
 

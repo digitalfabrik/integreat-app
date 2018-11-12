@@ -4,7 +4,6 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 
 import createReduxStore from '../createReduxStore'
-import createHistory from '../createHistory'
 import I18nProvider from '../../i18n/containers/I18nProvider'
 
 import PlatformProvider from '../../platform/containers/PlatformProvider'
@@ -14,11 +13,12 @@ import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 type PropsType = {||}
 
 class App extends React.Component<PropsType> {
+  // $FlowFixme WEBAPP-400 Fix types for flow
   store: any
 
   constructor () {
     super()
-    this.store = createReduxStore(createHistory, {})
+    this.store = createReduxStore({})
   }
 
   render () {

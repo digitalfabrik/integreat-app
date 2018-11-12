@@ -3,7 +3,8 @@
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
 import { createAction } from 'redux-actions'
 
-import type { Action, Dispatch, GetState } from 'redux-first-router'
+import fetchData from '../fetchData'
+import type { Dispatch, GetState, Action } from 'redux-first-router'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import CityModel from '../../endpoint/models/CityModel'
 import CategoriesPage from '../../../routes/categories/containers/CategoriesPage'
@@ -16,8 +17,8 @@ type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Pa
 
 const CATEGORIES_ROUTE = 'CATEGORIES'
 
-const goToCategories = (city: string, language: string, categoryPath?: string): Action =>
-  createAction(CATEGORIES_ROUTE)({ city, language, categoryPath })
+const goToCategories = (city: string, language: string, categoryPath ?:string): Action =>
+  createAction<string, { city: string, language: string, categoryPath: ?string }>(CATEGORIES_ROUTE)({city, language, categoryPath})
 
 const renderCategoriesPage = ({ categories, cities }: RequiredPayloadType) =>
   <CategoriesPage categories={categories} cities={cities} />
@@ -35,7 +36,7 @@ const categoriesRoute = {
     const state = getState()
     const { city, language } = state.location.payload
 
-    await categoriesEndpoint.loadData(dispatch, state.categories, { city, language })
+    await fetchData(categoriesEndpoint, dispatch, state.categories, { city, language })
   }
 }
 

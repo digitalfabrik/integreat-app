@@ -11,12 +11,14 @@ import React from 'react'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
 import Route from './Route'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 
 const SEARCH_ROUTE = 'SEARCH'
 
-const goToSearch = (city: string, language: string): Action => createAction(SEARCH_ROUTE)({city, language})
+const goToSearch = (city: string, language: string): Action =>
+  createAction<string, { city: string, language: string }>(SEARCH_ROUTE)({city, language})
 
 const getSearchPath = (city: string, language: string): string => `/${city}/${language}/search`
 
@@ -36,7 +38,7 @@ const searchRoute = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await categoriesEndpoint.loadData(dispatch, state.categories, {city, language})
+    await fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
   }
 }
 

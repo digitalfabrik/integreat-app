@@ -10,12 +10,13 @@ import React from 'react'
 import Route from './Route'
 import Payload from '../../endpoint/Payload'
 import type { AllPayloadsType } from './types'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 
 const LANDING_ROUTE = 'LANDING'
 
-const goToLanding = (language: string): Action => createAction(LANDING_ROUTE)({language})
+const goToLanding = (language: string): Action => createAction<string, { language: string }>(LANDING_ROUTE)({language})
 
 const renderLandingPage = ({cities}: RequiredPayloadType) =>
   <LandingPage cities={cities.data} />
@@ -29,7 +30,7 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => 
 const landingRoute = {
   path: '/landing/:language',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
-    await citiesEndpoint.loadData(dispatch, getState().cities)
+    await fetchData(citiesEndpoint, dispatch, getState().cities)
   }
 }
 
