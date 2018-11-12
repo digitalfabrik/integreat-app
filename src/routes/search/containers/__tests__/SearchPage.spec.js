@@ -7,7 +7,6 @@ import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMa
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import createReduxStore from '../../../../modules/app/createReduxStore'
-import createHistory from '../../../../modules/app/createHistory'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/theme/constants/theme'
 import configureMockStore from 'redux-mock-store'
@@ -86,7 +85,7 @@ describe('SearchPage', () => {
   })
 
   it('should filter correctly', () => {
-    const store = createReduxStore(createHistory, {
+    const store = createReduxStore({
       categories: {data: categories}
     })
 

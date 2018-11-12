@@ -8,12 +8,13 @@ import moment from 'moment'
 import type { JsonCategoryType } from '../types'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import normalizePath from '../normalizePath'
+import Endpoint from '../Endpoint'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
 type ParamsType = {city: string, language: string}
 
-export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
+const endpoint: Endpoint<ParamsType, CategoriesMapModel> = new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
   )
@@ -50,3 +51,5 @@ export default new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
     return new CategoriesMapModel(categories)
   })
   .build()
+
+export default endpoint
