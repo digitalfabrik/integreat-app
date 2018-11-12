@@ -9,7 +9,6 @@ import { shallow } from 'enzyme'
 import EventListItem from '../EventListItem'
 
 describe('EventListItem', () => {
-  const onInternalLinkClick = (link: string) => {}
   const language = 'de'
 
   const event = new EventModel({
@@ -36,7 +35,7 @@ describe('EventListItem', () => {
 
   it('should render and match snapshot', () => {
     expect(shallow(
-      <EventListItem event={event} language={language} onInternalLinkClick={onInternalLinkClick} />
+      <EventListItem event={event} language={language} />
     )).toMatchSnapshot()
   })
 })

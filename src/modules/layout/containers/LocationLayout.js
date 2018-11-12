@@ -61,12 +61,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
 
   onFooterClicked = () => {
+    if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
+      this.props.toggleDarkMode()
+    }
     this.setState(prevState => {
-      if (prevState.footerClicked < DARK_THEME_CLICK_COUNT) {
-        return ({...prevState, footerClicked: prevState.footerClicked + 1})
-      } else {
-        this.props.toggleDarkMode()
-      }
+      return ({...prevState, footerClicked: prevState.footerClicked + 1})
     })
   }
 
@@ -187,8 +186,9 @@ const mapStateToProps = state => ({
   darkMode: state.darkMode
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => ({
-  toggleDarkMode: action => dispatch(toggleDarkModeAction(action))
+// fixme: WEBAPP-400 Dispatch type is not correct
+const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+  toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationLayout)

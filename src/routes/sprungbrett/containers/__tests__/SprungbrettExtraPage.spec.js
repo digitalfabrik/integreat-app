@@ -10,7 +10,6 @@ import CityModel from '../../../../modules/endpoint/models/CityModel'
 import Payload from '../../../../modules/endpoint/Payload'
 import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
-import createHistory from '../../../../modules/app/createHistory'
 import theme from '../../../../modules/theme/constants/theme'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
@@ -93,7 +92,7 @@ describe('SprungbrettExtraPage', () => {
     const offerHash = 'hASH'
     const location = {payload: {language, city, offerHash}}
 
-    const store = createReduxStore(createHistory, {
+    const store = createReduxStore({
       extras: new Payload(false, null, extras),
       sprungbrettJobs: new Payload(false, null, sprungbrettJobs),
       cities: new Payload(false, null, cities)

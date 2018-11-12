@@ -1,21 +1,21 @@
 // @flow
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import ConnectedHelmet, { Helmet } from '../Helmet'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import LanguageModel from '../../../endpoint/models/LanguageModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
 import moment from 'moment'
-import createHistory from '../../../app/createHistory'
 import theme from '../../../theme/constants/theme'
-import createReduxStore from '../../../app/createReduxStore'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import PoiModel from '../../../endpoint/models/PoiModel'
 import DateModel from '../../../endpoint/models/DateModel'
 import LocationModel from '../../../endpoint/models/LocationModel'
+import CityModel from '../../../endpoint/models/CityModel'
+import configureMockStore from 'redux-mock-store'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -84,6 +84,25 @@ describe('Helmet', () => {
     })
   ]
 
+  const cities = [
+    new CityModel({
+      name: 'Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      extrasEnabled: true,
+      sortingName: 'augsburg'
+    }),
+    new CityModel({
+      name: 'Testinstanz',
+      code: 'testinstanz',
+      live: false,
+      eventsEnabled: true,
+      extrasEnabled: true,
+      sortingName: 'Testinstanz'
+    })
+  ]
+
   const categories = new CategoriesMapModel(categoryModels)
   const title = 'Random title'
 
@@ -96,7 +115,22 @@ describe('Helmet', () => {
               location={location}
               events={events}
               pois={pois}
-              languages={languages} />
+              languages={languages}
+              cities={cities} />
+    )
+
+    expect(helmet).toMatchSnapshot()
+  })
+
+  it('should add noindex tag, if city is not live', () => {
+    const helmet = shallow(
+      <Helmet title={title}
+              categories={categories}
+              location={{...location, payload: {city: 'testinstanz', language: 'ar'}}}
+              events={events}
+              pois={pois}
+              languages={languages}
+              cities={cities} />
     )
 
     expect(helmet).toMatchSnapshot()
@@ -105,13 +139,16 @@ describe('Helmet', () => {
   it('should map state to props', () => {
     const location = {type: 'DISCLAIMER', payload: {city, language}, pathname: '/augsburg/de/disclaimer'}
 
-    const store = createReduxStore(createHistory, {
+    const mockStore = configureMockStore()
+
+    const store = mockStore({
       languages: {data: languages},
       categories: {data: categories},
       events: {data: events},
-      pois: {data: pois}
+      pois: {data: pois},
+      cities: {data: cities},
+      location
     })
-    store.getState().location = location
 
     const tree = mount(
       <ThemeProvider theme={theme}>
@@ -128,6 +165,7 @@ describe('Helmet', () => {
       categories,
       pois,
       title,
+      cities,
       dispatch: expect.any(Function)
     })
   })

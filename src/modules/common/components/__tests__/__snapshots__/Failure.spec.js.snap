@@ -40,6 +40,7 @@ exports[`Failure should match snapshot 1`] = `
       size="5x"
       spin={false}
       symbol={false}
+      title=""
       transform={null}
     />
   </div>
