@@ -13,6 +13,7 @@ import i18nRedirect, { I18N_REDIRECT_ROUTE } from './i18nRedirect'
 import landingRoute, { LANDING_ROUTE } from './landing'
 import type { Route as RouterRouteType } from 'redux-first-router'
 import Route from './Route'
+import type { GetLanguageChangePathParamsType } from './types'
 
 // this maps all goToRoute actions to the right routes (except from the NOT_FOUND route)
 // the order is important, routes declared first are served first, so i.e. if you put the mainDisclaimer route after
@@ -45,4 +46,18 @@ const routes: {[string]: Route<any, any>} = {
   [LANDING_ROUTE]: landingRoute
 }
 
-export default routes
+export const getRoute = (routeName: string): Route<*, *> => {
+  const route = routes[routeName]
+  if (!route) {
+    throw new Error(`There is no route with the name ${routeName}. Did you forget to add it in the routes index?`)
+  }
+  return route
+}
+
+export const getLanguageChangePath = (routeName: string) => (params: GetLanguageChangePathParamsType) => {
+  const getPath = getRoute(routeName).getLanguageChangePath
+  if (!getPath) {
+    throw new Error(`There is no getLanguageChangePath method for the route ${routeName}.`)
+  }
+  return getPath(params)
+}

@@ -24,7 +24,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import PageModel from '../../endpoint/models/PageModel'
 import PoiModel from '../../endpoint/models/PoiModel'
-import routes from '../routes'
+import { getRoute } from '../routes'
 import reduce from 'lodash/reduce'
 
 type PropsType = {|
@@ -88,13 +88,14 @@ export class Switcher extends React.Component<PropsType> {
       }
     }
 
-    const payloads = routes[currentRoute].getRequiredPayloads(allPayloads)
+    const route = getRoute(currentRoute)
+    const payloads = route.getRequiredPayloads(allPayloads)
     const payloadsArray = reduce(payloads, (result, value) => {
       result.push(value)
       return result
     }, [])
     return Switcher.renderFailureLoadingComponents(payloadsArray) ||
-      routes[currentRoute].renderPage(payloads)
+      route.renderPage(payloads)
   }
 
   /**

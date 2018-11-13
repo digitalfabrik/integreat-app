@@ -7,7 +7,7 @@ import CityModel from '../../endpoint/models/CityModel'
 import SearchPage from '../../../routes/search/containers/SearchPage'
 import React from 'react'
 import Payload from '../../endpoint/Payload'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import Route from './Route'
 import fetchData from '../fetchData'
 
@@ -23,6 +23,9 @@ const renderSearchPage = ({ categories, cities }: RequiredPayloadType) =>
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
+
+const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language: location.payload.language})
 
 /**
  * SearchRoute, matches /augsburg/de/search
@@ -43,7 +46,8 @@ const searchRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage: renderSearchPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default searchRoute

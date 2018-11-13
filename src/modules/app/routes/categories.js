@@ -10,7 +10,7 @@ import CategoriesPage from '../../../routes/categories/containers/CategoriesPage
 import React from 'react'
 import Payload from '../../endpoint/Payload'
 import Route from './Route'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 type RouteParamsType = {|city: string, language: string|}
@@ -18,10 +18,10 @@ export const CATEGORIES_ROUTE = 'CATEGORIES'
 
 export const goToCategories = (city: string, language: string, categoryPath: ?string) =>
   createAction<string, { city: string, language: string, categoryPath: ?string }>(CATEGORIES_ROUTE)({
-  city,
-  language,
-  categoryPath
-})
+    city,
+    language,
+    categoryPath
+  })
 
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}`
 
@@ -30,6 +30,17 @@ const renderCategoriesPage = ({ categories, cities }: RequiredPayloadType) =>
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
+
+const getLanguageChangePath = ({location, categories}: GetLanguageChangePathParamsType) => {
+  const {city, language} = location.payload
+  if (categories) {
+    const category = categories.findCategoryByPath(location.pathname)
+    if (category && category.id !== 0) {
+      return category.availableLanguages.get(language) || null
+    }
+  }
+  return getRoutePath({city, language})
+}
 
 /**
  * CategoriesRoute, matches /augsburg/de*
@@ -50,7 +61,8 @@ const categoriesRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage: renderCategoriesPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default categoriesRoute

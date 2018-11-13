@@ -8,7 +8,7 @@ import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage
 import React from 'react'
 import Route from './Route'
 import Payload from '../../endpoint/Payload'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|disclaimer: Payload<PageModel>, cities: Payload<Array<CityModel>>|}
@@ -23,6 +23,9 @@ const renderDisclaimerPage = ({disclaimer, cities}: RequiredPayloadType) =>
 
 const getRequiredPayloads = (payloads: AllPayloadsType) =>
   ({disclaimer: payloads.disclaimerPayload, cities: payloads.citiesPayload})
+
+const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language: location.payload.language})
 
 /**
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer
@@ -43,7 +46,8 @@ const disclaimerRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage: renderDisclaimerPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default disclaimerRoute

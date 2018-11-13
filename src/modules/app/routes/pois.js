@@ -7,7 +7,7 @@ import PoiModel from '../../endpoint/models/PoiModel'
 import PoisPage from '../../../routes/pois/containers/PoisPage'
 import React from 'react'
 import Route from './Route'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import Payload from '../../endpoint/Payload'
 import fetchData from '../fetchData'
 
@@ -25,6 +25,15 @@ const renderPoisPage = ({pois, cities}: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({pois: payloads.poisPayload, cities: payloads.citiesPayload})
 
+const getLanguageChangePath = ({location, pois}: GetLanguageChangePathParamsType) => {
+  const {city, language, poiId} = location.payload
+  if (pois && poiId) {
+    const poi = pois.find(_poi => _poi.path === location.pathname)
+    return (poi && poi.availableLanguages.get(language)) || null
+  }
+  return poisRoute.getRoutePath({city, language: language})
+}
+
 const route: RouterRouteType = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
@@ -40,7 +49,8 @@ const poisRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage: renderPoisPage,
   route,
-  getRequiredPayloads: getRequiredPayloads
+  getRequiredPayloads: getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default poisRoute
