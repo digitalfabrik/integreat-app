@@ -17,7 +17,7 @@ export const EVENTS_ROUTE = 'EVENTS'
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/events`
 
 const renderPage = ({ events, cities }: RequiredPayloadType) =>
-  <EventsPage events={events} cities={cities} />
+  <EventsPage events={events.data} cities={cities.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ events: payloads.eventsPayload, cities: payloads.citiesPayload })
@@ -28,10 +28,12 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
  */
 const route: RouterRouteType = '/:city/:language/events/:eventId?'
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const eventsRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: EVENTS_ROUTE,
   getRoutePath,
   renderPage,
   route,
   getRequiredPayloads
 })
+
+export default eventsRoute

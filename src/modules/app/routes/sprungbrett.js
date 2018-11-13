@@ -2,7 +2,7 @@
 
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import CityModel from '../../endpoint/models/CityModel'
 import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
@@ -29,7 +29,7 @@ const renderSprungbrettPage = ({ sprungbrettJobs, extras, cities }: RequiredPayl
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload, cities: payloads.citiesPayload})
 
-const sprungbrettRoute = {
+const route: RouterRouteType = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -50,10 +50,12 @@ const sprungbrettRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const sprungbrettRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: SPRUNGBRETT_ROUTE,
   getRoutePath,
   renderPage: renderSprungbrettPage,
-  route: sprungbrettRoute,
+  route,
   getRequiredPayloads
 })
+
+export default sprungbrettRoute

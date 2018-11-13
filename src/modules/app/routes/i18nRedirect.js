@@ -1,7 +1,7 @@
 // @flow
 
 import citiesEndpoint from '../../endpoint/endpoints/cities'
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
 import React from 'react'
@@ -27,7 +27,7 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => 
  * Matches / and /param
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const i18nRedirectRoute = {
+const route: RouterRouteType = {
   path: '/:param?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -36,10 +36,12 @@ const i18nRedirectRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const i18nRedirectRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: I18N_REDIRECT_ROUTE,
   getRoutePath,
   renderPage: renderI18nPage,
-  route: i18nRedirectRoute,
+  route,
   getRequiredPayloads
 })
+
+export default i18nRedirectRoute

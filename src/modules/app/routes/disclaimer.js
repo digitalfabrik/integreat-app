@@ -1,7 +1,7 @@
 // @flow
 
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import CityModel from '../../endpoint/models/CityModel'
 import PageModel from '../../endpoint/models/PageModel'
 import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
@@ -19,7 +19,7 @@ export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/disclaimer`
 
 const renderDisclaimerPage = ({disclaimer, cities}: RequiredPayloadType) =>
-  <DisclaimerPage disclaimer={disclaimer} cities={cities} />
+  <DisclaimerPage disclaimer={disclaimer.data} cities={cities.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType) =>
   ({disclaimer: payloads.disclaimerPayload, cities: payloads.citiesPayload})
@@ -28,7 +28,7 @@ const getRequiredPayloads = (payloads: AllPayloadsType) =>
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const disclaimerRoute = {
+const route: RouterRouteType = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -38,10 +38,12 @@ const disclaimerRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const disclaimerRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: DISCLAIMER_ROUTE,
   getRoutePath,
   renderPage: renderDisclaimerPage,
-  route: disclaimerRoute,
+  route,
   getRequiredPayloads
 })
+
+export default disclaimerRoute

@@ -15,14 +15,4 @@ describe('Failure', () => {
 
     expect(wrapper).toMatchSnapshot()
   })
-
-  describe('connect', () => {
-    it('should match snapshot', () => {
-      const wrapper = shallow(
-        <ConnectedFailure errorMessage='Error Message' />
-      )
-
-      expect(wrapper).toMatchSnapshot()
-    })
-  })
 })

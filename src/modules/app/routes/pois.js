@@ -19,12 +19,13 @@ export const POIS_ROUTE = 'POI'
 const getRoutePath = ({city, language}: RouteParamsType): string =>
   `/${city}/${language}/locations`
 
-const renderPoisPage = ({pois, cities}: RequiredPayloadType) => <PoisPage pois={pois} cities={cities} />
+const renderPoisPage = ({pois, cities}: RequiredPayloadType) =>
+  <PoisPage pois={pois.data} cities={cities.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({pois: payloads.poisPayload, cities: payloads.citiesPayload})
 
-const poisRoute: RouterRouteType = {
+const route: RouterRouteType = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -34,10 +35,12 @@ const poisRoute: RouterRouteType = {
   }
 }
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const poisRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: POIS_ROUTE,
   getRoutePath,
   renderPage: renderPoisPage,
-  route: poisRoute,
+  route,
   getRequiredPayloads: getRequiredPayloads
 })
+
+export default poisRoute
