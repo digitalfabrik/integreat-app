@@ -9,7 +9,7 @@ import type { JsonCategoryType } from '../types'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import normalizePath from '../normalizePath'
 import Endpoint from '../Endpoint'
-import sanitizeHtml from 'sanitize-html'
+import sanitizeHtml from 'sanitize-html-react'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
