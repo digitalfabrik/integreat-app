@@ -17,6 +17,7 @@ import List from '../../../modules/common/components/List'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
+import type { GetPageTitleParamsType } from '../../../modules/app/routes/types'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -24,7 +25,6 @@ type PropsType = {|
   language: string,
   offerHash?: string,
   extras: Array<ExtraModel>,
-  cities: Array<CityModel>,
   t: TFunction
 |}
 
@@ -44,9 +44,11 @@ export class WohnenExtraPage extends React.Component<PropsType> {
                    city={city}
                    hashFunction={hashFunction} />
 
+  getPageTitle = (offer: WohnenOfferModel) => ({cityName}: GetPageTitleParamsType) =>
+    `${offer.formData.accommodation.title} - ${cityName}`
+
   render () {
-    const {offers, extras, cities, city, language, offerHash, t} = this.props
-    const cityName = CityModel.findCityName(cities, city)
+    const {offers, extras, city, language, offerHash, t} = this.props
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
     if (!extra) {
@@ -62,7 +64,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
       return (
         <>
-          <Helmet title={`${offer.formData.accommodation.title} - ${extra.title} - ${cityName}`} />
+          <Helmet getPageTitle={this.getPageTitle(offer)} />
           <OfferDetail offer={offer} />
         </>
       )
@@ -70,7 +72,6 @@ export class WohnenExtraPage extends React.Component<PropsType> {
 
     return (
       <>
-        <Helmet title={`${extra.title} - ${cityName}`} />
         <Caption title={extra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}

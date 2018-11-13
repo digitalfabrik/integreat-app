@@ -2,14 +2,8 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
-
 import PageModel from '../../../modules/endpoint/models/PageModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
@@ -17,9 +11,6 @@ import Page from '../../../modules/common/components/Page'
 
 type PropsType = {|
   disclaimer: PageModel,
-  cities: Array<CityModel>,
-  city: string,
-  t: TFunction,
   language: string,
   dispatch: ReceivedAction => void,
   routesMap: {}
@@ -36,16 +27,15 @@ export class DisclaimerPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {disclaimer, cities, city, t, language} = this.props
+    const {disclaimer, language} = this.props
 
-    return <>
-      <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
+    return (
       <Page lastUpdate={disclaimer.lastUpdate}
             title={disclaimer.title}
             content={disclaimer.content}
             language={language}
             onInternalLinkClick={this.redirectToPath} />
-    </>
+    )
   }
 }
 
@@ -58,7 +48,4 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   dispatch
 })
 
-export default compose(
-  connect(mapStateTypeToProps, mapDispatchToProps),
-  translate('disclaimer')
-)(DisclaimerPage)
+export default connect(mapStateTypeToProps, mapDispatchToProps)(DisclaimerPage)

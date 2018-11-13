@@ -12,7 +12,6 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
@@ -65,13 +64,9 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     const categories = this.findCategories()
     const {t, cities, location} = this.props
     const {filterText} = this.state
-    const {city} = location.payload
-
-    const cityName = CityModel.findCityName(cities, city)
 
     return (
       <div>
-        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <SearchInput filterText={this.state.filterText}
                      placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}

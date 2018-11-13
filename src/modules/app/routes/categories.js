@@ -10,7 +10,7 @@ import CategoriesPage from '../../../routes/categories/containers/CategoriesPage
 import React from 'react'
 import Payload from '../../endpoint/Payload'
 import Route from './Route'
-import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 type RouteParamsType = {|city: string, language: string|}
@@ -42,6 +42,11 @@ const getLanguageChangePath = ({location, categories}: GetLanguageChangePathPara
   return getRoutePath({city, language})
 }
 
+const getPageTitle = ({t, categories, cityName, pathname}: GetPageTitleParamsType) => {
+  const category = categories && categories.findCategoryByPath(pathname)
+  return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
+}
+
 /**
  * CategoriesRoute, matches /augsburg/de*
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
@@ -62,7 +67,8 @@ const categoriesRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   renderPage: renderCategoriesPage,
   route,
   getRequiredPayloads,
-  getLanguageChangePath
+  getLanguageChangePath,
+  getPageTitle
 })
 
 export default categoriesRoute

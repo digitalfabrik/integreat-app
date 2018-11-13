@@ -2,30 +2,32 @@
 
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
-import CityModel from '../../endpoint/models/CityModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
 import React from 'react'
 import Payload from '../../endpoint/Payload'
-import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import Route from './Route'
 import fetchData from '../fetchData'
 
-type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, cities: Payload<Array<CityModel>>|}
+type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>|}
 type RouteParamsType = {|city: string, language: string|}
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/extras`
 
-const renderExtrasPage = ({extras, cities}: RequiredPayloadType) =>
-  <ExtrasPage extras={extras.data} cities={cities.data} />
+const renderExtrasPage = ({extras}: RequiredPayloadType) =>
+  <ExtrasPage extras={extras.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({extras: payloads.extrasPayload, cities: payloads.citiesPayload})
+  ({extras: payloads.extrasPayload})
 
 const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
   getRoutePath({city: location.payload.city, language: location.payload.language})
+
+const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
+  `${t('pageTitle')} - ${cityName}`
 
 /**
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
@@ -47,7 +49,8 @@ const extrasRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   renderPage: renderExtrasPage,
   route,
   getRequiredPayloads,
-  getLanguageChangePath
+  getLanguageChangePath,
+  getPageTitle
 })
 
 export default extrasRoute

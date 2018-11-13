@@ -8,9 +8,7 @@ import Tiles from '../../../modules/common/components/Tiles'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
 import { compose } from 'recompose'
 import sprungbrettRoute, { SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
 import wohnenRoute, { WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
@@ -20,8 +18,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 type PropsType = {|
   city: string,
   language: string,
-  extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>,
+  extras: Array<ExtraModel>,
   extraId: ?string,
   t: TFunction
 |}
@@ -56,13 +53,7 @@ export class ExtrasPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {city, cities, extras, extraId, language, t} = this.props
-
-    if (!cities || !extras) {
-      throw new Error('Data not ready')
-    }
-
-    const cityName = CityModel.findCityName(cities, city)
+    const {city, extras, extraId, language, t} = this.props
 
     if (extraId) {
       // If there is an extraId, the route is invalid, because every internal extra has a separate route
@@ -71,10 +62,7 @@ export class ExtrasPage extends React.Component<PropsType> {
     }
 
     return (
-      <>
-        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
-        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
-      </>
+      <Tiles title={t('extras')} tiles={this.toTileModels(extras)} />
     )
   }
 }

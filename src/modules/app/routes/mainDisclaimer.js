@@ -7,6 +7,8 @@ import { Route as RouterRouteType } from 'redux-first-router'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
+const PAGE_TITLE = 'Impressum und Datenschutz - Integreat'
+
 const getRoutePath = (): string => '/disclaimer'
 
 const renderMainDisclaimerPage = () => <MainDisclaimerPage />
@@ -22,7 +24,8 @@ const mainDisclaimerRoute: Route<void, void> = new Route({
   getRoutePath,
   renderPage: renderMainDisclaimerPage,
   route,
-  getRequiredPayloads: () => {}
+  getRequiredPayloads: () => {},
+  getPageTitle: () => PAGE_TITLE
 })
 
 export default mainDisclaimerRoute

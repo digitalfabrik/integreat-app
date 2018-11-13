@@ -26,6 +26,7 @@ import PageModel from '../../endpoint/models/PageModel'
 import PoiModel from '../../endpoint/models/PoiModel'
 import { getRoute } from '../routes'
 import reduce from 'lodash/reduce'
+import Helmet from '../../common/containers/Helmet'
 
 type PropsType = {|
   currentRoute: string,
@@ -95,7 +96,10 @@ export class Switcher extends React.Component<PropsType> {
       return result
     }, [])
     return Switcher.renderFailureLoadingComponents(payloadsArray) ||
-      route.renderPage(payloads)
+      <>
+        <Helmet getPageTitle={route.getPageTitle} />
+        route.renderPage(payloads)
+      </>
   }
 
   /**
