@@ -12,7 +12,7 @@ describe('disclaimer', () => {
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'disclaimer',
     modified_gmt: '2017-06-12 12:27:57',
-    content: '<span>Content</span>'
+    content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>'
   }
 
   const params = {city: 'augsburg', language: 'de'}
@@ -32,7 +32,7 @@ describe('disclaimer', () => {
     expect(disclaimerModel).toEqual(new PageModel({
       id: pageJson.id,
       title: pageJson.title,
-      content: pageJson.content,
+      content: '<a>Ich bleib aber da.</a>',
       lastUpdate: moment('2017-06-12 12:27:57')
     }))
   })
