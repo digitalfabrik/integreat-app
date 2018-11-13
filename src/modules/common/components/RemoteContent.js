@@ -44,6 +44,18 @@ const SandBox = styled.div`
   & a {
     overflow-wrap: break-word;
   }
+  
+  & details > * {
+    padding: 0 25px;
+  }
+  
+  & details > summary {
+    padding: 0;
+  }
+  
+  & strong {
+    color: ${props => props.theme.colors.themeDarkColor};
+  }
 `
 
 type PropsType = {|
