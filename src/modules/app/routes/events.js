@@ -5,7 +5,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import CityModel from '../../endpoint/models/CityModel'
 import EventsPage from '../../../routes/events/containers/EventsPage'
 import React from 'react'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import Route from './Route'
 import Payload from '../../endpoint/Payload'
 
@@ -22,6 +22,15 @@ const renderPage = ({ events, cities }: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ events: payloads.eventsPayload, cities: payloads.citiesPayload })
 
+const getLanguageChangePath = ({location, events}: GetLanguageChangePathParamsType) => {
+  const {city, language, eventId} = location.payload
+  if (events && eventId) {
+    const event = events.find(_event => _event.path === location.pathname)
+    return (event && event.availableLanguages.get(language)) || null
+  }
+  return eventsRoute.getRoutePath({city, language})
+}
+
 /**
  * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
@@ -33,7 +42,8 @@ const eventsRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default eventsRoute

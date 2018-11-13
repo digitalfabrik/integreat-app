@@ -9,6 +9,7 @@ import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import PoiModel from '../../endpoint/models/PoiModel'
 import EventModel from '../../endpoint/models/EventModel'
 import CityModel from '../../endpoint/models/CityModel'
+import type { Location } from 'redux-first-router'
 
 export type AllPayloadsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -20,3 +21,8 @@ export type AllPayloadsType = {|
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>
 |}
+
+export type GetLanguageChangePathParamsType = {|location: Location, events?: Array<EventModel>,
+  categories?: CategoriesMapModel, pois?: Array<PoiModel>|}
+
+export type GetLanguageChangePathType = GetLanguageChangePathParamsType => string | null

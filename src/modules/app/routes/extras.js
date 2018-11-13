@@ -7,7 +7,7 @@ import ExtraModel from '../../endpoint/models/ExtraModel'
 import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
 import React from 'react'
 import Payload from '../../endpoint/Payload'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import Route from './Route'
 import fetchData from '../fetchData'
 
@@ -23,6 +23,9 @@ const renderExtrasPage = ({extras, cities}: RequiredPayloadType) =>
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({extras: payloads.extrasPayload, cities: payloads.citiesPayload})
+
+const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language: location.payload.language})
 
 /**
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
@@ -43,7 +46,8 @@ const extrasRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage: renderExtrasPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default extrasRoute

@@ -9,7 +9,7 @@ import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
 import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import React from 'react'
 import Payload from '../../endpoint/Payload'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import Route from './Route'
 import fetchData from '../fetchData'
 
@@ -28,6 +28,9 @@ const renderSprungbrettPage = ({ sprungbrettJobs, extras, cities }: RequiredPayl
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload, cities: payloads.citiesPayload})
+
+const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language: location.payload.language})
 
 const route: RouterRouteType = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
@@ -55,7 +58,8 @@ const sprungbrettRoute: Route<RequiredPayloadType, RouteParamsType> = new Route(
   getRoutePath,
   renderPage: renderSprungbrettPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default sprungbrettRoute

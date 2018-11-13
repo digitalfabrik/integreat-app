@@ -2,7 +2,7 @@
 
 import type { Node } from 'react'
 import type { Route as RouterRouteType } from 'redux-first-router'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathType } from './types'
 
 class Route<T, P> {
   _name: string
@@ -10,16 +10,18 @@ class Route<T, P> {
   _renderPage: T => Node
   _route: RouterRouteType
   _getRequiredPayloads: AllPayloadsType => T
+  _getLanguageChangePath: ?GetLanguageChangePathType
 
-  constructor ({ name, getRoutePath, getLanguageChangeAction, renderPage, route, getRequiredPayloads }: {|
+  constructor ({ name, getRoutePath, getLanguageChangePath, renderPage, route, getRequiredPayloads }: {|
     name: string, getRoutePath: P => string, renderPage: T => Node, route: RouterRouteType,
-    getRequiredPayloads: AllPayloadsType => T
+    getRequiredPayloads: AllPayloadsType => T, getLanguageChangePath?: GetLanguageChangePathType
   |}) {
     this._name = name
     this._getRoutePath = getRoutePath
     this._renderPage = renderPage
     this._route = route
     this._getRequiredPayloads = getRequiredPayloads
+    this._getLanguageChangePath = getLanguageChangePath
   }
 
   get name (): string {
@@ -40,6 +42,10 @@ class Route<T, P> {
 
   get getRequiredPayloads (): AllPayloadsType => T {
     return this._getRequiredPayloads
+  }
+
+  get getLanguageChangePath (): ?GetLanguageChangePathType {
+    return this._getLanguageChangePath
   }
 }
 

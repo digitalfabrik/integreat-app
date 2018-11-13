@@ -10,7 +10,7 @@ import React from 'react'
 import Payload from '../../endpoint/Payload'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import Route from './Route'
-import type { AllPayloadsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
 import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>,
@@ -28,6 +28,9 @@ const renderWohnenPage =  ({offers, extras, cities}: RequiredPayloadType) =>
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({offers: payloads.wohnenPayload, cities: payloads.citiesPayload, extras: payloads.extrasPayload})
+
+const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language: location.payload.language})
 
 const route: RouterRouteType = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
@@ -53,7 +56,8 @@ const wohnenRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   getRoutePath,
   renderPage: renderWohnenPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getLanguageChangePath
 })
 
 export default wohnenRoute
