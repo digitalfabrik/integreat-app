@@ -8,6 +8,8 @@
     "start:reset": "react-native start --reset-cache",
     "android": "react-native run-android",
     "android:release": "yarn android --variant=release",
+    "android:reload": "adb shell input text RR",
+    "android:menu": "adb shell input keyevent 82",
     "ios": "react-native run-ios",
     "test": "jest --config ./jest.config.json",
     "lint": "eslint .",
