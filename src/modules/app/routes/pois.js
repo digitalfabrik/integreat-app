@@ -2,16 +2,15 @@
 
 import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import poisEndpoint from '../../endpoint/endpoints/pois'
-import CityModel from '../../endpoint/models/CityModel'
 import PoiModel from '../../endpoint/models/PoiModel'
 import PoisPage from '../../../routes/pois/containers/PoisPage'
 import React from 'react'
 import Route from './Route'
-import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import Payload from '../../endpoint/Payload'
 import fetchData from '../fetchData'
 
-type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>, cities: Payload<Array<CityModel>>|}
+type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>|}
 type RouteParamsType = {|city: string, language: string|}
 
 export const POIS_ROUTE = 'POI'
@@ -19,11 +18,11 @@ export const POIS_ROUTE = 'POI'
 const getRoutePath = ({city, language}: RouteParamsType): string =>
   `/${city}/${language}/locations`
 
-const renderPoisPage = ({pois, cities}: RequiredPayloadType) =>
-  <PoisPage pois={pois.data} cities={cities.data} />
+const renderPoisPage = ({pois}: RequiredPayloadType) =>
+  <PoisPage pois={pois.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({pois: payloads.poisPayload, cities: payloads.citiesPayload})
+  ({pois: payloads.poisPayload})
 
 const getLanguageChangePath = ({location, pois}: GetLanguageChangePathParamsType) => {
   const {city, language, poiId} = location.payload
@@ -32,6 +31,11 @@ const getLanguageChangePath = ({location, pois}: GetLanguageChangePathParamsType
     return (poi && poi.availableLanguages.get(language)) || null
   }
   return poisRoute.getRoutePath({city, language: language})
+}
+
+const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
+  const poi = pois && pois.find(poi => poi.path === location.pathname)
+  return `${poi ? poi.title : t('pageTitle')} - ${cityName}`
 }
 
 const route: RouterRouteType = {
@@ -50,7 +54,8 @@ const poisRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   renderPage: renderPoisPage,
   route,
   getRequiredPayloads: getRequiredPayloads,
-  getLanguageChangePath
+  getLanguageChangePath,
+  getPageTitle
 })
 
 export default poisRoute

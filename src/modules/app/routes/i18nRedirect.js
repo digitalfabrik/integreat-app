@@ -41,7 +41,8 @@ const i18nRedirectRoute: Route<RequiredPayloadType, RouteParamsType> = new Route
   getRoutePath,
   renderPage: renderI18nPage,
   route,
-  getRequiredPayloads
+  getRequiredPayloads,
+  getPageTitle: () => ''
 })
 
 export default i18nRedirectRoute

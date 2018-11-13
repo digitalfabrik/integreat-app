@@ -15,9 +15,6 @@ import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
-import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
@@ -31,7 +28,6 @@ type PropsType = {|
   city: string,
   language: string,
   uiDirection: UiDirectionType,
-  t: TFunction,
   dispatch: ReceivedAction => void,
   routesMap: {}
 |}
@@ -95,22 +91,12 @@ export class CategoriesPage extends React.Component<PropsType> {
       })
   }
 
-  getPageTitle (categoryModel: CategoryModel): string {
-    const {cities, city} = this.props
-    const cityName = CityModel.findCityName(cities, city)
-
-    return `${!categoryModel.isRoot() ? `${categoryModel.title} - ` : ''}${cityName}`
-  }
-
   render () {
-    const {categories, path, city, language, uiDirection, t} = this.props
+    const {categories, path, city, language, uiDirection} = this.props
     const categoryModel = categories.findCategoryByPath(path)
 
     if (categoryModel) {
-      const metaDescription = categoryModel.isRoot() ? t('metaDescription') : undefined
-
       return <div>
-        <Helmet title={this.getPageTitle(categoryModel)} metaDescription={metaDescription} />
         <Breadcrumbs direction={uiDirection}>
           {this.getBreadcrumbs(categoryModel)}
         </Breadcrumbs>
@@ -135,4 +121,4 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   dispatch
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('categories')(CategoriesPage))
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)

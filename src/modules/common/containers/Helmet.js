@@ -12,16 +12,22 @@ import type { Location } from 'redux-first-router'
 import { getLanguageChangePath } from '../../app/routes'
 import PoiModel from '../../endpoint/models/PoiModel'
 import CityModel from '../../endpoint/models/CityModel'
+import type { GetPageTitleParamsType } from '../../app/routes/types'
+import type { TFunction } from 'react-i18next'
+import compose from 'lodash/fp/compose'
+import { withNamespaces } from 'react-i18next'
+import { LANDING_ROUTE } from '../../app/routes/landing'
+import categoriesRoute from '../../app/routes/categories'
 
 type PropsType = {|
-  title: string,
+  getPageTitle: GetPageTitleParamsType => string,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
   pois: Array<PoiModel>,
   cities: Array<CityModel>,
   languages: Array<LanguageModel>,
   location: Location,
-  metaDescription?: string
+  t: TFunction
 |}
 
 export class Helmet extends React.Component<PropsType> {
@@ -34,10 +40,22 @@ export class Helmet extends React.Component<PropsType> {
       })
   }
 
-  render () {
-    const { title, metaDescription, cities, location } = this.props
-    const city = cities && cities.find(city => city.code === location.payload.city)
+  getMetaDescription (): ?string {
+    const {location, t} = this.props
+    const {type, pathname} = location
+    const {city, language} = location.payload
 
+    if (categoriesRoute.getRoutePath({city, language}) === pathname || type === LANDING_ROUTE) {
+      return t('metaDescription')
+    }
+  }
+
+  render () {
+    const { getPageTitle, cities, location, pois, events, categories, t } = this.props
+    const city = cities && cities.find(city => city.code === location.payload.city)
+    const cityName = city ? city.name : ''
+    const title = getPageTitle({t, cityName, pathname: location.pathname, events, categories, pois})
+    const metaDescription = this.getMetaDescription()
     return <ReactHelmet>
       <title>{title}</title>
       {city && !city.live && <meta name='robots' content='noindex' />}
@@ -56,4 +74,7 @@ const mapStateToProps = (state: StateType) => ({
   languages: state.languages.data
 })
 
-export default connect(mapStateToProps)(Helmet)
+export default compose(
+  connect(mapStateToProps),
+  withNamespaces('app')
+)(Helmet)

@@ -2,7 +2,7 @@
 
 import type { Node } from 'react'
 import type { Route as RouterRouteType } from 'redux-first-router'
-import type { AllPayloadsType, GetLanguageChangePathType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathType, GetPageTitleParamsType } from './types'
 
 class Route<T, P> {
   _name: string
@@ -11,10 +11,12 @@ class Route<T, P> {
   _route: RouterRouteType
   _getRequiredPayloads: AllPayloadsType => T
   _getLanguageChangePath: ?GetLanguageChangePathType
+  _getPageTitle: GetPageTitleParamsType => string
 
-  constructor ({ name, getRoutePath, getLanguageChangePath, renderPage, route, getRequiredPayloads }: {|
+  constructor ({ name, getRoutePath, getLanguageChangePath, renderPage, route, getRequiredPayloads, getPageTitle }: {|
     name: string, getRoutePath: P => string, renderPage: T => Node, route: RouterRouteType,
-    getRequiredPayloads: AllPayloadsType => T, getLanguageChangePath?: GetLanguageChangePathType
+    getPageTitle: GetPageTitleParamsType => string, getRequiredPayloads: AllPayloadsType => T,
+    getLanguageChangePath?: GetLanguageChangePathType
   |}) {
     this._name = name
     this._getRoutePath = getRoutePath
@@ -22,6 +24,7 @@ class Route<T, P> {
     this._route = route
     this._getRequiredPayloads = getRequiredPayloads
     this._getLanguageChangePath = getLanguageChangePath
+    this._getPageTitle = getPageTitle
   }
 
   get name (): string {
@@ -46,6 +49,10 @@ class Route<T, P> {
 
   get getLanguageChangePath (): ?GetLanguageChangePathType {
     return this._getLanguageChangePath
+  }
+
+  get getPageTitle (): GetPageTitleParamsType => string {
+    return this._getPageTitle
   }
 }
 

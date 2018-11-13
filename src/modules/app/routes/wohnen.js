@@ -10,11 +10,10 @@ import React from 'react'
 import Payload from '../../endpoint/Payload'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import Route from './Route'
-import type { AllPayloadsType, GetLanguageChangePathParamsType } from './types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import fetchData from '../fetchData'
 
-type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>,
-  cities: Payload<Array<CityModel>>|}
+type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>|}
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
@@ -23,14 +22,17 @@ export const WOHNEN_EXTRA = 'wohnen'
 const getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
   `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
-const renderWohnenPage =  ({offers, extras, cities}: RequiredPayloadType) =>
-  <WohnenExtraPage offers={offers.data} extras={extras.data} cities={cities.data} />
+const renderWohnenPage =  ({offers, extras}: RequiredPayloadType) =>
+  <WohnenExtraPage offers={offers.data} extras={extras.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({offers: payloads.wohnenPayload, cities: payloads.citiesPayload, extras: payloads.extrasPayload})
+  ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
 const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
   getRoutePath({city: location.payload.city, language: location.payload.language})
+
+const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
+  `${t('pageTitle')} - ${cityName}`
 
 const route: RouterRouteType = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
@@ -57,7 +59,8 @@ const wohnenRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   renderPage: renderWohnenPage,
   route,
   getRequiredPayloads,
-  getLanguageChangePath
+  getLanguageChangePath,
+  getPageTitle
 })
 
 export default wohnenRoute
