@@ -40,7 +40,6 @@ export class DisclaimerPage extends React.Component<PropsType> {
 }
 
 const mapStateTypeToProps = (stateType: StateType) => ({
-  city: stateType.location.payload.city,
   language: stateType.location.payload.language
 })
 

@@ -5,7 +5,6 @@ import PoiModel from '../../../../modules/endpoint/models/PoiModel'
 import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 import moment from 'moment-timezone'
 import { PoisPage } from '../PoisPage'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { shallow } from 'enzyme'
 import List from '../../../../modules/common/components/List'
 
@@ -65,16 +64,6 @@ describe('PoisPage', () => {
   const language = 'en'
   const dispatch = () => {}
   const routesMap = {}
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
 
   const t = (key: ?string): string => key || ''
 
@@ -83,7 +72,6 @@ describe('PoisPage', () => {
       <PoisPage pois={pois}
                 t={t}
                 city={city}
-                cities={cities}
                 language={language}
                 dispatch={dispatch}
                 path={'/augsburg/en/locations/third_poi'}
@@ -97,7 +85,6 @@ describe('PoisPage', () => {
       <PoisPage pois={pois}
                 t={t}
                 city={city}
-                cities={cities}
                 language={language}
                 dispatch={dispatch}
                 path={'/augsburg/en/locations/invalid_poi'}
@@ -111,7 +98,6 @@ describe('PoisPage', () => {
       <PoisPage pois={pois}
                 t={t}
                 city={city}
-                cities={cities}
                 language={language}
                 dispatch={dispatch}
                 path={'/augsburg/en/locations'}
@@ -125,7 +111,6 @@ describe('PoisPage', () => {
       <PoisPage pois={[pois[2], pois[1], pois[0]]}
                 t={t}
                 city={city}
-                cities={cities}
                 language={language}
                 dispatch={dispatch}
                 path={'/augsburg/en/locations'}

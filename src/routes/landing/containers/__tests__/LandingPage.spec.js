@@ -18,10 +18,8 @@ describe('LandingPage', () => {
     })
   ]
 
-  const t = (key: ?string): string => key || ''
-
   it('should match snapshot', () => {
-    expect(shallow(<LandingPage cities={cities} language={'de'} t={t} />)).toMatchSnapshot()
+    expect(shallow(<LandingPage cities={cities} language={'de'} />)).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
