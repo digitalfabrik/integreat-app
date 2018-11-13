@@ -3,6 +3,7 @@
 import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import React from 'react'
 import Route from './Route'
+import { Route as RouterRouteType } from 'redux-first-router'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
@@ -14,12 +15,14 @@ const renderMainDisclaimerPage = () => <MainDisclaimerPage />
  * MainDisclaimerRoute, matches /disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const mainDisclaimerRoute = '/disclaimer'
+const route: RouterRouteType = '/disclaimer'
 
-export default new Route<void, void>({
+const mainDisclaimerRoute: Route<void, void> = new Route({
   name: MAIN_DISCLAIMER_ROUTE,
   getRoutePath,
   renderPage: renderMainDisclaimerPage,
-  route: mainDisclaimerRoute,
+  route,
   getRequiredPayloads: () => {}
 })
+
+export default mainDisclaimerRoute

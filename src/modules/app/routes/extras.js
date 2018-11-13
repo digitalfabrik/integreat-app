@@ -18,7 +18,8 @@ export const EXTRAS_ROUTE = 'EXTRAS'
 
 const getRoutePath = ({city, language}: RouteParamsType): string => `/${city}/${language}/extras`
 
-const renderExtrasPage = ({extras, cities}: RequiredPayloadType) => <ExtrasPage extras={extras} cities={cities} />
+const renderExtrasPage = ({extras, cities}: RequiredPayloadType) =>
+  <ExtrasPage extras={extras.data} cities={cities.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({extras: payloads.extrasPayload, cities: payloads.citiesPayload})
@@ -27,8 +28,8 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const extrasRoute: RouterRouteType = {
-  path: '/:city/:language/extras',
+const route: RouterRouteType = {
+  path: '/:city/:language/extras/:extraId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const {city, language} = state.location.payload
@@ -37,10 +38,12 @@ const extrasRoute: RouterRouteType = {
   }
 }
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const extrasRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: EXTRAS_ROUTE,
   getRoutePath,
   renderPage: renderExtrasPage,
-  route: extrasRoute,
+  route,
   getRequiredPayloads
 })
+
+export default extrasRoute

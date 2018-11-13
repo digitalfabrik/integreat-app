@@ -46,7 +46,7 @@ export class LocationHeader extends React.Component<PropsType> {
         text: t('search')
       }),
       new HeaderActionItem({
-        href: landingRoute.getRoutePath(language),
+        href: landingRoute.getRoutePath({language}),
         iconSrc: landingIcon,
         text: t('changeLocation')
       }),

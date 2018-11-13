@@ -2,7 +2,7 @@
 
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
-import type { Dispatch, GetState } from 'redux-first-router'
+import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import CityModel from '../../endpoint/models/CityModel'
 import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
@@ -29,7 +29,7 @@ const renderWohnenPage =  ({offers, extras, cities}: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({offers: payloads.wohnenPayload, cities: payloads.citiesPayload, extras: payloads.extrasPayload})
 
-const wohnenRoute = {
+const route: RouterRouteType = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -48,10 +48,12 @@ const wohnenRoute = {
   }
 }
 
-export default new Route<RequiredPayloadType, RouteParamsType>({
+const wohnenRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: WOHNEN_ROUTE,
   getRoutePath,
   renderPage: renderWohnenPage,
-  route: wohnenRoute,
+  route,
   getRequiredPayloads
 })
+
+export default wohnenRoute

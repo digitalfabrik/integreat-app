@@ -1,16 +1,16 @@
 // @flow
 
-import categoriesRoute from './categories'
-import eventsRoute from './events'
-import extrasRoute from './extras'
-import disclaimerRoute from './disclaimer'
-import poisRoute from './pois'
-import sprungbrettRoute from './sprungbrett'
-import wohnenRoute from './wohnen'
-import searchRoute from './search'
-import mainDisclaimerRoute from './mainDisclaimer'
-import i18nRedirectRoute from './i18nRedirect'
-import landingRoute from './landing'
+import categoriesRoute, { CATEGORIES_ROUTE } from './categories'
+import eventsRoute, { EVENTS_ROUTE } from './events'
+import extrasRoute, { EXTRAS_ROUTE } from './extras'
+import disclaimerRoute, { DISCLAIMER_ROUTE } from './disclaimer'
+import poisRoute, { POIS_ROUTE } from './pois'
+import sprungbrettRoute, { SPRUNGBRETT_ROUTE } from './sprungbrett'
+import wohnenRoute, { WOHNEN_ROUTE } from './wohnen'
+import searchRoute, { SEARCH_ROUTE } from './search'
+import mainDisclaimerRoute, { MAIN_DISCLAIMER_ROUTE } from './mainDisclaimer'
+import i18nRedirect, { I18N_REDIRECT_ROUTE } from './i18nRedirect'
+import landingRoute, { LANDING_ROUTE } from './landing'
 import type { Route as RouterRouteType } from 'redux-first-router'
 import Route from './Route'
 
@@ -18,31 +18,31 @@ import Route from './Route'
 // the order is important, routes declared first are served first, so i.e. if you put the mainDisclaimer route after
 // the i18nRedirect route, "/disclaimer" also matches the i18nRedirect route
 export const routesMap: {[string]: RouterRouteType} = {
-  [mainDisclaimerRoute.name]: mainDisclaimerRoute.route,
-  [i18nRedirectRoute.name]: i18nRedirectRoute.route,
-  [landingRoute.name]: landingRoute.route,
-  [eventsRoute.name]: eventsRoute.route,
-  [sprungbrettRoute.name]: sprungbrettRoute.route,
-  [wohnenRoute.name]: wohnenRoute.route,
-  [extrasRoute.name]: extrasRoute.route,
-  [disclaimerRoute.name]: disclaimerRoute.route,
-  [searchRoute.name]: searchRoute.route,
-  [poisRoute.name]: poisRoute.route,
-  [categoriesRoute.name]: categoriesRoute.route
+  [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRoute.route,
+  [I18N_REDIRECT_ROUTE]: i18nRedirect.route,
+  [LANDING_ROUTE]: landingRoute.route,
+  [EVENTS_ROUTE]: eventsRoute.route,
+  [SPRUNGBRETT_ROUTE]: sprungbrettRoute.route,
+  [WOHNEN_ROUTE]: wohnenRoute.route,
+  [EXTRAS_ROUTE]: extrasRoute.route,
+  [DISCLAIMER_ROUTE]: disclaimerRoute.route,
+  [SEARCH_ROUTE]: searchRoute.route,
+  [POIS_ROUTE]: poisRoute.route,
+  [CATEGORIES_ROUTE]: categoriesRoute.route
 }
 
 const routes: {[string]: Route<any, any>} = {
-  [categoriesRoute.name]: categoriesRoute,
-  [eventsRoute.name]: eventsRoute,
-  [extrasRoute.name]: extrasRoute,
-  [disclaimerRoute.name]: disclaimerRoute,
-  [poisRoute.name]: poisRoute,
-  [sprungbrettRoute.name]: sprungbrettRoute,
-  [wohnenRoute.name]: wohnenRoute,
-  [searchRoute.name]: searchRoute,
-  [mainDisclaimerRoute.name]: mainDisclaimerRoute,
-  [i18nRedirectRoute.name]: i18nRedirectRoute,
-  [landingRoute.name]: landingRoute
+  [CATEGORIES_ROUTE]: categoriesRoute,
+  [EVENTS_ROUTE]: eventsRoute,
+  [EXTRAS_ROUTE]: extrasRoute,
+  [DISCLAIMER_ROUTE]: disclaimerRoute,
+  [POIS_ROUTE]: poisRoute,
+  [SPRUNGBRETT_ROUTE]: sprungbrettRoute,
+  [WOHNEN_ROUTE]: wohnenRoute,
+  [SEARCH_ROUTE]: searchRoute,
+  [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRoute,
+  [I18N_REDIRECT_ROUTE]: i18nRedirect,
+  [LANDING_ROUTE]: landingRoute
 }
 
 export default routes

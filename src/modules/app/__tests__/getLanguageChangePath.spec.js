@@ -125,17 +125,6 @@ describe('getLanguageChangePath', () => {
       .toBe('/augsburg/de/events')
   })
 
-  it('should return the path to a single extra if there is an extra selected', () => {
-    const location = {
-      pathname: '/augsburg/en/extras/sprungbrett',
-      type: EXTRAS_ROUTE,
-      payload: {city, language, extraAlias: 'sprungbrett'}
-    }
-
-    expect(getLanguageChangePath({location, categories, events, pois, languageCode: 'de'}))
-      .toBe('/augsburg/de/extras/sprungbrett')
-  })
-
   it('should return the extras path', () => {
     const location = {
       pathname: '/augsburg/en/extras',
