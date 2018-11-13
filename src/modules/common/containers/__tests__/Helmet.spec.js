@@ -107,13 +107,17 @@ describe('Helmet', () => {
   const title = 'Random title'
 
   const location = {pathname: '/augsburg/de/', payload: {city, language}}
+  const t = (key: ?string): string => key || ''
+
+  const getPageTitle = () => 'pageTitle'
 
   it('should render and match snapshot', () => {
     const helmet = shallow(
-      <Helmet title={title}
+      <Helmet getPageTitle={getPageTitle}
               categories={categories}
               location={location}
               events={events}
+              t={t}
               pois={pois}
               languages={languages}
               cities={cities} />
@@ -124,11 +128,12 @@ describe('Helmet', () => {
 
   it('should add noindex tag, if city is not live', () => {
     const helmet = shallow(
-      <Helmet title={title}
+      <Helmet getPageTitle={getPageTitle}
               categories={categories}
               location={{...location, payload: {city: 'testinstanz', language: 'ar'}}}
               events={events}
               pois={pois}
+              t={t}
               languages={languages}
               cities={cities} />
     )
@@ -153,7 +158,7 @@ describe('Helmet', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedHelmet title={title} />
+          <ConnectedHelmet getPageTitle={getPageTitle} />
         </Provider>
       </ThemeProvider>
     )

@@ -5,7 +5,6 @@ import React from 'react'
 
 import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
@@ -42,24 +41,12 @@ describe('ExtrasPage', () => {
     })
   ]
 
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
-
   const t = (key: ?string): string => key || ''
 
   it('should render extra tiles if no extra is selected', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}
-                  cities={cities}
                   extras={extras}
                   extraId={undefined}
                   t={t} />
@@ -71,7 +58,6 @@ describe('ExtrasPage', () => {
     const extrasPage = shallow(
       <ExtrasPage city={city}
                   language={language}
-                  cities={cities}
                   extras={extras}
                   extraId={'invalid_extra'}
                   t={t} />
@@ -87,7 +73,7 @@ describe('ExtrasPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedExtrasPage cities={cities} extras={extras} />
+          <ConnectedExtrasPage extras={extras} />
         </Provider>
       </ThemeProvider>
     )
@@ -96,7 +82,6 @@ describe('ExtrasPage', () => {
       language,
       city,
       extras,
-      cities,
       extraId: 'invalid_extra'
     })
   })

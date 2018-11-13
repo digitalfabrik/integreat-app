@@ -5,7 +5,6 @@ import React from 'react'
 
 import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
 import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
@@ -24,17 +23,6 @@ describe('WohnenExtraPage', () => {
   })
 
   const extras = [wohnenExtra]
-
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
 
   const offer = new WohnenOfferModel({
     email: 'mail@mail.com',
@@ -77,7 +65,6 @@ describe('WohnenExtraPage', () => {
                        city={city}
                        language={language}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -90,7 +77,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -103,7 +89,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={'invalid hash'}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
@@ -116,7 +101,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -132,7 +116,7 @@ describe('WohnenExtraPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedWohnenExtraPage cities={cities} extras={extras} offers={offers} />
+          <ConnectedWohnenExtraPage extras={extras} offers={offers} />
         </Provider>
       </ThemeProvider>
     )
@@ -142,7 +126,6 @@ describe('WohnenExtraPage', () => {
       city,
       offerHash,
       extras,
-      cities,
       offers,
       dispatch: expect.any(Function),
       t: expect.any(Function)
