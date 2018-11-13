@@ -4,6 +4,7 @@ const AssetsPlugin = require('assets-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
@@ -40,6 +41,7 @@ const config = {
   stats: 'minimal',
   // The list of plugins for Webpack compiler
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new StyleLintPlugin({
       files: '**/*.css',
       configFile: 'stylelint.config.js',
