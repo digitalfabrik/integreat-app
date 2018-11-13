@@ -30,12 +30,7 @@ type PropsType = {
   theme: ThemeType
 }
 
-type StateType = {
-  searchActive: boolean
-}
-
-class ModalHeader extends React.PureComponent<PropsType, StateType> {
-
+class ModalHeader extends React.PureComponent<PropsType> {
   getDescriptor (): { [key: string]: any } {
     // $FlowFixMe
     return this.props.scene.descriptor

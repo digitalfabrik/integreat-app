@@ -9,7 +9,7 @@ import DashboardContainer from '../../../routes/dashboard/containers/DashboardCo
 import withLayout from '../../layout/hocs/withLayout'
 import HeaderContainer from '../../layout/containers/HeaderContainer'
 import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
-import ImageViewModal from '../../../routes/image/components/ImageViewModal'
+import ImageViewModalContainer from '../../../routes/image/containers/ImageViewModalContainer'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
 import ModalHeaderContainer from '../../layout/containers/ModalHeaderContainer'
@@ -61,7 +61,7 @@ export default createStackNavigator(
       }
     },
     'ImageViewModal': {
-      screen: ImageViewModal,
+      screen: ImageViewModalContainer,
       navigationOptions: {
         header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
                                                                     scenes={headerProps.scenes} />
