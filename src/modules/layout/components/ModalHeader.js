@@ -19,12 +19,6 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const Title = styled.Text`
- font-size: 30px;
- color: black;
- margin-left: 10px;
-`
-
 const BoxShadow = styled.View`
   background-color: transparent;
   height: ${props => props.theme.dimensions.modalHeaderHeight};
@@ -40,11 +34,7 @@ type StateType = {
   searchActive: boolean
 }
 
-class Header extends React.PureComponent<PropsType, StateType> {
-  constructor () {
-    super()
-    this.state = {searchActive: false}
-  }
+class ModalHeader extends React.PureComponent<PropsType, StateType> {
 
   getDescriptor (): { [key: string]: any } {
     // $FlowFixMe
@@ -56,14 +46,11 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   render () {
-    const headerTitle = this.getDescriptor().headerTitle || ''
-
     return (
       <BoxShadow theme={this.props.theme}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
-            <Title>{headerTitle}</Title>
           </HorizontalLeft>
         </Horizontal>
       </BoxShadow>
@@ -71,4 +58,4 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 }
 
-export default Header
+export default ModalHeader
