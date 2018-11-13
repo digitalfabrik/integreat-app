@@ -22,10 +22,6 @@ const SubCategory = styled.div`
   & > * {
     width: calc(100% - 60px);
     text-align: start;
-    
-    @media ${props => props.theme.dimensions.smallViewport} {
-      width: calc(100% - 8px);
-    }
   }
 `
 
