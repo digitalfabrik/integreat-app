@@ -52,10 +52,6 @@ const SandBox = styled.div`
   & details > summary {
     padding: 0;
   }
-  
-  & strong {
-    color: ${props => props.theme.colors.themeDarkColor};
-  }
 `
 
 type PropsType = {|
