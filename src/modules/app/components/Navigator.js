@@ -40,28 +40,42 @@ export const LandingStack = createSwitchNavigator(
   }
 )
 
-export const ModalStack = createStackNavigator(
-  {
-    'PDFViewModal': PDFViewModal
-  },
-  {
-    navigationOptions: {
-      header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
-                                                                  scenes={headerProps.scenes} />
-    }
-  }
-)
-
 export default createStackNavigator(
   {
-    'LandingStack': LandingStack,
-    'ChangeLanguageModal': ChangeLanguageModalContainer,
-    'ModalStack': ModalStack,
-    'MapViewModal': MapViewModal,
-    'ImageViewModal': ImageViewModal
+    'LandingStack': {
+      screen: LandingStack,
+      navigationOptions: {
+        header: null
+      }
+    },
+    'ChangeLanguageModal': {
+      screen: ChangeLanguageModalContainer,
+      navigationOptions: {
+        header: null
+      }
+    },
+    'MapViewModal': {
+      screen: MapViewModal,
+      navigationOptions: {
+        header: null
+      }
+    },
+    'ImageViewModal': {
+      screen: ImageViewModal,
+      navigationOptions: {
+        header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
+                                                                    scenes={headerProps.scenes} />
+      }
+    },
+    'PDFViewModal': {
+      screen: PDFViewModal,
+      navigationOptions: {
+        header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
+                                                                    scenes={headerProps.scenes} />
+      }
+    }
   },
   {
-    mode: 'modal',
-    headerMode: 'none'
+    mode: 'modal'
   }
 )
