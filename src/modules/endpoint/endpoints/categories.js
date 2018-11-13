@@ -29,14 +29,9 @@ const endpoint: Endpoint<ParamsType, CategoriesMapModel> = new EndpointBuilder(C
           path: normalizePath(category.path),
           title: category.title,
           content: sanitizeHtml(category.content, {
-            allowedTags: ['p', 'br', 'strong', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'a', 'ol', 'li', 'details', 'summary', 'table', 'thead', 'tbody', 'th', 'td'],
-            allowedAttributes: {
-              'img': ['width', 'height', 'src']
-            },
-            allowedStyles: {
-              'img': ['width', 'height']
-            },
-            allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto']
+            allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
+            allowedTags: false,
+            allowedAttributes: false
           }),
           thumbnail: category.thumbnail,
           order: category.order,
