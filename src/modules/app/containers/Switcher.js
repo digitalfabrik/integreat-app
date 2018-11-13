@@ -52,9 +52,8 @@ export class Switcher extends React.Component<PropsType> {
   /**
    * Renders a failure component if a payload contains an error or a LoadingSpinner if the data is still being fetched
    * @param payloads The payloads to check for errors or fetching process
-   * @return {*}
    */
-  static renderFailureLoadingComponents = (payloads: Array<Payload<any>>): ?React.Node => {
+  static renderFailureLoadingComponents = (payloads: Array<Payload<any>>): React.Node => {
     const errorPayload = payloads.find(payload => payload.error)
     if (payloads.find(payload => (payload.isFetching || !payload.data) && !payload.error)) {
       return <LoadingSpinner />

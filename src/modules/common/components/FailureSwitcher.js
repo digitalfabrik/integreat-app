@@ -44,7 +44,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case 'poi':
         return <Failure goToPath={poisRoute.getRoutePath({city, language})}
                         goToMessage={'goTo.pois'}
-                        errorMessage={'not-found.pois'} />
+                        errorMessage={'not-found.poi'} />
     }
 
     throw new Error('Failed to find component to render a content error')
