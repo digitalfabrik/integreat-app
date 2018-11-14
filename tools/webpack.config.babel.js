@@ -6,15 +6,12 @@ module.exports.default = () => ({
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'integreat-api-client.js'
+    filename: 'index.js',
+    library: 'integreatapiclient',
+    libraryTarget: 'umd'
   },
-  externals: {
-    'lodash': {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      root: '_'
-    }
+  optimization: {
+    minimizer: []
   },
   module: {
     rules: [
