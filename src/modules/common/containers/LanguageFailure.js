@@ -7,7 +7,7 @@ import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import Caption from '../../../modules/common/components/Caption'
 
 import styled from 'styled-components'

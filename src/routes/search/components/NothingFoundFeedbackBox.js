@@ -5,7 +5,7 @@ import 'react-dropdown/style.css'
 
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import feedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/endpoints/feedback'
+import { feedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
