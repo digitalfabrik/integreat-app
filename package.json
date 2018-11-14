@@ -9,10 +9,7 @@
   "description": "The client for the integreat api.",
   "author": "Max Ammann <ammann@integreat-app.de>",
   "repository": "https://github.com/integreat/integreat-api-client",
-  "files": [
-    "index.js",
-    "index.js.flow"
-  ],
+  "files": [ "dist/" ],
   "publishConfig": {
     "access": "public"
   },
@@ -22,7 +19,9 @@
     "client",
     "endpoint"
   ],
-  "module": "index.js",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "sideEffects": false,
   "scripts": {
     "build": "node tools/build.js",
     "test": "jest --config jest.config.json",
@@ -51,11 +50,9 @@
     "@babel/plugin-proposal-throw-expressions": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
-    "@babel/plugin-transform-react-jsx": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.5",
     "@babel/preset-flow": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.1.5",
     "@integreat-app/eslint-config-babel": "^0.3.1",
     "@integreat-app/eslint-config-flow": "^0.3.2",
@@ -70,14 +67,12 @@
     "es-check": "^4.0.0",
     "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-config-standard-react": "^7.0.2",
     "eslint-plugin-flowtype": "^3.2.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.0.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
     "flow-bin": "^0.86.0",
     "flow-copy-source": "^2.0.2",
@@ -85,11 +80,13 @@
     "jest": "^23.6.0",
     "jest-junit": "^5.2.0",
     "webpack": "^4.25.1",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "he": "^1.2.0",
     "is-url": "^1.2.4",
+    "lodash-es": "^4.17.11",
     "moment": "^2.22.2"
   }
 }
