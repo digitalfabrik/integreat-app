@@ -3,14 +3,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 
 import Breadcrumbs from '../../../modules/common/components/Breadcrumbs'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'

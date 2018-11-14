@@ -3,18 +3,20 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedHelmet, { Helmet } from '../Helmet'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import LanguageModel from '../../../endpoint/models/LanguageModel'
-import EventModel from '../../../endpoint/models/EventModel'
-import CategoryModel from '../../../endpoint/models/CategoryModel'
+import {
+  CategoriesMapModel,
+  LanguageModel,
+  EventModel,
+  CategoryModel,
+  PoiModel,
+  DateModel,
+  CityModel,
+  LocationModel
+} from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import theme from '../../../theme/constants/theme'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
-import PoiModel from '../../../endpoint/models/PoiModel'
-import DateModel from '../../../endpoint/models/DateModel'
-import LocationModel from '../../../endpoint/models/LocationModel'
-import CityModel from '../../../endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
 
 describe('Helmet', () => {

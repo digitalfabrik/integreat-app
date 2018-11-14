@@ -3,9 +3,11 @@
 import * as React from 'react'
 import 'react-dropdown/style.css'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
-import feedbackEndpoint, {
+import {
+  CityModel,
+  ExtraModel,
+  feedbackEndpoint,
+  type FeedbackParamsTyp,
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -14,7 +16,7 @@ import feedbackEndpoint, {
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
@@ -26,7 +28,6 @@ import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
 import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
 
 type PropsType = {|
@@ -38,7 +39,7 @@ type PropsType = {|
   isPositiveRatingSelected: boolean,
   location: LocationState,
   extras: ?Array<ExtraModel>,
-  postFeedbackDataOverride?: FeedbackParamsType => void,
+  postFeedbackDataOverride?: FeedbackParamsTyp => void,
   closeFeedbackModal: () => void,
   onSubmit: () => void,
   t: TFunction
@@ -60,7 +61,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
-  postFeedbackData = (feedbackData: FeedbackParamsType) => {
+  postFeedbackData = (feedbackData: FeedbackParamsTyp) => {
     const {postFeedbackDataOverride} = this.props
 
     if (postFeedbackDataOverride) {
@@ -160,7 +161,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   /**
    * Returns the data that should be posted to the feedback endpoint
    */
-  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsTyp => {
     const {location, query, isPositiveRatingSelected, id, alias} = this.props
     const {city, language} = location.payload
 
