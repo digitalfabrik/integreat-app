@@ -1,7 +1,7 @@
 // @flow
 
 import moment from 'moment'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
+import DateModel from '../DateModel'
 
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
