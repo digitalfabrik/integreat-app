@@ -24,8 +24,8 @@ const renderPoisPage = ({pois}: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({pois: payloads.poisPayload})
 
-const getLanguageChangePath = ({location, pois}: GetLanguageChangePathParamsType) => {
-  const {city, language, poiId} = location.payload
+const getLanguageChangePath = ({location, pois, language}: GetLanguageChangePathParamsType) => {
+  const {city, poiId} = location.payload
   if (pois && poiId) {
     const poi = pois.find(_poi => _poi.path === location.pathname)
     return (poi && poi.availableLanguages.get(language)) || null
@@ -38,7 +38,7 @@ const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
   return `${poi ? poi.title : t('pageTitle')} - ${cityName}`
 }
 
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/:city/:language/locations/:poiId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

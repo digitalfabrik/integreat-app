@@ -5,7 +5,7 @@ exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = 
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
-    title="Test Angebot - Raumfrei - Augsburg"
+    getPageTitle={[Function]}
   />
   <Translate(OfferDetail)
     offer={
@@ -81,11 +81,6 @@ exports[`WohnenExtraPage should render failure offer if offer is not found 1`] =
 
 exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
 <Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-    title="Raumfrei - Augsburg"
-  />
   <Caption
     title="Raumfrei"
   />

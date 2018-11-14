@@ -27,7 +27,7 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => 
  * Matches / and /param
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/:param?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

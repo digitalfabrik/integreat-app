@@ -27,13 +27,13 @@ const renderSprungbrettPage = ({ sprungbrettJobs, extras }: RequiredPayloadType)
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
 
-const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
-  getRoutePath({city: location.payload.city, language: location.payload.language})
+const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitle')} - ${cityName}`
 
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

@@ -98,7 +98,7 @@ export class Switcher extends React.Component<PropsType> {
     return Switcher.renderFailureLoadingComponents(payloadsArray) ||
       <>
         <Helmet getPageTitle={route.getPageTitle} />
-        route.renderPage(payloads)
+        {route.renderPage(payloads)}
       </>
   }
 

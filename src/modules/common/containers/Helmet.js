@@ -15,7 +15,7 @@ import CityModel from '../../endpoint/models/CityModel'
 import type { GetPageTitleParamsType } from '../../app/routes/types'
 import type { TFunction } from 'react-i18next'
 import compose from 'lodash/fp/compose'
-import { withNamespaces } from 'react-i18next'
+import { translate } from 'react-i18next'
 import { LANDING_ROUTE } from '../../app/routes/landing'
 import categoriesRoute from '../../app/routes/categories'
 
@@ -35,7 +35,7 @@ export class Helmet extends React.Component<PropsType> {
     const {languages, events, pois, categories, location} = this.props
     return languages && languages
       .map(language => {
-        const path = getLanguageChangePath(location.type)({events, pois, categories, location})
+        const path = getLanguageChangePath(location.type)({events, pois, categories, location, language: language.code})
         return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
       })
   }
@@ -76,5 +76,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withNamespaces('app')
+  translate('app')
 )(Helmet)

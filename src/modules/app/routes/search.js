@@ -24,8 +24,8 @@ const renderSearchPage = ({ categories, cities }: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
 
-const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
-  getRoutePath({city: location.payload.city, language: location.payload.language})
+const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language})
 
 const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
   `${t('pageTitle')} - ${cityName}`
@@ -34,7 +34,7 @@ const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
  * SearchRoute, matches /augsburg/de/search
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/:city/:language/search',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

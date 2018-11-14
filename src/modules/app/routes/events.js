@@ -21,8 +21,8 @@ const renderPage = ({ events }: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ events: payloads.eventsPayload })
 
-const getLanguageChangePath = ({location, events}: GetLanguageChangePathParamsType) => {
-  const {city, language, eventId} = location.payload
+const getLanguageChangePath = ({location, events, language}: GetLanguageChangePathParamsType) => {
+  const {city, eventId} = location.payload
   if (events && eventId) {
     const event = events.find(_event => _event.path === location.pathname)
     return (event && event.availableLanguages.get(language)) || null
@@ -39,7 +39,7 @@ const getPageTitle = ({t, events, cityName, pathname}: GetPageTitleParamsType) =
  * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = '/:city/:language/events/:eventId?'
+export const route: RouterRouteType = '/:city/:language/events/:eventId?'
 
 const eventsRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
   name: EVENTS_ROUTE,

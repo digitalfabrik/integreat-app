@@ -7,7 +7,10 @@ exports[`Switcher layout should render a layout with a footer if the current rou
   footer={<Translate(GeneralFooter) />}
   header={false}
 >
-  <Connect(Translate(LandingPage))
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
+  <Connect(LandingPage)
     cities={
       Array [
         CityModel {
@@ -35,13 +38,19 @@ exports[`Switcher layout should render a layout with a header and a footer as de
     />
   }
 >
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <MainDisclaimerPage />
 </Layout>
 `;
 
 exports[`Switcher layout should render a location layout if the current route is a location layout route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(Translate(CategoriesPage))
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
+  <Connect(CategoriesPage)
     categories={
       CategoriesMapModel {
         "_categories": Map {
@@ -77,7 +86,10 @@ exports[`Switcher layout should render a location layout if the current route is
 
 exports[`Switcher should get the right page if data has been fetched and is the categories route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(Translate(CategoriesPage))
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
+  <Connect(CategoriesPage)
     categories={
       CategoriesMapModel {
         "_categories": Map {
@@ -113,19 +125,10 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the disclaimer route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(Translate(DisclaimerPage))
-    cities={
-      Array [
-        CityModel {
-          "_code": "city1",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Mambo No. 5",
-          "_sortingName": "Mambo",
-        },
-      ]
-    }
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
+  <Connect(DisclaimerPage)
     disclaimer={
       PageModel {
         "_content": "this is a test content",
@@ -140,19 +143,10 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the events route 1`] = `
 <Connect(LocationLayout)>
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <Connect(Translate(EventsPage))
-    cities={
-      Array [
-        CityModel {
-          "_code": "city1",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Mambo No. 5",
-          "_sortingName": "Mambo",
-        },
-      ]
-    }
     events={
       Array [
         EventModel {
@@ -188,19 +182,10 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the extras route 1`] = `
 <Connect(LocationLayout)>
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <Connect(Translate(ExtrasPage))
-    cities={
-      Array [
-        CityModel {
-          "_code": "city1",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Mambo No. 5",
-          "_sortingName": "Mambo",
-        },
-      ]
-    }
     extras={
       Array [
         ExtraModel {
@@ -230,6 +215,9 @@ exports[`Switcher should get the right page if data has been fetched and is the 
   footer={false}
   header={false}
 >
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <Component
     cities={
       Array [
@@ -254,7 +242,10 @@ exports[`Switcher should get the right page if data has been fetched and is the 
   footer={<Translate(GeneralFooter) />}
   header={false}
 >
-  <Connect(Translate(LandingPage))
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
+  <Connect(LandingPage)
     cities={
       Array [
         CityModel {
@@ -282,25 +273,19 @@ exports[`Switcher should get the right page if data has been fetched and is the 
     />
   }
 >
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <MainDisclaimerPage />
 </Layout>
 `;
 
 exports[`Switcher should get the right page if data has been fetched and is the pois route 1`] = `
 <Connect(LocationLayout)>
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <Connect(Translate(PoisPage))
-    cities={
-      Array [
-        CityModel {
-          "_code": "city1",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Mambo No. 5",
-          "_sortingName": "Mambo",
-        },
-      ]
-    }
     pois={
       Array [
         PoiModel {
@@ -331,6 +316,9 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the search route 1`] = `
 <Connect(LocationLayout)>
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <Connect(Translate(SearchPage))
     categories={
       CategoriesMapModel {
@@ -367,19 +355,10 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the sprungbrett route 1`] = `
 <Connect(LocationLayout)>
-  <Connect(Translate(SprungbrettExtraPage))
-    cities={
-      Array [
-        CityModel {
-          "_code": "city1",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Mambo No. 5",
-          "_sortingName": "Mambo",
-        },
-      ]
-    }
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
+  <Translate(SprungbrettExtraPage)
     extras={
       Array [
         ExtraModel {
@@ -416,19 +395,10 @@ exports[`Switcher should get the right page if data has been fetched and is the 
 
 exports[`Switcher should get the right page if data has been fetched and is the wohnen route 1`] = `
 <Connect(LocationLayout)>
+  <Connect(Translate(Helmet))
+    getPageTitle={[Function]}
+  />
   <Connect(Translate(WohnenExtraPage))
-    cities={
-      Array [
-        CityModel {
-          "_code": "city1",
-          "_eventsEnabled": true,
-          "_extrasEnabled": false,
-          "_live": true,
-          "_name": "Mambo No. 5",
-          "_sortingName": "Mambo",
-        },
-      ]
-    }
     extras={
       Array [
         ExtraModel {
@@ -514,4 +484,4 @@ exports[`Switcher should return a failure if there was an error during fetching 
 />
 `;
 
-exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<ForwardRef />`
+exports[`Switcher should return a spinner if the data has not been fetched yet 1`] = `<ForwardRef />`;

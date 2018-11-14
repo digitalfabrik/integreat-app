@@ -16,6 +16,7 @@ import DateModel from '../../../endpoint/models/DateModel'
 import LocationModel from '../../../endpoint/models/LocationModel'
 import CityModel from '../../../endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
+import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -104,9 +105,8 @@ describe('Helmet', () => {
   ]
 
   const categories = new CategoriesMapModel(categoryModels)
-  const title = 'Random title'
 
-  const location = {pathname: '/augsburg/de/', payload: {city, language}}
+  const location = {pathname: '/augsburg/de/', payload: {city, language}, type: CATEGORIES_ROUTE}
   const t = (key: ?string): string => key || ''
 
   const getPageTitle = () => 'pageTitle'
@@ -169,8 +169,9 @@ describe('Helmet', () => {
       events,
       categories,
       pois,
-      title,
       cities,
+      getPageTitle: expect.any(Function),
+      t: expect.any(Function),
       dispatch: expect.any(Function)
     })
   })
