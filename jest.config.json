@@ -1,0 +1,25 @@
+{
+  "rootDir": "src/",
+  "verbose": true,
+  "automock": false,
+  "setupFiles": [
+    "<rootDir>/setupTest.js"
+  ],
+  "moduleFileExtensions": [
+    "js"
+  ],
+  "moduleDirectories": [
+    "node_modules"
+  ],
+  "globals": {
+    "__DEV__": false
+  },
+  "collectCoverageFrom": [
+    "**/*.{js,jsx}"
+  ],
+  "coverageDirectory": "../__coverage__",
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ],
+  "reporters": [ "default", "jest-junit" ]
+}
