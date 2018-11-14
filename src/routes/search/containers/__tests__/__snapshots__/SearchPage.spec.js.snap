@@ -2,9 +2,6 @@
 
 exports[`SearchPage should match snapshot 1`] = `
 <div>
-  <Connect(Helmet)
-    title="pageTitle - Augsburg"
-  />
   <SearchInput
     filterText=""
     onFilterTextChange={[Function]}

@@ -41,7 +41,8 @@ export class LanguageSelector extends React.Component<PropsType> {
     return (
       languages &&
       languages.map(language => {
-        const changePath = getLanguageChangePath(location.type)({location, categories, events, pois})
+        const changePath = getLanguageChangePath(location.type)(
+          {location, categories, events, pois, language: language.code})
 
         return new SelectorItemModel({
           code: language.code,

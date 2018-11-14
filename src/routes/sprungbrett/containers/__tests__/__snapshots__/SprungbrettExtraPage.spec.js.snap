@@ -7,41 +7,36 @@ exports[`SprungbrettExtraPage should render error if extra is not supported 1`] 
 `;
 
 exports[`SprungbrettExtraPage should render list 1`] = `
-<Fragment>
-  <Connect(Helmet)
-    title="Sprungbrett - Augsburg"
-  />
-  <List
-    items={
-      Array [
-        SprungbrettModel {
-          "_id": 0,
-          "_isApprenticeship": true,
-          "_isEmployment": true,
-          "_location": "Augsburg",
-          "_title": "WebDeveloper",
-          "_url": "http://awesome-jobs.domain",
-        },
-        SprungbrettModel {
-          "_id": 1,
-          "_isApprenticeship": false,
-          "_isEmployment": true,
-          "_location": "Augsburg",
-          "_title": "BackendDeveloper",
-          "_url": "http://awesome-jobs.domain",
-        },
-        SprungbrettModel {
-          "_id": 2,
-          "_isApprenticeship": true,
-          "_isEmployment": false,
-          "_location": "Augsburg",
-          "_title": "Freelancer",
-          "_url": "http://awesome-jobs.domain",
-        },
-      ]
-    }
-    noItemsMessage="noOffersAvailable"
-    renderItem={[Function]}
-  />
-</Fragment>
+<List
+  items={
+    Array [
+      SprungbrettModel {
+        "_id": 0,
+        "_isApprenticeship": true,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "WebDeveloper",
+        "_url": "http://awesome-jobs.domain",
+      },
+      SprungbrettModel {
+        "_id": 1,
+        "_isApprenticeship": false,
+        "_isEmployment": true,
+        "_location": "Augsburg",
+        "_title": "BackendDeveloper",
+        "_url": "http://awesome-jobs.domain",
+      },
+      SprungbrettModel {
+        "_id": 2,
+        "_isApprenticeship": true,
+        "_isEmployment": false,
+        "_location": "Augsburg",
+        "_title": "Freelancer",
+        "_url": "http://awesome-jobs.domain",
+      },
+    ]
+  }
+  noItemsMessage="noOffersAvailable"
+  renderItem={[Function]}
+/>
 `;

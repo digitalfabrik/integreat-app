@@ -31,8 +31,8 @@ const renderCategoriesPage = ({ categories, cities }: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
 
-const getLanguageChangePath = ({location, categories}: GetLanguageChangePathParamsType) => {
-  const {city, language} = location.payload
+const getLanguageChangePath = ({location, categories, language}: GetLanguageChangePathParamsType) => {
+  const {city} = location.payload
   if (categories) {
     const category = categories.findCategoryByPath(location.pathname)
     if (category && category.id !== 0) {
@@ -51,7 +51,7 @@ const getPageTitle = ({t, categories, cityName, pathname}: GetPageTitleParamsTyp
  * CategoriesRoute, matches /augsburg/de*
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/:city/:language/:categoryPath*',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

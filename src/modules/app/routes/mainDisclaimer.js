@@ -17,7 +17,7 @@ const renderMainDisclaimerPage = () => <MainDisclaimerPage />
  * MainDisclaimerRoute, matches /disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = '/disclaimer'
+export const route: RouterRouteType = '/disclaimer'
 
 const mainDisclaimerRoute: Route<void, void> = new Route({
   name: MAIN_DISCLAIMER_ROUTE,

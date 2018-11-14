@@ -23,8 +23,8 @@ const renderExtrasPage = ({extras}: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({extras: payloads.extrasPayload})
 
-const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
-  getRoutePath({city: location.payload.city, language: location.payload.language})
+const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitle')} - ${cityName}`
@@ -33,7 +33,7 @@ const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/:city/:language/extras/:extraId?',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

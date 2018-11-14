@@ -31,7 +31,7 @@ const getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitle')
  * LandingRoute, matches /landing/de
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/landing/:language',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     await fetchData(citiesEndpoint, dispatch, getState().cities)

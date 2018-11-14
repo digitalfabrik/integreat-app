@@ -24,7 +24,7 @@ export type AllPayloadsType = {|
 |}
 
 export type GetLanguageChangePathParamsType = {|location: Location, events?: Array<EventModel>,
-  categories?: CategoriesMapModel, pois?: Array<PoiModel>|}
+  categories?: CategoriesMapModel, pois?: Array<PoiModel>, language: string|}
 
 export type GetLanguageChangePathType = GetLanguageChangePathParamsType => string | null
 

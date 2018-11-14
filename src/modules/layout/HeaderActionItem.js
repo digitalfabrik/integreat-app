@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import type { Action } from 'redux-first-router'
 
 /**
  * HeaderActionItem is the data class which needs to be supplied to HeaderActionBar.

@@ -4,7 +4,6 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
 import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import CityModel from '../../endpoint/models/CityModel'
 import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
 import React from 'react'
 import Payload from '../../endpoint/Payload'
@@ -22,19 +21,19 @@ export const WOHNEN_EXTRA = 'wohnen'
 const getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
   `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
-const renderWohnenPage =  ({offers, extras}: RequiredPayloadType) =>
+const renderWohnenPage = ({offers, extras}: RequiredPayloadType) =>
   <WohnenExtraPage offers={offers.data} extras={extras.data} />
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
   ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
-const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
-  getRoutePath({city: location.payload.city, language: location.payload.language})
+const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitle')} - ${cityName}`
 
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()

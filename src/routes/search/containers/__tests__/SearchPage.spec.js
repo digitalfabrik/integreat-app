@@ -4,11 +4,7 @@ import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
 import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-import createReduxStore from '../../../../modules/app/createReduxStore'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/theme/constants/theme'
+import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
@@ -85,20 +81,11 @@ describe('SearchPage', () => {
   })
 
   it('should filter correctly', () => {
-    const store = createReduxStore({
-      categories: {data: categories}
-    })
-
-    const tree = mount(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-        <SearchPage cities={cities}
-                    categories={categories}
-                    location={location}
-                    t={t} />
-        </Provider></ThemeProvider>
+    const tree = shallow(
+      <SearchPage cities={cities} location={location} categories={categories} t={t} />
     )
-    const searchPage = tree.find(SearchPage).instance()
+
+    const searchPage = tree.instance()
     const searchInputProps = tree.find('SearchInput').props()
 
     // the root category should not be returned

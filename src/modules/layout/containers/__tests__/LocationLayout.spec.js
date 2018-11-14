@@ -11,7 +11,7 @@ import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
-import { SEARCH_ROUTE } from '../../../app/routes/search'
+import { SEARCH_ROUTE, route as searchRoute } from '../../../app/routes/search'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
 import PageModel from '../../../endpoint/models/PageModel'
@@ -159,8 +159,9 @@ describe('LocationLayout', () => {
       disclaimer: {data: disclaimer},
       viewport: {is: {small: false}},
       cities: {data: null},
-      darkMode: true
-    })
+      darkMode: true,
+      location
+    }, {[SEARCH_ROUTE]: searchRoute})
     store.getState().location = location
 
     const tree = mount(

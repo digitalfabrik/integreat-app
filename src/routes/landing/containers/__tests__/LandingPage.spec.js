@@ -5,6 +5,8 @@ import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
+import { LANDING_ROUTE } from '../../../../modules/app/routes/landing'
+import { routesMap } from '../../../../modules/app/routes'
 
 describe('LandingPage', () => {
   const cities = [
@@ -25,7 +27,7 @@ describe('LandingPage', () => {
   it('should map state to props', () => {
     const language = 'en'
 
-    const location = {payload: {language}}
+    const location = {type: LANDING_ROUTE, payload: {language}, routesMap}
 
     const mockStore = configureMockStore()
     const store = mockStore({

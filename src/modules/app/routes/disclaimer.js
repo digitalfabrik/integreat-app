@@ -23,8 +23,8 @@ const renderDisclaimerPage = ({disclaimer}: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType) =>
   ({disclaimer: payloads.disclaimerPayload})
 
-const getLanguageChangePath = ({location}: GetLanguageChangePathParamsType) =>
-  getRoutePath({city: location.payload.city, language: location.payload.language})
+const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getRoutePath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('disclaimerPageTitle')} - ${cityName}`
@@ -33,7 +33,7 @@ const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-const route: RouterRouteType = {
+export const route: RouterRouteType = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
