@@ -35,7 +35,7 @@ type PropsType = {
   theme: ThemeType
 }
 
-class ModalHeader extends React.PureComponent<PropsType> {
+class TransparentHeader extends React.PureComponent<PropsType> {
   getDescriptor (): { [key: string]: any } {
     // $FlowFixMe
     return this.props.scene.descriptor
@@ -58,4 +58,4 @@ class ModalHeader extends React.PureComponent<PropsType> {
   }
 }
 
-export default ModalHeader
+export default TransparentHeader

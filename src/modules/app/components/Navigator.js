@@ -12,7 +12,7 @@ import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModalContainer from '../../../routes/image/containers/ImageViewModalContainer'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
-import ModalHeaderContainer from '../../layout/containers/ModalHeaderContainer'
+import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
