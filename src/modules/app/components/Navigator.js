@@ -17,6 +17,18 @@ import ModalHeaderContainer from '../../layout/containers/ModalHeaderContainer'
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
+const createHeaderNavigatorItem = (component, header = null) => {
+  return {
+    screen: component,
+    navigationOptions: {
+      header: header
+    }
+  }
+}
+
+const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
+                                                                              scenes={headerProps.scenes} />
+
 export const AppStack = createStackNavigator(
   {
     'Dashboard': LayoutedDashboardContainer,
@@ -42,38 +54,11 @@ export const LandingStack = createSwitchNavigator(
 
 export default createStackNavigator(
   {
-    'LandingStack': {
-      screen: LandingStack,
-      navigationOptions: {
-        header: null
-      }
-    },
-    'ChangeLanguageModal': {
-      screen: ChangeLanguageModalContainer,
-      navigationOptions: {
-        header: null
-      }
-    },
-    'MapViewModal': {
-      screen: MapViewModal,
-      navigationOptions: {
-        header: null
-      }
-    },
-    'ImageViewModal': {
-      screen: ImageViewModalContainer,
-      navigationOptions: {
-        header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
-                                                                    scenes={headerProps.scenes} />
-      }
-    },
-    'PDFViewModal': {
-      screen: PDFViewModal,
-      navigationOptions: {
-        header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
-                                                                    scenes={headerProps.scenes} />
-      }
-    }
+    'LandingStack': createHeaderNavigatorItem(LandingStack),
+    'ChangeLanguageModal': createHeaderNavigatorItem(ChangeLanguageModalContainer),
+    'MapViewModal': createHeaderNavigatorItem(MapViewModal),
+    'ImageViewModal': createHeaderNavigatorItem(ImageViewModalContainer, transparentHeader),
+    'PDFViewModal': createHeaderNavigatorItem(PDFViewModal, transparentHeader)
   },
   {
     mode: 'modal'
