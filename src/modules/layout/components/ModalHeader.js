@@ -21,6 +21,11 @@ const HorizontalLeft = styled.View`
 
 const BoxShadow = styled.View`
   background-color: transparent;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
   height: ${props => props.theme.dimensions.modalHeaderHeight};
 `
 
