@@ -21,7 +21,7 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
   getSearchPath({city: location.payload.city, language})
 
 const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
-  `${t('pageTitle')} - ${cityName}`
+  `${t('pageTitles.search')} - ${cityName}`
 
 const searchRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
   renderPage: renderSearchPage,

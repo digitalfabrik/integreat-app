@@ -14,7 +14,7 @@ const renderLandingPage = ({cities}: RequiredPayloadType) =>
 
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => ({cities: payloads.citiesPayload})
 
-const getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitle')
+const getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.landing')
 
 const landingRouteHelper: Route<RequiredPayloadType> = new Route({
   renderPage: renderLandingPage,

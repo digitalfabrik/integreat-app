@@ -27,7 +27,7 @@ const getLanguageChangePath = ({location, events, language}: GetLanguageChangePa
 
 const getPageTitle = ({t, events, cityName, pathname}: GetPageTitleParamsType) => {
   const event = events && events.find(event => event.path === pathname)
-  return `${event ? event.title : t('pageTitle')} - ${cityName}`
+  return `${event ? event.title : t('pageTitles.events')} - ${cityName}`
 }
 
 const eventsRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({

@@ -21,7 +21,7 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
   getWohnenPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitle')} - ${cityName}`
+  `${t('pageTitles.wohnen')} - ${cityName}`
 
 const wohnenRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
   renderPage: renderWohnenPage,

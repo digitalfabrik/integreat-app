@@ -21,7 +21,7 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
   getExtrasPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitle')} - ${cityName}`
+  `${t('pageTitles.extras')} - ${cityName}`
 
 const extrasRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
   renderPage: renderExtrasPage,
