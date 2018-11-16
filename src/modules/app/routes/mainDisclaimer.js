@@ -1,31 +1,15 @@
 // @flow
 
-import MainDisclaimerPage from '../../../routes/main-disclaimer/components/MainDisclaimerPage'
-import React from 'react'
-import Route from './Route'
-import { Route as RouterRouteType } from 'redux-first-router'
+import { Route } from 'redux-first-router'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-const PAGE_TITLE = 'Impressum und Datenschutz - Integreat'
-
-const getRoutePath = (): string => '/disclaimer'
-
-const renderMainDisclaimerPage = () => <MainDisclaimerPage />
+export const getMainDisclaimerPath = (): string => '/disclaimer'
 
 /**
  * MainDisclaimerRoute, matches /disclaimer
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
-export const route: RouterRouteType = '/disclaimer'
-
-const mainDisclaimerRoute: Route<void, void> = new Route({
-  name: MAIN_DISCLAIMER_ROUTE,
-  getRoutePath,
-  renderPage: renderMainDisclaimerPage,
-  route,
-  getRequiredPayloads: () => {},
-  getPageTitle: () => PAGE_TITLE
-})
+export const mainDisclaimerRoute: Route = '/disclaimer'
 
 export default mainDisclaimerRoute

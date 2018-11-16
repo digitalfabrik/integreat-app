@@ -10,8 +10,8 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import { compose } from 'recompose'
-import sprungbrettRoute, { SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
-import wohnenRoute, { WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
+import { getSprungbrettPath, SPRUNGBRETT_EXTRA } from '../../../modules/app/routes/sprungbrett'
+import { getWohnenPath, WOHNEN_EXTRA } from '../../../modules/app/routes/wohnen'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 
@@ -33,9 +33,9 @@ export class ExtrasPage extends React.Component<PropsType> {
       extra => {
         let path = extra.path
         if (extra.alias === SPRUNGBRETT_EXTRA) {
-          path = sprungbrettRoute.getRoutePath({city, language})
+          path = getSprungbrettPath({city, language})
         } else if (extra.alias === WOHNEN_EXTRA) {
-          path = wohnenRoute.getRoutePath({city, language})
+          path = getWohnenPath({city, language})
         }
 
         return new TileModel({

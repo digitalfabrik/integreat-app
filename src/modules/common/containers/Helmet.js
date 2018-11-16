@@ -17,7 +17,7 @@ import type { TFunction } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 import { LANDING_ROUTE } from '../../app/routes/landing'
-import categoriesRoute from '../../app/routes/categories'
+import { getCategoriesPath } from '../../app/routes/categories'
 
 type PropsType = {|
   getPageTitle: GetPageTitleParamsType => string,
@@ -33,9 +33,10 @@ type PropsType = {|
 export class Helmet extends React.Component<PropsType> {
   getLanguageLinks (): React.Node {
     const {languages, events, pois, categories, location} = this.props
-    return languages && languages
+    const getPath = getLanguageChangePath(location.type)
+    return getPath && languages && languages
       .map(language => {
-        const path = getLanguageChangePath(location.type)({events, pois, categories, location, language: language.code})
+        const path = getPath({events, pois, categories, location, language: language.code})
         return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
       })
   }
@@ -45,7 +46,7 @@ export class Helmet extends React.Component<PropsType> {
     const {type, pathname} = location
     const {city, language} = location.payload
 
-    if (categoriesRoute.getRoutePath({city, language}) === pathname || type === LANDING_ROUTE) {
+    if (getCategoriesPath({city, language}) === pathname || type === LANDING_ROUTE) {
       return t('metaDescription')
     }
   }

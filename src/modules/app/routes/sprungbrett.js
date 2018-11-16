@@ -4,36 +4,15 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import type { Dispatch, GetState, Route as RouterRouteType } from 'redux-first-router'
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
-import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
-import React from 'react'
-import Payload from '../../endpoint/Payload'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
-import Route from './Route'
 import fetchData from '../fetchData'
-
-type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, sprungbrettJobs: Payload<Array<SprungbrettModel>>|}
-type RouteParamsType = {|city: string, language: string|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
-const getRoutePath = ({city, language}: RouteParamsType): string =>
+export const getSprungbrettPath = ({city, language}: {|city: string, language: string|}): string =>
   `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
-const renderSprungbrettPage = ({ sprungbrettJobs, extras }: RequiredPayloadType) =>
-  <SprungbrettExtraPage sprungbrettJobs={sprungbrettJobs.data} extras={extras.data} />
-
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
-
-const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
-  getRoutePath({city: location.payload.city, language})
-
-const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitle')} - ${cityName}`
-
-export const route: RouterRouteType = {
+export const sprungbrettRoute: RouterRouteType = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
@@ -53,15 +32,5 @@ export const route: RouterRouteType = {
     }
   }
 }
-
-const sprungbrettRoute: Route<RequiredPayloadType, RouteParamsType> = new Route({
-  name: SPRUNGBRETT_ROUTE,
-  getRoutePath,
-  renderPage: renderSprungbrettPage,
-  route,
-  getRequiredPayloads,
-  getLanguageChangePath,
-  getPageTitle
-})
 
 export default sprungbrettRoute

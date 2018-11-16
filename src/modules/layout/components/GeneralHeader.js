@@ -4,7 +4,7 @@ import React from 'react'
 import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItem from '../HeaderActionItem'
-import i18nRoute from '../../app/routes/i18nRedirect'
+import { getI18nRedirectPath } from '../../app/routes/i18nRedirect'
 
 type PropsType = {|
   viewportSmall: boolean
@@ -13,8 +13,8 @@ type PropsType = {|
 class GeneralHeader extends React.Component<PropsType> {
   render () {
     return <Header viewportSmall={this.props.viewportSmall}
-                   logoHref={i18nRoute.getRoutePath({})}
-                   actionItems={[new HeaderActionItem({href: i18nRoute.getRoutePath({}), iconSrc: landingIcon})]} />
+                   logoHref={getI18nRedirectPath({})}
+                   actionItems={[new HeaderActionItem({href: getI18nRedirectPath({}), iconSrc: landingIcon})]} />
   }
 }
 
