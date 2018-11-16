@@ -1,13 +1,13 @@
 // @flow
 
-import mainDisclaimerRoute from '../mainDisclaimer'
+import mainDisclaimerRoute, { getMainDisclaimerPath } from '../mainDisclaimer'
 
 describe('mainDisclaimer route', () => {
   it('should create the right path', () => {
-    expect(mainDisclaimerRoute.getRoutePath()).toBe('/disclaimer')
+    expect(getMainDisclaimerPath()).toBe('/disclaimer')
   })
 
   it('should have the right path', () => {
-    expect(mainDisclaimerRoute.route).toBe('/disclaimer')
+    expect(mainDisclaimerRoute).toBe('/disclaimer')
   })
 })
