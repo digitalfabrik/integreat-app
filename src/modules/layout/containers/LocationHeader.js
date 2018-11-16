@@ -11,11 +11,10 @@ import landingIcon from '../assets/location-icon.svg'
 import Header from '../../../modules/layout/components/Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import HeaderActionItem from '../HeaderActionItem'
-import extrasRoute, { EXTRAS_ROUTE } from '../../app/routes/extras'
-import categoriesRoute, { CATEGORIES_ROUTE } from '../../app/routes/categories'
-import eventsRoute, { EVENTS_ROUTE } from '../../app/routes/events'
-import searchRoute from '../../app/routes/search'
-import landingRoute from '../../app/routes/landing'
+import { EXTRAS_ROUTE, getExtrasPath } from '../../app/routes/extras'
+import { CATEGORIES_ROUTE, getCategoriesPath } from '../../app/routes/categories'
+import { EVENTS_ROUTE, getEventsPath } from '../../app/routes/events'
+import { getSearchPath } from '../../app/routes/search'
 import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
@@ -24,6 +23,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
+import { getLandingPath } from '../../app/routes/landing'
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -41,12 +41,12 @@ export class LocationHeader extends React.Component<PropsType> {
     const { city, language } = location.payload
     return [
       new HeaderActionItem({
-        href: searchRoute.getRoutePath({city, language}),
+        href: getSearchPath({city, language}),
         iconSrc: searchIcon,
         text: t('search')
       }),
       new HeaderActionItem({
-        href: landingRoute.getRoutePath({language}),
+        href: getLandingPath({language}),
         iconSrc: landingIcon,
         text: t('changeLocation')
       }),
@@ -70,7 +70,7 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='extras'
-          href={extrasRoute.getRoutePath({city, language})}
+          href={getExtrasPath({city, language})}
           selected={[EXTRAS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(currentRoute)}
           text={t('extras')}
           active
@@ -82,7 +82,7 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='categories'
-          href={categoriesRoute.getRoutePath({city, language})}
+          href={getCategoriesPath({city, language})}
           selected={currentRoute === CATEGORIES_ROUTE}
           text={t('categories')}
           active
@@ -94,7 +94,7 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='events'
-          href={eventsRoute.getRoutePath({city, language})}
+          href={getEventsPath({city, language})}
           selected={currentRoute === EVENTS_ROUTE}
           text={t('news')}
           tooltip={t('noNews')}
@@ -112,7 +112,7 @@ export class LocationHeader extends React.Component<PropsType> {
     return (
       <Header
         viewportSmall={this.props.viewportSmall}
-        logoHref={categoriesRoute.getRoutePath({city, language})}
+        logoHref={getCategoriesPath({city, language})}
         actionItems={this.getActionItems()}
         navigationItems={this.getNavigationItems()}
         onStickyTopChanged={this.props.onStickyTopChanged}

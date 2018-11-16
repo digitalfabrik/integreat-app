@@ -4,16 +4,16 @@ import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
-import eventsRoute from '../../app/routes/events'
-import extrasRoute from '../../app/routes/extras'
-import categoriesRoute from '../../app/routes/categories'
+import { getEventsPath } from '../../app/routes/events'
+import { getExtrasPath } from '../../app/routes/extras'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import poisRoute from '../../app/routes/pois'
+import { getPoisPath } from '../../app/routes/pois'
+import { getCategoriesPath } from '../../app/routes/categories'
 
 type PropsType = {|
   error: Error,
@@ -30,19 +30,19 @@ export class FailureSwitcher extends React.Component<PropsType> {
     const {city, language} = error
     switch (error.type) {
       case 'category':
-        return <Failure goToPath={categoriesRoute.getRoutePath({city, language})}
+        return <Failure goToPath={getCategoriesPath({city, language})}
                         goToMessage={'goTo.categories'}
                         errorMessage={'not-found.category'} />
       case 'event':
-        return <Failure goToPath={eventsRoute.getRoutePath({city, language})}
+        return <Failure goToPath={getEventsPath({city, language})}
                         goToMessage={'goTo.events'}
                         errorMessage={'not-found.event'} />
       case 'extra':
-        return <Failure goToPath={extrasRoute.getRoutePath({city, language})}
+        return <Failure goToPath={getExtrasPath({city, language})}
                         goToMessage={'goTo.extras'}
                         errorMessage={'not-found.extra'} />
       case 'poi':
-        return <Failure goToPath={poisRoute.getRoutePath({city, language})}
+        return <Failure goToPath={getPoisPath({city, language})}
                         goToMessage={'goTo.pois'}
                         errorMessage={'not-found.poi'} />
     }

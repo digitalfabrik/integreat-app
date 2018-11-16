@@ -5,7 +5,7 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
 import Footer from './Footer'
-import mainDisclaimerRoute from '../../app/routes/mainDisclaimer'
+import { getMainDisclaimerPath } from '../../app/routes/mainDisclaimer'
 import CleanAnchor from '../../common/components/CleanAnchor'
 import CleanLink from '../../common/components/CleanLink'
 
@@ -18,7 +18,7 @@ class GeneralFooter extends React.Component<PropsType> {
     const {t} = this.props
     return (
       <Footer>
-        <CleanLink to={mainDisclaimerRoute.getRoutePath()}>{t('imprintAndContact')}</CleanLink>
+        <CleanLink to={getMainDisclaimerPath()}>{t('imprintAndContact')}</CleanLink>
         <CleanAnchor href={'https://integreat-app.de/datenschutz/'}>{t('privacy')}</CleanAnchor>
       </Footer>
     )

@@ -6,11 +6,13 @@ import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
-import { goToLanding } from '../../../../modules/app/routes/landing'
 import { goToNotFound } from '../../../../modules/app/routes/notFound'
-import { goToCategories } from '../../../../modules/app/routes/categories'
 import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/routes/i18nRedirect'
 import configureStore from 'redux-mock-store'
+import { pathToAction } from 'redux-first-router'
+import { routesMap } from '../../../../modules/app/routes'
+import { getLandingPath } from '../../../../modules/app/routes/landing'
+import { getCategoriesPath } from '../../../../modules/app/routes/categories'
 
 describe('I18nRedirectPage', () => {
   const language = 'de'
@@ -32,13 +34,13 @@ describe('I18nRedirectPage', () => {
         <I18nRedirectPage cities={cities} redirect={() => {}} i18n={{language}} />
       ).instance()
 
-      expect(instanceWithoutParam.getRedirectAction()).toEqual(goToLanding(language))
+      expect(instanceWithoutParam.getRedirectAction()).toEqual(pathToAction(getLandingPath({language}), routesMap))
 
       const instanceWithLandingParam = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} param='landing' i18n={{language}} />
       ).instance()
 
-      expect(instanceWithLandingParam.getRedirectAction()).toEqual(goToLanding(language))
+      expect(instanceWithLandingParam.getRedirectAction()).toEqual(pathToAction(getLandingPath({language}), routesMap))
     })
 
     it('should return goToCategories action if the param is a city', () => {
@@ -46,7 +48,8 @@ describe('I18nRedirectPage', () => {
         <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' i18n={{language}} />
       ).instance()
 
-      expect(instance.getRedirectAction()).toEqual(goToCategories('random_city', language))
+      expect(instance.getRedirectAction()).toEqual(
+        pathToAction(getCategoriesPath({city: 'random_city', language}), routesMap))
     })
 
     it('should return goToNotFound action as default', () => {
