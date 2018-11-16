@@ -27,7 +27,7 @@ const getLanguageChangePath = ({location, pois, language}: GetLanguageChangePath
 
 const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
   const poi = pois && pois.find(poi => poi.path === location.pathname)
-  return `${poi ? poi.title : t('pageTitle')} - ${cityName}`
+  return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
 }
 
 const poisRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({

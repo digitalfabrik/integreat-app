@@ -21,7 +21,7 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
   getSprungbrettPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitle')} - ${cityName}`
+  `${t('pageTitles.sprungbrett')} - ${cityName}`
 
 const sprungbrettRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
   renderPage: renderSprungbrettPage,

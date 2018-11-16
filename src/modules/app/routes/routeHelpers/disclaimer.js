@@ -20,7 +20,7 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
   getDisclaimerPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('disclaimerPageTitle')} - ${cityName}`
+  `${t('pageTitles.disclaimer')} - ${cityName}`
 
 const disclaimerRouteHelper: Route<RequiredPayloadType> = new Route({
   renderPage: renderDisclaimerPage,
