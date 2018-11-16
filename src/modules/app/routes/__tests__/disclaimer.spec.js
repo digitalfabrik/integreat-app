@@ -1,15 +1,15 @@
 // @flow
 
-import disclaimerRoute from '../disclaimer'
+import disclaimerRoute, { getDisclaimerPath } from '../disclaimer'
 
 describe('disclaimer route', () => {
   it('should create the right path', () => {
     const city = 'augsburg'
     const language = 'de'
-    expect(disclaimerRoute.getRoutePath({city, language})).toBe('/augsburg/de/disclaimer')
+    expect(getDisclaimerPath({city, language})).toBe('/augsburg/de/disclaimer')
   })
 
   it('should have the right path', () => {
-    expect(disclaimerRoute.route.path).toBe('/:city/:language/disclaimer')
+    expect(disclaimerRoute.path).toBe('/:city/:language/disclaimer')
   })
 })
