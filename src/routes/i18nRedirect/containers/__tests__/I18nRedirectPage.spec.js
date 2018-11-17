@@ -10,9 +10,9 @@ import { goToNotFound } from '../../../../modules/app/routes/notFound'
 import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/routes/i18nRedirect'
 import configureStore from 'redux-mock-store'
 import { pathToAction } from 'redux-first-router'
-import { routesMap } from '../../../../modules/app/routes'
 import { getLandingPath } from '../../../../modules/app/routes/landing'
 import { getCategoriesPath } from '../../../../modules/app/routes/categories'
+import routesMap from '../../../../modules/app/routesMap'
 
 describe('I18nRedirectPage', () => {
   const language = 'de'

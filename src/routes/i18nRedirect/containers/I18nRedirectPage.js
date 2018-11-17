@@ -12,8 +12,8 @@ import i18n from 'i18next'
 import { compose } from 'recompose'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
 import { getCategoriesPath } from '../../../modules/app/routes/categories'
-import { routesMap } from '../../../modules/app/routes'
 import { getLandingPath } from '../../../modules/app/routes/landing'
+import routesMap from '../../../modules/app/routesMap'
 
 type PropsType = {|
   redirect: Action => void,

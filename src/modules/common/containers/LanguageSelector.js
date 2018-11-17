@@ -15,7 +15,7 @@ import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import { getLanguageChangePath } from '../../app/routes'
+import { getLanguageChangePath } from '../../app/routes/routeHelpers/index'
 
 import PoiModel from '../../endpoint/models/PoiModel'
 

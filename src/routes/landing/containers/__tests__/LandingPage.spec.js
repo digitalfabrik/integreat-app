@@ -6,7 +6,7 @@ import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
 import { LANDING_ROUTE } from '../../../../modules/app/routes/landing'
-import { routesMap } from '../../../../modules/app/routes'
+import routesMap from '../../../../modules/app/routesMap'
 
 describe('LandingPage', () => {
   const cities = [
