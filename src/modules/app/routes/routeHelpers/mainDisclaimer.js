@@ -1,17 +1,16 @@
 // @flow
 
 import React from 'react'
-import Route from './RouteHelper'
+import RouteHelper from './RouteHelper'
 import MainDisclaimerPage from '../../../../routes/main-disclaimer/components/MainDisclaimerPage'
-
-const PAGE_TITLE = 'Impressum und Datenschutz - Integreat'
+import type { GetPageTitleParamsType } from '../types'
 
 const renderMainDisclaimerPage = () => <MainDisclaimerPage />
 
-const mainDisclaimerRouteHelper: Route<void> = new Route({
+const mainDisclaimerRouteHelper: RouteHelper<void> = new RouteHelper({
   renderPage: renderMainDisclaimerPage,
   getRequiredPayloads: () => {},
-  getPageTitle: () => PAGE_TITLE
+  getPageTitle: ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer')
 })
 
 export default mainDisclaimerRouteHelper

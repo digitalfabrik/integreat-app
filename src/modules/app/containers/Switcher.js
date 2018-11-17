@@ -24,7 +24,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import PageModel from '../../endpoint/models/PageModel'
 import PoiModel from '../../endpoint/models/PoiModel'
-import { getRouteHelper } from '../routes'
+import { getRouteHelper } from '../routes/routeHelpers/index'
 import reduce from 'lodash/reduce'
 import Helmet from '../../common/containers/Helmet'
 
