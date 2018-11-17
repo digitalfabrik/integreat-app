@@ -11,7 +11,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-export class FeedbackThanksMessage extends React.Component<PropsType> {
+export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
   render () {
     const {closeFeedbackModal, t} = this.props
     return (

@@ -39,7 +39,7 @@ type PropsType = {|
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.Component<PropsType> {
+class CategoryList extends React.PureComponent<PropsType> {
   render () {
     const {categories, title, thumbnail, content, query, onInternLinkClick} = this.props
     return (

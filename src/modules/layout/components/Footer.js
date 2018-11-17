@@ -35,7 +35,7 @@ const FooterContainer = styled.footer`
  * The standard footer which can supplied to a Layout. Displays a list of links from the props and adds the version
  * number if it's a dev build.
  */
-class Footer extends React.Component<PropsType> {
+class Footer extends React.PureComponent<PropsType> {
   static getVersion (): Node {
     if (__DEV__) {
       return <span>{__VERSION__}</span>

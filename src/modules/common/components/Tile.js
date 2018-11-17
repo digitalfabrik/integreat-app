@@ -67,7 +67,7 @@ const TileContainer = styled(Col)`
 /**
  * Displays a single Tile
  */
-class Tile extends React.Component<PropsType> {
+class Tile extends React.PureComponent<PropsType> {
   getTileContent (): React.Node {
     return <>
       <ThumbnailSizer>

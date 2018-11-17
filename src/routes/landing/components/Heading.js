@@ -3,9 +3,9 @@
 import React from 'react'
 
 import LocationBig from '../assets/LocationBig.svg'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
-import type { TFunction } from 'react-i18next'
 import styled from 'styled-components'
 
 const Logo = styled.img`
@@ -18,7 +18,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class Heading extends React.Component<PropsType> {
+class Heading extends React.PureComponent<PropsType> {
   render () {
     const {t} = this.props
     return (
