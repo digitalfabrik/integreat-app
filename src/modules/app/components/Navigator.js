@@ -9,7 +9,7 @@ import DashboardContainer from '../../../routes/dashboard/containers/DashboardCo
 import withLayout from '../../layout/hocs/withLayout'
 import HeaderContainer from '../../layout/containers/HeaderContainer'
 import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
-import ImageViewModalContainer from '../../../routes/image/containers/ImageViewModalContainer'
+import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
 import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
@@ -57,7 +57,7 @@ export default createStackNavigator(
     'LandingStack': createHeaderNavigatorItem(LandingStack),
     'ChangeLanguageModal': createHeaderNavigatorItem(ChangeLanguageModalContainer),
     'MapViewModal': createHeaderNavigatorItem(MapViewModal),
-    'ImageViewModal': createHeaderNavigatorItem(ImageViewModalContainer, transparentHeader),
+    'ImageViewModal': createHeaderNavigatorItem(ImageViewModal, transparentHeader),
     'PDFViewModal': createHeaderNavigatorItem(PDFViewModal, transparentHeader)
   },
   {
