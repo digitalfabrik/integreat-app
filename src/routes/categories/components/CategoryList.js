@@ -14,12 +14,25 @@ const List = styled.div`
   }
 `
 
+const Centering = styled.div`
+  text-align: center;
+`
+
+const CategoryIcon = styled.img`
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  padding: 8px;
+  object-fit: contain;
+`
+
 type PropsType = {|
   categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
   query?: string,
+  thumbnail?: string,
   onInternLinkClick: string => void
 |}
 
@@ -28,9 +41,10 @@ type PropsType = {|
  */
 class CategoryList extends React.Component<PropsType> {
   render () {
-    const {categories, title, content, query, onInternLinkClick} = this.props
+    const {categories, title, thumbnail, content, query, onInternLinkClick} = this.props
     return (
       <div>
+        {thumbnail && <Centering><CategoryIcon src={thumbnail} /></Centering>}
         {title && <Caption title={title} />}
         {content &&
         <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} onInternLinkClick={onInternLinkClick} />}

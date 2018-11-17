@@ -9,10 +9,11 @@ import type { JsonCategoryType } from '../types'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import normalizePath from '../normalizePath'
 import Endpoint from '../Endpoint'
+import sanitizeHtml from 'sanitize-html-react'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
-type ParamsType = {city: string, language: string}
+type ParamsType = { city: string, language: string }
 
 const endpoint: Endpoint<ParamsType, CategoriesMapModel> = new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
@@ -27,7 +28,11 @@ const endpoint: Endpoint<ParamsType, CategoriesMapModel> = new EndpointBuilder(C
           id: category.id,
           path: normalizePath(category.path),
           title: category.title,
-          content: category.content,
+          content: sanitizeHtml(category.content, {
+            allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
+            allowedTags: false,
+            allowedAttributes: false
+          }),
           thumbnail: category.thumbnail,
           order: category.order,
           availableLanguages: mapAvailableLanguages(category.available_languages),
