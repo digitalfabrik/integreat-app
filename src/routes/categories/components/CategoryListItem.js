@@ -22,10 +22,6 @@ const SubCategory = styled.div`
   & > * {
     width: calc(100% - 60px);
     text-align: start;
-    
-    @media ${props => props.theme.dimensions.smallViewport} {
-      width: calc(100% - 8px);
-    }
   }
 `
 
@@ -47,6 +43,7 @@ const CategoryCaption = styled(Highlighter)`
 `
 
 const SubCategoryCaption = styled(CategoryCaption)`
+  margin: 0 15px;
   padding: 8px 0;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
