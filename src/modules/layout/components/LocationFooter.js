@@ -16,7 +16,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-export class LocationFooter extends React.Component<PropsType> {
+export class LocationFooter extends React.PureComponent<PropsType> {
   render () {
     const {t, city, language, onClick} = this.props
 

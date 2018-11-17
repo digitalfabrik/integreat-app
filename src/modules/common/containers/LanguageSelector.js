@@ -32,7 +32,7 @@ type PropsType = {|
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-export class LanguageSelector extends React.Component<PropsType> {
+export class LanguageSelector extends React.PureComponent<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
     const {categories, events, pois, location, languages} = this.props
     const activeItemCode = location.payload.language

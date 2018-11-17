@@ -10,10 +10,11 @@ import { connect } from 'react-redux'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -38,6 +39,7 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
 
     return (
       <>
+        <Caption title={extra.title} />
         <Helmet title={`${extra.title} - ${cityName}`} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}

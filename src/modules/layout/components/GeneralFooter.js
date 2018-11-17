@@ -13,7 +13,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class GeneralFooter extends React.Component<PropsType> {
+class GeneralFooter extends React.PureComponent<PropsType> {
   render () {
     const {t} = this.props
     return (
