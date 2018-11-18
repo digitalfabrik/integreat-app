@@ -6,9 +6,9 @@ import styled from 'styled-components'
 const Header = styled.div`
   display: flex;
   width: 100%;
-  margin-bottom: 10px;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 10px;
 `
 
 const CloseButton = styled.span`
