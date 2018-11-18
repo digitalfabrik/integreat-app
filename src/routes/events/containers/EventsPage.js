@@ -85,7 +85,8 @@ const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,
-  path: state.location.pathname
+  path: state.location.pathname,
+  routesMap: state.location.routesMap
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
