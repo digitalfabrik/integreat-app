@@ -3,7 +3,7 @@
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
 import { getSprungbrettPath } from '../sprungbrett'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import SprungbrettExtraPage from '../../../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import Payload from '../../../endpoint/Payload'
 import SprungbrettModel from '../../../endpoint/models/SprungbrettJobModel'
@@ -23,11 +23,11 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.sprungbrett')} - ${cityName}`
 
-const sprungbrettRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const sprungbrettRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderSprungbrettPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default sprungbrettRouteHelper
+export default sprungbrettRouteConfig

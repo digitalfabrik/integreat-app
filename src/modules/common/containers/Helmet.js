@@ -9,7 +9,7 @@ import LanguageModel from '../../endpoint/models/LanguageModel'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
-import { getLanguageChangePath } from '../../app/routes/routeHelpers/index'
+import { getLanguageChangePath } from '../../app/routes/routeConfigs/index'
 import PoiModel from '../../endpoint/models/PoiModel'
 import CityModel from '../../endpoint/models/CityModel'
 import type { GetPageTitleParamsType } from '../../app/routes/types'

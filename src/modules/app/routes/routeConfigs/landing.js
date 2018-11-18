@@ -4,7 +4,7 @@ import React from 'react'
 import Payload from '../../../endpoint/Payload'
 import CityModel from '../../../endpoint/models/CityModel'
 import type { AllPayloadsType, GetPageTitleParamsType } from '../types'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import LandingPage from '../../../../routes/landing/containers/LandingPage'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
@@ -16,10 +16,10 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => 
 
 const getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.landing')
 
-const landingRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const landingRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderLandingPage,
   getRequiredPayloads,
   getPageTitle
 })
 
-export default landingRouteHelper
+export default landingRouteConfig

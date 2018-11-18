@@ -5,7 +5,7 @@ import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitlePara
 import Payload from '../../../endpoint/Payload'
 import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import { getSearchPath } from '../search'
 import SearchPage from '../../../../routes/search/containers/SearchPage'
 
@@ -23,11 +23,11 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
   `${t('pageTitles.search')} - ${cityName}`
 
-const searchRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const searchRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderSearchPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default searchRouteHelper
+export default searchRouteConfig

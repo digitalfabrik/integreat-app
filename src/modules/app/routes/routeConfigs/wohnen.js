@@ -5,7 +5,7 @@ import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitlePara
 import Payload from '../../../endpoint/Payload'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
 import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import WohnenExtraPage from '../../../../routes/wohnen/containers/WohnenExtraPage'
 import { getWohnenPath } from '../wohnen'
 
@@ -23,11 +23,11 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.wohnen')} - ${cityName}`
 
-const wohnenRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const wohnenRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderWohnenPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default wohnenRouteHelper
+export default wohnenRouteConfig

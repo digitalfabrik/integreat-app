@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import PoisPage from '../../../../routes/pois/containers/PoisPage'
 import Payload from '../../../endpoint/Payload'
 import PoiModel from '../../../endpoint/models/PoiModel'
@@ -30,11 +30,11 @@ const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
   return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
 }
 
-const poisRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const poisRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderPoisPage,
   getRequiredPayloads: getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default poisRouteHelper
+export default poisRouteConfig
