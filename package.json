@@ -82,6 +82,7 @@
     "flow-copy-source": "^2.0.2",
     "flow-typed": "^2.5.1",
     "jest": "^23.6.0",
+    "jest-fetch-mock": "^1.7.4",
     "jest-junit": "^5.2.0"
   },
   "dependencies": {
