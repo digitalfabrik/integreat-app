@@ -1,8 +1,8 @@
 // @flow
 
 import events from '../events'
-import moment from 'moment'
 import type Moment from 'moment'
+import moment from 'moment'
 import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import LocationModel from '../../models/LocationModel'
@@ -15,7 +15,7 @@ describe('events', () => {
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylpolitischer Frühschoppen',
     excerpt: 'Asylpolitischer Fr&uuml;hschoppen',
-    content: '<p>Am Sonntag...</p>',
+    content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
     available_languages: [],
     thumbnail: '',
     event: {
@@ -38,7 +38,7 @@ describe('events', () => {
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylpolitischer Frühschoppen',
     excerpt: 'Asylpolitischer Frühschoppen',
-    content: '<p>Am Sonntag...</p>',
+    content: '<a>Ich bleib aber da.</a>',
     availableLanguages: new Map(),
     thumbnail: '',
     date: new DateModel({
@@ -68,7 +68,7 @@ describe('events', () => {
 
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
+        'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })
 

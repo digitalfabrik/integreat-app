@@ -1,6 +1,6 @@
 {
   "name": "@integreat-app/integreat-api-client",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "node": ">=6.9",
     "npm": ">=3.8"
@@ -89,6 +89,7 @@
     "is-url": "^1.2.4",
     "lodash-es": "^4.17.11",
     "moment": "^2.22.2",
+    "sanitize-html-react": "^1.13.0",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   }

@@ -6,10 +6,11 @@ import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment'
 import type { JsonDisclaimerType } from '../types'
 import Endpoint from '../Endpoint'
+import sanitizeHtml from 'sanitize-html-react'
 
 const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
-type ParamsType = {city: string, language: string}
+type ParamsType = { city: string, language: string }
 
 const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
@@ -23,7 +24,11 @@ const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER
     return new PageModel({
       id: json.id,
       title: json.title,
-      content: json.content,
+      content: sanitizeHtml(json.content, {
+        allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
+        allowedTags: false,
+        allowedAttributes: false
+      }),
       lastUpdate: moment(json.modified_gmt)
     })
   })
