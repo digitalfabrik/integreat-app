@@ -9,8 +9,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
   <FeedbackBox__Description>
     feedbackType
   </FeedbackBox__Description>
-  <Dropdown
-    baseClassName="Dropdown"
+  <FeedbackBox__StyledDropdown
     onChange={[Function]}
     options={
       Array [
