@@ -3,7 +3,7 @@
 import React from 'react'
 
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import ExtrasPage from '../../../../routes/extras/containers/ExtrasPage'
 import Payload from '../../../endpoint/Payload'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
@@ -23,11 +23,11 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.extras')} - ${cityName}`
 
-const extrasRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const extrasRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderExtrasPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default extrasRouteHelper
+export default extrasRouteConfig

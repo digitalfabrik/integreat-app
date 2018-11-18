@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { getDisclaimerPath } from '../disclaimer'
-import Route from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
 import Payload from '../../../endpoint/Payload'
 import PageModel from '../../../endpoint/models/PageModel'
@@ -22,11 +22,11 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.disclaimer')} - ${cityName}`
 
-const disclaimerRouteHelper: Route<RequiredPayloadType> = new Route({
+const disclaimerRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderDisclaimerPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default disclaimerRouteHelper
+export default disclaimerRouteConfig

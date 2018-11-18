@@ -24,7 +24,7 @@ import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import PageModel from '../../endpoint/models/PageModel'
 import PoiModel from '../../endpoint/models/PoiModel'
-import { getRouteHelper } from '../routes/routeHelpers/index'
+import { getRouteConfig } from '../routes/routeConfigs/index'
 import reduce from 'lodash/reduce'
 import Helmet from '../../common/containers/Helmet'
 
@@ -89,7 +89,7 @@ export class Switcher extends React.Component<PropsType> {
       }
     }
 
-    const routeHelper = getRouteHelper(currentRoute)
+    const routeHelper = getRouteConfig(currentRoute)
     const payloads = routeHelper.getRequiredPayloads(allPayloads)
     const payloadsArray = reduce(payloads, (result, value) => {
       result.push(value)

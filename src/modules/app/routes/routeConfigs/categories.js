@@ -4,7 +4,7 @@ import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitlePara
 import Payload from '../../../endpoint/Payload'
 import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import Route from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import React from 'react'
 import CategoriesPage from '../../../../routes/categories/containers/CategoriesPage'
 import { getCategoriesPath } from '../categories'
@@ -33,11 +33,11 @@ const getPageTitle = ({t, categories, cityName, pathname}: GetPageTitleParamsTyp
   return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
 }
 
-const categoriesRouteHelper: Route<RequiredPayloadType> = new Route({
+const categoriesRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage: renderCategoriesPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default categoriesRouteHelper
+export default categoriesRouteConfig

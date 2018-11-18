@@ -3,7 +3,7 @@
 import type { Node } from 'react'
 import type { AllPayloadsType, GetLanguageChangePathType, GetPageTitleParamsType } from '../types'
 
-class Route<T> {
+class RouteConfig<T> {
   _renderPage: T => Node
   _getRequiredPayloads: AllPayloadsType => T
   _getLanguageChangePath: ?GetLanguageChangePathType
@@ -36,4 +36,4 @@ class Route<T> {
   }
 }
 
-export default Route
+export default RouteConfig

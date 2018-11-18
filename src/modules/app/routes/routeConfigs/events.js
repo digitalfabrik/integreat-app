@@ -5,7 +5,7 @@ import { getEventsPath } from '../events'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
 import Payload from '../../../endpoint/Payload'
 import EventModel from '../../../endpoint/models/EventModel'
-import RouteHelper from './RouteHelper'
+import RouteConfig from './RouteConfig'
 import EventsPage from '../../../../routes/events/containers/EventsPage'
 
 type RequiredPayloadType = {|events: Payload<Array<EventModel>>|}
@@ -30,11 +30,11 @@ const getPageTitle = ({t, events, cityName, pathname}: GetPageTitleParamsType) =
   return `${event ? event.title : t('pageTitles.events')} - ${cityName}`
 }
 
-const eventsRouteHelper: RouteHelper<RequiredPayloadType> = new RouteHelper({
+const eventsRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   renderPage,
   getRequiredPayloads,
   getLanguageChangePath,
   getPageTitle
 })
 
-export default eventsRouteHelper
+export default eventsRouteConfig
