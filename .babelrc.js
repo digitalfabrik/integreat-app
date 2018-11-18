@@ -3,7 +3,11 @@ const config = {
     [
       "@babel/preset-env",
       {
-        "modules": false
+        "modules": false,
+        "targets": {
+          "chrome": "42",
+          "ie": "11"
+        }
       }
     ],
     '@babel/preset-flow'
