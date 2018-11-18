@@ -21,7 +21,8 @@ const landingRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
   name: LANDING_ROUTE,
   renderPage: renderLandingPage,
   getRequiredPayloads,
-  getPageTitle
+  getPageTitle,
+  getLanguageChangePath: () => null
 })
 
 export default landingRouteConfig

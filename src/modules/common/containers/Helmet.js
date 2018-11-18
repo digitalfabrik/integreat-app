@@ -9,7 +9,7 @@ import LanguageModel from '../../endpoint/models/LanguageModel'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
-import { getLanguageChangePath } from '../../app/routes/routeConfigs/index'
+import { getRouteConfig } from '../../app/routes/routeConfigs/index'
 import PoiModel from '../../endpoint/models/PoiModel'
 import CityModel from '../../endpoint/models/CityModel'
 import type { GetPageTitleParamsType } from '../../app/routes/types'
@@ -33,12 +33,11 @@ type PropsType = {|
 export class Helmet extends React.Component<PropsType> {
   getLanguageLinks (): React.Node {
     const {languages, events, pois, categories, location} = this.props
-    const getPath = getLanguageChangePath(location.type)
-    return getPath && languages && languages
-      .map(language => {
-        const path = getPath({events, pois, categories, location, language: language.code})
-        return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
-      })
+    return languages && languages.map(language => {
+      const path = getRouteConfig(location.type).getLanguageChangePath(
+        {events, pois, categories, location, language: language.code})
+      return path && <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
+    })
   }
 
   getMetaDescription (): ?string {

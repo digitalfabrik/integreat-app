@@ -48,11 +48,3 @@ export const getRouteConfig = (routeName: string): Route<*> => {
   }
   return routeConfig
 }
-
-export const getLanguageChangePath = (routeName: string) => (params: GetLanguageChangePathParamsType) => {
-  const getPath = getRouteConfig(routeName).getLanguageChangePath
-  if (!getPath) {
-    return null
-  }
-  return getPath(params)
-}
