@@ -23,7 +23,7 @@
   "main": "./dist/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "babel src --out-dir dist/ --source-maps --ignore '**/*.spec.js'",
+    "build": "babel src --out-dir dist/ --source-maps --ignore '**/*.spec.js' && flow-copy-source src dist --ignore '**/*.spec.js'",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
