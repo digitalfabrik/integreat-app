@@ -44,6 +44,14 @@ const SandBox = styled.div`
   & a {
     overflow-wrap: break-word;
   }
+  
+  & details > * {
+    padding: 0 25px;
+  }
+  
+  & details > summary {
+    padding: 0;
+  }
 `
 
 type PropsType = {|
