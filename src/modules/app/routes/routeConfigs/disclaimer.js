@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { getDisclaimerPath } from '../disclaimer'
+import { DISCLAIMER_ROUTE, getDisclaimerPath } from '../disclaimer'
 import RouteConfig from './RouteConfig'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
 import Payload from '../../../endpoint/Payload'
@@ -23,6 +23,7 @@ const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.disclaimer')} - ${cityName}`
 
 const disclaimerRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: DISCLAIMER_ROUTE,
   renderPage: renderDisclaimerPage,
   getRequiredPayloads,
   getLanguageChangePath,

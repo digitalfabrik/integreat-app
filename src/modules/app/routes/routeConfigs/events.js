@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { getEventsPath } from '../events'
+import { EVENTS_ROUTE, getEventsPath } from '../events'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
 import Payload from '../../../endpoint/Payload'
 import EventModel from '../../../endpoint/models/EventModel'
@@ -31,6 +31,7 @@ const getPageTitle = ({t, events, cityName, pathname}: GetPageTitleParamsType) =
 }
 
 const eventsRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: EVENTS_ROUTE,
   renderPage,
   getRequiredPayloads,
   getLanguageChangePath,

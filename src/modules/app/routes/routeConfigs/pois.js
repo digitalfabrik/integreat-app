@@ -6,7 +6,7 @@ import RouteConfig from './RouteConfig'
 import PoisPage from '../../../../routes/pois/containers/PoisPage'
 import Payload from '../../../endpoint/Payload'
 import PoiModel from '../../../endpoint/models/PoiModel'
-import { getPoisPath } from '../pois'
+import { getPoisPath, POIS_ROUTE } from '../pois'
 
 type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>|}
 
@@ -31,6 +31,7 @@ const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
 }
 
 const poisRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: POIS_ROUTE,
   renderPage: renderPoisPage,
   getRequiredPayloads: getRequiredPayloads,
   getLanguageChangePath,

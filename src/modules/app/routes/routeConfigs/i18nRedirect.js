@@ -6,6 +6,7 @@ import CityModel from '../../../endpoint/models/CityModel'
 import type { AllPayloadsType } from '../types'
 import RouteConfig from './RouteConfig'
 import I18nRedirectPage from '../../../../routes/i18nRedirect/containers/I18nRedirectPage'
+import { I18N_REDIRECT_ROUTE } from '../i18nRedirect'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 
@@ -15,6 +16,7 @@ const renderI18nPage = ({cities}: RequiredPayloadType) =>
 const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => ({cities: payloads.citiesPayload})
 
 const i18nRedirectRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: I18N_REDIRECT_ROUTE,
   renderPage: renderI18nPage,
   getRequiredPayloads,
   getPageTitle: () => ''
