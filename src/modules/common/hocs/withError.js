@@ -8,7 +8,7 @@ type PropsType = {
 }
 
 function withError<Props: PropsType> (
-  Component: React.ComponentType<Props>): React.ComponentType<$Diff<Props, { error: string }>> {
+  Component: React.ComponentType<Props>): React.ComponentType<$Diff<Props, { error?: string }>> {
   class ErrorComponent extends React.PureComponent<Props> {
     render () {
       const {error, ...props} = this.props
@@ -20,6 +20,7 @@ function withError<Props: PropsType> (
       return <Component {...props} />
     }
   }
+
   // $FlowFixMe Please have a look at this
   return ErrorComponent
 }

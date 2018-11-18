@@ -4,7 +4,7 @@ import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapMo
 import * as React from 'react'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import Failure from '../../common/components/Failure'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -52,7 +52,7 @@ function makeLanguageAgnostic<Props: { path: string, categories: CategoriesMapMo
           city: '??',
           language: this.props.language
         })
-        return <FailureSwitcher error={error} />
+        return <Failure error={error} />
       }
 
       return <Component {...this.props} categoryModel={categoryModel} />

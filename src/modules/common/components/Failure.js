@@ -3,7 +3,7 @@
 import React from 'react'
 import { Text } from 'react-native-elements'
 
-export class FailureSwitcher extends React.Component<{ error: Error }> {
+export class Failure extends React.Component<{ error: Error }> {
   render () {
     return <Text>
       {this.props.error.message}
@@ -11,4 +11,4 @@ export class FailureSwitcher extends React.Component<{ error: Error }> {
   }
 }
 
-export default FailureSwitcher
+export default Failure

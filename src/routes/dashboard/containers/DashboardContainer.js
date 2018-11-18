@@ -12,6 +12,7 @@ import { withTheme } from 'styled-components'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
 import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
+import withError from '../../../modules/common/hocs/withError'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -88,10 +89,11 @@ const mapStateToProps = (state: StateType, ownProps) => {
     navigateToCategories,
     path: targetPath,
     categories: categoriesMap,
-    files: fileCache.files
+    files: fileCache.files,
+    error: null
   }
 }
 
 // $FlowFixMe
 const themed = withTheme(Dashboard)
-export default connect(mapStateToProps, mapDispatchToProps)(themed)
+export default connect(mapStateToProps, mapDispatchToProps)(withError(themed))
