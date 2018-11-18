@@ -21,7 +21,7 @@
   ],
   "module": "./dist/index.js",
   "main": "./dist/index.js",
-  "sideEffects": false,
+  "sideEffects": true,
   "scripts": {
     "build": "babel src --out-dir dist/ --source-maps --ignore '**/*.spec.js' && flow-copy-source src dist --ignore '**/*.spec.js'",
     "test": "jest --config jest.config.json",
