@@ -7,12 +7,12 @@ class RouteConfig<T> {
   _name: string
   _renderPage: T => Node
   _getRequiredPayloads: AllPayloadsType => T
-  _getLanguageChangePath: ?GetLanguageChangePathType
+  _getLanguageChangePath: GetLanguageChangePathType
   _getPageTitle: GetPageTitleParamsType => string
 
   constructor ({name, getLanguageChangePath, renderPage, getRequiredPayloads, getPageTitle}: {|name: string,
     renderPage: T => Node, getPageTitle: GetPageTitleParamsType => string, getRequiredPayloads: AllPayloadsType => T,
-    getLanguageChangePath?: GetLanguageChangePathType
+    getLanguageChangePath: GetLanguageChangePathType
   |}) {
     this._renderPage = renderPage
     this._getRequiredPayloads = getRequiredPayloads
@@ -33,7 +33,7 @@ class RouteConfig<T> {
     return this._getRequiredPayloads
   }
 
-  get getLanguageChangePath (): ?GetLanguageChangePathType {
+  get getLanguageChangePath (): GetLanguageChangePathType {
     return this._getLanguageChangePath
   }
 

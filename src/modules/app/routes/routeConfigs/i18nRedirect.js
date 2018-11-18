@@ -19,7 +19,8 @@ const i18nRedirectRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfi
   name: I18N_REDIRECT_ROUTE,
   renderPage: renderI18nPage,
   getRequiredPayloads,
-  getPageTitle: () => ''
+  getPageTitle: () => '',
+  getLanguageChangePath: () => null
 })
 
 export default i18nRedirectRouteConfig

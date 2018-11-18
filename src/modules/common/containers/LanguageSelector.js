@@ -15,7 +15,7 @@ import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
-import { getLanguageChangePath } from '../../app/routes/routeConfigs/index'
+import { getRouteConfig } from '../../app/routes/routeConfigs/index'
 
 import PoiModel from '../../endpoint/models/PoiModel'
 
@@ -41,7 +41,7 @@ export class LanguageSelector extends React.Component<PropsType> {
     return (
       languages &&
       languages.map(language => {
-        const changePath = getLanguageChangePath(location.type)(
+        const changePath = getRouteConfig(location.type).getLanguageChangePath(
           {location, categories, events, pois, language: language.code})
 
         return new SelectorItemModel({
