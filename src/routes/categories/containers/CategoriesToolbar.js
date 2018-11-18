@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
@@ -45,4 +45,4 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('categories')(CategoriesToolbar)
+export default withNamespaces('categories')(CategoriesToolbar)
