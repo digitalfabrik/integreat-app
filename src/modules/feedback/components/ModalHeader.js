@@ -6,6 +6,7 @@ import styled from 'styled-components'
 const Header = styled.div`
   display: flex;
   width: 100%;
+  margin-bottom: 10px;
   flex-direction: row;
   justify-content: space-between;
 `
@@ -17,7 +18,6 @@ const CloseButton = styled.span`
 `
 
 const Title = styled.div`
-  padding: 15px 0 10px;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 

@@ -37,6 +37,12 @@ export const SubmitButton = styled.span`
   cursor: pointer;
 `
 
+const ModifiedDropDown = props => <Dropdown {...props} controlClassName={props.className} />
+
+const StyledDropdown = styled(ModifiedDropDown)`
+  cursor: pointer !important;
+`
+
 type PropsType = {|
   isPositiveRatingSelected: boolean,
   feedbackOptions: Array<FeedbackDropdownItem>,
@@ -70,7 +76,7 @@ export class FeedbackBox extends React.Component<PropsType> {
       <StyledFeedbackBox>
         <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
-        <Dropdown
+        <StyledDropdown
           value={selectedFeedbackOption}
           options={feedbackOptions}
           onChange={onFeedbackOptionChanged} />
