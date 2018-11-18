@@ -5,12 +5,12 @@ import EndpointBuilder from '../EndpointBuilder'
 import type { JsonEventType } from '../types'
 import EventModel from '../models/EventModel'
 import normalizePath from '../normalizePath'
-import { decode } from 'he'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
+import { decodeHTML } from 'entities'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
@@ -41,7 +41,7 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
           latitude: event.location.latitude,
           longitude: event.location.longitude
         }),
-        excerpt: decode(event.excerpt),
+        excerpt: decodeHTML(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
         lastUpdate: moment(event.modified_gmt)
       })
