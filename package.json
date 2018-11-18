@@ -69,7 +69,7 @@
     "styled-components": "^4.0.3",
     "url-polyfill": "^1.1.0",
     "whatwg-fetch": "^3.0.0",
-    "@integreat-app/integreat-api-client": "1.0"
+    "@integreat-app/integreat-api-client": "1.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
