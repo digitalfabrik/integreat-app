@@ -6,6 +6,7 @@ import CityModel from '../../../endpoint/models/CityModel'
 import type { AllPayloadsType, GetPageTitleParamsType } from '../types'
 import RouteConfig from './RouteConfig'
 import LandingPage from '../../../../routes/landing/containers/LandingPage'
+import { LANDING_ROUTE } from '../landing'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 
@@ -17,6 +18,7 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => 
 const getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.landing')
 
 const landingRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: LANDING_ROUTE,
   renderPage: renderLandingPage,
   getRequiredPayloads,
   getPageTitle

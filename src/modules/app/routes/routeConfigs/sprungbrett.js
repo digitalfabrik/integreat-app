@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
-import { getSprungbrettPath } from '../sprungbrett'
+import { getSprungbrettPath, SPRUNGBRETT_ROUTE } from '../sprungbrett'
 import RouteConfig from './RouteConfig'
 import SprungbrettExtraPage from '../../../../routes/sprungbrett/containers/SprungbrettExtraPage'
 import Payload from '../../../endpoint/Payload'
@@ -24,6 +24,7 @@ const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.sprungbrett')} - ${cityName}`
 
 const sprungbrettRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: SPRUNGBRETT_ROUTE,
   renderPage: renderSprungbrettPage,
   getRequiredPayloads,
   getLanguageChangePath,

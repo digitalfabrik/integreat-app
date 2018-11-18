@@ -26,22 +26,22 @@ import poisRouteConfig from './pois'
 import disclaimerRouteConfig from './disclaimer'
 import sprungbrettRouteConfig from './sprungbrett'
 
-const routeConfigs: {[string]: RouteConfig<any>} = {
-  [MAIN_DISCLAIMER_ROUTE]: mainDisclaimerRouteConfig,
-  [I18N_REDIRECT_ROUTE]: i18nRedirectRouteConfig,
-  [LANDING_ROUTE]: landingRouteConfig,
-  [EVENTS_ROUTE]: eventsRouteConfig,
-  [SPRUNGBRETT_ROUTE]: sprungbrettRouteConfig,
-  [WOHNEN_ROUTE]: wohnenRouteConfig,
-  [EXTRAS_ROUTE]: extrasRouteConfig,
-  [DISCLAIMER_ROUTE]: disclaimerRouteConfig,
-  [SEARCH_ROUTE]: searchRouteConfig,
-  [POIS_ROUTE]: poisRouteConfig,
-  [CATEGORIES_ROUTE]: categoriesRouteConfig
-}
+const routeConfigs: Array<RouteConfig<any>> = [
+  mainDisclaimerRouteConfig,
+  i18nRedirectRouteConfig,
+  landingRouteConfig,
+  eventsRouteConfig,
+  sprungbrettRouteConfig,
+  wohnenRouteConfig,
+  extrasRouteConfig,
+  disclaimerRouteConfig,
+  searchRouteConfig,
+  poisRouteConfig,
+  categoriesRouteConfig
+]
 
-export const getRouteConfig = (routeName: string): Route<*, *> => {
-  const routeConfig = routeConfigs[routeName]
+export const getRouteConfig = (routeName: string): Route<*> => {
+  const routeConfig = routeConfigs.find(config => config.name === routeName)
   if (!routeConfig) {
     throw new Error(
       `There is no route config with the name ${routeName}. Did you forget to add it in the routes index?`)

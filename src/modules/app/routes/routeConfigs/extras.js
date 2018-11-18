@@ -7,7 +7,7 @@ import RouteConfig from './RouteConfig'
 import ExtrasPage from '../../../../routes/extras/containers/ExtrasPage'
 import Payload from '../../../endpoint/Payload'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
-import { getExtrasPath } from '../extras'
+import { EXTRAS_ROUTE, getExtrasPath } from '../extras'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>|}
 
@@ -24,6 +24,7 @@ const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.extras')} - ${cityName}`
 
 const extrasRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: EXTRAS_ROUTE,
   renderPage: renderExtrasPage,
   getRequiredPayloads,
   getLanguageChangePath,

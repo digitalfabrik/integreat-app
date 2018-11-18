@@ -6,7 +6,7 @@ import Payload from '../../../endpoint/Payload'
 import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import RouteConfig from './RouteConfig'
-import { getSearchPath } from '../search'
+import { getSearchPath, SEARCH_ROUTE } from '../search'
 import SearchPage from '../../../../routes/search/containers/SearchPage'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -24,6 +24,7 @@ const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
   `${t('pageTitles.search')} - ${cityName}`
 
 const searchRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: SEARCH_ROUTE,
   renderPage: renderSearchPage,
   getRequiredPayloads,
   getLanguageChangePath,

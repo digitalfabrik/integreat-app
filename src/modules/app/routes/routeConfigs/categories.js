@@ -7,7 +7,7 @@ import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import RouteConfig from './RouteConfig'
 import React from 'react'
 import CategoriesPage from '../../../../routes/categories/containers/CategoriesPage'
-import { getCategoriesPath } from '../categories'
+import { CATEGORIES_ROUTE, getCategoriesPath } from '../categories'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 
@@ -34,6 +34,7 @@ const getPageTitle = ({t, categories, cityName, pathname}: GetPageTitleParamsTyp
 }
 
 const categoriesRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
+  name: CATEGORIES_ROUTE,
   renderPage: renderCategoriesPage,
   getRequiredPayloads,
   getLanguageChangePath,
