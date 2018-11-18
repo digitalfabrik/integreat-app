@@ -1,6 +1,6 @@
 {
   "name": "@integreat-app/integreat-api-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "node": ">=6.9",
     "npm": ">=3.8"
@@ -9,7 +9,7 @@
   "description": "The client for the integreat api.",
   "author": "Max Ammann <ammann@integreat-app.de>",
   "repository": "https://github.com/integreat/integreat-api-client",
-  "files": [ "dist/" ],
+  "files": [ "*" ],
   "publishConfig": {
     "access": "public"
   },
@@ -24,6 +24,8 @@
   "sideEffects": true,
   "scripts": {
     "build": "babel src --out-dir dist/ --source-maps --ignore '**/*.spec.js' && flow-copy-source src dist --ignore '**/*.spec.js'",
+    "npm:publish": "cp package.json dist/ && cd dist && npm publish",
+    "npm:pack": "cp package.json dist/ && cd dist && npm pack && mv *.tgz ../",
     "test": "jest --config jest.config.json",
     "test:coverage": "jest --config jest.config.json --coverage",
     "test:watch": "jest --config jest.config.json --watchAll",
