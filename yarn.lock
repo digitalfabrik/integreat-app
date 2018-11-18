@@ -945,6 +945,16 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.3.3.tgz#673d392648ec1b5c18bc1750841b16d1716147b2"
   integrity sha512-8t9mkec8YyBqGllMpFZ/HnS14vsJNQEy1mdnpYG18t3lBqkC6UyCjRrPdGT/x+mjM6sKyu9Ck5Xwmz8Nq4HxTw==
 
+"@integreat-app/integreat-api-client@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-1.0.1.tgz#6aa6fe185a7721f053756fb42dfbcf861e2f59ff"
+  integrity sha512-Igqnx7gJ2OcxcdTONrRNdkOW0l2X3S4jUwkIpO3ja2w2tSSxSvazcCFBwr8ASRDXPqj2vp6t+BKoK6mzXAN6ig==
+  dependencies:
+    entities "^1.1.2"
+    is-url "^1.2.4"
+    lodash-es "^4.17.11"
+    moment "^2.22.2"
+
 "@integreat-app/react-sticky-headroom@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.0.3.tgz#86422db44a4410ed1eea1e23cfdc478593a19748"
@@ -3549,7 +3559,7 @@ enhanced-resolve@^4.1.0:
     memory-fs "^0.4.0"
     tapable "^1.0.0"
 
-entities@^1.1.1, entities@~1.1.1:
+entities@^1.1.1, entities@^1.1.2, entities@~1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
@@ -6597,6 +6607,11 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lodash-es@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
+  integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
 
 lodash.assign@^4.0.3, lodash.assign@^4.0.6, lodash.assign@^4.2.0:
   version "4.2.0"
