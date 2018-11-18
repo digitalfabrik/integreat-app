@@ -12,10 +12,22 @@ import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
-import ModalHeaderContainer from '../../layout/containers/ModalHeaderContainer'
+import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
+
+const createHeaderNavigatorItem = (component, header = null) => {
+  return {
+    screen: component,
+    navigationOptions: {
+      header: header
+    }
+  }
+}
+
+const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
+                                                                              scenes={headerProps.scenes} />
 
 export const AppStack = createStackNavigator(
   {
@@ -40,28 +52,15 @@ export const LandingStack = createSwitchNavigator(
   }
 )
 
-export const ModalStack = createStackNavigator(
-  {
-    'PDFViewModal': PDFViewModal
-  },
-  {
-    navigationOptions: {
-      header: (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
-                                                                  scenes={headerProps.scenes} />
-    }
-  }
-)
-
 export default createStackNavigator(
   {
-    'LandingStack': LandingStack,
-    'ChangeLanguageModal': ChangeLanguageModalContainer,
-    'ModalStack': ModalStack,
-    'MapViewModal': MapViewModal,
-    'ImageViewModal': ImageViewModal
+    'LandingStack': createHeaderNavigatorItem(LandingStack),
+    'ChangeLanguageModal': createHeaderNavigatorItem(ChangeLanguageModalContainer),
+    'MapViewModal': createHeaderNavigatorItem(MapViewModal),
+    'ImageViewModal': createHeaderNavigatorItem(ImageViewModal, transparentHeader),
+    'PDFViewModal': createHeaderNavigatorItem(PDFViewModal, transparentHeader)
   },
   {
-    mode: 'modal',
-    headerMode: 'none'
+    mode: 'modal'
   }
 )

@@ -6029,7 +6029,7 @@ react-native-view-pdf@^0.4.1:
 
 "react-native-webview@https://github.com/maxammann/react-native-webview/#android-onShouldStartLoadWithRequest":
   version "2.5.0"
-  resolved "https://github.com/maxammann/react-native-webview/#989877920f129c850bca24ed85468917d987c39e"
+  resolved "https://github.com/maxammann/react-native-webview/#83c3542bd04e0957356343cd1d50840da5272747"
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"

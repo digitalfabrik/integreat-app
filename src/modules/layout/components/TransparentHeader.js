@@ -19,14 +19,13 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const Title = styled.Text`
- font-size: 30px;
- color: black;
- margin-left: 10px;
-`
-
 const BoxShadow = styled.View`
   background-color: transparent;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
   height: ${props => props.theme.dimensions.modalHeaderHeight};
 `
 
@@ -36,16 +35,7 @@ type PropsType = {
   theme: ThemeType
 }
 
-type StateType = {
-  searchActive: boolean
-}
-
-class Header extends React.PureComponent<PropsType, StateType> {
-  constructor () {
-    super()
-    this.state = {searchActive: false}
-  }
-
+class TransparentHeader extends React.PureComponent<PropsType> {
   getDescriptor (): { [key: string]: any } {
     // $FlowFixMe
     return this.props.scene.descriptor
@@ -56,14 +46,11 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   render () {
-    const headerTitle = this.getDescriptor().headerTitle || ''
-
     return (
       <BoxShadow theme={this.props.theme}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} />
-            <Title>{headerTitle}</Title>
           </HorizontalLeft>
         </Horizontal>
       </BoxShadow>
@@ -71,4 +58,4 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 }
 
-export default Header
+export default TransparentHeader
