@@ -5,7 +5,7 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 
 import Footer from './Footer'
-import MainDisclaimerRouteConfig from '../../app/routes/routeConfigs/mainDisclaimer'
+import MainDisclaimerRouteConfig from '../../app/routeConfigs/mainDisclaimer'
 import CleanAnchor from '../../common/components/CleanAnchor'
 import CleanLink from '../../common/components/CleanLink'
 

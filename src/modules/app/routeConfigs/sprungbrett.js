@@ -3,14 +3,14 @@
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import SprungbrettExtraPage from '../../../../routes/sprungbrett/containers/SprungbrettExtraPage'
-import Payload from '../../../endpoint/Payload'
-import SprungbrettModel from '../../../endpoint/models/SprungbrettJobModel'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import extrasEndpoint from '../../../endpoint/endpoints/extras'
+import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
+import Payload from '../../endpoint/Payload'
+import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
+import ExtraModel from '../../endpoint/models/ExtraModel'
+import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
-import sprungbrettEndpoint from '../../../endpoint/endpoints/sprungbrettJobs'
+import fetchData from '../fetchData'
+import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, sprungbrettJobs: Payload<Array<SprungbrettModel>>|}
 type SprungbrettRouteParamsType = {|city: string, language: string|}

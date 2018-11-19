@@ -3,12 +3,12 @@
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import PoisPage from '../../../../routes/pois/containers/PoisPage'
-import Payload from '../../../endpoint/Payload'
-import PoiModel from '../../../endpoint/models/PoiModel'
+import PoisPage from '../../../routes/pois/containers/PoisPage'
+import Payload from '../../endpoint/Payload'
+import PoiModel from '../../endpoint/models/PoiModel'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
-import poisEndpoint from '../../../endpoint/endpoints/pois'
+import fetchData from '../fetchData'
+import poisEndpoint from '../../endpoint/endpoints/pois'
 
 type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>|}
 type PoisRouteParamsType = {|city: string, language: string|}

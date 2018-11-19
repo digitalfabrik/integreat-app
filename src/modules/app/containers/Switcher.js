@@ -24,9 +24,9 @@ import PageModel from '../../endpoint/models/PageModel'
 import PoiModel from '../../endpoint/models/PoiModel'
 import reduce from 'lodash/reduce'
 import Helmet from '../../common/containers/Helmet'
-import { getRouteConfig, LocationLayoutRoutes } from '../routes/routeConfigs'
-import { LANDING_ROUTE } from '../routes/routeConfigs/landing'
-import { MAIN_DISCLAIMER_ROUTE } from '../routes/routeConfigs/mainDisclaimer'
+import { getRouteConfig, LocationLayoutRoutes } from '../routeConfigs/index'
+import { LANDING_ROUTE } from '../routeConfigs/landing'
+import { MAIN_DISCLAIMER_ROUTE } from '../routeConfigs/mainDisclaimer'
 
 type PropsType = {|
   currentRoute: string,

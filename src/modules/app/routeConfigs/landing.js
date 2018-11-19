@@ -1,14 +1,14 @@
 // @flow
 
 import React from 'react'
-import Payload from '../../../endpoint/Payload'
-import CityModel from '../../../endpoint/models/CityModel'
+import Payload from '../../endpoint/Payload'
+import CityModel from '../../endpoint/models/CityModel'
 import type { AllPayloadsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import LandingPage from '../../../../routes/landing/containers/LandingPage'
-import citiesEndpoint from '../../../endpoint/endpoints/cities'
+import LandingPage from '../../../routes/landing/containers/LandingPage'
+import citiesEndpoint from '../../endpoint/endpoints/cities'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 type LandingRouteParamsType = {|language: string|}

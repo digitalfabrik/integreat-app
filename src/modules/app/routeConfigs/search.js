@@ -2,14 +2,14 @@
 
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
-import Payload from '../../../endpoint/Payload'
-import CityModel from '../../../endpoint/models/CityModel'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
+import Payload from '../../endpoint/Payload'
+import CityModel from '../../endpoint/models/CityModel'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import RouteConfig from './RouteConfig'
-import SearchPage from '../../../../routes/search/containers/SearchPage'
+import SearchPage from '../../../routes/search/containers/SearchPage'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
-import categoriesEndpoint from '../../../endpoint/endpoints/categories'
+import fetchData from '../fetchData'
+import categoriesEndpoint from '../../endpoint/endpoints/categories'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 type SearchRouteParamsType = {|city: string, language: string|}
