@@ -14,7 +14,7 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 import PoiModel from '../../endpoint/models/PoiModel'
@@ -86,6 +86,6 @@ const mapStateToProps = (state: StateType) => ({
   pois: state.pois.data
 })
 
-export default compose(connect(mapStateToProps), translate('layout'))(
+export default compose(connect(mapStateToProps), withNamespaces('layout'))(
   LanguageSelector
 )
