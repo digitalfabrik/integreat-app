@@ -11,7 +11,7 @@ import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
@@ -56,5 +56,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('sprungbrett')
+  withNamespaces('sprungbrett')
 )(SprungbrettExtraPage)

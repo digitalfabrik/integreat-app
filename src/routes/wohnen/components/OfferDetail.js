@@ -6,7 +6,7 @@ import type { AccommodationType } from '../../../modules/endpoint/models/WohnenF
 import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
@@ -158,4 +158,4 @@ class OfferDetail extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('wohnen')(OfferDetail)
+export default withNamespaces('wohnen')(OfferDetail)

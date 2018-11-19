@@ -112,7 +112,7 @@ class RemoteContent extends React.Component<PropsType> {
   render () {
     return <SandBox centered={this.props.centered}
                     dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
-                    innerRef={this.sandBoxRef} />
+                    ref={this.sandBoxRef} />
   }
 }
 
