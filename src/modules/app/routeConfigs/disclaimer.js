@@ -4,9 +4,12 @@ import RouteConfig from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
-import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import Payload from '../../endpoint/Payload'
+import PageModel from '../../endpoint/models/PageModel'
 
 type DisclaimerRouteParamsType = {|city: string, language: string|}
+type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
@@ -27,20 +30,24 @@ const disclaimerRoute: Route = {
   }
 }
 
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+  ({disclaimer: payloads.disclaimerPayload})
+
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getDisclaimerPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.disclaimer')} - ${cityName}`
 
-class DisclaimerRouteConfig extends RouteConfig<DisclaimerRouteParamsType> {
+class DisclaimerRouteConfig extends RouteConfig<DisclaimerRouteParamsType, RequiredPayloadsType> {
   constructor () {
     super({
       name: DISCLAIMER_ROUTE,
       route: disclaimerRoute,
       getRoutePath: getDisclaimerPath,
       getLanguageChangePath,
-      getPageTitle
+      getPageTitle,
+      getRequiredPayloads
     })
   }
 }

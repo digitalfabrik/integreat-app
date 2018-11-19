@@ -16,7 +16,7 @@ import DateModel from '../../../endpoint/models/DateModel'
 import LocationModel from '../../../endpoint/models/LocationModel'
 import CityModel from '../../../endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
-import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
+import { CATEGORIES_ROUTE } from '../../../app/routeConfigs/categories'
 
 describe('Helmet', () => {
   const city = 'augsburg'

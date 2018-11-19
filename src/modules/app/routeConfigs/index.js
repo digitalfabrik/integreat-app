@@ -13,12 +13,11 @@ import SearchRouteConfig, { SEARCH_ROUTE } from './search'
 import PoisRouteConfig, { POIS_ROUTE } from './pois'
 import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './disclaimer'
 import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './sprungbrett'
-import reduce from 'lodash/reduce'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
 
-export const routeConfigs: {[string]: RouteConfig<any>} = {
+export const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig(),
   [LANDING_ROUTE]: new LandingRouteConfig(),
@@ -32,7 +31,7 @@ export const routeConfigs: {[string]: RouteConfig<any>} = {
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig()
 }
 
-export const getRouteConfig = (routeName: string): Route<*> => {
+export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
   const routeConfig = routeConfigs[routeName]
   if (!routeConfig) {
     throw new Error(
@@ -41,5 +40,16 @@ export const getRouteConfig = (routeName: string): Route<*> => {
   return routeConfig
 }
 
-export const routesMap: {[string]: Route} =
-  reduce(routeConfigs, (result, value) => ({[value.name]: value.route, ...result}), {})
+export const routesMap: {[string]: Route} = {
+  [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig().route,
+  [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig().route,
+  [LANDING_ROUTE]: new LandingRouteConfig().route,
+  [EVENTS_ROUTE]: new EventsRouteConfig().route,
+  [SPRUNGBRETT_ROUTE]: new SprungbrettRouteConfig().route,
+  [WOHNEN_ROUTE]: new WohnenRouteConfig().route,
+  [EXTRAS_ROUTE]: new ExtrasRouteConfig().route,
+  [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig().route,
+  [SEARCH_ROUTE]: new SearchRouteConfig().route,
+  [POIS_ROUTE]: new PoisRouteConfig().route,
+  [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route
+}

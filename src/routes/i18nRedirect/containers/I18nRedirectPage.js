@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { Action } from 'redux-first-router'
-import { redirect, pathToAction } from 'redux-first-router'
+import { redirect, pathToAction, NOT_FOUND } from 'redux-first-router'
 import { connect } from 'react-redux'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { Dispatch } from 'redux'
@@ -10,7 +10,6 @@ import type { StateType } from '../../../modules/app/StateType'
 import { withI18n } from 'react-i18next'
 import i18n from 'i18next'
 import { compose } from 'recompose'
-import { goToNotFound } from '../../../modules/app/routes/notFound'
 import { routesMap } from '../../../modules/app/routeConfigs/index'
 import LandingRouteConfig from '../../../modules/app/routeConfigs/landing'
 import CategoriesRouteConfig from '../../../modules/app/routeConfigs/categories'
@@ -38,7 +37,7 @@ export class I18nRedirectPage extends React.Component<PropsType> {
       return pathToAction(new CategoriesRouteConfig().getRoutePath({city: param, language: i18n.language}), routesMap)
     }
 
-    return goToNotFound()
+    return pathToAction(NOT_FOUND, routesMap)
   }
 
   componentDidMount () {
