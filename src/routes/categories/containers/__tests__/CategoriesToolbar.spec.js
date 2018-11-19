@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 import { CategoriesToolbar } from '../CategoriesToolbar'
 import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
 import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
+import { CATEGORIES_ROUTE } from '../../../../modules/app/routeConfigs/categories'
 import moment from 'moment-timezone'
 
 describe('CategoriesToolbar', () => {

@@ -14,14 +14,15 @@ const getMainDisclaimerPath = (): string => '/disclaimer'
  */
 const mainDisclaimerRoute: Route = '/disclaimer'
 
-class MainDisclaimerRouteConfig extends RouteConfig<void> {
+class MainDisclaimerRouteConfig extends RouteConfig<void, void> {
   constructor () {
     super({
       name: MAIN_DISCLAIMER_ROUTE,
       route: mainDisclaimerRoute,
       getRoutePath: getMainDisclaimerPath,
       getPageTitle: ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer'),
-      getLanguageChangePath: () => null
+      getLanguageChangePath: () => null,
+      getRequiredPayloads: () => {}
     })
   }
 }

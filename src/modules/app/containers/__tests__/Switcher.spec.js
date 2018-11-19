@@ -4,14 +4,14 @@ import * as React from 'react'
 import ConnectedSwitcher, { Switcher } from '../Switcher'
 import Payload from '../../../endpoint/Payload'
 import { shallow, mount } from 'enzyme'
-import { CATEGORIES_ROUTE } from '../../routes/categories'
-import { LANDING_ROUTE } from '../../routes/landing'
-import { MAIN_DISCLAIMER_ROUTE } from '../../routes/mainDisclaimer'
-import { EXTRAS_ROUTE } from '../../routes/extras'
-import { EVENTS_ROUTE } from '../../routes/events'
-import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
-import { SEARCH_ROUTE } from '../../routes/search'
-import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
+import { CATEGORIES_ROUTE } from '../../routeConfigs/categories'
+import { LANDING_ROUTE } from '../../routeConfigs/landing'
+import { MAIN_DISCLAIMER_ROUTE } from '../../routeConfigs/mainDisclaimer'
+import { EXTRAS_ROUTE } from '../../routeConfigs/extras'
+import { EVENTS_ROUTE } from '../../routeConfigs/events'
+import { DISCLAIMER_ROUTE } from '../../routeConfigs/disclaimer'
+import { SEARCH_ROUTE } from '../../routeConfigs/search'
+import { I18N_REDIRECT_ROUTE } from '../../routeConfigs/i18nRedirect'
 import CityModel from '../../../endpoint/models/CityModel'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../../endpoint/models/EventModel'
@@ -23,8 +23,8 @@ import LanguageModel from '../../../endpoint/models/LanguageModel'
 import SprungbrettJobModel from '../../../endpoint/models/SprungbrettJobModel'
 import WohnenFormData from '../../../endpoint/models/WohnenFormData'
 import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
-import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
-import { WOHNEN_ROUTE } from '../../routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../routeConfigs/sprungbrett'
+import { WOHNEN_ROUTE } from '../../routeConfigs/wohnen'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
@@ -32,7 +32,7 @@ import { Provider } from 'react-redux'
 import DateModel from '../../../endpoint/models/DateModel'
 import LocationModel from '../../../endpoint/models/LocationModel'
 import PoiModel from '../../../endpoint/models/PoiModel'
-import { POIS_ROUTE } from '../../routes/pois'
+import { POIS_ROUTE } from '../../routeConfigs/pois'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -219,11 +219,11 @@ describe('Switcher', () => {
   })
 
   it('should return a spinner if the data has not been fetched yet', () => {
-    expect(Switcher.renderFailureLoadingComponents([fetchingPayload])).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents({payload: fetchingPayload})).toMatchSnapshot()
   })
 
   it('should return a failure if there was an error during fetching', () => {
-    expect(Switcher.renderFailureLoadingComponents([errorPayload])).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents({payload: errorPayload})).toMatchSnapshot()
   })
 
   describe('should get the right page if data has been fetched and', () => {

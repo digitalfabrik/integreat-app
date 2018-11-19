@@ -6,9 +6,12 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
-import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import Payload from '../../endpoint/Payload'
+import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
+type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
@@ -37,20 +40,24 @@ const sprungbrettRoute: Route = {
   }
 }
 
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+  ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
+
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getSprungbrettPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.sprungbrett')} - ${cityName}`
 
-class SprungbrettRouteConfig extends RouteConfig<SprungbrettRouteParamsType> {
+class SprungbrettRouteConfig extends RouteConfig<SprungbrettRouteParamsType, RequiredPayloadsType> {
   constructor () {
     super({
       name: SPRUNGBRETT_ROUTE,
       route: sprungbrettRoute,
       getRoutePath: getSprungbrettPath,
       getLanguageChangePath,
-      getPageTitle
+      getPageTitle,
+      getRequiredPayloads
     })
   }
 }

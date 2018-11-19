@@ -4,9 +4,13 @@ import RouteConfig from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
-import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import CityModel from '../../endpoint/models/CityModel'
+import Payload from '../../endpoint/Payload'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 
 type SearchRouteParamsType = {|city: string, language: string|}
+type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 
 export const SEARCH_ROUTE = 'SEARCH'
 
@@ -33,14 +37,18 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
   `${t('pageTitles.search')} - ${cityName}`
 
-class SearchRouteConfig extends RouteConfig<SearchRouteParamsType> {
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+  ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
+
+class SearchRouteConfig extends RouteConfig<SearchRouteParamsType, RequiredPayloadsType> {
   constructor () {
     super({
       name: SEARCH_ROUTE,
       route: searchRoute,
       getRoutePath: getSearchPath,
       getLanguageChangePath,
-      getPageTitle
+      getPageTitle,
+      getRequiredPayloads
     })
   }
 }

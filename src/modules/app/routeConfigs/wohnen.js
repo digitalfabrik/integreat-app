@@ -6,9 +6,12 @@ import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
-import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import Payload from '../../endpoint/Payload'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
+type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
@@ -35,20 +38,24 @@ const wohnenRoute: Route = {
   }
 }
 
+const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+  ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
+
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getWohnenPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.wohnen')} - ${cityName}`
 
-class WohnenRouteConfig extends RouteConfig<RouteParamsType> {
+class WohnenRouteConfig extends RouteConfig<RouteParamsType, RequiredPayloadsType> {
   constructor () {
     super({
       name: WOHNEN_ROUTE,
       route: wohnenRoute,
       getRoutePath: getWohnenPath,
       getLanguageChangePath,
-      getPageTitle
+      getPageTitle,
+      getRequiredPayloads
     })
   }
 }

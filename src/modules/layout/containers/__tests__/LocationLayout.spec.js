@@ -7,11 +7,11 @@ import CityModel from '../../../../modules/endpoint/models/CityModel'
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
 import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import CategoryModel from '../../../endpoint/models/CategoryModel'
-import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
+import { CATEGORIES_ROUTE } from '../../../app/routeConfigs/categories'
 import ExtraModel from '../../../endpoint/models/ExtraModel'
 import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
-import searchRoute, { SEARCH_ROUTE } from '../../../app/routes/search'
+import { SEARCH_ROUTE } from '../../../app/routeConfigs/search'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
 import PageModel from '../../../endpoint/models/PageModel'
@@ -161,7 +161,7 @@ describe('LocationLayout', () => {
       cities: {data: null},
       darkMode: true,
       location
-    }, {[SEARCH_ROUTE]: searchRoute})
+    })
     store.getState().location = location
 
     const tree = mount(
