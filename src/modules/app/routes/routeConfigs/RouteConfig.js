@@ -1,32 +1,38 @@
 // @flow
 
-import type { Node } from 'react'
 import type { AllPayloadsType, GetLanguageChangePathType, GetPageTitleParamsType } from '../types'
+import type { Route } from 'redux-first-router'
 
-class RouteConfig<T> {
+class RouteConfig<T, P> {
   _name: string
-  _renderPage: T => Node
+  _route: Route
+  _getRoutePath: P => string
   _getRequiredPayloads: AllPayloadsType => T
   _getLanguageChangePath: GetLanguageChangePathType
   _getPageTitle: GetPageTitleParamsType => string
 
-  constructor ({name, getLanguageChangePath, renderPage, getRequiredPayloads, getPageTitle}: {|name: string,
-    renderPage: T => Node, getPageTitle: GetPageTitleParamsType => string, getRequiredPayloads: AllPayloadsType => T,
-    getLanguageChangePath: GetLanguageChangePathType
+  constructor ({name, route, getRoutePath, getLanguageChangePath, getRequiredPayloads, getPageTitle}: {|
+    name: string, route: Route, getRoutePath: P => string, getPageTitle: GetPageTitleParamsType => string,
+    getRequiredPayloads: AllPayloadsType => T, getLanguageChangePath: GetLanguageChangePathType
   |}) {
-    this._renderPage = renderPage
     this._getRequiredPayloads = getRequiredPayloads
     this._getLanguageChangePath = getLanguageChangePath
     this._getPageTitle = getPageTitle
     this._name = name
+    this._route = route
+    this._getRoutePath = getRoutePath
   }
 
   get name (): string {
     return this._name
   }
 
-  get renderPage (): T => Node {
-    return this._renderPage
+  get route (): Route {
+    return this._route
+  }
+
+  get getRoutePath (): P => string {
+    return this._getRoutePath
   }
 
   get getRequiredPayloads (): AllPayloadsType => T {

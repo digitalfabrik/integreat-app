@@ -4,16 +4,30 @@ import React from 'react'
 import RouteConfig from './RouteConfig'
 import MainDisclaimerPage from '../../../../routes/main-disclaimer/components/MainDisclaimerPage'
 import type { GetPageTitleParamsType } from '../types'
-import { MAIN_DISCLAIMER_ROUTE } from '../mainDisclaimer'
+import { Route } from 'redux-first-router'
 
 const renderMainDisclaimerPage = () => <MainDisclaimerPage />
+export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-const mainDisclaimerRouteConfig: RouteConfig<void> = new RouteConfig({
-  name: MAIN_DISCLAIMER_ROUTE,
-  renderPage: renderMainDisclaimerPage,
-  getRequiredPayloads: () => {},
-  getPageTitle: ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer'),
-  getLanguageChangePath: () => null
-})
+const getMainDisclaimerPath = (): string => '/disclaimer'
 
-export default mainDisclaimerRouteConfig
+/**
+ * MainDisclaimerRoute, matches /disclaimer
+ * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ */
+const mainDisclaimerRoute: Route = '/disclaimer'
+
+class MainDisclaimerRouteConfig extends RouteConfig<void, void> {
+  constructor () {
+    super({
+      name: MAIN_DISCLAIMER_ROUTE,
+      route: mainDisclaimerRoute,
+      getRoutePath: getMainDisclaimerPath,
+      getRequiredPayloads: () => {},
+      getPageTitle: ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer'),
+      getLanguageChangePath: () => null
+    })
+  }
+}
+
+export default MainDisclaimerRouteConfig

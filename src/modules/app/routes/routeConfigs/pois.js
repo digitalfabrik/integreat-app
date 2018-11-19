@@ -6,9 +6,27 @@ import RouteConfig from './RouteConfig'
 import PoisPage from '../../../../routes/pois/containers/PoisPage'
 import Payload from '../../../endpoint/Payload'
 import PoiModel from '../../../endpoint/models/PoiModel'
-import { getPoisPath, POIS_ROUTE } from '../pois'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../../fetchData'
+import poisEndpoint from '../../../endpoint/endpoints/pois'
 
 type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>|}
+type PoisRouteParamsType = {|city: string, language: string|}
+
+export const POIS_ROUTE = 'POI'
+
+const getPoisPath = ({city, language}: PoisRouteParamsType): string =>
+  `/${city}/${language}/locations`
+
+const poisRoute: Route = {
+  path: '/:city/:language/locations/:poiId?',
+  thunk: async (dispatch: Dispatch, getState: GetState) => {
+    const state = getState()
+    const {city, language} = state.location.payload
+
+    await fetchData(poisEndpoint, dispatch, state.pois, {city, language})
+  }
+}
 
 const renderPoisPage = ({pois}: RequiredPayloadType) =>
   <PoisPage pois={pois.data} />
@@ -30,12 +48,17 @@ const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
   return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
 }
 
-const poisRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
-  name: POIS_ROUTE,
-  renderPage: renderPoisPage,
-  getRequiredPayloads: getRequiredPayloads,
-  getLanguageChangePath,
-  getPageTitle
-})
+class PoisRouteConfig extends RouteConfig<RequiredPayloadType, PoisRouteParamsType> {
+  constructor () {
+    super({
+      name: POIS_ROUTE,
+      route: poisRoute,
+      getRoutePath: getPoisPath,
+      getRequiredPayloads: getRequiredPayloads,
+      getLanguageChangePath,
+      getPageTitle
+    })
+  }
+}
 
-export default poisRouteConfig
+export default PoisRouteConfig
