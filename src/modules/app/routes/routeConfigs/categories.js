@@ -7,9 +7,31 @@ import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
 import RouteConfig from './RouteConfig'
 import React from 'react'
 import CategoriesPage from '../../../../routes/categories/containers/CategoriesPage'
-import { CATEGORIES_ROUTE, getCategoriesPath } from '../categories'
+import type { Dispatch, GetState, Route } from 'redux-first-router'
+import fetchData from '../../fetchData'
+import categoriesEndpoint from '../../../endpoint/endpoints/categories'
 
 type RequiredPayloadType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
+
+export type CategoriesRouteParamsType = {|city: string, language: string|}
+
+export const CATEGORIES_ROUTE = 'CATEGORIES'
+
+const getCategoriesPath = ({city, language}: CategoriesRouteParamsType): string => `/${city}/${language}`
+
+/**
+ * CategoriesRoute, matches /augsburg/de*
+ * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ */
+const categoriesRoute: Route = {
+  path: '/:city/:language/:categoryPath*',
+  thunk: async (dispatch: Dispatch, getState: GetState) => {
+    const state = getState()
+    const { city, language } = state.location.payload
+
+    await fetchData(categoriesEndpoint, dispatch, state.categories, { city, language })
+  }
+}
 
 const renderCategoriesPage = ({ categories, cities }: RequiredPayloadType) =>
   <CategoriesPage categories={categories.data} cities={cities.data} />
@@ -33,12 +55,17 @@ const getPageTitle = ({t, categories, cityName, pathname}: GetPageTitleParamsTyp
   return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
 }
 
-const categoriesRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
-  name: CATEGORIES_ROUTE,
-  renderPage: renderCategoriesPage,
-  getRequiredPayloads,
-  getLanguageChangePath,
-  getPageTitle
-})
+class CategoriesRouteConfig extends RouteConfig<RequiredPayloadType, CategoriesRouteParamsType> {
+  constructor () {
+    super({
+      name: CATEGORIES_ROUTE,
+      route: categoriesRoute,
+      getRoutePath: getCategoriesPath,
+      getRequiredPayloads,
+      getLanguageChangePath,
+      getPageTitle
+    })
+  }
+}
 
-export default categoriesRouteConfig
+export default CategoriesRouteConfig

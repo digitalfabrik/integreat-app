@@ -14,7 +14,7 @@ import { LANDING_ROUTE } from '../landing'
 import type { Route } from 'redux-first-router'
 import RouteConfig from './RouteConfig'
 import type { GetLanguageChangePathParamsType } from '../types'
-import categoriesRouteConfig from './categories'
+import CategoriesRouteConfig from './categories'
 import i18nRedirectRouteConfig from './i18nRedirect'
 import landingRouteConfig from './landing'
 import mainDisclaimerRouteConfig from './mainDisclaimer'
@@ -37,7 +37,7 @@ const routeConfigs: Array<RouteConfig<any>> = [
   disclaimerRouteConfig,
   searchRouteConfig,
   poisRouteConfig,
-  categoriesRouteConfig
+  new CategoriesRouteConfig()
 ]
 
 export const getRouteConfig = (routeName: string): Route<*> => {

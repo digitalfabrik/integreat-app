@@ -1,14 +1,25 @@
 // @flow
 
 import React from 'react'
-import { EVENTS_ROUTE, getEventsPath } from '../events'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
 import Payload from '../../../endpoint/Payload'
 import EventModel from '../../../endpoint/models/EventModel'
 import RouteConfig from './RouteConfig'
 import EventsPage from '../../../../routes/events/containers/EventsPage'
+import type { Route } from 'redux-first-router'
 
 type RequiredPayloadType = {|events: Payload<Array<EventModel>>|}
+type EventsRouteParamsType = {|city: string, language: string|}
+
+export const EVENTS_ROUTE = 'EVENTS'
+
+const getEventsPath = ({city, language}: EventsRouteParamsType): string => `/${city}/${language}/events`
+
+/**
+ * EventsRoute, matches /augsburg/de/events and /augsburg/de/events/begegnungscafe
+ * @type {{path: string, thunk: function(Dispatch, GetState)}}
+ */
+const eventsRoute: Route = '/:city/:language/events/:eventId?'
 
 const renderPage = ({ events }: RequiredPayloadType) =>
   <EventsPage events={events.data} />
@@ -30,12 +41,17 @@ const getPageTitle = ({t, events, cityName, pathname}: GetPageTitleParamsType) =
   return `${event ? event.title : t('pageTitles.events')} - ${cityName}`
 }
 
-const eventsRouteConfig: RouteConfig<RequiredPayloadType> = new RouteConfig({
-  name: EVENTS_ROUTE,
-  renderPage,
-  getRequiredPayloads,
-  getLanguageChangePath,
-  getPageTitle
-})
+class EventsRouteConfig extends RouteConfig<RequiredPayloadType, EventsRouteParamsType> {
+  constructor () {
+    super({
+      name: EVENTS_ROUTE,
+      route: eventsRoute,
+      getRoutePath: getEventsPath,
+      getRequiredPayloads,
+      getLanguageChangePath,
+      getPageTitle
+    })
+  }
+}
 
-export default eventsRouteConfig
+export default EventsRouteConfig
