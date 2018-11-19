@@ -1,17 +1,11 @@
 // @flow
 
-import React from 'react'
-
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
-import Payload from '../../endpoint/Payload'
-import ExtraModel from '../../endpoint/models/ExtraModel'
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
+import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
-type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>|}
 type ExtrasRouteParamsType = {|city: string, language: string|}
 
 export const EXTRAS_ROUTE = 'EXTRAS'
@@ -33,25 +27,18 @@ const extrasRoute: Route = {
   }
 }
 
-const renderExtrasPage = ({extras}: RequiredPayloadType) =>
-  <ExtrasPage extras={extras.data} />
-
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({extras: payloads.extrasPayload})
-
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getExtrasPath({city: location.payload.city, language})
 
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.extras')} - ${cityName}`
 
-class ExtrasRouteConfig extends RouteConfig<RequiredPayloadType, ExtrasRouteParamsType> {
+class ExtrasRouteConfig extends RouteConfig<ExtrasRouteParamsType> {
   constructor () {
     super({
       name: EXTRAS_ROUTE,
       route: extrasRoute,
       getRoutePath: getExtrasPath,
-      getRequiredPayloads,
       getLanguageChangePath,
       getPageTitle
     })

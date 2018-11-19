@@ -1,21 +1,30 @@
 // @flow
 
-import type { AllPayloadsType, GetLanguageChangePathType, GetPageTitleParamsType } from './types'
-import type { Route } from 'redux-first-router'
+import type { Location, Route } from 'redux-first-router'
+import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import EventModel from '../../endpoint/models/EventModel'
+import PoiModel from '../../endpoint/models/PoiModel'
+import type { TFunction } from 'react-i18next'
 
-class RouteConfig<T, P> {
+export type GetLanguageChangePathParamsType = {|location: Location, events?: Array<EventModel>,
+  categories?: CategoriesMapModel, pois?: Array<PoiModel>, language: string|}
+
+export type GetLanguageChangePathType = GetLanguageChangePathParamsType => string | null
+
+export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname: string, events?: Array<EventModel>,
+  categories?: CategoriesMapModel, pois?: Array<PoiModel>|}
+
+class RouteConfig<T> {
   _name: string
   _route: Route
-  _getRoutePath: P => string
-  _getRequiredPayloads: AllPayloadsType => T
+  _getRoutePath: T => string
   _getLanguageChangePath: GetLanguageChangePathType
   _getPageTitle: GetPageTitleParamsType => string
 
-  constructor ({name, route, getRoutePath, getLanguageChangePath, getRequiredPayloads, getPageTitle}: {|
-    name: string, route: Route, getRoutePath: P => string, getPageTitle: GetPageTitleParamsType => string,
-    getRequiredPayloads: AllPayloadsType => T, getLanguageChangePath: GetLanguageChangePathType
+  constructor ({name, route, getRoutePath, getLanguageChangePath, getPageTitle}: {| name: string, route: Route,
+    getRoutePath: T => string, getPageTitle: GetPageTitleParamsType => string,
+    getLanguageChangePath: GetLanguageChangePathType
   |}) {
-    this._getRequiredPayloads = getRequiredPayloads
     this._getLanguageChangePath = getLanguageChangePath
     this._getPageTitle = getPageTitle
     this._name = name
@@ -31,12 +40,8 @@ class RouteConfig<T, P> {
     return this._route
   }
 
-  get getRoutePath (): P => string {
+  get getRoutePath (): T => string {
     return this._getRoutePath
-  }
-
-  get getRequiredPayloads (): AllPayloadsType => T {
-    return this._getRequiredPayloads
   }
 
   get getLanguageChangePath (): GetLanguageChangePathType {

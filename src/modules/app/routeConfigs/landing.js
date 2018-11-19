@@ -1,16 +1,11 @@
 // @flow
 
-import React from 'react'
-import Payload from '../../endpoint/Payload'
-import CityModel from '../../endpoint/models/CityModel'
-import type { AllPayloadsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import LandingPage from '../../../routes/landing/containers/LandingPage'
 import citiesEndpoint from '../../endpoint/endpoints/cities'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
+import type { GetPageTitleParamsType } from './RouteConfig'
 
-type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 type LandingRouteParamsType = {|language: string|}
 
 export const LANDING_ROUTE = 'LANDING'
@@ -28,20 +23,14 @@ const landingRoute: Route = {
   }
 }
 
-const renderLandingPage = ({cities}: RequiredPayloadType) =>
-  <LandingPage cities={cities.data} />
-
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType => ({cities: payloads.citiesPayload})
-
 const getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.landing')
 
-class LandingRouteConfig extends RouteConfig<RequiredPayloadType, LandingRouteParamsType> {
+class LandingRouteConfig extends RouteConfig<LandingRouteParamsType> {
   constructor () {
     super({
       name: LANDING_ROUTE,
       route: landingRoute,
       getRoutePath: getLandingPath,
-      getRequiredPayloads,
       getPageTitle,
       getLanguageChangePath: () => null
     })

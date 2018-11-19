@@ -1,16 +1,11 @@
 // @flow
 
-import React from 'react'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import PoisPage from '../../../routes/pois/containers/PoisPage'
-import Payload from '../../endpoint/Payload'
-import PoiModel from '../../endpoint/models/PoiModel'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import poisEndpoint from '../../endpoint/endpoints/pois'
+import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
-type RequiredPayloadType = {|pois: Payload<Array<PoiModel>>|}
 type PoisRouteParamsType = {|city: string, language: string|}
 
 export const POIS_ROUTE = 'POI'
@@ -28,12 +23,6 @@ const poisRoute: Route = {
   }
 }
 
-const renderPoisPage = ({pois}: RequiredPayloadType) =>
-  <PoisPage pois={pois.data} />
-
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({pois: payloads.poisPayload})
-
 const getLanguageChangePath = ({location, pois, language}: GetLanguageChangePathParamsType) => {
   const {city, poiId} = location.payload
   if (pois && poiId) {
@@ -48,13 +37,12 @@ const getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
   return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
 }
 
-class PoisRouteConfig extends RouteConfig<RequiredPayloadType, PoisRouteParamsType> {
+class PoisRouteConfig extends RouteConfig<PoisRouteParamsType> {
   constructor () {
     super({
       name: POIS_ROUTE,
       route: poisRoute,
       getRoutePath: getPoisPath,
-      getRequiredPayloads: getRequiredPayloads,
       getLanguageChangePath,
       getPageTitle
     })
