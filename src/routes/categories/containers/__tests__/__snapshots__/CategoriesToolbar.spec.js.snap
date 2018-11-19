@@ -2,16 +2,6 @@
 
 exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] = `
 <LocationToolbar
-  location={
-    Object {
-      "pathname": "/augsburg/de/willkommen",
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "type": "CATEGORIES",
-    }
-  }
   openFeedbackModal={[Function]}
 >
   <ToolbarItem
@@ -36,16 +26,6 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
 
 exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
 <LocationToolbar
-  location={
-    Object {
-      "pathname": "/augsburg/de",
-      "payload": Object {
-        "city": "augsburg",
-        "language": "de",
-      },
-      "type": "CATEGORIES",
-    }
-  }
   openFeedbackModal={[Function]}
 >
   <ToolbarItem

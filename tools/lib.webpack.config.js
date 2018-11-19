@@ -11,7 +11,7 @@ const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-
 
 const basePackageValues = {
   'name': '@integreat-app/shared',
-  'version': '0.0.1',
+  'version': '0.0.4',
   'main': './index.js'
 }
 
@@ -23,7 +23,6 @@ const config = {
   mode: 'production',
   resolve: {
     modules: [
-      path.resolve('./src'),
       path.resolve('./node_modules')
     ]
   },

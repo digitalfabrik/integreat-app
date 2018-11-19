@@ -21,12 +21,12 @@ const Title = styled.div`
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
-type PropsType = {
+type PropsType = {|
   closeFeedbackModal: () => void,
   title: string
-}
+|}
 
-export class ModalHeader extends React.Component<PropsType> {
+export class ModalHeader extends React.PureComponent<PropsType> {
   render () {
     const {title, closeFeedbackModal} = this.props
 

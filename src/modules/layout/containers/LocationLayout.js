@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import CityModel from 'modules/endpoint/models/CityModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
 
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
@@ -24,48 +24,48 @@ import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
 import EventModel from '../../endpoint/models/EventModel'
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
+import PageModel from '../../endpoint/models/PageModel'
 import type { Dispatch } from 'redux'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
+import { POIS_ROUTE } from '../../app/routes/pois'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
-  DISCLAIMER_ROUTE, SEARCH_ROUTE]
+  DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
 
 export type FeedbackRatingType = 'up' | 'down'
 
-type PropsType = {
+type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
   extras: ?Array<ExtraModel>,
-  disclaimer: ?DisclaimerModel,
+  disclaimer: ?PageModel,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
   toggleDarkMode: () => void,
   darkMode: boolean
-}
+|}
 
-type StateType = {
+type LocalStateType = {|
   asideStickyTop: number,
   feedbackModalRating: ?FeedbackRatingType,
   footerClicked: number
-}
+|}
 
 const DARK_THEME_CLICK_COUNT = 5
 
-export class LocationLayout extends React.Component<PropsType, StateType> {
+export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   state = {asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0}
 
   onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
 
   onFooterClicked = () => {
+    if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
+      this.props.toggleDarkMode()
+    }
     this.setState(prevState => {
-      if (prevState.footerClicked < DARK_THEME_CLICK_COUNT) {
-        return ({...prevState, footerClicked: prevState.footerClicked + 1})
-      } else {
-        this.props.toggleDarkMode()
-      }
+      return ({...prevState, footerClicked: prevState.footerClicked + 1})
     })
   }
 
@@ -166,7 +166,7 @@ export class LocationLayout extends React.Component<PropsType, StateType> {
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
-                   footer={<LocationFooter city={city} language={language} />}
+                   footer={<LocationFooter onClick={this.onFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
                    modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
                    darkMode={darkMode}>
@@ -186,8 +186,9 @@ const mapStateToProps = state => ({
   darkMode: state.darkMode
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>) => ({
-  toggleDarkMode: action => dispatch(toggleDarkModeAction(action))
+// fixme: WEBAPP-400 Dispatch type is not correct
+const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+  toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationLayout)

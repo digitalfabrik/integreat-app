@@ -2,13 +2,13 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
-import LanguageSelector from 'modules/common/containers/LanguageSelector'
-import CityModel from 'modules/endpoint/models/CityModel'
-import Caption from 'modules/common/components/Caption'
+import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import Caption from '../../../modules/common/components/Caption'
 
 import styled from 'styled-components'
 import type { StateType } from '../../app/StateType'
@@ -18,11 +18,11 @@ const ChooseLanguage = styled.p`
   text-align: center;
 `
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   city: string,
   t: TFunction
-}
+|}
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render () {
@@ -42,5 +42,5 @@ const mapStateTypeToProps = (stateType: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('error')
+  withNamespaces('error')
 )(LanguageFailure)

@@ -89,11 +89,8 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
   <Caption
     title="Raumfrei"
   />
-  <Translate(OfferList)
-    city="augsburg"
-    hashFunction={[Function]}
-    language="de"
-    offers={
+  <List
+    items={
       Array [
         WohnenOfferModel {
           "_createdDate": "2018-07-24T00:00:00.000Z",
@@ -150,8 +147,8 @@ exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
         },
       ]
     }
+    noItemsMessage="noOffersAvailable"
+    renderItem={[Function]}
   />
 </Fragment>
 `;
-
-exports[`WohnenExtraPage should render spinner if offers are not ready 1`] = `<WithTheme(LoadingSpinner) />`;

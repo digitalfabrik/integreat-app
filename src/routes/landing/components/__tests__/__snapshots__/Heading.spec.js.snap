@@ -9,6 +9,7 @@ exports[`Heading should render 1`] = `
         "backgroundColor": "#ffffff",
         "textColor": "#000000",
         "textDecorationColor": "#c7c7c7",
+        "textDisabledColor": "#d0d0d0",
         "textSecondaryColor": "#585858",
         "themeColor": "#fbda16",
         "themeDarkColor": "#c4a900",
@@ -49,21 +50,74 @@ exports[`Heading should render 1`] = `
         <Heading__Logo
           src="test-file-stub"
         >
-          <img
-            className="Heading__Logo-FZtoB jLStHp"
+          <StyledComponent
+            forwardedClass={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "Heading__Logo-nspadb-0",
+                  "isStatic": true,
+                  "lastClassName": "douIoU",
+                  "rules": Array [
+                    "display:block;height:70px;margin:0 auto;",
+                  ],
+                },
+                "displayName": "Heading__Logo",
+                "render": [Function],
+                "styledComponentId": "Heading__Logo-nspadb-0",
+                "target": "img",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
             src="test-file-stub"
-          />
+          >
+            <img
+              className="Heading__Logo-nspadb-0 douIoU"
+              src="test-file-stub"
+            />
+          </StyledComponent>
         </Heading__Logo>
         <Caption
           title="landing:where"
         >
-          <Captionstyles__H1>
-            <h1
-              className="Captionstyles__H1-fhVIYI kAGJkW"
+          <Caption__H1>
+            <StyledComponent
+              forwardedClass={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": undefined,
+                  "componentStyle": ComponentStyle {
+                    "componentId": "Caption__H1-sc-1ggkcri-0",
+                    "isStatic": false,
+                    "lastClassName": "gqxdkx",
+                    "rules": Array [
+                      "margin:25px 0;font-size:2rem;text-align:center;@media ",
+                      [Function],
+                      "{margin:10px 0;}",
+                    ],
+                  },
+                  "displayName": "Caption__H1",
+                  "render": [Function],
+                  "styledComponentId": "Caption__H1-sc-1ggkcri-0",
+                  "target": "h1",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
             >
-              landing:where
-            </h1>
-          </Captionstyles__H1>
+              <h1
+                className="Caption__H1-sc-1ggkcri-0 gqxdkx"
+              >
+                landing:where
+              </h1>
+            </StyledComponent>
+          </Caption__H1>
         </Caption>
       </div>
     </Heading>

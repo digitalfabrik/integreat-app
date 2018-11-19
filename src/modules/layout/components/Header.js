@@ -6,7 +6,7 @@ import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
 import Link from 'redux-first-router-link'
-import Headroom from '../../common/components/Headroom'
+import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
@@ -14,7 +14,7 @@ import type { Action } from 'redux-first-router'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
 
-type PropsType = {
+type PropsType = {|
   navigationItems: React.Node,
   actionItems: Array<HeaderActionItem>,
   logoHref: Action | string,
@@ -22,7 +22,7 @@ type PropsType = {
   theme: ThemeType,
   onStickyTopChanged: number => void,
   platform: Platform
-}
+|}
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -103,7 +103,7 @@ const NavigationBar = styled(HeaderNavigationBar)`
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-export class Header extends React.Component<PropsType> {
+export class Header extends React.PureComponent<PropsType> {
   static defaultProps = {
     navigationItems: null,
     actionItems: []

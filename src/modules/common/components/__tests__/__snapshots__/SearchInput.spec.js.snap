@@ -1,52 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchInput connect should render 1`] = `
-<SearchInputstyles__Spacer
+<SearchInput__Spacer
   space={false}
 >
-  <SearchInputstyles__Wrapper>
-    <SearchInputstyles__SearchIcon />
-    <SearchInputstyles__TextInput
+  <SearchInput__Wrapper>
+    <SearchInput__SearchIcon />
+    <SearchInput__TextInput
       aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
       onChange={[Function]}
       placeholder="Placeholder"
     />
-  </SearchInputstyles__Wrapper>
-</SearchInputstyles__Spacer>
+  </SearchInput__Wrapper>
+</SearchInput__Spacer>
 `;
 
 exports[`SearchInput should render 1`] = `
-<SearchInputstyles__Spacer
+<SearchInput__Spacer
   space={false}
 >
-  <SearchInputstyles__Wrapper>
-    <SearchInputstyles__SearchIcon />
-    <SearchInputstyles__TextInput
+  <SearchInput__Wrapper>
+    <SearchInput__SearchIcon />
+    <SearchInput__TextInput
       aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
       onChange={[Function]}
       placeholder="Placeholder"
     />
-  </SearchInputstyles__Wrapper>
-</SearchInputstyles__Spacer>
+  </SearchInput__Wrapper>
+</SearchInput__Spacer>
 `;
 
 exports[`SearchInput should render and space search 1`] = `
-<SearchInputstyles__Spacer
+<SearchInput__Spacer
   space={true}
 >
-  <SearchInputstyles__Wrapper>
-    <SearchInputstyles__SearchIcon />
-    <SearchInputstyles__TextInput
+  <SearchInput__Wrapper>
+    <SearchInput__SearchIcon />
+    <SearchInput__TextInput
       aria-label="Placeholder"
       autoFocus={true}
       defaultValue="Test"
       onChange={[Function]}
       placeholder="Placeholder"
     />
-  </SearchInputstyles__Wrapper>
-</SearchInputstyles__Spacer>
+  </SearchInput__Wrapper>
+</SearchInput__Spacer>
 `;

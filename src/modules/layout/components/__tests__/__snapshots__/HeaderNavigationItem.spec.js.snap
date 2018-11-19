@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderNavigationItem should render an ActiveNavigationItem 1`] = `
-<HeaderNavigationItemstyles__ActiveNavigationItem
+<HeaderNavigationItem__ActiveNavigationItem
   key="Kategorien"
   selected={true}
   to="/augsburg/de"
 >
   Kategorien
-</HeaderNavigationItemstyles__ActiveNavigationItem>
+</HeaderNavigationItem__ActiveNavigationItem>
 `;
 
 exports[`HeaderNavigationItem should render an InactiveNavigationItem 1`] = `
-<HeaderNavigationItemstyles__InactiveNavigationItem
+<HeaderNavigationItem__DisabledNavigationItem
   data-tip="random tooltip"
   key="Kategorien"
 >
   Kategorien
-</HeaderNavigationItemstyles__InactiveNavigationItem>
+</HeaderNavigationItem__DisabledNavigationItem>
 `;

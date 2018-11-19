@@ -3,10 +3,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
-import Page from 'modules/common/components/Page'
+import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 
-import Breadcrumbs from 'modules/common/components/Breadcrumbs'
+import Breadcrumbs from '../../../modules/common/components/Breadcrumbs'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from '../components/CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
@@ -15,17 +14,17 @@ import CityModel from '../../../modules/endpoint/models/CityModel'
 import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import type { StateType } from 'modules/app/StateType'
-import CategoryTimeStamp from '../components/CategoryTimeStamp'
+import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
-import type { UiDirectionType } from '../../../modules/app/StateType'
+import { withNamespaces } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
+import Page from '../../../modules/common/components/Page'
 
-type PropsType = {
+type PropsType = {|
   categories: CategoriesMapModel,
   cities: Array<CityModel>,
   path: string,
@@ -35,7 +34,7 @@ type PropsType = {
   t: TFunction,
   dispatch: ReceivedAction => void,
   routesMap: {}
-}
+|}
 
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
@@ -71,10 +70,11 @@ export class CategoriesPage extends React.Component<PropsType> {
     const children = categories.getChildren(category)
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <>
-        <Page title={category.title} content={category.content} onInternLinkClick={this.redirectToPath} />
-        {category.lastUpdate && <CategoryTimeStamp lastUpdate={category.lastUpdate} language={language} />}
-      </>
+      return <Page title={category.title}
+                   content={category.content}
+                   lastUpdate={category.lastUpdate}
+                   language={language}
+                   onInternalLinkClick={this.redirectToPath} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -83,7 +83,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
                          title={category.title} onInternLinkClick={this.redirectToPath}
-                         content={category.content} />
+                         content={category.content} thumbnail={category.thumbnail} />
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
@@ -135,4 +135,4 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   dispatch
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('categories')(CategoriesPage))
+export default connect(mapStateToProps, mapDispatchToProps)(withNamespaces('categories')(CategoriesPage))

@@ -4,7 +4,6 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 
 import createReduxStore from '../createReduxStore'
-import createHistory from '../createHistory'
 import I18nProvider from '../../i18n/containers/I18nProvider'
 
 import PlatformProvider from '../../platform/containers/PlatformProvider'
@@ -12,19 +11,20 @@ import routesMap from '../routesMap'
 import Switcher from './Switcher'
 import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 
-type PropsType = {
-}
+type PropsType = {||}
 
 class App extends React.Component<PropsType> {
-  store: any;
+  // $FlowFixme WEBAPP-400 Fix types for flow
+  store: any
 
   constructor () {
     super()
-    this.store = createReduxStore(createHistory, {}, routesMap)
+    this.store = createReduxStore({}, routesMap)
   }
 
   render () {
-    return (
+    // $FlowFixMe https://github.com/facebook/flow/issues/6107 StrictMode not yet available in flow
+    return <React.StrictMode>
       <Provider store={this.store}>
         <PlatformProvider>
           <I18nProvider>
@@ -34,7 +34,7 @@ class App extends React.Component<PropsType> {
           </I18nProvider>
         </PlatformProvider>
       </Provider>
-    )
+    </React.StrictMode>
   }
 }
 

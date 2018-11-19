@@ -1,4 +1,5 @@
 // @flow
+
 export default class SelectorItemModel {
   _code: string
   _name: string

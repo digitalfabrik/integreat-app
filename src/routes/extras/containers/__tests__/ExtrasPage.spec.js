@@ -1,12 +1,15 @@
 // @flow
 
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
-import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
+import theme from '../../../../modules/theme/constants/theme'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux'
 
 describe('ExtrasPage', () => {
   const city = 'augsburg'
@@ -58,30 +61,43 @@ describe('ExtrasPage', () => {
                   language={language}
                   cities={cities}
                   extras={extras}
+                  extraId={undefined}
+                  t={t} />
+    )
+    expect(extrasPage).toMatchSnapshot()
+  })
+
+  it('should render a ExtraNotFoundError if there is an extraId', () => {
+    const extrasPage = shallow(
+      <ExtrasPage city={city}
+                  language={language}
+                  cities={cities}
+                  extras={extras}
+                  extraId={'invalid_extra'}
                   t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
-    const location = {payload: {language, city}}
+    const location = {payload: {language, city, extraId: 'invalid_extra'}}
+    const store = createReduxStore()
+    store.getState().location = location
 
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
-      extras: {data: extras},
-      cities: {data: cities}
-    })
-
-    const extrasPage = shallow(
-      <ConnectedExtrasPage store={store} cities={cities} extras={extras} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedExtrasPage cities={cities} extras={extras} />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(extrasPage.props()).toMatchObject({
+    expect(tree.find(ExtrasPage).props()).toMatchObject({
       language,
       city,
       extras,
-      cities
+      cities,
+      extraId: 'invalid_extra'
     })
   })
 })

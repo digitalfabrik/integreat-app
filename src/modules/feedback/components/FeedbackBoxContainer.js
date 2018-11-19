@@ -4,8 +4,8 @@ import * as React from 'react'
 import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { FeedbackDataType } from '../../../modules/endpoint/FeedbackEndpoint'
-import FeedbackEndpoint, {
+import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
+import feedbackEndpoint, {
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -14,9 +14,9 @@ import FeedbackEndpoint, {
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/FeedbackEndpoint'
+} from '../../../modules/endpoint/endpoints/feedback'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
 import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
@@ -38,7 +38,7 @@ type PropsType = {|
   isPositiveRatingSelected: boolean,
   location: LocationState,
   extras: ?Array<ExtraModel>,
-  postFeedbackDataOverride?: FeedbackDataType => void,
+  postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   onSubmit: () => void,
   t: TFunction
@@ -60,13 +60,13 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
-  postFeedbackData = (feedbackData: FeedbackDataType) => {
+  postFeedbackData = (feedbackData: FeedbackParamsType) => {
     const {postFeedbackDataOverride} = this.props
 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      FeedbackEndpoint.postData(feedbackData)
+      feedbackEndpoint.request(feedbackData)
     }
   }
 
@@ -76,7 +76,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * * Feedback for the content of the current city if the current route is a LocationRoute
    * * Feedback for all available extras if the current page is the extras page
    * * Feedback for technical topics
-   * @return {Array}
    */
   getFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {t} = this.props
@@ -100,7 +99,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns a feedback option for the content of the current city
-   * @return {FeedbackDropdownItem}
    */
   getContentFeedbackOption = (): ?FeedbackDropdownItem => {
     const {cities, location, t} = this.props
@@ -125,7 +123,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns a feedback option for every available extra
-   * @return {*}
    */
   getExtrasFeedbackOptions = (): Array<FeedbackDropdownItem> => {
     const {extras, location, t} = this.props
@@ -140,7 +137,6 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
 
   /**
    * Returns a feedback option for the current page or null if there shouldn't be one
-   * @return {*}
    */
   getCurrentPageFeedbackOption = (): ?FeedbackDropdownItem => {
     const {location, id, alias, title, query, t} = this.props
@@ -162,13 +158,9 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   /**
-   * Returns the data that should be posted to the FeedbackEndpoint
-   * @param selectedFeedbackOption
-   * @param comment
-   * @return {{feedbackType: string, isPositiveRating: boolean, comment: string, id: number, city: *, language: *,
-   * alias: string, query: string}}
+   * Returns the data that should be posted to the feedback endpoint
    */
-  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackDataType => {
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
     const {location, query, isPositiveRatingSelected, id, alias} = this.props
     const {city, language} = location.payload
 
@@ -212,4 +204,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default translate('feedback')(FeedbackBoxContainer)
+export default withNamespaces('feedback')(FeedbackBoxContainer)

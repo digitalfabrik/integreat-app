@@ -4,9 +4,9 @@ exports[`ScrollingSearchBox should render 1`] = `
 <div>
   <Headroom
     height={45}
+    onStickyTopChanged={[Function]}
     pinStart={0}
     scrollHeight={45}
-    stickyAncestor={<MockNode />}
   >
     <SearchInput
       filterText="Test"
@@ -15,23 +15,24 @@ exports[`ScrollingSearchBox should render 1`] = `
       spaceSearch={false}
     />
   </Headroom>
+  <MockNode />
 </div>
 `;
 
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="Headroomstyles__HeaderWrapper-jYoiGy gQCjps"
+    class="Headroom__HeaderWrapper-sc-16d3zk-0 jLNFic"
   >
     <div
-      class="SearchInputstyles__Spacer-cMSLit igccOZ"
+      class="SearchInput__Spacer-sc-18knujq-0 lmcbCl"
     >
       <div
-        class="SearchInputstyles__Wrapper-ffUsLb lnRSBQ"
+        class="SearchInput__Wrapper-sc-18knujq-2 ikYATt"
       >
         <svg
           aria-hidden="true"
-          class="svg-inline--fa fa-search fa-w-16 SearchInputstyles__SearchIcon-gfOCcr fGPimo"
+          class="svg-inline--fa fa-search fa-w-16 SearchInput__SearchIcon-sc-18knujq-3 kAwGea"
           data-icon="search"
           data-prefix="fas"
           role="img"
@@ -45,7 +46,7 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
         </svg>
         <input
           aria-label="Placeholder"
-          class="SearchInputstyles__TextInput-bUHXnK jNhJGO"
+          class="SearchInput__TextInput-sc-18knujq-1 hLTiXW"
           placeholder="Placeholder"
           type="text"
           value="Test"
@@ -61,9 +62,9 @@ exports[`ScrollingSearchBox should space search 1`] = `
 <div>
   <Headroom
     height={45}
+    onStickyTopChanged={[Function]}
     pinStart={0}
     scrollHeight={45}
-    stickyAncestor={<MockNode />}
   >
     <SearchInput
       filterText="Test"
@@ -72,5 +73,6 @@ exports[`ScrollingSearchBox should space search 1`] = `
       spaceSearch={true}
     />
   </Headroom>
+  <MockNode />
 </div>
 `;

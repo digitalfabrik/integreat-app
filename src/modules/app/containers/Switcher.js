@@ -41,24 +41,28 @@ import { WOHNEN_ROUTE } from '../routes/wohnen'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 import EventModel from '../../endpoint/models/EventModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
-import DisclaimerModel from '../../endpoint/models/DisclaimerModel'
+import PageModel from '../../endpoint/models/PageModel'
+import { POIS_ROUTE } from '../routes/pois'
+import PoiModel from '../../endpoint/models/PoiModel'
+import PoiPage from '../../../routes/pois/containers/PoiPage'
 
-type PropsType = {
+type PropsType = {|
   currentRoute: string,
   citiesPayload: Payload<Array<CityModel>>,
   categoriesPayload: Payload<CategoriesMapModel>,
+  poisPayload: Payload<Array<PoiModel>>,
   eventsPayload: Payload<Array<EventModel>>,
   extrasPayload: Payload<Array<ExtraModel>>,
   sprungbrettJobsPayload: Payload<Array<SprungbrettExtraPage>>,
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
-  disclaimerPayload: Payload<DisclaimerModel>,
+  disclaimerPayload: Payload<PageModel>,
   languages: ?Array<LanguageModel>,
   language: ?string,
   city: ?string,
   param: ?string,
   viewportSmall: boolean,
   darkMode: boolean
-}
+|}
 
 /**
  * Switches what content should be rendered depending on the current route
@@ -86,7 +90,7 @@ export class Switcher extends React.Component<PropsType> {
   renderPage = (): Node => {
     const {
       currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
-      sprungbrettJobsPayload, wohnenPayload, param
+      sprungbrettJobsPayload, wohnenPayload, poisPayload, param
     } = this.props
 
     switch (currentRoute) {
@@ -120,6 +124,9 @@ export class Switcher extends React.Component<PropsType> {
       case SEARCH_ROUTE:
         return Switcher.renderFailureLoadingComponents([citiesPayload, categoriesPayload]) ||
           <SearchPage cities={citiesPayload.data} categories={categoriesPayload.data} />
+      case POIS_ROUTE:
+        return Switcher.renderFailureLoadingComponents([citiesPayload, poisPayload]) ||
+          <PoiPage cities={citiesPayload.data} pois={poisPayload.data} />
       case NOT_FOUND:
         // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
         // "disclaimer" nor a city, so we want to show an error that the param is not an available city
@@ -183,6 +190,7 @@ const mapStateToProps = (state: StateType) => ({
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
+  poisPayload: state.pois,
   extrasPayload: state.extras,
   sprungbrettJobsPayload: state.sprungbrettJobs,
   wohnenPayload: state.wohnen,
@@ -195,4 +203,5 @@ const mapStateToProps = (state: StateType) => ({
   darkMode: state.darkMode
 })
 
+// $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default connect(mapStateToProps)(Switcher)

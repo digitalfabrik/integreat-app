@@ -1,17 +1,19 @@
 // @flow
 
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
+import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
-import configureMockStore from 'redux-mock-store'
-import CityModel from 'modules/endpoint/models/CityModel'
-import WohnenOfferModel from 'modules/endpoint/models/WohnenOfferModel'
+import CityModel from '../../../../modules/endpoint/models/CityModel'
+import WohnenOfferModel from '../../../../modules/endpoint/models/WohnenOfferModel'
 import moment from 'moment'
-import WohnenFormData from 'modules/endpoint/models/WohnenFormData'
+import WohnenFormData from '../../../../modules/endpoint/models/WohnenFormData'
 import Hashids from 'hashids'
-import Payload from 'modules/endpoint/Payload'
+import { Provider } from 'react-redux'
+import createReduxStore from '../../../../modules/app/createReduxStore'
+import theme from '../../../../modules/theme/constants/theme'
+import { ThemeProvider } from 'styled-components'
 
 describe('WohnenExtraPage', () => {
   const city = 'augsburg'
@@ -67,6 +69,7 @@ describe('WohnenExtraPage', () => {
   const offerHash = new Hashids().encode(offer.email.length, offer.createdDate.milliseconds())
 
   const offers = [offer]
+  const t = (key: ?string): string => key || ''
 
   it('should render list if no hash is supplied', () => {
     const wohnenPage = shallow(
@@ -74,7 +77,8 @@ describe('WohnenExtraPage', () => {
                        city={city}
                        language={language}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -86,7 +90,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -98,7 +103,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={'invalid hash'}
                        extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
   })
@@ -110,19 +116,8 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[]}
-                       cities={cities} />
-    )
-    expect(wohnenPage).toMatchSnapshot()
-  })
-
-  it('should render spinner if offers are not ready', () => {
-    const wohnenPage = shallow(
-      <WohnenExtraPage offers={null}
-                       city={city}
-                       language={language}
-                       offerHash={offerHash}
-                       extras={[wohnenExtra]}
-                       cities={cities} />
+                       cities={cities}
+                       t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
   })
@@ -131,25 +126,26 @@ describe('WohnenExtraPage', () => {
     const offerHash = 'hASH'
     const location = {payload: {language, city, offerHash}}
 
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location,
-      extras: new Payload(false, null, extras),
-      wohnen: new Payload(false, null, offers),
-      cities: new Payload(false, null, cities)
-    })
+    const store = createReduxStore()
+    store.getState().location = location
 
-    const wohnenPage = shallow(
-      <ConnectedWohnenExtraPage store={store} cities={cities} extras={extras} offers={offers} />
+    const tree = mount(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedWohnenExtraPage cities={cities} extras={extras} offers={offers} />
+        </Provider>
+      </ThemeProvider>
     )
 
-    expect(wohnenPage.props()).toMatchObject({
+    expect(tree.find(WohnenExtraPage).props()).toEqual({
       language,
       city,
       offerHash,
       extras,
       cities,
-      offers
+      offers,
+      dispatch: expect.any(Function),
+      t: expect.any(Function)
     })
   })
 })
