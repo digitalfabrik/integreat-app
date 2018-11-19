@@ -8,10 +8,7 @@ import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/routeConfigs/i18nRedirect'
 import configureStore from 'redux-mock-store'
-import { NOT_FOUND, pathToAction } from 'redux-first-router'
-import LandingRouteConfig from '../../../../modules/app/routeConfigs/landing'
-import CategoriesRouteConfig from '../../../../modules/app/routeConfigs/categories'
-import { routesMap } from '../../../../modules/app/routeConfigs'
+import { NOT_FOUND } from 'redux-first-router'
 
 describe('I18nRedirectPage', () => {
   const language = 'de'
@@ -28,43 +25,40 @@ describe('I18nRedirectPage', () => {
   ]
 
   describe('get redirect action', () => {
-    it('should return goToLanding action if there is no param or the param is landing', () => {
+    it('should return landing path if there is no param or the param is landing', () => {
       const instanceWithoutParam = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} i18n={{language}} />
       ).instance()
 
-      expect(instanceWithoutParam.getRedirectAction()).toEqual(
-        pathToAction(new LandingRouteConfig().getRoutePath({language}), routesMap))
+      expect(instanceWithoutParam.getRedirectPath()).toEqual('/landing/de')
 
       const instanceWithLandingParam = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} param='landing' i18n={{language}} />
       ).instance()
 
-      expect(instanceWithLandingParam.getRedirectAction()).toEqual(
-        pathToAction(new LandingRouteConfig().getRoutePath({language}), routesMap))
+      expect(instanceWithLandingParam.getRedirectPath()).toEqual('/landing/de')
     })
 
-    it('should return goToCategories action if the param is a city', () => {
+    it('should return categories path if the param is a city', () => {
       const instance = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' i18n={{language}} />
       ).instance()
 
-      expect(instance.getRedirectAction()).toEqual(
-        pathToAction(new CategoriesRouteConfig().getRoutePath({city: 'random_city', language}), routesMap))
+      expect(instance.getRedirectPath()).toEqual('/random_city/de')
     })
 
-    it('should return goToNotFound action as default', () => {
+    it('should return not found path as default', () => {
       const instance = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} param='not_found' i18n={{language}} />
       ).instance()
 
-      expect(instance.getRedirectAction()).toEqual(pathToAction(NOT_FOUND, routesMap))
+      expect(instance.getRedirectPath()).toEqual(NOT_FOUND)
 
       const instanceWithInvalidParam = shallow(
         <I18nRedirectPage cities={cities} redirect={() => {}} param='invalid_param' i18n={{language}} />
       ).instance()
 
-      expect(instanceWithInvalidParam.getRedirectAction()).toEqual(pathToAction(NOT_FOUND, routesMap))
+      expect(instanceWithInvalidParam.getRedirectPath()).toEqual(NOT_FOUND)
     })
   })
 

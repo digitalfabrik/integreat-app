@@ -25,23 +25,23 @@ type PropsType = {|
  * Adds the language code at the end of the current path
  */
 export class I18nRedirectPage extends React.Component<PropsType> {
-  getRedirectAction (): Action {
+  getRedirectPath (): string {
     const {param, cities, i18n} = this.props
     // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
     if (!param || param === 'landing') {
-      return pathToAction(new LandingRouteConfig().getRoutePath({language: i18n.language}), routesMap)
+      return new LandingRouteConfig().getRoutePath({language: i18n.language})
     }
 
     // the param is a valid city, so redirect to the categories route with the detected language
     if (cities.find(_city => _city.code === param)) {
-      return pathToAction(new CategoriesRouteConfig().getRoutePath({city: param, language: i18n.language}), routesMap)
+      return new CategoriesRouteConfig().getRoutePath({city: param, language: i18n.language})
     }
 
-    return pathToAction(NOT_FOUND, routesMap)
+    return NOT_FOUND
   }
 
   componentDidMount () {
-    this.props.redirect(this.getRedirectAction())
+    this.props.redirect(pathToAction(this.getRedirectPath(), routesMap))
   }
 
   render () {
