@@ -16,7 +16,7 @@ import List from '../../../modules/common/components/List'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
-import type { GetPageTitleParamsType } from '../../../modules/app/routeConfigs/types'
+import type { GetPageTitleParamsType } from '../../../modules/app/routeConfigs/RouteConfig'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,

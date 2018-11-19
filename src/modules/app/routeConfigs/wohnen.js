@@ -1,18 +1,13 @@
 // @flow
 
-import React from 'react'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
-import Payload from '../../endpoint/Payload'
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import RouteConfig from './RouteConfig'
-import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
+import type { GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
-type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>|}
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
@@ -39,11 +34,6 @@ const wohnenRoute: Route = {
     }
   }
 }
-const renderWohnenPage = ({offers, extras}: RequiredPayloadType) =>
-  <WohnenExtraPage offers={offers.data} extras={extras.data} />
-
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadType =>
-  ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getWohnenPath({city: location.payload.city, language})
@@ -51,13 +41,12 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.wohnen')} - ${cityName}`
 
-class WohnenRouteConfig extends RouteConfig<RequiredPayloadType, RouteParamsType> {
+class WohnenRouteConfig extends RouteConfig<RouteParamsType> {
   constructor () {
     super({
       name: WOHNEN_ROUTE,
       route: wohnenRoute,
       getRoutePath: getWohnenPath,
-      getRequiredPayloads,
       getLanguageChangePath,
       getPageTitle
     })

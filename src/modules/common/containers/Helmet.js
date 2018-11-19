@@ -12,12 +12,12 @@ import type { Location } from 'redux-first-router'
 import { getRouteConfig } from '../../app/routeConfigs/index'
 import PoiModel from '../../endpoint/models/PoiModel'
 import CityModel from '../../endpoint/models/CityModel'
-import type { GetPageTitleParamsType } from '../../app/routeConfigs/types'
 import type { TFunction } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/routeConfigs/categories'
 import { LANDING_ROUTE } from '../../app/routeConfigs/landing'
+import type { GetPageTitleParamsType } from '../../app/routeConfigs/RouteConfig'
 
 type PropsType = {|
   getPageTitle: GetPageTitleParamsType => string,

@@ -18,7 +18,7 @@ import reduce from 'lodash/reduce'
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
 
-const routeConfigs: Array<RouteConfig<any, any>> = [
+const routeConfigs: Array<RouteConfig<any>> = [
   new MainDisclaimerRouteConfig(),
   new I18nRedirectRouteConfig(),
   new LandingRouteConfig(),
@@ -32,7 +32,7 @@ const routeConfigs: Array<RouteConfig<any, any>> = [
   new CategoriesRouteConfig()
 ]
 
-export const getRouteConfig = (routeName: string): Route<*, *> => {
+export const getRouteConfig = (routeName: string): Route<*> => {
   const routeConfig = routeConfigs.find(config => config.name === routeName)
   if (!routeConfig) {
     throw new Error(
