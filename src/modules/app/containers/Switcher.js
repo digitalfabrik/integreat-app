@@ -25,7 +25,7 @@ import PoiModel from '../../endpoint/models/PoiModel'
 import { LANDING_ROUTE } from '../routeConfigs/landing'
 import { MAIN_DISCLAIMER_ROUTE } from '../routeConfigs/mainDisclaimer'
 import { getRouteConfig, LocationLayoutRoutes } from '../routeConfigs'
-import routeContents from '../routeContents'
+import { getRouteContent } from '../routeContents'
 import reduce from 'lodash/reduce'
 import find from 'lodash/find'
 import Helmet from '../../common/containers/Helmet'
@@ -90,10 +90,7 @@ export class Switcher extends React.Component<PropsType> {
         return <FailureSwitcher error={error} />
       }
     }
-    const RouteContent = routeContents[currentRoute]
-    if (!RouteContent) {
-      throw new Error(`Ǹo content found for the route ${currentRoute}`)
-    }
+    const RouteContent = getRouteContent(currentRoute)
     const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
     return Switcher.renderFailureLoadingComponents(payloads) ||
       <>

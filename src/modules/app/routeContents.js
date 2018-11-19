@@ -23,7 +23,7 @@ import PoisPage from '../../routes/pois/containers/PoisPage'
 import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
 import { MAIN_DISCLAIMER_ROUTE } from './routeConfigs/mainDisclaimer'
 
-export default {
+const routeContents = {
   [MAIN_DISCLAIMER_ROUTE]: MainDisclaimerPage,
   [I18N_REDIRECT_ROUTE]: I18nRedirectPage,
   [LANDING_ROUTE]: LandingPage,
@@ -35,4 +35,12 @@ export default {
   [SEARCH_ROUTE]: SearchPage,
   [POIS_ROUTE]: PoisPage,
   [CATEGORIES_ROUTE]: CategoriesPage
+}
+
+export const getRouteContent = (routeName: string) => {
+  const routeContent = routeContents[routeName]
+  if (!routeContent) {
+    throw new Error(`There is no content for the route ${routeName}`)
+  }
+  return routeContent
 }
