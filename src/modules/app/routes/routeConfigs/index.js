@@ -1,46 +1,38 @@
 // @flow
 
-import { CATEGORIES_ROUTE } from '../categories'
-import { EVENTS_ROUTE } from '../events'
-import { EXTRAS_ROUTE } from '../extras'
-import { DISCLAIMER_ROUTE } from '../disclaimer'
-import { POIS_ROUTE } from '../pois'
-import { SPRUNGBRETT_ROUTE } from '../sprungbrett'
-import { WOHNEN_ROUTE } from '../wohnen'
-import { SEARCH_ROUTE } from '../search'
-import { MAIN_DISCLAIMER_ROUTE } from '../mainDisclaimer'
-import { I18N_REDIRECT_ROUTE } from '../i18nRedirect'
-import { LANDING_ROUTE } from '../landing'
 import type { Route } from 'redux-first-router'
 import RouteConfig from './RouteConfig'
-import type { GetLanguageChangePathParamsType } from '../types'
-import CategoriesRouteConfig from './categories'
-import i18nRedirectRouteConfig from './i18nRedirect'
-import landingRouteConfig from './landing'
-import mainDisclaimerRouteConfig from './mainDisclaimer'
-import eventsRouteConfig from './events'
-import wohnenRouteConfig from './wohnen'
-import extrasRouteConfig from './extras'
-import searchRouteConfig from './search'
-import poisRouteConfig from './pois'
-import disclaimerRouteConfig from './disclaimer'
-import sprungbrettRouteConfig from './sprungbrett'
+import CategoriesRouteConfig, { CATEGORIES_ROUTE } from './categories'
+import I18nRedirectRouteConfig from './i18nRedirect'
+import LandingRouteConfig from './landing'
+import MainDisclaimerRouteConfig from './mainDisclaimer'
+import EventsRouteConfig, { EVENTS_ROUTE } from './events'
+import WohnenRouteConfig, { WOHNEN_ROUTE } from './wohnen'
+import ExtrasRouteConfig, { EXTRAS_ROUTE } from './extras'
+import SearchRouteConfig, { SEARCH_ROUTE } from './search'
+import PoisRouteConfig, { POIS_ROUTE } from './pois'
+import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './disclaimer'
+import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './sprungbrett'
+import reduce from 'lodash/reduce'
 
-const routeConfigs: Array<RouteConfig<any>> = [
-  mainDisclaimerRouteConfig,
-  i18nRedirectRouteConfig,
-  landingRouteConfig,
-  eventsRouteConfig,
-  sprungbrettRouteConfig,
-  wohnenRouteConfig,
-  extrasRouteConfig,
-  disclaimerRouteConfig,
-  searchRouteConfig,
-  poisRouteConfig,
+export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
+  DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
+
+const routeConfigs: Array<RouteConfig<any, any>> = [
+  new MainDisclaimerRouteConfig(),
+  new I18nRedirectRouteConfig(),
+  new LandingRouteConfig(),
+  new EventsRouteConfig(),
+  new SprungbrettRouteConfig(),
+  new WohnenRouteConfig(),
+  new ExtrasRouteConfig(),
+  new DisclaimerRouteConfig(),
+  new SearchRouteConfig(),
+  new PoisRouteConfig(),
   new CategoriesRouteConfig()
 ]
 
-export const getRouteConfig = (routeName: string): Route<*> => {
+export const getRouteConfig = (routeName: string): Route<*, *> => {
   const routeConfig = routeConfigs.find(config => config.name === routeName)
   if (!routeConfig) {
     throw new Error(
@@ -48,3 +40,6 @@ export const getRouteConfig = (routeName: string): Route<*> => {
   }
   return routeConfig
 }
+
+export const routesMap: {[string]: Route} =
+  reduce(routeConfigs, (result, value) => ({[value.name]: value.route, ...result}), {})

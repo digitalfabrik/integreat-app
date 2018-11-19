@@ -12,12 +12,12 @@ import type { Location } from 'redux-first-router'
 import { getRouteConfig } from '../../app/routes/routeConfigs/index'
 import PoiModel from '../../endpoint/models/PoiModel'
 import CityModel from '../../endpoint/models/CityModel'
-import type { GetPageTitleParamsType } from '../../app/routes/types'
+import type { GetPageTitleParamsType } from '../../app/routes/routeConfigs/types'
 import type { TFunction } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
-import { LANDING_ROUTE } from '../../app/routes/landing'
-import { getCategoriesPath } from '../../app/routes/categories'
+import CategoriesRouteConfig from '../../app/routes/routeConfigs/categories'
+import { LANDING_ROUTE } from '../../app/routes/routeConfigs/landing'
 
 type PropsType = {|
   getPageTitle: GetPageTitleParamsType => string,
@@ -45,7 +45,7 @@ export class Helmet extends React.Component<PropsType> {
     const {type, pathname} = location
     const {city, language} = location.payload
 
-    if (getCategoriesPath({city, language}) === pathname || type === LANDING_ROUTE) {
+    if (new CategoriesRouteConfig().getRoutePath({city, language}) === pathname || type === LANDING_ROUTE) {
       return t('metaDescription')
     }
   }

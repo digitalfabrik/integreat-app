@@ -2,7 +2,7 @@
 
 import React from 'react'
 import RouteConfig from './RouteConfig'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import Payload from '../../../endpoint/Payload'
 import PageModel from '../../../endpoint/models/PageModel'
 import DisclaimerPage from '../../../../routes/disclaimer/containers/DisclaimerPage'
