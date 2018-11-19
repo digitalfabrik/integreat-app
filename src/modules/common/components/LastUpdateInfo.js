@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components'
 
@@ -31,4 +31,4 @@ export class LastUpdateInfo extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('common')(LastUpdateInfo)
+export default withNamespaces('common')(LastUpdateInfo)

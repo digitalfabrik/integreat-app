@@ -10,7 +10,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import { pathToAction, setKind } from 'redux-first-router'
@@ -85,7 +85,8 @@ const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,
-  path: state.location.pathname
+  path: state.location.pathname,
+  routesMap: state.location.routesMap
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
@@ -94,5 +95,5 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 export default compose(
   connect(mapStateTypeToProps, mapDispatchToProps),
-  translate('events')
+  withNamespaces('events')
 )(EventsPage)
