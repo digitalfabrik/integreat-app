@@ -25,6 +25,7 @@ pipeline {
             sh 'yarn run build'
 
           } else {
+            sh 'yarn run build:lib'
             sh 'yarn run build:debug'
           }
         }

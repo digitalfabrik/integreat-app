@@ -2,16 +2,15 @@
 
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import PropTypes from 'prop-types'
 import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import configureMockStore from 'redux-mock-store'
 import createReduxStore from '../../../../modules/app/createReduxStore'
-import createHistory from '../../../../modules/app/createHistory'
 import { Provider } from 'react-redux'
 import { goToLanding } from '../../../../modules/app/routes/landing'
 import { goToNotFound } from '../../../../modules/app/routes/notFound'
 import { goToCategories } from '../../../../modules/app/routes/categories'
+import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/routes/i18nRedirect'
+import configureStore from 'redux-mock-store'
 
 describe('I18nRedirectPage', () => {
   const language = 'de'
@@ -30,15 +29,13 @@ describe('I18nRedirectPage', () => {
   describe('get redirect action', () => {
     it('should return goToLanding action if there is no param or the param is landing', () => {
       const instanceWithoutParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} />,
-        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
+        <I18nRedirectPage cities={cities} redirect={() => {}} i18n={{language}} />
       ).instance()
 
       expect(instanceWithoutParam.getRedirectAction()).toEqual(goToLanding(language))
 
       const instanceWithLandingParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='landing' />,
-        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='landing' i18n={{language}} />
       ).instance()
 
       expect(instanceWithLandingParam.getRedirectAction()).toEqual(goToLanding(language))
@@ -46,8 +43,7 @@ describe('I18nRedirectPage', () => {
 
     it('should return goToCategories action if the param is a city', () => {
       const instance = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' />,
-        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' i18n={{language}} />
       ).instance()
 
       expect(instance.getRedirectAction()).toEqual(goToCategories('random_city', language))
@@ -55,15 +51,13 @@ describe('I18nRedirectPage', () => {
 
     it('should return goToNotFound action as default', () => {
       const instance = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='not_found' />,
-        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='not_found' i18n={{language}} />
       ).instance()
 
       expect(instance.getRedirectAction()).toEqual(goToNotFound())
 
       const instanceWithInvalidParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='invalid_param' />,
-        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='invalid_param' i18n={{language}} />
       ).instance()
 
       expect(instanceWithInvalidParam.getRedirectAction()).toEqual(goToNotFound())
@@ -73,29 +67,26 @@ describe('I18nRedirectPage', () => {
   describe('connect', () => {
     it('should map state to props', () => {
       const param = 'param'
+      const mockStore = configureStore()
+      const location = {type: I18N_REDIRECT_ROUTE, payload: {param}}
+      const store = mockStore(() => ({location}))
 
-      const location = {payload: {param}}
-
-      const mockStore = configureMockStore()
-      const store = mockStore({
-        location: location,
-        cities: {data: cities}
-      })
-
-      const i18nRedirect = shallow(
-        <ConnectedI18nRedirectPage store={store} cities={cities} />
+      const tree = mount(
+        <Provider store={store}>
+          <ConnectedI18nRedirectPage cities={cities} />
+        </Provider>
       )
 
-      expect(i18nRedirect.props()).toMatchObject({
+      expect(tree.find(I18nRedirectPage).props()).toEqual({
+        cities,
         param,
-        cities
+        redirect: expect.any(Function),
+        i18n: expect.anything()
       })
     })
 
     it('should map dispatch to props', () => {
-      const store = createReduxStore(createHistory, {
-        cities: {data: cities}
-      })
+      const store = createReduxStore()
 
       store.dispatch = jest.fn()
       expect(store.dispatch).not.toHaveBeenCalled()
@@ -103,8 +94,7 @@ describe('I18nRedirectPage', () => {
       mount(
         <Provider store={store}>
           <ConnectedI18nRedirectPage cities={cities} />
-        </Provider>,
-        {context: {i18n: {language}}, childContextTypes: {i18n: PropTypes.object.isRequired}}
+        </Provider>
       )
       expect(store.dispatch).toHaveBeenCalledTimes(1)
     })

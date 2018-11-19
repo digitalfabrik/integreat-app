@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import LanguageModel from 'modules/endpoint/models/LanguageModel'
+import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
@@ -14,25 +14,30 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'
+import PoiModel from '../../endpoint/models/PoiModel'
 
-type PropsType = {
+type PropsType = {|
   languages: Array<LanguageModel>,
   location: Location,
   categories: CategoriesMapModel,
   events: Array<EventModel>,
+  pois: Array<PoiModel>,
   isHeaderActionItem: boolean,
   t: TFunction
-}
+|}
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-export class LanguageSelector extends React.Component<PropsType> {
+export class LanguageSelector extends React.PureComponent<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
-    const {categories, events, location, languages} = this.props
+    const {categories, events, pois, location, languages} = this.props
+    const activeItemCode = location.payload.language
+    const pathname = location.pathname
+
     return (
       languages &&
       languages.map(language => {
@@ -40,13 +45,14 @@ export class LanguageSelector extends React.Component<PropsType> {
           categories,
           events,
           location,
+          pois,
           languageCode: language.code
         })
 
         return new SelectorItemModel({
           code: language.code,
           name: language.name,
-          href: changePath
+          href: language.code !== activeItemCode ? changePath : pathname
         })
       })
     )
@@ -68,7 +74,7 @@ export class LanguageSelector extends React.Component<PropsType> {
         verticalLayout
         items={selectorItems}
         activeItemCode={activeItemCode}
-        inactiveItemTooltip={t('noTranslation')} />
+        disabledItemTooltip={t('noTranslation')} />
   }
 }
 
@@ -76,9 +82,10 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location,
   languages: state.languages.data,
   categories: state.categories.data,
-  events: state.events.data
+  events: state.events.data,
+  pois: state.pois.data
 })
 
-export default compose(connect(mapStateToProps), translate('layout'))(
+export default compose(connect(mapStateToProps), withNamespaces('layout'))(
   LanguageSelector
 )

@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Helmet should add noindex tag, if city is not live 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <title>
+    Random title
+  </title>
+  <meta
+    content="noindex"
+    name="robots"
+  />
+  <link
+    href={null}
+    hrefLang="de"
+    key="de"
+    rel="alternate"
+  />
+  <link
+    href={null}
+    hrefLang="en"
+    key="en"
+    rel="alternate"
+  />
+  <link
+    href={null}
+    hrefLang="ar"
+    key="ar"
+    rel="alternate"
+  />
+</HelmetWrapper>
+`;
+
 exports[`Helmet should render and match snapshot 1`] = `
 <HelmetWrapper
   defer={true}

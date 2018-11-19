@@ -13,7 +13,8 @@ describe('categories', () => {
       id: 3650,
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
-      content: '',
+      content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
+      excerpt: 'excerpt',
       parent: {id: 0, path: null, url: null},
       order: 75,
       available_languages: {
@@ -27,6 +28,7 @@ describe('categories', () => {
       path: '/augsburg/de/willkommen',
       title: 'Willkommen',
       content: '',
+      excerpt: 'excerpt',
       parent: {id: 0, path: null, url: null},
       order: 11,
       available_languages: {
@@ -43,6 +45,7 @@ describe('categories', () => {
     title: 'نقشه شهر',
     modified_gmt: '2016-01-07 10:36:24',
     content: '',
+    excerpt: 'excerpt',
     parent: {
       id: 4827,
       url: 'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-' +
@@ -66,7 +69,7 @@ describe('categories', () => {
     id: 3650,
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
-    content: '',
+    content: '<a>Ich bleib aber da.</a>',
     parentPath: '/augsburg/de',
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
@@ -91,7 +94,7 @@ describe('categories', () => {
     order: -1,
     thumbnail: '',
     parentPath: '',
-    lastUpdate: null
+    lastUpdate: moment(0)
   })]
 
   const params = {language: 'de', city: 'augsburg'}
@@ -102,26 +105,10 @@ describe('categories', () => {
     )
   })
 
-  it('should throw if the city to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if the language to map the path are missing', () => {
-    expect(() => categories.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
-  })
-
   it('should map fetched data to models', () => {
     const response = categories.mapResponse(categoriesJSON, params)
     const categoriesMapModel = new CategoriesMapModel(categoryModels)
     expect(response).toEqual(categoriesMapModel)
-  })
-
-  it('should throw if city to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
-  })
-
-  it('should throw if language to map the data are missing', () => {
-    expect(() => categories.mapResponse('json', {city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should encode urls components correctly', () => {

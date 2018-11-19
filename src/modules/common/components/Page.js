@@ -1,23 +1,48 @@
 // @flow
 
-import React from 'react'
-import Caption from 'modules/common/components/Caption'
-import RemoteContent from 'modules/common/components/RemoteContent'
+import * as React from 'react'
+import styled from 'styled-components'
+import RemoteContent from './RemoteContent'
+import Caption from './Caption'
+import type Moment from 'moment'
+import LastUpdateInfo from './LastUpdateInfo'
 
-type PropsType = {
+const Thumbnail = styled.img`
+  display: flex;
+  width: 300px;
+  height: 300px;
+  margin: 10px auto;
+  padding-bottom: 10px;
+  object-fit: contain;
+`
+
+type PropsType = {|
   title: string,
+  thumbnail?: string,
   content: string,
-  onInternLinkClick: string => void
-}
+  lastUpdate?: Moment,
+  language: string,
+  onInternalLinkClick: string => void,
+  hijackRegExp?: RegExp,
+  children?: React.Node
+|}
 
-class Page extends React.Component<PropsType> {
+/**
+ * Display a single page with all necessary information
+ */
+class Page extends React.PureComponent<PropsType> {
   render () {
+    const {title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick} = this.props
     return (
-      <div>
-        <Caption title={this.props.title} />
-        <RemoteContent dangerouslySetInnerHTML={{__html: this.props.content}} centered={false}
-                       onInternLinkClick={this.props.onInternLinkClick} />
-      </div>
+      <>
+        {thumbnail && <Thumbnail src={thumbnail} />}
+        <Caption title={title} />
+        {children}
+        <RemoteContent dangerouslySetInnerHTML={{__html: content}}
+                       onInternLinkClick={onInternalLinkClick}
+                       hijackRegExp={hijackRegExp} />
+        {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} />}
+      </>
     )
   }
 }

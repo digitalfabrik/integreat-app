@@ -29,12 +29,12 @@ const ToolbarContainer = styled.div`
   }
 `
 
-type PropsType = {
+type PropsType = {|
   className?: string,
   children?: Node
-}
+|}
 
-class Toolbar extends React.Component<PropsType> {
+class Toolbar extends React.PureComponent<PropsType> {
   render () {
     return <ToolbarContainer className={this.props.className}>
       {this.props.children}

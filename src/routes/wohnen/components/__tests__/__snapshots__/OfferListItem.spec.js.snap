@@ -1,27 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OfferList should render offer item 1`] = `
-<ListElement>
-  <OfferListItem__Title>
-    Test Angebot
-  </OfferListItem__Title>
+exports[`OfferListItem should render and match snapshot 1`] = `
+<ListItem
+  isExternalUrl={false}
+  path="/Augsburg/de/extras/wohnen/mail@mail.com"
+  title="Test Angebot"
+>
   <OfferListItem__Description>
     <div>
-      <div>
-        120
-         m²
-      </div>
-      <div>
-        4
-         Zimmer
-      </div>
+      120
+       m²
+    </div>
+    <div>
+      4
+       Zimmer
     </div>
     <OfferListItem__Price>
       1000
        €
     </OfferListItem__Price>
   </OfferListItem__Description>
-</ListElement>
+</ListItem>
 `;
-
-exports[`OfferList should throw error if form is not renderable 1`] = `"Failed to render form {} because it is not supported!"`;

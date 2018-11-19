@@ -1,59 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Selector should be vertical and match snapshot 1`] = `
-<Selectorstyles__Wrapper
+<Selector__Wrapper
   vertical={true}
 >
-  <Selectorstyles__ActiveElement
+  <Selector__ActiveElement
     key="en"
     onClick={[Function]}
     selected={false}
     to="/augsburg/en/"
   >
     English
-  </Selectorstyles__ActiveElement>
-  <Selectorstyles__ActiveElement
+  </Selector__ActiveElement>
+  <Selector__ActiveElement
     key="de"
     onClick={[Function]}
     selected={true}
     to="/augsburg/de/"
   >
     Deutsch
-  </Selectorstyles__ActiveElement>
-  <Selectorstyles__InactiveElement
+  </Selector__ActiveElement>
+  <Selector__DisabledElement
     data-tip="random tooltip"
     key="fr"
   >
     Französisch
-  </Selectorstyles__InactiveElement>
-</Selectorstyles__Wrapper>
+  </Selector__DisabledElement>
+</Selector__Wrapper>
 `;
 
 exports[`Selector should match snapshot 1`] = `
-<Selectorstyles__Wrapper
+<Selector__Wrapper
   vertical={false}
 >
-  <Selectorstyles__ActiveElement
+  <Selector__ActiveElement
     key="en"
     onClick={[Function]}
     selected={false}
     to="/augsburg/en/"
   >
     English
-  </Selectorstyles__ActiveElement>
-  <Selectorstyles__ActiveElement
+  </Selector__ActiveElement>
+  <Selector__ActiveElement
     key="de"
     onClick={[Function]}
     selected={true}
     to="/augsburg/de/"
   >
     Deutsch
-  </Selectorstyles__ActiveElement>
-  <Selectorstyles__InactiveElement
+  </Selector__ActiveElement>
+  <Selector__DisabledElement
     data-tip="random tooltip"
     key="fr"
   >
     Französisch
-  </Selectorstyles__InactiveElement>
-</Selectorstyles__Wrapper>
+  </Selector__DisabledElement>
+</Selector__Wrapper>
 `;

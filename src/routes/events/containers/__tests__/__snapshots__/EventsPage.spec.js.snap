@@ -3,31 +3,25 @@
 exports[`EventsPage should match snapshot and render EventDetail 1`] = `
 <Fragment>
   <Connect(Helmet)
-    title="erstes Event - Augsburg"
+    title="first Event - Augsburg"
   />
-  <Translate(EventDetail)
-    event={
-      EventModel {
-        "_address": "address",
-        "_allDay": true,
-        "_availableLanguages": Map {
-          "en" => 1234,
-          "ar" => 1236,
-        },
-        "_content": "content",
-        "_endDate": "2017-11-18T19:30:00.000Z",
-        "_excerpt": "excerpt",
-        "_id": 1235,
-        "_startDate": "2017-11-18T09:30:00.000Z",
-        "_thumbnail": "thumbnail",
-        "_title": "erstes Event",
-        "_town": "town",
-      }
-    }
+  <Page
+    content="content"
     language="en"
-    location="augsburg"
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
     onInternalLinkClick={[Function]}
-  />
+    thumbnail="thumbnail"
+    title="first Event"
+  >
+    <PageDetail
+      identifier="date"
+      information="November 18, 2017"
+    />
+    <PageDetail
+      identifier="location"
+      information="address, postcode town"
+    />
+  </Page>
 </Fragment>
 `;
 
@@ -36,68 +30,97 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
   <Connect(Helmet)
     title="pageTitle - Augsburg"
   />
-  <Translate(EventList)
-    city="augsburg"
-    events={
+  <Caption
+    title="news"
+  />
+  <List
+    items={
       Array [
         EventModel {
-          "_address": "address",
-          "_allDay": true,
           "_availableLanguages": Map {
-            "de" => 1235,
-            "ar" => 1236,
+            "de" => "/augsburg/de/events/erstes_event",
+            "ar" => "/augsburg/ar/events/erstes_event",
           },
           "_content": "content",
-          "_endDate": "2017-11-18T19:30:00.000Z",
+          "_date": DateModel {
+            "_allDay": true,
+            "_endDate": "2017-11-18T19:30:00.000Z",
+            "_startDate": "2017-11-18T09:30:00.000Z",
+          },
           "_excerpt": "excerpt",
-          "_id": 1234,
-          "_startDate": "2017-11-18T09:30:00.000Z",
+          "_id": 1,
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/events/first_event",
           "_thumbnail": "thumbnail",
           "_title": "first Event",
-          "_town": "town",
         },
         EventModel {
-          "_address": "address",
-          "_allDay": true,
           "_availableLanguages": Map {
-            "en" => 1234,
-            "ar" => 1236,
+            "en" => "/augsburg/de/events/zwotes_event",
+            "ar" => "/augsburg/ar/events/zwotes_event",
           },
           "_content": "content",
-          "_endDate": "2017-11-18T19:30:00.000Z",
-          "_excerpt": "excerpt",
-          "_id": 1235,
-          "_startDate": "2017-11-18T09:30:00.000Z",
-          "_thumbnail": "thumbnail",
-          "_title": "erstes Event",
-          "_town": "town",
-        },
-        EventModel {
-          "_address": "address",
-          "_allDay": true,
-          "_availableLanguages": Map {
-            "de" => 1235,
-            "ar" => 1236,
+          "_date": DateModel {
+            "_allDay": true,
+            "_endDate": "2017-11-18T19:30:00.000Z",
+            "_startDate": "2017-11-18T09:30:00.000Z",
           },
-          "_content": "content",
-          "_endDate": "2017-11-18T19:30:00.000Z",
           "_excerpt": "excerpt",
           "_id": 2,
-          "_startDate": "2017-11-18T09:30:00.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/events/second_event",
           "_thumbnail": "thumbnail",
           "_title": "second Event",
-          "_town": "town",
+        },
+        EventModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/events/drittes_event",
+            "ar" => "/augsburg/ar/events/erstes_event",
+          },
+          "_content": "content",
+          "_date": DateModel {
+            "_allDay": true,
+            "_endDate": "2017-11-18T19:30:00.000Z",
+            "_startDate": "2017-11-18T09:30:00.000Z",
+          },
+          "_excerpt": "excerpt",
+          "_id": 3,
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
+          "_location": LocationModel {
+            "_address": "address",
+            "_latitude": undefined,
+            "_longitude": undefined,
+            "_postcode": "postcode",
+            "_town": "town",
+          },
+          "_path": "/augsburg/en/events/third_event",
+          "_thumbnail": "thumbnail",
+          "_title": "third Event",
         },
       ]
     }
-    language="en"
-    onInternalLinkClick={[Function]}
+    noItemsMessage="currentlyNoEvents"
+    renderItem={[Function]}
   />
 </Fragment>
 `;
 
 exports[`EventsPage should match snapshot and render Failure if event does not exist 1`] = `
 <Translate(FailureSwitcher)
-  error={[Error: The event 234729 does not exist here.]}
+  error={[Error: The event invalid_event does not exist here.]}
 />
 `;

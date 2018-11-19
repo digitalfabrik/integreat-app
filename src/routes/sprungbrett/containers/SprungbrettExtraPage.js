@@ -2,31 +2,34 @@
 
 import * as React from 'react'
 
-import SprungbrettJobModel from 'modules/endpoint/models/SprungbrettJobModel'
-import Helmet from 'modules/common/containers/Helmet'
-import Spinner from 'react-spinkit'
-import SprungbrettList from '../components/SprungbrettList'
-import type { StateType } from 'modules/app/StateType'
+import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJobModel'
+import Helmet from '../../../modules/common/containers/Helmet'
+import SprungbrettListItem from '../components/SprungbrettListItem'
+import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import ExtraModel from 'modules/endpoint/models/ExtraModel'
-import CityModel from 'modules/endpoint/models/CityModel'
-import FailureSwitcher from 'modules/common/components/FailureSwitcher'
+import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import CityModel from '../../../modules/endpoint/models/CityModel'
+import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
+import compose from 'lodash/fp/compose'
+import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
 
-type PropsType = {
-  sprungbrettJobs: ?Array<SprungbrettJobModel>,
+type PropsType = {|
+  sprungbrettJobs: Array<SprungbrettJobModel>,
   city: string,
   language: string,
-  extras: ?Array<ExtraModel>,
-  cities: ?Array<CityModel>
-}
+  extras: Array<ExtraModel>,
+  cities: Array<CityModel>,
+  t: TFunction
+|}
 
 export class SprungbrettExtraPage extends React.Component<PropsType> {
-  render () {
-    const {sprungbrettJobs, extras, cities, city} = this.props
-    if (!extras || !cities) {
-      throw new Error('Payload not available')
-    }
+  renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => <SprungbrettListItem key={job.id} job={job} />
 
+  render () {
+    const {sprungbrettJobs, extras, cities, city, t} = this.props
     const cityName = CityModel.findCityName(cities, city)
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'sprungbrett')
 
@@ -36,9 +39,11 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
 
     return (
       <>
+        <Caption title={extra.title} />
         <Helmet title={`${extra.title} - ${cityName}`} />
-        {sprungbrettJobs ? <SprungbrettList title={extra.title} jobs={sprungbrettJobs} /> : <Spinner
-          name='line-scale-party' />}
+        <List noItemsMessage={t('noOffersAvailable')}
+              renderItem={this.renderSprungbrettListItem}
+              items={sprungbrettJobs} />
       </>
     )
   }
@@ -49,4 +54,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language
 })
 
-export default connect(mapStateTypeToProps)(SprungbrettExtraPage)
+export default compose(
+  connect(mapStateTypeToProps),
+  withNamespaces('sprungbrett')
+)(SprungbrettExtraPage)

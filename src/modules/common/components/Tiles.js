@@ -2,17 +2,17 @@
 
 import React from 'react'
 
-import Caption from 'modules/common/components/Caption'
+import Caption from '../../../modules/common/components/Caption'
 import Tile from './Tile'
 import { Row } from 'react-styled-flexboxgrid'
 
 import styled from 'styled-components'
 import TileModel from '../models/TileModel'
 
-type PropsType = {
+type PropsType = {|
   title: ?string,
   tiles: TileModel[]
-}
+|}
 
 const TilesRow = styled(Row)`
   padding: 10px 0;
@@ -21,7 +21,7 @@ const TilesRow = styled(Row)`
 /**
  * Displays a table of Tiles
  */
-class Tiles extends React.Component<PropsType> {
+class Tiles extends React.PureComponent<PropsType> {
   render () {
     return (
       <div>

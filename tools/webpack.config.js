@@ -14,7 +14,6 @@ const config = {
   mode: isDebug ? 'development' : 'production',
   resolve: {
     modules: [
-      path.resolve('./src'),
       path.resolve('./node_modules')
     ]
   },

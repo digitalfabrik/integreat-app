@@ -3,54 +3,40 @@
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import { apiUrl } from '../constants'
-import normalizePath from 'normalize-path'
-import { toPairs } from 'lodash/object'
-
 import EndpointBuilder from '../EndpointBuilder'
-import ParamMissingError from '../errors/ParamMissingError'
 import moment from 'moment'
-import { compose } from 'lodash/fp'
-import MappingError from '../errors/MappingError'
+import type { JsonCategoryType } from '../types'
+import mapAvailableLanguages from '../mapAvailableLanguages'
+import normalizePath from '../normalizePath'
+import Endpoint from '../Endpoint'
+import sanitizeHtml from 'sanitize-html-react'
 
 const CATEGORIES_ENDPOINT_NAME = 'categories'
 
-type ParamsType = { city: ?string, language: ?string }
+type ParamsType = { city: string, language: string }
 
-export default new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
-    if (!params.city) {
-      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
-    }
-    if (!params.language) {
-      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'language')
-    }
-    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
-  })
-  .withMapper((json, params) => {
-    if (!params.city) {
-      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'city')
-    }
-    if (!params.language) {
-      throw new ParamMissingError(CATEGORIES_ENDPOINT_NAME, 'language')
-    }
-    const city = params.city
-    const basePath = `/${city}/${params.language}`
-    const normalize = compose([decodeURIComponent, normalizePath])
-    if (!(json instanceof Array)) {
-      throw new MappingError(CATEGORIES_ENDPOINT_NAME, 'JSON is not an array.')
-    }
+const endpoint: Endpoint<ParamsType, CategoriesMapModel> = new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: ParamsType): string =>
+    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
+  )
+  .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
+    const basePath = `/${params.city}/${params.language}`
+
     const categories = json
       .map(category => {
         return new CategoryModel({
           id: category.id,
-          path: normalize(category.path),
+          path: normalizePath(category.path),
           title: category.title,
-          content: category.content,
+          content: sanitizeHtml(category.content, {
+            allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
+            allowedTags: false,
+            allowedAttributes: false
+          }),
           thumbnail: category.thumbnail,
           order: category.order,
-          availableLanguages: new Map(toPairs(category.available_languages)
-            .map(([key, value]) => [key, normalize(value.path)])),
-          parentPath: normalize(category.parent.path || basePath),
+          availableLanguages: mapAvailableLanguages(category.available_languages),
+          parentPath: normalizePath(category.parent.path || basePath),
           lastUpdate: moment(category.modified_gmt)
         })
       })
@@ -58,15 +44,17 @@ export default new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_EN
     categories.push(new CategoryModel({
       id: 0,
       path: basePath,
-      title: city,
+      title: params.city,
       parentPath: '',
       content: '',
       thumbnail: '',
       order: -1,
       availableLanguages: new Map(),
-      lastUpdate: null
+      lastUpdate: moment(0)
     }))
 
     return new CategoriesMapModel(categories)
   })
   .build()
+
+export default endpoint

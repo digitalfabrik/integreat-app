@@ -7,7 +7,7 @@ import HeaderActionItem from '../../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
 import { darkTheme } from '../../../theme/constants/theme'
-import Headroom from '../../../common/components/Headroom'
+import Headroom from '@integreat-app/react-sticky-headroom'
 import Platform from '../../../platform/Platform'
 
 describe('Header', () => {

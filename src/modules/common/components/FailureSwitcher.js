@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react'
+import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import LanguageFailure from '../containers/LanguageFailure'
@@ -10,15 +10,14 @@ import { goToCategories } from '../../app/routes/categories'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
-import type { Node } from 'react'
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
-type PropsType = {
+type PropsType = {|
   error: Error,
   t: TFunction
-}
+|}
 
 export class FailureSwitcher extends React.Component<PropsType> {
   /**
@@ -26,7 +25,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @param error
    * @return {*}
    */
-  static renderContentNotFoundComponent (error: ContentNotFoundError): Node {
+  static renderContentNotFoundComponent (error: ContentNotFoundError): React.Node {
     switch (error.type) {
       case 'category':
         return <Failure goToAction={goToCategories(error.city, error.language)}
@@ -37,17 +36,19 @@ export class FailureSwitcher extends React.Component<PropsType> {
                         goToMessage={'goTo.events'}
                         errorMessage={'not-found.event'} />
       case 'extra':
-        return <Failure goTo={goToExtras(error.city, error.language)}
+        return <Failure goToAction={goToExtras(error.city, error.language)}
                         goToMessage={'goTo.extras'}
                         errorMessage={'not-found.extra'} />
     }
+
+    throw new Error('Failed to find component to render a content error')
   }
 
   /**
    * Decides which kind of error should be rendered
    * @return {*}
    */
-  renderErrorComponent (): Node {
+  renderErrorComponent (): React.Node {
     const error = this.props.error
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
@@ -69,13 +70,13 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 
   render () {
-    return <Fragment>
+    return <>
       <Helmet>
         <title>{this.getErrorName()}</title>
       </Helmet>
       {this.renderErrorComponent()}
-    </Fragment>
+    </>
   }
 }
 
-export default translate('error')(FailureSwitcher)
+export default withNamespaces('error')(FailureSwitcher)
