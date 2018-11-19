@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
 import PoisPage from '../../../../routes/pois/containers/PoisPage'
 import Payload from '../../../endpoint/Payload'

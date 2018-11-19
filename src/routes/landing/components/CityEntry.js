@@ -6,7 +6,7 @@ import Highlighter from 'react-highlighter'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
-import { getCategoriesPath } from '../../../modules/app/routes/categories'
+import CategoriesRouteConfig from '../../../modules/app/routes/routeConfigs/categories'
 
 const CityListItem = styled(Link)`
   display: block;
@@ -32,7 +32,7 @@ class CityEntry extends React.PureComponent<PropsType> {
   render () {
     const {city, language, filterText} = this.props
     return (
-      <CityListItem to={getCategoriesPath({city: city.code, language})}>
+      <CityListItem to={new CategoriesRouteConfig().getRoutePath({city: city.code, language})}>
         <Highlighter search={filterText}>
           {city.name}
         </Highlighter>

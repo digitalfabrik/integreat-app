@@ -3,7 +3,7 @@
 import React from 'react'
 import Payload from '../../../endpoint/Payload'
 import CityModel from '../../../endpoint/models/CityModel'
-import type { AllPayloadsType } from '../types'
+import type { AllPayloadsType } from './types'
 import RouteConfig from './RouteConfig'
 import I18nRedirectPage from '../../../../routes/i18nRedirect/containers/I18nRedirectPage'
 import citiesEndpoint from '../../../endpoint/endpoints/cities'

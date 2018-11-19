@@ -5,9 +5,9 @@ import citiesEndpoint from '../endpoint/endpoints/cities'
 import languagesEndpoint from '../endpoint/endpoints/languages'
 import eventsEndpoint from '../endpoint/endpoints/events'
 
-import { LocationLayoutRoutes } from '../layout/containers/LocationLayout'
 import Payload from '../endpoint/Payload'
 import fetchData from './fetchData'
+import { LocationLayoutRoutes } from './routes/routeConfigs'
 
 /**
  * This handles the loading of additional data for the location layout

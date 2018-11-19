@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
 import ExtrasPage from '../../../../routes/extras/containers/ExtrasPage'
 import Payload from '../../../endpoint/Payload'

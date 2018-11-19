@@ -9,7 +9,7 @@ import { faFrown } from '../../../modules/app/constants/icons'
 import Link from 'redux-first-router-link'
 
 import styled from 'styled-components'
-import { getI18nRedirectPath } from '../../app/routes/i18nRedirect'
+import I18nRedirectRouteConfig from '../../app/routes/routeConfigs/i18nRedirect'
 
 const Centered = styled.div`
   & > * {
@@ -35,7 +35,7 @@ export class Failure extends React.Component<PropsType> {
     return <Centered>
       <div>{t(errorMessage)}</div>
       <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      <Link to={goToPath || getI18nRedirectPath({})}>{t(goToMessage || 'goTo.start')}</Link>
+      <Link to={goToPath || new I18nRedirectRouteConfig().getRoutePath({})}>{t(goToMessage || 'goTo.start')}</Link>
     </Centered>
   }
 }

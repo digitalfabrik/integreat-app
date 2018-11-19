@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from '../types'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import Payload from '../../../endpoint/Payload'
 import EventModel from '../../../endpoint/models/EventModel'
 import RouteConfig from './RouteConfig'

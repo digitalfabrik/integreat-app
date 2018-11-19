@@ -3,7 +3,7 @@
 import React from 'react'
 import RouteConfig from './RouteConfig'
 import MainDisclaimerPage from '../../../../routes/main-disclaimer/components/MainDisclaimerPage'
-import type { GetPageTitleParamsType } from '../types'
+import type { GetPageTitleParamsType } from './types'
 import { Route } from 'redux-first-router'
 
 const renderMainDisclaimerPage = () => <MainDisclaimerPage />

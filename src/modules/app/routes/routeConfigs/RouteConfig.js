@@ -1,6 +1,6 @@
 // @flow
 
-import type { AllPayloadsType, GetLanguageChangePathType, GetPageTitleParamsType } from '../types'
+import type { AllPayloadsType, GetLanguageChangePathType, GetPageTitleParamsType } from './types'
 import type { Route } from 'redux-first-router'
 
 class RouteConfig<T, P> {
