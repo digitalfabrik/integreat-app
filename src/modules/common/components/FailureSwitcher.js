@@ -12,7 +12,7 @@ import Helmet from 'react-helmet'
 
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 type PropsType = {|
   error: Error,
@@ -79,4 +79,4 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 }
 
-export default translate('error')(FailureSwitcher)
+export default withNamespaces('error')(FailureSwitcher)

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
@@ -75,4 +75,4 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   }
 }
 
-export default translate('feedback')(SearchFeedback)
+export default withNamespaces('feedback')(SearchFeedback)
