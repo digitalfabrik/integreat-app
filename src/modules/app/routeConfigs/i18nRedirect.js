@@ -1,14 +1,14 @@
 // @flow
 
 import React from 'react'
-import Payload from '../../../endpoint/Payload'
-import CityModel from '../../../endpoint/models/CityModel'
+import Payload from '../../endpoint/Payload'
+import CityModel from '../../endpoint/models/CityModel'
 import type { AllPayloadsType } from './types'
 import RouteConfig from './RouteConfig'
-import I18nRedirectPage from '../../../../routes/i18nRedirect/containers/I18nRedirectPage'
-import citiesEndpoint from '../../../endpoint/endpoints/cities'
+import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
+import citiesEndpoint from '../../endpoint/endpoints/cities'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|cities: Payload<Array<CityModel>>|}
 type I18nRedirectRouteParamsType = {|param?: string|}

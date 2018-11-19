@@ -2,15 +2,15 @@
 
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
-import Payload from '../../../endpoint/Payload'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
+import Payload from '../../endpoint/Payload'
+import ExtraModel from '../../endpoint/models/ExtraModel'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import RouteConfig from './RouteConfig'
-import WohnenExtraPage from '../../../../routes/wohnen/containers/WohnenExtraPage'
-import extrasEndpoint from '../../../endpoint/endpoints/extras'
+import WohnenExtraPage from '../../../routes/wohnen/containers/WohnenExtraPage'
+import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
-import wohnenEndpoint from '../../../endpoint/endpoints/wohnen'
+import fetchData from '../fetchData'
+import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>, offers: Payload<Array<WohnenOfferModel>>|}
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}

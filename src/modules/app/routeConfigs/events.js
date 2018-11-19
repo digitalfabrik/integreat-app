@@ -2,10 +2,10 @@
 
 import React from 'react'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
-import Payload from '../../../endpoint/Payload'
-import EventModel from '../../../endpoint/models/EventModel'
+import Payload from '../../endpoint/Payload'
+import EventModel from '../../endpoint/models/EventModel'
 import RouteConfig from './RouteConfig'
-import EventsPage from '../../../../routes/events/containers/EventsPage'
+import EventsPage from '../../../routes/events/containers/EventsPage'
 import type { Route } from 'redux-first-router'
 
 type RequiredPayloadType = {|events: Payload<Array<EventModel>>|}

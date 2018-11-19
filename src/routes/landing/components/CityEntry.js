@@ -6,7 +6,7 @@ import Highlighter from 'react-highlighter'
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
-import CategoriesRouteConfig from '../../../modules/app/routes/routeConfigs/categories'
+import CategoriesRouteConfig from '../../../modules/app/routeConfigs/categories'
 
 const CityListItem = styled(Link)`
   display: block;

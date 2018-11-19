@@ -3,12 +3,12 @@
 import React from 'react'
 import RouteConfig from './RouteConfig'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
-import Payload from '../../../endpoint/Payload'
-import PageModel from '../../../endpoint/models/PageModel'
-import DisclaimerPage from '../../../../routes/disclaimer/containers/DisclaimerPage'
+import Payload from '../../endpoint/Payload'
+import PageModel from '../../endpoint/models/PageModel'
+import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
-import disclaimerEndpoint from '../../../endpoint/endpoints/disclaimer'
+import fetchData from '../fetchData'
+import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
 
 type RequiredPayloadType = {|disclaimer: Payload<PageModel>|}
 type DisclaimerRouteParamsType = {|city: string, language: string|}

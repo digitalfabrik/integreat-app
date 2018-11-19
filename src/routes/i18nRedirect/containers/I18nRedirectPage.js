@@ -11,9 +11,9 @@ import { withI18n } from 'react-i18next'
 import i18n from 'i18next'
 import { compose } from 'recompose'
 import { goToNotFound } from '../../../modules/app/routes/notFound'
-import { routesMap } from '../../../modules/app/routes/routeConfigs'
-import LandingRouteConfig from '../../../modules/app/routes/routeConfigs/landing'
-import CategoriesRouteConfig from '../../../modules/app/routes/routeConfigs/categories'
+import { routesMap } from '../../../modules/app/routeConfigs/index'
+import LandingRouteConfig from '../../../modules/app/routeConfigs/landing'
+import CategoriesRouteConfig from '../../../modules/app/routeConfigs/categories'
 
 type PropsType = {|
   redirect: Action => void,

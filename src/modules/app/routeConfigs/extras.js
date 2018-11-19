@@ -4,12 +4,12 @@ import React from 'react'
 
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './types'
 import RouteConfig from './RouteConfig'
-import ExtrasPage from '../../../../routes/extras/containers/ExtrasPage'
-import Payload from '../../../endpoint/Payload'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import extrasEndpoint from '../../../endpoint/endpoints/extras'
+import ExtrasPage from '../../../routes/extras/containers/ExtrasPage'
+import Payload from '../../endpoint/Payload'
+import ExtraModel from '../../endpoint/models/ExtraModel'
+import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import fetchData from '../../fetchData'
+import fetchData from '../fetchData'
 
 type RequiredPayloadType = {|extras: Payload<Array<ExtraModel>>|}
 type ExtrasRouteParamsType = {|city: string, language: string|}
