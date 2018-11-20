@@ -9,12 +9,16 @@ import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 import Payload from '../../endpoint/Payload'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
+import Hashids from 'hashids'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 export const WOHNEN_EXTRA = 'wohnen'
+
+export const hash = (offer: WohnenOfferModel) =>
+  new Hashids().encode(offer.email.length, offer.createdDate.seconds())
 
 const getWohnenPath = ({city, language, offerHash}: RouteParamsType): string =>
   `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
@@ -44,8 +48,14 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getWohnenPath({city: location.payload.city, language})
 
-const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitles.wohnen')} - ${cityName}`
+const getPageTitle = ({cityName, extras, offers, offerHash}: GetPageTitleParamsType) => {
+  const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
+  if (offerModel) {
+    return `${offerModel.formData.accommodation.title} - ${cityName}`
+  }
+  const wohnenExtra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
+  return wohnenExtra ? `${wohnenExtra.title} - ${cityName}` : ''
+}
 
 class WohnenRouteConfig extends RouteConfig<RouteParamsType, RequiredPayloadsType> {
   constructor () {

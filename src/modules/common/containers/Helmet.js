@@ -18,22 +18,29 @@ import { translate } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/routeConfigs/categories'
 import { LANDING_ROUTE } from '../../app/routeConfigs/landing'
 import type { GetPageTitleParamsType } from '../../app/routeConfigs/RouteConfig'
+import ExtraModel from '../../endpoint/models/ExtraModel'
+import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 
 type PropsType = {|
   getPageTitle: GetPageTitleParamsType => string,
-  categories: CategoriesMapModel,
-  events: Array<EventModel>,
-  pois: Array<PoiModel>,
-  cities: Array<CityModel>,
-  languages: Array<LanguageModel>,
+  categories: ?CategoriesMapModel,
+  events: ?Array<EventModel>,
+  pois: ?Array<PoiModel>,
+  cities: ?Array<CityModel>,
+  languages: ?Array<LanguageModel>,
   location: Location,
+  extras: ?Array<ExtraModel>,
+  offers: ?Array<WohnenOfferModel>,
   t: TFunction
 |}
 
 export class Helmet extends React.Component<PropsType> {
   getLanguageLinks (): React.Node {
     const {languages, events, pois, categories, location} = this.props
-    return languages && languages.map(language => {
+    if (!languages) {
+      return null
+    }
+    return languages.map(language => {
       const path = getRouteConfig(location.type).getLanguageChangePath(
         {events, pois, categories, location, language: language.code})
       return path && <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
@@ -51,11 +58,14 @@ export class Helmet extends React.Component<PropsType> {
   }
 
   render () {
-    const { getPageTitle, cities, location, pois, events, categories, t } = this.props
+    const { getPageTitle, cities, location, pois, events, categories, extras, offers, t } = this.props
     const city = cities && cities.find(city => city.code === location.payload.city)
     const cityName = city ? city.name : ''
-    const title = getPageTitle({t, cityName, pathname: location.pathname, events, categories, pois})
+    const offerHash = location.payload.offerHash
+    const title = getPageTitle({
+      t, cityName, pathname: location.pathname, events, categories, pois, extras, offers, offerHash})
     const metaDescription = this.getMetaDescription()
+
     return <ReactHelmet>
       <title>{title}</title>
       {city && !city.live && <meta name='robots' content='noindex' />}
@@ -71,7 +81,9 @@ const mapStateToProps = (state: StateType) => ({
   events: state.events.data,
   pois: state.pois.data,
   cities: state.cities.data,
-  languages: state.languages.data
+  languages: state.languages.data,
+  extras: state.extras.data,
+  offers: state.wohnen.data
 })
 
 export default compose(

@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 
-import Helmet from 'react-helmet'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
@@ -16,7 +15,7 @@ import List from '../../../modules/common/components/List'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
-import type { GetPageTitleParamsType } from '../../../modules/app/routeConfigs/RouteConfig'
+import { hash as hashFunction } from '../../../modules/app/routeConfigs/wohnen'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -28,13 +27,6 @@ type PropsType = {|
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
-  hashids = new Hashids()
-  hash = (offer: WohnenOfferModel) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
-
-  findOfferByHash (offers: Array<WohnenOfferModel>, hash: string): WohnenOfferModel | void {
-    return offers.find(offer => this.hash(offer) === hash)
-  }
-
   renderOfferListItem = ({city, language, hashFunction}: {city: string, language: string,
     hashFunction: WohnenOfferModel => string}) => (offer: WohnenOfferModel) =>
     <OfferListItem key={hashFunction(offer)}
@@ -42,9 +34,6 @@ export class WohnenExtraPage extends React.Component<PropsType> {
                    language={language}
                    city={city}
                    hashFunction={hashFunction} />
-
-  getPageTitle = (offer: WohnenOfferModel) => ({cityName}: GetPageTitleParamsType) =>
-    `${offer.formData.accommodation.title} - ${cityName}`
 
   render () {
     const {offers, extras, city, language, offerHash, t} = this.props
@@ -55,17 +44,14 @@ export class WohnenExtraPage extends React.Component<PropsType> {
     }
 
     if (offerHash) {
-      const offer = this.findOfferByHash(offers, offerHash)
+      const offer = offers.find(_offer => hashFunction(_offer) === offerHash)
 
       if (!offer) {
         return <FailureSwitcher error={new Error('Angebot nicht gefunden.')} />
       }
 
       return (
-        <>
-          <Helmet getPageTitle={this.getPageTitle(offer)} />
-          <OfferDetail offer={offer} />
-        </>
+        <OfferDetail offer={offer} />
       )
     }
 
@@ -74,7 +60,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
         <Caption title={extra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
-              renderItem={this.renderOfferListItem({city, language, hashFunction: this.hash})} />
+              renderItem={this.renderOfferListItem({city, language, hashFunction})} />
       </>
     )
   }
