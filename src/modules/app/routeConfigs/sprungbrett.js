@@ -46,8 +46,10 @@ const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
 const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
   getSprungbrettPath({city: location.payload.city, language})
 
-const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitles.sprungbrett')} - ${cityName}`
+const getPageTitle = ({cityName, extras}: GetPageTitleParamsType) => {
+  const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+  return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
+}
 
 class SprungbrettRouteConfig extends RouteConfig<SprungbrettRouteParamsType, RequiredPayloadsType> {
   constructor () {

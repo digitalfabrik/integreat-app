@@ -23,13 +23,15 @@ export type AllPayloadsType = {|
   disclaimerPayload: Payload<PageModel>
 |}
 
-export type GetLanguageChangePathParamsType = {|location: Location, events?: Array<EventModel>,
-  categories?: CategoriesMapModel, pois?: Array<PoiModel>, language: string|}
+export type GetLanguageChangePathParamsType = {|location: Location, events: ?Array<EventModel>,
+  categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, language: string|}
 
 export type GetLanguageChangePathType = GetLanguageChangePathParamsType => string | null
 
-export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname: string, events?: Array<EventModel>,
-  categories?: CategoriesMapModel, pois?: Array<PoiModel>|}
+export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname: string, events: ?Array<EventModel>,
+  categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, extras: ?Array<ExtraModel>, offers: ?Array<WohnenOfferModel>,
+  offerHash: ?string
+|}
 
 class RouteConfig<T, P> {
   _name: string

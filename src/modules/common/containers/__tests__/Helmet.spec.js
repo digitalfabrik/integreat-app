@@ -17,6 +17,9 @@ import LocationModel from '../../../endpoint/models/LocationModel'
 import CityModel from '../../../endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
 import { CATEGORIES_ROUTE } from '../../../app/routeConfigs/categories'
+import ExtraModel from '../../../endpoint/models/ExtraModel'
+import WohnenFormData from '../../../endpoint/models/WohnenFormData'
+import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -104,6 +107,45 @@ describe('Helmet', () => {
     })
   ]
 
+  const extras = [
+    new ExtraModel({
+      alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
+    })
+  ]
+
+  const offers = [
+    new WohnenOfferModel({
+      email: 'mail@mail.com',
+      createdDate: moment('2018-07-24T00:00:00.000Z'),
+      formDataType: WohnenFormData,
+      formData: new WohnenFormData(
+        {
+          firstName: 'Max',
+          lastName: 'Ammann',
+          phone: ''
+        },
+        {
+          ofRooms: ['kitchen', 'child2', 'child1', 'bed'],
+          title: 'Test Angebot',
+          location: 'Augsburg',
+          totalArea: 120,
+          totalRooms: 4,
+          moveInDate: moment('2018-07-19T15:35:12.000Z'),
+          ofRoomsDiff: ['bath', 'wc', 'child3', 'livingroom', 'hallway', 'store', 'basement', 'balcony']
+        },
+        {
+          ofRunningServices: ['chimney', 'other'],
+          ofAdditionalServices: ['garage'],
+          baseRent: 1000,
+          runningCosts: 1200,
+          hotWaterInHeatingCosts: true,
+          additionalCosts: 200,
+          ofRunningServicesDiff: ['heating', 'water', 'garbage'],
+          ofAdditionalServicesDiff: []
+        })
+    })
+  ]
+
   const categories = new CategoriesMapModel(categoryModels)
 
   const location = {pathname: '/augsburg/de/', payload: {city, language}, type: CATEGORIES_ROUTE}
@@ -119,6 +161,8 @@ describe('Helmet', () => {
               events={events}
               t={t}
               pois={pois}
+              extras={extras}
+              offers={offers}
               languages={languages}
               cities={cities} />
     )
@@ -133,6 +177,8 @@ describe('Helmet', () => {
               location={{...location, payload: {city: 'testinstanz', language: 'ar'}}}
               events={events}
               pois={pois}
+              extras={extras}
+              offers={offers}
               t={t}
               languages={languages}
               cities={cities} />
@@ -152,6 +198,8 @@ describe('Helmet', () => {
       events: {data: events},
       pois: {data: pois},
       cities: {data: cities},
+      extras: {data: extras},
+      wohnen: {data: offers},
       location
     })
 
@@ -170,6 +218,8 @@ describe('Helmet', () => {
       categories,
       pois,
       cities,
+      extras,
+      offers,
       getPageTitle: expect.any(Function),
       t: expect.any(Function),
       dispatch: expect.any(Function)
