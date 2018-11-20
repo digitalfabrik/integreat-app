@@ -8,7 +8,7 @@ type PropsType = {|
   poi: PoiModel
 |}
 
-class PoiListItem extends React.Component<PropsType> {
+class PoiListItem extends React.PureComponent<PropsType> {
   render () {
     const {poi} = this.props
     return (

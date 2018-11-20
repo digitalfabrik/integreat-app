@@ -68,6 +68,7 @@ exports[`CategoriesPage should match snapshot and render a CategoryList if the c
     }
     content=""
     onInternLinkClick={[Function]}
+    thumbnail="https://cms.integreat-ap…03/Beratung-150x150.png"
     title="Willkommen"
   />
 </div>

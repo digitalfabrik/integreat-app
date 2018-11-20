@@ -12,9 +12,9 @@ import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
-import { translate } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 import { hash as hashFunction } from '../../../modules/app/routeConfigs/wohnen'
 
 type PropsType = {|
@@ -74,5 +74,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('wohnen')
+  withNamespaces('wohnen')
 )(WohnenExtraPage)

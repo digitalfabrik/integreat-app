@@ -39,7 +39,7 @@ type PropsType = {|
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
  * 'Change language', 'Change location' and similar items.
  */
-class HeaderActionBar extends React.Component<PropsType> {
+class HeaderActionBar extends React.PureComponent<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()

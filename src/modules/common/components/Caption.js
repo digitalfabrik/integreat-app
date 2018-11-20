@@ -18,7 +18,7 @@ type PropsType = {|
   className?: string
 |}
 
-class Caption extends React.Component<PropsType> {
+class Caption extends React.PureComponent<PropsType> {
   render () {
     const {title, className} = this.props
     return <H1 className={className}>{title}</H1>

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown } from '../../../modules/app/constants/icons'
 
@@ -29,7 +29,7 @@ type PropsType = {|
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
  */
-export class Failure extends React.Component<PropsType> {
+export class Failure extends React.PureComponent<PropsType> {
   render () {
     const {t, errorMessage, goToPath, goToMessage} = this.props
     return <Centered>
@@ -40,4 +40,4 @@ export class Failure extends React.Component<PropsType> {
   }
 }
 
-export default translate('error')(Failure)
+export default withNamespaces('error')(Failure)

@@ -20,7 +20,7 @@ export const NavigationBarContainer = styled.div`
  * Designed to work with Header. In the MenuBar you can display textual links. Should be used for navigating as a
  * main menu.
  */
-class HeaderNavigationBar extends React.Component<PropsType> {
+class HeaderNavigationBar extends React.PureComponent<PropsType> {
   render () {
     const {className, children} = this.props
     return <NavigationBarContainer hidden={isEmpty(children)} className={className}>{children}</NavigationBarContainer>

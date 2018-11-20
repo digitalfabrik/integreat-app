@@ -79,7 +79,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
                          title={category.title} onInternLinkClick={this.redirectToPath}
-                         content={category.content} />
+                         content={category.content} thumbnail={category.thumbnail} />
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {

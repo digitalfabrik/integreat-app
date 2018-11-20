@@ -7,7 +7,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import { compose } from 'recompose'
 import SprungbrettRouteConfig, { SPRUNGBRETT_EXTRA } from '../../../modules/app/routeConfigs/sprungbrett'
@@ -75,5 +75,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateToProps),
-  translate('extras')
+  withNamespaces('extras')
 )(ExtrasPage)

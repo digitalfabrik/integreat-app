@@ -16,7 +16,7 @@ import feedbackEndpoint, {
   SEARCH_FEEDBACK_TYPE
 } from '../../../modules/endpoint/endpoints/feedback'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
@@ -204,4 +204,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default translate('feedback')(FeedbackBoxContainer)
+export default withNamespaces('feedback')(FeedbackBoxContainer)

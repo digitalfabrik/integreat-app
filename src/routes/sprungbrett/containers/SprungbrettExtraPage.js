@@ -6,9 +6,11 @@ import SprungbrettJobModel from '../../../modules/endpoint/models/SprungbrettJob
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -28,6 +30,8 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
     }
 
     return (
+      <>
+        <Caption title={extra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
@@ -35,4 +39,4 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
   }
 }
 
-export default translate('sprungbrett')(SprungbrettExtraPage)
+export default withNamespaces('sprungbrett')(SprungbrettExtraPage)

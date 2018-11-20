@@ -5,12 +5,13 @@ import EndpointBuilder from '../EndpointBuilder'
 import type { JsonEventType } from '../types'
 import EventModel from '../models/EventModel'
 import normalizePath from '../normalizePath'
-import { decode } from 'he'
+import { decodeHTML } from 'entities'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
+import sanitizeHtml from 'sanitize-html-react'
 
 const EVENTS_ENDPOINT_NAME = 'events'
 
@@ -27,7 +28,11 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
         id: event.id,
         path: normalizePath(event.path),
         title: event.title,
-        content: event.content,
+        content: sanitizeHtml(event.content, {
+          allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
+          allowedTags: false,
+          allowedAttributes: false
+        }),
         thumbnail: event.thumbnail,
         date: new DateModel({
           startDate: moment(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`),
@@ -41,7 +46,7 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
           latitude: event.location.latitude,
           longitude: event.location.longitude
         }),
-        excerpt: decode(event.excerpt),
+        excerpt: decodeHTML(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
         lastUpdate: moment(event.modified_gmt)
       })
