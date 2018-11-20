@@ -8,7 +8,6 @@ import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 
@@ -35,6 +34,7 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
+      </>
     )
   }
 }
