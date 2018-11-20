@@ -10,7 +10,7 @@ type PropsType = {|
   viewportSmall: boolean
 |}
 
-class GeneralHeader extends React.Component<PropsType> {
+class GeneralHeader extends React.PureComponent<PropsType> {
   render () {
     const getPath = new I18nRedirectRouteConfig().getRoutePath
     return <Header viewportSmall={this.props.viewportSmall}

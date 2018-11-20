@@ -103,7 +103,7 @@ const NavigationBar = styled(HeaderNavigationBar)`
  * of the Header.
  * Uses Headroom to save space when scrolling.
  */
-export class Header extends React.Component<PropsType> {
+export class Header extends React.PureComponent<PropsType> {
   static defaultProps = {
     navigationItems: null,
     actionItems: []

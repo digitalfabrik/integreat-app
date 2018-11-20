@@ -5,7 +5,7 @@ import SelectorItemModel from '../../common/models/SelectorItemModel'
 import HeaderDropDown from './HeaderDropDown'
 import Selector from '../../common/components/Selector'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import ReactTooltip from 'react-tooltip'
 
@@ -43,4 +43,4 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   }
 }
 
-export default translate('layout')(HeaderLanguageSelectorItem)
+export default withNamespaces('layout')(HeaderLanguageSelectorItem)

@@ -1,8 +1,9 @@
 // @flow
 
-import React from 'react'
 import type { Element } from 'react'
-import { translate } from 'react-i18next'
+import React from 'react'
+import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
 import LanguageSelector from '../../common/containers/LanguageSelector'
@@ -128,6 +129,6 @@ const mapStateToProps = (state: StateType) => ({
   events: state.events.data
 })
 
-export default compose(connect(mapStateToProps), translate('layout'))(
+export default compose(connect(mapStateToProps), withNamespaces('layout'))(
   LocationHeader
 )

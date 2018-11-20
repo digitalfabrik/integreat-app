@@ -8,7 +8,7 @@ import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
@@ -85,5 +85,5 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 export default compose(
   connect(mapStateTypeToProps, mapDispatchToProps),
-  translate('pois')
+  withNamespaces('pois')
 )(PoisPage)

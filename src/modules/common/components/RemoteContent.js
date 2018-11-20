@@ -44,6 +44,14 @@ const SandBox = styled.div`
   & a {
     overflow-wrap: break-word;
   }
+  
+  & details > * {
+    padding: 0 25px;
+  }
+  
+  & details > summary {
+    padding: 0;
+  }
 `
 
 type PropsType = {|
@@ -104,7 +112,7 @@ class RemoteContent extends React.Component<PropsType> {
   render () {
     return <SandBox centered={this.props.centered}
                     dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
-                    innerRef={this.sandBoxRef} />
+                    ref={this.sandBoxRef} />
   }
 }
 

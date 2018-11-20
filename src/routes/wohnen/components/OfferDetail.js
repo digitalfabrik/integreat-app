@@ -2,11 +2,11 @@
 
 import React from 'react'
 import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
+import type { AccommodationType } from '../../../modules/endpoint/models/WohnenFormData'
 import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import styled from 'styled-components'
-import type { AccommodationType } from '../../../modules/endpoint/models/WohnenFormData'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
@@ -38,7 +38,7 @@ const ListElement = styled.div`
   margin-bottom: 10px;
 `
 
-class OfferDetail extends React.Component<PropsType> {
+class OfferDetail extends React.PureComponent<PropsType> {
   translate (type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {
     return keys.map(key => this.props.t(`values.${type}.${key}`))
   }
@@ -158,4 +158,4 @@ class OfferDetail extends React.Component<PropsType> {
   }
 }
 
-export default translate('wohnen')(OfferDetail)
+export default withNamespaces('wohnen')(OfferDetail)
