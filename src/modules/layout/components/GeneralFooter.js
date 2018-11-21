@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import Footer from './Footer'
 import { goToMainDisclaimer } from '../../app/routes/mainDisclaimer'
@@ -13,7 +13,7 @@ type PropsType = {|
   t: TFunction
 |}
 
-class GeneralFooter extends React.Component<PropsType> {
+class GeneralFooter extends React.PureComponent<PropsType> {
   render () {
     const {t} = this.props
     return (
@@ -25,4 +25,4 @@ class GeneralFooter extends React.Component<PropsType> {
   }
 }
 
-export default translate('layout')(GeneralFooter)
+export default withNamespaces('layout')(GeneralFooter)

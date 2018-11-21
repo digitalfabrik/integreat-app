@@ -15,7 +15,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
@@ -133,4 +133,4 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   dispatch
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('categories')(CategoriesPage))
+export default connect(mapStateToProps, mapDispatchToProps)(withNamespaces('categories')(CategoriesPage))

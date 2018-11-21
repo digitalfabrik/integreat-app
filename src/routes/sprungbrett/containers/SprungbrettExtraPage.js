@@ -8,10 +8,11 @@ import SprungbrettListItem from '../components/SprungbrettListItem'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -36,6 +37,7 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
 
     return (
       <>
+        <Caption title={extra.title} />
         <Helmet title={`${extra.title} - ${cityName}`} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
@@ -52,5 +54,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('sprungbrett')
+  withNamespaces('sprungbrett')
 )(SprungbrettExtraPage)

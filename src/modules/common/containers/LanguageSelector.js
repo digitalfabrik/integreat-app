@@ -12,7 +12,7 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import getLanguageChangePath from '../../app/getLanguageChangePath'
 
@@ -29,7 +29,7 @@ type PropsType = {|
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-export class LanguageSelector extends React.Component<PropsType> {
+export class LanguageSelector extends React.PureComponent<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
     const {categories, events, pois, location, languages} = this.props
     const activeItemCode = location.payload.language
@@ -83,6 +83,6 @@ const mapStateToProps = (state: StateType) => ({
   pois: state.pois.data
 })
 
-export default compose(connect(mapStateToProps), translate('layout'))(
+export default compose(connect(mapStateToProps), withNamespaces('layout'))(
   LanguageSelector
 )

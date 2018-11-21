@@ -9,7 +9,7 @@ type PropsType = {|
   job: SprungbrettJobModel
 |}
 
-class SprungbrettListItem extends React.Component<PropsType> {
+class SprungbrettListItem extends React.PureComponent<PropsType> {
   render () {
     const {job} = this.props
     return (

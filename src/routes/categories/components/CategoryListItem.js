@@ -64,7 +64,7 @@ type PropsType = {
 /**
  * Displays a single CategoryListItem
  */
-class CategoryListItem extends React.Component<PropsType> {
+class CategoryListItem extends React.PureComponent<PropsType> {
   renderSubCategories (): Array<React.Node> {
     const {subCategories} = this.props
     return subCategories.map(subCategory =>

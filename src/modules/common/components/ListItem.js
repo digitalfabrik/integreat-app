@@ -50,7 +50,7 @@ type PropsType = {|
   children?: React.Node
 |}
 
-class ListItem extends React.Component<PropsType> {
+class ListItem extends React.PureComponent<PropsType> {
   static defaultProps = {
     isExternalUrl: false
   }
