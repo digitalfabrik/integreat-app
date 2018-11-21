@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`languages should throw if the city to map the url are missing 1`] = `"ParamMissingError: Failed to load the languages endpoint because the city is missing"`;

@@ -1,7 +1,7 @@
 // @flow
 
 import startFetchAction, { startFetchActionName } from '../startFetchAction'
-import Payload from '../../../endpoint/Payload'
+import { Payload } from '@integreat-app/integreat-api-client'
 import lolex from 'lolex'
 
 describe('startFetchAction', () => {

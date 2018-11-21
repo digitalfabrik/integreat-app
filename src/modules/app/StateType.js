@@ -1,16 +1,17 @@
 // @flow
 
-import Payload from '../endpoint/Payload'
-import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
-import ExtraModel from '../endpoint/models/ExtraModel'
-import EventModel from '../endpoint/models/EventModel'
-import CityModel from '../endpoint/models/CityModel'
-import LanguageModel from '../endpoint/models/LanguageModel'
-import PageModel from '../endpoint/models/PageModel'
-import SprungbrettJobModel from '../endpoint/models/SprungbrettJobModel'
-import WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
+import {
+  Payload, CategoriesMapModel,
+  ExtraModel,
+  EventModel,
+  CityModel,
+  LanguageModel,
+  PageModel,
+  SprungbrettJobModel,
+  WohnenOfferModel,
+  PoiModel
+} from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
-import PoiModel from '../endpoint/models/PoiModel'
 import type { UiDirectionType } from '../i18n/types/UiDirectionType'
 
 export type ViewportType = { +is: { +small: boolean, +large: boolean } }
