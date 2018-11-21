@@ -1,18 +1,16 @@
 // @flow
 
-import CategoriesMapModel from '../endpoint/models/CategoriesMapModel'
+import { CategoriesMapModel, EventModel, PoiModel } from '@integreat-app/integreat-api-client'
 import { EXTRAS_ROUTE, getExtraPath } from './routes/extras'
 import { DISCLAIMER_ROUTE, getDisclaimerPath } from './routes/disclaimer'
 import { EVENTS_ROUTE, getEventsPath } from './routes/events'
 import { getSearchPath, SEARCH_ROUTE } from './routes/search'
 import { CATEGORIES_ROUTE, getCategoryPath } from './routes/categories'
-import EventModel from '../endpoint/models/EventModel'
 
 import type { Location } from 'redux-first-router'
 import { getWohnenExtraPath, WOHNEN_ROUTE } from './routes/wohnen'
 import { getSprungbrettExtraPath, SPRUNGBRETT_ROUTE } from './routes/sprungbrett'
 import { getPoisPath, POIS_ROUTE } from './routes/pois'
-import PoiModel from '../endpoint/models/PoiModel'
 
 /**
  * Maps the given languageCode to an action to go to the current route in the language specified by languageCode

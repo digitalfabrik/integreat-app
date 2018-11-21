@@ -3,12 +3,9 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
+import { Payload, ExtraModel, CityModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import ConnectedSprungbrettExtraPage, { SprungbrettExtraPage } from '../SprungbrettExtraPage'
 
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import Payload from '../../../../modules/endpoint/Payload'
-import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import theme from '../../../../modules/theme/constants/theme'
 import { Provider } from 'react-redux'

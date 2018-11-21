@@ -2,7 +2,7 @@
 
 import finishFetchAction, { finishFetchActionName } from '../finishFetchAction'
 import lolex from 'lolex'
-import Payload from '../../../endpoint/Payload'
+import { Payload } from '@integreat-app/integreat-api-client'
 
 describe('finishFetchAction', () => {
   let clock

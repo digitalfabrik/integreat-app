@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import CategoryListItem from '../CategoryListItem'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 
 const category = new CategoryModel({
   id: 3649,

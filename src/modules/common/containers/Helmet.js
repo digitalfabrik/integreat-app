@@ -3,15 +3,11 @@
 import * as React from 'react'
 import type { StateType } from '../../app/StateType'
 import { connect } from 'react-redux'
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import EventModel from '../../endpoint/models/EventModel'
-import LanguageModel from '../../endpoint/models/LanguageModel'
+import { CategoriesMapModel, EventModel, LanguageModel, PoiModel, CityModel } from '@integreat-app/integreat-api-client'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
 import getLanguageChangePath from '../../app/getLanguageChangePath'
-import PoiModel from '../../endpoint/models/PoiModel'
-import CityModel from '../../endpoint/models/CityModel'
 
 type PropsType = {|
   title: string,
@@ -35,7 +31,7 @@ export class Helmet extends React.Component<PropsType> {
   }
 
   render () {
-    const { title, metaDescription, cities, location } = this.props
+    const {title, metaDescription, cities, location} = this.props
     const city = cities && cities.find(city => city.code === location.payload.city)
 
     return <ReactHelmet>
