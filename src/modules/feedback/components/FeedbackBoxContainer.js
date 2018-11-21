@@ -7,7 +7,7 @@ import {
   CityModel,
   ExtraModel,
   feedbackEndpoint,
-  type FeedbackParamsTyp,
+  type FeedbackParamsType,
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -39,7 +39,7 @@ type PropsType = {|
   isPositiveRatingSelected: boolean,
   location: LocationState,
   extras: ?Array<ExtraModel>,
-  postFeedbackDataOverride?: FeedbackParamsTyp => void,
+  postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   onSubmit: () => void,
   t: TFunction
@@ -61,7 +61,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.state = {feedbackOptions: feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: ''}
   }
 
-  postFeedbackData = (feedbackData: FeedbackParamsTyp) => {
+  postFeedbackData = (feedbackData: FeedbackParamsType) => {
     const {postFeedbackDataOverride} = this.props
 
     if (postFeedbackDataOverride) {
@@ -161,7 +161,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   /**
    * Returns the data that should be posted to the feedback endpoint
    */
-  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsTyp => {
+  getFeedbackData = (selectedFeedbackOption: FeedbackDropdownItem, comment: string): FeedbackParamsType => {
     const {location, query, isPositiveRatingSelected, id, alias} = this.props
     const {city, language} = location.payload
 
