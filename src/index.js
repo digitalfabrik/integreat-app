@@ -3,13 +3,13 @@
 import type {MapParamsToBodyType as ImportedMapParamsToBodyType} from './MapParamsToBody'
 import type {MapParamsToUrlType as ImportedMapParamsToUrlType} from './MapParamsToUrlType'
 import type {MapResponseType as ImportedMapResponseType} from './MapResponseType'
-import type {ParamsType as ImportedFeedbackParamsTyp} from './endpoints/feedback'
+import type {ParamsType as ImportedFeedbackParamsType} from './endpoints/feedback'
 import type {AccommodationType as ImportedAccommodationType} from './models/WohnenFormData'
 
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
-export type FeedbackParamsTyp = ImportedFeedbackParamsTyp
+export type FeedbackParamsType = ImportedFeedbackParamsType
 export type AccommodationType = ImportedAccommodationType
 
 export {default as Endpoint} from './Endpoint'
