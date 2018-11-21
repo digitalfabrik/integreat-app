@@ -4,7 +4,7 @@ import * as React from 'react'
 import 'react-dropdown/style.css'
 
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
@@ -52,7 +52,7 @@ type PropsType = {|
 /**
  * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
  */
-export class FeedbackBox extends React.Component<PropsType> {
+export class FeedbackBox extends React.PureComponent<PropsType> {
   render () {
     const {
       selectedFeedbackOption,
@@ -86,4 +86,4 @@ export class FeedbackBox extends React.Component<PropsType> {
   }
 }
 
-export default translate('feedback')(FeedbackBox)
+export default withNamespaces('feedback')(FeedbackBox)

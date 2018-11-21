@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
@@ -42,5 +42,5 @@ const mapStateTypeToProps = (stateType: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('error')
+  withNamespaces('error')
 )(LanguageFailure)

@@ -50,7 +50,7 @@ type PropsType = {|
   onClickInput?: () => void
 |}
 
-export class SearchInput extends React.Component<PropsType> {
+export class SearchInput extends React.PureComponent<PropsType> {
   static defaultProps = {spaceSearch: false}
   onFilterTextChange = (event: SyntheticInputEvent<EventTarget>) => this.props.onFilterTextChange(event.target.value)
 

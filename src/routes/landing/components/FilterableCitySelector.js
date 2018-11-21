@@ -9,7 +9,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 const Container = styled.div`
   padding-top: 22px;
@@ -61,4 +61,4 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
   }
 }
 
-export default translate('landing')(FilterableCitySelector)
+export default withNamespaces('landing')(FilterableCitySelector)
