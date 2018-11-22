@@ -1,10 +1,10 @@
 // @flow
 
-import RouteConfig from './RouteConfig'
+import { RouteConfigInterface } from './RouteConfigInterface'
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
 import Payload from '../../endpoint/Payload'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 
@@ -38,7 +38,7 @@ const getLanguageChangePath = ({location, language}: GetLanguageChangePathParams
 const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
   `${t('pageTitles.extras')} - ${cityName}`
 
-class ExtrasRouteConfig extends RouteConfig<ExtrasRouteParamsType, RequiredPayloadsType> {
+class ExtrasRouteConfig extends RouteConfigInterface<ExtrasRouteParamsType, RequiredPayloadsType> {
   constructor () {
     super({
       name: EXTRAS_ROUTE,

@@ -1,12 +1,12 @@
 // @flow
 
 import ExtraModel from '../../endpoint/models/ExtraModel'
-import RouteConfig from './RouteConfig'
+import { RouteConfigInterface } from './RouteConfigInterface'
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
 import Payload from '../../endpoint/Payload'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import Hashids from 'hashids'
@@ -19,9 +19,6 @@ export const WOHNEN_EXTRA = 'wohnen'
 
 export const hash = (offer: WohnenOfferModel) =>
   new Hashids().encode(offer.email.length, offer.createdDate.seconds())
-
-const getWohnenPath = ({city, language, offerHash}: RouteParamsType): string =>
-  `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
 const wohnenRoute: Route = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
@@ -42,31 +39,26 @@ const wohnenRoute: Route = {
   }
 }
 
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-  ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
+class WohnenRouteConfig implements RouteConfigInterface<RouteParamsType, RequiredPayloadsType> {
+  name = WOHNEN_ROUTE
+  route = wohnenRoute
 
-const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
-  getWohnenPath({city: location.payload.city, language})
+  getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
+    `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
 
-const getPageTitle = ({cityName, extras, offers, offerHash}: GetPageTitleParamsType) => {
-  const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
-  if (offerModel) {
-    return `${offerModel.formData.accommodation.title} - ${cityName}`
-  }
-  const wohnenExtra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
-  return wohnenExtra ? `${wohnenExtra.title} - ${cityName}` : ''
-}
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+    ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
-class WohnenRouteConfig extends RouteConfig<RouteParamsType, RequiredPayloadsType> {
-  constructor () {
-    super({
-      name: WOHNEN_ROUTE,
-      route: wohnenRoute,
-      getRoutePath: getWohnenPath,
-      getLanguageChangePath,
-      getPageTitle,
-      getRequiredPayloads
-    })
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+    this.getRoutePath({city: location.payload.city, language})
+
+  getPageTitle = ({cityName, extras, offers, offerHash}: GetPageTitleParamsType) => {
+    const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
+    if (offerModel) {
+      return `${offerModel.formData.accommodation.title} - ${cityName}`
+    }
+    const wohnenExtra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
+    return wohnenExtra ? `${wohnenExtra.title} - ${cityName}` : ''
   }
 }
 

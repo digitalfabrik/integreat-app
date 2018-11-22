@@ -1,12 +1,12 @@
 // @flow
 
-import RouteConfig from './RouteConfig'
+import { RouteConfigInterface } from './RouteConfigInterface'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
 import Payload from '../../endpoint/Payload'
 import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
 
@@ -15,9 +15,6 @@ type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>,
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
-
-const getSprungbrettPath = ({city, language}: SprungbrettRouteParamsType): string =>
-  `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
 const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
@@ -40,27 +37,22 @@ const sprungbrettRoute: Route = {
   }
 }
 
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-  ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
+class SprungbrettRouteConfig implements RouteConfigInterface<SprungbrettRouteParamsType, RequiredPayloadsType> {
+  name = SPRUNGBRETT_ROUTE
+  route = sprungbrettRoute
 
-const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
-  getSprungbrettPath({city: location.payload.city, language})
+  getRoutePath = ({city, language}: SprungbrettRouteParamsType): string =>
+    `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
-const getPageTitle = ({cityName, extras}: GetPageTitleParamsType) => {
-  const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-  return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
-}
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+    ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
 
-class SprungbrettRouteConfig extends RouteConfig<SprungbrettRouteParamsType, RequiredPayloadsType> {
-  constructor () {
-    super({
-      name: SPRUNGBRETT_ROUTE,
-      route: sprungbrettRoute,
-      getRoutePath: getSprungbrettPath,
-      getLanguageChangePath,
-      getPageTitle,
-      getRequiredPayloads
-    })
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+    this.getRoutePath({city: location.payload.city, language})
+
+  getPageTitle = ({cityName, extras}: GetPageTitleParamsType) => {
+    const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
   }
 }
 

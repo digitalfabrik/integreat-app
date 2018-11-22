@@ -1,12 +1,10 @@
 // @flow
 
-import RouteConfig from './RouteConfig'
+import { RouteConfigInterface } from './RouteConfigInterface'
 import { Route } from 'redux-first-router'
-import type { GetPageTitleParamsType } from './RouteConfig'
+import type { GetPageTitleParamsType } from './RouteConfigInterface'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
-
-const getMainDisclaimerPath = (): string => '/disclaimer'
 
 /**
  * MainDisclaimerRoute, matches /disclaimer
@@ -14,17 +12,17 @@ const getMainDisclaimerPath = (): string => '/disclaimer'
  */
 const mainDisclaimerRoute: Route = '/disclaimer'
 
-class MainDisclaimerRouteConfig extends RouteConfig<void, void> {
-  constructor () {
-    super({
-      name: MAIN_DISCLAIMER_ROUTE,
-      route: mainDisclaimerRoute,
-      getRoutePath: getMainDisclaimerPath,
-      getPageTitle: ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer'),
-      getLanguageChangePath: () => null,
-      getRequiredPayloads: () => {}
-    })
-  }
+class MainDisclaimerRouteConfig implements RouteConfigInterface<void, void> {
+  name = MAIN_DISCLAIMER_ROUTE
+  route = mainDisclaimerRoute
+
+  getRoutePath = (): string => '/disclaimer'
+
+  getRequiredPayloads = () => {}
+
+  getLanguageChangePath = () => null
+
+  getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer')
 }
 
 export default MainDisclaimerRouteConfig
