@@ -3,7 +3,7 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
 
-import { ExtraModel, CityModel } from '@integreat-app/integreat-api-client'
+import { ExtraModel } from '@integreat-app/integreat-api-client'
 import ConnectedExtrasPage, { ExtrasPage } from '../ExtrasPage'
 import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
