@@ -26,56 +26,16 @@ export type AllPayloadsType = {|
 export type GetLanguageChangePathParamsType = {|location: Location, events: ?Array<EventModel>,
   categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, language: string|}
 
-export type GetLanguageChangePathType = GetLanguageChangePathParamsType => string | null
-
 export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname: string, events: ?Array<EventModel>,
   categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, extras: ?Array<ExtraModel>, offers: ?Array<WohnenOfferModel>,
   offerHash: ?string
 |}
 
-class RouteConfig<T, P> {
-  _name: string
-  _route: Route
-  _getRoutePath: T => string
-  _getLanguageChangePath: GetLanguageChangePathType
-  _getPageTitle: GetPageTitleParamsType => string
-  _getRequiredPayloads: AllPayloadsType => P
-
-  constructor ({name, route, getRoutePath, getLanguageChangePath, getPageTitle, getRequiredPayloads}: {| name: string,
-    route: Route, getRoutePath: T => string, getPageTitle: GetPageTitleParamsType => string,
-    getLanguageChangePath: GetLanguageChangePathType, getRequiredPayloads: AllPayloadsType => P
-  |}) {
-    this._getLanguageChangePath = getLanguageChangePath
-    this._getPageTitle = getPageTitle
-    this._name = name
-    this._route = route
-    this._getRoutePath = getRoutePath
-    this._getRequiredPayloads = getRequiredPayloads
-  }
-
-  get name (): string {
-    return this._name
-  }
-
-  get route (): Route {
-    return this._route
-  }
-
-  get getRoutePath (): T => string {
-    return this._getRoutePath
-  }
-
-  get getLanguageChangePath (): GetLanguageChangePathType {
-    return this._getLanguageChangePath
-  }
-
-  get getPageTitle (): GetPageTitleParamsType => string {
-    return this._getPageTitle
-  }
-
-  get getRequiredPayloads (): AllPayloadsType => P {
-    return this._getRequiredPayloads
-  }
+export interface RouteConfigInterface<T, P> {
+  name: string,
+  route: Route,
+  getRoutePath: T => string,
+  getLanguageChangePath: GetLanguageChangePathParamsType => string | null,
+  getPageTitle: GetPageTitleParamsType => string,
+  getRequiredPayloads: AllPayloadsType => P
 }
-
-export default RouteConfig

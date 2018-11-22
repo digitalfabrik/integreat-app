@@ -1,10 +1,10 @@
 // @flow
 
-import RouteConfig from './RouteConfig'
+import { RouteConfigInterface } from './RouteConfigInterface'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import categoriesEndpoint from '../../endpoint/endpoints/categories'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
 import CityModel from '../../endpoint/models/CityModel'
 import Payload from '../../endpoint/Payload'
 import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
@@ -13,9 +13,6 @@ type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
 
 export const SEARCH_ROUTE = 'SEARCH'
-
-const getSearchPath = ({city, language}: SearchRouteParamsType): string =>
-  `/${city}/${language}/search`
 
 /**
  * SearchRoute, matches /augsburg/de/search
@@ -31,26 +28,19 @@ const searchRoute: Route = {
   }
 }
 
-const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
-  getSearchPath({city: location.payload.city, language})
+class SearchRouteConfig implements RouteConfigInterface<SearchRouteParamsType, RequiredPayloadsType> {
+  name = SEARCH_ROUTE
+  route = searchRoute
 
-const getPageTitle = ({cityName, t}: GetPageTitleParamsType) =>
-  `${t('pageTitles.search')} - ${cityName}`
+  getRoutePath = ({city, language}: SearchRouteParamsType): string => `/${city}/${language}/search`
 
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-  ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+    this.getRoutePath({city: location.payload.city, language})
 
-class SearchRouteConfig extends RouteConfig<SearchRouteParamsType, RequiredPayloadsType> {
-  constructor () {
-    super({
-      name: SEARCH_ROUTE,
-      route: searchRoute,
-      getRoutePath: getSearchPath,
-      getLanguageChangePath,
-      getPageTitle,
-      getRequiredPayloads
-    })
-  }
+  getPageTitle = ({cityName, t}: GetPageTitleParamsType) => `${t('pageTitles.search')} - ${cityName}`
+
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+    ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
 }
 
 export default SearchRouteConfig

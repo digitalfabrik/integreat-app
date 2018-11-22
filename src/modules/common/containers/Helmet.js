@@ -17,7 +17,7 @@ import compose from 'lodash/fp/compose'
 import { withNamespaces } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import { LANDING_ROUTE } from '../../app/route-configs/LandingRouteConfig'
-import type { GetPageTitleParamsType } from '../../app/route-configs/RouteConfig'
+import type { GetPageTitleParamsType } from '../../app/route-configs/RouteConfigInterface'
 import ExtraModel from '../../endpoint/models/ExtraModel'
 import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 

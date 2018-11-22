@@ -1,10 +1,10 @@
 // @flow
 
-import RouteConfig from './RouteConfig'
+import { RouteConfigInterface } from './RouteConfigInterface'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
 import Payload from '../../endpoint/Payload'
 import PageModel from '../../endpoint/models/PageModel'
 
@@ -12,9 +12,6 @@ type DisclaimerRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
-
-const getDisclaimerPath = ({city, language}: DisclaimerRouteParamsType): string =>
-  `/${city}/${language}/disclaimer`
 
 /**
  * DisclaimerRoute (for city specific disclaimers), matches /augsburg/de/disclaimer
@@ -30,26 +27,21 @@ const disclaimerRoute: Route = {
   }
 }
 
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-  ({disclaimer: payloads.disclaimerPayload})
+class DisclaimerRouteConfig implements RouteConfigInterface<DisclaimerRouteParamsType, RequiredPayloadsType> {
+  name = DISCLAIMER_ROUTE
+  route = disclaimerRoute
 
-const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
-  getDisclaimerPath({city: location.payload.city, language})
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
+    ({disclaimer: payloads.disclaimerPayload})
 
-const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitles.disclaimer')} - ${cityName}`
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+    this.getRoutePath({city: location.payload.city, language})
 
-class DisclaimerRouteConfig extends RouteConfig<DisclaimerRouteParamsType, RequiredPayloadsType> {
-  constructor () {
-    super({
-      name: DISCLAIMER_ROUTE,
-      route: disclaimerRoute,
-      getRoutePath: getDisclaimerPath,
-      getLanguageChangePath,
-      getPageTitle,
-      getRequiredPayloads
-    })
-  }
+  getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
+    `${t('pageTitles.disclaimer')} - ${cityName}`
+
+  getRoutePath = ({city, language}: DisclaimerRouteParamsType): string =>
+    `/${city}/${language}/disclaimer`
 }
 
 export default DisclaimerRouteConfig

@@ -1,7 +1,7 @@
 // @flow
 
 import type { Route } from 'redux-first-router'
-import RouteConfig from './RouteConfig'
+import RouteConfig from './RouteConfigInterface'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from './CategoriesRouteConfig'
 import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from './I18nRedirectRouteConfig'
 import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
