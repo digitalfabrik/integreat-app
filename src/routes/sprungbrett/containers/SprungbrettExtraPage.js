@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { SprungbrettJobModel, ExtraModel, CityModel } from '@integreat-app/integreat-api-client'
+import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { PoiModel, LocationModel, CityModel } from '@integreat-app/integreat-api-client'
+import { PoiModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { PoisPage } from '../PoisPage'
 import { shallow } from 'enzyme'
