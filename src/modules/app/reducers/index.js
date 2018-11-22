@@ -1,17 +1,18 @@
 // @flow
 
-import languagesEndpoint from '../../endpoint/endpoints/languages'
-import citiesEndpoint from '../../endpoint/endpoints/cities'
-import categoriesEndpoint from '../../endpoint/endpoints/categories'
-import eventsEndpoint from '../../endpoint/endpoints/events'
-import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
-import extrasEndpoint from '../../endpoint/endpoints/extras'
-import sprungbrettJobEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
-import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
-import poisEndpoint from '../../endpoint/endpoints/pois'
-
+import {
+  Payload,
+  languagesEndpoint,
+  citiesEndpoint,
+  categoriesEndpoint,
+  eventsEndpoint,
+  disclaimerEndpoint,
+  extrasEndpoint,
+  sprungbrettEndpoint,
+  wohnenEndpoint,
+  poisEndpoint
+} from '@integreat-app/integreat-api-client'
 import { handleActions } from 'redux-actions'
-import Payload from '../../endpoint/Payload'
 import { startFetchActionName } from '../../app/actions/startFetchAction'
 import { finishFetchActionName } from '../../app/actions/finishFetchAction'
 import type { ActionType } from '../../app/createReduxStore'
@@ -26,7 +27,7 @@ const endpoints = [
   disclaimerEndpoint,
   eventsEndpoint,
   extrasEndpoint,
-  sprungbrettJobEndpoint,
+  sprungbrettEndpoint,
   wohnenEndpoint,
   poisEndpoint
 ]

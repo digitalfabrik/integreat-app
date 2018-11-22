@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions'
-import Payload from '../../endpoint/Payload'
+import { Payload } from '@integreat-app/integreat-api-client'
 
 export const finishFetchActionName = (stateName: string): string => `FINISH_FETCH_${stateName.toUpperCase()}`
 

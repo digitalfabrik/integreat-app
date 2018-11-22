@@ -3,13 +3,27 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
+import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
+import SearchPage from '../../../routes/search/containers/SearchPage'
+import {
+  Payload,
+  PoiModel,
+  WohnenOfferModel,
+  EventModel,
+  CategoriesMapModel,
+  ExtraModel,
+  CityModel,
+  PageModel,
+  LanguageModel
+} from '@integreat-app/integreat-api-client'
+import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
+import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
 import Payload from '../../endpoint/Payload'
 import LanguageModel from '../../endpoint/models/LanguageModel'
 import LanguageNotFoundError from '../errors/LanguageNotFoundError'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { NOT_FOUND } from 'redux-first-router'
 import CityNotFoundError from '../errors/CityNotFoundError'
-import CityModel from '../../endpoint/models/CityModel'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'

@@ -4,11 +4,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
+import { PoiModel, LanguageModel, CategoriesMapModel, EventModel, PoiModel } from '@integreat-app/integreat-api-client'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import EventModel from '../../endpoint/models/EventModel'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 
 import type { Location } from 'redux-first-router'
@@ -16,8 +14,6 @@ import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import { getRouteConfig } from '../../app/route-configs/index'
-
-import PoiModel from '../../endpoint/models/PoiModel'
 
 type PropsType = {|
   languages: Array<LanguageModel>,

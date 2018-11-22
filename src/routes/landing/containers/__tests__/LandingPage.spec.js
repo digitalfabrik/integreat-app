@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
 import { LANDING_ROUTE } from '../../../../modules/app/route-configs/LandingRouteConfig'
 import { routesMap } from '../../../../modules/app/route-configs'

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import { ExtraModel, CityModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
