@@ -2,9 +2,8 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-
 import FilterableCitySelector from '../../landing/components/FilterableCitySelector'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import type { StateType } from '../../../modules/app/StateType'
 
 type PropsType = {|

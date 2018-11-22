@@ -18,7 +18,7 @@ import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
-import EventModel from '../../endpoint/models/EventModel'
+import { EventModel } from '@integreat-app/integreat-api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
@@ -37,8 +37,8 @@ type PropsType = {|
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
-    const { location, t } = this.props
-    const { city, language } = location.payload
+    const {location, t} = this.props
+    const {city, language} = location.payload
     return [
       new HeaderActionItem({
         href: new SearchRouteConfig().getRoutePath({city, language}),
@@ -57,8 +57,8 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isExtrasEnabled, location, events } = this.props
-    const { city, language } = location.payload
+    const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
+    const {city, language} = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
@@ -107,7 +107,7 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   render () {
-    const { city, language } = this.props.location.payload
+    const {city, language} = this.props.location.payload
 
     return (
       <Header

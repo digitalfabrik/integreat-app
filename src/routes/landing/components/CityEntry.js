@@ -3,7 +3,7 @@
 import React from 'react'
 import Highlighter from 'react-highlighter'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import Link from 'redux-first-router-link'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'

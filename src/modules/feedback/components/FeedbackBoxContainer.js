@@ -3,9 +3,11 @@
 import * as React from 'react'
 import 'react-dropdown/style.css'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
-import feedbackEndpoint, {
+import {
+  CityModel,
+  ExtraModel,
+  feedbackEndpoint,
+  type FeedbackParamsType,
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -14,12 +16,11 @@ import feedbackEndpoint, {
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
 import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'

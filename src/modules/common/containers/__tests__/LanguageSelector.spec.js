@@ -4,16 +4,18 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedLanguageSelector, { LanguageSelector } from '../LanguageSelector'
-import LanguageModel from '../../../endpoint/models/LanguageModel'
-import EventModel from '../../../endpoint/models/EventModel'
+import {
+  LanguageModel,
+  EventModel,
+  CategoriesMapModel,
+  CategoryModel,
+  PoiModel,
+  DateModel,
+  LocationModel
+} from '@integreat-app/integreat-api-client'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import CategoryModel from '../../../endpoint/models/CategoryModel'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
-import PoiModel from '../../../endpoint/models/PoiModel'
-import DateModel from '../../../endpoint/models/DateModel'
-import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'

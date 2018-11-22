@@ -2,25 +2,28 @@
 
 import React from 'react'
 import { shallow, mount } from 'enzyme'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+
+import {
+  CityModel,
+  CategoriesMapModel,
+  CategoryModel,
+  ExtraModel,
+  EventModel,
+  DateModel,
+  LocationModel,
+  PageModel
+} from '@integreat-app/integreat-api-client'
 
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import CategoryModel from '../../../endpoint/models/CategoryModel'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import EventModel from '../../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
-import PageModel from '../../../endpoint/models/PageModel'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../../app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
-import DateModel from '../../../endpoint/models/DateModel'
-import LocationModel from '../../../endpoint/models/LocationModel'
 
 describe('LocationLayout', () => {
   const city = 'city1'

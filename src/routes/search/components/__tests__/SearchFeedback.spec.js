@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import { SearchFeedback } from '../SearchFeedback'
 import { shallow } from 'enzyme'

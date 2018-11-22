@@ -1,13 +1,9 @@
 // @flow
 
 import type { Dispatch } from 'redux-first-router'
-import Payload from '../endpoint/Payload'
+import { Payload, LoadingError, ParamMissingError, MappingError, Endpoint } from '@integreat-app/integreat-api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
-import LoadingError from '../endpoint/errors/LoadingError'
-import ParamMissingError from '../endpoint/errors/ParamMissingError'
-import MappingError from '../endpoint/errors/MappingError'
-import Endpoint from '../endpoint/Endpoint'
 
 async function fetchData<P, T> (
   endpoint: Endpoint<P, T>,

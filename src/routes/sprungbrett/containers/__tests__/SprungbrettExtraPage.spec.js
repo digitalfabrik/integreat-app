@@ -2,9 +2,7 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
-
+import { Payload, ExtraModel, CityModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import SprungbrettJobModel from '../../../../modules/endpoint/models/SprungbrettJobModel'
 import { SprungbrettExtraPage } from '../SprungbrettExtraPage'
 

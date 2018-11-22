@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import PageModel from '../../../modules/endpoint/models/PageModel'
+import { PageModel } from '@integreat-app/integreat-api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'

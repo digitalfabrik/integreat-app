@@ -2,11 +2,9 @@
 
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
-import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoryModel, CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import moment from 'moment-timezone'
 

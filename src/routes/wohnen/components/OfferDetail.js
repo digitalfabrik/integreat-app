@@ -1,9 +1,7 @@
 // @flow
 
 import React from 'react'
-import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
-import type { AccommodationType } from '../../../modules/endpoint/models/WohnenFormData'
-import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
+import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
