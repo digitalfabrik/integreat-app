@@ -1,12 +1,10 @@
 // @flow
 
 import { RouteConfigInterface } from './RouteConfigInterface'
-import citiesEndpoint from '../../endpoint/endpoints/cities'
+import { CityModel, citiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import type { AllPayloadsType, GetPageTitleParamsType } from './RouteConfigInterface'
-import Payload from '../../endpoint/Payload'
-import CityModel from '../../endpoint/models/CityModel'
 
 type LandingRouteParamsType = {|language: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}

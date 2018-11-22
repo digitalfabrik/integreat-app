@@ -3,21 +3,25 @@
 import * as React from 'react'
 import type { StateType } from '../../app/StateType'
 import { connect } from 'react-redux'
-import { CategoriesMapModel, EventModel, LanguageModel, PoiModel, CityModel } from '@integreat-app/integreat-api-client'
+import {
+  CategoriesMapModel,
+  EventModel,
+  LanguageModel,
+  PoiModel,
+  CityModel,
+  ExtraModel,
+  WohnenOfferModel
+} from '@integreat-app/integreat-api-client'
 import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
 import { getRouteConfig } from '../../app/route-configs/index'
-import PoiModel from '../../endpoint/models/PoiModel'
-import CityModel from '../../endpoint/models/CityModel'
 import type { TFunction } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { withNamespaces } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import { LANDING_ROUTE } from '../../app/route-configs/LandingRouteConfig'
 import type { GetPageTitleParamsType } from '../../app/route-configs/RouteConfigInterface'
-import ExtraModel from '../../endpoint/models/ExtraModel'
-import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 
 type PropsType = {|
   getPageTitle: GetPageTitleParamsType => string,
@@ -56,7 +60,7 @@ export class Helmet extends React.Component<PropsType> {
   }
 
   render () {
-    const {getPageTitle, cities, location , pois, events, categories, extras, offers, t} = this.props
+    const {getPageTitle, cities, location, pois, events, categories, extras, offers, t} = this.props
     const city = cities && cities.find(city => city.code === location.payload.city)
     const cityName = city ? city.name : ''
     const offerHash = location.payload.offerHash

@@ -3,11 +3,8 @@
 import { RouteConfigInterface } from './RouteConfigInterface'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import categoriesEndpoint from '../../endpoint/endpoints/categories'
+import { CityModel, Payload, CategoriesMapModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
-import CityModel from '../../endpoint/models/CityModel'
-import Payload from '../../endpoint/Payload'
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
 
 type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}

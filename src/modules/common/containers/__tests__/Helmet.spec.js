@@ -11,7 +11,10 @@ import {
   PoiModel,
   DateModel,
   CityModel,
-  LocationModel
+  LocationModel,
+  ExtraModel,
+  WohnenOfferModel,
+  WohnenFormData
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import theme from '../../../theme/constants/theme'
@@ -19,9 +22,6 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import configureMockStore from 'redux-mock-store'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import WohnenFormData from '../../../endpoint/models/WohnenFormData'
-import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
 
 describe('Helmet', () => {
   const city = 'augsburg'

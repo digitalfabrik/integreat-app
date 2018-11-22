@@ -3,8 +3,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import SprungbrettExtraPage from '../../../routes/sprungbrett/containers/SprungbrettExtraPage'
-import DisclaimerPage from '../../../routes/disclaimer/containers/DisclaimerPage'
-import SearchPage from '../../../routes/search/containers/SearchPage'
 import {
   Payload,
   PoiModel,
@@ -16,10 +14,6 @@ import {
   PageModel,
   LanguageModel
 } from '@integreat-app/integreat-api-client'
-import { I18N_REDIRECT_ROUTE } from '../routes/i18nRedirect'
-import I18nRedirectPage from '../../../routes/i18nRedirect/containers/I18nRedirectPage'
-import Payload from '../../endpoint/Payload'
-import LanguageModel from '../../endpoint/models/LanguageModel'
 import LanguageNotFoundError from '../errors/LanguageNotFoundError'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import { NOT_FOUND } from 'redux-first-router'
@@ -30,12 +24,6 @@ import LocationLayout from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
-import ExtraModel from '../../endpoint/models/ExtraModel'
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import EventModel from '../../endpoint/models/EventModel'
-import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
-import PageModel from '../../endpoint/models/PageModel'
-import PoiModel from '../../endpoint/models/PoiModel'
 import { LANDING_ROUTE } from '../route-configs/LandingRouteConfig'
 import { MAIN_DISCLAIMER_ROUTE } from '../route-configs/MainDisclaimerRouteConfig'
 import { getRouteConfig, LocationLayoutRoutes } from '../route-configs'

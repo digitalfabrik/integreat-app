@@ -8,8 +8,6 @@ import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import { EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
 
 describe('EventsPage', () => {
   const events = [

@@ -3,10 +3,8 @@
 import { RouteConfigInterface } from './RouteConfigInterface'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import poisEndpoint from '../../endpoint/endpoints/pois'
+import { poisEndpoint, Payload, PoiModel } from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
-import Payload from '../../endpoint/Payload'
-import PoiModel from '../../endpoint/models/PoiModel'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}

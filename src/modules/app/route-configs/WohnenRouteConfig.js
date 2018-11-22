@@ -1,15 +1,17 @@
 // @flow
 
-import ExtraModel from '../../endpoint/models/ExtraModel'
 import { RouteConfigInterface } from './RouteConfigInterface'
-import extrasEndpoint from '../../endpoint/endpoints/extras'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import wohnenEndpoint from '../../endpoint/endpoints/wohnen'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
-import Payload from '../../endpoint/Payload'
-import WohnenOfferModel from '../../endpoint/models/WohnenOfferModel'
 import Hashids from 'hashids'
+import {
+  ExtraModel,
+  extrasEndpoint,
+  Payload,
+  WohnenOfferModel,
+  wohnenEndpoint
+} from '@integreat-app/integreat-api-client'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}

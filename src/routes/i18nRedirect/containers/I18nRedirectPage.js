@@ -12,6 +12,7 @@ import { compose } from 'recompose'
 import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
+import { CityModel } from '@integreat-app/integreat-api-client'
 
 type PropsType = {|
   redirect: Action => void,

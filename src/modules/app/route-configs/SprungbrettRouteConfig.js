@@ -1,14 +1,16 @@
 // @flow
 
 import { RouteConfigInterface } from './RouteConfigInterface'
-import ExtraModel from '../../endpoint/models/ExtraModel'
-import extrasEndpoint from '../../endpoint/endpoints/extras'
+import {
+  ExtraModel,
+  extrasEndpoint,
+  Payload,
+  SprungbrettModel,
+  sprungbrettEndpoint
+} from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
-import Payload from '../../endpoint/Payload'
-import SprungbrettModel from '../../endpoint/models/SprungbrettJobModel'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
