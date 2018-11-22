@@ -10,9 +10,9 @@ import type { StateType } from '../../../modules/app/StateType'
 import { withI18n } from 'react-i18next'
 import i18n from 'i18next'
 import { compose } from 'recompose'
-import { routesMap } from '../../../modules/app/routeConfigs/index'
-import LandingRouteConfig from '../../../modules/app/routeConfigs/landing'
-import CategoriesRouteConfig from '../../../modules/app/routeConfigs/categories'
+import { routesMap } from '../../../modules/app/route-configs/index'
+import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
+import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 
 type PropsType = {|
   redirect: Action => void,

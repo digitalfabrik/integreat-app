@@ -15,7 +15,7 @@ import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import { getRouteConfig } from '../../app/routeConfigs/index'
+import { getRouteConfig } from '../../app/route-configs/index'
 
 import PoiModel from '../../endpoint/models/PoiModel'
 

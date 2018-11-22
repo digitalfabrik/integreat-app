@@ -14,7 +14,7 @@ import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
-import { hash as hashFunction } from '../../../modules/app/routeConfigs/wohnen'
+import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,

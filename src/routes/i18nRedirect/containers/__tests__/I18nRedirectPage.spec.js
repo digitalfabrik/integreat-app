@@ -6,7 +6,7 @@ import ConnectedI18nRedirectPage, { I18nRedirectPage } from '../I18nRedirectPage
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
-import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/routeConfigs/i18nRedirect'
+import { I18N_REDIRECT_ROUTE } from '../../../../modules/app/route-configs/I18nRedirectRouteConfig'
 import configureStore from 'redux-mock-store'
 import { NOT_FOUND } from 'redux-first-router'
 

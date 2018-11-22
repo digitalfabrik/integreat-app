@@ -9,7 +9,7 @@ import { faFrown } from '../../../modules/app/constants/icons'
 import Link from 'redux-first-router-link'
 
 import styled from 'styled-components'
-import I18nRedirectRouteConfig from '../../app/routeConfigs/i18nRedirect'
+import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
 
 const Centered = styled.div`
   & > * {

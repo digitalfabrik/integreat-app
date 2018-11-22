@@ -4,7 +4,7 @@ import React from 'react'
 import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItem from '../HeaderActionItem'
-import I18nRedirectRouteConfig from '../../app/routeConfigs/i18nRedirect'
+import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
 
 type PropsType = {|
   viewportSmall: boolean

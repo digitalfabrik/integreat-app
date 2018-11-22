@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 
 import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routeConfigs/categories'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import {
   CATEGORIES_FEEDBACK_TYPE,
   EVENTS_FEEDBACK_TYPE,
@@ -15,13 +15,13 @@ import {
   SEARCH_FEEDBACK_TYPE
 } from '../../../../modules/endpoint/endpoints/feedback'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
-import { EXTRAS_ROUTE } from '../../../../modules/app/routeConfigs/extras'
-import { EVENTS_ROUTE } from '../../../../modules/app/routeConfigs/events'
+import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
+import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
 import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
-import { WOHNEN_ROUTE } from '../../../../modules/app/routeConfigs/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../../modules/app/routeConfigs/sprungbrett'
-import { SEARCH_ROUTE } from '../../../../modules/app/routeConfigs/search'
-import { DISCLAIMER_ROUTE } from '../../../../modules/app/routeConfigs/disclaimer'
+import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
+import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [

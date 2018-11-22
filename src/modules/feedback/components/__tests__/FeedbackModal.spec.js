@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 
 import FeedbackModal from '../FeedbackModal'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routeConfigs/categories'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 
 describe('FeedbackModal', () => {
   it('should match snapshot', () => {
