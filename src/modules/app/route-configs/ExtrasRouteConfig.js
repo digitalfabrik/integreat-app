@@ -13,9 +13,6 @@ type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
 
 export const EXTRAS_ROUTE = 'EXTRAS'
 
-const getExtrasPath = ({city, language}: ExtrasRouteParamsType): string =>
-  `/${city}/${language}/extras`
-
 /**
  * ExtrasRoute, matches /augsburg/de/extras and /augsburg/de/extras
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
@@ -30,25 +27,18 @@ const extrasRoute: Route = {
   }
 }
 
-const getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({extras: payloads.extrasPayload})
+class ExtrasRouteConfig implements RouteConfigInterface<ExtrasRouteParamsType, RequiredPayloadsType> {
+  name = EXTRAS_ROUTE
+  route = extrasRoute
 
-const getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
-  getExtrasPath({city: location.payload.city, language})
+  getRoutePath = ({city, language}: ExtrasRouteParamsType): string => `/${city}/${language}/extras`
 
-const getPageTitle = ({t, cityName}: GetPageTitleParamsType) =>
-  `${t('pageTitles.extras')} - ${cityName}`
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({extras: payloads.extrasPayload})
 
-class ExtrasRouteConfig extends RouteConfigInterface<ExtrasRouteParamsType, RequiredPayloadsType> {
-  constructor () {
-    super({
-      name: EXTRAS_ROUTE,
-      route: extrasRoute,
-      getRoutePath: getExtrasPath,
-      getLanguageChangePath,
-      getPageTitle,
-      getRequiredPayloads
-    })
-  }
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+    this.getRoutePath({city: location.payload.city, language})
+
+  getPageTitle = ({t, cityName}: GetPageTitleParamsType) => `${t('pageTitles.extras')} - ${cityName}`
 }
 
 export default ExtrasRouteConfig
