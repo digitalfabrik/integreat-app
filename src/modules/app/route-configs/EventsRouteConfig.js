@@ -3,8 +3,7 @@
 import { RouteConfigInterface } from './RouteConfigInterface'
 import type { Route } from 'redux-first-router'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
-import Payload from '../../endpoint/Payload'
-import EventModel from '../../endpoint/models/EventModel'
+import { Payload, EventModel } from '@integreat-app/integreat-api-client'
 
 type EventsRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|events: Payload<Array<EventModel>>|}

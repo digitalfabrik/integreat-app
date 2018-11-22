@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import { PoiModel, LanguageModel, CategoriesMapModel, EventModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { PoiModel, LanguageModel, CategoriesMapModel, EventModel } from '@integreat-app/integreat-api-client'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
