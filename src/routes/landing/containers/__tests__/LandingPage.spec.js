@@ -5,8 +5,8 @@ import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
 import configureMockStore from 'redux-mock-store'
-import { LANDING_ROUTE } from '../../../../modules/app/routeConfigs/landing'
-import { routesMap } from '../../../../modules/app/routeConfigs'
+import { LANDING_ROUTE } from '../../../../modules/app/route-configs/LandingRouteConfig'
+import { routesMap } from '../../../../modules/app/route-configs'
 
 describe('LandingPage', () => {
   const cities = [

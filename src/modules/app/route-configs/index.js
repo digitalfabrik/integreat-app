@@ -2,17 +2,17 @@
 
 import type { Route } from 'redux-first-router'
 import RouteConfig from './RouteConfig'
-import CategoriesRouteConfig, { CATEGORIES_ROUTE } from './categories'
-import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from './i18nRedirect'
-import LandingRouteConfig, { LANDING_ROUTE } from './landing'
-import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './mainDisclaimer'
-import EventsRouteConfig, { EVENTS_ROUTE } from './events'
-import WohnenRouteConfig, { WOHNEN_ROUTE } from './wohnen'
-import ExtrasRouteConfig, { EXTRAS_ROUTE } from './extras'
-import SearchRouteConfig, { SEARCH_ROUTE } from './search'
-import PoisRouteConfig, { POIS_ROUTE } from './pois'
-import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './disclaimer'
-import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './sprungbrett'
+import CategoriesRouteConfig, { CATEGORIES_ROUTE } from './CategoriesRouteConfig'
+import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from './I18nRedirectRouteConfig'
+import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
+import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './MainDisclaimerRouteConfig'
+import EventsRouteConfig, { EVENTS_ROUTE } from './EventsRouteConfig'
+import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
+import ExtrasRouteConfig, { EXTRAS_ROUTE } from './ExtrasRouteConfig'
+import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
+import PoisRouteConfig, { POIS_ROUTE } from './PoisRouteConfig'
+import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './DisclaimerRouteConfig'
+import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteConfig'
 
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]

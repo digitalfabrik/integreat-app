@@ -7,7 +7,7 @@ import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMa
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { SEARCH_ROUTE } from '../../../../modules/app/routeConfigs/search'
+import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import moment from 'moment-timezone'
 
 describe('SearchPage', () => {

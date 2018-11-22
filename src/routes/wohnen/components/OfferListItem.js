@@ -5,7 +5,7 @@ import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
 import WohnenFormData from '../../../modules/endpoint/models/WohnenFormData'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
-import WohnenRouteConfig from '../../../modules/app/routeConfigs/wohnen'
+import WohnenRouteConfig from '../../../modules/app/route-configs/WohnenRouteConfig'
 
 const Description = styled.div`
   display: flex;

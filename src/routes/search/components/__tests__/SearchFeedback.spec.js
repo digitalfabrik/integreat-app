@@ -2,7 +2,7 @@
 
 import React from 'react'
 import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { SEARCH_ROUTE } from '../../../../modules/app/routeConfigs/search'
+import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import { SearchFeedback } from '../SearchFeedback'
 import { shallow } from 'enzyme'
 

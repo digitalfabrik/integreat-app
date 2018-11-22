@@ -5,7 +5,7 @@ import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 
 import Footer from './Footer'
-import MainDisclaimerRouteConfig from '../../app/routeConfigs/mainDisclaimer'
+import MainDisclaimerRouteConfig from '../../app/route-configs/MainDisclaimerRouteConfig'
 import CleanAnchor from '../../common/components/CleanAnchor'
 import CleanLink from '../../common/components/CleanLink'
 

@@ -10,10 +10,10 @@ import Helmet from 'react-helmet'
 import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import CategoriesRouteConfig from '../../app/routeConfigs/categories'
-import EventsRouteConfig from '../../app/routeConfigs/events'
-import ExtrasRouteConfig from '../../app/routeConfigs/extras'
-import PoisRouteConfig from '../../app/routeConfigs/pois'
+import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
+import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
+import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
+import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
 
 type PropsType = {|
   error: Error,

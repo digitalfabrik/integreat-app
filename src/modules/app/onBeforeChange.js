@@ -7,7 +7,7 @@ import eventsEndpoint from '../endpoint/endpoints/events'
 
 import Payload from '../endpoint/Payload'
 import fetchData from './fetchData'
-import { LocationLayoutRoutes } from './routeConfigs/index'
+import { LocationLayoutRoutes } from './route-configs/index'
 
 /**
  * This handles the loading of additional data for the location layout
