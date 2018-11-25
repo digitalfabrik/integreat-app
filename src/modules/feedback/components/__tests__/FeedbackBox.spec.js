@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { FeedbackBox } from '../FeedbackBox'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
-import { CATEGORIES_FEEDBACK_TYPE } from '../../../../modules/endpoint/endpoints/feedback'
+import { CATEGORIES_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''

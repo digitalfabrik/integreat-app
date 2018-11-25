@@ -2,15 +2,13 @@
 
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
-import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoryModel, CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
 import { mount, shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/theme/constants/theme'
 import configureMockStore from 'redux-mock-store'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
 import moment from 'moment-timezone'
 
@@ -92,10 +90,10 @@ describe('SearchPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-        <SearchPage cities={cities}
-                    categories={categories}
-                    location={location}
-                    t={t} />
+          <SearchPage cities={cities}
+                      categories={categories}
+                      location={location}
+                      t={t} />
         </Provider></ThemeProvider>
     )
     const searchPage = tree.find(SearchPage).instance()

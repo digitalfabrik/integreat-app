@@ -2,7 +2,21 @@
 
 import * as React from 'react'
 import ConnectedSwitcher, { Switcher } from '../Switcher'
-import Payload from '../../../endpoint/Payload'
+import {
+  Payload,
+  PoiModel,
+  WohnenOfferModel,
+  EventModel,
+  CategoriesMapModel,
+  ExtraModel,
+  CityModel,
+  PageModel,
+  LanguageModel,
+  LocationModel,
+  DateModel, WohnenFormData,
+  SprungbrettJobModel,
+  CategoryModel
+} from '@integreat-app/integreat-api-client'
 import { shallow, mount } from 'enzyme'
 import { CATEGORIES_ROUTE } from '../../routes/categories'
 import { LANDING_ROUTE } from '../../routes/landing'
@@ -12,26 +26,13 @@ import { EVENTS_ROUTE } from '../../routes/events'
 import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
 import { SEARCH_ROUTE } from '../../routes/search'
 import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
-import CityModel from '../../../endpoint/models/CityModel'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import EventModel from '../../../endpoint/models/EventModel'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import PageModel from '../../../endpoint/models/PageModel'
-import CategoryModel from '../../../endpoint/models/CategoryModel'
 import moment from 'moment-timezone'
-import LanguageModel from '../../../endpoint/models/LanguageModel'
-import SprungbrettJobModel from '../../../endpoint/models/SprungbrettJobModel'
-import WohnenFormData from '../../../endpoint/models/WohnenFormData'
-import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
 import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
 import { WOHNEN_ROUTE } from '../../routes/wohnen'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
-import DateModel from '../../../endpoint/models/DateModel'
-import LocationModel from '../../../endpoint/models/LocationModel'
-import PoiModel from '../../../endpoint/models/PoiModel'
 import { POIS_ROUTE } from '../../routes/pois'
 
 describe('Switcher', () => {
