@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
-const StyleLintPlugin = require('stylelint-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin')
 
