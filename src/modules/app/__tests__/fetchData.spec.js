@@ -4,10 +4,8 @@ import lolex from 'lolex'
 
 import startFetchAction from '../../app/actions/startFetchAction'
 import finishFetchAction from '../../app/actions/finishFetchAction'
-import Payload from '../../endpoint/Payload'
+import { Payload, MappingError, EndpointBuilder } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import MappingError from '../../endpoint/errors/MappingError'
-import EndpointBuilder from '../../endpoint/EndpointBuilder'
 
 describe('fetchData', () => {
   const defaultName = 'endpoint'

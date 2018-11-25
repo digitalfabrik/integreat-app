@@ -1,11 +1,9 @@
 // @flow
 
 import React from 'react'
-import PoiModel from '../../../../modules/endpoint/models/PoiModel'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import { PoiModel, LocationModel, CityModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { PoiPage } from '../PoiPage'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { shallow } from 'enzyme'
 import List from '../../../../modules/common/components/List'
 

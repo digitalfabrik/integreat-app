@@ -1,6 +1,6 @@
 // @flow
 
-import disclaimerEndpoint from '../../endpoint/endpoints/disclaimer'
+import { disclaimerEndpoint } from '@integreat-app/integreat-api-client'
 import { createAction } from 'redux-actions'
 
 import type { Dispatch, GetState, Route } from 'redux-first-router'

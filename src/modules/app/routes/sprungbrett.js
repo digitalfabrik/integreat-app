@@ -1,11 +1,8 @@
 // @flow
 
-import extrasEndpoint from '../../endpoint/endpoints/extras'
-import sprungbrettEndpoint from '../../endpoint/endpoints/sprungbrettJobs'
+import { extrasEndpoint, sprungbrettEndpoint, ExtraModel } from '@integreat-app/integreat-api-client'
 import { createAction } from 'redux-actions'
-
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import ExtraModel from '../../endpoint/models/ExtraModel'
 import fetchData from '../fetchData'
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'

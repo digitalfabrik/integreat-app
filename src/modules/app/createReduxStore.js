@@ -14,7 +14,7 @@ import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-res
 import defaultRoutesMap from './routesMap'
 import onBeforeChange from './onBeforeChange'
 import queryString from 'query-string'
-import Payload from '../endpoint/Payload'
+import { Payload } from '@integreat-app/integreat-api-client'
 import createHistory from './createHistory'
 
 export type ActionType<T> = { type: string, payload: Payload<T> }
@@ -24,7 +24,7 @@ export type ActionType<T> = { type: string, payload: Payload<T> }
 const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
   const history = createHistory()
 
-  const { reducer, middleware, enhancer } = connectRoutes(history, routesMap, {
+  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {
     onBeforeChange: onBeforeChange,
     querySerializer: {
       stringify: params => queryString.stringify(params),

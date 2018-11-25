@@ -1,12 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel, POSITIVE_RATING, ExtraModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
-import { POSITIVE_RATING } from '../../../modules/endpoint/endpoints/feedback'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
 import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 

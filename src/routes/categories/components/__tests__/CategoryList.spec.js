@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryList from '../CategoryList'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 
 const title = 'Willkommen'

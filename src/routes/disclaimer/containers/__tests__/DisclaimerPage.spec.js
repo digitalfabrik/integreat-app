@@ -5,9 +5,8 @@ import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedDisclaimerPage, { DisclaimerPage } from '../DisclaimerPage'
-import PageModel from '../../../../modules/endpoint/models/PageModel'
+import { PageModel, CityModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 
 describe('DisclaimerPage', () => {
   const disclaimer = new PageModel({
