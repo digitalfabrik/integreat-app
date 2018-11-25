@@ -49,11 +49,6 @@ const config = {
   // The list of plugins for Webpack compiler
   plugins: [
     new GeneratePackageJsonPlugin(basePackageValues, versionsPackageFilename),
-    new StyleLintPlugin({
-      files: '**/*.css',
-      configFile: 'stylelint.config.js',
-      emitErrors: !isDebug
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',
       __DEV__: false,
