@@ -54,7 +54,7 @@ exports[`Heading should render 1`] = `
             forwardedClass={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
-                "attrs": undefined,
+                "attrs": Array [],
                 "componentStyle": ComponentStyle {
                   "componentId": "Heading__Logo-nspadb-0",
                   "isStatic": true,
@@ -89,7 +89,7 @@ exports[`Heading should render 1`] = `
               forwardedClass={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
-                  "attrs": undefined,
+                  "attrs": Array [],
                   "componentStyle": ComponentStyle {
                     "componentId": "Caption__H1-sc-1ggkcri-0",
                     "isStatic": false,
