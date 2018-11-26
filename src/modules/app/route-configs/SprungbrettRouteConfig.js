@@ -57,6 +57,8 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
     const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
   }
+
+  getMetaDescription = () => null
 }
 
 export default SprungbrettRouteConfig

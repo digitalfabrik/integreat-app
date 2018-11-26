@@ -65,6 +65,8 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     const wohnenExtra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
     return wohnenExtra ? `${wohnenExtra.title} - ${cityName}` : ''
   }
+
+  getMetaDescription = () => null
 }
 
 export default WohnenRouteConfig

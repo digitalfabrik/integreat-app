@@ -40,6 +40,8 @@ class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, Re
 
   getRoutePath = ({city, language}: DisclaimerRouteParamsType): string =>
     `/${city}/${language}/disclaimer`
+
+  getMetaDescription = () => null
 }
 
 export default DisclaimerRouteConfig

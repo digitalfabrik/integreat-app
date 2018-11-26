@@ -36,5 +36,6 @@ export interface RouteConfig<T, P> {
   getRoutePath: T => string,
   getLanguageChangePath: GetLanguageChangePathParamsType => string | null,
   getPageTitle: GetPageTitleParamsType<P> => string,
-  getRequiredPayloads: AllPayloadsType => P
+  getRequiredPayloads: AllPayloadsType => P,
+  getMetaDescription: (t: TFunction) => string | null
 }

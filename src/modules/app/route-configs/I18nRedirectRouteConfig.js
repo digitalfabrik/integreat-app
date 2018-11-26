@@ -36,6 +36,8 @@ class I18nRedirectRouteConfig implements RouteConfig<I18nRedirectRouteParamsType
   getPageTitle = () => ''
 
   getLanguageChangePath = () => null
+
+  getMetaDescription = () => null
 }
 
 export default I18nRedirectRouteConfig

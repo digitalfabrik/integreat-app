@@ -33,6 +33,8 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
   getRoutePath = ({language}: LandingRouteParamsType): string => `/landing/${language}`
 
   getLanguageChangePath = () => null
+
+  getMetaDescription = t => t('metaDescription')
 }
 
 export default LandingRouteConfig
