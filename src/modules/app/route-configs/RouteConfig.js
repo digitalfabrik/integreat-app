@@ -33,7 +33,7 @@ export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname:
   offerHash: ?string
 |}
 
-export interface RouteConfigInterface<T, P> {
+export interface RouteConfig<T, P> {
   name: string,
   route: Route,
   getRoutePath: T => string,

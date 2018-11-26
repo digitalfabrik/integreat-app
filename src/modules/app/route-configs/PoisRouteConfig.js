@@ -1,10 +1,10 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { poisEndpoint, Payload, PoiModel } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
@@ -21,7 +21,7 @@ const poisRoute: Route = {
   }
 }
 
-class PoisRouteConfig implements RouteConfigInterface<PoisRouteParamsType, RequiredPayloadsType> {
+class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloadsType> {
   name = POIS_ROUTE
   route = poisRoute
 
