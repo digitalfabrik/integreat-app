@@ -51,8 +51,7 @@ type PropsType = {|
   query?: string,
   feedbackStatus: FeedbackRatingType,
   closeFeedbackModal: () => void,
-  location: LocationState,
-  extras: ?Array<ExtraModel>
+  location: LocationState
 |}
 
 type StateType = {|
