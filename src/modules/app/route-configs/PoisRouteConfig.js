@@ -44,6 +44,8 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
     const poi = pois && pois.find(poi => poi.path === pathname)
     return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
   }
+
+  getMetaDescription = () => null
 }
 
 export default PoisRouteConfig

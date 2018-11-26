@@ -14,21 +14,16 @@ import ReactHelmet from 'react-helmet'
 
 import type { Location } from 'redux-first-router'
 import { getRouteConfig } from '../../app/route-configs/index'
-import type { TFunction } from 'react-i18next'
-import compose from 'lodash/fp/compose'
-import { withNamespaces } from 'react-i18next'
-import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
-import { LANDING_ROUTE } from '../../app/route-configs/LandingRouteConfig'
 
 type PropsType = {|
   pageTitle: string,
+  metaDescription: ?string,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
   pois: ?Array<PoiModel>,
   cities: ?Array<CityModel>,
   languages: ?Array<LanguageModel>,
-  location: Location,
-  t: TFunction
+  location: Location
 |}
 
 export class Helmet extends React.Component<PropsType> {
@@ -44,20 +39,9 @@ export class Helmet extends React.Component<PropsType> {
     })
   }
 
-  getMetaDescription (): ?string {
-    const {location, t} = this.props
-    const {type, pathname} = location
-    const {city, language} = location.payload
-
-    if (new CategoriesRouteConfig().getRoutePath({city, language}) === pathname || type === LANDING_ROUTE) {
-      return t('metaDescription')
-    }
-  }
-
   render () {
-    const {pageTitle, cities, location} = this.props
+    const {pageTitle, cities, location, metaDescription} = this.props
     const city = cities && cities.find(city => city.code === location.payload.city)
-    const metaDescription = this.getMetaDescription()
 
     return <ReactHelmet>
       <title>{pageTitle}</title>
@@ -77,7 +61,4 @@ const mapStateToProps = (state: StateType) => ({
   languages: state.languages.data
 })
 
-export default compose(
-  connect(mapStateToProps),
-  withNamespaces('app')
-)(Helmet)
+export default connect(mapStateToProps)(Helmet)

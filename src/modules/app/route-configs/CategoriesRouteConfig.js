@@ -51,6 +51,8 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     const category = categories && categories.findCategoryByPath(pathname)
     return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
   }
+
+  getMetaDescription = t => t('metaDescription')
 }
 
 export default CategoriesRouteConfig

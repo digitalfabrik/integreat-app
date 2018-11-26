@@ -39,6 +39,8 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   }
 
   getRoutePath = ({city, language}: EventsRouteParamsType): string => `/${city}/${language}/events`
+
+  getMetaDescription = () => null
 }
 
 export default EventsRouteConfig

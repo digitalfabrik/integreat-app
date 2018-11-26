@@ -102,10 +102,11 @@ export class Switcher extends React.Component<PropsType> {
     const payloads = routeConfig.getRequiredPayloads(allPayloads)
     const cityModel = citiesPayload.data && CityModel.findCityName(citiesPayload.data, location.payload.city)
     const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel.name, location})
+    const metaDescription = routeConfig.getMetaDescription(t)
 
     return Switcher.renderFailureLoadingComponents(payloads) ||
       <>
-        <Helmet pageTitle={pageTitle} />
+        <Helmet pageTitle={pageTitle} metaDescription={metaDescription} />
         <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
       </>
   }
