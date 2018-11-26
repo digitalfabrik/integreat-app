@@ -22,7 +22,7 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer')
+  getPageTitle = ({t}: GetPageTitleParamsType<void>) => t('pageTitles.mainDisclaimer')
 }
 
 export default MainDisclaimerRouteConfig

@@ -38,8 +38,10 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({pois: payloads.poisPayload})
 
-  getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
-    const poi = pois && pois.find(poi => poi.path === location.pathname)
+  getPageTitle = ({cityName, payloads, t, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+    const pathname = location.pathname
+    const pois = payloads.pois.data
+    const poi = pois && pois.find(poi => poi.path === pathname)
     return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
   }
 }

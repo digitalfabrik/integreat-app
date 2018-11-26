@@ -36,7 +36,8 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
   getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({t, cityName}: GetPageTitleParamsType) => `${t('pageTitles.extras')} - ${cityName}`
+  getPageTitle = ({t, cityName}: GetPageTitleParamsType<RequiredPayloadsType>) =>
+    `${t('pageTitles.extras')} - ${cityName}`
 }
 
 export default ExtrasRouteConfig

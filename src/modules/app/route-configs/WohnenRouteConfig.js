@@ -54,7 +54,10 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, extras, offers, offerHash}: GetPageTitleParamsType) => {
+  getPageTitle = ({cityName, payloads, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+    const offerHash = location.payload.offerHash
+    const extras = payloads.extras.data
+    const offers = payloads.offers.data
     const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
     if (offerModel) {
       return `${offerModel.formData.accommodation.title} - ${cityName}`

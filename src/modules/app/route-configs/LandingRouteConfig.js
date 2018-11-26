@@ -26,7 +26,7 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
   name = LANDING_ROUTE
   route = landingRoute
 
-  getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.landing')
+  getPageTitle = ({t}: GetPageTitleParamsType<RequiredPayloadsType>) => t('pageTitles.landing')
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({cities: payloads.citiesPayload})
 
