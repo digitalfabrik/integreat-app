@@ -17,7 +17,7 @@ import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteCon
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
 
-export const routeConfigs: {[string]: RouteConfig<any, any>} = {
+const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig(),
   [LANDING_ROUTE]: new LandingRouteConfig(),
