@@ -31,9 +31,12 @@ import { getRouteContent } from '../routeContents'
 import reduce from 'lodash/reduce'
 import find from 'lodash/find'
 import Helmet from '../../common/containers/Helmet'
+import type { Location } from 'redux-first-router'
+import { withNamespaces } from 'react-i18next'
+import compose from 'lodash/fp/compose'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {|
-  currentRoute: string,
   citiesPayload: Payload<Array<CityModel>>,
   categoriesPayload: Payload<CategoriesMapModel>,
   poisPayload: Payload<Array<PoiModel>>,
@@ -43,11 +46,10 @@ type PropsType = {|
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
   languages: ?Array<LanguageModel>,
-  language: ?string,
-  city: ?string,
-  param: ?string,
   viewportSmall: boolean,
-  darkMode: boolean
+  darkMode: boolean,
+  location: Location,
+  t: TFunction
 |}
 
 /**
@@ -70,8 +72,8 @@ export class Switcher extends React.Component<PropsType> {
 
   renderPage = (): React.Node => {
     const {
-      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
-      sprungbrettJobsPayload, wohnenPayload, poisPayload, param
+      location, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
+      sprungbrettJobsPayload, wohnenPayload, poisPayload, t
     } = this.props
     const allPayloads = {
       citiesPayload,
@@ -84,19 +86,26 @@ export class Switcher extends React.Component<PropsType> {
       poisPayload
     }
 
+    const currentRoute = location.type
+
     if (currentRoute === NOT_FOUND) {
       // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
       // "disclaimer" nor a city, so we want to show an error that the param is not an available city
+      const param = location.prev.payload.param
       if (param) {
         const error = new CityNotFoundError({city: param})
         return <FailureSwitcher error={error} />
       }
     }
     const RouteContent = getRouteContent(currentRoute)
-    const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
+    const routeConfig = getRouteConfig(currentRoute)
+    const payloads = routeConfig.getRequiredPayloads(allPayloads)
+    const cityModel = citiesPayload.data && CityModel.findCityName(citiesPayload.data, location.payload.city)
+    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel.name, location})
+
     return Switcher.renderFailureLoadingComponents(payloads) ||
       <>
-        <Helmet getPageTitle={getRouteConfig(currentRoute).getPageTitle} />
+        <Helmet pageTitle={pageTitle} />
         <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
       </>
   }
@@ -106,7 +115,8 @@ export class Switcher extends React.Component<PropsType> {
    * @return {*}
    */
   checkRouteParams (): ?Error {
-    const {city, citiesPayload, language, languages} = this.props
+    const {location, citiesPayload, languages} = this.props
+    const {city, language} = location.payload
     if (city && citiesPayload.data && !citiesPayload.data.find(_city => _city.code === city)) {
       return new CityNotFoundError({city})
     } else if (language && city && citiesPayload.data && languages && !languages.find(lang => lang.code === language)) {
@@ -116,7 +126,8 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   render () {
-    const {currentRoute, viewportSmall, darkMode} = this.props
+    const {location, viewportSmall, darkMode} = this.props
+    const currentRoute = location.type
 
     const error = this.checkRouteParams()
     if (error) {
@@ -149,7 +160,6 @@ export class Switcher extends React.Component<PropsType> {
 }
 
 const mapStateToProps = (state: StateType) => ({
-  currentRoute: state.location.type,
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
@@ -159,12 +169,13 @@ const mapStateToProps = (state: StateType) => ({
   wohnenPayload: state.wohnen,
   disclaimerPayload: state.disclaimer,
   languages: state.languages.data,
-  language: state.location.payload.language,
-  city: state.location.payload.city,
-  param: state.location.prev.payload.param,
   viewportSmall: state.viewport.is.small,
-  darkMode: state.darkMode
+  darkMode: state.darkMode,
+  location: state.location
 })
 
 // $FlowFixMe https://github.com/facebook/flow/issues/7125
-export default connect(mapStateToProps)(Switcher)
+export default compose(
+  connect(mapStateToProps),
+  withNamespaces('app')
+)(Switcher)

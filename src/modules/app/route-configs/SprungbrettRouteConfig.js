@@ -52,7 +52,8 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, extras}: GetPageTitleParamsType) => {
+  getPageTitle = ({cityName, payloads}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+    const extras = payloads.extras.data
     const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
   }

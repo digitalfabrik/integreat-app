@@ -31,7 +31,9 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({events: payloads.eventsPayload})
 
-  getPageTitle = ({t, events, cityName, pathname}: GetPageTitleParamsType) => {
+  getPageTitle = ({t, payloads, cityName, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+    const pathname = location.pathname
+    const events = payloads.events.data
     const event = events && events.find(event => event.path === pathname)
     return `${event ? event.title : t('pageTitles.events')} - ${cityName}`
   }

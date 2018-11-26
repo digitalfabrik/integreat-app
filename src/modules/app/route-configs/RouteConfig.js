@@ -28,16 +28,13 @@ export type AllPayloadsType = {|
 export type GetLanguageChangePathParamsType = {|location: Location, events: ?Array<EventModel>,
   categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, language: string|}
 
-export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname: string, events: ?Array<EventModel>,
-  categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, extras: ?Array<ExtraModel>, offers: ?Array<WohnenOfferModel>,
-  offerHash: ?string
-|}
+export type GetPageTitleParamsType<P> = {|t: TFunction, cityName: string, location: Location, payloads: P|}
 
 export interface RouteConfig<T, P> {
   name: string,
   route: Route,
   getRoutePath: T => string,
   getLanguageChangePath: GetLanguageChangePathParamsType => string | null,
-  getPageTitle: GetPageTitleParamsType => string,
+  getPageTitle: GetPageTitleParamsType<P> => string,
   getRequiredPayloads: AllPayloadsType => P
 }
