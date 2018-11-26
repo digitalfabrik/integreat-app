@@ -46,6 +46,8 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
   }
 
   getMetaDescription = () => null
+
+  getFeedbackReference = () => null
 }
 
 export default PoisRouteConfig

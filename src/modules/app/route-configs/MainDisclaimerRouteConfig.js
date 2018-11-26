@@ -25,6 +25,8 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
   getPageTitle = ({t}: GetPageTitleParamsType<void>) => t('pageTitles.mainDisclaimer')
 
   getMetaDescription = () => null
+
+  getFeedbackReference = () => null
 }
 
 export default MainDisclaimerRouteConfig

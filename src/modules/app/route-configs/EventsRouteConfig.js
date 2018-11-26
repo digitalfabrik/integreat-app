@@ -2,7 +2,12 @@
 
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type {
+  AllPayloadsType,
+  GetFeedbackReferenceType,
+  GetLanguageChangePathParamsType,
+  GetPageTitleParamsType
+} from './RouteConfig'
 import { Payload, EventModel } from '@integreat-app/integreat-api-client'
 
 type EventsRouteParamsType = {|city: string, language: string|}
@@ -41,6 +46,12 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   getRoutePath = ({city, language}: EventsRouteParamsType): string => `/${city}/${language}/events`
 
   getMetaDescription = () => null
+
+  getFeedbackReference = ({payloads, location}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+    const events = payloads.events.data
+    const event = events && events.find(event => event.id === location.payload.eventId)
+    return event ? {id: event.id, title: event.title} : null
+  }
 }
 
 export default EventsRouteConfig

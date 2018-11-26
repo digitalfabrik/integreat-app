@@ -10,7 +10,12 @@ import {
 } from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type {
+  AllPayloadsType,
+  GetFeedbackReferenceType,
+  GetLanguageChangePathParamsType,
+  GetPageTitleParamsType
+} from './RouteConfig'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
@@ -59,6 +64,12 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   }
 
   getMetaDescription = () => null
+
+  getFeedbackReference = ({payloads}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+    const extras = payloads.extras.data
+    const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    return ({alias: SPRUNGBRETT_EXTRA, title: extra && extra.title})
+  }
 }
 
 export default SprungbrettRouteConfig

@@ -3,7 +3,12 @@
 import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type {
+  AllPayloadsType,
+  GetFeedbackReferenceType,
+  GetLanguageChangePathParamsType,
+  GetPageTitleParamsType
+} from './RouteConfig'
 import { Payload, CategoriesMapModel, CityModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
 
 export type CategoriesRouteParamsType = {|city: string, language: string|}
@@ -53,6 +58,12 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   }
 
   getMetaDescription = t => t('metaDescription')
+
+  getFeedbackReference = ({location, payloads}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+    const categories = payloads.categories.data
+    const category = categories && categories.findCategoryByPath(location.pathname)
+    return category ? {id: category.id, title: category.title} : null
+  }
 }
 
 export default CategoriesRouteConfig

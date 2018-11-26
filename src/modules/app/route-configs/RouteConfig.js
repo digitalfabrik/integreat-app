@@ -30,6 +30,10 @@ export type GetLanguageChangePathParamsType = {|location: Location, events: ?Arr
 
 export type GetPageTitleParamsType<P> = {|t: TFunction, cityName: string, location: Location, payloads: P|}
 
+export type GetFeedbackReferenceType<P> = {|location: Location, payloads: P|}
+
+export type FeedbackReferenceType = {|id?: number, title?: string, alias?: string|} | null
+
 export interface RouteConfig<T, P> {
   name: string,
   route: Route,
@@ -37,5 +41,6 @@ export interface RouteConfig<T, P> {
   getLanguageChangePath: GetLanguageChangePathParamsType => string | null,
   getPageTitle: GetPageTitleParamsType<P> => string,
   getRequiredPayloads: AllPayloadsType => P,
-  getMetaDescription: (t: TFunction) => string | null
+  getMetaDescription: (t: TFunction) => string | null,
+  getFeedbackReference: GetFeedbackReferenceType<P> => FeedbackReferenceType
 }
