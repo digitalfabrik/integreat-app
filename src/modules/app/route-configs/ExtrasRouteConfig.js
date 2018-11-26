@@ -1,10 +1,10 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import { extrasEndpoint, Payload, ExtraModel } from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
 type ExtrasRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
@@ -25,7 +25,7 @@ const extrasRoute: Route = {
   }
 }
 
-class ExtrasRouteConfig implements RouteConfigInterface<ExtrasRouteParamsType, RequiredPayloadsType> {
+class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPayloadsType> {
   name = EXTRAS_ROUTE
   route = extrasRoute
 

@@ -1,10 +1,10 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { CityModel, Payload, CategoriesMapModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
 type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -25,7 +25,7 @@ const searchRoute: Route = {
   }
 }
 
-class SearchRouteConfig implements RouteConfigInterface<SearchRouteParamsType, RequiredPayloadsType> {
+class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPayloadsType> {
   name = SEARCH_ROUTE
   route = searchRoute
 

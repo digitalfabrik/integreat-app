@@ -1,9 +1,9 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 import { Payload, CategoriesMapModel, CityModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
 
 export type CategoriesRouteParamsType = {|city: string, language: string|}
@@ -25,7 +25,7 @@ const categoriesRoute: Route = {
   }
 }
 
-class CategoriesRouteConfig implements RouteConfigInterface<CategoriesRouteParamsType, RequiredPayloadsType> {
+class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, RequiredPayloadsType> {
   name = CATEGORIES_ROUTE
   route = categoriesRoute
 

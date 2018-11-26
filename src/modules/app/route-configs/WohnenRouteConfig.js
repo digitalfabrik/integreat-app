@@ -1,9 +1,9 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 import Hashids from 'hashids'
 import {
   ExtraModel,
@@ -41,7 +41,7 @@ const wohnenRoute: Route = {
   }
 }
 
-class WohnenRouteConfig implements RouteConfigInterface<RouteParamsType, RequiredPayloadsType> {
+class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloadsType> {
   name = WOHNEN_ROUTE
   route = wohnenRoute
 

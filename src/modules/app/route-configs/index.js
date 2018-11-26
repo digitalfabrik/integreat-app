@@ -1,7 +1,7 @@
 // @flow
 
 import type { Route } from 'redux-first-router'
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from './CategoriesRouteConfig'
 import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from './I18nRedirectRouteConfig'
 import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
@@ -17,7 +17,7 @@ import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteCon
 export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
   DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
 
-export const routeConfigs: {[string]: RouteConfigInterface<any, any>} = {
+export const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig(),
   [LANDING_ROUTE]: new LandingRouteConfig(),
@@ -31,7 +31,7 @@ export const routeConfigs: {[string]: RouteConfigInterface<any, any>} = {
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig()
 }
 
-export const getRouteConfig = (routeName: string): RouteConfigInterface<*, *> => {
+export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
   const routeConfig = routeConfigs[routeName]
   if (!routeConfig) {
     throw new Error(

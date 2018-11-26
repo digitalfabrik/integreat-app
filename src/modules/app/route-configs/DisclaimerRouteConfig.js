@@ -1,10 +1,10 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { disclaimerEndpoint, Payload, PageModel } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
 type DisclaimerRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
@@ -25,7 +25,7 @@ const disclaimerRoute: Route = {
   }
 }
 
-class DisclaimerRouteConfig implements RouteConfigInterface<DisclaimerRouteParamsType, RequiredPayloadsType> {
+class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, RequiredPayloadsType> {
   name = DISCLAIMER_ROUTE
   route = disclaimerRoute
 

@@ -1,8 +1,8 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfigInterface'
+import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 import { Payload, EventModel } from '@integreat-app/integreat-api-client'
 
 type EventsRouteParamsType = {|city: string, language: string|}
@@ -16,7 +16,7 @@ export const EVENTS_ROUTE = 'EVENTS'
  */
 const eventsRoute: Route = '/:city/:language/events/:eventId?'
 
-class EventsRouteConfig implements RouteConfigInterface<EventsRouteParamsType, RequiredPayloadsType> {
+class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPayloadsType> {
   name = EVENTS_ROUTE
   route = eventsRoute
 

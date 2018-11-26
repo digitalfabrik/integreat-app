@@ -1,8 +1,8 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import { Route } from 'redux-first-router'
-import type { GetPageTitleParamsType } from './RouteConfigInterface'
+import type { GetPageTitleParamsType } from './RouteConfig'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
@@ -12,7 +12,7 @@ export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
  */
 const mainDisclaimerRoute: Route = '/disclaimer'
 
-class MainDisclaimerRouteConfig implements RouteConfigInterface<void, void> {
+class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
   name = MAIN_DISCLAIMER_ROUTE
   route = mainDisclaimerRoute
 

@@ -1,10 +1,10 @@
 // @flow
 
-import { RouteConfigInterface } from './RouteConfigInterface'
+import { RouteConfig } from './RouteConfig'
 import { citiesEndpoint, Payload, CityModel } from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType } from './RouteConfigInterface'
+import type { AllPayloadsType } from './RouteConfig'
 
 type I18nRedirectRouteParamsType = {|param?: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -25,7 +25,7 @@ const i18nRedirectRoute: Route = {
   }
 }
 
-class I18nRedirectRouteConfig implements RouteConfigInterface<I18nRedirectRouteParamsType, RequiredPayloadsType> {
+class I18nRedirectRouteConfig implements RouteConfig<I18nRedirectRouteParamsType, RequiredPayloadsType> {
   name = I18N_REDIRECT_ROUTE
   route = i18nRedirectRoute
 
