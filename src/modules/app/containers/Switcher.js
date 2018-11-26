@@ -31,10 +31,12 @@ import { getRouteContent } from '../routeContents'
 import reduce from 'lodash/reduce'
 import find from 'lodash/find'
 import Helmet from '../../common/containers/Helmet'
-import type { Location } from 'redux-first-router'
+import type { Location, Dispatch } from 'redux-first-router'
 import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
+import type { RouteConfig } from '../route-configs/RouteConfig'
+import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 
 type PropsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -49,6 +51,7 @@ type PropsType = {|
   viewportSmall: boolean,
   darkMode: boolean,
   location: Location,
+  toggleDarkMode: () => void,
   t: TFunction
 |}
 
@@ -70,10 +73,10 @@ export class Switcher extends React.Component<PropsType> {
     return null
   }
 
-  renderPage = (): React.Node => {
+  getRequiredPayloads = (routeConfig: RouteConfig<*, *>) => {
     const {
-      location, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
-      sprungbrettJobsPayload, wohnenPayload, poisPayload, t
+      citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
+      sprungbrettJobsPayload, wohnenPayload, poisPayload
     } = this.props
     const allPayloads = {
       citiesPayload,
@@ -85,6 +88,11 @@ export class Switcher extends React.Component<PropsType> {
       wohnenPayload,
       poisPayload
     }
+    return routeConfig.getRequiredPayloads(allPayloads)
+  }
+
+  renderPage = (): React.Node => {
+    const {location, citiesPayload, t} = this.props
 
     const currentRoute = location.type
 
@@ -99,7 +107,7 @@ export class Switcher extends React.Component<PropsType> {
     }
     const RouteContent = getRouteContent(currentRoute)
     const routeConfig = getRouteConfig(currentRoute)
-    const payloads = routeConfig.getRequiredPayloads(allPayloads)
+    const payloads = this.getRequiredPayloads(routeConfig)
     const cityModel = citiesPayload.data && CityModel.findCityName(citiesPayload.data, location.payload.city)
     const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel.name, location})
     const metaDescription = routeConfig.getMetaDescription(t)
@@ -127,7 +135,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   render () {
-    const {location, viewportSmall, darkMode} = this.props
+    const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode} = this.props
     const currentRoute = location.type
 
     const error = this.checkRouteParams()
@@ -140,8 +148,17 @@ export class Switcher extends React.Component<PropsType> {
     }
 
     if (LocationLayoutRoutes.includes(currentRoute)) {
+      const routeConfig = getRouteConfig(location.type)
+      const payloads = this.getRequiredPayloads(routeConfig)
+      const feedbackReference = routeConfig.getFeedbackReference({location, payloads})
       return (
-        <LocationLayout>
+        <LocationLayout feedbackReference={feedbackReference}
+                        location={location}
+                        categories={categoriesPayload.data}
+                        cities={citiesPayload.data}
+                        darkMode={darkMode}
+                        viewportSmall={viewportSmall}
+                        toggleDarkMode={toggleDarkMode}>
           {this.renderPage()}
         </LocationLayout>
       )
@@ -175,8 +192,13 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
+// fixme: WEBAPP-400 Dispatch type is not correct
+const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+  toggleDarkMode: () => dispatch(toggleDarkModeAction())
+})
+
 // $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withNamespaces('app')
 )(Switcher)

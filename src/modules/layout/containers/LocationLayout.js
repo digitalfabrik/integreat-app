@@ -1,41 +1,36 @@
 // @flow
 
 import * as React from 'react'
-import { connect } from 'react-redux'
-
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import { CategoriesMapModel, EventModel, ExtraModel, PageModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
-import type { Dispatch } from 'redux'
-import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
-import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
-import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
+import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import type { FeedbackReferenceType } from '../../app/route-configs/RouteConfig'
 
 export type FeedbackRatingType = 'up' | 'down'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
-  events: ?Array<EventModel>,
-  extras: ?Array<ExtraModel>,
-  disclaimer: ?PageModel,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
   toggleDarkMode: () => void,
-  darkMode: boolean
+  darkMode: boolean,
+  feedbackReference: FeedbackReferenceType
 |}
 
 type LocalStateType = {|
@@ -72,53 +67,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const {cities, location, categories, events, extras, disclaimer} = this.props
-    const payload = location.payload
-
-    let id
-    let title
-    let alias
-    if (location.type === CATEGORIES_ROUTE && categories) {
-      const category = categories.findCategoryByPath(location.pathname)
-      if (category) {
-        id = category.id
-        title = category.title
-      }
-    }
-
-    if (location.type === EVENTS_ROUTE && events) {
-      const event = events.find(event => event.id === payload.eventId)
-      if (event) {
-        id = event.id
-        title = event.title
-      }
-    }
-
-    if (location.type === SPRUNGBRETT_ROUTE) {
-      alias = SPRUNGBRETT_EXTRA
-    } else if (location.type === WOHNEN_ROUTE) {
-      alias = WOHNEN_EXTRA
-    }
-    if (alias && extras) {
-      const extra = extras.find(extra => extra.alias === alias)
-      if (extra) {
-        title = extra.title
-      }
-    }
-
-    if (location.type === DISCLAIMER_ROUTE && disclaimer) {
-      id = disclaimer.id
-    }
+    const {cities, location, feedbackReference} = this.props
 
     return <FeedbackModal
-      id={id}
-      title={title}
-      alias={alias}
       cities={cities}
       feedbackStatus={this.state.feedbackModalRating}
       closeFeedbackModal={this.closeFeedbackModal}
       location={location}
-      extras={extras} />
+      {...feedbackReference} />
   }
 
   openFeedbackModal = (rating: FeedbackRatingType) => this.setState({feedbackModalRating: rating})
@@ -166,20 +122,4 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 }
 
-const mapStateToProps = state => ({
-  location: state.location,
-  viewportSmall: state.viewport.is.small,
-  cities: state.cities.data,
-  categories: state.categories.data,
-  events: state.events.data,
-  extras: state.extras.data,
-  disclaimer: state.disclaimer.data,
-  darkMode: state.darkMode
-})
-
-// fixme: WEBAPP-400 Dispatch type is not correct
-const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
-  toggleDarkMode: () => dispatch(toggleDarkModeAction())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocationLayout)
+export default LocationLayout
