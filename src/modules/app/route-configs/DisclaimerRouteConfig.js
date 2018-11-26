@@ -4,7 +4,12 @@ import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { disclaimerEndpoint, Payload, PageModel } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type {
+  AllPayloadsType,
+  GetFeedbackReferenceType,
+  GetLanguageChangePathParamsType,
+  GetPageTitleParamsType
+} from './RouteConfig'
 
 type DisclaimerRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
@@ -42,6 +47,11 @@ class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, Re
     `/${city}/${language}/disclaimer`
 
   getMetaDescription = () => null
+
+  getFeedbackReference = ({payloads}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+    const disclaimer = payloads.disclaimer.data
+    return disclaimer ? {id: disclaimer.id} : null
+  }
 }
 
 export default DisclaimerRouteConfig

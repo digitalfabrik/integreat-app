@@ -35,6 +35,8 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
   getLanguageChangePath = () => null
 
   getMetaDescription = t => t('metaDescription')
+
+  getFeedbackReference = () => null
 }
 
 export default LandingRouteConfig

@@ -41,6 +41,8 @@ class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPa
     ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
 
   getMetaDescription = () => null
+
+  getFeedbackReference = () => null
 }
 
 export default SearchRouteConfig

@@ -40,6 +40,8 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
     `${t('pageTitles.extras')} - ${cityName}`
 
   getMetaDescription = () => null
+
+  getFeedbackReference = () => null
 }
 
 export default ExtrasRouteConfig
