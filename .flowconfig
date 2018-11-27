@@ -22,6 +22,20 @@
  Ignore react-navigation-header-buttons
 .*/node_modules/react-navigation-header-buttons/.*
 
+[untyped]
+.*/node_modules/react-native/Libraries/StyleSheet/StyleSheetValidation.js
+.*/node_modules/react-native/Libraries/Text/TextAncestor.js
+.*/node_modules/react-native/Libraries/StyleSheet/processTransform.js
+.*/node_modules/react-native/Libraries/LayoutAnimation/LayoutAnimation.js
+.*/node_modules/react-native/Libraries/Components/View/ViewPropTypes.js
+.*/node_modules/react-native/Libraries/Components/TextInput/InputAccessoryView.js
+.*/node_modules/react-native/Libraries/Components/Navigation/NavigatorIOS.ios.js
+.*/node_modules/react-native/Libraries/YellowBox/UI/YellowBoxList.js
+.*/node_modules/react-native/Libraries/YellowBox/UI/YellowBoxInspectorFooter.js
+.*/node_modules/react-native/Libraries/Lists/VirtualizedSectionList.js
+
+.*/node_modules/react-native-permissions/index.js
+
 [include]
 
 [libs]
@@ -72,4 +86,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 esproposal.optional_chaining=enable
 
 [version]
-^0.81.0
+^0.86.0

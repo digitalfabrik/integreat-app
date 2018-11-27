@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { HeaderProps } from 'react-navigation'
+import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
@@ -48,10 +48,7 @@ export const LandingStack = createSwitchNavigator(
     'App': AppStack
   },
   {
-    initialRouteName: 'Landing',
-    navigationOptions: {
-      header: null
-    }
+    initialRouteName: 'Landing'
   }
 )
 
@@ -67,4 +64,5 @@ const MainStack = createStackNavigator(
     mode: 'modal'
   }
 )
-export default createAppContainer(MainStack)
+const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(MainStack)
+export default AppContainer

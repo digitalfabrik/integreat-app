@@ -6,7 +6,7 @@ import CitySelector from './CitySelector'
 
 import type { TFunction } from 'react-i18next'
 import SearchInput from './SearchInput'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {
