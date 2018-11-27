@@ -7,7 +7,6 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 import type { Location } from 'redux-first-router'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import map from 'lodash/map'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|

@@ -50,7 +50,7 @@ export class LocationHeader extends React.Component<PropsType> {
         text: t('changeLocation')
       }),
       new HeaderActionItem({
-        node: <LanguageSelector languageChangePaths={languageChangePaths} isHeaderActionItem />
+        node: <LanguageSelector languageChangePaths={languageChangePaths} isHeaderActionItem location={location} />
       })
     ]
   }
