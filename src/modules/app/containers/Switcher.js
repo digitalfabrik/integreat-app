@@ -170,7 +170,11 @@ export class Switcher extends React.Component<PropsType> {
     if (error) {
       return (
         <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />} darkMode={darkMode}>
-          {error instanceof LanguageNotFoundError ? <LanguageFailure cities={citiesPayload.data} location={location} /> : <FailureSwitcher error={error} />}
+          {error instanceof LanguageNotFoundError
+            ? <LanguageFailure cities={citiesPayload.data}
+                             location={location}
+                             languageChangePaths={languageChangePaths} />
+            : <FailureSwitcher error={error} />}
         </Layout>
       )
     }
