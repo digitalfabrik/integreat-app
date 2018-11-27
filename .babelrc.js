@@ -16,7 +16,8 @@ const config = {
     ['@babel/plugin-proposal-nullish-coalescing-operator', {'loose': false}],
     '@babel/plugin-proposal-do-expressions',
     '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-proposal-export-namespace-from'
+    '@babel/plugin-proposal-export-namespace-from',
+    'lodash'
   ]
 }
 

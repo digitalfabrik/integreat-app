@@ -4,10 +4,9 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import PageModel from '../../../modules/endpoint/models/PageModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { PageModel, CityModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import Helmet from '../../../modules/common/containers/Helmet'
 import { pathToAction, setKind } from 'redux-first-router'
@@ -60,5 +59,5 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 export default compose(
   connect(mapStateTypeToProps, mapDispatchToProps),
-  translate('disclaimer')
+  withNamespaces('disclaimer')
 )(DisclaimerPage)

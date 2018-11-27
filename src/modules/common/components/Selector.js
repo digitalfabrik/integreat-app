@@ -73,7 +73,7 @@ type PropsType = {|
 /**
  * Displays a Selector showing different items
  */
-class Selector extends React.Component<PropsType> {
+class Selector extends React.PureComponent<PropsType> {
   componentDidMount () {
     /* https://www.npmjs.com/package/react-tooltip#1-using-tooltip-within-the-modal-eg-react-modal- */
     ReactTooltip.rebuild()

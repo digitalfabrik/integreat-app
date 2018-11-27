@@ -5,18 +5,16 @@ import * as React from 'react'
 import Helmet from 'react-helmet'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import { WohnenOfferModel, CityModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from '../components/OfferDetail'
 import Hashids from 'hashids'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
-import { translate } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -36,8 +34,10 @@ export class WohnenExtraPage extends React.Component<PropsType> {
     return offers.find(offer => this.hash(offer) === hash)
   }
 
-  renderOfferListItem = ({city, language, hashFunction}: {city: string, language: string,
-    hashFunction: WohnenOfferModel => string}) => (offer: WohnenOfferModel) =>
+  renderOfferListItem = ({city, language, hashFunction}: {
+    city: string, language: string,
+    hashFunction: WohnenOfferModel => string
+  }) => (offer: WohnenOfferModel) =>
     <OfferListItem key={hashFunction(offer)}
                    offer={offer}
                    language={language}
@@ -88,5 +88,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('wohnen')
+  withNamespaces('wohnen')
 )(WohnenExtraPage)

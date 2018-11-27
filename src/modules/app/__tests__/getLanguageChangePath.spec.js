@@ -1,21 +1,23 @@
 // @flow
 
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  EventModel,
+  PoiModel,
+  LocationModel,
+  DateModel
+} from '@integreat-app/integreat-api-client'
 import { DISCLAIMER_ROUTE } from '../routes/disclaimer'
 import { EVENTS_ROUTE } from '../routes/events'
 import { EXTRAS_ROUTE } from '../routes/extras'
 import { CATEGORIES_ROUTE } from '../routes/categories'
-import CategoryModel from '../../endpoint/models/CategoryModel'
 import { SEARCH_ROUTE } from '../routes/search'
 import getLanguageChangePath from '../getLanguageChangePath'
-import EventModel from '../../endpoint/models/EventModel'
 import moment from 'moment-timezone'
 import { WOHNEN_ROUTE } from '../routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../routes/sprungbrett'
-import PoiModel from '../../endpoint/models/PoiModel'
 import { POIS_ROUTE } from '../routes/pois'
-import LocationModel from '../../endpoint/models/LocationModel'
-import DateModel from '../../endpoint/models/DateModel'
 
 describe('getLanguageChangePath', () => {
   const city = 'augsburg'

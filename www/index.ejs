@@ -73,6 +73,7 @@
 
       animation: show 1.5s forwards;
       pointer-events: none;
+      transition: height 0s 0.2s;
     }
 
     #splash > div {
@@ -85,8 +86,9 @@
       transition: opacity 0.2s ease-in;
     }
 
-    .splash-hidden {
+    #splash.splash-hidden {
       animation-play-state: paused;
+      height: 0;
     }
 
     .splash-hidden > div {

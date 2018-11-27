@@ -30,7 +30,7 @@ type PropsType = {|
 /**
  * Display a single page with all necessary information
  */
-class Page extends React.Component<PropsType> {
+class Page extends React.PureComponent<PropsType> {
   render () {
     const {title, thumbnail, content, lastUpdate, language, hijackRegExp, children, onInternalLinkClick} = this.props
     return (

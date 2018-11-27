@@ -2,12 +2,12 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { connect } from 'react-redux'
 
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import Caption from '../../../modules/common/components/Caption'
 
 import styled from 'styled-components'
@@ -42,5 +42,5 @@ const mapStateTypeToProps = (stateType: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('error')
+  withNamespaces('error')
 )(LanguageFailure)
