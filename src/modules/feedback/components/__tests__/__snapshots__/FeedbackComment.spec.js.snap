@@ -7,7 +7,7 @@ exports[`FeedbackComment should match snapshot 1`] = `
   </FeedbackBox__Description>
   <FeedbackComment__CommentField
     onChange={[Function]}
-    rows={3}
+    rows={7}
     value="Nice app!"
   />
 </Fragment>
