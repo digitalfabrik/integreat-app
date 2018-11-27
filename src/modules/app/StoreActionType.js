@@ -46,6 +46,8 @@ export type SetCurrentCityActionType = { type: 'SET_CURRENT_CITY', payload: stri
 
 export type SetUiDirectionActionType = { type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl' }
 
+export type ToggleDarkModeActionType = { type: 'TOGGLE_DARK_MODE' }
+
 export type StoreActionType =
   ConnectionChangeActionType
   | CitiesFetchActionType
@@ -54,3 +56,4 @@ export type StoreActionType =
   | SetLanguageActionType
   | SetCurrentCityActionType
   | SetUiDirectionActionType
+  | ToggleDarkModeActionType

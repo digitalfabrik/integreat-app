@@ -10,7 +10,7 @@ export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}
 `
 
-export const Input = styled.TextInput.attrs(props => ({
+export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
   textColor: props.theme.colors.textSecondaryColor,
   placeholderTextColor: props.theme.colors.textSecondaryColor

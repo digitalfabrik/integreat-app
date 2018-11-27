@@ -47,6 +47,8 @@ class Tile extends React.Component<PropsType> {
     if (!tile.isExternalUrl) {
       return <TouchableOpacity onPress={this.onTilePress}>{this.getTileContent()}</TouchableOpacity>
     }
+
+    return null
   }
 
   render () {
