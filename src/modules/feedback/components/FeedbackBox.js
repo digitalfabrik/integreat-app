@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import 'react-dropdown/style.css'
 
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
@@ -9,7 +8,7 @@ import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
-import Dropdown from 'react-dropdown'
+import Select from 'react-select'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -35,12 +34,6 @@ export const SubmitButton = styled.span`
   text-align: center;
   border-radius: 0.25em;
   cursor: pointer;
-`
-
-const ModifiedDropDown = props => <Dropdown {...props} controlClassName={props.className} />
-
-const StyledDropdown = styled(ModifiedDropDown)`
-  cursor: pointer !important;
 `
 
 type PropsType = {|
@@ -76,7 +69,7 @@ export class FeedbackBox extends React.Component<PropsType> {
       <StyledFeedbackBox>
         <ModalHeader closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
         <Description>{t('feedbackType')}</Description>
-        <StyledDropdown
+        <Select
           value={selectedFeedbackOption}
           options={feedbackOptions}
           onChange={onFeedbackOptionChanged} />
