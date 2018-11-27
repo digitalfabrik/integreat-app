@@ -4,20 +4,20 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { FeedbackBoxContainer } from '../FeedbackBoxContainer'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
 import {
+  CityModel,
+  ExtraModel,
   CATEGORIES_FEEDBACK_TYPE,
   EVENTS_FEEDBACK_TYPE,
   EXTRA_FEEDBACK_TYPE,
   EXTRAS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import FeedbackDropdownItem from '../../FeedbackDropdownItem'
 import { EXTRAS_ROUTE } from '../../../../modules/app/routes/extras'
 import { EVENTS_ROUTE } from '../../../../modules/app/routes/events'
-import ExtraModel from '../../../../modules/endpoint/models/ExtraModel'
 import { WOHNEN_ROUTE } from '../../../../modules/app/routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../../../../modules/app/routes/sprungbrett'
 import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'

@@ -8,6 +8,9 @@ exports[`SprungbrettExtraPage should render error if extra is not supported 1`] 
 
 exports[`SprungbrettExtraPage should render list 1`] = `
 <Fragment>
+  <Caption
+    title="Sprungbrett"
+  />
   <Connect(Helmet)
     title="Sprungbrett - Augsburg"
   />

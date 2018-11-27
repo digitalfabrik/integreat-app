@@ -3,8 +3,8 @@
 import * as React from 'react'
 
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
-import feedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/endpoints/feedback'
+import { withNamespaces } from 'react-i18next'
+import { feedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
@@ -66,4 +66,4 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
   }
 }
 
-export default translate('feedback')(NothingFoundFeedbackBox)
+export default withNamespaces('feedback')(NothingFoundFeedbackBox)

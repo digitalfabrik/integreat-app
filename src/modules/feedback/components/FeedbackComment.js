@@ -14,7 +14,7 @@ type PropsType = {|
   onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void
 |}
 
-class FeedbackComment extends React.Component<PropsType> {
+class FeedbackComment extends React.PureComponent<PropsType> {
   render () {
     const {commentMessage, comment, onCommentChanged} = this.props
     return (

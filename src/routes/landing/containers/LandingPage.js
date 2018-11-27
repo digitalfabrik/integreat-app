@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
 import FilterableCitySelector from '../../landing/components/FilterableCitySelector'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import ReactHelmet from 'react-helmet'
 import type { StateType } from '../../../modules/app/StateType'
 
@@ -36,5 +36,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  translate('landing')
+  withNamespaces('landing')
 )(LandingPage)

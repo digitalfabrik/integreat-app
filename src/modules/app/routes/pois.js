@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
-import poisEndpoint from '../../endpoint/endpoints/pois'
+import { poisEndpoint } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
 
 export const POIS_ROUTE = 'POI'

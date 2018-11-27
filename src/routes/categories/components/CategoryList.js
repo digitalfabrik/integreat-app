@@ -5,7 +5,7 @@ import React from 'react'
 import RemoteContent from '../../../modules/common/components/RemoteContent'
 import Caption from '../../../modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 
 const List = styled.div`
@@ -27,7 +27,7 @@ const CategoryIcon = styled.img`
 `
 
 type PropsType = {|
-  categories: Array<{|model: CategoryModel, subCategories: Array<CategoryModel>|}>,
+  categories: Array<{| model: CategoryModel, subCategories: Array<CategoryModel> |}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
@@ -39,7 +39,7 @@ type PropsType = {|
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
-class CategoryList extends React.Component<PropsType> {
+class CategoryList extends React.PureComponent<PropsType> {
   render () {
     const {categories, title, thumbnail, content, query, onInternLinkClick} = this.props
     return (

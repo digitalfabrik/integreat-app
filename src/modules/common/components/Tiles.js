@@ -21,7 +21,7 @@ const TilesRow = styled(Row)`
 /**
  * Displays a table of Tiles
  */
-class Tiles extends React.Component<PropsType> {
+class Tiles extends React.PureComponent<PropsType> {
   render () {
     return (
       <div>

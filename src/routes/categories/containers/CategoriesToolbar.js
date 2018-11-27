@@ -2,13 +2,11 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoriesMapModel, CategoryModel, apiUrl } from '@integreat-app/integreat-api-client'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
-import { apiUrl } from '../../../modules/endpoint/constants'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 import type { FeedbackRatingType } from '../../../modules/layout/containers/LocationLayout'
@@ -45,4 +43,4 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default translate('categories')(CategoriesToolbar)
+export default withNamespaces('categories')(CategoriesToolbar)

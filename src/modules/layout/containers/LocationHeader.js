@@ -1,8 +1,9 @@
 // @flow
 
-import React from 'react'
 import type { Element } from 'react'
-import { translate } from 'react-i18next'
+import React from 'react'
+import type { TFunction } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
 import LanguageSelector from '../../common/containers/LanguageSelector'
@@ -19,9 +20,8 @@ import { goToLanding } from '../../app/routes/landing'
 import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
-import EventModel from '../../endpoint/models/EventModel'
+import { EventModel } from '@integreat-app/integreat-api-client'
 import type { StateType } from '../../../modules/app/StateType'
-import type { TFunction } from 'react-i18next'
 import { WOHNEN_ROUTE } from '../../app/routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
 
@@ -37,8 +37,8 @@ type PropsType = {|
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
-    const { location, t } = this.props
-    const { city, language } = location.payload
+    const {location, t} = this.props
+    const {city, language} = location.payload
     return [
       new HeaderActionItem({
         href: goToSearch(city, language),
@@ -57,8 +57,8 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems (): Array<Element<typeof HeaderNavigationItem>> {
-    const { t, isEventsEnabled, isExtrasEnabled, location, events } = this.props
-    const { city, language } = location.payload
+    const {t, isEventsEnabled, isExtrasEnabled, location, events} = this.props
+    const {city, language} = location.payload
     const currentRoute = location.type
 
     const isEventsActive = events ? events.length > 0 : false
@@ -107,7 +107,7 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   render () {
-    const { city, language } = this.props.location.payload
+    const {city, language} = this.props.location.payload
 
     return (
       <Header
@@ -128,6 +128,6 @@ const mapStateToProps = (state: StateType) => ({
   events: state.events.data
 })
 
-export default compose(connect(mapStateToProps), translate('layout'))(
+export default compose(connect(mapStateToProps), withNamespaces('layout'))(
   LocationHeader
 )

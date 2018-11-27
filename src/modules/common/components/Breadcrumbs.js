@@ -52,7 +52,7 @@ type PropsType = {|
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-class Breadcrumbs extends React.Component<PropsType> {
+class Breadcrumbs extends React.PureComponent<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
   render () {

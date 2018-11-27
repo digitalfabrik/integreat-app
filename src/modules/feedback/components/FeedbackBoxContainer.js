@@ -2,9 +2,11 @@
 
 import * as React from 'react'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
-import feedbackEndpoint, {
+import {
+  CityModel,
+  ExtraModel,
+  feedbackEndpoint,
+  type FeedbackParamsType,
   CATEGORIES_FEEDBACK_TYPE,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
@@ -13,9 +15,9 @@ import feedbackEndpoint, {
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
 import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
 import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
@@ -25,7 +27,6 @@ import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
 import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
 import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
 
 type PropsType = {|
@@ -203,4 +204,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default translate('feedback')(FeedbackBoxContainer)
+export default withNamespaces('feedback')(FeedbackBoxContainer)

@@ -21,7 +21,7 @@ type StateType = {|
   initialized: boolean
 |}
 
-export class ScrollingSearchBox extends React.PureComponent<PropsType, StateType> {
+export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
   static defaultProps = {spaceSearch: false}
   _node: HTMLElement
 
