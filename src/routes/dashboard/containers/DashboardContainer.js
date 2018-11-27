@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.language
-  const cities = state.cities.json
+  const cities = state.cities
 
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
   const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity.code}/${language}`
@@ -49,10 +49,10 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const notReadyProps = {
     cityModel: targetCity,
     language: language,
-    cities
+    cities: cities.json
   }
 
-  if (!cities) {
+  if (!cities.json) {
     return notReadyProps
   }
 
@@ -81,6 +81,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
+  const errorMessage = cities.error || categories.error || fileCache.error
+
   const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity: targetCity.code})
   return {
     cityModel: targetCity,
@@ -90,7 +92,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     path: targetPath,
     categories: categoriesMap,
     files: fileCache.files,
-    error: null
+    error: errorMessage
   }
 }
 
