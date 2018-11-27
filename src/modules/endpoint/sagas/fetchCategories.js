@@ -10,12 +10,14 @@ import type {
   LanguagesFetchFailedActionType,
   LanguagesFetchSucceededActionType
 } from '../../app/StoreActionType'
-import categoriesEndpoint from '../endpoints/categories'
-import languagesEndpoint from '../endpoints/languages'
-import LanguageModel from '../models/LanguageModel'
-import CategoriesMapModel from '../models/CategoriesMapModel'
+import {
+  categoriesEndpoint,
+  languagesEndpoint,
+  LanguageModel,
+  CategoriesMapModel,
+  CategoryModel
+} from '@integreat-app/integreat-api-client'
 import htmlparser2 from 'htmlparser2'
-import CategoryModel from '../models/CategoryModel'
 import downloadResources from './downloadResources'
 import getExtension from '../getExtension'
 
