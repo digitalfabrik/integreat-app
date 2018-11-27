@@ -94,7 +94,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
-    const {languages} = this.props
+    const {languages, location} = this.props
     const payloads = this.getRequiredPayloads(routeConfig)
     return languages && languages.map(language => ({
       path: routeConfig.getLanguageChangePath({payloads, location, language: language.code}),
@@ -120,8 +120,8 @@ export class Switcher extends React.Component<PropsType> {
     const RouteContent = getRouteContent(currentRoute)
     const routeConfig = getRouteConfig(currentRoute)
     const payloads = this.getRequiredPayloads(routeConfig)
-    const cityModel = citiesPayload.data && CityModel.findCityName(citiesPayload.data, location.payload.city)
-    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel.name, location})
+    const cityModel = citiesPayload.data && citiesPayload.data.find(city => city.code === location.payload.city)
+    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel ? cityModel.name : '', location})
     const metaDescription = routeConfig.getMetaDescription(t)
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
