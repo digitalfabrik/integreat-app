@@ -15,10 +15,9 @@ import {
 } from '@integreat-app/integreat-api-client'
 
 import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
-
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import moment from 'moment-timezone'
-import { SEARCH_ROUTE } from '../../../app/routes/search'
+import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
 import theme from '../../../theme/constants/theme'
@@ -163,7 +162,8 @@ describe('LocationLayout', () => {
       disclaimer: {data: disclaimer},
       viewport: {is: {small: false}},
       cities: {data: null},
-      darkMode: true
+      darkMode: true,
+      location
     })
     store.getState().location = location
 

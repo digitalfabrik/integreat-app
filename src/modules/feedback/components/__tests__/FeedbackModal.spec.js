@@ -5,7 +5,7 @@ import { shallow } from 'enzyme'
 
 import FeedbackModal from '../FeedbackModal'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/routes/categories'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 
 describe('FeedbackModal', () => {
   it('should match snapshot', () => {

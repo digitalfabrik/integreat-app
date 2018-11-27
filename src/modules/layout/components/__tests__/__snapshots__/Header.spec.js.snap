@@ -39,9 +39,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_href": Object {
-              "type": "RANDOM_ROUTE",
-            },
+            "_href": "/random_route",
             "_iconSrc": undefined,
             "_node": undefined,
             "_text": undefined,

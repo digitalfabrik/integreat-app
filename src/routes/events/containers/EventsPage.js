@@ -4,14 +4,13 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import { EventModel, CityModel } from '@integreat-app/integreat-api-client'
+import { EventModel } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
 import { pathToAction, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
@@ -25,7 +24,6 @@ type PropsType = {|
   city: string,
   eventId: ?string,
   language: string,
-  cities: Array<CityModel>,
   t: TFunction,
   dispatch: ReceivedAction => void,
   path: string,
@@ -46,13 +44,12 @@ export class EventsPage extends React.Component<PropsType> {
   }
 
   render () {
-    const {events, path, eventId, city, language, cities, t} = this.props
+    const {events, path, eventId, city, language, t} = this.props
     if (eventId) {
       const event = events.find(_event => _event.path === path)
 
       if (event) {
         return <>
-          <Helmet title={`${event.title} - ${CityModel.findCityName(cities, city)}`} />
           <Page thumbnail={event.thumbnail}
                 lastUpdate={event.lastUpdate}
                 content={event.content}
@@ -71,7 +68,6 @@ export class EventsPage extends React.Component<PropsType> {
       }
     }
     return <>
-      <Helmet title={`${t('pageTitle')} - ${CityModel.findCityName(cities, city)}`} />
       <Caption title={t('news')} />
       <List noItemsMessage={t('currentlyNoEvents')}
             items={events}

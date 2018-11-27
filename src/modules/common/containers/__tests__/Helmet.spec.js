@@ -11,13 +11,17 @@ import {
   PoiModel,
   DateModel,
   CityModel,
-  LocationModel
+  LocationModel,
+  ExtraModel,
+  WohnenOfferModel,
+  WohnenFormData
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
 import theme from '../../../theme/constants/theme'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import configureMockStore from 'redux-mock-store'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 
 describe('Helmet', () => {
   const city = 'augsburg'
@@ -105,18 +109,62 @@ describe('Helmet', () => {
     })
   ]
 
-  const categories = new CategoriesMapModel(categoryModels)
-  const title = 'Random title'
+  const extras = [
+    new ExtraModel({
+      alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
+    })
+  ]
 
-  const location = {pathname: '/augsburg/de/', payload: {city, language}}
+  const offers = [
+    new WohnenOfferModel({
+      email: 'mail@mail.com',
+      createdDate: moment('2018-07-24T00:00:00.000Z'),
+      formDataType: WohnenFormData,
+      formData: new WohnenFormData(
+        {
+          firstName: 'Max',
+          lastName: 'Ammann',
+          phone: ''
+        },
+        {
+          ofRooms: ['kitchen', 'child2', 'child1', 'bed'],
+          title: 'Test Angebot',
+          location: 'Augsburg',
+          totalArea: 120,
+          totalRooms: 4,
+          moveInDate: moment('2018-07-19T15:35:12.000Z'),
+          ofRoomsDiff: ['bath', 'wc', 'child3', 'livingroom', 'hallway', 'store', 'basement', 'balcony']
+        },
+        {
+          ofRunningServices: ['chimney', 'other'],
+          ofAdditionalServices: ['garage'],
+          baseRent: 1000,
+          runningCosts: 1200,
+          hotWaterInHeatingCosts: true,
+          additionalCosts: 200,
+          ofRunningServicesDiff: ['heating', 'water', 'garbage'],
+          ofAdditionalServicesDiff: []
+        })
+    })
+  ]
+
+  const categories = new CategoriesMapModel(categoryModels)
+
+  const location = {pathname: '/augsburg/de/', payload: {city, language}, type: CATEGORIES_ROUTE}
+  const t = (key: ?string): string => key || ''
+
+  const getPageTitle = () => 'pageTitle'
 
   it('should render and match snapshot', () => {
     const helmet = shallow(
-      <Helmet title={title}
+      <Helmet getPageTitle={getPageTitle}
               categories={categories}
               location={location}
               events={events}
+              t={t}
               pois={pois}
+              extras={extras}
+              offers={offers}
               languages={languages}
               cities={cities} />
     )
@@ -126,11 +174,14 @@ describe('Helmet', () => {
 
   it('should add noindex tag, if city is not live', () => {
     const helmet = shallow(
-      <Helmet title={title}
+      <Helmet getPageTitle={getPageTitle}
               categories={categories}
               location={{...location, payload: {city: 'testinstanz', language: 'ar'}}}
               events={events}
               pois={pois}
+              extras={extras}
+              offers={offers}
+              t={t}
               languages={languages}
               cities={cities} />
     )
@@ -149,13 +200,15 @@ describe('Helmet', () => {
       events: {data: events},
       pois: {data: pois},
       cities: {data: cities},
+      extras: {data: extras},
+      wohnen: {data: offers},
       location
     })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedHelmet title={title} />
+          <ConnectedHelmet getPageTitle={getPageTitle} />
         </Provider>
       </ThemeProvider>
     )
@@ -166,8 +219,11 @@ describe('Helmet', () => {
       events,
       categories,
       pois,
-      title,
       cities,
+      extras,
+      offers,
+      getPageTitle: expect.any(Function),
+      t: expect.any(Function),
       dispatch: expect.any(Function)
     })
   })

@@ -1,12 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Failure connect should match snapshot 1`] = `
-<Failure
-  errorMessage="Error Message"
-  t={[Function]}
-/>
-`;
-
 exports[`Failure should match snapshot 1`] = `
 <Failure__Centered>
   <div>
@@ -45,14 +38,7 @@ exports[`Failure should match snapshot 1`] = `
     />
   </div>
   <Connect(Link)
-    to={
-      Object {
-        "payload": Object {
-          "param": undefined,
-        },
-        "type": "I18N_REDIRECT",
-      }
-    }
+    to="/"
   >
     goTo.start
   </Connect(Link)>
