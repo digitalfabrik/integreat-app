@@ -54,7 +54,7 @@ describe('LanguageFailure', () => {
     })
 
     const languageFailure = shallow(
-      <ConnectedLanguageFailure store={store} />
+      <ConnectedLanguageFailure store={store} city={city} />
     )
 
     expect(languageFailure.props()).toMatchObject({

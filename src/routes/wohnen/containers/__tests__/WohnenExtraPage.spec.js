@@ -3,7 +3,7 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { ExtraModel, CityModel, WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
+import { ExtraModel, WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
 import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
 import moment from 'moment'
 import Hashids from 'hashids'
@@ -21,17 +21,6 @@ describe('WohnenExtraPage', () => {
   })
 
   const extras = [wohnenExtra]
-
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
 
   const offer = new WohnenOfferModel({
     email: 'mail@mail.com',
@@ -74,7 +63,6 @@ describe('WohnenExtraPage', () => {
                        city={city}
                        language={language}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -87,7 +75,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -100,7 +87,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={'invalid hash'}
                        extras={[wohnenExtra]}
-                       cities={cities}
                        t={t} />
     )
     expect(extrasPage).toMatchSnapshot()
@@ -113,7 +99,6 @@ describe('WohnenExtraPage', () => {
                        language={language}
                        offerHash={offerHash}
                        extras={[]}
-                       cities={cities}
                        t={t} />
     )
     expect(wohnenPage).toMatchSnapshot()
@@ -129,7 +114,7 @@ describe('WohnenExtraPage', () => {
     const tree = mount(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <ConnectedWohnenExtraPage cities={cities} extras={extras} offers={offers} />
+          <ConnectedWohnenExtraPage extras={extras} offers={offers} />
         </Provider>
       </ThemeProvider>
     )
@@ -139,7 +124,6 @@ describe('WohnenExtraPage', () => {
       city,
       offerHash,
       extras,
-      cities,
       offers,
       dispatch: expect.any(Function),
       t: expect.any(Function)

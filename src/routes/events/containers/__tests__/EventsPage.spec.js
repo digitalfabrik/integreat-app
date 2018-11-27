@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import { EventModel, CityModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 
@@ -77,16 +77,7 @@ describe('EventsPage', () => {
   ]
 
   const city = 'augsburg'
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
+
   const language = 'en'
   const t = (key: ?string): string => key || ''
 
@@ -94,7 +85,6 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  cities={cities}
                   path={'/augsburg/en/events'}
                   eventId={undefined}
                   t={t}
@@ -109,7 +99,6 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  cities={cities}
                   t={t}
                   language={language}
                   path={'/augsburg/en/events/first_event'}
@@ -124,7 +113,6 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  cities={cities}
                   t={t}
                   language={language}
                   path={'/augsburg/en/events/invalid_event'}
@@ -142,7 +130,7 @@ describe('EventsPage', () => {
 
     const tree = mount(
       <Provider store={store}>
-        <ConnectedEventsPage cities={cities} events={events} />
+        <ConnectedEventsPage events={events} />
       </Provider>
     )
 
@@ -152,7 +140,6 @@ describe('EventsPage', () => {
       eventId: 'id',
       path: '/augsburg/en/events/id',
       events,
-      cities,
       dispatch: expect.any(Function),
       t: expect.any(Function)
     })
