@@ -36,6 +36,7 @@ const Title = styled.Text`
 `
 
 const BoxShadow = styled.View`
+  elevation: 1;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
 `
@@ -54,20 +55,20 @@ const MaterialHeaderButtons = props => {
   )
 }
 
-const ThemedSearchBar = styled(SearchBar).attrs({
-  containerStyle: props => ({
+const ThemedSearchBar = styled(SearchBar).attrs(props => ({
+  containerStyle: {
     flexGrow: 1,
     backgroundColor: props.theme.colors.backgroundAccentColor,
     borderTopColor: props.theme.colors.backgroundAccentColor,
     borderBottomColor: props.theme.colors.backgroundAccentColor
-  }),
-  inputContainerStyle: props => ({
+  },
+  inputContainerStyle: {
     backgroundColor: props.theme.colors.backgroundColor
-  }),
-  inputStyle: props => ({
+  },
+  inputStyle: {
     backgroundColor: props.theme.colors.backgroundColor
-  })
-})``
+  }
+}))``
 
 type PropsType = {
   scene: NavigationScene,
