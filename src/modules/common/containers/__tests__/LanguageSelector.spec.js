@@ -13,7 +13,7 @@ import {
   DateModel,
   LocationModel
 } from '@integreat-app/integreat-api-client'
-import { DISCLAIMER_ROUTE } from '../../../app/routes/disclaimer'
+import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
 

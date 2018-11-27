@@ -5,6 +5,8 @@ import { shallow } from 'enzyme'
 import ConnectedLandingPage, { LandingPage } from '../LandingPage'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
+import { LANDING_ROUTE } from '../../../../modules/app/route-configs/LandingRouteConfig'
+import { routesMap } from '../../../../modules/app/route-configs'
 
 describe('LandingPage', () => {
   const cities = [
@@ -18,16 +20,14 @@ describe('LandingPage', () => {
     })
   ]
 
-  const t = (key: ?string): string => key || ''
-
   it('should match snapshot', () => {
-    expect(shallow(<LandingPage cities={cities} language={'de'} t={t} />)).toMatchSnapshot()
+    expect(shallow(<LandingPage cities={cities} language={'de'} />)).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
     const language = 'en'
 
-    const location = {payload: {language}}
+    const location = {type: LANDING_ROUTE, payload: {language}, routesMap}
 
     const mockStore = configureMockStore()
     const store = mockStore({

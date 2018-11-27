@@ -4,13 +4,13 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import { LanguageModel, EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
 import ConnectedLocationHeader, { LocationHeader } from '../LocationHeader'
-import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
-import { EVENTS_ROUTE } from '../../../app/routes/events'
-import { EXTRAS_ROUTE } from '../../../app/routes/extras'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
+import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
+import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
 import moment from 'moment-timezone'
 import configureMockStore from 'redux-mock-store'
-import { WOHNEN_ROUTE } from '../../../app/routes/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../app/routes/sprungbrett'
+import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
 
 describe('LocationHeader', () => {
   const languages = [

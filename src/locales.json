@@ -1,4 +1,56 @@
 {
+  "app": {
+    "ar": {
+      "pageTitles": {
+        "search": "البحث",
+        "events": "الأخبار",
+        "extras": "إضافات",
+        "landing": "أين أنت؟",
+        "disclaimer": "هيئة التحرير وجهة الاتصال"
+      }
+    },
+    "de": {
+      "pageTitles": {
+        "search": "Suche",
+        "events": "News",
+        "extras": "Extras",
+        "landing": "Wo bist du?",
+        "disclaimer": "Impressum und Kontakt",
+        "mainDisclaimer": "Impressum und Datenschutz - Integreat"
+      },
+      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+    },
+    "en": {
+      "pageTitles": {
+        "search": "Search",
+        "events": "News",
+        "extras": "Extras",
+        "landing": "Where are you?",
+        "disclaimer": "Imprint and contact",
+        "pois": "Points of Interest"
+      },
+      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+    },
+    "fa": {
+      "pageTitles": {
+        "search": "جستجو",
+        "events": "تازه​ها",
+        "extras": "اضافات",
+        "landing": "تو کجایی؟",
+        "disclaimer": "مجوز ‎و اطلاعات تماس"
+      }
+    },
+    "fr": {
+      "pageTitles": {
+        "search": "Rechercher",
+        "events": "Actualités",
+        "extras": "Extras",
+        "landing": "Tu es où?",
+        "disclaimer": "Mentions légales et contact"
+      }
+
+    }
+  },
   "layout": {
     "ar": {
       "imprintAndContact": "هيئة التحرير وجهة الاتصال",
@@ -59,22 +111,11 @@
     }
   },
   "search": {
-    "ar": {
-      "pageTitle": "البحث"
-    },
     "de": {
-      "pageTitle": "Suche",
       "searchCategory": "Suche nach einer Kategorie"
     },
     "en": {
-      "pageTitle": "Search",
       "searchCategory": "Search for a category"
-    },
-    "fa": {
-      "pageTitle": "جستجو"
-    },
-    "fr": {
-      "pageTitle": "Rechercher"
     }
   },
   "categories": {
@@ -82,12 +123,10 @@
       "createPdf": "إنشاء ملف PDF"
     },
     "de": {
-      "createPdf": "PDF Erstellen",
-      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+      "createPdf": "PDF Erstellen"
     },
     "en": {
-      "createPdf": "Create PDF",
-      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+      "createPdf": "Create PDF"
     },
     "fa": {
       "createPdf": "Créer PDF"
@@ -101,84 +140,67 @@
       "location": "الموقع",
       "date": "تاريخ",
       "news": "الأخبار",
-      "pageTitle": "الأخبار",
       "currentlyNoEvents": "ليس هناك فعاليات متوفرة حاليَاً"
     },
     "de": {
       "location": "Standort",
       "date": "Datum",
       "news": "News",
-      "pageTitle": "News",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen."
     },
     "en": {
       "location": "Location",
       "date": "Date",
       "news": "News",
-      "pageTitle": "News",
       "currentlyNoEvents": "No recent events available."
     },
     "fa": {
       "location": "موقعیت مکانی",
       "date": "تاریخ",
       "news": "تازه​ها",
-      "pageTitle": "تازه​ها",
       "currentlyNoEvents": "هیچ رویداد جدیدی موجود نیست."
     },
     "fr": {
       "location": "Lieu",
       "date": "Date",
       "news": "Actualités",
-      "pageTitle": "Actualités",
       "currentlyNoEvents": "Pas d'événements actuels disponibles."
     }
   },
   "extras": {
     "ar": {
-      "extras": "إضافات",
-      "pageTitle": "إضافات"
+      "extras": "إضافات"
     },
     "en": {
-      "extras": "Extras",
-      "pageTitle": "Extras"
+      "extras": "Extras"
     },
     "de": {
-      "extras": "Extras",
-      "pageTitle": "Extras"
+      "extras": "Extras"
     },
     "fa": {
-      "extras": "اضافات",
-      "pageTitle": "اضافات"
+      "extras": "اضافات"
     },
     "fr": {
-      "extras": "Extras",
-      "pageTitle": "Extras"
+      "extras": "Extras"
     }
   },
   "landing": {
     "ar": {
-      "where": "أين أنت؟",
-      "pageTitle": "أين أنت؟"
+      "where": "أين أنت؟"
     },
     "de": {
       "where": "Wo bist du?",
-      "pageTitle": "Wo bist du?",
-      "searchCity": "Suche nach deinem Ort",
-      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
+      "searchCity": "Suche nach deinem Ort"
     },
     "en": {
       "where": "Where are you?",
-      "pageTitle": "Where are you?",
-      "searchCity": "Search for your city",
-      "metaDescription": "Find local and relevant content, events and become part of your new city. Integreat helps you to connect to others and supports multiple languages."
+      "searchCity": "Search for your city"
     },
     "fa": {
-      "where": "تو کجایی؟",
-      "pageTitle": "تو کجایی؟"
+      "where": "تو کجایی؟"
     },
     "fr": {
-      "where": "Tu es où?",
-      "pageTitle": "Tu es où?"
+      "where": "Tu es où?"
     }
   },
   "error": {
@@ -218,6 +240,7 @@
         "event": "Sorry, but this event could not be found.",
         "extra": "Sorry, but this extra could not be found.",
         "disclaimer": "Sorry, but there is no disclaimer available for this city.",
+        "poi": "Sorry, but this Point of Interest could not be found.",
         "pageTitle": "Page not found"
       },
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
@@ -240,23 +263,6 @@
     },
     "fr": {
       "chooseYourLanguage": "Choisis ta Langue:"
-    }
-  },
-  "disclaimer": {
-    "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
-    },
-    "de": {
-      "pageTitle": "Impressum und Kontakt"
-    },
-    "en": {
-      "pageTitle": "Imprint and contact"
-    },
-    "fa": {
-      "pageTitle": "مجوز ‎و اطلاعات تماس"
-    },
-    "fr": {
-      "pageTitle": "Mentions légales et contact"
     }
   },
   "wohnen": {
@@ -359,8 +365,7 @@
     "en": {
       "location": "Location",
       "noPois": "No Points of Interest available",
-      "pois": "Points of Interest",
-      "pageTitle": "Points of Interest"
+      "pois": "Points of Interest"
     }
   }
 }

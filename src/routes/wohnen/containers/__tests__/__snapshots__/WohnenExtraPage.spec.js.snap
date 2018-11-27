@@ -1,70 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WohnenExtraPage should render detailed offer if hash is supplied 1`] = `
-<Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-    title="Test Angebot - Raumfrei - Augsburg"
-  />
-  <Translate(OfferDetail)
-    offer={
-      WohnenOfferModel {
-        "_createdDate": "2018-07-24T00:00:00.000Z",
-        "_email": "mail@mail.com",
-        "_formData": WohnenFormData {
-          "_accommodation": Object {
-            "location": "Augsburg",
-            "moveInDate": "2018-07-19T15:35:12.000Z",
-            "ofRooms": Array [
-              "kitchen",
-              "child2",
-              "child1",
-              "bed",
-            ],
-            "ofRoomsDiff": Array [
-              "bath",
-              "wc",
-              "child3",
-              "livingroom",
-              "hallway",
-              "store",
-              "basement",
-              "balcony",
-            ],
-            "title": "Test Angebot",
-            "totalArea": 120,
-            "totalRooms": 4,
-          },
-          "_costs": Object {
-            "additionalCosts": 200,
-            "baseRent": 1000,
-            "hotWaterInHeatingCosts": true,
-            "ofAdditionalServices": Array [
-              "garage",
-            ],
-            "ofAdditionalServicesDiff": Array [],
-            "ofRunningServices": Array [
-              "chimney",
-              "other",
-            ],
-            "ofRunningServicesDiff": Array [
-              "heating",
-              "water",
-              "garbage",
-            ],
-            "runningCosts": 1200,
-          },
-          "_landlord": Object {
-            "firstName": "Max",
-            "lastName": "Ammann",
-            "phone": "",
-          },
+<Translate(OfferDetail)
+  offer={
+    WohnenOfferModel {
+      "_createdDate": "2018-07-24T00:00:00.000Z",
+      "_email": "mail@mail.com",
+      "_formData": WohnenFormData {
+        "_accommodation": Object {
+          "location": "Augsburg",
+          "moveInDate": "2018-07-19T15:35:12.000Z",
+          "ofRooms": Array [
+            "kitchen",
+            "child2",
+            "child1",
+            "bed",
+          ],
+          "ofRoomsDiff": Array [
+            "bath",
+            "wc",
+            "child3",
+            "livingroom",
+            "hallway",
+            "store",
+            "basement",
+            "balcony",
+          ],
+          "title": "Test Angebot",
+          "totalArea": 120,
+          "totalRooms": 4,
         },
-      }
+        "_costs": Object {
+          "additionalCosts": 200,
+          "baseRent": 1000,
+          "hotWaterInHeatingCosts": true,
+          "ofAdditionalServices": Array [
+            "garage",
+          ],
+          "ofAdditionalServicesDiff": Array [],
+          "ofRunningServices": Array [
+            "chimney",
+            "other",
+          ],
+          "ofRunningServicesDiff": Array [
+            "heating",
+            "water",
+            "garbage",
+          ],
+          "runningCosts": 1200,
+        },
+        "_landlord": Object {
+          "firstName": "Max",
+          "lastName": "Ammann",
+          "phone": "",
+        },
+      },
     }
-  />
-</Fragment>
+  }
+/>
 `;
 
 exports[`WohnenExtraPage should render failure city does not support offer 1`] = `
@@ -81,11 +74,6 @@ exports[`WohnenExtraPage should render failure offer if offer is not found 1`] =
 
 exports[`WohnenExtraPage should render list if no hash is supplied 1`] = `
 <Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-    title="Raumfrei - Augsburg"
-  />
   <Caption
     title="Raumfrei"
   />

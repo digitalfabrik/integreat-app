@@ -3,8 +3,8 @@
 import type { Bag, Dispatch, GetState } from 'redux-first-router/dist/flow-types'
 import { Payload, citiesEndpoint, languagesEndpoint, eventsEndpoint } from '@integreat-app/integreat-api-client'
 
-import { LocationLayoutRoutes } from '../layout/containers/LocationLayout'
 import fetchData from './fetchData'
+import { LocationLayoutRoutes } from './route-configs/index'
 
 /**
  * This handles the loading of additional data for the location layout

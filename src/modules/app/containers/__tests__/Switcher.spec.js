@@ -18,22 +18,22 @@ import {
   CategoryModel
 } from '@integreat-app/integreat-api-client'
 import { shallow, mount } from 'enzyme'
-import { CATEGORIES_ROUTE } from '../../routes/categories'
-import { LANDING_ROUTE } from '../../routes/landing'
-import { MAIN_DISCLAIMER_ROUTE } from '../../routes/mainDisclaimer'
-import { EXTRAS_ROUTE } from '../../routes/extras'
-import { EVENTS_ROUTE } from '../../routes/events'
-import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
-import { SEARCH_ROUTE } from '../../routes/search'
-import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
+import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
+import { LANDING_ROUTE } from '../../route-configs/LandingRouteConfig'
+import { MAIN_DISCLAIMER_ROUTE } from '../../route-configs/MainDisclaimerRouteConfig'
+import { EXTRAS_ROUTE } from '../../route-configs/ExtrasRouteConfig'
+import { EVENTS_ROUTE } from '../../route-configs/EventsRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../route-configs/DisclaimerRouteConfig'
+import { SEARCH_ROUTE } from '../../route-configs/SearchRouteConfig'
+import { I18N_REDIRECT_ROUTE } from '../../route-configs/I18nRedirectRouteConfig'
 import moment from 'moment-timezone'
-import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
-import { WOHNEN_ROUTE } from '../../routes/wohnen'
+import { SPRUNGBRETT_ROUTE } from '../../route-configs/SprungbrettRouteConfig'
+import { WOHNEN_ROUTE } from '../../route-configs/WohnenRouteConfig'
 import theme from '../../../theme/constants/theme'
 import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
-import { POIS_ROUTE } from '../../routes/pois'
+import { POIS_ROUTE } from '../../route-configs/PoisRouteConfig'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -220,11 +220,11 @@ describe('Switcher', () => {
   })
 
   it('should return a spinner if the data has not been fetched yet', () => {
-    expect(Switcher.renderFailureLoadingComponents([fetchingPayload])).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents({payload: fetchingPayload})).toMatchSnapshot()
   })
 
   it('should return a failure if there was an error during fetching', () => {
-    expect(Switcher.renderFailureLoadingComponents([errorPayload])).toMatchSnapshot()
+    expect(Switcher.renderFailureLoadingComponents({payload: errorPayload})).toMatchSnapshot()
   })
 
   describe('should get the right page if data has been fetched and', () => {

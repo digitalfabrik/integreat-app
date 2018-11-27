@@ -5,26 +5,14 @@ exports[`GeneralHeader should match snapshot 1`] = `
   actionItems={
     Array [
       HeaderActionItem {
-        "_href": Object {
-          "payload": Object {
-            "param": undefined,
-          },
-          "type": "I18N_REDIRECT",
-        },
+        "_href": "/",
         "_iconSrc": "test-file-stub",
         "_node": undefined,
         "_text": undefined,
       },
     ]
   }
-  logoHref={
-    Object {
-      "payload": Object {
-        "param": undefined,
-      },
-      "type": "I18N_REDIRECT",
-    }
-  }
+  logoHref="/"
   viewportSmall={true}
 />
 `;

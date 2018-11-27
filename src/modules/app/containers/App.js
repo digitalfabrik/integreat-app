@@ -7,7 +7,6 @@ import createReduxStore from '../createReduxStore'
 import I18nProvider from '../../i18n/containers/I18nProvider'
 
 import PlatformProvider from '../../platform/containers/PlatformProvider'
-import routesMap from '../routesMap'
 import Switcher from './Switcher'
 import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 
@@ -19,7 +18,7 @@ class App extends React.Component<PropsType> {
 
   constructor () {
     super()
-    this.store = createReduxStore({}, routesMap)
+    this.store = createReduxStore({})
   }
 
   render () {

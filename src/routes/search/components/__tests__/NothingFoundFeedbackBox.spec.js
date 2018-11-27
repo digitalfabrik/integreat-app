@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { NothingFoundFeedbackBox, StyledSubmitButton } from '../NothingFoundFeedbackBox'
-import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
+import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import { shallow } from 'enzyme'
 
 describe('NothingFoundFeedbackBox', () => {
