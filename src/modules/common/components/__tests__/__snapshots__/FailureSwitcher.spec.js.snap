@@ -24,22 +24,6 @@ exports[`FailureSwitcher render component not found failure should render a extr
 />
 `;
 
-exports[`FailureSwitcher should render a LanguageFailure if there is a LanguageNotFoundError 1`] = `
-<Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      not-found.pageTitle
-    </title>
-  </HelmetWrapper>
-  <Connect(Translate(LanguageFailure))
-    city="augsburg"
-  />
-</Fragment>
-`;
-
 exports[`FailureSwitcher should render a content not found failure if there is a ContentNotFoundError 1`] = `
 <Fragment>
   <HelmetWrapper
