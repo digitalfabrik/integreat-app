@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import 'react-dropdown/style.css'
 
 import CityModel from '../../../modules/endpoint/models/CityModel'
 import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'

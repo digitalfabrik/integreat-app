@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import 'react-dropdown/style.css'
 
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
