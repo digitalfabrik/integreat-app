@@ -7,7 +7,7 @@ import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
@@ -26,6 +26,7 @@ export type FeedbackRatingType = 'up' | 'down'
 type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
+  events: ?Array<EventModel>,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
@@ -98,7 +99,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const {viewportSmall, children, location, darkMode, languageChangePaths} = this.props
+    const {viewportSmall, children, location, darkMode, languageChangePaths, events} = this.props
     const type = location.type
     const {city, language} = location.payload
 
@@ -115,6 +116,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
                                            languageChangePaths={languageChangePaths}
+                                           location={location}
+                                           events={events}
+                                           viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
                    footer={<LocationFooter onClick={this.onFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}

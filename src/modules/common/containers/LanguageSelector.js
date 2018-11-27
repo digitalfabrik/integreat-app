@@ -1,27 +1,17 @@
 // @flow
 
 import React from 'react'
-import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
-
-import { PoiModel, LanguageModel, CategoriesMapModel, EventModel } from '@integreat-app/integreat-api-client'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
-
 import type { Location } from 'redux-first-router'
-import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import map from 'lodash/map'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
-  languages: Array<LanguageModel>,
   location: Location,
-  categories: CategoriesMapModel,
-  events: Array<EventModel>,
-  pois: Array<PoiModel>,
   isHeaderActionItem: boolean,
   languageChangePaths: ?LanguageChangePathsType,
   t: TFunction
@@ -40,11 +30,14 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
     }
 
     return (
-      map(languageChangePaths, (value, key) => new SelectorItemModel({
-        code: key,
-        name: value.name,
-        href: key !== activeItemCode ? value.path : location.pathname
-      }))
+      languageChangePaths.map(languageChangePath => {
+        const {code, name, path} = languageChangePath
+        return new SelectorItemModel({
+          code,
+          name,
+          href: code !== activeItemCode ? path : location.pathname
+        })
+      })
     )
   }
 
@@ -68,14 +61,4 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
   }
 }
 
-const mapStateToProps = (state: StateType) => ({
-  location: state.location,
-  languages: state.languages.data,
-  categories: state.categories.data,
-  events: state.events.data,
-  pois: state.pois.data
-})
-
-export default compose(connect(mapStateToProps), withNamespaces('layout'))(
-  LanguageSelector
-)
+export default withNamespaces('layout')(LanguageSelector)

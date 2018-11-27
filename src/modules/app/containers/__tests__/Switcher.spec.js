@@ -186,12 +186,22 @@ describe('Switcher', () => {
   const errorPayload = new Payload(false, 'https://random.api.json', null, new Error('fake news'))
   const fetchingPayload = new Payload(true)
 
+  const createLocation = (currentRoute: string) => ({
+    type: currentRoute,
+    payload: {city: 'city1', language: 'de'},
+    prev: {payload: {param: 'param'}}
+  })
+
+  const t = (key: ?string): string => key || ''
+
+  const toggleDarkMode = () => {}
+
   const createSwitcher = (currentRoute: string): React.Node =>
-    <Switcher viewportSmall={false} currentRoute={currentRoute} citiesPayload={citiesPayload}
+    <Switcher viewportSmall={false} location={createLocation(currentRoute)} citiesPayload={citiesPayload}
               categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
-              poisPayload={poisPayload}
-              disclaimerPayload={disclaimerPayload} languages={languages} city={'city1'} language={'de'}
-              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} param={'param'} darkMode />
+              poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
+              toggleDarkMode={toggleDarkMode} />
 
   describe('layout', () => {
     it('should render a location layout if the current route is a location layout route', () => {

@@ -38,7 +38,7 @@ import type { TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 
-export type LanguageChangePathsType = {[string]: {path: string, name: string}}
+export type LanguageChangePathsType = Array<{code: string, path: string | null, name: string}>
 
 type PropsType = {|
   citiesPayload: Payload<Array<CityModel>>,
@@ -96,12 +96,11 @@ export class Switcher extends React.Component<PropsType> {
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
     const {languages} = this.props
     const payloads = this.getRequiredPayloads(routeConfig)
-    return languages && reduce(languages, (result, language) => (
-      {[language.code]: {
-        path: routeConfig.getLanguageChangePath({payloads, location, language: language.code}),
-        name: language.name},
-      ...result}
-    ), {})
+    return languages && languages.map(language => ({
+      path: routeConfig.getLanguageChangePath({payloads, location, language: language.code}),
+      name: language.name,
+      code: language.code
+    }))
   }
 
   renderPage = (): React.Node => {
@@ -152,7 +151,8 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   render () {
-    const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode} = this.props
+    const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload} =
+      this.props
     const currentRoute = location.type
 
     const error = this.checkRouteParams()
@@ -174,6 +174,7 @@ export class Switcher extends React.Component<PropsType> {
                         location={location}
                         categories={categoriesPayload.data}
                         cities={citiesPayload.data}
+                        events={eventsPayload.data}
                         darkMode={darkMode}
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}

@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import ReactHelmet from 'react-helmet'
-import map from 'lodash/map'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
@@ -13,15 +12,16 @@ type PropsType = {|
   cityModel: ?CityModel
 |}
 
-export class Helmet extends React.Component<PropsType> {
+class Helmet extends React.Component<PropsType> {
   getLanguageLinks (): React.Node {
     const {languageChangePaths} = this.props
     if (!languageChangePaths) {
       return null
     }
 
-    return map(languageChangePaths, (value, key: string) => {
-      return <link key={key} rel='alternate' hrefLang={key} href={value.path} />
+    return languageChangePaths.map(languageChangePath => {
+      const {code, path} = languageChangePath
+      return path && <link key={code} rel='alternate' hrefLang={code} href={path} />
     })
   }
 
