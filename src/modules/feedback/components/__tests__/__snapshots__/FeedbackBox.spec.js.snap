@@ -9,10 +9,7 @@ exports[`FeedbackBox should match snapshot 1`] = `
   <FeedbackBox__Description>
     feedbackType
   </FeedbackBox__Description>
-  <StateManager
-    defaultInputValue=""
-    defaultMenuIsOpen={false}
-    defaultValue={null}
+  <FeedbackBox__StyledSelect
     onChange={[Function]}
     options={
       Array [
