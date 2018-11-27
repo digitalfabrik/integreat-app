@@ -20,6 +20,7 @@ import {
 import htmlparser2 from 'htmlparser2'
 import downloadResources from './downloadResources'
 import getExtension from '../getExtension'
+import request from '../request'
 
 const parseCategories = categories => {
   const urls = new Set<string>()
@@ -52,7 +53,7 @@ function * fetchCategories (city: string, code: string, urls: Set<string>): Saga
     language: code
   }
 
-  const categoriesPayload = yield call(categoriesEndpoint._loadData.bind(categoriesEndpoint), params)
+  const categoriesPayload = yield call(request.bind(null, categoriesEndpoint, params))
   const categoriesMap: CategoriesMapModel = categoriesEndpoint.mapResponse(categoriesPayload.data, params)
   const categories = categoriesMap.toArray()
 
@@ -87,7 +88,7 @@ function * fetchLanguageCodes (city: string): Saga<Array<string>> {
   try {
     const params = {city}
 
-    const languagesPayload = yield call(languagesEndpoint._loadData.bind(languagesEndpoint), params)
+    const languagesPayload = yield call(request.bind(null, languagesEndpoint, params))
     const languageModels: Array<LanguageModel> = languagesEndpoint.mapResponse(languagesPayload.data, params)
     const codes = languageModels.map(model => model.code)
     const success: LanguagesFetchSucceededActionType = {
