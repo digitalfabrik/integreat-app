@@ -37,7 +37,8 @@ export const SubmitButton = styled.span`
 `
 
 const StyledSelect = styled(Select)`
-  &, & * {
+  &,
+  & * {
     cursor: pointer !important;
   }
 `
