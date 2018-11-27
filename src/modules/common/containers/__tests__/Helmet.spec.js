@@ -25,7 +25,14 @@ describe('Helmet', () => {
 
   const languageChangePaths = [
     {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
-    {code: 'en', name: 'English', path: '/augsburg/en'}
+    {code: 'en', name: 'English', path: '/augsburg/en'},
+    {code: 'ar', name: 'Arabic', path: '/augsburg/ar'}
+  ]
+
+  const inactiveLanguageChangePaths = [
+    {code: 'de', name: 'Deutsch', path: '/testinstanz/de'},
+    {code: 'en', name: 'English', path: '/testinstanz/en'},
+    {code: 'ar', name: 'Arabic', path: '/testinstanz/ar'}
   ]
 
   const pageTitle = 'PageTitle'
@@ -46,7 +53,7 @@ describe('Helmet', () => {
     const helmet = shallow(
       <Helmet pageTitle={pageTitle}
               metaDescription={null}
-              languageChangePaths={languageChangePaths}
+              languageChangePaths={inactiveLanguageChangePaths}
               cityModel={hiddenCity} />
     )
 

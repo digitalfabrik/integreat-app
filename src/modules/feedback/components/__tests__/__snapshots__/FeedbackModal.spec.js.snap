@@ -21,7 +21,6 @@ exports[`FeedbackModal should match snapshot 1`] = `
         ]
       }
       closeFeedbackModal={[Function]}
-      extras={null}
       id={1234}
       isPositiveRatingSelected={true}
       location={

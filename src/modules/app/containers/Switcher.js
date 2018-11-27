@@ -37,6 +37,7 @@ import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
+import LanguageFailure from '../../common/containers/LanguageFailure'
 
 export type LanguageChangePathsType = Array<{code: string, path: string | null, name: string}>
 
@@ -103,8 +104,24 @@ export class Switcher extends React.Component<PropsType> {
     }))
   }
 
-  renderPage = (): React.Node => {
+  renderHelmet = (): React.Node => {
     const {location, citiesPayload, t} = this.props
+    const routeConfig = getRouteConfig(location.type)
+    const payloads = this.getRequiredPayloads(routeConfig)
+    const cityModel = citiesPayload.data && citiesPayload.data.find(city => city.code === location.payload.city)
+    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel ? cityModel.name : '', location})
+    const metaDescription = routeConfig.getMetaDescription(t)
+    const languageChangePaths = this.getLanguageChangePaths(routeConfig)
+    return (
+      <Helmet pageTitle={pageTitle}
+              metaDescription={metaDescription}
+              languageChangePaths={languageChangePaths}
+              cityModel={cityModel} />
+    )
+  }
+
+  renderPage = (): React.Node => {
+    const {location} = this.props
 
     const currentRoute = location.type
 
@@ -118,21 +135,10 @@ export class Switcher extends React.Component<PropsType> {
       }
     }
     const RouteContent = getRouteContent(currentRoute)
-    const routeConfig = getRouteConfig(currentRoute)
-    const payloads = this.getRequiredPayloads(routeConfig)
-    const cityModel = citiesPayload.data && citiesPayload.data.find(city => city.code === location.payload.city)
-    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel ? cityModel.name : '', location})
-    const metaDescription = routeConfig.getMetaDescription(t)
-    const languageChangePaths = this.getLanguageChangePaths(routeConfig)
+    const payloads = this.getRequiredPayloads(getRouteConfig(currentRoute))
 
     return Switcher.renderFailureLoadingComponents(payloads) ||
-      <>
-        <Helmet pageTitle={pageTitle}
-                metaDescription={metaDescription}
-                languageChangePaths={languageChangePaths}
-                cityModel={cityModel} />
-        <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
-      </>
+      <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
   }
 
   /**
@@ -155,20 +161,21 @@ export class Switcher extends React.Component<PropsType> {
       this.props
     const currentRoute = location.type
 
+    const routeConfig = getRouteConfig(location.type)
+    const payloads = this.getRequiredPayloads(routeConfig)
+    const feedbackReference = routeConfig.getFeedbackReference({location, payloads})
+    const languageChangePaths = this.getLanguageChangePaths(routeConfig)
+
     const error = this.checkRouteParams()
     if (error) {
       return (
         <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />} darkMode={darkMode}>
-          <FailureSwitcher error={error} />
+          {error instanceof LanguageNotFoundError ? <LanguageFailure cities={citiesPayload.data} location={location} /> : <FailureSwitcher error={error} />}
         </Layout>
       )
     }
 
     if (LocationLayoutRoutes.includes(currentRoute)) {
-      const routeConfig = getRouteConfig(location.type)
-      const payloads = this.getRequiredPayloads(routeConfig)
-      const feedbackReference = routeConfig.getFeedbackReference({location, payloads})
-      const languageChangePaths = this.getLanguageChangePaths(routeConfig)
       return (
         <LocationLayout feedbackReference={feedbackReference}
                         location={location}
@@ -179,6 +186,7 @@ export class Switcher extends React.Component<PropsType> {
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
                         languageChangePaths={languageChangePaths}>
+          {this.renderHelmet()}
           {this.renderPage()}
         </LocationLayout>
       )
@@ -190,6 +198,7 @@ export class Switcher extends React.Component<PropsType> {
                   <GeneralHeader viewportSmall={viewportSmall} />
                 }
                 darkMode={darkMode}>
+          {this.renderHelmet()}
           {this.renderPage()}
         </Layout>
       )

@@ -3,7 +3,6 @@
 import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
-import LanguageFailure from '../containers/LanguageFailure'
 import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
 import Helmet from 'react-helmet'
 
@@ -58,8 +57,6 @@ export class FailureSwitcher extends React.Component<PropsType> {
     const error = this.props.error
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
-    } else if (error instanceof LanguageNotFoundError) {
-      return <LanguageFailure city={error.city} />
     } else {
       return <Failure errorMessage={error.message} />
     }
