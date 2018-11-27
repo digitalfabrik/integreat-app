@@ -17,15 +17,15 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetCity: string = ownProps.navigation.getParam('city')
   const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity}/${language}`
 
-  const cities = state.cities.json
+  const cities = state.cities
 
-  if (!cities) {
+  if (!cities.json || cities.error) {
     throw new Error('There are no cities in state!')
   }
 
   const categories = state.categories[targetCity]
 
-  if (!categories) {
+  if (!categories || categories.error) {
     throw new Error(`The city ${targetCity} is not in the categories state!`)
   }
 
@@ -37,7 +37,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const fileCache = state.fileCache[targetCity]
 
-  if (!fileCache || !fileCache.ready) {
+  if (!fileCache || !fileCache.ready || fileCache.error) {
     throw new Error('There are no files in state!')
   }
 
