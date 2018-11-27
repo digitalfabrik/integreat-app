@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Caption from '../../../modules/common/components/Caption'
-import { Helmet } from 'react-helmet'
 
 type PropsType = {||}
 
@@ -10,9 +9,6 @@ class MainDisclaimerPage extends React.Component<PropsType> {
   render () {
     return (
       <div>
-        <Helmet>
-          <title>Impressum und Datenschutz - Integreat</title>
-        </Helmet>
         <Caption title={'Impressum und Datenschutz'} />
         <h3>Angaben gemäß § 5 TMG:</h3>
         <p>

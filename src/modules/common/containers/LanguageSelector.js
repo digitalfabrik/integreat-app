@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import { LanguageModel, CategoriesMapModel, EventModel, PoiModel } from '@integreat-app/integreat-api-client'
+import { PoiModel, LanguageModel, CategoriesMapModel, EventModel } from '@integreat-app/integreat-api-client'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
@@ -13,8 +13,7 @@ import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-
-import getLanguageChangePath from '../../app/getLanguageChangePath'
+import { getRouteConfig } from '../../app/route-configs/index'
 
 type PropsType = {|
   languages: Array<LanguageModel>,
@@ -38,13 +37,8 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
     return (
       languages &&
       languages.map(language => {
-        const changePath = getLanguageChangePath({
-          categories,
-          events,
-          location,
-          pois,
-          languageCode: language.code
-        })
+        const changePath = getRouteConfig(location.type).getLanguageChangePath(
+          {location, categories, events, pois, language: language.code})
 
         return new SelectorItemModel({
           code: language.code,

@@ -18,7 +18,7 @@ describe('Header', () => {
         theme={darkTheme}
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
-        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        actionItems={[new HeaderActionItem({href: '/random_route'})]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={
           <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
@@ -34,7 +34,7 @@ describe('Header', () => {
         theme={darkTheme}
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
-        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        actionItems={[new HeaderActionItem({href: '/random_route'})]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={
           <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
@@ -52,7 +52,7 @@ describe('Header', () => {
         theme={darkTheme}
         platform={new Platform()}
         logoHref={{type: 'RANDOM_ROUTE'}}
-        actionItems={[new HeaderActionItem({href: {type: 'RANDOM_ROUTE'}})]}
+        actionItems={[new HeaderActionItem({href: '/random_route'})]}
         navigationItems={
           <HeaderNavigationItem href={{type: 'ANOTHER_RANDOM_ROUTE'}} text='text1' active selected tooltip='tooltip1' />
         }
