@@ -56,7 +56,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
     this.getRoutePath({city: location.payload.city, language})
 
   getPageTitle = ({cityName, payloads, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {

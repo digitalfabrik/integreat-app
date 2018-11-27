@@ -31,7 +31,7 @@ class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPa
 
   getRoutePath = ({city, language}: SearchRouteParamsType): string => `/${city}/${language}/search`
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
     this.getRoutePath({city: location.payload.city, language})
 
   getPageTitle = ({cityName, t}: GetPageTitleParamsType<RequiredPayloadsType>) =>

@@ -25,8 +25,7 @@ export type AllPayloadsType = {|
   disclaimerPayload: Payload<PageModel>
 |}
 
-export type GetLanguageChangePathParamsType = {|location: Location, events: ?Array<EventModel>,
-  categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, language: string|}
+export type GetLanguageChangePathParamsType<P> = {|location: Location, payloads: P, language: string|}
 
 export type GetPageTitleParamsType<P> = {|t: TFunction, cityName: string, location: Location, payloads: P|}
 
@@ -38,7 +37,7 @@ export interface RouteConfig<T, P> {
   name: string,
   route: Route,
   getRoutePath: T => string,
-  getLanguageChangePath: GetLanguageChangePathParamsType => string | null,
+  getLanguageChangePath: GetLanguageChangePathParamsType<P> => string | null,
   getPageTitle: GetPageTitleParamsType<P> => string,
   getRequiredPayloads: AllPayloadsType => P,
   getMetaDescription: (t: TFunction) => string | null,

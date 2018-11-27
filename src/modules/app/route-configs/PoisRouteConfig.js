@@ -27,8 +27,9 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getRoutePath = ({city, language}: PoisRouteParamsType): string => `/${city}/${language}/locations`
 
-  getLanguageChangePath = ({location, pois, language}: GetLanguageChangePathParamsType) => {
+  getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
     const {city, poiId} = location.payload
+    const pois = payloads.pois.data
     if (pois && poiId) {
       const poi = pois.find(_poi => _poi.path === location.pathname)
       return (poi && poi.availableLanguages.get(language)) || null

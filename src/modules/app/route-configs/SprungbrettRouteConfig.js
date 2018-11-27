@@ -54,7 +54,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
     this.getRoutePath({city: location.payload.city, language})
 
   getPageTitle = ({cityName, payloads}: GetPageTitleParamsType<RequiredPayloadsType>) => {

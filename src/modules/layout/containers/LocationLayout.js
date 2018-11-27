@@ -19,6 +19,7 @@ import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
 import type { FeedbackReferenceType } from '../../app/route-configs/RouteConfig'
+import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 export type FeedbackRatingType = 'up' | 'down'
 
@@ -30,7 +31,8 @@ type PropsType = {|
   location: LocationState,
   toggleDarkMode: () => void,
   darkMode: boolean,
-  feedbackReference: FeedbackReferenceType
+  feedbackReference: FeedbackReferenceType,
+  languageChangePaths: ?LanguageChangePathsType
 |}
 
 type LocalStateType = {|
@@ -96,7 +98,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const {viewportSmall, children, location, darkMode} = this.props
+    const {viewportSmall, children, location, darkMode, languageChangePaths} = this.props
     const type = location.type
     const {city, language} = location.payload
 
@@ -112,6 +114,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     return <Layout asideStickyTop={this.state.asideStickyTop}
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
+                                           languageChangePaths={languageChangePaths}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
                    footer={<LocationFooter onClick={this.onFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
