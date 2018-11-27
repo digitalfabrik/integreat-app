@@ -9,7 +9,10 @@ exports[`FeedbackBox should match snapshot 1`] = `
   <FeedbackBox__Description>
     feedbackType
   </FeedbackBox__Description>
-  <FeedbackBox__StyledDropdown
+  <StateManager
+    defaultInputValue=""
+    defaultMenuIsOpen={false}
+    defaultValue={null}
     onChange={[Function]}
     options={
       Array [
