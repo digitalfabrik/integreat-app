@@ -39,8 +39,9 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
 
-  getLanguageChangePath = ({location, categories, language}: GetLanguageChangePathParamsType) => {
+  getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
     const {city} = location.payload
+    const categories = payloads.categories.data
     if (categories) {
       const category = categories.findCategoryByPath(location.pathname)
       if (category && category.id !== 0) {

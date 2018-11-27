@@ -37,7 +37,7 @@ class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, Re
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({disclaimer: payloads.disclaimerPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
     this.getRoutePath({city: location.payload.city, language})
 
   getPageTitle = ({t, cityName}: GetPageTitleParamsType<RequiredPayloadsType>) =>

@@ -13,7 +13,8 @@ import type { Location } from 'redux-first-router'
 import type { StateType } from '../../app/StateType'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import { getRouteConfig } from '../../app/route-configs/index'
+import map from 'lodash/map'
+import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
   languages: Array<LanguageModel>,
@@ -22,6 +23,7 @@ type PropsType = {|
   events: Array<EventModel>,
   pois: Array<PoiModel>,
   isHeaderActionItem: boolean,
+  languageChangePaths: ?LanguageChangePathsType,
   t: TFunction
 |}
 
@@ -30,22 +32,19 @@ type PropsType = {|
  */
 export class LanguageSelector extends React.PureComponent<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
-    const {categories, events, pois, location, languages} = this.props
+    const {languageChangePaths, location} = this.props
     const activeItemCode = location.payload.language
-    const pathname = location.pathname
+
+    if (!languageChangePaths) {
+      return []
+    }
 
     return (
-      languages &&
-      languages.map(language => {
-        const changePath = getRouteConfig(location.type).getLanguageChangePath(
-          {location, categories, events, pois, language: language.code})
-
-        return new SelectorItemModel({
-          code: language.code,
-          name: language.name,
-          href: language.code !== activeItemCode ? changePath : pathname
-        })
-      })
+      map(languageChangePaths, (value, key) => new SelectorItemModel({
+        code: key,
+        name: value.name,
+        href: key !== activeItemCode ? value.path : location.pathname
+      }))
     )
   }
 

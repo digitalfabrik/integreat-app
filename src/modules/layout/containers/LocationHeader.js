@@ -3,7 +3,6 @@
 import type { Element } from 'react'
 import React from 'react'
 import { withNamespaces } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
@@ -15,15 +14,14 @@ import ExtrasRouteConfig, { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasR
 import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
-import { connect } from 'react-redux'
 
 import type { LocationState } from 'redux-first-router'
 import { EventModel } from '@integreat-app/integreat-api-client'
-import type { StateType } from '../../../modules/app/StateType'
 import type { TFunction } from 'react-i18next'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
+import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
   events: ?Array<EventModel>,
@@ -32,12 +30,13 @@ type PropsType = {|
   t: TFunction,
   isEventsEnabled: boolean,
   isExtrasEnabled: boolean,
-  onStickyTopChanged: number => void
+  onStickyTopChanged: number => void,
+  languageChangePaths: ?LanguageChangePathsType
 |}
 
 export class LocationHeader extends React.Component<PropsType> {
   getActionItems (): Array<HeaderActionItem> {
-    const {location, t} = this.props
+    const {location, languageChangePaths, t} = this.props
     const {city, language} = location.payload
     return [
       new HeaderActionItem({
@@ -51,7 +50,7 @@ export class LocationHeader extends React.Component<PropsType> {
         text: t('changeLocation')
       }),
       new HeaderActionItem({
-        node: <LanguageSelector isHeaderActionItem />
+        node: <LanguageSelector languageChangePaths={languageChangePaths} isHeaderActionItem />
       })
     ]
   }
@@ -121,13 +120,4 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 }
 
-const mapStateToProps = (state: StateType) => ({
-  location: state.location,
-  viewportSmall: state.viewport.is.small,
-  languages: state.languages.data,
-  events: state.events.data
-})
-
-export default compose(connect(mapStateToProps), withNamespaces('layout'))(
-  LocationHeader
-)
+export default withNamespaces('layout')(LocationHeader)

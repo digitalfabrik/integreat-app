@@ -25,8 +25,9 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   name = EVENTS_ROUTE
   route = eventsRoute
 
-  getLanguageChangePath = ({location, events, language}: GetLanguageChangePathParamsType) => {
+  getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
     const {city, eventId} = location.payload
+    const events = payloads.events.data
     if (events && eventId) {
       const event = events.find(_event => _event.path === location.pathname)
       return (event && event.availableLanguages.get(language)) || null
