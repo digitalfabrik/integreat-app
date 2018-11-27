@@ -7,7 +7,7 @@ import type {
   CitiesFetchSucceededActionType,
   FetchCitiesRequestActionType
 } from '../../app/StoreActionType'
-import citiesEndpoint from '../endpoints/cities'
+import { citiesEndpoint } from '@integreat-app/integreat-api-client'
 
 function * fetch (action: FetchCitiesRequestActionType): Saga<void> {
   try {
