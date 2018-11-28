@@ -19,8 +19,10 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * Run `yarn android`
 
 ### iOS
-* Update CocoaPods
+* Update CocoaPods: `cd ios && pod install`
 * Run `yarn ios`
+
+Note: The command `pod install` uses the versions from the Podfile.lock. `pod update` updates the Podfile.lock 
 
 ### If you encounter problems:
     
