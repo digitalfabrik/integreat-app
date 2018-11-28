@@ -24,6 +24,8 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 
 Note: The command `pod install` uses the versions from the Podfile.lock. `pod update` updates the Podfile.lock 
 
+Note: If you are using Xcode, always open `project.xcworkspace`
+
 ### If you encounter problems:
     
 #### `ERROR watch... ENOSPC` when running `yarn start` on Linux
