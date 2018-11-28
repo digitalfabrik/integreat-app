@@ -1,5 +1,8 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
+
+# https://github.com/ivpusic/react-native-image-crop-picker/issues/680#issuecomment-398636839
+install! 'cocoapods',         :deterministic_uuids => false
 
 target 'Integreat' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
@@ -7,6 +10,8 @@ target 'Integreat' do
 
   # Flexbox Layout Manager Used By React Native
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
+
+  # Third party deps podspec link  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # React Native
   pod 'React', path: '../node_modules/react-native', subspecs: [
@@ -16,7 +21,6 @@ target 'Integreat' do
     'RCTActionSheet',
     'RCTAnimation',
     'RCTBlob',
-    'RCTCameraRoll',
     'RCTGeolocation',
     'RCTImage',
     'RCTNetwork',
@@ -26,7 +30,7 @@ target 'Integreat' do
     'RCTText',
     'RCTVibration',
     'RCTWebSocket',
-    'RCTLinkingIOS'
+
   ]
 
   # Pods for Integreat
@@ -43,19 +47,13 @@ target 'Integreat' do
   # react-native-vector-icons
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  target 'IntegreatTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == "React"
-      target.remove_from_project
+  # https://github.com/react-native-community/react-native-svg/issues/621#issuecomment-371639854
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "React"
+        target.remove_from_project
+      end
     end
   end
-end
-
-
 end
 
