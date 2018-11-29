@@ -28,6 +28,9 @@ const extrasRoute: Route = {
 class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPayloadsType> {
   name = EXTRAS_ROUTE
   route = extrasRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: ExtrasRouteParamsType): string => `/${city}/${language}/extras`
 

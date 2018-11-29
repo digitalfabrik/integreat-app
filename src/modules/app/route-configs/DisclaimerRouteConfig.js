@@ -33,6 +33,9 @@ const disclaimerRoute: Route = {
 class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, RequiredPayloadsType> {
   name = DISCLAIMER_ROUTE
   route = disclaimerRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({disclaimer: payloads.disclaimerPayload})

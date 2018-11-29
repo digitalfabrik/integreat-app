@@ -47,6 +47,9 @@ const sprungbrettRoute: Route = {
 class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, RequiredPayloadsType> {
   name = SPRUNGBRETT_ROUTE
   route = sprungbrettRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: SprungbrettRouteParamsType): string =>
     `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`

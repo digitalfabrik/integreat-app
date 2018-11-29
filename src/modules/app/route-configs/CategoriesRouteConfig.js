@@ -33,6 +33,9 @@ const categoriesRoute: Route = {
 class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, RequiredPayloadsType> {
   name = CATEGORIES_ROUTE
   route = categoriesRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: CategoriesRouteParamsType): string => `/${city}/${language}`
 

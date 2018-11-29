@@ -24,6 +24,9 @@ const poisRoute: Route = {
 class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloadsType> {
   name = POIS_ROUTE
   route = poisRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: PoisRouteParamsType): string => `/${city}/${language}/locations`
 
