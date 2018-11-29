@@ -50,6 +50,7 @@ target 'Integreat' do
   pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
   # react-native-vector-icons
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler/ios'
 
   # https://github.com/react-native-community/react-native-svg/issues/621#issuecomment-371639854
   post_install do |installer|

@@ -1,5 +1,12 @@
 PODS:
+  - boost-for-react-native (1.63.0)
+  - DoubleConversion (1.1.6)
   - FLAnimatedImage (1.0.12)
+  - Folly (2016.10.31.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.5)
   - React (0.57.6):
     - React/Core (= 0.57.6)
   - react-native-fast-image (5.1.1):
@@ -46,6 +53,8 @@ PODS:
     - React/RCTBlob
   - rn-fetch-blob (0.10.6):
     - React/Core
+  - RNGestureHandler (1.0.10):
+    - React
   - RNPDF (0.4.1):
     - React
   - RNVectorIcons (6.1.0):
@@ -57,6 +66,9 @@ PODS:
   - yoga (0.57.6.React)
 
 DEPENDENCIES:
+  - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
+  - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - "react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -75,16 +87,24 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler/ios`)
   - RNPDF (from `../node_modules/react-native-view-pdf`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
     - FLAnimatedImage
     - SDWebImage
 
 EXTERNAL SOURCES:
+  DoubleConversion:
+    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  Folly:
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+  glog:
+    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
   react-native-fast-image:
@@ -95,6 +115,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-webview"
   rn-fetch-blob:
     :path: "../node_modules/rn-fetch-blob"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler/ios"
   RNPDF:
     :path: "../node_modules/react-native-view-pdf"
   RNVectorIcons:
@@ -103,17 +125,22 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
 
 SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
+  glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
   react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
+  RNGestureHandler: 968e4453152673aedcbbb7c1ada6700c214cea7a
   RNPDF: f27f11d7dbbb49da65375c401eca73b7ef1d7b00
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 118366a84c8582df43e47ed05179e86979e0d59a
+PODFILE CHECKSUM: 7790fc00a07ddfb0e8e3675ce2c281be953cca1b
 
 COCOAPODS: 1.5.3
