@@ -52,6 +52,11 @@ target 'Integreat' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler/ios'
 
+  target 'IntegreatTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
   # https://github.com/react-native-community/react-native-svg/issues/621#issuecomment-371639854
   post_install do |installer|
     installer.pods_project.targets.each do |target|
