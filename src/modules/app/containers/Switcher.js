@@ -14,19 +14,14 @@ import {
   PageModel,
   LanguageModel
 } from '@integreat-app/integreat-api-client'
-import LanguageNotFoundError from '../errors/LanguageNotFoundError'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
-import { NOT_FOUND } from 'redux-first-router'
-import CityNotFoundError from '../errors/CityNotFoundError'
 import LoadingSpinner from '../../common/components/LoadingSpinner'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
-import { LANDING_ROUTE } from '../route-configs/LandingRouteConfig'
-import { MAIN_DISCLAIMER_ROUTE } from '../route-configs/MainDisclaimerRouteConfig'
-import { getRouteConfig, LocationLayoutRoutes } from '../route-configs'
+import { getRouteConfig } from '../route-configs'
 import { getRouteContent } from '../routeContents'
 import reduce from 'lodash/reduce'
 import find from 'lodash/find'
@@ -124,16 +119,6 @@ export class Switcher extends React.Component<PropsType> {
     const {location} = this.props
 
     const currentRoute = location.type
-
-    if (currentRoute === NOT_FOUND) {
-      // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
-      // "disclaimer" nor a city, so we want to show an error that the param is not an available city
-      const param = location.prev.payload.param
-      if (param) {
-        const error = new CityNotFoundError({city: param})
-        return <FailureSwitcher error={error} />
-      }
-    }
     const RouteContent = getRouteContent(currentRoute)
     const payloads = this.getRequiredPayloads(getRouteConfig(currentRoute))
 
@@ -142,44 +127,38 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   /**
-   * Checks whether the city and language params are valid
+   * Checks whether language param is valid
    * @return {*}
    */
-  checkRouteParams (): ?Error {
+  isLanguageInvalid (): boolean {
     const {location, citiesPayload, languages} = this.props
     const {city, language} = location.payload
-    if (city && citiesPayload.data && !citiesPayload.data.find(_city => _city.code === city)) {
-      return new CityNotFoundError({city})
-    } else if (language && city && citiesPayload.data && languages && !languages.find(lang => lang.code === language)) {
-      return new LanguageNotFoundError({city, language})
-    }
-    return null
+    return language && city && citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
   }
 
-  render () {
+  renderLayoutWithPage (): React.Node {
     const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload} =
       this.props
-    const currentRoute = location.type
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = this.getRequiredPayloads(routeConfig)
     const feedbackReference = routeConfig.getFeedbackReference({location, payloads})
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
-    const error = this.checkRouteParams()
-    if (error) {
+    const error = this.isLanguageInvalid()
+    if (error || !routeConfig.isLocationLayoutRoute) {
       return (
-        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />} darkMode={darkMode}>
-          {error instanceof LanguageNotFoundError
-            ? <LanguageFailure cities={citiesPayload.data}
-                             location={location}
-                             languageChangePaths={languageChangePaths} />
-            : <FailureSwitcher error={error} />}
+        <Layout footer={(error || routeConfig.requiresFooter) && <GeneralFooter />}
+                header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
+                darkMode={darkMode}>
+          {error ? <LanguageFailure cities={citiesPayload.data}
+                                    location={location}
+                                    languageChangePaths={languageChangePaths} />
+            : this.renderPage()
+          }
         </Layout>
       )
-    }
-
-    if (LocationLayoutRoutes.includes(currentRoute)) {
+    } else {
       return (
         <LocationLayout feedbackReference={feedbackReference}
                         location={location}
@@ -190,23 +169,19 @@ export class Switcher extends React.Component<PropsType> {
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
                         languageChangePaths={languageChangePaths}>
-          {this.renderHelmet()}
           {this.renderPage()}
         </LocationLayout>
       )
-    } else {
-      return (
-        <Layout footer={[LANDING_ROUTE, MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) && <GeneralFooter />}
-                header={
-                  [MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) &&
-                  <GeneralHeader viewportSmall={viewportSmall} />
-                }
-                darkMode={darkMode}>
-          {this.renderHelmet()}
-          {this.renderPage()}
-        </Layout>
-      )
     }
+  }
+
+  render () {
+    return (
+      <>
+        {this.renderHelmet()}
+        {this.renderLayoutWithPage()}
+      </>
+    )
   }
 }
 
