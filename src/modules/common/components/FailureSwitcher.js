@@ -3,10 +3,6 @@
 import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
-import LanguageNotFoundError from '../../app/errors/LanguageNotFoundError'
-import Helmet from 'react-helmet'
-
-import CityNotFoundError from '../../app/errors/CityNotFoundError'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
@@ -49,36 +45,13 @@ export class FailureSwitcher extends React.Component<PropsType> {
     throw new Error('Failed to find component to render a content error')
   }
 
-  /**
-   * Decides which kind of error should be rendered
-   * @return {*}
-   */
-  renderErrorComponent (): React.Node {
+  render () {
     const error = this.props.error
     if (error instanceof ContentNotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)
     } else {
       return <Failure errorMessage={error.message} />
     }
-  }
-
-  getErrorName (): string {
-    const {t, error} = this.props
-    if (error instanceof CityNotFoundError ||
-        error instanceof LanguageNotFoundError ||
-        error instanceof ContentNotFoundError) {
-      return t('not-found.pageTitle')
-    }
-    return t('pageTitle')
-  }
-
-  render () {
-    return <>
-      <Helmet>
-        <title>{this.getErrorName()}</title>
-      </Helmet>
-      {this.renderErrorComponent()}
-    </>
   }
 }
 

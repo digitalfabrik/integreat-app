@@ -49,6 +49,9 @@ const wohnenRoute: Route = {
 class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloadsType> {
   name = WOHNEN_ROUTE
   route = wohnenRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
     `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
