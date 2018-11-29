@@ -15,8 +15,11 @@ const mainDisclaimerRoute: Route = '/disclaimer'
 class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
   name = MAIN_DISCLAIMER_ROUTE
   route = mainDisclaimerRoute
+  isLocationLayoutRoute = false
+  requiresHeader = true
+  requiresFooter = true
 
-  getRoutePath = (): string => '/disclaimer'
+  getRoutePath = (): string => mainDisclaimerRoute
 
   getRequiredPayloads = () => {}
 

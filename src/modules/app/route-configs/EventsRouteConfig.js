@@ -24,6 +24,9 @@ const eventsRoute: Route = '/:city/:language/events/:eventId?'
 class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPayloadsType> {
   name = EVENTS_ROUTE
   route = eventsRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
     const {city, eventId} = location.payload
