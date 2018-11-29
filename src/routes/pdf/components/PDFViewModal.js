@@ -19,8 +19,8 @@ export default class PDFViewModal extends React.Component<PropsType> {
         <PDFView
           fadeInDuration={250.0}
           style={{flex: 1}}
-          resource={this.props.navigation.getParam('url')}
-          resourceType={'url'}
+          resource={this.props.navigation.getParam('url').replace('file://', '')}
+          resourceType={'file'}
           onError={this.onError}
         />
       </View>
