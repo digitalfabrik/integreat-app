@@ -7300,14 +7300,14 @@ react-native-vector-icons@^6.1.0:
     prop-types "^15.6.2"
     yargs "^8.0.2"
 
-react-native-view-pdf@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-view-pdf/-/react-native-view-pdf-0.4.1.tgz#059c362c10935da21f793bad5f29745944da9655"
-  integrity sha512-G+lAmt3tKnMpkG0IJCZwQ7m5bB/vhYSFD93EkNjCW14ZGLnOOE/nfKeUA3HIr6Wo99mjIRQFbA6viUAvA6scVg==
+react-native-view-pdf@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-view-pdf/-/react-native-view-pdf-0.6.0.tgz#747f57bedb5850bc2dc5d1612ad21452af1b4bf3"
+  integrity sha512-u3opAAQSHrJhAFGCWEi/ndFFMa4QvDf9DvCnrs5Q4OwZ64itr+s0ogrdAYzwPc8WTOnqiT98r9+tCv4LufSzOQ==
 
 "react-native-webview@https://github.com/maxammann/react-native-webview/#android-onShouldStartLoadWithRequest":
   version "2.13.0"
-  resolved "https://github.com/maxammann/react-native-webview/#65bb9e9b5d5e6c0197818e5e48ee4409ef8c674f"
+  resolved "https://github.com/maxammann/react-native-webview/#f13acd76c2a71aa4e9fab894d86762dbf9e9dad2"
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"

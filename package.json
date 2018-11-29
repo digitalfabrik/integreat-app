@@ -40,7 +40,7 @@
     "react-native-progress": "^3.5.0",
     "react-native-render-html": "^3.10.0",
     "react-native-vector-icons": "^6.1.0",
-    "react-native-view-pdf": "^0.4.1",
+    "react-native-view-pdf": "^0.6.0",
     "react-native-webview": "https://github.com/maxammann/react-native-webview/#android-onShouldStartLoadWithRequest",
     "react-navigation": "^3.0.1",
     "react-navigation-header-buttons": "^2.1.1",
