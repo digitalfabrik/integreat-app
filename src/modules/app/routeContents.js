@@ -1,5 +1,6 @@
 // @flow
 
+import React from 'react'
 import { WOHNEN_ROUTE } from './route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from './route-configs/SprungbrettRouteConfig'
 import { SEARCH_ROUTE } from './route-configs/SearchRouteConfig'
@@ -22,6 +23,9 @@ import SearchPage from '../../routes/search/containers/SearchPage'
 import PoisPage from '../../routes/pois/containers/PoisPage'
 import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
 import { MAIN_DISCLAIMER_ROUTE } from './route-configs/MainDisclaimerRouteConfig'
+import { NOT_FOUND_ROUTE } from './route-configs/NotFoundRouteConfig'
+import FailureSwitcher from '../common/components/FailureSwitcher'
+import CityNotFoundError from './errors/CityNotFoundError'
 
 const routeContents = {
   [MAIN_DISCLAIMER_ROUTE]: MainDisclaimerPage,
@@ -34,7 +38,8 @@ const routeContents = {
   [DISCLAIMER_ROUTE]: DisclaimerPage,
   [SEARCH_ROUTE]: SearchPage,
   [POIS_ROUTE]: PoisPage,
-  [CATEGORIES_ROUTE]: CategoriesPage
+  [CATEGORIES_ROUTE]: CategoriesPage,
+  [NOT_FOUND_ROUTE]: () => <FailureSwitcher error={new CityNotFoundError()} />
 }
 
 export const getRouteContent = (routeName: string) => {
