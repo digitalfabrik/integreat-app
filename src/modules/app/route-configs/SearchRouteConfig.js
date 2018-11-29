@@ -28,6 +28,9 @@ const searchRoute: Route = {
 class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPayloadsType> {
   name = SEARCH_ROUTE
   route = searchRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: SearchRouteParamsType): string => `/${city}/${language}/search`
 

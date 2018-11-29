@@ -36,6 +36,9 @@ export type FeedbackReferenceType = {|id?: number, title?: string, alias?: strin
 export interface RouteConfig<T, P> {
   name: string,
   route: Route,
+  isLocationLayoutRoute: boolean,
+  requiresHeader: boolean,
+  requiresFooter: boolean,
   getRoutePath: T => string,
   getLanguageChangePath: GetLanguageChangePathParamsType<P> => string | null,
   getPageTitle: GetPageTitleParamsType<P> => string,

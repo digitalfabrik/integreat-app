@@ -25,6 +25,9 @@ const landingRoute: Route = {
 class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, RequiredPayloadsType> {
   name = LANDING_ROUTE
   route = landingRoute
+  isLocationLayoutRoute = false
+  requiresHeader = false
+  requiresFooter = true
 
   getPageTitle = ({t}: GetPageTitleParamsType<RequiredPayloadsType>) => t('pageTitles.landing')
 
