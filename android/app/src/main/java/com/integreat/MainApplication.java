@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.rumax.reactnative.pdfviewer.PDFViewPackage;
+import com.reactlibrary.PDFViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.mapbox.rctmgl.RCTMGLPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
