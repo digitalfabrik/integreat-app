@@ -14,17 +14,12 @@ import {
   PageModel,
   LanguageModel
 } from '@integreat-app/integreat-api-client'
-import FailureSwitcher from '../../common/components/FailureSwitcher'
-import LoadingSpinner from '../../common/components/LoadingSpinner'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
 import { getRouteConfig } from '../route-configs'
-import { getRouteContent } from '../routeContents'
-import reduce from 'lodash/reduce'
-import find from 'lodash/find'
 import Helmet from '../../common/containers/Helmet'
 import type { Location, Dispatch } from 'redux-first-router'
 import { withNamespaces } from 'react-i18next'
@@ -33,6 +28,7 @@ import type { TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
+import RouteContentSwitcher from './RouteContentSwitcher'
 
 export type LanguageChangePathsType = Array<{code: string, path: string | null, name: string}>
 
@@ -57,26 +53,12 @@ type PropsType = {|
  * Switches what content should be rendered depending on the current route
  */
 export class Switcher extends React.Component<PropsType> {
-  /**
-   * Renders a failure component if a payload contains an error or a LoadingSpinner if the data is still being fetched
-   * @param payloads The payloads to check for errors or fetching process
-   */
-  static renderFailureLoadingComponents = (payloads: {[string]: Payload<any>}): React.Node => {
-    const errorPayload = find(payloads, payload => payload.error)
-    if (find(payloads, payload => (payload.isFetching || !payload.data) && !payload.error)) {
-      return <LoadingSpinner />
-    } else if (errorPayload) {
-      return <FailureSwitcher error={errorPayload.error} />
-    }
-    return null
-  }
-
-  getRequiredPayloads = (routeConfig: RouteConfig<*, *>) => {
+  getAllPayloads = () => {
     const {
       citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
       sprungbrettJobsPayload, wohnenPayload, poisPayload
     } = this.props
-    const allPayloads = {
+    return {
       citiesPayload,
       eventsPayload,
       categoriesPayload,
@@ -86,12 +68,11 @@ export class Switcher extends React.Component<PropsType> {
       wohnenPayload,
       poisPayload
     }
-    return routeConfig.getRequiredPayloads(allPayloads)
   }
 
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
     const {languages, location} = this.props
-    const payloads = this.getRequiredPayloads(routeConfig)
+    const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     return languages && languages.map(language => ({
       path: routeConfig.getLanguageChangePath({payloads, location, language: language.code}),
       name: language.name,
@@ -102,7 +83,7 @@ export class Switcher extends React.Component<PropsType> {
   renderHelmet = (): React.Node => {
     const {location, citiesPayload, t} = this.props
     const routeConfig = getRouteConfig(location.type)
-    const payloads = this.getRequiredPayloads(routeConfig)
+    const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     const cityModel = citiesPayload.data && citiesPayload.data.find(city => city.code === location.payload.city)
     const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel ? cityModel.name : '', location})
     const metaDescription = routeConfig.getMetaDescription(t)
@@ -115,33 +96,18 @@ export class Switcher extends React.Component<PropsType> {
     )
   }
 
-  renderPage = (): React.Node => {
-    const {location} = this.props
-
-    const currentRoute = location.type
-    const RouteContent = getRouteContent(currentRoute)
-    const payloads = this.getRequiredPayloads(getRouteConfig(currentRoute))
-
-    return Switcher.renderFailureLoadingComponents(payloads) ||
-      <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
-  }
-
-  /**
-   * Checks whether language param is valid
-   * @return {*}
-   */
   isLanguageInvalid (): boolean {
     const {location, citiesPayload, languages} = this.props
     const {city, language} = location.payload
     return language && city && citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
   }
 
-  renderLayoutWithPage (): React.Node {
+  renderLayoutWithContent (): React.Node {
     const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload} =
       this.props
 
     const routeConfig = getRouteConfig(location.type)
-    const payloads = this.getRequiredPayloads(routeConfig)
+    const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
     const feedbackReference = routeConfig.getFeedbackReference({location, payloads})
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
@@ -154,7 +120,7 @@ export class Switcher extends React.Component<PropsType> {
           {error ? <LanguageFailure cities={citiesPayload.data}
                                     location={location}
                                     languageChangePaths={languageChangePaths} />
-            : this.renderPage()
+            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
           }
         </Layout>
       )
@@ -169,7 +135,7 @@ export class Switcher extends React.Component<PropsType> {
                         viewportSmall={viewportSmall}
                         toggleDarkMode={toggleDarkMode}
                         languageChangePaths={languageChangePaths}>
-          {this.renderPage()}
+          <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
         </LocationLayout>
       )
     }
@@ -179,7 +145,7 @@ export class Switcher extends React.Component<PropsType> {
     return (
       <>
         {this.renderHelmet()}
-        {this.renderLayoutWithPage()}
+        {this.renderLayoutWithContent()}
       </>
     )
   }
