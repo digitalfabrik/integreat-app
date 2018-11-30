@@ -11,7 +11,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import { pathToAction, setKind } from 'redux-first-router'
+import { pathToAction, redirect, setKind } from 'redux-first-router'
 import type { Dispatch } from 'redux'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import PageDetail from '../../../modules/common/components/PageDetail'
@@ -25,7 +25,7 @@ type PropsType = {|
   eventId: ?string,
   language: string,
   t: TFunction,
-  dispatch: ReceivedAction => void,
+  redirect: ReceivedAction => void,
   path: string,
   routesMap: {}
 |}
@@ -38,9 +38,7 @@ export class EventsPage extends React.Component<PropsType> {
     <EventListItem event={event} language={language} key={event.path} />
 
   redirectToPath = (path: string) => {
-    const action = pathToAction(path, this.props.routesMap)
-    setKind(action, 'push')
-    this.props.dispatch(action)
+    this.props.redirect(pathToAction(path, this.props.routesMap))
   }
 
   render () {
@@ -85,7 +83,7 @@ const mapStateTypeToProps = (state: StateType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  dispatch
+  redirect: action => dispatch(redirect(action))
 })
 
 export default compose(

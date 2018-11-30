@@ -14,7 +14,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
-import { pathToAction, setKind } from 'redux-first-router'
+import { pathToAction, redirect } from 'redux-first-router'
 import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
@@ -26,7 +26,7 @@ type PropsType = {|
   city: string,
   language: string,
   uiDirection: UiDirectionType,
-  dispatch: ReceivedAction => void,
+  redirect: ReceivedAction => void,
   routesMap: {}
 |}
 
@@ -46,9 +46,7 @@ export class CategoriesPage extends React.Component<PropsType> {
   }
 
   redirectToPath = (path: string) => {
-    const action = pathToAction(path, this.props.routesMap)
-    setKind(action, 'push')
-    this.props.dispatch(action)
+    this.props.redirect(pathToAction(path, this.props.routesMap))
   }
 
   /**
@@ -116,7 +114,7 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  dispatch
+  redirect: action => dispatch(redirect(action))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)

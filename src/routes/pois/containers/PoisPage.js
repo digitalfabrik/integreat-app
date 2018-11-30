@@ -11,9 +11,9 @@ import { PoiModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import { pathToAction, setKind } from 'redux-first-router'
+import { pathToAction, redirect } from 'redux-first-router'
 import type { Dispatch } from 'redux'
-import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import type { ReceivedAction } from 'redux-first-router'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import Caption from '../../../modules/common/components/Caption'
@@ -25,7 +25,7 @@ type PropsType = {|
   poiId: ?string,
   language: string,
   t: TFunction,
-  dispatch: ReceivedAction => void,
+  redirect: ReceivedAction => void,
   path: string,
   routesMap: {}
 |}
@@ -37,9 +37,7 @@ export class PoisPage extends React.Component<PropsType> {
   renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   redirectToPath = (path: string) => {
-    const action = pathToAction(path, this.props.routesMap)
-    setKind(action, 'push')
-    this.props.dispatch(action)
+    this.props.redirect(pathToAction(path, this.props.routesMap))
   }
 
   render () {
@@ -80,7 +78,7 @@ const mapStateTypeToProps = (state: StateType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  dispatch
+  redirect: action => dispatch(redirect(action))
 })
 
 export default compose(
