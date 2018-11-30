@@ -31,6 +31,7 @@ import LocationLayout from '../../../layout/containers/LocationLayout'
 import Layout from '../../../layout/components/Layout'
 import Footer from '../../../layout/components/Footer'
 import { Header } from '../../../layout/components/Header'
+import createLocation from '../../../../createLocation'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -180,23 +181,24 @@ describe('Switcher', () => {
   const wohnenPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
   const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
 
-  const createLocation = (currentRoute: string, pathname?: string) => ({
-    type: currentRoute,
-    pathname,
-    payload: {city: 'city1', language: 'de'},
-    prev: {payload: {param: 'param'}}
-  })
-
   const t = (key: ?string): string => key || ''
 
   const toggleDarkMode = () => {}
 
-  const createSwitcher = (currentRoute: string, pathname?: string): React.Node =>
-    <Switcher viewportSmall={false} location={createLocation(currentRoute, pathname)} citiesPayload={citiesPayload}
-              categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
-              poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
-              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
-              toggleDarkMode={toggleDarkMode} />
+  const createSwitcher = (currentRoute: string, pathname?: string): React.Node => {
+    const location = createLocation({
+      type: currentRoute,
+      pathname,
+      payload: {city: 'city1', language: 'de'},
+      prev: {payload: {param: 'param'}, type: 'RANDOM_TYPE', pathname: '/param'}})
+    return (
+      <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
+                categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
+                poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+                sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
+                toggleDarkMode={toggleDarkMode} />
+    )
+  }
 
   describe('layout', () => {
     it('should render a location layout if the current route is a location layout route', () => {
