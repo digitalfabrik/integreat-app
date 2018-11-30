@@ -23,9 +23,9 @@ import SearchPage from '../../routes/search/containers/SearchPage'
 import PoisPage from '../../routes/pois/containers/PoisPage'
 import CategoriesPage from '../../routes/categories/containers/CategoriesPage'
 import { MAIN_DISCLAIMER_ROUTE } from './route-configs/MainDisclaimerRouteConfig'
-import { NOT_FOUND_ROUTE } from './route-configs/NotFoundRouteConfig'
 import FailureSwitcher from '../common/components/FailureSwitcher'
 import CityNotFoundError from './errors/CityNotFoundError'
+import { NOT_FOUND } from 'redux-first-router'
 
 const routeContents = {
   [MAIN_DISCLAIMER_ROUTE]: MainDisclaimerPage,
@@ -39,7 +39,7 @@ const routeContents = {
   [SEARCH_ROUTE]: SearchPage,
   [POIS_ROUTE]: PoisPage,
   [CATEGORIES_ROUTE]: CategoriesPage,
-  [NOT_FOUND_ROUTE]: () => <FailureSwitcher error={new CityNotFoundError()} />
+  [NOT_FOUND]: () => <FailureSwitcher error={new CityNotFoundError()} />
 }
 
 export const getRouteContent = (routeName: string) => {

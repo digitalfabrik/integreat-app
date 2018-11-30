@@ -3,10 +3,8 @@
 import type { GetPageTitleParamsType, RouteConfig } from './RouteConfig'
 import { NOT_FOUND } from 'redux-first-router'
 
-export const NOT_FOUND_ROUTE = 'NOT_FOUND'
-
 class NotFoundRouteConfig implements RouteConfig<void, void> {
-  name = NOT_FOUND_ROUTE
+  name = NOT_FOUND
   route = NOT_FOUND
   isLocationLayoutRoute = false
   requiresHeader = true
