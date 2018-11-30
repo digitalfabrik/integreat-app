@@ -54,20 +54,8 @@ type PropsType = {|
  */
 export class Switcher extends React.Component<PropsType> {
   getAllPayloads = () => {
-    const {
-      citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
-      sprungbrettJobsPayload, wohnenPayload, poisPayload
-    } = this.props
-    return {
-      citiesPayload,
-      eventsPayload,
-      categoriesPayload,
-      extrasPayload,
-      disclaimerPayload,
-      sprungbrettJobsPayload,
-      wohnenPayload,
-      poisPayload
-    }
+    const {location, languages, viewportSmall, darkMode, toggleDarkMode, t, ...payloads} = this.props
+    return {...payloads}
   }
 
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {

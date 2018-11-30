@@ -13,7 +13,8 @@ import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
 import PoisRouteConfig, { POIS_ROUTE } from './PoisRouteConfig'
 import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './DisclaimerRouteConfig'
 import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteConfig'
-import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from './NotFoundRouteConfig'
+import NotFoundRouteConfig from './NotFoundRouteConfig'
+import { NOT_FOUND } from 'redux-first-router'
 
 const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
@@ -27,7 +28,7 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [SEARCH_ROUTE]: new SearchRouteConfig(),
   [POIS_ROUTE]: new PoisRouteConfig(),
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig(),
-  [NOT_FOUND_ROUTE]: new NotFoundRouteConfig()
+  [NOT_FOUND]: new NotFoundRouteConfig()
 }
 
 export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
