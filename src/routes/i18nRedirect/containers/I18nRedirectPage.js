@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react'
-import type { Action } from 'redux-first-router'
 import { redirect, pathToAction, NOT_FOUND } from 'redux-first-router'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
@@ -13,9 +12,10 @@ import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 
 type PropsType = {|
-  redirect: Action => void,
+  redirect: ReceivedAction => void,
   cities: Array<CityModel>,
   param?: string,
   i18n: i18n
