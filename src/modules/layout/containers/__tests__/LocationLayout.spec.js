@@ -18,6 +18,7 @@ import moment from 'moment-timezone'
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
+import createLocation from '../../../../createLocation'
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -79,7 +80,8 @@ describe('LocationLayout', () => {
   const feedbackReference = {id: 75, title: 'Category_Title'}
 
   const MockNode = () => <div />
-  const renderLocationLayout = location => <LocationLayout location={location} categories={categories} cities={cities}
+  const renderLocationLayout = location => <LocationLayout location={createLocation({...location})}
+                                                           categories={categories} cities={cities}
                                                            events={events} languageChangePaths={languageChangePaths}
                                                            feedbackReference={feedbackReference}
                                                            viewportSmall toggleDarkMode={() => {}} darkMode>
