@@ -1,6 +1,7 @@
 [ignore]
 .*/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/dist/.*
+.*/node_modules/redux-first-router/dist/pure-utils/nestAction.js.flow.*
 [include]
 
 [libs]
