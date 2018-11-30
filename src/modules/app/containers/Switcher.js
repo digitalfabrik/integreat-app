@@ -158,8 +158,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
+// $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default compose(
-  // $FlowFixMe https://github.com/facebook/flow/issues/7125
   connect(mapStateToProps, mapDispatchToProps),
   withNamespaces('app')
 )(Switcher)
