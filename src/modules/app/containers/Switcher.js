@@ -21,7 +21,7 @@ import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
 import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
-import type { Location, Dispatch } from 'redux-first-router'
+import type { Dispatch, LocationState } from 'redux-first-router/dist/flow-types.js.flow'
 import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
@@ -44,7 +44,7 @@ type PropsType = {|
   languages: ?Array<LanguageModel>,
   viewportSmall: boolean,
   darkMode: boolean,
-  location: Location,
+  location: LocationState,
   toggleDarkMode: () => void,
   t: TFunction
 |}
@@ -154,13 +154,12 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
-// fixme: WEBAPP-400 Dispatch type is not correct
-const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
-// $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default compose(
+  // $FlowFixMe https://github.com/facebook/flow/issues/7125
   connect(mapStateToProps, mapDispatchToProps),
   withNamespaces('app')
 )(Switcher)

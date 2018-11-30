@@ -2,7 +2,7 @@
 
 import { RouteConfig } from './RouteConfig'
 import { citiesEndpoint, Payload, CityModel } from '@integreat-app/integreat-api-client'
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types.js.flow'
 import fetchData from '../fetchData'
 import type { AllPayloadsType } from './RouteConfig'
 

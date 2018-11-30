@@ -1,7 +1,7 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types.js.flow'
 import fetchData from '../fetchData'
 import type {
   AllPayloadsType,

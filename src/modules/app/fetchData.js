@@ -1,6 +1,6 @@
 // @flow
 
-import type { Dispatch } from 'redux-first-router'
+import type { Dispatch } from 'redux-first-router/dist/flow-types.js.flow'
 import { Payload, LoadingError, ParamMissingError, MappingError, Endpoint } from '@integreat-app/integreat-api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
