@@ -7,21 +7,13 @@ exports[`HeaderNavigationBar should match snapshot 1`] = `
 >
   <HeaderNavigationItem
     active={true}
-    href={
-      Object {
-        "type": "RANDOM_ROUTE",
-      }
-    }
+    href="/random_route"
     selected={true}
     text="text1"
   />
   <HeaderNavigationItem
     active={false}
-    href={
-      Object {
-        "type": "ANOTHER_ROUTE",
-      }
-    }
+    href="/another_route"
     selected={false}
     text="text2"
     tooltip="tooltip1"
