@@ -61,7 +61,7 @@ describe('PoisPage', () => {
 
   const city = 'augsburg'
   const language = 'en'
-  const dispatch = () => {}
+  const redirect = () => {}
   const routesMap = {}
 
   const t = (key: ?string): string => key || ''
@@ -72,7 +72,7 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                dispatch={dispatch}
+                redirect={redirect}
                 path={'/augsburg/en/locations/third_poi'}
                 poiId={'third_poi'}
                 routesMap={routesMap} />
@@ -85,7 +85,7 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                dispatch={dispatch}
+                redirect={redirect}
                 path={'/augsburg/en/locations/invalid_poi'}
                 poiId={'invalid_poi'}
                 routesMap={routesMap} />
@@ -98,7 +98,7 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                dispatch={dispatch}
+                redirect={redirect}
                 path={'/augsburg/en/locations'}
                 poiId={undefined}
                 routesMap={routesMap} />
@@ -111,7 +111,7 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                dispatch={dispatch}
+                redirect={redirect}
                 path={'/augsburg/en/locations'}
                 poiId={undefined}
                 routesMap={routesMap} />
