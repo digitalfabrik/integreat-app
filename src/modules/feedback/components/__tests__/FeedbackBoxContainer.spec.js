@@ -22,6 +22,7 @@ import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
 import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
+import createLocation from '../../../../createLocation'
 
 describe('FeedbackBoxContainer', () => {
   const cities = [
@@ -35,7 +36,8 @@ describe('FeedbackBoxContainer', () => {
     })
   ]
   const t = (key: ?string): string => key || ''
-  const location = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
+  const location = createLocation(
+    {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}})
 
   it('should match snapshot', () => {
     expect(shallow(
@@ -150,9 +152,9 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it('getContentFeedbackOption should return the right option', () => {
-    const categoriesLocation = {type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}}
-    const extrasLocation = {type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
-    const eventsLocation = {type: EVENTS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const categoriesLocation = createLocation({type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}})
+    const extrasLocation = createLocation({type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}})
+    const eventsLocation = createLocation({type: EVENTS_ROUTE, payload: {city: 'augsburg', language: 'de'}})
 
     const component = shallow(
       <FeedbackBoxContainer
@@ -184,7 +186,7 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it('getExtrasFeedbackOptions should return the right options', () => {
-    const extrasLocation = {type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}}
+    const extrasLocation = createLocation({type: EXTRAS_ROUTE, payload: {city: 'augsburg', language: 'de'}})
     const extras = [
       new ExtraModel({
         alias: 'serlo-abc',
@@ -246,7 +248,7 @@ describe('FeedbackBoxContainer', () => {
     ${DISCLAIMER_ROUTE}  | ${0}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
     ${EXTRAS_ROUTE}      | ${0}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
     `('should return the right option', ({type, id, alias, title, query, result}) => {
-  const location = {type, payload: {city: 'augsburg', language: 'de'}}
+  const location = createLocation({type, payload: {city: 'augsburg', language: 'de'}})
   const component = shallow(
         <FeedbackBoxContainer
           location={location}

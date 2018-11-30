@@ -10,6 +10,7 @@ import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
 import moment from 'moment-timezone'
 import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
+import createLocation from '../../../../createLocation'
 
 describe('LocationHeader', () => {
   const t = (key: ?string): string => key || ''
@@ -87,7 +88,7 @@ describe('LocationHeader', () => {
 
   const language = 'de'
   const city = 'augsburg'
-  const location = route => ({type: route, payload: {city, language}})
+  const location = route => createLocation({type: route, payload: {city, language}})
   const onStickyTopChanged = (value: number) => {}
 
   describe('NavigationItems', () => {
