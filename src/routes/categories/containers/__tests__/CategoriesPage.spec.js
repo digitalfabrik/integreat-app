@@ -96,7 +96,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       path={categoryModels[3].path}
                       uiDirection={'ltr'}
-                      dispatch={action => {}}
+                      redirect={action => {}}
                       routesMap={{}} />
     )
 
@@ -111,7 +111,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       uiDirection={'ltr'}
                       path={categoryModels[2].path}
-                      dispatch={action => {}}
+                      redirect={action => {}}
                       routesMap={{}} />
     )
 
@@ -126,7 +126,7 @@ describe('CategoriesPage', () => {
                       language={language}
                       uiDirection={'ltr'}
                       path={'/augsburg/de'}
-                      dispatch={action => {}}
+                      redirect={action => {}}
                       routesMap={{}} />
     )
 
@@ -141,7 +141,7 @@ describe('CategoriesPage', () => {
                       uiDirection={'ltr'}
                       language={language}
                       path={'/augsburg/de/not/valid'}
-                      dispatch={action => {}}
+                      redirect={action => {}}
                       routesMap={{}} />
     )
 

@@ -5,6 +5,7 @@ import { shallow } from 'enzyme'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { LanguageFailure } from '../LanguageFailure'
+import createLocation from '../../../../createLocation'
 
 describe('LanguageFailure', () => {
   const cities = [
@@ -34,10 +35,7 @@ describe('LanguageFailure', () => {
     })
   ]
 
-  const location = {
-    type: 'CATEGORIES',
-    payload: {city: 'augsburg'}
-  }
+  const location = createLocation({type: 'CATEGORIES', payload: {city: 'augsburg'}})
 
   const languageChangePaths = [
     {code: 'de', name: 'Deutsch', path: '/augsburg/de'},

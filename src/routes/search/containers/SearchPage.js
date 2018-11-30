@@ -85,6 +85,7 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default compose(
+  // $FlowFixMe https://github.com/facebook/flow/issues/7125
   connect(mapStateToProps),
   withNamespaces('search')
 )(SearchPage)

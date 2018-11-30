@@ -23,7 +23,7 @@ describe('DisclaimerPage', () => {
       <DisclaimerPage disclaimer={disclaimer}
                       language={language}
                       routesMap={{}}
-                      dispatch={() => {}} />)
+                      redirect={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 
