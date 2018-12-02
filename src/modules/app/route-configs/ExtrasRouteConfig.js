@@ -2,7 +2,7 @@
 
 import { RouteConfig } from './RouteConfig'
 import { extrasEndpoint, Payload, ExtraModel } from '@integreat-app/integreat-api-client'
-import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types.js.flow'
+import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types'
 import fetchData from '../fetchData'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
