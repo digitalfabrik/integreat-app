@@ -6,7 +6,7 @@ import {
   extrasEndpoint,
   Payload,
   SprungbrettModel,
-  sprungbrettEndpoint
+  sprungbrettEndpoint, citiesEndpoint, eventsEndpoint, languagesEndpoint
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
@@ -23,24 +23,35 @@ type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>,
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
+const fetchExtras = async (dispatch, getState) => {
+  const state = getState()
+  const {city, language} = state.location.payload
+  const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
+  const extras: ?Array<ExtraModel> = extrasPayload.data
+
+  if (extras) {
+    const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    if (sprungbrettExtra) {
+      const params = {city, language, url: sprungbrettExtra.path}
+      const sprungbrettEndpoint1 = sprungbrettEndpoint
+
+      await fetchData(sprungbrettEndpoint1, dispatch, state.sprungbrettJobs, params)
+    }
+  }
+}
+
 const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, { city, language })
-    const extras: ?Array<ExtraModel> = extrasPayload.data
-
-    if (extras) {
-      const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-      if (sprungbrettExtra) {
-        const params = {city, language, url: sprungbrettExtra.path}
-        const sprungbrettEndpoint1 = sprungbrettEndpoint
-
-        await fetchData(sprungbrettEndpoint1, dispatch, state.sprungbrettJobs, params)
-      }
-    }
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchExtras(dispatch, getState)
+    ])
   }
 }
 

@@ -3,7 +3,14 @@
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { poisEndpoint, Payload, PoiModel } from '@integreat-app/integreat-api-client'
+import {
+  poisEndpoint,
+  Payload,
+  PoiModel,
+  citiesEndpoint,
+  eventsEndpoint,
+  languagesEndpoint
+} from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
 type PoisRouteParamsType = {|city: string, language: string|}
@@ -17,7 +24,12 @@ const poisRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await fetchData(poisEndpoint, dispatch, state.pois, {city, language})
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(poisEndpoint, dispatch, state.pois, {city, language})
+    ])
   }
 }
 

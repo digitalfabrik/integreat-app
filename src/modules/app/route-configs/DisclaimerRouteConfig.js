@@ -3,7 +3,13 @@
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { disclaimerEndpoint, Payload, PageModel } from '@integreat-app/integreat-api-client'
+import {
+  disclaimerEndpoint,
+  Payload,
+  PageModel,
+  citiesEndpoint,
+  eventsEndpoint, languagesEndpoint
+} from '@integreat-app/integreat-api-client'
 import type {
   AllPayloadsType,
   GetFeedbackReferenceType,
@@ -26,6 +32,9 @@ const disclaimerRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
+    await fetchData(citiesEndpoint, dispatch, state.cities)
+    await fetchData(eventsEndpoint, dispatch, state.events, {city, language})
+    await fetchData(languagesEndpoint, dispatch, state.languages, {city, language})
     await fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
   }
 }
