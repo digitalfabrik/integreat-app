@@ -15,7 +15,6 @@ exports[`Page should render 1`] = `
         "__html": "content",
       }
     }
-    onInternLinkClick={[Function]}
   />
   <Translate(LastUpdateInfo)
     language="en"

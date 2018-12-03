@@ -21,9 +21,7 @@ describe('DisclaimerPage', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <DisclaimerPage disclaimer={disclaimer}
-                      language={language}
-                      routesMap={{}}
-                      redirect={() => {}} />)
+                      language={language} />)
     expect(wrapper).toMatchSnapshot()
   })
 

@@ -88,9 +88,7 @@ describe('EventsPage', () => {
                   path={'/augsburg/en/events'}
                   eventId={undefined}
                   t={t}
-                  language={language}
-                  redirect={() => {}}
-                  routesMap={{}} />
+                  language={language} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -102,9 +100,7 @@ describe('EventsPage', () => {
                   t={t}
                   language={language}
                   path={'/augsburg/en/events/first_event'}
-                  eventId={'first_event'}
-                  redirect={() => {}}
-                  routesMap={{}} />
+                  eventId={'first_event'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -116,9 +112,7 @@ describe('EventsPage', () => {
                   t={t}
                   language={language}
                   path={'/augsburg/en/events/invalid_event'}
-                  eventId={'invalid_event'}
-                  redirect={() => {}}
-                  routesMap={{}} />
+                  eventId={'invalid_event'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -140,8 +134,8 @@ describe('EventsPage', () => {
       eventId: 'id',
       path: '/augsburg/en/events/id',
       events,
-      redirect: expect.any(Function),
-      t: expect.any(Function)
+      t: expect.any(Function),
+      dispatch: expect.any(Function)
     })
   })
 

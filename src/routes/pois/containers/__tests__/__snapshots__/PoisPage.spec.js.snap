@@ -11,7 +11,6 @@ exports[`PoisPage should render a Page if a poi is selected 1`] = `
   content="content"
   language="en"
   lastUpdate={"2016-01-07T09:36:24.000Z"}
-  onInternalLinkClick={[Function]}
   thumbnail="thumbnail"
   title="third Event"
 >
