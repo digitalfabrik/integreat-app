@@ -2,7 +2,7 @@
 
 import { RouteConfig } from './RouteConfig'
 import { citiesEndpoint, Payload, CityModel } from '@integreat-app/integreat-api-client'
-import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import type { AllPayloadsType } from './RouteConfig'
 
@@ -18,7 +18,7 @@ export const I18N_REDIRECT_ROUTE = 'I18N_REDIRECT'
  */
 const i18nRedirectRoute: Route = {
   path: '/:param?',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
 
     await fetchData(citiesEndpoint, dispatch, state.cities)

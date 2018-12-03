@@ -1,7 +1,6 @@
 // @flow
 
-import type { LocationState, Location } from 'redux-first-router'
-import type { RoutesMap } from 'redux-first-router/dist/flow-types'
+import type { RoutesMap, LocationState, Location } from 'redux-first-router'
 
 const createLocation = ({pathname, payload, type, query, prev, routesMap}: {|pathname?: string, payload: Object,
   type: string, query?: Object, prev?: Location, routesMap?: RoutesMap|}): LocationState => ({

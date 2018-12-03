@@ -12,7 +12,7 @@ import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import type { ReceivedAction } from 'redux-first-router'
 
 type PropsType = {|
   redirect: ReceivedAction => void,

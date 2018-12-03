@@ -6,7 +6,7 @@ import { PageModel } from '@integreat-app/integreat-api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import { pathToAction, redirect } from 'redux-first-router'
 import type { Dispatch } from 'redux'
-import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import type { ReceivedAction } from 'redux-first-router'
 import Page from '../../../modules/common/components/Page'
 
 type PropsType = {|

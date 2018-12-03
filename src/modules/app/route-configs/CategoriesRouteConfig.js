@@ -1,7 +1,7 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import type {
   AllPayloadsType,
@@ -22,7 +22,7 @@ export const CATEGORIES_ROUTE = 'CATEGORIES'
  */
 const categoriesRoute: Route = {
   path: '/:city/:language/:categoryPath*',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const { city, language } = state.location.payload
 

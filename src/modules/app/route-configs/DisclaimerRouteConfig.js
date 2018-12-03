@@ -1,7 +1,7 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { disclaimerEndpoint, Payload, PageModel } from '@integreat-app/integreat-api-client'
 import type {
@@ -22,7 +22,7 @@ export const DISCLAIMER_ROUTE = 'DISCLAIMER'
  */
 const disclaimerRoute: Route = {
   path: '/:city/:language/disclaimer',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
