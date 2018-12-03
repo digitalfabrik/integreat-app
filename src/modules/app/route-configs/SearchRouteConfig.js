@@ -3,7 +3,13 @@
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { CityModel, Payload, CategoriesMapModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
+import {
+  CityModel,
+  Payload,
+  CategoriesMapModel,
+  categoriesEndpoint,
+  citiesEndpoint, eventsEndpoint, languagesEndpoint
+} from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
 
 type SearchRouteParamsType = {|city: string, language: string|}
@@ -21,7 +27,12 @@ const searchRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
+    ])
   }
 }
 
