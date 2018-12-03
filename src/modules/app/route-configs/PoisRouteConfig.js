@@ -1,7 +1,7 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { poisEndpoint, Payload, PoiModel } from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
@@ -13,7 +13,7 @@ export const POIS_ROUTE = 'POI'
 
 const poisRoute: Route = {
   path: '/:city/:language/locations/:poiId?',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 

@@ -21,7 +21,8 @@ import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
 import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
-import type { Dispatch, LocationState } from 'redux-first-router/dist/flow-types'
+import type { Dispatch } from 'redux'
+import type { LocationState } from 'redux-first-router'
 import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
@@ -154,7 +155,7 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 

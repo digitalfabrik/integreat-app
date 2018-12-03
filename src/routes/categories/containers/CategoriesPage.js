@@ -15,7 +15,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import { pathToAction, redirect } from 'redux-first-router'
-import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
+import type { ReceivedAction } from 'redux-first-router'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
 

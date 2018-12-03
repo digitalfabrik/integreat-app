@@ -1,13 +1,13 @@
 // @flow
 
-import type { Dispatch } from 'redux-first-router/dist/flow-types'
+import type { Dispatch } from 'redux'
 import { Payload, LoadingError, ParamMissingError, MappingError, Endpoint } from '@integreat-app/integreat-api-client'
 import startFetchAction from './actions/startFetchAction'
 import finishFetchAction from './actions/finishFetchAction'
 
 async function fetchData<P, T> (
   endpoint: Endpoint<P, T>,
-  dispatch: Dispatch, oldPayload: Payload<T>,
+  dispatch: Dispatch<*>, oldPayload: Payload<T>,
   params: P
 ): Promise<Payload<T>> {
   let formattedUrl

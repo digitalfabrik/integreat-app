@@ -66,7 +66,7 @@ describe('CategoriesToolbar', () => {
   it('should render nothing, if category cannot be found', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
-                         location={createLocation({type: 'INVALID_ROUT', payload: {}, pathname: 'invalid_path'})}
+                         location={createLocation({type: 'INVALID_ROUTE', payload: {}, pathname: 'invalid_path'})}
                          t={t}
                          openFeedbackModal={() => {}} />
     )

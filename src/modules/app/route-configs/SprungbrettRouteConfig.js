@@ -8,7 +8,7 @@ import {
   SprungbrettModel,
   sprungbrettEndpoint
 } from '@integreat-app/integreat-api-client'
-import type { Dispatch, GetState, Route } from 'redux-first-router/dist/flow-types'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import type {
   AllPayloadsType,
@@ -25,7 +25,7 @@ export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
