@@ -32,10 +32,12 @@ const disclaimerRoute: Route = {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await fetchData(citiesEndpoint, dispatch, state.cities)
-    await fetchData(eventsEndpoint, dispatch, state.events, {city, language})
-    await fetchData(languagesEndpoint, dispatch, state.languages, {city, language})
-    await fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
+    ])
   }
 }
 
