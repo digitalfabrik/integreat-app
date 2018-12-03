@@ -13,9 +13,6 @@ import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { StateType } from '../../../modules/app/StateType'
-import type { Dispatch } from 'redux'
-import { pathToAction, redirect } from 'redux-first-router'
-import type { ReceivedAction } from 'redux-first-router'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
 
@@ -25,9 +22,7 @@ type PropsType = {|
   path: string,
   city: string,
   language: string,
-  uiDirection: UiDirectionType,
-  redirect: ReceivedAction => void,
-  routesMap: {}
+  uiDirection: UiDirectionType
 |}
 
 /**
@@ -43,10 +38,6 @@ export class CategoriesPage extends React.Component<PropsType> {
       isExternalUrl: false,
       postData: null
     }))
-  }
-
-  redirectToPath = (path: string) => {
-    this.props.redirect(pathToAction(path, this.props.routesMap))
   }
 
   /**
@@ -65,8 +56,7 @@ export class CategoriesPage extends React.Component<PropsType> {
       return <Page title={category.title}
                    content={category.content}
                    lastUpdate={category.lastUpdate}
-                   language={language}
-                   onInternalLinkClick={this.redirectToPath} />
+                   language={language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -74,8 +64,7 @@ export class CategoriesPage extends React.Component<PropsType> {
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
-                         title={category.title} onInternLinkClick={this.redirectToPath}
-                         content={category.content} thumbnail={category.thumbnail} />
+                         title={category.title} content={category.content} thumbnail={category.thumbnail} />
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
@@ -108,13 +97,8 @@ export class CategoriesPage extends React.Component<PropsType> {
 const mapStateToProps = (state: StateType) => ({
   uiDirection: state.uiDirection,
   language: state.location.payload.language,
-  routesMap: state.location.routesMap,
   city: state.location.payload.city,
   path: state.location.pathname
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  redirect: action => dispatch(redirect(action))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)
+export default connect(mapStateToProps)(CategoriesPage)

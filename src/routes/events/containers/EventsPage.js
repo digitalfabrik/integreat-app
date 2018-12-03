@@ -11,9 +11,6 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import { pathToAction, redirect } from 'redux-first-router'
-import type { Dispatch } from 'redux'
-import type { ReceivedAction } from 'redux-first-router'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from '../components/EventListItem'
 import List from '../../../modules/common/components/List'
@@ -25,9 +22,7 @@ type PropsType = {|
   eventId: ?string,
   language: string,
   t: TFunction,
-  redirect: ReceivedAction => void,
-  path: string,
-  routesMap: {}
+  path: string
 |}
 
 /**
@@ -36,10 +31,6 @@ type PropsType = {|
 export class EventsPage extends React.Component<PropsType> {
   renderEventListItem = (language: string) => (event: EventModel) =>
     <EventListItem event={event} language={language} key={event.path} />
-
-  redirectToPath = (path: string) => {
-    this.props.redirect(pathToAction(path, this.props.routesMap))
-  }
 
   render () {
     const {events, path, eventId, city, language, t} = this.props
@@ -52,8 +43,7 @@ export class EventsPage extends React.Component<PropsType> {
                 lastUpdate={event.lastUpdate}
                 content={event.content}
                 title={event.title}
-                language={language}
-                onInternalLinkClick={this.redirectToPath}>
+                language={language}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
               <PageDetail identifier={t('location')} information={event.location.location} />
@@ -78,15 +68,10 @@ const mapStateTypeToProps = (state: StateType) => ({
   language: state.location.payload.language,
   city: state.location.payload.city,
   eventId: state.location.payload.eventId,
-  path: state.location.pathname,
-  routesMap: state.location.routesMap
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  redirect: action => dispatch(redirect(action))
+  path: state.location.pathname
 })
 
 export default compose(
-  connect(mapStateTypeToProps, mapDispatchToProps),
+  connect(mapStateTypeToProps),
   withNamespaces('events')
 )(EventsPage)

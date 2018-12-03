@@ -61,9 +61,6 @@ describe('PoisPage', () => {
 
   const city = 'augsburg'
   const language = 'en'
-  const redirect = () => {}
-  const routesMap = {}
-
   const t = (key: ?string): string => key || ''
 
   it('should render a Page if a poi is selected', () => {
@@ -72,10 +69,8 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                redirect={redirect}
                 path={'/augsburg/en/locations/third_poi'}
-                poiId={'third_poi'}
-                routesMap={routesMap} />
+                poiId={'third_poi'} />
     )).toMatchSnapshot()
   })
 
@@ -85,10 +80,8 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                redirect={redirect}
                 path={'/augsburg/en/locations/invalid_poi'}
-                poiId={'invalid_poi'}
-                routesMap={routesMap} />
+                poiId={'invalid_poi'} />
     )).toMatchSnapshot()
   })
 
@@ -98,10 +91,8 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                redirect={redirect}
                 path={'/augsburg/en/locations'}
-                poiId={undefined}
-                routesMap={routesMap} />
+                poiId={undefined} />
     )).toMatchSnapshot()
   })
 
@@ -111,10 +102,8 @@ describe('PoisPage', () => {
                 t={t}
                 city={city}
                 language={language}
-                redirect={redirect}
                 path={'/augsburg/en/locations'}
-                poiId={undefined}
-                routesMap={routesMap} />
+                poiId={undefined} />
     )
 
     expect(tree.find(List).props().items).toEqual(pois)
