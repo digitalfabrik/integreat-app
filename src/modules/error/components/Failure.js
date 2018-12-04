@@ -21,7 +21,9 @@ type PropsType = {|
 
 export class Failure extends React.Component<PropsType> {
   render () {
-    const {t} = this.props
+    const {error, t} = this.props
+
+    console.error(error)
     return <ViewContainer>
       <Icon name='frown-o' size={50} />
       <Text>
