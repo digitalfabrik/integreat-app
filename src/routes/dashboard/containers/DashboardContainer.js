@@ -81,7 +81,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const errorMessage = cities.error || categories.error || fileCache.error || 'test error'
+  const errorMessage = cities.error || categories.error || fileCache.error
 
   const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity: targetCity.code})
   return {
