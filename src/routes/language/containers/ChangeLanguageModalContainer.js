@@ -7,7 +7,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import setLanguage from '../../../modules/i18n/actions/setLanguage'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components'
-import languagesEndpoint from 'modules/endpoint/endpoints/languages'
+import { languagesEndpoint } from '@integreat-app/integreat-api-client'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const city = state.currentCity
@@ -34,4 +34,5 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   }
 }
 
+// $FlowFixMe
 export default withTheme(connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageModal))

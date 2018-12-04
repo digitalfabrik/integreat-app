@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import Heading from '../components/Heading'
 import styled from 'styled-components'

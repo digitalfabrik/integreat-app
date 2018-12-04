@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`sprungbrettJobs should throw if the url to map the url are missing 1`] = `"ParamMissingError: Failed to load the sprungbrettJobs endpoint because the url is missing"`;

@@ -121,4 +121,5 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 const mapStateToProps = state => ({language: state.language})
 
+// $FlowFixMe connect()
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)

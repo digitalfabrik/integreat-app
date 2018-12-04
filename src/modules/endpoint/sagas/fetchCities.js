@@ -7,11 +7,12 @@ import type {
   CitiesFetchSucceededActionType,
   FetchCitiesRequestActionType
 } from '../../app/StoreActionType'
-import citiesEndpoint from '../endpoints/cities'
+import { citiesEndpoint } from '@integreat-app/integreat-api-client'
+import request from '../request'
 
 function * fetch (action: FetchCitiesRequestActionType): Saga<void> {
   try {
-    const payload = yield call(citiesEndpoint._loadData.bind(citiesEndpoint), action.params)
+    const payload = yield call(request.bind(null, citiesEndpoint, action.params))
     const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: payload}
     yield put(success)
   } catch (e) {
