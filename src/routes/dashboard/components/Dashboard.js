@@ -3,12 +3,11 @@
 import * as React from 'react'
 import { Button } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
-import { CityModel } from '@integreat-app/integreat-api-client'
 import { ActivityIndicator, ScrollView } from 'react-native'
 import type { FilesStateType } from '../../../modules/app/StateType'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
