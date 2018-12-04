@@ -19,7 +19,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const cities = state.cities
 
-  if (!cities.json || cities.error) {
+  if (!cities || !cities.json || cities.error) {
     throw new Error('There are no cities in state!')
   }
 
