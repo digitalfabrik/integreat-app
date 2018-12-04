@@ -1,18 +1,23 @@
 // @flow
 
 import type { StateType } from '../../../modules/app/StateType'
-import { createSelector } from 'reselect'
-import categoriesEndpoint from '../../../modules/endpoint/endpoints/categories'
+import { createSelector, type OutputSelector } from 'reselect'
+import { categoriesEndpoint } from '@integreat-app/integreat-api-client'
+import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 
-const categoriesJsonSelector = (state: StateType, props) => state.categories[props.targetCity].json[props.language]
+export type CategoriesSelectorPropsType = { targetCity: string, language: string }
 
-const targetCitySelector = (state: StateType, props) => props.targetCity
+export type CategoriesSelectorType = (state: StateType, props: CategoriesSelectorPropsType)
+  => OutputSelector<StateType, CategoriesSelectorPropsType, CategoriesMapModel>
 
-const languageSelector = (state: StateType, props) => props.language
-
-const categoriesSelector = createSelector(
-  [categoriesJsonSelector, targetCitySelector, languageSelector],
-  (json, targetCity, language) => categoriesEndpoint.mapResponse(json, {language, city: targetCity})
+const categoriesSelector: CategoriesSelectorType = createSelector(
+  (state, props) => state.categories[props.targetCity].json[props.language],
+  (state, props) => props.targetCity,
+  (state, props) => props.language,
+  (json, targetCity, language) => categoriesEndpoint.mapResponse(json, {
+    language,
+    city: targetCity
+  })
 )
 
 export default categoriesSelector

@@ -19,10 +19,24 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * Run `yarn android`
 
 ### iOS
-* Update CocoaPods
+* Install CocoaPods pods: `cd ios && pod install`
 * Run `yarn ios`
 
+Note: The command `pod install` uses the versions from the Podfile.lock. `pod update` updates the Podfile.lock 
+
+Note: All dependencies are handled by CocoaPods. The versions in node_modules/ should not be used!
+
+Note: If you are using Xcode, always open `project.xcworkspace`
+
 ### If you encounter problems:
+
+#### Errors when compiling double-conversion on iOS
+
+This happens when you use Xcode without running `yarn ios` or you did not install the pods.
+Try to reinstall the node_modules folder. The double-conversion library gets downloaded and installed in there when you run `yarn ios`.
+
+See [here](https://github.com/facebook/react-native/issues/21168#issuecomment-422700915) and [here](https://github.com/facebook/react-native/issues/20774) for more information 
+
     
 #### `ERROR watch... ENOSPC` when running `yarn start` on Linux
 
