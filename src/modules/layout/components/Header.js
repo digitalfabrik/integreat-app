@@ -144,7 +144,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
-            <Item title='Change Location' iconName='edit-location' onPress={this.goToLanding} />
+            <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>
         </Horizontal>
