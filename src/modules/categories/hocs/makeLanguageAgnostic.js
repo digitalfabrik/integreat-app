@@ -4,7 +4,7 @@ import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapMo
 import * as React from 'react'
 import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import Failure from '../../common/components/Failure'
+import Failure from '../../error/components/Failure'
 
 type PropsType = {|
   categories: CategoriesMapModel,

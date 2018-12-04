@@ -12,7 +12,7 @@ import { withTheme } from 'styled-components'
 import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
 import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
-import withError from '../../../modules/common/hocs/withError'
+import withError from '../../../modules/error/hocs/withError'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -81,7 +81,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const errorMessage = cities.error || categories.error || fileCache.error
+  const errorMessage = cities.error || categories.error || fileCache.error || 'test error'
 
   const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity: targetCity.code})
   return {
