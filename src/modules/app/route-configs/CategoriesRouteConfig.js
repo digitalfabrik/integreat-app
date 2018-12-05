@@ -3,7 +3,7 @@
 import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 import { Payload, CategoriesMapModel, CityModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
 
 export type CategoriesRouteParamsType = {|city: string, language: string|}
@@ -28,14 +28,18 @@ const categoriesRoute: Route = {
 class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, RequiredPayloadsType> {
   name = CATEGORIES_ROUTE
   route = categoriesRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: CategoriesRouteParamsType): string => `/${city}/${language}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
 
-  getLanguageChangePath = ({location, categories, language}: GetLanguageChangePathParamsType) => {
+  getLanguageChangePath = ({location, payloads, language}) => {
     const {city} = location.payload
+    const categories = payloads.categories.data
     if (categories) {
       const category = categories.findCategoryByPath(location.pathname)
       if (category && category.id !== 0) {
@@ -45,9 +49,19 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     return this.getRoutePath({city, language})
   }
 
-  getPageTitle = ({t, categories, cityName, pathname}: GetPageTitleParamsType) => {
+  getPageTitle = ({t, payloads, cityName, location}) => {
+    const pathname = location.pathname
+    const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(pathname)
     return `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityName}`
+  }
+
+  getMetaDescription = t => t('metaDescription')
+
+  getFeedbackTargetInformation = ({location, payloads}) => {
+    const categories = payloads.categories.data
+    const category = categories && categories.findCategoryByPath(location.pathname)
+    return category ? {id: category.id, title: category.title} : null
   }
 }
 

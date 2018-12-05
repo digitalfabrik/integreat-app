@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
 const babelConfig = require('../.babelrc.js')
 const getVersion = require('git-repo-version')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const useHMR = !!global.HMR // Hot Module Replacement (HMR)
@@ -39,6 +40,11 @@ const config = {
   stats: 'minimal',
   // The list of plugins for Webpack compiler
   plugins: [
+    new StyleLintPlugin({
+      files: '**/*.css',
+      configFile: 'stylelint.config.js',
+      emitErrors: !isDebug
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       __DEV__: isDebug,

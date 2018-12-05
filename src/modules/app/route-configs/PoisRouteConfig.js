@@ -4,7 +4,7 @@ import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { poisEndpoint, Payload, PoiModel } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
@@ -24,11 +24,15 @@ const poisRoute: Route = {
 class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloadsType> {
   name = POIS_ROUTE
   route = poisRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: PoisRouteParamsType): string => `/${city}/${language}/locations`
 
-  getLanguageChangePath = ({location, pois, language}: GetLanguageChangePathParamsType) => {
+  getLanguageChangePath = ({location, payloads, language}) => {
     const {city, poiId} = location.payload
+    const pois = payloads.pois.data
     if (pois && poiId) {
       const poi = pois.find(_poi => _poi.path === location.pathname)
       return (poi && poi.availableLanguages.get(language)) || null
@@ -38,10 +42,16 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({pois: payloads.poisPayload})
 
-  getPageTitle = ({cityName, pois, t}: GetPageTitleParamsType) => {
-    const poi = pois && pois.find(poi => poi.path === location.pathname)
+  getPageTitle = ({cityName, payloads, t, location}) => {
+    const pathname = location.pathname
+    const pois = payloads.pois.data
+    const poi = pois && pois.find(poi => poi.path === pathname)
     return `${poi ? poi.title : t('pageTitles.pois')} - ${cityName}`
   }
+
+  getMetaDescription = () => null
+
+  getFeedbackTargetInformation = () => null
 }
 
 export default PoisRouteConfig

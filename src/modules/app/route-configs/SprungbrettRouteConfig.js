@@ -10,7 +10,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
@@ -42,6 +42,9 @@ const sprungbrettRoute: Route = {
 class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, RequiredPayloadsType> {
   name = SPRUNGBRETT_ROUTE
   route = sprungbrettRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: SprungbrettRouteParamsType): string =>
     `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
@@ -49,12 +52,21 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, extras}: GetPageTitleParamsType) => {
+  getPageTitle = ({cityName, payloads}) => {
+    const extras = payloads.extras.data
     const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
+  }
+
+  getMetaDescription = () => null
+
+  getFeedbackTargetInformation = ({payloads}) => {
+    const extras = payloads.extras.data
+    const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+    return ({alias: SPRUNGBRETT_EXTRA, title: extra && extra.title})
   }
 }
 

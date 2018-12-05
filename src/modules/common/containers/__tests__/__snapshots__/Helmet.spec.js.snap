@@ -6,7 +6,7 @@ exports[`Helmet should add noindex tag, if city is not live 1`] = `
   encodeSpecialCharacters={true}
 >
   <title>
-    pageTitle
+    PageTitle
   </title>
   <meta
     content="noindex"
@@ -39,8 +39,12 @@ exports[`Helmet should render and match snapshot 1`] = `
   encodeSpecialCharacters={true}
 >
   <title>
-    pageTitle
+    PageTitle
   </title>
+  <meta
+    content="MetaDescription"
+    name="description"
+  />
   <link
     href="/augsburg/de"
     hrefLang="de"

@@ -28,6 +28,9 @@ const i18nRedirectRoute: Route = {
 class I18nRedirectRouteConfig implements RouteConfig<I18nRedirectRouteParamsType, RequiredPayloadsType> {
   name = I18N_REDIRECT_ROUTE
   route = i18nRedirectRoute
+  isLocationLayoutRoute = false
+  requiresHeader = false
+  requiresFooter = false
 
  getRoutePath = ({param}: I18nRedirectRouteParamsType): string => `/${param || ''}`
 
@@ -36,6 +39,10 @@ class I18nRedirectRouteConfig implements RouteConfig<I18nRedirectRouteParamsType
   getPageTitle = () => ''
 
   getLanguageChangePath = () => null
+
+  getMetaDescription = () => null
+
+  getFeedbackTargetInformation = () => null
 }
 
 export default I18nRedirectRouteConfig

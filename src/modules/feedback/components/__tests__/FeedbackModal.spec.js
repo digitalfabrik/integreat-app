@@ -31,8 +31,7 @@ describe('FeedbackModal', () => {
       title={'title'}
       alias='alias'
       closeFeedbackModal={() => {}}
-      feedbackStatus={'up'}
-      extras={null} />
+      feedbackStatus={'up'} />
     )).toMatchSnapshot()
   })
 })

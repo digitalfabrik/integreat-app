@@ -14,26 +14,25 @@ import {
   PageModel,
   LanguageModel
 } from '@integreat-app/integreat-api-client'
-import LanguageNotFoundError from '../errors/LanguageNotFoundError'
-import FailureSwitcher from '../../common/components/FailureSwitcher'
-import { NOT_FOUND } from 'redux-first-router'
-import CityNotFoundError from '../errors/CityNotFoundError'
-import LoadingSpinner from '../../common/components/LoadingSpinner'
 import Layout from '../../layout/components/Layout'
 import LocationLayout from '../../layout/containers/LocationLayout'
 import GeneralHeader from '../../layout/components/GeneralHeader'
 import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
-import { LANDING_ROUTE } from '../route-configs/LandingRouteConfig'
-import { MAIN_DISCLAIMER_ROUTE } from '../route-configs/MainDisclaimerRouteConfig'
-import { getRouteConfig, LocationLayoutRoutes } from '../route-configs'
-import { getRouteContent } from '../routeContents'
-import reduce from 'lodash/reduce'
-import find from 'lodash/find'
+import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
+import type { Location, Dispatch } from 'redux-first-router'
+import { withNamespaces } from 'react-i18next'
+import compose from 'lodash/fp/compose'
+import type { TFunction } from 'react-i18next'
+import type { RouteConfig } from '../route-configs/RouteConfig'
+import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
+import LanguageFailure from '../../common/containers/LanguageFailure'
+import RouteContentSwitcher from './RouteContentSwitcher'
+
+export type LanguageChangePathsType = Array<{code: string, path: string | null, name: string}>
 
 type PropsType = {|
-  currentRoute: string,
   citiesPayload: Payload<Array<CityModel>>,
   categoriesPayload: Payload<CategoriesMapModel>,
   poisPayload: Payload<Array<PoiModel>>,
@@ -43,113 +42,104 @@ type PropsType = {|
   wohnenPayload: Payload<Array<WohnenOfferModel>>,
   disclaimerPayload: Payload<PageModel>,
   languages: ?Array<LanguageModel>,
-  language: ?string,
-  city: ?string,
-  param: ?string,
   viewportSmall: boolean,
-  darkMode: boolean
+  darkMode: boolean,
+  location: Location,
+  toggleDarkMode: () => void,
+  t: TFunction
 |}
 
 /**
  * Switches what content should be rendered depending on the current route
  */
 export class Switcher extends React.Component<PropsType> {
-  /**
-   * Renders a failure component if a payload contains an error or a LoadingSpinner if the data is still being fetched
-   * @param payloads The payloads to check for errors or fetching process
-   */
-  static renderFailureLoadingComponents = (payloads: {[string]: Payload<any>}): React.Node => {
-    const errorPayload = find(payloads, payload => payload.error)
-    if (find(payloads, payload => (payload.isFetching || !payload.data) && !payload.error)) {
-      return <LoadingSpinner />
-    } else if (errorPayload) {
-      return <FailureSwitcher error={errorPayload.error} />
-    }
-    return null
+  getAllPayloads = () => {
+    const {location, languages, viewportSmall, darkMode, toggleDarkMode, t, ...payloads} = this.props
+    return payloads
   }
 
-  renderPage = (): React.Node => {
-    const {
-      currentRoute, citiesPayload, eventsPayload, categoriesPayload, extrasPayload, disclaimerPayload,
-      sprungbrettJobsPayload, wohnenPayload, poisPayload, param
-    } = this.props
-    const allPayloads = {
-      citiesPayload,
-      eventsPayload,
-      categoriesPayload,
-      extrasPayload,
-      disclaimerPayload,
-      sprungbrettJobsPayload,
-      wohnenPayload,
-      poisPayload
-    }
-
-    if (currentRoute === NOT_FOUND) {
-      // The only possibility to be in the NOT_FOUND route is if we have "/:param" as path and the param is neither
-      // "disclaimer" nor a city, so we want to show an error that the param is not an available city
-      if (param) {
-        const error = new CityNotFoundError({city: param})
-        return <FailureSwitcher error={error} />
-      }
-    }
-    const RouteContent = getRouteContent(currentRoute)
-    const payloads = getRouteConfig(currentRoute).getRequiredPayloads(allPayloads)
-    return Switcher.renderFailureLoadingComponents(payloads) ||
-      <>
-        <Helmet getPageTitle={getRouteConfig(currentRoute).getPageTitle} />
-        <RouteContent {...reduce(payloads, (result, value, key: string) => ({[key]: value.data, ...result}), {})} />
-      </>
+  getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
+    const {languages, location} = this.props
+    const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
+    return languages && languages.map(language => ({
+      path: routeConfig.getLanguageChangePath({payloads, location, language: language.code}),
+      name: language.name,
+      code: language.code
+    }))
   }
 
-  /**
-   * Checks whether the city and language params are valid
-   * @return {*}
-   */
-  checkRouteParams (): ?Error {
-    const {city, citiesPayload, language, languages} = this.props
-    if (city && citiesPayload.data && !citiesPayload.data.find(_city => _city.code === city)) {
-      return new CityNotFoundError({city})
-    } else if (language && city && citiesPayload.data && languages && !languages.find(lang => lang.code === language)) {
-      return new LanguageNotFoundError({city, language})
-    }
-    return null
+  renderHelmet = (): React.Node => {
+    const {location, citiesPayload, t} = this.props
+    const routeConfig = getRouteConfig(location.type)
+    const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
+    const cityModel = citiesPayload.data && citiesPayload.data.find(city => city.code === location.payload.city)
+    const pageTitle = routeConfig.getPageTitle({t, payloads, cityName: cityModel ? cityModel.name : '', location})
+    const metaDescription = routeConfig.getMetaDescription(t)
+    const languageChangePaths = this.getLanguageChangePaths(routeConfig)
+    return (
+      <Helmet pageTitle={pageTitle}
+              metaDescription={metaDescription}
+              languageChangePaths={languageChangePaths}
+              cityModel={cityModel} />
+    )
   }
 
-  render () {
-    const {currentRoute, viewportSmall, darkMode} = this.props
+  isLanguageInvalid (): boolean {
+    const {location, citiesPayload, languages} = this.props
+    const {city, language} = location.payload
+    return language && city && citiesPayload.data && !!languages && !languages.find(lang => lang.code === language)
+  }
 
-    const error = this.checkRouteParams()
-    if (error) {
+  renderLayoutWithContent (): React.Node {
+    const {location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode, eventsPayload} =
+      this.props
+
+    const routeConfig = getRouteConfig(location.type)
+    const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
+    const feedbackTargetInformation = routeConfig.getFeedbackTargetInformation({location, payloads})
+    const languageChangePaths = this.getLanguageChangePaths(routeConfig)
+
+    const error = this.isLanguageInvalid()
+    if (error || !routeConfig.isLocationLayoutRoute) {
       return (
-        <Layout header={<GeneralHeader viewportSmall={viewportSmall} />} footer={<GeneralFooter />} darkMode={darkMode}>
-          <FailureSwitcher error={error} />
+        <Layout footer={(error || routeConfig.requiresFooter) && <GeneralFooter />}
+                header={(error || routeConfig.requiresHeader) && <GeneralHeader viewportSmall={viewportSmall} />}
+                darkMode={darkMode}>
+          {error ? <LanguageFailure cities={citiesPayload.data}
+                                    location={location}
+                                    languageChangePaths={languageChangePaths} />
+            : <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
+          }
         </Layout>
-      )
-    }
-
-    if (LocationLayoutRoutes.includes(currentRoute)) {
-      return (
-        <LocationLayout>
-          {this.renderPage()}
-        </LocationLayout>
       )
     } else {
       return (
-        <Layout footer={[LANDING_ROUTE, MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) && <GeneralFooter />}
-                header={
-                  [MAIN_DISCLAIMER_ROUTE, NOT_FOUND].includes(currentRoute) &&
-                  <GeneralHeader viewportSmall={viewportSmall} />
-                }
-                darkMode={darkMode}>
-          {this.renderPage()}
-        </Layout>
+        <LocationLayout feedbackTargetInformation={feedbackTargetInformation}
+                        location={location}
+                        categories={categoriesPayload.data}
+                        cities={citiesPayload.data}
+                        events={eventsPayload.data}
+                        darkMode={darkMode}
+                        viewportSmall={viewportSmall}
+                        toggleDarkMode={toggleDarkMode}
+                        languageChangePaths={languageChangePaths}>
+          <RouteContentSwitcher location={location} allPayloads={this.getAllPayloads()} />
+        </LocationLayout>
       )
     }
+  }
+
+  render () {
+    return (
+      <>
+        {this.renderHelmet()}
+        {this.renderLayoutWithContent()}
+      </>
+    )
   }
 }
 
 const mapStateToProps = (state: StateType) => ({
-  currentRoute: state.location.type,
   citiesPayload: state.cities,
   categoriesPayload: state.categories,
   eventsPayload: state.events,
@@ -159,12 +149,18 @@ const mapStateToProps = (state: StateType) => ({
   wohnenPayload: state.wohnen,
   disclaimerPayload: state.disclaimer,
   languages: state.languages.data,
-  language: state.location.payload.language,
-  city: state.location.payload.city,
-  param: state.location.prev.payload.param,
   viewportSmall: state.viewport.is.small,
-  darkMode: state.darkMode
+  darkMode: state.darkMode,
+  location: state.location
+})
+
+// fixme: WEBAPP-400 Dispatch type is not correct
+const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+  toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 
 // $FlowFixMe https://github.com/facebook/flow/issues/7125
-export default connect(mapStateToProps)(Switcher)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withNamespaces('app')
+)(Switcher)

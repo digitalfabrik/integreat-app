@@ -2,7 +2,6 @@
 
 import { RouteConfig } from './RouteConfig'
 import { Route } from 'redux-first-router'
-import type { GetPageTitleParamsType } from './RouteConfig'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
@@ -15,14 +14,21 @@ const mainDisclaimerRoute: Route = '/disclaimer'
 class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
   name = MAIN_DISCLAIMER_ROUTE
   route = mainDisclaimerRoute
+  isLocationLayoutRoute = false
+  requiresHeader = true
+  requiresFooter = true
 
-  getRoutePath = (): string => '/disclaimer'
+  getRoutePath = (): string => mainDisclaimerRoute
 
   getRequiredPayloads = () => {}
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({t}: GetPageTitleParamsType) => t('pageTitles.mainDisclaimer')
+  getPageTitle = ({t}) => t('pageTitles.mainDisclaimer')
+
+  getMetaDescription = () => null
+
+  getFeedbackTargetInformation = () => null
 }
 
 export default MainDisclaimerRouteConfig

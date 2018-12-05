@@ -2,23 +2,22 @@
 
 import { shallow } from 'enzyme'
 import React from 'react'
-import { LanguageModel, EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
-import ConnectedLocationHeader, { LocationHeader } from '../LocationHeader'
+import { EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { LocationHeader } from '../LocationHeader'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
 import { EXTRAS_ROUTE } from '../../../app/route-configs/ExtrasRouteConfig'
 import moment from 'moment-timezone'
-import configureMockStore from 'redux-mock-store'
 import { WOHNEN_ROUTE } from '../../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
 
 describe('LocationHeader', () => {
-  const languages = [
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('en', 'English'),
-    new LanguageModel('ar', 'Arabic')
-  ]
   const t = (key: ?string): string => key || ''
+
+  const languageChangePaths = [
+    {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
+    {code: 'en', name: 'English', path: '/augsburg/en'}
+  ]
 
   const events = [
     new EventModel({
@@ -98,6 +97,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled={false}
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
@@ -109,6 +109,7 @@ describe('LocationHeader', () => {
                                                  isEventsEnabled={false}
                                                  viewportSmall
                                                  events={events}
+                                                 languageChangePaths={languageChangePaths}
                                                  onStickyTopChanged={onStickyTopChanged}
                                                  t={t} />)
       const eventsComp = shallow(<LocationHeader location={location(CATEGORIES_ROUTE)}
@@ -116,6 +117,7 @@ describe('LocationHeader', () => {
                                                  isEventsEnabled
                                                  viewportSmall
                                                  events={events}
+                                                 languageChangePaths={languageChangePaths}
                                                  onStickyTopChanged={onStickyTopChanged}
                                                  t={t} />)
 
@@ -129,6 +131,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()).toMatchSnapshot()
@@ -140,6 +143,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()[1].props.selected).toBe(true)
@@ -151,6 +155,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()[2].props.selected).toBe(true)
@@ -162,6 +167,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
@@ -173,6 +179,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
@@ -184,6 +191,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
       expect(component.instance().getNavigationItems()[0].props.selected).toBe(true)
@@ -197,6 +205,7 @@ describe('LocationHeader', () => {
                                                 isEventsEnabled
                                                 viewportSmall
                                                 events={events}
+                                                languageChangePaths={languageChangePaths}
                                                 onStickyTopChanged={onStickyTopChanged}
                                                 t={t} />)
 
@@ -210,30 +219,10 @@ describe('LocationHeader', () => {
                                               isEventsEnabled
                                               viewportSmall
                                               events={events}
+                                              languageChangePaths={languageChangePaths}
                                               onStickyTopChanged={onStickyTopChanged}
                                               t={t} />)
     expect(component).toMatchSnapshot()
-  })
-
-  it('should map state to props', () => {
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      location: location(CATEGORIES_ROUTE),
-      events: {data: events},
-      languages: {data: languages},
-      viewport: {is: {small: false}}
-    })
-
-    const categoriesPage = shallow(
-      <ConnectedLocationHeader store={store} onStickyTopChanged={onStickyTopChanged} />
-    )
-
-    expect(categoriesPage.props()).toMatchObject({
-      location: location(CATEGORIES_ROUTE),
-      languages,
-      events,
-      viewportSmall: false
-    })
   })
 
   // fixme: Test the events enabled functionality. Especially isEventsActive()

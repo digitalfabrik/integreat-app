@@ -1,4 +1,4 @@
-// These types are from: https://medium.com/@samgoldman/ville-saukkonen-thanks-and-thanks-for-your-thoughtful-questions-24aedcfed518
+// This types are from: https://medium.com/@samgoldman/ville-saukkonen-thanks-and-thanks-for-your-thoughtful-questions-24aedcfed518
 
 /***************/
 /* react-redux */
