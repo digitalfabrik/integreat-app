@@ -12,6 +12,7 @@ exports[`CategoryList should render and display a caption 1`] = `
         "__html": "test content",
       }
     }
+    onInternalLinkClick={[Function]}
   />
   <CategoryList__List>
     <CategoryListItem
