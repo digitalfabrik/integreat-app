@@ -15,6 +15,7 @@ import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import Caption from '../../../modules/common/components/Caption'
 import List from '../../../modules/common/components/List'
+import { push } from 'redux-first-router'
 
 type PropsType = {|
   pois: Array<PoiModel>,
@@ -42,7 +43,8 @@ export class PoisPage extends React.Component<PropsType> {
                 lastUpdate={poi.lastUpdate}
                 content={poi.content}
                 title={poi.title}
-                language={language}>
+                language={language}
+                onInternalLinkClick={push}>
             <PageDetail identifier={t('location')} information={poi.location.location} />
           </Page>
         )

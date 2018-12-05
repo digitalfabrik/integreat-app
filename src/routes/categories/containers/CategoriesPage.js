@@ -15,6 +15,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import type { StateType } from '../../../modules/app/StateType'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
+import { push } from 'redux-first-router'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -56,7 +57,8 @@ export class CategoriesPage extends React.Component<PropsType> {
       return <Page title={category.title}
                    content={category.content}
                    lastUpdate={category.lastUpdate}
-                   language={language} />
+                   language={language}
+                   onInternalLinkClick={push} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -64,7 +66,10 @@ export class CategoriesPage extends React.Component<PropsType> {
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
-                         title={category.title} content={category.content} thumbnail={category.thumbnail} />
+                         title={category.title}
+                         content={category.content}
+                         thumbnail={category.thumbnail}
+                         onInternalLinkClick={push} />
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {

@@ -18,7 +18,8 @@ describe('Page', () => {
                          lastUpdate={lastUpdate}
                          content={content}
                          thumbnail={thumbnail}
-                         language={language} />
+                         language={language}
+                         onInternalLinkClick={() => {}} />
     )).toMatchSnapshot()
   })
 })
