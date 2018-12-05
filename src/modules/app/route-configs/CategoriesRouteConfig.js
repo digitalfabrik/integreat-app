@@ -3,12 +3,7 @@
 import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type {
-  AllPayloadsType,
-  GetFeedbackReferenceType,
-  GetLanguageChangePathParamsType,
-  GetPageTitleParamsType
-} from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 import { Payload, CategoriesMapModel, CityModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
 
 export type CategoriesRouteParamsType = {|city: string, language: string|}
@@ -42,7 +37,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
 
-  getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
+  getLanguageChangePath = ({location, payloads, language}) => {
     const {city} = location.payload
     const categories = payloads.categories.data
     if (categories) {
@@ -54,7 +49,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     return this.getRoutePath({city, language})
   }
 
-  getPageTitle = ({t, payloads, cityName, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+  getPageTitle = ({t, payloads, cityName, location}) => {
     const pathname = location.pathname
     const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(pathname)
@@ -63,7 +58,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
 
   getMetaDescription = t => t('metaDescription')
 
-  getFeedbackReference = ({location, payloads}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+  getFeedbackTargetInformation = ({location, payloads}) => {
     const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(location.pathname)
     return category ? {id: category.id, title: category.title} : null

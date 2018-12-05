@@ -3,12 +3,7 @@
 import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type {
-  AllPayloadsType,
-  GetFeedbackReferenceType,
-  GetLanguageChangePathParamsType,
-  GetPageTitleParamsType
-} from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 import Hashids from 'hashids'
 import {
   ExtraModel,
@@ -59,10 +54,10 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, payloads, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+  getPageTitle = ({cityName, payloads, location}) => {
     const offerHash = location.payload.offerHash
     const extras = payloads.extras.data
     const offers = payloads.offers.data
@@ -76,7 +71,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
 
   getMetaDescription = () => null
 
-  getFeedbackReference = ({payloads}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+  getFeedbackTargetInformation = ({payloads}) => {
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
     return ({alias: WOHNEN_EXTRA, title: extra && extra.title})
