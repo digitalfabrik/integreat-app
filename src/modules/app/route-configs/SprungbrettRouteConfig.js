@@ -33,9 +33,8 @@ const fetchExtras = async (dispatch, getState) => {
     const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     if (sprungbrettExtra) {
       const params = {city, language, url: sprungbrettExtra.path}
-      const sprungbrettEndpoint1 = sprungbrettEndpoint
 
-      await fetchData(sprungbrettEndpoint1, dispatch, state.sprungbrettJobs, params)
+      await fetchData(sprungbrettEndpoint, dispatch, state.sprungbrettJobs, params)
     }
   }
 }
