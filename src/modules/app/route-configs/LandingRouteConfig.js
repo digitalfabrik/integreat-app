@@ -4,7 +4,7 @@ import { RouteConfig } from './RouteConfig'
 import { CityModel, citiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type LandingRouteParamsType = {|language: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -29,7 +29,7 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
   requiresHeader = false
   requiresFooter = true
 
-  getPageTitle = ({t}: GetPageTitleParamsType<RequiredPayloadsType>) => t('pageTitles.landing')
+  getPageTitle = ({t}) => t('pageTitles.landing')
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({cities: payloads.citiesPayload})
 
@@ -39,7 +39,7 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
 
   getMetaDescription = t => t('metaDescription')
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default LandingRouteConfig

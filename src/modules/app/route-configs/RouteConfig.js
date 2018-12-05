@@ -25,13 +25,7 @@ export type AllPayloadsType = {|
   disclaimerPayload: Payload<PageModel>
 |}
 
-export type GetLanguageChangePathParamsType<P> = {|location: Location, payloads: P, language: string|}
-
-export type GetPageTitleParamsType<P> = {|t: TFunction, cityName: string, location: Location, payloads: P|}
-
-export type GetFeedbackReferenceType<P> = {|location: Location, payloads: P|}
-
-export type FeedbackReferenceType = {|id?: number, title?: string, alias?: string|} | null
+export type FeedbackTargetInformationType = {|id?: number, title?: string, alias?: string|} | null
 
 export interface RouteConfig<T, P> {
   name: string,
@@ -40,9 +34,9 @@ export interface RouteConfig<T, P> {
   requiresHeader: boolean,
   requiresFooter: boolean,
   getRoutePath: T => string,
-  getLanguageChangePath: GetLanguageChangePathParamsType<P> => string | null,
-  getPageTitle: GetPageTitleParamsType<P> => string,
+  getLanguageChangePath: {|location: Location, payloads: P, language: string|} => string | null,
+  getPageTitle: {|t: TFunction, cityName: string, location: Location, payloads: P|} => string,
   getRequiredPayloads: AllPayloadsType => P,
   getMetaDescription: (t: TFunction) => string | null,
-  getFeedbackReference: GetFeedbackReferenceType<P> => FeedbackReferenceType
+  getFeedbackTargetInformation: {|location: Location, payloads: P|} => FeedbackTargetInformationType
 }

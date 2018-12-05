@@ -42,7 +42,7 @@ class I18nRedirectRouteConfig implements RouteConfig<I18nRedirectRouteParamsType
 
   getMetaDescription = () => null
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default I18nRedirectRouteConfig

@@ -1,7 +1,6 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { GetPageTitleParamsType } from './RouteConfig'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
@@ -24,11 +23,11 @@ class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({t}: GetPageTitleParamsType<void>) => t('pageTitles.mainDisclaimer')
+  getPageTitle = ({t}) => t('pageTitles.mainDisclaimer')
 
   getMetaDescription = () => null
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default MainDisclaimerRouteConfig

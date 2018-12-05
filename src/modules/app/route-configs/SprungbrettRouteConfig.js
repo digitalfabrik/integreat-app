@@ -10,12 +10,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type {
-  AllPayloadsType,
-  GetFeedbackReferenceType,
-  GetLanguageChangePathParamsType,
-  GetPageTitleParamsType
-} from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type SprungbrettRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettModel>>, extras: Payload<Array<ExtraModel>>|}
@@ -67,10 +62,10 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, payloads}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+  getPageTitle = ({cityName, payloads}) => {
     const extras = payloads.extras.data
     const sprungbrettExtra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     return sprungbrettExtra ? `${sprungbrettExtra.title} - ${cityName}` : ''
@@ -78,7 +73,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
 
   getMetaDescription = () => null
 
-  getFeedbackReference = ({payloads}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+  getFeedbackTargetInformation = ({payloads}) => {
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     return ({alias: SPRUNGBRETT_EXTRA, title: extra && extra.title})
