@@ -11,7 +11,7 @@ import {
   eventsEndpoint,
   languagesEndpoint
 } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
@@ -42,7 +42,7 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getRoutePath = ({city, language}: PoisRouteParamsType): string => `/${city}/${language}/locations`
 
-  getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
+  getLanguageChangePath = ({location, payloads, language}) => {
     const {city, poiId} = location.payload
     const pois = payloads.pois.data
     if (pois && poiId) {
@@ -54,7 +54,7 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({pois: payloads.poisPayload})
 
-  getPageTitle = ({cityName, payloads, t, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+  getPageTitle = ({cityName, payloads, t, location}) => {
     const pathname = location.pathname
     const pois = payloads.pois.data
     const poi = pois && pois.find(poi => poi.path === pathname)
@@ -63,7 +63,7 @@ class PoisRouteConfig implements RouteConfig<PoisRouteParamsType, RequiredPayloa
 
   getMetaDescription = () => null
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default PoisRouteConfig

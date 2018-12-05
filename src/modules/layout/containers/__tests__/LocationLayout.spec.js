@@ -77,13 +77,13 @@ describe('LocationLayout', () => {
     {code: 'en', name: 'English', path: '/augsburg/en'}
   ]
 
-  const feedbackReference = {id: 75, title: 'Category_Title'}
+  const feedbackTargetInformation = {id: 75, title: 'Category_Title'}
 
   const MockNode = () => <div />
   const renderLocationLayout = location => <LocationLayout location={createLocation({...location})}
                                                            categories={categories} cities={cities}
                                                            events={events} languageChangePaths={languageChangePaths}
-                                                           feedbackReference={feedbackReference}
+                                                           feedbackTargetInformation={feedbackTargetInformation}
                                                            viewportSmall toggleDarkMode={() => {}} darkMode>
     <MockNode />
   </LocationLayout>

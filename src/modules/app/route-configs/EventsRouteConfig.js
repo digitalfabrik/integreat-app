@@ -2,12 +2,7 @@
 
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
-import type {
-  AllPayloadsType,
-  GetFeedbackReferenceType,
-  GetLanguageChangePathParamsType,
-  GetPageTitleParamsType
-} from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 import {
   Payload,
   EventModel,
@@ -46,7 +41,7 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   requiresHeader = true
   requiresFooter = true
 
-  getLanguageChangePath = ({location, payloads, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) => {
+  getLanguageChangePath = ({location, payloads, language}) => {
     const {city, eventId} = location.payload
     const events = payloads.events.data
     if (events && eventId) {
@@ -58,7 +53,7 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({events: payloads.eventsPayload})
 
-  getPageTitle = ({t, payloads, cityName, location}: GetPageTitleParamsType<RequiredPayloadsType>) => {
+  getPageTitle = ({t, payloads, cityName, location}) => {
     const pathname = location.pathname
     const events = payloads.events.data
     const event = events && events.find(event => event.path === pathname)
@@ -69,7 +64,7 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
 
   getMetaDescription = () => null
 
-  getFeedbackReference = ({payloads, location}: GetFeedbackReferenceType<RequiredPayloadsType>) => {
+  getFeedbackTargetInformation = ({payloads, location}) => {
     const events = payloads.events.data
     const event = events && events.find(event => event.id === location.payload.eventId)
     return event ? {id: event.id, title: event.title} : null

@@ -56,7 +56,7 @@ type PropsType = {|
 export class Switcher extends React.Component<PropsType> {
   getAllPayloads = () => {
     const {location, languages, viewportSmall, darkMode, toggleDarkMode, t, ...payloads} = this.props
-    return {...payloads}
+    return payloads
   }
 
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
@@ -97,7 +97,7 @@ export class Switcher extends React.Component<PropsType> {
 
     const routeConfig = getRouteConfig(location.type)
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
-    const feedbackReference = routeConfig.getFeedbackReference({location, payloads})
+    const feedbackTargetInformation = routeConfig.getFeedbackTargetInformation({location, payloads})
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
 
     const error = this.isLanguageInvalid()
@@ -115,7 +115,7 @@ export class Switcher extends React.Component<PropsType> {
       )
     } else {
       return (
-        <LocationLayout feedbackReference={feedbackReference}
+        <LocationLayout feedbackTargetInformation={feedbackTargetInformation}
                         location={location}
                         categories={categoriesPayload.data}
                         cities={citiesPayload.data}

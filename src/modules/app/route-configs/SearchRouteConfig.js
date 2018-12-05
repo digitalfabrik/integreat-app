@@ -10,7 +10,7 @@ import {
   categoriesEndpoint,
   citiesEndpoint, eventsEndpoint, languagesEndpoint
 } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -45,10 +45,10 @@ class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPa
 
   getRoutePath = ({city, language}: SearchRouteParamsType): string => `/${city}/${language}/search`
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, t}: GetPageTitleParamsType<RequiredPayloadsType>) =>
+  getPageTitle = ({cityName, t}) =>
     `${t('pageTitles.search')} - ${cityName}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
@@ -56,7 +56,7 @@ class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPa
 
   getMetaDescription = () => null
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default SearchRouteConfig
