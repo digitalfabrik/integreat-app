@@ -4,12 +4,9 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
-import ConnectedLanguageFailure, { LanguageFailure } from '../LanguageFailure'
-import configureMockStore from 'redux-mock-store'
+import { LanguageFailure } from '../LanguageFailure'
 
 describe('LanguageFailure', () => {
-  const city = 'augsburg'
-
   const cities = [
     new CityModel({
       name: 'Augsburg',
@@ -37,28 +34,25 @@ describe('LanguageFailure', () => {
     })
   ]
 
+  const location = {
+    type: 'CATEGORIES',
+    payload: {city: 'augsburg'}
+  }
+
+  const languageChangePaths = [
+    {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
+    {code: 'en', name: 'English', path: '/augsburg/en'},
+    {code: 'ar', name: 'Arabic', path: '/augsburg/ar'}
+  ]
+
   it('should match snapshot', () => {
     const wrapper = shallow(
       <LanguageFailure cities={cities}
-                       city={city}
+                       location={location}
+                       languageChangePaths={languageChangePaths}
                        t={key => key || 'null'} />
     )
 
     expect(wrapper).toMatchSnapshot()
-  })
-
-  it('should map state to props', () => {
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      cities: {data: cities}
-    })
-
-    const languageFailure = shallow(
-      <ConnectedLanguageFailure store={store} city={city} />
-    )
-
-    expect(languageFailure.props()).toMatchObject({
-      cities
-    })
   })
 })

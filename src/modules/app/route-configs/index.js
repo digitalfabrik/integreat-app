@@ -13,9 +13,8 @@ import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
 import PoisRouteConfig, { POIS_ROUTE } from './PoisRouteConfig'
 import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './DisclaimerRouteConfig'
 import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteConfig'
-
-export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
-  DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
+import NotFoundRouteConfig from './NotFoundRouteConfig'
+import { NOT_FOUND } from 'redux-first-router'
 
 const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
@@ -28,7 +27,8 @@ const routeConfigs: {[string]: RouteConfig<any, any>} = {
   [DISCLAIMER_ROUTE]: new DisclaimerRouteConfig(),
   [SEARCH_ROUTE]: new SearchRouteConfig(),
   [POIS_ROUTE]: new PoisRouteConfig(),
-  [CATEGORIES_ROUTE]: new CategoriesRouteConfig()
+  [CATEGORIES_ROUTE]: new CategoriesRouteConfig(),
+  [NOT_FOUND]: new NotFoundRouteConfig()
 }
 
 export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {

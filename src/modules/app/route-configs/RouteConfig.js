@@ -25,19 +25,18 @@ export type AllPayloadsType = {|
   disclaimerPayload: Payload<PageModel>
 |}
 
-export type GetLanguageChangePathParamsType = {|location: Location, events: ?Array<EventModel>,
-  categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, language: string|}
-
-export type GetPageTitleParamsType = {|t: TFunction, cityName: string, pathname: string, events: ?Array<EventModel>,
-  categories: ?CategoriesMapModel, pois: ?Array<PoiModel>, extras: ?Array<ExtraModel>, offers: ?Array<WohnenOfferModel>,
-  offerHash: ?string
-|}
+export type FeedbackTargetInformationType = {|id?: number, title?: string, alias?: string|} | null
 
 export interface RouteConfig<T, P> {
   name: string,
   route: Route,
+  isLocationLayoutRoute: boolean,
+  requiresHeader: boolean,
+  requiresFooter: boolean,
   getRoutePath: T => string,
-  getLanguageChangePath: GetLanguageChangePathParamsType => string | null,
-  getPageTitle: GetPageTitleParamsType => string,
-  getRequiredPayloads: AllPayloadsType => P
+  getLanguageChangePath: {|location: Location, payloads: P, language: string|} => string | null,
+  getPageTitle: {|t: TFunction, cityName: string, location: Location, payloads: P|} => string,
+  getRequiredPayloads: AllPayloadsType => P,
+  getMetaDescription: (t: TFunction) => string | null,
+  getFeedbackTargetInformation: {|location: Location, payloads: P|} => FeedbackTargetInformationType
 }

@@ -3,7 +3,7 @@
 import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 import Hashids from 'hashids'
 import {
   ExtraModel,
@@ -44,6 +44,9 @@ const wohnenRoute: Route = {
 class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloadsType> {
   name = WOHNEN_ROUTE
   route = wohnenRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
     `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
@@ -51,16 +54,27 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({offers: payloads.wohnenPayload, extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, extras, offers, offerHash}: GetPageTitleParamsType) => {
+  getPageTitle = ({cityName, payloads, location}) => {
+    const offerHash = location.payload.offerHash
+    const extras = payloads.extras.data
+    const offers = payloads.offers.data
     const offerModel = offers && offers.find(offer => hash(offer) === offerHash)
     if (offerModel) {
       return `${offerModel.formData.accommodation.title} - ${cityName}`
     }
     const wohnenExtra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
     return wohnenExtra ? `${wohnenExtra.title} - ${cityName}` : ''
+  }
+
+  getMetaDescription = () => null
+
+  getFeedbackTargetInformation = ({payloads}) => {
+    const extras = payloads.extras.data
+    const extra = extras && extras.find(extra => extra.alias === WOHNEN_EXTRA)
+    return ({alias: WOHNEN_EXTRA, title: extra && extra.title})
   }
 }
 

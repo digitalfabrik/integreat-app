@@ -4,7 +4,7 @@ import { RouteConfig } from './RouteConfig'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import { CityModel, Payload, CategoriesMapModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -28,16 +28,24 @@ const searchRoute: Route = {
 class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPayloadsType> {
   name = SEARCH_ROUTE
   route = searchRoute
+  isLocationLayoutRoute = true
+  requiresHeader = true
+  requiresFooter = true
 
   getRoutePath = ({city, language}: SearchRouteParamsType): string => `/${city}/${language}/search`
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({cityName, t}: GetPageTitleParamsType) => `${t('pageTitles.search')} - ${cityName}`
+  getPageTitle = ({cityName, t}) =>
+    `${t('pageTitles.search')} - ${cityName}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
     ({categories: payloads.categoriesPayload, cities: payloads.citiesPayload})
+
+  getMetaDescription = () => null
+
+  getFeedbackTargetInformation = () => null
 }
 
 export default SearchRouteConfig

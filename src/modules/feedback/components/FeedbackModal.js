@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel, POSITIVE_RATING, ExtraModel } from '@integreat-app/integreat-api-client'
+import { CityModel, POSITIVE_RATING } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
@@ -51,8 +51,7 @@ type PropsType = {|
   query?: string,
   feedbackStatus: FeedbackRatingType,
   closeFeedbackModal: () => void,
-  location: LocationState,
-  extras: ?Array<ExtraModel>
+  location: LocationState
 |}
 
 type StateType = {|
