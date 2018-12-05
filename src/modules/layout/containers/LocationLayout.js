@@ -18,7 +18,7 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
-import type { FeedbackReferenceType } from '../../app/route-configs/RouteConfig'
+import type { FeedbackTargetInformationType } from '../../app/route-configs/RouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 export type FeedbackRatingType = 'up' | 'down'
@@ -32,7 +32,7 @@ type PropsType = {|
   location: LocationState,
   toggleDarkMode: () => void,
   darkMode: boolean,
-  feedbackReference: FeedbackReferenceType,
+  feedbackTargetInformation: FeedbackTargetInformationType,
   languageChangePaths: ?LanguageChangePathsType
 |}
 
@@ -70,14 +70,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const {cities, location, feedbackReference} = this.props
+    const {cities, location, feedbackTargetInformation} = this.props
 
     return <FeedbackModal
       cities={cities}
       feedbackStatus={this.state.feedbackModalRating}
       closeFeedbackModal={this.closeFeedbackModal}
       location={location}
-      {...feedbackReference} />
+      {...feedbackTargetInformation} />
   }
 
   openFeedbackModal = (rating: FeedbackRatingType) => this.setState({feedbackModalRating: rating})

@@ -4,7 +4,7 @@ import { RouteConfig } from './RouteConfig'
 import { extrasEndpoint, Payload, ExtraModel } from '@integreat-app/integreat-api-client'
 import type { Dispatch, GetState, Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType, GetLanguageChangePathParamsType, GetPageTitleParamsType } from './RouteConfig'
+import type { AllPayloadsType } from './RouteConfig'
 
 type ExtrasRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
@@ -36,15 +36,15 @@ class ExtrasRouteConfig implements RouteConfig<ExtrasRouteParamsType, RequiredPa
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({extras: payloads.extrasPayload})
 
-  getLanguageChangePath = ({location, language}: GetLanguageChangePathParamsType<RequiredPayloadsType>) =>
+  getLanguageChangePath = ({location, language}) =>
     this.getRoutePath({city: location.payload.city, language})
 
-  getPageTitle = ({t, cityName}: GetPageTitleParamsType<RequiredPayloadsType>) =>
+  getPageTitle = ({t, cityName}) =>
     `${t('pageTitles.extras')} - ${cityName}`
 
   getMetaDescription = () => null
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default ExtrasRouteConfig

@@ -1,7 +1,7 @@
 // @flow
 
-import type { GetPageTitleParamsType, RouteConfig } from './RouteConfig'
 import { NOT_FOUND } from 'redux-first-router'
+import type { RouteConfig } from './RouteConfig'
 
 class NotFoundRouteConfig implements RouteConfig<void, void> {
   name = NOT_FOUND
@@ -16,11 +16,11 @@ class NotFoundRouteConfig implements RouteConfig<void, void> {
 
   getLanguageChangePath = () => null
 
-  getPageTitle = ({t}: GetPageTitleParamsType<void>) => t('pageTitles.notFound')
+  getPageTitle = ({t}) => t('pageTitles.notFound')
 
   getMetaDescription = () => null
 
-  getFeedbackReference = () => null
+  getFeedbackTargetInformation = () => null
 }
 
 export default NotFoundRouteConfig
