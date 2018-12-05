@@ -15,6 +15,7 @@ import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from '../components/EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
+import { push } from 'redux-first-router'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -43,7 +44,8 @@ export class EventsPage extends React.Component<PropsType> {
                 lastUpdate={event.lastUpdate}
                 content={event.content}
                 title={event.title}
-                language={language}>
+                language={language}
+                onInternalLinkClick={push}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
               <PageDetail identifier={t('location')} information={event.location.location} />

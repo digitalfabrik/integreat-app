@@ -3,7 +3,6 @@
 import React from 'react'
 
 import styled, { css } from 'styled-components'
-import { push } from 'redux-first-router'
 
 const SandBox = styled.div`
   font-family: ${props => props.theme.fonts.contentFontFamily};
@@ -60,6 +59,7 @@ type PropsType = {|
     __html: string
   },
   hijackRegExp?: RegExp,
+  onInternalLinkClick: string => void,
   centered: boolean
 |}
 
@@ -80,7 +80,7 @@ class RemoteContent extends React.Component<PropsType> {
 
     if (target instanceof HTMLAnchorElement) {
       const href = target.href
-      push(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+      this.props.onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
     }
   }
 

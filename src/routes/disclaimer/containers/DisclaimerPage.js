@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { PageModel } from '@integreat-app/integreat-api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
+import { push } from 'redux-first-router'
 
 type PropsType = {|
   disclaimer: PageModel,
@@ -22,7 +23,8 @@ export class DisclaimerPage extends React.Component<PropsType> {
       <Page lastUpdate={disclaimer.lastUpdate}
             title={disclaimer.title}
             content={disclaimer.content}
-            language={language} />
+            language={language}
+            onInternalLinkClick={push} />
     )
   }
 }
