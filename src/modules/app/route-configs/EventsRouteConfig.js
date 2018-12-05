@@ -27,7 +27,7 @@ export const EVENTS_ROUTE = 'EVENTS'
  * @type {{path: string, thunk: function(Dispatch, GetState)}}
  */
 const eventsRoute: Route = {
-  path: '/:city/:language/disclaimer',
+  path: '/:city/:language/events/:eventId?',
   thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
