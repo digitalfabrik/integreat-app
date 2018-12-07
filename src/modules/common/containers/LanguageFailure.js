@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import Caption from '../../../modules/common/components/Caption'
-import type { Location } from 'redux-first-router'
+import type { LocationState } from 'redux-first-router'
 import styled from 'styled-components'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
@@ -17,7 +17,7 @@ const ChooseLanguage = styled.p`
 
 type PropsType = {|
   cities: Array<CityModel>,
-  location: Location,
+  location: LocationState,
   languageChangePaths: LanguageChangePathsType,
   t: TFunction
 |}
