@@ -54,6 +54,9 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({events: payloads.eventsPayload})
 
   getPageTitle = ({t, payloads, cityName, location}) => {
+    if (!cityName) {
+      return null
+    }
     const pathname = location.pathname
     const events = payloads.events.data
     const event = events && events.find(event => event.path === pathname)
@@ -66,7 +69,7 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
 
   getFeedbackTargetInformation = ({payloads, location}) => {
     const events = payloads.events.data
-    const event = events && events.find(event => event.id === location.payload.eventId)
+    const event = events && events.find(event => event.path === location.pathname)
     return event ? {id: event.id, title: event.title} : null
   }
 }
