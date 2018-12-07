@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { Location } from 'redux-first-router'
+import type { LocationState } from 'redux-first-router'
 import type { AllPayloadsType } from '../route-configs/RouteConfig'
 import { Payload } from '@integreat-app/integreat-api-client'
 import find from 'lodash/find'
@@ -12,7 +12,7 @@ import reduce from 'lodash/reduce'
 import { getRouteContent } from '../routeContents'
 
 type PropsType = {|
-  location: Location,
+  location: LocationState,
   allPayloads: AllPayloadsType
 |}
 

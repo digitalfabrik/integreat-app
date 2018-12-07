@@ -1,6 +1,6 @@
 // @flow
 
-import type { Location, Route } from 'redux-first-router'
+import type { LocationState, Route } from 'redux-first-router'
 import {
   CityModel,
   Payload,
@@ -34,9 +34,9 @@ export interface RouteConfig<T, P> {
   requiresHeader: boolean,
   requiresFooter: boolean,
   getRoutePath: T => string,
-  getLanguageChangePath: {|location: Location, payloads: P, language: string|} => string | null,
-  getPageTitle: {|t: TFunction, cityName: string, location: Location, payloads: P|} => string,
+  getLanguageChangePath: {|location: LocationState, payloads: P, language: string|} => string | null,
+  getPageTitle: {|t: TFunction, cityName: string, location: LocationState, payloads: P|} => string,
   getRequiredPayloads: AllPayloadsType => P,
   getMetaDescription: (t: TFunction) => string | null,
-  getFeedbackTargetInformation: {|location: Location, payloads: P|} => FeedbackTargetInformationType
+  getFeedbackTargetInformation: {|location: LocationState, payloads: P|} => FeedbackTargetInformationType
 }
