@@ -35,7 +35,7 @@ export interface RouteConfig<T, P> {
   requiresFooter: boolean,
   getRoutePath: T => string,
   getLanguageChangePath: {|location: Location, payloads: P, language: string|} => string | null,
-  getPageTitle: {|t: TFunction, cityName: string, location: Location, payloads: P|} => string,
+  getPageTitle: {|t: TFunction, cityName: ?string, location: Location, payloads: P|} => string | null,
   getRequiredPayloads: AllPayloadsType => P,
   getMetaDescription: (t: TFunction) => string | null,
   getFeedbackTargetInformation: {|location: Location, payloads: P|} => FeedbackTargetInformationType
