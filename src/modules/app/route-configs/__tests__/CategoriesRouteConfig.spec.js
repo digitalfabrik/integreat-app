@@ -20,7 +20,7 @@ const categories = new CategoriesMapModel([
   new CategoryModel({
     id: 1,
     path: '/augsburg/de/categorie01',
-    title: 'Title10',
+    title: 'Title01',
     content: 'contnentl',
     thumbnail: 'thumb/nail',
     parentPath: 'parent/url',
@@ -65,7 +65,7 @@ describe('CategoriesRouteConfig', () => {
       sprungbrettJobsPayload: new Payload(true)
     }
 
-    expect(categoriesRouteConfig.getRequiredPayloads(allPayloads)).toBe(payloads)
+    expect(categoriesRouteConfig.getRequiredPayloads(allPayloads)).toEqual(payloads)
   })
 
   describe('get language change path should return the right path if', () => {
@@ -109,14 +109,72 @@ describe('CategoriesRouteConfig', () => {
 
   describe('get the right page title if', () => {
     it('a category with the given pathname does exist', () => {
-      const location = createLocation({
+      const rootLocation = createLocation({
         payload: {city: 'augsburg', language: 'de'},
         pathname: '/augsburg/de',
         type: categoriesRouteConfig.name
       })
 
+      expect(categoriesRouteConfig.getPageTitle({payloads, location: rootLocation, cityName: 'Augsburg', t}))
+        .toBe('Augsburg')
+
+      const location = createLocation({
+        payload: {city: 'augsburg', language: 'de'},
+        pathname: '/augsburg/de/categorie01',
+        type: categoriesRouteConfig.name
+      })
+
       expect(categoriesRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
-        .toBe('/augsburg/en')
+        .toBe('Title01 - Augsburg')
     })
+
+    it('no category with the given pathname does exist', () => {
+      const location = createLocation({
+        payload: {city: 'augsburg', language: 'de'},
+        pathname: '/augsburg/de/invalid_pathname',
+        type: categoriesRouteConfig.name
+      })
+
+      expect(categoriesRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+        .toBe('Augsburg')
+    })
+
+    it('the city name is null', () => {
+      const rootLocation = createLocation({
+        payload: {city: 'augsburg', language: 'de'},
+        pathname: '/augsburg/de/',
+        type: categoriesRouteConfig.name
+      })
+
+      expect(categoriesRouteConfig.getPageTitle({payloads, location: rootLocation, cityName: null, t}))
+        .toBeNull()
+    })
+  })
+
+  it('should return the right meta description', () => {
+    expect(categoriesRouteConfig.getMetaDescription(t)).toBe('metaDescription')
+  })
+
+  describe('it should return the right feedback target information', () => {
+    const location = createLocation({
+      payload: {city: 'augsburg', language: 'de'},
+      pathname: '/augsburg/de/categorie01',
+      type: categoriesRouteConfig.name
+    })
+
+    expect(categoriesRouteConfig.getFeedbackTargetInformation({payloads, location}))
+      .toEqual({
+        id: 1,
+        title: 'Title01'
+      })
+
+    const invalidLocation = createLocation({
+      payload: {city: 'augsburg', language: 'de'},
+      pathname: '/augsburg/de/invalid_path',
+      type: categoriesRouteConfig.name
+    })
+
+    expect(categoriesRouteConfig.getFeedbackTargetInformation({payloads, location: invalidLocation}))
+      .toBeNull()
   })
 })

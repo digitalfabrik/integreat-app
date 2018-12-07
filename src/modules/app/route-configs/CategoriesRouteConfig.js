@@ -61,6 +61,9 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   }
 
   getPageTitle = ({t, payloads, cityName, location}) => {
+    if (!cityName) {
+      return null
+    }
     const pathname = location.pathname
     const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(pathname)
