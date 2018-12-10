@@ -21,7 +21,8 @@ import GeneralFooter from '../../layout/components/GeneralFooter'
 import type { StateType } from '../StateType'
 import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
-import type { Location, Dispatch } from 'redux-first-router'
+import type { Dispatch } from 'redux'
+import type { LocationState } from 'redux-first-router'
 import { withNamespaces } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
@@ -44,7 +45,7 @@ type PropsType = {|
   languages: ?Array<LanguageModel>,
   viewportSmall: boolean,
   darkMode: boolean,
-  location: Location,
+  location: LocationState,
   toggleDarkMode: () => void,
   t: TFunction
 |}
@@ -154,8 +155,7 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
-// fixme: WEBAPP-400 Dispatch type is not correct
-const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 

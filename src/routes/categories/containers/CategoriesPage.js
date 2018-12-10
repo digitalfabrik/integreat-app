@@ -13,11 +13,9 @@ import Link from 'redux-first-router-link'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import type { StateType } from '../../../modules/app/StateType'
-import type { Dispatch } from 'redux'
-import { pathToAction, setKind } from 'redux-first-router'
-import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 import Page from '../../../modules/common/components/Page'
+import { push } from 'redux-first-router'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -25,9 +23,7 @@ type PropsType = {|
   path: string,
   city: string,
   language: string,
-  uiDirection: UiDirectionType,
-  dispatch: ReceivedAction => void,
-  routesMap: {}
+  uiDirection: UiDirectionType
 |}
 
 /**
@@ -43,12 +39,6 @@ export class CategoriesPage extends React.Component<PropsType> {
       isExternalUrl: false,
       postData: null
     }))
-  }
-
-  redirectToPath = (path: string) => {
-    const action = pathToAction(path, this.props.routesMap)
-    setKind(action, 'push')
-    this.props.dispatch(action)
   }
 
   /**
@@ -68,7 +58,7 @@ export class CategoriesPage extends React.Component<PropsType> {
                    content={category.content}
                    lastUpdate={category.lastUpdate}
                    language={language}
-                   onInternalLinkClick={this.redirectToPath} />
+                   onInternalLinkClick={push} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
@@ -76,8 +66,10 @@ export class CategoriesPage extends React.Component<PropsType> {
     }
     // some level between, we want to display a list
     return <CategoryList categories={children.map(model => ({model, subCategories: categories.getChildren(model)}))}
-                         title={category.title} onInternLinkClick={this.redirectToPath}
-                         content={category.content} thumbnail={category.thumbnail} />
+                         title={category.title}
+                         content={category.content}
+                         thumbnail={category.thumbnail}
+                         onInternalLinkClick={push} />
   }
 
   getBreadcrumbs (categoryModel: CategoryModel): Array<React.Node> {
@@ -110,13 +102,8 @@ export class CategoriesPage extends React.Component<PropsType> {
 const mapStateToProps = (state: StateType) => ({
   uiDirection: state.uiDirection,
   language: state.location.payload.language,
-  routesMap: state.location.routesMap,
   city: state.location.payload.city,
   path: state.location.pathname
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  dispatch
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesPage)
+export default connect(mapStateToProps)(CategoriesPage)

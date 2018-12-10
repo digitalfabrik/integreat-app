@@ -95,9 +95,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       path={categoryModels[3].path}
-                      uiDirection={'ltr'}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      uiDirection={'ltr'} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -110,9 +108,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       uiDirection={'ltr'}
-                      path={categoryModels[2].path}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      path={categoryModels[2].path} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -125,9 +121,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       uiDirection={'ltr'}
-                      path={'/augsburg/de'}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      path={'/augsburg/de'} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -140,9 +134,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       uiDirection={'ltr'}
                       language={language}
-                      path={'/augsburg/de/not/valid'}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      path={'/augsburg/de/not/valid'} />
     )
 
     expect(wrapper).toMatchSnapshot()

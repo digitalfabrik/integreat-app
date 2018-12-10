@@ -1,8 +1,14 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import { extrasEndpoint, Payload, ExtraModel } from '@integreat-app/integreat-api-client'
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import {
+  extrasEndpoint,
+  Payload,
+  ExtraModel,
+  citiesEndpoint,
+  eventsEndpoint, languagesEndpoint
+} from '@integreat-app/integreat-api-client'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import type { AllPayloadsType } from './RouteConfig'
 
@@ -17,11 +23,16 @@ export const EXTRAS_ROUTE = 'EXTRAS'
  */
 const extrasRoute: Route = {
   path: '/:city/:language/extras/:extraId?',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
+    ])
   }
 }
 

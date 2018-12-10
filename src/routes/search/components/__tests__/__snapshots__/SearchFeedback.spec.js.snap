@@ -18,13 +18,22 @@ exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results ar
   <Translate(NothingFoundFeedbackBox)
     location={
       Object {
+        "history": undefined,
+        "kind": undefined,
+        "pathname": "/random_pathname",
         "payload": Object {
           "city": "augsburg",
           "language": "de",
         },
+        "prev": Object {
+          "pathname": "/random_prev_pathname",
+          "payload": Object {},
+          "type": "RANDOM_PREV_TYPE",
+        },
         "query": Object {
           "feedback": "up",
         },
+        "routesMap": Object {},
         "type": "SEARCH",
       }
     }

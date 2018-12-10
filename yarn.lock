@@ -9008,11 +9008,12 @@ redux-first-router-link@^1.4.2:
     prop-types "15.5.10"
     rudy-match-path "^0.3.0"
 
-redux-first-router@^0.0.20-next:
-  version "0.0.20-next"
-  resolved "https://registry.yarnpkg.com/redux-first-router/-/redux-first-router-0.0.20-next.tgz#1bac19cd478a42297ca290e284622fd043a07b56"
-  integrity sha512-MWkbOzJUtCfdRdz56XPYYPnfjLSwCFQggeryajF7q1Ey1niom+Q0GAzPZ8EFn2DrYTZI028GYD4HvhEq8l7SjA==
+redux-first-router@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/redux-first-router/-/redux-first-router-2.1.1.tgz#500acc1f78b545e8d0da7b430c5842a17dbb8619"
+  integrity sha512-B3S5YxKqkWxwWUiE1bEAQrgkm+HjLZC5RiytCtqJNhLPYdZMW4NfF3XM3zkzQsJ9xiYdr8dmb2EAMN1mMACLqA==
   dependencies:
+    rudy-history "^1.0.0"
     rudy-match-path "^0.3.0"
 
 redux-logger@^3.0.6:
@@ -9425,6 +9426,17 @@ rsvp@^3.3.3:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
   integrity sha512-OfWGQTb9vnwRjwtA2QwpG2ICclHC3pgXZO5xt8H2EfgDquO0qVdSb5T88L4qJVAEugbS56pAuV4XZM58UX8ulw==
+
+rudy-history@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rudy-history/-/rudy-history-1.0.0.tgz#6e716bfea7b6dc00768a9423ace964fd0f168127"
+  integrity sha512-UTW+bwDNXurwxBaLl7hixG8OW3nwhbtUFipGJ6hmyHFASihWiZQbcg0noqe3gqmmk+zVRBblls9sguAvTx+ciQ==
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    resolve-pathname "^2.2.0"
+    value-equal "^0.4.0"
+    warning "^3.0.0"
 
 rudy-match-path@^0.3.0:
   version "0.3.0"

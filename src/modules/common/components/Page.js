@@ -39,7 +39,7 @@ class Page extends React.PureComponent<PropsType> {
         <Caption title={title} />
         {children}
         <RemoteContent dangerouslySetInnerHTML={{__html: content}}
-                       onInternLinkClick={onInternalLinkClick}
+                       onInternalLinkClick={onInternalLinkClick}
                        hijackRegExp={hijackRegExp} />
         {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} language={language} />}
       </>
