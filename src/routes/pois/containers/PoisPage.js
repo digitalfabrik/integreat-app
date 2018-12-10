@@ -11,13 +11,11 @@ import { PoiModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import { pathToAction, setKind } from 'redux-first-router'
-import type { Dispatch } from 'redux'
-import type { ReceivedAction } from 'redux-first-router/dist/flow-types'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import Caption from '../../../modules/common/components/Caption'
 import List from '../../../modules/common/components/List'
+import { push } from 'redux-first-router'
 
 type PropsType = {|
   pois: Array<PoiModel>,
@@ -25,9 +23,7 @@ type PropsType = {|
   poiId: ?string,
   language: string,
   t: TFunction,
-  dispatch: ReceivedAction => void,
-  path: string,
-  routesMap: {}
+  path: string
 |}
 
 /**
@@ -35,12 +31,6 @@ type PropsType = {|
  */
 export class PoisPage extends React.Component<PropsType> {
   renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
-
-  redirectToPath = (path: string) => {
-    const action = pathToAction(path, this.props.routesMap)
-    setKind(action, 'push')
-    this.props.dispatch(action)
-  }
 
   render () {
     const {pois, path, poiId, city, language, t} = this.props
@@ -54,7 +44,7 @@ export class PoisPage extends React.Component<PropsType> {
                 content={poi.content}
                 title={poi.title}
                 language={language}
-                onInternalLinkClick={this.redirectToPath}>
+                onInternalLinkClick={push}>
             <PageDetail identifier={t('location')} information={poi.location.location} />
           </Page>
         )
@@ -79,11 +69,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   path: state.location.pathname
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
-  dispatch
-})
-
 export default compose(
-  connect(mapStateTypeToProps, mapDispatchToProps),
+  connect(mapStateTypeToProps),
   withNamespaces('pois')
 )(PoisPage)

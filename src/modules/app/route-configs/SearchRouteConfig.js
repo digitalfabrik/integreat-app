@@ -1,9 +1,15 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { CityModel, Payload, CategoriesMapModel, categoriesEndpoint } from '@integreat-app/integreat-api-client'
+import {
+  CityModel,
+  Payload,
+  CategoriesMapModel,
+  categoriesEndpoint,
+  citiesEndpoint, eventsEndpoint, languagesEndpoint
+} from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType } from './RouteConfig'
 
 type SearchRouteParamsType = {|city: string, language: string|}
@@ -17,11 +23,16 @@ export const SEARCH_ROUTE = 'SEARCH'
  */
 const searchRoute: Route = {
   path: '/:city/:language/search',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
+    ])
   }
 }
 

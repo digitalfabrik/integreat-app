@@ -7,6 +7,7 @@ import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import moment from 'moment-timezone'
+import createLocation from '../../../../createLocation'
 
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
@@ -71,7 +72,7 @@ describe('SearchPage', () => {
   const city = 'augsburg'
   const language = 'de'
   const categories = new CategoriesMapModel(categoryModels)
-  const location = {type: SEARCH_ROUTE, payload: {city, language}}
+  const location = createLocation({type: SEARCH_ROUTE, payload: {city, language}})
 
   it('should match snapshot', () => {
     const wrapper = shallow(<SearchPage categories={categories} location={location} cities={cities} t={t} />)

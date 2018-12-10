@@ -33,7 +33,7 @@ type PropsType = {|
   /** A search query to highlight in the categories titles */
   query?: string,
   thumbnail?: string,
-  onInternLinkClick: string => void
+  onInternalLinkClick: string => void
 |}
 
 /**
@@ -41,13 +41,13 @@ type PropsType = {|
  */
 class CategoryList extends React.PureComponent<PropsType> {
   render () {
-    const {categories, title, thumbnail, content, query, onInternLinkClick} = this.props
+    const {categories, title, thumbnail, content, query, onInternalLinkClick} = this.props
     return (
       <div>
         {thumbnail && <Centering><CategoryIcon src={thumbnail} /></Centering>}
         {title && <Caption title={title} />}
-        {content &&
-        <RemoteContent centered dangerouslySetInnerHTML={{__html: content}} onInternLinkClick={onInternLinkClick} />}
+        {content && <RemoteContent centered dangerouslySetInnerHTML={{__html: content}}
+                                   onInternalLinkClick={onInternalLinkClick} />}
         <List>
           {categories.map(({model, subCategories}) =>
             <CategoryListItem key={model.id}

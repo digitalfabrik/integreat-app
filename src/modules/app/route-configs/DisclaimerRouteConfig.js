@@ -1,9 +1,15 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { disclaimerEndpoint, Payload, PageModel } from '@integreat-app/integreat-api-client'
+import {
+  disclaimerEndpoint,
+  Payload,
+  PageModel,
+  citiesEndpoint,
+  eventsEndpoint, languagesEndpoint
+} from '@integreat-app/integreat-api-client'
 import type { AllPayloadsType } from './RouteConfig'
 
 type DisclaimerRouteParamsType = {|city: string, language: string|}
@@ -17,11 +23,16 @@ export const DISCLAIMER_ROUTE = 'DISCLAIMER'
  */
 const disclaimerRoute: Route = {
   path: '/:city/:language/disclaimer',
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    await fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(disclaimerEndpoint, dispatch, state.disclaimer, {city, language})
+    ])
   }
 }
 

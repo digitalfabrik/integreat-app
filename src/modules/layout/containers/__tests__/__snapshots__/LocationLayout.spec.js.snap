@@ -60,11 +60,20 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
       }
       location={
         Object {
+          "history": undefined,
+          "kind": undefined,
           "pathname": "/augsburg/de/willkommen",
           "payload": Object {
             "city": "city1",
             "language": "de",
           },
+          "prev": Object {
+            "pathname": "/random_prev_pathname",
+            "payload": Object {},
+            "type": "RANDOM_PREV_TYPE",
+          },
+          "query": Object {},
+          "routesMap": Object {},
           "type": "CATEGORIES",
         }
       }
@@ -94,11 +103,20 @@ exports[`LocationLayout should show GeneralHeader and GeneralFooter if city is n
       }
       location={
         Object {
+          "history": undefined,
+          "kind": undefined,
           "pathname": "/augsburg/de/willkommen",
           "payload": Object {
             "city": "city1",
             "language": "de",
           },
+          "prev": Object {
+            "pathname": "/random_prev_pathname",
+            "payload": Object {},
+            "type": "RANDOM_PREV_TYPE",
+          },
+          "query": Object {},
+          "routesMap": Object {},
           "type": "CATEGORIES",
         }
       }
@@ -170,11 +188,20 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
       }
       location={
         Object {
+          "history": undefined,
+          "kind": undefined,
           "pathname": "/augsburg/de/willkommen",
           "payload": Object {
             "city": "city1",
             "language": "de",
           },
+          "prev": Object {
+            "pathname": "/random_prev_pathname",
+            "payload": Object {},
+            "type": "RANDOM_PREV_TYPE",
+          },
+          "query": Object {},
+          "routesMap": Object {},
           "type": "CATEGORIES",
         }
       }
@@ -204,11 +231,20 @@ exports[`LocationLayout should show LocationHeader and LocationFooter if city is
       }
       location={
         Object {
+          "history": undefined,
+          "kind": undefined,
           "pathname": "/augsburg/de/willkommen",
           "payload": Object {
             "city": "city1",
             "language": "de",
           },
+          "prev": Object {
+            "pathname": "/random_prev_pathname",
+            "payload": Object {},
+            "type": "RANDOM_PREV_TYPE",
+          },
+          "query": Object {},
+          "routesMap": Object {},
           "type": "CATEGORIES",
         }
       }

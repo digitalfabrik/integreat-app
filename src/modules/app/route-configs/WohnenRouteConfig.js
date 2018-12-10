@@ -1,7 +1,7 @@
 // @flow
 
 import { RouteConfig } from './RouteConfig'
-import type { Dispatch, GetState, Route } from 'redux-first-router'
+import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import type { AllPayloadsType } from './RouteConfig'
 import Hashids from 'hashids'
@@ -10,7 +10,7 @@ import {
   extrasEndpoint,
   Payload,
   WohnenOfferModel,
-  wohnenEndpoint
+  wohnenEndpoint, citiesEndpoint, eventsEndpoint, languagesEndpoint
 } from '@integreat-app/integreat-api-client'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
@@ -22,22 +22,33 @@ export const WOHNEN_EXTRA = 'wohnen'
 export const hash = (offer: WohnenOfferModel) =>
   new Hashids().encode(offer.email.length, offer.createdDate.seconds())
 
+const fetchExtras = async (dispatch, getState) => {
+  const state = getState()
+  const {city, language} = state.location.payload
+  const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
+  const extras: ?Array<ExtraModel> = extrasPayload.data
+
+  if (extras) {
+    const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
+    if (wohnenExtra && wohnenExtra.postData) {
+      const params = {city: wohnenExtra.postData.get('api-name')}
+      await fetchData(wohnenEndpoint, dispatch, state.wohnen, params)
+    }
+  }
+}
+
 const wohnenRoute: Route = {
   path: `/:city/:language/extras/${WOHNEN_EXTRA}/:offerHash?`,
-  thunk: async (dispatch: Dispatch, getState: GetState) => {
+  thunk: async (dispatch, getState) => {
     const state = getState()
     const {city, language} = state.location.payload
 
-    const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
-    const extras: ?Array<ExtraModel> = extrasPayload.data
-
-    if (extras) {
-      const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
-      if (wohnenExtra && wohnenExtra.postData) {
-        const params = {city: wohnenExtra.postData.get('api-name')}
-        await fetchData(wohnenEndpoint, dispatch, state.wohnen, params)
-      }
-    }
+    await Promise.all([
+      fetchData(citiesEndpoint, dispatch, state.cities),
+      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
+      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchExtras(dispatch, getState)
+    ])
   }
 }
 

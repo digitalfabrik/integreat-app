@@ -69,7 +69,7 @@ const categories = [
 describe('CategoryList', () => {
   it('should render and display a caption', () => {
     const wrapper = shallow(
-      <CategoryList categories={categories} onInternLinkClick={() => {}}
+      <CategoryList categories={categories} onInternalLinkClick={() => {}}
                     title={title}
                     content={content} />
     )
@@ -78,7 +78,7 @@ describe('CategoryList', () => {
 
   it('should render and not display a caption', () => {
     const wrapper = shallow(
-      <CategoryList categories={categories} onInternLinkClick={() => {}} />
+      <CategoryList categories={categories} onInternalLinkClick={() => {}} />
     )
     expect(wrapper).toMatchSnapshot()
   })
