@@ -22,7 +22,6 @@ export default class TileModel {
     this._thumbnail = params.thumbnail
     this._isExternalUrl = params.isExternalUrl
     this._postData = params.postData
-
   }
 
   get id (): string {
