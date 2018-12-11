@@ -14,10 +14,11 @@ import ChangeLanguageModalContainer from '../../../routes/language/containers/Ch
 import MapViewModal from '../../../routes/map/components/MapViewModal'
 import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 import ExtrasContainer from '../../extras/containers/ExtrasContainer'
+import WohnenExtraContainer from '../../wohnen/containers/WohnenExtraContainer'
+import SprungbrettExtraContainer from '../../sprungbrett/containers/SprungbrettExtraContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
-const LayoutedExtrasContainer = withLayout(ExtrasContainer)
 
 const createHeaderNavigatorItem = (component, header = null) => {
   return {
@@ -33,9 +34,9 @@ const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer sc
 
 export const ExtrasStack = createStackNavigator(
   {
-    'Extras': LayoutedExtrasContainer
-    // 'Wohnen': null,
-    // 'Sprungbrett':
+    'Extras': ExtrasContainer,
+    'Wohnen': WohnenExtraContainer,
+    'Sprungbrett': SprungbrettExtraContainer
   },
   {
     initialRouteName: 'Extras'

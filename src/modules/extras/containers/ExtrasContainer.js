@@ -1,6 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
+import { Linking } from 'react-native'
 import Extras from '../components/Extras'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
@@ -11,16 +12,19 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const targetCity: string = ownProps.navigation.getParam('city')
 
-  const navigateToExtras = (path: string) => {
-    const params = {path, city: targetCity}
-    if (ownProps.navigation.push) {
-      ownProps.navigation.push('Extras', params)
+  const navigateToExtras = (path: string, isExternalUrl: boolean) => {
+    const params = {city: targetCity}
+    if (isExternalUrl) {
+      Linking.openURL(path)
+    } else if (ownProps.navigation.push) {
+      ownProps.navigation.push(path, params)
     }
   }
 
   return {
     city: targetCity,
     language: language,
+    extras: extras,
     navigateToExtras: navigateToExtras
   }
 }
