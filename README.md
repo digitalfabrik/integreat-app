@@ -102,6 +102,10 @@ A component always follows the following structure (Uppercase files always conta
 └── Caption.js
 ```
 
+### Assets
+
+Assets for the native platform (e.g. Android or iOS) are managed by yo and generator-rn-toolbox.
+
 ## Technology stack
 
 ### Bundler
