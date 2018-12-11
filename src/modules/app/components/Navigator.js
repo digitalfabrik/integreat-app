@@ -13,9 +13,11 @@ import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
 import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
+import ExtrasContainer from '../../extras/containers/ExtrasContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
+const LayoutedExtrasContainer = withLayout(ExtrasContainer)
 
 const createHeaderNavigatorItem = (component, header = null) => {
   return {
@@ -29,10 +31,22 @@ const createHeaderNavigatorItem = (component, header = null) => {
 const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
                                                                               scenes={headerProps.scenes} />
 
+export const ExtrasStack = createStackNavigator(
+  {
+    'Extras': LayoutedExtrasContainer
+    // 'Wohnen': null,
+    // 'Sprungbrett':
+  },
+  {
+    initialRouteName: 'Extras'
+  }
+)
+
 export const AppStack = createStackNavigator(
   {
     'Dashboard': LayoutedDashboardContainer,
-    'Categories': LayoutedCategoriesContainer
+    'Categories': LayoutedCategoriesContainer,
+    'Extras': ExtrasStack
   },
   {
     initialRouteName: 'Dashboard',
