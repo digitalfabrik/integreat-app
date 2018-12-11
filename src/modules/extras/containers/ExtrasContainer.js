@@ -6,6 +6,17 @@ import Extras from '../components/Extras'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import { compose } from 'recompose'
+import { ExtraModel } from '@integreat-app/integreat-api-client'
+
+type JsonExtraPostType = {
+  [key: string]: string
+}
+
+export const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> => {
+  const map = new Map()
+  Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
+  return map
+}
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
@@ -52,7 +63,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
     'url': 'https://raumfrei.neuburg-schrobenhausen.de',
     'post': {'api-name': 'neuburgschrobenhausenwohnraum'},
     'thumbnail': 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg'
-  }]
+  }].map(extra => new ExtraModel({
+    alias: extra.alias,
+    title: extra.name,
+    path: extra.url,
+    thumbnail: extra.thumbnail,
+    postData: extra.post ? createPostMap(extra.post) : null
+  }))
 
   return {
     city: targetCity,
