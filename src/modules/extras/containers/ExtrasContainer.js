@@ -46,6 +46,12 @@ const mapStateToProps = (state: StateType, ownProps) => {
     'url': 'https://www.ihk-lehrstellenboerse.de/joboffers/searchTrainee.html?location=86150&distance=1',
     'post': null,
     'thumbnail': 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/ihk-praktikumsboerse.png'
+  }, {
+    'alias': 'wohnen',
+    'name': 'Raumfrei',
+    'url': 'https://raumfrei.neuburg-schrobenhausen.de',
+    'post': {'api-name': 'neuburgschrobenhausenwohnraum'},
+    'thumbnail': 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg'
   }]
 
   return {

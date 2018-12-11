@@ -9,7 +9,7 @@ import FailureSwitcher from '../../common/components/FailureSwitcher'
 import OfferListItem from './OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
-import { hash as hashFunction } from '../../extras/ExtrasConfig'
+import { hash as hashFunction, WOHNEN_EXTRA } from '../../extras/ExtrasConfig'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -40,7 +40,7 @@ class WohnenExtra extends React.Component<PropsType> {
 
   render () {
     const {offers, extras, city, language, offerHash, t} = this.props
-    const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
+    const extra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
 
     if (!extra) {
       return <FailureSwitcher error={new Error('The Wohnen extra is not supported.')} />
