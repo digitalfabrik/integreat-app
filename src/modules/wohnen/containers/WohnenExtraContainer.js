@@ -5,6 +5,9 @@ import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import { translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
+import moment from 'moment'
+import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { createPostMap } from '../../extras/containers/ExtrasContainer'
 
 const mapStateTypeToProps = (state: StateType, ownProps) => {
   const language: string = state.language
@@ -25,18 +28,27 @@ const mapStateTypeToProps = (state: StateType, ownProps) => {
     'url': 'https://raumfrei.neuburg-schrobenhausen.de',
     'post': {'api-name': 'neuburgschrobenhausenwohnraum'},
     'thumbnail': 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg'
-  }]
+  }].map(extra => new ExtraModel({
+    alias: extra.alias,
+    title: extra.name,
+    path: extra.url,
+    thumbnail: extra.thumbnail,
+    postData: extra.post ? createPostMap(extra.post) : null
+  }))
+
   const offers = [
     {
       'email': 'erika@mustermann.de',
       'createdDate': '2018-05-27T11:19:49.185Z',
       'formData': {
         'landlord': {
-          'surname': 'Mustermann',
+          'lastName': 'Mustermann',
           'firstName': 'Erika',
           'phone': '12342345346'
         },
-        'object': {
+        'accommodation': {
+          'title': 'Super flat in city center',
+          'location': 'Augsburg',
           'totalArea': 105,
           'totalRooms': 3,
           'ofRooms': ['bath', 'child1'],
@@ -55,7 +67,41 @@ const mapStateTypeToProps = (state: StateType, ownProps) => {
         }
       }
     }
-  ]
+  ].map(offer => {
+    const landlord = offer.formData.landlord
+    const accommodation = offer.formData.accommodation
+    const costs = offer.formData.costs
+    return new WohnenOfferModel({
+      email: offer.email,
+      createdDate: moment(offer.createdDate),
+      formData: new WohnenFormData(
+        {
+          firstName: landlord.firstName,
+          lastName: landlord.lastName,
+          phone: landlord.phone
+        },
+        {
+          ofRooms: accommodation.ofRooms,
+          title: accommodation.title,
+          location: accommodation.location,
+          totalArea: accommodation.totalArea,
+          totalRooms: accommodation.totalRooms,
+          moveInDate: moment(accommodation.moveInDate),
+          ofRoomsDiff: accommodation.ofRoomsDiff
+        },
+        {
+          ofRunningServices: costs.ofRunningServices,
+          ofAdditionalServices: costs.ofAdditionalServices,
+          baseRent: costs.baseRent,
+          runningCosts: costs.runningCosts,
+          hotWaterInHeatingCosts: costs.hotWaterInHeatingCosts === 'true',
+          additionalCosts: costs.additionalCosts,
+          ofRunningServicesDiff: costs.ofRunningServicesDiff,
+          ofAdditionalServicesDiff: costs.ofAdditionalServicesDiff
+        }),
+      formDataType: WohnenFormData
+    })
+  })
 
   return {
     city: targetCity,

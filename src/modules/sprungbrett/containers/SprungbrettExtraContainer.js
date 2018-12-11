@@ -6,16 +6,7 @@ import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import type { StateType } from '../../app/StateType'
 import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
-
-type JsonExtraPostType = {
-  [key: string]: string
-}
-
-const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> => {
-  const map = new Map()
-  Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
-  return map
-}
+import { createPostMap } from '../../extras/containers/ExtrasContainer'
 
 const mapStateTypeToProps = (state: StateType, ownProps) => {
   // MockData:
