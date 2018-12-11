@@ -9,6 +9,7 @@ import FailureSwitcher from '../../common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import List from '../../common/components/List'
 import Caption from '../../common/components/Caption'
+import { SPRUNGBRETT_EXTRA } from '../../extras/ExtrasConfig'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -17,7 +18,7 @@ type PropsType = {|
 |}
 
 class SprungbrettExtra extends React.Component<PropsType> {
-  openJobInBrowser = (url: string) => function () {
+  openJobInBrowser = (url: string) => () => {
     Linking.openURL(url)
   }
 
@@ -27,7 +28,7 @@ class SprungbrettExtra extends React.Component<PropsType> {
 
   render () {
     const {sprungbrettJobs, extras, t} = this.props
-    const extra: ExtraModel | void = extras.find(extra => extra.alias === 'sprungbrett')
+    const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
 
     if (!extra) {
       return <FailureSwitcher error={new Error('The Sprunbrett extra is not supported.')} />
