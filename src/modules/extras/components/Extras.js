@@ -5,9 +5,8 @@ import TileModel from '../../common/models/TileModel'
 import { ExtraModel } from '@integreat-app/integreat-api-client'
 import Tiles from '../../common/components/Tiles'
 import type { TFunction } from 'react-i18next'
+import { getSprungbrettRoutePath, getWohnenRoutePath, SPRUNGBRETT_EXTRA, WOHNEN_EXTRA } from '../ExtrasConfig'
 
-type RouteParamsType = {| city: string, language: string, offerHash?: string |}
-type SprungbrettRouteParamsType = {| city: string, language: string |}
 type PropsType = {|
   city: string,
   language: string,
@@ -16,18 +15,6 @@ type PropsType = {|
   navigateToExtras: (path: string) => void,
   t: TFunction
 |}
-
-export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
-export const SPRUNGBRETT_EXTRA = 'sprungbrett'
-
-export const WOHNEN_ROUTE = 'WOHNEN'
-export const WOHNEN_EXTRA = 'wohnen'
-
-const getWohnenRoutePath = ({city, language, offerHash}: RouteParamsType): string =>
-  `/${city}/${language}/extras/${WOHNEN_EXTRA}${offerHash ? `/${offerHash}` : ''}`
-
-const getSprungbrettRoutePath = ({city, language}: SprungbrettRouteParamsType): string =>
-  `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
 export default class Extras extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
