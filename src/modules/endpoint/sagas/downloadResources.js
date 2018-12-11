@@ -1,6 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
+import { NativeModules } from 'react-native'
 import { call, fork, put } from 'redux-saga/effects'
 import RNFetchBlob from 'rn-fetch-blob'
 import fnv from 'fnv-plus'
@@ -11,26 +12,34 @@ import type {
   ResourcesDownloadPartiallySucceededActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
-import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
+import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
 
-const fetchResource = async (city: string, url: string) => {
+const fetchResources = async (files: { [string]: string }) => {
+  await NativeModules.Fetcher.downloadAsync(files)
+}
+
+const fetchResource = (city: string, url: string) => {
   const hash = fnv.hash(url).hex()
-  const path = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
+  const path = `${URL_PREFIX}${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
 
-  if (await RNFetchBlob.fs.exists(path)) {
-    return path
-  }
-
-  const config = RNFetchBlob.config({path})
-  await config.fetch('GET', encodeURI(url)) // encode url so there are no unsupported chars
+  // if (await RNFetchBlob.fs.exists(path)) {
+  //   return path
+  // }
+  //
+  // const config = RNFetchBlob.config({path})
+  // await config.fetch('GET', encodeURI(url)) // encode url so there are no unsupported chars
   return path
 }
 
 function * downloadResources (city: string, urls: Array<string>): Saga<void> {
   const files = {}
+
   for (const url: string of urls) {
-    files[url] = yield call(fetchResource, city, url)
+    // files[url] = yield call(fetchResource, city, url)
+    files[url] = fetchResource(city, url)
   }
+
+  yield call(fetchResources, files)
 
   const partially: ResourcesDownloadPartiallySucceededActionType = {
     type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, files
@@ -46,7 +55,7 @@ function * downloadResourcesChunks (city: string, chunks: Array<Array<string>>):
 
 export default function * prepare (city: string, urls: Array<string>): Saga<void> {
   try {
-    const chunks: Array<Array<string>> = chunk(urls, urls.length / 2)
+    const chunks: Array<Array<string>> = chunk(urls, urls.length / 1)
 
     if (chunks.length) {
       yield call(downloadResourcesChunks, city, chunks)
