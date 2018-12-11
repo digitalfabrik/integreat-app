@@ -1,7 +1,7 @@
 // @flow
 
-import type WohnenOfferModel from '../endpoint/models/WohnenOfferModel'
 import Hashids from 'hashids'
+import { WohnenOfferModel } from '@integreat-app/integreat-api-client'
 
 export const SPRUNGBRETT_ROUTE = 'SprungbrettExtra'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'

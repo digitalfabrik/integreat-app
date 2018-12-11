@@ -1,11 +1,11 @@
 // @flow
 
-import { connect } from 'react-redux'
+import connect from 'react-redux/es/connect/connect'
 import { Linking } from 'react-native'
 import Extras from '../components/Extras'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import { compose } from 'recompose'
+import compose from 'lodash/fp/compose'
 import { ExtraModel } from '@integreat-app/integreat-api-client'
 
 type JsonExtraPostType = {
