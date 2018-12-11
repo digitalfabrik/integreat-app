@@ -39,6 +39,7 @@ class Page extends React.Component<PropType> {
 
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
     const url = event.url
+    // Needed on iOS for the initial load
     if (url === URL_PREFIX + OFFLINE_CACHE_PATH) {
       return true
     }
@@ -63,7 +64,7 @@ class Page extends React.Component<PropType> {
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
-            useWebKit={false} // If true iOS does not load file:// urls
+            useWebKit
             javaScriptEnabled
 
             dataDetectorTypes={'all'}
@@ -71,7 +72,6 @@ class Page extends React.Component<PropType> {
 
             renderError={this.renderError}
 
-            urlOverridingEnabled
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </WebContainer>
