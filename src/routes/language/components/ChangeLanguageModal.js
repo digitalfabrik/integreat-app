@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import LanguageModel from '../../../modules/endpoint/models/LanguageModel'
+import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'

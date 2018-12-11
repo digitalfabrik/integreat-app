@@ -10,11 +10,11 @@ export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}
 `
 
-export const Input = styled.TextInput.attrs({
+export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
-  textColor: props => props.theme.colors.textSecondaryColor,
-  placeholderTextColor: props => props.theme.colors.textSecondaryColor
-})`
+  textColor: props.theme.colors.textSecondaryColor,
+  placeholderTextColor: props.theme.colors.textSecondaryColor
+}))`
   margin-left: 5px;
   flex-grow: 1;
   
@@ -30,10 +30,10 @@ export const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-export const SearchIcon = styled(Icon).attrs({
+export const SearchIcon = styled(Icon).attrs(props => ({
   name: 'search',
   size: 40
-})`
+}))`
 `
 
 type PropsType = {
