@@ -59,12 +59,18 @@ public class FetcherModule extends ReactContextBaseJavaModule {
             }
 
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                BufferedSink sink = Okio.buffer(Okio.sink(target));
-                sink.writeAll(response.body().source());
-                sink.close();
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try {
+                    target.getParentFile().mkdirs();
 
-                callback.downloaded(sourceUrl, target);
+                    BufferedSink sink = Okio.buffer(Okio.sink(target));
+                    sink.writeAll(response.body().source());
+                    sink.close();
+
+                    callback.downloaded(sourceUrl, target);
+                } catch (IOException e) {
+                    callback.failed(sourceUrl, e);
+                }
             }
         });
     }
