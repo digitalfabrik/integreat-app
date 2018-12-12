@@ -36,23 +36,24 @@ public class DownloadResultCollector implements FileCallback {
     }
 
     private void tryToResolve() {
-        if (failedUrls.size() + succeededUrls.size() == expectedUrls.size()) {
-            WritableMap result = Arguments.createMap();
+        if (failedUrls.size() + succeededUrls.size() != expectedUrls.size()) {
+            return;
+        }
 
-            WritableArray succeeded = Arguments.createArray();
-            for (String url : succeededUrls) {
-                succeeded.pushString(url);
-            }
-
-
+        if (!failedUrls.isEmpty()) {
             WritableMap failed = Arguments.createMap();
             for (Map.Entry<String, String> entry : failedUrls.entrySet()) {
                 failed.putString(entry.getKey(), entry.getValue());
             }
 
-            result.putArray("succeeded", succeeded);
-            result.putMap("failed", failed);
-            promise.resolve(result);
+            promise.resolve(failed);
+        } else {
+            WritableArray succeeded = Arguments.createArray();
+            for (String url : succeededUrls) {
+                succeeded.pushString(url);
+            }
+
+            promise.resolve(succeeded);
         }
     }
 }
