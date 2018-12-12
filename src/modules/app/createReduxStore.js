@@ -87,7 +87,7 @@ const createReduxStore = (callback: () => void): { store: Store<StateType, Store
 
   // TODO: Disable logger and dev tools in production
 
-  const middleware = applyMiddleware(createNetworkMiddleware(), sagaMiddleware, createLogger())
+  const middleware = applyMiddleware(createNetworkMiddleware(), sagaMiddleware, /* createLogger() */)
 
   const store = createStore(rootReducer, initialState, composeWithDevTools(middleware))
 

@@ -61,7 +61,6 @@ class Dashboard extends React.Component<PropsType> {
     const cities = this.props.cities
 
     if (!categories || !cities || !this.props.files) {
-      console.log(this.props)
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
