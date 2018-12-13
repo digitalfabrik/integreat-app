@@ -7,9 +7,8 @@ import Dashboard from '../components/Dashboard'
 import toggleDarkMode from 'modules/theme/actions/toggleDarkMode'
 import { offlineActionTypes } from 'react-native-offline'
 import type { StateType } from '../../../modules/app/StateType'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components'
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
 import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
 import withError from '../../../modules/error/hocs/withError'
@@ -101,4 +100,5 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 // $FlowFixMe
 const themed = withTheme(Dashboard)
+// $FlowFixMe connect()
 export default connect(mapStateToProps, mapDispatchToProps)(withError(themed))

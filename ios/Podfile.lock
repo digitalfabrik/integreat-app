@@ -1,67 +1,74 @@
 PODS:
+  - boost-for-react-native (1.63.0)
+  - DoubleConversion (1.1.6)
   - FLAnimatedImage (1.0.12)
-  - React (0.57.0):
-    - React/Core (= 0.57.0)
-  - react-native-fast-image (5.0.10):
+  - Folly (2016.10.31.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.5)
+  - React (0.57.6):
+    - React/Core (= 0.57.6)
+  - react-native-fast-image (5.1.1):
     - FLAnimatedImage
     - React
     - SDWebImage/Core
     - SDWebImage/GIF
   - react-native-mapbox-gl (6.1.3):
     - React
-  - react-native-webview (0.1.0):
+  - react-native-webview (2.13.0):
     - React
-  - React/Core (0.57.0):
-    - yoga (= 0.57.0.React)
-  - React/DevSupport (0.57.0):
+  - React/Core (0.57.6):
+    - yoga (= 0.57.6.React)
+  - React/DevSupport (0.57.6):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.57.0)
-  - React/RCTActionSheet (0.57.0):
+  - React/fishhook (0.57.6)
+  - React/RCTActionSheet (0.57.6):
     - React/Core
-  - React/RCTAnimation (0.57.0):
+  - React/RCTAnimation (0.57.6):
     - React/Core
-  - React/RCTBlob (0.57.0):
+  - React/RCTBlob (0.57.6):
     - React/Core
-  - React/RCTCameraRoll (0.57.0):
+  - React/RCTGeolocation (0.57.6):
     - React/Core
-    - React/RCTImage
-  - React/RCTGeolocation (0.57.0):
-    - React/Core
-  - React/RCTImage (0.57.0):
+  - React/RCTImage (0.57.6):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.57.0):
+  - React/RCTNetwork (0.57.6):
     - React/Core
-  - React/RCTNetwork (0.57.0):
+  - React/RCTPushNotification (0.57.6):
     - React/Core
-  - React/RCTPushNotification (0.57.0):
+  - React/RCTSettings (0.57.6):
     - React/Core
-  - React/RCTSettings (0.57.0):
+  - React/RCTTest (0.57.6):
     - React/Core
-  - React/RCTTest (0.57.0):
+  - React/RCTText (0.57.6):
     - React/Core
-  - React/RCTText (0.57.0):
+  - React/RCTVibration (0.57.6):
     - React/Core
-  - React/RCTVibration (0.57.0):
-    - React/Core
-  - React/RCTWebSocket (0.57.0):
+  - React/RCTWebSocket (0.57.6):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - rn-fetch-blob (0.10.6):
     - React/Core
+  - RNGestureHandler (1.0.10):
+    - React
   - RNPDF (0.4.1):
     - React
-  - RNVectorIcons (5.0.0):
+  - RNVectorIcons (6.1.0):
     - React
   - SDWebImage/Core (4.4.2)
   - SDWebImage/GIF (4.4.2):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
-  - yoga (0.57.0.React)
+  - yoga (0.57.6.React)
 
 DEPENDENCIES:
+  - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
+  - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - "react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -70,10 +77,8 @@ DEPENDENCIES:
   - React/RCTActionSheet (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
   - React/RCTBlob (from `../node_modules/react-native`)
-  - React/RCTCameraRoll (from `../node_modules/react-native`)
   - React/RCTGeolocation (from `../node_modules/react-native`)
   - React/RCTImage (from `../node_modules/react-native`)
-  - React/RCTLinkingIOS (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTPushNotification (from `../node_modules/react-native`)
   - React/RCTSettings (from `../node_modules/react-native`)
@@ -82,16 +87,24 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler/ios`)
   - RNPDF (from `../node_modules/react-native-view-pdf`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
     - FLAnimatedImage
     - SDWebImage
 
 EXTERNAL SOURCES:
+  DoubleConversion:
+    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  Folly:
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+  glog:
+    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
   react-native-fast-image:
@@ -102,6 +115,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-webview"
   rn-fetch-blob:
     :path: "../node_modules/rn-fetch-blob"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler/ios"
   RNPDF:
     :path: "../node_modules/react-native-view-pdf"
   RNVectorIcons:
@@ -110,17 +125,22 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
 
 SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
+  glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-fast-image: cba3d9bf9c2cf8ddb643d887a686c53a5dd90a2c
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
-  react-native-webview: a63b1fff09eedee41d10a33ce97fc99814fa38e2
+  react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
+  RNGestureHandler: 968e4453152673aedcbbb7c1ada6700c214cea7a
   RNPDF: f27f11d7dbbb49da65375c401eca73b7ef1d7b00
-  RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
+  RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 8a0293484c6fd8d0d597412608e4c8df052b5643
+PODFILE CHECKSUM: 7fa0c59e281503f693a22918210b6b858c5d5305
 
 COCOAPODS: 1.5.3

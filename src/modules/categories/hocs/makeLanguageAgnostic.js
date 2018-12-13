@@ -1,8 +1,7 @@
 // @flow
 
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
 import * as React from 'react'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import Failure from '../../error/components/Failure'
 

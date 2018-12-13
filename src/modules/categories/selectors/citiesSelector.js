@@ -1,14 +1,15 @@
 // @flow
 
 import type { StateType } from '../../../modules/app/StateType'
-import { createSelector } from 'reselect'
-import citiesEndpoint from '../../../modules/endpoint/endpoints/cities'
+import { createSelector, type OutputSelector } from 'reselect'
+import { citiesEndpoint } from '@integreat-app/integreat-api-client'
+import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 
-const citiesJsonSelector = (state: StateType) => state.cities.json
+export type CitiesSelectorType = (state: StateType) => OutputSelector<StateType, {}, Array<CityModel>>
 
-const citiesSelector = createSelector(
-  citiesJsonSelector,
-  json => citiesEndpoint.mapResponse(json)
+const citiesSelector: CitiesSelectorType = createSelector(
+  (state): any => state.cities.json,
+  (json: any) => citiesEndpoint.mapResponse(json)
 )
 
 export default citiesSelector

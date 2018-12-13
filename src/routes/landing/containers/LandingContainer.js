@@ -5,12 +5,11 @@ import { translate } from 'react-i18next'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import citiesEndpoint from 'modules/endpoint/endpoints/cities'
+import { citiesEndpoint, CityModel } from '@integreat-app/integreat-api-client'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import setCurrentCity from '../../../modules/categories/actions/setCurrentCity'
 import Landing from '../components/Landing'
-import CityModel from '../../../modules/endpoint/models/CityModel'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const navigateToDashboard = (cityModel: CityModel) => {

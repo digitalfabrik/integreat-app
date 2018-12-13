@@ -2,14 +2,11 @@
 
 import * as React from 'react'
 
-import CategoriesMapModel from 'modules/endpoint/models/CategoriesMapModel'
 import Page from 'modules/common/components/Page'
-
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from './CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel, CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import type { FilesStateType } from '../../../modules/app/StateType'
