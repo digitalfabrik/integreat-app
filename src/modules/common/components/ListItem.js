@@ -8,7 +8,7 @@ const StyledTouchableHighlight = styled.TouchableHighlight`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const Thumbnail = styled.img`
+const Thumbnail = styled.Image`
   width: 100px;
   height: 100px;
   flex-shrink: 0;
@@ -16,7 +16,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-const Description = styled.div`
+const Description = styled.View`
   display: flex;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
@@ -30,7 +30,7 @@ const Description = styled.div`
   }
 `
 
-const Title = styled.div`
+const Title = styled.View`
   font-weight: 700;
 `
 

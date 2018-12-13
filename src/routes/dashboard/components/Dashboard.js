@@ -54,6 +54,8 @@ class Dashboard extends React.Component<PropsType> {
 
   landing = () => this.props.navigation.navigate('Landing')
 
+  extras = () => this.props.navigation.navigate('Extras')
+
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
@@ -71,7 +73,10 @@ class Dashboard extends React.Component<PropsType> {
                     city={this.props.cityModel.code}
                     path={this.props.path}
                     navigateToCategories={this.props.navigateToCategories} theme={this.props.theme} />
-
+        <Button
+          title='Extras'
+          onPress={this.extras}
+        />
         <Button
           title='Go to Landing'
           onPress={this.landing}

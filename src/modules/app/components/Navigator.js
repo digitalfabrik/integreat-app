@@ -39,7 +39,10 @@ export const ExtrasStack = createStackNavigator(
     'Sprungbrett': SprungbrettExtraContainer
   },
   {
-    initialRouteName: 'Extras'
+    initialRouteName: 'Extras',
+    defaultNavigationOptions: {
+      header: null
+    }
   }
 )
 

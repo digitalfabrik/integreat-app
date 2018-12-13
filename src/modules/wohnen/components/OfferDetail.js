@@ -12,26 +12,26 @@ type PropsType = {|
   t: TFunction
 |}
 
-const Header = styled.div`
+const Header = styled.View`
   padding: 15px 5px 5px;
   font-weight: 700;
 `
 
-const RowTitle = styled.div`
+const RowTitle = styled.View`
   flex: 50%;
 `
 
-const RowValue = styled.div`
+const RowValue = styled.View`
   flex: 50%;
 `
 
-const Row = styled.div`
+const Row = styled.View`
   display: flex;
   
   margin: 10px 0;
 `
 
-const ListElement = styled.div`
+const ListElement = styled.View`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   margin-bottom: 10px;
 `
