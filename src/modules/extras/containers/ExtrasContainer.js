@@ -7,6 +7,7 @@ import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import { ExtraModel } from '@integreat-app/integreat-api-client'
+import FastImage from 'react-native-fast-image'
 
 type JsonExtraPostType = {
   [key: string]: string
@@ -16,6 +17,16 @@ export const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> 
   const map = new Map()
   Object.keys(jsonPost).forEach(key => map.set(key, jsonPost[key]))
   return map
+}
+
+const createNoCacheRequest = (thumbnailPath: string) => {
+  return {
+    uri: thumbnailPath,
+    priority: FastImage.priority.normal,
+    // disable caching
+    headers: {'Cache-Control': 'no-cache, no-store, must-revalidate'},
+    cache: FastImage.cacheControl.web
+  }
 }
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -31,7 +42,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
       ownProps.navigation.push(path, params)
     }
   }
-
   // Mock data
   const extras = [{
     'alias': 'sprungbrett',
@@ -67,9 +77,12 @@ const mapStateToProps = (state: StateType, ownProps) => {
     alias: extra.alias,
     title: extra.name,
     path: extra.url,
-    thumbnail: extra.thumbnail,
+    // Important. Disables caching of the extras' thumbnails. We want to do it manually at some point.
+    thumbnail: createNoCacheRequest(extra.thumbnail),
     postData: extra.post ? createPostMap(extra.post) : null
   }))
+
+  console.log(extras)
 
   return {
     city: targetCity,

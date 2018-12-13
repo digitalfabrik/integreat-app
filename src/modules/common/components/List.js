@@ -4,11 +4,11 @@ import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 
-const StyledList = styled.div`
+const StyledList = styled.View`
   border-top: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const NoItemsMessage = styled.div`
+const NoItemsMessage = styled.View`
   padding-top: 25px;
   text-align: center;
 `

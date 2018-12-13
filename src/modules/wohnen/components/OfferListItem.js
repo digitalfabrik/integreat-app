@@ -5,12 +5,12 @@ import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-c
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
 
-const Description = styled.div`
+const Description = styled.View`
   display: flex;
   flex-direction: column;
 `
 
-const Price = styled.span`
+const Price = styled.Text`
   align-self: flex-end;
 `
 
