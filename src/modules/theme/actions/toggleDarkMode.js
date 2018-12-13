@@ -1,7 +1,6 @@
 // @flow
 
 import { createAction } from 'redux-actions'
+import type { ToggleDarkModeActionType } from '../../app/StoreActionType'
 
-export const toggleDarkModeAction = createAction('TOGGLE_DARK_MODE')
-
-export default toggleDarkModeAction
+export default (): ToggleDarkModeActionType => createAction('TOGGLE_DARK_MODE')()

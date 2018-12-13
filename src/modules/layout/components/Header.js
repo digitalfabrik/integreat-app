@@ -36,6 +36,7 @@ const Title = styled.Text`
 `
 
 const BoxShadow = styled.View`
+  elevation: 1;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
 `
@@ -54,20 +55,20 @@ const MaterialHeaderButtons = props => {
   )
 }
 
-const ThemedSearchBar = styled(SearchBar).attrs({
-  containerStyle: props => ({
+const ThemedSearchBar = styled(SearchBar).attrs(props => ({
+  containerStyle: {
     flexGrow: 1,
     backgroundColor: props.theme.colors.backgroundAccentColor,
     borderTopColor: props.theme.colors.backgroundAccentColor,
     borderBottomColor: props.theme.colors.backgroundAccentColor
-  }),
-  inputContainerStyle: props => ({
+  },
+  inputContainerStyle: {
     backgroundColor: props.theme.colors.backgroundColor
-  }),
-  inputStyle: props => ({
+  },
+  inputStyle: {
     backgroundColor: props.theme.colors.backgroundColor
-  })
-})``
+  }
+}))``
 
 type PropsType = {
   scene: NavigationScene,
@@ -144,7 +145,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
-            <Item title='Change Location' iconName='edit-location' onPress={this.goToLanding} />
+            <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>
         </Horizontal>

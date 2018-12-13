@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import { Text } from 'react-native-elements'
 import { View } from 'react-native'

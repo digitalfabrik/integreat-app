@@ -5,7 +5,7 @@ import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import { ScrollView } from 'react-native'
 import React from 'react'
 import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
@@ -62,4 +62,5 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
+// $FlowFixMe connect()
 export default connect(mapStateToProps)(themed)

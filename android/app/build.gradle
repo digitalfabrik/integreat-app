@@ -150,6 +150,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-view-pdf')
     implementation (project(':react-native-fast-image')) {
         exclude group: "com.android.support"
     }
