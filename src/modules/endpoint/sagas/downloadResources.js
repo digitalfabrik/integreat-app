@@ -11,6 +11,7 @@ import type {
 } from '../../app/StoreActionType'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
 import FetcherModule from '../../fetcher/FetcherModule'
+import type { FetchResultType } from '../../fetcher/FetcherModule'
 
 export default function * downloadResources (city: string, urls: Array<string>): Saga<void> {
   try {
@@ -21,7 +22,7 @@ export default function * downloadResources (city: string, urls: Array<string>):
       files[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
     }
 
-    const result = yield call(FetcherModule.downloadAsync, files)
+    const result: FetchResultType = yield call(FetcherModule.downloadAsync, files)
 
     if (isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {
@@ -34,7 +35,7 @@ export default function * downloadResources (city: string, urls: Array<string>):
     }
 
     const success: ResourcesDownloadSucceededActionType = {
-      type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city, files: result
+      type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city, files: result.successFilePaths
     }
     yield put(success)
   } catch (e) {
