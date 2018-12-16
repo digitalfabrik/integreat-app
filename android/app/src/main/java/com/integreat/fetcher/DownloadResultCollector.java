@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DownloadResultCollector implements FileCallback {
+public class DownloadResultCollector implements FileDownloadCallback {
     private final Map<String, String> failedUrls = new HashMap<>();
     private final Map<String, String> succeededUrls = new HashMap<>();
     private final Promise promise;

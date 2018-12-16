@@ -38,7 +38,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
         }
     }
 
-    private void downloadAsync(final String sourceUrl, String targetFilePath, final FileCallback callback) {
+    private void downloadAsync(final String sourceUrl, String targetFilePath, final FileDownloadCallback callback) {
         final File targetFile = new File(targetFilePath);
 
         if (targetFile.exists()) {
