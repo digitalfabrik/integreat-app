@@ -3,27 +3,18 @@
 import type {
   ResourcesDownloadActionType,
   ResourcesDownloadFailedActionType,
-  ResourcesDownloadPartiallySucceededActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
 import type { FileCacheStateType } from '../../app/StateType'
 
 const initialCity = {files: {}, ready: false, error: undefined}
 
-const partially = (state, action: ResourcesDownloadPartiallySucceededActionType): any => {
+const success = (state, action: ResourcesDownloadSucceededActionType): any => {
   const city = action.city
   const previousCity = state[city] || initialCity
 
   const newFiles = {...previousCity.files, ...action.files}
   const newCity = {...previousCity, files: newFiles, ready: false}
-  return {...state, [city]: newCity}
-}
-
-const success = (state, action: ResourcesDownloadSucceededActionType): any => {
-  const city = action.city
-  const previousCity = state[city] || initialCity
-
-  const newCity = {...previousCity, ready: true}
   return {...state, [city]: newCity}
 }
 
@@ -41,8 +32,6 @@ export default (state: FileCacheStateType = {}, action: ResourcesDownloadActionT
       return success(state, action)
     case 'RESOURCES_DOWNLOAD_FAILED':
       return failed(state, action)
-    case 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED':
-      return partially(state, action)
     default:
       return state
   }
