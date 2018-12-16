@@ -37,16 +37,16 @@ public class FetcherModule extends ReactContextBaseJavaModule {
 
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
             String url = entry.getKey();
-            String targetFileUrl = entry.getValue().toString();
-            downloadAsync(url, targetFileUrl, collector);
+            String targetFilePath = entry.getValue().toString();
+            downloadAsync(url, targetFilePath, collector);
         }
     }
 
     private void downloadAsync(final String sourceUrl, String targetFilePath, final FileCallback callback) {
-        final File target = new File(targetFilePath);
+        final File targetFile = new File(targetFilePath);
 
-        if (target.exists()) {
-            callback.downloaded(sourceUrl, target);
+        if (targetFile.exists()) {
+            callback.downloaded(sourceUrl, targetFile);
             return;
         }
 
@@ -61,13 +61,13 @@ public class FetcherModule extends ReactContextBaseJavaModule {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 try {
-                    target.getParentFile().mkdirs();
+                    targetFile.getParentFile().mkdirs();
 
-                    BufferedSink sink = Okio.buffer(Okio.sink(target));
+                    BufferedSink sink = Okio.buffer(Okio.sink(targetFile));
                     sink.writeAll(response.body().source());
                     sink.close();
 
-                    callback.downloaded(sourceUrl, target);
+                    callback.downloaded(sourceUrl, targetFile);
                 } catch (IOException e) {
                     callback.failed(sourceUrl, e);
                 }
