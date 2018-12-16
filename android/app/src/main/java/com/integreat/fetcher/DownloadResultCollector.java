@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class DownloadResultCollector implements FileCallback {
     private final Map<String, String> failedUrls = new HashMap<>();
-    private final List<String> succeededUrls = new ArrayList<>();
+    private final Map<String, String> succeededUrls = new HashMap<>();
     private final Promise promise;
     private final List<String> expectedUrls;
 
@@ -31,7 +31,7 @@ public class DownloadResultCollector implements FileCallback {
 
     @Override
     public void downloaded(String url, File target) {
-        succeededUrls.add(url);
+        succeededUrls.put(url, target.getAbsolutePath());
         tryToResolve();
     }
 
@@ -40,20 +40,23 @@ public class DownloadResultCollector implements FileCallback {
             return;
         }
 
-        if (!failedUrls.isEmpty()) {
-            WritableMap failed = Arguments.createMap();
-            for (Map.Entry<String, String> entry : failedUrls.entrySet()) {
-                failed.putString(entry.getKey(), entry.getValue());
-            }
+        WritableMap result = Arguments.createMap();
 
-            promise.resolve(failed);
-        } else {
-            WritableArray succeeded = Arguments.createArray();
-            for (String url : succeededUrls) {
-                succeeded.pushString(url);
-            }
-
-            promise.resolve(succeeded);
+        WritableMap failed = Arguments.createMap();
+        for (Map.Entry<String, String> entry : failedUrls.entrySet()) {
+            failed.putString(entry.getKey(), entry.getValue());
         }
+
+        result.putMap("failureMessages", failed);
+
+
+        WritableMap succeeded = Arguments.createMap();
+        for (Map.Entry<String, String> entry : succeededUrls.entrySet()) {
+            succeeded.putString(entry.getKey(), entry.getValue());
+        }
+
+        result.putMap("successFilePaths", succeeded);
+
+        promise.resolve(result);
     }
 }
