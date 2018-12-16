@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { Text } from 'react-native-elements'
+import { Text } from 'react-native'
 
 export class FailureSwitcher extends React.Component<{ error: Error }> {
   render () {

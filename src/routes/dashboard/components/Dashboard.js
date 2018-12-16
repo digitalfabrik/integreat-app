@@ -1,9 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import { Button } from 'react-native-elements'
 import type { NavigationScreenProp } from 'react-navigation'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ActivityIndicator, ScrollView, Button } from 'react-native'
 import type { FilesStateType } from '../../../modules/app/StateType'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
