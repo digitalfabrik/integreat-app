@@ -2,11 +2,7 @@ package com.integreat.fetcher;
 
 import android.support.annotation.NonNull;
 
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +29,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
     public void downloadAsync(final ReadableMap urls, final Promise promise) {
         HashMap<String, Object> urlMap = urls.toHashMap();
         ArrayList<String> expectedUrls = new ArrayList<>(urlMap.keySet());
-        DownloadResultCollector collector = new DownloadResultCollector(promise, expectedUrls);
+        DownloadResultCollector collector = new DownloadResultCollector(getReactApplicationContext(), expectedUrls, promise);
 
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
             String url = entry.getKey();
