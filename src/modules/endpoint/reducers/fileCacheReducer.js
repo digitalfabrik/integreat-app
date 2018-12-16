@@ -14,7 +14,7 @@ const success = (state, action: ResourcesDownloadSucceededActionType): any => {
   const previousCity = state[city] || initialCity
 
   const newFiles = {...previousCity.files, ...action.files}
-  const newCity = {...previousCity, files: newFiles, ready: false}
+  const newCity = {...previousCity, files: newFiles, ready: true}
   return {...state, [city]: newCity}
 }
 
