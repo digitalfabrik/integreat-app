@@ -7,36 +7,22 @@ import fnv from 'fnv-plus'
 import getExtension from '../getExtension'
 import type {
   ResourcesDownloadFailedActionType,
-  ResourcesDownloadPartiallySucceededActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
 
-function * downloadResources (city: string, urls: Array<string>): Saga<void> {
-  const files = {}
-
-  for (const url: string of urls) {
-    const hash = fnv.hash(url).hex()
-    files[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
-  }
-
+export default function * downloadResources (city: string, urls: Array<string>): Saga<void> {
   try {
-    yield call(NativeModules.Fetcher.downloadAsync, files)
-  } catch (e) {
-    console.error(e)
-  }
+    const files = {}
 
-  const partially: ResourcesDownloadPartiallySucceededActionType = {
-    type: 'RESOURCES_DOWNLOAD_PARTIALLY_SUCCEEDED', city, files
-  }
-  yield put(partially)
-}
+    for (const url: string of urls) {
+      const hash = fnv.hash(url).hex()
+      files[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
+    }
 
-export default function * prepare (city: string, urls: Array<string>): Saga<void> {
-  try {
-    yield call(downloadResources, city, urls)
+    const result = yield call(NativeModules.Fetcher.downloadAsync, files)
 
-    const success: ResourcesDownloadSucceededActionType = {type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city}
+    const success: ResourcesDownloadSucceededActionType = {type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city, files}
     yield put(success)
   } catch (e) {
     const failed: ResourcesDownloadFailedActionType = {type: `RESOURCES_DOWNLOAD_FAILED`, city, message: e.message}

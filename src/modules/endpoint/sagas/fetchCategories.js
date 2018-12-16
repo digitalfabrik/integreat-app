@@ -45,7 +45,7 @@ function * fetchAllCategories (city: string, codes: Array<string>, prioritised: 
   const urls = new Set<string>()
 
   if (codes.includes(prioritised)) {
-    yield call(fetchCategories, city, prioritised, urls)
+    yield fork(fetchCategories, city, prioritised, urls)
   }
 
   const otherCodes = codes.filter(value => value !== prioritised)
