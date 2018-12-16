@@ -22,9 +22,9 @@ export default function * downloadResources (city: string, urls: Array<string>):
       files[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
     }
 
-    const result: FetchResultType = yield call(FetcherModule.downloadAsync, files)
+    const result: FetchResultType = yield call(FetcherModule.downloadAsync, files, p => console.log(p))
 
-    if (isEmpty(result.failureMessages)) {
+    if (!isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {
         return `${message}'${url}': ${error}\n`
       }, '')
