@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Route Configs routesMap should match snapshot 1`] = `
+Object {
+  "CATEGORIES": Object {
+    "path": "/:city/:language/:categoryPath*",
+    "thunk": [Function],
+  },
+  "DISCLAIMER": Object {
+    "path": "/:city/:language/disclaimer",
+    "thunk": [Function],
+  },
+  "EVENTS": Object {
+    "path": "/:city/:language/events/:eventId?",
+    "thunk": [Function],
+  },
+  "EXTRAS": Object {
+    "path": "/:city/:language/extras/:extraId?",
+    "thunk": [Function],
+  },
+  "I18N_REDIRECT": Object {
+    "path": "/:param?",
+    "thunk": [Function],
+  },
+  "LANDING": Object {
+    "path": "/landing/:language",
+    "thunk": [Function],
+  },
+  "MAIN_DISCLAIMER": "/disclaimer",
+  "POI": Object {
+    "path": "/:city/:language/locations/:poiId?",
+    "thunk": [Function],
+  },
+  "SEARCH": Object {
+    "path": "/:city/:language/search",
+    "thunk": [Function],
+  },
+  "SPRUNGBRETT": Object {
+    "path": "/:city/:language/extras/sprungbrett",
+    "thunk": [Function],
+  },
+  "WOHNEN": Object {
+    "path": "/:city/:language/extras/wohnen/:offerHash?",
+    "thunk": [Function],
+  },
+}
+`;
+
+exports[`Route Configs should return route configs 1`] = `
+CategoriesRouteConfig {
+  "getFeedbackTargetInformation": [Function],
+  "getLanguageChangePath": [Function],
+  "getMetaDescription": [Function],
+  "getPageTitle": [Function],
+  "getRequiredPayloads": [Function],
+  "getRoutePath": [Function],
+  "isLocationLayoutRoute": true,
+  "name": "CATEGORIES",
+  "requiresFooter": true,
+  "requiresHeader": true,
+  "route": Object {
+    "path": "/:city/:language/:categoryPath*",
+    "thunk": [Function],
+  },
+}
+`;
+
+exports[`Route Configs should return route configs 2`] = `"There is no route config with the name INVALID_NAME. Did you forget to add it in the routes index?"`;
