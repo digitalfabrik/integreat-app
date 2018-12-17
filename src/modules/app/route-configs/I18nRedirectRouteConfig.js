@@ -32,11 +32,11 @@ class I18nRedirectRouteConfig implements RouteConfig<I18nRedirectRouteParamsType
   requiresHeader = false
   requiresFooter = false
 
- getRoutePath = ({param}: I18nRedirectRouteParamsType): string => `/${param || ''}`
+  getRoutePath = ({param}: I18nRedirectRouteParamsType): string => `/${param || ''}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({cities: payloads.citiesPayload})
 
-  getPageTitle = () => ''
+  getPageTitle = () => null
 
   getLanguageChangePath = () => null
 
