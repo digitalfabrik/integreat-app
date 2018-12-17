@@ -69,6 +69,9 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     this.getRoutePath({city: location.payload.city, language})
 
   getPageTitle = ({cityName, payloads, location}) => {
+    if (!cityName) {
+      return null
+    }
     const offerHash = location.payload.offerHash
     const extras = payloads.extras.data
     const offers = payloads.offers.data

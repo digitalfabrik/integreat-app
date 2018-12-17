@@ -53,7 +53,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
     const categories = payloads.categories.data
     if (categories) {
       const category = categories.findCategoryByPath(location.pathname)
-      if (category && category.id !== 0) {
+      if (category && !category.isRoot()) {
         return category.availableLanguages.get(language) || null
       }
     }
@@ -61,6 +61,9 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   }
 
   getPageTitle = ({t, payloads, cityName, location}) => {
+    if (!cityName) {
+      return null
+    }
     const pathname = location.pathname
     const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(pathname)

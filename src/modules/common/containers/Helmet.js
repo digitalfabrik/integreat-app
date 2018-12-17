@@ -6,7 +6,7 @@ import ReactHelmet from 'react-helmet'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
-  pageTitle: string,
+  pageTitle: ?string,
   metaDescription: ?string,
   languageChangePaths: ?LanguageChangePathsType,
   cityModel: ?CityModel
@@ -29,7 +29,7 @@ class Helmet extends React.Component<PropsType> {
     const {pageTitle, cityModel, metaDescription} = this.props
 
     return <ReactHelmet>
-      <title>{pageTitle}</title>
+      {pageTitle && <title>{pageTitle}</title>}
       {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
       {metaDescription && <meta name='description' content={metaDescription} />}
       {this.getLanguageLinks()}

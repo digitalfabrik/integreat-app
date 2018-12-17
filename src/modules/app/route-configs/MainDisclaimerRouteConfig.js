@@ -4,10 +4,6 @@ import { RouteConfig } from './RouteConfig'
 
 export const MAIN_DISCLAIMER_ROUTE = 'MAIN_DISCLAIMER'
 
-/**
- * MainDisclaimerRoute, matches /disclaimer
- * @type {{path: string, thunk: function(Dispatch, GetState)}}
- */
 const mainDisclaimerRoute = '/disclaimer'
 
 class MainDisclaimerRouteConfig implements RouteConfig<void, void> {
