@@ -5,13 +5,17 @@ import type { TFunction } from 'react-i18next'
 import React from 'react'
 import styled from 'styled-components'
 import { translate } from 'react-i18next'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { Text } from 'react-native'
 
 const ViewContainer = styled.View`
 flex: 1;
 align-items: center;
-margin-top: 10%;
+margin-top: 15%;
+`
+
+const IconContainer = styled(MaterialIcon)`
+margin-bottom: 10px;
 `
 
 type PropsType = {|
@@ -24,7 +28,7 @@ export class Failure extends React.Component<PropsType> {
     const { t } = this.props
 
     return <ViewContainer>
-      <Icon name='frown-o' size={50} />
+      <IconContainer name='sentiment-dissatisfied' size={55} color={'black'} />
       <Text>
         {t('loadingFailed')}
       </Text>
