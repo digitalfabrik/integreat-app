@@ -11,6 +11,7 @@ import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-clie
 import { withTheme } from 'styled-components'
 import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
 import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
+import withError from '../../../modules/error/hocs/withError'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -39,7 +40,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.language
-  const cities = state.cities.json
+  const cities = state.cities
 
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
   const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity.code}/${language}`
@@ -47,10 +48,10 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const notReadyProps = {
     cityModel: targetCity,
     language: language,
-    cities
+    cities: cities.json
   }
 
-  if (!cities) {
+  if (!cities.json) {
     return notReadyProps
   }
 
@@ -79,7 +80,12 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity: targetCity.code})
+  const errorMessage = cities.error || categories.error || fileCache.error
+  if (errorMessage) {
+    console.error(errorMessage)
+  }
+
+  const categoriesMap: CategoriesMapModel = categoriesSelector(state, { language, targetCity: targetCity.code })
   return {
     cityModel: targetCity,
     language: language,
@@ -87,11 +93,12 @@ const mapStateToProps = (state: StateType, ownProps) => {
     navigateToCategories,
     path: targetPath,
     categories: categoriesMap,
-    files: fileCache.files
+    files: fileCache.files,
+    error: errorMessage
   }
 }
 
 // $FlowFixMe
 const themed = withTheme(Dashboard)
 // $FlowFixMe connect()
-export default connect(mapStateToProps, mapDispatchToProps)(themed)
+export default connect(mapStateToProps, mapDispatchToProps)(withError(themed))
