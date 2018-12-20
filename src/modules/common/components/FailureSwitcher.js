@@ -27,19 +27,19 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case 'category':
         return <Failure goToPath={new CategoriesRouteConfig().getRoutePath({city, language})}
                         goToMessage={'goTo.categories'}
-                        errorMessage={'not-found.category'} />
+                        errorMessage={'notFound.category'} />
       case 'event':
         return <Failure goToPath={new EventsRouteConfig().getRoutePath({city, language})}
                         goToMessage={'goTo.events'}
-                        errorMessage={'not-found.event'} />
+                        errorMessage={'notFound.event'} />
       case 'extra':
         return <Failure goToPath={new ExtrasRouteConfig().getRoutePath({city, language})}
                         goToMessage={'goTo.extras'}
-                        errorMessage={'not-found.extra'} />
+                        errorMessage={'notFound.extra'} />
       case 'poi':
         return <Failure goToPath={new PoisRouteConfig().getRoutePath({city, language})}
                         goToMessage={'goTo.pois'}
-                        errorMessage={'not-found.poi'} />
+                        errorMessage={'notFound.poi'} />
     }
 
     throw new Error('Failed to find component to render a content error')
