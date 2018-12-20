@@ -3,7 +3,7 @@
 class CityNotFoundError extends Error {
   constructor () {
     super()
-    this.message = 'not-found.city'
+    this.message = 'notFound.city'
 
     // https://github.com/babel/babel/issues/3083
     /* eslint-disable */
