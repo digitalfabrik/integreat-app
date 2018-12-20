@@ -5,6 +5,7 @@ import { shallow } from 'enzyme'
 
 import { LanguageSelector } from '../LanguageSelector'
 import { DISCLAIMER_ROUTE } from '../../../app/route-configs/DisclaimerRouteConfig'
+import createLocation from '../../../../createLocation'
 
 describe('LanguageSelector', () => {
   const city = 'augsburg'
@@ -17,11 +18,11 @@ describe('LanguageSelector', () => {
   ]
 
   it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
-    const location = {
+    const location = createLocation({
       pathname: '/augsburg/en/disclaimer',
       type: DISCLAIMER_ROUTE,
       payload: {city, language}
-    }
+    })
 
     const languageSelector = shallow(
       <LanguageSelector languageChangePaths={languageChangePaths}
@@ -34,11 +35,11 @@ describe('LanguageSelector', () => {
   })
 
   it('should render a normal Selector if it is not a header action item', () => {
-    const location = {
+    const location = createLocation({
       pathname: '/augsburg/en/disclaimer',
       type: DISCLAIMER_ROUTE,
       payload: {city, language}
-    }
+    })
 
     const languageSelector = shallow(
       <LanguageSelector languageChangePaths={languageChangePaths}

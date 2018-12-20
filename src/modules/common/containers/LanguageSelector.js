@@ -4,13 +4,13 @@ import React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
-import type { Location } from 'redux-first-router'
+import type { LocationState } from 'redux-first-router'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
-  location: Location,
+  location: LocationState,
   isHeaderActionItem: boolean,
   languageChangePaths: ?LanguageChangePathsType,
   t: TFunction
