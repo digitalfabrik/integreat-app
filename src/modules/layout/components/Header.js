@@ -127,7 +127,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
     if (this.state.searchActive) {
       return <BoxShadow theme={this.props.theme}><HorizontalLeft>
         <HeaderBackButton onPress={this.closeSearchBar} />
-        <ThemedSearchBar />
+        <ThemedSearchBar theme={this.props.theme} />
       </HorizontalLeft>
       </BoxShadow>
     }

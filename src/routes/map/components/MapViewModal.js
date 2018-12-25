@@ -27,7 +27,6 @@ class MapViewModal extends React.Component<PropsType, StateType> {
   async download (): Promise<void> {
     const progressListener = (offlinePack, status) => {
       this.setState({percentage: status.percentage / 100})
-      console.log(offlinePack, status)
     }
 
     // await MapboxGL.offlineManager.deletePack('augsburg')
