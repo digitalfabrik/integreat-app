@@ -150,8 +150,12 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-gesture-handler')
-    compile project(':react-native-view-pdf')
+    compile group: 'com.squareup.okio', name: 'okio', version: '2.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
+
+    implementation project(':react-native-gesture-handler')
+    implementation project(':react-native-view-pdf')
     implementation (project(':react-native-fast-image')) {
         exclude group: "com.android.support"
     }
