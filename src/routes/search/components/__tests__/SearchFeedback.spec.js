@@ -2,9 +2,10 @@
 
 import React from 'react'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
+import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import { SearchFeedback } from '../SearchFeedback'
 import { shallow } from 'enzyme'
+import createLocation from '../../../../createLocation'
 
 describe('SearchFeedback', () => {
   const cities = [
@@ -19,7 +20,8 @@ describe('SearchFeedback', () => {
   ]
 
   const t = (key: ?string): string => key || ''
-  const location = {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}}
+  const location = createLocation(
+    {type: SEARCH_ROUTE, payload: {city: 'augsburg', language: 'de'}, query: {feedback: 'up'}})
 
   it('should render a NothingFoundFeedbackBox if no results are found', () => {
     expect(shallow(

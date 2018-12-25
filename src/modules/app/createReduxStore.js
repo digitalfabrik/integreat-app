@@ -11,8 +11,7 @@ import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
 import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
-import defaultRoutesMap from './routesMap'
-import onBeforeChange from './onBeforeChange'
+import { routesMap as defaultRoutesMap } from './route-configs/index'
 import queryString from 'query-string'
 import { Payload } from '@integreat-app/integreat-api-client'
 import createHistory from './createHistory'
@@ -22,10 +21,8 @@ export type ActionType<T> = { type: string, payload: Payload<T> }
 // todo: Change type to correct State type,
 // https://blog.callstack.io/type-checking-react-and-redux-thunk-with-flow-part-2-206ce5f6e705
 const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
-  const history = createHistory()
-
-  const {reducer, middleware, enhancer} = connectRoutes(history, routesMap, {
-    onBeforeChange: onBeforeChange,
+  const {reducer, middleware, enhancer} = connectRoutes(routesMap, {
+    createHistory: () => createHistory(),
     querySerializer: {
       stringify: params => queryString.stringify(params),
       parse: (str: string) => queryString.parse(str)
