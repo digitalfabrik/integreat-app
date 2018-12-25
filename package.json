@@ -43,7 +43,7 @@
     "react-native-screens": "^1.0.0-alpha.17",
     "react-native-vector-icons": "^6.1.0",
     "react-native-view-pdf": "^0.4.1",
-    "react-native-webview": "https://github.com/maxammann/react-native-webview/#android-onShouldStartLoadWithRequest",
+    "react-native-webview": "^2.14.0",
     "react-navigation": "^3.0.1",
     "react-navigation-header-buttons": "^2.1.1",
     "react-redux": "^5.1.1",
@@ -67,6 +67,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
@@ -80,6 +81,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "flow-bin": "^0.86.0",
     "flow-typed": "^2.5.1",
+    "generator-rn-toolbox": "^3.4.1",
     "get-dev-paths": "^0.1.0",
     "http-proxy": "^1.17.0",
     "jest": "^23.6.0",
@@ -89,6 +91,7 @@
     "metro-react-native-babel-preset": "^0.49.2",
     "react-native-git-upgrade": "^0.2.7",
     "react-test-renderer": "16.6.1",
-    "redux-devtools-extension": "^2.13.6"
+    "redux-devtools-extension": "^2.13.6",
+    "yo": "^2.0.5"
   }
 }
