@@ -6,7 +6,7 @@ exports[`LanguageFailure should match snapshot 1`] = `
     title="Augsburg"
   />
   <LanguageFailure__ChooseLanguage>
-    not-found.language chooseYourLanguage
+    notFound.language chooseALanguage
   </LanguageFailure__ChooseLanguage>
   <Translate(LanguageSelector)
     isHeaderActionItem={false}

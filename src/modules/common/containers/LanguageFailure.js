@@ -28,7 +28,7 @@ export class LanguageFailure extends React.PureComponent<PropsType> {
     const title = cities && CityModel.findCityName(cities, location.payload.city)
     return <>
       {title && <Caption title={title} />}
-      <ChooseLanguage>{`${t('not-found.language')} ${t('chooseYourLanguage')}`}</ChooseLanguage>
+      <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
       <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
     </>
   }
