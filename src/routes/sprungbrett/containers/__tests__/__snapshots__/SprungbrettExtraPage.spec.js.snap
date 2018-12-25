@@ -11,9 +11,6 @@ exports[`SprungbrettExtraPage should render list 1`] = `
   <Caption
     title="Sprungbrett"
   />
-  <Connect(Helmet)
-    title="Sprungbrett - Augsburg"
-  />
   <List
     items={
       Array [

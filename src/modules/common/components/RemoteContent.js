@@ -59,7 +59,7 @@ type PropsType = {|
     __html: string
   },
   hijackRegExp?: RegExp,
-  onInternLinkClick: string => void,
+  onInternalLinkClick: string => void,
   centered: boolean
 |}
 
@@ -80,7 +80,7 @@ class RemoteContent extends React.Component<PropsType> {
 
     if (target instanceof HTMLAnchorElement) {
       const href = target.href
-      this.props.onInternLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+      this.props.onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
     }
   }
 

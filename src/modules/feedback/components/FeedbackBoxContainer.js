@@ -18,16 +18,16 @@ import {
 } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
-import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
-import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
-import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
 import type { LocationState } from 'redux-first-router'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
-import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
-import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
 import FeedbackBox from './FeedbackBox'
+import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
+import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
+import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
 
 type PropsType = {|
   cities: ?Array<CityModel>,

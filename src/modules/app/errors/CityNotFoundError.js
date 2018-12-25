@@ -1,12 +1,9 @@
 // @flow
 
 class CityNotFoundError extends Error {
-  _city: string
-
-  constructor (params: {city: string}) {
+  constructor () {
     super()
-    this.message = 'not-found.city'
-    this._city = params.city
+    this.message = 'notFound.city'
 
     // https://github.com/babel/babel/issues/3083
     /* eslint-disable */
@@ -19,10 +16,6 @@ class CityNotFoundError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, CityNotFoundError)
     }
-  }
-
-  get city (): string {
-    return this._city
   }
 }
 
