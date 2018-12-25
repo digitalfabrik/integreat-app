@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { CategoryModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
-import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
+import Failure from '../../error/components/Failure'
 
 type PropsType = {|
   categories: CategoriesMapModel,
@@ -51,7 +51,7 @@ function makeLanguageAgnostic<Props: { path: string, categories: CategoriesMapMo
           city: '??',
           language: this.props.language
         })
-        return <FailureSwitcher error={error} />
+        return <Failure error={error} />
       }
 
       return <Component {...this.props} categoryModel={categoryModel} />
