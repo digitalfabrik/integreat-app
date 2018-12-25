@@ -14,13 +14,14 @@ export default class PDFViewModal extends React.Component<PropsType> {
   onError = (error: Error) => console.log('Cannot render PDF', error)
 
   render () {
+    const url = this.props.navigation.getParam('url')
     return (
       <View style={{flex: 1}}>
         <PDFView
           fadeInDuration={250.0}
           style={{flex: 1}}
-          resource={this.props.navigation.getParam('url')}
-          resourceType={'url'}
+          resource={url.substr(url.indexOf('Documents') + 'Documents'.length + 1)}
+          resourceType={'file'}
           onError={this.onError}
         />
       </View>

@@ -102,6 +102,10 @@ A component always follows the following structure (Uppercase files always conta
 └── Caption.js
 ```
 
+### Assets
+
+Assets like icons for the native platform (e.g. Android or iOS) are managed by yo and generator-rn-toolbox. See [here](https://github.com/bamlab/generator-rn-toolbox/blob/master/generators/assets/README.md) for more information.
+
 ## Technology stack
 
 ### Bundler
