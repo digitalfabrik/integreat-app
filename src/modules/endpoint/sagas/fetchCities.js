@@ -12,7 +12,7 @@ import request from '../request'
 
 function * fetch (action: FetchCitiesRequestActionType): Saga<void> {
   try {
-    const payload = yield call(request.bind(null, citiesEndpoint, action.params))
+    const payload = yield call(() => request(citiesEndpoint, action.params))
     const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: payload}
     yield put(success)
   } catch (e) {

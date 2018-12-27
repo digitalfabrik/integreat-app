@@ -2,9 +2,9 @@
 
 import * as React from 'react'
 
-import iconPlaceholder from '../assets/IconPlaceholder.svg'
+import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components'
-import { Text } from 'react-native-elements'
+import { Text } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import FastImage from 'react-native-fast-image'
 
