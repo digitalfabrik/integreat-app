@@ -54,7 +54,9 @@ class Dashboard extends React.Component<PropsType> {
 
   landing = () => this.props.navigation.navigate('Landing')
 
-  extras = () => this.props.navigation.navigate('Extras')
+  extras = () => {
+    this.props.navigation.navigate('Extras', {cityModel: this.props.navigation.getParam('cityModel')})
+  }
 
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 

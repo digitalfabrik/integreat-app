@@ -5,7 +5,8 @@ import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 
 const StyledList = styled.View`
-  border-top: 2px solid ${props => props.theme.colors.themeColor};
+  border-top-width: 2px;
+  border-top-color: ${props => props.theme.colors.themeColor};
 `
 
 const NoItemsMessage = styled.View`

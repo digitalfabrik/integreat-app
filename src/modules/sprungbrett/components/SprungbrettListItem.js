@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-
+import { Text } from 'react-native'
 import { SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 
@@ -15,7 +15,7 @@ class SprungbrettListItem extends React.PureComponent<PropsType> {
     const { job, openJobInBrowser } = this.props
     return (
       <ListItem title={job.title} navigateTo={openJobInBrowser}>
-        <div>{job.location}</div>
+        <Text>{job.location}</Text>
       </ListItem>
     )
   }

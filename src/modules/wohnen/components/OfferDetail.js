@@ -27,12 +27,12 @@ const RowValue = styled.View`
 
 const Row = styled.View`
   display: flex;
-  
   margin: 10px 0;
 `
 
 const ListElement = styled.View`
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  border-bottom-width: 2px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
   margin-bottom: 10px;
 `
 

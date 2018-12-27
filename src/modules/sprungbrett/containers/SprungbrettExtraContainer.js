@@ -6,24 +6,11 @@ import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import type { StateType } from '../../app/StateType'
 import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
-import { createPostMap } from '../../extras/containers/ExtrasContainer'
 
 const mapStateTypeToProps = (state: StateType, ownProps) => {
-  // MockData:
-  const extras = [{
-    'alias': 'sprungbrett',
-    'name': 'Sprungbrett',
-    'url': 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
-    'post': null,
-    'thumbnail': 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg'
-  }].map(extra => new ExtraModel({
-    alias: extra.alias,
-    title: extra.name,
-    path: extra.url,
-    thumbnail: extra.thumbnail,
-    postData: extra.post ? createPostMap(extra.post) : null
-  }))
+  const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
 
+  // MockData:
   const sprungbrettJobs = {
     total: 18,
     pager: {

@@ -31,7 +31,7 @@ class SprungbrettExtra extends React.Component<PropsType> {
     const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
 
     if (!extra) {
-      return <FailureSwitcher error={new Error('The Sprunbrett extra is not supported.')} />
+      return <FailureSwitcher error={new Error('The Sprungbrett extra is not supported.')} />
     }
 
     return (

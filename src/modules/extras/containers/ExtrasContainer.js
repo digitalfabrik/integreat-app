@@ -6,7 +6,7 @@ import Extras from '../components/Extras'
 import { translate } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
-import { ExtraModel } from '@integreat-app/integreat-api-client'
+import { CityModel, ExtraModel } from '@integreat-app/integreat-api-client'
 
 type JsonExtraPostType = {
   [key: string]: string
@@ -21,16 +21,9 @@ export const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
 
-  const targetCity: string = ownProps.navigation.getParam('city')
+  const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
+  console.log(targetCity)
 
-  const navigateToExtras = (path: string, isExternalUrl: boolean) => {
-    const params = {city: targetCity}
-    if (isExternalUrl) {
-      Linking.openURL(path)
-    } else if (ownProps.navigation.push) {
-      ownProps.navigation.push(path, params)
-    }
-  }
   // Mock data
   const extras = [{
     'alias': 'sprungbrett',
@@ -72,7 +65,15 @@ const mapStateToProps = (state: StateType, ownProps) => {
     postData: extra.post ? createPostMap(extra.post) : null
   }))
 
-  console.log(extras)
+  const navigateToExtras = (path: string, isExternalUrl: boolean, offerHash: ?string = null) => {
+    console.log(path)
+    if (isExternalUrl) {
+      Linking.openURL(path)
+    } else if (ownProps.navigation.push) {
+      const params = {city: targetCity, extras: extras, offerHash: offerHash}
+      ownProps.navigation.push(path, params)
+    }
+  }
 
   return {
     city: targetCity,
