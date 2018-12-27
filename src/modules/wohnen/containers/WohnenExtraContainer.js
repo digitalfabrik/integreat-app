@@ -6,36 +6,22 @@ import connect from 'react-redux/es/connect/connect'
 import { translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import moment from 'moment'
-import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
-import { createPostMap } from '../../extras/containers/ExtrasContainer'
+import { CityModel, ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
-  const targetCity: string = ownProps.navigation.getParam('city')
+  const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
+  const extras: Array<ExtraModel> = ownProps.navigation.getPack('extras')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
 
   const navigateToOffer = (offerHash: string) => {
-    const params = {offerHash, city: targetCity}
+    const params = {offerHash: offerHash, city: targetCity, extras: extras}
     if (ownProps.navigation.push) {
       ownProps.navigation.push('WohnenExtra', params)
     }
   }
 
   // MockData:
-  const extras = [{
-    'alias': 'wohnen',
-    'name': 'Raumfrei',
-    'url': 'https://raumfrei.neuburg-schrobenhausen.de',
-    'post': {'api-name': 'neuburgschrobenhausenwohnraum'},
-    'thumbnail': 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg'
-  }].map(extra => new ExtraModel({
-    alias: extra.alias,
-    title: extra.name,
-    path: extra.url,
-    thumbnail: extra.thumbnail,
-    postData: extra.post ? createPostMap(extra.post) : null
-  }))
-
   const offers = [
     {
       'email': 'erika@mustermann.de',

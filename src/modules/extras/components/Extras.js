@@ -20,7 +20,6 @@ type PropsType = {|
 
 export default class Extras extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    console.log('Tile pressed')
     this.props.navigateToExtras(tile.path, tile.isExternalUrl)
   }
 

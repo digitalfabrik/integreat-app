@@ -2,13 +2,15 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
+import FastImage from 'react-native-fast-image'
 
 const StyledTouchableHighlight = styled.TouchableHighlight`
   display: flex;
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  border-bottom-width: 2px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const Thumbnail = styled.Image`
+const Thumbnail = styled(FastImage)`
   width: 100px;
   height: 100px;
   flex-shrink: 0;
@@ -23,14 +25,13 @@ const Description = styled.View`
   flex-direction: column;
   flex-grow: 1;
   padding: 15px 10px 0;
-  word-wrap: break-word;
   
-  > * {
+  /*> * {
     padding-bottom: 10px;
-  }
+  }*/
 `
 
-const Title = styled.View`
+const Title = styled.Text`
   font-weight: 700;
 `
 
@@ -47,7 +48,7 @@ class ListItem extends React.PureComponent<PropsType> {
 
     return (
       <>
-        {thumbnail && <Thumbnail src={thumbnail} />}
+        {thumbnail && <Thumbnail src={{uri: thumbnail}} />}
         <Description>
           <Title>{title}</Title>
           {children}
