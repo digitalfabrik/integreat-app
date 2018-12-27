@@ -9,7 +9,7 @@ import moment from 'moment'
 import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { createPostMap } from '../../extras/containers/ExtrasContainer'
 
-const mapStateTypeToProps = (state: StateType, ownProps) => {
+const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
   const targetCity: string = ownProps.navigation.getParam('city')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
@@ -114,6 +114,6 @@ const mapStateTypeToProps = (state: StateType, ownProps) => {
 }
 
 export default compose(
-  connect(mapStateTypeToProps),
+  connect(mapStateToProps),
   translate('wohnen')
 )(WohnenExtra)
