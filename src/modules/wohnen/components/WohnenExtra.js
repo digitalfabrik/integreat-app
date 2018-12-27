@@ -5,11 +5,11 @@ import * as React from 'react'
 import { WohnenOfferModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from './OfferDetail'
 import Caption from '../../common/components/Caption'
-import FailureSwitcher from '../../common/components/FailureSwitcher'
 import OfferListItem from './OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
 import { hash as hashFunction, WOHNEN_EXTRA } from '../../extras/ExtrasConfig'
+import Failure from '../../error/components/Failure'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -37,14 +37,14 @@ class WohnenExtra extends React.Component<PropsType> {
     const extra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
 
     if (!extra) {
-      return <FailureSwitcher error={new Error('The Wohnen extra is not supported.')} />
+      return <Failure error={new Error('The Wohnen extra is not supported.')} />
     }
 
     if (offerHash) {
       const offer = offers.find(_offer => hashFunction(_offer) === offerHash)
 
       if (!offer) {
-        return <FailureSwitcher error={new Error('Angebot nicht gefunden.')} />
+        return <Failure error={new Error('Angebot nicht gefunden.')} />
       }
 
       return (
