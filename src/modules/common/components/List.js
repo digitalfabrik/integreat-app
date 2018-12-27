@@ -4,7 +4,7 @@ import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 
-const StyledList = styled.View`
+const StyledScrollView = styled.ScrollView`
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
 `
@@ -28,9 +28,9 @@ class List<T> extends React.PureComponent<PropsType<T>> {
     }
 
     return (
-      <StyledList>
+      <StyledScrollView>
         {items.map(item => renderItem(item))}
-      </StyledList>
+      </StyledScrollView>
     )
   }
 }
