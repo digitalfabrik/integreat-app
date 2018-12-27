@@ -14,38 +14,11 @@ import {
   categoriesEndpoint,
   languagesEndpoint,
   LanguageModel,
-  CategoriesMapModel,
-  CategoryModel
+  CategoriesMapModel
 } from '@integreat-app/integreat-api-client'
-import htmlparser2 from 'htmlparser2'
 import downloadResources from './downloadResources'
-import getExtension from '../getExtension'
 import request from '../request'
-
-const parseCategories = categories => {
-  const urls = new Set<string>()
-
-  const onattribute = (name: string, value: string) => {
-    if (name === 'href' || name === 'src') {
-      if (['png', 'jpg', 'jpeg', 'pdf'].includes(getExtension(value))) {
-        urls.add(value)
-      }
-    }
-  }
-
-  const parser = new htmlparser2.Parser({onattribute}, {decodeEntities: true})
-
-  for (const category: CategoryModel of categories) {
-    parser.write(category.content)
-
-    if (category.thumbnail) {
-      urls.add(category.thumbnail)
-    }
-  }
-
-  parser.end()
-  return urls
-}
+import findResources from '../findResources'
 
 function * fetchCategories (city: string, code: string, urls: Set<string>): Saga<void> {
   const params = {
@@ -53,11 +26,11 @@ function * fetchCategories (city: string, code: string, urls: Set<string>): Saga
     language: code
   }
 
-  const categoriesPayload = yield call(request.bind(null, categoriesEndpoint, params))
+  const categoriesPayload = yield call(() => request(categoriesEndpoint, params))
   const categoriesMap: CategoriesMapModel = categoriesEndpoint.mapResponse(categoriesPayload.data, params)
   const categories = categoriesMap.toArray()
 
-  parseCategories(categories).forEach(url => urls.add(url))
+  findResources(categories).forEach(url => urls.add(url))
 
   const partially: CategoriesFetchPartiallySucceededActionType = {
     type: `CATEGORIES_FETCH_PARTIALLY_SUCCEEDED`,
@@ -72,7 +45,7 @@ function * fetchAllCategories (city: string, codes: Array<string>, prioritised: 
   const urls = new Set<string>()
 
   if (codes.includes(prioritised)) {
-    yield call(fetchCategories, city, prioritised, urls)
+    yield fork(fetchCategories, city, prioritised, urls)
   }
 
   const otherCodes = codes.filter(value => value !== prioritised)
@@ -88,7 +61,7 @@ function * fetchLanguageCodes (city: string): Saga<Array<string>> {
   try {
     const params = {city}
 
-    const languagesPayload = yield call(request.bind(null, languagesEndpoint, params))
+    const languagesPayload = yield call(() => request(languagesEndpoint, params))
     const languageModels: Array<LanguageModel> = languagesEndpoint.mapResponse(languagesPayload.data, params)
     const codes = languageModels.map(model => model.code)
     const success: LanguagesFetchSucceededActionType = {
@@ -107,10 +80,10 @@ function * fetch (action: FetchCategoriesRequestActionType): Saga<void> {
   const city: string = action.params.city
 
   try {
-    const prioritised: string = action.params.prioritisedLanguage
+    const prioritisedLanguage: string = action.params.prioritisedLanguage
 
     const codes = yield call(fetchLanguageCodes, city)
-    const urls = yield call(fetchAllCategories, city, codes, prioritised)
+    const urls = yield call(fetchAllCategories, city, codes, prioritisedLanguage)
 
     const success: CategoriesFetchSucceededActionType = {type: `CATEGORIES_FETCH_SUCCEEDED`, city}
     yield put(success)
