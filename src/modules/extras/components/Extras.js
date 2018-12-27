@@ -27,20 +27,20 @@ export default class Extras extends React.Component<PropsType> {
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {
     return extras.map(
       extra => {
-        let route = extra.path
+        let path = extra.path
         if (extra.alias === SPRUNGBRETT_EXTRA) {
-          route = SPRUNGBRETT_ROUTE
+          path = SPRUNGBRETT_ROUTE
         } else if (extra.alias === WOHNEN_EXTRA) {
-          route = WOHNEN_ROUTE
+          path = WOHNEN_ROUTE
         }
 
         return new TileModel({
           id: extra.alias,
           title: extra.title,
-          path: route,
+          path: path,
           thumbnail: extra.thumbnail,
-          // every extra except the sprungbrett extra is just a link to an external site
-          isExternalUrl: false,
+          // every extra except the sprungbrett and the wohnen extra is just a link to an external site
+          isExternalUrl: path === extra.path,
           postData: extra.postData
         })
       }
