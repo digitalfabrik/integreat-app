@@ -13,8 +13,6 @@ import { hash as hashFunction, WOHNEN_EXTRA } from '../../extras/ExtrasConfig'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
-  city: string,
-  language: string,
   offerHash?: WohnenOfferModel,
   extras: Array<ExtraModel>,
   navigateToOffer: (offerHash: string) => void,
@@ -22,15 +20,11 @@ type PropsType = {|
 |}
 
 class WohnenExtra extends React.Component<PropsType> {
-  renderOfferListItem = ({city, language, hashFunction}: {
-    city: string, language: string,
-    hashFunction: WohnenOfferModel => string
-  }) => (offer: WohnenOfferModel) => {
+  renderOfferListItem = (offer: WohnenOfferModel) => {
     const hashedOffer = hashFunction(offer)
     return (
       <OfferListItem key={hashedOffer}
                      offer={offer}
-                     hashFunction={hashFunction}
                      navigateToOffer={this.navigateToOffer(hashedOffer)} />)
   }
 
@@ -39,7 +33,7 @@ class WohnenExtra extends React.Component<PropsType> {
   }
 
   render () {
-    const {offers, extras, city, language, offerHash, t} = this.props
+    const {offers, extras, offerHash, t} = this.props
     const extra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
 
     if (!extra) {
@@ -63,7 +57,7 @@ class WohnenExtra extends React.Component<PropsType> {
         <Caption title={extra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
-              renderItem={this.renderOfferListItem({city, language, hashFunction, offerHash})} />
+              renderItem={this.renderOfferListItem} />
       </>
     )
   }
