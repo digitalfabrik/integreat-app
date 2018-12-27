@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { View, Linking, ScrollView } from 'react-native'
+import { Linking, ScrollView } from 'react-native'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
