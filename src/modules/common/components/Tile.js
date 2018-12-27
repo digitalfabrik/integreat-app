@@ -32,8 +32,15 @@ const TileContainer = styled.View`
  */
 class Tile extends React.Component<PropsType> {
   getTileContent (): React.Node {
+    const imageSource = {
+      uri: this.props.tile.thumbnail,
+      priority: FastImage.priority.normal,
+      // disable caching, we want to do it manually
+      headers: {'Cache-Control': 'no-cache, no-store, must-revalidate'},
+      cache: FastImage.cacheControl.web
+    }
     return <>
-      <Thumbnail source={{uri: this.props.tile.thumbnail}} resizeMode={FastImage.resizeMode.contain} />
+      <Thumbnail source={imageSource} resizeMode={FastImage.resizeMode.contain} />
       <TileTitle>{this.props.tile.title}</TileTitle>
     </>
   }
