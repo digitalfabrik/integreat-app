@@ -9,13 +9,10 @@ import { translate } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 
 export const formatPrice = (price: number): string => {
-  if (price === 0) {
-    return 'Keine'
-  }
   return (price % 1 === 0) ? `${price}` : `${price.toFixed(2)}`
 }
 
-const formatMonthlyPrice = (price: number): string => `${formatPrice(price)} € monatlich`
+const formatMonthlyPrice = (price: number): string => (price === 0) ? 'Keine' : `${formatPrice(price)} € monatlich`
 
 type PropsType = {|
   offer: WohnenOfferModel,
