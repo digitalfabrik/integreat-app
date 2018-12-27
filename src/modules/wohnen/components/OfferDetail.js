@@ -1,28 +1,41 @@
 // @flow
 
 import React from 'react'
+import { View, Linking, ScrollView } from 'react-native'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 
+export const formatPrice = (price: number): string => {
+  if (price === 0) {
+    return 'Keine'
+  }
+  return (price % 1 === 0) ? `${price}` : `${price.toFixed(2)}`
+}
+
+const formatMonthlyPrice = (price: number): string => `${formatPrice(price)} € monatlich`
+
 type PropsType = {|
   offer: WohnenOfferModel,
   t: TFunction
 |}
 
-const Header = styled.View`
+const Header = styled.Text`
   padding: 15px 5px 5px;
   font-weight: 700;
 `
-
-const RowTitle = styled.View`
-  flex: 50%;
+const MarginalizedView = styled.View`
+  margin: 0 10px;
 `
 
-const RowValue = styled.View`
-  flex: 50%;
+const RowTitle = styled.Text`
+  flex: 1;
+`
+
+const RowValue = styled.Text`
+  flex: 1;
 `
 
 const Row = styled.View`
@@ -45,12 +58,8 @@ class OfferDetail extends React.PureComponent<PropsType> {
     return words.join(', ')
   }
 
-  formatMonthlyPrice (price: number): string {
-    if (price === 0) {
-      return 'Keine'
-    }
-
-    return `${price} € monatlich`
+  openUrl = (url: string) => () => {
+    Linking.openURL(url)
   }
 
   render () {
@@ -65,10 +74,10 @@ class OfferDetail extends React.PureComponent<PropsType> {
       const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys))
       const translateRooms = keys => this.stringify(this.translate('rooms', keys))
 
-      return <>
+      return <ScrollView>
         <Caption title={accommodation.title} />
 
-        <div>
+        <MarginalizedView>
           <ListElement>
             <Header>Mietobjekt</Header>
           </ListElement>
@@ -92,19 +101,19 @@ class OfferDetail extends React.PureComponent<PropsType> {
             <RowTitle>Standort:</RowTitle>
             <RowValue>{accommodation.location}</RowValue>
           </Row>
-        </div>
+        </MarginalizedView>
 
-        <div>
+        <MarginalizedView>
           <ListElement>
             <Header>Mietkosten</Header>
           </ListElement>
           <Row>
             <RowTitle>Grundmiete:</RowTitle>
-            <RowValue>{this.formatMonthlyPrice(costs.baseRent)}</RowValue>
+            <RowValue>{formatMonthlyPrice(costs.baseRent)}</RowValue>
           </Row>
           <Row>
             <RowTitle>Nebenkosten:</RowTitle>
-            <RowValue>{this.formatMonthlyPrice(costs.runningCosts)}</RowValue>
+            <RowValue>{formatMonthlyPrice(costs.runningCosts)}</RowValue>
           </Row>
           <Row>
             <RowTitle>In Nebenkosten enthalten:</RowTitle>
@@ -120,7 +129,7 @@ class OfferDetail extends React.PureComponent<PropsType> {
           </Row>
           <Row>
             <RowTitle>Zusatzkosten:</RowTitle>
-            <RowValue>{this.formatMonthlyPrice(costs.additionalCosts)}</RowValue>
+            <RowValue>{formatMonthlyPrice(costs.additionalCosts)}</RowValue>
           </Row>
           <Row>
             <RowTitle>In Zusatzkosten enthalten:</RowTitle>
@@ -130,9 +139,9 @@ class OfferDetail extends React.PureComponent<PropsType> {
             <RowTitle>Nicht in Zusatzkosten enthalten:</RowTitle>
             <RowValue> {translateAdditionalServices(costs.ofAdditionalServicesDiff)}</RowValue>
           </Row>
-        </div>
+        </MarginalizedView>
 
-        <div>
+        <MarginalizedView>
           <ListElement>
             <Header>Kontaktdaten</Header>
           </ListElement>
@@ -142,14 +151,14 @@ class OfferDetail extends React.PureComponent<PropsType> {
           </Row>
           <Row>
             <RowTitle>Email:</RowTitle>
-            <RowValue><a href={`mailto:${offer.email}`}>{offer.email}</a></RowValue>
+            <RowValue onPress={this.openUrl(`mailto:${offer.email}`)}>{offer.email}</RowValue>
           </Row>
           <Row>
             <RowTitle>Telefon: </RowTitle>
-            <RowValue><a href={`tel:${landlord.phone}`}>{landlord.phone}</a></RowValue>
+            <RowValue onPress={this.openUrl(`tel:${landlord.phone}`)}>{landlord.phone}</RowValue>
           </Row>
-        </div>
-      </>
+        </MarginalizedView>
+      </ScrollView>
     } else {
       throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }

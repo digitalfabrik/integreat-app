@@ -6,18 +6,17 @@ import connect from 'react-redux/es/connect/connect'
 import { translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import moment from 'moment'
-import { CityModel, ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
+import { WOHNEN_ROUTE } from '../../extras/ExtrasConfig'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language: string = state.language
-  const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
-  const extras: Array<ExtraModel> = ownProps.navigation.getPack('extras')
+  const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
 
   const navigateToOffer = (offerHash: string) => {
-    const params = {offerHash: offerHash, city: targetCity, extras: extras}
+    const params = {offerHash: offerHash, extras: extras}
     if (ownProps.navigation.push) {
-      ownProps.navigation.push('WohnenExtra', params)
+      ownProps.navigation.push(WOHNEN_ROUTE, params)
     }
   }
 
@@ -90,8 +89,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
   })
 
   return {
-    city: targetCity,
-    language: language,
     offers: offers,
     offerHash: offerHash,
     extras: extras,

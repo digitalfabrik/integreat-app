@@ -1,12 +1,14 @@
 // @flow
 
 import * as React from 'react'
+import { Text } from 'react-native'
 import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components'
+import { formatPrice } from './OfferDetail'
 
 const Description = styled.View`
-  display: flex;
+  flex: 1;
   flex-direction: column;
 `
 
@@ -16,7 +18,6 @@ const Price = styled.Text`
 
 type PropsType = {|
   offer: WohnenOfferModel,
-  hashFunction: WohnenOfferModel => string,
   navigateToOffer: () => void
 |}
 
@@ -32,9 +33,9 @@ class OfferListItem extends React.PureComponent<PropsType> {
       return (
         <ListItem title={accommodation.title} navigateTo={navigateToOffer}>
           <Description>
-            <div>{accommodation.totalArea} m²</div>
-            <div>{accommodation.totalRooms} Zimmer</div>
-            <Price>{costs.baseRent} €</Price>
+            <Text>{accommodation.totalArea} m²</Text>
+            <Text>{accommodation.totalRooms} Zimmer</Text>
+            <Price>{formatPrice(costs.baseRent)} €</Price>
           </Description>
         </ListItem>
       )
