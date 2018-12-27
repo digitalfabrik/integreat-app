@@ -5,11 +5,11 @@ import * as React from 'react'
 import { Linking } from 'react-native'
 import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from './SprungbrettListItem'
-import FailureSwitcher from '../../common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
 import List from '../../common/components/List'
 import Caption from '../../common/components/Caption'
 import { SPRUNGBRETT_EXTRA } from '../../extras/ExtrasConfig'
+import Failure from '../../error/components/Failure'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
@@ -31,7 +31,7 @@ class SprungbrettExtra extends React.Component<PropsType> {
     const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
 
     if (!extra) {
-      return <FailureSwitcher error={new Error('The Sprungbrett extra is not supported.')} />
+      return <Failure error={new Error('The Sprungbrett extra is not supported.')} />
     }
 
     return (
