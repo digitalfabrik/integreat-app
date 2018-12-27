@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components'
 
 const StyledScrollView = styled.ScrollView`
+  margin: 0 10px 0;
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
 `

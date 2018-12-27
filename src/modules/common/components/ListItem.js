@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import FastImage from 'react-native-fast-image'
 
-const StyledTouchableHighlight = styled.TouchableHighlight`
+const StyledTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   flex-direction: column;
   padding-bottom: 10px;
@@ -57,9 +57,9 @@ class ListItem extends React.PureComponent<PropsType> {
 
   render () {
     return (
-      <StyledTouchableHighlight onPress={this.props.navigateTo}>
+      <StyledTouchableOpacity onPress={this.props.navigateTo}>
         {this.renderContent()}
-      </StyledTouchableHighlight>
+      </StyledTouchableOpacity>
     )
   }
 }
