@@ -16,6 +16,8 @@ import { handleActions } from 'redux-actions'
 import { startFetchActionName } from '../../app/actions/startFetchAction'
 import { finishFetchActionName } from '../../app/actions/finishFetchAction'
 import type { ActionType } from '../../app/createReduxStore'
+import type { Reducer } from 'redux'
+import type { StateType } from '../StateType'
 
 /**
  * Contains all endpoints which are defined in {@link './endpoints/'}
@@ -32,13 +34,10 @@ const endpoints = [
   poisEndpoint
 ]
 
-// fixme: WEBAPP-400 This type should be removed
-export type ReducerType<T> = <T> (oldPayload?: Payload<T>, action: ActionType<T>) => Payload<T>
-
-export const startFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> =>
+export const startFetchReducer = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> =>
   action.payload
 
-export const finishFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> => {
+export const finishFetchReducer = <T> (oldPayload?: Payload<T>, action: ActionType<T>): Payload<T> => {
   if (!oldPayload) {
     return action.payload
   }
@@ -55,7 +54,7 @@ export const finishFetchReducer: ReducerType<*> = <T> (oldPayload?: Payload<T>, 
 
 const defaultState = new Payload(false)
 
-const reducers: { [actionName: string]: ReducerType<*> } = endpoints.reduce(
+const reducers: { [actionName: string]: Reducer<StateType, *> } = endpoints.reduce(
   (result, endpoint) => {
     const name = endpoint.stateName
     result[name] = handleActions(

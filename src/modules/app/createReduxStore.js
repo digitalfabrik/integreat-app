@@ -15,12 +15,13 @@ import { routesMap as defaultRoutesMap } from './route-configs/index'
 import queryString from 'query-string'
 import { Payload } from '@integreat-app/integreat-api-client'
 import createHistory from './createHistory'
+import type { StateType } from './StateType'
+import type { StoreActionType } from './StoreActionType'
 
 export type ActionType<T> = { type: string, payload: Payload<T> }
 
-// todo: Change type to correct State type,
-// https://blog.callstack.io/type-checking-react-and-redux-thunk-with-flow-part-2-206ce5f6e705
-const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
+const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
+  StoreActionType> => {
   const {reducer, middleware, enhancer} = connectRoutes(routesMap, {
     createHistory: () => createHistory(),
     querySerializer: {
@@ -48,7 +49,7 @@ const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultR
     darkMode: toggleDarkModeReducer
   })
 
-  // $FlowFixMe WEBAPP-400 This can not be fixed until our store has a type
+  // $FlowFixMe
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
 
   return createStore(rootReducer, initialState, enhancers)

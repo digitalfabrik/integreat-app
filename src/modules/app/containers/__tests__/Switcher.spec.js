@@ -32,6 +32,7 @@ import Layout from '../../../layout/components/Layout'
 import Footer from '../../../layout/components/Footer'
 import { Header } from '../../../layout/components/Header'
 import createLocation from '../../../../createLocation'
+import { I18N_REDIRECT_ROUTE } from '../../route-configs/I18nRedirectRouteConfig'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -229,12 +230,12 @@ describe('Switcher', () => {
   })
 
   it('should map state to props', () => {
-    const location = {
+    const location = createLocation({
       type: CATEGORIES_ROUTE,
       payload: {city: 'augsburg', language: 'de'},
-      prev: {payload: {param: 'param'}},
+      prev: {type: I18N_REDIRECT_ROUTE, pathname: '/param', payload: {param: 'param'}},
       pathname: '/augsburg/de'
-    }
+    })
 
     const store = createReduxStore({
       events: eventsPayload,

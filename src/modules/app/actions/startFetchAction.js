@@ -3,9 +3,11 @@
 import { createAction } from 'redux-actions'
 import { Payload } from '@integreat-app/integreat-api-client'
 
+export type StartFetchActionType<T> = { type: string, payload: Payload<T> }
+
 export const startFetchActionName = (stateName: string): string => `START_FETCH_${stateName.toUpperCase()}`
 
-const startFetchAction = <T> (stateName: string, formattedUrl: string): { type: string, payload: Payload<T> } => {
+const startFetchAction = <T> (stateName: string, formattedUrl: string): StartFetchActionType<T> => {
   const payload = new Payload<T>(true, formattedUrl)
   return createAction(startFetchActionName(stateName))(payload)
 }
