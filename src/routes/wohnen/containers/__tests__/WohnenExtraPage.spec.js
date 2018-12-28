@@ -11,6 +11,8 @@ import { Provider } from 'react-redux'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import createLocation from '../../../../createLocation'
+import { WOHNEN_ROUTE } from '../../../../modules/app/route-configs/WohnenRouteConfig'
 
 describe('WohnenExtraPage', () => {
   const city = 'augsburg'
@@ -106,7 +108,7 @@ describe('WohnenExtraPage', () => {
 
   it('should map state to props', () => {
     const offerHash = 'hASH'
-    const location = {payload: {language, city, offerHash}}
+    const location = createLocation({type: WOHNEN_ROUTE, payload: {language, city, offerHash}})
 
     const store = createReduxStore()
     store.getState().location = location
