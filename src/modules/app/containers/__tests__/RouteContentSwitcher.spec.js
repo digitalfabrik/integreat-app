@@ -7,10 +7,13 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import React from 'react'
 import createLocation from '../../../../createLocation'
 import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
+import LoadingSpinner from '../../../common/components/LoadingSpinner'
+import theme from '../../../theme/constants/theme'
+import { ThemeProvider } from 'styled-components'
 
 describe('RouteContentSwitcher', () => {
   const categories = new CategoriesMapModel([
@@ -53,28 +56,34 @@ describe('RouteContentSwitcher', () => {
     disclaimerPayload: fetchingPayload
   }
 
-  describe('renderFailureLoadingComponents', () => {
+  const fetchingPayloads = {
+    categoriesPayload: fetchingPayload,
+    citiesPayload: fetchingPayload,
+    poisPayload: fetchingPayload,
+    eventsPayload: fetchingPayload,
+    extrasPayload: fetchingPayload,
+    sprungbrettJobsPayload: fetchingPayload,
+    wohnenPayload: fetchingPayload,
+    disclaimerPayload: fetchingPayload
+  }
+
+  it('should render a FailureSwitcher if a payload contains an error', () => {
     const location = createLocation({type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}})
     const renderFailureLoadingComponents = shallow(
       <RouteContentSwitcher allPayloads={allPayloads} location={location} />
     ).instance().renderFailureLoadingComponents
 
-    it('should render a FailureSwitcher if a payload contains an error', () => {
-      expect(renderFailureLoadingComponents({'payload': errorPayload}))
-        .toMatchSnapshot()
-    })
+    expect(renderFailureLoadingComponents({'payload': errorPayload})).toMatchSnapshot()
+  })
 
-    it('should render a Spinner if data has not been fetched yet', () => {
-      expect(renderFailureLoadingComponents({'payload': fetchingPayload}))
-        .toMatchSnapshot()
+  it('should render a Spinner if data has not been fetched yet', () => {
+    const location = createLocation({type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}})
 
-      expect(renderFailureLoadingComponents({'payload': fetchingPayload, 'errorPayload': errorPayload}))
-        .toMatchSnapshot()
-    })
-
-    it('should return null if there is no error or fetching payload', () => {
-      expect(renderFailureLoadingComponents({'payload': categoriesPayload})).toBeNull()
-    })
+    expect(mount(
+        <ThemeProvider theme={theme}>
+          <RouteContentSwitcher allPayloads={fetchingPayloads} location={location} />
+        </ThemeProvider>
+    ).find(LoadingSpinner)).not.toBeUndefined()
   })
 
   it('should render and match snapshot', () => {
