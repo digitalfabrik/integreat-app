@@ -1,14 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RouteContentSwitcher renderFailureLoadingComponents should render a FailureSwitcher if a payload contains an error 1`] = `
+exports[`RouteContentSwitcher should render a FailureSwitcher if a payload contains an error 1`] = `
 <Translate(FailureSwitcher)
   error={[Error: error]}
 />
 `;
-
-exports[`RouteContentSwitcher renderFailureLoadingComponents should render a Spinner if data has not been fetched yet 1`] = `<ForwardRef />`;
-
-exports[`RouteContentSwitcher renderFailureLoadingComponents should render a Spinner if data has not been fetched yet 2`] = `<ForwardRef />`;
 
 exports[`RouteContentSwitcher should render and match snapshot 1`] = `
 <Connect(CategoriesPage)
