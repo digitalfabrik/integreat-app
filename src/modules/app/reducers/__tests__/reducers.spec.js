@@ -26,11 +26,10 @@ describe('endpoint reducers', () => {
 
   describe('finish fetch reducer', () => {
     it('should return the action payload if the old payload was a fetching payload with the same url', () => {
-      type SomeType = { someType: string }
-      const oldPayload = new Payload<SomeType>(true, 'https://url.com')
-      const payload = new Payload<SomeType>(false, 'https://url.com', {someType: 'someValue'}, null)
-      const action = finishFetchAction<SomeType>('endpoint', payload)
-      expect(finishFetchReducer<SomeType>(oldPayload, action)).toEqual(action.payload)
+      const oldPayload = new Payload(true, 'https://url.com')
+      const payload = new Payload(false, 'https://url.com', {someType: 'someValue'}, null)
+      const action = finishFetchAction('endpoint', payload)
+      expect(finishFetchReducer(oldPayload, action)).toEqual(action.payload)
     })
 
     it('should return the old payload if the old payload was not a fetching payload', () => {
