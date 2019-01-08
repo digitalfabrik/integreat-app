@@ -8,8 +8,8 @@ import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
 import List from '../../common/components/List'
 import Caption from '../../common/components/Caption'
-import { SPRUNGBRETT_EXTRA } from '../../extras/hashWohnenOffer'
 import Failure from '../../error/components/Failure'
+import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
