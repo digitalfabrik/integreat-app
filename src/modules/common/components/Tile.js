@@ -49,14 +49,10 @@ class Tile extends React.Component<PropsType> {
     this.props.onTilePress(this.props.tile)
   }
 
-  getTile (): React.Node {
-    return <TouchableOpacity onPress={this.onTilePress}>{this.getTileContent()}</TouchableOpacity>
-  }
-
   render () {
     return (
       <TileContainer>
-        {this.getTile()}
+        <TouchableOpacity onPress={this.onTilePress}>{this.getTileContent()}</TouchableOpacity>
       </TileContainer>
     )
   }
