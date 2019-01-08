@@ -26,9 +26,8 @@ class OfferListItem extends React.PureComponent<PropsType> {
     const {offer, navigateToOffer} = this.props
 
     if (offer.formData instanceof WohnenFormData) {
-      const specificOffer: WohnenOfferModel = offer
-      const accommodation = specificOffer.formData.accommodation
-      const costs = specificOffer.formData.costs
+      const accommodation = offer.formData.accommodation
+      const costs = offer.formData.costs
 
       return (
         <ListItem title={accommodation.title} navigateTo={navigateToOffer}>

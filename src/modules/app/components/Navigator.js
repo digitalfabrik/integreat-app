@@ -16,7 +16,7 @@ import ModalHeaderContainer from '../../layout/containers/TransparentHeaderConta
 import ExtrasContainer from '../../extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../wohnen/containers/WohnenExtraContainer'
 import SprungbrettExtraContainer from '../../sprungbrett/containers/SprungbrettExtraContainer'
-import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../extras/ExtrasConfig'
+import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../extras/constants/index'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)

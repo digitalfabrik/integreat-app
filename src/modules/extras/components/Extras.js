@@ -9,18 +9,18 @@ import {
   SPRUNGBRETT_EXTRA,
   SPRUNGBRETT_ROUTE,
   WOHNEN_EXTRA, WOHNEN_ROUTE
-} from '../ExtrasConfig'
+} from '../constants/index'
 import { ScrollView } from 'react-native'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
-  navigateToExtras: (path: string, isExternalUrl: boolean) => void,
+  navigateToExtra: (path: string, isExternalUrl: boolean) => void,
   t: TFunction
 |}
 
 export default class Extras extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    this.props.navigateToExtras(tile.path, tile.isExternalUrl)
+    this.props.navigateToExtra(tile.path, tile.isExternalUrl)
   }
 
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {

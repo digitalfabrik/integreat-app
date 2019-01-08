@@ -22,7 +22,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
 
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
-  console.log(targetCity)
 
   // Mock data
   const extras = [{
@@ -65,7 +64,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     postData: extra.post ? createPostMap(extra.post) : null
   }))
 
-  const navigateToExtras = (path: string, isExternalUrl: boolean, offerHash: ?string = null) => {
+  const navigateToExtra = (path: string, isExternalUrl: boolean, offerHash: ?string = null) => {
     console.log(path)
     if (isExternalUrl) {
       Linking.openURL(path)
@@ -79,7 +78,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     city: targetCity,
     language: language,
     extras: extras,
-    navigateToExtras: navigateToExtras
+    navigateToExtra: navigateToExtra
   }
 }
 
