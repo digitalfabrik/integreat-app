@@ -13,6 +13,10 @@ import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
 import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
+import ExtrasContainer from '../../extras/containers/ExtrasContainer'
+import WohnenExtraContainer from '../../wohnen/containers/WohnenExtraContainer'
+import SprungbrettExtraContainer from '../../sprungbrett/containers/SprungbrettExtraContainer'
+import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../extras/constants/index'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -29,10 +33,25 @@ const createNavigationScreen = (component, header = null) => {
 const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
                                                                               scenes={headerProps.scenes} />
 
+export const ExtrasStack = createStackNavigator(
+  {
+    'Extras': ExtrasContainer,
+    [WOHNEN_ROUTE]: WohnenExtraContainer,
+    [SPRUNGBRETT_ROUTE]: SprungbrettExtraContainer
+  },
+  {
+    initialRouteName: 'Extras',
+    defaultNavigationOptions: {
+      header: null
+    }
+  }
+)
+
 export const AppStack = createStackNavigator(
   {
     'Dashboard': LayoutedDashboardContainer,
-    'Categories': LayoutedCategoriesContainer
+    'Categories': LayoutedCategoriesContainer,
+    'Extras': ExtrasStack
   },
   {
     initialRouteName: 'Dashboard',
