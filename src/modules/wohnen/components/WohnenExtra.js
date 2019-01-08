@@ -8,7 +8,7 @@ import Caption from '../../common/components/Caption'
 import OfferListItem from './OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
-import { hash as hashFunction, WOHNEN_EXTRA } from '../../extras/ExtrasConfig'
+import { hashWohnenOffer, WOHNEN_EXTRA } from '../../extras/hashWohnenOffer'
 import Failure from '../../error/components/Failure'
 
 type PropsType = {|
@@ -21,7 +21,7 @@ type PropsType = {|
 
 class WohnenExtra extends React.Component<PropsType> {
   renderOfferListItem = (offer: WohnenOfferModel) => {
-    const hashedOffer = hashFunction(offer)
+    const hashedOffer = hashWohnenOffer(offer)
     return (
       <OfferListItem key={hashedOffer}
                      offer={offer}
@@ -41,7 +41,7 @@ class WohnenExtra extends React.Component<PropsType> {
     }
 
     if (offerHash) {
-      const offer = offers.find(_offer => hashFunction(_offer) === offerHash)
+      const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)
 
       if (!offer) {
         return <Failure error={new Error('Angebot nicht gefunden.')} />
