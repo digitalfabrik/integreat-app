@@ -69,7 +69,9 @@ class Categories extends React.Component<PropsType> {
     }
   }
 
-  getListModels (categories: Array<CategoryModel>): Array<{ id: number, title: string, thumbnail: string, path: string }> {
+  getListModels (categories: Array<CategoryModel>): Array<{
+    id: number, title: string, thumbnail: string, path: string
+  }> {
     return categories.map(category => this.getListModel(category))
   }
 
@@ -78,7 +80,6 @@ class Categories extends React.Component<PropsType> {
    * a) page with information
    * b) table with categories
    * c) list with categories
-   * @param category The current category
    * @return {*} The content to be displayed
    */
   render () {

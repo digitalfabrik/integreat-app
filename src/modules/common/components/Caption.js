@@ -1,18 +1,19 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const H1 = styled.Text`
-  padding: 25px 0;
+  padding: 20px 0;
   font-size: 20px;
   text-align: center;
 `
+type PropsType = {|
+  title: string,
+  style?: string
+|}
 
-class Caption extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired
-  }
-
+class Caption extends React.Component<PropsType> {
   render () {
     return (
       <H1 style={this.props.style}>{this.props.title}</H1>
