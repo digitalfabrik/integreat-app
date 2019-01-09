@@ -13,6 +13,7 @@ import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteC
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { ReceivedAction } from 'redux-first-router'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type PropsType = {|
   redirect: ReceivedAction => void,
@@ -49,7 +50,7 @@ export class I18nRedirectPage extends React.Component<PropsType> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   redirect: action => dispatch(redirect(action))
 })
 
