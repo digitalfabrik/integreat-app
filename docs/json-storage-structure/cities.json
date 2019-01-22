@@ -1,0 +1,18 @@
+{
+  "regensburg": {
+    "name": "Stadt Regensburg",
+    "languages": [
+      {
+        "code": "de",
+        "name": "Deutsch",
+        "dir": "ltr"
+      }
+    ],
+    "offline_available": true,
+    "live": true,
+    "sorting_name": "Regensburg",
+    "events": true,
+    "push_notifications": true,
+    "extras": true
+  }
+}
