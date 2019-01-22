@@ -16,7 +16,7 @@ type PropsType = {
   toggleTheme: () => void,
   goOffline: () => void,
   goOnline: () => void,
-  fetchCategories: (prioritisedLanguage: string, city: string) => void,
+  fetchCategories: (language: string, city: string) => void,
   fetchCities: (language: string) => void,
   cancelFetchCategories: () => void,
   navigateToCategories: (path: string) => void,
@@ -48,8 +48,6 @@ class Dashboard extends React.Component<PropsType> {
       })
     }
   }
-
-  navigateCategories = () => this.props.navigation.navigate('Categories', {city: this.props.cityModel.code})
 
   landing = () => this.props.navigation.navigate('Landing')
 

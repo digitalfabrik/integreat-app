@@ -3,26 +3,17 @@
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
-import fnv from 'fnv-plus'
-import getExtension from '../getExtension'
 import type {
   ResourcesDownloadFailedActionType,
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
-import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
+import type { ResourceCacheType } from '../ResourceCacheType'
 
-export default function * downloadResources (city: string, urls: Array<string>): Saga<void> {
+export default function * fetchResourceCache (city: string, urls: ResourceCacheType): Saga<void> {
   try {
-    const files = {}
-
-    for (const url: string of urls) {
-      const hash = fnv.hash(url).hex()
-      files[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
-    }
-
-    const result: FetchResultType = yield call(FetcherModule.downloadAsync, files, p => console.log(p))
+    const result: FetchResultType = yield call(FetcherModule.downloadAsync, urls, p => console.log(p))
 
     if (!isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {

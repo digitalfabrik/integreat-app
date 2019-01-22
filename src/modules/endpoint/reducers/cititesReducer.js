@@ -3,12 +3,17 @@
 import type { CitiesFetchActionType } from '../../app/StoreActionType'
 import type { CitiesStateType } from '../../app/StateType'
 
-export default (state: CitiesStateType = {json: undefined, error: undefined}, action: CitiesFetchActionType): any => {
+export default (state: CitiesStateType = {
+  lastUpdated: undefined,
+  error: undefined
+}, action: CitiesFetchActionType): any => {
   switch (action.type) {
+    case 'FETCH_CITIES_REQUEST':
+      return {}
     case 'CITIES_FETCH_SUCCEEDED':
-      return {...state, json: action.payload.data}
+      return {...state, lastUpdated: new Date().toISOString(), error: undefined}
     case 'CITIES_FETCH_FAILED':
-      return {...state, error: action.message}
+      return {...state, lastUpdated: undefined, error: action.message}
     default:
       return state
   }
