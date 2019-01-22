@@ -52,6 +52,8 @@ target 'Integreat' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler/ios'
 
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
   target 'IntegreatTests' do
     inherit! :search_paths
     # Pods for testing
