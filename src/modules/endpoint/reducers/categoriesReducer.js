@@ -1,38 +1,21 @@
 // @flow
 
 import type {
-  CategoriesFetchActionType,
-  CategoriesFetchFailedActionType,
-  CategoriesFetchPartiallySucceededActionType
+  CategoriesFetchActionType
 } from '../../app/StoreActionType'
 import type { CategoriesStateType } from '../../app/StateType'
 
-const partially = (state, action: CategoriesFetchPartiallySucceededActionType): any => {
-  const city = action.city
-  const language = action.language
-  const previousCity = state[city] || {json: {}, error: undefined}
-
-  const newJson = {...previousCity.json, [language]: action.payload.data}
-  const newCity = {...previousCity, json: newJson}
-  return {...state, [city]: newCity}
-}
-
-const failed = (state, action: CategoriesFetchFailedActionType): any => {
-  const city = action.city
-  const previousCity = state[city] || {json: undefined, error: undefined}
-
-  const newCity = {...previousCity, error: action.message, ready: false}
-  return {...state, [city]: newCity}
-}
-
-export default (state: CategoriesStateType = {}, action: CategoriesFetchActionType): any => {
+export default (state: CategoriesStateType = {
+  lastUpdated: undefined,
+  error: undefined
+}, action: CategoriesFetchActionType): any => {
   switch (action.type) {
     case 'FETCH_CATEGORIES_REQUEST':
       return {}
-    case 'CATEGORIES_FETCH_PARTIALLY_SUCCEEDED':
-      return partially(state, action)
+    case 'CATEGORIES_FETCH_SUCCEEDED':
+      return {...state, lastUpdated: new Date().toISOString(), error: undefined}
     case 'CATEGORIES_FETCH_FAILED':
-      return failed(state, action)
+      return {...state, lastUpdated: undefined, error: action.message}
     default:
       return state
   }

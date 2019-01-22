@@ -5,57 +5,42 @@ import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import { ScrollView } from 'react-native'
 import React from 'react'
-import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
-import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
+import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
+import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language: string = state.language
+  const language = state.language
 
-  const targetCity: string = ownProps.navigation.getParam('city')
-  const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity}/${language}`
+  const database: MemoryDatabase = ownProps.database
+  const targetCityCode: string = ownProps.navigation.getParam('city')
+  const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCityCode}/${language}`
 
-  const cities = state.cities
-
-  if (!cities || !cities.json || cities.error) {
-    throw new Error('There are no cities in state!')
-  }
-
-  const categories = state.categories[targetCity]
-
-  if (!categories || categories.error) {
-    throw new Error(`The city ${targetCity} is not in the categories state!`)
-  }
-
-  const json = categories.json[language]
-
-  if (!json) {
-    throw new Error(`The language ${language} is not available in the categories of city ${targetCity}`)
-  }
-
-  const fileCache = state.fileCache[targetCity]
-
-  if (!fileCache || !fileCache.ready || fileCache.error) {
-    throw new Error('There are no files in state!')
+  if (!database.hasContext()) {
+    throw new Error('Context must be set!')
   }
 
   const navigateToCategories = (path: string) => {
-    const params = {path, city: targetCity}
+    const params = {path, city: targetCityCode}
     if (ownProps.navigation.push) {
       ownProps.navigation.push('Categories', params)
     }
   }
 
-  const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity})
+  const errorMessage = state.cities.error || state.categories.error
+  if (errorMessage) {
+    console.error(errorMessage)
+  }
+
   return {
     language: language,
-    cities: citiesSelector(state),
-    categories: categoriesMap,
-    files: fileCache.files,
+    cities: database.cities,
+    categories: database.categoriesMap,
+    files: database.resourceCache,
     path: targetPath,
-    city: targetCity,
+    city: targetCityCode,
     navigateToCategories
   }
 }
@@ -63,4 +48,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 // $FlowFixMe connect()
-export default connect(mapStateToProps)(themed)
+export default withMemoryDatabase(connect(mapStateToProps)(themed))

@@ -5,24 +5,21 @@ import { translate } from 'react-i18next'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import { citiesEndpoint, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import setCurrentCity from '../../../modules/categories/actions/setCurrentCity'
 import Landing from '../components/Landing'
+import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const navigateToDashboard = (cityModel: CityModel) => {
     ownProps.navigation.navigate('Dashboard', {cityModel})
   }
 
-  if (!state.cities.json) {
-    return {language: state.language, navigateToDashboard}
-  }
-
   return {
     language: state.language,
-    cities: citiesEndpoint.mapResponse(state.cities.json),
+    cities: ownProps.database.cities,
     navigateToDashboard
   }
 }
@@ -40,4 +37,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
 
 // $FlowFixMe
 const themed = withTheme(Landing)
-export default translate('landing')(connect(mapStateToProps, mapDispatchToProps)(themed))
+export default translate('landing')(withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(themed)))

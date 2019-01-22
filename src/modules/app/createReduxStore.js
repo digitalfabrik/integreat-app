@@ -24,22 +24,21 @@ import type { StoreActionType } from './StoreActionType'
 import fetchCities from '../endpoint/sagas/fetchCities'
 import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
-import categoriesReducer from '../endpoint/reducers/categoriesReducer'
-import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
-import citiesReducer from '../endpoint/reducers/cititesReducer'
-import languagesReducer from '../endpoint/reducers/languagesReducer'
 import currentCityReducer from '../categories/reducers/currentCityReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import MemoryDatabase from '../endpoint/MemoryDatabase'
+import citiesReducer from '../endpoint/reducers/cititesReducer'
+import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 
-function * rootSaga (): Saga<void> {
+function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(fetchCities),
-    fork(fetchCategories),
+    fork(fetchCities, database),
+    fork(fetchCategories, database),
     fork(networkEventsListenerSaga, {})
   ])
 }
 
-const createReduxStore = (callback: () => void): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+const createReduxStore = (database: MemoryDatabase, callback: () => void): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {
@@ -48,10 +47,8 @@ const createReduxStore = (callback: () => void): { store: Store<StateType, Store
     currentCity: null,
     darkMode: false,
 
-    cities: {json: null, error: null},
-    categories: {},
-    languages: {},
-    fileCache: {},
+    cities: {error: undefined, lastUpdated: undefined},
+    categories: {error: undefined, lastUpdated: undefined},
 
     network: {isConnected: false, actionQueue: []}
   }
@@ -72,8 +69,6 @@ const createReduxStore = (callback: () => void): { store: Store<StateType, Store
 
     cities: citiesReducer,
     categories: categoriesReducer,
-    languages: languagesReducer,
-    fileCache: fileCacheReducer,
 
     network: reactNativeOfflineReducer
   })
@@ -105,7 +100,7 @@ const createReduxStore = (callback: () => void): { store: Store<StateType, Store
         type: offlineActionTypes.CONNECTION_CHANGE,
         payload: isConnected
       })
-      sagaMiddleware.run(rootSaga)
+      sagaMiddleware.run(rootSaga, database)
       callback()
     }
   )

@@ -7,11 +7,11 @@ import Dashboard from '../components/Dashboard'
 import toggleDarkMode from 'modules/theme/actions/toggleDarkMode'
 import { offlineActionTypes } from 'react-native-offline'
 import type { StateType } from '../../../modules/app/StateType'
-import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components'
-import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
-import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
 import withError from '../../../modules/error/hocs/withError'
+import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
+import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
 
 const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -26,9 +26,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
   cancelFetchCategories: () => dispatch({
     type: 'FETCH_CATEGORIES_CANCEL'
   }),
-  fetchCategories: (prioritisedLanguage: string, city: string) => dispatch({
+  fetchCategories: (language: string, city: string) => dispatch({
     type: 'FETCH_CATEGORIES_REQUEST',
-    params: {prioritisedLanguage, city},
+    params: {language, city},
     meta: {retry: true, dismiss: ['FETCH_CATEGORIES_CANCEL']}
   }),
   fetchCities: (language: string) => dispatch({
@@ -40,36 +40,18 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.language
-  const cities = state.cities
 
+  const database: MemoryDatabase = ownProps.database
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
   const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity.code}/${language}`
 
-  const notReadyProps = {
-    cityModel: targetCity,
-    language: language,
-    cities: cities.json
-  }
+  if (!database.hasContext()) {
+    const notReadyProps = {
+      cityModel: targetCity,
+      language: language,
+      cities: database.cities
+    }
 
-  if (!cities.json) {
-    return notReadyProps
-  }
-
-  const categories = state.categories[targetCity.code]
-
-  if (!categories) {
-    return notReadyProps
-  }
-
-  const json = categories.json[language]
-
-  if (!json) {
-    return notReadyProps
-  }
-
-  const fileCache = state.fileCache[targetCity.code]
-
-  if (!fileCache || !fileCache.ready) {
     return notReadyProps
   }
 
@@ -80,20 +62,19 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const errorMessage = cities.error || categories.error || fileCache.error
+  const errorMessage = state.cities.error || state.categories.error
   if (errorMessage) {
     console.error(errorMessage)
   }
 
-  const categoriesMap: CategoriesMapModel = categoriesSelector(state, { language, targetCity: targetCity.code })
   return {
     cityModel: targetCity,
     language: language,
-    cities: citiesSelector(state),
+    cities: database.cities,
     navigateToCategories,
     path: targetPath,
-    categories: categoriesMap,
-    files: fileCache.files,
+    categories: database.categoriesMap,
+    files: database.resourceCache,
     error: errorMessage
   }
 }
@@ -101,4 +82,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(Dashboard)
 // $FlowFixMe connect()
-export default connect(mapStateToProps, mapDispatchToProps)(withError(themed))
+export default withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))

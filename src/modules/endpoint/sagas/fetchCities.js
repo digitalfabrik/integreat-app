@@ -7,12 +7,19 @@ import type {
   CitiesFetchSucceededActionType,
   FetchCitiesRequestActionType
 } from '../../app/StoreActionType'
-import { citiesEndpoint } from '@integreat-app/integreat-api-client'
+import { Payload, citiesEndpoint } from '@integreat-app/integreat-api-client'
 import request from '../request'
+import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
+import MemoryDatabase from '../MemoryDatabase'
 
-function * fetch (action: FetchCitiesRequestActionType): Saga<void> {
+function * fetch (database: MemoryDatabase, action: FetchCitiesRequestActionType): Saga<void> {
   try {
-    const payload = yield call(() => request(citiesEndpoint, action.params))
+    const payload: Payload<Array<CityModel>> = yield call(() => request(citiesEndpoint, action.params))
+
+    const cities: Array<CityModel> = payload.data
+
+    database.loadCities(cities)
+
     const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: payload}
     yield put(success)
   } catch (e) {
@@ -21,6 +28,6 @@ function * fetch (action: FetchCitiesRequestActionType): Saga<void> {
   }
 }
 
-export default function * fetchSaga (): Saga<void> {
-  yield takeLatest(`FETCH_CITIES_REQUEST`, fetch)
+export default function * fetchCities (database: MemoryDatabase): Saga<void> {
+  yield takeLatest(`FETCH_CITIES_REQUEST`, fetch, database)
 }

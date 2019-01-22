@@ -6,29 +6,12 @@ import type { PersistState } from 'redux-persist/src/types'
 export type FilesStateType = { [url: string]: string }
 
 export type CategoriesStateType = {
-  [city: string]: {|
-    +json: { [language: string]: any },
-    +error: ?string
-  |}
-}
-
-export type FileCacheStateType = {
-  [city: string]: {|
-    +files: FilesStateType,
-    +ready: boolean,
-    +error: ?string
-  |}
-}
-
-export type LanguagesStateType = {
-  [city: string]: {|
-    +languages: { [language: string]: any },
-    +error: ?string
-  |}
+  +lastUpdated: ?string,
+  +error: ?string
 }
 
 export type CitiesStateType = {|
-  +json: ?any,
+  +lastUpdated: ?string,
   +error: ?string
 |}
 
@@ -46,8 +29,6 @@ export type StateType = {|
 
   +cities: CitiesStateType,
   +categories: CategoriesStateType,
-  +languages: LanguagesStateType,
-  +fileCache: FileCacheStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState
