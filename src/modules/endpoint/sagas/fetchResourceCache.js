@@ -10,10 +10,14 @@ import type {
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import type { ResourceCacheType } from '../ResourceCacheType'
+import performanceNow from '../../app/performanceNow'
 
 export default function * fetchResourceCache (city: string, urls: ResourceCacheType): Saga<void> {
   try {
+    const start = performanceNow()
     const result: FetchResultType = yield call(FetcherModule.downloadAsync, urls, p => console.log(p))
+    const end = performanceNow()
+    console.warn(`download resources: ${end - start}ms`)
 
     if (!isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {
