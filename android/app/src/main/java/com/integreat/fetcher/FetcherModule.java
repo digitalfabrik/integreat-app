@@ -1,22 +1,17 @@
 package com.integreat.fetcher;
 
 import android.support.annotation.NonNull;
-
 import com.facebook.react.bridge.*;
+import okhttp3.Callback;
+import okhttp3.*;
+import okio.BufferedSink;
+import okio.Okio;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okio.BufferedSink;
-import okio.Okio;
 
 public class FetcherModule extends ReactContextBaseJavaModule {
     private OkHttpClient client = new OkHttpClient.Builder().build();
@@ -28,7 +23,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void downloadAsync(final ReadableMap urls, final Promise promise) {
         HashMap<String, Object> urlMap = urls.toHashMap();
-        ArrayList<String> expectedUrls = new ArrayList<>(urlMap.keySet());
+        HashSet<String> expectedUrls = new HashSet<>(urlMap.keySet());
         DownloadResultCollector collector = new DownloadResultCollector(getReactApplicationContext(), expectedUrls, promise);
 
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
@@ -51,11 +46,16 @@ public class FetcherModule extends ReactContextBaseJavaModule {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                callback.failed(sourceUrl, e);
+                callback.failed(sourceUrl, e.getMessage());
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (!response.isSuccessful()) {
+                    callback.failed(sourceUrl, response.message());
+                    return;
+                }
+
                 try {
                     targetFile.getParentFile().mkdirs();
 
@@ -65,7 +65,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
 
                     callback.downloaded(sourceUrl, targetFile);
                 } catch (IOException e) {
-                    callback.failed(sourceUrl, e);
+                    callback.failed(sourceUrl, e.getMessage());
                 }
             }
         });
