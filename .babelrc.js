@@ -1,15 +1,6 @@
 const config = {
   presets: [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "targets": {
-          "chrome": "42",
-          "ie": "11"
-        }
-      }
-    ],
+    "@babel/preset-env",
     '@babel/preset-flow'
   ],
   plugins: [

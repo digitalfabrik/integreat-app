@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const task = require('./task')
 const path = require('path')
 const flowCopySource = require('flow-copy-source')
-const shell = require('shelljs');
+const shell = require('shelljs')
 
 const prepare = task('prepare', () => {
   const dest = path.resolve(__dirname, '../dist')
