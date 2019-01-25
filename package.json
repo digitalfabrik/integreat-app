@@ -25,7 +25,7 @@
   "main": "./index-legacy.js",
   "sideEffects": true,
   "scripts": {
-    "build": "cp package.json dist/ && yarn webpack --config tools/webpack.config.babel.js && babel src --out-dir dist/ --source-maps --ignore '**/*.spec.js' && flow-copy-source src dist --ignore '**/*.spec.js'",
+    "build": "node tools/build.js",
     "npm:publish": "cd dist && npm publish",
     "npm:pack": "cd dist && npm pack && mv *.tgz ../",
     "test": "jest --config jest.config.json",
@@ -65,9 +65,8 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.7.0",
     "es-check": "^4.0.0",
     "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
@@ -83,7 +82,10 @@
     "flow-typed": "^2.5.1",
     "jest": "^23.6.0",
     "jest-fetch-mock": "^1.7.4",
-    "jest-junit": "^5.2.0"
+    "jest-junit": "^5.2.0",
+    "shelljs": "^0.8.3",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "entities": "^1.1.2",
@@ -91,7 +93,6 @@
     "lodash-es": "^4.17.11",
     "moment": "^2.22.2",
     "sanitize-html-react": "^1.13.0",
-    "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2"
+    "webpack-node-externals": "^1.7.2"
   }
 }
