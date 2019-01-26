@@ -209,8 +209,10 @@
       "searchCity": "البحث عن مكانك"
     },
     "de": {
-      "where": "Wo bist du?",
-      "searchCity": "Suche nach einem Ort"
+      "where": "",
+      "pageTitle": "Ortsauswahl",
+      "searchCity": "Ort suchen",
+      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
     "en": {
       "where": "Where are you?",
