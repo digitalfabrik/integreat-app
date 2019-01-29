@@ -22,7 +22,7 @@ export default function * persistCategories (database: MemoryDatabase): Saga<voi
   const categoriesMap = database.categoriesMap
   const categories = categoriesMap.toArray()
 
-  let start = performanceNow()
+  // let start = performanceNow()
   categories.map((category: CategoryModel) => ({
     'path': category.path,
     'title': category.title,
@@ -41,11 +41,11 @@ export default function * persistCategories (database: MemoryDatabase): Saga<voi
       }
     }
   }))
-  let end = performanceNow()
-  console.warn(`mapping to persistable format: ${end - start}ms`)
+  // let end = performanceNow()
+  // console.warn(`mapping to persistable format: ${end - start}ms`)
 
-  start = performanceNow()
+  // start = performanceNow()
   yield call(RNFetchblob.fs.writeFile, `${OFFLINE_CACHE_PATH}/test.json`, JSON.stringify(categories))
-  end = performanceNow()
-  console.warn(`write: ${end - start}ms`)
+  // end = performanceNow()
+  // console.warn(`write: ${end - start}ms`)
 }
