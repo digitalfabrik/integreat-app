@@ -59,8 +59,8 @@ PODS:
     - React
   - RNVectorIcons (6.1.0):
     - React
-  - SDWebImage/Core (4.4.2)
-  - SDWebImage/GIF (4.4.2):
+  - SDWebImage/Core (4.4.4)
+  - SDWebImage/GIF (4.4.4):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
   - yoga (0.57.6.React)
@@ -138,7 +138,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 282af6ea58ed8483612365159c58a3ca5f55e7da
   RNPDF: f27f11d7dbbb49da65375c401eca73b7ef1d7b00
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
 PODFILE CHECKSUM: 8fa4fc1779d9e07eaceda57af5afb0b49d3a6466
