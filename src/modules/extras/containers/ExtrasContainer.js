@@ -65,7 +65,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }))
 
   const navigateToExtra = (path: string, isExternalUrl: boolean, offerHash: ?string = null) => {
-    console.log(path)
     if (isExternalUrl) {
       Linking.openURL(path)
     } else if (ownProps.navigation.push) {

@@ -23,7 +23,8 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  files: { [url: string]: string }
+  files: { [url: string]: string },
+  children?: React.Node
 }
 
 class Page extends React.Component<PropType> {
@@ -56,6 +57,7 @@ class Page extends React.Component<PropType> {
   render () {
     return (
       <>
+        {this.props.children}
         <WebContainer theme={this.props.theme}>
           <WebView
             source={{

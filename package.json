@@ -29,7 +29,6 @@
     "is-url": "^1.2.4",
     "lodash": "^4.17.11",
     "moment": "2.22.2",
-    "normalize-path": "^3.0.0",
     "prop-types": "^15.6.2",
     "react": "16.6.1",
     "react-i18next": "^8.3.8",
@@ -56,6 +55,7 @@
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
     "rn-fetch-blob": "^0.10.13",
+    "sanitize-html-react": "^1.13.0",
     "styled-components": "^4.1.1"
   },
   "devDependencies": {
