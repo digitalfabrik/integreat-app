@@ -7,23 +7,11 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import setLanguage from '../../../modules/i18n/actions/setLanguage'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components'
-import { languagesEndpoint } from '@integreat-app/integreat-api-client'
+import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const city = state.currentCity
-
-  if (!city) {
-    throw new Error(`There is no current city`)
-  }
-
-  const cityInState = state.languages[city]
-
-  if (!cityInState) {
-    throw new Error(`No languages for ${city} found`)
-  }
-
   return {
-    languages: languagesEndpoint.mapResponse(cityInState.languages, {city}),
+    languages: [], // fixme
     closeModal: () => ownProps.navigation.goBack()
   }
 }
@@ -35,4 +23,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
 }
 
 // $FlowFixMe
-export default withTheme(connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageModal))
+export default withTheme(withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageModal)))
