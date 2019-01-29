@@ -5,47 +5,58 @@ import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import { CityModel } from '@integreat-app/integreat-api-client'
 import { ScrollView } from 'react-native'
 import React from 'react'
 import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
 import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
+import { type Dispatch } from 'redux'
+import CategoriesStateView from '../../../modules/categories/CategoriesStateView'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import navigateToCategory from '../../../modules/categories/navigateToCategory'
+import { CityModel } from '@integreat-app/integreat-api-client'
+
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
+  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation)
+})
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.language
 
   const database: MemoryDatabase = ownProps.database
-  const targetCityCode: string = ownProps.navigation.getParam('city')
-  const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCityCode}/${language}`
+  const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
+  const targetCity: CityModel = state.cities.models.find(city => city.code === targetCityCode)
+  const key: string = ownProps.navigation.getParam('key')
+  const targetPath: string = state.categories.routeMapping[key]
 
-  if (!database.hasContext()) {
-    throw new Error('Context must be set!')
+  const errorMessage = state.cities.error || state.categories.error
+
+  if (errorMessage) {
+    throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
   }
 
-  const navigateToCategories = (path: string) => {
-    const params = {path, city: targetCityCode}
-    if (ownProps.navigation.push) {
-      ownProps.navigation.push('Categories', params)
+  const models = state.categories.models
+  const children = state.categories.children
+  const stateView = new CategoriesStateView(targetPath, models, children)
+
+  if (!stateView.root()) {
+    return {
+      city: targetCity,
+      language: language,
+      cities: state.cities.models
     }
   }
 
-  const errorMessage = state.cities.error || state.categories.error
-  if (errorMessage) {
-    console.error(errorMessage)
-  }
-
   return {
+    city: targetCity,
     language: language,
-    cities: database.cities,
-    categories: database.categoriesMap,
+    cities: state.cities.models,
+    categoriesStateView: stateView,
     files: database.resourceCache,
-    path: targetPath,
-    city: targetCityCode,
-    navigateToCategories
+    error: errorMessage
   }
 }
 
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 // $FlowFixMe connect()
-export default withMemoryDatabase(connect(mapStateToProps)(themed))
+export default withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(themed))
