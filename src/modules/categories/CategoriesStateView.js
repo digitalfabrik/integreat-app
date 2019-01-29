@@ -5,9 +5,9 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 class CategoriesStateView {
   rawRoot: string
   rawModels: { [path: string]: CategoryModel }
-  rawChildren: { [path: string]: Array<string> }
+  rawChildren: { [path: string]: ?Array<string> }
 
-  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
+  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: ?Array<string> }) {
     this.rawModels = models
     this.rawChildren = children
     this.rawRoot = root
@@ -22,7 +22,13 @@ class CategoriesStateView {
   // }
 
   children (): Array<CategoryModel> {
-    return this.rawChildren[this.rawRoot].map(childPath => this.rawModels[childPath])
+    const childrenPaths = this.rawChildren[this.rawRoot]
+
+    if (!childrenPaths) {
+      throw new Error(`Could not find children for category: ${this.rawRoot}`)
+    }
+
+    return childrenPaths.map(childPath => this.rawModels[childPath])
   }
 
   stepInto (path: string): CategoriesStateView {
