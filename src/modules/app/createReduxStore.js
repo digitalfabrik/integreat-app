@@ -29,6 +29,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import MemoryDatabase from '../endpoint/MemoryDatabase'
 import citiesReducer from '../endpoint/reducers/cititesReducer'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { defaultCategoriesState, defaultCitiesState } from './StateType'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
@@ -47,17 +49,19 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
     currentCity: null,
     darkMode: false,
 
-    cities: {error: undefined, lastUpdated: undefined},
-    categories: {error: undefined, lastUpdated: undefined},
+    cities: defaultCitiesState,
+    categories: defaultCategoriesState,
 
     network: {isConnected: false, actionQueue: []}
   }
 
+  // Do never exclude the "network" key.
   const persistConfig: PersistConfig = {
     version: 1,
     key: 'root',
     storage: AsyncStorage,
-    stateReconciler: hardSet
+    stateReconciler: hardSet,
+    blacklist: ['cities', 'categories']
   }
 
   // Create this reducer only once. It is not pure!
