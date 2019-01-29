@@ -10,6 +10,7 @@ import localesResources from 'locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import LanguageDetector from '../LanguageDetector'
+import type { StoreActionType } from '../../app/StoreActionType'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -115,7 +116,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   setUiDirection: action => dispatch(setUiDirection(action))
 })
 
