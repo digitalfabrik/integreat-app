@@ -16,7 +16,8 @@ import navigateToCategory from '../../../modules/categories/navigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation)
+  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateAway: () => dispatch({type: 'NAVIGATE_AWAY', params: {key: ownProps.navigation.getParam('key')}})
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -24,9 +25,17 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const database: MemoryDatabase = ownProps.database
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
-  const targetCity: CityModel = state.cities.models.find(city => city.code === targetCityCode)
   const key: string = ownProps.navigation.getParam('key')
+
   const targetPath: string = state.categories.routeMapping[key]
+
+  if (!targetPath) {
+    return {
+      cityCode: targetCityCode,
+      language: language,
+      cities: state.cities.models
+    }
+  }
 
   const errorMessage = state.cities.error || state.categories.error
 
@@ -40,14 +49,14 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   if (!stateView.root()) {
     return {
-      city: targetCity,
+      cityCode: targetCityCode,
       language: language,
       cities: state.cities.models
     }
   }
 
   return {
-    city: targetCity,
+    cityCode: targetCityCode,
     language: language,
     cities: state.cities.models,
     categoriesStateView: stateView,

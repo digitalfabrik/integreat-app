@@ -10,7 +10,7 @@ type PathType = string
 export type CategoriesStateType = {
   +models: { [path: PathType]: CategoryModel },
   // +root: ?PathType,
-  +children: { [path: PathType]: Array<PathType> },
+  +children: { [path: PathType]: ?Array<PathType> },
 
   +routeMapping: { [key: string]: PathType },
 

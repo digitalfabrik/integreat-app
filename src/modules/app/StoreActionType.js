@@ -13,17 +13,20 @@ export type CitiesFetchActionType =
   | CitiesFetchSucceededActionType
   | CitiesFetchFailedActionType
 
+export type NavigateAwayActionType = {| type: 'NAVIGATE_AWAY', params: {| key: string |}|}
+
 export type FetchCategoriesRequestActionType = {|
   type: 'FETCH_CATEGORIES_REQUEST',
   params: {| language: string, city: string, path: string, depth: number, key: string |},
   meta: MetaType
 |}
-export type CategoriesFetchSucceededActionType = {| type: 'CATEGORIES_FETCH_SUCCEEDED', payload: {| categoriesMap: CategoriesMapModel, path: string, depth: number, key: string |}, city: string, language: string |}
+export type CategoriesFetchSucceededActionType = {| type: 'CATEGORIES_FETCH_SUCCEEDED', payload: {| categoriesMap: CategoriesMapModel, path: string, depth: number, key: string, lastUpdated: ?Date |}, city: string, language: string |}
 export type CategoriesFetchFailedActionType = {| type: 'CATEGORIES_FETCH_FAILED', city: string, language: string, message: string |}
 export type CategoriesFetchActionType =
   FetchCategoriesRequestActionType
   | CategoriesFetchSucceededActionType
   | CategoriesFetchFailedActionType
+  | NavigateAwayActionType
 
 export type NavigateToCategoryActionType = {| type: 'NAVIGATE_TO_CATEGORY', params: {| city: string, language: string, path: string |}, meta: MetaType |}
 // export type NAVIGATE_TO_PREVIOUS_CATEGORY = {| type: 'NAVIGATE_TO_CATEGORY', params: {| city: string, language: string |}, meta: MetaType |}

@@ -18,8 +18,9 @@ type PropsType = {|
   language: string,
 
   categoriesStateView: CategoriesStateView,
-  city: string,
+  cityCode: string,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateAway: () => void,
 
   files: FilesStateType,
   theme: ThemeType
@@ -30,11 +31,13 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    this.props.navigateToCategory(this.props.city, this.props.language, tile.path)
+    const {cityCode, language} = this.props
+    this.props.navigateToCategory(cityCode, language, tile.path)
   }
 
   onItemPress = (category: { id: number, title: string, thumbnail: string, path: string }) => {
-    this.props.navigateToCategory(this.props.city, this.props.language, category.path)
+    const {cityCode, language} = this.props
+    this.props.navigateToCategory(cityCode, language, category.path)
   }
 
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
@@ -52,6 +55,10 @@ class Categories extends React.Component<PropsType> {
         isExternalUrl: false
       })
     })
+  }
+
+  componentWillUnmount () {
+    this.props.navigateAway()
   }
 
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {

@@ -31,7 +31,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
     type: 'FETCH_CITIES_REQUEST',
     params: {language},
     meta: {retry: true}
-  })
+  }),
+  navigateAway: () => dispatch({type: 'NAVIGATE_AWAY', params: {key: ownProps.navigation.getParam('key')}})
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -39,9 +40,16 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const database: MemoryDatabase = ownProps.database
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
-  const targetCity: CityModel = state.cities.models.find(city => city.code === targetCityCode)
   const key: string = ownProps.navigation.getParam('key')
   const targetPath: string = state.categories.routeMapping[key]
+
+  if (!targetPath) {
+    return {
+      cityCode: targetCityCode,
+      language: language,
+      cities: state.cities.models
+    }
+  }
 
   const errorMessage = state.cities.error || state.categories.error
 
@@ -55,14 +63,14 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   if (!stateView.root()) {
     return {
-      cityModel: targetCity,
+      cityCode: targetCityCode,
       language: language,
       cities: state.cities.models
     }
   }
 
   return {
-    cityModel: targetCity,
+    cityCode: targetCityCode,
     language: language,
     cities: state.cities.models,
     categoriesStateView: stateView,

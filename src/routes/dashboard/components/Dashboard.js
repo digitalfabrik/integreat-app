@@ -11,13 +11,14 @@ import CategoriesStateView from '../../../modules/categories/CategoriesStateView
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
-  cityModel: CityModel,
+  cityCode: string,
 
   toggleTheme: () => void,
   goOffline: () => void,
   goOnline: () => void,
   fetchCities: (language: string) => void,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateAway: () => void,
   theme: ThemeType,
 
   language: string,
@@ -50,8 +51,9 @@ class Dashboard extends React.Component<PropsType> {
         <Categories categoriesStateView={categoriesStateView}
                     cities={cities} files={this.props.files}
                     language={this.props.language}
-                    city={this.props.cityModel.code}
-                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
+                    cityCode={this.props.cityCode}
+                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme}
+                    navigateAway={this.props.navigateAway} />
         <Button
           title='Extras'
           onPress={this.extras}

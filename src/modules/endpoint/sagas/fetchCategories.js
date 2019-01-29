@@ -46,27 +46,33 @@ function * fetchLanguagesAndCategories (database: MemoryDatabase, action: FetchC
   const {city, language, path, depth, key} = action.params
 
   try {
-    const urls: ResourceCacheType = {}
+    let lastUpdated: ?Date = null
 
-    // const start = performanceNow()
-    const languages = yield call(fetchLanguages, city)
-    const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesByLanguage, city, language)
-    // const end = performanceNow()
-    // console.warn(`fetch categories: ${end - start}ms`)
+    if (!database.hasContext() || database.context.cityCode !== city || database.context.languageCode !== language) {
+      const urls: ResourceCacheType = {}
 
-    findResources(categoriesMap.toArray()).forEach(url => {
-      const hash = fnv.hash(url).hex()
-      urls[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
-    })
+      // const start = performanceNow()
+      const languages = yield call(fetchLanguages, city)
+      const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesByLanguage, city, language)
+      // const end = performanceNow()
+      // console.warn(`fetch categories: ${end - start}ms`)
 
-    database.changeContext(new DataContext(city, language), categoriesMap, languages, urls)
+      findResources(categoriesMap.toArray()).forEach(url => {
+        const hash = fnv.hash(url).hex()
+        urls[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
+      })
 
-    yield call(fetchResourceCache, city, language, urls)
-    yield call(persistCategories, database)
+      database.changeContext(new DataContext(city, language), categoriesMap, languages, urls)
+
+      yield call(fetchResourceCache, city, language, urls)
+      yield call(persistCategories, database)
+
+      lastUpdated = new Date()
+    }
 
     const success: CategoriesFetchSucceededActionType = {
       type: `CATEGORIES_FETCH_SUCCEEDED`,
-      payload: {categoriesMap, path, depth, key},
+      payload: {categoriesMap: database.categoriesMap, path, depth, key, lastUpdated},
       city,
       language
     }
