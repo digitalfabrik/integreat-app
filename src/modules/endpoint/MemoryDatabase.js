@@ -1,6 +1,6 @@
 // @flow
 
-import CategoriesMapModel, { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DataContext from './DataContext'
 import type { ResourceCacheType } from './ResourceCacheType'
 
