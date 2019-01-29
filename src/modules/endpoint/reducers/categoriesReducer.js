@@ -47,9 +47,9 @@ export default (
       })
 
       return {
-        models,
-        children,
-        root: root.path,
+        // fixme: Old models and children should be removed
+        models: {...state.models, ...models},
+        children: {...state.children, ...children},
         routeMapping: {...state.routeMapping, [key]: root.path},
         lastUpdated: new Date().toISOString(),
         error: undefined
