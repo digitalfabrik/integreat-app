@@ -20,7 +20,7 @@ function * fetch (database: MemoryDatabase, action: FetchCitiesRequestActionType
 
     database.loadCities(cities)
 
-    const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: payload}
+    const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: {cities}}
     yield put(success)
   } catch (e) {
     const failed: CitiesFetchFailedActionType = {type: `CITIES_FETCH_FAILED`, message: e.message}
