@@ -3,9 +3,7 @@
 import React from 'react'
 
 import LocationBig from '../assets/LocationBig.svg'
-import type { TFunction } from 'react-i18next'
 import { withNamespaces } from 'react-i18next'
-import Caption from '../../../modules/common/components/Caption'
 import styled from 'styled-components'
 
 const Logo = styled.img`
@@ -14,17 +12,11 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-type PropsType = {|
-  t: TFunction
-|}
-
-class Heading extends React.PureComponent<PropsType> {
+class Heading extends React.PureComponent<React.Node> {
   render () {
-    const {t} = this.props
     return (
       <div>
         <Logo src={LocationBig} />
-        <Caption title={t('where')} />
       </div>
     )
   }

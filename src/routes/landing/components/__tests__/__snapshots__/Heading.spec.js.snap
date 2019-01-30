@@ -81,44 +81,6 @@ exports[`Heading should render 1`] = `
             />
           </StyledComponent>
         </Heading__Logo>
-        <Caption
-          title="landing:where"
-        >
-          <Caption__H1>
-            <StyledComponent
-              forwardedClass={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "attrs": undefined,
-                  "componentStyle": ComponentStyle {
-                    "componentId": "Caption__H1-sc-1ggkcri-0",
-                    "isStatic": false,
-                    "lastClassName": "gqxdkx",
-                    "rules": Array [
-                      "margin:25px 0;font-size:2rem;text-align:center;@media ",
-                      [Function],
-                      "{margin:10px 0;}",
-                    ],
-                  },
-                  "displayName": "Caption__H1",
-                  "render": [Function],
-                  "styledComponentId": "Caption__H1-sc-1ggkcri-0",
-                  "target": "h1",
-                  "toString": [Function],
-                  "warnTooManyClasses": [Function],
-                  "withComponent": [Function],
-                }
-              }
-              forwardedRef={null}
-            >
-              <h1
-                className="Caption__H1-sc-1ggkcri-0 gqxdkx"
-              >
-                landing:where
-              </h1>
-            </StyledComponent>
-          </Caption__H1>
-        </Caption>
       </div>
     </Heading>
   </Translate(Heading)>
