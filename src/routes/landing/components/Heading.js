@@ -11,8 +11,9 @@ const Logo = styled.img`
   height: 70px;
   margin: 0 auto;
 `
+type PropsType = {}
 
-class Heading extends React.PureComponent<React.Node> {
+class Heading extends React.PureComponent<PropsType> {
   render () {
     return (
       <div>
