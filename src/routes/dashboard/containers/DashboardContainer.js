@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   }),
   navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
   fetchCities: (language: string) => dispatch({
-    type: 'SELECT_CITIES',
+    type: 'FETCH_CITIES',
     params: {}
   }),
   navigateAway: () => dispatch({type: 'CLEAR_CATEGORY', params: {key: ownProps.navigation.getParam('key')}})

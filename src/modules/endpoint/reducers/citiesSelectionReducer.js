@@ -8,7 +8,7 @@ export default (
   state: CitiesSelectionStateType = defaultCitiesSelectionState, action: CitiesActionType
 ): CitiesSelectionStateType => {
   switch (action.type) {
-    case 'INSERT_CITIES':
+    case 'SELECT_CITIES':
       return {models: action.params.cities}
     default:
       return state

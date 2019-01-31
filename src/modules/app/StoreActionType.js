@@ -5,39 +5,42 @@ import { CityModel, CategoriesMapModel } from '@integreat-app/integreat-api-clie
 
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
+export type FetchCitiesActionType = {|
+  type: 'FETCH_CITIES', params: {||}
+|}
 export type SelectCitiesActionType = {|
-  type: 'SELECT_CITIES', params: {||}
+  type: 'SELECT_CITIES', params: {| cities: Array<CityModel> |}
 |}
-export type InsertCitiesActionType = {|
-  type: 'INSERT_CITIES', params: {| cities: Array<CityModel> |}
+export type FetchCitiesFailedActionType = {|
+  type: 'FETCH_CITIES_FAILED', message: string
 |}
-export type SelectCitiesFailedActionType = {|
-  type: 'SELECT_CITIES_FAILED', message: string
-|}
-export type CitiesActionType = InsertCitiesActionType | SelectCitiesActionType | SelectCitiesFailedActionType
+export type CitiesActionType = SelectCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
+export type SelectParamsType = {
+  path: string, depth: number, key: string
+}
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
+export type FetchCategoryActionType = {|
+  type: 'FETCH_CATEGORY', params: {|
+    city: string, language: string, selectParams: SelectParamsType
+  |}
+|}
+export type FetchCategoryFailedActionType = {|
+  type: 'FETCH_CATEGORY_FAILED', message: string
+|}
 export type SelectCategoryActionType = {|
-  type: 'SELECT_CATEGORY', params: {|
-    city: string, language: string, path: string, depth: number, key: string
-  |}
-|}
-export type SelectCategoryFailedActionType = {|
-  type: 'SELECT_CATEGORY_FAILED', message: string
-|}
-export type InsertCategoryActionType = {|
-  type: 'INSERT_CATEGORY', params: {|
+  type: 'SELECT_CATEGORY', params: {
     categoriesMap: CategoriesMapModel,
-    selectAction: SelectCategoryActionType
-  |}
+    selectParams: SelectParamsType
+  }
 |}
 export type CategoriesActionType =
   ClearCategoryActionType
+  | FetchCategoryActionType
   | SelectCategoryActionType
-  | InsertCategoryActionType
-  | SelectCategoryFailedActionType
+  | FetchCategoryFailedActionType
 
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string

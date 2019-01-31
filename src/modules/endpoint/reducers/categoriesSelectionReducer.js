@@ -9,13 +9,11 @@ import { defaultCategoriesSelectionState } from '../../app/StateType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { times } from 'lodash/util'
 import { keyBy } from 'lodash/collection'
-import MemoryDatabase from '../MemoryDatabase'
-import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 
-const insertCategory = (
-  state: CategoriesSelectionStateType, categoriesMap: CategoriesMapModel, action: SelectCategoryActionType
+const selectCategory = (
+  state: CategoriesSelectionStateType, action: SelectCategoryActionType
 ) => {
-  const {path, depth, key} = action.params
+  const {categoriesMap, selectParams: {path, depth, key}} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -58,8 +56,8 @@ export default (
   state: CategoriesSelectionStateType = defaultCategoriesSelectionState, action: CategoriesActionType
 ): CategoriesSelectionStateType => {
   switch (action.type) {
-    case 'INSERT_CATEGORY':
-      return insertCategory(state, action.params.categoriesMap, action.params.selectAction)
+    case 'SELECT_CATEGORY':
+      return selectCategory(state, action)
     case 'CLEAR_CATEGORY':
       const {key} = action.params
       const categoryPath = state.routeMapping[key]
