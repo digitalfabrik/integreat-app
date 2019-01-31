@@ -23,7 +23,7 @@ const mapStateToProps = (state: StateType) => {
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
     fetchCities: (language: string) => dispatch({
-      type: 'SELECT_CITIES',
+      type: 'FETCH_CITIES',
       params: {}
     }),
     navigateToCategory: navigateToCategory('Dashboard', dispatch, ownProps.navigation),
