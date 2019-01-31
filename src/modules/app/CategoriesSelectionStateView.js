@@ -1,25 +1,25 @@
 // @flow
 
 import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { has } from 'lodash'
 
-class CategoriesStateView {
+class CategoriesSelectionStateView {
   rawRoot: string
   rawModels: { [path: string]: CategoryModel }
-  rawChildren: { [path: string]: ?Array<string> }
+  rawChildren: { [path: string]: Array<string> }
 
-  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: ?Array<string> }) {
+  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
     this.rawModels = models
     this.rawChildren = children
     this.rawRoot = root
   }
 
   root (): CategoryModel {
+    if (has(this.rawModels, this.rawRoot)) {
+      throw new Error(`CategoriesStateView doesn't have a root!`)
+    }
     return this.rawModels[this.rawRoot]
   }
-
-  // hasRoot (): boolean {
-  //   return !!this.root()
-  // }
 
   children (): Array<CategoryModel> {
     const childrenPaths = this.rawChildren[this.rawRoot]
@@ -31,9 +31,9 @@ class CategoriesStateView {
     return childrenPaths.map(childPath => this.rawModels[childPath])
   }
 
-  stepInto (path: string): CategoriesStateView {
-    return new CategoriesStateView(path, this.rawModels, this.rawChildren)
+  stepInto (path: string): CategoriesSelectionStateView {
+    return new CategoriesSelectionStateView(path, this.rawModels, this.rawChildren)
   }
 }
 
-export default CategoriesStateView
+export default CategoriesSelectionStateView

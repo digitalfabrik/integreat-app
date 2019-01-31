@@ -10,14 +10,14 @@ import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import type { FilesStateType } from '../../../modules/app/StateType'
-import CategoriesStateView from '../CategoriesStateView'
+import CategoriesSelectionStateView from '../../app/CategoriesSelectionStateView'
 import { ActivityIndicator } from 'react-native'
 
 type PropsType = {|
   cities: Array<CityModel>,
   language: string,
 
-  categoriesStateView: CategoriesStateView,
+  categoriesStateView: CategoriesSelectionStateView,
   cityCode: string,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateAway: () => void,

@@ -5,7 +5,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
   CitiesFetchFailedActionType,
   CitiesFetchSucceededActionType,
-  FetchCitiesRequestActionType
+  FetchCitiesRequestActionType, SelectCitiesActionType
 } from '../../app/StoreActionType'
 import { Payload, citiesEndpoint } from '@integreat-app/integreat-api-client'
 import request from '../request'
@@ -20,8 +20,14 @@ function * fetch (database: MemoryDatabase, action: FetchCitiesRequestActionType
 
     database.loadCities(cities)
 
-    const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: {cities}}
-    yield put(success)
+    // const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: {}}
+    // yield put(success)
+
+    const selection: SelectCitiesActionType = {
+      type: `SELECT_CITIES`,
+      params: {cities}
+    }
+    yield put(selection)
   } catch (e) {
     const failed: CitiesFetchFailedActionType = {type: `CITIES_FETCH_FAILED`, message: e.message}
     yield put(failed)

@@ -12,7 +12,7 @@ import { withTheme } from 'styled-components'
 import withError from '../../../modules/error/hocs/withError'
 import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
-import CategoriesStateView from '../../../modules/categories/CategoriesStateView'
+import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import navigateToCategory from '../../../modules/categories/navigateToCategory'
 
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
     params: {language},
     meta: {retry: true}
   }),
-  navigateAway: () => dispatch({type: 'NAVIGATE_AWAY', params: {key: ownProps.navigation.getParam('key')}})
+  navigateAway: () => dispatch({type: 'CLEAR_CATEGORY', params: {key: ownProps.navigation.getParam('key')}})
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -41,13 +41,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const database: MemoryDatabase = ownProps.database
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
-  const targetPath: string = state.categories.routeMapping[key]
+  const targetPath: string = state.categoriesSelection.routeMapping[key]
 
   if (!targetPath) {
     return {
       cityCode: targetCityCode,
       language: language,
-      cities: state.cities.models
+      cities: state.citiesSelection.models
     }
   }
 
@@ -57,22 +57,22 @@ const mapStateToProps = (state: StateType, ownProps) => {
     throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
   }
 
-  const models = state.categories.models
-  const children = state.categories.children
-  const stateView = new CategoriesStateView(targetPath, models, children)
+  const models = state.categoriesSelection.models
+  const children = state.categoriesSelection.children
+  const stateView = new CategoriesSelectionStateView(targetPath, models, children)
 
   if (!stateView.root()) {
     return {
       cityCode: targetCityCode,
       language: language,
-      cities: state.cities.models
+      cities: state.citiesSelection.models
     }
   }
 
   return {
     cityCode: targetCityCode,
     language: language,
-    cities: state.cities.models,
+    cities: state.citiesSelection.models,
     categoriesStateView: stateView,
     files: database.resourceCache,
     error: errorMessage
