@@ -28,9 +28,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   }),
   navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
   fetchCities: (language: string) => dispatch({
-    type: 'FETCH_CITIES_REQUEST',
-    params: {language},
-    meta: {retry: true}
+    type: 'SELECT_CITIES',
+    params: {}
   }),
   navigateAway: () => dispatch({type: 'CLEAR_CATEGORY', params: {key: ownProps.navigation.getParam('key')}})
 })
@@ -51,12 +50,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const errorMessage = state.cities.error || state.categories.error
-
-  if (errorMessage) {
-    throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
-  }
-
   const models = state.categoriesSelection.models
   const children = state.categoriesSelection.children
   const stateView = new CategoriesSelectionStateView(targetPath, models, children)
@@ -75,7 +68,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     cities: state.citiesSelection.models,
     categoriesStateView: stateView,
     files: database.resourceCache,
-    error: errorMessage
+    error: null // fixme display errors
   }
 }
 

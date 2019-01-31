@@ -6,16 +6,6 @@ import { CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 
 export type FilesStateType = { [url: string]: string }
 
-export type CategoriesStateType = {
-  +lastUpdated: ?string,
-  +error: ?string
-}
-
-export const defaultCategoriesState: CategoriesStateType = {
-  error: undefined,
-  lastUpdated: undefined
-}
-
 type PathType = string
 
 export type CategoriesSelectionStateType = {
@@ -39,16 +29,6 @@ export const defaultCitiesSelectionState: CitiesSelectionStateType = {
   models: []
 }
 
-export type CitiesStateType = {|
-  +lastUpdated: ?string,
-  +error: ?string
-|}
-
-export const defaultCitiesState: CitiesStateType = {
-  error: undefined,
-  lastUpdated: undefined
-}
-
 export type DirectionStateType = 'ltr' | 'rtl'
 
 export type LanguageStateType = string
@@ -60,9 +40,6 @@ export type StateType = {|
   +language: LanguageStateType,
   +currentCity: CurrentCityStateType,
   +darkMode: boolean,
-
-  +cities: CitiesStateType,
-  +categories: CategoriesStateType,
 
   +citiesSelection: CitiesSelectionStateType,
   +categoriesSelection: CategoriesSelectionStateType,

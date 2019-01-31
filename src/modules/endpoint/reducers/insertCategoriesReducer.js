@@ -10,12 +10,12 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { times } from 'lodash/util'
 import { keyBy } from 'lodash/collection'
 import MemoryDatabase from '../MemoryDatabase'
+import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 
-const navigateTo = (
-  database: MemoryDatabase, state: CategoriesSelectionStateType, action: SelectCategoryActionType
+const insertCategory = (
+  state: CategoriesSelectionStateType, categoriesMap: CategoriesMapModel, action: SelectCategoryActionType
 ) => {
   const {path, depth, key} = action.params
-  const categoriesMap = database.categoriesMap // fixme async access should be possible
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -54,12 +54,12 @@ const navigateTo = (
   }
 }
 
-export default (database: MemoryDatabase) => (
+export default (
   state: CategoriesSelectionStateType = defaultCategoriesSelectionState, action: CategoriesActionType
 ): CategoriesSelectionStateType => {
   switch (action.type) {
-    case 'SELECT_CATEGORY':
-      return navigateTo(database, state, action)
+    case 'INSERT_CATEGORY':
+      return insertCategory(state, action.params.categoriesMap, action.params.selectAction)
     case 'CLEAR_CATEGORY':
       const {key} = action.params
       const categoryPath = state.routeMapping[key]
