@@ -37,11 +37,11 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const errorMessage = state.cities.error || state.categories.error
-
-  if (errorMessage) {
-    throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
-  }
+  // const errorMessage = state.cities.error || state.categories.error
+  //
+  // if (errorMessage) {
+  //   throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
+  // }
 
   const models = state.categoriesSelection.models
   const children = state.categoriesSelection.children
@@ -61,7 +61,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     cities: state.citiesSelection.models,
     categoriesStateView: stateView,
     files: database.resourceCache,
-    error: errorMessage
+    error: null // fixme display errors
   }
 }
 

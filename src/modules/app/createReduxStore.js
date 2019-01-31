@@ -27,22 +27,19 @@ import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import currentCityReducer from '../categories/reducers/currentCityReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import MemoryDatabase from '../endpoint/MemoryDatabase'
-import citiesReducer from '../endpoint/reducers/cititesReducer'
-import categoriesReducer from '../endpoint/reducers/categoriesReducer'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
 import {
   defaultCategoriesSelectionState,
-  defaultCategoriesState,
-  defaultCitiesSelectionState,
-  defaultCitiesState
+  defaultCitiesSelectionState
 } from './StateType'
-import selectCitiesReducer from '../endpoint/reducers/selectCitiesReducer'
-import selectCategoriesReducer from '../endpoint/reducers/selectCategoriesReducer'
+import selectCitiesReducer from '../endpoint/reducers/insertCitiesReducer'
+import selectCategoriesReducer from '../endpoint/reducers/insertCategoriesReducer'
+import selectCategory from '../endpoint/sagas/selectCategory'
+import selectCities from '../endpoint/sagas/selectCities'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(fetchCities, database),
-    fork(fetchCategories, database),
+    fork(selectCities, database),
+    fork(selectCategory, database),
     fork(networkEventsListenerSaga, {})
   ])
 }
@@ -55,9 +52,6 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
     language: 'en',
     currentCity: null,
     darkMode: false,
-
-    cities: defaultCitiesState,
-    categories: defaultCategoriesState,
 
     citiesSelection: defaultCitiesSelectionState,
     categoriesSelection: defaultCategoriesSelectionState,
@@ -81,11 +75,8 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
     currentCity: currentCityReducer,
     darkMode: toggleDarkModeReducer,
 
-    cities: citiesReducer,
-    categories: categoriesReducer,
-
-    citiesSelection: selectCitiesReducer(database),
-    categoriesSelection: selectCategoriesReducer(database),
+    citiesSelection: selectCitiesReducer,
+    categoriesSelection: selectCategoriesReducer,
 
     network: reactNativeOfflineReducer
   })

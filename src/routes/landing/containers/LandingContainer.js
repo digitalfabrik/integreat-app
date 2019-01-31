@@ -23,9 +23,8 @@ const mapStateToProps = (state: StateType) => {
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
     fetchCities: (language: string) => dispatch({
-      type: 'FETCH_CITIES_REQUEST',
-      params: {language},
-      meta: {retry: true}
+      type: 'SELECT_CITIES',
+      params: {}
     }),
     navigateToCategory: navigateToCategory('Dashboard', dispatch, ownProps.navigation),
     setCurrentCity: (city: string) => dispatch(setCurrentCity(city))

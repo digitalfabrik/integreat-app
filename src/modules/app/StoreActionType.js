@@ -1,56 +1,43 @@
 // @flow
 
 import { offlineActionTypes } from 'react-native-offline'
-import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
 
-type MetaType = {| retry?: boolean, dismiss?: string[] |}
-
-export type FetchCitiesRequestActionType = {|
-  type: 'FETCH_CITIES_REQUEST', params: {| language: string |}, meta: MetaType
-|}
-export type CitiesFetchSucceededActionType = {|
-  type: 'CITIES_FETCH_SUCCEEDED', payload: {||}
-|}
-export type CitiesFetchFailedActionType = {|
-  type: 'CITIES_FETCH_FAILED', message: string
-|}
-export type CitiesFetchActionType =
-  FetchCitiesRequestActionType
-  | CitiesFetchSucceededActionType
-  | CitiesFetchFailedActionType
-
-export type FetchCategoriesRequestActionType = {|
-  type: 'FETCH_CATEGORIES_REQUEST',
-  params: {| language: string, city: string, path: string, depth: number, key: string |},
-  meta: MetaType
-|}
-export type CategoriesFetchSucceededActionType = {|
-  type: 'CATEGORIES_FETCH_SUCCEEDED', payload: {| lastUpdated: ?Date |}, city: string, language: string
-|}
-export type CategoriesFetchFailedActionType = {|
-  type: 'CATEGORIES_FETCH_FAILED', city: string, language: string, message: string
-|}
-export type CategoriesFetchActionType =
-  FetchCategoriesRequestActionType
-  | CategoriesFetchSucceededActionType
-  | CategoriesFetchFailedActionType
+// type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
 export type SelectCitiesActionType = {|
-  type: 'SELECT_CITIES', params: {| cities: Array<CityModel> |}
+  type: 'SELECT_CITIES', params: {||}
 |}
-export type CitiesActionType = SelectCitiesActionType
+export type InsertCitiesActionType = {|
+  type: 'INSERT_CITIES', params: {| cities: Array<CityModel> |}
+|}
+export type SelectCitiesFailedActionType = {|
+  type: 'SELECT_CITIES_FAILED', message: string
+|}
+export type CitiesActionType = InsertCitiesActionType | SelectCitiesActionType | SelectCitiesFailedActionType
 
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
 export type SelectCategoryActionType = {|
   type: 'SELECT_CATEGORY', params: {|
-    path: string, depth: number, key: string, lastUpdated: ?Date
+    city: string, language: string, path: string, depth: number, key: string
+  |}
+|}
+export type SelectCategoryFailedActionType = {|
+  type: 'SELECT_CATEGORY_FAILED', message: string
+|}
+export type InsertCategoryActionType = {|
+  type: 'INSERT_CATEGORY', params: {|
+    categoriesMap: CategoriesMapModel,
+    selectAction: SelectCategoryActionType
   |}
 |}
 export type CategoriesActionType =
   ClearCategoryActionType
   | SelectCategoryActionType
+  | InsertCategoryActionType
+  | SelectCategoryFailedActionType
 
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
@@ -84,11 +71,10 @@ export type ConnectionChangeActionType = {|
 
 export type StoreActionType =
   ConnectionChangeActionType
-  | CitiesFetchActionType
-  | CategoriesFetchActionType
   | ResourcesDownloadActionType
   | SetLanguageActionType
   | SetCurrentCityActionType
   | SetUiDirectionActionType
   | ToggleDarkModeActionType
   | CategoriesActionType
+  | CitiesActionType
