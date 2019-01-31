@@ -13,7 +13,7 @@ import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabas
 import navigateToCategory from '../../../modules/categories/navigateToCategory'
 
 const mapStateToProps = (state: StateType) => {
-  const cities = state.cities.models
+  const cities = state.citiesSelection.models
   return {
     language: state.language,
     cities: cities.length === 0 ? undefined : cities

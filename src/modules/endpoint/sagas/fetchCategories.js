@@ -5,7 +5,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
   CategoriesFetchFailedActionType,
   CategoriesFetchSucceededActionType,
-  FetchCategoriesRequestActionType
+  FetchCategoriesRequestActionType, SelectCategoryActionType
 } from '../../app/StoreActionType'
 import {
   categoriesEndpoint,
@@ -24,6 +24,7 @@ import getExtension from '../getExtension'
 import fnv from 'fnv-plus'
 import persistCategories from './persistCategories'
 import performanceNow from '../../app/performanceNow'
+import type { CategoriesSelectionStateType } from '../../app/StateType'
 
 function * fetchCategoriesByLanguage (city: string, code: string): Saga<CategoriesMapModel> {
   const params = {
@@ -70,13 +71,19 @@ function * fetchLanguagesAndCategories (database: MemoryDatabase, action: FetchC
       lastUpdated = new Date()
     }
 
-    const success: CategoriesFetchSucceededActionType = {
-      type: `CATEGORIES_FETCH_SUCCEEDED`,
-      payload: {categoriesMap: database.categoriesMap, path, depth, key, lastUpdated},
-      city,
-      language
+    // const success: CategoriesFetchSucceededActionType = {
+    //   type: `CATEGORIES_FETCH_SUCCEEDED`,
+    //   payload: {lastUpdated},
+    //   city,
+    //   language
+    // }
+    // yield put(success)
+
+    const selection: SelectCategoryActionType = {
+      type: `SELECT_CATEGORY`,
+      params: {path, depth, key, lastUpdated}
     }
-    yield put(success)
+    yield put(selection)
   } catch (e) {
     const failed: CategoriesFetchFailedActionType = {
       type: `CATEGORIES_FETCH_FAILED`,

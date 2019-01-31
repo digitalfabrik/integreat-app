@@ -6,38 +6,45 @@ import { CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 
 export type FilesStateType = { [url: string]: string }
 
-type PathType = string
 export type CategoriesStateType = {
-  +models: { [path: PathType]: CategoryModel },
-  // +root: ?PathType,
-  +children: { [path: PathType]: ?Array<PathType> },
-
-  +routeMapping: { [key: string]: PathType },
-
   +lastUpdated: ?string,
   +error: ?string
 }
 
 export const defaultCategoriesState: CategoriesStateType = {
-  models: {},
-  children: {},
-
-  routeMapping: {},
-
   error: undefined,
   lastUpdated: undefined
 }
 
-export type CitiesStateType = {|
-  +models: Array<CityModel>,
+type PathType = string
 
+export type CategoriesSelectionStateType = {
+  +models: { [path: PathType]: CategoryModel },
+  +children: { [path: PathType]: Array<PathType> },
+
+  +routeMapping: { [key: string]: PathType }
+}
+
+export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
+  models: {},
+  children: {},
+  routeMapping: {}
+}
+
+export type CitiesSelectionStateType = {|
+  +models: Array<CityModel>
+|}
+
+export const defaultCitiesSelectionState: CitiesSelectionStateType = {
+  models: []
+}
+
+export type CitiesStateType = {|
   +lastUpdated: ?string,
   +error: ?string
 |}
 
 export const defaultCitiesState: CitiesStateType = {
-  models: [],
-
   error: undefined,
   lastUpdated: undefined
 }
@@ -56,6 +63,9 @@ export type StateType = {|
 
   +cities: CitiesStateType,
   +categories: CategoriesStateType,
+
+  +citiesSelection: CitiesSelectionStateType,
+  +categoriesSelection: CategoriesSelectionStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState

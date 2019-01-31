@@ -30,7 +30,14 @@ import MemoryDatabase from '../endpoint/MemoryDatabase'
 import citiesReducer from '../endpoint/reducers/cititesReducer'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
-import { defaultCategoriesState, defaultCitiesState } from './StateType'
+import {
+  defaultCategoriesSelectionState,
+  defaultCategoriesState,
+  defaultCitiesSelectionState,
+  defaultCitiesState
+} from './StateType'
+import selectCitiesReducer from '../endpoint/reducers/selectCitiesReducer'
+import selectCategoriesReducer from '../endpoint/reducers/selectCategoriesReducer'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
@@ -52,6 +59,9 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
     cities: defaultCitiesState,
     categories: defaultCategoriesState,
 
+    citiesSelection: defaultCitiesSelectionState,
+    categoriesSelection: defaultCategoriesSelectionState,
+
     network: {isConnected: false, actionQueue: []}
   }
 
@@ -61,7 +71,7 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
     key: 'root',
     storage: AsyncStorage,
     stateReconciler: hardSet,
-    blacklist: ['cities', 'categories']
+    blacklist: ['cities', 'categories', 'citiesSelection', 'categoriesSelection']
   }
 
   // Create this reducer only once. It is not pure!
@@ -73,6 +83,9 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
 
     cities: citiesReducer,
     categories: categoriesReducer,
+
+    citiesSelection: selectCitiesReducer(database),
+    categoriesSelection: selectCategoriesReducer(database),
 
     network: reactNativeOfflineReducer
   })

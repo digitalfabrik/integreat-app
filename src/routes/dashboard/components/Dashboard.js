@@ -7,7 +7,7 @@ import type { FilesStateType } from '../../../modules/app/StateType'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import CategoriesStateView from '../../../modules/categories/CategoriesStateView'
+import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -23,7 +23,7 @@ type PropsType = {
 
   language: string,
   cities?: Array<CityModel>,
-  categoriesStateView: ?CategoriesStateView,
+  categoriesStateView: ?CategoriesSelectionStateView,
   files?: FilesStateType
 }
 
