@@ -1,22 +1,25 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
+import type {
+  SelectCategoryActionType, FetchCategoryActionType, FetchCategoryFailedActionType
+} from '../../app/StoreActionType'
+import MemoryDatabase from '../MemoryDatabase'
 import {
   categoriesEndpoint,
   CategoriesMapModel,
   LanguageModel,
   languagesEndpoint
 } from '@integreat-app/integreat-api-client'
-import fetchResourceCache from './fetchResourceCache'
 import request from '../request'
-import findResources from '../findResources'
-import MemoryDatabase from '../MemoryDatabase'
-import DataContext from '../DataContext'
 import type { ResourceCacheType } from '../ResourceCacheType'
+import findResources from '../findResources'
+import fnv from 'fnv-plus'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
-import fnv from 'fnv-plus'
+import DataContext from '../DataContext'
+import fetchResourceCache from './fetchResourceCache'
 import persistCategories from './persistCategories'
 
 function * fetchCategoriesByLanguage (city: string, code: string): Saga<CategoriesMapModel> {
@@ -56,4 +59,28 @@ function * fetchCategories (database: MemoryDatabase, city: string, language: st
   yield call(persistCategories, database)
 }
 
-export default fetchCategories
+function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
+  const {city, language, selectParams} = action.params
+
+  try {
+    if (!database.hasContext() || database.context.cityCode !== city || database.context.languageCode !== language) {
+      yield call(fetchCategories, database, city, language)
+    }
+
+    const insert: SelectCategoryActionType = {
+      type: `SELECT_CATEGORY`,
+      params: {categoriesMap: database.categoriesMap, selectParams}
+    }
+    yield put(insert)
+  } catch (e) {
+    const failed: FetchCategoryFailedActionType = {
+      type: `FETCH_CATEGORY_FAILED`,
+      message: e.message
+    }
+    yield put(failed)
+  }
+}
+
+export default function * (database: MemoryDatabase): Saga<void> {
+  yield takeLatest(`FETCH_CATEGORY`, fetchCategory, database)
+}

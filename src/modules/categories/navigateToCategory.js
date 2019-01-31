@@ -8,7 +8,7 @@ export default (routeName: 'Categories' | 'Dashboard', dispatch: Dispatch<StoreA
   const key = Math.random().toString(36).substr(2, 9)
   navigation.navigate(routeName, {cityCode, key})
   return dispatch({
-    type: 'SELECT_CATEGORY',
-    params: {city: cityCode, language, path, depth: 2, key}
+    type: 'FETCH_CATEGORY',
+    params: {city: cityCode, language, selectParams: {path, depth: 2, key}}
   })
 }

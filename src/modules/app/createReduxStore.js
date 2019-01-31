@@ -21,8 +21,6 @@ import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
-import fetchCities from '../endpoint/sagas/fetchCities'
-import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import currentCityReducer from '../categories/reducers/currentCityReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -31,15 +29,15 @@ import {
   defaultCategoriesSelectionState,
   defaultCitiesSelectionState
 } from './StateType'
-import selectCitiesReducer from '../endpoint/reducers/insertCitiesReducer'
-import selectCategoriesReducer from '../endpoint/reducers/insertCategoriesReducer'
-import selectCategory from '../endpoint/sagas/selectCategory'
-import selectCities from '../endpoint/sagas/selectCities'
+import citiesSelectionReducer from '../endpoint/reducers/citiesSelectionReducer'
+import categoriesSelectionReducer from '../endpoint/reducers/categoriesSelectionReducer'
+import fetchCategory from '../endpoint/sagas/fetchCategory'
+import fetchCities from '../endpoint/sagas/fetchCities'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(selectCities, database),
-    fork(selectCategory, database),
+    fork(fetchCategory, database),
+    fork(fetchCities, database),
     fork(networkEventsListenerSaga, {})
   ])
 }
@@ -75,8 +73,8 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
     currentCity: currentCityReducer,
     darkMode: toggleDarkModeReducer,
 
-    citiesSelection: selectCitiesReducer,
-    categoriesSelection: selectCategoriesReducer,
+    citiesSelection: citiesSelectionReducer,
+    categoriesSelection: categoriesSelectionReducer,
 
     network: reactNativeOfflineReducer
   })
