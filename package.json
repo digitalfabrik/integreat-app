@@ -84,14 +84,14 @@
     "jest-junit": "^6.1.0",
     "shelljs": "^0.8.3",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "entities": "^1.1.2",
     "is-url": "^1.2.4",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "sanitize-html-react": "^1.13.0",
-    "webpack-node-externals": "^1.7.2"
+    "sanitize-html-react": "^1.13.0"
   }
 }
