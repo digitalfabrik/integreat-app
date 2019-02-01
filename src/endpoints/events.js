@@ -7,7 +7,7 @@ import EventModel from '../models/EventModel'
 import normalizePath from '../normalizePath'
 import { decodeHTML } from 'entities'
 import mapAvailableLanguages from '../mapAvailableLanguages'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
@@ -35,8 +35,8 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
         }),
         thumbnail: event.thumbnail,
         date: new DateModel({
-          startDate: moment(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`),
-          endDate: moment(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`),
+          startDate: moment.tz(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`, 'Europe/Berlin'),
+          endDate: moment.tz(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`, 'Europe/Berlin'),
           allDay: allDay
         }),
         location: new LocationModel({
@@ -48,7 +48,7 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
         }),
         excerpt: decodeHTML(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
-        lastUpdate: moment(event.modified_gmt)
+        lastUpdate: moment.tz(event.modified_gmt, 'GMT')
       })
     })
     .sort((event1, event2) => {

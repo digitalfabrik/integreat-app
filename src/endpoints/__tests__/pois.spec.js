@@ -1,7 +1,7 @@
 // @flow
 
 import pois from '../pois'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import PoiModel from '../../models/PoiModel'
 import LocationModel from '../../models/LocationModel'
 
@@ -21,7 +21,7 @@ describe('pois', () => {
       town: 'Augsburg',
       postcode: '86353'
     },
-    modified_gmt: '2017-01-09'
+    modified_gmt: '2017-01-09 15:30:00'
   })
 
   const createPoiModel = id => new PoiModel({
@@ -37,7 +37,7 @@ describe('pois', () => {
       town: 'Augsburg',
       postcode: '86353'
     }),
-    lastUpdate: moment('2017-01-09')
+    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT')
   })
 
   const poi1 = createPoi(2730)

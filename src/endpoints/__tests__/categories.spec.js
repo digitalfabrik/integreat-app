@@ -3,7 +3,7 @@
 import categories from '../categories'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 jest.unmock('../categories')
 
@@ -21,7 +21,7 @@ describe('categories', () => {
         en: {path: '/augsburg/en/anlaufstellen'}
       },
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-      modified_gmt: '2017-01-01'
+      modified_gmt: '2017-01-01 05:10:05'
     },
     {
       id: 3649,
@@ -35,7 +35,7 @@ describe('categories', () => {
         en: {path: '/augsburg/en/welcome'}
       },
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-      modified_gmt: '2017-01-09'
+      modified_gmt: '2017-01-09 15:30:00'
     }]
 
   const farsiCategoryJSON = {
@@ -74,7 +74,7 @@ describe('categories', () => {
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment('2017-01-01')
+    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT')
   }), new CategoryModel({
     id: 3649,
     path: '/augsburg/de/willkommen',
@@ -84,7 +84,7 @@ describe('categories', () => {
     parentPath: '/augsburg/de',
     order: 11,
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-    lastUpdate: moment('2017-01-09')
+    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT')
   }), new CategoryModel({
     id: 0,
     path: '/augsburg/de',

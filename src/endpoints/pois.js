@@ -6,7 +6,7 @@ import type { JsonPoiType } from '../types'
 import PoiModel from '../models/PoiModel'
 import normalizePath from '../normalizePath'
 import mapAvailableLanguages from '../mapAvailableLanguages'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
 
@@ -34,7 +34,7 @@ const endpoint: Endpoint<ParamsType, Array<PoiModel>> = new EndpointBuilder(POIS
           longitude: poi.location.longitude,
           latitude: poi.location.latitude
         }),
-        lastUpdate: moment(poi.modified_gmt)
+        lastUpdate: moment.tz(poi.modified_gmt, 'GMT')
       })
     }))
   .build()
