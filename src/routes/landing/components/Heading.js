@@ -3,7 +3,6 @@
 import React from 'react'
 
 import LocationBig from '../assets/LocationBig.svg'
-import { withNamespaces } from 'react-i18next'
 import styled from 'styled-components'
 
 const Logo = styled.img`
@@ -11,16 +10,6 @@ const Logo = styled.img`
   height: 70px;
   margin: 0 auto;
 `
-type PropsType = {}
+const Heading = () => <Logo src={LocationBig} />
 
-class Heading extends React.PureComponent<PropsType> {
-  render () {
-    return (
-      <div>
-        <Logo src={LocationBig} />
-      </div>
-    )
-  }
-}
-
-export default withNamespaces('landing')(Heading)
+export default Heading
