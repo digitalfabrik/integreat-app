@@ -2,7 +2,7 @@
 
 exports[`FilterableCitySelector should render 1`] = `
 <FilterableCitySelector__Container>
-  <Translate(Heading) />
+  <Heading />
   <ScrollingSearchBox
     filterText=""
     onFilterTextChange={[Function]}
@@ -57,7 +57,7 @@ exports[`FilterableCitySelector should render 1`] = `
 
 exports[`FilterableCitySelector should update filter text 1`] = `
 <FilterableCitySelector__Container>
-  <Translate(Heading) />
+  <Heading />
   <ScrollingSearchBox
     filterText="City"
     onFilterTextChange={[Function]}

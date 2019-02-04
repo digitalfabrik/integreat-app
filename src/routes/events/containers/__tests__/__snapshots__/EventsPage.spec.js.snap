@@ -5,7 +5,7 @@ exports[`EventsPage should match snapshot and render EventDetail 1`] = `
   <Page
     content="content"
     language="en"
-    lastUpdate={"2016-01-07T08:36:24.000Z"}
+    lastUpdate={"2016-01-07T09:36:24.000Z"}
     onInternalLinkClick={[Function]}
     thumbnail="thumbnail"
     title="first Event"
@@ -43,7 +43,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           },
           "_excerpt": "excerpt",
           "_id": 1,
-          "_lastUpdate": "2016-01-07T08:36:24.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
@@ -68,7 +68,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           },
           "_excerpt": "excerpt",
           "_id": 2,
-          "_lastUpdate": "2016-01-07T08:36:24.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
@@ -93,7 +93,7 @@ exports[`EventsPage should match snapshot and render EventList 1`] = `
           },
           "_excerpt": "excerpt",
           "_id": 3,
-          "_lastUpdate": "2016-01-07T08:36:24.000Z",
+          "_lastUpdate": "2016-01-07T09:36:24.000Z",
           "_location": LocationModel {
             "_address": "address",
             "_latitude": undefined,
