@@ -19,8 +19,9 @@ const Wrapper = styled.View`
 
 type PropsType = {
   theme: ThemeType,
+  city: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (language: string) => void,
+  changeLanguage: (city: string, language: string) => void,
   closeModal: () => void
 }
 
@@ -28,7 +29,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
     this.props.closeModal()
     InteractionManager.runAfterInteractions(() => {
-      this.props.changeLanguage(model.code)
+      this.props.changeLanguage(this.props.city, model.code)
     })
   }
 
