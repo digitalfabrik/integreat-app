@@ -9,7 +9,7 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
-import navigateToCategory from '../../../modules/categories/navigateToCategory'
+import navigateToCategory from '../../../modules/app/navigateToCategory'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const cities = state.citiesSelection.models

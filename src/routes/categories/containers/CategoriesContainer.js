@@ -12,7 +12,7 @@ import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabas
 import { type Dispatch } from 'redux'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import navigateToCategory from '../../../modules/categories/navigateToCategory'
+import navigateToCategory from '../../../modules/app/navigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({

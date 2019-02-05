@@ -14,7 +14,7 @@ import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabas
 import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import navigateToCategory from '../../../modules/categories/navigateToCategory'
+import navigateToCategory from '../../../modules/app/navigateToCategory'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
