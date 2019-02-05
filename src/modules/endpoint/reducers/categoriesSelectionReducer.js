@@ -48,10 +48,16 @@ const selectCategory = (
   return {
     currentCity: city,
     currentLanguage: language,
-    depth,
-    models: {...state.models, ...models},
-    children: {...state.children, ...children},
-    routeMapping: {...state.routeMapping, [key]: root.path}
+
+    routeMapping: {
+      ...state.routeMapping,
+      [key]: {
+        root: root.path,
+        models: models,
+        children: children,
+        depth: depth
+      }
+    }
   }
 }
 
@@ -63,26 +69,39 @@ export default (
       return selectCategory(state, action)
     case 'CLEAR_CATEGORY':
       const {key} = action.params
-      const categoryPath = state.routeMapping[key]
-
-      const childrenPaths = state.children[categoryPath]
-      if (!childrenPaths) {
-        throw new Error(`Could not find children for category: ${categoryPath}`)
-      }
-
-      // fixme: This does not work for arbitrary depths
-      childrenPaths.forEach(childPath => {
-        const childrenPaths = state.children[childPath]
-        childrenPaths.forEach(childPath => {
-          delete state.models[childPath]
-        })
-        delete state.children[childPath]
-        delete state.models[childPath]
-      })
-
-      delete state.children[categoryPath]
-      delete state.models[categoryPath]
       delete state.routeMapping[key]
+      // const depthsStack = state.depthsStack
+      // const depth = depthsStack.pop()
+
+      // if (!childrenPaths) {
+      //   throw new Error(`Could not find children for category: ${categoryPath}`)
+      // }
+
+      // const invalidChildren = [categoryPath]
+      //
+      // times(depth, () => {
+      //   invalidChildren.forEach(children => {
+      //     const childrenPaths = state.children[categoryPath]
+      //
+      //     // delete state.models[children]
+      //     invalidChildren.push(...childrenPaths)
+      //   })
+      // })
+      //
+      // console.dir(invalidChildren)
+
+      // childrenPaths.forEach(childPath => {
+      //   const childrenPaths = state.children[childPath]
+      //   childrenPaths.forEach(childPath => {
+      //     delete state.models[childPath]
+      //   })
+      //   delete state.children[childPath]
+      //   delete state.models[childPath]
+      // })
+      //
+      // delete state.children[categoryPath]
+      // delete state.models[categoryPath]
+      // delete state.routeMapping[key]
 
       return {...state}
     default:

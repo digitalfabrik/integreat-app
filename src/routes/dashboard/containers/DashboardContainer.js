@@ -40,9 +40,9 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const database: MemoryDatabase = ownProps.database
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
-  const targetPath: string = state.categoriesSelection.routeMapping[key]
+  const targetRoute = state.categoriesSelection.routeMapping[key]
 
-  if (!targetPath) {
+  if (!targetRoute) {
     return {
       cityCode: targetCityCode,
       language: language,
@@ -50,9 +50,15 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const models = state.categoriesSelection.models
-  const children = state.categoriesSelection.children
-  const stateView = new CategoriesSelectionStateView(targetPath, models, children)
+  // const errorMessage = state.cities.error || state.categories.error
+  //
+  // if (errorMessage) {
+  //   throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
+  // }
+
+  const models = targetRoute.models
+  const children = targetRoute.children
+  const stateView = new CategoriesSelectionStateView(targetRoute.root, models, children)
 
   if (!stateView.root()) {
     return {
