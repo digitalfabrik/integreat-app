@@ -13,20 +13,20 @@ export type CurrentCityStateType = ?string
 type PathType = string
 
 export type CategoriesSelectionStateType = {
-  +depth: number,
-  +models: { [path: PathType]: CategoryModel },
-  +children: { [path: PathType]: Array<PathType> },
-
-  +routeMapping: { [key: string]: PathType },
+  +routeMapping: {
+    [key: string]: {
+      +root: string,
+      +depth: number,
+      +models: { [path: PathType]: CategoryModel },
+      +children: { [path: PathType]: Array<PathType> }
+    }
+  },
 
   +currentLanguage: LanguageStateType,
   +currentCity: CurrentCityStateType
 }
 
 export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
-  depth: 0,
-  models: {},
-  children: {},
   routeMapping: {},
 
   currentLanguage: 'en',
