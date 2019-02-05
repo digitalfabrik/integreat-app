@@ -13,7 +13,7 @@ import { keyBy } from 'lodash/collection'
 const selectCategory = (
   state: CategoriesSelectionStateType, action: SelectCategoryActionType
 ) => {
-  const {categoriesMap, selectParams: {path, depth, key}} = action.params
+  const {categoriesMap, selectParams: {path, depth, key}, city, language} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -46,6 +46,9 @@ const selectCategory = (
   })
 
   return {
+    currentCity: city,
+    currentLanguage: language,
+    depth,
     models: {...state.models, ...models},
     children: {...state.children, ...children},
     routeMapping: {...state.routeMapping, [key]: root.path}
@@ -71,13 +74,14 @@ export default (
       childrenPaths.forEach(childPath => {
         const childrenPaths = state.children[childPath]
         childrenPaths.forEach(childPath => {
-          state.models[childPath] = undefined
+          delete state.models[childPath]
         })
         delete state.children[childPath]
         delete state.models[childPath]
       })
 
       delete state.children[categoryPath]
+      delete state.models[categoryPath]
       delete state.routeMapping[key]
 
       return {...state}

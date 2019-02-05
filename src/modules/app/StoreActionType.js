@@ -33,7 +33,9 @@ export type FetchCategoryFailedActionType = {|
 export type SelectCategoryActionType = {|
   type: 'SELECT_CATEGORY', params: {
     categoriesMap: CategoriesMapModel,
-    selectParams: SelectParamsType
+    selectParams: SelectParamsType,
+    city: string,
+    language: string
   }
 |}
 export type CategoriesActionType =

@@ -5,7 +5,7 @@ import { applyMiddleware, createStore } from 'redux'
 import { createLogger } from 'redux-logger'
 import { AsyncStorage } from 'react-native'
 
-import { languageReducer, uiDirectionReducer } from 'modules/i18n/reducers'
+import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import {
   checkInternetConnection,
@@ -22,7 +22,6 @@ import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
-import currentCityReducer from '../categories/reducers/currentCityReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import MemoryDatabase from '../endpoint/MemoryDatabase'
 import {
@@ -42,13 +41,13 @@ function * rootSaga (database: MemoryDatabase): Saga<void> {
   ])
 }
 
-const createReduxStore = (database: MemoryDatabase, callback: () => void): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+const createReduxStore = (
+  database: MemoryDatabase, callback: () => void
+): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {
     uiDirection: 'ltr',
-    language: 'en',
-    currentCity: null,
     darkMode: false,
 
     citiesSelection: defaultCitiesSelectionState,
@@ -69,8 +68,6 @@ const createReduxStore = (database: MemoryDatabase, callback: () => void): { sto
   // Create this reducer only once. It is not pure!
   const persitedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
-    language: languageReducer,
-    currentCity: currentCityReducer,
     darkMode: toggleDarkModeReducer,
 
     citiesSelection: citiesSelectionReducer,
