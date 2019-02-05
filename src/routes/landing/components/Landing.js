@@ -25,8 +25,7 @@ type PropType = {
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   t: TFunction,
   theme: ThemeType,
-  fetchCities: (language: string) => void,
-  setCurrentCity: (city: string) => void
+  fetchCities: (language: string) => void
 }
 
 /**
@@ -40,7 +39,6 @@ class LandingContainer extends React.Component<PropType> {
   }
 
   navigateToDashboard = (cityModel: CityModel) => {
-    this.props.setCurrentCity(cityModel.code)
     const language = this.props.language
     this.props.navigateToCategory(cityModel.code, language, `/${cityModel.code}/${language}`)
   }

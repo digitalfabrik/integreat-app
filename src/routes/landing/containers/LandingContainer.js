@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import setCurrentCity from '../../../modules/categories/actions/setCurrentCity'
 import Landing from '../components/Landing'
 import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 import navigateToCategory from '../../../modules/categories/navigateToCategory'
@@ -15,7 +14,7 @@ import navigateToCategory from '../../../modules/categories/navigateToCategory'
 const mapStateToProps = (state: StateType) => {
   const cities = state.citiesSelection.models
   return {
-    language: state.language,
+    language: state.categoriesSelection.currentLanguage,
     cities: cities.length === 0 ? undefined : cities
   }
 }
@@ -26,8 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
       type: 'FETCH_CITIES',
       params: {}
     }),
-    navigateToCategory: navigateToCategory('Dashboard', dispatch, ownProps.navigation),
-    setCurrentCity: (city: string) => dispatch(setCurrentCity(city))
+    navigateToCategory: navigateToCategory('Dashboard', dispatch, ownProps.navigation)
   }
 }
 

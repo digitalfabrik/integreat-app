@@ -69,7 +69,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
 
     const insert: SelectCategoryActionType = {
       type: `SELECT_CATEGORY`,
-      params: {categoriesMap: database.categoriesMap, selectParams}
+      params: {categoriesMap: database.categoriesMap, selectParams, city, language}
     }
     yield put(insert)
   } catch (e) {

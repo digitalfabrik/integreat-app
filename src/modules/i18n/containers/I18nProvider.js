@@ -11,6 +11,7 @@ import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import LanguageDetector from '../LanguageDetector'
 import type { StoreActionType } from '../../app/StoreActionType'
+import type { StateType } from '../../app/StateType'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -24,12 +25,10 @@ type PropsType = {
   setUiDirection: Function
 }
 
-type StateType = {
+export class I18nProvider extends React.Component<PropsType, {
   language: string,
   fonts: FontMapType
-}
-
-export class I18nProvider extends React.Component<PropsType, StateType> {
+}> {
   i18n: i18n
 
   constructor () {
@@ -120,7 +119,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   setUiDirection: action => dispatch(setUiDirection(action))
 })
 
-const mapStateToProps = state => ({language: state.language})
+const mapStateToProps = (state: StateType) => ({language: state.categoriesSelection.currentLanguage})
 
 // $FlowFixMe connect()
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)
