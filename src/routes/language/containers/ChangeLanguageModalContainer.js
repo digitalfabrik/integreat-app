@@ -10,7 +10,7 @@ import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabas
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
-    languages: [], // fixme
+    languages: state.categoriesSelection.languages,
     closeModal: () => ownProps.navigation.goBack()
   }
 }

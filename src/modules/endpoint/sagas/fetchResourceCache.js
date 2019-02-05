@@ -35,7 +35,7 @@ export default function * fetchResourceCache (city: string, language: string, ur
     yield put(success)
   } catch (e) {
     const failed: ResourcesDownloadFailedActionType = {
-      type: `RESOURCES_DOWNLOAD_FAILED`, city, language, message: e.message
+      type: `RESOURCES_DOWNLOAD_FAILED`, city, language, message: `Error in fetchResourceCache: ${e.message}`
     }
     yield put(failed)
     throw e
