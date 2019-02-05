@@ -19,9 +19,6 @@ export type CitiesActionType = SelectCitiesActionType | FetchCitiesActionType | 
 export type SelectParamsType = {
   path: string, depth: number, key: string
 }
-export type ClearCategoryActionType = {|
-  type: 'CLEAR_CATEGORY', params: {| key: string |}
-|}
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string, selectParams: SelectParamsType
@@ -38,11 +35,18 @@ export type SelectCategoryActionType = {|
     language: string
   }
 |}
+export type ClearCategoryActionType = {|
+  type: 'CLEAR_CATEGORY', params: {| key: string |}
+|}
+export type SwitchCategorySelectionLanguageActionType = {|
+  type: 'SWITCH_CATEGORY_SELECTION_LANGUAGE', params: {| newLanguage: string |}
+|}
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
   | SelectCategoryActionType
   | FetchCategoryFailedActionType
+  | SwitchCategorySelectionLanguageActionType
 
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
