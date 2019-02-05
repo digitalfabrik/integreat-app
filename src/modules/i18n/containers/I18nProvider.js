@@ -74,8 +74,18 @@ export class I18nProvider extends React.Component<PropsType, {
     )
   }
 
+  getPredeterminedLanguage (knownLanguage: string): string {
+    if (knownLanguage) {
+      return knownLanguage
+    } else if (this.i18n.languages && this.i18n.languages.length > 0) {
+      return this.i18n.languages[0]
+    } else {
+      throw new Error('Failed to set language because it is currently unknown and even i18next does not know it!')
+    }
+  }
+
   setLanguage (language: string) {
-    const targetLanguage = language || this.i18n.languages[0] // fixme what is 0?
+    const targetLanguage = this.getPredeterminedLanguage(language)
 
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})

@@ -25,7 +25,7 @@ type PropType = {
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   t: TFunction,
   theme: ThemeType,
-  fetchCities: (language: string) => void
+  fetchCities: () => void
 }
 
 /**
@@ -34,7 +34,7 @@ type PropType = {
 class LandingContainer extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
-      this.props.fetchCities(this.props.language)
+      this.props.fetchCities()
     }
   }
 

@@ -6,20 +6,24 @@ import { CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 
 export type FilesStateType = { [url: string]: string }
 
-export type LanguageStateType = string
+export type LanguageStateType = string | null
 
-export type CurrentCityStateType = ?string
+export type CurrentCityStateType = string | null
 
 type PathType = string
 
+type RouteStateType = {
+  +root: string,
+  +depth: number,
+  +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of RouteStateType
+                                                   (e.g. CategoriesSelectionStateType) to save memory
+                                                   in the state. This would be an optimization! */
+  +children: { [path: PathType]: Array<PathType> }
+}
+
 export type CategoriesSelectionStateType = {
   +routeMapping: {
-    [key: string]: {
-      +root: string,
-      +depth: number,
-      +models: { [path: PathType]: CategoryModel },
-      +children: { [path: PathType]: Array<PathType> }
-    }
+    [key: string]: RouteStateType
   },
 
   +currentLanguage: LanguageStateType,
@@ -29,7 +33,7 @@ export type CategoriesSelectionStateType = {
 export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
   routeMapping: {},
 
-  currentLanguage: 'en',
+  currentLanguage: null,
   currentCity: null
 }
 

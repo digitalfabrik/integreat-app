@@ -21,15 +21,15 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language = state.categoriesSelection.currentLanguage
-
   const database: MemoryDatabase = ownProps.database
+
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
   const targetRoute = state.categoriesSelection.routeMapping[key]
+  const language = state.categoriesSelection.currentLanguage
 
-  if (!targetRoute) {
+  if (!targetRoute || !language) {
     return {
       cityCode: targetCityCode,
       language: language,
