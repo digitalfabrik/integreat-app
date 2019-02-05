@@ -1,7 +1,7 @@
 // @flow
 
 import { offlineActionTypes } from 'react-native-offline'
-import { CityModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CityModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
 
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
@@ -30,6 +30,7 @@ export type FetchCategoryFailedActionType = {|
 export type SelectCategoryActionType = {|
   type: 'SELECT_CATEGORY', params: {
     categoriesMap: CategoriesMapModel,
+    languages: Array<LanguageModel>,
     selectParams: SelectParamsType,
     city: string,
     language: string

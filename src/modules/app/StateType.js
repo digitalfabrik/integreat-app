@@ -2,7 +2,7 @@
 
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
-import { CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 
 export type FilesStateType = { [url: string]: string }
 
@@ -26,6 +26,7 @@ export type CategoriesSelectionStateType = {
     [key: string]: RouteStateType
   },
 
+  +languages: Array<LanguageModel>,
   +currentLanguage: LanguageStateType,
   +currentCity: CurrentCityStateType
 }
@@ -33,6 +34,7 @@ export type CategoriesSelectionStateType = {
 export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
   routeMapping: {},
 
+  languages: [],
   currentLanguage: null,
   currentCity: null
 }

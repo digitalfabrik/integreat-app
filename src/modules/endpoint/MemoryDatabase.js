@@ -3,6 +3,7 @@
 import { CategoriesMapModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DataContext from './DataContext'
 import type { ResourceCacheType } from './ResourceCacheType'
+import List from '../common/components/List'
 
 class MemoryDatabase {
   dataDirectory: string
@@ -10,7 +11,7 @@ class MemoryDatabase {
 
   _cities: Array<CityModel>
   _categoriesMap: CategoriesMapModel
-  _languages: Set<LanguageModel>
+  _languages: Array<LanguageModel>
   _resourceCache: ResourceCacheType
 
   constructor (dataDirectory: string) {
@@ -28,7 +29,7 @@ class MemoryDatabase {
     this.context = context
     this._resourceCache = resourceCache
     this._categoriesMap = categoriesMap
-    this._languages = languages
+    this._languages = Array.from(languages)
   }
 
   hasContext (): boolean {
@@ -43,7 +44,7 @@ class MemoryDatabase {
     return this._categoriesMap
   }
 
-  get languages (): Set<LanguageModel> {
+  get languages (): Array<LanguageModel> {
     return this._languages
   }
 

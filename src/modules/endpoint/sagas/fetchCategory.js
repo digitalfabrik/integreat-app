@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, fork } from 'redux-saga/effects'
 import type {
   SelectCategoryActionType, FetchCategoryActionType, FetchCategoryFailedActionType
 } from '../../app/StoreActionType'
@@ -55,8 +55,8 @@ function * fetchCategories (database: MemoryDatabase, city: string, language: st
 
   database.changeContext(new DataContext(city, language), categoriesMap, languages, urls)
 
+  yield fork(persistCategories, database)
   yield call(fetchResourceCache, city, language, urls)
-  yield call(persistCategories, database)
 }
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
@@ -69,13 +69,19 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
 
     const insert: SelectCategoryActionType = {
       type: `SELECT_CATEGORY`,
-      params: {categoriesMap: database.categoriesMap, selectParams, city, language}
+      params: {
+        categoriesMap: database.categoriesMap,
+        languages: database.languages,
+        selectParams,
+        city,
+        language
+      }
     }
     yield put(insert)
   } catch (e) {
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
-      message: e.message
+      message: `Error in fetchCategories: ${e.message}`
     }
     yield put(failed)
   }

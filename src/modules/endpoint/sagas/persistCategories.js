@@ -6,7 +6,6 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
 import { call } from 'redux-saga/effects'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
-import performanceNow from '../../app/performanceNow'
 
 const strMapToObj = strMap => {
   const obj = Object.create(null)

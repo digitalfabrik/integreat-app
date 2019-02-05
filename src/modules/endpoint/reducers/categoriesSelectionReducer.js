@@ -13,7 +13,7 @@ import { keyBy } from 'lodash/collection'
 const selectCategory = (
   state: CategoriesSelectionStateType, action: SelectCategoryActionType
 ) => {
-  const {categoriesMap, selectParams: {path, depth, key}, city, language} = action.params
+  const {categoriesMap, languages, selectParams: {path, depth, key}, city, language} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -48,6 +48,7 @@ const selectCategory = (
   return {
     currentCity: city,
     currentLanguage: language,
+    languages,
 
     routeMapping: {
       ...state.routeMapping,
@@ -70,40 +71,7 @@ export default (
     case 'CLEAR_CATEGORY':
       const {key} = action.params
       delete state.routeMapping[key]
-      // const depthsStack = state.depthsStack
-      // const depth = depthsStack.pop()
-
-      // if (!childrenPaths) {
-      //   throw new Error(`Could not find children for category: ${categoryPath}`)
-      // }
-
-      // const invalidChildren = [categoryPath]
-      //
-      // times(depth, () => {
-      //   invalidChildren.forEach(children => {
-      //     const childrenPaths = state.children[categoryPath]
-      //
-      //     // delete state.models[children]
-      //     invalidChildren.push(...childrenPaths)
-      //   })
-      // })
-      //
-      // console.dir(invalidChildren)
-
-      // childrenPaths.forEach(childPath => {
-      //   const childrenPaths = state.children[childPath]
-      //   childrenPaths.forEach(childPath => {
-      //     delete state.models[childPath]
-      //   })
-      //   delete state.children[childPath]
-      //   delete state.models[childPath]
-      // })
-      //
-      // delete state.children[categoryPath]
-      // delete state.models[categoryPath]
-      // delete state.routeMapping[key]
-
-      return {...state}
+      return state
     default:
       return state
   }
