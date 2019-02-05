@@ -2,7 +2,7 @@
 
 import type {
   CategoriesActionType,
-  SelectCategoryActionType
+  SelectCategoryActionType, SwitchCategorySelectionLanguageActionType
 } from '../../app/StoreActionType'
 import type { CategoriesSelectionStateType } from '../../app/StateType'
 import { defaultCategoriesSelectionState } from '../../app/StateType'
@@ -62,12 +62,21 @@ const selectCategory = (
   }
 }
 
+const switchLanguage = (
+  state: CategoriesSelectionStateType, action: SwitchCategorySelectionLanguageActionType
+) => {
+  // fixme
+  return state
+}
+
 export default (
   state: CategoriesSelectionStateType = defaultCategoriesSelectionState, action: CategoriesActionType
 ): CategoriesSelectionStateType => {
   switch (action.type) {
     case 'SELECT_CATEGORY':
       return selectCategory(state, action)
+    case 'SWITCH_CATEGORY_SELECTION_LANGUAGE':
+      return switchLanguage(state, action)
     case 'CLEAR_CATEGORY':
       const {key} = action.params
       delete state.routeMapping[key]

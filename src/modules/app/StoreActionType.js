@@ -21,7 +21,7 @@ export type SelectParamsType = {
 }
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
-    city: string, language: string, selectParams: SelectParamsType
+    city: string, language: string, selectParams?: SelectParamsType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -29,8 +29,7 @@ export type FetchCategoryFailedActionType = {|
 |}
 export type SelectCategoryActionType = {|
   type: 'SELECT_CATEGORY', params: {
-    categoriesMap: CategoriesMapModel,
-    languages: Array<LanguageModel>,
+    categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
     selectParams: SelectParamsType,
     city: string,
     language: string
@@ -40,7 +39,10 @@ export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
 export type SwitchCategorySelectionLanguageActionType = {|
-  type: 'SWITCH_CATEGORY_SELECTION_LANGUAGE', params: {| newLanguage: string |}
+  type: 'SWITCH_CATEGORY_SELECTION_LANGUAGE', params: {|
+    categoriesMap: CategoriesMapModel,
+    newLanguage: string
+  |}
 |}
 export type CategoriesActionType =
   ClearCategoryActionType

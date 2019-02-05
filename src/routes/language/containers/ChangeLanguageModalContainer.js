@@ -10,6 +10,7 @@ import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabas
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
+    city: state.categoriesSelection.currentCity,
     languages: state.categoriesSelection.languages,
     closeModal: () => ownProps.navigation.goBack()
   }
@@ -17,7 +18,12 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
-    changeLanguage: (language: string) => {}
+    changeLanguage: (city: string, language: string) => dispatch({
+      type: 'FETCH_CATEGORY',
+      params: {
+        city, language, selectParams: undefined
+      }
+    })
   }
 }
 

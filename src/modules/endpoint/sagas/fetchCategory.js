@@ -1,9 +1,12 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, takeLatest, fork } from 'redux-saga/effects'
+import { call, put, takeLatest, fork, select } from 'redux-saga/effects'
 import type {
-  SelectCategoryActionType, FetchCategoryActionType, FetchCategoryFailedActionType
+  SelectCategoryActionType,
+  FetchCategoryActionType,
+  FetchCategoryFailedActionType,
+  SwitchCategorySelectionLanguageActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import {
@@ -21,6 +24,7 @@ import getExtension from '../getExtension'
 import DataContext from '../DataContext'
 import fetchResourceCache from './fetchResourceCache'
 import persistCategories from './persistCategories'
+import type { StateType } from '../../app/StateType'
 
 function * fetchCategoriesByLanguage (city: string, code: string): Saga<CategoriesMapModel> {
   const params = {
@@ -63,21 +67,36 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
   const {city, language, selectParams} = action.params
 
   try {
-    if (!database.hasContext() || database.context.cityCode !== city || database.context.languageCode !== language) {
-      yield call(fetchCategories, database, city, language)
-    }
+    const currentLanguage = yield select((state: StateType) => state.categoriesSelection.currentLanguage)
 
-    const insert: SelectCategoryActionType = {
-      type: `SELECT_CATEGORY`,
-      params: {
-        categoriesMap: database.categoriesMap,
-        languages: database.languages,
-        selectParams,
-        city,
-        language
+    if (!selectParams) {
+      yield call(fetchCategories, database, city, language)
+      const select: SwitchCategorySelectionLanguageActionType = {
+        type: `SWITCH_CATEGORY_SELECTION_LANGUAGE`,
+        params: {
+          categoriesMap: database.categoriesMap,
+          newLanguage: language
+        }
       }
+      yield put(select)
+    } else {
+      if (!!currentLanguage && currentLanguage !== language) {
+        throw new Error('If you supply a path you should not change the language!')
+      }
+
+      yield call(fetchCategories, database, city, language)
+      const insert: SelectCategoryActionType = {
+        type: `SELECT_CATEGORY`,
+        params: {
+          categoriesMap: database.categoriesMap,
+          languages: database.languages,
+          selectParams,
+          city,
+          language
+        }
+      }
+      yield put(insert)
     }
-    yield put(insert)
   } catch (e) {
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
