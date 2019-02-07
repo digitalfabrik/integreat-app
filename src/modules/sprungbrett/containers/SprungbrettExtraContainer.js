@@ -7,7 +7,7 @@ import connect from 'react-redux/es/connect/connect'
 import type { StateType } from '../../app/StateType'
 import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 
-const mapStateTypeToProps = (state: StateType, ownProps) => {
+const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
 
   // MockData:
@@ -133,6 +133,6 @@ const mapStateTypeToProps = (state: StateType, ownProps) => {
 }
 
 export default compose(
-  connect(mapStateTypeToProps),
+  connect(mapStateToProps),
   translate('sprungbrett')
 )(SprungbrettExtra)
