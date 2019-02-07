@@ -22,7 +22,6 @@ import EventsContainer from '../../events/containers/EventsContainer'
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-
 const createNavigationScreen = (component, header = null) => {
   return {
     screen: component,

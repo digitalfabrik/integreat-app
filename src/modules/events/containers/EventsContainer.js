@@ -3,15 +3,15 @@
 import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
-import { Events } from './Events'
+import Events from './Events'
 import { translate } from 'react-i18next'
 import { CityModel, DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
-import { withTheme } from 'styled-components'
 import moment from 'moment'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = state.language
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
+  const path: string = ownProps.navigation.getParam('path')
 
   const navigateToEvent = (path: ?string = null) => {
     if (ownProps.navigation.push) {
@@ -19,8 +19,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
       ownProps.navigation.push('Events', params)
     }
   }
-
-  const fileCache = state.fileCache[targetCity]
+  const fileCache = state.fileCache[targetCity.code]
 
   if (!fileCache || !fileCache.ready || fileCache.error) {
     throw new Error('There are no files in state!')
@@ -129,13 +128,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     city: targetCity,
     events: events,
+    path: path,
     navigateToEvent: navigateToEvent,
     files: fileCache.files
   }
 }
 
 export default compose(
-  withTheme,
-  connect(mapStateToProps),
-  translate('events')
+  translate('events'),
+  connect(mapStateToProps)
 )(Events)

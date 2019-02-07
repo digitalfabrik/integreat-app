@@ -17,7 +17,6 @@ const Thumbnail = styled(FastImage)`
   height: 100px;
   flex-shrink: 0;
   padding: 15px 5px;
-  object-fit: contain;
 `
 
 const Description = styled.View`
