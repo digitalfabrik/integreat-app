@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { View, Text } from 'react-native'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
@@ -11,7 +12,8 @@ const EXCERPT_LENGTH = 70
 
 type PropsType = {|
   event: EventModel,
-  language: string
+  language: string,
+  navigateToEvent: () => void
 |}
 
 class EventListItem extends React.PureComponent<PropsType> {
@@ -29,16 +31,16 @@ class EventListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {event, language} = this.props
+    const {event, language, navigateToEvent} = this.props
     return (
       <ListItem thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
                 title={event.title}
-                path={event.path}>
-        <div>
-          <div>{event.date.toFormattedString(language)}</div>
-          <div>{event.location.location}</div>
-        </div>
-        <div>{EventListItem.formatExcerpt(event.excerpt)}</div>
+                navigateTo={navigateToEvent}>
+        <View>
+          <Text>{event.date.toFormattedString(language)}</Text>
+          <Text>{event.location.location}</Text>
+        </View>
+        <Text>{EventListItem.formatExcerpt(event.excerpt)}</Text>
       </ListItem>
     )
   }

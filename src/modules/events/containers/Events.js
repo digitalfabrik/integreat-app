@@ -18,7 +18,7 @@ type PropsType = {|
   city: string,
   language: string,
   t: TFunction,
-  path: string,
+  path?: string,
   theme: ThemeType,
   navigateToEvent: string => void,
   files: { [url: string]: string }
@@ -28,8 +28,12 @@ type PropsType = {|
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 export default class Events extends React.Component<PropsType> {
+  navigateToEvent = (path: string) => () => {
+    this.props.navigateToEvent(path)
+  }
+
   renderEventListItem = (language: string) => (event: EventModel) =>
-    <EventListItem event={event} language={language} key={event.path} />
+    <EventListItem event={event} language={language} navigateToEvent={this.navigateToEvent(this.props.path)} />
 
   render () {
     const {events, path, city, language, files, theme, t} = this.props
@@ -48,7 +52,7 @@ export default class Events extends React.Component<PropsType> {
               <PageDetail identifier={t('location')} information={event.location.location} />
             </>
           </Page>
-          </>
+        </>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
         return <Failure error={error} />
