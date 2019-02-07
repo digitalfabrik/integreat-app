@@ -15,7 +15,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   const navigateToEvent = (path: ?string = null) => {
     if (ownProps.navigation.push) {
-      const params = {city: targetCity, path: path}
+      const params = {cityModel: targetCity, path: path}
       ownProps.navigation.push('Events', params)
     }
   }
@@ -100,7 +100,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
       path: event.path,
       title: event.title,
       // to complicated to map everything for testing
-      content: 'Test Content',
+      content: event.content,
       thumbnail: event.thumbnail,
       date: new DateModel({
         startDate: moment(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`),
