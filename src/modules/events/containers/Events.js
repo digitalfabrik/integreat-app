@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-
+import { ScrollView } from 'react-native'
 import type { TFunction } from 'react-i18next'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
@@ -33,7 +33,10 @@ export default class Events extends React.Component<PropsType> {
   }
 
   renderEventListItem = (language: string) => (event: EventModel) =>
-    <EventListItem event={event} language={language} navigateToEvent={this.navigateToEvent(this.props.path)} />
+    <EventListItem key={event.path}
+                   event={event}
+                   language={language}
+                   navigateToEvent={this.navigateToEvent(event.path)} />
 
   render () {
     const {events, path, city, language, files, theme, t} = this.props
@@ -41,7 +44,7 @@ export default class Events extends React.Component<PropsType> {
       const event = events.find(_event => _event.path === path)
 
       if (event) {
-        return <>
+        return <ScrollView>
           <Page content={event.content}
                 title={event.title}
                 language={language}
@@ -52,7 +55,7 @@ export default class Events extends React.Component<PropsType> {
               <PageDetail identifier={t('location')} information={event.location.location} />
             </>
           </Page>
-        </>
+        </ScrollView>
       } else {
         const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
         return <Failure error={error} />
