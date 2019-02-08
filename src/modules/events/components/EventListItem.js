@@ -25,7 +25,7 @@ class EventListItem extends React.PureComponent<PropsType> {
    */
   getEventPlaceholder (id: number): string {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-    return placeholders[id % placeholders.length]
+    return `${placeholders[id % placeholders.length]}`
   }
 
   render () {

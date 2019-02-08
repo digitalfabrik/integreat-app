@@ -41,7 +41,7 @@ export default class Events extends React.Component<PropsType> {
   render () {
     const {events, path, city, language, files, theme, t} = this.props
     if (path) {
-      const event = events.find(_event => _event.path === path)
+      const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
         return <ScrollView>

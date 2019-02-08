@@ -93,7 +93,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
       },
       hash: 'de4a74220308e7abca3d5825d5aa4ce0'
     }
-  ].map((event: JsonEventType) => {
+    // eslint-disable-next-line flowtype/no-weak-types
+  ].map((event: any) => {
     const allDay = event.event.all_day
     return new EventModel({
       id: event.id,
