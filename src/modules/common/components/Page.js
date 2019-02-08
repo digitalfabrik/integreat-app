@@ -11,6 +11,7 @@ import type {
 } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
+import Caption from './Caption'
 
 const HEADER_HEIGHT = 60
 
@@ -55,14 +56,16 @@ class Page extends React.Component<PropType> {
   }
 
   render () {
+    const {title, children, theme, content, files} = this.props
     return (
       <>
-        {this.props.children}
-        <WebContainer theme={this.props.theme}>
+        <Caption title={title} />
+        {children}
+        <WebContainer theme={theme}>
           <WebView
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(this.props.content, this.props.files)
+              html: renderHtml(content, files)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html

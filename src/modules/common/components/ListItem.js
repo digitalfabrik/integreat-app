@@ -4,6 +4,12 @@ import * as React from 'react'
 import styled from 'styled-components'
 import FastImage from 'react-native-fast-image'
 
+const ListItemView = styled.View`
+  flex: 1;
+  flex-direction: row;
+  padding: 15px 5px 0;
+`
+
 const StyledTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   flex-direction: column;
@@ -13,19 +19,18 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
 `
 
 const Thumbnail = styled(FastImage)`
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   flex-shrink: 0;
-  padding: 15px 5px;
 `
 
 const Description = styled.View`
-  display: flex;
+  flex: 1;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-direction: column;
   flex-grow: 1;
-  padding: 15px 10px 0;
+  padding: 0 10px;
 `
 
 const Title = styled.Text`
@@ -40,24 +45,19 @@ type PropsType = {|
 |}
 
 class ListItem extends React.PureComponent<PropsType> {
-  renderContent (): React.Node {
-    const {title, thumbnail, children} = this.props
-
-    return (
-      <>
-        {thumbnail && <Thumbnail src={{uri: thumbnail}} />}
-        <Description>
-          <Title>{title}</Title>
-          {children}
-        </Description>
-      </>
-    )
-  }
 
   render () {
+    const {title, thumbnail, children} = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo}>
-        {this.renderContent()}
+        <ListItemView>
+          {thumbnail && <Thumbnail
+            source={{uri: 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2017/03/Beratung-150x150.png'}} />}
+          <Description>
+            <Title>{title}</Title>
+            {children}
+          </Description>
+        </ListItemView>
       </StyledTouchableOpacity>
     )
   }
