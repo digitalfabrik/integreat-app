@@ -37,7 +37,7 @@ const Title = styled.Text`
 `
 
 type PropsType = {|
-  thumbnail?: string,
+  thumbnail?: {uri: string} | string,
   title: string,
   children?: React.Node,
   navigateTo: () => void

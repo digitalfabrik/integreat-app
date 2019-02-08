@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
 import { WebView } from 'react-native-webview'
 import styled from 'styled-components'
