@@ -69,7 +69,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
       excerpt: '25/01/2019 @ 9:30 &#8211; 13:00 &#8211; Sie suchen eine neue Wohnung? Das &#8222;Wohnprojekt Augsburg&#8220; macht wieder Mietkurse. In dem Kurs lernen Sie wichtige Informationen zum Thema Wohnungssuche: Wie kann ich eine Wohnung finden? Was sind Mietobergrenzen? Welche Rechte und Pflichten habe ich als Mieter? Der Kurs findet auf Deutsch statt und dauert einen Vormittag. Am Ende bekommen Sie ein Zertifikat. Damit [&#8230;]',
       content: '<p>Sie suchen eine neue Wohnung? Das "Wohnprojekt Augsburg" macht wieder Mietkurse. In dem Kurs lernen Sie wichtige Informationen zum Thema Wohnungssuche: Wie kann ich eine Wohnung finden? Was sind Mietobergrenzen? Welche Rechte und Pflichten habe ich als Mieter? Der Kurs findet auf Deutsch statt und dauert einen Vormittag. Am Ende bekommen Sie ein Zertifikat. Damit können Sie dann das Wohn-Café besuchen. Dort helfen Ihnen Ehrenamtliche, eine Wohnung zu finden.</p> <p>Anmelden können Sie sich immer freitags von 10-12 Uhr im Wohn-Café (Café Tür an Tür, Wertachstr. 29) oder per Mail an: corinna.hoeckesfeld@tuerantuer.de.</p>',
       available_languages: [],
-      thumbnail: null,
+      thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
       event: {
         id: 123,
         start_date: '2019-01-25',
