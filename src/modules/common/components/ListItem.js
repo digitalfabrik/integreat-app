@@ -27,7 +27,6 @@ const Thumbnail = styled(FastImage)`
 const Description = styled.View`
   flex: 1;
   height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-direction: column;
   flex-grow: 1;
   padding: 0 10px;
@@ -45,14 +44,12 @@ type PropsType = {|
 |}
 
 class ListItem extends React.PureComponent<PropsType> {
-
   render () {
     const {title, thumbnail, children} = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo}>
         <ListItemView>
-          {thumbnail && <Thumbnail
-            source={{uri: 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2017/03/Beratung-150x150.png'}} />}
+          {thumbnail && <Thumbnail source={thumbnail} />}
           <Description>
             <Title>{title}</Title>
             {children}

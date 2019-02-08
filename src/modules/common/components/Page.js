@@ -17,6 +17,7 @@ const HEADER_HEIGHT = 60
 
 const WebContainer = styled.View`
   flex: 1;
+  padding: 5px 0 0;
   height: ${props => Dimensions.get('screen').height - HEADER_HEIGHT}
 `
 type PropType = {
