@@ -99,7 +99,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
       id: event.id,
       path: event.path,
       title: event.title,
-      // to complicated to map everything for testing
       content: event.content,
       thumbnail: event.thumbnail,
       date: new DateModel({
@@ -114,7 +113,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
         latitude: event.location.latitude,
         longitude: event.location.longitude
       }),
-      excerpt: 'Excerpt',
+      excerpt: event.excerpt,
       lastUpdate: moment(event.modified_gmt)
     })
   }).sort((event1, event2) => {
