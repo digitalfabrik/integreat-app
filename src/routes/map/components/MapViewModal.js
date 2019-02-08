@@ -24,7 +24,7 @@ class MapViewModal extends React.Component<PropsType, StateType> {
     this.state = {percentage: 0}
   }
 
-  async download (): Promise<void> {
+  async download () {
     const progressListener = (offlinePack, status) => {
       this.setState({percentage: status.percentage / 100})
     }

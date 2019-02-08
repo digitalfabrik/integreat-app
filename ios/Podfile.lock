@@ -57,6 +57,8 @@ PODS:
     - React
   - RNPDF (0.4.1):
     - React
+  - RNScreens (1.0.0-alpha.19):
+    - React
   - RNVectorIcons (6.1.0):
     - React
   - SDWebImage/Core (4.4.4)
@@ -89,6 +91,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPDF (from `../node_modules/react-native-view-pdf`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
@@ -119,6 +122,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNPDF:
     :path: "../node_modules/react-native-view-pdf"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -137,10 +142,11 @@ SPEC CHECKSUMS:
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   RNGestureHandler: 282af6ea58ed8483612365159c58a3ca5f55e7da
   RNPDF: f27f11d7dbbb49da65375c401eca73b7ef1d7b00
+  RNScreens: 354046589421edc3d83d5c6212475bf1fb9a731d
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 8fa4fc1779d9e07eaceda57af5afb0b49d3a6466
+PODFILE CHECKSUM: abfcbe10e71bac3a121601dca9e472e8146870de
 
 COCOAPODS: 1.5.3
