@@ -1,5 +1,6 @@
 // @flow
 
+import { Platform } from 'react-native'
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
@@ -22,7 +23,11 @@ export default function * downloadResources (city: string, urls: Array<string>):
       files[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
     }
 
-    const result: FetchResultType = yield call(FetcherModule.downloadAsync, files, p => console.log(p))
+    // downloadAsync is not implemented for ios yet. This will be done in NATIVE-66
+    let result: FetchResultType = {failureMessages: {}, successFilePaths: {}}
+    if (Platform.OS === 'android') {
+      result = yield call(FetcherModule.downloadAsync, files, p => console.log(p))
+    }
 
     if (!isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {
