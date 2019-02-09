@@ -17,7 +17,7 @@
         "search": "Suche",
         "events": "News",
         "extras": "Extras",
-        "landing": "Wo bist du?",
+        "landing": "Ortsauswahl",
         "disclaimer": "Impressum und Kontakt",
         "mainDisclaimer": "Impressum und Kontakt - Integreat",
         "notFound": "Seite nicht gefunden"
@@ -29,7 +29,7 @@
         "search": "Search",
         "events": "News",
         "extras": "Extras",
-        "landing": "Where are you?",
+        "landing": "Location selection",
         "disclaimer": "Imprint and contact",
         "mainDisclaimer": "Imprint and Contact - Integreat",
         "pois": "Points of Interest",
@@ -42,7 +42,6 @@
         "search": "جستجو",
         "events": "تازه​ها",
         "extras": "اضافات",
-        "landing": "تو کجایی؟",
         "disclaimer": "مجوز ‎و اطلاعات تماس",
         "mainDisclaimer": "Integreat - مجوز \u200Eو اطلاعات تماس",
         "notFound": "صفحه پیدا نشد"
@@ -54,7 +53,6 @@
         "search": "Rechercher",
         "events": "Actualités",
         "extras": "Extras",
-        "landing": "Tu es où?",
         "disclaimer": "Mentions légales et contact",
         "mainDisclaimer": "Mentions Légales - Integreat",
         "notFound": "Page introuvable"
@@ -205,23 +203,19 @@
   },
   "landing": {
     "ar": {
-      "where": "أين أنت؟",
       "searchCity": "البحث عن مكانك"
     },
     "de": {
-      "where": "Wo bist du?",
-      "searchCity": "Suche nach einem Ort"
+      "searchCity": "Ort suchen",
+      "metaDescription": "Finde lokale und aktuelle Informationen, Events und werde Teil deiner neuen Stadt. Integreat hilft dir dich mit anderen zu vernetzen und unterstützt mehrere Sprachen."
     },
     "en": {
-      "where": "Where are you?",
       "searchCity": "Search for a city"
     },
     "fa": {
-      "where": "تو کجایی؟",
       "searchCity": "جستجو بر اساس محل شما"
     },
     "fr": {
-      "where": "Tu es où?",
       "searchCity": "Chercher un lieu"
     }
   },
