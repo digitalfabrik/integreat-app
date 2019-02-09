@@ -10,7 +10,7 @@ import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from '../components/EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
-import { Failure } from '../../error/components/Failure'
+import Failure from '../../error/components/Failure'
 import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
