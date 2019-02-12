@@ -4,11 +4,14 @@ import type {
   CategoriesActionType,
   SelectCategoryActionType, SwitchCategorySelectionLanguageActionType
 } from '../../app/StoreActionType'
+
+import type { RouteStateType } from '../../app/StateType'
 import type { CategoriesSelectionStateType } from '../../app/StateType'
 import { defaultCategoriesSelectionState } from '../../app/StateType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { times } from 'lodash/util'
-import { keyBy } from 'lodash/collection'
+import { keyBy, reduce } from 'lodash/collection'
+import { mapValues } from 'lodash/object'
 
 const selectCategory = (
   state: CategoriesSelectionStateType, action: SelectCategoryActionType
@@ -65,8 +68,62 @@ const selectCategory = (
 const switchLanguage = (
   state: CategoriesSelectionStateType, action: SwitchCategorySelectionLanguageActionType
 ) => {
-  // fixme
-  return state
+  const {categoriesMap, newLanguage} = action.params
+  const {routeMapping} = state
+
+  const translatedRouteMapping = mapValues(routeMapping, (value: RouteStateType) => {
+    const {models, children, depth, root} = value
+
+    const translatedRoot = models[root].availableLanguages.get(newLanguage)
+
+    if (!translatedRoot) {
+      // Route is not translatable
+      return
+    }
+
+    const translatedChildren = reduce(children, (result, value: Array<string>, path: string) => {
+      const translatedKey = models[path].availableLanguages.get(newLanguage)
+
+      if (!translatedKey) {
+        return result
+      }
+
+      const translatedArray = children[path].map(key => {
+        const translatedKey = models[key].availableLanguages.get(newLanguage)
+        if (!translatedKey) {
+          return null
+        }
+        return translatedKey
+      })
+
+      result[translatedKey] = translatedArray
+      return result
+    }, {})
+
+    const translatedModels = reduce(models, (result, value: CategoryModel) => {
+      const translatedKey = value.availableLanguages.get(newLanguage)
+      if (!translatedKey) {
+        return result
+      }
+      result[translatedKey] = categoriesMap.findCategoryByPath(translatedKey)
+      return result
+    }, {})
+
+    return {
+      root: translatedRoot,
+      models: translatedModels,
+      children: translatedChildren,
+      depth: depth
+    }
+  }, {})
+
+  console.dir(translatedRouteMapping)
+
+  return {
+    ...state,
+    currentLanguage: newLanguage,
+    routeMapping: translatedRouteMapping
+  }
 }
 
 export default (

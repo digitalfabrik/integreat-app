@@ -70,6 +70,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
     const currentLanguage = yield select((state: StateType) => state.categoriesSelection.currentLanguage)
 
     if (!selectParams) {
+      // Language Switch
       yield call(fetchCategories, database, city, language)
       const select: SwitchCategorySelectionLanguageActionType = {
         type: `SWITCH_CATEGORY_SELECTION_LANGUAGE`,
@@ -80,6 +81,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
       }
       yield put(select)
     } else {
+      // Fetch new categories
       if (!!currentLanguage && currentLanguage !== language) {
         throw new Error('If you supply a path you should not change the language!')
       }

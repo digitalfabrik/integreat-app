@@ -12,7 +12,7 @@ export type CurrentCityStateType = string | null
 
 type PathType = string
 
-type RouteStateType = {
+export type RouteStateType = {
   +root: string,
   +depth: number,
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of RouteStateType
