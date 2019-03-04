@@ -88,10 +88,10 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "entities": "^1.1.2",
-    "is-url": "^1.2.4",
-    "lodash": "^4.17.11",
-    "moment": "^2.24.0",
-    "sanitize-html-react": "^1.13.0"
+    "entities": "^1.1",
+    "is-url": "^1.2",
+    "lodash": "^4.17",
+    "moment": "^2.24",
+    "sanitize-html-react": "^1.13"
   }
 }
