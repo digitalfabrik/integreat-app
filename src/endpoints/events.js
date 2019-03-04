@@ -23,7 +23,10 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
   )
   .withMapper((json: Array<JsonEventType>): Array<EventModel> => json
     .map((event: JsonEventType) => {
-      const allDay = event.event.all_day
+      const eventData = event.event
+      const allDay = eventData.all_day
+      const startTime = allDay ? '00:00:00' : eventData.start_time
+      const endTime = allDay ? '23:59:59' : eventData.end_time
       return new EventModel({
         id: event.id,
         path: normalizePath(event.path),
@@ -35,8 +38,8 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
         }),
         thumbnail: event.thumbnail,
         date: new DateModel({
-          startDate: moment.tz(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`, 'Europe/Berlin'),
-          endDate: moment.tz(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`, 'Europe/Berlin'),
+          startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
+          endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
           allDay: allDay
         }),
         location: new LocationModel({
