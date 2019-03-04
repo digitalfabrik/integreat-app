@@ -1,5 +1,5 @@
-// flow-typed signature: 9d3c87aee21c008e41dd895c5fb6cfde
-// flow-typed version: aba9864a3d/redux-saga_v0.16.x/flow_>=v0.56.0
+// flow-typed signature: 05be98929cc44ad67f621acb3e103b12
+// flow-typed version: f9a5d5efad/redux-saga_v0.16.x/flow_>=v0.56.0
 
 // @flow
 
@@ -479,11 +479,11 @@ declare module "redux-saga/effects" {
   };
 
   declare export var put: {
-    <A: Object>(action: A): PutEffect<A, null>,
-    <A: Object>(channel: Channel, action: A): PutEffect<A, Channel>,
+    <A: {}>(action: A): PutEffect<A, null>,
+    <A: {}>(channel: Channel, action: A): PutEffect<A, Channel>,
     resolve: {
-      <A: Object>(action: A): PutEffect<A, null>,
-      <A: Object>(channel: Channel, action: A): PutEffect<A, Channel>,
+      <A: {}>(action: A): PutEffect<A, null>,
+      <A: {}>(channel: Channel, action: A): PutEffect<A, Channel>,
     }
   };
 
