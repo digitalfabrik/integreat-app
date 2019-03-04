@@ -68,7 +68,7 @@ describe('events', () => {
 
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toEqual(
-        'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
+      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })
 

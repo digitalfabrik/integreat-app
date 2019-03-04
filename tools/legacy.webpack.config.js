@@ -1,28 +1,33 @@
 const path = require('path')
-const babelConfig = require('../.babelrc.js')
+const nodeExternals = require('webpack-node-externals')
+const fs = require('fs')
 
-module.exports.default = () => ({
+const dest = path.resolve(__dirname, '../dist')
+
+if (!fs.existsSync(dest)) {
+  fs.mkdirSync(dest)
+}
+
+module.exports = {
   mode: 'production',
   entry: './src/index.js',
+  devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: dest,
     filename: 'index-legacy.js',
     library: 'integreatapiclient',
     libraryTarget: 'umd'
   },
-  optimization: {
-    minimizer: []
-  },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
         test: /\.m?js$/,
         exclude: /(node_modules)/,
         use: {
-          loader: 'babel-loader',
-          options: babelConfig
+          loader: 'babel-loader'
         }
       }
     ]
   }
-})
+}
