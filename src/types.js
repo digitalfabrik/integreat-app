@@ -30,7 +30,8 @@ type JsonEventInfoType = {
   all_day: boolean,
   start_time: string,
   end_time: string,
-  recurrence_id: ?string
+  recurrence_id: ?string,
+  timezone: string
 }
 
 export type JsonCategoryType = {
