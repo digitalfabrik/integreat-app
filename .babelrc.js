@@ -1,6 +1,15 @@
 const config = {
   presets: [
-    "@babel/preset-env",
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": {
+          "chrome": "42",
+          "ie": "11"
+        }
+      }
+    ],
     '@babel/preset-flow'
   ],
   plugins: [
@@ -13,7 +22,20 @@ const config = {
     '@babel/plugin-proposal-do-expressions',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-namespace-from'
-  ]
+  ],
+  "env": {
+    "test": {
+      presets: [
+        [
+          "@babel/preset-env",
+          {
+            "modules": 'commonjs',
+          }
+        ],
+        '@babel/preset-flow'
+      ],
+    }
+  }
 }
 
 module.exports = config
