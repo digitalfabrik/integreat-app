@@ -54,7 +54,6 @@ export const AppStack = createStackNavigator(
     'Extras': ExtrasStack
   },
   {
-    initialRouteName: 'Dashboard',
     defaultNavigationOptions: {
       header: (headerProps: HeaderProps) => <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
     }
@@ -65,9 +64,6 @@ export const LandingStack = createSwitchNavigator(
   {
     'Landing': LandingContainer,
     'App': AppStack
-  },
-  {
-    initialRouteName: 'Landing'
   }
 )
 
