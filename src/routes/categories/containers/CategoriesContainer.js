@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { ScrollView } from 'react-native'
 import React from 'react'
-import withNavigateAway from '../../../modules/endpoint/hocs/withNavigateAway'
+import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -64,4 +64,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 // $FlowFixMe connect()
-export default withNavigateAway(connect(mapStateToProps, mapDispatchToProps)(themed))
+export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(themed))

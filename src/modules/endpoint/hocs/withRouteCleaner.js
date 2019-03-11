@@ -3,10 +3,16 @@
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 
-function withNavigateAway<Props: {}> (
+/**
+ * This hoc removes routes from the state when unmounting
+ *
+ * @param Component
+ * @returns {RouteCleaner}
+ */
+function withRouteCleaner<Props: { navigation: NavigationScreenProp<*> }> (
   Component: React.ComponentType<Props>
-): React.ComponentType<$Diff<Props, { navigation: NavigationScreenProp<*> | void }>> {
-  class MemoryDatabase extends React.PureComponent<Props> {
+): React.ComponentType<Props> {
+  class RouteCleaner extends React.PureComponent<Props> {
     componentWillUnmount () {
       this.props.navigation.getParam('onDidBlur')()
     }
@@ -26,7 +32,7 @@ function withNavigateAway<Props: {}> (
     }
   }
 
-  return MemoryDatabase
+  return RouteCleaner
 }
 
-export default withNavigateAway
+export default withRouteCleaner
