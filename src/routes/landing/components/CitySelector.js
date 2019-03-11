@@ -33,12 +33,11 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   filter (): Array<CityModel> {
-    // const filterText = this.props.filterText.toLowerCase()
+    const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
 
-    return cities.filter(city => city.code === 'testumgebung')
     // if (filterText === 'wirschaffendas') {
-    //   return cities.filter(_city => !_city.live)
+      return cities.filter(_city => !_city.live)
     // } else {
     //   return cities
     //     .filter(_city => _city.live)
