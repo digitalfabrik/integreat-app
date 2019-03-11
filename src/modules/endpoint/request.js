@@ -3,7 +3,7 @@
 import { Payload, Endpoint, MappingError, LoadingError } from '@integreat-app/integreat-api-client'
 
 const request = async function <T, P> (endpoint: Endpoint<P, T>, params: P, overrideUrl?: string): Promise<Payload<T>> {
-  const url = overrideUrl || endpoint.mapParamsToUrl(params)
+  const url = overrideUrl || endpoint.mapParamsToUrl('https://cms-test.integreat-app.de', params)
   const response = await (endpoint.mapParamsToBody ? endpoint.postFormData(url, params) : fetch(url))
 
   if (!response.ok) {
