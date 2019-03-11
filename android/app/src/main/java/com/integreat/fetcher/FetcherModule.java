@@ -56,7 +56,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) {
                     if (!response.isSuccessful()) {
-                        callback.failed(sourceUrl, response.message());
+                        callback.failed(sourceUrl, response.code() + ": " + response.message());
                         return;
                     }
 
