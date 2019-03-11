@@ -43,7 +43,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const children = targetRoute.children
   const stateView = new CategoriesSelectionStateView(targetRoute.root, models, children)
 
-  if (!stateView.root()) {
+  if (!stateView.hasRoot()) {
     return {
       cityCode: targetCityCode,
       language: language,
