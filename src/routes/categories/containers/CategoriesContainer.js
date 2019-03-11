@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { ScrollView } from 'react-native'
 import React from 'react'
-import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
 import withNavigateAway from '../../../modules/endpoint/hocs/withNavigateAway'
 import { type Dispatch } from 'redux'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
@@ -16,13 +15,10 @@ import navigateToCategory from '../../../modules/app/navigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
-  navigateAway: () => dispatch({type: 'CLEAR_CATEGORY', params: {key: ownProps.navigation.getParam('key')}})
+  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const database: MemoryDatabase = ownProps.database
-
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
@@ -60,7 +56,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.citiesSelection.models,
     categoriesStateView: stateView,
-    files: {}, // fixme
+    resourceCache: state.categoriesSelection.resourceCache,
     error: null // fixme display errors
   }
 }

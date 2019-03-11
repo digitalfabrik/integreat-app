@@ -9,9 +9,9 @@ import TileModel from '../../../modules/common/models/TileModel'
 import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
-import type { FilesStateType } from '../../../modules/app/StateType'
 import CategoriesSelectionStateView from '../../app/CategoriesSelectionStateView'
 import { ActivityIndicator } from 'react-native'
+import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -20,9 +20,8 @@ type PropsType = {|
   categoriesStateView: CategoriesSelectionStateView,
   cityCode: string,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
-  navigateAway: () => void,
 
-  files: FilesStateType,
+  resourceCache: ResourceCacheType,
   theme: ThemeType
 |}
 
@@ -42,7 +41,7 @@ class Categories extends React.Component<PropsType> {
 
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.props.files[category.thumbnail]
+      let cachedThumbnail = this.props.resourceCache[category.thumbnail]
       if (cachedThumbnail) {
         cachedThumbnail = URL_PREFIX + cachedThumbnail
       }
@@ -57,12 +56,8 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
-  componentWillUnmount () {
-    this.props.navigateAway()
-  }
-
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.props.files[category.thumbnail]
+    let cachedThumbnail = this.props.resourceCache[category.thumbnail]
     if (cachedThumbnail) {
       cachedThumbnail = URL_PREFIX + cachedThumbnail
     }
@@ -104,7 +99,7 @@ class Categories extends React.Component<PropsType> {
         <Page title={category.title}
               content={category.content}
               theme={this.props.theme}
-              files={this.props.files} />
+              resourceCache={this.props.resourceCache} />
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories

@@ -1,14 +1,14 @@
 // @flow
 
 import { URL_PREFIX } from '../platform/constants/webview'
-import type { FilesStateType } from '../app/StateType'
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
 // language=JavaScript
-const renderJS = (files: FilesStateType) => `
+const renderJS = (resourceCache: ResourceCacheType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
-  var urls = ${JSON.stringify(files)}
+  var urls = ${JSON.stringify(resourceCache)}
   
   console.debug('Urls to inject:')
   console.debug(urls)
@@ -37,13 +37,13 @@ const renderJS = (files: FilesStateType) => `
 })();
 `
 
-export default (html: string, files: FilesStateType) => {
+export default (html: string, resourceCache: ResourceCacheType) => {
   // language=HTML
   return `
 <html>
 <body style="display: none;">
 ${html}
-<script>${renderJS(files)}</script>
+<script>${renderJS(resourceCache)}</script>
 </body>
 </html>
 `

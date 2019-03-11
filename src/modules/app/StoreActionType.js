@@ -2,6 +2,7 @@
 
 import { offlineActionTypes } from 'react-native-offline'
 import { CityModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
@@ -31,6 +32,7 @@ export type SelectCategoryActionType = {|
   type: 'SELECT_CATEGORY', params: {
     categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
     selectParams: SelectParamsType,
+    resourceCache: ResourceCacheType,
     city: string,
     language: string
   }

@@ -92,6 +92,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
         params: {
           categoriesMap: database.categoriesMap,
           languages: database.languages,
+          resourceCache: database.resourceCache,
           selectParams,
           city,
           language
