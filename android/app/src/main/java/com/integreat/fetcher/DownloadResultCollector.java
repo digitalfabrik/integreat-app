@@ -2,6 +2,7 @@ package com.integreat.fetcher;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
+
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.integreat.BuildConfig;
@@ -36,27 +37,32 @@ public class DownloadResultCollector implements FileDownloadCallback {
     }
 
     @Override
-    public void failed(String url, String message) {
-        if (BuildConfig.DEBUG) {
-            Log.e("FetcherModule", "Failed to download " + url + ": " + message);
-        }
+    public synchronized void failed(String url, String message) {
         failedUrls.put(url, message);
+
+        if (BuildConfig.DEBUG) {
+            Log.e("FetcherModule", "[" + currentDownloadCount() + "/" + expectedUrls.size() + "] Failed to download " + url + ": " + message);
+        }
         sendProgress();
         tryToResolve();
     }
 
     @Override
-    public void downloaded(String url, File target) {
-        if (BuildConfig.DEBUG) {
-            Log.d("FetcherModule", "Downloaded " + url);
-        }
+    public synchronized void downloaded(String url, File target) {
         succeededUrls.put(url, target.getAbsolutePath());
+        if (BuildConfig.DEBUG) {
+            Log.d("FetcherModule", "[" + currentDownloadCount() + "/" + expectedUrls.size() + "] Downloaded " + url);
+        }
         sendProgress();
         tryToResolve();
     }
 
+    private int currentDownloadCount() {
+        return failedUrls.size() + succeededUrls.size();
+    }
+
     private void tryToResolve() {
-        if (failedUrls.size() + succeededUrls.size() != expectedUrls.size()) {
+        if (currentDownloadCount() != expectedUrls.size()) {
             return;
         }
 
@@ -77,6 +83,7 @@ public class DownloadResultCollector implements FileDownloadCallback {
 
         result.putMap("successFilePaths", succeeded);
 
+        Log.d("FetcherModule", "Resolving promise");
         promise.resolve(result);
     }
 
