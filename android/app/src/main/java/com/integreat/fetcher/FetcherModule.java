@@ -1,7 +1,10 @@
 package com.integreat.fetcher;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.facebook.react.bridge.*;
+
 import okhttp3.Callback;
 import okhttp3.*;
 import okio.BufferedSink;
@@ -41,34 +44,38 @@ public class FetcherModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        Request request = new Request.Builder().url(sourceUrl).build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                callback.failed(sourceUrl, e.getMessage());
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {
-                if (!response.isSuccessful()) {
-                    callback.failed(sourceUrl, response.message());
-                    return;
-                }
-
-                try {
-                    targetFile.getParentFile().mkdirs();
-
-                    BufferedSink sink = Okio.buffer(Okio.sink(targetFile));
-                    sink.writeAll(response.body().source());
-                    sink.close();
-
-                    callback.downloaded(sourceUrl, targetFile);
-                } catch (IOException e) {
+        try {
+            Request request = new Request.Builder().url(sourceUrl).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     callback.failed(sourceUrl, e.getMessage());
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    if (!response.isSuccessful()) {
+                        callback.failed(sourceUrl, response.message());
+                        return;
+                    }
+
+                    try {
+                        targetFile.getParentFile().mkdirs();
+
+                        BufferedSink sink = Okio.buffer(Okio.sink(targetFile));
+                        sink.writeAll(response.body().source());
+                        sink.close();
+
+                        callback.downloaded(sourceUrl, targetFile);
+                    } catch (IOException e) {
+                        callback.failed(sourceUrl, e.getMessage());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            callback.failed(sourceUrl, e.getMessage());
+        }
     }
 
     @Override
