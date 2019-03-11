@@ -1,6 +1,5 @@
 // @flow
 
-import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
 
@@ -32,7 +31,7 @@ export type ParamsType = {
 }
 
 const endpoint: Endpoint<ParamsType, {}> = new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
+  .withParamsToUrlMapper((apiUrl: string, params): string => {
     return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
       params.feedbackType ? `/${params.feedbackType}` : ''}`
   })

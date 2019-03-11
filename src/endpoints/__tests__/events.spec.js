@@ -10,6 +10,8 @@ import LocationModel from '../../models/LocationModel'
 jest.unmock('../events')
 
 describe('events', () => {
+  const apiUrl = 'https://integreat-api-url.de'
+
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime) => ({
     id,
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
@@ -67,8 +69,8 @@ describe('events', () => {
   const params = {city: 'augsburg', language: 'de'}
 
   it('should map params to url', () => {
-    expect(events.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
+    expect(events.mapParamsToUrl(apiUrl, params)).toEqual(
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })
 

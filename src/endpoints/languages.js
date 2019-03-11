@@ -1,7 +1,6 @@
 // @flow
 
 import LanguageModel from '../models/LanguageModel'
-import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import type { JsonLanguageType } from '../types'
@@ -12,7 +11,7 @@ const LANGUAGES_ENDPOINT_NAME = 'languages'
 type ParamsType = { city: ?string }
 
 const endpoint: Endpoint<ParamsType, Array<LanguageModel>> = new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
+  .withParamsToUrlMapper((apiUrl: string, params): string => {
     if (!params.city) {
       throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')
     }

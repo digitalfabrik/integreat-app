@@ -1,6 +1,5 @@
 // @flow
 
-import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import type { JsonEventType } from '../types'
 import EventModel from '../models/EventModel'
@@ -18,7 +17,7 @@ const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = { city: string, language: string }
 
 const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EVENTS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: ParamsType): string =>
+  .withParamsToUrlMapper((apiUrl: string, params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   )
   .withMapper((json: Array<JsonEventType>): Array<EventModel> => json

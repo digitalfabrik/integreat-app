@@ -2,7 +2,6 @@
 
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
-import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment'
 import type { JsonCategoryType } from '../types'
@@ -16,7 +15,7 @@ const CATEGORIES_ENDPOINT_NAME = 'categories'
 type ParamsType = { city: string, language: string }
 
 const endpoint: Endpoint<ParamsType, CategoriesMapModel> = new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params: ParamsType): string =>
+  .withParamsToUrlMapper((apiUrl: string, params: ParamsType): string =>
     `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
   )
   .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {

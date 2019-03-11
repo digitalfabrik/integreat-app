@@ -8,6 +8,8 @@ import LocationModel from '../../models/LocationModel'
 jest.unmock('../pois')
 
 describe('pois', () => {
+  const apiUrl = 'https://integreat-api-url.de'
+
   const createPoi = id => ({
     id,
     path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
@@ -53,8 +55,8 @@ describe('pois', () => {
   const params = {city: 'augsburg', language: 'de'}
 
   it('should map params to url', () => {
-    expect(pois.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/locations'
+    expect(pois.mapParamsToUrl(apiUrl, params)).toEqual(
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations'
     )
   })
 

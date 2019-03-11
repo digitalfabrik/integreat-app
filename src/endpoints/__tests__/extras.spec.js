@@ -6,6 +6,8 @@ import ExtraModel from '../../models/ExtraModel'
 jest.unmock('../extras')
 
 describe('endpoint', () => {
+  const apiUrl = 'https://integreat-api-url.de'
+
   const pageJson = [
     {
       name: 'Serlo ABC',
@@ -62,17 +64,17 @@ describe('endpoint', () => {
   const params = {city: 'bad-toelz', language: 'en'}
 
   it('should map router to url', () => {
-    expect(extras.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/bad-toelz/en/wp-json/extensions/v3/extras'
+    expect(extras.mapParamsToUrl(apiUrl, params)).toEqual(
+      'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras'
     )
   })
 
   it('should throw if the city to map the url are missing', () => {
-    expect(() => extras.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
+    expect(() => extras.mapParamsToUrl(apiUrl, {city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should throw if the language to map the url are missing', () => {
-    expect(() => extras.mapParamsToUrl({city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
+    expect(() => extras.mapParamsToUrl(apiUrl, {city: 'city', language: undefined})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map json to models', () => {
