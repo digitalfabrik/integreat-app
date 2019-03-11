@@ -7,14 +7,18 @@ function withNavigateAway<Props: {}> (
   Component: React.ComponentType<Props>
 ): React.ComponentType<$Diff<Props, { navigation: NavigationScreenProp<*> | void }>> {
   class MemoryDatabase extends React.PureComponent<Props> {
+    componentWillUnmount () {
+      this.props.navigation.getParam('onDidBlur')()
+    }
+
     componentDidMount () {
-      const didBlurSubscription = this.props.navigation.addListener(
-        'didBlur',
-        payload => {
-          this.props.navigation.getParam('onDidBlur')()
-          didBlurSubscription.remove()
-        }
-      )
+      // const didBlurSubscription = this.props.navigation.addListener(
+      //   'didBlur',
+      //   payload => {
+      //     this.props.navigation.getParam('onDidBlur')()
+      //     didBlurSubscription.remove()
+      //   }
+      // )
     }
 
     render () {
