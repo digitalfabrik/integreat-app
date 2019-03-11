@@ -14,8 +14,12 @@ class CategoriesSelectionStateView {
     this.rawRoot = root
   }
 
+  hasRoot (): CategoryModel {
+    return has(this.rawModels, this.rawRoot)
+  }
+
   root (): CategoryModel {
-    if (!has(this.rawModels, this.rawRoot)) {
+    if (!this.hasRoot()) {
       throw new Error(`CategoriesStateView doesn't have a root!`)
     }
     return this.rawModels[this.rawRoot]
