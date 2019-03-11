@@ -3,7 +3,6 @@
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from './StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
-import { StackActions } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export default (
@@ -13,8 +12,19 @@ export default (
 ) => (cityCode: string, language: string, path: string) => {
   const key = generateKey()
 
-  navigation.navigate({routeName, params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})}})
+  navigation.navigate({
+    routeName,
+    params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})}
+  })
 
+  // TODO: Not working:
+  // navigation.navigate({
+  //   routeName,
+  //   params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})},
+  //   key
+  // })
+
+  // TODO: Alternative:
   // const navigateAction = StackActions.push({
   //   routeName,
   //
