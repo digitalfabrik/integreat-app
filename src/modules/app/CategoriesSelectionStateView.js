@@ -4,11 +4,11 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { has } from 'lodash'
 
 class CategoriesSelectionStateView {
-  rawRoot: string
+  rawRoot: ?string
   rawModels: { [path: string]: CategoryModel }
   rawChildren: { [path: string]: Array<string> }
 
-  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
+  constructor (root: ?string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
     this.rawModels = models
     this.rawChildren = children
     this.rawRoot = root
@@ -19,13 +19,17 @@ class CategoriesSelectionStateView {
   }
 
   root (): CategoryModel {
-    if (!this.hasRoot()) {
+    if (!this.rawRoot || !this.hasRoot()) {
       throw new Error(`CategoriesStateView doesn't have a root!`)
     }
     return this.rawModels[this.rawRoot]
   }
 
   children (): Array<CategoryModel> {
+    if (!this.rawRoot) {
+      throw new Error(`CategoriesStateView doesn't have a root!`)
+    }
+
     const childrenPaths = this.rawChildren[this.rawRoot]
 
     if (!childrenPaths) {
