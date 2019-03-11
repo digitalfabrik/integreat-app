@@ -6,7 +6,7 @@ import type {
 } from '../../app/StoreActionType'
 
 import type { CategoriesSelectionStateType, RouteStateType } from '../../app/StateType'
-import { defaultCategoriesSelectionState } from '../../app/StateType'
+import { defaultCategoriesSelectionState, defaultRouteState } from '../../app/StateType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { times } from 'lodash/util'
 import { keyBy, reduce } from 'lodash/collection'
@@ -74,16 +74,17 @@ const switchLanguage = (
   const translatedRouteMapping = mapValues(routeMapping, (value: RouteStateType, key: string) => {
     const {models, children, depth, root} = value
 
+    if (!root) {
+      console.error(`There is no root to translate for route ${key}!`)
+
+      return defaultRouteState
+    }
+
     const translatedRoot = models[root].availableLanguages.get(newLanguage)
 
     if (!translatedRoot) {
       console.error(`Route ${key} is not translatable!`)
-      return {
-        root: null,
-        models: {},
-        children: {},
-        depth: 0
-      }
+      return defaultRouteState
     }
 
     const translatedChildren = reduce(children, (result, value: Array<string>, path: string) => {
