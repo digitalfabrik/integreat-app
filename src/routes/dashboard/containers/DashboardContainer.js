@@ -10,8 +10,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components'
 import withError from '../../../modules/error/hocs/withError'
-import withNavigateAway from '../../../modules/endpoint/hocs/withNavigateAway'
-import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
+import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import navigateToCategory from '../../../modules/app/navigateToCategory'
@@ -27,7 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
     payload: true
   }),
   navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
-  fetchCities: (language: string) => dispatch({
+  fetchCities: () => dispatch({
     type: 'FETCH_CITIES',
     params: {}
   })
@@ -79,4 +78,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(Dashboard)
 // $FlowFixMe connect()
-export default withNavigateAway(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))
+export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))
