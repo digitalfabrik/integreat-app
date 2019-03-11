@@ -14,7 +14,6 @@ import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import MemoryDatabase from '../../endpoint/MemoryDatabase'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
-import MemoryDatabaseContext from '../../endpoint/context/MemoryDatabaseContext'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>
@@ -34,7 +33,6 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
     }
 
     return (
-      <MemoryDatabaseContext.Provider value={this.database}>
         <Provider store={this.store}>
           <I18nProvider>
             <CustomThemeProvider>
@@ -47,7 +45,6 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
             </CustomThemeProvider>
           </I18nProvider>
         </Provider>
-      </MemoryDatabaseContext.Provider>
     )
   }
 }

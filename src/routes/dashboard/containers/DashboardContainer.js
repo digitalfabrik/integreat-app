@@ -10,7 +10,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components'
 import withError from '../../../modules/error/hocs/withError'
-import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
+import withNavigateAway from '../../../modules/endpoint/hocs/withNavigateAway'
 import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -74,7 +74,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.citiesSelection.models,
     categoriesStateView: stateView,
-    files: database.resourceCache,
+    files: {}, // fixme
     error: null // fixme display errors
   }
 }
@@ -82,4 +82,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(Dashboard)
 // $FlowFixMe connect()
-export default withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))
+export default withNavigateAway(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))

@@ -6,7 +6,6 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components'
-import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
@@ -28,4 +27,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
 }
 
 // $FlowFixMe
-export default withTheme(withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageModal)))
+export default withTheme(connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageModal))
