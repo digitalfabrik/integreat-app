@@ -3,8 +3,7 @@
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
-
-export type FilesStateType = { [url: string]: string }
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
 export type LanguageStateType = string | null
 
@@ -25,6 +24,7 @@ export type CategoriesSelectionStateType = {
   +routeMapping: {
     [key: string]: RouteStateType
   },
+  resourceCache: ResourceCacheType,
 
   +languages: Array<LanguageModel>,
   +currentLanguage: LanguageStateType,
@@ -33,6 +33,7 @@ export type CategoriesSelectionStateType = {
 
 export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
   routeMapping: {},
+  resourceCache: {},
 
   languages: [],
   currentLanguage: null,

@@ -3,11 +3,11 @@
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 import { ActivityIndicator, ScrollView, Button } from 'react-native'
-import type { FilesStateType } from '../../../modules/app/StateType'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
+import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheType'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -18,13 +18,12 @@ type PropsType = {
   goOnline: () => void,
   fetchCities: (language: string) => void,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
-  navigateAway: () => void,
   theme: ThemeType,
 
   language: string,
   cities?: Array<CityModel>,
   categoriesStateView: ?CategoriesSelectionStateView,
-  files?: FilesStateType
+  resourceCache?: ResourceCacheType
 }
 
 class Dashboard extends React.Component<PropsType> {
@@ -43,17 +42,16 @@ class Dashboard extends React.Component<PropsType> {
   render () {
     const {cities, categoriesStateView} = this.props
 
-    if (!categoriesStateView || !cities || !this.props.files) {
+    if (!categoriesStateView || !cities || !this.props.resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return (<ScrollView>
         <Categories categoriesStateView={categoriesStateView}
-                    cities={cities} files={this.props.files}
+                    cities={cities} resourceCache={this.props.resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
-                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme}
-                    navigateAway={this.props.navigateAway} />
+                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
         <Button
           title='Extras'
           onPress={this.extras}

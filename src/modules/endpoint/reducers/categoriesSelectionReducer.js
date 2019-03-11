@@ -16,7 +16,7 @@ import { mapValues } from 'lodash/object'
 const selectCategory = (
   state: CategoriesSelectionStateType, action: SelectCategoryActionType
 ) => {
-  const {categoriesMap, languages, selectParams: {path, depth, key}, city, language} = action.params
+  const {categoriesMap, languages, selectParams: {path, depth, key}, resourceCache, city, language} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -52,6 +52,7 @@ const selectCategory = (
     currentCity: city,
     currentLanguage: language,
     languages,
+    resourceCache,
 
     routeMapping: {
       ...state.routeMapping,

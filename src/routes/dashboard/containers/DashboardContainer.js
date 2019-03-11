@@ -30,13 +30,10 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   fetchCities: (language: string) => dispatch({
     type: 'FETCH_CITIES',
     params: {}
-  }),
-  navigateAway: () => dispatch({type: 'CLEAR_CATEGORY', params: {key: ownProps.navigation.getParam('key')}})
+  })
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const database: MemoryDatabase = ownProps.database
-
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
@@ -74,7 +71,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.citiesSelection.models,
     categoriesStateView: stateView,
-    files: {}, // fixme
+    resourceCache: state.categoriesSelection.resourceCache,
     error: null // fixme display errors
   }
 }
