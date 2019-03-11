@@ -5,8 +5,7 @@ import type {
   SelectCategoryActionType, SwitchCategorySelectionLanguageActionType
 } from '../../app/StoreActionType'
 
-import type { RouteStateType } from '../../app/StateType'
-import type { CategoriesSelectionStateType } from '../../app/StateType'
+import type { CategoriesSelectionStateType, RouteStateType } from '../../app/StateType'
 import { defaultCategoriesSelectionState } from '../../app/StateType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { times } from 'lodash/util'
@@ -72,14 +71,19 @@ const switchLanguage = (
   const {categoriesMap, newLanguage} = action.params
   const {routeMapping} = state
 
-  const translatedRouteMapping = mapValues(routeMapping, (value: RouteStateType) => {
+  const translatedRouteMapping = mapValues(routeMapping, (value: RouteStateType, key: string) => {
     const {models, children, depth, root} = value
 
     const translatedRoot = models[root].availableLanguages.get(newLanguage)
 
     if (!translatedRoot) {
-      // Route is not translatable
-      return
+      console.error(`Route ${key} is not translatable!`)
+      return {
+        root: null,
+        models: {},
+        children: {},
+        depth: 0
+      }
     }
 
     const translatedChildren = reduce(children, (result, value: Array<string>, path: string) => {
@@ -117,8 +121,6 @@ const switchLanguage = (
       depth: depth
     }
   }, {})
-
-  console.dir(translatedRouteMapping)
 
   return {
     ...state,
