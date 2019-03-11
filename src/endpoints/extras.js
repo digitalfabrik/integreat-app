@@ -1,6 +1,5 @@
 // @flow
 
-import { apiUrl } from '../constants'
 import ExtraModel from '../models/ExtraModel'
 import EndpointBuilder from '../EndpointBuilder'
 
@@ -19,7 +18,7 @@ const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> => {
 type ParamsType = { city: ?string, language: ?string }
 
 const endpoint: Endpoint<ParamsType, Array<ExtraModel>> = new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
+  .withParamsToUrlMapper((apiUrl: string, params): string => {
     if (!params.city) {
       throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'city')
     }

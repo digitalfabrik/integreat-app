@@ -8,14 +8,12 @@ import type { JsonSprungbrettJobType } from '../types'
 
 const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 
-type ParamsType = { url: ?string }
-
-const endpoint: Endpoint<ParamsType, Array<SprungbrettJobModel>> = new EndpointBuilder(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
-    if (!params.url) {
-      throw new ParamMissingError(SPRUNGBRETT_JOBS_ENDPOINT_NAME, 'url')
+const endpoint: Endpoint<*, Array<SprungbrettJobModel>> = new EndpointBuilder(SPRUNGBRETT_JOBS_ENDPOINT_NAME)
+  .withParamsToUrlMapper((apiUrl: string): string => {
+    if (!apiUrl) {
+      throw new ParamMissingError(SPRUNGBRETT_JOBS_ENDPOINT_NAME, 'apiUrl')
     }
-    return params.url
+    return apiUrl
   })
   .withMapper((json: { results: Array<JsonSprungbrettJobType> }): Array<SprungbrettJobModel> => json.results
     .map((job, index) => new SprungbrettJobModel({

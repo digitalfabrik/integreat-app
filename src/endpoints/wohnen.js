@@ -13,12 +13,13 @@ const WOHNEN_ENDPOINT_NAME = 'wohnen'
 type ParamsType = { city: ?string }
 
 const endpoint: Endpoint<ParamsType, Array<WohnenOfferModel>> = new EndpointBuilder(WOHNEN_ENDPOINT_NAME)
-  .withParamsToUrlMapper((params): string => {
+  .withParamsToUrlMapper((apiUrl, params): string => {
     if (!params.city) {
       throw new ParamMissingError(WOHNEN_ENDPOINT_NAME, 'city')
     }
 
-    return `https://api.wohnen.integreat-app.de/v0/${params.city}/offer`
+    // return `https://api.wohnen.integreat-app.de/v0/${params.city}/offer`
+    return `${apiUrl}/${params.city}/offer`
   })
   .withMapper((json: Array<OfferType>): Array<WohnenOfferModel> => json
     .map(offer => {

@@ -48,8 +48,8 @@ class Endpoint<P, T> {
     })
   }
 
-  async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
-    const url = overrideUrl || this.mapParamsToUrl(params)
+  async request (apiUrl: string, params: P, overrideUrl?: string): Promise<Payload<T>> {
+    const url = overrideUrl || this.mapParamsToUrl(apiUrl, params)
     const response = await (this.mapParamsToBody ? this.postFormData(url, params) : fetch(url))
 
     if (!response.ok) {

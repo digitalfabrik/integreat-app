@@ -8,6 +8,8 @@ import moment from 'moment'
 jest.unmock('../categories')
 
 describe('categories', () => {
+  const apiUrl = 'https://integreat-api-url.de'
+
   const categoriesJSON = [
     {
       id: 3650,
@@ -100,8 +102,8 @@ describe('categories', () => {
   const params = {language: 'de', city: 'augsburg'}
 
   it('should map router to path', () => {
-    expect(categories.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/pages'
+    expect(categories.mapParamsToUrl(apiUrl, params)).toEqual(
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/pages'
     )
   })
 

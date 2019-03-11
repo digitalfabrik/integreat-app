@@ -6,6 +6,8 @@ import CityModel from '../../models/CityModel'
 jest.unmock('../cities')
 
 describe('cities', () => {
+  const apiUrl = 'https://integreat-api-url.de'
+
   const city1 = {
     name: 'Augsburg',
     path: '/augsburg/',
@@ -25,7 +27,7 @@ describe('cities', () => {
   const cityJson = [city1, city2]
 
   it('should map params to url', () => {
-    expect(cities.mapParamsToUrl()).toEqual('https://cms.integreat-app.de/wp-json/extensions/v3/sites')
+    expect(cities.mapParamsToUrl(apiUrl)).toEqual('https://integreat-api-url.de/wp-json/extensions/v3/sites')
   })
 
   it('should map fetched data to models', () => {

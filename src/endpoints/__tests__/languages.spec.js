@@ -6,6 +6,8 @@ import LanguageModel from '../../models/LanguageModel'
 jest.unmock('../languages')
 
 describe('languages', () => {
+  const apiUrl = 'https://integreat-api-url.de'
+
   const languagesJson = [
     {
       code: 'en',
@@ -20,13 +22,13 @@ describe('languages', () => {
   const params = {city: 'augsburg'}
 
   it('should map router to url', () => {
-    expect(languages.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/languages'
+    expect(languages.mapParamsToUrl(apiUrl, params)).toEqual(
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/languages'
     )
   })
 
   it('should throw if the city to map the url are missing', () => {
-    expect(() => languages.mapParamsToUrl({city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
+    expect(() => languages.mapParamsToUrl(apiUrl, {city: undefined, language: 'de'})).toThrowErrorMatchingSnapshot()
   })
 
   it('should map fetched data to models', () => {
