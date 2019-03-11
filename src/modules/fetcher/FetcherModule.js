@@ -17,8 +17,15 @@ export type FetcherModuleType = {
   ) => Promise<FetchResultType>
 }
 
-const FetcherModule: FetcherModuleType = {
-  downloadAsync: async (targetFilePaths, progress) => {
+class FetcherModule {
+  static currentlyDownloading = false
+
+  async downloadAsync (targetFilePaths: { [url: string]: string }, progress: (progress: number) => void): Promise<FetchResultType> {
+    if (FetcherModule.currentlyDownloading) {
+      return Promise.reject(new Error('Already downloading!'))
+    }
+    FetcherModule.currentlyDownloading = true
+
     const subscriptions = []
     subscriptions.push(NativeAppEventEmitter.addListener('progress', progress))
 
@@ -26,7 +33,9 @@ const FetcherModule: FetcherModuleType = {
       return await NativeFetcherModule.downloadAsync(targetFilePaths)
     } finally {
       subscriptions.forEach(sub => sub.remove())
+      FetcherModule.currentlyDownloading = false
     }
   }
 }
+
 export default FetcherModule
