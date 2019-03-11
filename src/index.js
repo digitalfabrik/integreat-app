@@ -46,8 +46,6 @@ export {default as poisEndpoint} from './endpoints/pois'
 export {default as sprungbrettEndpoint} from './endpoints/sprungbrettJobs'
 export {default as wohnenEndpoint} from './endpoints/wohnen'
 
-export {apiUrl} from './constants'
-
 export {default as CategoriesMapModel} from './models/CategoriesMapModel'
 export {default as CategoryModel} from './models/CategoryModel'
 export {default as CityModel} from './models/CityModel'
