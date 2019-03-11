@@ -8,7 +8,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import { ScrollView } from 'react-native'
 import React from 'react'
 import MemoryDatabase from '../../../modules/endpoint/MemoryDatabase'
-import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
+import withNavigateAway from '../../../modules/endpoint/hocs/withNavigateAway'
 import { type Dispatch } from 'redux'
 import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -60,7 +60,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.citiesSelection.models,
     categoriesStateView: stateView,
-    files: database.resourceCache,
+    files: {}, // fixme
     error: null // fixme display errors
   }
 }
@@ -68,4 +68,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 // $FlowFixMe connect()
-export default withMemoryDatabase(connect(mapStateToProps, mapDispatchToProps)(themed))
+export default withNavigateAway(connect(mapStateToProps, mapDispatchToProps)(themed))

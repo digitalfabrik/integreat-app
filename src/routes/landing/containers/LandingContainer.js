@@ -8,7 +8,6 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import withMemoryDatabase from '../../../modules/endpoint/hocs/withMemoryDatabase'
 import navigateToCategory from '../../../modules/app/navigateToCategory'
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -31,4 +30,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
 
 // $FlowFixMe
 const themed = withTheme(Landing)
-export default translate('landing')(withMemoryDatabase(withI18n()(connect(mapStateToProps, mapDispatchToProps)(themed))))
+export default translate('landing')(withI18n()(connect(mapStateToProps, mapDispatchToProps)(themed)))
