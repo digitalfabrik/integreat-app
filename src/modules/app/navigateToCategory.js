@@ -13,14 +13,16 @@ export default (
 ) => (cityCode: string, language: string, path: string) => {
   const key = generateKey()
 
-  const navigateAction = StackActions.replace({
-    routeName,
+  navigation.navigate({routeName, params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})}})
 
-    params: {cityCode, key},
-    newKey: key
-  })
-
-  navigation.dispatch(navigateAction)
+  // const navigateAction = StackActions.push({
+  //   routeName,
+  //
+  //   params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})},
+  //   newKey: key
+  // })
+  //
+  // navigation.dispatch(navigateAction)
 
   return dispatch({
     type: 'FETCH_CATEGORY',
