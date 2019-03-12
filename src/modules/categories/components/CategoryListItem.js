@@ -7,39 +7,18 @@ import styled from 'styled-components'
 import { Text } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import FastImage from 'react-native-fast-image'
+import CategoryCaption from './CategoryCaption'
+import StyledLink from './StyledLink'
+import SubCategoryListItem from './SubCategoryListItem'
 
 const Row = styled.View`
   margin: 12px 0;
-`
-
-const SubCategory = styled.View`
 `
 
 const CategoryThumbnail = styled(FastImage)`
   width: 40px;
   height: 40px;
   padding: 8px;
-`
-
-const CategoryCaption = styled.Text`
-  flex-grow: 1;
-  padding: 15px 5px;
-  border-bottom-width: 2px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
-`
-
-const SubCategoryCaption = styled(CategoryCaption)`
-  padding: 8px 0;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
-`
-
-const StyledLink = styled.TouchableHighlight`
-  display: flex;
-  flex-direction: row;
-  justifyContent:center;
-  margin: 0 auto;
-  width: 80%;
 `
 
 type PropsType = {
@@ -55,20 +34,16 @@ type PropsType = {
  * Displays a single CategoryListItem
  */
 class CategoryListItem extends React.Component<PropsType> {
-  onItemPress = () => {
+  onCategoryPress = () => {
     this.props.onItemPress(this.props.category)
   }
 
   renderSubCategories (): Array<React.Node> {
     const {subCategories} = this.props
     return subCategories.map(subCategory =>
-      <SubCategory key={subCategory.id}>
-        <StyledLink onPress={this.onItemPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
-          <SubCategoryCaption search={''}>
-            <Text>{subCategory.title}</Text>
-          </SubCategoryCaption>
-        </StyledLink>
-      </SubCategory>
+      <SubCategoryListItem key={subCategory.id}
+                           subCategory={subCategory} onItemPress={this.props.onItemPress}
+                           theme={this.props.theme} />
     )
   }
 
@@ -83,9 +58,10 @@ class CategoryListItem extends React.Component<PropsType> {
     const {category} = this.props
     return (
       <Row>
-        <StyledLink onPress={this.onItemPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+        <StyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <>
-            <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder} resizeMode={FastImage.resizeMode.contain} />
+            <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder}
+                               resizeMode={FastImage.resizeMode.contain} />
             {this.renderTitle()}
           </>
         </StyledLink>
