@@ -22,14 +22,14 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute = state.categoriesSelection.routeMapping[key]
-  const language = state.categoriesSelection.currentLanguage
+  const targetRoute = state.categories.routeMapping[key]
+  const language = state.categories.currentLanguage
 
   if (!targetRoute || !language) {
     return {
       cityCode: targetCityCode,
       language: language,
-      cities: state.citiesSelection.models
+      cities: state.cities.models
     }
   }
 
@@ -47,16 +47,16 @@ const mapStateToProps = (state: StateType, ownProps) => {
     return {
       cityCode: targetCityCode,
       language: language,
-      cities: state.citiesSelection.models
+      cities: state.cities.models
     }
   }
 
   return {
     cityCode: targetCityCode,
     language: language,
-    cities: state.citiesSelection.models,
+    cities: state.cities.models,
     categoriesStateView: stateView,
-    resourceCache: state.categoriesSelection.resourceCache,
+    resourceCache: state.categories.resourceCache,
     error: null // fixme display errors
   }
 }

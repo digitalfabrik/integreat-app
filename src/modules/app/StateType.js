@@ -27,7 +27,7 @@ export const defaultRouteState: RouteStateType = {
   depth: 0
 }
 
-export type CategoriesSelectionStateType = {
+export type CategoriesStateType = {
   +routeMapping: {
     [key: string]: RouteStateType
   },
@@ -38,7 +38,7 @@ export type CategoriesSelectionStateType = {
   +currentCity: CurrentCityStateType
 }
 
-export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
+export const defaultCategoriesState: CategoriesStateType = {
   routeMapping: {},
   resourceCache: {},
 
@@ -47,11 +47,11 @@ export const defaultCategoriesSelectionState: CategoriesSelectionStateType = {
   currentCity: null
 }
 
-export type CitiesSelectionStateType = {|
+export type CitiesStateType = {|
   +models: Array<CityModel>
 |}
 
-export const defaultCitiesSelectionState: CitiesSelectionStateType = {
+export const defaultCitiesState: CitiesStateType = {
   models: []
 }
 
@@ -61,8 +61,8 @@ export type StateType = {|
   +uiDirection: DirectionStateType,
   +darkMode: boolean,
 
-  +citiesSelection: CitiesSelectionStateType,
-  +categoriesSelection: CategoriesSelectionStateType,
+  +cities: CitiesStateType,
+  +categories: CategoriesStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState

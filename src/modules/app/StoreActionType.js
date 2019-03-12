@@ -9,29 +9,29 @@ import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES', params: {||}
 |}
-export type SelectCitiesActionType = {|
-  type: 'SELECT_CITIES', params: {| cities: Array<CityModel> |}
+export type PushCitiesActionType = {|
+  type: 'PUSH_CITIES', params: {| cities: Array<CityModel> |}
 |}
 export type FetchCitiesFailedActionType = {|
   type: 'FETCH_CITIES_FAILED', message: string
 |}
-export type CitiesActionType = SelectCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
+export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type SelectParamsType = {
+export type PushParamsType = {
   path: string, depth: number, key: string
 }
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
-    city: string, language: string, selectParams?: SelectParamsType
+    city: string, language: string, pushParams?: PushParamsType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED', message: string
 |}
-export type SelectCategoryActionType = {|
-  type: 'SELECT_CATEGORY', params: {
+export type PushCategoryActionType = {|
+  type: 'PUSH_CATEGORY', params: {
     categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
-    selectParams: SelectParamsType,
+    pushParams: PushParamsType,
     resourceCache: ResourceCacheType,
     city: string,
     language: string
@@ -40,8 +40,8 @@ export type SelectCategoryActionType = {|
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
-export type SwitchCategorySelectionLanguageActionType = {|
-  type: 'SWITCH_CATEGORY_SELECTION_LANGUAGE', params: {|
+export type SwitchCategoryLanguageActionType = {|
+  type: 'SWITCH_CATEGORY_LANGUAGE', params: {|
     categoriesMap: CategoriesMapModel,
     newLanguage: string
   |}
@@ -49,9 +49,9 @@ export type SwitchCategorySelectionLanguageActionType = {|
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
-  | SelectCategoryActionType
+  | PushCategoryActionType
   | FetchCategoryFailedActionType
-  | SwitchCategorySelectionLanguageActionType
+  | SwitchCategoryLanguageActionType
 
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string

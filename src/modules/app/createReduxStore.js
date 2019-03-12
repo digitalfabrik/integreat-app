@@ -25,11 +25,11 @@ import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import MemoryDatabase from '../endpoint/MemoryDatabase'
 import {
-  defaultCategoriesSelectionState,
-  defaultCitiesSelectionState
+  defaultCategoriesState,
+  defaultCitiesState
 } from './StateType'
-import citiesSelectionReducer from '../endpoint/reducers/citiesSelectionReducer'
-import categoriesSelectionReducer from '../endpoint/reducers/categoriesSelectionReducer'
+import citiesReducer from '../endpoint/reducers/citiesReducer'
+import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import fetchCategory from '../endpoint/sagas/fetchCategory'
 import fetchCities from '../endpoint/sagas/fetchCities'
 
@@ -50,8 +50,8 @@ const createReduxStore = (
     uiDirection: 'ltr',
     darkMode: false,
 
-    citiesSelection: defaultCitiesSelectionState,
-    categoriesSelection: defaultCategoriesSelectionState,
+    cities: defaultCitiesState,
+    categories: defaultCategoriesState,
 
     network: {isConnected: false, actionQueue: []}
   }
@@ -62,7 +62,7 @@ const createReduxStore = (
     key: 'root',
     storage: AsyncStorage,
     stateReconciler: hardSet,
-    blacklist: ['citiesSelection', 'categoriesSelection']
+    blacklist: ['cities', 'categories']
   }
 
   // Create this reducer only once. It is not pure!
@@ -70,8 +70,8 @@ const createReduxStore = (
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
-    citiesSelection: citiesSelectionReducer,
-    categoriesSelection: categoriesSelectionReducer,
+    cities: citiesReducer,
+    categories: categoriesReducer,
 
     network: reactNativeOfflineReducer
   })

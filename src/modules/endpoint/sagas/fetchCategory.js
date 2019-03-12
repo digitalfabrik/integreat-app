@@ -3,10 +3,10 @@
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest, fork, select } from 'redux-saga/effects'
 import type {
-  SelectCategoryActionType,
+  PushCategoryActionType,
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  SwitchCategorySelectionLanguageActionType
+  SwitchCategoryLanguageActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import {
@@ -66,16 +66,16 @@ function * fetchCategories (database: MemoryDatabase, city: string, language: st
 }
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, selectParams} = action.params
+  const {city, language, pushParams} = action.params
 
   try {
-    const currentLanguage = yield select((state: StateType) => state.categoriesSelection.currentLanguage)
+    const currentLanguage = yield select((state: StateType) => state.categories.currentLanguage)
 
-    if (!selectParams) {
+    if (!pushParams) {
       // Language Switch
       yield call(fetchCategories, database, city, language)
-      const select: SwitchCategorySelectionLanguageActionType = {
-        type: `SWITCH_CATEGORY_SELECTION_LANGUAGE`,
+      const select: SwitchCategoryLanguageActionType = {
+        type: `SWITCH_CATEGORY_LANGUAGE`,
         params: {
           categoriesMap: database.categoriesMap,
           newLanguage: language
@@ -89,13 +89,13 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
       }
 
       yield call(fetchCategories, database, city, language)
-      const insert: SelectCategoryActionType = {
-        type: `SELECT_CATEGORY`,
+      const insert: PushCategoryActionType = {
+        type: `PUSH_CATEGORY`,
         params: {
           categoriesMap: database.categoriesMap,
           languages: database.languages,
           resourceCache: database.resourceCache,
-          selectParams,
+          pushParams: pushParams,
           city,
           language
         }
