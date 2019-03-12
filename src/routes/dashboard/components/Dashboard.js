@@ -57,6 +57,10 @@ class Dashboard extends React.Component<PropsType> {
     this.props.navigation.navigate('Extras', {cityModel: this.props.navigation.getParam('cityModel')})
   }
 
+  events = () => {
+    this.props.navigation.navigate('Events', {cityModel: this.props.navigation.getParam('cityModel')})
+  }
+
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
@@ -76,6 +80,10 @@ class Dashboard extends React.Component<PropsType> {
         <Button
           title='Extras'
           onPress={this.extras}
+        />
+        <Button
+          title='Events'
+          onPress={this.events}
         />
         <Button
           title='Go to Landing'
