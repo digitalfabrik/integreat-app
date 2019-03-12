@@ -58,13 +58,10 @@ export const ExtrasStack = createStackNavigator(
  */
 export const AppStack = createStackNavigator(
   {
-    'Dashboard': LayoutedDashboardContainer,
-    'Categories': LayoutedCategoriesContainer,
-    'Extras': ExtrasStack,
-    'Events': EventsContainer,
     'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
     'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
     'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
+    'Events': createNavigationScreen(EventsContainer, defaultHeader),
     'MapViewModal': createNavigationScreen(MapViewModal),
     'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
     'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
