@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import { WebView } from 'react-native-webview'
+import AutoHeightWebView from 'react-native-autoheight-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
@@ -13,12 +13,11 @@ import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
 
-const HEADER_HEIGHT = 60
+const WEBVIEW_MARGIN = 8
 
-const WebContainer = styled.View`
-  flex: 1;
-  padding: 5px 0 0;
-  height: ${props => Dimensions.get('screen').height - HEADER_HEIGHT}
+const WebContainer = styled(AutoHeightWebView)`
+  margin: ${WEBVIEW_MARGIN}px;
+  width: ${Dimensions.get('window').width - 2 * WEBVIEW_MARGIN}
 `
 type PropType = {
   title: string,
@@ -57,30 +56,32 @@ class Page extends React.Component<PropType> {
   }
 
   render () {
-    const {title, children, theme, content, files} = this.props
+    const {title, children, content, files} = this.props
     return (
       <>
         <Caption title={title} />
         {children}
-        <WebContainer theme={theme}>
-          <WebView
+          <WebContainer
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
               html: renderHtml(content, files)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
-            useWebKit
+            // useWebKit
+            scalesPageToFit={false}
             javaScriptEnabled
 
             dataDetectorTypes={'all'}
             domStorageEnabled={false}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            scrollEnabled={false}
 
             renderError={this.renderError}
 
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
-        </WebContainer>
       </>
     )
   }
