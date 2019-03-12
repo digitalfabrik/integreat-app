@@ -113,9 +113,10 @@ class Categories extends React.Component<PropsType> {
       categories={children.map((model: CategoryModel) => {
         const stateView = categoriesStateView.stepInto(model.path)
 
+        const children = stateView.children()
         return ({
           model: this.getListModel(model),
-          subCategories: this.getListModels(stateView.children())
+          subCategories: this.getListModels(children)
         })
       })}
       title={category.title}
