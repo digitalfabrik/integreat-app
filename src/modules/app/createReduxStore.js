@@ -84,9 +84,9 @@ const createReduxStore = (
   }
   const middlewares = [createNetworkMiddleware(), sagaMiddleware]
 
-  if (__DEV__) {
-    middlewares.push(createLogger())
-  }
+  // if (__DEV__) {
+  //   middlewares.push(createLogger())
+  // }
 
   const middleware = applyMiddleware(...middlewares)
 

@@ -13,7 +13,7 @@ import type { ResourceCacheType } from '../ResourceCacheType'
 
 export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheType): Saga<void> {
   try {
-    const result: FetchResultType = yield call(new FetcherModule().downloadAsync, urls, p => console.log(p))
+    const result: FetchResultType = yield call(new FetcherModule().downloadAsync, urls, progress => {})
 
     if (!isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {
