@@ -1,5 +1,5 @@
-// flow-typed signature: 831f8b195e30096cbc91f2b8558e8665
-// flow-typed version: 989fd89a97/moment_v2.x.x/flow_>=v0.25.x
+// flow-typed signature: d6327b84ad43bf04364d55048ee1198e
+// flow-typed version: c23239b2a8/moment_v2.x.x/flow_>=v0.25.x
 
 type moment$MomentOptions = {
   y?: number | string,
@@ -353,6 +353,7 @@ declare class moment$Moment {
   locale(): string;
   static months(): Array<string>;
   static monthsShort(): Array<string>;
+  static now(): number;
   static weekdays(): Array<string>;
   static weekdaysShort(): Array<string>;
   static weekdaysMin(): Array<string>;
