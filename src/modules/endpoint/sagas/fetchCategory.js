@@ -71,23 +71,8 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
   try {
     const currentLanguage = yield select((state: StateType) => state.categories.currentLanguage)
 
-    if (!pushParams) {
-      // Language Switch
-      yield call(fetchCategories, database, city, language)
-      const select: SwitchCategoryLanguageActionType = {
-        type: `SWITCH_CATEGORY_LANGUAGE`,
-        params: {
-          newCategoriesMap: database.categoriesMap,
-          newLanguage: language
-        }
-      }
-      yield put(select)
-    } else {
-      // Fetch new categories
-      if (!!currentLanguage && currentLanguage !== language) {
-        throw new Error('If you supply a path you should not change the language!')
-      }
-
+    // If there is no language change or no language set fetch and prepare the categories state
+    if ((!currentLanguage || currentLanguage === language) && pushParams) {
       yield call(fetchCategories, database, city, language)
       const insert: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,
@@ -101,6 +86,16 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
         }
       }
       yield put(insert)
+    } else {
+      yield call(fetchCategories, database, city, language)
+      const select: SwitchCategoryLanguageActionType = {
+        type: `SWITCH_CATEGORY_LANGUAGE`,
+        params: {
+          newCategoriesMap: database.categoriesMap,
+          newLanguage: language
+        }
+      }
+      yield put(select)
     }
   } catch (e) {
     const failed: FetchCategoryFailedActionType = {
