@@ -2,15 +2,12 @@
 
 import * as React from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-
-const WrappedText = styled.Text`
-`
+import { Text } from 'react-native-elements'
 
 type PropsType = {|
   event: EventModel,
@@ -25,7 +22,7 @@ class EventListItem extends React.PureComponent<PropsType> {
    */
   getEventPlaceholder (id: number): string {
     const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-    return `${placeholders[id % placeholders.length]}`
+    return placeholders[id % placeholders.length]
   }
 
   render () {
@@ -36,8 +33,8 @@ class EventListItem extends React.PureComponent<PropsType> {
                 title={event.title}
                 navigateTo={navigateToEvent}>
         <View>
-          <WrappedText>{event.date.toFormattedString(language)}</WrappedText>
-          <WrappedText>{event.location.location}</WrappedText>
+          <Text>{event.date.toFormattedString(language)}</Text>
+          <Text>{event.location.location}</Text>
         </View>
       </ListItem>
     )
