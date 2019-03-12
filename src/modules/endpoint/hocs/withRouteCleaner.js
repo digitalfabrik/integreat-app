@@ -14,17 +14,11 @@ function withRouteCleaner<Props: { navigation: NavigationScreenProp<*> }> (
 ): React.ComponentType<Props> {
   class RouteCleaner extends React.PureComponent<Props> {
     componentWillUnmount () {
-      this.props.navigation.getParam('onDidBlur')()
-    }
-
-    componentDidMount () {
-      // const didBlurSubscription = this.props.navigation.addListener(
-      //   'didBlur',
-      //   payload => {
-      //     this.props.navigation.getParam('onDidBlur')()
-      //     didBlurSubscription.remove()
-      //   }
-      // )
+      const onRouteClose = this.props.navigation.getParam('onRouteClose')
+      if (!onRouteClose) {
+        throw new Error('onRouteClose is not provided to route in the navigation props!')
+      }
+      onRouteClose()
     }
 
     render () {
