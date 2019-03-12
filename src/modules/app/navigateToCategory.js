@@ -3,6 +3,7 @@
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from './StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
+import { StackActions } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export default (
@@ -14,8 +15,18 @@ export default (
 
   navigation.navigate({
     routeName,
-    params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})}
+    params: {
+      cityCode,
+      key,
+      onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+    }
   })
+
+  // TODO: Not working:
+  // navigation.replace(
+  //   routeName,
+  //   {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})}
+  // )
 
   // TODO: Not working:
   // navigation.navigate({
@@ -26,10 +37,17 @@ export default (
 
   // TODO: Alternative:
   // const navigateAction = StackActions.push({
-  //   routeName,
+  //   routeName: 'Dashboard',
   //
   //   params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})},
-  //   newKey: key
+  //   // newKey: key
+  //   // action: StackActions.push({
+  //   //   routeName: 'Dashboard',
+  //   //
+  //   //   params: {cityCode, key, onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})},
+  //   //   // newKey: key
+  //   // })
+  //
   // })
   //
   // navigation.dispatch(navigateAction)
