@@ -7,112 +7,106 @@ import { mapValues } from 'lodash/object'
 import { reduce } from 'lodash/collection'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 
+const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string) => {
+  if (model.id === 0) {
+    return `/${currentCity}/${newLanguage}`
+  } else {
+    return model.availableLanguages.get(newLanguage)
+  }
+}
+
+const translateChildren = (models, newCategoriesMap, children, currentCity, newLanguage) =>
+  reduce(children, (result, value: Array<string>, path: string) => {
+    const translatedKey = translatePath(models[path], currentCity, newLanguage)
+
+    if (!translatedKey) {
+      console.warn(`Path ${path} is not translatable!`)
+      return result
+    }
+
+    if (!newCategoriesMap.findCategoryByPath(translatedKey)) {
+      console.warn(`Path ${translatedKey} does not exist in new model!`)
+      return result
+    }
+
+    const translatedArray = reduce(children[path], (result, key) => {
+      const translatedKey = models[key].availableLanguages.get(newLanguage)
+      if (!translatedKey) {
+        console.warn(`Path ${key} is not translatable!`)
+        return result
+      }
+
+      if (!newCategoriesMap.findCategoryByPath(translatedKey)) {
+        console.warn(`Path ${translatedKey} does not exist in new model!`)
+        return result
+      }
+
+      result.push(translatedKey)
+      return result
+    }, [])
+
+    result[translatedKey] = translatedArray
+    return result
+  }, {})
+
+const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
+  reduce(models, (result, value: CategoryModel) => {
+    const translatedKey = translatePath(value, currentCity, newLanguage)
+
+    if (!translatedKey) {
+      console.warn(`Path ${value.path} is not translatable!`)
+      return result
+    }
+
+    const category = newCategoriesMap.findCategoryByPath(translatedKey)
+
+    if (!category) {
+      console.warn(`Path ${translatedKey} does not exist in new model!`)
+      return result
+    }
+
+    result[translatedKey] = category
+    return result
+  }, {})
+
 const switchLanguage = (
   state: CategoriesStateType, action: SwitchCategoryLanguageActionType
 ) => {
-  const {categoriesMap, newLanguage} = action.params
+  const {newCategoriesMap, newLanguage} = action.params
   const {routeMapping, currentCity, currentLanguage} = state
+
+  if (!currentCity) {
+    throw new Error(`Current city needs to be set in order to change language!`)
+  }
 
   if (currentLanguage === newLanguage) {
     return state
   }
 
-  console.dir(routeMapping)
-
   const translatedRouteMapping = mapValues(routeMapping, (value: RouteStateType, key: string) => {
     const {models, children, depth, root} = value
 
     if (!root) {
-      console.error(`There is no root to translate for route ${key}!`)
-
-      return defaultRouteState
+      throw new Error(`There is no root to translate for route ${key}!`)
     }
 
-    let translatedRoot
-
-    if (models[root].id === 0) {
-      translatedRoot = `/${currentCity}/${newLanguage}`
-    } else {
-      translatedRoot = models[root].availableLanguages.get(newLanguage)
-    }
+    const translatedRoot = translatePath(models[root], currentCity, newLanguage)
 
     if (!translatedRoot) {
-      console.error(`Route ${key} is not translatable!`)
+      console.warn(`Route ${key} is not translatable!`)
       return defaultRouteState
     }
 
-    const translatedChildren = reduce(children, (result, value: Array<string>, path: string) => {
-      let translatedKey
+    const translatedChildren = translateChildren(models, newCategoriesMap, children, currentCity, newLanguage)
+    const translatedModels = translateModels(models, newCategoriesMap, currentCity, newLanguage)
 
-      if (models[path].id === 0) {
-        translatedKey = `/${currentCity}/${newLanguage}`
-      } else {
-        translatedKey = models[path].availableLanguages.get(newLanguage)
-
-        if (!translatedKey) {
-          return result
-        }
-      }
-
-      if (!categoriesMap.findCategoryByPath(translatedKey)) {
-        // child in translation not available
-        return result
-      }
-
-      const translatedArray = children[path].map(key => {
-        const translatedKey = models[key].availableLanguages.get(newLanguage)
-        if (!translatedKey) {
-          // child in translation not available
-          return null
-        }
-
-        if (!categoriesMap.findCategoryByPath(translatedKey)) {
-          // child in translation not available
-          return null
-        }
-
-        return translatedKey
-      }).filter(model => !!model)
-
-      result[translatedKey] = translatedArray
-      return result
-    }, {})
-
-    const translatedModels = reduce(models, (result, value: CategoryModel) => {
-      let translatedKey
-
-      if (value.id === 0) {
-        translatedKey = `/${currentCity}/${newLanguage}`
-      } else {
-        translatedKey = value.availableLanguages.get(newLanguage)
-        if (!translatedKey) {
-          return result
-        }
-      }
-
-      const category = categoriesMap.findCategoryByPath(translatedKey)
-
-      if (!category) {
-        return result
-      }
-
-      result[translatedKey] = category
-      return result
-    }, {})
-
-    console.log('route')
-    const newVar = {
+    return {
       root: translatedRoot,
       models: translatedModels,
       children: translatedChildren,
       depth: depth
     }
-    console.dir(newVar)
-    return newVar
   })
-
-  console.log(translatedRouteMapping)
-  console.dir(translatedRouteMapping)
 
   return {
     ...state,

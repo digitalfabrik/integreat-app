@@ -91,6 +91,7 @@
     "jest-react-native": "^18.0.0",
     "lolex": "^3.0.0",
     "metro-react-native-babel-preset": "^0.49.2",
+    "moment-timezone": "^0.5.23",
     "react-native-git-upgrade": "^0.2.7",
     "react-test-renderer": "16.6.1",
     "redux-devtools-extension": "^2.13.6",
