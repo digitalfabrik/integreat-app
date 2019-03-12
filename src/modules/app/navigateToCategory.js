@@ -17,7 +17,7 @@ export default (
     params: {
       cityCode,
       key,
-      onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+      onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
     },
     // Use key when navigating to Categories. Else a new route is not pushed
     key: routeName === 'Categories' ? key : undefined
