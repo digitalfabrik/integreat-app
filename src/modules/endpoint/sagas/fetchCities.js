@@ -3,7 +3,7 @@
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
-  SelectCitiesActionType,
+  PushCitiesActionType,
   FetchCitiesFailedActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
@@ -19,8 +19,8 @@ function * fetchCities (database: MemoryDatabase): Saga<void> {
 
     database.loadCities(cities)
 
-    const insert: SelectCitiesActionType = {
-      type: `SELECT_CITIES`,
+    const insert: PushCitiesActionType = {
+      type: `PUSH_CITIES`,
       params: {cities: database.cities}
     }
     yield put(insert)

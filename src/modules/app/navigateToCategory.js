@@ -36,6 +36,6 @@ export default (
 
   return dispatch({
     type: 'FETCH_CATEGORY',
-    params: {city: cityCode, language, selectParams: {path, depth: 2, key}}
+    params: {city: cityCode, language, pushParams: {path, depth: 2, key}}
   })
 }

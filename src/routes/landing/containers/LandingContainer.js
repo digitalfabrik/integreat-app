@@ -11,7 +11,7 @@ import Landing from '../components/Landing'
 import navigateToCategory from '../../../modules/app/navigateToCategory'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const cities = state.citiesSelection.models
+  const cities = state.cities.models
   return {
     language: ownProps.lng,
     cities: cities.length === 0 ? undefined : cities
