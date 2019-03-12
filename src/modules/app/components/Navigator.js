@@ -30,8 +30,12 @@ const createNavigationScreen = (component, header = null) => {
   }
 }
 
-const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
-                                                                              scenes={headerProps.scenes} />
+const transparentHeader = (headerProps: HeaderProps) =>
+  <ModalHeaderContainer scene={headerProps.scene}
+                        scenes={headerProps.scenes} />
+
+const defaultHeader = (headerProps: HeaderProps) =>
+  <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
 
 export const ExtrasStack = createStackNavigator(
   {
@@ -49,13 +53,17 @@ export const ExtrasStack = createStackNavigator(
 
 export const AppStack = createStackNavigator(
   {
-    'Dashboard': LayoutedDashboardContainer,
-    'Categories': LayoutedCategoriesContainer,
-    'Extras': ExtrasStack
+    'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
+    'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
+    'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
+    'MapViewModal': createNavigationScreen(MapViewModal),
+    'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
+    'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
+    'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
   },
   {
     defaultNavigationOptions: {
-      header: (headerProps: HeaderProps) => <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
+      header: null
     }
   }
 )
@@ -67,17 +75,5 @@ export const LandingStack = createSwitchNavigator(
   }
 )
 
-const MainStack = createStackNavigator(
-  {
-    'LandingStack': createNavigationScreen(LandingStack),
-    'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
-    'MapViewModal': createNavigationScreen(MapViewModal),
-    'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
-    'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
-  },
-  {
-    mode: 'modal'
-  }
-)
-const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(MainStack)
+const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
 export default AppContainer
