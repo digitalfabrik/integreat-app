@@ -31,8 +31,10 @@ class MemoryDatabase {
     this._languages = Array.from(languages)
   }
 
-  hasContext (): boolean {
-    return !!this.context
+  hasContext (otherContext: DataContext): boolean {
+    return this.context &&
+      this.context.languageCode === otherContext.languageCode &&
+      this.context.cityCode === otherContext.cityCode
   }
 
   get cities (): Array<CityModel> {
