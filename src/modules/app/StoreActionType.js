@@ -42,7 +42,7 @@ export type ClearCategoryActionType = {|
 |}
 export type SwitchCategoryLanguageActionType = {|
   type: 'SWITCH_CATEGORY_LANGUAGE', params: {|
-    categoriesMap: CategoriesMapModel,
+    newCategoriesMap: CategoriesMapModel,
     newLanguage: string
   |}
 |}

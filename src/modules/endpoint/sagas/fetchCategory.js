@@ -77,7 +77,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
       const select: SwitchCategoryLanguageActionType = {
         type: `SWITCH_CATEGORY_LANGUAGE`,
         params: {
-          categoriesMap: database.categoriesMap,
+          newCategoriesMap: database.categoriesMap,
           newLanguage: language
         }
       }
