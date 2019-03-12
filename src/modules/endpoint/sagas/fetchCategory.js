@@ -44,13 +44,15 @@ function * fetchLanguages (city: string): Saga<Array<LanguageModel>> {
 }
 
 function * fetchCategories (database: MemoryDatabase, city: string, language: string): Saga<void> {
+  // todo evaluate
+  if (database.hasContext(new DataContext(city, language))) {
+    return
+  }
+
   const urls: ResourceCacheType = {}
 
-  // const start = performanceNow()
   const languages = yield call(fetchLanguages, city)
   const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesByLanguage, city, language)
-  // const end = performanceNow()
-  // console.warn(`fetch categories: ${end - start}ms`)
 
   findResources(categoriesMap.toArray()).forEach(url => {
     const hash = fnv.hash(url).hex()
