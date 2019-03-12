@@ -2,7 +2,6 @@
 
 import type { Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
-import { createLogger } from 'redux-logger'
 import { AsyncStorage } from 'react-native'
 
 import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
@@ -84,6 +83,7 @@ const createReduxStore = (
   }
   const middlewares = [createNetworkMiddleware(), sagaMiddleware]
 
+  // import { createLogger } from 'redux-logger'
   // if (__DEV__) {
   //   middlewares.push(createLogger())
   // }

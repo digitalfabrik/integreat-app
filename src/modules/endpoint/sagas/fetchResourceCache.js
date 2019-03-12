@@ -14,7 +14,6 @@ import type { ResourceCacheType } from '../ResourceCacheType'
 
 export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheType): Saga<void> {
   try {
-
     let result: FetchResultType = {failureMessages: {}, successFilePaths: {}}
     if (Platform.OS === 'android') {
       result = yield call(new FetcherModule().downloadAsync, urls, progress => {})
