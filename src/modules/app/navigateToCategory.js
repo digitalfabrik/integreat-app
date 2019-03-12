@@ -18,7 +18,8 @@ export default (
       cityCode,
       key,
       onDidBlur: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
-    }
+    },
+    key: routeName === 'Categories' ? key : undefined
   })
 
   return dispatch({
