@@ -50,7 +50,11 @@ export const ExtrasStack = createStackNavigator(
     }
   }
 )
-
+/*
+ The app behaves pretty weird when you have a StackNavigator -> SwitchNavigator -> StackNavigator
+ Therefore I removed the StackNavigator in the root and moved the routes to the other StackNavigator.
+ We can not set the modal prop, but this is good enough atm.
+ */
 export const AppStack = createStackNavigator(
   {
     'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
