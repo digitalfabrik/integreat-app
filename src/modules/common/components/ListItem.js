@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import FastImage from 'react-native-fast-image'
+import FastImage, { FastImageSource } from 'react-native-fast-image'
 
 const ListItemView = styled.View`
   flex: 1;
@@ -37,7 +37,7 @@ const Title = styled.Text`
 `
 
 type PropsType = {|
-  thumbnail?: {uri: string} | string,
+  thumbnail?: FastImageSource | number,
   title: string,
   children?: React.Node,
   navigateTo: () => void
