@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
 import { WebView } from 'react-native-webview'
 import styled from 'styled-components'
@@ -11,11 +11,13 @@ import type {
 } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
+import Caption from './Caption'
 
 const HEADER_HEIGHT = 60
 
 const WebContainer = styled.View`
   flex: 1;
+  padding: 5px 0 0;
   height: ${props => Dimensions.get('screen').height - HEADER_HEIGHT}
 `
 type PropType = {
@@ -23,7 +25,8 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  resourceCache: { [url: string]: string }
+  resourceCache: { [url: string]: string },
+  children?: React.Node
 }
 
 class Page extends React.Component<PropType> {
@@ -54,13 +57,16 @@ class Page extends React.Component<PropType> {
   }
 
   render () {
+    const {title, children, theme, content, resourceCache} = this.props
     return (
       <>
-        <WebContainer theme={this.props.theme}>
+        <Caption title={title} />
+        {children}
+        <WebContainer theme={theme}>
           <WebView
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(this.props.content, this.props.resourceCache)
+              html: renderHtml(content, resourceCache)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html

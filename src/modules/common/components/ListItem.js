@@ -2,7 +2,14 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
+import type { FastImageSource } from 'react-native-fast-image'
 import FastImage from 'react-native-fast-image'
+
+const ListItemView = styled.View`
+  flex: 1;
+  flex-direction: row;
+  padding: 15px 5px 0;
+`
 
 const StyledTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
@@ -13,20 +20,17 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
 `
 
 const Thumbnail = styled(FastImage)`
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   flex-shrink: 0;
-  padding: 15px 5px;
-  object-fit: contain;
 `
 
 const Description = styled.View`
-  display: flex;
+  flex: 1;
   height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-direction: column;
   flex-grow: 1;
-  padding: 15px 10px 0;
+  padding: 0 10px;
 `
 
 const Title = styled.Text`
@@ -34,31 +38,24 @@ const Title = styled.Text`
 `
 
 type PropsType = {|
-  thumbnail?: string,
+  thumbnail?: FastImageSource | number,
   title: string,
   children?: React.Node,
   navigateTo: () => void
 |}
 
 class ListItem extends React.PureComponent<PropsType> {
-  renderContent (): React.Node {
-    const {title, thumbnail, children} = this.props
-
-    return (
-      <>
-        {thumbnail && <Thumbnail src={{uri: thumbnail}} />}
-        <Description>
-          <Title>{title}</Title>
-          {children}
-        </Description>
-      </>
-    )
-  }
-
   render () {
+    const {title, thumbnail, children} = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo}>
-        {this.renderContent()}
+        <ListItemView>
+          {thumbnail && <Thumbnail source={thumbnail} />}
+          <Description>
+            <Title>{title}</Title>
+            {children}
+          </Description>
+        </ListItemView>
       </StyledTouchableOpacity>
     )
   }

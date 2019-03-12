@@ -1,5 +1,6 @@
 // @flow
 
+import { Platform } from 'react-native'
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
@@ -13,7 +14,11 @@ import type { ResourceCacheType } from '../ResourceCacheType'
 
 export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheType): Saga<void> {
   try {
-    const result: FetchResultType = yield call(new FetcherModule().downloadAsync, urls, progress => {})
+
+    let result: FetchResultType = {failureMessages: {}, successFilePaths: {}}
+    if (Platform.OS === 'android') {
+      result = yield call(new FetcherModule().downloadAsync, urls, progress => {})
+    }
 
     if (!isEmpty(result.failureMessages)) {
       const message = reduce(result.failureMessages, (message, error, url) => {
