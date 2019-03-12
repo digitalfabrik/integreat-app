@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import FastImage, { FastImageSource } from 'react-native-fast-image'
+import type { FastImageSource } from 'react-native-fast-image'
+import FastImage from 'react-native-fast-image'
 
 const ListItemView = styled.View`
   flex: 1;
