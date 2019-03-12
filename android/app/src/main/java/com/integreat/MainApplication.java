@@ -3,8 +3,9 @@ package com.integreat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rumax.reactnative.pdfviewer.PDFViewPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.reactlibrary.PDFViewPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.mapbox.rctmgl.RCTMGLPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -30,13 +31,14 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new RNFetchBlobPackage(),
+                    new RNCWebViewPackage(),
+                    new PDFViewPackage(),
+                    new VectorIconsPackage(),
+                    new RNScreensPackage(),
                     new RNGestureHandlerPackage(),
                     new FastImageViewPackage(),
                     new RCTMGLPackage(),
-                    new PDFViewPackage(),
-                    new RNCWebViewPackage(),
-                    new RNFetchBlobPackage(),
-                    new VectorIconsPackage(),
                     new IntegreatPackage()
             );
         }

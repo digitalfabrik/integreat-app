@@ -25,6 +25,7 @@
 [untyped]
 .*/node_modules/react-native/Libraries/StyleSheet/StyleSheetValidation.js
 .*/node_modules/react-native/Libraries/Text/TextAncestor.js
+.*/node_modules/react-native/Libraries/Text/Text.js
 .*/node_modules/react-native/Libraries/StyleSheet/processTransform.js
 .*/node_modules/react-native/Libraries/LayoutAnimation/LayoutAnimation.js
 .*/node_modules/react-native/Libraries/Components/View/ViewPropTypes.js
@@ -33,6 +34,13 @@
 .*/node_modules/react-native/Libraries/YellowBox/UI/YellowBoxList.js
 .*/node_modules/react-native/Libraries/YellowBox/UI/YellowBoxInspectorFooter.js
 .*/node_modules/react-native/Libraries/Lists/VirtualizedSectionList.js
+.*/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
+.*/node_modules/react-native/Libraries/Components/Slider/Slider.js
+.*/node_modules/react-native/Libraries/Components/Touchable/TouchableHighlight.js
+.*/node_modules/react-native/Libraries/Components/Touchable/TouchableWithoutFeedback.js
+.*/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js
+.*/node_modules/react-native/Libraries/Image/Image.ios.js
+
 
 .*/node_modules/react-native-permissions/index.js
 
@@ -86,4 +94,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 esproposal.optional_chaining=enable
 
 [version]
-^0.86.0
+^0.91.0
