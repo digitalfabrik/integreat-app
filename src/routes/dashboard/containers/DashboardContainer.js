@@ -11,7 +11,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components'
 import withError from '../../../modules/error/hocs/withError'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
-import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
+import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import navigateToCategory from '../../../modules/app/navigateToCategory'
 
@@ -47,29 +47,15 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  // const errorMessage = state.cities.error || state.categories.error
-  //
-  // if (errorMessage) {
-  //   throw new Error(`Failed to mapStateToProps: ${errorMessage}`)
-  // }
-
   const models = targetRoute.models
   const children = targetRoute.children
-  const stateView = new CategoriesSelectionStateView(targetRoute.root, models, children)
-
-  if (!stateView.hasRoot()) {
-    return {
-      cityCode: targetCityCode,
-      language: language,
-      cities: state.cities.models
-    }
-  }
+  const stateView = new CategoriesRouteStateView(targetRoute.root, models, children)
 
   return {
     cityCode: targetCityCode,
     language: language,
     cities: state.cities.models,
-    categoriesStateView: stateView,
+    stateView: stateView,
     resourceCache: state.categories.resourceCache,
     error: null // fixme display errors
   }
