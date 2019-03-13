@@ -21,7 +21,7 @@ import findResources from '../findResources'
 import fnv from 'fnv-plus'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
-import DataContext from '../DataContext'
+import MemoryDatabaseContext from '../MemoryDatabaseContext'
 import fetchResourceCache from './fetchResourceCache'
 import persistCategories from './persistCategories'
 import type { StateType } from '../../app/StateType'
@@ -45,7 +45,7 @@ function * fetchLanguages (city: string): Saga<Array<LanguageModel>> {
 
 function * fetchCategories (database: MemoryDatabase, city: string, language: string): Saga<void> {
   // todo evaluate
-  if (database.hasContext(new DataContext(city, language))) {
+  if (database.hasContext(new MemoryDatabaseContext(city, language))) {
     return
   }
 
@@ -59,7 +59,7 @@ function * fetchCategories (database: MemoryDatabase, city: string, language: st
     urls[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
   })
 
-  database.changeContext(new DataContext(city, language), categoriesMap, languages, urls)
+  database.changeContext(new MemoryDatabaseContext(city, language), categoriesMap, languages, urls)
 
   yield fork(persistCategories, database)
   yield call(fetchResourceCache, city, language, urls)
