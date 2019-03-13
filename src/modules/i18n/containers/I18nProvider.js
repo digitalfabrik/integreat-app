@@ -5,7 +5,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { I18nextProvider } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
-import ReactHelmet from 'react-helmet'
+import { Helmet as ReactHelmet } from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 import localesResources from '../../../locales.json'
@@ -80,16 +80,17 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   setLanguage (language: ?string) {
     const targetLanguage = language || this.i18n.languages[0]
 
-    const fonts = I18nProvider.getSelectedFonts(targetLanguage)
-    this.setState({language: targetLanguage, fonts})
-    this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
-
-    if (document.documentElement) {
-      document.documentElement.lang = targetLanguage
-    }
-
     // Set i18next language to apps language
-    this.i18n.changeLanguage(targetLanguage)
+    this.i18n.changeLanguage(targetLanguage).then(() => {
+
+      const fonts = I18nProvider.getSelectedFonts(targetLanguage)
+      this.setState(prevState => ({...prevState, language: targetLanguage, fonts}))
+
+      this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
+      if (document.documentElement) {
+        document.documentElement.lang = targetLanguage
+      }
+    })
   }
 
   componentDidUpdate (prevProps: PropsType) {
