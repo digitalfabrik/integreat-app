@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import { feedbackEndpoint, SEARCH_FEEDBACK_TYPE, CityModel } from '@integreat-app/integreat-api-client'
+import { feedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 
