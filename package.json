@@ -88,6 +88,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "moment-timezone": "^0.5",
     "entities": "^1.1",
     "is-url": "^1.2",
     "lodash": "^4.17",

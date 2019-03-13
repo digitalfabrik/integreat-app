@@ -3,7 +3,7 @@
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import EndpointBuilder from '../EndpointBuilder'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import type { JsonCategoryType } from '../types'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import normalizePath from '../normalizePath'
@@ -37,7 +37,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
             order: category.order,
             availableLanguages: mapAvailableLanguages(category.available_languages),
             parentPath: normalizePath(category.parent.path || basePath),
-            lastUpdate: moment(category.modified_gmt)
+            lastUpdate: moment.tz(category.modified_gmt, 'GMT')
           })
         })
 

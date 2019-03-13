@@ -6,7 +6,7 @@ import EventModel from '../models/EventModel'
 import normalizePath from '../normalizePath'
 import { decodeHTML } from 'entities'
 import mapAvailableLanguages from '../mapAvailableLanguages'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
@@ -22,7 +22,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
   )
   .withMapper((json: Array<JsonEventType>): Array<EventModel> => json
     .map((event: JsonEventType) => {
-      const allDay = event.event.all_day
+      const eventData = event.event
+      const allDay = eventData.all_day
+      const startTime = allDay ? '00:00:00' : eventData.start_time
+      const endTime = allDay ? '23:59:59' : eventData.end_time
       return new EventModel({
         id: event.id,
         path: normalizePath(event.path),
@@ -34,8 +37,8 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
         }),
         thumbnail: event.thumbnail,
         date: new DateModel({
-          startDate: moment(`${event.event.start_date} ${allDay ? '00:00:00' : event.event.start_time}`),
-          endDate: moment(`${event.event.end_date} ${allDay ? '23:59:59' : event.event.end_time}`),
+          startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
+          endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
           allDay: allDay
         }),
         location: new LocationModel({
@@ -47,7 +50,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
         }),
         excerpt: decodeHTML(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
-        lastUpdate: moment(event.modified_gmt)
+        lastUpdate: moment.tz(event.modified_gmt, 'GMT')
       })
     })
     .sort((event1, event2) => {

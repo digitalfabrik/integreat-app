@@ -2,7 +2,7 @@
 
 import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
 import PageModel from '../../models/PageModel'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 describe('disclaimer', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -34,7 +34,7 @@ describe('disclaimer', () => {
       id: pageJson.id,
       title: pageJson.title,
       content: '<a>Ich bleib aber da.</a>',
-      lastUpdate: moment('2017-06-12 12:27:57')
+      lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT')
     }))
   })
 })
