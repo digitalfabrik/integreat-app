@@ -7,13 +7,15 @@ import Dashboard from '../components/Dashboard'
 import toggleDarkMode from 'modules/theme/actions/toggleDarkMode'
 import { offlineActionTypes } from 'react-native-offline'
 import type { StateType } from '../../../modules/app/StateType'
-import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components'
-import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
-import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
 import withError from '../../../modules/error/hocs/withError'
+import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
+import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import navigateToCategory from '../../../modules/app/navigateToCategory'
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
   goOffline: () => dispatch({
     type: offlineActionTypes.CONNECTION_CHANGE,
@@ -23,82 +25,43 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
     type: offlineActionTypes.CONNECTION_CHANGE,
     payload: true
   }),
-  cancelFetchCategories: () => dispatch({
-    type: 'FETCH_CATEGORIES_CANCEL'
-  }),
-  fetchCategories: (prioritisedLanguage: string, city: string) => dispatch({
-    type: 'FETCH_CATEGORIES_REQUEST',
-    params: {prioritisedLanguage, city},
-    meta: {retry: true, dismiss: ['FETCH_CATEGORIES_CANCEL']}
-  }),
-  fetchCities: (language: string) => dispatch({
-    type: 'FETCH_CITIES_REQUEST',
-    params: {language},
-    meta: {retry: true}
+  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
+  fetchCities: () => dispatch({
+    type: 'FETCH_CITIES',
+    params: {}
   })
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language = state.language
-  const cities = state.cities
+  const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
+  const key: string = ownProps.navigation.getParam('key')
 
-  const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
-  const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity.code}/${language}`
+  const targetRoute = state.categories.routeMapping[key]
+  const language = state.categories.currentLanguage
 
-  const notReadyProps = {
-    cityModel: targetCity,
-    language: language,
-    cities: cities.json
-  }
-
-  if (!cities.json) {
-    return notReadyProps
-  }
-
-  const categories = state.categories[targetCity.code]
-
-  if (!categories) {
-    return notReadyProps
-  }
-
-  const json = categories.json[language]
-
-  if (!json) {
-    return notReadyProps
-  }
-
-  const fileCache = state.fileCache[targetCity.code]
-
-  if (!fileCache || !fileCache.ready) {
-    return notReadyProps
-  }
-
-  const navigateToCategories = (path: string) => {
-    const params = {path, city: targetCity.code}
-    if (ownProps.navigation.push) {
-      ownProps.navigation.push('Categories', params)
+  if (!targetRoute || !language) {
+    return {
+      cityCode: targetCityCode,
+      language: language,
+      cities: state.cities.models
     }
   }
 
-  const errorMessage = cities.error || categories.error || fileCache.error
-  if (errorMessage) {
-    console.error(errorMessage)
-  }
+  const models = targetRoute.models
+  const children = targetRoute.children
+  const stateView = new CategoriesRouteStateView(targetRoute.root, models, children)
 
-  const categoriesMap: CategoriesMapModel = categoriesSelector(state, { language, targetCity: targetCity.code })
   return {
-    cityModel: targetCity,
+    cityCode: targetCityCode,
     language: language,
-    cities: citiesSelector(state),
-    navigateToCategories,
-    path: targetPath,
-    categories: categoriesMap,
-    files: fileCache.files,
-    error: errorMessage
+    cities: state.cities.models,
+    stateView: stateView,
+    resourceCache: state.categories.resourceCache,
+    error: null // fixme display errors
   }
 }
 
 // $FlowFixMe
 const themed = withTheme(Dashboard)
 // $FlowFixMe connect()
-export default connect(mapStateToProps, mapDispatchToProps)(withError(themed))
+export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))

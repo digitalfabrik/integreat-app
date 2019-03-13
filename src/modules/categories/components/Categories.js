@@ -6,23 +6,22 @@ import Page from 'modules/common/components/Page'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from './CategoryList'
 import TileModel from '../../../modules/common/models/TileModel'
-import { CityModel, CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
-import type { FilesStateType } from '../../../modules/app/StateType'
-import makeLanguageAgnostic from '../hocs/makeLanguageAgnostic'
+import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
+import { ActivityIndicator } from 'react-native'
+import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
 
 type PropsType = {|
-  categories: CategoriesMapModel,
   cities: Array<CityModel>,
   language: string,
 
-  categoryModel: CategoryModel,
-  path: string,
-  city: string,
-  navigateToCategories: (path: string) => void,
+  stateView: CategoriesRouteStateView,
+  cityCode: string,
+  navigateToCategory: (cityCode: string, language: string, path: string) => void,
 
-  files: FilesStateType,
+  resourceCache: ResourceCacheType,
   theme: ThemeType
 |}
 
@@ -31,16 +30,18 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    this.props.navigateToCategories(tile.path)
+    const {cityCode, language} = this.props
+    this.props.navigateToCategory(cityCode, language, tile.path)
   }
 
   onItemPress = (category: { id: number, title: string, thumbnail: string, path: string }) => {
-    this.props.navigateToCategories(category.path)
+    const {cityCode, language} = this.props
+    this.props.navigateToCategory(cityCode, language, category.path)
   }
 
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.props.files[category.thumbnail]
+      let cachedThumbnail = this.props.resourceCache[category.thumbnail]
       if (cachedThumbnail) {
         cachedThumbnail = URL_PREFIX + cachedThumbnail
       }
@@ -56,7 +57,7 @@ class Categories extends React.Component<PropsType> {
   }
 
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.props.files[category.thumbnail]
+    let cachedThumbnail = this.props.resourceCache[category.thumbnail]
     if (cachedThumbnail) {
       cachedThumbnail = URL_PREFIX + cachedThumbnail
     }
@@ -83,31 +84,41 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const category = this.props.categoryModel
+    const {stateView, cities} = this.props
 
-    const {categories, cities} = this.props
-    const children = categories.getChildren(category)
+    if (!stateView) {
+      return <ActivityIndicator size='large' color='#0000ff' />
+    }
 
-    if (category.isLeaf(categories)) {
+    const category = stateView.root()
+    const children = stateView.children()
+
+    if (children.length === 0) {
       // last level, our category is a simple page
       return <React.Fragment>
         <Page title={category.title}
               content={category.content}
               theme={this.props.theme}
-              files={this.props.files} />
+              resourceCache={this.props.resourceCache} />
       </React.Fragment>
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
+
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)}
                     onTilePress={this.onTilePress} />
     }
     // some level between, we want to display a list
     return <CategoryList
-      categories={children.map((model: CategoryModel) => ({
-        model: this.getListModel(model),
-        subCategories: this.getListModels(categories.getChildren(model))
-      }))}
+      categories={children.map((model: CategoryModel) => {
+        const newStateView = stateView.stepInto(model.path)
+
+        const children = newStateView.children()
+        return ({
+          model: this.getListModel(model),
+          subCategories: this.getListModels(children)
+        })
+      })}
       title={category.title}
       content={category.content}
       onItemPress={this.onItemPress}
@@ -115,4 +126,4 @@ class Categories extends React.Component<PropsType> {
   }
 }
 
-export default makeLanguageAgnostic(Categories)
+export default Categories

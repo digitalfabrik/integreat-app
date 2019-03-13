@@ -10,6 +10,8 @@ import localesResources from 'locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import LanguageDetector from '../LanguageDetector'
+import type { StoreActionType } from '../../app/StoreActionType'
+import type { StateType } from '../../app/StateType'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -23,12 +25,10 @@ type PropsType = {
   setUiDirection: Function
 }
 
-type StateType = {
+export class I18nProvider extends React.Component<PropsType, {
   language: string,
   fonts: FontMapType
-}
-
-export class I18nProvider extends React.Component<PropsType, StateType> {
+}> {
   i18n: i18n
 
   constructor () {
@@ -74,8 +74,18 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     )
   }
 
+  getPredeterminedLanguage (knownLanguage: string): string {
+    if (knownLanguage) {
+      return knownLanguage
+    } else if (this.i18n.languages && this.i18n.languages.length > 0) {
+      return this.i18n.languages[0]
+    } else {
+      throw new Error('Failed to set language because it is currently unknown and even i18next does not know it!')
+    }
+  }
+
   setLanguage (language: string) {
-    const targetLanguage = language || this.i18n.languages[0] // fixme what is 0?
+    const targetLanguage = this.getPredeterminedLanguage(language)
 
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})
@@ -115,11 +125,11 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   setUiDirection: action => dispatch(setUiDirection(action))
 })
 
-const mapStateToProps = state => ({language: state.language})
+const mapStateToProps = (state: StateType) => ({language: state.categories.currentLanguage})
 
 // $FlowFixMe connect()
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)

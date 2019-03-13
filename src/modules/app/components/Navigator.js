@@ -31,8 +31,12 @@ const createNavigationScreen = (component, header = null) => {
   }
 }
 
-const transparentHeader = (headerProps: HeaderProps) => <ModalHeaderContainer scene={headerProps.scene}
-                                                                              scenes={headerProps.scenes} />
+const transparentHeader = (headerProps: HeaderProps) =>
+  <ModalHeaderContainer scene={headerProps.scene}
+                        scenes={headerProps.scenes} />
+
+const defaultHeader = (headerProps: HeaderProps) =>
+  <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
 
 export const ExtrasStack = createStackNavigator(
   {
@@ -47,18 +51,25 @@ export const ExtrasStack = createStackNavigator(
     }
   }
 )
-
+/*
+ The app behaves pretty weird when you have a StackNavigator -> SwitchNavigator -> StackNavigator
+ Therefore I removed the StackNavigator in the root and moved the routes to the other StackNavigator.
+ We can not set the modal prop, but this is good enough atm.
+ */
 export const AppStack = createStackNavigator(
   {
-    'Dashboard': LayoutedDashboardContainer,
-    'Categories': LayoutedCategoriesContainer,
-    'Extras': ExtrasStack,
-    'Events': EventsContainer
+    'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
+    'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
+    'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
+    'Events': createNavigationScreen(EventsContainer, defaultHeader),
+    'MapViewModal': createNavigationScreen(MapViewModal),
+    'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
+    'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
+    'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
   },
   {
-    initialRouteName: 'Dashboard',
     defaultNavigationOptions: {
-      header: (headerProps: HeaderProps) => <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
+      header: null
     }
   }
 )
@@ -67,23 +78,8 @@ export const LandingStack = createSwitchNavigator(
   {
     'Landing': LandingContainer,
     'App': AppStack
-  },
-  {
-    initialRouteName: 'Landing'
   }
 )
 
-const MainStack = createStackNavigator(
-  {
-    'LandingStack': createNavigationScreen(LandingStack),
-    'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
-    'MapViewModal': createNavigationScreen(MapViewModal),
-    'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
-    'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
-  },
-  {
-    mode: 'modal'
-  }
-)
-const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(MainStack)
+const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
 export default AppContainer

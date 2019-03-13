@@ -25,7 +25,7 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  files: { [url: string]: string },
+  resourceCache: { [url: string]: string },
   children?: React.Node
 }
 
@@ -57,7 +57,7 @@ class Page extends React.Component<PropType> {
   }
 
   render () {
-    const {title, children, theme, content, files} = this.props
+    const {title, children, theme, content, resourceCache} = this.props
     return (
       <>
         <Caption title={title} />
@@ -66,7 +66,7 @@ class Page extends React.Component<PropType> {
           <WebView
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(content, files)
+              html: renderHtml(content, resourceCache)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
