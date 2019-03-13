@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Footer from './Footer'
 import DisclaimerRouteConfig from '../../app/route-configs/DisclaimerRouteConfig'
@@ -27,4 +27,4 @@ export class LocationFooter extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('layout')(LocationFooter)
+export default withTranslation('layout')(LocationFooter)

@@ -2,7 +2,7 @@
 
 import type { Element } from 'react'
 import React from 'react'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import LanguageSelector from '../../common/containers/LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
@@ -120,4 +120,4 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 }
 
-export default withNamespaces('layout')(LocationHeader)
+export default withTranslation('layout')(LocationHeader)

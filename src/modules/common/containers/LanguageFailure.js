@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import LanguageSelector from '../../../modules/common/containers/LanguageSelector'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import Caption from '../../../modules/common/components/Caption'
@@ -34,4 +34,4 @@ export class LanguageFailure extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('error')(LanguageFailure)
+export default withTranslation('error')(LanguageFailure)

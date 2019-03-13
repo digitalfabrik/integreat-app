@@ -4,7 +4,7 @@ import React from 'react'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
@@ -156,4 +156,4 @@ class OfferDetail extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('wohnen')(OfferDetail)
+export default withTranslation('wohnen')(OfferDetail)
