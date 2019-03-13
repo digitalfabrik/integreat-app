@@ -75,13 +75,13 @@ describe('SearchPage', () => {
   const location = createLocation({type: SEARCH_ROUTE, payload: {city, language}})
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage categories={categories} location={location} cities={cities} t={t} />)
+    const wrapper = shallow(<SearchPage categories={categories} location={location} t={t} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should filter correctly', () => {
     const tree = shallow(
-      <SearchPage cities={cities} location={location} categories={categories} t={t} />
+      <SearchPage location={location} categories={categories} t={t} />
     )
 
     const searchPage = tree.instance()
@@ -152,7 +152,7 @@ describe('SearchPage', () => {
     const categories = new CategoriesMapModel(categoryModels)
 
     const searchPage = shallow(
-      <SearchPage cities={cities} location={location} categories={categories} t={t} />
+      <SearchPage location={location} categories={categories} t={t} />
     ).instance()
 
     searchPage.onFilterTextChange('abc')
@@ -172,7 +172,7 @@ describe('SearchPage', () => {
     })
 
     const searchPage = shallow(
-      <ConnectedSearchPage store={store} cities={cities} categories={categories} />
+      <ConnectedSearchPage store={store} categories={categories} />
     )
 
     expect(searchPage.props()).toMatchObject({

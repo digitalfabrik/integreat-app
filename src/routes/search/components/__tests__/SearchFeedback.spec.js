@@ -26,7 +26,6 @@ describe('SearchFeedback', () => {
   it('should render a NothingFoundFeedbackBox if no results are found', () => {
     expect(shallow(
       <SearchFeedback
-        cities={cities}
         location={location}
         query={'abc'}
         resultsFound={false}
@@ -37,7 +36,6 @@ describe('SearchFeedback', () => {
   it('should render a FeedbackButton if results are found and the query is not empty', () => {
     expect(shallow(
       <SearchFeedback
-        cities={cities}
         location={location}
         query={'ab'}
         resultsFound
@@ -48,7 +46,6 @@ describe('SearchFeedback', () => {
   it('should render neither a NothingFoundFeedbackBox nor a FeedbackButton', () => {
     expect(shallow(
       <SearchFeedback
-        cities={cities}
         location={location}
         query={''}
         resultsFound

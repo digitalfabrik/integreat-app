@@ -6,7 +6,7 @@ import compose from 'lodash/fp/compose'
 
 import SearchInput from '../../../modules/common/components/SearchInput'
 
-import { CategoriesMapModel, CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../categories/components/CategoryList'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
@@ -18,7 +18,6 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 type PropsType = {|
   categories: CategoriesMapModel,
-  cities: Array<CityModel>,
   location: LocationState,
   t: TFunction
 |}
@@ -60,7 +59,7 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   render () {
     const categories = this.findCategories()
-    const {t, cities, location} = this.props
+    const {t, location} = this.props
     const {filterText} = this.state
 
     return (
@@ -71,7 +70,6 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
                      spaceSearch />
         <CategoryList categories={categories} query={this.state.filterText} onInternalLinkClick={noop} />
         <SearchFeedback
-          cities={cities}
           location={location}
           resultsFound={categories.length !== 0}
           query={filterText} />
