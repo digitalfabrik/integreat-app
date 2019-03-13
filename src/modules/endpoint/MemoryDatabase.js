@@ -1,12 +1,12 @@
 // @flow
 
 import { CategoriesMapModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import DataContext from './DataContext'
+import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheType } from './ResourceCacheType'
 
 class MemoryDatabase {
   dataDirectory: string
-  context: DataContext
+  context: MemoryDatabaseContext
 
   _cities: Array<CityModel>
   _categoriesMap: CategoriesMapModel
@@ -22,7 +22,7 @@ class MemoryDatabase {
   }
 
   changeContext (
-    context: DataContext,
+    context: MemoryDatabaseContext,
     categoriesMap: CategoriesMapModel, languages: Set<LanguageModel>, resourceCache: ResourceCacheType
   ) {
     this.context = context
@@ -31,7 +31,7 @@ class MemoryDatabase {
     this._languages = Array.from(languages)
   }
 
-  hasContext (otherContext: DataContext): boolean {
+  hasContext (otherContext: MemoryDatabaseContext): boolean {
     return this.context &&
       this.context.languageCode === otherContext.languageCode &&
       this.context.cityCode === otherContext.cityCode
