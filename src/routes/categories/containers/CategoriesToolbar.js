@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
 import { CategoriesMapModel, CategoryModel, apiUrl } from '@integreat-app/integreat-api-client'
@@ -43,4 +43,4 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('categories')(CategoriesToolbar)
+export default withTranslation('categories')(CategoriesToolbar)

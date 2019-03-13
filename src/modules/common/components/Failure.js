@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown } from '../../../modules/app/constants/icons'
 
@@ -40,4 +40,4 @@ export class Failure extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('error')(Failure)
+export default withTranslation('error')(Failure)

@@ -4,7 +4,7 @@ import * as React from 'react'
 import ContentNotFoundError from '../errors/ContentNotFoundError'
 import Failure from './Failure'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
 import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
 import ExtrasRouteConfig from '../../app/route-configs/ExtrasRouteConfig'
@@ -55,4 +55,4 @@ export class FailureSwitcher extends React.Component<PropsType> {
   }
 }
 
-export default withNamespaces('error')(FailureSwitcher)
+export default withTranslation('error')(FailureSwitcher)

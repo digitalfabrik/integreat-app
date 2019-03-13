@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFrown, faSmile } from '../../../modules/app/constants/icons'
 
@@ -43,4 +43,4 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('feedback')(FeedbackToolbarItem)
+export default withTranslation('feedback')(FeedbackToolbarItem)

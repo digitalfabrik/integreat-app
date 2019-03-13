@@ -9,7 +9,7 @@ import SearchInput from '../../../modules/common/components/SearchInput'
 import { CategoriesMapModel, CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../categories/components/CategoryList'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
@@ -86,5 +86,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withNamespaces('search')
+  withTranslation('search')
 )(SearchPage)

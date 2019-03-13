@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { feedbackEndpoint, SEARCH_FEEDBACK_TYPE, CityModel } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
@@ -74,4 +74,4 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   }
 }
 
-export default withNamespaces('feedback')(SearchFeedback)
+export default withTranslation('feedback')(SearchFeedback)

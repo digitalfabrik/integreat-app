@@ -23,7 +23,7 @@ import { getRouteConfig } from '../route-configs'
 import Helmet from '../../common/containers/Helmet'
 import type { Dispatch } from 'redux'
 import type { LocationState } from 'redux-first-router'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import type { TFunction } from 'react-i18next'
 import type { RouteConfig } from '../route-configs/RouteConfig'
@@ -162,5 +162,5 @@ const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
 // $FlowFixMe https://github.com/facebook/flow/issues/7125
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withNamespaces('app')
+  withTranslation('app')
 )(Switcher)

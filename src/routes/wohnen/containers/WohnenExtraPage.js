@@ -11,7 +11,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
@@ -74,5 +74,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  withNamespaces('wohnen')
+  withTranslation('wohnen')
 )(WohnenExtraPage)

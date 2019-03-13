@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
@@ -92,4 +92,4 @@ export class FeedbackBox extends React.PureComponent<PropsType> {
   }
 }
 
-export default withNamespaces('feedback')(FeedbackBox)
+export default withTranslation('feedback')(FeedbackBox)

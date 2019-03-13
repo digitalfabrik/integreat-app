@@ -7,7 +7,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 import Tiles from '../../../modules/common/components/Tiles'
 import { ExtraModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import { compose } from 'recompose'
 import SprungbrettRouteConfig, { SPRUNGBRETT_EXTRA } from '../../../modules/app/route-configs/SprungbrettRouteConfig'
@@ -75,5 +75,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withNamespaces('extras')
+  withTranslation('extras')
 )(ExtrasPage)

@@ -9,7 +9,7 @@ import ContentNotFoundError from '../../../modules/common/errors/ContentNotFound
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { PoiModel } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
@@ -71,5 +71,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  withNamespaces('pois')
+  withTranslation('pois')
 )(PoisPage)

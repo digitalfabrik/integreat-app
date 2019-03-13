@@ -17,7 +17,7 @@ import {
   SEARCH_FEEDBACK_TYPE
 } from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import FeedbackBox from './FeedbackBox'
@@ -204,4 +204,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default withNamespaces('feedback')(FeedbackBoxContainer)
+export default withTranslation('feedback')(FeedbackBoxContainer)
