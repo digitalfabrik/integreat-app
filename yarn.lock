@@ -687,15 +687,16 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.2.1.tgz#0f82f1b7c9d22367b95134d92c4c21156c2b26c2"
   integrity sha1-D4Lxt8nSI2e5UTTZLEwhFWwrJsI=
 
-"@integreat-app/integreat-api-client@1.1.0-rc-2":
-  version "1.1.0-rc-2"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-1.1.0-rc-2.tgz#a17ad601f266fa3a102e1925da88c33911e58155"
-  integrity sha512-yePTwWq0sCUMoZVomMpMdpVR1z3LXbCbAqoO3NjYYsM4QWJOGtXBkdS5vcHwCcWId5ThjHGzs1dcvLxpq8IO8Q==
+"@integreat-app/integreat-api-client@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-2.1.0.tgz#dbe30f841b7ed312cf665de06a14b254addfe9be"
+  integrity sha512-7b1aD+fE3FEH1Vt/k+xVEPaZP2DNmQGkzZ0HnsLdNGKD5f1AWWjQz10IUW/sQYKXVSo/HI3xOTmSyUe/tTuinw==
   dependencies:
     entities "^1.1"
     is-url "^1.2"
     lodash "^4.17"
     moment "^2.24"
+    moment-timezone "^0.5"
     sanitize-html-react "^1.13"
 
 "@mapbox/react-native-mapbox-gl@^6.1.3":
@@ -6269,7 +6270,7 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-moment-timezone@^0.5.23:
+moment-timezone@^0.5, moment-timezone@^0.5.23:
   version "0.5.23"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.23.tgz#7cbb00db2c14c71b19303cb47b0fb0a6d8651463"
   integrity sha512-WHFH85DkCfiNMDX5D3X7hpNH3/PUhjTGcD0U1SgfBGZxJ3qUmJh5FdvaFjcClxOvB3rzdfj4oRffbI38jEnC1w==
