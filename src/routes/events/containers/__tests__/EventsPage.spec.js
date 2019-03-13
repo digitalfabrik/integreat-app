@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import { EventModel, DateModel, LocationModel } from '@integreat-app/integreat-api-client'
+import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
 
@@ -135,6 +135,7 @@ describe('EventsPage', () => {
       path: '/augsburg/en/events/id',
       events,
       t: expect.any(Function),
+      i18n: expect.anything(),
       dispatch: expect.any(Function)
     })
   })

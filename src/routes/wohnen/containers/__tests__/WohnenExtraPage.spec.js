@@ -3,14 +3,16 @@
 import { mount, shallow } from 'enzyme'
 import React from 'react'
 
-import { ExtraModel, WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-client'
+import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import ConnectedWohnenExtraPage, { WohnenExtraPage } from '../WohnenExtraPage'
 import moment from 'moment'
 import Hashids from 'hashids'
 import { Provider } from 'react-redux'
-import createReduxStore from '../../../../modules/app/createReduxStore'
 import theme from '../../../../modules/theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import createLocation from '../../../../createLocation'
+import { WOHNEN_ROUTE } from '../../../../modules/app/route-configs/WohnenRouteConfig'
+import configureMockStore from 'redux-mock-store'
 
 describe('WohnenExtraPage', () => {
   const city = 'augsburg'
@@ -106,10 +108,12 @@ describe('WohnenExtraPage', () => {
 
   it('should map state to props', () => {
     const offerHash = 'hASH'
-    const location = {payload: {language, city, offerHash}}
 
-    const store = createReduxStore()
-    store.getState().location = location
+    const location = createLocation({type: WOHNEN_ROUTE, payload: {city, language, offerHash}})
+    const mockStore = configureMockStore()
+    const store = mockStore({
+      location
+    })
 
     const tree = mount(
       <ThemeProvider theme={theme}>
@@ -122,6 +126,7 @@ describe('WohnenExtraPage', () => {
     expect(tree.find(WohnenExtraPage).props()).toEqual({
       language,
       city,
+      i18n: expect.anything(),
       offerHash,
       extras,
       offers,

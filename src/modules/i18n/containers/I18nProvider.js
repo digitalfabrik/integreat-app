@@ -3,7 +3,7 @@
 import i18next from 'i18next'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { I18nextProvider, initReactI18next } from 'react-i18next'
+import { I18nextProvider } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
 import ReactHelmet from 'react-helmet'
 import LanguageDetector from 'i18next-browser-languagedetector'
@@ -36,23 +36,20 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   constructor () {
     super()
 
-    this.state = {language: DEFAULT_LANGUAGE, fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE), i18nLoaded: false}
-  }
-
-  componentDidMount () {
     const i18nextResources = I18nProvider.transformResources(localesResources)
     this.i18n = i18next.createInstance()
       .use(LanguageDetector)
-      .use(initReactI18next)
     this.i18n.init({
       resources: i18nextResources,
       fallbackLng: FALLBACK_LANGUAGES,
       load: 'languageOnly',
-      lng: this.props.language,
       debug: __DEV__
-    }).then(() => {
-      this.setState({i18nLoaded: true})
     })
+    this.state = {language: DEFAULT_LANGUAGE, fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE), i18nLoaded: true}
+  }
+
+  componentDidMount () {
+    this.setLanguage(this.props.language)
   }
 
   /**
@@ -110,10 +107,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {i18nLoaded, language, fonts: {lateef, openSans, raleway}} = this.state
-    if (!i18nLoaded) {
-      return <div />
-    }
+    const {language, fonts: {lateef, openSans, raleway}} = this.state
     return (
       <I18nextProvider i18n={this.i18n}>
         <div

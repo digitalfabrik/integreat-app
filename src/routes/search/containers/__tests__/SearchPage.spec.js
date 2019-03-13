@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import { CategoryModel, CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
@@ -176,7 +176,6 @@ describe('SearchPage', () => {
     )
 
     expect(searchPage.props()).toMatchObject({
-      cities,
       categories,
       location
     })
