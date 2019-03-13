@@ -6,7 +6,7 @@ import i18next from 'i18next'
 // this mock makes sure any components using the translate HoC receive the t function as a prop
 export const withTranslation = <Props> (namespace: string) => (Component: React.ComponentType<Props>) => {
   const Translated = (props: Props) => <Component t={key => `${namespace}:${key}`} {...props} />
-  Translated.displayName = `Translate(${Component.displayName || Component.name})`
+  Translated.displayName = `Translate(${Component.displayName || Component.name || typeof Component})`
   return Translated
 }
 
