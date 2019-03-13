@@ -22,7 +22,7 @@ type PropsType = {
 
   language: string,
   cities?: Array<CityModel>,
-  categoriesStateView: ?CategoriesRouteStateView,
+  stateView: ?CategoriesRouteStateView,
   resourceCache?: ResourceCacheType
 }
 
@@ -44,14 +44,14 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const {cities, categoriesStateView} = this.props
+    const {cities, stateView} = this.props
 
-    if (!categoriesStateView || !cities || !this.props.resourceCache) {
+    if (!stateView || !cities || !this.props.resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return (<ScrollView>
-        <Categories stateView={categoriesStateView}
+        <Categories stateView={stateView}
                     cities={cities} resourceCache={this.props.resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
