@@ -15,7 +15,7 @@ export type RouteStateType = {
   +root: ?string,
   +depth: number,
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of RouteStateType
-                                                   (e.g. CategoriesSelectionStateType) to save memory
+                                                   (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> }
 }

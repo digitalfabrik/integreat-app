@@ -55,7 +55,7 @@ const createReduxStore = (
     network: {isConnected: false, actionQueue: []}
   }
 
-  // Do never exclude the "network" key.
+  // Do never blacklist the "network" key.
   const persistConfig: PersistConfig = {
     version: 1,
     key: 'root',
@@ -83,6 +83,7 @@ const createReduxStore = (
   }
   const middlewares = [createNetworkMiddleware(), sagaMiddleware]
 
+  // If you want to use redux-logger again use this code:
   // import { createLogger } from 'redux-logger'
   // if (__DEV__) {
   //   middlewares.push(createLogger())

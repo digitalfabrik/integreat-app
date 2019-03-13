@@ -4,6 +4,7 @@ import { offlineActionTypes } from 'react-native-offline'
 import { CityModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
+// This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
 export type FetchCitiesActionType = {|
@@ -29,13 +30,13 @@ export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED', message: string
 |}
 export type PushCategoryActionType = {|
-  type: 'PUSH_CATEGORY', params: {
+  type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
     pushParams: PushParamsType,
     resourceCache: ResourceCacheType,
     city: string,
     language: string
-  }
+  |}
 |}
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
