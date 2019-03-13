@@ -1,14 +1,13 @@
 // @flow
 
-import pois from '../pois'
+import createPOIsEndpoint from '../createPOIsEndpoint'
 import moment from 'moment'
 import PoiModel from '../../models/PoiModel'
 import LocationModel from '../../models/LocationModel'
 
-jest.unmock('../pois')
-
 describe('pois', () => {
-  const apiUrl = 'https://integreat-api-url.de'
+  const baseUrl = 'https://integreat-api-url.de'
+  const pois = createPOIsEndpoint(baseUrl)
 
   const createPoi = id => ({
     id,
@@ -55,7 +54,7 @@ describe('pois', () => {
   const params = {city: 'augsburg', language: 'de'}
 
   it('should map params to url', () => {
-    expect(pois.mapParamsToUrl(apiUrl, params)).toEqual(
+    expect(pois.mapParamsToUrl(params)).toEqual(
       'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations'
     )
   })

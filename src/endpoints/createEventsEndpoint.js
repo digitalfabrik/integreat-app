@@ -16,9 +16,9 @@ const EVENTS_ENDPOINT_NAME = 'events'
 
 type ParamsType = { city: string, language: string }
 
-const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EVENTS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((apiUrl: string, params: ParamsType): string =>
-    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
+export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new EndpointBuilder(EVENTS_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: ParamsType): string =>
+    `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events`
   )
   .withMapper((json: Array<JsonEventType>): Array<EventModel> => json
     .map((event: JsonEventType) => {
@@ -57,5 +57,3 @@ const endpoint: Endpoint<ParamsType, Array<EventModel>> = new EndpointBuilder(EV
     })
   )
   .build()
-
-export default endpoint

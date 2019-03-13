@@ -1,3 +1,3 @@
 // @flow
 
-export type MapParamsToUrlType<P> = (apiUrl: string, params: P) => string
+export type MapParamsToUrlType<P> = (params: P) => string

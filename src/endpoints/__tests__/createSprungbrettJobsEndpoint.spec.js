@@ -1,14 +1,15 @@
 // @flow
 
-import sprungbrettJobs from '../sprungbrettJobs'
+import createSprungbrettJobsEndpoint from '../createSprungbrettJobsEndpoint'
 import SprungbrettJobModel from '../../models/SprungbrettJobModel'
 
-jest.unmock('../sprungbrettJobs')
-
 describe('sprungbrettJobs', () => {
+  const baseUrl = 'https://sprungbrett-api-url.de'
+  const sprungbrettJobs = createSprungbrettJobsEndpoint(baseUrl)
+
   const json = {
     total: '19',
-    pager: {current: 1, max: 1},
+    pager: { current: 1, max: 1 },
     results: [
       {
         title: 'Praktikum im Bereich Pflege',
@@ -74,7 +75,7 @@ describe('sprungbrettJobs', () => {
   ]
 
   it('should map router to url', () => {
-    expect(sprungbrettJobs.mapParamsToUrl('https://sprungbrett-api-url.de')).toEqual(
+    expect(sprungbrettJobs.mapParamsToUrl()).toEqual(
       'https://sprungbrett-api-url.de'
     )
   })
