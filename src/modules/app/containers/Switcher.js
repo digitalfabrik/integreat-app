@@ -30,6 +30,7 @@ import type { RouteConfig } from '../route-configs/RouteConfig'
 import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
 import LanguageFailure from '../../common/containers/LanguageFailure'
 import RouteContentSwitcher from './RouteContentSwitcher'
+import type { StoreActionType } from '../StoreActionType'
 
 export type LanguageChangePathsType = Array<{code: string, path: string | null, name: string}>
 
@@ -155,7 +156,7 @@ const mapStateToProps = (state: StateType) => ({
   location: state.location
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<*>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   toggleDarkMode: () => dispatch(toggleDarkModeAction())
 })
 

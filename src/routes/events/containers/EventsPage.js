@@ -36,7 +36,7 @@ export class EventsPage extends React.Component<PropsType> {
   render () {
     const {events, path, eventId, city, language, t} = this.props
     if (eventId) {
-      const event = events.find(_event => _event.path === path)
+      const event = events.find(_event => _event.path === decodeURIComponent(path))
 
       if (event) {
         return <>

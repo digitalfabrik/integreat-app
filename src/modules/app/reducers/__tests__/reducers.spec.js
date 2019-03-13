@@ -1,6 +1,5 @@
 // @flow
 
-import type { ReducerType } from '../'
 import reducers, { finishFetchReducer, startFetchReducer } from '../'
 import startFetchAction from '../../../app/actions/startFetchAction'
 import lolex from 'lolex'
@@ -27,11 +26,10 @@ describe('endpoint reducers', () => {
 
   describe('finish fetch reducer', () => {
     it('should return the action payload if the old payload was a fetching payload with the same url', () => {
-      type SomeType = { someType: string }
-      const oldPayload = new Payload<SomeType>(true, 'https://url.com')
-      const payload = new Payload<SomeType>(false, 'https://url.com', {someType: 'someValue'}, null)
-      const action = finishFetchAction<SomeType>('endpoint', payload)
-      expect(finishFetchReducer<SomeType>(oldPayload, action)).toEqual(action.payload)
+      const oldPayload = new Payload(true, 'https://url.com')
+      const payload = new Payload(false, 'https://url.com', {someType: 'someValue'}, null)
+      const action = finishFetchAction('endpoint', payload)
+      expect(finishFetchReducer(oldPayload, action)).toEqual(action.payload)
     })
 
     it('should return the old payload if the old payload was not a fetching payload', () => {
@@ -56,7 +54,7 @@ describe('endpoint reducers', () => {
   describe('reducers', () => {
     it('should reduce cities fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.cities
+      const reducer = reducers.cities
       expect(reducer(undefined, startFetchAction('cities', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('cities', payload)))
@@ -65,7 +63,7 @@ describe('endpoint reducers', () => {
 
     it('should reduce languages fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.languages
+      const reducer = reducers.languages
       expect(reducer(undefined, startFetchAction('languages', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('languages', payload)))
@@ -74,7 +72,7 @@ describe('endpoint reducers', () => {
 
     it('should reduce disclaimer fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.disclaimer
+      const reducer = reducers.disclaimer
       expect(reducer(undefined, startFetchAction('disclaimer', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('disclaimer', payload)))
@@ -83,7 +81,7 @@ describe('endpoint reducers', () => {
 
     it('should reduce events fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.events
+      const reducer = reducers.events
       expect(reducer(undefined, startFetchAction('events', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('events', payload)))
@@ -92,7 +90,7 @@ describe('endpoint reducers', () => {
 
     it('should reduce extras fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.extras
+      const reducer = reducers.extras
       expect(reducer(undefined, startFetchAction('extras', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('extras', payload)))
@@ -101,7 +99,7 @@ describe('endpoint reducers', () => {
 
     it('should reduce categories fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.categories
+      const reducer = reducers.categories
       expect(reducer(undefined, startFetchAction('categories', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('categories', payload)))
@@ -110,7 +108,7 @@ describe('endpoint reducers', () => {
 
     it('should reduce sprungbrettJobs fetch actions', () => {
       const payload = new Payload(false, 'http://example.com', 'data', null)
-      const reducer: ReducerType<*> = reducers.sprungbrettJobs
+      const reducer = reducers.sprungbrettJobs
       expect(reducer(undefined, startFetchAction('sprungbrettJobs', 'http://example.com')))
         .toEqual(new Payload(true, 'http://example.com'))
       expect(reducer(new Payload(true, 'http://example.com'), finishFetchAction('sprungbrettJobs', payload)))
