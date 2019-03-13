@@ -2,7 +2,6 @@
 
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
-import CategoriesMapModel from '../models/CategoriesMapModel'
 
 const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 
