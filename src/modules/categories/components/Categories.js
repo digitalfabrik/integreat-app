@@ -9,7 +9,7 @@ import TileModel from '../../../modules/common/models/TileModel'
 import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
-import CategoriesSelectionStateView from '../../app/CategoriesSelectionStateView'
+import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
 import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
 
@@ -17,7 +17,7 @@ type PropsType = {|
   cities: Array<CityModel>,
   language: string,
 
-  categoriesStateView: CategoriesSelectionStateView,
+  stateView: CategoriesRouteStateView,
   cityCode: string,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
 
@@ -84,14 +84,14 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {categoriesStateView, cities} = this.props
+    const {stateView, cities} = this.props
 
-    if (!categoriesStateView) {
+    if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    const category = categoriesStateView.root()
-    const children = categoriesStateView.children()
+    const category = stateView.root()
+    const children = stateView.children()
 
     if (children.length === 0) {
       // last level, our category is a simple page
@@ -111,9 +111,9 @@ class Categories extends React.Component<PropsType> {
     // some level between, we want to display a list
     return <CategoryList
       categories={children.map((model: CategoryModel) => {
-        const stateView = categoriesStateView.stepInto(model.path)
+        const newStateView = stateView.stepInto(model.path)
 
-        const children = stateView.children()
+        const children = newStateView.children()
         return ({
           model: this.getListModel(model),
           subCategories: this.getListModels(children)
@@ -126,5 +126,4 @@ class Categories extends React.Component<PropsType> {
   }
 }
 
-// export default makeLanguageAgnostic(Categories)
 export default Categories

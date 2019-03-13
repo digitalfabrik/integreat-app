@@ -6,7 +6,7 @@ import { ActivityIndicator, ScrollView, Button } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import CategoriesSelectionStateView from '../../../modules/app/CategoriesSelectionStateView'
+import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheType'
 
 type PropsType = {
@@ -22,7 +22,7 @@ type PropsType = {
 
   language: string,
   cities?: Array<CityModel>,
-  categoriesStateView: ?CategoriesSelectionStateView,
+  categoriesStateView: ?CategoriesRouteStateView,
   resourceCache?: ResourceCacheType
 }
 
@@ -51,7 +51,7 @@ class Dashboard extends React.Component<PropsType> {
     }
 
     return (<ScrollView>
-        <Categories categoriesStateView={categoriesStateView}
+        <Categories stateView={categoriesStateView}
                     cities={cities} resourceCache={this.props.resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
