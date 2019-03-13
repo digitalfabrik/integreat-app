@@ -2,7 +2,7 @@
 
 import PageModel from '../models/PageModel'
 import EndpointBuilder from '../EndpointBuilder'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import type { JsonDisclaimerType } from '../types'
 import Endpoint from '../Endpoint'
 import sanitizeHtml from 'sanitize-html-react'
@@ -28,7 +28,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> => new Endpoin
         allowedTags: false,
         allowedAttributes: false
       }),
-      lastUpdate: moment(json.modified_gmt)
+      lastUpdate: moment.tz(json.modified_gmt, 'GMT')
     })
   })
   .build()
