@@ -24,7 +24,6 @@ import { LANDING_ROUTE } from '../../route-configs/LandingRouteConfig'
 import { MAIN_DISCLAIMER_ROUTE } from '../../route-configs/MainDisclaimerRouteConfig'
 import moment from 'moment-timezone'
 import theme from '../../../theme/constants/theme'
-import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import LocationLayout from '../../../layout/containers/LocationLayout'
@@ -32,6 +31,7 @@ import Layout from '../../../layout/components/Layout'
 import Footer from '../../../layout/components/Footer'
 import { Header } from '../../../layout/components/Header'
 import createLocation from '../../../../createLocation'
+import configureMockStore from 'redux-mock-store'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -235,22 +235,21 @@ describe('Switcher', () => {
       prev: {payload: {param: 'param'}},
       pathname: '/augsburg/de'
     }
-
-    const store = createReduxStore({
+    const mockStore = configureMockStore()
+    const store = mockStore({
       events: eventsPayload,
       cities: citiesPayload,
       categories: categoriesPayload,
       disclaimer: disclaimerPayload,
       extras: extrasPayload,
       languages: languagesPayload,
+      location,
       pois: poisPayload,
       wohnen: wohnenPayload,
       sprungbrettJobs: sprungbrettPayload,
       viewport: {is: {small: true}},
       darkMode: true
     })
-    store.getState().location = location
-    store.getState().cities = citiesPayload
 
     const tree = mount(
       <ThemeProvider theme={theme}>
@@ -263,18 +262,19 @@ describe('Switcher', () => {
     expect(tree.find(Switcher).props()).toEqual({
       location,
       categoriesPayload,
+      citiesPayload,
+      darkMode: true,
+      disclaimerPayload,
       eventsPayload,
       extrasPayload,
-      citiesPayload,
-      disclaimerPayload,
-      sprungbrettJobsPayload: sprungbrettPayload,
-      poisPayload,
-      wohnenPayload,
+      i18n: expect.anything(),
       languages,
+      poisPayload,
+      sprungbrettJobsPayload: sprungbrettPayload,
+      t: expect.any(Function),
       toggleDarkMode: expect.any(Function),
       viewportSmall: true,
-      darkMode: true,
-      t: expect.any(Function)
+      wohnenPayload
     })
   })
 })

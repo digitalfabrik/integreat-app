@@ -66,8 +66,8 @@ describe('I18nRedirectPage', () => {
     it('should map state to props', () => {
       const param = 'param'
       const mockStore = configureStore()
-      const location = {type: I18N_REDIRECT_ROUTE, payload: {param}}
-      const store = mockStore(() => ({location}))
+      const location = {type: I18N_REDIRECT_ROUTE, language: 'en', payload: {param}}
+      const store = mockStore({location})
 
       const tree = mount(
         <Provider store={store}>
@@ -77,9 +77,10 @@ describe('I18nRedirectPage', () => {
 
       expect(tree.find(I18nRedirectPage).props()).toEqual({
         cities,
+        i18n: expect.anything(),
         param,
         redirect: expect.any(Function),
-        i18n: expect.anything()
+        t: expect.any(Function)
       })
     })
 

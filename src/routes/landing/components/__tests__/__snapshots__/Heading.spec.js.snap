@@ -44,6 +44,28 @@ exports[`Heading should render 1`] = `
 >
   <Translate(Heading)>
     <Heading
+      i18n={
+        I18n {
+          "logger": Logger {
+            "debug": undefined,
+            "logger": Object {
+              "error": [Function],
+              "log": [Function],
+              "output": [Function],
+              "type": "logger",
+              "warn": [Function],
+            },
+            "options": Object {},
+            "prefix": "i18next:",
+          },
+          "modules": Object {
+            "external": Array [],
+          },
+          "observers": Object {},
+          "options": Object {},
+          "services": Object {},
+        }
+      }
       t={[Function]}
     >
       <div>
@@ -51,10 +73,10 @@ exports[`Heading should render 1`] = `
           src="test-file-stub"
         >
           <StyledComponent
-            forwardedClass={
+            forwardedComponent={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
-                "attrs": undefined,
+                "attrs": Array [],
                 "componentStyle": ComponentStyle {
                   "componentId": "Heading__Logo-nspadb-0",
                   "isStatic": true,
@@ -64,6 +86,7 @@ exports[`Heading should render 1`] = `
                   ],
                 },
                 "displayName": "Heading__Logo",
+                "foldedComponentIds": Array [],
                 "render": [Function],
                 "styledComponentId": "Heading__Logo-nspadb-0",
                 "target": "img",
@@ -86,10 +109,10 @@ exports[`Heading should render 1`] = `
         >
           <Caption__H1>
             <StyledComponent
-              forwardedClass={
+              forwardedComponent={
                 Object {
                   "$$typeof": Symbol(react.forward_ref),
-                  "attrs": undefined,
+                  "attrs": Array [],
                   "componentStyle": ComponentStyle {
                     "componentId": "Caption__H1-sc-1ggkcri-0",
                     "isStatic": false,
@@ -101,6 +124,7 @@ exports[`Heading should render 1`] = `
                     ],
                   },
                   "displayName": "Caption__H1",
+                  "foldedComponentIds": Array [],
                   "render": [Function],
                   "styledComponentId": "Caption__H1-sc-1ggkcri-0",
                   "target": "h1",

@@ -22,7 +22,7 @@ exports[`ScrollingSearchBox should render 1`] = `
 exports[`ScrollingSearchBox should set correct reference 1`] = `
 <div>
   <div
-    class="Headroom__HeaderWrapper-sc-16d3zk-0 jLNFic"
+    class="Headroom__HeaderWrapper-sc-16d3zk-0 jxsUuF"
   >
     <div
       class="SearchInput__Spacer-sc-18knujq-0 lmcbCl"
@@ -35,6 +35,7 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
           class="svg-inline--fa fa-search fa-w-16 SearchInput__SearchIcon-sc-18knujq-3 kAwGea"
           data-icon="search"
           data-prefix="fas"
+          focusable="false"
           role="img"
           viewBox="0 0 512 512"
           xmlns="http://www.w3.org/2000/svg"

@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { WohnenOfferModel, ExtraModel } from '@integreat-app/integreat-api-client'
+import { ExtraModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from '../components/OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -25,6 +25,7 @@ type PropsType = {|
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
+
   renderOfferListItem = ({city, language, hashFunction}: {
     city: string, language: string,
     hashFunction: WohnenOfferModel => string
@@ -50,9 +51,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
         return <FailureSwitcher error={new Error('Angebot nicht gefunden.')} />
       }
 
-      return (
-        <OfferDetail offer={offer} />
-      )
+      return <OfferDetail offer={offer} />
     }
 
     return (
