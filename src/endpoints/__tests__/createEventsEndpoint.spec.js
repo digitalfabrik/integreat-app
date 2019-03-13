@@ -1,16 +1,15 @@
 // @flow
 
-import events from '../events'
 import type Moment from 'moment'
 import moment from 'moment'
 import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import LocationModel from '../../models/LocationModel'
-
-jest.unmock('../events')
+import createEventsEndpoint from '../createEventsEndpoint'
 
 describe('events', () => {
-  const apiUrl = 'https://integreat-api-url.de'
+  const baseUrl = 'https://integreat-api-url.de'
+  const events = createEventsEndpoint(baseUrl)
 
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime) => ({
     id,
@@ -69,7 +68,7 @@ describe('events', () => {
   const params = {city: 'augsburg', language: 'de'}
 
   it('should map params to url', () => {
-    expect(events.mapParamsToUrl(apiUrl, params)).toEqual(
+    expect(events.mapParamsToUrl(params)).toEqual(
       'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })

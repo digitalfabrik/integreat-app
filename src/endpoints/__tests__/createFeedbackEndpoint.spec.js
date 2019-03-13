@@ -1,12 +1,13 @@
 // @flow
 
-import feedback from '../feedback'
+import createFeedbackEndponit from '../createFeedbackEndponit'
 
 describe('feedback', () => {
-  const apiUrl = 'https://integreat-api-url.de'
+  const baseUrl = 'https://integreat-api-url.de'
+  const feedback = createFeedbackEndponit(baseUrl)
 
   it('should map params to url', () => {
-    expect(feedback.mapParamsToUrl(apiUrl, {
+    expect(feedback.mapParamsToUrl({
       city: 'augsburg',
       language: 'de',
       comment: null,

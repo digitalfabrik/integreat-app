@@ -11,9 +11,9 @@ const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
 type ParamsType = { city: string, language: string }
 
-const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
-  .withParamsToUrlMapper((apiUrl: string, params: ParamsType): string =>
-    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
+export default (baseUrl: string): Endpoint<ParamsType, PageModel> => new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: ParamsType): string =>
+    `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
   )
   .withMapper((json: ?JsonDisclaimerType): PageModel => {
     if (!json) {
@@ -32,5 +32,3 @@ const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER
     })
   })
   .build()
-
-export default endpoint

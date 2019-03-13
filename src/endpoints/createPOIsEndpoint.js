@@ -13,9 +13,9 @@ const POIS_ENDPOINT_NAME = 'pois'
 
 type ParamsType = { city: string, language: string }
 
-const endpoint: Endpoint<ParamsType, Array<PoiModel>> = new EndpointBuilder(POIS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((apiUrl: string, params: ParamsType): string =>
-    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
+export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> => new EndpointBuilder(POIS_ENDPOINT_NAME)
+  .withParamsToUrlMapper((params: ParamsType): string =>
+    `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
   .withMapper((json: Array<JsonPoiType>): Array<PoiModel> =>
     json.map(poi => {
       return new PoiModel({
@@ -37,5 +37,3 @@ const endpoint: Endpoint<ParamsType, Array<PoiModel>> = new EndpointBuilder(POIS
       })
     }))
   .build()
-
-export default endpoint

@@ -17,15 +17,15 @@ const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> => {
 
 type ParamsType = { city: ?string, language: ?string }
 
-const endpoint: Endpoint<ParamsType, Array<ExtraModel>> = new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
-  .withParamsToUrlMapper((apiUrl: string, params): string => {
+export default (baseUrl: string): Endpoint<ParamsType, Array<ExtraModel>> => new EndpointBuilder(EXTRAS_ENDPOINT_NAME)
+  .withParamsToUrlMapper(params => {
     if (!params.city) {
       throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'city')
     }
     if (!params.language) {
       throw new ParamMissingError(EXTRAS_ENDPOINT_NAME, 'language')
     }
-    return `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
+    return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
   })
   .withMapper((json: Array<JsonExtraType>) => json
     .map(extra => new ExtraModel({
@@ -36,5 +36,3 @@ const endpoint: Endpoint<ParamsType, Array<ExtraModel>> = new EndpointBuilder(EX
       postData: extra.post ? createPostMap(extra.post) : null
     })))
   .build()
-
-export default endpoint

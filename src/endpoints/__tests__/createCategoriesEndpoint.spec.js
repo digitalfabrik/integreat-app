@@ -1,14 +1,14 @@
 // @flow
 
-import categories from '../categories'
+import createCategoriesEndpoint from '../createCategoriesEndpoint'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment'
 
-jest.unmock('../categories')
-
 describe('categories', () => {
-  const apiUrl = 'https://integreat-api-url.de'
+  const baseUrl = 'https://integreat-api-url.de'
+
+  const categories = createCategoriesEndpoint(baseUrl)
 
   const categoriesJSON = [
     {
@@ -102,7 +102,7 @@ describe('categories', () => {
   const params = {language: 'de', city: 'augsburg'}
 
   it('should map router to path', () => {
-    expect(categories.mapParamsToUrl(apiUrl, params)).toEqual(
+    expect(categories.mapParamsToUrl(params)).toEqual(
       'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/pages'
     )
   })
