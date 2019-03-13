@@ -7,13 +7,14 @@ import type {
   FetchCitiesFailedActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
-import { citiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
+import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 import request from '../request'
+import { baseUrl } from '../constants'
 
 function * fetchCities (database: MemoryDatabase): Saga<void> {
   try {
-    const payload: Payload<Array<CityModel>> = yield call(() => request(citiesEndpoint))
+    const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
 
     const cities: Array<CityModel> = payload.data
 

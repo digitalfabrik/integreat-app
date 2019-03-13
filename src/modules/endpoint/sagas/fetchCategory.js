@@ -1,19 +1,19 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, takeLatest, fork, select } from 'redux-saga/effects'
+import { call, fork, put, select, takeLatest } from 'redux-saga/effects'
 import type {
-  PushCategoryActionType,
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
+  PushCategoryActionType,
   SwitchCategoryLanguageActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import {
-  categoriesEndpoint,
   CategoriesMapModel,
-  LanguageModel,
-  languagesEndpoint
+  createCategoriesEndpoint,
+  createLanguagesEndpoint,
+  LanguageModel
 } from '@integreat-app/integreat-api-client'
 import request from '../request'
 import type { ResourceCacheType } from '../ResourceCacheType'
@@ -25,6 +25,7 @@ import MemoryDatabaseContext from '../MemoryDatabaseContext'
 import fetchResourceCache from './fetchResourceCache'
 import persistCategories from './persistCategories'
 import type { StateType } from '../../app/StateType'
+import { baseUrl } from '../constants'
 
 function * fetchCategoriesByLanguage (city: string, code: string): Saga<CategoriesMapModel> {
   const params = {
@@ -32,14 +33,14 @@ function * fetchCategoriesByLanguage (city: string, code: string): Saga<Categori
     language: code
   }
 
-  const categoriesPayload = yield call(() => request(categoriesEndpoint, params))
+  const categoriesPayload = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
   return categoriesPayload.data
 }
 
 function * fetchLanguages (city: string): Saga<Array<LanguageModel>> {
   const params = {city}
 
-  const languagesPayload = yield call(() => request(languagesEndpoint, params))
+  const languagesPayload = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
   return languagesPayload.data
 }
 
