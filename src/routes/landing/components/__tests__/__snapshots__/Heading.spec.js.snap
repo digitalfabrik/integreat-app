@@ -47,10 +47,10 @@ exports[`Heading should render 1`] = `
       src="test-file-stub"
     >
       <StyledComponent
-        forwardedClass={
+        forwardedComponent={
           Object {
             "$$typeof": Symbol(react.forward_ref),
-            "attrs": undefined,
+            "attrs": Array [],
             "componentStyle": ComponentStyle {
               "componentId": "Heading__Logo-nspadb-0",
               "isStatic": true,
@@ -60,6 +60,7 @@ exports[`Heading should render 1`] = `
               ],
             },
             "displayName": "Heading__Logo",
+            "foldedComponentIds": Array [],
             "render": [Function],
             "styledComponentId": "Heading__Logo-nspadb-0",
             "target": "img",
