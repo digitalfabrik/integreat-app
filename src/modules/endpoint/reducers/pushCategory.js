@@ -3,8 +3,19 @@
 import type { CategoriesStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
-import { times } from 'lodash/util'
-import { keyBy } from 'lodash/collection'
+
+const forEachTreeNode = (
+  root: CategoryModel,
+  resolveChildren: CategoryModel => Array<CategoryModel>,
+  depth: number,
+  nodeAction: (CategoryModel, Array<CategoryModel>) => void
+) => {
+  const children = resolveChildren(root)
+  nodeAction(root, children)
+  if (depth > 0) {
+    children.forEach(child => forEachTreeNode(child, resolveChildren, depth - 1, nodeAction))
+  }
+}
 
 const pushCategory = (
   state: CategoriesStateType, action: PushCategoryActionType
@@ -20,25 +31,12 @@ const pushCategory = (
   }
 
   const root: CategoryModel = categoriesMap.findCategoryByPath(path)
-  const models = {}
-  const children = {}
+  const resultModels = {}
+  const resultChildren = {}
 
-  models[root.path] = root
-
-  let childrenStack = [root]
-  times(depth, () => {
-    const newChildrenStack = []
-    childrenStack.forEach(category => {
-      models[category.path] = category
-
-      const childrenCategories = categoriesMap.getChildren(category)
-      children[category.path] = childrenCategories.map(child => child.path)
-      Object.assign(models, keyBy(childrenCategories, child => child.path))
-
-      newChildrenStack.push(...childrenCategories)
-    })
-
-    childrenStack = newChildrenStack
+  forEachTreeNode(root, node => categoriesMap.getChildren(node), depth, (node, children) => {
+    resultModels[node.path] = node
+    resultChildren[node.path] = children.map(child => child.path)
   })
 
   return {
@@ -51,8 +49,8 @@ const pushCategory = (
       ...state.routeMapping,
       [key]: {
         root: root.path,
-        models: models,
-        children: children,
+        models: resultModels,
+        children: resultChildren,
         depth: depth
       }
     }
