@@ -25,7 +25,6 @@ type PropsType = {|
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
-
   renderOfferListItem = ({city, language, hashFunction}: {
     city: string, language: string,
     hashFunction: WohnenOfferModel => string
