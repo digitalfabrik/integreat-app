@@ -19,7 +19,10 @@ export const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> 
 }
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language: string = state.language
+  const language = state.categories.currentLanguage
+  if (!language) {
+    throw new Error('Language not set for categories!')
+  }
 
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
 

@@ -2,10 +2,9 @@
 
 import type { Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
-import { createLogger } from 'redux-logger'
 import { AsyncStorage } from 'react-native'
 
-import { languageReducer, uiDirectionReducer } from 'modules/i18n/reducers'
+import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import {
   checkInternetConnection,
@@ -21,59 +20,57 @@ import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
-import fetchCities from '../endpoint/sagas/fetchCities'
-import fetchCategories from '../endpoint/sagas/fetchCategories'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
-import categoriesReducer from '../endpoint/reducers/categoriesReducer'
-import fileCacheReducer from '../endpoint/reducers/fileCacheReducer'
-import citiesReducer from '../endpoint/reducers/cititesReducer'
-import languagesReducer from '../endpoint/reducers/languagesReducer'
-import currentCityReducer from '../categories/reducers/currentCityReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import MemoryDatabase from '../endpoint/MemoryDatabase'
+import {
+  defaultCategoriesState,
+  defaultCitiesState
+} from './StateType'
+import citiesReducer from '../endpoint/reducers/citiesReducer'
+import categoriesReducer from '../endpoint/reducers/categoriesReducer'
+import fetchCategory from '../endpoint/sagas/fetchCategory'
+import fetchCities from '../endpoint/sagas/fetchCities'
 
-function * rootSaga (): Saga<void> {
+function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(fetchCities),
-    fork(fetchCategories),
+    fork(fetchCategory, database),
+    fork(fetchCities, database),
     fork(networkEventsListenerSaga, {})
   ])
 }
 
-const createReduxStore = (callback: () => void): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+const createReduxStore = (
+  database: MemoryDatabase, callback: () => void
+): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {
     uiDirection: 'ltr',
-    language: 'en',
-    currentCity: null,
     darkMode: false,
 
-    cities: {json: null, error: null},
-    categories: {},
-    languages: {},
-    fileCache: {},
+    cities: defaultCitiesState,
+    categories: defaultCategoriesState,
 
     network: {isConnected: false, actionQueue: []}
   }
 
+  // Do never blacklist the "network" key.
   const persistConfig: PersistConfig = {
     version: 1,
     key: 'root',
     storage: AsyncStorage,
-    stateReconciler: hardSet
+    stateReconciler: hardSet,
+    blacklist: ['cities', 'categories']
   }
 
   // Create this reducer only once. It is not pure!
   const persitedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
-    language: languageReducer,
-    currentCity: currentCityReducer,
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,
     categories: categoriesReducer,
-    languages: languagesReducer,
-    fileCache: fileCacheReducer,
 
     network: reactNativeOfflineReducer
   })
@@ -86,9 +83,11 @@ const createReduxStore = (callback: () => void): { store: Store<StateType, Store
   }
   const middlewares = [createNetworkMiddleware(), sagaMiddleware]
 
-  if (__DEV__) {
-    middlewares.push(createLogger())
-  }
+  // If you want to use redux-logger again use this code:
+  // import { createLogger } from 'redux-logger'
+  // if (__DEV__) {
+  //   middlewares.push(createLogger())
+  // }
 
   const middleware = applyMiddleware(...middlewares)
 
@@ -105,7 +104,7 @@ const createReduxStore = (callback: () => void): { store: Store<StateType, Store
         type: offlineActionTypes.CONNECTION_CHANGE,
         payload: isConnected
       })
-      sagaMiddleware.run(rootSaga)
+      sagaMiddleware.run(rootSaga, database)
       callback()
     }
   )
