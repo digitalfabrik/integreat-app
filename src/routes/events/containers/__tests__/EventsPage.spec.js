@@ -8,6 +8,8 @@ import ConnectedEventsPage, { EventsPage } from '../EventsPage'
 import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
+import createLocation from '../../../../createLocation'
+import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
 
 describe('EventsPage', () => {
   const events = [
@@ -118,7 +120,11 @@ describe('EventsPage', () => {
   })
 
   it('should map state to props', () => {
-    const location = {payload: {city: city, language: language, eventId: 'id'}, pathname: '/augsburg/en/events/id'}
+    const location = createLocation({
+      payload: {city: city, language: language, eventId: 'id'},
+      pathname: '/augsburg/en/events/id',
+      type: EVENTS_ROUTE
+    })
     const store = createReduxStore()
     store.getState().location = location
 

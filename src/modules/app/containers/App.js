@@ -9,12 +9,14 @@ import I18nProvider from '../../i18n/containers/I18nProvider'
 import PlatformProvider from '../../platform/containers/PlatformProvider'
 import Switcher from './Switcher'
 import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
+import type { StateType } from '../StateType'
+import type { Store } from 'redux'
+import type { StoreActionType } from '../StoreActionType'
 
 type PropsType = {||}
 
 class App extends React.Component<PropsType> {
-  // $FlowFixme WEBAPP-400 Fix types for flow
-  store: any
+  store: Store<StateType, StoreActionType>
 
   constructor () {
     super()

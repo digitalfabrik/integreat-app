@@ -9,6 +9,8 @@ import theme from '../../../../modules/theme/constants/theme'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
+import createLocation from '../../../../createLocation'
+import { EXTRAS_ROUTE } from '../../../../modules/app/route-configs/ExtrasRouteConfig'
 
 describe('ExtrasPage', () => {
   const city = 'augsburg'
@@ -66,7 +68,7 @@ describe('ExtrasPage', () => {
   })
 
   it('should map state to props', () => {
-    const location = {payload: {language, city, extraId: 'invalid_extra'}}
+    const location = createLocation({type: EXTRAS_ROUTE, payload: {language, city, extraId: 'invalid_extra'}})
     const store = createReduxStore()
     store.getState().location = location
 
