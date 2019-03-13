@@ -1,11 +1,12 @@
 // @flow
 
-import cities from '../cities'
+import createCitiesEndpoint from '../createCitiesEndpoint'
 import CityModel from '../../models/CityModel'
 
-jest.unmock('../cities')
-
 describe('cities', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const cities = createCitiesEndpoint(baseUrl)
+
   const city1 = {
     name: 'Augsburg',
     path: '/augsburg/',
@@ -25,7 +26,7 @@ describe('cities', () => {
   const cityJson = [city1, city2]
 
   it('should map params to url', () => {
-    expect(cities.mapParamsToUrl()).toEqual('https://cms.integreat-app.de/wp-json/extensions/v3/sites')
+    expect(cities.mapParamsToUrl()).toEqual('https://integreat-api-url.de/wp-json/extensions/v3/sites')
   })
 
   it('should map fetched data to models', () => {

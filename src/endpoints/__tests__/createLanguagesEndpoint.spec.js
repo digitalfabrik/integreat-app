@@ -1,11 +1,12 @@
 // @flow
 
-import languages from '../languages'
+import createLanguagesEndpoint from '../createLanguagesEndpoint'
 import LanguageModel from '../../models/LanguageModel'
 
-jest.unmock('../languages')
-
 describe('languages', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const languages = createLanguagesEndpoint(baseUrl)
+
   const languagesJson = [
     {
       code: 'en',
@@ -21,7 +22,7 @@ describe('languages', () => {
 
   it('should map router to url', () => {
     expect(languages.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/languages'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/languages'
     )
   })
 

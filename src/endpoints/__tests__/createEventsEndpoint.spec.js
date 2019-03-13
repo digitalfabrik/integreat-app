@@ -1,15 +1,16 @@
 // @flow
 
-import events from '../events'
 import type Moment from 'moment'
 import moment from 'moment-timezone'
 import EventModel from '../../models/EventModel'
 import DateModel from '../../models/DateModel'
 import LocationModel from '../../models/LocationModel'
-
-jest.unmock('../events')
+import createEventsEndpoint from '../createEventsEndpoint'
 
 describe('events', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const events = createEventsEndpoint(baseUrl)
+
   const createEvent = (id, allDay, startDate, startTime, endDate, endTime, timezone) => ({
     id,
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
@@ -81,7 +82,7 @@ describe('events', () => {
 
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/events'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })
 

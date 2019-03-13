@@ -1,13 +1,14 @@
 // @flow
 
-import pois from '../pois'
 import moment from 'moment-timezone'
+import createPOIsEndpoint from '../createPOIsEndpoint'
 import PoiModel from '../../models/PoiModel'
 import LocationModel from '../../models/LocationModel'
 
-jest.unmock('../pois')
-
 describe('pois', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const pois = createPOIsEndpoint(baseUrl)
+
   const createPoi = id => ({
     id,
     path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
@@ -54,7 +55,7 @@ describe('pois', () => {
 
   it('should map params to url', () => {
     expect(pois.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/locations'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations'
     )
   })
 

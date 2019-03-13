@@ -1,11 +1,12 @@
 // @flow
 
-import extras from '../extras'
+import createExtrasEndpoint from '../createExtrasEndpoint'
 import ExtraModel from '../../models/ExtraModel'
 
-jest.unmock('../extras')
-
 describe('endpoint', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const extras = createExtrasEndpoint(baseUrl)
+
   const pageJson = [
     {
       name: 'Serlo ABC',
@@ -63,7 +64,7 @@ describe('endpoint', () => {
 
   it('should map router to url', () => {
     expect(extras.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/bad-toelz/en/wp-json/extensions/v3/extras'
+      'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras'
     )
   })
 

@@ -1,13 +1,15 @@
 // @flow
 
-import categories from '../categories'
+import createCategoriesEndpoint from '../createCategoriesEndpoint'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
 
-jest.unmock('../categories')
-
 describe('categories', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+
+  const categories = createCategoriesEndpoint(baseUrl)
+
   const categoriesJSON = [
     {
       id: 3650,
@@ -101,7 +103,7 @@ describe('categories', () => {
 
   it('should map router to path', () => {
     expect(categories.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/pages'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/pages'
     )
   })
 

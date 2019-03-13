@@ -1,7 +1,6 @@
 // @flow
 
 import CityModel from '../models/CityModel'
-import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
 import type { JsonCityType } from '../types'
@@ -16,8 +15,8 @@ const stripSlashes = (path: string): string => {
   return path
 }
 
-const endpoint: Endpoint<void, Array<CityModel>> = new EndpointBuilder('cities')
-  .withParamsToUrlMapper((): string => `${apiUrl}/wp-json/extensions/v3/sites`)
+export default (baseUrl: string): Endpoint<void, Array<CityModel>> => new EndpointBuilder('cities')
+  .withParamsToUrlMapper(() => `${baseUrl}/wp-json/extensions/v3/sites`)
   .withMapper((json: Array<JsonCityType>) => json.map(city => new CityModel({
     name: city.name,
     code: stripSlashes(city.path),
@@ -27,5 +26,3 @@ const endpoint: Endpoint<void, Array<CityModel>> = new EndpointBuilder('cities')
     sortingName: city.name_without_prefix
   })).sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName)))
   .build()
-
-export default endpoint

@@ -1,12 +1,13 @@
 // @flow
 
-import disclaimer from '../disclaimer'
+import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
 import PageModel from '../../models/PageModel'
 import moment from 'moment-timezone'
 
-jest.unmock('../disclaimer')
-
 describe('disclaimer', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const disclaimer = createDisclaimerEndpoint(baseUrl)
+
   const pageJson = {
     id: 1689,
     title: 'Feedback, Kontakt und mögliches Engagement',
@@ -19,7 +20,7 @@ describe('disclaimer', () => {
 
   it('should map router to url', () => {
     expect(disclaimer.mapParamsToUrl(params)).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/disclaimer'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer'
     )
   })
 
