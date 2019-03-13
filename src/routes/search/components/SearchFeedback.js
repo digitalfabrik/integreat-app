@@ -31,7 +31,6 @@ const NothingFound = styled.div`
 `
 
 type PropsType = {|
-  cities: Array<CityModel>,
   location: LocationState,
   query: string,
   resultsFound: boolean,
