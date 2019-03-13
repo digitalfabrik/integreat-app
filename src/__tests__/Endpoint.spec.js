@@ -3,7 +3,7 @@
 import Endpoint from '../Endpoint'
 
 describe('Endpoint', () => {
-  const defaultMapParamsToUrl = (apiUrl, params) => `https://weird-endpoint/${params.var1}/${params.var2}/api.json`
+  const defaultMapParamsToUrl = params => `https://weird-endpoint/${params.var1}/${params.var2}/api.json`
   const defaultJsonMapper = json => json
 
   it('should have correct state name', () => {
