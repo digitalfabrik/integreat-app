@@ -1,8 +1,11 @@
 // @flow
 
-import feedback from '../feedback'
+import createFeedbackEndponit from '../createFeedbackEndponit'
 
 describe('feedback', () => {
+  const baseUrl = 'https://integreat-api-url.de'
+  const feedback = createFeedbackEndponit(baseUrl)
+
   it('should map params to url', () => {
     expect(feedback.mapParamsToUrl({
       city: 'augsburg',
@@ -11,7 +14,7 @@ describe('feedback', () => {
       feedbackType: null,
       isPositiveRating: true
     })).toEqual(
-      'https://cms.integreat-app.de/augsburg/de/wp-json/extensions/v3/feedback'
+      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback'
     )
   })
 

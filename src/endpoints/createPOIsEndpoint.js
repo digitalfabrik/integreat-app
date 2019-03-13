@@ -1,6 +1,5 @@
 // @flow
 
-import { apiUrl } from '../constants'
 import EndpointBuilder from '../EndpointBuilder'
 import type { JsonPoiType } from '../types'
 import PoiModel from '../models/PoiModel'
@@ -14,9 +13,9 @@ const POIS_ENDPOINT_NAME = 'pois'
 
 type ParamsType = { city: string, language: string }
 
-const endpoint: Endpoint<ParamsType, Array<PoiModel>> = new EndpointBuilder(POIS_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> => new EndpointBuilder(POIS_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
-    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
+    `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`)
   .withMapper((json: Array<JsonPoiType>): Array<PoiModel> =>
     json.map(poi => {
       return new PoiModel({
@@ -38,5 +37,3 @@ const endpoint: Endpoint<ParamsType, Array<PoiModel>> = new EndpointBuilder(POIS
       })
     }))
   .build()
-
-export default endpoint

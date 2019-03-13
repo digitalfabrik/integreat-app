@@ -1,6 +1,6 @@
 {
   "name": "@integreat-app/integreat-api-client",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "engines": {
     "node": ">=6.9",
     "npm": ">=3.8"
@@ -34,7 +34,7 @@
     "test:update": "jest --config jest.config.json -u",
     "lint": "yarn run eslint",
     "lint:fix": "yarn run eslint --fix",
-    "eslint": "eslint .",
+    "eslint": "eslint --ignore-pattern dist/ .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install"
   },

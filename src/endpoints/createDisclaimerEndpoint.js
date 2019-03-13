@@ -1,6 +1,5 @@
 // @flow
 
-import { apiUrl } from '../constants'
 import PageModel from '../models/PageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment-timezone'
@@ -12,9 +11,9 @@ const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
 type ParamsType = { city: string, language: string }
 
-const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, PageModel> => new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
   .withParamsToUrlMapper((params: ParamsType): string =>
-    `${apiUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
+    `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
   )
   .withMapper((json: ?JsonDisclaimerType): PageModel => {
     if (!json) {
@@ -33,5 +32,3 @@ const endpoint: Endpoint<ParamsType, PageModel> = new EndpointBuilder(DISCLAIMER
     })
   })
   .build()
-
-export default endpoint

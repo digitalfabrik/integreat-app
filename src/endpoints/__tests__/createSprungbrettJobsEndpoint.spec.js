@@ -1,14 +1,15 @@
 // @flow
 
-import sprungbrettJobs from '../sprungbrettJobs'
+import createSprungbrettJobsEndpoint from '../createSprungbrettJobsEndpoint'
 import SprungbrettJobModel from '../../models/SprungbrettJobModel'
 
-jest.unmock('../sprungbrettJobs')
-
 describe('sprungbrettJobs', () => {
+  const baseUrl = 'https://sprungbrett-api-url.de'
+  const sprungbrettJobs = createSprungbrettJobsEndpoint(baseUrl)
+
   const json = {
     total: '19',
-    pager: {current: 1, max: 1},
+    pager: { current: 1, max: 1 },
     results: [
       {
         title: 'Praktikum im Bereich Pflege',
@@ -73,20 +74,14 @@ describe('sprungbrettJobs', () => {
     })
   ]
 
-  const params = {url: 'sprungbrett_url'}
-
   it('should map router to url', () => {
-    expect(sprungbrettJobs.mapParamsToUrl(params)).toEqual(
-      'sprungbrett_url'
+    expect(sprungbrettJobs.mapParamsToUrl()).toEqual(
+      'https://sprungbrett-api-url.de'
     )
   })
 
-  it('should throw if the url to map the url are missing', () => {
-    expect(() => sprungbrettJobs.mapParamsToUrl({url: undefined})).toThrowErrorMatchingSnapshot()
-  })
-
   it('should map fetched data to models', () => {
-    const sprungbrettModel = sprungbrettJobs.mapResponse(json, params)
+    const sprungbrettModel = sprungbrettJobs.mapResponse(json)
     expect(sprungbrettModel).toEqual(sprungbrettJobModels)
   })
 })
