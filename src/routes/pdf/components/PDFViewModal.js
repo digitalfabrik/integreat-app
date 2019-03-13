@@ -11,11 +11,26 @@ type PropsType = {
   url: string
 }
 
+const getRelativeToDocumentsDir = (path: string) => {
+  const documentsDirName = 'Documents'
+  const index = path.indexOf(documentsDirName)
+
+  if (index < 0) {
+    return path
+  }
+
+  return path.substr(index + documentsDirName.length + 1)
+}
+
+const urlToPath = (url: string) => {
+  return url.replace(URL_PREFIX, '')
+}
+
 export default class PDFViewModal extends React.Component<PropsType> {
   onError = (error: Error) => console.log('Cannot render PDF', error)
 
   render () {
-    const url = this.props.navigation.getParam('url')
+    const path = urlToPath(this.props.navigation.getParam('url'))
     return (
       <View style={{flex: 1}}>
         <PDFView
@@ -23,7 +38,7 @@ export default class PDFViewModal extends React.Component<PropsType> {
           style={{flex: 1}}
           // This PDFView can only load from Documents dir on iOS:
           // https://github.com/rumax/react-native-PDFView/issues/90
-          resource={Platform.OS === 'ios' ? url.substr(url.indexOf('Documents') + 'Documents'.length + 1) : url.replace(URL_PREFIX, '')}
+          resource={Platform.OS === 'ios' ? getRelativeToDocumentsDir(path) : path}
           resourceType={'file'}
           onError={this.onError}
         />
