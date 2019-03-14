@@ -3,7 +3,7 @@
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
 
-const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
+export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 
 export const POSITIVE_RATING = 'up'
 export const NEGATIVE_RATING = 'down'

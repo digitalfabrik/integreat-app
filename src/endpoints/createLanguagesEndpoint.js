@@ -6,7 +6,7 @@ import ParamMissingError from '../errors/ParamMissingError'
 import type { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 
-const LANGUAGES_ENDPOINT_NAME = 'languages'
+export const LANGUAGES_ENDPOINT_NAME = 'languages'
 
 type ParamsType = { city: ?string }
 

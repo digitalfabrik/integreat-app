@@ -9,7 +9,7 @@ import moment from 'moment-timezone'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
 
-const POIS_ENDPOINT_NAME = 'pois'
+export const POIS_ENDPOINT_NAME = 'pois'
 
 type ParamsType = { city: string, language: string }
 

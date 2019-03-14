@@ -12,7 +12,7 @@ import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
 import sanitizeHtml from 'sanitize-html-react'
 
-const EVENTS_ENDPOINT_NAME = 'events'
+export const EVENTS_ENDPOINT_NAME = 'events'
 
 type ParamsType = { city: string, language: string }
 
