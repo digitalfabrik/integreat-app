@@ -8,7 +8,7 @@ import moment from 'moment'
 import type { OfferType } from '../types'
 import Endpoint from '../Endpoint'
 
-const WOHNEN_ENDPOINT_NAME = 'wohnen'
+export const WOHNEN_ENDPOINT_NAME = 'wohnen'
 
 type ParamsType = { city: ?string }
 

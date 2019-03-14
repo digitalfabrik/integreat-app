@@ -7,7 +7,7 @@ import ParamMissingError from '../errors/ParamMissingError'
 import type { JsonExtraPostType, JsonExtraType } from '../types'
 import Endpoint from '../Endpoint'
 
-const EXTRAS_ENDPOINT_NAME = 'extras'
+export const EXTRAS_ENDPOINT_NAME = 'extras'
 
 const createPostMap = (jsonPost: JsonExtraPostType): Map<string, string> => {
   const map = new Map()

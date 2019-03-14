@@ -7,7 +7,7 @@ import type { JsonDisclaimerType } from '../types'
 import Endpoint from '../Endpoint'
 import sanitizeHtml from 'sanitize-html-react'
 
-const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
+export const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 
 type ParamsType = { city: string, language: string }
 

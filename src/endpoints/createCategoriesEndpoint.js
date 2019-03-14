@@ -10,7 +10,7 @@ import normalizePath from '../normalizePath'
 import sanitizeHtml from 'sanitize-html-react'
 import Endpoint from '../Endpoint'
 
-const CATEGORIES_ENDPOINT_NAME = 'categories'
+export const CATEGORIES_ENDPOINT_NAME = 'categories'
 
 type ParamsType = { city: string, language: string }
 
