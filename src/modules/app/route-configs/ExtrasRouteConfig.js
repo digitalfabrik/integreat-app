@@ -1,16 +1,18 @@
 // @flow
 
+import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import {
-  extrasEndpoint,
-  Payload,
+  createCitiesEndpoint,
+  createEventsEndpoint,
+  createExtrasEndpoint,
+  createLanguagesEndpoint,
   ExtraModel,
-  citiesEndpoint,
-  eventsEndpoint, languagesEndpoint
+  Payload
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType } from './RouteConfig'
+import { integreatApiBaseUrl } from '../constants/urls'
 
 type ExtrasRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
@@ -28,10 +30,10 @@ const extrasRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(citiesEndpoint, dispatch, state.cities),
-      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
-      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
-      fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
+      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createExtrasEndpoint(integreatApiBaseUrl), dispatch, state.extras, {city, language})
     ])
   }
 }

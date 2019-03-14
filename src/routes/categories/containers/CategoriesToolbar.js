@@ -5,11 +5,12 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { faFilePdf } from '../../../modules/app/constants/icons'
 
-import { CategoriesMapModel, CategoryModel, apiUrl } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 import type { FeedbackRatingType } from '../../../modules/layout/containers/LocationLayout'
+import { integreatApiBaseUrl } from '../../../modules/app/constants/urls'
 
 type PropsType = {|
   categories: ?CategoriesMapModel,
@@ -23,9 +24,9 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     const {city, language} = this.props.location.payload
 
     if (category.id === 0) {
-      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
+      return `${integreatApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
     } else {
-      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${category.path}`
+      return `${integreatApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${category.path}`
     }
   }
 

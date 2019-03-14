@@ -1,17 +1,18 @@
 // @flow
 
+import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import {
-  poisEndpoint,
+  createCitiesEndpoint,
+  createEventsEndpoint,
+  createLanguagesEndpoint,
+  createPOIsEndpoint,
   Payload,
-  PoiModel,
-  citiesEndpoint,
-  eventsEndpoint,
-  languagesEndpoint
+  PoiModel
 } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType } from './RouteConfig'
+import { integreatApiBaseUrl } from '../constants/urls'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
@@ -25,10 +26,10 @@ const poisRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(citiesEndpoint, dispatch, state.cities),
-      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
-      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
-      fetchData(poisEndpoint, dispatch, state.pois, {city, language})
+      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createPOIsEndpoint(integreatApiBaseUrl), dispatch, state.pois, {city, language})
     ])
   }
 }

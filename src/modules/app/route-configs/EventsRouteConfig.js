@@ -1,16 +1,17 @@
 // @flow
 
+import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
-import type { AllPayloadsType } from './RouteConfig'
 import {
-  Payload,
+  createCitiesEndpoint,
+  createEventsEndpoint,
+  createLanguagesEndpoint,
   EventModel,
-  citiesEndpoint,
-  eventsEndpoint,
-  languagesEndpoint
+  Payload
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
+import { integreatApiBaseUrl } from '../constants/urls'
 
 type EventsRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|events: Payload<Array<EventModel>>|}
@@ -28,9 +29,9 @@ const eventsRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(citiesEndpoint, dispatch, state.cities),
-      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
-      fetchData(languagesEndpoint, dispatch, state.languages, {city, language})
+      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language})
     ])
   }
 }

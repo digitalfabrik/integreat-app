@@ -1,10 +1,11 @@
 // @flow
 
+import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
-import { citiesEndpoint, Payload, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType } from './RouteConfig'
+import { integreatApiBaseUrl } from '../constants/urls'
 
 type I18nRedirectRouteParamsType = {|param?: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -21,7 +22,7 @@ const i18nRedirectRoute: Route = {
   thunk: async (dispatch, getState) => {
     const state = getState()
 
-    await fetchData(citiesEndpoint, dispatch, state.cities)
+    await fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities)
   }
 }
 

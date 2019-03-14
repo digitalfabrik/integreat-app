@@ -1,16 +1,19 @@
 // @flow
 
+import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
 import {
-  CityModel,
-  Payload,
   CategoriesMapModel,
-  categoriesEndpoint,
-  citiesEndpoint, eventsEndpoint, languagesEndpoint
+  CityModel,
+  createCategoriesEndpoint,
+  createCitiesEndpoint,
+  createEventsEndpoint,
+  createLanguagesEndpoint,
+  Payload
 } from '@integreat-app/integreat-api-client'
-import type { AllPayloadsType } from './RouteConfig'
+import { integreatApiBaseUrl } from '../constants/urls'
 
 type SearchRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -28,10 +31,10 @@ const searchRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(citiesEndpoint, dispatch, state.cities),
-      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
-      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
-      fetchData(categoriesEndpoint, dispatch, state.categories, {city, language})
+      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createCategoriesEndpoint(integreatApiBaseUrl), dispatch, state.categories, {city, language})
     ])
   }
 }
