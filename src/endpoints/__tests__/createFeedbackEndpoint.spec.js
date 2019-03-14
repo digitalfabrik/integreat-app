@@ -1,6 +1,6 @@
 // @flow
 
-import createFeedbackEndponit from '../createFeedbackEndponit'
+import createFeedbackEndponit from '../createFeedbackEndpoint'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
