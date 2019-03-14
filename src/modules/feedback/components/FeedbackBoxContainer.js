@@ -3,15 +3,15 @@
 import * as React from 'react'
 
 import {
-  CityModel,
-  ExtraModel,
-  feedbackEndpoint,
-  type FeedbackParamsType,
   CATEGORIES_FEEDBACK_TYPE,
+  CityModel,
+  createFeedbackEndpoint,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
   EXTRA_FEEDBACK_TYPE,
+  ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
+  type FeedbackParamsType,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
@@ -28,6 +28,7 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
+import { integreatApiBaseUrl } from '../../app/constants/urls'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -66,7 +67,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      feedbackEndpoint.request(feedbackData)
+      createFeedbackEndpoint(integreatApiBaseUrl).request(feedbackData)
     }
   }
 

@@ -4,9 +4,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import { feedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
+import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
+import { integreatApiBaseUrl } from '../../../modules/app/constants/urls'
 
 const FeedbackButton = styled.div`
   padding: 30px 0;
@@ -47,7 +48,7 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   openFeedbackBox = () => {
     const {location, query} = this.props
     const {city, language} = location.payload
-    feedbackEndpoint.request({
+    createFeedbackEndpoint(integreatApiBaseUrl).request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment: '',

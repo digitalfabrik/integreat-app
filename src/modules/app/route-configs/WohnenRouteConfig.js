@@ -1,17 +1,21 @@
 // @flow
 
+import type { AllPayloadsType } from './RouteConfig'
 import { RouteConfig } from './RouteConfig'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import type { AllPayloadsType } from './RouteConfig'
 import Hashids from 'hashids'
 import {
+  createCitiesEndpoint,
+  createEventsEndpoint,
+  createExtrasEndpoint,
+  createLanguagesEndpoint,
+  createWohnenEndpoint,
   ExtraModel,
-  extrasEndpoint,
   Payload,
-  WohnenOfferModel,
-  wohnenEndpoint, citiesEndpoint, eventsEndpoint, languagesEndpoint
+  WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
+import { integreatApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}
@@ -25,14 +29,17 @@ export const hash = (offer: WohnenOfferModel) =>
 const fetchExtras = async (dispatch, getState) => {
   const state = getState()
   const {city, language} = state.location.payload
-  const extrasPayload = await fetchData(extrasEndpoint, dispatch, state.extras, {city, language})
+  const extrasPayload = await fetchData(createExtrasEndpoint(integreatApiBaseUrl), dispatch, state.extras, {
+    city,
+    language
+  })
   const extras: ?Array<ExtraModel> = extrasPayload.data
 
   if (extras) {
     const wohnenExtra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
     if (wohnenExtra && wohnenExtra.postData) {
       const params = {city: wohnenExtra.postData.get('api-name')}
-      await fetchData(wohnenEndpoint, dispatch, state.wohnen, params)
+      await fetchData(createWohnenEndpoint(wohnenApiBaseUrl), dispatch, state.wohnen, params)
     }
   }
 }
@@ -44,9 +51,9 @@ const wohnenRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(citiesEndpoint, dispatch, state.cities),
-      fetchData(eventsEndpoint, dispatch, state.events, {city, language}),
-      fetchData(languagesEndpoint, dispatch, state.languages, {city, language}),
+      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
       fetchExtras(dispatch, getState)
     ])
   }
