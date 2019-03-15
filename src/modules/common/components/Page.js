@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import AutoHeightWebView from 'react-native-autoheight-webview'
 import styled from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
@@ -12,12 +11,18 @@ import type {
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
+import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 
 const WEBVIEW_MARGIN = 8
 
-const WebContainer = styled(AutoHeightWebView)`
-  margin: ${WEBVIEW_MARGIN}px;
-  width: ${Dimensions.get('window').width - 2 * WEBVIEW_MARGIN}
+const StyledView = styled.View`
+  overflow: hidden;
+`
+
+const WebContainer = styled(WebView)`
+  margin: 0 ${WEBVIEW_MARGIN}px;
+  width: ${Dimensions.get('window').width - 2 * WEBVIEW_MARGIN}px;
+  height: 300;
 `
 type PropType = {
   title: string,
@@ -29,6 +34,28 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType> {
+  state: {
+    webViewHeight: number
+  }
+
+  constructor (props: PropType) {
+    super(props)
+    this.state = {
+      webViewHeight: 0
+    }
+    this.onMessage = this.onMessage.bind(this)
+  }
+
+  onMessage (event: WebViewMessageEvent) {
+    if (!event.nativeEvent) {
+      return
+    }
+    const height = parseInt(event.nativeEvent.data)
+    this.setState({
+      webViewHeight: height
+    })
+  }
+
   onLinkPress = (url: string) => {
     if (url.includes('.pdf')) {
       this.props.navigation.navigate('PDFViewModal', {url})
@@ -57,10 +84,12 @@ class Page extends React.Component<PropType> {
 
   render () {
     const {title, children, content, files} = this.props
+    const height = this.state.webViewHeight
     return (
       <>
         <Caption title={title} />
         {children}
+        <StyledView>
           <WebContainer
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
@@ -68,7 +97,7 @@ class Page extends React.Component<PropType> {
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
-            // useWebKit
+            useWebKit
             scalesPageToFit={false}
             javaScriptEnabled
 
@@ -76,12 +105,15 @@ class Page extends React.Component<PropType> {
             domStorageEnabled={false}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            scrollEnabled={false}
+
+            onMessage={this.onMessage}
+            style={{height: height}}
 
             renderError={this.renderError}
 
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
+        </StyledView>
       </>
     )
   }
