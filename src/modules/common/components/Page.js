@@ -22,7 +22,6 @@ const StyledView = styled.View`
 const WebContainer = styled(WebView)`
   margin: 0 ${WEBVIEW_MARGIN}px;
   width: ${Dimensions.get('window').width - 2 * WEBVIEW_MARGIN}px;
-  height: 300;
 `
 type PropType = {
   title: string,
