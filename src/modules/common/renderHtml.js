@@ -35,6 +35,17 @@ const renderJS = (files: FilesStateType) => `
   
   document.body.style.display = 'block'
 })();
+(function waitForBridge() {
+    if (window.postMessage.length !== 1){
+      setTimeout(waitForBridge, 200);
+    }
+    else {
+      window.ReactNativeWebView.postMessage(
+        Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, 
+        document.body.clientHeight, document.body.scrollHeight)
+      )
+    }
+  })();
 `
 
 export default (html: string, files: FilesStateType) => {
