@@ -23,6 +23,11 @@ const WebContainer = styled(WebView)`
   margin: 0 ${WEBVIEW_MARGIN}px;
   width: ${Dimensions.get('window').width - 2 * WEBVIEW_MARGIN}px;
 `
+
+type StateType = {
+  webViewHeight: number
+}
+
 type PropType = {
   title: string,
   content: string,
@@ -32,10 +37,8 @@ type PropType = {
   children?: React.Node
 }
 
-class Page extends React.Component<PropType> {
-  state: {
-    webViewHeight: number
-  }
+class Page extends React.Component<PropType, StateType> {
+  onMessage: (event: WebViewMessageEvent) => void
 
   constructor (props: PropType) {
     super(props)
