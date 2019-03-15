@@ -62,7 +62,7 @@ const config = {
       {
         test: /\.jsx?$/,
         // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
-        exclude: /node_modules\/(?!(query-string|strict-uri-encode)\/).*/,
+        exclude: /node_modules\/(?!(strict-uri-encode)\/).*/,
         loader: 'babel-loader',
         options: babelConfig
       },
