@@ -12,7 +12,6 @@ import endpointReducers from './reducers'
 import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
 import { routesMap as defaultRoutesMap } from './route-configs/index'
-import queryString from 'query-string'
 import createHistory from './createHistory'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
@@ -20,11 +19,7 @@ import type { StoreActionType } from './StoreActionType'
 const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
   const {reducer, middleware, enhancer} = connectRoutes(routesMap, {
-    createHistory: () => createHistory(),
-    querySerializer: {
-      stringify: params => queryString.stringify(params),
-      parse: (str: string) => queryString.parse(str)
-    }
+    createHistory: () => createHistory()
   })
 
   /**

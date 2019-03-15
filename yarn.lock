@@ -1154,10 +1154,10 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-react/-/eslint-config-react-0.3.3.tgz#673d392648ec1b5c18bc1750841b16d1716147b2"
   integrity sha512-8t9mkec8YyBqGllMpFZ/HnS14vsJNQEy1mdnpYG18t3lBqkC6UyCjRrPdGT/x+mjM6sKyu9Ck5Xwmz8Nq4HxTw==
 
-"@integreat-app/integreat-api-client@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-2.2.1.tgz#10abfa6a55abc256da9bcb5017fd4357ca05bb69"
-  integrity sha512-ORSF6wJYuUhwUoG880/nQie69FW5usG/0WxNjq9d4S2uLWXKOdghzwznVILprhRztOqd0LBndeKt9TOYnN1iPg==
+"@integreat-app/integreat-api-client@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-2.2.2.tgz#a107206b6e48baae61139740246cdc225961f7ac"
+  integrity sha512-1ZfUYH57LIkWVoDcnyoFIdIpPJI4x13DJk36ffmY0DqBC6/cJz+OTHwQnoOiVB9QN7pc/4wbqxgFs9oXIo+RsA==
   dependencies:
     entities "^1.1"
     is-url "^1.2"
@@ -9358,14 +9358,6 @@ qs@6.5.2, qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-query-string@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.3.0.tgz#41ae8a61e1213c80b182d5db6cf129e05af89fc5"
-  integrity sha512-jkpCkoHiAA2BYZvni5GieU3x860QDfkh2+M6bPnrYUywqOWbGwPq5VzntTS06ixX4GVHEiq2ZhlmGy/e9LQ3zA==
-  dependencies:
-    decode-uri-component "^0.2.0"
-    strict-uri-encode "^2.0.0"
-
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -9500,10 +9492,10 @@ react-hot-loader@^4.8.0:
     shallowequal "^1.0.2"
     source-map "^0.7.3"
 
-react-i18next@^10.4.2:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-10.5.0.tgz#967c014d0785e96b48232d8069d381cfbcfa5f57"
-  integrity sha512-iHlLuLxdqwK5v3gBJJ7kBhnPoPmGIZY5vMMGMV3nX5vnlXrT186quGP96et0fbl8Z/6Ddh5AxszYt9gpfxi87Q==
+react-i18next@^10.5.1:
+  version "10.5.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-10.5.1.tgz#551b6f34694059833ebf93823be27105d56dd3b2"
+  integrity sha512-kyRS7A1ihVZvoPvwpehio7fKf24H6DyYn+6XVU56ECyy/mBkOEfo7NGm5UiRkefkG7WkpdTow534L6/HhPy9zA==
   dependencies:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
@@ -10890,11 +10882,6 @@ stream-throttle@^0.1.3:
   dependencies:
     commander "^2.2.0"
     limiter "^1.0.5"
-
-strict-uri-encode@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
-  integrity sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
 
 string-length@^2.0.0:
   version "2.0.0"

@@ -8,6 +8,7 @@ const config = {
   plugins: [
     'babel-plugin-styled-components',
     '@babel/plugin-transform-react-jsx',
+    '@babel/plugin-transform-runtime',
     // Partial Stage 1:
     '@babel/plugin-proposal-export-default-from',
     '@babel/plugin-proposal-logical-assignment-operators',
