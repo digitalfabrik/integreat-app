@@ -136,7 +136,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
         message,
         title: 'Integreat App',
         url
-      });
+      })
     } catch (e) {
       alert(e.message)
     }
