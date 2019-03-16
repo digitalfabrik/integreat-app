@@ -22,7 +22,7 @@
     "endpoint"
   ],
   "module": "./index.js",
-  "main": "./index-legacy.js",
+  "main": "./index-umd.js",
   "sideEffects": true,
   "scripts": {
     "build": "node tools/build.js",
@@ -83,16 +83,17 @@
     "jest-fetch-mock": "^2.1.0",
     "jest-junit": "^6.1.0",
     "shelljs": "^0.8.3",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "moment-timezone": "^0.5",
     "entities": "^1.1",
     "is-url": "^1.2",
     "lodash": "^4.17",
     "moment": "^2.24",
+    "moment-timezone": "^0.5",
     "sanitize-html-react": "^1.13"
   }
 }
