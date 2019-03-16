@@ -1,6 +1,7 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 const fs = require('fs')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const dest = path.resolve(__dirname, '../dist')
 
@@ -21,7 +22,14 @@ module.exports = {
   optimization: {
     // Disable name mangling so classes keep their name:
     // https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/269
-    minimizer: []
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: { // see https://github.com/mishoo/UglifyJS2#minify-options
+          mangle: false,
+          keep_fnames: true
+        }
+      })
+    ]
   },
   externals: [nodeExternals()],
   module: {
