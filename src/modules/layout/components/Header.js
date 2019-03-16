@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { Platform, Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
@@ -123,6 +124,24 @@ class Header extends React.PureComponent<PropsType, StateType> {
     this.getNavigation().navigate('ChangeLanguageModal')
   }
 
+  onShare = async () => {
+    const url = 'https://integreat-app.de/'
+    const message: string = Platform.select({
+      android: `Hey, check this out ${url}`,
+      ios: `Hey, check this out.`
+    })
+
+    try {
+      await Share.share({
+        message,
+        title: 'Integreat App',
+        url
+      });
+    } catch (e) {
+      alert(e.message)
+    }
+  }
+
   render () {
     if (this.state.searchActive) {
       return <BoxShadow theme={this.props.theme}><HorizontalLeft>
@@ -145,6 +164,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
+            <Item title='Share' show='never' onPress={this.onShare} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>
