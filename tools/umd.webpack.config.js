@@ -14,9 +14,14 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: dest,
-    filename: 'index-legacy.js',
+    filename: 'index-umd.js',
     library: 'integreatapiclient',
     libraryTarget: 'umd'
+  },
+  optimization: {
+    // Disable name mangling so classes keep their name:
+    // https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/269
+    minimizer: []
   },
   externals: [nodeExternals()],
   module: {
