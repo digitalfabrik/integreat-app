@@ -22,7 +22,7 @@
     "endpoint"
   ],
   "module": "./index.js",
-  "main": "./index-legacy.js",
+  "main": "./index-umd.js",
   "sideEffects": true,
   "scripts": {
     "build": "node tools/build.js",
