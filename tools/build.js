@@ -16,7 +16,7 @@ const prepare = task('prepare', () => {
 })
 
 const bundleUmd = task('bundle-umd', () => {
-  const webpackConfig = require('./legacy.webpack.config.js')
+  const webpackConfig = require('./umd.webpack.config.js')
   return new Promise((resolve, reject) => {
     webpack(webpackConfig).run((err, stats) => {
       if (err) {
