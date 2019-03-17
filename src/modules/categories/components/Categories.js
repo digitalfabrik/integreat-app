@@ -90,12 +90,12 @@ class Categories extends React.Component<PropsType> {
 
     if (category.isLeaf(categories)) {
       // last level, our category is a simple page
-      return <React.Fragment>
-        <Page title={category.title}
+      return <Page title={category.title}
               content={category.content}
+              lastUpdate={category.lastUpdate}
               theme={this.props.theme}
-              files={this.props.files} />
-      </React.Fragment>
+              files={this.props.files}
+              language={this.props.language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return <Tiles tiles={this.getTileModels(children)}
