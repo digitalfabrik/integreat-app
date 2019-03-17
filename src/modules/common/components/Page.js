@@ -2,26 +2,29 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
-import type {
-  WebViewNavigation
-} from 'react-native-webview/js/WebViewTypes'
+import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
 import { WebView, type WebViewMessageEvent } from 'react-native-webview'
+import compose from 'lodash/fp/compose'
 
-const WEBVIEW_MARGIN = 8
+const HORIZONTAL_MARGIN = 8
 
 const StyledView = styled.View`
   overflow: hidden;
 `
 
+const Container = styled.View`
+  margin: 0 ${HORIZONTAL_MARGIN}px;
+  margin-bottom: 8px;
+`
+
 const WebContainer = styled(WebView)`
-  margin: 0 ${WEBVIEW_MARGIN}px;
-  width: ${Dimensions.get('window').width - 2 * WEBVIEW_MARGIN}px;
+  width: ${Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN}px;
 `
 
 type StateType = {
@@ -52,7 +55,7 @@ class Page extends React.Component<PropType, StateType> {
     if (!event.nativeEvent) {
       return
     }
-    const height = parseInt(event.nativeEvent.data)
+    const height = parseFloat(event.nativeEvent.data)
     this.setState({
       webViewHeight: height
     })
@@ -85,17 +88,17 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, files} = this.props
+    const {title, children, content, files, theme} = this.props
     const height = this.state.webViewHeight
     return (
-      <>
+      <Container>
         <Caption title={title} />
         {children}
         <StyledView>
           <WebContainer
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(content, files)
+              html: renderHtml(content, files, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
@@ -116,9 +119,12 @@ class Page extends React.Component<PropType, StateType> {
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </StyledView>
-      </>
+      </Container>
     )
   }
 }
 
-export default withNavigation(Page)
+export default compose(
+  withNavigation,
+  withTheme
+)(Page)
