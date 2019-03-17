@@ -11,6 +11,8 @@ import renderHtml from '../renderHtml'
 import Caption from './Caption'
 import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import compose from 'lodash/fp/compose'
+import TimeStamp from './TimeStamp'
+import type Moment from 'moment'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -28,7 +30,8 @@ const WebContainer = styled(WebView)`
 `
 
 type StateType = {
-  webViewHeight: number
+  webViewHeight: number,
+  loading: boolean
 }
 
 type PropType = {
@@ -37,7 +40,9 @@ type PropType = {
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
   files: { [url: string]: string },
-  children?: React.Node
+  children?: React.Node,
+  language: string,
+  lastUpdate: Moment
 }
 
 class Page extends React.Component<PropType, StateType> {
@@ -46,7 +51,8 @@ class Page extends React.Component<PropType, StateType> {
   constructor (props: PropType) {
     super(props)
     this.state = {
-      webViewHeight: 0
+      webViewHeight: 0,
+      loading: true
     }
     this.onMessage = this.onMessage.bind(this)
   }
@@ -57,7 +63,8 @@ class Page extends React.Component<PropType, StateType> {
     }
     const height = parseFloat(event.nativeEvent.data)
     this.setState({
-      webViewHeight: height
+      webViewHeight: height,
+      loading: false
     })
   }
 
@@ -88,7 +95,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, files, theme} = this.props
+    const {title, children, content, files, theme, language, lastUpdate} = this.props
     const height = this.state.webViewHeight
     return (
       <Container>
@@ -119,6 +126,7 @@ class Page extends React.Component<PropType, StateType> {
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </StyledView>
+        {!this.state.loading && <TimeStamp lastUpdate={lastUpdate} language={language} />}
       </Container>
     )
   }

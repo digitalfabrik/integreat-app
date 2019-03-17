@@ -1,13 +1,13 @@
 import React from 'react'
-import { CategoryTimeStamp } from '../CategoryTimeStamp'
+import { TimeStamp } from '../TimeStamp'
 import { shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
-describe('CategoryTimeStamp', () => {
+describe('TimeStamp', () => {
   it('should match snapshot', () => {
     const lastUpdate = moment.tz('2017-11-18 19:30:00', 'UTC')
     expect(shallow(
-      <CategoryTimeStamp lastUpdate={lastUpdate} language={'de'} t={key => key} />
+      <TimeStamp lastUpdate={lastUpdate} language={'de'} t={key => key} />
     )).toMatchSnapshot()
   })
 })
