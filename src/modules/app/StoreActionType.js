@@ -1,57 +1,95 @@
 // @flow
 
 import { offlineActionTypes } from 'react-native-offline'
+import { CityModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
-type MetaType = {| retry?: boolean, dismiss?: string[] |}
+// This may be used to react-offline
+// type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
-export type FetchCitiesRequestActionType = {| type: 'FETCH_CITIES_REQUEST', params: {| language: string |}, meta: MetaType |}
-export type CitiesFetchSucceededActionType = {| type: 'CITIES_FETCH_SUCCEEDED', payload: any |}
-export type CitiesFetchFailedActionType = {| type: 'CITIES_FETCH_FAILED', message: string |}
-export type CitiesFetchActionType =
-  FetchCitiesRequestActionType
-  | CitiesFetchSucceededActionType
-  | CitiesFetchFailedActionType
+export type FetchCitiesActionType = {|
+  type: 'FETCH_CITIES', params: {||}
+|}
+export type PushCitiesActionType = {|
+  type: 'PUSH_CITIES', params: {| cities: Array<CityModel> |}
+|}
+export type FetchCitiesFailedActionType = {|
+  type: 'FETCH_CITIES_FAILED', message: string
+|}
+export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type LanguagesFetchSucceededActionType = {| type: 'LANGUAGES_FETCH_SUCCEEDED', payload: any, city: string |}
-export type LanguagesFetchFailedActionType = {| type: 'LANGUAGES_FETCH_FAILED', message: string, city: string |}
-export type LanguagesFetchActionType =
-  | LanguagesFetchSucceededActionType
-  | LanguagesFetchFailedActionType
+export type PushParamsType = {
+  path: string, depth: number, key: string
+}
+export type FetchCategoryActionType = {|
+  type: 'FETCH_CATEGORY', params: {|
+    city: string, language: string, pushParams?: PushParamsType
+  |}
+|}
+export type FetchCategoryFailedActionType = {|
+  type: 'FETCH_CATEGORY_FAILED', message: string
+|}
+export type PushCategoryActionType = {|
+  type: 'PUSH_CATEGORY', params: {|
+    categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
+    pushParams: PushParamsType,
+    resourceCache: ResourceCacheType,
+    city: string,
+    language: string
+  |}
+|}
+export type ClearCategoryActionType = {|
+  type: 'CLEAR_CATEGORY', params: {| key: string |}
+|}
+export type SwitchCategoryLanguageActionType = {|
+  type: 'SWITCH_CATEGORY_LANGUAGE', params: {|
+    newCategoriesMap: CategoriesMapModel,
+    newLanguage: string
+  |}
+|}
+export type CategoriesActionType =
+  ClearCategoryActionType
+  | FetchCategoryActionType
+  | PushCategoryActionType
+  | FetchCategoryFailedActionType
+  | SwitchCategoryLanguageActionType
 
-export type FetchCategoriesRequestActionType = {| type: 'FETCH_CATEGORIES_REQUEST', params: {| prioritisedLanguage: string, city: string |}, meta: MetaType |}
-export type FetchCategoriesCancelActionType = {| type: 'FETCH_CATEGORIES_CANCEL' |}
-export type CategoriesFetchPartiallySucceededActionType = {| type: 'CATEGORIES_FETCH_PARTIALLY_SUCCEEDED', payload: any, city: string, language: string |}
-export type CategoriesFetchSucceededActionType = {| type: 'CATEGORIES_FETCH_SUCCEEDED', city: string |}
-export type CategoriesFetchFailedActionType = {| type: 'CATEGORIES_FETCH_FAILED', city: string, message: string |}
-export type CategoriesFetchActionType =
-  FetchCategoriesRequestActionType
-  | CategoriesFetchPartiallySucceededActionType
-  | CategoriesFetchSucceededActionType
-  | CategoriesFetchFailedActionType
-  | FetchCategoriesCancelActionType
-
-export type ConnectionChangeActionType = {| type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean |}
-
-export type ResourcesDownloadSucceededActionType = {| type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, files: { [url: string]: string } |}
-export type ResourcesDownloadFailedActionType = {| type: 'RESOURCES_DOWNLOAD_FAILED', city: string, message: string |}
+export type ResourcesDownloadSucceededActionType = {|
+  type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
+|}
+export type ResourcesDownloadFailedActionType = {|
+  type: 'RESOURCES_DOWNLOAD_FAILED', city: string, language: string, message: string
+|}
 export type ResourcesDownloadActionType =
   | ResourcesDownloadSucceededActionType
   | ResourcesDownloadFailedActionType
 
-export type SetLanguageActionType = { type: 'SET_LANGUAGE', payload: string }
+export type SetLanguageActionType = {
+  type: 'SET_LANGUAGE', payload: string
+}
 
-export type SetCurrentCityActionType = { type: 'SET_CURRENT_CITY', payload: string }
+export type SetCurrentCityActionType = {
+  type: 'SET_CURRENT_CITY', payload: string
+}
 
-export type SetUiDirectionActionType = { type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl' }
+export type SetUiDirectionActionType = {
+  type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl'
+}
 
-export type ToggleDarkModeActionType = { type: 'TOGGLE_DARK_MODE' }
+export type ToggleDarkModeActionType = {
+  type: 'TOGGLE_DARK_MODE'
+}
+
+export type ConnectionChangeActionType = {|
+  type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean
+|}
 
 export type StoreActionType =
   ConnectionChangeActionType
-  | CitiesFetchActionType
-  | CategoriesFetchActionType
   | ResourcesDownloadActionType
   | SetLanguageActionType
   | SetCurrentCityActionType
   | SetUiDirectionActionType
   | ToggleDarkModeActionType
+  | CategoriesActionType
+  | CitiesActionType

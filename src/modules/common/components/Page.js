@@ -39,7 +39,7 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  files: { [url: string]: string },
+  resourceCache: { [url: string]: string },
   children?: React.Node,
   language: string,
   lastUpdate: Moment
@@ -95,7 +95,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, files, theme, language, lastUpdate} = this.props
+    const {title, children, content, resourceCache, theme, language, lastUpdate} = this.props
     const height = this.state.webViewHeight
     return (
       <Container>
@@ -105,7 +105,7 @@ class Page extends React.Component<PropType, StateType> {
           <WebContainer
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(content, files, theme)
+              html: renderHtml(content, resourceCache, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html

@@ -1,0 +1,24 @@
+[
+  {
+    "path": "/ahaus/en/everyday-life-and-free-time/donate-stock/",
+    "title": "Donate stock",
+    "content": "",
+    "last_update": "2017-01-22 19:51:10",
+    "thumbnail": "https://cms.integreat-app.de/ahaus/wp-content/uploads/sites/20/2016/05/truck69b-150x150.png",
+    "available_languages": {
+      "de": "/ahaus/de/alltag-und-freizeit/spendenlager/"
+    },
+    "parent_path": "/ahaus/en/everyday-life-and-free-time/",
+    "children": [
+      "/ahaus/de/alltag-und-freizeit/spendenlager/"
+    ],
+    "order": 100,
+    "hash": "1ebd072de279a714f831526b1861d4ec",
+    "file_cache": {
+      "https://cms.integreat-app.de/altmuehlfranken/wp-content/uploads/sites/163/2017/11/calendar159-150x150.png": {
+        "path": "/data/user/0/com.integreat/cache/altmuehlfranken/2f97435138745.png",
+        "updated": "2017-01-22 19:51:10"
+      }
+    }
+  }
+]

@@ -3,53 +3,33 @@
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
 import { ActivityIndicator, ScrollView, Button } from 'react-native'
-import type { FilesStateType } from '../../../modules/app/StateType'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
+import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheType'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
-  cityModel: CityModel,
-  path: string,
+  cityCode: string,
 
   toggleTheme: () => void,
   goOffline: () => void,
   goOnline: () => void,
-  fetchCategories: (prioritisedLanguage: string, city: string) => void,
   fetchCities: (language: string) => void,
-  cancelFetchCategories: () => void,
-  navigateToCategories: (path: string) => void,
+  navigateToCategory: (cityCode: string, language: string, path: string) => void,
   theme: ThemeType,
 
   language: string,
   cities?: Array<CityModel>,
-  categories?: CategoriesMapModel,
-  files?: FilesStateType
+  stateView: ?CategoriesRouteStateView,
+  resourceCache?: ResourceCacheType
 }
 
 class Dashboard extends React.Component<PropsType> {
   static navigationOptions = {
     headerTitle: 'Dashboard'
   }
-
-  componentDidMount () {
-    if (!this.props.cities) {
-      this.props.fetchCities(this.props.language)
-    }
-
-    if (!this.props.categories) {
-      this.props.fetchCategories(this.props.language, this.props.cityModel.code)
-
-      // Cancels the fetch if you navigate away
-      const didBlurSubscription = this.props.navigation.addListener('didBlur', () => {
-        this.props.cancelFetchCategories()
-        didBlurSubscription.remove()
-      })
-    }
-  }
-
-  navigateCategories = () => this.props.navigation.navigate('Categories', {city: this.props.cityModel.code})
 
   landing = () => this.props.navigation.navigate('Landing')
 
@@ -64,19 +44,18 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const categories = this.props.categories
-    const cities = this.props.cities
+    const {cities, stateView} = this.props
 
-    if (!categories || !cities || !this.props.files) {
+    if (!stateView || !cities || !this.props.resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return (<ScrollView>
-        <Categories categories={categories} cities={cities} files={this.props.files}
+        <Categories stateView={stateView}
+                    cities={cities} resourceCache={this.props.resourceCache}
                     language={this.props.language}
-                    city={this.props.cityModel.code}
-                    path={this.props.path}
-                    navigateToCategories={this.props.navigateToCategories} theme={this.props.theme} />
+                    cityCode={this.props.cityCode}
+                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
         <Button
           title='Extras'
           onPress={this.extras}
