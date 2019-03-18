@@ -9,7 +9,7 @@ import { CityModel, DateModel, EventModel, LocationModel } from '@integreat-app/
 import moment from 'moment'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language: string = state.language
+  const language: string = 'de' // TODO: There is currently no langauge for events in the state
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
   const path: string = ownProps.navigation.getParam('path')
 
@@ -19,11 +19,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
       ownProps.navigation.push('Events', params)
     }
   }
-  const fileCache = state.fileCache[targetCity.code]
-
-  if (!fileCache || !fileCache.ready || fileCache.error) {
-    throw new Error('There are no files in state!')
-  }
+  const fileCache = {} // TODO: There is currently no file cache for events in the state
 
   // MOCK Data, TODO
   const events = [

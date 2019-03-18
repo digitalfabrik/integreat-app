@@ -1,51 +1,73 @@
 package com.integreat.fetcher;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
+
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.integreat.BuildConfig;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DownloadResultCollector implements FileDownloadCallback {
-    private final Map<String, String> failedUrls = new HashMap<>();
-    private final Map<String, String> succeededUrls = new HashMap<>();
+    /**
+     * This needs to be a HashMap because duplicate urls count as one single url
+     */
+    private final Map<String, String> errorMessages = new HashMap<>();
+    /**
+     * This needs to be a HashMap because duplicate urls count as one single url
+     */
+    private final Map<String, String> successFilePaths = new HashMap<>();
     private final Promise promise;
-    private final List<String> expectedUrls;
+    /**
+     * This needs to be a Set because duplicate urls count as one single url
+     */
+    private final Set<String> expectedUrls;
     private final ReactContext reactContext;
 
-    public DownloadResultCollector(ReactContext reactContext, List<String> expectedUrls, Promise promise) {
+    public DownloadResultCollector(ReactContext reactContext, Set<String> expectedUrls, Promise promise) {
         this.promise = promise;
         this.expectedUrls = expectedUrls;
         this.reactContext = reactContext;
     }
 
     @Override
-    public void failed(String url, IOException e) {
-        failedUrls.put(url, e.getMessage());
+    public synchronized void failed(String url, String message) {
+        errorMessages.put(url, message);
+
+        if (BuildConfig.DEBUG) {
+            Log.e("FetcherModule", "[" + currentDownloadCount() + "/" + expectedUrls.size() + "] Failed to download " + url + ": " + message);
+        }
         sendProgress();
         tryToResolve();
     }
 
     @Override
-    public void downloaded(String url, File target) {
-        succeededUrls.put(url, target.getAbsolutePath());
+    public synchronized void downloaded(String url, File target) {
+        successFilePaths.put(url, target.getAbsolutePath());
+        if (BuildConfig.DEBUG) {
+            Log.d("FetcherModule", "[" + currentDownloadCount() + "/" + expectedUrls.size() + "] Downloaded " + url);
+        }
         sendProgress();
         tryToResolve();
     }
 
+    private int currentDownloadCount() {
+        return errorMessages.size() + successFilePaths.size();
+    }
+
     private void tryToResolve() {
-        if (failedUrls.size() + succeededUrls.size() != expectedUrls.size()) {
+        if (currentDownloadCount() != expectedUrls.size()) {
             return;
         }
 
         WritableMap result = Arguments.createMap();
 
         WritableMap failed = Arguments.createMap();
-        for (Map.Entry<String, String> entry : failedUrls.entrySet()) {
+        for (Map.Entry<String, String> entry : errorMessages.entrySet()) {
             failed.putString(entry.getKey(), entry.getValue());
         }
 
@@ -53,17 +75,18 @@ public class DownloadResultCollector implements FileDownloadCallback {
 
 
         WritableMap succeeded = Arguments.createMap();
-        for (Map.Entry<String, String> entry : succeededUrls.entrySet()) {
+        for (Map.Entry<String, String> entry : successFilePaths.entrySet()) {
             succeeded.putString(entry.getKey(), entry.getValue());
         }
 
         result.putMap("successFilePaths", succeeded);
 
+        Log.d("FetcherModule", "Resolving promise");
         promise.resolve(result);
     }
 
     private void sendProgress() {
-        sendEvent("progress", (double) (failedUrls.size() + succeededUrls.size()) / expectedUrls.size());
+        sendEvent("progress", (double) (errorMessages.size() + successFilePaths.size()) / expectedUrls.size());
     }
 
     private void sendEvent(String eventName,

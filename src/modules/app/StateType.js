@@ -2,52 +2,67 @@
 
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
+import { CategoryModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
-export type FilesStateType = { [url: string]: string }
+export type LanguageStateType = string | null
+
+export type CurrentCityStateType = string | null
+
+type PathType = string
+
+export type RouteStateType = {
+  +root: ?string,
+  +depth: number,
+  +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of RouteStateType
+                                                   (e.g. CategoriesStateType) to save memory
+                                                   in the state. This would be an optimization! */
+  +children: { [path: PathType]: Array<PathType> }
+}
+
+export const defaultRouteState: RouteStateType = {
+  root: null,
+  models: {},
+  children: {},
+  depth: 0
+}
 
 export type CategoriesStateType = {
-  [city: string]: {|
-    +json: { [language: string]: any },
-    +error: ?string
-  |}
+  +routeMapping: {
+    [key: string]: RouteStateType
+  },
+  resourceCache: ResourceCacheType,
+
+  +languages: Array<LanguageModel>,
+  +currentLanguage: LanguageStateType,
+  +currentCity: CurrentCityStateType
 }
 
-export type FileCacheStateType = {
-  [city: string]: {|
-    +files: FilesStateType,
-    +ready: boolean,
-    +error: ?string
-  |}
-}
+export const defaultCategoriesState: CategoriesStateType = {
+  routeMapping: {},
+  resourceCache: {},
 
-export type LanguagesStateType = {
-  [city: string]: {|
-    +languages: { [language: string]: any },
-    +error: ?string
-  |}
+  languages: [],
+  currentLanguage: null,
+  currentCity: null
 }
 
 export type CitiesStateType = {|
-  +json: ?any,
-  +error: ?string
+  +models: Array<CityModel>
 |}
+
+export const defaultCitiesState: CitiesStateType = {
+  models: []
+}
 
 export type DirectionStateType = 'ltr' | 'rtl'
 
-export type LanguageStateType = string
-
-export type CurrentCityStateType = ?string
-
 export type StateType = {|
   +uiDirection: DirectionStateType,
-  +language: LanguageStateType,
-  +currentCity: CurrentCityStateType,
   +darkMode: boolean,
 
   +cities: CitiesStateType,
   +categories: CategoriesStateType,
-  +languages: LanguagesStateType,
-  +fileCache: FileCacheStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState

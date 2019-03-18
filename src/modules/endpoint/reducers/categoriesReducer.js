@@ -1,38 +1,24 @@
 // @flow
 
-import type {
-  CategoriesFetchActionType,
-  CategoriesFetchFailedActionType,
-  CategoriesFetchPartiallySucceededActionType
-} from '../../app/StoreActionType'
+import type { CategoriesActionType } from '../../app/StoreActionType'
+
 import type { CategoriesStateType } from '../../app/StateType'
+import { defaultCategoriesState } from '../../app/StateType'
+import switchLanguage from './switchLanguage'
+import pushCategory from './pushCategory'
 
-const partially = (state, action: CategoriesFetchPartiallySucceededActionType): any => {
-  const city = action.city
-  const language = action.language
-  const previousCity = state[city] || {json: {}, error: undefined}
-
-  const newJson = {...previousCity.json, [language]: action.payload.data}
-  const newCity = {...previousCity, json: newJson}
-  return {...state, [city]: newCity}
-}
-
-const failed = (state, action: CategoriesFetchFailedActionType): any => {
-  const city = action.city
-  const previousCity = state[city] || {json: undefined, error: undefined}
-
-  const newCity = {...previousCity, error: action.message, ready: false}
-  return {...state, [city]: newCity}
-}
-
-export default (state: CategoriesStateType = {}, action: CategoriesFetchActionType): any => {
+export default (
+  state: CategoriesStateType = defaultCategoriesState, action: CategoriesActionType
+): CategoriesStateType => {
   switch (action.type) {
-    case 'FETCH_CATEGORIES_REQUEST':
-      return {}
-    case 'CATEGORIES_FETCH_PARTIALLY_SUCCEEDED':
-      return partially(state, action)
-    case 'CATEGORIES_FETCH_FAILED':
-      return failed(state, action)
+    case 'PUSH_CATEGORY':
+      return pushCategory(state, action)
+    case 'SWITCH_CATEGORY_LANGUAGE':
+      return switchLanguage(state, action)
+    case 'CLEAR_CATEGORY':
+      const {key} = action.params
+      delete state.routeMapping[key]
+      return state
     default:
       return state
   }

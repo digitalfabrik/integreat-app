@@ -1,15 +1,15 @@
 // @flow
 
 import { URL_PREFIX } from '../platform/constants/webview'
-import type { FilesStateType } from '../app/StateType'
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript
-const renderJS = (files: FilesStateType) => `
+const renderJS = (resourceCache: ResourceCacheType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
-  var urls = ${JSON.stringify(files)}
+  var urls = ${JSON.stringify(resourceCache)}
   
   console.debug('Urls to inject:')
   console.debug(urls)
@@ -40,8 +40,7 @@ const renderJS = (files: FilesStateType) => `
   function adjustHeight() {
     if (window.postMessage.length !== 1){
       setTimeout(adjustHeight, 200);
-    }
-    else {
+    } else {
       container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
       window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
       container.setAttribute('style', '');
@@ -53,7 +52,7 @@ const renderJS = (files: FilesStateType) => `
 })();
 `
 
-export default (html: string, files: FilesStateType, theme: ThemeType) => {
+export default (html: string, resourceCache: ResourceCacheType, theme: ThemeType) => {
   // language=HTML
   return `
 <html>
@@ -117,7 +116,7 @@ export default (html: string, files: FilesStateType, theme: ThemeType) => {
 </head>
 <body>
   <div id="measure-container">${html}</div>
-  <script>${renderJS(files)}</script>
+  <script>${renderJS(resourceCache)}</script>
 </body>
 </html>
 `

@@ -5,62 +5,49 @@ import { withTheme } from 'styled-components'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import { ScrollView } from 'react-native'
 import React from 'react'
-import categoriesSelector from '../../../modules/categories/selectors/categoriesSelector'
-import citiesSelector from '../../../modules/categories/selectors/citiesSelector'
+import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
+import { type Dispatch } from 'redux'
+import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import navigateToCategory from '../../../modules/app/navigateToCategory'
+import { CityModel } from '@integreat-app/integreat-api-client'
+
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
+  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation)
+})
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language: string = state.language
+  const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
+  const key: string = ownProps.navigation.getParam('key')
 
-  const targetCity: string = ownProps.navigation.getParam('city')
-  const targetPath: string = ownProps.navigation.getParam('path') || `/${targetCity}/${language}`
+  const targetRoute = state.categories.routeMapping[key]
+  const language = state.categories.currentLanguage
 
-  const cities = state.cities
-
-  if (!cities || !cities.json || cities.error) {
-    throw new Error('There are no cities in state!')
-  }
-
-  const categories = state.categories[targetCity]
-
-  if (!categories || categories.error) {
-    throw new Error(`The city ${targetCity} is not in the categories state!`)
-  }
-
-  const json = categories.json[language]
-
-  if (!json) {
-    throw new Error(`The language ${language} is not available in the categories of city ${targetCity}`)
-  }
-
-  const fileCache = state.fileCache[targetCity]
-
-  if (!fileCache || !fileCache.ready || fileCache.error) {
-    throw new Error('There are no files in state!')
-  }
-
-  const navigateToCategories = (path: string) => {
-    const params = {path, city: targetCity}
-    if (ownProps.navigation.push) {
-      ownProps.navigation.push('Categories', params)
+  if (!targetRoute || !language) {
+    return {
+      cityCode: targetCityCode,
+      language: language,
+      cities: state.cities.models
     }
   }
 
-  const categoriesMap: CategoriesMapModel = categoriesSelector(state, {language, targetCity})
+  const models = targetRoute.models
+  const children = targetRoute.children
+  const stateView = new CategoriesRouteStateView(targetRoute.root, models, children)
+
   return {
+    cityCode: targetCityCode,
     language: language,
-    cities: citiesSelector(state),
-    categories: categoriesMap,
-    files: fileCache.files,
-    path: targetPath,
-    city: targetCity,
-    navigateToCategories
+    cities: state.cities.models,
+    stateView: stateView,
+    resourceCache: state.categories.resourceCache,
+    error: null // fixme display errors
   }
 }
 
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 // $FlowFixMe connect()
-export default connect(mapStateToProps)(themed)
+export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(themed))

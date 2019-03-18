@@ -21,7 +21,7 @@ type PropsType = {|
   path?: string,
   theme: ThemeType,
   navigateToEvent: string => void,
-  files: { [url: string]: string }
+  resourceCache: { [url: string]: string }
 |}
 
 /**
@@ -39,7 +39,7 @@ export default class Events extends React.Component<PropsType> {
                    navigateToEvent={this.navigateToEvent(event.path)} />
 
   render () {
-    const {events, path, city, language, files, theme, t} = this.props
+    const {events, path, city, language, resourceCache, theme, t} = this.props
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
@@ -49,7 +49,7 @@ export default class Events extends React.Component<PropsType> {
                 title={event.title}
                 lastUpdate={event.lastUpdate}
                 language={language}
-                files={files}
+                resourceCache={resourceCache}
                 theme={theme}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />

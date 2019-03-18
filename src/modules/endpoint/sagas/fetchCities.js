@@ -3,24 +3,37 @@
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
-  CitiesFetchFailedActionType,
-  CitiesFetchSucceededActionType,
-  FetchCitiesRequestActionType
+  PushCitiesActionType,
+  FetchCitiesFailedActionType
 } from '../../app/StoreActionType'
-import { citiesEndpoint } from '@integreat-app/integreat-api-client'
+import MemoryDatabase from '../MemoryDatabase'
+import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
+import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 import request from '../request'
+import { baseUrl } from '../constants'
 
-function * fetch (action: FetchCitiesRequestActionType): Saga<void> {
+function * fetchCities (database: MemoryDatabase): Saga<void> {
   try {
-    const payload = yield call(() => request(citiesEndpoint, action.params))
-    const success: CitiesFetchSucceededActionType = {type: `CITIES_FETCH_SUCCEEDED`, payload: payload}
-    yield put(success)
+    const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
+
+    const cities: Array<CityModel> = payload.data
+
+    database.loadCities(cities)
+
+    const insert: PushCitiesActionType = {
+      type: `PUSH_CITIES`,
+      params: {cities: database.cities}
+    }
+    yield put(insert)
   } catch (e) {
-    const failed: CitiesFetchFailedActionType = {type: `CITIES_FETCH_FAILED`, message: e.message}
+    const failed: FetchCitiesFailedActionType = {
+      type: `FETCH_CITIES_FAILED`,
+      message: `Error in fetchCities: ${e.message}`
+    }
     yield put(failed)
   }
 }
 
-export default function * fetchSaga (): Saga<void> {
-  yield takeLatest(`FETCH_CITIES_REQUEST`, fetch)
+export default function * (database: MemoryDatabase): Saga<void> {
+  yield takeLatest(`FETCH_CITIES`, fetchCities, database)
 }

@@ -11,7 +11,9 @@ const request = async function <T, P> (endpoint: Endpoint<P, T>, params: P, over
   }
 
   try {
-    return new Payload(false, url, await response.json(), null)
+    const json = await response.json()
+    const fetchedData = endpoint.mapResponse(json, params)
+    return new Payload(false, url, fetchedData, null)
   } catch (e) {
     throw (e instanceof MappingError) ? e : new MappingError(endpoint.stateName, e.message)
   }
