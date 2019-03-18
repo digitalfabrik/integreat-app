@@ -40,8 +40,7 @@ const renderJS = (files: FilesStateType) => `
   function adjustHeight() {
     if (window.postMessage.length !== 1){
       setTimeout(adjustHeight, 200);
-    }
-    else {
+    } else {
       container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
       window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
       container.setAttribute('style', '');
