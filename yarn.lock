@@ -7430,10 +7430,10 @@ react-native-view-pdf@^0.6.4:
   resolved "https://registry.yarnpkg.com/react-native-view-pdf/-/react-native-view-pdf-0.6.4.tgz#7df4a3621d6374aef759b38631f1aa68c18d6407"
   integrity sha512-Gs6fogbaZq2n2XPXwqhYcduPpD4PESWe42O6uPazimnh0HnP6/OZ2puoDKYKiSlxKDJwerhjxxXoJT9eQblwSQ==
 
-react-native-webview@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-3.2.0.tgz#9412577e3bba87a295bf5a0bcfc11e28f958166e"
-  integrity sha512-Xxj0mQeGcPC+hjaHRhkXyBhqXmHUPMxcyf5s2V32rRxunQC6MKv1RLJ/wQMiDUaKgSOz126vFu0z5aYN2cGj1Q==
+react-native-webview@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-5.3.0.tgz#191666e7ded6d6077380a98b0a32a6cce81a2f4b"
+  integrity sha512-1tiHUXCt7uTAZylRezk5danOUCHVpchxGl9eOtXAa2oSDJUcr6CeafctDbTPTGN4r7jo89wp+XdAHT+FRTGumQ==
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"
