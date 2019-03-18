@@ -2,24 +2,35 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import { WebView } from 'react-native-webview'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
 import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
-import type {
-  WebViewNavigation
-} from 'react-native-webview/js/WebViewTypes'
+import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
+import { WebView, type WebViewMessageEvent } from 'react-native-webview'
+import compose from 'lodash/fp/compose'
 
-const HEADER_HEIGHT = 60
+const HORIZONTAL_MARGIN = 8
 
-const WebContainer = styled.View`
-  flex: 1;
-  padding: 5px 0 0;
-  height: ${props => Dimensions.get('screen').height - HEADER_HEIGHT}
+const StyledView = styled.View`
+  overflow: hidden;
 `
+
+const Container = styled.View`
+  margin: 0 ${HORIZONTAL_MARGIN}px;
+  margin-bottom: 8px;
+`
+
+const WebContainer = styled(WebView)`
+  width: ${Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN}px;
+`
+
+type StateType = {
+  webViewHeight: number
+}
+
 type PropType = {
   title: string,
   content: string,
@@ -29,7 +40,27 @@ type PropType = {
   children?: React.Node
 }
 
-class Page extends React.Component<PropType> {
+class Page extends React.Component<PropType, StateType> {
+  onMessage: (event: WebViewMessageEvent) => void
+
+  constructor (props: PropType) {
+    super(props)
+    this.state = {
+      webViewHeight: 0
+    }
+    this.onMessage = this.onMessage.bind(this)
+  }
+
+  onMessage (event: WebViewMessageEvent) {
+    if (!event.nativeEvent) {
+      return
+    }
+    const height = parseFloat(event.nativeEvent.data)
+    this.setState({
+      webViewHeight: height
+    })
+  }
+
   onLinkPress = (url: string) => {
     if (url.includes('.pdf')) {
       this.props.navigation.navigate('PDFViewModal', {url})
@@ -57,33 +88,43 @@ class Page extends React.Component<PropType> {
   }
 
   render () {
-    const {title, children, theme, content, resourceCache} = this.props
+    const {title, children, content, resourceCache, theme} = this.props
+    const height = this.state.webViewHeight
     return (
-      <>
+      <Container>
         <Caption title={title} />
         {children}
-        <WebContainer theme={theme}>
-          <WebView
+        <StyledView>
+          <WebContainer
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(content, resourceCache)
+              html: renderHtml(content, resourceCache, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
             useWebKit
+            scalesPageToFit={false}
             javaScriptEnabled
 
             dataDetectorTypes={'all'}
             domStorageEnabled={false}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+
+            onMessage={this.onMessage}
+            style={{height: height}}
 
             renderError={this.renderError}
 
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
-        </WebContainer>
-      </>
+        </StyledView>
+      </Container>
     )
   }
 }
 
-export default withNavigation(Page)
+export default compose(
+  withNavigation,
+  withTheme
+)(Page)
