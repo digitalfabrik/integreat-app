@@ -3,7 +3,7 @@
 import type { TFunction } from 'react-i18next'
 
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import { translate } from 'react-i18next'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { Text } from 'react-native'

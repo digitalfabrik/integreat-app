@@ -4,7 +4,7 @@ import LocationBig from '../assets/LocationBig.png'
 import { translate } from 'react-i18next'
 import Caption from 'modules/common/components/Caption'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const LocationImage = styled.Image`
   height: 70px;

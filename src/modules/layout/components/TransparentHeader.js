@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import type { NavigationScene } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'

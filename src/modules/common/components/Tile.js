@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
