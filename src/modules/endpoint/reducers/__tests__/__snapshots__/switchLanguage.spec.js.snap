@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`switchLangauge should translate route 1`] = `
+Object {
+  "currentCity": "augsburg",
+  "currentLanguage": "en",
+  "languages": Array [
+    LanguageModel {
+      "_code": "de",
+      "_name": "Deutsch",
+    },
+    LanguageModel {
+      "_code": "en",
+      "_name": "English",
+    },
+  ],
+  "resourceCache": Object {},
+  "routeMapping": Object {
+    "route-0": Object {
+      "children": Object {
+        "/augsburg/en": Array [
+          "/augsburg/en/erste-schritte",
+          "/augsburg/en/anlaufstellen",
+        ],
+        "/augsburg/en/anlaufstellen": Array [],
+        "/augsburg/en/erste-schritte": Array [
+          "/augsburg/en/erste-schritte/welcome-to-augsburg",
+        ],
+        "/augsburg/en/erste-schritte/welcome-to-augsburg": Array [],
+      },
+      "depth": 2,
+      "models": Object {
+        "/augsburg/en": CategoryModel {
+          "_availableLanguages": Object {},
+          "_content": "",
+          "_id": 0,
+          "_lastUpdate": undefined,
+          "_order": -1,
+          "_parentPath": "",
+          "_path": "/augsburg/en",
+          "_thumbnail": "no_thumbnail",
+          "_title": "augsburg",
+        },
+        "/augsburg/en/anlaufstellen": CategoryModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/anlaufstellen",
+          },
+          "_content": "",
+          "_id": 10,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": 75,
+          "_parentPath": "/augsburg/en",
+          "_path": "/augsburg/en/anlaufstellen",
+          "_thumbnail": "https://cms.integreat-app.de/thumbnail.png",
+          "_title": "Contact points for other topics",
+        },
+        "/augsburg/en/erste-schritte": CategoryModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/willkommen",
+          },
+          "_content": "",
+          "_id": 11,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": 11,
+          "_parentPath": "/augsburg/en",
+          "_path": "/augsburg/en/erste-schritte",
+          "_thumbnail": "https://cms.integreat-app.de/thumbnail.png",
+          "_title": "Welcome",
+        },
+        "/augsburg/en/erste-schritte/welcome-to-augsburg": CategoryModel {
+          "_availableLanguages": Map {
+            "de" => "/augsburg/de/willkommen/willkommen-in-augsburg",
+          },
+          "_content": "some content",
+          "_id": 12,
+          "_lastUpdate": "2017-11-18T19:30:00.000Z",
+          "_order": 1,
+          "_parentPath": "/augsburg/en/erste-schritte",
+          "_path": "/augsburg/en/erste-schritte/welcome-to-augsburg",
+          "_thumbnail": "https://cms.integreat-app.de/thumbnail.png",
+          "_title": "Welcome to Augsburg",
+        },
+      },
+      "root": "/augsburg/en",
+    },
+  },
+}
+`;
