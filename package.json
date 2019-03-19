@@ -94,6 +94,7 @@
     "metro-react-native-babel-preset": "^0.51.1",
     "moment-timezone": "^0.5.23",
     "react-native-git-upgrade": "^0.2.7",
+    "react-native-testing-library": "^1.6.1",
     "react-test-renderer": "16.7.0",
     "redux-devtools-extension": "^2.13.6",
     "yo": "^2.0.5"
