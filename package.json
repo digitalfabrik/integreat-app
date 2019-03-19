@@ -14,14 +14,14 @@
     "android:reinit": "adb shell pm clear com.integreat && adb shell am start com.integreat/com.integreat.MainActivity",
     "android:start-avd": "bash -c '$ANDROID_HOME/emulator/emulator -avd $($ANDROID_HOME/emulator/emulator -list-avds | head -n 1)'",
     "ios": "react-native run-ios --no-packager",
-    "test": "jest --config ./jest.config.json",
+    "test": "jest --config ./jest.config.js",
     "lint": "eslint .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "2.1.0",
+    "@integreat-app/integreat-api-client": "2.2.4",
     "@mapbox/react-native-mapbox-gl": "^6.1.3",
     "fnv-plus": "^1.2.12",
     "hashids": "^1.2.2",
