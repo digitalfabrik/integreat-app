@@ -10,6 +10,6 @@ describe('PageDetail', () => {
       <PageDetail identifier={'Test Identifier'} information={'Some important information'} />
     )
     const identifier = getByType(Identifier).props.children.join('')
-    expect(identifier).toEqual('Test Identifier:')
+    expect(identifier).toEqual('Test Identifier: ')
   })
 })
