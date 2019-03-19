@@ -6,8 +6,7 @@ import { translate } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components'
 
-const TimeStamp = styled.Text`
-  padding-top: 15px;
+const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
   /*font-family: ${props => props.theme.fonts.contentFontFamily};*/
   /*font-size: ${props => props.theme.fonts.contentFontSize};*/
@@ -19,7 +18,7 @@ type PropsType = {
   language: string
 }
 
-export class CategoryTimeStamp extends React.PureComponent<PropsType> {
+export class TimeStamp extends React.PureComponent<PropsType> {
   render () {
     const {lastUpdate, t, language} = this.props
     lastUpdate.locale(language)
@@ -27,8 +26,8 @@ export class CategoryTimeStamp extends React.PureComponent<PropsType> {
     // only show day, month and year
     const timestamp = lastUpdate.format('LL')
 
-    return <TimeStamp>{t('lastUpdate')}{timestamp}</TimeStamp>
+    return <TimeStampText>{t('lastUpdate')}{timestamp}</TimeStampText>
   }
 }
 
-export default translate('categories')(CategoryTimeStamp)
+export default translate('categories')(TimeStamp)
