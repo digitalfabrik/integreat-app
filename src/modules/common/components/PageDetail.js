@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Text } from 'react-native'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const DetailContainer = styled.View`
   margin: 0 10px;
