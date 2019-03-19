@@ -8,7 +8,7 @@ const DetailContainer = styled.View`
   margin: 0 10px;
 `
 
-const Identifier = styled.Text`
+export const Identifier = styled.Text`
   font-weight: 700;
 `
 
