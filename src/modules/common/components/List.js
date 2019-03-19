@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const StyledScrollView = styled.ScrollView`
   margin: 0 10px 0;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
 type WrapperPropsType = {
