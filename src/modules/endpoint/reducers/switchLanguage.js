@@ -30,6 +30,10 @@ const translateChildren = (models, newCategoriesMap, children, currentCity, newL
     }
 
     const translatedArray = reduce(children[path], (result, key) => {
+      if (!models[key]) {
+        console.log(`${key} is empty`)
+      }
+
       const translatedKey = models[key].availableLanguages.get(newLanguage)
       if (!translatedKey) {
         console.warn(`Path ${key} is not translatable!`)
