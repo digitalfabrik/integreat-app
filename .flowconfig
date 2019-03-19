@@ -19,7 +19,7 @@
 ; Ignore metro
 .*/node_modules/metro/.*;
 
- Ignore react-navigation-header-buttons
+; Ignore react-navigation-header-buttons
 .*/node_modules/react-navigation-header-buttons/.*
 
 [untyped]
