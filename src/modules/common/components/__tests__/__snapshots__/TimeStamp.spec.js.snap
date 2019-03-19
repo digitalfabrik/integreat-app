@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CategoryTimeStamp should match snapshot 1`] = `
+exports[`TimeStamp should match snapshot 1`] = `
 <CategoryTimeStampstyles__TimeStamp>
   lastUpdate
   18. November 2017
