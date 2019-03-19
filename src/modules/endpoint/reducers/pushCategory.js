@@ -3,6 +3,7 @@
 import type { CategoriesStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { keyBy } from 'lodash/collection'
 
 const forEachTreeNode = (
   root: CategoryModel,
@@ -36,6 +37,7 @@ const pushCategory = (
 
   forEachTreeNode(root, node => categoriesMap.getChildren(node), depth, (node, children) => {
     resultModels[node.path] = node
+    Object.assign(resultModels, keyBy(children, child => child.path))
     resultChildren[node.path] = children.map(child => child.path)
   })
 
