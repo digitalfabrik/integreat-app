@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const H1 = styled.Text`
   padding: 20px 0;

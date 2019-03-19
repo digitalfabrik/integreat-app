@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import FastImage from 'react-native-fast-image'

@@ -3,7 +3,7 @@
 import React from 'react'
 import { Linking, ScrollView } from 'react-native'
 import { WohnenOfferModel, WohnenFormData, type AccommodationType } from '@integreat-app/integreat-api-client'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
