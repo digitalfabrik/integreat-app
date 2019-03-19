@@ -47,6 +47,7 @@ export default class Events extends React.Component<PropsType> {
         return <ScrollView>
           <Page content={event.content}
                 title={event.title}
+                lastUpdate={event.lastUpdate}
                 language={language}
                 resourceCache={resourceCache}
                 theme={theme}>
