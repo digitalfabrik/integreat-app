@@ -10,7 +10,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import getMockedEvents from '../../categories/getMockedEvents'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const language: string = 'de' // TODO: There is currently no langauge for events in the state
+  const { currentLanguage, resourceCache } = state
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
   const path: string = ownProps.navigation.getParam('path')
 
@@ -20,17 +20,16 @@ const mapStateToProps = (state: StateType, ownProps) => {
       ownProps.navigation.push('Events', params)
     }
   }
-  const fileCache = {} // TODO: There is currently no file cache for events in the state
 
   const events = getMockedEvents() // Todo: Remove mock
 
   return {
-    language: language,
+    language: currentLanguage,
     city: targetCity,
-    events: events,
-    path: path,
-    navigateToEvent: navigateToEvent,
-    files: fileCache.files
+    events,
+    path,
+    navigateToEvent,
+    resourceCache
   }
 }
 
