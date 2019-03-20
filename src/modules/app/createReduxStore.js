@@ -1,6 +1,6 @@
 // @flow
 
-import type { Store } from 'redux'
+import type { combineReducers, Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
 import { AsyncStorage } from 'react-native'
 
@@ -16,7 +16,7 @@ import {
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import { persistCombineReducers, persistStore } from 'redux-persist'
+import { persistStore, persistReducer } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
@@ -70,7 +70,7 @@ const createReduxStore = (
   }
 
   // Create this reducer only once. It is not pure!
-  const persitedReducer = persistCombineReducers(persistConfig, {
+  const persistedReducer = persistReducer(persistConfig, combineReducers({
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
@@ -78,13 +78,13 @@ const createReduxStore = (
     categories: categoriesReducer,
 
     network: reactNativeOfflineReducer
-  })
+  }))
 
   const rootReducer = (state, action) => {
     if (!state) {
       return initialState
     }
-    return persitedReducer(state, action)
+    return persistedReducer(state, action)
   }
   const middlewares = [createNetworkMiddleware(), sagaMiddleware]
 
