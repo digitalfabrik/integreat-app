@@ -5,10 +5,6 @@ import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
-export type LanguageStateType = string | null
-
-export type CurrentCityStateType = string | null
-
 type PathType = string
 
 export type RouteStateType = {
@@ -30,21 +26,11 @@ export const defaultRouteState: RouteStateType = {
 export type CategoriesStateType = {
   +routeMapping: {
     [key: string]: RouteStateType
-  },
-  resourceCache: ResourceCacheType,
-
-  +languages: Array<LanguageModel>,
-  +currentLanguage: LanguageStateType,
-  +currentCity: CurrentCityStateType
+  }
 }
 
 export const defaultCategoriesState: CategoriesStateType = {
-  routeMapping: {},
-  resourceCache: {},
-
-  languages: [],
-  currentLanguage: null,
-  currentCity: null
+  routeMapping: {}
 }
 
 export type CitiesStateType = {|
@@ -60,6 +46,11 @@ export type DirectionStateType = 'ltr' | 'rtl'
 export type StateType = {|
   +uiDirection: DirectionStateType,
   +darkMode: boolean,
+  +resourceCache: ResourceCacheType,
+
+  +languages: Array<LanguageModel>,
+  +currentLanguage: string | null,
+  +currentCity: string | null,
 
   +cities: CitiesStateType,
   +categories: CategoriesStateType,

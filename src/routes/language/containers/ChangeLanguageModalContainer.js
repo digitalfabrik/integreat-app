@@ -9,8 +9,8 @@ import { withTheme } from 'styled-components'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
-    city: state.categories.currentCity,
-    languages: state.categories.languages,
+    city: state.currentCity,
+    languages: state.languages,
     closeModal: () => ownProps.navigation.goBack()
   }
 }
