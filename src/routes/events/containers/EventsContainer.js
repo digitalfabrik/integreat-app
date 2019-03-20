@@ -3,7 +3,7 @@
 import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
-import Events from './Events'
+import Events from '../components/Events'
 import { translate } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
