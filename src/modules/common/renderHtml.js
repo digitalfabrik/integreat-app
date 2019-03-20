@@ -1,11 +1,11 @@
 // @flow
 
 import { URL_PREFIX } from '../platform/constants/webview'
-import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
+import type { ResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript
-const renderJS = (resourceCache: ResourceCacheType) => `
+const renderJS = (resourceCache: ResourceCacheStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
@@ -53,7 +53,7 @@ const renderJS = (resourceCache: ResourceCacheType) => `
 })();
 `
 
-export default (html: string, resourceCache: ResourceCacheType, theme: ThemeType) => {
+export default (html: string, resourceCache: ResourceCacheStateType, theme: ThemeType) => {
   // language=HTML
   return `
 <html>

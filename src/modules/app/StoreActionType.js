@@ -2,7 +2,7 @@
 
 import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
+import type { ResourceCacheStateType } from './StateType'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
@@ -33,7 +33,7 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
     pushParams: CategoryPushParamsType,
-    resourceCache: ResourceCacheType,
+    resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
     language: string
@@ -64,7 +64,7 @@ export type PushEventActionType = {|
   type: 'PUSH_EVENT', params: {|
     events: Array<EventModel>,
     pushParams: EventPushParamsType,
-    resourceCache: ResourceCacheType,
+    resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
     language: string
