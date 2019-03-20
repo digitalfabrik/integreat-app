@@ -7,6 +7,7 @@ import Events from './Events'
 import { translate } from 'react-i18next'
 import { CityModel, DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment'
+import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language: string = 'de' // TODO: There is currently no langauge for events in the state
@@ -132,5 +133,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 export default compose(
   translate('events'),
-  connect(mapStateToProps)
+  connect(mapStateToProps),
+  withRouteCleaner
 )(Events)
