@@ -23,11 +23,11 @@ export const defaultRouteState: RouteStateType = {
   depth: 0
 }
 
-export type CategoriesStateType = {
+export type CategoriesStateType = {|
   +routeMapping: {
     [key: string]: RouteStateType
   }
-}
+|}
 
 export const defaultCategoriesState: CategoriesStateType = {
   routeMapping: {}
