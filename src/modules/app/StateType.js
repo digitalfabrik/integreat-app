@@ -41,6 +41,8 @@ export const defaultCitiesState: CitiesStateType = {
   models: []
 }
 
+export type LanguagesStateType = Array<LanguageModel> | null
+
 export type DirectionStateType = 'ltr' | 'rtl'
 
 export type StateType = {|
@@ -48,7 +50,7 @@ export type StateType = {|
   +darkMode: boolean,
   +resourceCache: ResourceCacheType,
 
-  +languages: Array<LanguageModel>,
+  +languages: LanguagesStateType,
   +currentLanguage: string | null,
   +currentCity: string | null,
 
