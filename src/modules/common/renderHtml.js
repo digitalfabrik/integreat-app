@@ -43,10 +43,7 @@ const renderJS = (resourceCache: ResourceCacheType) => `
     if (!window.ReactNativeWebView){
       throw Error('You have to set onMessage on the WebView!')
     }
-    
-    console.error("container.getBoundingClientRect().height")
-    console.error(container.getBoundingClientRect().height)
-    
+
     window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
     container.setAttribute('style', '');
   }
