@@ -11,11 +11,11 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import navigateToCategory from '../../../modules/app/navigateToCategory'
+import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation)
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
