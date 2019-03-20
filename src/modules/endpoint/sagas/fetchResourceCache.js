@@ -10,11 +10,11 @@ import type {
 } from '../../app/StoreActionType'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
-import type { ResourceCacheType } from '../ResourceCacheType'
+import type { ResourceCacheStateType } from '../../app/StateType'
 
-export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheType): Saga<void> {
+export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheStateType): Saga<void> {
   try {
-    let result: FetchResultType = {failureMessages: {}, successFilePaths: {}}
+    let result: FetchResultType = {failureMessages: {}, resourceCache: {}}
     if (Platform.OS === 'android') {
       result = yield call(new FetcherModule().downloadAsync, urls, progress => {})
     }
