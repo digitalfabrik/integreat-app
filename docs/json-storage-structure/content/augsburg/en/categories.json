@@ -1,5 +1,6 @@
 [
   {
+    "id": 5,
     "path": "/ahaus/en/everyday-life-and-free-time/donate-stock/",
     "title": "Donate stock",
     "content": "",
@@ -13,12 +14,6 @@
       "/ahaus/de/alltag-und-freizeit/spendenlager/"
     ],
     "order": 100,
-    "hash": "1ebd072de279a714f831526b1861d4ec",
-    "file_cache": {
-      "https://cms.integreat-app.de/altmuehlfranken/wp-content/uploads/sites/163/2017/11/calendar159-150x150.png": {
-        "path": "/data/user/0/com.integreat/cache/altmuehlfranken/2f97435138745.png",
-        "updated": "2017-01-22 19:51:10"
-      }
-    }
+    "hash": "1ebd072de279a714f831526b1861d4ec"
   }
 ]
