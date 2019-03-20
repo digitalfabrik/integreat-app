@@ -38,13 +38,17 @@ const renderJS = (resourceCache: ResourceCacheType) => `
 (function() {
   var container = document.getElementById('measure-container')
   function adjustHeight() {
-    if (window.postMessage.length !== 1){
-      setTimeout(adjustHeight, 200);
-    } else {
-      container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
-      window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
-      container.setAttribute('style', '');
+    container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
+    
+    if (!window.ReactNativeWebView){
+      throw Error('You have to set onMessage on the WebView!')
     }
+    
+    console.error("container.getBoundingClientRect().height")
+    console.error(container.getBoundingClientRect().height)
+    
+    window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
+    container.setAttribute('style', '');
   }
   
   window.addEventListener('load', adjustHeight);
