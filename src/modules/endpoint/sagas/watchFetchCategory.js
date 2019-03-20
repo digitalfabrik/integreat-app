@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, fork, put, select, takeLatest } from 'redux-saga/effects'
+import { call, all, put, select, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -62,8 +62,10 @@ function * fetchCategories (database: MemoryDatabase, city: string, language: st
 
   database.changeContext(new MemoryDatabaseContext(city, language), categoriesMap, languages, urls)
 
-  yield fork(persistCategories, database)
-  yield call(fetchResourceCache, city, language, urls)
+  yield all([
+    call(persistCategories, database),
+    call(fetchResourceCache, city, language, urls)
+  ])
 }
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {

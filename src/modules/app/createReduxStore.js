@@ -15,7 +15,7 @@ import {
 } from 'react-native-offline'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
-import { all, fork } from 'redux-saga/effects'
+import { all, call } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
@@ -34,9 +34,9 @@ import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(watchFetchCategory, database),
-    fork(watchFetchCities, database),
-    fork(networkEventsListenerSaga, {})
+    call(watchFetchCategory, database),
+    call(watchFetchCities, database),
+    call(networkEventsListenerSaga, {})
   ])
 }
 
