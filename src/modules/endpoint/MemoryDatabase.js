@@ -1,8 +1,37 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheType } from './ResourceCacheType'
+import RNFetchblob from 'rn-fetch-blob'
+import { OFFLINE_CACHE_PATH } from '../platform/constants/webview.ios'
+import moment from 'moment'
+
+type ContentCategoryJsonType = {|
+  path: string,
+  title: string,
+  'content': string,
+  'last_update': string,
+  'thumbnail': string,
+  'available_languages': { [code: string]: string },
+  'parent_path': string,
+  'children': Array<string>,
+  'order': number,
+  'hash': '' // TODO: This gets added in NATIVE-133
+|}
+
+type ResourceCacheFilesType = {
+  [code: string]: {
+    path: string,
+    last_update: string
+  }
+}
+
+const mapToObject = (map: Map<string, string>) => {
+  const output = {}
+  map.forEach((value, key) => { output[key] = value })
+  return output
+}
 
 class MemoryDatabase {
   dataDirectory: string
@@ -97,6 +126,66 @@ class MemoryDatabase {
       throw Error('eventsResourceCache has already been set on this context!')
     }
     this._eventsResourceCache = resourceCache
+  }
+
+  getPath (key: string): string {
+    if (!key) {
+      throw Error('Key mustn\'t be empty')
+    }
+
+    return `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/${key}.json`
+  }
+
+  /**
+   * @returns {Promise<void>} which resolves to the number of bytes written or rejects
+   */
+  writeCategories (): Promise<number> {
+    const categories = this.categoriesMap.toArray()
+
+    categories.map((category: CategoryModel): ContentCategoryJsonType => ({
+      'path': category.path,
+      'title': category.title,
+      'content': category.title,
+      'last_update': category.lastUpdate.format(moment.ISO_8601),
+      'thumbnail': category.thumbnail,
+      'available_languages': mapToObject(category.availableLanguages),
+      'parent_path': category.parentPath,
+      'children': this.categoriesMap.getChildren(category).map(category => category.path),
+      'order': category.order,
+      'hash': '' // TODO: This gets added in NATIVE-133
+    }))
+
+    const path = `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/categories.json`
+    return RNFetchblob.fs.writeFile(path, JSON.stringify(categories), 'utf8')
+  }
+
+  async readCategories () {
+    const jsonString: number[] | string = await RNFetchblob.fs.readFile(this.getPath('categories'), 'utf8')
+
+    if (typeof jsonString !== 'string') {
+      throw new Error('readFile did not return a string')
+    }
+
+    const json = JSON.parse(jsonString)
+
+    if (this.categoriesMap) {
+      throw Error('There is already a categories map in the MemoryDatabase!')
+    }
+
+    json.map((jsonObject: ContentCategoryJsonType) => {
+      return new CategoryModel({
+        // We do not use as we do not need it in the react-native app
+        id: 0,
+        path: jsonObject.path,
+        title: jsonObject.title,
+        content: jsonObject.content,
+        thumbnail: jsonObject.thumbnail,
+        parentPath: jsonObject.parent_path,
+        order: jsonObject.order,
+        availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
+        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
+      })
+    })
   }
 }
 
