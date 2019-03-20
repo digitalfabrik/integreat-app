@@ -3,7 +3,6 @@
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
 type PathType = string
 
@@ -28,6 +27,8 @@ export const defaultRouteState: CategoryRouteStateType = {
   depth: 0
 }
 
+export type ResourceCacheStateType = { [url: string]: string }
+
 export type CategoriesRouteMappingType = {
   [key: string]: CategoryRouteStateType
 }
@@ -50,8 +51,8 @@ export type CityContentStateType = {|
   +languages: Array<LanguageModel> | null,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +categoriesResourceCache: ResourceCacheType,
-  +eventsResourceCache: ResourceCacheType
+  +categoriesResourceCache: ResourceCacheStateType,
+  +eventsResourceCache: ResourceCacheStateType
 |}
 
 export const defaultCityContentState: CityContentStateType = {

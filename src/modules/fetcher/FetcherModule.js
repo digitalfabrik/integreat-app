@@ -2,10 +2,11 @@
 
 import { NativeAppEventEmitter } from 'react-native'
 import NativeFetcherModule from './NativeFetcherModule'
+import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
 export type FetchResultType = {
   failureMessages: { [url: string]: string },
-  successFilePaths: { [url: string]: string }
+  resourceCache: ResourceCacheType
 }
 
 type ProgressCallbackType = (progress: number) => void

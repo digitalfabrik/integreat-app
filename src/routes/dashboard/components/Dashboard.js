@@ -7,7 +7,7 @@ import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheType'
+import type { ResourceCacheStateType } from '../../../modules/app/StateType'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -24,7 +24,7 @@ type PropsType = {
   language: string,
   cities?: Array<CityModel>,
   stateView: ?CategoriesRouteStateView,
-  resourceCache?: ResourceCacheType
+  resourceCache?: ResourceCacheStateType
 }
 
 class Dashboard extends React.Component<PropsType> {
