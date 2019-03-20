@@ -52,6 +52,11 @@ const createReduxStore = (
     cities: defaultCitiesState,
     categories: defaultCategoriesState,
 
+    currentCity: null,
+    currentLanguage: null,
+    languages: [],
+    resourceCache: {},
+
     network: {isConnected: false, actionQueue: []}
   }
 

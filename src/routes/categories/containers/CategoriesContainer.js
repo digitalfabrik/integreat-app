@@ -23,7 +23,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const key: string = ownProps.navigation.getParam('key')
 
   const targetRoute = state.categories.routeMapping[key]
-  const language = state.categories.currentLanguage
+  const language = state.currentLanguage
 
   if (!targetRoute || !language) {
     return {
@@ -42,7 +42,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.cities.models,
     stateView: stateView,
-    resourceCache: state.categories.resourceCache,
+    resourceCache: state.resourceCache,
     error: null // fixme display errors
   }
 }

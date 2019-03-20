@@ -69,7 +69,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
   const {city, language, pushParams} = action.params
 
   try {
-    const currentLanguage = yield select((state: StateType) => state.categories.currentLanguage)
+    const currentLanguage = yield select((state: StateType) => state.currentLanguage)
     yield call(fetchCategoriesWithResources, database, city, language)
 
     // If there is no language change or no language set, prepare the categories state
