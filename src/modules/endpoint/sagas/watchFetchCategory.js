@@ -27,11 +27,8 @@ import persistCategories from './persistCategories'
 import type { StateType } from '../../app/StateType'
 import { baseUrl } from '../constants'
 
-function * fetchCategoriesByLanguage (city: string, code: string): Saga<CategoriesMapModel> {
-  const params = {
-    city,
-    language: code
-  }
+function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
+  const params = { city, language }
 
   const categoriesPayload = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
   return categoriesPayload.data
@@ -44,7 +41,7 @@ function * fetchLanguages (city: string): Saga<Array<LanguageModel>> {
   return languagesPayload.data
 }
 
-function * fetchCategories (database: MemoryDatabase, city: string, language: string): Saga<void> {
+function * fetchCategoriesWithResources (database: MemoryDatabase, city: string, language: string): Saga<void> {
   // todo evaluate
   if (database.hasContext(new MemoryDatabaseContext(city, language))) {
     return
@@ -53,7 +50,7 @@ function * fetchCategories (database: MemoryDatabase, city: string, language: st
   const urls: ResourceCacheType = {}
 
   const languages = yield call(fetchLanguages, city)
-  const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesByLanguage, city, language)
+  const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
 
   findResources(categoriesMap.toArray()).forEach(url => {
     const hash = fnv.hash(url).hex()
@@ -73,10 +70,10 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
 
   try {
     const currentLanguage = yield select((state: StateType) => state.categories.currentLanguage)
+    yield call(fetchCategoriesWithResources, database, city, language)
 
-    // If there is no language change or no language set fetch and prepare the categories state
+    // If there is no language change or no language set, prepare the categories state
     if ((!currentLanguage || currentLanguage === language) && pushParams) {
-      yield call(fetchCategories, database, city, language)
       const insert: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,
         params: {
@@ -90,7 +87,6 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
       }
       yield put(insert)
     } else {
-      yield call(fetchCategories, database, city, language)
       const select: SwitchCategoryLanguageActionType = {
         type: `SWITCH_CATEGORY_LANGUAGE`,
         params: {
