@@ -29,13 +29,13 @@ import {
 } from './StateType'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
 import categoriesReducer from '../endpoint/reducers/categoriesReducer'
-import fetchCategory from '../endpoint/sagas/fetchCategory'
-import fetchCities from '../endpoint/sagas/fetchCities'
+import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
+import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(fetchCategory, database),
-    fork(fetchCities, database),
+    fork(watchFetchCategory, database),
+    fork(watchFetchCities, database),
     fork(networkEventsListenerSaga, {})
   ])
 }
