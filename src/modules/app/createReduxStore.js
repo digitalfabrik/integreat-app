@@ -1,7 +1,7 @@
 // @flow
 
-import type { combineReducers, Store } from 'redux'
-import { applyMiddleware, createStore } from 'redux'
+import type { Store } from 'redux'
+import { combineReducers, applyMiddleware, createStore } from 'redux'
 import { AsyncStorage } from 'react-native'
 
 import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
