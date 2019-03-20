@@ -2,10 +2,11 @@
 
 import { CategoriesMapModel, CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import MemoryDatabaseContext from './MemoryDatabaseContext'
-import type { ResourceCacheType } from './ResourceCacheType'
+import type { ResourceCacheStateType } from '../app/StateType'
 import RNFetchblob from 'rn-fetch-blob'
 import { OFFLINE_CACHE_PATH } from '../platform/constants/webview.ios'
 import moment from 'moment'
+import type { ResourceCacheType } from './ResourceCacheType'
 
 type ContentCategoryJsonType = {|
   path: string,
@@ -20,12 +21,6 @@ type ContentCategoryJsonType = {|
   'hash': '' // TODO: This gets added in NATIVE-133
 |}
 
-type ResourceCacheFilesType = {
-  [code: string]: {
-    path: string,
-    last_update: string
-  }
-}
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -128,18 +123,26 @@ class MemoryDatabase {
     this._eventsResourceCache = resourceCache
   }
 
-  getPath (key: string): string {
+  getContentPath (key: string): string {
     if (!key) {
       throw Error('Key mustn\'t be empty')
     }
 
-    return `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/${key}.json`
+    return `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/${this.context.languageCode}/${key}.json`
+  }
+
+  getResourceCachePath (): string {
+    return `${OFFLINE_CACHE_PATH}/resource-cache/${this.context.cityCode}/files.json`
   }
 
   /**
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
    */
   writeCategories (): Promise<number> {
+    if (!this.categoriesMap) {
+      throw new Error('MemoryDatabase does not have data to save!')
+    }
+
     const categoryModels = this.categoriesMap.toArray()
 
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
@@ -156,11 +159,11 @@ class MemoryDatabase {
     }))
 
     const path = `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/categories.json`
-    return RNFetchblob.fs.writeFile(path, JSON.stringify(jsonModels), 'utf8')
+    return this.writeFile(path, JSON.stringify(jsonModels))
   }
 
   async readCategories () {
-    const path = this.getPath('categories')
+    const path = this.getContentPath('categories')
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
@@ -168,13 +171,7 @@ class MemoryDatabase {
       return
     }
 
-    const jsonString: number[] | string = await RNFetchblob.fs.readFile(path, 'utf8')
-
-    if (typeof jsonString !== 'string') {
-      throw new Error('readFile did not return a string')
-    }
-
-    const json = JSON.parse(jsonString)
+    const json = JSON.parse(await this.readFile(path))
 
     this._categoriesMap = new CategoriesMapModel(json.map((jsonObject: ContentCategoryJsonType) => {
       return new CategoryModel({
@@ -190,6 +187,42 @@ class MemoryDatabase {
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
       })
     }))
+  }
+
+  async readResourceCache () {
+    const path = this.getResourceCachePath()
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._resourceCache = {}
+      return
+    }
+
+    this._resourceCache = JSON.parse(await this.readFile(path))
+  }
+
+  async writeResourceCache (): Promise<number> {
+    if (!this.resourceCache) {
+      throw new Error('MemoryDatabase does not have data to save!')
+    }
+
+    const path = this.getResourceCachePath()
+
+    return this.writeFile(path, JSON.stringify(this._resourceCache))
+  }
+
+  async readFile (path: string): Promise<string> {
+    const jsonString: number[] | string = await RNFetchblob.fs.readFile(path, 'utf8')
+
+    if (typeof jsonString !== 'string') {
+      throw new Error('readFile did not return a string')
+    }
+
+    return jsonString
+  }
+
+  async writeFile (path: string, data: string): Promise<number> {
+    return RNFetchblob.fs.writeFile(path, data, 'utf8')
   }
 }
 

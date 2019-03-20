@@ -1,3 +1,8 @@
 // @flow
 
-export type ResourceCacheType = { [url: string]: string }
+export type ResourceCacheType = {
+  [code: string]: {
+    path: string,
+    last_update: string
+  }
+}
