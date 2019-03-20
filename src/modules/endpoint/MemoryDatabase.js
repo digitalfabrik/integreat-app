@@ -140,13 +140,13 @@ class MemoryDatabase {
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
    */
   writeCategories (): Promise<number> {
-    const categories = this.categoriesMap.toArray()
+    const categoryModels = this.categoriesMap.toArray()
 
-    categories.map((category: CategoryModel): ContentCategoryJsonType => ({
+    const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
       'path': category.path,
       'title': category.title,
       'content': category.title,
-      'last_update': category.lastUpdate.format(moment.ISO_8601),
+      'last_update': category.lastUpdate.toISOString(),
       'thumbnail': category.thumbnail,
       'available_languages': mapToObject(category.availableLanguages),
       'parent_path': category.parentPath,
@@ -156,11 +156,19 @@ class MemoryDatabase {
     }))
 
     const path = `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/categories.json`
-    return RNFetchblob.fs.writeFile(path, JSON.stringify(categories), 'utf8')
+    return RNFetchblob.fs.writeFile(path, JSON.stringify(jsonModels), 'utf8')
   }
 
   async readCategories () {
-    const jsonString: number[] | string = await RNFetchblob.fs.readFile(this.getPath('categories'), 'utf8')
+    const path = this.getPath('categories')
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._categoriesMap = new CategoriesMapModel()
+      return
+    }
+
+    const jsonString: number[] | string = await RNFetchblob.fs.readFile(path, 'utf8')
 
     if (typeof jsonString !== 'string') {
       throw new Error('readFile did not return a string')
@@ -168,11 +176,7 @@ class MemoryDatabase {
 
     const json = JSON.parse(jsonString)
 
-    if (this.categoriesMap) {
-      throw Error('There is already a categories map in the MemoryDatabase!')
-    }
-
-    json.map((jsonObject: ContentCategoryJsonType) => {
+    this._categoriesMap = new CategoriesMapModel(json.map((jsonObject: ContentCategoryJsonType) => {
       return new CategoryModel({
         // We do not use as we do not need it in the react-native app
         id: 0,
@@ -185,7 +189,7 @@ class MemoryDatabase {
         availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
       })
-    })
+    }))
   }
 }
 
