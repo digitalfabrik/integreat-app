@@ -47,7 +47,6 @@ class Categories extends React.Component<PropsType> {
       }
 
       return new TileModel({
-        id: String(category.id),
         title: category.title,
         path: category.path,
         thumbnail: cachedThumbnail || category.thumbnail,
