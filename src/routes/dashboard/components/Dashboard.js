@@ -44,15 +44,15 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const {cities, stateView} = this.props
+    const {cities, stateView, resourceCache} = this.props
 
-    if (!stateView || !cities || !this.props.resourceCache) {
+    if (!stateView || !cities || !resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return (<ScrollView>
         <Categories stateView={stateView}
-                    cities={cities} resourceCache={this.props.resourceCache}
+                    cities={cities} resourceCache={resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
                     navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
