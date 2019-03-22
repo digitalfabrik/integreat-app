@@ -14,6 +14,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
+import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
     payload: true
   }),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   fetchCities: () => dispatch({
     type: 'FETCH_CITIES',
     params: {}

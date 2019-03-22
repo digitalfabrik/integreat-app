@@ -57,11 +57,11 @@ export default class Events extends React.Component<PropsType> {
             </>
           </Page>
         </ScrollView>
-      } else {
-        const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
-        return <Failure error={error} />
       }
+      const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
+      return <Failure error={error} />
     }
+
     return <>
       <Caption title={t('news')} />
       <List noItemsMessage={t('currentlyNoEvents')}
