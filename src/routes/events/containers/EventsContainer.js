@@ -7,10 +7,9 @@ import Events from '../components/Events'
 import { translate } from 'react-i18next'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
-import getMockedEvents from '../../categories/getMockedEvents'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const { currentLanguage, resourceCache } = state
+  const {events, language, eventsResourceCache} = state.cityContent
   const targetCity: CityModel = ownProps.navigation.getParam('cityModel')
   const path: string = ownProps.navigation.getParam('path')
 
@@ -21,15 +20,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
     }
   }
 
-  const events = getMockedEvents() // Todo: Remove mock
-
   return {
-    language: currentLanguage,
+    language,
     city: targetCity,
     events,
     path,
     navigateToEvent,
-    resourceCache
+    resourceCache: eventsResourceCache
   }
 }
 

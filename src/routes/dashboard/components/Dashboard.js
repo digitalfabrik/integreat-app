@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { ActivityIndicator, ScrollView, Button } from 'react-native'
+import { ActivityIndicator, Button, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -18,6 +18,7 @@ type PropsType = {
   goOnline: () => void,
   fetchCities: (language: string) => void,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
   theme: ThemeType,
 
   language: string,
@@ -38,7 +39,7 @@ class Dashboard extends React.Component<PropsType> {
   }
 
   events = () => {
-    this.props.navigation.navigate('Events', {cityModel: this.props.navigation.getParam('cityModel')})
+    this.props.navigateToEvent(this.props.cityCode, this.props.language)
   }
 
   goMaps = () => this.props.navigation.navigate('MapViewModal')
