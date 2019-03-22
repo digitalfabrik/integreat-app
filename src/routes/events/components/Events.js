@@ -10,8 +10,8 @@ import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from './EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
-import Failure from '../../error/components/Failure'
-import type { ThemeType } from '../../theme/constants/theme'
+import Failure from '../../../modules/error/components/Failure'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {|
   events: Array<EventModel>,
