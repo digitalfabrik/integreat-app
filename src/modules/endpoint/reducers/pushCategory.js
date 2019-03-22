@@ -1,6 +1,6 @@
 // @flow
 
-import type { CategoriesStateType } from '../../app/StateType'
+import type { CityContentStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 
@@ -29,10 +29,8 @@ const forEachTreeNode = (
   }
 }
 
-const pushCategory = (
-  state: CategoriesStateType, action: PushCategoryActionType
-) => {
-  const {categoriesMap, languages, pushParams: {path, depth, key}, resourceCache, city, language} = action.params
+const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
+  const {categoriesMap, pushParams: {path, depth, key}, language, city, resourceCache, languages} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -54,20 +52,20 @@ const pushCategory = (
   })
 
   return {
-    currentCity: city,
-    currentLanguage: language,
+    ...state,
+    language,
+    city,
     languages,
-    resourceCache,
-
-    routeMapping: {
-      ...state.routeMapping,
+    categoriesRouteMapping: {
+      ...state.categoriesRouteMapping,
       [key]: {
         root: root.path,
         models: resultModels,
         children: resultChildren,
         depth: depth
       }
-    }
+    },
+    categoriesResourceCache: resourceCache
   }
 }
 

@@ -1,7 +1,7 @@
 // @flow
 
 import type { Store } from 'redux'
-import { combineReducers, applyMiddleware, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { AsyncStorage } from 'react-native'
 
 import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
@@ -16,21 +16,18 @@ import {
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import { persistStore, persistReducer } from 'redux-persist'
+import { persistReducer, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
+import { defaultCitiesState, defaultCityContentState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import MemoryDatabase from '../endpoint/MemoryDatabase'
-import {
-  defaultCategoriesState,
-  defaultCitiesState
-} from './StateType'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
-import categoriesReducer from '../endpoint/reducers/categoriesReducer'
 import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
 import watchFetchCities from '../endpoint/sagas/watchFetchCities'
+import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
@@ -50,12 +47,7 @@ const createReduxStore = (
     darkMode: false,
 
     cities: defaultCitiesState,
-    categories: defaultCategoriesState,
-
-    currentCity: null,
-    currentLanguage: null,
-    languages: [],
-    resourceCache: {},
+    cityContent: defaultCityContentState,
 
     network: {isConnected: false, actionQueue: []}
   }
@@ -75,7 +67,7 @@ const createReduxStore = (
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,
-    categories: categoriesReducer,
+    cityContent: cityContentReducer,
 
     network: reactNativeOfflineReducer
   }))

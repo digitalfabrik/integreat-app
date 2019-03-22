@@ -1,7 +1,7 @@
 // @flow
 
 import { offlineActionTypes } from 'react-native-offline'
-import { CityModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
 
 // This may be used to react-offline
@@ -18,12 +18,12 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type PushParamsType = {
+export type CategoryPushParamsType = {|
   path: string, depth: number, key: string
-}
+|}
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
-    city: string, language: string, pushParams?: PushParamsType
+    city: string, language: string, pushParams?: CategoryPushParamsType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -31,9 +31,10 @@ export type FetchCategoryFailedActionType = {|
 |}
 export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
-    categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
-    pushParams: PushParamsType,
+    categoriesMap: CategoriesMapModel,
+    pushParams: CategoryPushParamsType,
     resourceCache: ResourceCacheType,
+    languages: Array<LanguageModel>,
     city: string,
     language: string
   |}
@@ -41,18 +42,51 @@ export type PushCategoryActionType = {|
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
 |}
-export type SwitchCategoryLanguageActionType = {|
-  type: 'SWITCH_CATEGORY_LANGUAGE', params: {|
-    newCategoriesMap: CategoriesMapModel,
-    newLanguage: string
-  |}
-|}
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
   | PushCategoryActionType
   | FetchCategoryFailedActionType
-  | SwitchCategoryLanguageActionType
+
+export type EventPushParamsType = {|
+  path: string, key: string
+|}
+
+export type FetchEventActionType = {|
+  type: 'FETCH_EVENT', params: {|
+    city: string, language: string, pushParams?: EventPushParamsType
+  |}
+|}
+export type ClearEventActionType = {|
+  type: 'CLEAR_EVENT', params: {| key: string |}
+|}
+export type PushEventActionType = {|
+  type: 'PUSH_EVENT', params: {|
+    events: Array<EventModel>,
+    pushParams: EventPushParamsType,
+    resourceCache: ResourceCacheType,
+    languages: Array<LanguageModel>,
+    city: string,
+    language: string
+  |}
+|}
+export type FetchEventFailedActionType = {|
+  type: 'FETCH_EVENT_FAILED', message: string
+|}
+
+export type EventsActionType =
+  ClearEventActionType
+  | FetchEventActionType
+  | PushEventActionType
+  | FetchEventFailedActionType
+
+export type CityContentLoadedActionType = {|
+  type: 'CITY_CONTENT_LOADED', params: {|
+    categoriesMap: CategoriesMapModel | null,
+    events: Array<EventModel> | null,
+    language: string
+  |}
+|}
 
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
@@ -93,3 +127,4 @@ export type StoreActionType =
   | ToggleDarkModeActionType
   | CategoriesActionType
   | CitiesActionType
+  | EventsActionType
