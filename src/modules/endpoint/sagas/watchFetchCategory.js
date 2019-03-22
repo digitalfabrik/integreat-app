@@ -1,105 +1,36 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, all, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType,
-  SwitchCategoryLanguageActionType
+  PushCategoryActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
-import {
-  CategoriesMapModel,
-  createCategoriesEndpoint,
-  createLanguagesEndpoint,
-  LanguageModel
-} from '@integreat-app/integreat-api-client'
-import request from '../request'
-import type { ResourceCacheType } from '../ResourceCacheType'
-import findResources from '../findResources'
-import fnv from 'fnv-plus'
-import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
-import getExtension from '../getExtension'
-import MemoryDatabaseContext from '../MemoryDatabaseContext'
-import fetchResourceCache from './fetchResourceCache'
-import persistCategories from './persistCategories'
-import type { StateType } from '../../app/StateType'
-import { baseUrl } from '../constants'
-
-function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
-  const params = { city, language }
-
-  const categoriesPayload = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
-  return categoriesPayload.data
-}
-
-function * fetchLanguages (city: string): Saga<Array<LanguageModel>> {
-  const params = {city}
-
-  const languagesPayload = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
-  return languagesPayload.data
-}
-
-function * fetchCategoriesWithResources (database: MemoryDatabase, city: string, language: string): Saga<void> {
-  // todo evaluate
-  if (database.hasContext(new MemoryDatabaseContext(city, language))) {
-    return
-  }
-
-  const urls: ResourceCacheType = {}
-
-  const languages = yield call(fetchLanguages, city)
-  const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
-
-  findResources(categoriesMap.toArray()).forEach(url => {
-    const hash = fnv.hash(url).hex()
-    urls[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
-  })
-
-  database.changeContext(new MemoryDatabaseContext(city, language), categoriesMap, languages, urls)
-
-  yield all([
-    call(persistCategories, database),
-    call(fetchResourceCache, city, language, urls)
-  ])
-}
+import loadCityContent from './loadCityContent'
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
   const {city, language, pushParams} = action.params
-
   try {
-    const currentLanguage = yield select((state: StateType) => state.currentLanguage)
-    yield call(fetchCategoriesWithResources, database, city, language)
+    yield call(loadCityContent, database, city, language)
 
-    // If there is no language change or no language set, prepare the categories state
-    if ((!currentLanguage || currentLanguage === language) && pushParams) {
-      const insert: PushCategoryActionType = {
-        type: `PUSH_CATEGORY`,
-        params: {
-          categoriesMap: database.categoriesMap,
-          languages: database.languages,
-          resourceCache: database.resourceCache,
-          pushParams: pushParams,
-          city,
-          language
-        }
+    const insert: PushCategoryActionType = {
+      type: `PUSH_CATEGORY`,
+      params: {
+        categoriesMap: database.categoriesMap,
+        languages: database.languages,
+        resourceCache: database.categoriesResourceCache,
+        pushParams: pushParams,
+        city,
+        language
       }
-      yield put(insert)
-    } else {
-      const select: SwitchCategoryLanguageActionType = {
-        type: `SWITCH_CATEGORY_LANGUAGE`,
-        params: {
-          newCategoriesMap: database.categoriesMap,
-          newLanguage: language
-        }
-      }
-      yield put(select)
     }
+    yield put(insert)
   } catch (e) {
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
-      message: `Error in fetchCategories: ${e.message}`
+      message: `Error in fetchCategory: ${e.message}`
     }
     yield put(failed)
   }

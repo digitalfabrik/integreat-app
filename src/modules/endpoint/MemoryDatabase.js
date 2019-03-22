@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheType } from './ResourceCacheType'
 
@@ -11,7 +11,9 @@ class MemoryDatabase {
   _cities: Array<CityModel>
   _categoriesMap: CategoriesMapModel
   _languages: Array<LanguageModel>
-  _resourceCache: ResourceCacheType
+  _categoriesResourceCache: ResourceCacheType
+  _events: Array<EventModel>
+  _eventsResourceCache: ResourceCacheType
 
   constructor (dataDirectory: string) {
     this.dataDirectory = dataDirectory
@@ -22,13 +24,14 @@ class MemoryDatabase {
   }
 
   changeContext (
-    context: MemoryDatabaseContext,
-    categoriesMap: CategoriesMapModel, languages: Set<LanguageModel>, resourceCache: ResourceCacheType
+    context: MemoryDatabaseContext
   ) {
     this.context = context
-    this._resourceCache = resourceCache
-    this._categoriesMap = categoriesMap
-    this._languages = Array.from(languages)
+    this._languages = null
+    this._categoriesMap = null
+    this._categoriesResourceCache = null
+    this._eventsResourceCache = null
+    this._events = null
   }
 
   hasContext (otherContext: MemoryDatabaseContext): boolean {
@@ -45,12 +48,55 @@ class MemoryDatabase {
     return this._categoriesMap
   }
 
+  set categoriesMap (categoriesMap: CategoriesMapModel) {
+    if (this._categoriesMap !== null) {
+      throw Error('categoriesMap has already been set on this context!')
+    }
+    this._categoriesMap = categoriesMap
+  }
+
   get languages (): Array<LanguageModel> {
     return this._languages
   }
 
-  get resourceCache (): ResourceCacheType {
-    return this._resourceCache
+  set languages (languages: Array<LanguageModel>) {
+    if (this._languages !== null) {
+      throw Error('languages has already been set on this context!')
+    }
+    this._languages = languages
+  }
+
+  get categoriesResourceCache (): ResourceCacheType {
+    return this._categoriesResourceCache
+  }
+
+  set categoriesResourceCache (resourceCache: ResourceCacheType) {
+    if (this._categoriesResourceCache !== null) {
+      throw Error('categoriesResourceCache has already been set on this context!')
+    }
+    this._categoriesResourceCache = resourceCache
+  }
+
+  get events (): Array<EventModel> {
+    return this._events
+  }
+
+  set events (events: Array<EventModel>) {
+    if (this._events !== null) {
+      throw Error('events has already been set on this context!')
+    }
+    this._events = events
+  }
+
+  get eventsResourceCache (): ResourceCacheType {
+    return this._eventsResourceCache
+  }
+
+  set eventsResourceCache (resourceCache: ResourceCacheType) {
+    if (this._eventsResourceCache !== null) {
+      throw Error('eventsResourceCache has already been set on this context!')
+    }
+    this._eventsResourceCache = resourceCache
   }
 }
 
