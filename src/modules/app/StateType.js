@@ -17,7 +17,8 @@ export type CategoryRouteStateType = {|
 |}
 
 export type EventRouteStateType = {|
-  +model: EventModel
+  +path: string | null,
+  +models: Array<EventModel>
 |}
 
 export const defaultRouteState: CategoryRouteStateType = {

@@ -21,7 +21,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
         categoriesMap: database.categoriesMap,
         languages: database.languages,
         resourceCache: database.categoriesResourceCache,
-        pushParams: pushParams,
+        pushParams,
         city,
         language
       }

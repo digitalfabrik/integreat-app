@@ -20,7 +20,7 @@ type PropsType = {|
   t: TFunction,
   path?: string,
   theme: ThemeType,
-  navigateToEvent: string => void,
+  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
   resourceCache: { [url: string]: string }
 |}
 
@@ -29,7 +29,7 @@ type PropsType = {|
  */
 export default class Events extends React.Component<PropsType> {
   navigateToEvent = (path: string) => () => {
-    this.props.navigateToEvent(path)
+    this.props.navigateToEvent(this.props.city, this.props.language, path)
   }
 
   renderEventListItem = (language: string) => (event: EventModel) =>

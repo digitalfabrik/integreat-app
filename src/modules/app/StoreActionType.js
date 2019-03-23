@@ -88,6 +88,8 @@ export type CityContentLoadedActionType = {|
   |}
 |}
 
+export type CityContentActionType = CategoriesActionType | EventsActionType
+
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
 |}

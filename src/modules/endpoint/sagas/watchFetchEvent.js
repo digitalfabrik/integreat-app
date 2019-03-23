@@ -2,7 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import type { FetchEventActionType } from '../../app/StoreActionType'
+import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
 
@@ -15,8 +15,9 @@ function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): 
       type: `PUSH_EVENT`,
       params: {
         events: database.events,
+        languages: database.languages,
         resourceCache: database.eventsResourceCache,
-        pushParams: pushParams,
+        pushParams,
         city,
         language
       }
