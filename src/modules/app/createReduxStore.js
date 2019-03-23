@@ -28,10 +28,12 @@ import citiesReducer from '../endpoint/reducers/citiesReducer'
 import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
 import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 import cityContentReducer from '../endpoint/reducers/cityContentReducer'
+import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
     call(watchFetchCategory, database),
+    call(watchFetchEvent, database),
     call(watchFetchCities, database),
     call(networkEventsListenerSaga, {})
   ])
