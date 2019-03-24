@@ -20,11 +20,13 @@ const translateChildren = (models, newCategoriesMap, children, currentCity, newL
     const translatedKey = translatePath(models[path], currentCity, newLanguage)
 
     if (!translatedKey) {
+      // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Path ${path} is not translatable!`)
       return result
     }
 
     if (!newCategoriesMap.findCategoryByPath(translatedKey)) {
+      // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Path ${translatedKey} does not exist in new model!`)
       return result
     }
@@ -32,11 +34,13 @@ const translateChildren = (models, newCategoriesMap, children, currentCity, newL
     const translatedArray = reduce(children[path], (result, key) => {
       const translatedKey = models[key].availableLanguages.get(newLanguage)
       if (!translatedKey) {
+        // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
         console.warn(`Path ${key} is not translatable!`)
         return result
       }
 
       if (!newCategoriesMap.findCategoryByPath(translatedKey)) {
+        // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
         console.warn(`Path ${translatedKey} does not exist in new model!`)
         return result
       }
@@ -54,6 +58,7 @@ const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
     const translatedKey = translatePath(value, currentCity, newLanguage)
 
     if (!translatedKey) {
+      // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Path ${value.path} is not translatable!`)
       return result
     }
@@ -61,6 +66,7 @@ const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
     const category = newCategoriesMap.findCategoryByPath(translatedKey)
 
     if (!category) {
+      // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Path ${translatedKey} does not exist in new model!`)
       return result
     }
@@ -76,6 +82,7 @@ const switchLanguage = (
   const {routeMapping, currentCity, currentLanguage} = state
 
   if (!currentCity) {
+    // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
     throw new Error(`Current city needs to be set in order to change language!`)
   }
 
@@ -87,12 +94,14 @@ const switchLanguage = (
     const {models, children, depth, root} = value
 
     if (!root) {
+      // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       throw new Error(`There is no root to translate for route ${key}!`)
     }
 
     const translatedRoot = translatePath(models[root], currentCity, newLanguage)
 
     if (!translatedRoot) {
+      // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Route ${key} is not translatable!`)
       return defaultRouteState
     }
