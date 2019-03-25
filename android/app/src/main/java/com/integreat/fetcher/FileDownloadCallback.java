@@ -7,4 +7,6 @@ interface FileDownloadCallback {
     void failed(String url, String message);
 
     void downloaded(String url, File target);
+
+    void alreadyExists(String url, File target);
 }
