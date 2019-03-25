@@ -7,11 +7,11 @@ import Events from '../components/Events'
 import { translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
-import { Dispatch } from 'redux'
+import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const {language, city, eventsResourceCache} = state.cityContent
+  const {language, city, resourceCache} = state.cityContent
   const key: string = ownProps.navigation.getParam('key')
 
   const targetRoute = state.cityContent.eventsRouteMapping[key]
@@ -20,7 +20,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     return {
       language,
       city,
-      resourceCache: eventsResourceCache
+      resourceCache: resourceCache
     }
   }
 
@@ -29,7 +29,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     city,
     events: targetRoute.models,
     path: targetRoute.path,
-    resourceCache: eventsResourceCache
+    resourceCache: resourceCache
   }
 }
 

@@ -10,4 +10,6 @@ import MemoryDatabase from '../MemoryDatabase'
 export default function * loadLanguages (database: MemoryDatabase, city: string): Saga<Array<LanguageModel>> {
   const params = {city}
   database.languages = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
+
+  return database.languages
 }

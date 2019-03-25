@@ -1,13 +1,19 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  CityModel,
+  EventModel,
+  LanguageModel
+} from '@integreat-app/integreat-api-client'
 import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
 import RNFetchblob from 'rn-fetch-blob'
 import { OFFLINE_CACHE_PATH } from '../platform/constants/webview.ios'
 import moment from 'moment'
 import type { ResourceCacheType } from './ResourceCacheType'
-import { mapValues, reduce } from 'lodash'
+import { mapValues } from 'lodash'
 
 type ContentCategoryJsonType = {|
   path: string,
@@ -35,16 +41,16 @@ const mapToObject = (map: Map<string, string>) => {
   return output
 }
 
+// TODO: Define interface for this class which makes sense for databases
 class MemoryDatabase {
   dataDirectory: string
   context: MemoryDatabaseContext
 
   _cities: Array<CityModel>
   _categoriesMap: CategoriesMapModel
-  _languages: Array<LanguageModel>
-  _categoriesResourceCache: ResourceCacheType
-  _events: Array<EventModel>
-  _eventsResourceCache: ResourceCacheType
+  _languages: ?Array<LanguageModel>
+  _resourceCache: ResourceCacheType
+  _events: ?Array<EventModel>
 
   constructor (dataDirectory: string) {
     this.dataDirectory = dataDirectory
@@ -60,8 +66,7 @@ class MemoryDatabase {
     this.context = context
     this._languages = null
     this._categoriesMap = null
-    this._categoriesResourceCache = null
-    this._eventsResourceCache = null
+    this._resourceCache = {}
     this._events = null
   }
 
@@ -87,6 +92,9 @@ class MemoryDatabase {
   }
 
   get languages (): Array<LanguageModel> {
+    if (!this._languages) {
+      throw Error('languages are null!')
+    }
     return this._languages
   }
 
@@ -97,18 +105,10 @@ class MemoryDatabase {
     this._languages = languages
   }
 
-  get categoriesResourceCache (): ResourceCacheType {
-    return this._categoriesResourceCache
-  }
-
-  set categoriesResourceCache (resourceCache: ResourceCacheType) {
-    if (this._categoriesResourceCache !== null) {
-      throw Error('categoriesResourceCache has already been set on this context!')
-    }
-    this._categoriesResourceCache = resourceCache
-  }
-
   get events (): Array<EventModel> {
+    if (!this._events) {
+      throw Error('languages are null!')
+    }
     return this._events
   }
 
@@ -119,15 +119,8 @@ class MemoryDatabase {
     this._events = events
   }
 
-  get eventsResourceCache (): ResourceCacheType {
-    return this._eventsResourceCache
-  }
-
-  set eventsResourceCache (resourceCache: ResourceCacheType) {
-    if (this._eventsResourceCache !== null) {
-      throw Error('eventsResourceCache has already been set on this context!')
-    }
-    this._eventsResourceCache = resourceCache
+  addCacheEntries (resourceCache: ResourceCacheType) {
+    this._resourceCache = {...this._resourceCache, resourceCache}
   }
 
   get resourceCacheState (): ResourceCacheStateType {
@@ -213,7 +206,7 @@ class MemoryDatabase {
   }
 
   async writeResourceCache (): Promise<number> {
-    if (!this.resourceCache) {
+    if (!this._resourceCache) {
       throw new Error('MemoryDatabase does not have data to save!')
     }
 

@@ -4,6 +4,8 @@ import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app
 import moment from 'moment-timezone'
 import switchLanguage from '../switchLanguage'
 import pushCategory from '../pushCategory'
+import type { CityContentStateType } from '../../../app/StateType'
+import type { PushCategoryActionType, SwitchCityContentLanguageActionType } from '../../../app/StoreActionType'
 
 describe('switchLangauge', () => {
   const enCategories = [
@@ -116,8 +118,8 @@ describe('switchLangauge', () => {
 
   const languages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
-  const initialState = {
-    routeMapping: {
+  const initialState: CityContentStateType = {
+    categoriesRouteMapping: {
       'route-0': {
         root: null,
         models: {},
@@ -125,11 +127,12 @@ describe('switchLangauge', () => {
         depth: 0
       }
     },
+    eventsRouteMapping: {},
     resourceCache: {},
 
     languages,
-    currentLanguage: null,
-    currentCity: null
+    language: null,
+    city: null
   }
 
   const prepareState = ({path, model}: { path: string, model: CategoryModel } = {
@@ -138,16 +141,14 @@ describe('switchLangauge', () => {
   }) => {
     const state = initialState
 
-    const pushAction = {
+    const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap: model,
         languages,
-        pushParams: {
-          path,
-          depth: 2,
-          key: 'route-0'
-        },
+        path,
+        depth: 2,
+        key: 'route-0',
         resourceCache: {},
         city: 'augsburg',
         language: 'de'
@@ -158,8 +159,8 @@ describe('switchLangauge', () => {
   }
 
   it('should not change when language is equal', () => {
-    const action = {
-      type: 'SWITCH_CATEGORY_LANGUAGE',
+    const action: SwitchCityContentLanguageActionType = {
+      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: createGermanModel(),
         newLanguage: 'de'
@@ -174,8 +175,8 @@ describe('switchLangauge', () => {
   })
 
   it('should throw error with untranslatable route', () => {
-    const state = {
-      routeMapping: {
+    const state: CityContentStateType = {
+      categoriesRouteMapping: {
         'route-0': {
           root: null,
           models: {},
@@ -183,15 +184,16 @@ describe('switchLangauge', () => {
           depth: 0
         }
       },
+      eventsRouteMapping: {},
       resourceCache: {},
 
       languages,
-      currentLanguage: 'de',
-      currentCity: 'augsburg'
+      language: 'de',
+      city: 'augsburg'
     }
 
-    const action = {
-      type: 'SWITCH_CATEGORY_LANGUAGE',
+    const action: SwitchCityContentLanguageActionType = {
+      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newLanguage: 'en'
@@ -203,8 +205,8 @@ describe('switchLangauge', () => {
 
   it('should throw error if city is not set', () => {
     const state = initialState
-    const action = {
-      type: 'SWITCH_CATEGORY_LANGUAGE',
+    const action: SwitchCityContentLanguageActionType = {
+      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newLanguage: 'en'
@@ -215,8 +217,8 @@ describe('switchLangauge', () => {
   })
 
   it('should translate route', () => {
-    const action = {
-      type: 'SWITCH_CATEGORY_LANGUAGE',
+    const action: SwitchCityContentLanguageActionType = {
+      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newLanguage: 'en'

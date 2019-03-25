@@ -11,7 +11,7 @@ import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, pushParams} = action.params
+  const {city, language, path, depth, key} = action.params
   try {
     yield call(loadCityContent, database, city, language)
 
@@ -20,14 +20,17 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
       params: {
         categoriesMap: database.categoriesMap,
         languages: database.languages,
-        resourceCache: database.categoriesResourceCache,
-        pushParams,
+        resourceCache: database.resourceCacheState,
+        path,
+        depth,
+        key,
         city,
         language
       }
     }
     yield put(insert)
   } catch (e) {
+    console.error(e)
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
       message: `Error in fetchCategory: ${e.message}`

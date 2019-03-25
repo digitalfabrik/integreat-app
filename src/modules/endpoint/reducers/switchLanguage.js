@@ -1,13 +1,13 @@
 // @flow
 
-import type { CategoryRouteStateType, CityContentStateType, StateType } from '../../app/StateType'
 import { defaultRouteState } from '../../app/StateType'
-import type { CityContentLoadedActionType } from '../../app/StoreActionType'
 import { mapValues } from 'lodash/object'
 import { reduce } from 'lodash/collection'
-import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
+import type { SwitchCityContentLanguageActionType } from '../../app/StoreActionType'
+import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
 
-const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string): string | null => {
+const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string) => {
   if (model.id === 0) {
     return `/${currentCity}/${newLanguage}`
   } else {
@@ -15,76 +15,82 @@ const translatePath = (model: CategoryModel, currentCity: string, newLanguage: s
   }
 }
 
-const translateChildren = (
-  models: Array<CategoryModel>, newCategoriesMap: CategoriesMapModel,
-  children: Array<string>, city: string, newLanguage: string
-): { [path: string]: Array<string> } =>
-  reduce(children, (acc, value: Array<string>, path: string) => {
-    const newPath = translatePath(models[path], city, newLanguage)
+const translateChildren = (models, newCategoriesMap, children, currentCity, newLanguage) =>
+  reduce(children, (result, value: Array<string>, path: string) => {
+    const translatedKey = translatePath(models[path], currentCity, newLanguage)
 
-    if (!newPath) {
+    if (!translatedKey) {
       // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Path ${path} is not translatable!`)
-      return acc
+      return result
     }
 
-    if (!newCategoriesMap.findCategoryByPath(newPath)) {
+    if (!newCategoriesMap.findCategoryByPath(translatedKey)) {
       // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
-      console.warn(`Path ${newPath} does not exist in new model!`)
-      return acc
+      console.warn(`Path ${translatedKey} does not exist in new model!`)
+      return result
     }
 
-    acc[newPath] = reduce(children[path], (acc, path) => {
-      const newPath = models[path].availableLanguages.get(newLanguage)
-      if (!newPath) {
+    const translatedArray = reduce(children[path], (result, key) => {
+      const translatedKey = models[key].availableLanguages.get(newLanguage)
+      if (!translatedKey) {
         // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
-        console.warn(`Path ${path} is not translatable!`)
-        return acc
+        console.warn(`Path ${key} is not translatable!`)
+        return result
       }
 
-      if (!newCategoriesMap.findCategoryByPath(newPath)) {
+      if (!newCategoriesMap.findCategoryByPath(translatedKey)) {
         // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
-        console.warn(`Path ${newPath} does not exist in new model!`)
-        return acc
+        console.warn(`Path ${translatedKey} does not exist in new model!`)
+        return result
       }
 
-      acc.push(newPath)
-      return acc
+      result.push(translatedKey)
+      return result
     }, [])
-    return acc
+
+    result[translatedKey] = translatedArray
+    return result
   }, {})
 
-const translateModels = (
-  models: Array<CategoryModel>, newCategoriesMap: CategoriesMapModel, currentCity: string, newLanguage: string
-): Array<CategoryModel> =>
-  reduce(models, (acc, value: CategoryModel) => {
-    const newPath = translatePath(value, currentCity, newLanguage)
+const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
+  reduce(models, (result, value: CategoryModel) => {
+    const translatedKey = translatePath(value, currentCity, newLanguage)
 
-    if (!newPath) {
+    if (!translatedKey) {
       // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
       console.warn(`Path ${value.path} is not translatable!`)
-      return acc
+      return result
     }
 
-    const category = newCategoriesMap.findCategoryByPath(newPath)
+    const category = newCategoriesMap.findCategoryByPath(translatedKey)
 
     if (!category) {
       // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
-      console.warn(`Path ${newPath} does not exist in new model!`)
-      return acc
+      console.warn(`Path ${translatedKey} does not exist in new model!`)
+      return result
     }
 
-    acc[newPath] = category
-    return acc
+    result[translatedKey] = category
+    return result
   }, {})
 
-const switchCategoriesLanguage = (
-  state: CityContentStateType, action: CityContentLoadedActionType, currentCity: string
+const switchLanguage = (
+  state: CityContentStateType, action: SwitchCityContentLanguageActionType
 ): CityContentStateType => {
-  const {newLanguage, newCategoriesMap} = action.params
-  const routeMapping = state.routeMapping
+  const {newCategoriesMap, newLanguage} = action.params
+  const {categoriesRouteMapping, city, language} = state
 
-  const translatedRouteMapping = mapValues(routeMapping, (value: CategoryRouteStateType, key: string) => {
+  if (!city) {
+    // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
+    throw new Error(`Current city needs to be set in order to change language!`)
+  }
+
+  if (language === newLanguage) {
+    return state
+  }
+
+  const translatedRouteMapping = mapValues(categoriesRouteMapping, (value: CategoryRouteStateType, key: string) => {
     const {models, children, depth, root} = value
 
     if (!root) {
@@ -92,7 +98,7 @@ const switchCategoriesLanguage = (
       throw new Error(`There is no root to translate for route ${key}!`)
     }
 
-    const translatedRoot = translatePath(models[root], currentCity, newLanguage)
+    const translatedRoot = translatePath(models[root], city, newLanguage)
 
     if (!translatedRoot) {
       // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
@@ -100,8 +106,8 @@ const switchCategoriesLanguage = (
       return defaultRouteState
     }
 
-    const translatedChildren = translateChildren(models, newCategoriesMap, children, currentCity, newLanguage)
-    const translatedModels = translateModels(models, newCategoriesMap, currentCity, newLanguage)
+    const translatedChildren = translateChildren(models, newCategoriesMap, children, city, newLanguage)
+    const translatedModels = translateModels(models, newCategoriesMap, city, newLanguage)
 
     return {
       root: translatedRoot,
@@ -112,23 +118,10 @@ const switchCategoriesLanguage = (
   })
 
   return {
-    routeMapping: translatedRouteMapping
+    ...state,
+    language: newLanguage,
+    categoriesRouteMapping: translatedRouteMapping
   }
-}
-
-const switchLanguage = (state: CityContentStateType, action: CityContentLoadedActionType): StateType => {
-  const {newLanguage} = action.params
-  const {currentCity, currentLanguage} = state
-
-  if (!currentCity) {
-    throw new Error(`Current city needs to be set in order to change language!`)
-  }
-
-  if (currentLanguage === newLanguage) {
-    return state
-  }
-
-  return {...state, categoriesState: switchCategoriesLanguage(state.categories, action, currentCity)}
 }
 
 export default switchLanguage

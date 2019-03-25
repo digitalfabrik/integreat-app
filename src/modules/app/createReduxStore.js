@@ -16,7 +16,7 @@ import {
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import { persistReducer, persistStore } from 'redux-persist'
+import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import { defaultCitiesState, defaultCityContentState } from './StateType'
@@ -64,7 +64,7 @@ const createReduxStore = (
   }
 
   // Create this reducer only once. It is not pure!
-  const persistedReducer = persistReducer(persistConfig, combineReducers({
+  const persistedReducer = persistCombineReducers(persistConfig, combineReducers({
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
