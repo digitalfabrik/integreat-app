@@ -40,7 +40,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
         final File targetFile = new File(targetFilePath);
 
         if (targetFile.exists()) {
-            callback.downloaded(sourceUrl, targetFile);
+            callback.alreadyExists(sourceUrl, targetFile);
             return;
         }
 
