@@ -7,6 +7,7 @@ import RNFetchblob from 'rn-fetch-blob'
 import { OFFLINE_CACHE_PATH } from '../platform/constants/webview.ios'
 import moment from 'moment'
 import type { ResourceCacheType } from './ResourceCacheType'
+import { mapValues, reduce } from 'lodash'
 
 type ContentCategoryJsonType = {|
   path: string,
@@ -21,6 +22,12 @@ type ContentCategoryJsonType = {|
   'hash': '' // TODO: This gets added in NATIVE-133
 |}
 
+type ResourceCacheJsonType = {
+  [code: string]: {
+    path: string,
+    last_update: string
+  }
+}
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -123,6 +130,10 @@ class MemoryDatabase {
     this._eventsResourceCache = resourceCache
   }
 
+  get resourceCacheState (): ResourceCacheStateType {
+    return mapValues(this._resourceCache, value => value.path)
+  }
+
   getContentPath (key: string): string {
     if (!key) {
       throw Error('Key mustn\'t be empty')
@@ -207,6 +218,7 @@ class MemoryDatabase {
     }
 
     const path = this.getResourceCachePath()
+    // todo: use ResourceCacheJsonType
 
     return this.writeFile(path, JSON.stringify(this._resourceCache))
   }

@@ -11,8 +11,9 @@ import type {
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import type { ResourceCacheStateType } from '../../app/StateType'
+import type { ResourceCacheType } from '../ResourceCacheType'
 
-export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheStateType): Saga<void> {
+export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheStateType): Saga<ResourceCacheType> {
   try {
     let result: FetchResultType = {failureMessages: {}, resourceCache: {}}
     if (Platform.OS === 'android') {
@@ -26,13 +27,17 @@ export default function * fetchResourceCache (city: string, language: string, ur
 
       const failed: ResourcesDownloadFailedActionType = {type: `RESOURCES_DOWNLOAD_FAILED`, city, language, message}
       yield put(failed)
-      return
+      return {}
     }
 
     const success: ResourcesDownloadSucceededActionType = {
       type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city, language
     }
     yield put(success)
+
+    console.dir(result.resourceCache)
+
+    return result.resourceCache
   } catch (e) {
     console.error(e)
     const failed: ResourcesDownloadFailedActionType = {
