@@ -10,6 +10,7 @@ import findResourcesFromHtml from '../findResourcesFromHtml'
 import fnv from 'fnv-plus'
 import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
+import type { ResourceCacheStateType } from '../../app/StateType'
 
 function * fetchEvents (city: string, language: string): Saga<CategoriesMapModel> {
   const params = {city, language}
@@ -18,7 +19,7 @@ function * fetchEvents (city: string, language: string): Saga<CategoriesMapModel
   return categoriesPayload.data
 }
 
-function * loadEvents (database: MemoryDatabase, city: string, language: string): Saga<void> {
+function * loadEvents (database: MemoryDatabase, city: string, language: string): Saga<ResourceCacheStateType> {
   const events: Array<EventModel> = yield call(fetchEvents, city, language)
 
   const urls = new Set([
@@ -26,14 +27,15 @@ function * loadEvents (database: MemoryDatabase, city: string, language: string)
     ...events.map(event => event.thumbnail).filter(thumbnail => !!thumbnail)
   ])
 
-  const cache = [...urls].reduce((acc, url) => {
+  const resourceCache = [...urls].reduce((acc, url) => {
     const hash = fnv.hash(url).hex()
     acc[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
     return acc
   }, {})
 
   database.events = events
-  database.eventsResourceCache = cache
+
+  return resourceCache
 }
 
 export default loadEvents

@@ -18,12 +18,10 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type CategoryPushParamsType = {|
-  path: string, depth: number, key: string
-|}
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
-    city: string, language: string, pushParams?: CategoryPushParamsType
+    city: string, language: string,
+    path: string, depth: number, key: string
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -32,11 +30,11 @@ export type FetchCategoryFailedActionType = {|
 export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
-    pushParams: CategoryPushParamsType,
     resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
-    language: string
+    language: string,
+    path: string, depth: number, key: string
   |}
 |}
 export type ClearCategoryActionType = {|
@@ -48,13 +46,10 @@ export type CategoriesActionType =
   | PushCategoryActionType
   | FetchCategoryFailedActionType
 
-export type EventPushParamsType = {|
-  path: string, key: string
-|}
-
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
-    city: string, language: string, pushParams?: EventPushParamsType
+    city: string, language: string,
+    path: string, key: string
   |}
 |}
 export type ClearEventActionType = {|
@@ -63,7 +58,7 @@ export type ClearEventActionType = {|
 export type PushEventActionType = {|
   type: 'PUSH_EVENT', params: {|
     events: Array<EventModel>,
-    pushParams: EventPushParamsType,
+    path: string, key: string,
     resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
@@ -88,7 +83,14 @@ export type CityContentLoadedActionType = {|
   |}
 |}
 
-export type CityContentActionType = CategoriesActionType | EventsActionType
+export type SwitchCityContentLanguageActionType = {|
+  type: 'SWITCH_CITY_CONTENT_LANGUAGE', params: {|
+    newCategoriesMap: CategoriesMapModel,
+    newLanguage: string
+  |}
+|}
+
+export type CityContentActionType = CategoriesActionType | EventsActionType | SwitchCityContentLanguageActionType
 
 export type ResourcesDownloadSucceededActionType = {|
   type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string

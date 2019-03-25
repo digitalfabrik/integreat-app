@@ -58,7 +58,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.cities.models,
     stateView: stateView,
-    resourceCache: state.cityContent.categoriesResourceCache,
+    resourceCache: state.cityContent.resourceCache,
     error: null // fixme display errors
   }
 }

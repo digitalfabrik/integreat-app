@@ -7,7 +7,7 @@ import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
 
 function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): Saga<void> {
-  const {city, language, pushParams} = action.params
+  const {city, language, path, key} = action.params
   try {
     yield call(loadCityContent, database, city, language)
 
@@ -16,14 +16,16 @@ function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): 
       params: {
         events: database.events,
         languages: database.languages,
-        resourceCache: database.eventsResourceCache,
-        pushParams,
+        resourceCache: database.resourceCacheState,
+        path,
+        key,
         city,
         language
       }
     }
     yield put(insert)
   } catch (e) {
+    console.error(e)
     const failed: FetchEventFailedActionType = {
       type: `FETCH_EVENT_FAILED`,
       message: `Error in fetchEvent: ${e.message}`

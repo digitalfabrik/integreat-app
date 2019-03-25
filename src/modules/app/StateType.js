@@ -51,8 +51,7 @@ export type CityContentStateType = {|
   +languages: Array<LanguageModel> | null,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +categoriesResourceCache: ResourceCacheStateType,
-  +eventsResourceCache: ResourceCacheStateType
+  +resourceCache: ResourceCacheStateType
 |}
 
 export const defaultCityContentState: CityContentStateType = {
@@ -61,8 +60,7 @@ export const defaultCityContentState: CityContentStateType = {
   languages: null,
   categoriesRouteMapping: {},
   eventsRouteMapping: {},
-  categoriesResourceCache: {},
-  eventsResourceCache: {}
+  resourceCache: {}
 }
 
 export type DirectionStateType = 'ltr' | 'rtl'

@@ -30,7 +30,7 @@ const forEachTreeNode = (
 }
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
-  const {categoriesMap, pushParams: {path, depth, key}, language, city, resourceCache, languages} = action.params
+  const {categoriesMap, path, depth, key, language, city, resourceCache, languages} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -65,7 +65,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         depth: depth
       }
     },
-    categoriesResourceCache: resourceCache
+    resourceCache: {...state.resourceCache, ...resourceCache}
   }
 }
 

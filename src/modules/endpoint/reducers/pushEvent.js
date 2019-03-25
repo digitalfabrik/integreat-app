@@ -4,7 +4,7 @@ import type { CityContentStateType } from '../../app/StateType'
 import type { PushEventActionType } from '../../app/StoreActionType'
 
 const pushEvent = (state: CityContentStateType, action: PushEventActionType): CityContentStateType => {
-  const {events, pushParams: {path, key}, language, city, resourceCache, languages} = action.params
+  const {events, path, key, language, city, resourceCache, languages} = action.params
 
   if (!key) {
     throw new Error('You need to specify a key!')
@@ -22,7 +22,7 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
         models: path ? [events.find(event => event.path === path)] : events
       }
     },
-    eventsResourceCache: resourceCache
+    resourceCache: {...state.resourceCache, ...resourceCache}
   }
 }
 
