@@ -60,7 +60,7 @@ const createReduxStore = (
     key: 'root',
     storage: AsyncStorage,
     stateReconciler: hardSet,
-    blacklist: ['cities', 'categories']
+    blacklist: ['cities', 'cityContent']
   }
 
   // Create this reducer only once. It is not pure!
