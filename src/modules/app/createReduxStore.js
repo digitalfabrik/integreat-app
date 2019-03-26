@@ -63,8 +63,9 @@ const createReduxStore = (
     blacklist: ['cities', 'categories']
   }
 
+
   // Create this reducer only once. It is not pure!
-  const persistedReducer = persistCombineReducers(persistConfig, combineReducers({
+  const persistedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
@@ -72,7 +73,7 @@ const createReduxStore = (
     cityContent: cityContentReducer,
 
     network: reactNativeOfflineReducer
-  }))
+  })
 
   const rootReducer = (state, action) => {
     if (!state) {
