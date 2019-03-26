@@ -138,7 +138,7 @@ describe('switchLangauge', () => {
   const prepareState = ({path, model}: { path: string, model: CategoryModel } = {
     path: '/augsburg/de',
     model: createGermanModel()
-  }) => {
+  }): CityContentStateType => {
     const state = initialState
 
     const pushAction: PushCategoryActionType = {
@@ -214,6 +214,21 @@ describe('switchLangauge', () => {
     }
 
     expect(() => switchLanguage(state, action)).toThrowError()
+  })
+
+  it('should translate of route failes', () => {
+    const action: SwitchCityContentLanguageActionType = {
+      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
+      params: {
+        newCategoriesMap: enModel,
+        newLanguage: 'en'
+      }
+    }
+
+    const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
+
+    previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
+    expect(() => switchLanguage(previous, action)).toThrowError()
   })
 
   it('should translate route', () => {
