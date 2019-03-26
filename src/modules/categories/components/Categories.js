@@ -2,16 +2,17 @@
 
 import * as React from 'react'
 
-import Page from 'modules/common/components/Page'
-import Tiles from '../../../modules/common/components/Tiles'
+import Page from '../../common/components/Page'
+import Tiles from '../../common/components/Tiles'
 import CategoryList from './CategoryList'
-import TileModel from '../../../modules/common/models/TileModel'
+import TileModel from '../../common/models/TileModel'
 import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
-import type { ThemeType } from 'modules/theme/constants/theme'
-import { URL_PREFIX } from '../../../modules/platform/constants/webview'
+import type { ThemeType } from '../../theme/constants/theme'
+import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
+import NavigationTiles from '../../common/components/NavigationTiles'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -56,6 +57,35 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
+  getNavigationTileModels (): Array<TileModel> {
+    return [
+      new TileModel({
+        id: 0,
+        title: 'Events',
+        path: '',
+        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked events')
+      }),
+      new TileModel({
+        id: 1,
+        title: 'Extras',
+        path: '',
+        thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked extras')
+      }),
+      new TileModel({
+        id: 2,
+        title: 'Orte',
+        path: '',
+        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg',
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked Orte')
+      })
+    ]
+  }
+
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
     let cachedThumbnail = this.props.resourceCache[category.thumbnail]
     if (cachedThumbnail) {
@@ -84,7 +114,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities} = this.props
+    const {stateView, cities, theme} = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -96,17 +126,23 @@ class Categories extends React.Component<PropsType> {
     if (children.length === 0) {
       // last level, our category is a simple page
       return <Page title={category.title}
-              content={category.content}
-              lastUpdate={category.lastUpdate}
-              theme={this.props.theme}
-              resourceCache={this.props.resourceCache}
-              language={this.props.language} />
+                   content={category.content}
+                   lastUpdate={category.lastUpdate}
+                   theme={this.props.theme}
+                   resourceCache={this.props.resourceCache}
+                   language={this.props.language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
-      return <Tiles tiles={this.getTileModels(children)}
-                    title={CityModel.findCityName(cities, category.title)}
-                    onTilePress={this.onTilePress} />
+      return <View>
+        <NavigationTiles title={CityModel.findCityName(cities, category.title)}
+               tiles={this.getNavigationTileModels()}
+               theme={theme} />
+        <Tiles tiles={this.getTileModels(children)}
+               theme={theme}
+               onTilePress={this.onTilePress}
+        />
+      </View>
     }
     // some level between, we want to display a list
     return <CategoryList
