@@ -21,7 +21,11 @@ const TilesRow = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 10px 0;
+`
+const Separator = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => props.theme.colors.themeColor};
+  margin: 0 15px;
 `
 
 /**
@@ -32,12 +36,12 @@ class NavigationTiles extends React.Component<PropsType> {
     const {tiles, theme} = this.props
     return (
       <>
-
-        <TilesRow>
+        <TilesRow theme={theme}>
           {tiles.map(tile => <NavigationTile key={tile.id} tile={tile}
                                    widthPercentage={WIDTH_PERCENTAGE}
                                    theme={theme} />)}
         </TilesRow>
+        <Separator />
       </>
     )
   }
