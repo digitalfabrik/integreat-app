@@ -5,7 +5,7 @@ import React from 'react'
 import Caption from 'modules/common/components/Caption'
 import Tile from './Tile'
 
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 
 type PropsType = {

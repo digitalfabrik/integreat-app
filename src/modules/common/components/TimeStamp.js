@@ -4,7 +4,7 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type Moment from 'moment'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};

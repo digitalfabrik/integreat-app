@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import type { FastImageSource } from 'react-native-fast-image'
 import FastImage from 'react-native-fast-image'
 

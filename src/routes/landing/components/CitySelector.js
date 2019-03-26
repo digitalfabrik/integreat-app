@@ -5,7 +5,7 @@ import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import { Text, View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
