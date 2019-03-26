@@ -10,10 +10,8 @@ import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
-import NavigationTiles from '../../common/components/NavigationTiles'
-import Caption from '../../common/components/Caption'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -58,38 +56,6 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
-  getNavigationTileModels (): Array<TileModel> {
-    return [
-      new TileModel({
-        id: 0,
-        title: 'Events',
-        path: '',
-        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
-        isExternalUrl: false,
-        onTilePress: () => console.log('Clicked events'),
-        news: 3
-      }),
-      new TileModel({
-        id: 1,
-        title: 'Extras',
-        path: '',
-        thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
-        isExternalUrl: false,
-        onTilePress: () => console.log('Clicked extras'),
-        news: 10
-      }),
-      new TileModel({
-        id: 2,
-        title: 'Orte',
-        path: '',
-        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg',
-        isExternalUrl: false,
-        onTilePress: () => console.log('Clicked Orte'),
-        news: 0
-      })
-    ]
-  }
-
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
     let cachedThumbnail = this.props.resourceCache[category.thumbnail]
     if (cachedThumbnail) {
@@ -118,7 +84,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities, theme} = this.props
+    const {stateView, cities} = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -137,16 +103,10 @@ class Categories extends React.Component<PropsType> {
                    language={this.props.language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
-      const title = CityModel.findCityName(cities, category.title)
-      return <View>
-        {title && <Caption title={title} />}
-        <NavigationTiles tiles={this.getNavigationTileModels()}
-               theme={theme} />
-        <Tiles tiles={this.getTileModels(children)}
-               theme={theme}
-               onTilePress={this.onTilePress}
-        />
-      </View>
+
+      return <Tiles tiles={this.getTileModels(children)}
+                    title={CityModel.findCityName(cities, category.title)}
+                    onTilePress={this.onTilePress} />
     }
     // some level between, we want to display a list
     return <CategoryList
