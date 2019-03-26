@@ -8,6 +8,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheType'
+import NavigationTiles from '../../../modules/common/components/NavigationTiles'
+import TileModel from '../../../modules/common/models/TileModel'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -31,6 +33,38 @@ class Dashboard extends React.Component<PropsType> {
     headerTitle: 'Dashboard'
   }
 
+  getNavigationTileModels (): Array<TileModel> {
+    return [
+      new TileModel({
+        id: 0,
+        title: 'News',
+        path: '',
+        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked events'),
+        news: 3
+      }),
+      new TileModel({
+        id: 1,
+        title: 'Extras',
+        path: '',
+        thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked extras'),
+        news: 10
+      }),
+      new TileModel({
+        id: 2,
+        title: 'Orte',
+        path: '',
+        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg',
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked Orte'),
+        news: 0
+      })
+    ]
+  }
+
   landing = () => this.props.navigation.navigate('Landing')
 
   extras = () => {
@@ -44,13 +78,15 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const {cities, stateView} = this.props
+    const {cities, stateView, theme} = this.props
 
     if (!stateView || !cities || !this.props.resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     return (<ScrollView>
+        <NavigationTiles tiles={this.getNavigationTileModels()}
+                         theme={theme} />
         <Categories stateView={stateView}
                     cities={cities} resourceCache={this.props.resourceCache}
                     language={this.props.language}

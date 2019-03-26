@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import Caption from 'modules/common/components/Caption'
 import Tile from './Tile'
 
 import styled from 'styled-components/native'
@@ -9,6 +10,7 @@ import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {
+  title: ?string,
   tiles: TileModel[],
   onTilePress: (tile: TileModel) => void,
   theme: ThemeType
@@ -31,6 +33,7 @@ class Tiles extends React.Component<PropsType> {
     const {tiles, onTilePress, theme} = this.props
     return (
       <>
+        {this.props.title && <Caption title={this.props.title} />}
         <TilesRow>
           {tiles.map(tile => <Tile key={tile.id} tile={tile} onTilePress={onTilePress}
                                               theme={theme} />)}

@@ -17,6 +17,7 @@ type PropsType = {|
 |}
 
 const TilesRow = styled.View`
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
