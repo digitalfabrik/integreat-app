@@ -100,7 +100,7 @@ class MemoryDatabase {
 
   set languages (languages: Array<LanguageModel>) {
     if (this._languages !== null) {
-      throw Error('languages has already been set on this context!')
+      throw Error('languages have already been set on this context!')
     }
     this._languages = languages
   }
@@ -114,7 +114,7 @@ class MemoryDatabase {
 
   set events (events: Array<EventModel>) {
     if (this._events !== null) {
-      throw Error('events has already been set on this context!')
+      throw Error('events have already been set on this context!')
     }
     this._events = events
   }
