@@ -38,29 +38,29 @@ class Dashboard extends React.Component<PropsType> {
       new TileModel({
         id: 0,
         title: 'News',
-        path: '',
+        path: 'events',
         thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
         isExternalUrl: false,
-        onTilePress: () => console.log('Clicked events'),
-        news: 3
+        onTilePress: this.events,
+        notifications: 3
       }),
       new TileModel({
         id: 1,
-        title: 'Extras',
-        path: '',
+        title: 'Orte',
+        path: 'pois',
         thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
         isExternalUrl: false,
-        onTilePress: () => console.log('Clicked extras'),
-        news: 10
+        onTilePress: () => console.log('Clicked pois'),
+        notifications: 10
       }),
       new TileModel({
         id: 2,
-        title: 'Orte',
-        path: '',
+        title: 'Angebote',
+        path: 'extras',
         thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg',
         isExternalUrl: false,
-        onTilePress: () => console.log('Clicked Orte'),
-        news: 0
+        onTilePress: this.extras,
+        notifications: 0
       })
     ]
   }
