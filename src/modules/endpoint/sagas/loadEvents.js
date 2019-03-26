@@ -1,8 +1,11 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import MemoryDatabase from '../MemoryDatabase'
-import { CategoriesMapModel, createEventsEndpoint, EventModel } from '@integreat-app/integreat-api-client'
+import {
+  createEventsEndpoint,
+  EventModel,
+  Payload
+} from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 import request from '../request'
 import { baseUrl } from '../constants'
@@ -12,15 +15,19 @@ import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
 import type { ResourceCacheStateType } from '../../app/StateType'
 
-function * fetchEvents (city: string, language: string): Saga<CategoriesMapModel> {
+function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>> {
   const params = {city, language}
 
-  const categoriesPayload = yield call(() => request(createEventsEndpoint(baseUrl), params))
+  const categoriesPayload: Payload<Array<EventModel>> = yield call(() => request(createEventsEndpoint(baseUrl), params))
   return categoriesPayload.data
 }
 
-function * loadEvents (database: MemoryDatabase, city: string, language: string): Saga<ResourceCacheStateType> {
-  const events: Array<EventModel> = yield call(fetchEvents, city, language)
+function * loadEvents (city: string, language: string): Saga<[Array<EventModel>, ResourceCacheStateType]> {
+  const events: ?Array<EventModel> = yield call(fetchEvents, city, language)
+
+  if (!events) {
+    throw new Error('Failed to load events!')
+  }
 
   const urls = new Set([
     ...findResourcesFromHtml(events.map(event => event.content)),
@@ -33,9 +40,7 @@ function * loadEvents (database: MemoryDatabase, city: string, language: string)
     return acc
   }, {})
 
-  database.events = events
-
-  return resourceCache
+  return [events, resourceCache]
 }
 
 export default loadEvents

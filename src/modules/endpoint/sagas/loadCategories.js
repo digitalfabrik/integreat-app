@@ -12,15 +12,19 @@ import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
 import type { ResourceCacheStateType } from '../../app/StateType'
 
-function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
+function * fetchCategoriesMap (city: string, language: string): Saga<?CategoriesMapModel> {
   const params = {city, language}
 
-  const categoriesPayload = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
+  const categoriesPayload: CategoriesMapModel = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
   return categoriesPayload.data
 }
 
-function * loadCategories (database: MemoryDatabase, city: string, language: string): Saga<ResourceCacheStateType> {
-  const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
+function * loadCategories (city: string, language: string): Saga<[CategoriesMapModel, ResourceCacheStateType]> {
+  const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
+
+  if (!categoriesMap) {
+    throw new Error('Failed to load categories!')
+  }
 
   const categories = categoriesMap.toArray()
   const urls = new Set([
@@ -34,8 +38,7 @@ function * loadCategories (database: MemoryDatabase, city: string, language: str
     return acc
   }, {})
 
-  database.categoriesMap = categoriesMap
-  return resourceCache
+  return [categoriesMap, resourceCache]
 }
 
 export default loadCategories
