@@ -25,8 +25,7 @@ describe('pois', () => {
     modified_gmt: '2017-01-09 15:30:00'
   })
 
-  const createPoiModel = id => new PoiModel({
-    id,
+  const createPoiModel = () => new PoiModel({
     path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
     title: 'Asylploitischer Frühschoppen',
     excerpt: 'Am Sonntag...',
@@ -47,10 +46,10 @@ describe('pois', () => {
   const poi3 = createPoi(4768) // we get these from cms
   const poi4 = createPoi(4826)
 
-  const poiModel1 = createPoiModel(2730)
-  const poiModel2 = createPoiModel(1889)
-  const poiModel3 = createPoiModel(4768)
-  const poiModel4 = createPoiModel(4826)
+  const poiModel1 = createPoiModel()
+  const poiModel2 = createPoiModel()
+  const poiModel3 = createPoiModel()
+  const poiModel4 = createPoiModel()
 
   const params = {city: 'augsburg', language: 'de'}
 
