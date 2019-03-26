@@ -6,10 +6,12 @@ import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {
   tile: TileModel,
-  onTilePress: (tile: TileModel) => void
+  onTilePress: (tile: TileModel) => void,
+  theme: ThemeType
 }
 
 const Thumbnail = styled(FastImage)`
@@ -32,8 +34,9 @@ const TileContainer = styled.View`
  */
 class Tile extends React.Component<PropsType> {
   getTileContent (): React.Node {
+    const {tile, theme} = this.props
     const imageSource = {
-      uri: this.props.tile.thumbnail,
+      uri: tile.thumbnail,
       priority: FastImage.priority.normal,
       // disable caching, we want to do it manually
       headers: {'Cache-Control': 'no-cache, no-store, must-revalidate'},
@@ -41,7 +44,7 @@ class Tile extends React.Component<PropsType> {
     }
     return <>
       <Thumbnail source={imageSource} resizeMode={FastImage.resizeMode.contain} />
-      <TileTitle>{this.props.tile.title}</TileTitle>
+      <TileTitle theme={theme}>{tile.title}</TileTitle>
     </>
   }
 
