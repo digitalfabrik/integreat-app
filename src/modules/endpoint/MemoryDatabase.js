@@ -28,12 +28,7 @@ type ContentCategoryJsonType = {|
   'hash': '' // TODO: This gets added in NATIVE-133
 |}
 
-type ResourceCacheJsonType = {
-  [code: string]: {
-    path: string,
-    last_update: string
-  }
-}
+type ResourceCacheJsonType = ResourceCacheType
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -202,7 +197,8 @@ class MemoryDatabase {
       return
     }
 
-    this._resourceCache = JSON.parse(await this.readFile(path))
+    const json: ResourceCacheJsonType = JSON.parse(await this.readFile(path))
+    this._resourceCache = json
   }
 
   async writeResourceCache (): Promise<number> {
@@ -213,7 +209,8 @@ class MemoryDatabase {
     const path = this.getResourceCachePath()
     // todo: use ResourceCacheJsonType
 
-    return this.writeFile(path, JSON.stringify(this._resourceCache))
+    const json: ResourceCacheJsonType = this._resourceCache
+    return this.writeFile(path, JSON.stringify(json))
   }
 
   async readFile (path: string): Promise<string> {
