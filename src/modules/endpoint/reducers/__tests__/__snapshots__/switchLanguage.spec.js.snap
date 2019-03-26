@@ -26,7 +26,6 @@ Object {
         "/augsburg/en/erste-schritte": Array [
           "/augsburg/en/erste-schritte/welcome-to-augsburg",
         ],
-        "/augsburg/en/erste-schritte/welcome-to-augsburg": Array [],
       },
       "depth": 2,
       "models": Object {
