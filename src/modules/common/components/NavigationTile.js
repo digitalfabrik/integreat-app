@@ -61,9 +61,9 @@ const NewsDot = styled.Text`
  */
 class Tile extends React.Component<PropsType> {
   getNewsDot (): React.Node {
-    const news = this.props.tile.news
-    if (news && news > 0) {
-      return <NewsDot>{news}</NewsDot>
+    const notifications = this.props.tile.notifications
+    if (notifications && notifications > 0) {
+      return <NewsDot>{notifications}</NewsDot>
     } else {
       return null
     }
