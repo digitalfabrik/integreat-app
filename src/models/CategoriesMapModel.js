@@ -52,7 +52,7 @@ class CategoriesMapModel {
   getAncestors (category: CategoryModel): Array<CategoryModel> {
     const parents = []
 
-    while (category.id !== 0) {
+    while (!category.isRoot()) {
       const temp = this.findCategoryByPath(category.parentPath)
       if (!temp) {
         throw new Error(`The category ${category.parentPath} does not exist but should be the parent of ${category.path}`)

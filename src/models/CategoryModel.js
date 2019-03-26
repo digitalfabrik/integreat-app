@@ -5,15 +5,17 @@ import CategoriesMapModel from './CategoriesMapModel'
 import ExtendedPageModel from './ExtendedPageModel'
 
 class CategoryModel extends ExtendedPageModel {
+  _root: boolean
   _parentPath: string
   _order: number
 
   constructor (params: {|
-    id: number, path: string, title: string, content: string, thumbnail: string,
+    root: boolean, path: string, title: string, content: string, thumbnail: string,
     parentPath: string, order: number, availableLanguages: Map<string, string>, lastUpdate: Moment, hash: string
   |}) {
-    const { order, parentPath, ...other } = params
+    const { order, parentPath, root, ...other } = params
     super(other)
+    this._root = root
     this._parentPath = parentPath
     this._order = order
   }
@@ -27,7 +29,7 @@ class CategoryModel extends ExtendedPageModel {
   }
 
   isRoot (): boolean {
-    return this.id === 0
+    return this._root
   }
 
   isLeaf (categories: CategoriesMapModel): boolean {

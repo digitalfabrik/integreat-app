@@ -31,7 +31,6 @@ describe('disclaimer', () => {
   it('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse(pageJson, params)
     expect(disclaimerModel).toEqual(new PageModel({
-      id: pageJson.id,
       title: pageJson.title,
       content: '<a>Ich bleib aber da.</a>',
       lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),

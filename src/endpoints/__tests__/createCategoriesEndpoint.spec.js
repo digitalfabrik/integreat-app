@@ -68,7 +68,7 @@ describe('categories', () => {
   }
 
   const categoryModels = [new CategoryModel({
-    id: 3650,
+    root: false,
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
     content: '<a>Ich bleib aber da.</a>',
@@ -79,7 +79,7 @@ describe('categories', () => {
     lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   }), new CategoryModel({
-    id: 3649,
+    root: false,
     path: '/augsburg/de/willkommen',
     title: 'Willkommen',
     content: '',
@@ -90,7 +90,7 @@ describe('categories', () => {
     lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   }), new CategoryModel({
-    id: 0,
+    root: true,
     path: '/augsburg/de',
     title: 'augsburg',
     availableLanguages: new Map(),
