@@ -38,7 +38,8 @@ describe('pois', () => {
       town: 'Augsburg',
       postcode: '86353'
     }),
-    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT')
+    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   })
 
   const poi1 = createPoi(2730)
