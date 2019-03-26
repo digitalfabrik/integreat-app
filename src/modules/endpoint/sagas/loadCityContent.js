@@ -17,11 +17,15 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
 
-  const [categoryUrls, eventUrls] = yield all([
-    call(loadCategories, database, newCity, newLanguage),
-    call(loadEvents, database, newCity, newLanguage),
-    call(loadLanguages, database, newCity, newLanguage)
+  const [[categoriesMap, categoryUrls], [events, eventUrls], languages] = yield all([
+    call(loadCategories, newCity, newLanguage),
+    call(loadEvents, newCity, newLanguage),
+    call(loadLanguages, newCity, newLanguage)
   ])
+
+  database.events = events
+  database.categoriesMap = categoriesMap
+  database.languages = languages
 
   const resourceCache: ResourceCacheType = yield call(fetchResourceCache, newCity, newLanguage, {
     ...categoryUrls,
@@ -32,8 +36,4 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   yield call(() => database.writeCategories())
   // yield call(() => database.readCategories())
-
-  // todo: persist database
-
-  // todo: dispatch action to notify state about switching to new instance (e.g. for switching language)
 }
