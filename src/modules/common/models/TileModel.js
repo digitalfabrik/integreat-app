@@ -7,6 +7,7 @@ export default class TileModel {
   _thumbnail: string
   _isExternalUrl: boolean
   _postData: ?Map<string, string>
+  _onTilePress: () => void
 
   constructor (params: {|
     id: string,
@@ -14,7 +15,8 @@ export default class TileModel {
     path: string,
     thumbnail: string,
     isExternalUrl: boolean,
-    postData?: ?Map<string, string>
+    postData?: ?Map<string, string>,
+    onTilePress?: () => void
   |}) {
     this._id = params.id
     this._title = params.title
@@ -22,6 +24,7 @@ export default class TileModel {
     this._thumbnail = params.thumbnail
     this._isExternalUrl = params.isExternalUrl
     this._postData = params.postData
+    this._onTilePress = params.onTilePress
   }
 
   get id (): string {
@@ -46,5 +49,9 @@ export default class TileModel {
 
   get postData (): ?Map<string, string> {
     return this._postData
+  }
+
+  get onTilePress (): () => void {
+    return this._onTilePress
   }
 }
