@@ -5,7 +5,7 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
-import { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components/native'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {

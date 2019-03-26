@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import styled, { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
