@@ -13,6 +13,7 @@ import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator, View } from 'react-native'
 import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
 import NavigationTiles from '../../common/components/NavigationTiles'
+import Caption from '../../common/components/Caption'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -65,7 +66,8 @@ class Categories extends React.Component<PropsType> {
         path: '',
         thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
         isExternalUrl: false,
-        onTilePress: () => console.log('Clicked events')
+        onTilePress: () => console.log('Clicked events'),
+        news: 3
       }),
       new TileModel({
         id: 1,
@@ -73,7 +75,8 @@ class Categories extends React.Component<PropsType> {
         path: '',
         thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
         isExternalUrl: false,
-        onTilePress: () => console.log('Clicked extras')
+        onTilePress: () => console.log('Clicked extras'),
+        news: 10
       }),
       new TileModel({
         id: 2,
@@ -81,7 +84,8 @@ class Categories extends React.Component<PropsType> {
         path: '',
         thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg',
         isExternalUrl: false,
-        onTilePress: () => console.log('Clicked Orte')
+        onTilePress: () => console.log('Clicked Orte'),
+        news: 0
       })
     ]
   }
@@ -133,10 +137,10 @@ class Categories extends React.Component<PropsType> {
                    language={this.props.language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
-
+      const title = CityModel.findCityName(cities, category.title)
       return <View>
-        <NavigationTiles title={CityModel.findCityName(cities, category.title)}
-               tiles={this.getNavigationTileModels()}
+        {title && <Caption title={title} />}
+        <NavigationTiles tiles={this.getNavigationTileModels()}
                theme={theme} />
         <Tiles tiles={this.getTileModels(children)}
                theme={theme}
