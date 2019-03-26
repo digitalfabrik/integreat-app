@@ -1,7 +1,9 @@
 versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
 # integreat-react-native-app
 
-## Setup
+## Development
+
+### Setup
 
 * Clone the repository
 * Install Android Studio and try to setup a test project
@@ -9,16 +11,23 @@ versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bf
 * Open the project with an IDE of your choice
 * Run `yarn`
 
-## Running the App for development
+### Installing libraries
+
+If you want to install an external library which brings native Android/iOS code you have to check several things:
+* Edit `Podfile` and `build.gradle` to include the native parts. DO NOT RUN `yarn react-native link`!
+* Run `pod update` in the `ios/` folder
+* Make sure the App still compiles on Android and iOS
+
+### Running the App for development
 
 * Run `yarn start` to start the bundler
 
-### Android
+#### Android
 
 * Run your Android Emulator or connect a device
 * Run `yarn android`
 
-### iOS
+#### iOS
 * Install CocoaPods pods: `cd ios && pod install`
 * Run `yarn ios`
 
@@ -28,9 +37,9 @@ Note: All dependencies are handled by CocoaPods. The versions in node_modules/ s
 
 Note: If you are using Xcode, always open `project.xcworkspace`
 
-### If you encounter problems:
+#### If you encounter problems:
 
-#### Errors when compiling double-conversion on iOS
+##### Errors when compiling double-conversion on iOS
 
 This happens when you use Xcode without running `yarn ios` or you did not install the pods.
 Try to reinstall the node_modules folder. The double-conversion library gets downloaded and installed in there when you run `yarn ios`.
@@ -38,18 +47,18 @@ Try to reinstall the node_modules folder. The double-conversion library gets dow
 See [here](https://github.com/facebook/react-native/issues/21168#issuecomment-422700915) and [here](https://github.com/facebook/react-native/issues/20774) for more information 
 
     
-#### `ERROR watch... ENOSPC` when running `yarn start` on Linux
+##### `ERROR watch... ENOSPC` when running `yarn start` on Linux
 
 Increase the number of inotify watches by running  
 `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
 
-### adb not found
+##### adb not found
 There are 2 ways to fix this:
 
 1. Link `/usr/bin/adb` to the adb client you installed (usually the one at `~/Android/sdk/platform-tools/adb`)
 2. Add `~/Android/sdk/platform-tools/adb` to your $PATH
 
-#### 'adb server version (x) doesn't match this client (y)'
+##### 'adb server version (x) doesn't match this client (y)'
 
 Make sure you only have one version of adb installed. Probably your system has one and Android Studio installed a second
 one. There are 2 ways to fix this:
@@ -57,7 +66,7 @@ one. There are 2 ways to fix this:
 1. Link `/usr/bin/adb` to the adb client you installed (usually the one at `~/Android/sdk/platform-tools/adb`)
 2. Add `~/Android/sdk/platform-tools/adb` to your $PATH
 
-#### adb shows no-permission
+##### adb shows no-permission
 
 [Setup udev rules](https://wiki.archlinux.org/index.php/Android_Debug_Bridge#Adding_udev_Rules) to allow user accounts to access your phone.
 
