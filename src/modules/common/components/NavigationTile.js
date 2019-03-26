@@ -17,12 +17,13 @@ type PropsType = {|
   widthPercentage: number
 |}
 
+// FIXME when testing on ios
 const Thumbnail = styled(FastImage)`
   border-radius: 5px;
   height: ${TILE_LENGHT}px;
   width: ${TILE_LENGHT}px;
   background-color: ${props => props.theme.colors.backgroundColor};
-  shadow-offset: {width: 0, height: 2};
+  /** shadow-offset: {width: 0, height: 2}; FIXME when testing on ios **/
   shadow-opacity: 0.8;
   shadow-radius: 2;
   shadow-color: #000000;
@@ -50,7 +51,7 @@ const NewsDot = styled.Text`
   height: ${NEWS_DOT_RADIUS};
   width: ${NEWS_DOT_RADIUS};
   border-radius: ${NEWS_DOT_RADIUS / 2};
-  background-color: #FF0000;
+  background-color: #EE5353;
   color: #FFFFFF;
   elevation: 9;
 `
@@ -59,6 +60,15 @@ const NewsDot = styled.Text`
  * Displays a single Tile
  */
 class Tile extends React.Component<PropsType> {
+  getNewsDot (): React.Node {
+    const news = this.props.tile.news
+    if (news && news > 0) {
+      return <NewsDot>{news}</NewsDot>
+    } else {
+      return null
+    }
+  }
+
   getTileContent (): React.Node {
     const {tile, height, theme} = this.props
     const imageSource = {
@@ -71,7 +81,7 @@ class Tile extends React.Component<PropsType> {
     return <>
       <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} height={height} />
       <TileTitle theme={theme}>{tile.title}</TileTitle>
-      <NewsDot>4</NewsDot>
+      {this.getNewsDot()}
     </>
   }
 
