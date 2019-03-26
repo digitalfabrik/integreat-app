@@ -63,7 +63,6 @@ const createReduxStore = (
     blacklist: ['cities', 'categories']
   }
 
-
   // Create this reducer only once. It is not pure!
   const persistedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
