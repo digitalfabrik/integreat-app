@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
 
 const NEWS_DOT_RADIUS = 20
-const TILE_LENGHT = 85
+const TILE_LENGTH = 85
 
 type PropsType = {|
   tile: TileModel,
@@ -20,8 +20,8 @@ type PropsType = {|
 // FIXME when testing on ios
 const Thumbnail = styled(FastImage)`
   border-radius: 5px;
-  height: ${TILE_LENGHT}px;
-  width: ${TILE_LENGHT}px;
+  height: ${TILE_LENGTH}px;
+  width: ${TILE_LENGTH}px;
   background-color: ${props => props.theme.colors.backgroundColor};
   /** shadow-offset: {width: 0, height: 2}; FIXME when testing on ios **/
   shadow-opacity: 0.8;
