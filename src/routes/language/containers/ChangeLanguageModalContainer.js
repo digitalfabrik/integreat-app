@@ -15,12 +15,14 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
     changeLanguage: (city: string, language: string) => dispatch({
       type: 'FETCH_CATEGORY',
       params: {
-        city, language, path: null, key: null, depth: -1
+        city,
+        language,
+        key: ownProps.navigation.getParam('key')
       }
     })
   }
