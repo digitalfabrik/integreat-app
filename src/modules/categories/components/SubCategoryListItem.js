@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import { Text, View } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import CategoryCaption from './CategoryCaption'

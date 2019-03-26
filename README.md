@@ -135,6 +135,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 ### Testing
 * [Jest](https://facebook.github.io/jest/) is used for testing.
 * [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-platform compatibility
+* The [React Native Testing Library](https://github.com/callstack/react-native-testing-library) is used to test React Native Components
 
 ### Debugging
 For debugging install [react-native-debugger](https://github.com/jhen0409/react-native-debugger)

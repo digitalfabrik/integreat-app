@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import logo from '../assets/integreat-app-logo.png'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
