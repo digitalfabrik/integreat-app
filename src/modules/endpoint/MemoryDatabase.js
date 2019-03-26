@@ -10,7 +10,10 @@ import {
 import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
 import RNFetchblob from 'rn-fetch-blob'
-import { OFFLINE_CACHE_PATH } from '../platform/constants/webview.ios'
+import {
+  CONTENT_DIR_PATH,
+  RESOURCE_CACHE_DIR_PATH
+} from '../platform/constants/webview.ios'
 import moment from 'moment'
 import type { ResourceCacheType } from './ResourceCacheType'
 import { mapValues } from 'lodash'
@@ -38,7 +41,6 @@ const mapToObject = (map: Map<string, string>) => {
 
 // TODO: Define interface for this class which makes sense for databases
 class MemoryDatabase {
-  dataDirectory: string
   context: MemoryDatabaseContext
 
   _cities: Array<CityModel>
@@ -46,10 +48,6 @@ class MemoryDatabase {
   _languages: ?Array<LanguageModel>
   _resourceCache: ResourceCacheType
   _events: ?Array<EventModel>
-
-  constructor (dataDirectory: string) {
-    this.dataDirectory = dataDirectory
-  }
 
   loadCities (cities: Array<CityModel>) {
     this._cities = cities
@@ -127,11 +125,11 @@ class MemoryDatabase {
       throw Error('Key mustn\'t be empty')
     }
 
-    return `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/${this.context.languageCode}/${key}.json`
+    return `${CONTENT_DIR_PATH}/${this.context.cityCode}/${this.context.languageCode}/${key}.json`
   }
 
   getResourceCachePath (): string {
-    return `${OFFLINE_CACHE_PATH}/resource-cache/${this.context.cityCode}/files.json`
+    return `${RESOURCE_CACHE_DIR_PATH}/${this.context.cityCode}/files.json`
   }
 
   /**
@@ -157,8 +155,7 @@ class MemoryDatabase {
       'hash': '' // TODO: This gets added in NATIVE-133
     }))
 
-    const path = `${OFFLINE_CACHE_PATH}/content/${this.context.cityCode}/categories.json`
-    return this.writeFile(path, JSON.stringify(jsonModels))
+    return this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
   }
 
   async readCategories () {
