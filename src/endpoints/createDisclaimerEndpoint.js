@@ -28,7 +28,8 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> => new Endpoin
         allowedTags: false,
         allowedAttributes: false
       }),
-      lastUpdate: moment.tz(json.modified_gmt, 'GMT')
+      lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
+      hash: json.hash
     })
   })
   .build()

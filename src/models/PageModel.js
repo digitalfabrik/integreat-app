@@ -7,8 +7,11 @@ class PageModel {
   _title: string
   _content: string
   _lastUpdate: Moment
+  _hash: string
 
-  constructor ({id, title, content, lastUpdate}: {|id: number, title: string, content: string, lastUpdate: Moment|}) {
+  constructor ({ id, title, content, lastUpdate }: {|
+    id: number, title: string, content: string, lastUpdate: Moment, hash: string
+  |}) {
     this._id = id
     this._title = title
     this._content = content
@@ -29,6 +32,10 @@ class PageModel {
 
   get lastUpdate (): Moment {
     return this._lastUpdate
+  }
+
+  get hash (): string {
+    return this._hash
   }
 }
 

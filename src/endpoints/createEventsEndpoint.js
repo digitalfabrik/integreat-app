@@ -50,7 +50,8 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
         }),
         excerpt: decodeHTML(event.excerpt),
         availableLanguages: mapAvailableLanguages(event.available_languages),
-        lastUpdate: moment.tz(event.modified_gmt, 'GMT')
+        lastUpdate: moment.tz(event.modified_gmt, 'GMT'),
+        hash: event.hash
       })
     })
     .sort((event1, event2) => {

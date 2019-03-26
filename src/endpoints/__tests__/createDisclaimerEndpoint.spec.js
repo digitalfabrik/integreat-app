@@ -34,7 +34,8 @@ describe('disclaimer', () => {
       id: pageJson.id,
       title: pageJson.title,
       content: '<a>Ich bleib aber da.</a>',
-      lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT')
+      lastUpdate: moment.tz('2017-06-12 12:27:57', 'GMT'),
+      hash: '91d435afbc7aa83496137e81fd2832e3'
     }))
   })
 })

@@ -76,7 +76,8 @@ describe('categories', () => {
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
-    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT')
+    lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   }), new CategoryModel({
     id: 3649,
     path: '/augsburg/de/willkommen',
@@ -86,7 +87,8 @@ describe('categories', () => {
     parentPath: '/augsburg/de',
     order: 11,
     thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
-    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT')
+    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   }), new CategoryModel({
     id: 0,
     path: '/augsburg/de',
@@ -96,7 +98,8 @@ describe('categories', () => {
     order: -1,
     thumbnail: '',
     parentPath: '',
-    lastUpdate: moment(0)
+    lastUpdate: moment(0),
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   })]
 
   const params = {language: 'de', city: 'augsburg'}
