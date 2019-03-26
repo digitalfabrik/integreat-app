@@ -1,6 +1,6 @@
 // @flow
 
-import { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components/native'
 import { translate, withI18n } from 'react-i18next'
 
 import { connect } from 'react-redux'
