@@ -7,7 +7,7 @@ import request from '../request'
 import { baseUrl } from '../constants'
 import findResourcesFromHtml from '../findResourcesFromHtml'
 import fnv from 'fnv-plus'
-import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview.ios'
+import { getResourceCacheFilesDirPath } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
 import type { ResourceCacheStateType } from '../../app/StateType'
 
@@ -33,7 +33,7 @@ function * loadCategories (city: string, language: string): Saga<[CategoriesMapM
 
   const resourceCache: ResourceCacheStateType = [...urls].reduce((acc, url) => {
     const hash = fnv.hash(url).hex()
-    acc[url] = `${OFFLINE_CACHE_PATH}/${city}/${hash}.${getExtension(url)}`
+    acc[url] = `${getResourceCacheFilesDirPath(city)}/${hash}.${getExtension(url)}`
     return acc
   }, {})
 

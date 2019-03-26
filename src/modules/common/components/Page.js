@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
 import styled, { withTheme } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
-import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
+import { URL_PREFIX } from '../../platform/constants/webview'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
@@ -13,6 +13,7 @@ import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import compose from 'lodash/fp/compose'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
+import { getResourceCacheFilesDirPath } from '../../platform/constants/webview.ios'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -42,6 +43,7 @@ type PropType = {
   resourceCache: { [url: string]: string },
   children?: React.Node,
   language: string,
+  city: string,
   lastUpdate: Moment
 }
 
@@ -81,7 +83,7 @@ class Page extends React.Component<PropType, StateType> {
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
     const url = event.url
     // Needed on iOS for the initial load
-    if (url === URL_PREFIX + OFFLINE_CACHE_PATH) {
+    if (url === URL_PREFIX + getResourceCacheFilesDirPath(this.props.city)) {
       return true
     }
 
@@ -95,7 +97,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, resourceCache, theme, language, lastUpdate} = this.props
+    const {title, children, content, resourceCache, theme, language, city, lastUpdate} = this.props
     const height = this.state.webViewHeight
     return (
       <Container>
@@ -104,7 +106,7 @@ class Page extends React.Component<PropType, StateType> {
         <StyledView>
           <WebContainer
             source={{
-              baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
+              baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(city),
               html: renderHtml(content, resourceCache, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls

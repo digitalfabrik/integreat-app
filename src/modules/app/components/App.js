@@ -13,7 +13,6 @@ import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import MemoryDatabase from '../../endpoint/MemoryDatabase'
-import { OFFLINE_CACHE_PATH } from '../../platform/constants/webview'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>
@@ -22,7 +21,7 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
   constructor () {
     super()
     this.state = {waitingForStore: true}
-    this.database = new MemoryDatabase(`${OFFLINE_CACHE_PATH}/content`)
+    this.database = new MemoryDatabase()
     const storeConfig = createReduxStore(this.database, () => { this.setState({waitingForStore: false}) })
     this.store = storeConfig.store
   }
