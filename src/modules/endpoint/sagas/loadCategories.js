@@ -1,7 +1,6 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import MemoryDatabase from '../MemoryDatabase'
 import { CategoriesMapModel, createCategoriesEndpoint } from '@integreat-app/integreat-api-client'
 import { call } from 'redux-saga/effects'
 import request from '../request'
