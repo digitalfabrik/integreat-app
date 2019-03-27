@@ -9,11 +9,7 @@ import {
 import { call } from 'redux-saga/effects'
 import request from '../request'
 import { baseUrl } from '../constants'
-import findResourcesFromHtml from '../findResourcesFromHtml'
-import fnv from 'fnv-plus'
-import { getResourceCacheFilesDirPath } from '../../platform/constants/webview.ios'
-import getExtension from '../getExtension'
-import type { ResourceCacheStateType } from '../../app/StateType'
+import type { TargetFilePathsType } from '../../fetcher/FetcherModule'
 
 function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>> {
   const params = {city, language}
@@ -22,25 +18,14 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
   return categoriesPayload.data
 }
 
-function * loadEvents (city: string, language: string): Saga<[Array<EventModel>, ResourceCacheStateType]> {
+function * loadEvents (city: string, language: string): Saga<[Array<EventModel>, TargetFilePathsType]> {
   const events: ?Array<EventModel> = yield call(fetchEvents, city, language)
 
   if (!events) {
     throw new Error('Failed to load events!')
   }
 
-  const urls = new Set([
-    ...findResourcesFromHtml(events.map(event => event.content)),
-    ...events.map(event => event.thumbnail).filter(thumbnail => !!thumbnail)
-  ])
-
-  const resourceCache = [...urls].reduce((acc, url) => {
-    const hash = fnv.hash(url).hex()
-    acc[url] = `${getResourceCacheFilesDirPath(city)}/${hash}.${getExtension(url)}`
-    return acc
-  }, {})
-
-  return [events, resourceCache]
+  return [events, {}]
 }
 
 export default loadEvents

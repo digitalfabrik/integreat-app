@@ -9,15 +9,19 @@ import type {
   ResourcesDownloadSucceededActionType
 } from '../../app/StoreActionType'
 import FetcherModule from '../../fetcher/FetcherModule'
-import type { FetchResultType } from '../../fetcher/FetcherModule'
+import type { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import type { ResourceCacheStateType } from '../../app/StateType'
-import type { ResourceCacheType } from '../ResourceCacheType'
+import { invert, invertBy, mapValues } from 'lodash/object'
+import { groupBy, keyBy } from 'lodash/collection'
+import { fromPairs } from 'lodash/array'
 
-export default function * fetchResourceCache (city: string, language: string, urls: ResourceCacheStateType): Saga<ResourceCacheType> {
+export default function * fetchResourceCache (city: string, language: string, urls: any): Saga<ResourceCacheStateType> {
   try {
+    const targetUrls = mapValues(urls, ([url]) => url)
+
     let result: FetchResultType = {failureMessages: {}, resourceCache: {}}
     if (Platform.OS === 'android') {
-      result = yield call(new FetcherModule().downloadAsync, urls, progress => {})
+      result = yield call(new FetcherModule().downloadAsync, targetUrls, progress => {})
     }
 
     if (!isEmpty(result.failureMessages)) {
@@ -35,7 +39,25 @@ export default function * fetchResourceCache (city: string, language: string, ur
     }
     yield put(success)
 
-    console.dir(result.resourceCache)
+    const targetCategories = invertBy(mapValues(urls, ([url, path]) => path))
+
+    console.dir(mapValues(targetCategories, filePaths =>
+      fromPairs(filePaths.map(filePath => {
+        const downloadResult = result.resourceCache[filePath]
+        return [downloadResult.url, {
+          path: filePath,
+          lastUpdate: downloadResult.lastUpdate
+        }]
+      }))))
+
+    // console.dir(reduce(result.resourceCache, (result, value, key) => {
+    //   result[targetCategories[key]] = {
+    //     path: key,
+    //     ...value
+    //   }
+    //
+    //   return result
+    // }, {}))
 
     return result.resourceCache
   } catch (e) {
