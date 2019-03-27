@@ -10,7 +10,7 @@ import fnv from 'fnv-plus'
 import { getResourceCacheFilesDirPath } from '../../platform/constants/webview.ios'
 import getExtension from '../getExtension'
 import { keyBy, reduce } from 'lodash/collection'
-import type { TargetFilePathsType } from '../../fetcher/FetcherModule'
+import type { FetchMapType } from './fetchResourceCache'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<?CategoriesMapModel> {
   const params = {city, language}
@@ -19,7 +19,7 @@ function * fetchCategoriesMap (city: string, language: string): Saga<?Categories
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string): Saga<[CategoriesMapModel, any]> {
+function * loadCategories (city: string, language: string): Saga<[CategoriesMapModel, FetchMapType]> {
   const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
 
   if (!categoriesMap) {
@@ -28,7 +28,7 @@ function * loadCategories (city: string, language: string): Saga<[CategoriesMapM
 
   const categories = categoriesMap.toArray()
 
-  const urls: TargetFilePathsType = reduce(categories, (result, category) => {
+  const urls: FetchMapType = reduce(categories, (result, category) => {
     const path = category.path
 
     const urlSet = findResourceUrls(category.content)
