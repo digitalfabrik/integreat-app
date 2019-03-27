@@ -3,23 +3,17 @@
 import type Moment from 'moment'
 
 class PageModel {
-  _id: number
   _title: string
   _content: string
   _lastUpdate: Moment
   _hash: string
 
-  constructor ({ id, title, content, lastUpdate }: {|
-    id: number, title: string, content: string, lastUpdate: Moment, hash: string
+  constructor ({ title, content, lastUpdate }: {|
+    title: string, content: string, lastUpdate: Moment, hash: string
   |}) {
-    this._id = id
     this._title = title
     this._content = content
     this._lastUpdate = lastUpdate
-  }
-
-  get id (): number {
-    return this._id
   }
 
   get title (): string {

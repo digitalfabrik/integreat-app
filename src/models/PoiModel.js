@@ -9,7 +9,7 @@ class PoiModel extends ExtendedPageModel {
   _excerpt: string
 
   constructor (params: {|
-    id: number, path: string, title: string, content: string, thumbnail: string,
+    path: string, title: string, content: string, thumbnail: string,
     availableLanguages: Map<string, string>, excerpt: string, location: LocationModel, lastUpdate: Moment,
     hash: string
   |}) {

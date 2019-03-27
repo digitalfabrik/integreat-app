@@ -25,7 +25,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
       const categories = json
         .map(category => {
           return new CategoryModel({
-            id: category.id,
+            root: false,
             path: normalizePath(category.path),
             title: category.title,
             content: sanitizeHtml(category.content, {
@@ -43,7 +43,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
         })
 
       categories.push(new CategoryModel({
-        id: 0,
+        root: true,
         path: basePath,
         title: params.city,
         parentPath: '',

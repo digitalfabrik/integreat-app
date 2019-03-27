@@ -27,7 +27,6 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> => new
       const startTime = allDay ? '00:00:00' : eventData.start_time
       const endTime = allDay ? '23:59:59' : eventData.end_time
       return new EventModel({
-        id: event.id,
         path: normalizePath(event.path),
         title: event.title,
         content: sanitizeHtml(event.content, {
