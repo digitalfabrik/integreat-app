@@ -1,7 +1,6 @@
 package com.integreat.fetcher;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.facebook.react.bridge.*;
 
@@ -12,9 +11,7 @@ import okio.Okio;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class FetcherModule extends ReactContextBaseJavaModule {
@@ -25,22 +22,22 @@ public class FetcherModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void downloadAsync(final ReadableMap urls, final Promise promise) {
+    public void fetchAsync(final ReadableMap urls, final Promise promise) {
         HashMap<String, Object> urlMap = urls.toHashMap();
-        int expectedDownloads = urlMap.size();
-        DownloadResultCollector collector = new DownloadResultCollector(
+        int expectedFetchCount = urlMap.size();
+        FetchResultCollector collector = new FetchResultCollector(
                 getReactApplicationContext(),
-                expectedDownloads, promise
+                expectedFetchCount, promise
         );
 
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
             String targetFilePath = entry.getKey();
             String url = entry.getValue().toString();
-            downloadAsync(url, targetFilePath, collector);
+            fetchAsync(url, targetFilePath, collector);
         }
     }
 
-    private void downloadAsync(final String sourceUrl, String targetFilePath, final FileDownloadCallback callback) {
+    private void fetchAsync(final String sourceUrl, String targetFilePath, final FetchedCallback callback) {
         final File targetFile = new File(targetFilePath);
 
         if (targetFile.exists()) {
@@ -71,7 +68,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
                         sink.writeAll(response.body().source());
                         sink.close();
 
-                        callback.downloaded(sourceUrl, targetFile);
+                        callback.fetched(sourceUrl, targetFile);
                     } catch (IOException e) {
                         callback.failed(sourceUrl, e.getMessage());
                     }

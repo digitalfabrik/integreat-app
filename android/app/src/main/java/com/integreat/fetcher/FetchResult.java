@@ -2,11 +2,11 @@ package com.integreat.fetcher;
 
 import java.time.ZonedDateTime;
 
-public class DownloadResult {
+public class FetchResult {
     private final String url;
     private final ZonedDateTime lastUpdate;
 
-    public DownloadResult(String url, ZonedDateTime lastUpdate) {
+    public FetchResult(String url, ZonedDateTime lastUpdate) {
         this.url = url;
         this.lastUpdate = lastUpdate;
     }
