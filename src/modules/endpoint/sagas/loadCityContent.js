@@ -8,7 +8,7 @@ import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import type { ResourceCacheType } from '../ResourceCacheType'
+import type { ResourceCacheStateType } from '../../app/StateType'
 
 export default function * loadCityContent (database: MemoryDatabase, newCity: string, newLanguage: string): Saga<void> {
   if (database.hasContext(new MemoryDatabaseContext(newCity, newLanguage))) {
@@ -27,7 +27,7 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
   database.categoriesMap = categoriesMap
   database.languages = languages
 
-  const resourceCache: ResourceCacheType = yield call(fetchResourceCache, newCity, newLanguage, {
+  const resourceCache: ResourceCacheStateType = yield call(fetchResourceCache, newCity, newLanguage, {
     ...categoryUrls,
     ...eventUrls
   })

@@ -2,11 +2,13 @@
 
 import { NativeAppEventEmitter } from 'react-native'
 import NativeFetcherModule from './NativeFetcherModule'
-import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
+import type { ResourceCacheStateType } from '../app/StateType'
+
+export type TargetFilePathsType = {[path: string]: {[url: string]: string}}
 
 export type FetchResultType = {
   failureMessages: { [url: string]: string },
-  resourceCache: ResourceCacheType
+  resourceCache: ResourceCacheStateType
 }
 
 type ProgressCallbackType = (progress: number) => void
@@ -15,7 +17,7 @@ class FetcherModule {
   static currentlyDownloading = false
 
   async downloadAsync (
-    targetFilePaths: { [url: string]: string },
+    targetFilePaths: TargetFilePathsType,
     progress: ProgressCallbackType
   ): Promise<FetchResultType> {
     if (FetcherModule.currentlyDownloading) {
