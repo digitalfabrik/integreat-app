@@ -18,7 +18,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
 
     const currentLanguage = yield select((state: StateType) => state.cityContent.language)
 
-    if (path === undefined || depth === undefined) {
+    if (path === undefined || depth === undefined || key === undefined) {
       // you did not provide a new key and depth it is most likely a language change
 
       if (currentLanguage === language) {

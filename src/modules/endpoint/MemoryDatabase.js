@@ -11,11 +11,9 @@ import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
 import RNFetchblob from 'rn-fetch-blob'
 import {
-  CONTENT_DIR_PATH,
-  RESOURCE_CACHE_DIR_PATH
-} from '../platform/constants/webview.ios'
+  CONTENT_DIR_PATH, getResourceCacheFilesPath
+} from '../platform/constants/webview'
 import moment from 'moment'
-import type { ResourceCacheType } from './ResourceCacheType'
 import { mapValues } from 'lodash'
 
 type ContentCategoryJsonType = {|
@@ -31,7 +29,7 @@ type ContentCategoryJsonType = {|
   'hash': '' // TODO: This gets added in NATIVE-133
 |}
 
-type ResourceCacheJsonType = ResourceCacheType
+type ResourceCacheJsonType = ResourceCacheStateType
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -46,7 +44,7 @@ class MemoryDatabase {
   _cities: Array<CityModel>
   _categoriesMap: CategoriesMapModel
   _languages: ?Array<LanguageModel>
-  _resourceCache: ResourceCacheType
+  _resourceCache: ResourceCacheStateType
   _events: ?Array<EventModel>
 
   loadCities (cities: Array<CityModel>) {
@@ -100,7 +98,7 @@ class MemoryDatabase {
 
   get events (): Array<EventModel> {
     if (!this._events) {
-      throw Error('languages are null!')
+      throw Error('events are null!')
     }
     return this._events
   }
@@ -112,7 +110,7 @@ class MemoryDatabase {
     this._events = events
   }
 
-  addCacheEntries (resourceCache: ResourceCacheType) {
+  addCacheEntries (resourceCache: ResourceCacheStateType) {
     this._resourceCache = {...this._resourceCache, resourceCache}
   }
 
@@ -129,7 +127,7 @@ class MemoryDatabase {
   }
 
   getResourceCachePath (): string {
-    return `${RESOURCE_CACHE_DIR_PATH}/${this.context.cityCode}/files.json`
+    return getResourceCacheFilesPath(this.context.cityCode)
   }
 
   /**
