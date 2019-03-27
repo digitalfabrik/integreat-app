@@ -94,12 +94,13 @@ class Categories extends React.Component<PropsType> {
 
     if (children.length === 0) {
       // last level, our category is a simple page
+      const files = this.props.resourceCache[category.path]
       return <Page title={category.title}
-              content={category.content}
-              lastUpdate={category.lastUpdate}
-              theme={this.props.theme}
-              resourceCache={this.props.resourceCache}
-              language={this.props.language} />
+                   content={category.content}
+                   lastUpdate={category.lastUpdate}
+                   theme={this.props.theme}
+                   files={files}
+                   language={this.props.language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 

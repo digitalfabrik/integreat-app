@@ -44,12 +44,13 @@ export default class Events extends React.Component<PropsType> {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
+        const files = resourceCache[event.path]
         return <ScrollView>
           <Page content={event.content}
                 title={event.title}
                 lastUpdate={event.lastUpdate}
                 language={language}
-                resourceCache={resourceCache}
+                files={files}
                 theme={theme}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
