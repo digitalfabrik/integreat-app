@@ -92,15 +92,15 @@ export type SwitchCityContentLanguageActionType = {|
 
 export type CityContentActionType = CategoriesActionType | EventsActionType | SwitchCityContentLanguageActionType
 
-export type ResourcesDownloadSucceededActionType = {|
-  type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
+export type ResourcesFetchSucceededActionType = {|
+  type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
 |}
-export type ResourcesDownloadFailedActionType = {|
-  type: 'RESOURCES_DOWNLOAD_FAILED', city: string, language: string, message: string
+export type ResourcesFetchFailedActionType = {|
+  type: 'RESOURCES_FETCH_FAILED', city: string, language: string, message: string
 |}
-export type ResourcesDownloadActionType =
-  | ResourcesDownloadSucceededActionType
-  | ResourcesDownloadFailedActionType
+export type ResourcesFetchActionType =
+  | ResourcesFetchSucceededActionType
+  | ResourcesFetchFailedActionType
 
 export type SetLanguageActionType = {
   type: 'SET_LANGUAGE', payload: string
@@ -124,7 +124,7 @@ export type ConnectionChangeActionType = {|
 
 export type StoreActionType =
   ConnectionChangeActionType
-  | ResourcesDownloadActionType
+  | ResourcesFetchActionType
   | SetLanguageActionType
   | SetCurrentCityActionType
   | SetUiDirectionActionType
