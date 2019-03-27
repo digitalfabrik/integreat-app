@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
@@ -22,12 +22,12 @@ const CategoryThumbnail = styled(FastImage)`
 `
 
 type PropsType = {
-  category: { id: number, title: string, thumbnail: string, path: string },
-  subCategories: Array<{ id: number, title: string, thumbnail: string, path: string }>,
+  category: { title: string, thumbnail: string, path: string },
+  subCategories: Array<{ title: string, thumbnail: string, path: string }>,
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { id: number, title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
 }
 
 /**
@@ -41,9 +41,10 @@ class CategoryListItem extends React.Component<PropsType> {
   renderSubCategories (): Array<React.Node> {
     const {subCategories} = this.props
     return subCategories.map(subCategory =>
-      <SubCategoryListItem key={subCategory.id}
-                           subCategory={subCategory} onItemPress={this.props.onItemPress}
-                           theme={this.props.theme} />
+      <View key={subCategory.path}>
+        <SubCategoryListItem key={subCategory.path} subCategory={subCategory} onItemPress={this.props.onItemPress}
+                             theme={this.props.theme} />
+      </View>
     )
   }
 

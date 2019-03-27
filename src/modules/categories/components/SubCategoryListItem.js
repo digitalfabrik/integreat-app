@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import styled from 'styled-components/native'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
@@ -15,9 +15,9 @@ const SubCategoryCaption = styled(CategoryCaption)`
 `
 
 type PropsType = {
-  subCategory: { id: number, title: string, thumbnail: string, path: string },
+  subCategory: { title: string, thumbnail: string, path: string },
   theme: ThemeType,
-  onItemPress: (tile: { id: number, title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
 }
 
 class SubCategoryListItem extends React.PureComponent<PropsType> {
@@ -28,14 +28,12 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
   render () {
     const {subCategory} = this.props
     return (
-      <View key={subCategory.id}>
-        <StyledLink onPress={this.onSubCategoryPress}
-                    underlayColor={this.props.theme.colors.backgroundAccentColor}>
-          <SubCategoryCaption search={''}>
-            <Text>{subCategory.title}</Text>
-          </SubCategoryCaption>
-        </StyledLink>
-      </View>
+      <StyledLink onPress={this.onSubCategoryPress}
+                  underlayColor={this.props.theme.colors.backgroundAccentColor}>
+        <SubCategoryCaption search={''}>
+          <Text>{subCategory.title}</Text>
+        </SubCategoryCaption>
+      </StyledLink>
     )
   }
 }

@@ -17,20 +17,20 @@ const renderJS = (files: FileCacheStateType) => `
   for (var i = 0; i < hrefs.length; i++) {
     var item = hrefs[i]
     console.debug('Found href: ' + decodeURI(item.href))
-    var newHref = files[decodeURI(item.href)]
-    if (newHref) {
-      console.debug('Replaced ' + item.href + ' with ' + newHref)
-      item.href = '${URL_PREFIX}' + newHref
+    var newResource = files[decodeURI(item.href)]
+    if (newResource) {
+      console.debug('Replaced ' + item.href + ' with ' + newResource.path)
+      item.href = '${URL_PREFIX}' + newResource.path
     }
   }
   
   for (var i = 0; i < srcs.length; i++) {
     var item = srcs[i]
     console.debug('Found src: ' + decodeURI(item.src))
-    var newSrc = files[decodeURI(item.src)]
-    if (newSrc) {
-      console.debug('Replaced ' + item.src + ' with ' + newSrc)
-      item.src = '${URL_PREFIX}' + newSrc
+    var newResource = files[decodeURI(item.src)]
+    if (newResource) {
+      console.debug('Replaced ' + item.src + ' with ' + newResource)
+      item.src = '${URL_PREFIX}' + newResource.path
     }
   }
 })();
