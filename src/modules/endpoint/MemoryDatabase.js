@@ -179,7 +179,8 @@ class MemoryDatabase {
         parentPath: jsonObject.parent_path,
         order: jsonObject.order,
         availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
-        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601)
+        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+        hash: jsonObject.hash
       })
     }))
   }
