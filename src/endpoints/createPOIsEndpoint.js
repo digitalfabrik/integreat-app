@@ -33,7 +33,8 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> => new E
           longitude: poi.location.longitude,
           latitude: poi.location.latitude
         }),
-        lastUpdate: moment.tz(poi.modified_gmt, 'GMT')
+        lastUpdate: moment.tz(poi.modified_gmt, 'GMT'),
+        hash: poi.hash
       })
     }))
   .build()
