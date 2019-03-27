@@ -16,7 +16,7 @@ function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): 
       params: {
         events: database.events,
         languages: database.languages,
-        resourceCache: database.resourceCacheState,
+        resourceCache: database.resourceCache,
         path,
         key,
         city,

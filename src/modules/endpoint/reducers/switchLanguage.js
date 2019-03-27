@@ -78,7 +78,7 @@ const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
 const switchLanguage = (
   state: CityContentStateType, action: SwitchCityContentLanguageActionType
 ): CityContentStateType => {
-  const {newCategoriesMap, newLanguage} = action.params
+  const {newCategoriesMap, newResourceCache, newLanguage} = action.params
   const {categoriesRouteMapping, city, language} = state
 
   if (!city) {
@@ -127,6 +127,7 @@ const switchLanguage = (
   return {
     ...state,
     language: newLanguage,
+    resourceCache: newResourceCache,
     categoriesRouteMapping: translatedRouteMapping
   }
 }
