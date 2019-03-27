@@ -3,6 +3,7 @@
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import Moment from 'moment'
 
 type PathType = string
 
@@ -27,7 +28,17 @@ export const defaultRouteState: CategoryRouteStateType = {
   depth: 0
 }
 
-export type ResourceCacheStateType = { [url: string]: string }
+export type FileCacheStateType = {
+  [url: string]: {
+    path: string,
+    lastUpdate: Moment,
+    hash: string
+  }
+}
+
+export type ResourceCacheStateType = {
+  [path: string]: FileCacheStateType
+}
 
 export type CategoriesRouteMappingType = {
   [key: string]: CategoryRouteStateType
