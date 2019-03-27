@@ -93,7 +93,7 @@ public class FetchResultCollector implements FetchedCallback {
             resourceCache.putMap(entry.getKey(), fetchResult);
         }
 
-        resolveValue.putMap("resourceCache", resourceCache);
+        resolveValue.putMap("fetchedUrls", resourceCache);
 
         Log.d("FetcherModule", "Resolving promise");
         promise.resolve(resolveValue);
