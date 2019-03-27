@@ -12,6 +12,7 @@ import okio.Okio;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -26,12 +27,15 @@ public class FetcherModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void downloadAsync(final ReadableMap urls, final Promise promise) {
         HashMap<String, Object> urlMap = urls.toHashMap();
-        HashSet<String> expectedUrls = new HashSet<>(urlMap.keySet());
-        DownloadResultCollector collector = new DownloadResultCollector(getReactApplicationContext(), expectedUrls, promise);
+        int expectedDownloads = urlMap.size();
+        DownloadResultCollector collector = new DownloadResultCollector(
+                getReactApplicationContext(),
+                expectedDownloads, promise
+        );
 
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
-            String url = entry.getKey();
-            String targetFilePath = entry.getValue().toString();
+            String targetFilePath = entry.getKey();
+            String url = entry.getValue().toString();
             downloadAsync(url, targetFilePath, collector);
         }
     }

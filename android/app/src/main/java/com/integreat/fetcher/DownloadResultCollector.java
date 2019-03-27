@@ -13,21 +13,17 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class DownloadResultCollector implements FileDownloadCallback {
     private final Map<String, String> errorMessages = new HashMap<>();
-    private final Map<String, DownloadResult> resourceCache = new HashMap<>();
+    private final Map<String, DownloadResult> downloadedUrls = new HashMap<>();
     private final Promise promise;
-    /**
-     * This needs to have the same behaviour for duplicate keys as expectedUrls and expectedUrls
-     */
-    private final Set<String> expectedUrls;
+    private final int expectedDownloads;
     private final ReactContext reactContext;
 
-    public DownloadResultCollector(ReactContext reactContext, Set<String> expectedUrls, Promise promise) {
+    public DownloadResultCollector(ReactContext reactContext, int expectedDownloads, Promise promise) {
         this.promise = promise;
-        this.expectedUrls = expectedUrls;
+        this.expectedDownloads = expectedDownloads;
         this.reactContext = reactContext;
     }
 
@@ -36,7 +32,7 @@ public class DownloadResultCollector implements FileDownloadCallback {
         errorMessages.put(url, message);
 
         if (BuildConfig.DEBUG) {
-            Log.e("FetcherModule", "[" + currentDownloadCount() + "/" + expectedUrls.size() + "] Failed to download " + url + ": " + message);
+            Log.e("FetcherModule", "[" + currentDownloadCount() + "/" + expectedDownloads + "] Failed to download " + url + ": " + message);
         }
         sendProgress();
         tryToResolve();
@@ -52,58 +48,58 @@ public class DownloadResultCollector implements FileDownloadCallback {
         success(url, target, ZonedDateTime.now(ZoneOffset.UTC));
     }
 
-    public synchronized void success(String url, File target, ZonedDateTime time) {
-        resourceCache.put(url, new DownloadResult(target.getAbsolutePath(), time));
+    public synchronized void success(String url, File targetFile, ZonedDateTime time) {
+        downloadedUrls.put(targetFile.getAbsolutePath(), new DownloadResult(url, time));
         if (BuildConfig.DEBUG) {
-            Log.d("FetcherModule", "[" + currentDownloadCount() + "/" + expectedUrls.size() + "] Downloaded " + url);
+            Log.d("FetcherModule", "[" + currentDownloadCount() + "/" + expectedDownloads + "] Downloaded " + url);
         }
         sendProgress();
         tryToResolve();
     }
 
     private int currentDownloadCount() {
-        return errorMessages.size() + resourceCache.size();
+        return errorMessages.size() + downloadedUrls.size();
     }
 
     private void tryToResolve() {
-        if (currentDownloadCount() != expectedUrls.size()) {
+        if (currentDownloadCount() != expectedDownloads) {
             return;
         }
 
-        WritableMap result = Arguments.createMap();
+        WritableMap resolveValue = Arguments.createMap();
 
         WritableMap failed = Arguments.createMap();
         for (Map.Entry<String, String> entry : errorMessages.entrySet()) {
             failed.putString(entry.getKey(), entry.getValue());
         }
 
-        result.putMap("failureMessages", failed);
+        resolveValue.putMap("failureMessages", failed);
 
 
         WritableMap resourceCache = Arguments.createMap();
-        for (Map.Entry<String, DownloadResult> entry : this.resourceCache.entrySet()) {
+        for (Map.Entry<String, DownloadResult> entry : this.downloadedUrls.entrySet()) {
             WritableMap downloadResult = Arguments.createMap();
+            DownloadResult result = entry.getValue();
+            ZonedDateTime dateTime = result.getLastUpdate();
 
-            String lastUpdate = null;
+            downloadResult.putString("url", result.getUrl());
 
-            if (entry.getValue().getLastUpdate() != null) {
-                lastUpdate = entry.getValue().getLastUpdate().format(DateTimeFormatter.ISO_INSTANT);
+            if (dateTime != null) {
+                // If the file already existed then lastUpdate should be "undefined"
+                downloadResult.putString("lastUpdate", dateTime.format(DateTimeFormatter.ISO_INSTANT));
             }
-
-            downloadResult.putString("path", entry.getValue().getPath());
-            downloadResult.putString("lastUpdate", lastUpdate);
 
             resourceCache.putMap(entry.getKey(), downloadResult);
         }
 
-        result.putMap("resourceCache", resourceCache);
+        resolveValue.putMap("resourceCache", resourceCache);
 
         Log.d("FetcherModule", "Resolving promise");
-        promise.resolve(result);
+        promise.resolve(resolveValue);
     }
 
     private void sendProgress() {
-        sendEvent("progress", (double) (errorMessages.size() + resourceCache.size()) / expectedUrls.size());
+        sendEvent("progress", (double) (errorMessages.size() + downloadedUrls.size()) / expectedDownloads);
     }
 
     private void sendEvent(String eventName, @Nullable Object params) {
