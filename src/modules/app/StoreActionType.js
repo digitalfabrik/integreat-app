@@ -86,6 +86,7 @@ export type CityContentLoadedActionType = {|
 export type SwitchCityContentLanguageActionType = {|
   type: 'SWITCH_CITY_CONTENT_LANGUAGE', params: {|
     newCategoriesMap: CategoriesMapModel,
+    newResourceCache: ResourceCacheStateType,
     newLanguage: string
   |}
 |}

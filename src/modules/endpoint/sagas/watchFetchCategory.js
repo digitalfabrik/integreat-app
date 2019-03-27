@@ -30,6 +30,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
         type: `SWITCH_CITY_CONTENT_LANGUAGE`,
         params: {
           newCategoriesMap: database.categoriesMap,
+          newResourceCache: database.resourceCache,
           newLanguage: language
         }
       }
@@ -43,7 +44,7 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
       params: {
         categoriesMap: database.categoriesMap,
         languages: database.languages,
-        resourceCache: database.resourceCacheState,
+        resourceCache: database.resourceCache,
         path,
         depth,
         key,
