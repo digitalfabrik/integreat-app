@@ -34,47 +34,46 @@ class Categories extends React.Component<PropsType> {
     this.props.navigateToCategory(cityCode, language, tile.path)
   }
 
-  onItemPress = (category: { id: number, title: string, thumbnail: string, path: string }) => {
+  onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
     const {cityCode, language} = this.props
     this.props.navigateToCategory(cityCode, language, category.path)
   }
 
-  getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
-    return categories.map(category => {
-      let cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
-      if (cachedThumbnail) {
-        cachedThumbnail = URL_PREFIX + cachedThumbnail
-      }
+  getCachedThumbnail (category: CategoryModel): ?string {
+    if (category.thumbnail) {
+      const resource = this.getLocalResourceCache(category)[category.thumbnail]
 
-      return new TileModel({
+      if (resource) {
+        return URL_PREFIX + resource.path
+      }
+    }
+    return null
+  }
+
+  getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
+    return categories.map(category =>
+      new TileModel({
         title: category.title,
         path: category.path,
-        thumbnail: cachedThumbnail || category.thumbnail,
+        thumbnail: this.getCachedThumbnail(category) || category.thumbnail,
         isExternalUrl: false
-      })
-    })
+      }))
   }
 
   getLocalResourceCache (category: CategoryModel): FileCacheStateType {
     return this.props.resourceCache[category.path]
   }
 
-  getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
-    if (cachedThumbnail) {
-      cachedThumbnail = URL_PREFIX + cachedThumbnail
-    }
-
+  getListModel (category: CategoryModel): { title: string, thumbnail: string, path: string } {
     return {
-      id: category.id,
       title: category.title,
       path: category.path,
-      thumbnail: cachedThumbnail || category.thumbnail
+      thumbnail: this.getCachedThumbnail(category) || category.thumbnail
     }
   }
 
   getListModels (categories: Array<CategoryModel>): Array<{
-    id: number, title: string, thumbnail: string, path: string
+    title: string, thumbnail: string, path: string
   }> {
     return categories.map(category => this.getListModel(category))
   }
@@ -98,7 +97,7 @@ class Categories extends React.Component<PropsType> {
 
     if (children.length === 0) {
       // last level, our category is a simple page
-      const files = this.props.resourceCache[category.path]
+      const files = this.getLocalResourceCache(category)
       return <Page title={category.title}
                    content={category.content}
                    lastUpdate={category.lastUpdate}
