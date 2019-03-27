@@ -3,10 +3,10 @@ package com.integreat.fetcher;
 import java.io.File;
 import java.io.IOException;
 
-interface FileDownloadCallback {
+interface FetchedCallback {
     void failed(String url, String message);
 
-    void downloaded(String url, File target);
+    void fetched(String url, File targetFile);
 
-    void alreadyExists(String url, File target);
+    void alreadyExists(String url, File targetFile);
 }

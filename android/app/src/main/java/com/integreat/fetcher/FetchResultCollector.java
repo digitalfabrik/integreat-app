@@ -1,6 +1,5 @@
 package com.integreat.fetcher;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.facebook.react.bridge.*;
@@ -14,16 +13,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DownloadResultCollector implements FileDownloadCallback {
+import javax.annotation.Nullable;
+
+public class FetchResultCollector implements FetchedCallback {
     private final Map<String, String> errorMessages = new HashMap<>();
-    private final Map<String, DownloadResult> downloadedUrls = new HashMap<>();
+    private final Map<String, FetchResult> fetchResults = new HashMap<>();
     private final Promise promise;
-    private final int expectedDownloads;
+    private final int expectedFetchCount;
     private final ReactContext reactContext;
 
-    public DownloadResultCollector(ReactContext reactContext, int expectedDownloads, Promise promise) {
+    public FetchResultCollector(ReactContext reactContext, int expectedFetchCount, Promise promise) {
         this.promise = promise;
-        this.expectedDownloads = expectedDownloads;
+        this.expectedFetchCount = expectedFetchCount;
         this.reactContext = reactContext;
     }
 
@@ -32,37 +33,37 @@ public class DownloadResultCollector implements FileDownloadCallback {
         errorMessages.put(url, message);
 
         if (BuildConfig.DEBUG) {
-            Log.e("FetcherModule", "[" + currentDownloadCount() + "/" + expectedDownloads + "] Failed to download " + url + ": " + message);
+            Log.e("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message);
         }
         sendProgress();
         tryToResolve();
     }
 
     @Override
-    public void alreadyExists(String url, File target) {
-        success(url, target, null); // todo: should not be null
+    public void alreadyExists(String url, File targetFile) {
+        success(url, targetFile, null); // todo: should not be null
     }
 
     @Override
-    public void downloaded(String url, File target) {
-        success(url, target, ZonedDateTime.now(ZoneOffset.UTC));
+    public void fetched(String url, File targetFile) {
+        success(url, targetFile, ZonedDateTime.now(ZoneOffset.UTC));
     }
 
     public synchronized void success(String url, File targetFile, ZonedDateTime time) {
-        downloadedUrls.put(targetFile.getAbsolutePath(), new DownloadResult(url, time));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, time));
         if (BuildConfig.DEBUG) {
-            Log.d("FetcherModule", "[" + currentDownloadCount() + "/" + expectedDownloads + "] Downloaded " + url);
+            Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);
         }
         sendProgress();
         tryToResolve();
     }
 
-    private int currentDownloadCount() {
-        return errorMessages.size() + downloadedUrls.size();
+    private int currentFetchCount() {
+        return errorMessages.size() + fetchResults.size();
     }
 
     private void tryToResolve() {
-        if (currentDownloadCount() != expectedDownloads) {
+        if (currentFetchCount() != expectedFetchCount) {
             return;
         }
 
@@ -77,19 +78,19 @@ public class DownloadResultCollector implements FileDownloadCallback {
 
 
         WritableMap resourceCache = Arguments.createMap();
-        for (Map.Entry<String, DownloadResult> entry : this.downloadedUrls.entrySet()) {
-            WritableMap downloadResult = Arguments.createMap();
-            DownloadResult result = entry.getValue();
+        for (Map.Entry<String, FetchResult> entry : this.fetchResults.entrySet()) {
+            WritableMap fetchResult = Arguments.createMap();
+            FetchResult result = entry.getValue();
             ZonedDateTime dateTime = result.getLastUpdate();
 
-            downloadResult.putString("url", result.getUrl());
+            fetchResult.putString("url", result.getUrl());
 
             if (dateTime != null) {
                 // If the file already existed then lastUpdate should be "undefined"
-                downloadResult.putString("lastUpdate", dateTime.format(DateTimeFormatter.ISO_INSTANT));
+                fetchResult.putString("lastUpdate", dateTime.format(DateTimeFormatter.ISO_INSTANT));
             }
 
-            resourceCache.putMap(entry.getKey(), downloadResult);
+            resourceCache.putMap(entry.getKey(), fetchResult);
         }
 
         resolveValue.putMap("resourceCache", resourceCache);
@@ -99,7 +100,7 @@ public class DownloadResultCollector implements FileDownloadCallback {
     }
 
     private void sendProgress() {
-        sendEvent("progress", (double) (errorMessages.size() + downloadedUrls.size()) / expectedDownloads);
+        sendEvent("progress", (double) (errorMessages.size() + fetchResults.size()) / expectedFetchCount);
     }
 
     private void sendEvent(String eventName, @Nullable Object params) {
