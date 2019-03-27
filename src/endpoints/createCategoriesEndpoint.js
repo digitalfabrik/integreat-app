@@ -25,7 +25,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
       const categories = json
         .map(category => {
           return new CategoryModel({
-            root: category.id === 0,
+            root: false,
             path: normalizePath(category.path),
             title: category.title,
             content: sanitizeHtml(category.content, {
