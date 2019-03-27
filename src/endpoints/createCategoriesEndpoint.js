@@ -37,7 +37,8 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
             order: category.order,
             availableLanguages: mapAvailableLanguages(category.available_languages),
             parentPath: normalizePath(category.parent.path || basePath),
-            lastUpdate: moment.tz(category.modified_gmt, 'GMT')
+            lastUpdate: moment.tz(category.modified_gmt, 'GMT'),
+            hash: category.hash
           })
         })
 
@@ -50,7 +51,8 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
         thumbnail: '',
         order: -1,
         availableLanguages: new Map(),
-        lastUpdate: moment(0)
+        lastUpdate: moment(0),
+        hash: ''
       }))
 
       return new CategoriesMapModel(categories)

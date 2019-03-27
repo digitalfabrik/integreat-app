@@ -12,7 +12,7 @@ class EventModel extends ExtendedPageModel {
 
   constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string,
     date: DateModel, location: LocationModel, excerpt: string, availableLanguages: Map<string, string>,
-    lastUpdate: Moment|}) {
+    lastUpdate: Moment, hash: string|}) {
     const {date, location, excerpt, ...other} = params
     super(other)
     this._date = date

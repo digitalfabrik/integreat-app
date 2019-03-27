@@ -8,9 +8,11 @@ class CategoryModel extends ExtendedPageModel {
   _parentPath: string
   _order: number
 
-  constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string,
-    parentPath: string, order: number, availableLanguages: Map<string, string>, lastUpdate: Moment|}) {
-    const {order, parentPath, ...other} = params
+  constructor (params: {|
+    id: number, path: string, title: string, content: string, thumbnail: string,
+    parentPath: string, order: number, availableLanguages: Map<string, string>, lastUpdate: Moment, hash: string
+  |}) {
+    const { order, parentPath, ...other } = params
     super(other)
     this._parentPath = parentPath
     this._order = order

@@ -8,9 +8,12 @@ class PoiModel extends ExtendedPageModel {
   _location: LocationModel
   _excerpt: string
 
-  constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string,
-    availableLanguages: Map<string, string>, excerpt: string, location: LocationModel, lastUpdate: Moment|}) {
-    const {location, excerpt, ...other} = params
+  constructor (params: {|
+    id: number, path: string, title: string, content: string, thumbnail: string,
+    availableLanguages: Map<string, string>, excerpt: string, location: LocationModel, lastUpdate: Moment,
+    hash: string
+  |}) {
+    const { location, excerpt, ...other } = params
     super(other)
     this._location = location
     this._excerpt = excerpt
