@@ -14,6 +14,7 @@ import compose from 'lodash/fp/compose'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import { getResourceCacheFilesDirPath } from '../../platform/constants/webview.ios'
+import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -40,7 +41,7 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  resourceCache: { [url: string]: string },
+  files: FileCacheStateType,
   children?: React.Node,
   language: string,
   city: string,
@@ -97,7 +98,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, resourceCache, theme, language, city, lastUpdate} = this.props
+    const {title, children, content, files, theme, language, city, lastUpdate} = this.props
     const height = this.state.webViewHeight
     return (
       <Container>
@@ -107,7 +108,7 @@ class Page extends React.Component<PropType, StateType> {
           <WebContainer
             source={{
               baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(city),
-              html: renderHtml(content, resourceCache, theme)
+              html: renderHtml(content, files, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html

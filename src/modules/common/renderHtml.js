@@ -1,23 +1,23 @@
 // @flow
 
 import { URL_PREFIX } from '../platform/constants/webview'
-import type { ResourceCacheStateType } from '../app/StateType'
+import type { FileCacheStateType, ResourceCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript
-const renderJS = (resourceCache: ResourceCacheStateType) => `
+const renderJS = (files: FileCacheStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
-  var urls = ${JSON.stringify(resourceCache)}
+  var files = ${JSON.stringify(files)}
   
-  console.debug('Urls to inject:')
-  console.debug(urls)
+  console.debug('Files to inject:') // TODO: remove
+  console.debug(files)
   
   for (var i = 0; i < hrefs.length; i++) {
     var item = hrefs[i]
     console.debug('Found href: ' + decodeURI(item.href))
-    var newHref = urls[decodeURI(item.href)]
+    var newHref = files[decodeURI(item.href)]
     if (newHref) {
       console.debug('Replaced ' + item.href + ' with ' + newHref)
       item.href = '${URL_PREFIX}' + newHref
@@ -27,7 +27,7 @@ const renderJS = (resourceCache: ResourceCacheStateType) => `
   for (var i = 0; i < srcs.length; i++) {
     var item = srcs[i]
     console.debug('Found src: ' + decodeURI(item.src))
-    var newSrc = urls[decodeURI(item.src)]
+    var newSrc = files[decodeURI(item.src)]
     if (newSrc) {
       console.debug('Replaced ' + item.src + ' with ' + newSrc)
       item.src = '${URL_PREFIX}' + newSrc
@@ -53,7 +53,7 @@ const renderJS = (resourceCache: ResourceCacheStateType) => `
 })();
 `
 
-export default (html: string, resourceCache: ResourceCacheStateType, theme: ThemeType) => {
+export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   // language=HTML
   return `
 <html>
@@ -117,7 +117,7 @@ export default (html: string, resourceCache: ResourceCacheStateType, theme: Them
 </head>
 <body>
   <div id="measure-container">${html}</div>
-  <script>${renderJS(resourceCache)}</script>
+  <script>${renderJS(files)}</script>
 </body>
 </html>
 `
