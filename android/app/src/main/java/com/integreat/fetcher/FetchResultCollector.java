@@ -49,7 +49,7 @@ public class FetchResultCollector implements FetchedCallback {
         success(url, targetFile, ZonedDateTime.now(ZoneOffset.UTC));
     }
 
-    public synchronized void success(String url, File targetFile, ZonedDateTime time) {
+    private synchronized void success(String url, File targetFile, ZonedDateTime time) {
         fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, time));
         if (BuildConfig.DEBUG) {
             Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);

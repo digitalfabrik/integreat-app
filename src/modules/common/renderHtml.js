@@ -1,7 +1,7 @@
 // @flow
 
 import { URL_PREFIX } from '../platform/constants/webview'
-import type { FileCacheStateType, ResourceCacheStateType } from '../app/StateType'
+import type { FileCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript

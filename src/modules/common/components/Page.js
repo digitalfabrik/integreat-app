@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
 import styled, { withTheme } from 'styled-components'
 import type { ThemeType } from '../../theme/constants/theme'
-import { URL_PREFIX } from '../../platform/constants/webview'
+import { URL_PREFIX, getResourceCacheFilesDirPath } from '../../platform/constants/webview'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
@@ -13,8 +13,7 @@ import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import compose from 'lodash/fp/compose'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
-import { getResourceCacheFilesDirPath } from '../../platform/constants/webview.ios'
-import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
+import type { FileCacheStateType } from '../../app/StateType'
 
 const HORIZONTAL_MARGIN = 8
 

@@ -28,11 +28,11 @@ export default function * fetchResourceCache (city: string, language: string, fe
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
 
-    let result: FetchResultType = {failureMessages: {}, fetchedUrls: {}}
-
-    if (Platform.OS === 'android') {
-      result = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
+    if (Platform.OS !== 'android') {
+      return {failureMessages: {}, fetchedUrls: {}}
     }
+
+    const result: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
 
     if (!isEmpty(result.failureMessages)) {
       const message = createErrorMessage(result.failureMessages)

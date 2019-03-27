@@ -11,7 +11,7 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
-import type { ResourceCacheStateType } from '../../app/StateType'
+import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -41,7 +41,7 @@ class Categories extends React.Component<PropsType> {
 
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.props.resourceCache[category.thumbnail]
+      let cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
       if (cachedThumbnail) {
         cachedThumbnail = URL_PREFIX + cachedThumbnail
       }
@@ -55,8 +55,12 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
+  getLocalResourceCache (category: CategoryModel): FileCacheStateType {
+    return this.props.resourceCache[category.path]
+  }
+
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.props.resourceCache[category.thumbnail]
+    let cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
     if (cachedThumbnail) {
       cachedThumbnail = URL_PREFIX + cachedThumbnail
     }
