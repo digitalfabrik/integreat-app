@@ -17,16 +17,17 @@ import moment from 'moment'
 import { mapValues } from 'lodash'
 
 type ContentCategoryJsonType = {|
+  root: string,
   path: string,
   title: string,
-  'content': string,
-  'last_update': string,
-  'thumbnail': string,
-  'available_languages': { [code: string]: string },
-  'parent_path': string,
-  'children': Array<string>,
-  'order': number,
-  'hash': '' // TODO: This gets added in NATIVE-133
+  content: string,
+  last_update: string,
+  thumbnail: string,
+  available_languages: { [code: string]: string },
+  parent_path: string,
+  children: Array<string>,
+  order: number,
+  hash: string
 |}
 
 type ResourceCacheJsonType = ResourceCacheStateType
@@ -111,11 +112,11 @@ class MemoryDatabase {
   }
 
   addCacheEntries (resourceCache: ResourceCacheStateType) {
-    this._resourceCache = {...this._resourceCache, resourceCache}
+    this._resourceCache = {...this._resourceCache, ...resourceCache}
   }
 
-  get resourceCacheState (): ResourceCacheStateType {
-    return mapValues(this._resourceCache, value => value.path)
+  get resourceCache (): ResourceCacheStateType {
+    return this._resourceCache
   }
 
   getContentPath (key: string): string {
@@ -141,16 +142,17 @@ class MemoryDatabase {
     const categoryModels = this.categoriesMap.toArray()
 
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
-      'path': category.path,
-      'title': category.title,
-      'content': category.title,
-      'last_update': category.lastUpdate.toISOString(),
-      'thumbnail': category.thumbnail,
-      'available_languages': mapToObject(category.availableLanguages),
-      'parent_path': category.parentPath,
-      'children': this.categoriesMap.getChildren(category).map(category => category.path),
-      'order': category.order,
-      'hash': '' // TODO: This gets added in NATIVE-133
+      root: category.isRoot(),
+      path: category.path,
+      title: category.title,
+      content: category.title,
+      last_update: category.lastUpdate.toISOString(),
+      thumbnail: category.thumbnail,
+      available_languages: mapToObject(category.availableLanguages),
+      parent_path: category.parentPath,
+      children: this.categoriesMap.getChildren(category).map(category => category.path),
+      order: category.order,
+      hash: category.hash
     }))
 
     return this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
@@ -169,8 +171,7 @@ class MemoryDatabase {
 
     this._categoriesMap = new CategoriesMapModel(json.map((jsonObject: ContentCategoryJsonType) => {
       return new CategoryModel({
-        // We do not use as we do not need it in the react-native app
-        id: 0,
+        root: jsonObject.root,
         path: jsonObject.path,
         title: jsonObject.title,
         content: jsonObject.content,

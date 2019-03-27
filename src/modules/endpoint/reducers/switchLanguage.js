@@ -8,7 +8,7 @@ import type { SwitchCityContentLanguageActionType } from '../../app/StoreActionT
 import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
 
 const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string) => {
-  if (model.id === 0) {
+  if (model.isRoot()) {
     return `/${currentCity}/${newLanguage}`
   } else {
     return model.availableLanguages.get(newLanguage)
