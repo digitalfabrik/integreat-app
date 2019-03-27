@@ -6,7 +6,7 @@ import moment from 'moment'
 
 describe('CategoriesMapModel', () => {
   const farsiCategory = new CategoryModel({
-    id: 404,
+    root: false,
     path: '/augsburg/fa/erste-schritte/نقشه-شهر',
     title: 'نقشه شهر',
     content: '',
@@ -25,7 +25,7 @@ describe('CategoriesMapModel', () => {
 
   const categories = [
     new CategoryModel({
-      id: 0,
+      root: true,
       path: '/augsburg/de',
       title: 'augsburg',
       parentPath: '',
@@ -37,7 +37,7 @@ describe('CategoriesMapModel', () => {
       hash: '91d435afbc7aa83496137e81fd2832e3'
     }),
     new CategoryModel({
-      id: 20,
+      root: false,
       path: '/augsburg/de/willkommen',
       parentPath: '/augsburg/de',
       title: 'willkommen',
@@ -49,7 +49,7 @@ describe('CategoriesMapModel', () => {
       hash: '91d435afbc7aa83496137e81fd2832e3'
     }),
     new CategoryModel({
-      id: 21,
+      root: false,
       path: '/augsburg/de/erste-schritte',
       parentPath: '/augsburg/de',
       title: 'erste-schritte',
@@ -61,7 +61,7 @@ describe('CategoriesMapModel', () => {
       hash: '91d435afbc7aa83496137e81fd2832e3'
     }),
     new CategoryModel({
-      id: 22,
+      root: false,
       path: '/augsburg/de/erste-schritte/asylantrag',
       parentPath: '/augsburg/de/erste-schritte',
       title: 'asylantrag',

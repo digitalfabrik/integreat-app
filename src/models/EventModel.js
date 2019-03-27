@@ -10,7 +10,7 @@ class EventModel extends ExtendedPageModel {
   _location: LocationModel
   _excerpt: string
 
-  constructor (params: {|id: number, path: string, title: string, content: string, thumbnail: string,
+  constructor (params: {|path: string, title: string, content: string, thumbnail: string,
     date: DateModel, location: LocationModel, excerpt: string, availableLanguages: Map<string, string>,
     lastUpdate: Moment, hash: string|}) {
     const {date, location, excerpt, ...other} = params

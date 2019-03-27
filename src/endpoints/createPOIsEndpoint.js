@@ -19,7 +19,6 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> => new E
   .withMapper((json: Array<JsonPoiType>): Array<PoiModel> =>
     json.map(poi => {
       return new PoiModel({
-        id: poi.id,
         path: normalizePath(poi.path),
         title: poi.title,
         content: poi.content,

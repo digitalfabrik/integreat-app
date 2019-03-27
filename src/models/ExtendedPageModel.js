@@ -8,10 +8,11 @@ class ExtendedPageModel extends PageModel {
   _thumbnail: string
   _availableLanguages: Map<string, string>
 
-  constructor (params: {|id: number,
+  constructor (params: {|
     path: string, title: string, content: string, thumbnail: string, lastUpdate: Moment,
-    availableLanguages: Map<string, string>, hash: string|}) {
-    const {path, thumbnail, availableLanguages, ...other} = params
+    availableLanguages: Map<string, string>, hash: string
+  |}) {
+    const { path, thumbnail, availableLanguages, ...other } = params
     super(other)
     this._path = path
     this._thumbnail = thumbnail

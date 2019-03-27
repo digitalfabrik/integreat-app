@@ -5,7 +5,7 @@ import moment from 'moment'
 
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({
-    id: 0,
+    root: true,
     path: '/augsburg/en/',
     title: 'Welcome',
     content: '',
@@ -18,7 +18,7 @@ describe('CategoryModel', () => {
   })
 
   const category = new CategoryModel({
-    id: 5463,
+    root: false,
     path: '/augsburg/en/welcome',
     title: 'Welcome',
     content: '',

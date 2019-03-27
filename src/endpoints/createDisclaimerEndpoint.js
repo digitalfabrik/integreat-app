@@ -21,7 +21,6 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> => new Endpoin
     }
 
     return new PageModel({
-      id: json.id,
       title: json.title,
       content: sanitizeHtml(json.content, {
         allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
