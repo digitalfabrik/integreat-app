@@ -8,12 +8,13 @@ class PageModel {
   _lastUpdate: Moment
   _hash: string
 
-  constructor ({ title, content, lastUpdate }: {|
+  constructor ({ title, content, lastUpdate, hash }: {|
     title: string, content: string, lastUpdate: Moment, hash: string
   |}) {
     this._title = title
     this._content = content
     this._lastUpdate = lastUpdate
+    this._hash = hash
   }
 
   get title (): string {
