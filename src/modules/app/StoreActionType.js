@@ -75,23 +75,15 @@ export type EventsActionType =
   | PushEventActionType
   | FetchEventFailedActionType
 
-export type CityContentLoadedActionType = {|
-  type: 'CITY_CONTENT_LOADED', params: {|
-    categoriesMap: CategoriesMapModel | null,
-    events: Array<EventModel> | null,
-    language: string
-  |}
-|}
-
-export type SwitchCityContentLanguageActionType = {|
-  type: 'SWITCH_CITY_CONTENT_LANGUAGE', params: {|
+export type SwitchContentLanguageActionType = {|
+  type: 'SWITCH_CONTENT_LANGUAGE', params: {|
     newCategoriesMap: CategoriesMapModel,
     newResourceCache: ResourceCacheStateType,
     newLanguage: string
   |}
 |}
 
-export type CityContentActionType = CategoriesActionType | EventsActionType | SwitchCityContentLanguageActionType
+export type CityContentActionType = CategoriesActionType | EventsActionType | SwitchContentLanguageActionType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
@@ -102,14 +94,6 @@ export type ResourcesFetchFailedActionType = {|
 export type ResourcesFetchActionType =
   | ResourcesFetchSucceededActionType
   | ResourcesFetchFailedActionType
-
-export type SetLanguageActionType = {
-  type: 'SET_LANGUAGE', payload: string
-}
-
-export type SetCurrentCityActionType = {
-  type: 'SET_CURRENT_CITY', payload: string
-}
 
 export type SetUiDirectionActionType = {
   type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl'
@@ -126,10 +110,7 @@ export type ConnectionChangeActionType = {|
 export type StoreActionType =
   ConnectionChangeActionType
   | ResourcesFetchActionType
-  | SetLanguageActionType
-  | SetCurrentCityActionType
   | SetUiDirectionActionType
   | ToggleDarkModeActionType
-  | CategoriesActionType
   | CitiesActionType
-  | EventsActionType
+  | CityContentActionType

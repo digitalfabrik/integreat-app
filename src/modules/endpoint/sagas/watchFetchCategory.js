@@ -1,11 +1,11 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType, SwitchCityContentLanguageActionType
+  PushCategoryActionType, SwitchContentLanguageActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
@@ -18,8 +18,8 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
     if (path === undefined || depth === undefined || key === undefined) {
       // you did not provide a new key and depth it is most likely a language change
 
-      const insert: SwitchCityContentLanguageActionType = {
-        type: `SWITCH_CITY_CONTENT_LANGUAGE`,
+      const insert: SwitchContentLanguageActionType = {
+        type: `SWITCH_CONTENT_LANGUAGE`,
         params: {
           newCategoriesMap: database.categoriesMap,
           newResourceCache: database.resourceCache,

@@ -2,10 +2,10 @@
 
 import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
-import switchLanguage from '../switchLanguage'
+import switchContentLanguage from '../switchContentLanguage'
 import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
-import type { PushCategoryActionType, SwitchCityContentLanguageActionType } from '../../../app/StoreActionType'
+import type { PushCategoryActionType, SwitchContentLanguageActionType } from '../../../app/StoreActionType'
 
 describe('switchLangauge', () => {
   const enCategories = [
@@ -159,17 +159,18 @@ describe('switchLangauge', () => {
   }
 
   it('should not change when language is equal', () => {
-    const action: SwitchCityContentLanguageActionType = {
-      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
+    const action: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: createGermanModel(),
+        newResourceCache: {},
         newLanguage: 'de'
       }
     }
 
     const previous = prepareState()
 
-    const newState = switchLanguage(previous, action)
+    const newState = switchContentLanguage(previous, action)
 
     expect(newState).toEqual(previous)
   })
@@ -192,35 +193,38 @@ describe('switchLangauge', () => {
       city: 'augsburg'
     }
 
-    const action: SwitchCityContentLanguageActionType = {
-      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
+    const action: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
+        newResourceCache: {},
         newLanguage: 'en'
       }
     }
 
-    expect(() => switchLanguage(state, action)).toThrowError()
+    expect(() => switchContentLanguage(state, action)).toThrowError()
   })
 
   it('should throw error if city is not set', () => {
     const state = initialState
-    const action: SwitchCityContentLanguageActionType = {
-      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
+    const action: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
+        newResourceCache: {},
         newLanguage: 'en'
       }
     }
 
-    expect(() => switchLanguage(state, action)).toThrowError()
+    expect(() => switchContentLanguage(state, action)).toThrowError()
   })
 
   it('should translate of route failes', () => {
-    const action: SwitchCityContentLanguageActionType = {
-      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
+    const action: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
+        newResourceCache: {},
         newLanguage: 'en'
       }
     }
@@ -228,21 +232,22 @@ describe('switchLangauge', () => {
     const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
 
     previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
-    expect(() => switchLanguage(previous, action)).toThrowError()
+    expect(() => switchContentLanguage(previous, action)).toThrowError()
   })
 
   it('should translate route', () => {
-    const action: SwitchCityContentLanguageActionType = {
-      type: 'SWITCH_CITY_CONTENT_LANGUAGE',
+    const action: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
+        newResourceCache: {},
         newLanguage: 'en'
       }
     }
 
     const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
 
-    const newState = switchLanguage(previous, action)
+    const newState = switchContentLanguage(previous, action)
 
     expect(newState).toMatchSnapshot()
   })
