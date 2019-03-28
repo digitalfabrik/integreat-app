@@ -59,7 +59,7 @@ export default class Events extends React.Component<PropsType> {
           </Page>
         </ScrollView>
       }
-      const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
+      const error = new ContentNotFoundError({type: 'event', id: path, city, language})
       return <Failure error={error} />
     }
 

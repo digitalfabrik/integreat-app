@@ -5,7 +5,11 @@ import { mapValues } from 'lodash/object'
 import { reduce } from 'lodash/collection'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
-import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
+import type {
+  CategoryRouteStateType,
+  CityContentStateType,
+  EventRouteStateType
+} from '../../app/StateType'
 
 const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string) => {
   if (model.isRoot()) {
@@ -78,8 +82,8 @@ const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
 const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const {newCategoriesMap, newResourceCache, newLanguage} = action.params
-  const {categoriesRouteMapping, city, language} = state
+  const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
+  const {categoriesRouteMapping, eventsRouteMapping, city, language} = state
 
   if (!city) {
     // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
@@ -90,9 +94,9 @@ const morphContentLanguage = (
     return state
   }
 
-  const translateRoute = (value: CategoryRouteStateType, key: string) => {
+  const translateRoute = (route: CategoryRouteStateType, key: string) => {
     try {
-      const {models, children, depth, root} = value
+      const {models, children, depth, root} = route
 
       if (!root) {
         // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
@@ -122,13 +126,40 @@ const morphContentLanguage = (
     }
   }
 
-  const translatedRouteMapping = mapValues(categoriesRouteMapping, translateRoute)
+  const translatedCategoriesRouteMapping = mapValues(categoriesRouteMapping, translateRoute)
+
+  const translateEventRoute = (route: EventRouteStateType, key: string) => {
+    if (route.path) {
+      const event = route.models[0]
+
+      if (!event) {
+        throw new Error(`Model for route ${key} is null!`)
+      }
+
+      const translatedEvent = newEvents.find(translatedEvent => event.path === translatedEvent.path)
+
+      if (!translatedEvent) {
+        console.warn(`Could not find translated event for ${event.path}`)
+        return {...route, models: []}
+      }
+
+      return {...route, models: [translatedEvent]}
+    }
+
+    return {
+      ...route,
+      models: newEvents
+    }
+  }
+
+  const translatedEventsRouteMapping = mapValues(eventsRouteMapping, translateEventRoute)
 
   return {
     ...state,
     language: newLanguage,
     resourceCache: newResourceCache,
-    categoriesRouteMapping: translatedRouteMapping
+    categoriesRouteMapping: translatedCategoriesRouteMapping,
+    eventsRouteMapping: translatedEventsRouteMapping
   }
 }
 

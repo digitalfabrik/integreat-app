@@ -90,6 +90,7 @@ export type MorphContentLanguageActionType = {|
   type: 'MORPH_CONTENT_LANGUAGE', params: {|
     newCategoriesMap: CategoriesMapModel,
     newResourceCache: ResourceCacheStateType,
+    newEvents: Array<EventModel>,
     newLanguage: string
   |}
 |}
