@@ -145,7 +145,7 @@ class MemoryDatabase {
       root: category.isRoot(),
       path: category.path,
       title: category.title,
-      content: category.title,
+      content: category.content,
       last_update: category.lastUpdate.toISOString(),
       thumbnail: category.thumbnail,
       available_languages: mapToObject(category.availableLanguages),
