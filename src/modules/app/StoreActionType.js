@@ -49,7 +49,7 @@ export type CategoriesActionType =
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
-    path: string, key: string
+    path?: string, key: string
   |}
 |}
 export type ClearEventActionType = {|
@@ -58,7 +58,7 @@ export type ClearEventActionType = {|
 export type PushEventActionType = {|
   type: 'PUSH_EVENT', params: {|
     events: Array<EventModel>,
-    path: string, key: string,
+    path?: string, key: string,
     resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
