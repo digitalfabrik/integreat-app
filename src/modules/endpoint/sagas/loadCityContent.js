@@ -34,8 +34,8 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.addCacheEntries(resourceCache)
 
-  //yield call(() => database.writeCategories())
-  //yield call(() => database.writeResourceCache())
-  //yield call(() => database.readCategories())
-  //yield call(() => database.readResourceCache())
+  // yield call(() => database.writeCategories())
+  // yield call(() => database.writeResourceCache())
+  // yield call(() => database.readCategories())
+  // yield call(() => database.readResourceCache())
 }
