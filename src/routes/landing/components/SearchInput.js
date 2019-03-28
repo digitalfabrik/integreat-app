@@ -11,11 +11,11 @@ export const Spacer = styled.View`
 `
 
 // $FlowFixMe https://github.com/flow-typed/flow-typed/issues/2619
-export const Input = styled.TextInput.attrs({
+export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
-  textColor: (props: { theme: ThemeType }) => props.theme.colors.textSecondaryColor,
-  placeholderTextColor: (props: { theme: ThemeType }) => props.theme.colors.textSecondaryColor
-})`
+  textColor: props.theme.colors.textSecondaryColor,
+  placeholderTextColor: props.theme.colors.textSecondaryColor
+}))`
   margin-left: 5px;
   flex-grow: 1;
   
