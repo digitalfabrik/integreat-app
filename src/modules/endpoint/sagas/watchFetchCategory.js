@@ -9,22 +9,14 @@ import type {
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
-import type { StateType } from '../../app/StateType'
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
   const {city, language, path, depth, key} = action.params
   try {
     yield call(loadCityContent, database, city, language)
 
-    const currentLanguage = yield select((state: StateType) => state.cityContent.language)
-
     if (path === undefined || depth === undefined || key === undefined) {
       // you did not provide a new key and depth it is most likely a language change
-
-      if (currentLanguage === language) {
-        // If you request the same language as we already have just return
-        return
-      }
 
       const insert: SwitchCityContentLanguageActionType = {
         type: `SWITCH_CITY_CONTENT_LANGUAGE`,
