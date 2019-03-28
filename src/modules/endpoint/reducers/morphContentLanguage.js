@@ -136,14 +136,22 @@ const morphContentLanguage = (
         throw new Error(`Model for route ${key} is null!`)
       }
 
-      const translatedEvent = newEvents.find(translatedEvent => event.path === translatedEvent.path)
+      const translatedPath = event.availableLanguages.get(newLanguage)
+
+      if (!translatedPath) {
+        console.warn(`There is no translation for ${event.path} in ${newLanguage}`)
+        return {...route, path: translatedPath, models: []}
+      }
+
+      const translatedEvent = newEvents.find(translatedEvent =>
+        translatedPath === translatedEvent.path)
 
       if (!translatedEvent) {
         console.warn(`Could not find translated event for ${event.path}`)
-        return {...route, models: []}
+        return {...route, path: translatedPath, models: []}
       }
 
-      return {...route, models: [translatedEvent]}
+      return {...route, path: translatedPath, models: [translatedEvent]}
     }
 
     return {

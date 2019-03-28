@@ -1,25 +1,37 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  DateModel,
+  EventModel,
+  LanguageModel, LocationModel
+} from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
-import type { PushCategoryActionType, MorphContentLanguageActionType } from '../../../app/StoreActionType'
+import type {
+  PushCategoryActionType,
+  MorphContentLanguageActionType,
+  PushEventActionType
+} from '../../../app/StoreActionType'
+import pushEvent from '../pushEvent'
 
 describe('switchLangauge', () => {
   const enCategories = [
     new CategoryModel({
-      id: 0,
+      root: true,
       path: '/augsburg/en',
       title: 'augsburg',
       content: '',
       order: -1,
       availableLanguages: {},
       thumbnail: 'no_thumbnail',
-      parentPath: ''
+      parentPath: '',
+      hash: ''
     }), new CategoryModel({
-      id: 10,
+      root: false,
       path: '/augsburg/en/anlaufstellen',
       title: 'Contact points for other topics',
       content: '',
@@ -29,10 +41,11 @@ describe('switchLangauge', () => {
         ['de', '/augsburg/de/anlaufstellen']
       ]),
       thumbnail: 'https://cms.integreat-app.de/thumbnail.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      hash: '8cff3dcb420c0bbcbf612bf57f3c04ae'
     }),
     new CategoryModel({
-      id: 11,
+      root: false,
       path: '/augsburg/en/erste-schritte',
       title: 'Welcome',
       content: '',
@@ -42,10 +55,11 @@ describe('switchLangauge', () => {
         ['de', '/augsburg/de/willkommen']
       ]),
       thumbnail: 'https://cms.integreat-app.de/thumbnail.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      hash: '8cff3dcb420c0bbcbf612bf57f3c04ae'
     }),
     new CategoryModel({
-      id: 12,
+      root: false,
       path: '/augsburg/en/erste-schritte/welcome-to-augsburg',
       title: 'Welcome to Augsburg',
       content: 'some content',
@@ -55,7 +69,8 @@ describe('switchLangauge', () => {
         ['de', '/augsburg/de/willkommen/willkommen-in-augsburg']
       ]),
       thumbnail: 'https://cms.integreat-app.de/thumbnail.png',
-      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+      lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+      hash: '8cff3dcb420c0bbcbf612bf57f3c04ae'
     })
   ]
 
@@ -64,16 +79,17 @@ describe('switchLangauge', () => {
   const createGermanModel = ({translatable}: { translatable: boolean } = {translatable: true}) => {
     const deCategories = [
       new CategoryModel({
-        id: 0,
+        root: true,
         path: '/augsburg/de',
         title: 'augsburg',
         content: '',
         order: -1,
-        availableLanguages: {},
+        availableLanguages: new Map(),
         thumbnail: 'no_thumbnail',
-        parentPath: ''
+        parentPath: '',
+        hash: ''
       }), new CategoryModel({
-        id: 1,
+        root: false,
         path: '/augsburg/de/anlaufstellen',
         title: 'Anlaufstellen zu sonstigen Themen',
         content: '',
@@ -83,10 +99,11 @@ describe('switchLangauge', () => {
           ['en', '/augsburg/en/anlaufstellen']
         ]) : new Map(),
         thumbnail: 'https://cms.integreat-app.de/thumbnail.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        hash: '8cff3dcb420c0bbcbf612bf57f3c04ae'
       }),
       new CategoryModel({
-        id: 2,
+        root: false,
         path: '/augsburg/de/willkommen',
         title: 'Willkommen',
         content: '',
@@ -96,10 +113,11 @@ describe('switchLangauge', () => {
           ['en', '/augsburg/en/erste-schritte']
         ]) : new Map(),
         thumbnail: 'https://cms.integreat-app.de/thumbnail.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        hash: '8cff3dcb420c0bbcbf612bf57f3c04ae'
       }),
       new CategoryModel({
-        id: 3,
+        root: false,
         path: '/augsburg/de/willkommen/willkommen-in-augsburg',
         title: 'Willkommen in Augsburg',
         content: 'some content',
@@ -109,7 +127,8 @@ describe('switchLangauge', () => {
           ['en', '/augsburg/en/erste-schritte/welcome-to-augsburg']
         ]) : new Map(),
         thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
-        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC')
+        lastUpdate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        hash: '8cff3dcb420c0bbcbf612bf57f3c04ae'
       })
     ]
 
@@ -117,6 +136,138 @@ describe('switchLangauge', () => {
   }
 
   const languages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
+
+  const enEvents = [
+    new EventModel({
+      id: 1,
+      path: '/augsburg/en/events/first_event',
+      title: 'first Event',
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/erstes_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24', 'UTC'),
+      content: 'content',
+      thumbnail: 'thumbnail'
+    }),
+    new EventModel({
+      id: 2,
+      path: '/augsburg/en/events/second_event',
+      title: 'second Event',
+      availableLanguages: new Map(
+        [['en', '/augsburg/de/events/zweites_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      content: 'content',
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumbnail'
+    }),
+    new EventModel({
+      id: 3,
+      path: '/augsburg/en/events/third_event',
+      title: 'third Event',
+      availableLanguages: new Map(
+        [['de', '/augsburg/de/events/drittes_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      content: 'content',
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24', 'UTC'),
+      thumbnail: 'thumbnail'
+    })
+  ]
+
+  const deEvents = [
+    new EventModel({
+      id: 1,
+      path: '/augsburg/de/events/erstes_event',
+      title: 'Erstes Event',
+      availableLanguages: new Map(
+        [['de', '/augsburg/en/events/first_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24', 'UTC'),
+      content: 'content',
+      thumbnail: 'thumbnail'
+    }),
+    new EventModel({
+      id: 2,
+      path: '/augsburg/de/events/zweites_event',
+      title: 'Zweites Event',
+      availableLanguages: new Map(
+        [['en', '/augsburg/en/events/second_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      content: 'content',
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      thumbnail: 'thumbnail'
+    }),
+    new EventModel({
+      id: 3,
+      path: '/augsburg/de/events/drittes_event',
+      title: 'Drittes Event',
+      availableLanguages: new Map(
+        [['en', '/augsburg/en/events/third_event']]),
+      date: new DateModel({
+        startDate: moment.tz('2017-11-18 09:30:00', 'UTC'),
+        endDate: moment.tz('2017-11-18 19:30:00', 'UTC'),
+        allDay: true
+      }),
+      location: new LocationModel({
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode'
+      }),
+      content: 'content',
+      excerpt: 'excerpt',
+      lastUpdate: moment('2016-01-07 10:36:24', 'UTC'),
+      thumbnail: 'thumbnail'
+    })
+  ]
 
   const initialState: CityContentStateType = {
     categoriesRouteMapping: {
@@ -135,11 +286,15 @@ describe('switchLangauge', () => {
     city: null
   }
 
-  const prepareState = ({path, model}: { path: string, model: CategoryModel } = {
+  const prepareState = ({path, model, eventPath, events}: {
+    path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>
+  } = {
     path: '/augsburg/de',
-    model: createGermanModel()
+    model: createGermanModel(),
+    eventPath: '/augsburg/de/events/drittes_event',
+    events: deEvents
   }): CityContentStateType => {
-    const state = initialState
+    let state = initialState
 
     const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
@@ -155,7 +310,36 @@ describe('switchLangauge', () => {
       }
     }
 
-    return pushCategory(state, pushAction)
+    state = pushCategory(state, pushAction)
+
+    let pushEventAction: PushEventActionType = {
+      type: 'PUSH_EVENT',
+      params: {
+        events,
+        languages,
+        key: 'event-route-1',
+        resourceCache: {},
+        city: 'augsburg',
+        language: 'de'
+      }
+    }
+
+    state = pushEvent(state, pushEventAction)
+
+    pushEventAction = {
+      type: 'PUSH_EVENT',
+      params: {
+        events,
+        languages,
+        path: eventPath,
+        key: 'event-route-2',
+        resourceCache: {},
+        city: 'augsburg',
+        language: 'de'
+      }
+    }
+
+    return pushEvent(state, pushEventAction)
   }
 
   it('should not change when language is equal', () => {
@@ -164,6 +348,7 @@ describe('switchLangauge', () => {
       params: {
         newCategoriesMap: createGermanModel(),
         newResourceCache: {},
+        newEvents: deEvents,
         newLanguage: 'de'
       }
     }
@@ -175,7 +360,7 @@ describe('switchLangauge', () => {
     expect(newState).toEqual(previous)
   })
 
-  it('should throw error with untranslatable route', () => {
+  it('should throw error with untranslatable categories route', () => {
     const state: CityContentStateType = {
       categoriesRouteMapping: {
         'route-0': {
@@ -198,6 +383,7 @@ describe('switchLangauge', () => {
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
+        newEvents: [],
         newLanguage: 'en'
       }
     }
@@ -205,13 +391,14 @@ describe('switchLangauge', () => {
     expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
-  it('should throw error if city is not set', () => {
+  it('should throw error if city is not set in categories route', () => {
     const state = initialState
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
+        newEvents: [],
         newLanguage: 'en'
       }
     }
@@ -219,17 +406,18 @@ describe('switchLangauge', () => {
     expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
-  it('should translate of route failes', () => {
+  it('should fail if category models are invalid', () => {
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
+        newEvents: [],
         newLanguage: 'en'
       }
     }
 
-    const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
+    const previous = prepareState()
 
     previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
     expect(() => morphContentLanguage(previous, action)).toThrowError()
@@ -241,11 +429,17 @@ describe('switchLangauge', () => {
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
+        newEvents: enEvents,
         newLanguage: 'en'
       }
     }
 
-    const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
+    const previous = prepareState({
+      path: '/augsburg/de',
+      model: createGermanModel(),
+      eventPath: '/augsburg/de/events/drittes_event',
+      events: deEvents
+    })
 
     const newState = morphContentLanguage(previous, action)
 
