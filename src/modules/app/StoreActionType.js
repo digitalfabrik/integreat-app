@@ -21,7 +21,7 @@ export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | Fe
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
-    path?: string, depth?: number, key?: string
+    path: string, depth: number, key: string
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -77,13 +77,28 @@ export type EventsActionType =
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', params: {|
+    city: string,
+    newLanguage: string
+  |}
+|}
+
+export type SwitchContentLanguageFailedActionType = {|
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', message: string
+|}
+
+export type MorphContentLanguageActionType = {|
+  type: 'MORPH_CONTENT_LANGUAGE', params: {|
     newCategoriesMap: CategoriesMapModel,
     newResourceCache: ResourceCacheStateType,
     newLanguage: string
   |}
 |}
 
-export type CityContentActionType = CategoriesActionType | EventsActionType | SwitchContentLanguageActionType
+export type CityContentActionType =
+  CategoriesActionType
+  | EventsActionType
+  | MorphContentLanguageActionType
+  | SwitchContentLanguageActionType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string

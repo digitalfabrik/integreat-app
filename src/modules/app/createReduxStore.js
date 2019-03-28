@@ -29,12 +29,14 @@ import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
 import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
+import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
     call(watchFetchCategory, database),
     call(watchFetchEvent, database),
     call(watchFetchCities, database),
+    call(watchContentLanguageSwitch, database),
     call(networkEventsListenerSaga, {})
   ])
 }

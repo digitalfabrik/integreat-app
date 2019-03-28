@@ -2,10 +2,10 @@
 
 import { CategoriesMapModel, CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
-import switchContentLanguage from '../switchContentLanguage'
+import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
-import type { PushCategoryActionType, SwitchContentLanguageActionType } from '../../../app/StoreActionType'
+import type { PushCategoryActionType, MorphContentLanguageActionType } from '../../../app/StoreActionType'
 
 describe('switchLangauge', () => {
   const enCategories = [
@@ -159,8 +159,8 @@ describe('switchLangauge', () => {
   }
 
   it('should not change when language is equal', () => {
-    const action: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: createGermanModel(),
         newResourceCache: {},
@@ -170,7 +170,7 @@ describe('switchLangauge', () => {
 
     const previous = prepareState()
 
-    const newState = switchContentLanguage(previous, action)
+    const newState = morphContentLanguage(previous, action)
 
     expect(newState).toEqual(previous)
   })
@@ -193,8 +193,8 @@ describe('switchLangauge', () => {
       city: 'augsburg'
     }
 
-    const action: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
@@ -202,13 +202,13 @@ describe('switchLangauge', () => {
       }
     }
 
-    expect(() => switchContentLanguage(state, action)).toThrowError()
+    expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
   it('should throw error if city is not set', () => {
     const state = initialState
-    const action: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
@@ -216,12 +216,12 @@ describe('switchLangauge', () => {
       }
     }
 
-    expect(() => switchContentLanguage(state, action)).toThrowError()
+    expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
   it('should translate of route failes', () => {
-    const action: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
@@ -232,12 +232,12 @@ describe('switchLangauge', () => {
     const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
 
     previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
-    expect(() => switchContentLanguage(previous, action)).toThrowError()
+    expect(() => morphContentLanguage(previous, action)).toThrowError()
   })
 
   it('should translate route', () => {
-    const action: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
+    const action: MorphContentLanguageActionType = {
+      type: 'MORPH_CONTENT_LANGUAGE',
       params: {
         newCategoriesMap: enModel,
         newResourceCache: {},
@@ -247,7 +247,7 @@ describe('switchLangauge', () => {
 
     const previous = prepareState({path: '/augsburg/de', model: createGermanModel()})
 
-    const newState = switchContentLanguage(previous, action)
+    const newState = morphContentLanguage(previous, action)
 
     expect(newState).toMatchSnapshot()
   })

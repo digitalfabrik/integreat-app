@@ -4,7 +4,7 @@ import { defaultRouteState } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
 import { reduce } from 'lodash/collection'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
-import type { SwitchContentLanguageActionType } from '../../app/StoreActionType'
+import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
 
 const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string) => {
@@ -75,8 +75,8 @@ const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
     return result
   }, {})
 
-const switchContentLanguage = (
-  state: CityContentStateType, action: SwitchContentLanguageActionType
+const morphContentLanguage = (
+  state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
   const {newCategoriesMap, newResourceCache, newLanguage} = action.params
   const {categoriesRouteMapping, city, language} = state
@@ -132,4 +132,4 @@ const switchContentLanguage = (
   }
 }
 
-export default switchContentLanguage
+export default morphContentLanguage

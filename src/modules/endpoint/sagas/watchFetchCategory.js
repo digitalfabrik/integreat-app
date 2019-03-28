@@ -5,7 +5,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
-  PushCategoryActionType, SwitchContentLanguageActionType
+  PushCategoryActionType
 } from '../../app/StoreActionType'
 import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
@@ -14,22 +14,6 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
   const {city, language, path, depth, key} = action.params
   try {
     yield call(loadCityContent, database, city, language)
-
-    if (path === undefined || depth === undefined || key === undefined) {
-      // you did not provide a new key and depth it is most likely a language change
-
-      const insert: SwitchContentLanguageActionType = {
-        type: `SWITCH_CONTENT_LANGUAGE`,
-        params: {
-          newCategoriesMap: database.categoriesMap,
-          newResourceCache: database.resourceCache,
-          newLanguage: language
-        }
-      }
-      yield put(insert)
-
-      return
-    }
 
     const insert: PushCategoryActionType = {
       type: `PUSH_CATEGORY`,
