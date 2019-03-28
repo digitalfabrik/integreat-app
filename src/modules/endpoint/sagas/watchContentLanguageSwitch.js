@@ -18,6 +18,7 @@ function * switchContentLanguage (database: MemoryDatabase, action: SwitchConten
       params: {
         newCategoriesMap: database.categoriesMap,
         newResourceCache: database.resourceCache,
+        newEvents: database.events,
         newLanguage: newLanguage
       }
     }
