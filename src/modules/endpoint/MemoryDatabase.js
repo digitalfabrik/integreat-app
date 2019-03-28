@@ -14,7 +14,6 @@ import {
   CONTENT_DIR_PATH, getResourceCacheFilesPath
 } from '../platform/constants/webview'
 import moment from 'moment'
-import { mapValues } from 'lodash'
 
 type ContentCategoryJsonType = {|
   root: string,
