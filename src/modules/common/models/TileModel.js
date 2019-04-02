@@ -4,7 +4,7 @@ export default class TileModel {
   _id: string
   _title: string
   _path: string
-  _thumbnail: string
+  _thumbnail: string | number
   _isExternalUrl: boolean
   _postData: ?Map<string, string>
   _onTilePress: () => void
@@ -14,7 +14,7 @@ export default class TileModel {
     id: string,
     title: string,
     path: string,
-    thumbnail: string,
+    thumbnail: string | number,
     isExternalUrl: boolean,
     postData?: ?Map<string, string>,
     onTilePress?: () => void,
@@ -34,7 +34,7 @@ export default class TileModel {
     return this._id
   }
 
-  get thumbnail (): string {
+  get thumbnail (): string | number {
     return this._thumbnail
   }
 
