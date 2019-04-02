@@ -41,15 +41,13 @@ class Categories extends React.Component<PropsType> {
 
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
-      if (cachedThumbnail) {
-        cachedThumbnail = URL_PREFIX + cachedThumbnail
-      }
+      const cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
+      const thumbnailUrl = cachedThumbnail ? URL_PREFIX + cachedThumbnail : category.thumbnail
 
       return new TileModel({
         title: category.title,
         path: category.path,
-        thumbnail: cachedThumbnail || category.thumbnail,
+        thumbnail: thumbnailUrl,
         isExternalUrl: false
       })
     })
@@ -60,16 +58,14 @@ class Categories extends React.Component<PropsType> {
   }
 
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
-    if (cachedThumbnail) {
-      cachedThumbnail = URL_PREFIX + cachedThumbnail
-    }
+    const cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
+    const thumbnailUrl = cachedThumbnail ? URL_PREFIX + cachedThumbnail : category.thumbnail
 
     return {
       id: category.id,
       title: category.title,
       path: category.path,
-      thumbnail: cachedThumbnail || category.thumbnail
+      thumbnail: thumbnailUrl
     }
   }
 
