@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import styled from 'styled-components/native'
-import { TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
@@ -13,8 +13,7 @@ const TILE_LENGTH = 85
 
 type PropsType = {|
   tile: TileModel,
-  theme: ThemeType,
-  widthPercentage: number
+  theme: ThemeType
 |}
 
 // FIXME when testing on ios
@@ -36,10 +35,9 @@ const TileTitle = styled.Text`
   text-align: center;
 `
 
-const TileContainer = styled.View`
+const TileTouchable = styled.TouchableOpacity`
   align-items: center;
   margin-bottom: 20px;
-  width: ${props => props.widthPercentage}%;
 `
 
 const NewsDot = styled.Text`
@@ -79,18 +77,20 @@ class Tile extends React.Component<PropsType> {
       cache: FastImage.cacheControl.web
     }
     return <>
-      <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} height={height} />
+      <View>
+        <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} height={height} />
+        {this.getNewsDot()}
+      </View>
       <TileTitle theme={theme}>{tile.title}</TileTitle>
-      {this.getNewsDot()}
     </>
   }
 
   render () {
-    const {widthPercentage, tile} = this.props
+    const {tile} = this.props
     return (
-      <TileContainer widthPercentage={widthPercentage}>
-          <TouchableOpacity onPress={tile._onTilePress}>{this.getTileContent()}</TouchableOpacity>
-      </TileContainer>
+      <TileTouchable onPress={tile._onTilePress}>
+        {this.getTileContent()}
+      </TileTouchable>
     )
   }
 }
