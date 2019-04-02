@@ -1,8 +1,8 @@
 // @flow
 
 import { offlineActionTypes } from 'react-native-offline'
-import { CityModel, CategoriesMapModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { ResourceCacheStateType } from './StateType'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
@@ -18,12 +18,10 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type PushParamsType = {
-  path: string, depth: number, key: string
-}
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
-    city: string, language: string, pushParams?: PushParamsType
+    city: string, language: string,
+    path: string, depth: number, key: string
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -31,46 +29,87 @@ export type FetchCategoryFailedActionType = {|
 |}
 export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
-    categoriesMap: CategoriesMapModel, languages: Array<LanguageModel>,
-    pushParams: PushParamsType,
-    resourceCache: ResourceCacheType,
+    categoriesMap: CategoriesMapModel,
+    resourceCache: ResourceCacheStateType,
+    languages: Array<LanguageModel>,
     city: string,
-    language: string
+    language: string,
+    path: string, depth: number, key: string
   |}
 |}
 export type ClearCategoryActionType = {|
   type: 'CLEAR_CATEGORY', params: {| key: string |}
-|}
-export type SwitchCategoryLanguageActionType = {|
-  type: 'SWITCH_CATEGORY_LANGUAGE', params: {|
-    newCategoriesMap: CategoriesMapModel,
-    newLanguage: string
-  |}
 |}
 export type CategoriesActionType =
   ClearCategoryActionType
   | FetchCategoryActionType
   | PushCategoryActionType
   | FetchCategoryFailedActionType
-  | SwitchCategoryLanguageActionType
 
-export type ResourcesDownloadSucceededActionType = {|
-  type: 'RESOURCES_DOWNLOAD_SUCCEEDED', city: string, language: string
+export type FetchEventActionType = {|
+  type: 'FETCH_EVENT', params: {|
+    city: string, language: string,
+    path?: string, key: string
+  |}
 |}
-export type ResourcesDownloadFailedActionType = {|
-  type: 'RESOURCES_DOWNLOAD_FAILED', city: string, language: string, message: string
+export type ClearEventActionType = {|
+  type: 'CLEAR_EVENT', params: {| key: string |}
 |}
-export type ResourcesDownloadActionType =
-  | ResourcesDownloadSucceededActionType
-  | ResourcesDownloadFailedActionType
+export type PushEventActionType = {|
+  type: 'PUSH_EVENT', params: {|
+    events: Array<EventModel>,
+    path?: string, key: string,
+    resourceCache: ResourceCacheStateType,
+    languages: Array<LanguageModel>,
+    city: string,
+    language: string
+  |}
+|}
+export type FetchEventFailedActionType = {|
+  type: 'FETCH_EVENT_FAILED', message: string
+|}
 
-export type SetLanguageActionType = {
-  type: 'SET_LANGUAGE', payload: string
-}
+export type EventsActionType =
+  ClearEventActionType
+  | FetchEventActionType
+  | PushEventActionType
+  | FetchEventFailedActionType
 
-export type SetCurrentCityActionType = {
-  type: 'SET_CURRENT_CITY', payload: string
-}
+export type SwitchContentLanguageActionType = {|
+  type: 'SWITCH_CONTENT_LANGUAGE', params: {|
+    city: string,
+    newLanguage: string
+  |}
+|}
+
+export type SwitchContentLanguageFailedActionType = {|
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', message: string
+|}
+
+export type MorphContentLanguageActionType = {|
+  type: 'MORPH_CONTENT_LANGUAGE', params: {|
+    newCategoriesMap: CategoriesMapModel,
+    newResourceCache: ResourceCacheStateType,
+    newEvents: Array<EventModel>,
+    newLanguage: string
+  |}
+|}
+
+export type CityContentActionType =
+  CategoriesActionType
+  | EventsActionType
+  | MorphContentLanguageActionType
+  | SwitchContentLanguageActionType
+
+export type ResourcesFetchSucceededActionType = {|
+  type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
+|}
+export type ResourcesFetchFailedActionType = {|
+  type: 'RESOURCES_FETCH_FAILED', city: string, language: string, message: string
+|}
+export type ResourcesFetchActionType =
+  | ResourcesFetchSucceededActionType
+  | ResourcesFetchFailedActionType
 
 export type SetUiDirectionActionType = {
   type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl'
@@ -86,10 +125,8 @@ export type ConnectionChangeActionType = {|
 
 export type StoreActionType =
   ConnectionChangeActionType
-  | ResourcesDownloadActionType
-  | SetLanguageActionType
-  | SetCurrentCityActionType
+  | ResourcesFetchActionType
   | SetUiDirectionActionType
   | ToggleDarkModeActionType
-  | CategoriesActionType
   | CitiesActionType
+  | CityContentActionType

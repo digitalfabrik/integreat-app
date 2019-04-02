@@ -687,10 +687,10 @@
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config/-/eslint-config-0.2.1.tgz#0f82f1b7c9d22367b95134d92c4c21156c2b26c2"
   integrity sha1-D4Lxt8nSI2e5UTTZLEwhFWwrJsI=
 
-"@integreat-app/integreat-api-client@2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-2.2.4.tgz#d68f240c48922ad7d3d3bc07a25001ce11fb35a7"
-  integrity sha512-EMhyfXOROFXPbHLhouWoh/4mkuAsKk3e1q1lXNmRLzXA/BkV3GFpS2AgA54diqk07JH6LorUqJ7QOMFhvpHaLg==
+"@integreat-app/integreat-api-client@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@integreat-app/integreat-api-client/-/integreat-api-client-3.0.2.tgz#cd32e4b22c26e193afacae0f09a89b1a5c752043"
+  integrity sha512-xyTE+WGdlt0OCawX8uLPcAjJY/JqpNzq0dFwb684GJY7cMkfO8pNf1dflwDX7CRF9ed2ox1wUQO2tLONP9doLw==
   dependencies:
     entities "^1.1"
     is-url "^1.2"

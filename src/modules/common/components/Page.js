@@ -2,9 +2,9 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import styled, { withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
-import { OFFLINE_CACHE_PATH, URL_PREFIX } from '../../platform/constants/webview'
+import { URL_PREFIX, getResourceCacheFilesDirPath } from '../../platform/constants/webview'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import { type NavigationScreenProp, withNavigation } from 'react-navigation'
 import renderHtml from '../renderHtml'
@@ -13,6 +13,7 @@ import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import compose from 'lodash/fp/compose'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
+import type { FileCacheStateType } from '../../app/StateType'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -37,9 +38,10 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  resourceCache: { [url: string]: string },
+  files: FileCacheStateType,
   children?: React.Node,
   language: string,
+  cityCode: string,
   lastUpdate: Moment
 }
 
@@ -85,7 +87,7 @@ class Page extends React.Component<PropType, StateType> {
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
     const url = event.url
     // Needed on iOS for the initial load
-    if (url === URL_PREFIX + OFFLINE_CACHE_PATH) {
+    if (url === URL_PREFIX + getResourceCacheFilesDirPath(this.props.cityCode)) {
       return true
     }
 
@@ -99,9 +101,10 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, resourceCache, theme, language, lastUpdate} = this.props
+    const {title, children, content, files, theme, language, cityCode, lastUpdate} = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
+
     return (
       <Container onLayout={this.onLayout}>
         <Caption title={title} />
@@ -109,8 +112,8 @@ class Page extends React.Component<PropType, StateType> {
         <StyledView>
           <WebView
             source={{
-              baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
-              html: renderHtml(content, resourceCache, theme)
+              baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
+              html: renderHtml(content, files, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
