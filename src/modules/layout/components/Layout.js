@@ -5,7 +5,6 @@ import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
 type WrapperPropsType = {
-  statusBarHeight: number,
   theme: ThemeType
 }
 
@@ -15,7 +14,6 @@ const Wrapper = styled.View`
 `
 
 type AppPropsType = {
-  statusBarHeight: number,
   children?: React.Node,
   theme: ThemeType
 }

@@ -1,7 +1,7 @@
 // @flow
 
 import Categories from '../../../modules/categories/components/Categories'
-import { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components/native'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
@@ -11,19 +11,19 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import navigateToCategory from '../../../modules/app/navigateToCategory'
+import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation)
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute = state.categories.routeMapping[key]
-  const language = state.categories.currentLanguage
+  const targetRoute = state.cityContent.categoriesRouteMapping[key]
+  const language = state.cityContent.language
 
   if (!targetRoute || !language) {
     return {
@@ -42,7 +42,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.cities.models,
     stateView: stateView,
-    resourceCache: state.categories.resourceCache,
+    resourceCache: state.cityContent.resourceCache,
     error: null // fixme display errors
   }
 }
