@@ -10,6 +10,7 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheType'
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
+import CalendarIcon from '../assets/calendar_500x500.png'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -39,7 +40,7 @@ class Dashboard extends React.Component<PropsType> {
         id: 0,
         title: 'Veranstaltungen',
         path: 'events',
-        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
+        thumbnail: CalendarIcon,
         isExternalUrl: false,
         onTilePress: this.events,
         notifications: 3
@@ -57,7 +58,7 @@ class Dashboard extends React.Component<PropsType> {
         id: 2,
         title: 'Angebote',
         path: 'extras',
-        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/raumfrei.jpg',
+        thumbnail: CalendarIcon,
         isExternalUrl: false,
         onTilePress: this.extras,
         notifications: 0

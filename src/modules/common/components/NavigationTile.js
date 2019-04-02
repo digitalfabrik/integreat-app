@@ -69,7 +69,7 @@ class Tile extends React.Component<PropsType> {
 
   getTileContent (): React.Node {
     const {tile, height, theme} = this.props
-    const imageSource = {
+    const imageSource = typeof tile.thumbnail === 'number' ? tile.thumbnail : {
       uri: tile.thumbnail,
       priority: FastImage.priority.normal,
       // disable caching, we want to do it manually
