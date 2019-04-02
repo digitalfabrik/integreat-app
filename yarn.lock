@@ -1400,13 +1400,6 @@ babel-plugin-module-resolver@^3.1.3:
     reselect "^3.0.1"
     resolve "^1.4.0"
 
-babel-plugin-redux-saga@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-redux-saga/-/babel-plugin-redux-saga-1.0.2.tgz#3d267c258bb9af99a836595e74549b948f6cb782"
-  integrity sha512-a8508aErFsYizB0FKGLbw+6VQJXNi2tsTquSw0n7Ybltq00uCqABbJyHnWoCFg0FQxwrP+U6Fy/dNdoRqwn3JA==
-  dependencies:
-    source-map "^0.6.1"
-
 "babel-plugin-styled-components@>= 1":
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.10.0.tgz#ff1f42ad2cc78c21f26b62266b8f564dbc862939"
