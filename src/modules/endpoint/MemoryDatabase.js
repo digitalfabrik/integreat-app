@@ -133,7 +133,7 @@ class MemoryDatabase {
   /**
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
    */
-  writeCategories (): Promise<number> {
+  writeCategories = async (): Promise<number> => {
     if (!this.categoriesMap) {
       throw new Error('MemoryDatabase does not have data to save!')
     }
@@ -157,12 +157,12 @@ class MemoryDatabase {
     return this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
   }
 
-  async readCategories () {
+  readCategories = async () => {
     const path = this.getContentPath('categories')
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._categoriesMap = new CategoriesMapModel()
+      this._categoriesMap = null
       return
     }
 
@@ -184,20 +184,19 @@ class MemoryDatabase {
     }))
   }
 
-  async readResourceCache () {
+  readResourceCache = async () => {
     const path = this.getResourceCachePath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._resourceCache = {}
+      this._resourceCache = null
       return
     }
 
-    const json: ResourceCacheJsonType = JSON.parse(await this.readFile(path))
-    this._resourceCache = json
+    this._resourceCache = JSON.parse(await this.readFile(path))
   }
 
-  async writeResourceCache (): Promise<number> {
+  writeResourceCache = async (): Promise<number> => {
     if (!this._resourceCache) {
       throw new Error('MemoryDatabase does not have data to save!')
     }

@@ -17,15 +17,15 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
 
-  const [[categoriesMap, categoryUrls], [events, eventUrls], languages] = yield all([
-    call(loadCategories, newCity, newLanguage),
+  const [[categoryUrls], [events, eventUrls], languages] = yield all([
+    call(loadCategories, newCity, newLanguage, database),
     call(loadEvents, newCity, newLanguage),
     call(loadLanguages, newCity, newLanguage)
   ])
 
   database.events = events
-  database.categoriesMap = categoriesMap
   database.languages = languages
+  console.log('categories map', database.categoriesMap)
 
   const resourceCache: ResourceCacheStateType = yield call(fetchResourceCache, newCity, newLanguage, {
     ...categoryUrls,
