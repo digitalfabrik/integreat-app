@@ -38,7 +38,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
 
     const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
 
-    const successResult = pickBy(results, result => !result.errorMessage)
+    const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
 
     if (!isEmpty(failureResults)) {
@@ -58,7 +58,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
 
     return mapValues(targetCategories, filePaths =>
       fromPairs(filePaths.map(filePath => {
-        const downloadResult = successResult[filePath]
+        const downloadResult = successResults[filePath]
         return [downloadResult.url, {
           path: filePath,
           lastUpdate: downloadResult.lastUpdate
