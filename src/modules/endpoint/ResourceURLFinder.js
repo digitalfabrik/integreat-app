@@ -7,19 +7,18 @@ import { keyBy, reduce } from 'lodash/collection'
 
 export default class ResourceURLFinder {
   parser: Parser
-  onAttributeTagFound: (name: string, value: string) => void
   _foundUrls: Set<string> = new Set<string>()
 
-  init () {
-    this.onAttributeTagFound = (name: string, value: string) => {
-      if (name === 'href' || name === 'src') {
-        if (['png', 'jpg', 'jpeg', 'pdf'].includes(getExtension(value))) {
-          this.foundUrls.add(value)
-        }
+  _onAttributeTagFound = (name: string, value: string) => {
+    if (name === 'href' || name === 'src') {
+      if (['png', 'jpg', 'jpeg', 'pdf'].includes(getExtension(value))) {
+        this.foundUrls.add(value)
       }
     }
+  }
 
-    this.parser = new Parser({onattribute: this.onAttributeTagFound}, {decodeEntities: true})
+  init () {
+    this.parser = new Parser({onattribute: this._onAttributeTagFound}, {decodeEntities: true})
   }
 
   finalize () {
