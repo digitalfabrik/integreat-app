@@ -21,6 +21,10 @@
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+.idea/**/modules.xml
+
+# Android Studio
+.idea/**/.name
 
 # CMake
 cmake-build-debug/
