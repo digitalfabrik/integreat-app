@@ -11,7 +11,7 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
-import type { ResourceCacheType } from '../../endpoint/ResourceCacheType'
+import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -21,7 +21,7 @@ type PropsType = {|
   cityCode: string,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
 
-  resourceCache: ResourceCacheType,
+  resourceCache: ResourceCacheStateType,
   theme: ThemeType
 |}
 
@@ -41,32 +41,31 @@ class Categories extends React.Component<PropsType> {
 
   getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
     return categories.map(category => {
-      let cachedThumbnail = this.props.resourceCache[category.thumbnail]
-      if (cachedThumbnail) {
-        cachedThumbnail = URL_PREFIX + cachedThumbnail
-      }
+      const cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
+      const thumbnailUrl = cachedThumbnail ? URL_PREFIX + cachedThumbnail : category.thumbnail
 
       return new TileModel({
-        id: String(category.id),
         title: category.title,
         path: category.path,
-        thumbnail: cachedThumbnail || category.thumbnail,
+        thumbnail: thumbnailUrl,
         isExternalUrl: false
       })
     })
   }
 
+  getLocalResourceCache (category: CategoryModel): FileCacheStateType {
+    return this.props.resourceCache[category.path]
+  }
+
   getListModel (category: CategoryModel): { id: number, title: string, thumbnail: string, path: string } {
-    let cachedThumbnail = this.props.resourceCache[category.thumbnail]
-    if (cachedThumbnail) {
-      cachedThumbnail = URL_PREFIX + cachedThumbnail
-    }
+    const cachedThumbnail = this.getLocalResourceCache(category)[category.thumbnail].path
+    const thumbnailUrl = cachedThumbnail ? URL_PREFIX + cachedThumbnail : category.thumbnail
 
     return {
       id: category.id,
       title: category.title,
       path: category.path,
-      thumbnail: cachedThumbnail || category.thumbnail
+      thumbnail: thumbnailUrl
     }
   }
 
@@ -95,12 +94,13 @@ class Categories extends React.Component<PropsType> {
 
     if (children.length === 0) {
       // last level, our category is a simple page
+      const files = this.props.resourceCache[category.path]
       return <Page title={category.title}
-              content={category.content}
-              lastUpdate={category.lastUpdate}
-              theme={this.props.theme}
-              resourceCache={this.props.resourceCache}
-              language={this.props.language} />
+                   content={category.content}
+                   lastUpdate={category.lastUpdate}
+                   theme={this.props.theme}
+                   files={files}
+                   language={this.props.language} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 

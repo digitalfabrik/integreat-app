@@ -9,8 +9,8 @@ import { withTheme } from 'styled-components'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
-    city: state.categories.currentCity,
-    languages: state.categories.languages,
+    city: state.cityContent.city,
+    languages: state.cityContent.languages,
     closeModal: () => ownProps.navigation.goBack()
   }
 }
@@ -20,7 +20,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
     changeLanguage: (city: string, language: string) => dispatch({
       type: 'FETCH_CATEGORY',
       params: {
-        city, language, pushParams: undefined
+        city,
+        language
       }
     })
   }
