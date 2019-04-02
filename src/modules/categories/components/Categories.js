@@ -84,7 +84,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities} = this.props
+    const {stateView, cities, theme} = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -106,7 +106,8 @@ class Categories extends React.Component<PropsType> {
 
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)}
-                    onTilePress={this.onTilePress} />
+                    onTilePress={this.onTilePress}
+                    theme={theme} />
     }
     // some level between, we want to display a list
     return <CategoryList

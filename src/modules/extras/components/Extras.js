@@ -11,10 +11,12 @@ import {
   WOHNEN_EXTRA, WOHNEN_ROUTE
 } from '../constants/index'
 import { ScrollView } from 'react-native'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
   navigateToExtra: (path: string, isExternalUrl: boolean) => void,
+  theme: ThemeType,
   t: TFunction
 |}
 
@@ -47,10 +49,10 @@ export default class Extras extends React.Component<PropsType> {
   }
 
   render () {
-    const {extras, t} = this.props
+    const {extras, t, theme} = this.props
     return (
       <ScrollView>
-      <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} />
+        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
       </ScrollView>
     )
   }

@@ -3,7 +3,6 @@
 import * as React from 'react'
 
 import styled from 'styled-components/native'
-import { View } from 'react-native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
@@ -71,7 +70,7 @@ class Tile extends React.Component<PropsType> {
   }
 
   getTileContent (): React.Node {
-    const {tile, height, theme} = this.props
+    const {tile, theme} = this.props
     const imageSource = typeof tile.thumbnail === 'number' ? tile.thumbnail : {
       uri: tile.thumbnail,
       priority: FastImage.priority.normal,
@@ -80,7 +79,7 @@ class Tile extends React.Component<PropsType> {
       cache: FastImage.cacheControl.web
     }
     return <>
-      <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} height={height} />
+      <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
       {this.getNewsDot()}
       <TileTitle theme={theme}>{tile.title}</TileTitle>
     </>
@@ -89,7 +88,7 @@ class Tile extends React.Component<PropsType> {
   render () {
     const {tile, theme} = this.props
     return (
-      <TileTouchable theme={theme} onPress={tile._onTilePress}>
+      <TileTouchable theme={theme} onPress={tile.onTilePress}>
         {this.getTileContent()}
       </TileTouchable>
     )

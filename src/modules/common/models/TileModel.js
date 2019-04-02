@@ -7,8 +7,8 @@ export default class TileModel {
   _thumbnail: string | number
   _isExternalUrl: boolean
   _postData: ?Map<string, string>
-  _onTilePress: () => void
-  _notifications: number
+  _onTilePress: ?() => void
+  _notifications: ?number
 
   constructor (params: {|
     id: string,
@@ -54,11 +54,11 @@ export default class TileModel {
     return this._postData
   }
 
-  get onTilePress (): () => void {
+  get onTilePress (): ?() => void {
     return this._onTilePress
   }
 
-  get notifications (): number {
+  get notifications (): ?number {
     return this._notifications
   }
 }
