@@ -9,18 +9,22 @@ import type {
   ResourcesFetchSucceededActionType
 } from '../../app/StoreActionType'
 import FetcherModule from '../../fetcher/FetcherModule'
-import type { FailureMessageType, FetchResultType } from '../../fetcher/FetcherModule'
+import type { FetchResultType } from '../../fetcher/FetcherModule'
 import type { ResourceCacheStateType } from '../../app/StateType'
-import { invertBy, mapValues } from 'lodash/object'
+import { invertBy, mapValues, pickBy } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
 
 type PathType = string
 type UrlType = string
 export type FetchMapType = { [filePath: string]: [UrlType, PathType] }
 
-const createErrorMessage = (failureMessages: FailureMessageType) => {
-  return reduce(failureMessages, (message, error, url) => {
-    return `${message}'${url}': ${error}\n`
+const createErrorMessage = (fetchResult: FetchResultType) => {
+  return reduce(fetchResult, (message, result) => {
+    if (!result.errorMessage) {
+      return message
+    }
+
+    return `${message}'Failed to download ${result.url} to ${result.path}': ${result.errorMessage}\n`
   }, '')
 }
 
@@ -29,13 +33,16 @@ export default function * fetchResourceCache (city: string, language: string, fe
     const targetUrls = mapValues(fetchMap, ([url]) => url)
 
     if (Platform.OS !== 'android') {
-      return {failureMessages: {}, fetchedUrls: {}}
+      return {}
     }
 
-    const result: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
+    const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
 
-    if (!isEmpty(result.failureMessages)) {
-      const message = createErrorMessage(result.failureMessages)
+    const successResults = pickBy(results, result => !result.errorMessage)
+    const failureResults = pickBy(results, result => !!result.errorMessage)
+
+    if (!isEmpty(failureResults)) {
+      const message = createErrorMessage(failureResults)
 
       const failed: ResourcesFetchFailedActionType = {type: `RESOURCES_FETCH_FAILED`, city, language, message}
       yield put(failed)
@@ -51,7 +58,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
 
     return mapValues(targetCategories, filePaths =>
       fromPairs(filePaths.map(filePath => {
-        const downloadResult = result.fetchedUrls[filePath]
+        const downloadResult = successResults[filePath]
         return [downloadResult.url, {
           path: filePath,
           lastUpdate: downloadResult.lastUpdate

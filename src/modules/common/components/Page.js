@@ -99,6 +99,7 @@ class Page extends React.Component<PropType, StateType> {
   render () {
     const {title, children, content, files, theme, language, city, lastUpdate} = this.props
     const height = this.state.webViewHeight
+
     return (
       <Container>
         <Caption title={title} />

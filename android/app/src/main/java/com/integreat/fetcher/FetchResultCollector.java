@@ -2,7 +2,10 @@ package com.integreat.fetcher;
 
 import android.util.Log;
 
-import com.facebook.react.bridge.*;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.integreat.BuildConfig;
 
@@ -16,7 +19,6 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 public class FetchResultCollector implements FetchedCallback {
-    private final Map<String, String> errorMessages = new HashMap<>();
     private final Map<String, FetchResult> fetchResults = new HashMap<>();
     private final Promise promise;
     private final int expectedFetchCount;
@@ -29,8 +31,8 @@ public class FetchResultCollector implements FetchedCallback {
     }
 
     @Override
-    public synchronized void failed(String url, String message) {
-        errorMessages.put(url, message);
+    public synchronized void failed(String url, File targetFile, String message) {
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), false, message));
 
         if (BuildConfig.DEBUG) {
             Log.e("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message);
@@ -50,7 +52,7 @@ public class FetchResultCollector implements FetchedCallback {
     }
 
     private synchronized void success(String url, File targetFile, boolean alreadyExisted) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), false));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), alreadyExisted, null));
         if (BuildConfig.DEBUG) {
             Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);
         }
@@ -59,7 +61,7 @@ public class FetchResultCollector implements FetchedCallback {
     }
 
     private int currentFetchCount() {
-        return errorMessages.size() + fetchResults.size();
+        return fetchResults.size();
     }
 
     private void tryToResolve() {
@@ -68,16 +70,6 @@ public class FetchResultCollector implements FetchedCallback {
         }
 
         WritableMap resolveValue = Arguments.createMap();
-
-        WritableMap failed = Arguments.createMap();
-        for (Map.Entry<String, String> entry : errorMessages.entrySet()) {
-            failed.putString(entry.getKey(), entry.getValue());
-        }
-
-        resolveValue.putMap("failureMessages", failed);
-
-
-        WritableMap resourceCache = Arguments.createMap();
         for (Map.Entry<String, FetchResult> entry : this.fetchResults.entrySet()) {
             WritableMap fetchResult = Arguments.createMap();
             FetchResult result = entry.getValue();
@@ -90,17 +82,19 @@ public class FetchResultCollector implements FetchedCallback {
                 fetchResult.putString("lastUpdate", dateTime.format(DateTimeFormatter.ISO_INSTANT));
             }
 
-            resourceCache.putMap(entry.getKey(), fetchResult);
-        }
+            if (result.getErrorMessage() != null) {
+                fetchResult.putString("errorMessage", result.getErrorMessage());
+            }
 
-        resolveValue.putMap("fetchedUrls", resourceCache);
+            resolveValue.putMap(entry.getKey(), fetchResult);
+        }
 
         Log.d("FetcherModule", "Resolving promise");
         promise.resolve(resolveValue);
     }
 
     private void sendProgress() {
-        sendEvent("progress", (double) (errorMessages.size() + fetchResults.size()) / expectedFetchCount);
+        sendEvent("progress", (double) (fetchResults.size()) / expectedFetchCount);
     }
 
     private void sendEvent(String eventName, @Nullable Object params) {
