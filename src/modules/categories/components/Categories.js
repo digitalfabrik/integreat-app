@@ -26,7 +26,7 @@ type PropsType = {|
 |}
 
 /**
- * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
+ * Displays a CategoryTable, CategoryList or a single category as page matching the route /<cityCode>/<language>*
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
@@ -103,7 +103,9 @@ class Categories extends React.Component<PropsType> {
                    lastUpdate={category.lastUpdate}
                    theme={this.props.theme}
                    files={files}
-                   language={this.props.language} />
+                   language={this.props.language}
+                   cityCode={this.props.cityCode}
+      />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 

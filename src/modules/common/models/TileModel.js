@@ -27,7 +27,7 @@ export default class TileModel {
     this._notifications = params.notifications
   }
 
-  get thumbnail (): string {
+  get thumbnail (): string | number {
     return this._thumbnail
   }
 

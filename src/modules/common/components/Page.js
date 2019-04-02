@@ -43,7 +43,7 @@ type PropType = {
   files: FileCacheStateType,
   children?: React.Node,
   language: string,
-  city: string,
+  cityCode: string,
   lastUpdate: Moment
 }
 
@@ -83,7 +83,7 @@ class Page extends React.Component<PropType, StateType> {
   onShouldStartLoadWithRequest = (event: WebViewNavigation) => {
     const url = event.url
     // Needed on iOS for the initial load
-    if (url === URL_PREFIX + getResourceCacheFilesDirPath(this.props.city)) {
+    if (url === URL_PREFIX + getResourceCacheFilesDirPath(this.props.cityCode)) {
       return true
     }
 
@@ -97,7 +97,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {title, children, content, files, theme, language, city, lastUpdate} = this.props
+    const {title, children, content, files, theme, language, cityCode, lastUpdate} = this.props
     const height = this.state.webViewHeight
 
     return (
@@ -107,7 +107,7 @@ class Page extends React.Component<PropType, StateType> {
         <StyledView>
           <WebContainer
             source={{
-              baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(city),
+              baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
               html: renderHtml(content, files, theme)
             }}
             allowFileAccess // Needed by android to access file:// urls

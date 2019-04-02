@@ -39,7 +39,6 @@ class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (): Array<TileModel> {
     return [
       new TileModel({
-        id: 'events',
         title: 'Veranstaltungen',
         path: 'events',
         thumbnail: CalendarIcon,
@@ -48,7 +47,6 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 3
       }),
       new TileModel({
-        id: 'pois',
         title: 'Orte',
         path: 'pois',
         thumbnail: LocationIcon,
@@ -57,7 +55,6 @@ class Dashboard extends React.Component<PropsType> {
         notifications: 10
       }),
       new TileModel({
-        id: 'extras',
         title: 'Angebote',
         path: 'extras',
         thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',

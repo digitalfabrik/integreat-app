@@ -59,6 +59,7 @@ export const ExtrasStack = createStackNavigator(
 export const AppStack = createStackNavigator(
   {
     'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
+    // $FlowFixMe No idea why this fails
     'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
     'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
     'Events': createNavigationScreen(EventsContainer, defaultHeader),
