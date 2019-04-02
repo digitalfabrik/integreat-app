@@ -9,7 +9,7 @@ import toggleDarkModeReducer from '../theme/reducers'
 import {
   checkInternetConnection,
   createNetworkMiddleware,
-  networkEventsListenerSaga,
+  networkSaga,
   offlineActionTypes,
   reducer as reactNativeOfflineReducer
 } from 'react-native-offline'
@@ -37,7 +37,7 @@ function * rootSaga (database: MemoryDatabase): Saga<void> {
     call(watchFetchEvent, database),
     call(watchFetchCities, database),
     call(watchContentLanguageSwitch, database),
-    call(networkEventsListenerSaga, {})
+    call(networkSaga, {})
   ])
 }
 
