@@ -34,7 +34,7 @@ class NavigationTiles extends React.Component<PropsType> {
     return (
       <>
         <TilesRow theme={theme}>
-          {tiles.map(tile => <NavigationTile key={tile.id} tile={tile} theme={theme} />)}
+          {tiles.map(tile => <NavigationTile key={tile.path} tile={tile} theme={theme} />)}
         </TilesRow>
         <Separator />
       </>

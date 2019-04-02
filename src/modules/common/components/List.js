@@ -10,7 +10,7 @@ const StyledScrollView = styled.ScrollView`
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
-const NoItemsMessage = styled.View`
+const NoItemsMessage = styled.Text`
   padding-top: 25px;
   text-align: center;
 `
@@ -28,11 +28,9 @@ class List<T> extends React.PureComponent<PropsType<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return (
-      <StyledScrollView>
+    return <StyledScrollView>
         {items.map(item => renderItem(item))}
       </StyledScrollView>
-    )
   }
 }
 

@@ -26,6 +26,7 @@ function * fetchCities (database: MemoryDatabase): Saga<void> {
     }
     yield put(insert)
   } catch (e) {
+    console.error(e)
     const failed: FetchCitiesFailedActionType = {
       type: `FETCH_CITIES_FAILED`,
       message: `Error in fetchCities: ${e.message}`

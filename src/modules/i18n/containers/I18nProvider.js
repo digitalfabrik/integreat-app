@@ -129,7 +129,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   setUiDirection: action => dispatch(setUiDirection(action))
 })
 
-const mapStateToProps = (state: StateType) => ({language: state.categories.currentLanguage})
+const mapStateToProps = (state: StateType) => ({language: state.cityContent.language})
 
 // $FlowFixMe connect()
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)

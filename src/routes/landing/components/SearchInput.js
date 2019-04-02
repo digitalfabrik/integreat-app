@@ -10,6 +10,7 @@ export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}
 `
 
+// $FlowFixMe https://github.com/flow-typed/flow-typed/issues/2619
 export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
   textColor: props.theme.colors.textSecondaryColor,
