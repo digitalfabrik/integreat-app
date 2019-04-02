@@ -26,11 +26,12 @@ const Container = styled.View`
 `
 
 const WebContainer = styled(WebView)`
-  width: ${Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN}px;
+  width: ${props => props.width}px;
 `
 
 type StateType = {
   webViewHeight: number,
+  webViewWidth: number,
   loading: boolean
 }
 
@@ -46,15 +47,26 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType, StateType> {
+  // noinspection JSDuplicatedDeclaration
   onMessage: (event: WebViewMessageEvent) => void
+  // noinspection JSDuplicatedDeclaration
+  onLayout: () => void
 
   constructor (props: PropType) {
     super(props)
     this.state = {
       webViewHeight: 0,
+      webViewWidth: 0,
       loading: true
     }
     this.onMessage = this.onMessage.bind(this)
+    this.onLayout = this.onLayout.bind(this)
+  }
+
+  onLayout () {
+    this.setState({
+      webViewWidth: Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN
+    })
   }
 
   onMessage (event: WebViewMessageEvent) {
@@ -97,8 +109,9 @@ class Page extends React.Component<PropType, StateType> {
   render () {
     const {title, children, content, resourceCache, theme, language, lastUpdate} = this.props
     const height = this.state.webViewHeight
+    const width = this.state.webViewWidth
     return (
-      <Container>
+      <Container onLayout={this.onLayout}>
         <Caption title={title} />
         {children}
         <StyledView>
@@ -120,6 +133,7 @@ class Page extends React.Component<PropType, StateType> {
 
             onMessage={this.onMessage}
             style={{height: height}}
+            width={width}
 
             renderError={this.renderError}
 
