@@ -44,7 +44,6 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType, StateType> {
-
   constructor (props: PropType) {
     super(props)
     this.state = {
