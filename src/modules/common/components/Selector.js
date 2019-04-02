@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/native'
 import { TouchableHighlight } from 'react-native'
 
 type PropsType = {
