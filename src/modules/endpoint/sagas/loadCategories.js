@@ -5,12 +5,9 @@ import { CategoriesMapModel, createCategoriesEndpoint } from '@integreat-app/int
 import { call } from 'redux-saga/effects'
 import request from '../request'
 import { baseUrl } from '../constants'
-import findResourceUrls from '../findResourceUrls'
-import fnv from 'fnv-plus'
-import { getResourceCacheFilesDirPath } from '../../platform/constants/webview'
-import getExtension from '../getExtension'
-import { keyBy, reduce } from 'lodash/collection'
 import type { FetchMapType } from './fetchResourceCache'
+import ResourceURLFinder from '../ResourceURLFinder'
+import buildResourceFilePath from '../buildResourceFilePath'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<?CategoriesMapModel> {
   const params = {city, language}
@@ -28,23 +25,15 @@ function * loadCategories (city: string, language: string): Saga<[CategoriesMapM
 
   const categories = categoriesMap.toArray()
 
-  const urls: FetchMapType = reduce(categories, (result, category) => {
-    const path = category.path
+  const resourceURLFinder = new ResourceURLFinder()
+  resourceURLFinder.init()
 
-    const urlSet = findResourceUrls(category.content)
-    if (category.thumbnail) {
-      urlSet.add(category.thumbnail)
-    }
+  const urls = resourceURLFinder.buildFetchMap(
+    categories,
+    (url, path) => buildResourceFilePath(url, path, city)
+  )
 
-    return {
-      ...result,
-      ...keyBy(Array.from(urlSet).map(url => [url, path]), ([url, path]) => {
-        const urlHash = fnv.hash(url).hex()
-        const pathHash = fnv.hash(path).hex()
-        return `${getResourceCacheFilesDirPath(city)}/${pathHash}/${urlHash}.${getExtension(url)}`
-      })
-    }
-  }, {})
+  resourceURLFinder.finalize()
 
   return [categoriesMap, urls]
 }

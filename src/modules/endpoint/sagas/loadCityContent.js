@@ -34,12 +34,9 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.addCacheEntries(resourceCache)
 
-  console.dir(database.categoriesMap)
-
+  // This is a test which should be removed when we do the intelligent loading in NATIVE-89
   // yield call(() => database.writeCategories())
   // yield call(() => database.writeResourceCache())
   // yield call(() => database.readCategories())
   // yield call(() => database.readResourceCache())
-
-  console.dir(database.categoriesMap)
 }

@@ -21,7 +21,7 @@ export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | Fe
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
-    path?: string, depth?: number, key?: string
+    path: string, depth: number, key: string
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -49,7 +49,7 @@ export type CategoriesActionType =
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
-    path: string, key: string
+    path?: string, key: string
   |}
 |}
 export type ClearEventActionType = {|
@@ -58,7 +58,7 @@ export type ClearEventActionType = {|
 export type PushEventActionType = {|
   type: 'PUSH_EVENT', params: {|
     events: Array<EventModel>,
-    path: string, key: string,
+    path?: string, key: string,
     resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
@@ -75,22 +75,31 @@ export type EventsActionType =
   | PushEventActionType
   | FetchEventFailedActionType
 
-export type CityContentLoadedActionType = {|
-  type: 'CITY_CONTENT_LOADED', params: {|
-    categoriesMap: CategoriesMapModel | null,
-    events: Array<EventModel> | null,
-    language: string
-  |}
-|}
-
-export type SwitchCityContentLanguageActionType = {|
-  type: 'SWITCH_CITY_CONTENT_LANGUAGE', params: {|
-    newCategoriesMap: CategoriesMapModel,
+export type SwitchContentLanguageActionType = {|
+  type: 'SWITCH_CONTENT_LANGUAGE', params: {|
+    city: string,
     newLanguage: string
   |}
 |}
 
-export type CityContentActionType = CategoriesActionType | EventsActionType | SwitchCityContentLanguageActionType
+export type SwitchContentLanguageFailedActionType = {|
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', message: string
+|}
+
+export type MorphContentLanguageActionType = {|
+  type: 'MORPH_CONTENT_LANGUAGE', params: {|
+    newCategoriesMap: CategoriesMapModel,
+    newResourceCache: ResourceCacheStateType,
+    newEvents: Array<EventModel>,
+    newLanguage: string
+  |}
+|}
+
+export type CityContentActionType =
+  CategoriesActionType
+  | EventsActionType
+  | MorphContentLanguageActionType
+  | SwitchContentLanguageActionType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
@@ -101,14 +110,6 @@ export type ResourcesFetchFailedActionType = {|
 export type ResourcesFetchActionType =
   | ResourcesFetchSucceededActionType
   | ResourcesFetchFailedActionType
-
-export type SetLanguageActionType = {
-  type: 'SET_LANGUAGE', payload: string
-}
-
-export type SetCurrentCityActionType = {
-  type: 'SET_CURRENT_CITY', payload: string
-}
 
 export type SetUiDirectionActionType = {
   type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl'
@@ -125,10 +126,7 @@ export type ConnectionChangeActionType = {|
 export type StoreActionType =
   ConnectionChangeActionType
   | ResourcesFetchActionType
-  | SetLanguageActionType
-  | SetCurrentCityActionType
   | SetUiDirectionActionType
   | ToggleDarkModeActionType
-  | CategoriesActionType
   | CitiesActionType
-  | EventsActionType
+  | CityContentActionType
