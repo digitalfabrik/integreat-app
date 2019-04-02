@@ -1,36 +1,36 @@
 // @flow
 
 import { URL_PREFIX } from '../platform/constants/webview'
-import type { ResourceCacheType } from '../endpoint/ResourceCacheType'
+import type { FileCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 
 // language=JavaScript
-const renderJS = (resourceCache: ResourceCacheType) => `
+const renderJS = (files: FileCacheStateType) => `
 (function() {
   var hrefs = document.querySelectorAll('[href]')
   var srcs = document.querySelectorAll('[src]')
-  var urls = ${JSON.stringify(resourceCache)}
+  var files = ${JSON.stringify(files)}
   
-  console.debug('Urls to inject:')
-  console.debug(urls)
+  console.debug('Files to inject:') // TODO: remove
+  console.debug(files)
   
   for (var i = 0; i < hrefs.length; i++) {
     var item = hrefs[i]
     console.debug('Found href: ' + decodeURI(item.href))
-    var newHref = urls[decodeURI(item.href)]
-    if (newHref) {
-      console.debug('Replaced ' + item.href + ' with ' + newHref)
-      item.href = '${URL_PREFIX}' + newHref
+    var newResource = files[decodeURI(item.href)]
+    if (newResource) {
+      console.debug('Replaced ' + item.href + ' with ' + newResource.path)
+      item.href = '${URL_PREFIX}' + newResource.path
     }
   }
   
   for (var i = 0; i < srcs.length; i++) {
     var item = srcs[i]
     console.debug('Found src: ' + decodeURI(item.src))
-    var newSrc = urls[decodeURI(item.src)]
-    if (newSrc) {
-      console.debug('Replaced ' + item.src + ' with ' + newSrc)
-      item.src = '${URL_PREFIX}' + newSrc
+    var newResource = files[decodeURI(item.src)]
+    if (newResource) {
+      console.debug('Replaced ' + item.src + ' with ' + newResource)
+      item.src = '${URL_PREFIX}' + newResource.path
     }
   }
 })();
@@ -38,13 +38,14 @@ const renderJS = (resourceCache: ResourceCacheType) => `
 (function() {
   var container = document.getElementById('measure-container')
   function adjustHeight() {
-    if (window.postMessage.length !== 1){
-      setTimeout(adjustHeight, 200);
-    } else {
-      container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
-      window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
-      container.setAttribute('style', '');
+    container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
+    
+    if (!window.ReactNativeWebView){
+      throw Error('You have to set onMessage on the WebView!')
     }
+
+    window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
+    container.setAttribute('style', '');
   }
   
   window.addEventListener('load', adjustHeight);
@@ -52,7 +53,7 @@ const renderJS = (resourceCache: ResourceCacheType) => `
 })();
 `
 
-export default (html: string, resourceCache: ResourceCacheType, theme: ThemeType) => {
+export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   // language=HTML
   return `
 <html>
@@ -116,7 +117,7 @@ export default (html: string, resourceCache: ResourceCacheType, theme: ThemeType
 </head>
 <body>
   <div id="measure-container">${html}</div>
-  <script>${renderJS(resourceCache)}</script>
+  <script>${renderJS(files)}</script>
 </body>
 </html>
 `

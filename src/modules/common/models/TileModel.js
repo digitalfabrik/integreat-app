@@ -1,7 +1,6 @@
 // @flow
 
 export default class TileModel {
-  _id: string
   _title: string
   _path: string
   _thumbnail: string | number
@@ -11,7 +10,6 @@ export default class TileModel {
   _notifications: ?number
 
   constructor (params: {|
-    id: string,
     title: string,
     path: string,
     thumbnail: string | number,
@@ -20,7 +18,6 @@ export default class TileModel {
     onTilePress?: () => void,
     notifications?: number
   |}) {
-    this._id = params.id
     this._title = params.title
     this._path = params.path
     this._thumbnail = params.thumbnail
@@ -30,11 +27,7 @@ export default class TileModel {
     this._notifications = params.notifications
   }
 
-  get id (): string {
-    return this._id
-  }
-
-  get thumbnail (): string | number {
+  get thumbnail (): string {
     return this._thumbnail
   }
 

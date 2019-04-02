@@ -36,7 +36,6 @@ export default class Extras extends React.Component<PropsType> {
         }
 
         return new TileModel({
-          id: extra.alias,
           title: extra.title,
           path: path,
           thumbnail: extra.thumbnail,
