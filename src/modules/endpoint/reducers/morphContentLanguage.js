@@ -4,8 +4,12 @@ import { defaultRouteState } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
 import { reduce } from 'lodash/collection'
 import { CategoryModel } from '@integreat-app/integreat-api-client'
-import type { SwitchCityContentLanguageActionType } from '../../app/StoreActionType'
-import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
+import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
+import type {
+  CategoryRouteStateType,
+  CityContentStateType,
+  EventRouteStateType
+} from '../../app/StateType'
 
 const translatePath = (model: CategoryModel, currentCity: string, newLanguage: string) => {
   if (model.isRoot()) {
@@ -75,11 +79,11 @@ const translateModels = (models, newCategoriesMap, currentCity, newLanguage) =>
     return result
   }, {})
 
-const switchLanguage = (
-  state: CityContentStateType, action: SwitchCityContentLanguageActionType
+const morphContentLanguage = (
+  state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const {newCategoriesMap, newResourceCache, newLanguage} = action.params
-  const {categoriesRouteMapping, city, language} = state
+  const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
+  const {categoriesRouteMapping, eventsRouteMapping, city, language} = state
 
   if (!city) {
     // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
@@ -90,9 +94,9 @@ const switchLanguage = (
     return state
   }
 
-  const translateRoute = (value: CategoryRouteStateType, key: string) => {
+  const translateRoute = (route: CategoryRouteStateType, key: string) => {
     try {
-      const {models, children, depth, root} = value
+      const {models, children, depth, root} = route
 
       if (!root) {
         // TODO: This is code for debugging which could help in the future. Remove once this has been tested in NATIVE-116
@@ -122,14 +126,49 @@ const switchLanguage = (
     }
   }
 
-  const translatedRouteMapping = mapValues(categoriesRouteMapping, translateRoute)
+  const translatedCategoriesRouteMapping = mapValues(categoriesRouteMapping, translateRoute)
+
+  const translateEventRoute = (route: EventRouteStateType, key: string) => {
+    if (route.path) {
+      const event = route.models[0]
+
+      if (!event) {
+        throw new Error(`Model for route ${key} is null!`)
+      }
+
+      const translatedPath = event.availableLanguages.get(newLanguage)
+
+      if (!translatedPath) {
+        console.warn(`There is no translation for ${event.path} in ${newLanguage}`)
+        return {...route, path: translatedPath, models: []}
+      }
+
+      const translatedEvent = newEvents.find(translatedEvent =>
+        translatedPath === translatedEvent.path)
+
+      if (!translatedEvent) {
+        console.warn(`Could not find translated event for ${event.path}`)
+        return {...route, path: translatedPath, models: []}
+      }
+
+      return {...route, path: translatedPath, models: [translatedEvent]}
+    }
+
+    return {
+      ...route,
+      models: newEvents
+    }
+  }
+
+  const translatedEventsRouteMapping = mapValues(eventsRouteMapping, translateEventRoute)
 
   return {
     ...state,
     language: newLanguage,
     resourceCache: newResourceCache,
-    categoriesRouteMapping: translatedRouteMapping
+    categoriesRouteMapping: translatedCategoriesRouteMapping,
+    eventsRouteMapping: translatedEventsRouteMapping
   }
 }
 
-export default switchLanguage
+export default morphContentLanguage

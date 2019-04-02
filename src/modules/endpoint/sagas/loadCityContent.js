@@ -34,8 +34,9 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.addCacheEntries(resourceCache)
 
-  //yield call(() => database.writeCategories())
-  //yield call(() => database.writeResourceCache())
-  //yield call(() => database.readCategories())
-  //yield call(() => database.readResourceCache())
+  // This is a test which should be removed when we do the intelligent loading in NATIVE-89
+  // yield call(() => database.writeCategories())
+  // yield call(() => database.writeResourceCache())
+  // yield call(() => database.readCategories())
+  // yield call(() => database.readResourceCache())
 }
