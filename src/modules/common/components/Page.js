@@ -25,10 +25,6 @@ const Container = styled.View`
   margin-bottom: 8px;
 `
 
-const WebContainer = styled(WebView)`
-  width: ${props => props.width}px;
-`
-
 type StateType = {
   webViewHeight: number,
   webViewWidth: number,
@@ -47,10 +43,6 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType, StateType> {
-  // noinspection JSDuplicatedDeclaration
-  onMessage: (event: WebViewMessageEvent) => void
-  // noinspection JSDuplicatedDeclaration
-  onLayout: () => void
 
   constructor (props: PropType) {
     super(props)
@@ -115,7 +107,7 @@ class Page extends React.Component<PropType, StateType> {
         <Caption title={title} />
         {children}
         <StyledView>
-          <WebContainer
+          <WebView
             source={{
               baseUrl: URL_PREFIX + OFFLINE_CACHE_PATH,
               html: renderHtml(content, resourceCache, theme)
@@ -132,8 +124,7 @@ class Page extends React.Component<PropType, StateType> {
             showsHorizontalScrollIndicator={false}
 
             onMessage={this.onMessage}
-            style={{height: height}}
-            width={width}
+            style={{height: height, width: width}}
 
             renderError={this.renderError}
 
