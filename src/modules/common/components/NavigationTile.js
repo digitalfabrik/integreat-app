@@ -9,35 +9,38 @@ import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
 
 const NEWS_DOT_RADIUS = 20
-const TILE_LENGTH = 85
+const TILE_LENGTH = 100
+const ICON_LENGTH = 50
 
 type PropsType = {|
   tile: TileModel,
   theme: ThemeType
 |}
 
-// FIXME when testing on ios
 const Thumbnail = styled(FastImage)`
-  border-radius: 5px;
+  margin: 12px 0;
+  height: ${ICON_LENGTH}px;
+  width: ${ICON_LENGTH}px;
+`
+
+const TileTitle = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  text-align: center;
+`
+
+// FIXME when testing on ios
+const TileTouchable = styled.TouchableOpacity`
   height: ${TILE_LENGTH}px;
   width: ${TILE_LENGTH}px;
+  align-items: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
   background-color: ${props => props.theme.colors.backgroundColor};
   /** shadow-offset: {width: 0, height: 2}; FIXME when testing on ios **/
   shadow-opacity: 0.8;
   shadow-radius: 2;
   shadow-color: #000000;
-  elevation: 8;
-`
-
-const TileTitle = styled.Text`
-  margin: 5px 0;
-  color: ${props => props.theme.colors.textColor};
-  text-align: center;
-`
-
-const TileTouchable = styled.TouchableOpacity`
-  align-items: center;
-  margin-bottom: 20px;
+  elevation: 6;
 `
 
 const NewsDot = styled.Text`
@@ -51,7 +54,7 @@ const NewsDot = styled.Text`
   border-radius: ${NEWS_DOT_RADIUS / 2};
   background-color: #EE5353;
   color: #FFFFFF;
-  elevation: 9;
+  elevation: 5;
 `
 
 /**
@@ -77,18 +80,16 @@ class Tile extends React.Component<PropsType> {
       cache: FastImage.cacheControl.web
     }
     return <>
-      <View>
-        <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} height={height} />
-        {this.getNewsDot()}
-      </View>
+      <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} height={height} />
+      {this.getNewsDot()}
       <TileTitle theme={theme}>{tile.title}</TileTitle>
     </>
   }
 
   render () {
-    const {tile} = this.props
+    const {tile, theme} = this.props
     return (
-      <TileTouchable onPress={tile._onTilePress}>
+      <TileTouchable theme={theme} onPress={tile._onTilePress}>
         {this.getTileContent()}
       </TileTouchable>
     )
