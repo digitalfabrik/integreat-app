@@ -11,6 +11,7 @@ import type { ResourceCacheType } from '../../../modules/endpoint/ResourceCacheT
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import CalendarIcon from '../assets/calendar_500x500.png'
+import LocationIcon from '../assets/location_500x500.png'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -45,23 +46,23 @@ class Dashboard extends React.Component<PropsType> {
         onTilePress: this.events,
         notifications: 3
       }),
-      // new TileModel({
-      //   id: 1,
-      //   title: 'Orte',
-      //   path: 'pois',
-      //   thumbnail: 'https://cms.integreat-app.de/testumgebung/wp-content/uploads/sites/154/2017/11/Erste-Schritte2-150x150.png',
-      //   isExternalUrl: false,
-      //   onTilePress: () => console.log('Clicked pois'),
-      //   notifications: 10
-      // }),
+      new TileModel({
+        id: 1,
+        title: 'Orte',
+        path: 'pois',
+        thumbnail: LocationIcon,
+        isExternalUrl: false,
+        onTilePress: () => console.log('Clicked pois'),
+        notifications: 10
+      }),
       new TileModel({
         id: 2,
         title: 'Angebote',
         path: 'extras',
-        thumbnail: CalendarIcon,
+        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
         isExternalUrl: false,
         onTilePress: this.extras,
-        notifications: 0
+        notifications: 2
       })
     ]
   }
