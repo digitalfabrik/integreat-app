@@ -32,7 +32,7 @@ public class FetchResultCollector implements FetchedCallback {
 
     @Override
     public synchronized void failed(String url, File targetFile, String message) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, null, message));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, false, message));
 
         if (BuildConfig.DEBUG) {
             Log.e("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message);
@@ -43,16 +43,16 @@ public class FetchResultCollector implements FetchedCallback {
 
     @Override
     public void alreadyExists(String url, File targetFile) {
-        success(url, targetFile, null); // todo: should not be null
+        success(url, targetFile, true);
     }
 
     @Override
     public void fetched(String url, File targetFile) {
-        success(url, targetFile, ZonedDateTime.now(ZoneOffset.UTC));
+        success(url, targetFile, false);
     }
 
-    private synchronized void success(String url, File targetFile, ZonedDateTime time) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, time, null));
+    private synchronized void success(String url, File targetFile, boolean alreadyExisted) {
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), false, null));
         if (BuildConfig.DEBUG) {
             Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);
         }
@@ -77,7 +77,7 @@ public class FetchResultCollector implements FetchedCallback {
 
             fetchResult.putString("url", result.getUrl());
 
-            if (dateTime != null) {
+            if (result.alreadyExisted()) {
                 // If the file already existed then lastUpdate should be "undefined"
                 fetchResult.putString("lastUpdate", dateTime.format(DateTimeFormatter.ISO_INSTANT));
             }

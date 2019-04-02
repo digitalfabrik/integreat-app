@@ -7,11 +7,13 @@ import javax.annotation.Nullable;
 public class FetchResult {
     private final String url;
     private final ZonedDateTime lastUpdate;
+    private final boolean alreadyExisted;
     private final String errorMessage;
 
-    public FetchResult(String url, ZonedDateTime lastUpdate, String errorMessage) {
+    public FetchResult(String url, ZonedDateTime lastUpdate, boolean alreadyExisted, String errorMessage) {
         this.url = url;
         this.lastUpdate = lastUpdate;
+        this.alreadyExisted = alreadyExisted;
         this.errorMessage = errorMessage;
     }
 
@@ -19,9 +21,12 @@ public class FetchResult {
         return url;
     }
 
-    @Nullable
     public ZonedDateTime getLastUpdate() {
         return lastUpdate;
+    }
+
+    public boolean alreadyExisted() {
+        return alreadyExisted;
     }
 
     @Nullable
