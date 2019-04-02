@@ -8,8 +8,8 @@ import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
 
 const NEWS_DOT_RADIUS = 20
-const TILE_LENGTH = 100
-const ICON_LENGTH = 50
+const TILE_SIZE = 100
+const ICON_SIZE = 50
 
 type PropsType = {|
   tile: TileModel,
@@ -18,8 +18,8 @@ type PropsType = {|
 
 const Thumbnail = styled(FastImage)`
   margin: 12px 0;
-  height: ${ICON_LENGTH}px;
-  width: ${ICON_LENGTH}px;
+  height: ${ICON_SIZE}px;
+  width: ${ICON_SIZE}px;
 `
 
 const TileTitle = styled.Text`
@@ -29,8 +29,8 @@ const TileTitle = styled.Text`
 
 // FIXME when testing on ios
 const TileTouchable = styled.TouchableOpacity`
-  height: ${TILE_LENGTH}px;
-  width: ${TILE_LENGTH}px;
+  height: ${TILE_SIZE}px;
+  width: ${TILE_SIZE}px;
   align-items: center;
   border-radius: 5px;
   margin-bottom: 20px;
