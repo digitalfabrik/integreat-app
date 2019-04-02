@@ -17,6 +17,7 @@ import type { FileCacheStateType } from '../../app/StateType'
 
 const HORIZONTAL_MARGIN = 8
 
+// see https://github.com/react-native-community/react-native-webview#common-issues
 const StyledView = styled.View`
   overflow: hidden;
 `
@@ -26,12 +27,9 @@ const Container = styled.View`
   margin-bottom: 8px;
 `
 
-const WebContainer = styled(WebView)`
-  width: ${Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN}px;
-`
-
 type StateType = {
   webViewHeight: number,
+  webViewWidth: number,
   loading: boolean
 }
 
@@ -48,18 +46,24 @@ type PropType = {
 }
 
 class Page extends React.Component<PropType, StateType> {
-  onMessage: (event: WebViewMessageEvent) => void
-
   constructor (props: PropType) {
     super(props)
     this.state = {
       webViewHeight: 0,
+      webViewWidth: 0,
       loading: true
     }
     this.onMessage = this.onMessage.bind(this)
+    this.onLayout = this.onLayout.bind(this)
   }
 
-  onMessage (event: WebViewMessageEvent) {
+  onLayout = () => {
+    this.setState({
+      webViewWidth: Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN
+    })
+  }
+
+  onMessage = (event: WebViewMessageEvent) => {
     if (!event.nativeEvent) {
       return
     }
@@ -99,13 +103,14 @@ class Page extends React.Component<PropType, StateType> {
   render () {
     const {title, children, content, files, theme, language, cityCode, lastUpdate} = this.props
     const height = this.state.webViewHeight
+    const width = this.state.webViewWidth
 
     return (
-      <Container>
+      <Container onLayout={this.onLayout}>
         <Caption title={title} />
         {children}
         <StyledView>
-          <WebContainer
+          <WebView
             source={{
               baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
               html: renderHtml(content, files, theme)
@@ -122,7 +127,7 @@ class Page extends React.Component<PropType, StateType> {
             showsHorizontalScrollIndicator={false}
 
             onMessage={this.onMessage}
-            style={{height: height}}
+            style={{height: height, width: width}}
 
             renderError={this.renderError}
 
