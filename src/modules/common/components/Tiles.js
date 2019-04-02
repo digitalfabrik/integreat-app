@@ -38,7 +38,7 @@ class Tiles extends React.Component<PropsType> {
         {this.props.title && <Caption title={this.props.title} />}
         <Wrapper>
           <TilesRow>
-            {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} onTilePress={this.props.onTilePress} />)}
+            {this.props.tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={this.props.onTilePress} />)}
           </TilesRow>
         </Wrapper>
       </>

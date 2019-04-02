@@ -17,7 +17,7 @@ import ExtrasContainer from '../../extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../wohnen/containers/WohnenExtraContainer'
 import SprungbrettExtraContainer from '../../sprungbrett/containers/SprungbrettExtraContainer'
 import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../extras/constants/index'
-import EventsContainer from '../../events/containers/EventsContainer'
+import EventsContainer from '../../../routes/events/containers/EventsContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
