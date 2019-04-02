@@ -5,7 +5,7 @@ import NativeFetcherModule from './NativeFetcherModule'
 
 export type TargetFilePathsType = {[path: string]: string}
 
-export type FetchResultType = { [path: string]: { lastUpdate: string, url: string, errorMessage: string} }
+export type FetchResultType = { [path: string]: {| lastUpdate: string, url: string, errorMessage: string |} }
 
 type ProgressCallbackType = (progress: number) => void
 
