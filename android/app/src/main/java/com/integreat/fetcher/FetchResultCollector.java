@@ -32,7 +32,7 @@ public class FetchResultCollector implements FetchedCallback {
 
     @Override
     public synchronized void failed(String url, File targetFile, String message) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, false, message));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), false, message));
 
         if (BuildConfig.DEBUG) {
             Log.e("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message);
@@ -52,7 +52,7 @@ public class FetchResultCollector implements FetchedCallback {
     }
 
     private synchronized void success(String url, File targetFile, boolean alreadyExisted) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), false, null));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), alreadyExisted, null));
         if (BuildConfig.DEBUG) {
             Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);
         }
