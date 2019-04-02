@@ -7,11 +7,11 @@ import { EventModel } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
 import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
 import PageDetail from '../../../modules/common/components/PageDetail'
-import EventListItem from '../components/EventListItem'
+import EventListItem from './EventListItem'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
-import Failure from '../../error/components/Failure'
-import type { ThemeType } from '../../theme/constants/theme'
+import Failure from '../../../modules/error/components/Failure'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -20,7 +20,7 @@ type PropsType = {|
   t: TFunction,
   path?: string,
   theme: ThemeType,
-  navigateToEvent: string => void,
+  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
   resourceCache: { [url: string]: string }
 |}
 
@@ -29,7 +29,7 @@ type PropsType = {|
  */
 export default class Events extends React.Component<PropsType> {
   navigateToEvent = (path: string) => () => {
-    this.props.navigateToEvent(path)
+    this.props.navigateToEvent(this.props.city, this.props.language, path)
   }
 
   renderEventListItem = (language: string) => (event: EventModel) =>
@@ -44,12 +44,13 @@ export default class Events extends React.Component<PropsType> {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
+        const files = resourceCache[event.path]
         return <ScrollView>
           <Page content={event.content}
                 title={event.title}
                 lastUpdate={event.lastUpdate}
                 language={language}
-                resourceCache={resourceCache}
+                files={files}
                 theme={theme}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
@@ -57,11 +58,11 @@ export default class Events extends React.Component<PropsType> {
             </>
           </Page>
         </ScrollView>
-      } else {
-        const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
-        return <Failure error={error} />
       }
+      const error = new ContentNotFoundError({type: 'event', id: event.id, city, language})
+      return <Failure error={error} />
     }
+
     return <>
       <Caption title={t('news')} />
       <List noItemsMessage={t('currentlyNoEvents')}

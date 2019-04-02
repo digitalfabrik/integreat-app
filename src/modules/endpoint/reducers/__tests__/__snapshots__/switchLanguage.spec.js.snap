@@ -2,20 +2,7 @@
 
 exports[`switchLangauge should translate route 1`] = `
 Object {
-  "currentCity": "augsburg",
-  "currentLanguage": "en",
-  "languages": Array [
-    LanguageModel {
-      "_code": "de",
-      "_name": "Deutsch",
-    },
-    LanguageModel {
-      "_code": "en",
-      "_name": "English",
-    },
-  ],
-  "resourceCache": Object {},
-  "routeMapping": Object {
+  "categoriesRouteMapping": Object {
     "route-0": Object {
       "children": Object {
         "/augsburg/en": Array [
@@ -83,5 +70,19 @@ Object {
       "root": "/augsburg/en",
     },
   },
+  "city": "augsburg",
+  "eventsRouteMapping": Object {},
+  "language": "en",
+  "languages": Array [
+    LanguageModel {
+      "_code": "de",
+      "_name": "Deutsch",
+    },
+    LanguageModel {
+      "_code": "en",
+      "_name": "English",
+    },
+  ],
+  "resourceCache": Object {},
 }
 `;

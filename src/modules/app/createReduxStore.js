@@ -15,28 +15,27 @@ import {
 } from 'react-native-offline'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
-import { all, fork } from 'redux-saga/effects'
+import { all, call } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
+import { defaultCitiesState, defaultCityContentState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import MemoryDatabase from '../endpoint/MemoryDatabase'
-import {
-  defaultCategoriesState,
-  defaultCitiesState
-} from './StateType'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
-import categoriesReducer from '../endpoint/reducers/categoriesReducer'
-import fetchCategory from '../endpoint/sagas/fetchCategory'
-import fetchCities from '../endpoint/sagas/fetchCities'
+import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
+import watchFetchCities from '../endpoint/sagas/watchFetchCities'
+import cityContentReducer from '../endpoint/reducers/cityContentReducer'
+import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 
 function * rootSaga (database: MemoryDatabase): Saga<void> {
   yield all([
-    fork(fetchCategory, database),
-    fork(fetchCities, database),
-    fork(networkEventsListenerSaga, {})
+    call(watchFetchCategory, database),
+    call(watchFetchEvent, database),
+    call(watchFetchCities, database),
+    call(networkEventsListenerSaga, {})
   ])
 }
 
@@ -50,7 +49,7 @@ const createReduxStore = (
     darkMode: false,
 
     cities: defaultCitiesState,
-    categories: defaultCategoriesState,
+    cityContent: defaultCityContentState,
 
     network: {isConnected: false, actionQueue: []}
   }
@@ -61,16 +60,16 @@ const createReduxStore = (
     key: 'root',
     storage: AsyncStorage,
     stateReconciler: hardSet,
-    blacklist: ['cities', 'categories']
+    blacklist: ['cities', 'cityContent']
   }
 
   // Create this reducer only once. It is not pure!
-  const persitedReducer = persistCombineReducers(persistConfig, {
+  const persistedReducer = persistCombineReducers(persistConfig, {
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,
-    categories: categoriesReducer,
+    cityContent: cityContentReducer,
 
     network: reactNativeOfflineReducer
   })
@@ -79,7 +78,7 @@ const createReduxStore = (
     if (!state) {
       return initialState
     }
-    return persitedReducer(state, action)
+    return persistedReducer(state, action)
   }
   const middlewares = [createNetworkMiddleware(), sagaMiddleware]
 

@@ -13,7 +13,8 @@ import withError from '../../../modules/error/hocs/withError'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import navigateToCategory from '../../../modules/app/navigateToCategory'
+import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
+import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -25,7 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
     type: offlineActionTypes.CONNECTION_CHANGE,
     payload: true
   }),
-  navigateToCategory: navigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   fetchCities: () => dispatch({
     type: 'FETCH_CITIES',
     params: {}
@@ -36,8 +38,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute = state.categories.routeMapping[key]
-  const language = state.categories.currentLanguage
+  const targetRoute = state.cityContent.categoriesRouteMapping[key]
+  const language = state.cityContent.language
 
   if (!targetRoute || !language) {
     return {
@@ -56,7 +58,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     language: language,
     cities: state.cities.models,
     stateView: stateView,
-    resourceCache: state.categories.resourceCache,
+    resourceCache: state.cityContent.resourceCache,
     error: null // fixme display errors
   }
 }
