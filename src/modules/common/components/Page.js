@@ -16,6 +16,7 @@ import type Moment from 'moment'
 
 const HORIZONTAL_MARGIN = 8
 
+// see https://github.com/react-native-community/react-native-webview#common-issues
 const StyledView = styled.View`
   overflow: hidden;
 `
@@ -55,13 +56,13 @@ class Page extends React.Component<PropType, StateType> {
     this.onLayout = this.onLayout.bind(this)
   }
 
-  onLayout () {
+  onLayout = () => {
     this.setState({
       webViewWidth: Dimensions.get('window').width - 2 * HORIZONTAL_MARGIN
     })
   }
 
-  onMessage (event: WebViewMessageEvent) {
+  onMessage = (event: WebViewMessageEvent) => {
     if (!event.nativeEvent) {
       return
     }
