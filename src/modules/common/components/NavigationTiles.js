@@ -7,10 +7,6 @@ import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
 import NavigationTile from './NavigationTile'
 
-const MAX_WIDTH = 100
-const TILES_PER_ROW = 3
-const WIDTH_PERCENTAGE = Math.floor(MAX_WIDTH / TILES_PER_ROW)
-
 type PropsType = {|
   tiles: TileModel[],
   theme: ThemeType
@@ -21,7 +17,7 @@ const TilesRow = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 `
 const Separator = styled.View`
   border-bottom-width: 1px;
@@ -38,9 +34,7 @@ class NavigationTiles extends React.Component<PropsType> {
     return (
       <>
         <TilesRow theme={theme}>
-          {tiles.map(tile => <NavigationTile key={tile.id} tile={tile}
-                                   widthPercentage={WIDTH_PERCENTAGE}
-                                   theme={theme} />)}
+          {tiles.map(tile => <NavigationTile key={tile.id} tile={tile} theme={theme} />)}
         </TilesRow>
         <Separator />
       </>
