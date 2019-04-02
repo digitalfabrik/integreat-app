@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
+import getFastImageSource from '../getFastImageSource'
 
 const NEWS_DOT_RADIUS = 20
 const TILE_SIZE = 100
@@ -71,13 +72,7 @@ class NavigationTile extends React.Component<PropsType> {
 
   getTileContent (): React.Node {
     const {tile, theme} = this.props
-    const imageSource = typeof tile.thumbnail === 'number' ? tile.thumbnail : {
-      uri: tile.thumbnail,
-      priority: FastImage.priority.normal,
-      // disable caching, we want to do it manually
-      headers: {'Cache-Control': 'no-cache, no-store, must-revalidate'},
-      cache: FastImage.cacheControl.web
-    }
+    const imageSource = getFastImageSource(tile.thumbnail)
     return <>
       <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
       {this.getNewsDot()}
