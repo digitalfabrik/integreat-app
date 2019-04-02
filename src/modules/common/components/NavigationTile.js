@@ -57,9 +57,9 @@ const NewsDot = styled.Text`
 `
 
 /**
- * Displays a single Tile
+ * Displays a single NavigationTile
  */
-class Tile extends React.Component<PropsType> {
+class NavigationTile extends React.Component<PropsType> {
   getNewsDot (): React.Node {
     const notifications = this.props.tile.notifications
     if (notifications && notifications > 0) {
@@ -95,4 +95,4 @@ class Tile extends React.Component<PropsType> {
   }
 }
 
-export default Tile
+export default NavigationTile
