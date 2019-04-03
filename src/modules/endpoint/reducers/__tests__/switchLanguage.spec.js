@@ -391,7 +391,7 @@ describe('switchLangauge', () => {
     expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
-  it('should throw error if city is not set in categories route', () => {
+  it('should throw error if cityCode is not set in categories route', () => {
     const state = initialState
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',

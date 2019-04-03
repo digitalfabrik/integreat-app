@@ -1,7 +1,7 @@
 // @flow
 
 import Categories from '../../../modules/categories/components/Categories'
-import { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components/native'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'

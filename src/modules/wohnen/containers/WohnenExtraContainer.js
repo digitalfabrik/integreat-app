@@ -32,7 +32,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
           'phone': '12342345346'
         },
         'accommodation': {
-          'title': 'Super flat in city center',
+          'title': 'Super flat in cityCode center',
           'location': 'Augsburg',
           'totalArea': 105,
           'totalRooms': 3,
