@@ -19,8 +19,8 @@ const renderJS = (files: FileCacheStateType) => `
     console.debug('Found href: ' + decodeURI(item.href))
     var newResource = files[decodeURI(item.href)]
     if (newResource) {
-      console.debug('Replaced ' + item.href + ' with ' + newResource.path)
-      item.href = '${URL_PREFIX}' + newResource.path
+      console.debug('Replaced ' + item.href + ' with ' + newResource.filePath)
+      item.href = '${URL_PREFIX}' + newResource.filePath
     }
   }
   
@@ -29,8 +29,8 @@ const renderJS = (files: FileCacheStateType) => `
     console.debug('Found src: ' + decodeURI(item.src))
     var newResource = files[decodeURI(item.src)]
     if (newResource) {
-      console.debug('Replaced ' + item.src + ' with ' + newResource)
-      item.src = '${URL_PREFIX}' + newResource.path
+      console.debug('Replaced ' + item.src + ' with ' + newResource.filePath)
+      item.src = '${URL_PREFIX}' + newResource.filePath
     }
   }
 })();
