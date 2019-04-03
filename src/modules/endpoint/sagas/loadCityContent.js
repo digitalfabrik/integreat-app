@@ -39,4 +39,9 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
   // yield call(() => database.writeResourceCache())
   // yield call(() => database.readCategories())
   // yield call(() => database.readResourceCache())
+  // console.dir(database.events)
+  // yield call(() => database.writeEvents())
+  // console.dir(database.events)
+  // yield call(() => database.readEvents())
+  // console.dir(database.events)
 }

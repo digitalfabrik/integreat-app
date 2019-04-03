@@ -3,9 +3,9 @@
 import {
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
+  CityModel, DateModel,
   EventModel,
-  LanguageModel
+  LanguageModel, LocationModel
 } from '@integreat-app/integreat-api-client'
 import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
@@ -27,6 +27,29 @@ type ContentCategoryJsonType = {|
   children: Array<string>,
   order: number,
   hash: string
+|}
+
+type ContentEventJsonType = {|
+  path: string,
+  title: string,
+  content: string,
+  last_update: string,
+  thumbnail: string,
+  available_languages: { [code: string]: string },
+  hash: string,
+  excerpt: string,
+  date: {
+    start_date: string,
+    end_date: string,
+    all_day: boolean
+  },
+  location: {
+    address: string,
+    town: string,
+    postcode: ?string,
+    latitude: ?string,
+    longitude: ?string
+  }
 |}
 
 type ResourceCacheJsonType = ResourceCacheStateType
@@ -72,6 +95,9 @@ class MemoryDatabase {
   }
 
   get categoriesMap (): CategoriesMapModel {
+    if (!this._categoriesMap) {
+      throw Error('categories are null!')
+    }
     return this._categoriesMap
   }
 
@@ -134,10 +160,6 @@ class MemoryDatabase {
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
    */
   writeCategories (): Promise<number> {
-    if (!this.categoriesMap) {
-      throw new Error('MemoryDatabase does not have data to save!')
-    }
-
     const categoryModels = this.categoriesMap.toArray()
 
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
@@ -182,6 +204,72 @@ class MemoryDatabase {
         hash: jsonObject.hash
       })
     }))
+  }
+
+  writeEvents (): Promise<number> {
+    const jsonModels = this.events.map((event: EventModel): ContentEventJsonType => ({
+      path: event.path,
+      title: event.title,
+      content: event.content,
+      last_update: event.lastUpdate.toISOString(),
+      thumbnail: event.thumbnail,
+      available_languages: mapToObject(event.availableLanguages),
+      hash: event.hash,
+      excerpt: event.excerpt,
+      date: {
+        start_date: event.date.startDate.toISOString(),
+        end_date: event.date.endDate.toISOString(),
+        all_day: event.date.allDay
+      },
+      location: {
+        address: event.location.address,
+        town: event.location.town,
+        postcode: event.location.postcode,
+        latitude: event.location.latitude,
+        longitude: event.location.longitude
+      }
+    }))
+
+    return this.writeFile(this.getContentPath('events'), JSON.stringify(jsonModels))
+  }
+
+  async readEvents () {
+    const path = this.getContentPath('events')
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._events = []
+      return
+    }
+
+    const json = JSON.parse(await this.readFile(path))
+
+    this._events = json.map((jsonObject: ContentEventJsonType) => {
+      const jsonDate = jsonObject.date
+      const jsonLocation = jsonObject.location
+      return new EventModel({
+        path: jsonObject.path,
+        title: jsonObject.title,
+        content: jsonObject.content,
+        thumbnail: jsonObject.thumbnail,
+        availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
+        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+        hash: jsonObject.hash,
+        excerpt: jsonObject.excerpt,
+        date: new DateModel({
+          startDate: moment(jsonDate.start_date, moment.ISO_8601),
+          endDate: moment(jsonDate.end_date, moment.ISO_8601),
+          allDay: jsonDate.all_day
+        }),
+        location: new LocationModel({
+          address: jsonLocation.address,
+          latitude: jsonLocation.latitude,
+          longitude: jsonLocation.longitude,
+          postcode: jsonLocation.postcode,
+          town: jsonLocation.town
+        })
+      })
+    })
   }
 
   async readResourceCache () {
