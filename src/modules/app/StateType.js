@@ -30,7 +30,7 @@ export const defaultRouteState: CategoryRouteStateType = {
 
 export type FileCacheStateType = {
   [url: string]: {
-    path: string,
+    filePath: string,
     lastUpdate: Moment,
     hash: string
   }
