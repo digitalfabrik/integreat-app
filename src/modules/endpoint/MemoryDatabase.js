@@ -189,7 +189,7 @@ class MemoryDatabase {
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._resourceCache = null
+      this._resourceCache = {}
       return
     }
 

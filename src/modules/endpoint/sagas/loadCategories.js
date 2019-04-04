@@ -17,12 +17,13 @@ function * fetchCategoriesMap (city: string, language: string): Saga<?Categories
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string, database: MemoryDatabase): Saga<[CategoriesMapModel, FetchMapType]> {
+function * loadCategories (city: string, language: string, database: MemoryDatabase): Saga<FetchMapType> {
   // Load data from the disk if existent
   yield call(database.readCategories)
 
   if (database.categoriesMap) {
-    return null
+    console.log('Found categories on disk')
+    return {}
   }
 
   const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
@@ -46,6 +47,7 @@ function * loadCategories (city: string, language: string, database: MemoryDatab
   database.categoriesMap = categoriesMap
   yield call(database.writeCategories)
 
+  console.log('Downloaded categories')
   return urls
 }
 

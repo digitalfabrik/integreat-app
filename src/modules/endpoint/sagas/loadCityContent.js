@@ -8,7 +8,6 @@ import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import type { ResourceCacheStateType } from '../../app/StateType'
 
 export default function * loadCityContent (database: MemoryDatabase, newCity: string, newLanguage: string): Saga<void> {
   if (database.hasContext(new MemoryDatabaseContext(newCity, newLanguage))) {
@@ -17,7 +16,7 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
 
-  const [[categoryUrls], [events, eventUrls], languages] = yield all([
+  const [categoryUrls, [events, eventUrls], languages] = yield all([
     call(loadCategories, newCity, newLanguage, database),
     call(loadEvents, newCity, newLanguage),
     call(loadLanguages, newCity, newLanguage)
@@ -25,15 +24,12 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.events = events
   database.languages = languages
-  console.log('categories map', database.categoriesMap)
 
-  const resourceCache: ResourceCacheStateType = yield call(fetchResourceCache, newCity, newLanguage, {
-    ...categoryUrls,
-    ...eventUrls
-  })
+  const fetchMap = {...categoryUrls, ...eventUrls}
+  console.log('Fetchmap', fetchMap)
+  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, database)
 
-  database.addCacheEntries(resourceCache)
-
+  console.log('ResourceCache: ', database.resourceCache)
   // This is a test which should be removed when we do the intelligent loading in NATIVE-89
   // yield call(() => database.writeCategories())
   // yield call(() => database.writeResourceCache())

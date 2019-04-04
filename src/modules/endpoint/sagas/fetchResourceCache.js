@@ -10,9 +10,9 @@ import type {
 } from '../../app/StoreActionType'
 import FetcherModule from '../../fetcher/FetcherModule'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
-import type { ResourceCacheStateType } from '../../app/StateType'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
+import MemoryDatabase from '../MemoryDatabase'
 
 type PathType = string
 type UrlType = string
@@ -28,25 +28,34 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
   }, '')
 }
 
-export default function * fetchResourceCache (city: string, language: string, fetchMap: FetchMapType): Saga<ResourceCacheStateType> {
+export default function * fetchResourceCache (city: string, language: string, fetchMap: FetchMapType, database: MemoryDatabase): Saga<void> {
+  console.log('Loading resourceCache from disk')
+  yield call(database.readResourceCache)
+
+  if (isEmpty(fetchMap)) {
+    console.log('fetchmap empty')
+    return
+  }
+
+  console.log('Trying to download resources')
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
-
+    console.log('targetUrls', targetUrls)
     if (Platform.OS !== 'android') {
-      return {}
+      return
     }
 
     const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
 
     const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
-
+    console.log('results', successResults, failureResults)
     if (!isEmpty(failureResults)) {
       const message = createErrorMessage(failureResults)
 
       const failed: ResourcesFetchFailedActionType = {type: `RESOURCES_FETCH_FAILED`, city, language, message}
       yield put(failed)
-      return {}
+      return
     }
 
     const success: ResourcesFetchSucceededActionType = {
@@ -56,7 +65,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
 
     const targetCategories = invertBy(mapValues(fetchMap, ([url, path]) => path))
 
-    return mapValues(targetCategories, filePaths =>
+    const resourceCache = mapValues(targetCategories, filePaths =>
       fromPairs(filePaths.map(filePath => {
         const downloadResult = successResults[filePath]
         return [downloadResult.url, {
@@ -65,6 +74,10 @@ export default function * fetchResourceCache (city: string, language: string, fe
         }]
       }))
     )
+
+    console.log('Storing resourceCache')
+    database.addCacheEntries(resourceCache)
+    yield call(database.writeResourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
