@@ -60,7 +60,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
       fromPairs(filePaths.map(filePath => {
         const downloadResult = successResults[filePath]
         return [downloadResult.url, {
-          path: filePath,
+          filePath,
           lastUpdate: downloadResult.lastUpdate
         }]
       }))
