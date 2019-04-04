@@ -72,6 +72,7 @@ public class FetchResultCollector implements FetchedCallback {
         WritableMap resolveValue = Arguments.createMap();
         for (Map.Entry<String, FetchResult> entry : this.fetchResults.entrySet()) {
             WritableMap fetchResult = Arguments.createMap();
+            String filePath = entry.getKey();
             FetchResult result = entry.getValue();
             ZonedDateTime dateTime = result.getLastUpdate();
 
@@ -86,7 +87,7 @@ public class FetchResultCollector implements FetchedCallback {
                 fetchResult.putString("errorMessage", result.getErrorMessage());
             }
 
-            resolveValue.putMap(entry.getKey(), fetchResult);
+            resolveValue.putMap(filePath, fetchResult);
         }
 
         Log.d("FetcherModule", "Resolving promise");
