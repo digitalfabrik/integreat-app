@@ -25,7 +25,6 @@ function * loadEvents (city: string, language: string, database: MemoryDatabase)
   yield call(database.readEvents)
 
   if (database.events) {
-    console.log('Found events on hard disk')
     return {}
   }
 
@@ -46,7 +45,6 @@ function * loadEvents (city: string, language: string, database: MemoryDatabase)
   resourceURLFinder.finalize()
 
   database.events = events
-  console.log('Writing events to hard disk')
   yield call(database.writeEvents)
 
   return urls

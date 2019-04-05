@@ -29,18 +29,14 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 }
 
 export default function * fetchResourceCache (city: string, language: string, fetchMap: FetchMapType, database: MemoryDatabase): Saga<void> {
-  console.log('Loading resourceCache from disk')
   yield call(database.readResourceCache)
 
   if (isEmpty(fetchMap)) {
-    console.log('fetchmap empty')
     return
   }
 
-  console.log('Trying to download resources')
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
-    console.log('targetUrls', targetUrls)
     if (Platform.OS !== 'android') {
       return
     }
@@ -75,7 +71,6 @@ export default function * fetchResourceCache (city: string, language: string, fe
       }))
     )
 
-    console.log('Storing resourceCache')
     database.addCacheEntries(resourceCache)
     yield call(database.writeResourceCache)
   } catch (e) {
