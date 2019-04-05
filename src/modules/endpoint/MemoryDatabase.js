@@ -127,10 +127,10 @@ class MemoryDatabase {
   /**
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
    */
-  writeCategories = async (): Promise<number> => {
+  writeCategories = async () => {
     if (!this.categoriesMap) {
       console.warn('MemoryDatabase does not have data to save!')
-      return Promise.resolve()
+      return
     }
 
     const categoryModels = this.categoriesMap.toArray()
@@ -149,7 +149,7 @@ class MemoryDatabase {
       hash: category.hash
     }))
 
-    return this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
+    await this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
   }
 
   readCategories = async () => {
@@ -215,10 +215,10 @@ class MemoryDatabase {
   writeEvents = async () => {
     if (!this._events) {
       console.warn('MemoryDatabase does not have data to save!')
-      return Promise.resolve()
+      return
     }
     const path = this.getContentPath('events')
-    return this.writeFile(path, JSON.stringify(this._events))
+    await this.writeFile(path, JSON.stringify(this._events))
   }
 
   readResourceCache = async () => {
@@ -233,17 +233,17 @@ class MemoryDatabase {
     this._resourceCache = JSON.parse(await this.readFile(path))
   }
 
-  writeResourceCache = async (): Promise<number> => {
+  writeResourceCache = async () => {
     if (!this._resourceCache) {
       console.warn('MemoryDatabase does not have data to save!')
-      return Promise.resolve()
+      return
     }
 
     const path = this.getResourceCachePath()
     // todo: use ResourceCacheJsonType
 
     const json: ResourceCacheJsonType = this._resourceCache
-    return this.writeFile(path, JSON.stringify(json))
+    await this.writeFile(path, JSON.stringify(json))
   }
 
   async readFile (path: string): Promise<string> {
