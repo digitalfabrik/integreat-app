@@ -22,7 +22,6 @@ function * loadCategories (city: string, language: string, database: MemoryDatab
   yield call(database.readCategories)
 
   if (database.categoriesMap) {
-    console.log('Found categories on disk')
     return {}
   }
 
@@ -47,7 +46,6 @@ function * loadCategories (city: string, language: string, database: MemoryDatab
   database.categoriesMap = categoriesMap
   yield call(database.writeCategories)
 
-  console.log('Downloaded categories')
   return urls
 }
 
