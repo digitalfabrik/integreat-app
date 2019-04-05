@@ -10,13 +10,12 @@ import MemoryDatabase from '../MemoryDatabase'
 export default function * loadLanguages (city: string, database: MemoryDatabase): Saga<void> {
   yield call(database.readLanguages)
 
-  if (database.languages) {
+  if (database.languagesLoaded()) {
+    console.dir(database.languages)
     return
   }
   const params = {city}
   const payload: Payload<Array<LanguageModel>> = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
-  const languages = payload.data
-
-  database.languages = languages
+  database.languages = payload.data
   yield call(database.writeLanguages)
 }

@@ -43,8 +43,8 @@ class MemoryDatabase {
 
   _cities: Array<CityModel>
   _categoriesMap: ?CategoriesMapModel
-  _languages: ?Array<LanguageModel>
-  _resourceCache: ResourceCacheStateType
+  _languages: Array<LanguageModel> | null
+  _resourceCache: ResourceCacheStateType | null
   _events: ?Array<EventModel>
 
   loadCities (cities: Array<CityModel>) {
@@ -72,6 +72,9 @@ class MemoryDatabase {
   }
 
   get categoriesMap (): CategoriesMapModel {
+    if (this._categoriesMap === null) {
+      throw Error('categories are null!')
+    }
     return this._categoriesMap
   }
 
@@ -82,7 +85,10 @@ class MemoryDatabase {
     this._categoriesMap = categoriesMap
   }
 
-  get languages (): ?Array<LanguageModel> {
+  get languages (): Array<LanguageModel> {
+    if (this._languages === null) {
+      throw Error('languages are null!')
+    }
     return this._languages
   }
 
@@ -93,7 +99,10 @@ class MemoryDatabase {
     this._languages = languages
   }
 
-  get events (): ?Array<EventModel> {
+  get events (): Array<EventModel> {
+    if (!this._events) {
+      throw Error('events are null!')
+    }
     return this._events
   }
 
@@ -109,6 +118,9 @@ class MemoryDatabase {
   }
 
   get resourceCache (): ResourceCacheStateType {
+    if (this._resourceCache === null) {
+      throw Error('resourceCache is null!')
+    }
     return this._resourceCache
   }
 
@@ -123,6 +135,10 @@ class MemoryDatabase {
   getResourceCachePath (): string {
     return getResourceCacheFilesPath(this.context.cityCode)
   }
+
+  categoriesLoaded = () => this._categoriesMap !== null
+  languagesLoaded = () => this._languages !== null
+  eventsLoaded = () => this._events !== null
 
   /**
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
@@ -226,7 +242,7 @@ class MemoryDatabase {
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._resourceCache = {}
+      this._resourceCache = null
       return
     }
 
@@ -242,6 +258,7 @@ class MemoryDatabase {
     const path = this.getResourceCachePath()
     // todo: use ResourceCacheJsonType
 
+    // $FlowFixMe Resource cache will never be null here. Also this will probably soon be dealt with when mapping.
     const json: ResourceCacheJsonType = this._resourceCache
     await this.writeFile(path, JSON.stringify(json))
   }
