@@ -42,7 +42,7 @@ class MemoryDatabase {
   context: MemoryDatabaseContext
 
   _cities: Array<CityModel>
-  _categoriesMap: CategoriesMapModel
+  _categoriesMap: ?CategoriesMapModel
   _languages: ?Array<LanguageModel>
   _resourceCache: ResourceCacheStateType
   _events: ?Array<EventModel>
@@ -82,10 +82,7 @@ class MemoryDatabase {
     this._categoriesMap = categoriesMap
   }
 
-  get languages (): Array<LanguageModel> {
-    if (!this._languages) {
-      throw Error('languages are null!')
-    }
+  get languages (): ?Array<LanguageModel> {
     return this._languages
   }
 
@@ -180,6 +177,27 @@ class MemoryDatabase {
         hash: jsonObject.hash
       })
     }))
+  }
+
+  readLanguages = async () => {
+    const path = this.getContentPath('languages')
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._languages = null
+      return
+    }
+
+    this._languages = JSON.parse(await this.readFile(path))
+  }
+
+  writeLanguages = async () => {
+    if (!this._languages) {
+      console.warn('MemoryDatabase does not have data to save!')
+      return
+    }
+    const path = this.getContentPath('languages')
+    await this.writeFile(path, JSON.stringify(this._languages))
   }
 
   readEvents = async () => {

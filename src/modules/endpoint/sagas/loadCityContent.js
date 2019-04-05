@@ -16,13 +16,11 @@ export default function * loadCityContent (database: MemoryDatabase, newCity: st
 
   database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
 
-  const [categoryUrls, eventUrls, languages] = yield all([
+  const [categoryUrls, eventUrls] = yield all([
     call(loadCategories, newCity, newLanguage, database),
     call(loadEvents, newCity, newLanguage, database),
-    call(loadLanguages, newCity, newLanguage)
+    call(loadLanguages, newCity, database)
   ])
-
-  database.languages = languages
 
   const fetchMap = {...categoryUrls, ...eventUrls}
   console.log('Fetchmap', fetchMap)
