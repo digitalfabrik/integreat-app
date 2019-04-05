@@ -45,7 +45,6 @@ export default function * fetchResourceCache (city: string, language: string, fe
 
     const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
-    console.log('results', successResults, failureResults)
     if (!isEmpty(failureResults)) {
       const message = createErrorMessage(failureResults)
 
