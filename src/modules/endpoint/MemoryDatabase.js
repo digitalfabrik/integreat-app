@@ -204,7 +204,8 @@ class MemoryDatabase {
       return
     }
 
-    this._languages = JSON.parse(await this.readFile(path))
+    const languages = JSON.parse(await this.readFile(path))
+    this._languages = languages.map(language => new LanguageModel(language._code, language._name))
   }
 
   writeLanguages = async () => {
