@@ -21,7 +21,7 @@ function * loadCategories (city: string, language: string, database: MemoryDatab
   // Load data from the disk if existent
   yield call(database.readCategories)
 
-  if (database.categoriesMap) {
+  if (database.categoriesLoaded()) {
     return {}
   }
 

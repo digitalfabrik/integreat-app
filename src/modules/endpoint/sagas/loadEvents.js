@@ -24,7 +24,7 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
 function * loadEvents (city: string, language: string, database: MemoryDatabase): Saga<FetchMapType> {
   yield call(database.readEvents)
 
-  if (database.events) {
+  if (database.eventsLoaded()) {
     return {}
   }
 
