@@ -96,10 +96,7 @@ class MemoryDatabase {
     this._languages = languages
   }
 
-  get events (): Array<EventModel> {
-    if (!this._events) {
-      throw Error('events are null!')
-    }
+  get events (): ?Array<EventModel> {
     return this._events
   }
 
@@ -135,7 +132,8 @@ class MemoryDatabase {
    */
   writeCategories = async (): Promise<number> => {
     if (!this.categoriesMap) {
-      throw new Error('MemoryDatabase does not have data to save!')
+      console.warn('MemoryDatabase does not have data to save!')
+      return Promise.resolve()
     }
 
     const categoryModels = this.categoriesMap.toArray()
@@ -184,6 +182,27 @@ class MemoryDatabase {
     }))
   }
 
+  readEvents = async () => {
+    const path = this.getContentPath('events')
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._events = null
+      return
+    }
+
+    this._events = JSON.parse(await this.readFile(path))
+  }
+
+  writeEvents = async () => {
+    if (!this._events) {
+      console.warn('MemoryDatabase does not have data to save!')
+      return Promise.resolve()
+    }
+    const path = this.getContentPath('events')
+    return this.writeFile(path, JSON.stringify(this._events))
+  }
+
   readResourceCache = async () => {
     const path = this.getResourceCachePath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
@@ -198,7 +217,8 @@ class MemoryDatabase {
 
   writeResourceCache = async (): Promise<number> => {
     if (!this._resourceCache) {
-      throw new Error('MemoryDatabase does not have data to save!')
+      console.warn('MemoryDatabase does not have data to save!')
+      return Promise.resolve()
     }
 
     const path = this.getResourceCachePath()
