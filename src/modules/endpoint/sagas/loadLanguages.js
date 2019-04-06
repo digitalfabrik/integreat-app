@@ -11,7 +11,6 @@ export default function * loadLanguages (city: string, database: MemoryDatabase)
   yield call(database.readLanguages)
 
   if (database.languagesLoaded()) {
-    console.dir(database.languages)
     return
   }
   const params = {city}
