@@ -44,7 +44,7 @@ class Categories extends React.Component<PropsType> {
       const resource = this.getLocalResourceCache(category)[category.thumbnail]
 
       if (resource) {
-        return URL_PREFIX + resource.path
+        return URL_PREFIX + resource.filePath
       }
     }
     return null
