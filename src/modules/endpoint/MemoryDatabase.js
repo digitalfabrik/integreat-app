@@ -57,7 +57,7 @@ class MemoryDatabase {
     this.context = context
     this._languages = null
     this._categoriesMap = null
-    this._resourceCache = {}
+    this._resourceCache = null
     this._events = null
   }
 
@@ -144,9 +144,8 @@ class MemoryDatabase {
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
    */
   writeCategories = async () => {
-    if (!this.categoriesMap) {
-      console.warn('MemoryDatabase does not have data to save!')
-      return
+    if (this.categoriesMap === null) {
+      throw Error('MemoryDatabase does not have data to save!')
     }
 
     const categoryModels = this.categoriesMap.toArray()
@@ -209,9 +208,8 @@ class MemoryDatabase {
   }
 
   writeLanguages = async () => {
-    if (!this._languages) {
-      console.warn('MemoryDatabase does not have data to save!')
-      return
+    if (this._languages === null) {
+      throw Error('MemoryDatabase does not have data to save!')
     }
     const path = this.getContentPath('languages')
     await this.writeFile(path, JSON.stringify(this._languages))
@@ -230,9 +228,8 @@ class MemoryDatabase {
   }
 
   writeEvents = async () => {
-    if (!this._events) {
-      console.warn('MemoryDatabase does not have data to save!')
-      return
+    if (this._events === null) {
+      throw Error('MemoryDatabase does not have data to save!')
     }
     const path = this.getContentPath('events')
     await this.writeFile(path, JSON.stringify(this._events))
@@ -251,9 +248,8 @@ class MemoryDatabase {
   }
 
   writeResourceCache = async () => {
-    if (!this._resourceCache) {
-      console.warn('MemoryDatabase does not have data to save!')
-      return
+    if (this._resourceCache === null) {
+      throw Error('MemoryDatabase does not have data to save!')
     }
 
     const path = this.getResourceCachePath()
