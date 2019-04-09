@@ -21,7 +21,8 @@ export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | Fe
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
-    path: string, depth: number, key: string
+    path: string, depth: number, key: string,
+    forceRefresh: boolean
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -49,7 +50,8 @@ export type CategoriesActionType =
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
-    path?: string, key: string
+    path?: string, key: string,
+    forceRefresh: boolean
   |}
 |}
 export type ClearEventActionType = {|
