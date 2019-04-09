@@ -50,16 +50,16 @@ If you want to install an external library which brings native Android/iOS code 
 * Make sure the App still compiles on Android and iOS
 
 ### Debugging:
-[Debugging](./docs/debugging.md)
+[Debugging](docs/01-debugging.md)
 
 ### If you encounter problems:
-[Common Problems](./docs/common-problems.md)
+[Common Problems](docs/02-common-problems.md)
 
-# Techincal documentation:
-[Technical documentation](docs/technical-documentation.md)
+# Technical documentation:
+[Technical documentation](docs/10-technical-documentation.md)
 
 # Conventions:
-[Conventions](./docs/conventions.md)
+[Conventions](docs/03-conventions.md)
 
 ## Technology stack
 
