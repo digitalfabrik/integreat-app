@@ -32,10 +32,12 @@ export default function * fetchResourceCache (city: string, language: string, fe
   yield call(database.readResourceCache)
 
   if (isEmpty(fetchMap)) {
+    database.addCacheEntries({})
     const success: ResourcesFetchSucceededActionType = {
       type: 'RESOURCES_FETCH_SUCCEEDED', city, language
     }
     yield put(success)
+
     return
   }
 
