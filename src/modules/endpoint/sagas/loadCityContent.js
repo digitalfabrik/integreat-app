@@ -21,17 +21,20 @@ export default function * loadCityContent (
   yield call(database.readLastUpdate)
 
   // The last update was less than 24h ago and a refresh should not be forced
-  if (!forceRefresh && database.lastUpdate &&
-    database.lastUpdate.isAfter(moment().subtract(TWENTY_FOUR_HOURS, 'hours'))) {
-    return
-  }
+  const shouldUpdate = forceRefresh || !database.lastUpdate ||
+    database.lastUpdate.isAfter(moment().subtract(TWENTY_FOUR_HOURS, 'hours'))
 
   const [categoryUrls, eventUrls] = yield all([
-    call(loadCategories, newCity, newLanguage, database),
-    call(loadEvents, newCity, newLanguage, database),
-    call(loadLanguages, newCity, database)
+    call(loadCategories, newCity, newLanguage, database, shouldUpdate),
+    call(loadEvents, newCity, newLanguage, database, shouldUpdate),
+    call(loadLanguages, newCity, database, shouldUpdate)
   ])
 
   const fetchMap = {...categoryUrls, ...eventUrls}
   yield call(fetchResourceCache, newCity, newLanguage, fetchMap, database)
+
+  if (shouldUpdate) {
+    database.lastUpdate = moment()
+    yield call(database.writeLastUpdate)
+  }
 }

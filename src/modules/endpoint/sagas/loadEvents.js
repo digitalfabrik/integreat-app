@@ -21,12 +21,15 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
   return categoriesPayload.data
 }
 
-function * loadEvents (city: string, language: string, database: MemoryDatabase): Saga<FetchMapType> {
+function * loadEvents (
+  city: string, language: string, database: MemoryDatabase, shouldUpdate: boolean): Saga<FetchMapType> {
   yield call(database.readEvents)
 
-  if (database.eventsLoaded()) {
+  if (database.eventsLoaded() && !shouldUpdate) {
     return {}
   }
+
+  // TODO: if data was loaded but should be updated incrementally update. This will be done in NATIVE-3
 
   const events: ?Array<EventModel> = yield call(fetchEvents, city, language)
 

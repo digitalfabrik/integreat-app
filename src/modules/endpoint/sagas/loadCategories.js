@@ -17,13 +17,16 @@ function * fetchCategoriesMap (city: string, language: string): Saga<?Categories
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string, database: MemoryDatabase): Saga<FetchMapType> {
+function * loadCategories (city: string, language: string, database: MemoryDatabase, shouldUpdate: boolean): Saga<FetchMapType> {
   // Load data from the disk if existent
   yield call(database.readCategories)
 
-  if (database.categoriesLoaded()) {
+  // If data was loaded and should not be updated, return
+  if (database.categoriesLoaded() && !shouldUpdate) {
     return {}
   }
+
+  // TODO: if data was loaded but should be updated incrementally update. This will be done in NATIVE-3
 
   const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
 
