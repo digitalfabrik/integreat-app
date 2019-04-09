@@ -65,10 +65,10 @@ class MemoryDatabase {
   context: MemoryDatabaseContext
 
   _cities: Array<CityModel>
-  _categoriesMap: CategoriesMapModel
-  _languages: ?Array<LanguageModel>
-  _resourceCache: ResourceCacheStateType
-  _events: ?Array<EventModel>
+  _categoriesMap: ?CategoriesMapModel
+  _languages: Array<LanguageModel> | null
+  _resourceCache: ResourceCacheStateType | null
+  _events: ?Array<EventModel> | null
 
   loadCities (cities: Array<CityModel>) {
     this._cities = cities
@@ -80,7 +80,7 @@ class MemoryDatabase {
     this.context = context
     this._languages = null
     this._categoriesMap = null
-    this._resourceCache = {}
+    this._resourceCache = null
     this._events = null
   }
 
@@ -95,7 +95,7 @@ class MemoryDatabase {
   }
 
   get categoriesMap (): CategoriesMapModel {
-    if (!this._categoriesMap) {
+    if (this._categoriesMap === null) {
       throw Error('categories are null!')
     }
     return this._categoriesMap
@@ -109,7 +109,7 @@ class MemoryDatabase {
   }
 
   get languages (): Array<LanguageModel> {
-    if (!this._languages) {
+    if (this._languages === null) {
       throw Error('languages are null!')
     }
     return this._languages
@@ -141,6 +141,9 @@ class MemoryDatabase {
   }
 
   get resourceCache (): ResourceCacheStateType {
+    if (this._resourceCache === null) {
+      throw Error('resourceCache is null!')
+    }
     return this._resourceCache
   }
 
@@ -156,10 +159,15 @@ class MemoryDatabase {
     return getResourceCacheFilesPath(this.context.cityCode)
   }
 
-  /**
-   * @returns {Promise<void>} which resolves to the number of bytes written or rejects
-   */
-  writeCategories (): Promise<number> {
+  categoriesLoaded = () => this._categoriesMap !== null
+  languagesLoaded = () => this._languages !== null
+  eventsLoaded = () => this._events !== null
+
+  writeCategories = async () => {
+    if (this.categoriesMap === null) {
+      throw Error('MemoryDatabase does not have data to save!')
+    }
+
     const categoryModels = this.categoriesMap.toArray()
 
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
@@ -176,15 +184,15 @@ class MemoryDatabase {
       hash: category.hash
     }))
 
-    return this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
+    await this.writeFile(this.getContentPath('categories'), JSON.stringify(jsonModels))
   }
 
-  async readCategories () {
+  readCategories = async () => {
     const path = this.getContentPath('categories')
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._categoriesMap = new CategoriesMapModel()
+      this._categoriesMap = null
       return
     }
 
@@ -206,7 +214,31 @@ class MemoryDatabase {
     }))
   }
 
-  writeEvents (): Promise<number> {
+  readLanguages = async () => {
+    const path = this.getContentPath('languages')
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._languages = null
+      return
+    }
+
+    const languages = JSON.parse(await this.readFile(path))
+    this._languages = languages.map(language => new LanguageModel(language._code, language._name))
+  }
+
+  writeLanguages = async () => {
+    if (this._languages === null) {
+      throw Error('MemoryDatabase does not have data to save!')
+    }
+    const path = this.getContentPath('languages')
+    await this.writeFile(path, JSON.stringify(this._languages))
+  }
+
+  writeEvents = async () => {
+    if (this._events === null) {
+      throw Error('MemoryDatabase does not have data to save!')
+    }
     const jsonModels = this.events.map((event: EventModel): ContentEventJsonType => ({
       path: event.path,
       title: event.title,
@@ -230,15 +262,15 @@ class MemoryDatabase {
       }
     }))
 
-    return this.writeFile(this.getContentPath('events'), JSON.stringify(jsonModels))
+    await this.writeFile(this.getContentPath('events'), JSON.stringify(jsonModels))
   }
 
-  async readEvents () {
+  readEvents = async () => {
     const path = this.getContentPath('events')
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._events = []
+      this._events = null
       return
     }
 
@@ -272,29 +304,29 @@ class MemoryDatabase {
     })
   }
 
-  async readResourceCache () {
+  readResourceCache = async () => {
     const path = this.getResourceCachePath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._resourceCache = {}
+      this._resourceCache = null
       return
     }
 
-    const json: ResourceCacheJsonType = JSON.parse(await this.readFile(path))
-    this._resourceCache = json
+    this._resourceCache = JSON.parse(await this.readFile(path))
   }
 
-  async writeResourceCache (): Promise<number> {
-    if (!this._resourceCache) {
-      throw new Error('MemoryDatabase does not have data to save!')
+  writeResourceCache = async () => {
+    if (this._resourceCache === null) {
+      throw Error('MemoryDatabase does not have data to save!')
     }
 
     const path = this.getResourceCachePath()
     // todo: use ResourceCacheJsonType
 
+    // $FlowFixMe Resource cache will never be null here. Also this will probably soon be dealt with when mapping.
     const json: ResourceCacheJsonType = this._resourceCache
-    return this.writeFile(path, JSON.stringify(json))
+    await this.writeFile(path, JSON.stringify(json))
   }
 
   async readFile (path: string): Promise<string> {
