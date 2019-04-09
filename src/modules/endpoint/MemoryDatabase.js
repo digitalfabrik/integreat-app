@@ -38,18 +38,18 @@ type ContentEventJsonType = {|
   available_languages: { [code: string]: string },
   hash: string,
   excerpt: string,
-  date: {
+  date: {|
     start_date: string,
     end_date: string,
     all_day: boolean
-  },
-  location: {
+  |},
+  location: {|
     address: string,
     town: string,
     postcode: ?string,
     latitude: ?string,
     longitude: ?string
-  }
+  |}
 |}
 
 type ResourceCacheJsonType = ResourceCacheStateType
