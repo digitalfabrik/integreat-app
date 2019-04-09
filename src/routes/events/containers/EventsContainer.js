@@ -19,14 +19,14 @@ const mapStateToProps = (state: StateType, ownProps) => {
   if (!targetRoute || !language) {
     return {
       language,
-      city,
+      cityCode: city,
       resourceCache: resourceCache
     }
   }
 
   return {
     language,
-    city,
+    cityCode: city,
     events: targetRoute.models,
     path: targetRoute.path,
     resourceCache: resourceCache
