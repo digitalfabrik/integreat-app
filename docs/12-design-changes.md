@@ -14,8 +14,6 @@ The design of the react-native app will differ in a few points.
 * There will be no language selection screen after selecting a city
 * The new intro slides will be displayed after selecting a city
 ![](figures/intro-slides.png)
-Therefore they can be i18n-ized
-
 
 
 Nice to have:
