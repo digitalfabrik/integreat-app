@@ -11,7 +11,8 @@ import loadCityContent from './loadCityContent'
 function * switchContentLanguage (database: MemoryDatabase, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
-    yield call(loadCityContent, database, city, newLanguage)
+    // We never want to force a refresh when switching languages
+    yield call(loadCityContent, database, city, newLanguage, false)
 
     const insert: MorphContentLanguageActionType = {
       type: `MORPH_CONTENT_LANGUAGE`,
