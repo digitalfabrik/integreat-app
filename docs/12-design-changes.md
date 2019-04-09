@@ -5,7 +5,7 @@ The design of the react-native app will differ in a few points.
 * "Extras" will be changed to "Angebote" (eng. "Offers")
 * The tabs will get removed on Android and iOS
 * A Dashboard is added:
- ![](./figures/preview.jpg)
+ ![](figures/dashboard-design.jpg)
  Note: The event preview is planned for a future design change.\
  Note: The header should contain the Integreat logo xor the back button on iOS and Android.
 * If the user wants to change from a Page to an Event he has to navigate back to the Dashboard
