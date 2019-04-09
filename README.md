@@ -49,14 +49,17 @@ If you want to install an external library which brings native Android/iOS code 
 * Run `pod update` in the `ios/` folder
 * Make sure the App still compiles on Android and iOS
 
-# Debugging:
+### Debugging:
 [Debugging](./docs/debugging.md)
+
+### If you encounter problems:
+[Common Problems](./docs/common-problems.md)
+
+# Techincal documentation:
+[Technical documentation](docs/technical-documentation.md)
 
 # Conventions:
 [Conventions](./docs/conventions.md)
-
-# If you encounter problems:
-[Common Problems](./docs/common-problems.md)
 
 ## Technology stack
 
