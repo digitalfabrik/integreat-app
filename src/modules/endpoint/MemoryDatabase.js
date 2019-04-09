@@ -14,6 +14,7 @@ import {
   CONTENT_DIR_PATH, getResourceCacheFilesPath
 } from '../platform/constants/webview'
 import moment from 'moment'
+import type Moment from 'moment'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -41,6 +42,7 @@ const mapToObject = (map: Map<string, string>) => {
 class MemoryDatabase {
   context: MemoryDatabaseContext
 
+  _lastUpdate: Moment | null
   _cities: Array<CityModel>
   _categoriesMap: ?CategoriesMapModel
   _languages: Array<LanguageModel> | null
@@ -54,6 +56,7 @@ class MemoryDatabase {
   changeContext (
     context: MemoryDatabaseContext
   ) {
+    this._lastUpdate = null
     this.context = context
     this._languages = null
     this._categoriesMap = null
@@ -65,6 +68,10 @@ class MemoryDatabase {
     return this.context &&
       this.context.languageCode === otherContext.languageCode &&
       this.context.cityCode === otherContext.cityCode
+  }
+
+  get lastUpdate (): Moment | null {
+    return this._lastUpdate
   }
 
   get cities (): Array<CityModel> {
@@ -139,6 +146,27 @@ class MemoryDatabase {
   categoriesLoaded = () => this._categoriesMap !== null
   languagesLoaded = () => this._languages !== null
   eventsLoaded = () => this._events !== null
+
+  writeLastUpdate = async () => {
+    if (this._lastUpdate === null) {
+      throw Error('MemoryDatabase does not have data to save!')
+    }
+    const path = this.getContentPath('lastUpdate')
+    // $FlowFixMe lastUpdate will never be null here
+    await this.writeFile(path, this._lastUpdate.toISOString())
+  }
+
+  readLastUpdate = async () => {
+    const path = this.getContentPath('lastUpdate')
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      this._lastUpdate = null
+      return
+    }
+
+    this._lastUpdate = moment(await this.readFile(path), moment.ISO_8601)
+  }
 
   /**
    * @returns {Promise<void>} which resolves to the number of bytes written or rejects
