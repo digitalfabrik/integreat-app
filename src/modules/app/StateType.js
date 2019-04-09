@@ -5,6 +5,7 @@ import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 
+
 type PathType = string
 
 export type CategoryRouteStateType = {|
@@ -57,6 +58,7 @@ export const defaultCitiesState: CitiesStateType = {
 }
 
 export type CityContentStateType = {|
+  +lastRefresh: Moment | null,
   +language: string | null,
   +city: string | null,
   +languages: Array<LanguageModel> | null,
@@ -66,6 +68,7 @@ export type CityContentStateType = {|
 |}
 
 export const defaultCityContentState: CityContentStateType = {
+  lastRefresh: null,
   language: null,
   city: null,
   languages: null,
