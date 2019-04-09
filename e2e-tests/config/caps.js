@@ -1,0 +1,33 @@
+exports.ios12 = {
+  browserName: '',
+  platformName: 'iOS',
+  platformVersion: '12.0',
+  deviceName: 'iPhone Simulator',
+  os: 'iOS',
+  deviceOrientation: 'portrait',
+  automationName: 'XCUITest',
+  app: undefined
+}
+
+exports.android9 = {
+  browserName: '',
+  platformName: 'Android',
+  platformVersion: '9',
+  deviceName: 'Android Emulator',
+  automationName: 'UiAutomator2',
+  os: 'Android',
+  appPackage: 'com.integreat',
+  appActivity: 'com.integreat.MainActivity',
+  deviceOrientation: 'portrait',
+  app: './android/app/build/outputs/apk/debug/app-debug.apk'
+}
+
+exports.browserstack = {
+  'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
+  'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+  'build': 'Node Android',
+  'name': 'single_test',
+  'device': 'Google Pixel',
+  'app': process.env.E2E_BROWSERSTACK_APP,
+  'browserstack.debug': true
+}

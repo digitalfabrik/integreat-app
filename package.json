@@ -18,9 +18,11 @@
     "test:coverage": "jest --config ./jest.config.js --coverage",
     "test:watch": "jest --config ./jest.config.js --watchAll",
     "test:update": "jest --config ./jest.config.js -u",
+    "test:e2e": "jest --config jest.e2e.config.js --maxWorkers=4",
     "lint": "eslint .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
+    "flow:install-types:dev": "flow-typed install",
     "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
@@ -100,6 +102,7 @@
     "react-native-testing-library": "^1.6.1",
     "react-test-renderer": "16.7.0",
     "redux-devtools-extension": "^2.13.6",
+    "wd": "^1.11.1",
     "yo": "^2.0.5"
   }
 }
