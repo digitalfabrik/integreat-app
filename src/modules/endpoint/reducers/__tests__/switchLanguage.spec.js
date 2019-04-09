@@ -283,7 +283,8 @@ describe('switchLangauge', () => {
 
     languages,
     language: null,
-    city: null
+    city: null,
+    lastRefresh: moment.tz('2017-11-18 09:30:00', 'UTC')
   }
 
   const prepareState = ({path, model, eventPath, events}: {
@@ -375,7 +376,8 @@ describe('switchLangauge', () => {
 
       languages,
       language: 'de',
-      city: 'augsburg'
+      city: 'augsburg',
+      lastRefresh: moment.tz('2017-11-18 09:30:00', 'UTC')
     }
 
     const action: MorphContentLanguageActionType = {
