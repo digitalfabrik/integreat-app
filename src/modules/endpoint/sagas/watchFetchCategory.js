@@ -11,9 +11,9 @@ import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
 
 function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, path, depth, key} = action.params
+  const {city, language, path, depth, key, forceRefresh} = action.params
   try {
-    yield call(loadCityContent, database, city, language)
+    yield call(loadCityContent, database, city, language, forceRefresh)
 
     const insert: PushCategoryActionType = {
       type: `PUSH_CATEGORY`,

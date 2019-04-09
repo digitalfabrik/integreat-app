@@ -7,9 +7,9 @@ import MemoryDatabase from '../MemoryDatabase'
 import loadCityContent from './loadCityContent'
 
 function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): Saga<void> {
-  const {city, language, path, key} = action.params
+  const {city, language, path, key, forceRefresh} = action.params
   try {
-    yield call(loadCityContent, database, city, language)
+    yield call(loadCityContent, database, city, language, forceRefresh)
 
     const insert: PushEventActionType = {
       type: `PUSH_EVENT`,

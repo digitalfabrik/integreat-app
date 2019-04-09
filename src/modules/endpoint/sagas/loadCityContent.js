@@ -8,13 +8,23 @@ import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
+import moment from 'moment'
 
-export default function * loadCityContent (database: MemoryDatabase, newCity: string, newLanguage: string): Saga<void> {
-  if (database.hasContext(new MemoryDatabaseContext(newCity, newLanguage))) {
-    return // All data is already in the database
+const TWENTY_FOUR_HOURS = 24
+
+export default function * loadCityContent (
+  database: MemoryDatabase, newCity: string, newLanguage: string, forceRefresh: boolean): Saga<void> {
+  if (!database.hasContext(newCity, newLanguage)) {
+    database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
   }
 
-  database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
+  yield call(database.readLastUpdate)
+
+  // The last update was less than 24h ago and a refresh should not be forced
+  if (!forceRefresh && database.lastUpdate &&
+    database.lastUpdate.isAfter(moment().subtract(TWENTY_FOUR_HOURS, 'hours'))) {
+    return
+  }
 
   const [categoryUrls, eventUrls] = yield all([
     call(loadCategories, newCity, newLanguage, database),
