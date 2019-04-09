@@ -64,10 +64,10 @@ class MemoryDatabase {
     this._events = null
   }
 
-  hasContext (otherContext: MemoryDatabaseContext): boolean {
+  hasContext (cityCode: string, languageCode: string): boolean {
     return this.context &&
-      this.context.languageCode === otherContext.languageCode &&
-      this.context.cityCode === otherContext.cityCode
+      this.context.languageCode === languageCode &&
+      this.context.cityCode === cityCode
   }
 
   get lastUpdate (): Moment | null {
