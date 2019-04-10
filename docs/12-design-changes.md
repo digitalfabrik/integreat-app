@@ -1,5 +1,9 @@
 # Design Changes
 
+###### WIP Change: Improve "Offers"
+* Discussion on the next conference: Dissolve Extras category into Jobs, Apartment, Other (Other as category for extra wishes) → There is no icon and no wording that summarizes all extras, through the categorized presentation, the offers become more visible and more newcomers can benefit
+
+
 ###### Design Change: Release of the react-native app
 The design of the react-native app will differ in a few points.
 * "Extras" will be changed to "Angebote" (eng. "Offers")
