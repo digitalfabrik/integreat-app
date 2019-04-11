@@ -57,6 +57,8 @@ class SearchInput extends React.Component<PropsType> {
         <Wrapper theme={this.props.theme}>
           <SearchIcon />
           <Input
+            testID='Search-Input'
+            accessible
             accessibilityLabel='Search-Input'
             theme={this.props.theme}
             placeholder={placeholderText}
