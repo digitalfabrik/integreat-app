@@ -9,15 +9,15 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 
 type PropsType = {
   categories: Array<{|
-    model: { id: number, title: string, thumbnail: string, path: string },
-    subCategories: Array<{ id: number, title: string, thumbnail: string, path: string }>
+    model: { title: string, thumbnail: string, path: string },
+    subCategories: Array<{ title: string, thumbnail: string, path: string }>
   |}>,
   title?: string,
   content?: string,
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { id: number, title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
 }
 
 /**
@@ -31,7 +31,7 @@ class CategoryList extends React.Component<PropsType> {
         {title && <Caption title={title} />}
         {!!content && <HTML html={content} />}
         {categories.map(({model, subCategories}) =>
-          <CategoryListItem key={model.id}
+          <CategoryListItem key={model.path}
                             category={model}
                             subCategories={subCategories}
                             query={query}

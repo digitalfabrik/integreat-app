@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const StyledScrollView = styled.ScrollView`
   margin: 0 10px 0;
@@ -10,7 +10,7 @@ const StyledScrollView = styled.ScrollView`
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
-const NoItemsMessage = styled.View`
+const NoItemsMessage = styled.Text`
   padding-top: 25px;
   text-align: center;
 `
@@ -28,11 +28,9 @@ class List<T> extends React.PureComponent<PropsType<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return (
-      <StyledScrollView>
+    return <StyledScrollView>
         {items.map(item => renderItem(item))}
       </StyledScrollView>
-    )
   }
 }
 

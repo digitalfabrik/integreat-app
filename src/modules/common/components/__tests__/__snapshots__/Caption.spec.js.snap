@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Caption should render 1`] = `
-<Styled(Component)>
-  Test Title
-</Styled(Component)>
+exports[`Caption should render and display a Caption 1`] = `
+Object {
+  "output": <ForwardRef>
+    This is a test title!
+  </ForwardRef>,
+}
 `;
