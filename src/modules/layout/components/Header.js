@@ -125,7 +125,10 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   onShare = async () => {
-    const url = 'https://integreat-app.de/'
+    const { routeMapping } = this.props
+    const key = this.getNavigation().getParam('key')
+    const pathname = routeMapping[key].root
+    const url = `https://integreat.app${pathname}`
     const message: string = Platform.select({
       android: `Hey, check this out ${url}`,
       ios: `Hey, check this out.`
