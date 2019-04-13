@@ -1,11 +1,14 @@
-import React from 'react'
-import Caption from '../Caption'
-import ShallowRenderer from 'react-test-renderer/shallow'
+// @flow
 
-const renderer = new ShallowRenderer()
+import Caption from '../Caption'
+import { shallow } from 'react-native-testing-library'
+import React from 'react'
 
 describe('Caption', () => {
-  it('should render', () => {
-    expect(renderer.render(<Caption title={'Test Title'} />)).toMatchSnapshot()
+  it('should render and display a Caption', () => {
+    const wrapper = shallow(
+      <Caption title={'This is a test title!'} />
+    )
+    expect(wrapper).toMatchSnapshot()
   })
 })

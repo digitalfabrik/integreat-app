@@ -1,6 +1,6 @@
 // @flow
 
-import { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components/native'
 import { translate, withI18n } from 'react-i18next'
 
 import { connect } from 'react-redux'
@@ -8,7 +8,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import navigateToCategory from '../../../modules/app/navigateToCategory'
+import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const cities = state.cities.models
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
       type: 'FETCH_CITIES',
       params: {}
     }),
-    navigateToCategory: navigateToCategory('Dashboard', dispatch, ownProps.navigation)
+    navigateToCategory: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)
   }
 }
 

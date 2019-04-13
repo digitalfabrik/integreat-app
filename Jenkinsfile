@@ -6,6 +6,7 @@ pipeline {
         sh 'yarn'
         sh 'yarn run flow:check-now'
         sh 'yarn run lint'
+        sh 'yarn run test'
       }
     }
     stage('Build Bundle') {
