@@ -31,3 +31,13 @@ exports.browserstack = {
   'app': process.env.E2E_BROWSERSTACK_APP,
   'browserstack.debug': true
 }
+
+exports.browserstack_ios = {
+  'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
+  'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+  'build': 'iOS',
+  'name': 'single_test',
+  'device': 'iPhone XS',
+  'app': process.env.E2E_BROWSERSTACK_APP,
+  'browserstack.debug': true
+}

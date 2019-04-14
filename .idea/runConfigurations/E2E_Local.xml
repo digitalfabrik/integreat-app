@@ -5,9 +5,7 @@
     <node-options value="" />
     <jest-package value="$PROJECT_DIR$/node_modules/jest" />
     <working-dir value="$PROJECT_DIR$" />
-    <envs>
-      <env name="TEST_ENV" value="local" />
-    </envs>
+    <envs />
     <scope-kind value="ALL" />
     <method v="2" />
   </configuration>
