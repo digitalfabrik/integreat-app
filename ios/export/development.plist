@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="1.0">
+<dict>
+	<key>teamID</key>
+	<string>7272KE28TJ</string>
+	<key>method</key>
+	<string>development</string>
+	<key>uploadSymbols</key>
+	<true/>
+	<key>uploadBitcode</key>
+	<true/>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>de.integreat-app</key>
+		<string>7272KE28TJ/Maximilian Ammann</string>
+	</dict>
+</dict>
+</plist>
