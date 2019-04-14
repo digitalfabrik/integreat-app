@@ -4,7 +4,7 @@ module.exports = {
   ...main,
   setupFiles: [],
   setupTestFrameworkScriptFile: '<rootDir>/jest.e2e.setup-framework.js',
-  testMatch: ['**/e2e-tests/**/*.test.[jt]s?(x)'],
+  testMatch: ['**/e2e-tests/**/*.e2e.[jt]s?(x)'],
   testPathIgnorePatterns: [
     '/node_modules/',
     '/src/'
