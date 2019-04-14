@@ -1,42 +1,65 @@
 pipeline {
-  agent any
-  stages {
-    stage('Test') {
-      steps {
-        sh 'yarn'
-        sh 'yarn run flow:check-now'
-        sh 'yarn run lint'
-        sh 'yarn run test'
-      }
+    agent any
+    stages {
+        stage('Run on mac and master') {
+            parallel {
+                stage('mac') {
+                    agent {
+                        label "mac"
+                    }
+                    stages {
+                        stage("Install dependencies") {
+                            steps {
+                                sh 'yarn'
+                            }
+                        }
+                        stage('Build Release for iOS') {
+                            steps {
+                                sh 'cd ios && pod install'
+                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive'
+                                sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
+                                archiveArtifacts artifacts: 'output/export/**/*.*'
+                            }
+                        }
+                    }
+                }
+                stage('master') {
+                    agent {
+                        label "master"
+                    }
+                    stages {
+                        stage("Install dependencies") {
+                            steps {
+                                sh 'yarn'
+                            }
+                        }
+                        stage("Build Debug Bundle") {
+                            steps {
+                                sh 'yarn run bundle'
+                            }
+                        }
+                        stage('Build Release for Android') {
+                            environment {
+                                ANDROID_HOME = '/opt/android-sdk/'
+                            }
+                            steps {
+                                sh 'yarn run flow:check-now'
+                                sh 'yarn run lint'
+                                sh 'yarn run test'
+                                sh 'yarn run android:release'
+                                archiveArtifacts artifacts: 'android/app/build/outputs/apk/**/*.*'
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    stage('Build Bundle') {
-      steps {
-        sh 'yarn run bundle'
-      }
-    }
-    stage('Build Android release') {
-      steps {
-        sh 'yarn run android:release'
-      }
-    }
-  }
-  environment {
-    ANDROID_HOME = '/opt/android-sdk/'
-  }
-  post {
-    always {
-      //junit 'junit.xml'
-      //step([
-      //                $class              : 'CloverPublisher',
-      //                cloverReportDir     : '__coverage__',
-      //                cloverReportFileName: 'clover.xml',
-      //                healthyTarget       : [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80],
-      //                unhealthyTarget     : [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
-      //                failingTarget       : [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
-      //        ])
-        cleanWs()
 
-      }
-
+    post {
+        always {
+            cleanWs()
+        }
     }
-  }
+}
+
