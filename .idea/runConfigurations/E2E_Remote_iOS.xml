@@ -1,15 +1,15 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="E2E Remote" type="JavaScriptTestRunnerJest">
+  <configuration default="false" name="E2E Remote iOS" type="JavaScriptTestRunnerJest">
     <config-file value="$PROJECT_DIR$/jest.e2e.config.js" />
     <node-interpreter value="project" />
     <node-options value="" />
     <jest-package value="$PROJECT_DIR$/node_modules/jest" />
     <working-dir value="$PROJECT_DIR$" />
     <envs>
-      <env name="E2E_CAPS" value="browserstack" />
-      <env name="E2E_PLATFORM" value="android" />
+      <env name="E2E_CAPS" value="browserstack_ios" />
+      <env name="E2E_PLATFORM" value="ios" />
       <env name="E2E_SERVER" value="browserstack" />
-      <env name="E2E_BROWSERSTACK_APP" value="max-integreat-release" />
+      <env name="E2E_BROWSERSTACK_APP" value="max-integreat-release-ios" />
     </envs>
     <scope-kind value="ALL" />
     <method v="2" />
