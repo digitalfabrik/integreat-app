@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        timeout(time: 1, unit: 'HOURS')
+    }
     stages {
         stage('Run on mac and master') {
             failFast true
