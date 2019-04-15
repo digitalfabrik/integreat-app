@@ -1,97 +1,138 @@
+/**
+ * Upload a file to browserstack. The environment variable $BROWSERSTACK_LOGIN should contain the login with colons
+ * @param path The path to the package
+ */
+void uploadToBrowserstack(String path) {
+    return sh(
+            script: '''
+                    export UPLOAD_RESPONSE=$(curl -u $BROWSERSTACK_LOGIN -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@''' + path + '''");
+                    python -c "import json; print(json.loads('$UPLOAD_RESPONSE')['app_url'])"
+                    ''',
+            returnStdout: true
+    )
+}
+
 pipeline {
     agent any
     options {
         timeout(time: 1, unit: 'HOURS')
+        skipDefaultCheckout()
     }
     stages {
         stage('Run on mac and master') {
             failFast true
             parallel {
-                //               stage('mac') {
-                //                   agent {
-                //                       label "mac"
-                //                   }
-                //                   stages {
-                //                       stage("Install dependencies") {
-                //                           steps {
-                //                               sh 'yarn'
-                //                           }
-                //                       }
-                //                       stage('Build Release for iOS') {
-                //                           steps {
-                //                               sh 'cd ios && pod install'
-                //                               sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive'
-                //                               sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
-                //                               archiveArtifacts artifacts: 'output/export/**/*.*'
-                //                           }
-                //                       }
-                //                   }
-                //               }
-                stage('master') {
+                stage('mac') {
                     agent {
-                        label "master"
+                        label "mac"
                     }
                     stages {
                         stage("Install dependencies") {
                             steps {
+                                checkout scm
                                 sh 'yarn'
                             }
                         }
-                        //stage("Build Debug Bundle") {
-                        //    steps {
-                        //        sh 'yarn run bundle'
-                        //    }
-                        //}
+                        stage('Build Release for iOS') {
+                            environment {
+                                E2E_TAGGING = "true"
+                            }
+                            steps {
+                                sh 'cd ios && pod install'
+                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive'
+                                sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
+                                archiveArtifacts artifacts: 'output/export/**/*.*'
+                            }
+                        }
+                        stage('Upload package for E2E') {
+                            environment {
+                                BROWSERSTACK_LOGIN = credentials("browserstack-login")
+                            }
+                            steps {
+                                script {
+                                    env.E2E_BROWSERSTACK_APP = uploadToBrowserstack("output/export/Integreat.ipa")
+                                }
+                            }
+                        }
+                        stage('E2E') {
+                            environment {
+                                BROWSERSTACK_LOGIN = credentials("browserstack-login")
+                                E2E_BROWSERSTACK_USER = "$env.BROWSERSTACK_LOGIN_USR"
+                                E2E_BROWSERSTACK_KEY = "$env.BROWSERSTACK_LOGIN_PSW"
+                                E2E_BROWSERSTACK_APP = "$env.E2E_BROWSERSTACK_APP" // Shared from "Upload package for E2E"
+                                E2E_CAPS = 'browserstack_ios'
+                                E2E_PLATFORM = 'ios'
+                                E2E_SERVER = 'browserstack'
+                            }
+                            steps {
+                                sh 'yarn test:e2e'
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            cleanWs()
+                        }
+                    }
+                }
+                stage('master') {
+                    stages {
+                        stage("Install dependencies") {
+                            steps {
+                                checkout scm
+                                sh 'yarn'
+                            }
+                        }
+                        stage("Build Debug Bundle") {
+                            steps {
+                                sh 'yarn run bundle'
+                            }
+                        }
                         stage('Build Release for Android') {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
+                                E2E_TAGGING = "true"
                             }
                             steps {
-                                //        sh 'yarn run flow:check-now'
-                                //        sh 'yarn run lint'
-                                //        sh 'yarn run test'
+                                sh 'yarn run flow:check-now'
+                                sh 'yarn run lint'
+                                sh 'yarn run test'
                                 sh 'yarn run android:release'
                                 archiveArtifacts artifacts: 'android/app/build/outputs/apk/**/*.*'
                             }
                         }
                         stage('Upload package for E2E') {
                             environment {
-                                LOGIN = credentials("browserstack-login")
+                                BROWSERSTACK_LOGIN = credentials("browserstack-login")
                             }
                             steps {
                                 script {
-                                    E2E_BROWSERSTACK_APP = sh(
-                                            script: '''
-                                                    export UPLOAD_RESPONSE=$(curl -u $LOGIN -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@android/app/build/outputs/apk/release/app-release.apk");
-                                                    python -c "import json; print(json.loads(\'$UPLOAD_RESPONSE\')[\'app_url\'])"
-                                                    ''',
-                                            returnStdout: true
-                                    )
+                                    env.E2E_BROWSERSTACK_APP = uploadToBrowserstack("android/app/build/outputs/apk/release/app-release.apk")
                                 }
-                                sh 'echo $E2E_BROWSERSTACK_APP'
-                                sh 'echo ${E2E_BROWSERSTACK_APP}'
                             }
                         }
                         stage('E2E') {
                             environment {
-                                E2E_CAPS = 'browserstack_ios'
-                                E2E_PLATFORM = 'ios'
+                                BROWSERSTACK_LOGIN = credentials("browserstack-login")
+                                E2E_BROWSERSTACK_USER = "$env.BROWSERSTACK_LOGIN_USR"
+                                E2E_BROWSERSTACK_KEY = "$env.BROWSERSTACK_LOGIN_PSW"
+                                E2E_BROWSERSTACK_APP = "$env.E2E_BROWSERSTACK_APP" // Shared from "Upload package for E2E"
+                                E2E_CAPS = 'browserstack'
+                                E2E_PLATFORM = 'android'
                                 E2E_SERVER = 'browserstack'
                             }
                             steps {
-                                sh 'echo $E2E_BROWSERSTACK_APP'
-                                sh 'echo ${E2E_BROWSERSTACK_APP}'
+                                sh 'yarn test:e2e'
                             }
+                        }
+                    }
+                    post {
+                        always {
+                            cleanWs()
                         }
                     }
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            cleanWs()
         }
     }
 }
