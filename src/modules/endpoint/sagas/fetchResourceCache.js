@@ -13,6 +13,7 @@ import type { FetchResultType } from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
 import MemoryDatabase from '../MemoryDatabase'
+import Alert from 'react-native/Libraries/Alert/Alert'
 
 type PathType = string
 type UrlType = string
@@ -53,8 +54,8 @@ export default function * fetchResourceCache (city: string, language: string, fe
     const failureResults = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
       const message = createErrorMessage(failureResults)
-
       const failed: ResourcesFetchFailedActionType = {type: `RESOURCES_FETCH_FAILED`, city, language, message}
+      Alert.alert(`Some Resources failed to load:`, message)
       yield put(failed)
       return
     }
