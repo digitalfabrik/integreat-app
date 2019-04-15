@@ -2,6 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Run on mac and master') {
+            failFast true
             parallel {
                 stage('mac') {
                     agent {
