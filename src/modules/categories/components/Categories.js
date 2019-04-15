@@ -41,7 +41,7 @@ class Categories extends React.Component<PropsType> {
 
   getCachedThumbnail (category: CategoryModel): ?string {
     if (category.thumbnail) {
-      const resource = this.getLocalResourceCache(category)[category.thumbnail]
+      const resource = this.getFileCache(category)[category.thumbnail]
 
       if (resource) {
         return URL_PREFIX + resource.filePath
@@ -60,8 +60,8 @@ class Categories extends React.Component<PropsType> {
       }))
   }
 
-  getLocalResourceCache (category: CategoryModel): FileCacheStateType {
-    return this.props.resourceCache[category.path]
+  getFileCache (category: CategoryModel): FileCacheStateType {
+    return this.props.resourceCache[category.path] || {}
   }
 
   getListModel (category: CategoryModel): { title: string, thumbnail: string, path: string } {
@@ -97,7 +97,7 @@ class Categories extends React.Component<PropsType> {
 
     if (children.length === 0) {
       // last level, our category is a simple page
-      const files = this.getLocalResourceCache(category)
+      const files = this.getFileCache(category)
       return <Page title={category.title}
                    content={category.content}
                    lastUpdate={category.lastUpdate}
