@@ -16,7 +16,8 @@ import MemoryDatabase from '../MemoryDatabase'
 
 type PathType = string
 type UrlType = string
-export type FetchMapType = { [filePath: string]: [UrlType, PathType] }
+type FilePathType = string
+export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
   return reduce(fetchResult, (message, result) => {
@@ -64,7 +65,8 @@ export default function * fetchResourceCache (city: string, language: string, fe
     }
     yield put(success)
 
-    const targetCategories = invertBy(mapValues(fetchMap, ([url, path]) => path))
+    const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
+      invertBy(mapValues(fetchMap, ([url, path]) => path))
 
     const resourceCache = mapValues(targetCategories, filePaths =>
       fromPairs(filePaths.map(filePath => {
