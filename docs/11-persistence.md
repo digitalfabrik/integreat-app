@@ -39,7 +39,7 @@ The `cities.json` could contain information about all cities. Usually they are n
 ```
 
 The ''content'' is responsible to store the JSON data from the API.
-The ''resource-cache'' contains all the resources. Resources are files which are referenced in the HTML code and thumbnail of pages.
+The ''resource-cache'' contains all the resources. Resources are files which are either referenced in the HTML content or used as thumbnails of pages.
 
 The files are stored in ''resource-cache/${city}/files/'' and the corresponding metadata gets stored in ''files.json''.
 

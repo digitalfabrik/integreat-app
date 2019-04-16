@@ -5,7 +5,7 @@
 This happens when you use Xcode without running `yarn ios` or you did not install the pods.
 Try to reinstall the node_modules folder. The double-conversion library gets downloaded and installed in there when you run `yarn ios`.
 
-See [here](https://github.com/facebook/react-native/issues/21168#issuecomment-422700915) and [here](https://github.com/facebook/react-native/issues/20774) for more information 
+See [here](https://github.com/facebook/react-native/issues/21168#issuecomment-422700915) and [here](https://github.com/facebook/react-native/issues/20774) for more information.
 
     
 ## `ERROR watch... ENOSPC` when running `yarn start` on Linux
