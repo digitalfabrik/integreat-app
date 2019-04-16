@@ -5,7 +5,6 @@ import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 
-
 type PathType = string
 
 export type CategoryRouteStateType = {|
