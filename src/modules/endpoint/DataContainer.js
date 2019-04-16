@@ -14,9 +14,9 @@ interface DataContainerInterface {
    * Changes the _context to the supplied city-language combination and loads all corresponding persisted data if
    * existent. Initializes non persisted fields with null.
    * @param cityCode
-   * @param language
+   * @param languageCode
    */
-  setContext (cityCode: string, language: string): Promise<void>,
+  setContext (cityCode: string, languageCode: string): Promise<void>,
 
   /**
    * Returns an Array of CityModels.
@@ -177,8 +177,12 @@ class DataContainer implements DataContainerInterface {
     this._cities = cities
   }
 
-  async setContext (cityCode: string, language: string) {
-    this._context = new DatabaseContext(cityCode, language)
+  async setContext (cityCode: string, languageCode: string) {
+    if (this._context !== null && this._context._cityCode === cityCode && this._context.languageCode === languageCode) {
+      return
+    }
+
+    this._context = new DatabaseContext(cityCode, languageCode)
     const context = this._context
 
     const [events, categoriesMap, languages, resourceCache] = await Promise.all([
