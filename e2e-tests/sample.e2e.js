@@ -1,10 +1,3 @@
-/**
- * @format
- * */
-
-/**
- * Internal dependencies
- */
 import { setupDriver, stopDriver } from './helpers/driver-util'
 
 describe('Sample tests', () => {
