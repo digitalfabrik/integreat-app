@@ -3,9 +3,9 @@
 import {
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
+  CityModel, DateModel,
   EventModel,
-  LanguageModel
+  LanguageModel, LocationModel
 } from '@integreat-app/integreat-api-client'
 import MemoryDatabaseContext from './MemoryDatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
@@ -30,6 +30,29 @@ type ContentCategoryJsonType = {|
   hash: string
 |}
 
+type ContentEventJsonType = {|
+  path: string,
+  title: string,
+  content: string,
+  last_update: string,
+  thumbnail: string,
+  available_languages: { [code: string]: string },
+  hash: string,
+  excerpt: string,
+  date: {|
+    start_date: string,
+    end_date: string,
+    all_day: boolean
+  |},
+  location: {|
+    address: string,
+    town: string,
+    postcode: ?string,
+    latitude: ?string,
+    longitude: ?string
+  |}
+|}
+
 type ResourceCacheJsonType = ResourceCacheStateType
 
 const mapToObject = (map: Map<string, string>) => {
@@ -47,7 +70,7 @@ class MemoryDatabase {
   _categoriesMap: ?CategoriesMapModel
   _languages: Array<LanguageModel> | null
   _resourceCache: ResourceCacheStateType | null
-  _events: ?Array<EventModel>
+  _events: ?Array<EventModel> | null
 
   loadCities (cities: Array<CityModel>) {
     this._cities = cities
@@ -238,6 +261,36 @@ class MemoryDatabase {
     await this.writeFile(path, JSON.stringify(this._languages))
   }
 
+  writeEvents = async () => {
+    if (this._events === null) {
+      throw Error('MemoryDatabase does not have data to save!')
+    }
+    const jsonModels = this.events.map((event: EventModel): ContentEventJsonType => ({
+      path: event.path,
+      title: event.title,
+      content: event.content,
+      last_update: event.lastUpdate.toISOString(),
+      thumbnail: event.thumbnail,
+      available_languages: mapToObject(event.availableLanguages),
+      hash: event.hash,
+      excerpt: event.excerpt,
+      date: {
+        start_date: event.date.startDate.toISOString(),
+        end_date: event.date.endDate.toISOString(),
+        all_day: event.date.allDay
+      },
+      location: {
+        address: event.location.address,
+        town: event.location.town,
+        postcode: event.location.postcode,
+        latitude: event.location.latitude,
+        longitude: event.location.longitude
+      }
+    }))
+
+    await this.writeFile(this.getContentPath('events'), JSON.stringify(jsonModels))
+  }
+
   readEvents = async () => {
     const path = this.getContentPath('events')
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
@@ -247,15 +300,34 @@ class MemoryDatabase {
       return
     }
 
-    this._events = JSON.parse(await this.readFile(path))
-  }
+    const json = JSON.parse(await this.readFile(path))
 
-  writeEvents = async () => {
-    if (this._events === null) {
-      throw Error('MemoryDatabase does not have data to save!')
-    }
-    const path = this.getContentPath('events')
-    await this.writeFile(path, JSON.stringify(this._events))
+    this._events = json.map((jsonObject: ContentEventJsonType) => {
+      const jsonDate = jsonObject.date
+      const jsonLocation = jsonObject.location
+      return new EventModel({
+        path: jsonObject.path,
+        title: jsonObject.title,
+        content: jsonObject.content,
+        thumbnail: jsonObject.thumbnail,
+        availableLanguages: new Map(Object.entries(jsonObject.available_languages)),
+        lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
+        hash: jsonObject.hash,
+        excerpt: jsonObject.excerpt,
+        date: new DateModel({
+          startDate: moment(jsonDate.start_date, moment.ISO_8601),
+          endDate: moment(jsonDate.end_date, moment.ISO_8601),
+          allDay: jsonDate.all_day
+        }),
+        location: new LocationModel({
+          address: jsonLocation.address,
+          latitude: jsonLocation.latitude,
+          longitude: jsonLocation.longitude,
+          postcode: jsonLocation.postcode,
+          town: jsonLocation.town
+        })
+      })
+    })
   }
 
   readResourceCache = async () => {
