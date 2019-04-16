@@ -12,7 +12,7 @@ const platform = process.env.E2E_PLATFORM || defaultPlatform
 const defaultServer = 'local'
 const e2eServerConfigName = process.env.E2E_SERVER || defaultServer
 
-const defaultCaps = 'android9'
+const defaultCaps = 'local_android9'
 const capsName = process.env.E2E_CAPS || defaultCaps
 
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
