@@ -60,7 +60,7 @@ pipeline {
                                 E2E_BROWSERSTACK_USER = "$env.BROWSERSTACK_LOGIN_USR"
                                 E2E_BROWSERSTACK_KEY = "$env.BROWSERSTACK_LOGIN_PSW"
                                 E2E_BROWSERSTACK_APP = "$env.E2E_BROWSERSTACK_APP" // Shared from "Upload package for E2E"
-                                E2E_CAPS = 'browserstack_ios'
+                                E2E_CAPS = 'ci_browserstack_ios'
                                 E2E_PLATFORM = 'ios'
                                 E2E_SERVER = 'browserstack'
                             }
@@ -117,7 +117,7 @@ pipeline {
                                 E2E_BROWSERSTACK_USER = "$env.BROWSERSTACK_LOGIN_USR"
                                 E2E_BROWSERSTACK_KEY = "$env.BROWSERSTACK_LOGIN_PSW"
                                 E2E_BROWSERSTACK_APP = "$env.E2E_BROWSERSTACK_APP" // Shared from "Upload package for E2E"
-                                E2E_CAPS = 'browserstack'
+                                E2E_CAPS = 'ci_browserstack'
                                 E2E_PLATFORM = 'android'
                                 E2E_SERVER = 'browserstack'
                             }

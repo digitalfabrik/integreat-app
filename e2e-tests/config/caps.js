@@ -23,7 +23,7 @@ exports.local_android9 = {
 exports.browserstack = {
   'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
   'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
-  'build': 'Node Android',
+  'build': 'Development Android',
   'name': 'single_test',
   'device': 'Google Pixel',
   'app': process.env.E2E_BROWSERSTACK_APP,
@@ -33,7 +33,27 @@ exports.browserstack = {
 exports.browserstack_ios = {
   'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
   'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
-  'build': 'iOS',
+  'build': 'Development iOS',
+  'name': 'single_test',
+  'device': 'iPhone XS',
+  'app': process.env.E2E_BROWSERSTACK_APP,
+  'browserstack.debug': true
+}
+
+exports.ci_browserstack = {
+  'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
+  'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+  'build': 'CI Android',
+  'name': 'single_test',
+  'device': 'Google Pixel',
+  'app': process.env.E2E_BROWSERSTACK_APP,
+  'browserstack.debug': true
+}
+
+exports.ci_browserstack_ios = {
+  'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
+  'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+  'build': 'CI iOS',
   'name': 'single_test',
   'device': 'iPhone XS',
   'app': process.env.E2E_BROWSERSTACK_APP,
