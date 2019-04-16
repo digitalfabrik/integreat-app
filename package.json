@@ -22,7 +22,7 @@
     "lint": "eslint .",
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
-    "flow:install-types:dev": "flow-typed install",
+    "flow:install-types:all": "flow-typed install",
     "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
