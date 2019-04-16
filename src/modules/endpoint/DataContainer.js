@@ -19,9 +19,10 @@ interface DataContainerInterface {
   setContext (cityCode: string, language: string): Promise<void>,
 
   /**
-   * Returns an Array of CityModels or null if none are persisted.
+   * Returns an Array of CityModels.
+   * @throws Will throw an error if the array is null.
    */
-  getCities (): Promise<Array<CityModel> | null>,
+  getCities (): Promise<Array<CityModel>>,
 
   /**
    * Sets the cities but does not persist them.
@@ -31,9 +32,10 @@ interface DataContainerInterface {
   setCities (cities: Array<CityModel>): Promise<void>,
 
   /**
-   * Returns an Array of LanguageModels or null if none are persisted.
+   * Returns an Array of LanguageModels.
+   * @throws Will throw an error if the array is null.
    */
-  getLanguages (): Promise<Array<LanguageModel> | null>,
+  getLanguages (): Promise<Array<LanguageModel>>,
 
   /**
    * Sets the languages and persists them.
@@ -42,9 +44,10 @@ interface DataContainerInterface {
   setLanguages (languages: Array<LanguageModel>): Promise<void>,
 
   /**
-   * Returns the CategoriesMapModel or null if none is persisted
+   * Returns the CategoriesMapModel.
+   * @throws Will throw an error if the CategoriesMapModel is null.
    */
-  getCategories (): Promise<CategoriesMapModel | null>,
+  getCategories (): Promise<CategoriesMapModel>,
 
   /**
    * Sets the categories and persists them.
@@ -53,9 +56,10 @@ interface DataContainerInterface {
   setCategories (categories: CategoriesMapModel): Promise<void>,
 
   /**
-   * Returns the events or null if none are persisted.
+   * Returns an Array of events.
+   * @throws Will throw an error if the array is null.
    */
-  getEvents (): Promise<Array<EventModel> | null>,
+  getEvents (): Promise<Array<EventModel>>,
 
   /**
    * Sets the events and persists them.
@@ -64,15 +68,36 @@ interface DataContainerInterface {
   setEvents (events: Array<EventModel>): Promise<void>,
 
   /**
-   * Returns the ResourceCache or null if none is persisted.
+   * Returns the ResourceCache.
+   * @throws Will throw an error if the ResourceCache is null.
    */
-  getResourceCache (): Promise<ResourceCacheStateType | null>,
+  getResourceCache (): Promise<ResourceCacheStateType>,
 
   /**
    * Sets the ResourceCache and persists it.
    * @param resourceCache
    */
-  setResourceCache (resourceCache: ResourceCacheStateType): Promise<void>
+  setResourceCache (resourceCache: ResourceCacheStateType): Promise<void>,
+
+  /**
+   * Returns whether the CategoriesMap has been loaded or not.
+   */
+  categoriesMapLoaded (): boolean,
+
+  /**
+   * Returns whether the languages have been loaded or not.
+   */
+  languagesLoaded (): boolean,
+
+  /**
+   * Returns whether the ResourceCache have been loaded or not.
+   */
+  resourceCacheLoaded (): boolean,
+
+  /**
+   * Returns whether the events have been loaded or not.
+   */
+  eventsLoaded (): boolean
 }
 
 class DataContainer implements DataContainerInterface {
@@ -89,37 +114,52 @@ class DataContainer implements DataContainerInterface {
     this._databaseConnector = new DatabaseConnector()
   }
 
-  async getCategories (): Promise<CategoriesMapModel | null> {
+  async getCities (): Promise<Array<CityModel>> {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
-    return this._categoriesMap
-  }
-
-  async getCities (): Promise<Array<CityModel> | null> {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
+    if (this._cities === null) {
+      throw Error('CategoriesMap is null.')
     }
     return this._cities
   }
 
-  async getEvents (): Promise<Array<EventModel> | null> {
+  async getCategories (): Promise<CategoriesMapModel> {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
+    }
+    if (this._categoriesMap === null) {
+      throw Error('CategoriesMap is null.')
+    }
+    return this._categoriesMap
+  }
+
+  async getEvents (): Promise<Array<EventModel>> {
+    if (this._context === null) {
+      throw Error('Context has not been set yet.')
+    }
+    if (this._events === null) {
+      throw Error('CategoriesMap is null.')
     }
     return this._events
   }
 
-  async getLanguages (): Promise<Array<LanguageModel> | null> {
+  async getLanguages (): Promise<Array<LanguageModel>> {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
+    }
+    if (this._languages === null) {
+      throw Error('CategoriesMap is null.')
     }
     return this._languages
   }
 
-  async getResourceCache (): Promise<ResourceCacheStateType | null> {
+  async getResourceCache (): Promise<ResourceCacheStateType> {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
+    }
+    if (this._resourceCache === null) {
+      throw Error('CategoriesMap is null.')
     }
     return this._resourceCache
   }
@@ -175,6 +215,22 @@ class DataContainer implements DataContainerInterface {
     }
     await this._databaseConnector.storeResourceCache(resourceCache, this._context)
     this._resourceCache = resourceCache
+  }
+
+  categoriesMapLoaded (): boolean {
+    return this._categoriesMap === null
+  }
+
+  languagesLoaded (): boolean {
+    return this._languages === null
+  }
+
+  eventsLoaded (): boolean {
+    return this._events === null
+  }
+
+  resourceCacheLoaded (): boolean {
+    return this._resourceCache === null
   }
 }
 
