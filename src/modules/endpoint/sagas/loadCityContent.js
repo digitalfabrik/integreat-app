@@ -14,9 +14,11 @@ const TWENTY_FOUR_HOURS = 24
 
 export default function * loadCityContent (
   database: MemoryDatabase, newCity: string, newLanguage: string, forceRefresh: boolean): Saga<void> {
-  if (!database.hasContext(newCity, newLanguage)) {
-    database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
+  if (database.hasContext(newCity, newLanguage)) {
+    return
   }
+
+  database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
 
   yield call(database.readLastUpdate)
 
