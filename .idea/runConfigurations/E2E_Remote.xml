@@ -9,7 +9,6 @@
       <env name="E2E_CAPS" value="browserstack" />
       <env name="E2E_PLATFORM" value="android" />
       <env name="E2E_SERVER" value="browserstack" />
-      <env name="E2E_BROWSERSTACK_APP" value="max-integreat-release" />
     </envs>
     <scope-kind value="ALL" />
     <method v="2" />
