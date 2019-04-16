@@ -1,22 +1,28 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
-import MemoryDatabase from '../MemoryDatabase'
+import DataContainer from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): Saga<void> {
+function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const {city, language, path, key} = action.params
   try {
-    yield call(loadCityContent, database, city, language)
+    yield call(loadCityContent, dataContainer, city, language)
+
+    const [events, languages, resourceCache] = yield all([
+      call(dataContainer.getEvents),
+      call(dataContainer.getLanguages),
+      call(dataContainer.getResourceCache)
+    ])
 
     const insert: PushEventActionType = {
       type: `PUSH_EVENT`,
       params: {
-        events: database.events,
-        languages: database.languages,
-        resourceCache: database.resourceCache,
+        events: events,
+        languages: languages,
+        resourceCache: resourceCache,
         path,
         key,
         city,
@@ -34,6 +40,6 @@ function * fetchEvent (database: MemoryDatabase, action: FetchEventActionType): 
   }
 }
 
-export default function * (database: MemoryDatabase): Saga<void> {
-  yield takeLatest(`FETCH_EVENT`, fetchEvent, database)
+export default function * (dataContainer: DataContainer): Saga<void> {
+  yield takeLatest(`FETCH_EVENT`, fetchEvent, dataContainer)
 }

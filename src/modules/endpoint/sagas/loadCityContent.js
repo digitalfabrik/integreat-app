@@ -2,26 +2,21 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import MemoryDatabase from '../MemoryDatabase'
-import MemoryDatabaseContext from '../MemoryDatabaseContext'
+import DataContainer from '../DataContainer'
 import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 
-export default function * loadCityContent (database: MemoryDatabase, newCity: string, newLanguage: string): Saga<void> {
-  if (database.hasContext(new MemoryDatabaseContext(newCity, newLanguage))) {
-    return // All data is already in the database
-  }
-
-  database.changeContext(new MemoryDatabaseContext(newCity, newLanguage))
+export default function * loadCityContent (dataContainer: DataContainer, newCity: string, newLanguage: string): Saga<void> {
+  yield call(dataContainer.setContext, newCity, newLanguage)
 
   const [categoryUrls, eventUrls] = yield all([
-    call(loadCategories, newCity, newLanguage, database),
-    call(loadEvents, newCity, newLanguage, database),
-    call(loadLanguages, newCity, database)
+    call(loadCategories, newCity, newLanguage, dataContainer),
+    call(loadEvents, newCity, newLanguage, dataContainer),
+    call(loadLanguages, newCity, dataContainer)
   ])
 
   const fetchMap = {...categoryUrls, ...eventUrls}
-  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, database)
+  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
 }
