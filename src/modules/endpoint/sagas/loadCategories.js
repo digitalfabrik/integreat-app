@@ -23,8 +23,11 @@ function * loadCategories (city: string, language: string, database: MemoryDatab
 
   // If data was loaded and should not be updated, return
   if (database.categoriesLoaded() && !shouldUpdate) {
+    console.debug('Using cached categories')
     return {}
   }
+
+  console.debug('Fetching categories')
 
   // TODO: if data was loaded but should be updated incrementally update. This will be done in NATIVE-3
 

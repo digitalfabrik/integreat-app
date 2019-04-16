@@ -26,10 +26,13 @@ function * loadEvents (
   yield call(database.readEvents)
 
   if (database.eventsLoaded() && !shouldUpdate) {
+    console.debug('Using cached events')
     return {}
   }
 
-  // TODO: if data was loaded but should be updated incrementally update. This will be done in NATIVE-3
+  console.debug('Fetching events')
+
+  // TODO: if data was loaded but should be updated incrementally. This will be done in NATIVE-3
 
   const events: ?Array<EventModel> = yield call(fetchEvents, city, language)
 
