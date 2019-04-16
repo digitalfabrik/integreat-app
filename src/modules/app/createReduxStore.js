@@ -23,7 +23,7 @@ import { defaultCitiesState, defaultCityContentState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import MemoryDatabase from '../endpoint/MemoryDatabase'
+import DataContainer from '../endpoint/DataContainer'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
 import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
 import watchFetchCities from '../endpoint/sagas/watchFetchCities'
@@ -31,18 +31,18 @@ import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 
-function * rootSaga (database: MemoryDatabase): Saga<void> {
+function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
-    call(watchFetchCategory, database),
-    call(watchFetchEvent, database),
-    call(watchFetchCities, database),
-    call(watchContentLanguageSwitch, database),
+    call(watchFetchCategory, dataContainer),
+    call(watchFetchEvent, dataContainer),
+    call(watchFetchCities, dataContainer),
+    call(watchContentLanguageSwitch, dataContainer),
     call(networkSaga, {})
   ])
 }
 
 const createReduxStore = (
-  database: MemoryDatabase, callback: () => void
+  dataContainer: DataContainer, callback: () => void
 ): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
   const sagaMiddleware = createSagaMiddleware()
 
@@ -105,7 +105,7 @@ const createReduxStore = (
         type: offlineActionTypes.CONNECTION_CHANGE,
         payload: isConnected
       })
-      sagaMiddleware.run(rootSaga, database)
+      sagaMiddleware.run(rootSaga, dataContainer)
       callback()
     }
   )

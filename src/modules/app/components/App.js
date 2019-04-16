@@ -12,17 +12,17 @@ import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
-import MemoryDatabase from '../../endpoint/MemoryDatabase'
+import DataContainer from '../../endpoint/DataContainer'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>
-  database: MemoryDatabase
+  dataContainer: DataContainer
 
   constructor () {
     super()
     this.state = {waitingForStore: true}
-    this.database = new MemoryDatabase()
-    const storeConfig = createReduxStore(this.database, () => { this.setState({waitingForStore: false}) })
+    this.dataContainer = new DataContainer()
+    const storeConfig = createReduxStore(this.dataContainer, () => { this.setState({waitingForStore: false}) })
     this.store = storeConfig.store
   }
 
