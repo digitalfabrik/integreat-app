@@ -35,7 +35,7 @@ pipeline {
                         }
                         stage('Build Release for iOS') {
                             environment {
-                                E2E_TAGGING = "true"
+                                E2E_TEST_IDS = "1"
                             }
                             steps {
                                 sh 'cd ios && pod install'
@@ -91,7 +91,7 @@ pipeline {
                         stage('Build Release for Android') {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
-                                E2E_TAGGING = "true"
+                                E2E_TEST_IDS = "1"
                             }
                             steps {
                                 sh 'yarn run flow:check-now'
