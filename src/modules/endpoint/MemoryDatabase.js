@@ -60,7 +60,72 @@ const mapToObject = (map: Map<string, string>) => {
   return output
 }
 
-// TODO: Define interface for this class which makes sense for databases
+interface DataContainer {
+  /**
+   * Changes the context to the supplied city-language combination and loads all corresponding persisted data if
+   * existent. Initializes non persisted fields with null.
+   * @param cityCode
+   * @param language
+   */
+  setContext (cityCode: string, language: string): Promise<void>,
+
+  /**
+   * Returns an Array of CityModels or null if none are persisted.
+   */
+  getCities (): Promise<Array<CityModel> | null>,
+
+  /**
+   * Sets the cities but does not persist them.
+   * TODO Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
+   * @param cities
+   */
+  setCities (cities: Array<CityModel>): Promise<void>,
+
+  /**
+   * Returns an Array of LanguageModels or null if none are persisted.
+   */
+  getLanguages (): Promise<Array<LanguageModel> | null>,
+
+  /**
+   * Sets the languages and persists them.
+   * @param languages
+   */
+  setLanguages (languages: Array<LanguageModel>): Promise<void>,
+
+  /**
+   * Returns the CategoriesMapModel or null if none is persisted
+   */
+  getCategories (): Promise<CategoriesMapModel | null>,
+
+  /**
+   * Sets the categories and persists them.
+   * @param categories
+   */
+  setCategories (categories: CategoriesMapModel): Promise<void>,
+
+  /**
+   * Returns the events or null if none are persisted.
+   */
+  getEvents (): Promise<Array<EventModel> | null>,
+
+  /**
+   * Sets the events and persists them.
+   * @param events
+   */
+  setEvents (events: Array<EventModel>): Promise<void>,
+
+  /**
+   * Returns the ResourceCache or null if none is persisted.
+   */
+  getResourceCache (): Promise<ResourceCacheStateType | null>,
+
+  /**
+   * Sets the ResourceCache and persists it.
+   * @param resourceCache
+   */
+  setResourceCache (resourceCache: ResourceCacheStateType): Promise<void>
+}
+
 class MemoryDatabase {
   context: MemoryDatabaseContext
 
