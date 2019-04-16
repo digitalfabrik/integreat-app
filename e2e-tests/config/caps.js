@@ -1,15 +1,14 @@
-exports.ios12 = {
+exports.local_ios12 = {
   browserName: '',
   platformName: 'iOS',
   platformVersion: '12.0',
   deviceName: 'iPhone Simulator',
   os: 'iOS',
   deviceOrientation: 'portrait',
-  automationName: 'XCUITest',
-  app: undefined
+  automationName: 'XCUITest'
 }
 
-exports.android9 = {
+exports.local_android9 = {
   browserName: '',
   platformName: 'Android',
   platformVersion: '9',
@@ -18,8 +17,7 @@ exports.android9 = {
   os: 'Android',
   appPackage: 'com.integreat',
   appActivity: 'com.integreat.MainActivity',
-  deviceOrientation: 'portrait',
-  app: './android/app/build/outputs/apk/debug/app-debug.apk'
+  deviceOrientation: 'portrait'
 }
 
 exports.browserstack = {
