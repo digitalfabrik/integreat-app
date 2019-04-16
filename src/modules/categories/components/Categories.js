@@ -2,13 +2,13 @@
 
 import * as React from 'react'
 
-import Page from 'modules/common/components/Page'
-import Tiles from '../../../modules/common/components/Tiles'
+import Page from '../../common/components/Page'
+import Tiles from '../../common/components/Tiles'
 import CategoryList from './CategoryList'
-import TileModel from '../../../modules/common/models/TileModel'
+import TileModel from '../../common/models/TileModel'
 import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
-import type { ThemeType } from 'modules/theme/constants/theme'
-import { URL_PREFIX } from '../../../modules/platform/constants/webview'
+import type { ThemeType } from '../../theme/constants/theme'
+import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
 import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
@@ -26,7 +26,7 @@ type PropsType = {|
 |}
 
 /**
- * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
+ * Displays a CategoryTable, CategoryList or a single category as page matching the route /<cityCode>/<language>*
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
@@ -44,7 +44,7 @@ class Categories extends React.Component<PropsType> {
       const resource = this.getLocalResourceCache(category)[category.thumbnail]
 
       if (resource) {
-        return URL_PREFIX + resource.path
+        return URL_PREFIX + resource.filePath
       }
     }
     return null
@@ -86,7 +86,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities} = this.props
+    const {stateView, cities, theme} = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -103,13 +103,16 @@ class Categories extends React.Component<PropsType> {
                    lastUpdate={category.lastUpdate}
                    theme={this.props.theme}
                    files={files}
-                   language={this.props.language} />
+                   language={this.props.language}
+                   cityCode={this.props.cityCode}
+      />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)}
-                    onTilePress={this.onTilePress} />
+                    onTilePress={this.onTilePress}
+                    theme={theme} />
     }
     // some level between, we want to display a list
     return <CategoryList

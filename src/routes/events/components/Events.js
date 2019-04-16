@@ -12,16 +12,17 @@ import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { ResourceCacheStateType } from '../../../modules/app/StateType'
 
 type PropsType = {|
   events: Array<EventModel>,
-  city: string,
+  cityCode: string,
   language: string,
   t: TFunction,
   path?: string,
   theme: ThemeType,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
-  resourceCache: { [url: string]: string }
+  resourceCache: ResourceCacheStateType
 |}
 
 /**
@@ -29,7 +30,7 @@ type PropsType = {|
  */
 export default class Events extends React.Component<PropsType> {
   navigateToEvent = (path: string) => () => {
-    this.props.navigateToEvent(this.props.city, this.props.language, path)
+    this.props.navigateToEvent(this.props.cityCode, this.props.language, path)
   }
 
   renderEventListItem = (language: string) => (event: EventModel) =>
@@ -39,7 +40,7 @@ export default class Events extends React.Component<PropsType> {
                    navigateToEvent={this.navigateToEvent(event.path)} />
 
   render () {
-    const {events, path, city, language, resourceCache, theme, t} = this.props
+    const {events, path, cityCode, language, resourceCache, theme, t} = this.props
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
@@ -51,7 +52,8 @@ export default class Events extends React.Component<PropsType> {
                 lastUpdate={event.lastUpdate}
                 language={language}
                 files={files}
-                theme={theme}>
+                theme={theme}
+                cityCode={cityCode}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
               <PageDetail identifier={t('location')} information={event.location.location} />
@@ -59,7 +61,7 @@ export default class Events extends React.Component<PropsType> {
           </Page>
         </ScrollView>
       }
-      const error = new ContentNotFoundError({type: 'event', id: path, city, language})
+      const error = new ContentNotFoundError({type: 'event', id: path, city: cityCode, language})
       return <Failure error={error} />
     }
 

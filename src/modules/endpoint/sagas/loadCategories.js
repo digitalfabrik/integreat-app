@@ -8,6 +8,7 @@ import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
+import MemoryDatabase from '../MemoryDatabase'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<?CategoriesMapModel> {
   const params = {city, language}
@@ -16,7 +17,14 @@ function * fetchCategoriesMap (city: string, language: string): Saga<?Categories
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string): Saga<[CategoriesMapModel, FetchMapType]> {
+function * loadCategories (city: string, language: string, database: MemoryDatabase): Saga<FetchMapType> {
+  // Load data from the disk if existent
+  yield call(database.readCategories)
+
+  if (database.categoriesLoaded()) {
+    return {}
+  }
+
   const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
 
   if (!categoriesMap) {
@@ -35,7 +43,10 @@ function * loadCategories (city: string, language: string): Saga<[CategoriesMapM
 
   resourceURLFinder.finalize()
 
-  return [categoriesMap, urls]
+  database.categoriesMap = categoriesMap
+  yield call(database.writeCategories)
+
+  return urls
 }
 
 export default loadCategories
