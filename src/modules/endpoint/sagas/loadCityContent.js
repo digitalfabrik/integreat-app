@@ -8,7 +8,7 @@ import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const TWENTY_FOUR_HOURS = 24
 
@@ -20,9 +20,14 @@ export default function * loadCityContent (
 
   yield call(database.readLastUpdate)
 
-  // The last update was less than 24h ago and a refresh should not be forced
+  console.debug('Last city content update on ',
+    database.lastUpdate ? database.lastUpdate.toISOString() : database.lastUpdate)
+
+  // The last update was more than 24h ago or a refresh should be forced
   const shouldUpdate = forceRefresh || !database.lastUpdate ||
-    database.lastUpdate.isAfter(moment().subtract(TWENTY_FOUR_HOURS, 'hours'))
+    database.lastUpdate.isBefore(moment.tz('UTC').subtract(TWENTY_FOUR_HOURS, 'hours'))
+
+  console.debug('City content should be refreshed: ', shouldUpdate)
 
   const [categoryUrls, eventUrls] = yield all([
     call(loadCategories, newCity, newLanguage, database, shouldUpdate),
@@ -34,7 +39,7 @@ export default function * loadCityContent (
   yield call(fetchResourceCache, newCity, newLanguage, fetchMap, database)
 
   if (shouldUpdate) {
-    database.lastUpdate = moment()
+    database.lastUpdate = moment.tz('UTC')
     yield call(database.writeLastUpdate)
   }
 }

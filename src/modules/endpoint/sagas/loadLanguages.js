@@ -11,8 +11,10 @@ export default function * loadLanguages (city: string, database: MemoryDatabase,
   yield call(database.readLanguages)
 
   if (database.languagesLoaded() && !shouldUpdate) {
+    console.debug('Using cached languages')
     return
   }
+  console.debug('Fetching languages')
   const params = {city}
   const payload: Payload<Array<LanguageModel>> = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
   database.languages = payload.data
