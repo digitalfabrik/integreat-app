@@ -47,7 +47,7 @@ If you want you can associate the *.snap files with the file type JavaScript.
 If you want to install an external library which brings native Android/iOS code you have to check several things:
 * Edit `Podfile` and `build.gradle` to include the native parts. DO NOT RUN `yarn react-native link`!
 * Run `pod update` in the `ios/` folder
-* Make sure the App still compiles on Android and iOS
+* Make sure the app still compiles on Android and iOS
 
 ### Debugging:
 [Debugging](docs/01-debugging.md)
