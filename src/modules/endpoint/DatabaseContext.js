@@ -1,6 +1,6 @@
 // @flow
 
-class MemoryDatabaseContext {
+class DatabaseContext {
   _cityCode: string
   _languageCode: string
 
@@ -18,4 +18,4 @@ class MemoryDatabaseContext {
   }
 }
 
-export default MemoryDatabaseContext
+export default DatabaseContext
