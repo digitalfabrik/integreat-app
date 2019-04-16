@@ -9,6 +9,17 @@ The other essential config is `e2e-tests/config/caps.js` which set the capabilit
 
 To run the tests locally you first need to setup an Appium server. You can [read here](https://github.com/appium/appium/blob/master/docs/en/about-appium/getting-started.md) how to do this. Start `appium` and an emulator/simulator.
 
+### Compiling the app with test ids
+
+To include test ids in the bundle you need to set the environment variable `E2E_TEST_IDS` to `1` before bundling or create a debug bundle.
+
+All of these commands would produce a bundle with test ids:
+```bash
+yarn bundle --reset-cache
+yarn start --reset-cache
+E2E_TEST_IDS=1 yarn android:release
+```
+
 ### Using appium-desktop
 
 [Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app. To set it up I recommend to clone the repository and run the electron app manually:
