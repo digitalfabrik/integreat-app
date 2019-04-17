@@ -18,7 +18,11 @@ interface DataContainerInterface {
    */
   setContext: (cityCode: string, languageCode: string) => Promise<void>,
 
-
+  /**
+   * Returns whether the current context matches the given city-language combination or not.
+   * @param cityCode
+   * @param languageCode
+   */
 
   hasContext: (cityCode: string, languageCode: string) => boolean,
 
