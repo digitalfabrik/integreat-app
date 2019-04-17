@@ -187,7 +187,6 @@ class DataContainer implements DataContainerInterface {
 
   setContext = async (cityCode: string, languageCode: string) => {
     if (this._context !== null && this._context._cityCode === cityCode && this._context.languageCode === languageCode) {
-      console.log('Has context')
       return
     }
 
