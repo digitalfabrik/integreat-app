@@ -18,6 +18,10 @@ interface DataContainerInterface {
    */
   setContext: (cityCode: string, languageCode: string) => Promise<void>,
 
+
+
+  hasContext: (cityCode: string, languageCode: string) => boolean,
+
   /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
