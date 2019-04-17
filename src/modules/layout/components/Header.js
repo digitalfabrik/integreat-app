@@ -73,7 +73,8 @@ const ThemedSearchBar = styled(SearchBar).attrs(props => ({
 type PropsType = {
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
-  theme: ThemeType
+  theme: ThemeType,
+  availableLanguages: Array<string>
 }
 
 type StateType = {
@@ -120,22 +121,29 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   goToLanguageChange = () => {
-    this.getNavigation().navigate('ChangeLanguageModal')
+    this.getNavigation().navigate({
+      routeName: 'ChangeLanguageModal',
+      params: {
+        availableLanguages: this.props.availableLanguages
+      }
+    })
   }
 
   render () {
+    const { theme, availableLanguages } = this.props
     if (this.state.searchActive) {
-      return <BoxShadow theme={this.props.theme}><HorizontalLeft>
+      return <BoxShadow theme={theme}><HorizontalLeft>
         <HeaderBackButton onPress={this.closeSearchBar} />
-        <ThemedSearchBar theme={this.props.theme} />
+        <ThemedSearchBar theme={theme} />
       </HorizontalLeft>
       </BoxShadow>
     }
 
     const headerTitle = this.getDescriptor().headerTitle || ''
+    const isOtherLanguageAvailable = availableLanguages && availableLanguages.length > 0
 
     return (
-      <BoxShadow theme={this.props.theme}>
+      <BoxShadow theme={theme}>
         <Horizontal>
           <HorizontalLeft>
             {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
@@ -144,7 +152,8 @@ class Header extends React.PureComponent<PropsType, StateType> {
           </HorizontalLeft>
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
-            <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
+            <Item title='Change Language' iconName='language'
+                  onPress={isOtherLanguageAvailable ? this.goToLanguageChange : null} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>

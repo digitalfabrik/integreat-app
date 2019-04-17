@@ -56,12 +56,19 @@ class Selector extends React.Component<PropsType> {
   getItems (): React.Node {
     const {items, activeItemCode} = this.props
     return items.map(item => {
+      if (item.active) {
+        return (
+          <TouchTarget key={item.code} onPress={item.onPress}>
+            <ActiveElement selected={item.code === activeItemCode}>
+              <Element>{item.name}</Element>
+            </ActiveElement>
+          </TouchTarget>
+        )
+      }
       return (
-        <TouchTarget key={item.code} onPress={item.onPress}>
-          <ActiveElement selected={item.code === activeItemCode}>
-            <Element>{item.name}</Element>
-          </ActiveElement>
-        </TouchTarget>
+        <InactiveElement key={item.code}>
+          <Element>{item.name}</Element>
+        </InactiveElement>
       )
     })
   }
