@@ -9,7 +9,7 @@ import DatabaseContext from './DatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 
-interface DataContainerInterface {
+export interface DataContainerInterface {
   /**
    * Changes the context to the supplied city-language combination and loads all corresponding persisted data if
    * existent. Initializes non persisted fields with null.

@@ -12,7 +12,7 @@ import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
-import DataContainer from '../../endpoint/DataContainer'
+import DataContainer, { type DataContainerInterface } from '../../endpoint/DataContainer'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>
