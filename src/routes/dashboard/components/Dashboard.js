@@ -28,7 +28,7 @@ type PropsType = {
   language: string,
   cities?: Array<CityModel>,
   stateView: ?CategoriesRouteStateView,
-  resourceCache?: ResourceCacheStateType
+  resourceCache: ResourceCacheStateType
 }
 
 class Dashboard extends React.Component<PropsType> {
@@ -88,7 +88,8 @@ class Dashboard extends React.Component<PropsType> {
         <NavigationTiles tiles={this.getNavigationTileModels()}
                          theme={theme} />
         <Categories stateView={stateView}
-                    cities={cities} resourceCache={resourceCache}
+                    cities={cities}
+                    resourceCache={resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
                     navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
