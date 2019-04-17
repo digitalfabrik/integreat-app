@@ -9,10 +9,6 @@ import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 
 export default function * loadCityContent (dataContainer: DataContainer, newCity: string, newLanguage: string): Saga<void> {
-  if (dataContainer.hasContext(newCity, newLanguage)) {
-    return
-  }
-
   yield call(dataContainer.setContext, newCity, newLanguage)
 
   const [categoryUrls, eventUrls] = yield all([

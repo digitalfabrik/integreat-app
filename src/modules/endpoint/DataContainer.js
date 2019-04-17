@@ -19,14 +19,6 @@ interface DataContainerInterface {
   setContext: (cityCode: string, languageCode: string) => Promise<void>,
 
   /**
-   * Returns whether the current context matches the given city-language combination or not.
-   * @param cityCode
-   * @param languageCode
-   */
-
-  hasContext: (cityCode: string, languageCode: string) => boolean,
-
-  /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
    */
@@ -120,10 +112,6 @@ class DataContainer implements DataContainerInterface {
 
   constructor () {
     this._databaseConnector = new DatabaseConnector()
-  }
-
-  hasContext = (cityCode: string, languageCode: string) => {
-    return this._context !== null && this._context._cityCode === cityCode && this._context.languageCode === languageCode
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
