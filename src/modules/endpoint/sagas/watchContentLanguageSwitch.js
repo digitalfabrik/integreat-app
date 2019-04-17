@@ -8,7 +8,7 @@ import type {
 import DataContainer from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
+function * switchContentLanguage (dataContainer: DataContainerInterface, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, newLanguage)

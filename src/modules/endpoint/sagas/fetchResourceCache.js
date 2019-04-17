@@ -26,7 +26,7 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 }
 
 export default function * fetchResourceCache (
-  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
+  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainerInterface): Saga<void> {
   if (isEmpty(fetchMap) && dataContainer.resourceCacheAvailable()) {
     const success: ResourcesFetchSucceededActionType = {
       type: 'RESOURCES_FETCH_SUCCEEDED', city, language

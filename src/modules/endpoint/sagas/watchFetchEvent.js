@@ -6,7 +6,7 @@ import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionT
 import DataContainer from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
+function * fetchEvent (dataContainer: DataContainerInterface, action: FetchEventActionType): Saga<void> {
   const {city, language, path, key} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, language)
@@ -40,6 +40,6 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function * (dataContainer: DataContainerInterface): Saga<void> {
   yield takeLatest(`FETCH_EVENT`, fetchEvent, dataContainer)
 }

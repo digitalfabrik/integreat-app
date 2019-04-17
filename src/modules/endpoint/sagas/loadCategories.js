@@ -17,7 +17,7 @@ function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesM
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string, dataContainer: DataContainer): Saga<FetchMapType> {
+function * loadCategories (city: string, language: string, dataContainer: DataContainerInterface): Saga<FetchMapType> {
   if (dataContainer.categoriesAvailable()) {
     return {}
   }

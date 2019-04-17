@@ -31,7 +31,7 @@ import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 
-function * rootSaga (dataContainer: DataContainer): Saga<void> {
+function * rootSaga (dataContainer: DataContainerInterface): Saga<void> {
   yield all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
@@ -42,7 +42,7 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
 }
 
 const createReduxStore = (
-  dataContainer: DataContainer, callback: () => void
+  dataContainer: DataContainerInterface, callback: () => void
 ): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
   const sagaMiddleware = createSagaMiddleware()
 
