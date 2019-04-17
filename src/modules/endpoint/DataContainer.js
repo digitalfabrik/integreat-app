@@ -168,7 +168,7 @@ class DataContainer implements DataContainerInterface {
       throw Error('Context has not been set yet.')
     }
     if (this._resourceCache === null) {
-      throw Error('CategoriesMap is null.')
+      throw Error('ResourceCache is null.')
     }
     return this._resourceCache
   }
