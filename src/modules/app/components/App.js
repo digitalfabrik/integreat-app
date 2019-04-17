@@ -16,7 +16,7 @@ import DataContainer from '../../endpoint/DataContainer'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>
-  dataContainer: DataContainer
+  dataContainer: DataContainerInterface
 
   constructor () {
     super()

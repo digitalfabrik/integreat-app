@@ -12,7 +12,7 @@ import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 import request from '../request'
 import { baseUrl } from '../constants'
 
-function * fetchCities (dataContainer: DataContainer): Saga<void> {
+function * fetchCities (dataContainer: DataContainerInterface): Saga<void> {
   try {
     const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
 
@@ -35,6 +35,6 @@ function * fetchCities (dataContainer: DataContainer): Saga<void> {
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function * (dataContainer: DataContainerInterface): Saga<void> {
   yield takeLatest(`FETCH_CITIES`, fetchCities, dataContainer)
 }
