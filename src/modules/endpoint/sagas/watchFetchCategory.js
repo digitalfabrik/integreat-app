@@ -15,7 +15,7 @@ function * fetchCategory (dataContainer: DataContainerInterface, action: FetchCa
   try {
     yield call(loadCityContent, dataContainer, city, language)
 
-    const [categories, resourceCache, languages] = yield all([
+    const [categoriesMap, resourceCache, languages] = yield all([
       call(dataContainer.getCategoriesMap),
       call(dataContainer.getResourceCache),
       call(dataContainer.getLanguages)
@@ -24,9 +24,9 @@ function * fetchCategory (dataContainer: DataContainerInterface, action: FetchCa
     const insert: PushCategoryActionType = {
       type: `PUSH_CATEGORY`,
       params: {
-        categoriesMap: categories,
-        languages: languages,
-        resourceCache: resourceCache,
+        categoriesMap,
+        languages,
+        resourceCache,
         path,
         depth,
         key,
