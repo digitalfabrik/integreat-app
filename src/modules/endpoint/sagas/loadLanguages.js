@@ -8,7 +8,7 @@ import { baseUrl } from '../constants'
 import DataContainer from '../DataContainer'
 
 export default function * loadLanguages (city: string, dataContainer: DataContainer): Saga<void> {
-  if (dataContainer.languagesLoaded()) {
+  if (dataContainer.languagesAvailable()) {
     return
   }
   const params = {city}

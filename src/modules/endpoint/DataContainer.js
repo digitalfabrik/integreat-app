@@ -55,13 +55,13 @@ interface DataContainerInterface {
    * Returns the CategoriesMapModel.
    * @throws Will throw an error if the CategoriesMapModel is null.
    */
-  getCategories: () => Promise<CategoriesMapModel>,
+  getCategoriesMap: () => Promise<CategoriesMapModel>,
 
   /**
    * Sets the categories and persists them.
    * @param categories
    */
-  setCategories: (categories: CategoriesMapModel) => Promise<void>,
+  setCategoriesMap: (categories: CategoriesMapModel) => Promise<void>,
 
   /**
    * Returns an Array of events.
@@ -90,22 +90,22 @@ interface DataContainerInterface {
   /**
    * Returns whether the CategoriesMap has been loaded or not.
    */
-  categoriesMapLoaded (): boolean,
+  categoriesAvailable (): boolean,
 
   /**
    * Returns whether the languages have been loaded or not.
    */
-  languagesLoaded (): boolean,
+  languagesAvailable (): boolean,
 
   /**
    * Returns whether the ResourceCache have been loaded or not.
    */
-  resourceCacheLoaded (): boolean,
+  resourceCacheAvailable (): boolean,
 
   /**
    * Returns whether the events have been loaded or not.
    */
-  eventsLoaded (): boolean
+  eventsAvailable (): boolean
 }
 
 class DataContainer implements DataContainerInterface {
@@ -133,7 +133,7 @@ class DataContainer implements DataContainerInterface {
     return this._cities
   }
 
-  getCategories = async (): Promise<CategoriesMapModel> => {
+  getCategoriesMap = async (): Promise<CategoriesMapModel> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -173,7 +173,7 @@ class DataContainer implements DataContainerInterface {
     return this._resourceCache
   }
 
-  setCategories = async (categories: CategoriesMapModel) => {
+  setCategoriesMap = async (categories: CategoriesMapModel) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -230,20 +230,20 @@ class DataContainer implements DataContainerInterface {
     this._resourceCache = resourceCache
   }
 
-  categoriesMapLoaded (): boolean {
-    return this._categoriesMap === null
+  categoriesAvailable (): boolean {
+    return this._categoriesMap !== null
   }
 
-  languagesLoaded (): boolean {
-    return this._languages === null
+  languagesAvailable (): boolean {
+    return this._languages !== null
   }
 
-  eventsLoaded (): boolean {
-    return this._events === null
+  eventsAvailable (): boolean {
+    return this._events !== null
   }
 
-  resourceCacheLoaded (): boolean {
-    return this._resourceCache === null
+  resourceCacheAvailable (): boolean {
+    return this._resourceCache !== null
   }
 }
 

@@ -16,7 +16,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     yield call(loadCityContent, dataContainer, city, language)
 
     const [categories, resourceCache, languages] = yield all([
-      call(dataContainer.getCategories),
+      call(dataContainer.getCategoriesMap),
       call(dataContainer.getResourceCache),
       call(dataContainer.getLanguages)
     ])

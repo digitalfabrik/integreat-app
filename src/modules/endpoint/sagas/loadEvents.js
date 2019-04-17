@@ -22,7 +22,7 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
 }
 
 function * loadEvents (city: string, language: string, dataContainer: DataContainer): Saga<FetchMapType> {
-  if (dataContainer.eventsLoaded()) {
+  if (dataContainer.eventsAvailable()) {
     return {}
   }
 
