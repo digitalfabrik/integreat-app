@@ -112,7 +112,7 @@ class DataContainer implements DataContainerInterface {
   _databaseConnector: DatabaseConnector
   _context: DatabaseContext | null = null
 
-  _cities: Array<CityModel>
+  _cities: Array<CityModel> | null
   _categoriesMap: CategoriesMapModel | null
   _languages: Array<LanguageModel> | null
   _resourceCache: ResourceCacheStateType | null
@@ -127,11 +127,8 @@ class DataContainer implements DataContainerInterface {
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
     if (this._cities === null) {
-      throw Error('CategoriesMap is null.')
+      throw Error('Cities are null.')
     }
     return this._cities
   }
@@ -151,7 +148,7 @@ class DataContainer implements DataContainerInterface {
       throw Error('Context has not been set yet.')
     }
     if (this._events === null) {
-      throw Error('CategoriesMap is null.')
+      throw Error('Events are null.')
     }
     return this._events
   }
@@ -161,7 +158,7 @@ class DataContainer implements DataContainerInterface {
       throw Error('Context has not been set yet.')
     }
     if (this._languages === null) {
-      throw Error('CategoriesMap is null.')
+      throw Error('Languages are null.')
     }
     return this._languages
   }
