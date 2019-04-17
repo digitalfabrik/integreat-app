@@ -8,7 +8,7 @@ import type { ResourcesFetchFailedActionType, ResourcesFetchSucceededActionType 
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
-import DataContainer from '../DataContainer'
+import type { DataContainerInterface } from '../DataContainer'
 
 type PathType = string
 type UrlType = string
