@@ -137,6 +137,9 @@ class MemoryDatabase {
   }
 
   addCacheEntries (resourceCache: ResourceCacheStateType) {
+    if (this._resourceCache === null) {
+      throw Error('resourceCache has not been initialized in this context.')
+    }
     this._resourceCache = {...this._resourceCache, ...resourceCache}
   }
 
@@ -309,7 +312,7 @@ class MemoryDatabase {
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      this._resourceCache = null
+      this._resourceCache = {}
       return
     }
 
