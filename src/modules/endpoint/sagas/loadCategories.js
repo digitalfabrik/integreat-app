@@ -18,7 +18,7 @@ function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesM
 }
 
 function * loadCategories (city: string, language: string, dataContainer: DataContainer): Saga<FetchMapType> {
-  if (dataContainer.categoriesMapLoaded()) {
+  if (dataContainer.categoriesAvailable()) {
     return {}
   }
 
@@ -40,7 +40,7 @@ function * loadCategories (city: string, language: string, dataContainer: DataCo
 
   resourceURLFinder.finalize()
 
-  yield call(dataContainer.setCategories, categoriesMap)
+  yield call(dataContainer.setCategoriesMap, categoriesMap)
 
   return urls
 }

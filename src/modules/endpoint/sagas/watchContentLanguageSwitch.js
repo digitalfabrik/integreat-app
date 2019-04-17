@@ -14,7 +14,7 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
     yield call(loadCityContent, dataContainer, city, newLanguage)
 
     const [categories, resourceCache, events] = yield all([
-      call(dataContainer.getCategories),
+      call(dataContainer.getCategoriesMap),
       call(dataContainer.getResourceCache),
       call(dataContainer.getEvents)
     ])
