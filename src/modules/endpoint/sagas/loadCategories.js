@@ -40,7 +40,7 @@ function * loadCategories (city: string, language: string, dataContainer: DataCo
 
   resourceURLFinder.finalize()
 
-  yield call(dataContainer.setCategories, categories)
+  yield call(dataContainer.setCategories, categoriesMap)
 
   return urls
 }
