@@ -11,73 +11,73 @@ import DatabaseConnector from './DatabaseConnector'
 
 interface DataContainerInterface {
   /**
-   * Changes the _context to the supplied city-language combination and loads all corresponding persisted data if
+   * Changes the context to the supplied city-language combination and loads all corresponding persisted data if
    * existent. Initializes non persisted fields with null.
    * @param cityCode
    * @param languageCode
    */
-  setContext (cityCode: string, languageCode: string): Promise<void>,
+  setContext: (cityCode: string, languageCode: string) => Promise<void>,
 
   /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
    */
-  getCities (): Promise<Array<CityModel>>,
+  getCities: () => Promise<Array<CityModel>>,
 
   /**
    * Sets the cities but does not persist them.
    * TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
    * @param cities
    */
-  setCities (cities: Array<CityModel>): Promise<void>,
+  setCities: (cities: Array<CityModel>) => Promise<void>,
 
   /**
    * Returns an Array of LanguageModels.
    * @throws Will throw an error if the array is null.
    */
-  getLanguages (): Promise<Array<LanguageModel>>,
+  getLanguages: () => Promise<Array<LanguageModel>>,
 
   /**
    * Sets the languages and persists them.
    * @param languages
    */
-  setLanguages (languages: Array<LanguageModel>): Promise<void>,
+  setLanguages: (languages: Array<LanguageModel>) => Promise<void>,
 
   /**
    * Returns the CategoriesMapModel.
    * @throws Will throw an error if the CategoriesMapModel is null.
    */
-  getCategories (): Promise<CategoriesMapModel>,
+  getCategories: () => Promise<CategoriesMapModel>,
 
   /**
    * Sets the categories and persists them.
    * @param categories
    */
-  setCategories (categories: CategoriesMapModel): Promise<void>,
+  setCategories: (categories: CategoriesMapModel) => Promise<void>,
 
   /**
    * Returns an Array of events.
    * @throws Will throw an error if the array is null.
    */
-  getEvents (): Promise<Array<EventModel>>,
+  getEvents: () => Promise<Array<EventModel>>,
 
   /**
    * Sets the events and persists them.
    * @param events
    */
-  setEvents (events: Array<EventModel>): Promise<void>,
+  setEvents: (events: Array<EventModel>) => Promise<void>,
 
   /**
    * Returns the ResourceCache.
    * @throws Will throw an error if the ResourceCache is null.
    */
-  getResourceCache (): Promise<ResourceCacheStateType>,
+  getResourceCache: () => Promise<ResourceCacheStateType>,
 
   /**
    * Sets the ResourceCache and persists it.
    * @param resourceCache
    */
-  setResourceCache (resourceCache: ResourceCacheStateType): Promise<void>,
+  setResourceCache: (resourceCache: ResourceCacheStateType) => Promise<void>,
 
   /**
    * Returns whether the CategoriesMap has been loaded or not.
@@ -114,7 +114,11 @@ class DataContainer implements DataContainerInterface {
     this._databaseConnector = new DatabaseConnector()
   }
 
-  async getCities (): Promise<Array<CityModel>> {
+  hasContext = (cityCode: string, languageCode: string) => {
+    return this._context !== null && this._context._cityCode === cityCode && this._context.languageCode === languageCode
+  }
+
+  getCities = async (): Promise<Array<CityModel>> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -124,7 +128,7 @@ class DataContainer implements DataContainerInterface {
     return this._cities
   }
 
-  async getCategories (): Promise<CategoriesMapModel> {
+  getCategories = async (): Promise<CategoriesMapModel> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -134,7 +138,7 @@ class DataContainer implements DataContainerInterface {
     return this._categoriesMap
   }
 
-  async getEvents (): Promise<Array<EventModel>> {
+  getEvents = async (): Promise<Array<EventModel>> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -144,7 +148,7 @@ class DataContainer implements DataContainerInterface {
     return this._events
   }
 
-  async getLanguages (): Promise<Array<LanguageModel>> {
+  getLanguages = async (): Promise<Array<LanguageModel>> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -154,7 +158,7 @@ class DataContainer implements DataContainerInterface {
     return this._languages
   }
 
-  async getResourceCache (): Promise<ResourceCacheStateType> {
+  getResourceCache = async (): Promise<ResourceCacheStateType> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -164,7 +168,7 @@ class DataContainer implements DataContainerInterface {
     return this._resourceCache
   }
 
-  async setCategories (categories: CategoriesMapModel) {
+  setCategories = async (categories: CategoriesMapModel) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -172,13 +176,14 @@ class DataContainer implements DataContainerInterface {
     this._categoriesMap = categories
   }
 
-  async setCities (cities: Array<CityModel>) {
+  setCities = async (cities: Array<CityModel>) => {
     // TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
     this._cities = cities
   }
 
-  async setContext (cityCode: string, languageCode: string) {
+  setContext = async (cityCode: string, languageCode: string) => {
     if (this._context !== null && this._context._cityCode === cityCode && this._context.languageCode === languageCode) {
+      console.log('Has context')
       return
     }
 
@@ -197,7 +202,7 @@ class DataContainer implements DataContainerInterface {
     this._resourceCache = resourceCache
   }
 
-  async setEvents (events: Array<EventModel>) {
+  setEvents = async (events: Array<EventModel>) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -205,7 +210,7 @@ class DataContainer implements DataContainerInterface {
     this._events = events
   }
 
-  async setLanguages (languages: Array<LanguageModel>) {
+  setLanguages = async (languages: Array<LanguageModel>) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
@@ -213,7 +218,7 @@ class DataContainer implements DataContainerInterface {
     this._languages = languages
   }
 
-  async setResourceCache (resourceCache: ResourceCacheStateType) {
+  setResourceCache = async (resourceCache: ResourceCacheStateType) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
