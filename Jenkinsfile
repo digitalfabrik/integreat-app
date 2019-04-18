@@ -36,6 +36,7 @@ pipeline {
                         stage('Build Release for iOS') {
                             environment {
                                 E2E_TEST_IDS = "1"
+                                RCT_NO_LAUNCH_PACKAGER = "true"
                             }
                             steps {
                                 sh 'cd ios && pod install'
