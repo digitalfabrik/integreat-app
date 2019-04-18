@@ -6,13 +6,6 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import styled, { css } from 'styled-components/native'
 import { TouchableHighlight } from 'react-native'
 
-type PropsType = {
-  verticalLayout: boolean,
-  closeDropDownCallback?: () => void,
-  items: Array<SelectorItemModel>,
-  activeItemCode?: string
-}
-
 const Element = styled.Text`
   height: ${props => props.theme.dimensions.headerHeight}px;
   width: 100%;
@@ -29,6 +22,7 @@ export const ActiveElement = styled(Element)`
   font-weight: 700;
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
+  ${props => props.selected && `background-color: ${props.theme.colors.backgroundAccentColor}`};
 `
 
 export const InactiveElement = styled(Element)`
@@ -49,17 +43,25 @@ export const Wrapper = styled.View`
   `}
 `
 
+type PropsType = {
+  verticalLayout: boolean,
+  closeDropDownCallback?: () => void,
+  items: Array<SelectorItemModel>,
+  selectedItemCode: string | null
+}
+
 /**
  * Displays a Selector showing different items
  */
 class Selector extends React.Component<PropsType> {
   getItems (): React.Node {
-    const {items, activeItemCode} = this.props
+    const {items, selectedItemCode} = this.props
     return items.map(item => {
-      if (item.active) {
+      const isSelected = item.code === selectedItemCode
+      if (item.active || isSelected) {
         return (
           <TouchTarget key={item.code} onPress={item.onPress}>
-            <ActiveElement selected={item.code === activeItemCode}>
+            <ActiveElement selected={isSelected}>
               <Element>{item.name}</Element>
             </ActiveElement>
           </TouchTarget>
