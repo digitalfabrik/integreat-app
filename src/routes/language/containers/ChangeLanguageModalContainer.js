@@ -10,6 +10,7 @@ import { withTheme } from 'styled-components/native'
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
     city: state.cityContent.city,
+    currentLanguage: state.cityContent.language,
     languages: state.cityContent.languages,
     availableLanguages: ownProps.navigation.getParam('availableLanguages'),
     closeModal: () => ownProps.navigation.goBack()

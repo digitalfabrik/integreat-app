@@ -20,6 +20,7 @@ const Wrapper = styled.View`
 type PropsType = {
   theme: ThemeType,
   city: string,
+  currentLanguage: string,
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
   changeLanguage: (city: string, language: string) => void,
@@ -36,7 +37,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   }
 
   render () {
-    const { theme, languages, availableLanguages } = this.props
+    const { theme, languages, availableLanguages, currentLanguage } = this.props
     return <Wrapper theme={theme}>
       <Selector verticalLayout items={languages.map(languageModel => {
         const isLanguageAvailable = availableLanguages.includes(languageModel.code)
@@ -44,9 +45,10 @@ class ChangeLanguageModal extends React.Component<PropsType> {
           code: languageModel.code,
           name: languageModel.name,
           active: isLanguageAvailable,
-          onPress: () => isLanguageAvailable ? this.onPress(languageModel) : undefined
+          onPress: () => this.onPress(languageModel)
         })
-      })} />
+      })}
+      selectedItemCode={currentLanguage} />
     </Wrapper>
   }
 }
