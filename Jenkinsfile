@@ -23,7 +23,6 @@ pipeline {
             failFast true
             parallel {
                 stage('mac') {
-                    when { anyOf { branch 'develop'; branch 'master' } }
                     agent {
                         label "mac"
                     }
