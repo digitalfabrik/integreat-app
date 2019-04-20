@@ -23,7 +23,6 @@ pipeline {
             failFast true
             parallel {
                 stage('mac') {
-                    when { anyOf { branch 'develop'; branch 'master' } }
                     agent {
                         label "mac"
                     }
@@ -37,10 +36,11 @@ pipeline {
                         stage('Build Release for iOS') {
                             environment {
                                 E2E_TEST_IDS = "1"
+                                RCT_NO_LAUNCH_PACKAGER = "true"
                             }
                             steps {
                                 sh 'cd ios && pod install'
-                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive'
+                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
                                 sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
                                 archiveArtifacts artifacts: 'output/export/**/*.*'
                             }
