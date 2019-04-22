@@ -13,7 +13,8 @@ describe('disclaimer', () => {
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'disclaimer',
     modified_gmt: '2017-06-12 12:27:57',
-    content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>'
+    content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
+    hash: '91d435afbc7aa83496137e81fd2832e3'
   }
 
   const params = {city: 'augsburg', language: 'de'}
