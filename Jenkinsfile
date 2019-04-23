@@ -37,6 +37,7 @@ pipeline {
                             environment {
                                 E2E_TEST_IDS = "1"
                                 RCT_NO_LAUNCH_PACKAGER = "true"
+                                BUNDLE_CONFIG = "./metro.config.release.js"
                             }
                             steps {
                                 sh 'cd ios && pod install'
@@ -86,6 +87,9 @@ pipeline {
                             }
                         }
                         stage("Build Debug Bundle") {
+                            environment {
+                                BUNDLE_CONFIG = "./metro.config.release.js"
+                            }
                             steps {
                                 sh 'yarn run bundle'
                             }
@@ -94,6 +98,7 @@ pipeline {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
                                 E2E_TEST_IDS = "1"
+                                BUNDLE_CONFIG = "./metro.config.release.js"
                             }
                             steps {
                                 sh 'yarn run flow:check-now'
