@@ -1,4 +1,4 @@
-import { setupDriver, stopDriver } from './helpers/driver-util'
+import { setupDriver, stopDriver } from './driver/driver'
 
 describe('Sample tests', () => {
   let driver
