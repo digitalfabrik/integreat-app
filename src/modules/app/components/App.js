@@ -13,7 +13,7 @@ import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
-import type DataContainer from '../../endpoint/DataContainer'
+import type { DataContainer } from '../../endpoint/DataContainer'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>

@@ -7,7 +7,7 @@ import type {
   FetchCategoryFailedActionType,
   PushCategoryActionType
 } from '../../app/StoreActionType'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {

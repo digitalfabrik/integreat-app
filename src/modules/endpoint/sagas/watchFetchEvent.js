@@ -3,7 +3,7 @@
 import type { Saga } from 'redux-saga'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {

@@ -8,7 +8,7 @@ import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
   const params = {city, language}

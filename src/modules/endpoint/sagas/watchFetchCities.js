@@ -6,7 +6,7 @@ import type {
   PushCitiesActionType,
   FetchCitiesFailedActionType
 } from '../../app/StoreActionType'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 import request from '../request'

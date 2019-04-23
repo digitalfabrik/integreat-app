@@ -2,7 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
