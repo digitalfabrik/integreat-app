@@ -13,7 +13,5 @@ export default {
     return locale.substring(0, 2)
   },
   init: () => {},
-  cacheUserLanguage: () => {
-    throw Error('It is not possible to change the user language')
-  }
+  cacheUserLanguage: () => {}
 }
