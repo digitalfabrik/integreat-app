@@ -25,6 +25,8 @@
 		2398F931561C266CF657C227 /* libPods-Integreat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F8C8518DA01959D11DB3A3 /* libPods-Integreat.a */; };
 		5E6F0269CB63A4F9BFF0E46C /* libPods-IntegreatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDBFEA5E5F6A5EA6B9CE661C /* libPods-IntegreatTests.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		7BF11494226F61B60031D233 /* FetcherModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11469226F4D740031D233 /* FetcherModule.swift */; };
+		7BF11495226F61BC0031D233 /* FetcherModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11490226F4E6D0031D233 /* FetcherModule.m */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 /* End PBXBuildFile section */
@@ -324,6 +326,9 @@
 		56D73649F4A8D586ECFDDB50 /* Pods-IntegreatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Integreat-Bridging-Header.h"; path = "Integreat/Integreat-Bridging-Header.h"; sourceTree = "<group>"; };
+		7BF11469226F4D740031D233 /* FetcherModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherModule.swift; sourceTree = "<group>"; };
+		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		BDBFEA5E5F6A5EA6B9CE661C /* libPods-IntegreatTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntegreatTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -449,6 +454,8 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */,
+				7BF11492226F58E10031D233 /* fetcher */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -507,6 +514,16 @@
 				3DAD3E881DF850E9000B6D8A /* libRCTLinking-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7BF11492226F58E10031D233 /* fetcher */ = {
+			isa = PBXGroup;
+			children = (
+				7BF11469226F4D740031D233 /* FetcherModule.swift */,
+				7BF11490226F4E6D0031D233 /* FetcherModule.m */,
+			);
+			name = fetcher;
+			path = Integreat/fetcher;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -639,6 +656,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 7272KE28TJ;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1140,6 +1158,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF11495226F61BC0031D233 /* FetcherModule.m in Sources */,
+				7BF11494226F61B60031D233 /* FetcherModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -1172,6 +1192,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56D73649F4A8D586ECFDDB50 /* Pods-IntegreatTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1193,6 +1214,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3745D50BFC0123A3BCFF67D1 /* Pods-IntegreatTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = IntegreatTests/Info.plist;
@@ -1213,6 +1235,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1229,6 +1252,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
 				PROVISIONING_PROFILE_SPECIFIER = "Maximilian Ammann";
+				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1239,6 +1265,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1254,6 +1281,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
 				PROVISIONING_PROFILE_SPECIFIER = "Maximilian Ammann";
+				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

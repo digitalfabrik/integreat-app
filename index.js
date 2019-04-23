@@ -1,4 +1,4 @@
-import { AppRegistry, YellowBox } from 'react-native'
+import { AppRegistry, YellowBox, NativeModules, NativeEventEmitter } from 'react-native'
 import App from './src/modules/app/components/App'
 import 'moment/locale/de' // fixme
 
@@ -11,3 +11,12 @@ if (typeof global.self === 'undefined') {
 YellowBox.ignoreWarnings(['Require cycle:'])
 
 AppRegistry.registerComponent('Integreat', () => App)
+const FetcherModuleEmitter = new NativeEventEmitter(NativeModules.FetcherModule)
+// subscribe to event
+FetcherModuleEmitter.addListener(
+  'progress',
+  res => console.warn('fetchAsync event', res)
+)
+NativeModules.FetcherModule.fetchAsync()
+  .then(res => console.warn(JSON.stringify(res)))
+  .catch(e => console.error(e.message, e.code))
