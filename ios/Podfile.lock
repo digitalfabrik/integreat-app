@@ -16,7 +16,7 @@ PODS:
     - SDWebImage/GIF
   - react-native-mapbox-gl (6.1.3):
     - React
-  - react-native-webview (3.2.0):
+  - react-native-webview (5.3.0):
     - React
   - React/Core (0.57.8):
     - yoga (= 0.57.8.React)
@@ -135,7 +135,7 @@ SPEC CHECKSUMS:
   React: adbac0757ce35e92fbd447ab98c810209d27d9b0
   react-native-fast-image: ec7e5a2420a9e63cf9b2925fce7babc580ea8e05
   react-native-mapbox-gl: d0ac3b81a6cadbd7cadc80891da72e3e85379350
-  react-native-webview: f147c33980fabfc51c98f01df5ba2791eba03bde
+  react-native-webview: cca202b9f4d3da2af7743a123e69260d166cc7eb
   rn-fetch-blob: 766f85cabd2992300dfa1be2bc9e4e258abc6f04
   RNGestureHandler: 19864cb399138347461e7c9984ccf684cbf4db1d
   RNPDF: c6e4bb61af77ebe89a8e4b38254ed4f838bff11f
