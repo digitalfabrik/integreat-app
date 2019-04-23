@@ -9,3 +9,6 @@ __coverage__
 
 stylelint.config.js
 .babelrc.js
+
+bundle.js
+ios/main.jsbundle
