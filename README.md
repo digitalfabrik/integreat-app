@@ -61,6 +61,9 @@ If you want to install an external library which brings native Android/iOS code 
 # Conventions:
 [Conventions](docs/03-conventions.md)
 
+### E2E Testing:
+[E2E Testing](docs/04-e2e.md)
+
 ## Technology stack
 
 ### Bundler
