@@ -11,7 +11,7 @@ describe('UI language', () => {
     const landingPage = new LandingPage(driver)
     await landingPage.ready()
 
-    expect(await landingPage.getSearchInput().text()).toBe('Search for your city')
+    expect(await landingPage.getSearchInput().text()).toBe('Suche nach deinem Ort')
 
     await stopDriver(driver)
   })
