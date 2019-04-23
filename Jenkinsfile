@@ -79,6 +79,9 @@ pipeline {
                     }
                 }
                 stage('master') {
+                    agent {
+                        label "master"
+                    }
                     stages {
                         stage("Install dependencies") {
                             steps {
