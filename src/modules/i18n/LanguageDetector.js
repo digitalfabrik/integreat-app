@@ -1,18 +1,19 @@
-import { NativeModules, Platform } from 'react-native'
+import { getLocale } from '../platform/constants/locale'
 
 export default {
   type: 'languageDetector',
   async: false,
   detect: () => {
-    let systemLanguage = 'en'
-    if (Platform.OS === 'android') {
-      systemLanguage = NativeModules.I18nManager.localeIdentifier
-    } else {
-      systemLanguage = NativeModules.SettingsManager.settings.AppleLocale
+    const locale = getLocale()
+
+    if (locale.length < 2) {
+      throw Error('locale has wrong format')
     }
 
-    return systemLanguage.substring(0, 2)
+    return locale.substring(0, 2)
   },
   init: () => {},
-  cacheUserLanguage: () => {}
+  cacheUserLanguage: () => {
+    throw Error('It is not possible to change the user language')
+  }
 }
