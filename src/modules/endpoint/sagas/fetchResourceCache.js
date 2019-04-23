@@ -8,7 +8,7 @@ import type { ResourcesFetchFailedActionType, ResourcesFetchSucceededActionType 
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 
 type PathType = string
 type UrlType = string
@@ -26,7 +26,7 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 }
 
 export default function * fetchResourceCache (
-  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainerInterface): Saga<void> {
+  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
   if (isEmpty(fetchMap) && dataContainer.resourceCacheAvailable()) {
     const success: ResourcesFetchSucceededActionType = {
       type: 'RESOURCES_FETCH_SUCCEEDED', city, language

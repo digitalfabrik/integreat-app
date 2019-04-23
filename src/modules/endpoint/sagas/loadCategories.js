@@ -8,7 +8,7 @@ import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
   const params = {city, language}
@@ -17,7 +17,7 @@ function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesM
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string, dataContainer: DataContainerInterface): Saga<FetchMapType> {
+function * loadCategories (city: string, language: string, dataContainer: DataContainer): Saga<FetchMapType> {
   if (dataContainer.categoriesAvailable()) {
     return {}
   }

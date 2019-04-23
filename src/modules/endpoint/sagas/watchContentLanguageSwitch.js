@@ -5,10 +5,10 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type {
   MorphContentLanguageActionType, SwitchContentLanguageActionType, SwitchContentLanguageFailedActionType
 } from '../../app/StoreActionType'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * switchContentLanguage (dataContainer: DataContainerInterface, action: SwitchContentLanguageActionType): Saga<void> {
+function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, newLanguage)
@@ -39,6 +39,6 @@ function * switchContentLanguage (dataContainer: DataContainerInterface, action:
   }
 }
 
-export default function * (dataContainer: DataContainerInterface): Saga<void> {
+export default function * (dataContainer: DataContainer): Saga<void> {
   yield takeLatest(`SWITCH_CONTENT_LANGUAGE`, switchContentLanguage, dataContainer)
 }

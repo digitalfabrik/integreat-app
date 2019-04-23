@@ -2,13 +2,13 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 import loadLanguages from './loadLanguages'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 
-export default function * loadCityContent (dataContainer: DataContainerInterface, newCity: string, newLanguage: string): Saga<void> {
+export default function * loadCityContent (dataContainer: DataContainer, newCity: string, newLanguage: string): Saga<void> {
   yield call(dataContainer.setContext, newCity, newLanguage)
 
   const [categoryUrls, eventUrls] = yield all([

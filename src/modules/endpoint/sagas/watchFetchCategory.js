@@ -7,10 +7,10 @@ import type {
   FetchCategoryFailedActionType,
   PushCategoryActionType
 } from '../../app/StoreActionType'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * fetchCategory (dataContainer: DataContainerInterface, action: FetchCategoryActionType): Saga<void> {
+function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const {city, language, path, depth, key} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, language)
@@ -45,6 +45,6 @@ function * fetchCategory (dataContainer: DataContainerInterface, action: FetchCa
   }
 }
 
-export default function * (dataContainer: DataContainerInterface): Saga<void> {
+export default function * (dataContainer: DataContainer): Saga<void> {
   yield takeLatest(`FETCH_CATEGORY`, fetchCategory, dataContainer)
 }
