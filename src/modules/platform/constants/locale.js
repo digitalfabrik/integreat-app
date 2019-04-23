@@ -7,8 +7,8 @@ import { NativeModules, Platform } from 'react-native'
  */
 export const getLocale = () => {
   const locale = Platform.select({
-    ios: NativeModules?.I18nManager?.localeIdentifier,
-    android: NativeModules?.SettingsManager?.settings?.AppleLocale
+    android: NativeModules?.I18nManager?.localeIdentifier,
+    ios: NativeModules?.SettingsManager?.settings?.AppleLocale
   })
 
   if (!locale) {
