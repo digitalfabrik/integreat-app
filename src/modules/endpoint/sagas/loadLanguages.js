@@ -5,7 +5,7 @@ import { call } from 'redux-saga/effects'
 import { createLanguagesEndpoint, LanguageModel, Payload } from '@integreat-app/integreat-api-client'
 import request from '../request'
 import { baseUrl } from '../constants'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 
 export default function * loadLanguages (city: string, dataContainer: DataContainer): Saga<void> {
   if (dataContainer.languagesAvailable()) {

@@ -12,7 +12,7 @@ import { baseUrl } from '../constants'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import type { FetchMapType } from './fetchResourceCache'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 
 function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>> {
   const params = {city, language}
