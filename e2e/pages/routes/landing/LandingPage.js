@@ -9,7 +9,7 @@ export default class LandingPage {
   }
 
   async ready () {
-    this.driver.waitForElementByAccessibilityId('Search-Input')
+    await this.driver.waitForElementByAccessibilityId('Search-Input')
   }
 
   async getSearchInput (): wd.Element {
