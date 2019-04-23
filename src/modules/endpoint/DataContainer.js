@@ -3,7 +3,7 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { ResourceCacheStateType } from '../app/StateType'
 
-interface DataContainer {
+export interface DataContainer {
   /**
    * Changes the context to the supplied city-language combination and loads all corresponding persisted data if
    * existent. Initializes non persisted fields with null.
@@ -74,6 +74,12 @@ interface DataContainer {
   setResourceCache: (resourceCache: ResourceCacheStateType) => Promise<void>,
 
   /**
+   * Add cache entries to the existing ResourceCache and persists it.
+   * @param resourceCache
+   */
+  addResourceCacheEntries: (resourceCache: ResourceCacheStateType) => Promise<void>,
+
+  /**
    * Returns whether the CategoriesMap has been loaded or not.
    */
   categoriesAvailable (): boolean,
@@ -93,5 +99,3 @@ interface DataContainer {
    */
   eventsAvailable (): boolean
 }
-
-export default DataContainer

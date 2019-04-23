@@ -8,7 +8,7 @@ import {
 import DatabaseContext from './DatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
-import type DataContainer from './DataContainer'
+import type { DataContainer } from './DataContainer'
 
 class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
@@ -126,6 +126,15 @@ class DefaultDataContainer implements DataContainer {
     }
     await this._databaseConnector.storeResourceCache(resourceCache, this._context)
     this._resourceCache = resourceCache
+  }
+
+  addResourceCacheEntries = async (resourceCache: ResourceCacheStateType) => {
+    if (this._context === null) {
+      throw Error('Context has not been set yet.')
+    }
+    const newResourceCache = {...resourceCache, ...this._resourceCache}
+    await this._databaseConnector.storeResourceCache(resourceCache, this._context)
+    this._resourceCache = newResourceCache
   }
 
   categoriesAvailable (): boolean {

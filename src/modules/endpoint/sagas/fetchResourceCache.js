@@ -8,7 +8,7 @@ import type { ResourcesFetchFailedActionType, ResourcesFetchSucceededActionType 
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
-import type DataContainer from '../DataContainer'
+import type { DataContainer } from '../DataContainer'
 
 type PathType = string
 type UrlType = string
@@ -75,13 +75,7 @@ export default function * fetchResourceCache (
       }, {})
     )
 
-    let newResourceCache = resourceCache
-    if (dataContainer.resourceCacheAvailable()) {
-      const currentResourceCache = yield call(dataContainer.getResourceCache)
-      newResourceCache = {...resourceCache, ...currentResourceCache}
-    }
-
-    yield call(dataContainer.setResourceCache, newResourceCache)
+    yield call(dataContainer.addResourceCacheEntries, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
