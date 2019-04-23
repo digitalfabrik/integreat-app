@@ -3,10 +3,10 @@
 import type { Saga } from 'redux-saga'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * fetchEvent (dataContainer: DataContainerInterface, action: FetchEventActionType): Saga<void> {
+function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const {city, language, path, key} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, language)
@@ -40,6 +40,6 @@ function * fetchEvent (dataContainer: DataContainerInterface, action: FetchEvent
   }
 }
 
-export default function * (dataContainer: DataContainerInterface): Saga<void> {
+export default function * (dataContainer: DataContainer): Saga<void> {
   yield takeLatest(`FETCH_EVENT`, fetchEvent, dataContainer)
 }

@@ -6,13 +6,13 @@ import type {
   PushCitiesActionType,
   FetchCitiesFailedActionType
 } from '../../app/StoreActionType'
-import type { DataContainerInterface } from '../DataContainer'
+import type DataContainer from '../DataContainer'
 import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 import request from '../request'
 import { baseUrl } from '../constants'
 
-function * fetchCities (dataContainer: DataContainerInterface): Saga<void> {
+function * fetchCities (dataContainer: DataContainer): Saga<void> {
   try {
     const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
 
@@ -35,6 +35,6 @@ function * fetchCities (dataContainer: DataContainerInterface): Saga<void> {
   }
 }
 
-export default function * (dataContainer: DataContainerInterface): Saga<void> {
+export default function * (dataContainer: DataContainer): Saga<void> {
   yield takeLatest(`FETCH_CITIES`, fetchCities, dataContainer)
 }

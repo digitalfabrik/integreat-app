@@ -23,7 +23,7 @@ import { defaultCitiesState, defaultCityContentState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import type { DataContainerInterface } from '../endpoint/DataContainer'
+import type DataContainer from '../endpoint/DataContainer'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
 import watchFetchCategory from '../endpoint/sagas/watchFetchCategory'
 import watchFetchCities from '../endpoint/sagas/watchFetchCities'
@@ -31,7 +31,7 @@ import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 
-function * rootSaga (dataContainer: DataContainerInterface): Saga<void> {
+function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
@@ -42,7 +42,7 @@ function * rootSaga (dataContainer: DataContainerInterface): Saga<void> {
 }
 
 const createReduxStore = (
-  dataContainer: DataContainerInterface, callback: () => void
+  dataContainer: DataContainer, callback: () => void
 ): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
   const sagaMiddleware = createSagaMiddleware()
 

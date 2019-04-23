@@ -12,16 +12,17 @@ import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
-import DataContainer, { type DataContainerInterface } from '../../endpoint/DataContainer'
+import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
+import type DataContainer from '../../endpoint/DataContainer'
 
 class App extends React.Component<{}, { waitingForStore: boolean }> {
   store: Store<StateType, StoreActionType>
-  dataContainer: DataContainerInterface
+  dataContainer: DataContainer
 
   constructor () {
     super()
     this.state = {waitingForStore: true}
-    this.dataContainer = new DataContainer()
+    this.dataContainer = new DefaultDataContainer()
     const storeConfig = createReduxStore(this.dataContainer, () => { this.setState({waitingForStore: false}) })
     this.store = storeConfig.store
   }
