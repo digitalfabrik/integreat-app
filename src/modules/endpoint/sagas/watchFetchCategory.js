@@ -1,26 +1,32 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
   PushCategoryActionType
 } from '../../app/StoreActionType'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionType): Saga<void> {
+function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const {city, language, path, depth, key, forceRefresh} = action.params
   try {
-    yield call(loadCityContent, database, city, language, forceRefresh)
+    yield call(loadCityContent, dataContainer, city, language, forceRefresh)
+
+    const [categoriesMap, resourceCache, languages] = yield all([
+      call(dataContainer.getCategoriesMap),
+      call(dataContainer.getResourceCache),
+      call(dataContainer.getLanguages)
+    ])
 
     const insert: PushCategoryActionType = {
       type: `PUSH_CATEGORY`,
       params: {
-        categoriesMap: database.categoriesMap,
-        languages: database.languages,
-        resourceCache: database.resourceCache,
+        categoriesMap,
+        languages,
+        resourceCache,
         path,
         depth,
         key,
@@ -39,6 +45,6 @@ function * fetchCategory (database: MemoryDatabase, action: FetchCategoryActionT
   }
 }
 
-export default function * (database: MemoryDatabase): Saga<void> {
-  yield takeLatest(`FETCH_CATEGORY`, fetchCategory, database)
+export default function * (dataContainer: DataContainer): Saga<void> {
+  yield takeLatest(`FETCH_CATEGORY`, fetchCategory, dataContainer)
 }

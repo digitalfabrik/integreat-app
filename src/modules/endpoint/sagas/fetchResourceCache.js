@@ -4,19 +4,16 @@ import { Platform } from 'react-native'
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
-import type {
-  ResourcesFetchFailedActionType,
-  ResourcesFetchSucceededActionType
-} from '../../app/StoreActionType'
-import FetcherModule from '../../fetcher/FetcherModule'
+import type { ResourcesFetchFailedActionType, ResourcesFetchSucceededActionType } from '../../app/StoreActionType'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
+import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
-import { fromPairs } from 'lodash/array'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 
 type PathType = string
 type UrlType = string
-export type FetchMapType = { [filePath: string]: [UrlType, PathType] }
+type FilePathType = string
+export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
   return reduce(fetchResult, (message, result) => {
@@ -28,11 +25,9 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
   }, '')
 }
 
-export default function * fetchResourceCache (city: string, language: string, fetchMap: FetchMapType, database: MemoryDatabase): Saga<void> {
-  yield call(database.readResourceCache)
-
-  if (isEmpty(fetchMap)) {
-    database.addCacheEntries({})
+export default function * fetchResourceCache (
+  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
+  if (isEmpty(fetchMap) && dataContainer.resourceCacheAvailable()) {
     const success: ResourcesFetchSucceededActionType = {
       type: 'RESOURCES_FETCH_SUCCEEDED', city, language
     }
@@ -53,10 +48,10 @@ export default function * fetchResourceCache (city: string, language: string, fe
     const failureResults = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
       const message = createErrorMessage(failureResults)
-
       const failed: ResourcesFetchFailedActionType = {type: `RESOURCES_FETCH_FAILED`, city, language, message}
+      console.warn(message)
+      // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
       yield put(failed)
-      return
     }
 
     const success: ResourcesFetchSucceededActionType = {
@@ -64,20 +59,23 @@ export default function * fetchResourceCache (city: string, language: string, fe
     }
     yield put(success)
 
-    const targetCategories = invertBy(mapValues(fetchMap, ([url, path]) => path))
+    const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
+      invertBy(mapValues(fetchMap, ([url, path]) => path))
 
     const resourceCache = mapValues(targetCategories, filePaths =>
-      fromPairs(filePaths.map(filePath => {
+      reduce(filePaths, (acc, filePath) => {
         const downloadResult = successResults[filePath]
-        return [downloadResult.url, {
-          filePath,
-          lastUpdate: downloadResult.lastUpdate
-        }]
-      }))
+        if (downloadResult) {
+          acc[downloadResult.url] = {
+            filePath,
+            lastUpdate: downloadResult.lastUpdate
+          }
+        }
+        return acc
+      }, {})
     )
 
-    database.addCacheEntries(resourceCache)
-    yield call(database.writeResourceCache)
+    yield call(dataContainer.addResourceCacheEntries, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
