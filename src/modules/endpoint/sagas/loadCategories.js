@@ -8,21 +8,19 @@ import { baseUrl } from '../constants'
 import type { FetchMapType } from './fetchResourceCache'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 
-function * fetchCategoriesMap (city: string, language: string): Saga<?CategoriesMapModel> {
+function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
   const params = {city, language}
 
   const categoriesPayload: CategoriesMapModel = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string, database: MemoryDatabase, shouldUpdate: boolean): Saga<FetchMapType> {
-  // Load data from the disk if existent
-  yield call(database.readCategories)
 
+function * loadCategories (city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean): Saga<FetchMapType> {
   // If data was loaded and should not be updated, return
-  if (database.categoriesLoaded() && !shouldUpdate) {
+  if (dataContainer.categoriesAvailable() && !shouldUpdate) {
     console.debug('Using cached categories')
     return {}
   }
@@ -49,8 +47,7 @@ function * loadCategories (city: string, language: string, database: MemoryDatab
 
   resourceURLFinder.finalize()
 
-  database.categoriesMap = categoriesMap
-  yield call(database.writeCategories)
+  yield call(dataContainer.setCategoriesMap, categoriesMap)
 
   return urls
 }

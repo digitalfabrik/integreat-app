@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from 'modules/theme/constants/theme'
+import testID from '../../../modules/e2e/testID'
 
 export const Spacer = styled.View`
   ${props => props.space && `margin: 50px 0;`}
@@ -57,6 +58,7 @@ class SearchInput extends React.Component<PropsType> {
         <Wrapper theme={this.props.theme}>
           <SearchIcon />
           <Input
+            {...testID('Search-Input')}
             theme={this.props.theme}
             placeholder={placeholderText}
             aria-label={placeholderText}
