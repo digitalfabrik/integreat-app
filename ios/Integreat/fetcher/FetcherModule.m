@@ -3,7 +3,8 @@
 
 @interface RCT_EXTERN_MODULE(FetcherModule, RCTEventEmitter)
 RCT_EXTERN_METHOD(
-                  fetchAsync: (RCTPromiseResolveBlock)resolve
+                  fetchAsync: (NSDictionary)fetchMap
+                  resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject
 )
 @end
