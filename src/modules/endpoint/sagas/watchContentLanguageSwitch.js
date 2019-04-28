@@ -1,24 +1,30 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type {
   MorphContentLanguageActionType, SwitchContentLanguageActionType, SwitchContentLanguageFailedActionType
 } from '../../app/StoreActionType'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
-function * switchContentLanguage (database: MemoryDatabase, action: SwitchContentLanguageActionType): Saga<void> {
+function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
-    yield call(loadCityContent, database, city, newLanguage)
+    yield call(loadCityContent, dataContainer, city, newLanguage)
+
+    const [categories, resourceCache, events] = yield all([
+      call(dataContainer.getCategoriesMap),
+      call(dataContainer.getResourceCache),
+      call(dataContainer.getEvents)
+    ])
 
     const insert: MorphContentLanguageActionType = {
       type: `MORPH_CONTENT_LANGUAGE`,
       params: {
-        newCategoriesMap: database.categoriesMap,
-        newResourceCache: database.resourceCache,
-        newEvents: database.events,
+        newCategoriesMap: categories,
+        newResourceCache: resourceCache,
+        newEvents: events,
         newLanguage: newLanguage
       }
     }
@@ -33,6 +39,6 @@ function * switchContentLanguage (database: MemoryDatabase, action: SwitchConten
   }
 }
 
-export default function * (database: MemoryDatabase): Saga<void> {
-  yield takeLatest(`SWITCH_CONTENT_LANGUAGE`, switchContentLanguage, database)
+export default function * (dataContainer: DataContainer): Saga<void> {
+  yield takeLatest(`SWITCH_CONTENT_LANGUAGE`, switchContentLanguage, dataContainer)
 }
