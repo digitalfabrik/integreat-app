@@ -74,7 +74,12 @@ const ThemedSearchBar = styled(SearchBar).attrs(props => ({
 type PropsType = {
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
-  theme: ThemeType
+  theme: ThemeType,
+  routeMapping: {
+    [key: string]: {
+      root: string
+    }
+  }
 }
 
 type StateType = {
