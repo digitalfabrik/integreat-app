@@ -3,7 +3,8 @@ import os
 
 class FetchResultCollector {
   var fetchResults = [String : FetchResult]()
-
+  var resultQueue = DispatchQueue(label: "FetchResultQueue")
+  
   var emitter: RCTEventEmitter
   var resolve: RCTPromiseResolveBlock
   var reject: RCTPromiseRejectBlock
@@ -16,17 +17,15 @@ class FetchResultCollector {
     self.expectedFetchCount = expectedFetchCount
   }
 
-  
-  // Synchronize
   func failed(url: String, targetFile: URL, message: String) {
-    fetchResults[targetFile.path] = FetchResult(url: url, lastUpdate: Date(), alreadyExisted: false, errorMessage: message)
-    
-    #if DEBUG
-      os_log("[%zd/%zd] Failed to fetch %s: %s", type: .debug, currentFetchCount(), expectedFetchCount, url, message);
-    #endif
-    
-    sendProgress()
-    tryToResolve()
+    resultQueue.async {
+      self.fetchResults[targetFile.path] = FetchResult(url: url, lastUpdate: Date(), alreadyExisted: false, errorMessage: message)
+      
+      os_log("[%d/%d] Failed to download %s: %s", type: .info, self.currentFetchCount(), self.expectedFetchCount, url, message);
+      
+      self.sendProgress()
+      self.tryToResolve()
+    }
   }
   
   func fetched(url: String, targetFile: URL) {
@@ -37,15 +36,15 @@ class FetchResultCollector {
     success(url: url, targetFile: targetFile, alreadyExisted: true);
   }
 
-  // Synchronize
   func success(url: String, targetFile: URL, alreadyExisted: Bool) {
-    fetchResults[targetFile.path] = FetchResult(url: url, lastUpdate: Date(),alreadyExisted: alreadyExisted, errorMessage: nil)
-    
-    #if DEBUG
-      os_log("[%zd/%zd] Downloaded a file: %s ", type: .debug, currentFetchCount(), expectedFetchCount, url);
-    #endif
-    sendProgress();
-    tryToResolve();
+    resultQueue.async {
+      self.fetchResults[targetFile.path] = FetchResult(url: url, lastUpdate: Date(),alreadyExisted: alreadyExisted, errorMessage: nil)
+      
+      os_log("[%d/%d] Downloaded a file: %s", type: .info, self.currentFetchCount(), self.expectedFetchCount, url);
+      
+      self.sendProgress();
+      self.tryToResolve();
+    }
   }
   
   func currentFetchCount() -> Int {
@@ -70,14 +69,13 @@ class FetchResultCollector {
       }
       
       if (result.errorMessage != nil) {
-         fetchResult["errorMessage"] = result.errorMessage
+        fetchResult["errorMessage"] = result.errorMessage
       }
       
       resolveValue[filePath] = fetchResult
     }
-
     
-    os_log("Resolving promise", type: .debug)
+    os_log("Resolving promise", type: .info)
     resolve(resolveValue)
   }
   
