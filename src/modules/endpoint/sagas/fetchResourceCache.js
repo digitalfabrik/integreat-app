@@ -1,6 +1,5 @@
 // @flow
 
-import { Platform } from 'react-native'
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
