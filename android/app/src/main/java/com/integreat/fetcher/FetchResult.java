@@ -1,16 +1,16 @@
 package com.integreat.fetcher;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import javax.annotation.Nullable;
 
 public class FetchResult {
     private final String url;
-    private final ZonedDateTime lastUpdate;
+    private final Date lastUpdate;
     private final boolean alreadyExisted;
     private final String errorMessage;
 
-    public FetchResult(String url, ZonedDateTime lastUpdate, boolean alreadyExisted, String errorMessage) {
+    public FetchResult(String url, Date lastUpdate, boolean alreadyExisted, String errorMessage) {
         this.url = url;
         this.lastUpdate = lastUpdate;
         this.alreadyExisted = alreadyExisted;
@@ -21,7 +21,7 @@ public class FetchResult {
         return url;
     }
 
-    public ZonedDateTime getLastUpdate() {
+    public Date getLastUpdate() {
         return lastUpdate;
     }
 
