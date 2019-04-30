@@ -35,10 +35,12 @@ pipeline {
                         stage('Build Release for iOS') {
                             environment {
                                 E2E_TEST_IDS = "1"
+                                RCT_NO_LAUNCH_PACKAGER = "true"
+                                BUNDLE_CONFIG = "./metro.config.release.js"
                             }
                             steps {
                                 sh 'cd ios && pod install'
-                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive'
+                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
                                 sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
                                 archiveArtifacts artifacts: 'output/export/**/*.*'
                             }
@@ -76,6 +78,9 @@ pipeline {
                     }
                 }
                 stage('master') {
+                    agent {
+                        label "master"
+                    }
                     stages {
                         stage("Install dependencies") {
                             steps {
@@ -84,6 +89,9 @@ pipeline {
                             }
                         }
                         stage("Build Debug Bundle") {
+                            environment {
+                                BUNDLE_CONFIG = "./metro.config.release.js"
+                            }
                             steps {
                                 sh 'yarn run bundle'
                             }
@@ -92,6 +100,7 @@ pipeline {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
                                 E2E_TEST_IDS = "1"
+                                BUNDLE_CONFIG = "./metro.config.release.js"
                             }
                             steps {
                                 sh 'yarn run flow:check-now'
