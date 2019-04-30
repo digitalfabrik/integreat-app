@@ -16,12 +16,12 @@ type FilePathType = string
 export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(fetchResult, (message, result) => {
+  return reduce(fetchResult, (message, result, path) => {
     if (!result.errorMessage) {
       return message
     }
 
-    return `${message}'Failed to download ${result.url} to ${result.path}': ${result.errorMessage}\n`
+    return `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`
   }, '')
 }
 
