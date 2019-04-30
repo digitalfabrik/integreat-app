@@ -39,11 +39,8 @@ export default function * fetchResourceCache (city: string, language: string, fe
 
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
-    if (Platform.OS !== 'android') {
-      return
-    }
 
-    const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
+    const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
 
     const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
