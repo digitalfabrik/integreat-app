@@ -6,8 +6,11 @@ class FetcherModule: RCTEventEmitter {
     return ["progress"]
   }
   
-  private var count = 1
-  
+  @objc
+  static override func requiresMainQueueSetup() -> Bool {
+    return false
+  }
+
   @objc
   func fetchAsync(_ fetchMap: NSDictionary, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
     let expectedFetchCount = fetchMap.count
@@ -18,23 +21,12 @@ class FetcherModule: RCTEventEmitter {
     );
     
     for (targetFilePath, url) in fetchMap {
-      //sendEvent(withName: "progress", body: url)
       fetchAsync(sourceUrl: String(describing: url), targetFilePath: String(describing: targetFilePath), collector: collector);
     }
-
-    
-    
-    //if (count == 0) {
-    //  let error = NSError(domain: "", code: 200, userInfo: nil)
-    //  reject("E_COUNT", "count cannot be negative", error)
-   // } else {
-    //  count -= 1
-    //  resolve("count was decremented")
-    //}
   }
   
   func fetchAsync(sourceUrl: String, targetFilePath: String, collector: FetchResultCollector) {
-    let targetFileURL = URL(string: targetFilePath)!
+    let targetFileURL = URL(fileURLWithPath: targetFilePath)
     
     let fileManager = FileManager.default
     
@@ -42,9 +34,23 @@ class FetcherModule: RCTEventEmitter {
       collector.alreadyExists(url: sourceUrl, targetFile: targetFileURL);
       return;
     }
+
+    let encoded = sourceUrl.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
     
-    let downloadTask = URLSession.shared.downloadTask(with: URL(string: sourceUrl)!) {
-      urlOrNil, responseOrNil, errorOrNil in
+    if (encoded == nil) {
+        collector.failed(url: sourceUrl, targetFile: targetFileURL, message: "Failed to encode url!")
+        return
+    }
+  
+    let url = URL(string: encoded!)
+  
+    if (url == nil) {
+      collector.failed(url: sourceUrl, targetFile: targetFileURL, message: "Failed to create URL!")
+      return
+    }
+    
+    let downloadTask = URLSession.shared.downloadTask(with: url!) {
+      (urlOrNil: URL?, responseOrNil: URLResponse?, errorOrNil: Error?) in
       
       guard let fileURL = urlOrNil else {
         let errorMessage = errorOrNil?.localizedDescription ?? "Failed to download because of unknown error!"
@@ -70,6 +76,8 @@ class FetcherModule: RCTEventEmitter {
         try fileManager.createDirectory(at: targetFileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
                                                              
         try fileManager.moveItem(at: fileURL, to: targetFileURL)
+        
+        collector.fetched(url: sourceUrl, targetFile: targetFileURL)
       } catch {
         collector.failed(url: sourceUrl, targetFile: targetFileURL, message: error.localizedDescription)
       }
