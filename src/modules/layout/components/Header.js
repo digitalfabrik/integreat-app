@@ -74,7 +74,7 @@ type PropsType = {
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
   theme: ThemeType,
-  availableLanguages: Array<string>
+  availableLanguages: ?Array<string>
 }
 
 type StateType = {
