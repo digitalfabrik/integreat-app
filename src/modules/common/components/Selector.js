@@ -5,6 +5,7 @@ import * as React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import styled, { css } from 'styled-components/native'
 import { TouchableHighlight } from 'react-native'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const Element = styled.Text`
   height: ${props => props.theme.dimensions.headerHeight}px;
@@ -47,7 +48,8 @@ type PropsType = {
   verticalLayout: boolean,
   closeDropDownCallback?: () => void,
   items: Array<SelectorItemModel>,
-  selectedItemCode: string | null
+  selectedItemCode: string | null,
+  theme: ThemeType
 }
 
 /**
