@@ -130,7 +130,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   render () {
-    const { theme, availableLanguages } = this.props
+    const { theme } = this.props
     if (this.state.searchActive) {
       return <BoxShadow theme={theme}><HorizontalLeft>
         <HeaderBackButton onPress={this.closeSearchBar} />
@@ -140,7 +140,6 @@ class Header extends React.PureComponent<PropsType, StateType> {
     }
 
     const headerTitle = this.getDescriptor().headerTitle || ''
-    const isOtherLanguageAvailable = availableLanguages && availableLanguages.length > 0
 
     return (
       <BoxShadow theme={theme}>
@@ -152,8 +151,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
           </HorizontalLeft>
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
-            <Item title='Change Language' iconName='language'
-                  onPress={isOtherLanguageAvailable ? this.goToLanguageChange : null} />
+            <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>
