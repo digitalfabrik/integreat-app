@@ -13,7 +13,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetRoute = state.cityContent.categoriesRouteMapping[key]
   const model = targetRoute && targetRoute.root && targetRoute.models[targetRoute.root]
   const cityLanguages = state.cityContent.languages && state.cityContent.languages.map(languageModel => languageModel.code)
-  const availableLanguages = model && model.title !== state.cityContent.city ? Array.from(model.availableLanguages.keys()) : cityLanguages
+  const availableLanguages = model && !model.isRoot() ? Array.from(model.availableLanguages.keys()) : cityLanguages
 
   return {
     availableLanguages
