@@ -6,23 +6,23 @@ import type {
   PushCitiesActionType,
   FetchCitiesFailedActionType
 } from '../../app/StoreActionType'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 import { createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import CityModel from '@integreat-app/integreat-api-client/models/CityModel'
 import request from '../request'
 import { baseUrl } from '../constants'
 
-function * fetchCities (database: MemoryDatabase): Saga<void> {
+function * fetchCities (dataContainer: DataContainer): Saga<void> {
   try {
     const payload: Payload<Array<CityModel>> = yield call(() => request(createCitiesEndpoint(baseUrl)))
 
     const cities: Array<CityModel> = payload.data
 
-    database.loadCities(cities)
+    yield call(dataContainer.setCities, cities)
 
     const insert: PushCitiesActionType = {
       type: `PUSH_CITIES`,
-      params: {cities: database.cities}
+      params: {cities: cities}
     }
     yield put(insert)
   } catch (e) {
@@ -35,6 +35,6 @@ function * fetchCities (database: MemoryDatabase): Saga<void> {
   }
 }
 
-export default function * (database: MemoryDatabase): Saga<void> {
-  yield takeLatest(`FETCH_CITIES`, fetchCities, database)
+export default function * (dataContainer: DataContainer): Saga<void> {
+  yield takeLatest(`FETCH_CITIES`, fetchCities, dataContainer)
 }
