@@ -9,6 +9,8 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import { branch, renderComponent } from 'recompose'
+import EventNotAvailableContainer from './EventNotAvailableContainer'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const {language, city, resourceCache} = state.cityContent
@@ -39,6 +41,11 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 
 export default compose(
   translate('events'),
+  connect((state: StateType, ownProps) => ({
+    invalidLanguage: !state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
+      .allAvailableLanguages.has(state.cityContent.language)
+  })),
+  branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner
 )(Events)
