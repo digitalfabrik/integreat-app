@@ -57,21 +57,21 @@ type PropsType = {
  */
 class Selector extends React.Component<PropsType> {
   getItems (): React.Node {
-    const {items, selectedItemCode} = this.props
+    const {items, selectedItemCode, theme} = this.props
     return items.map(item => {
       const isSelected = item.code === selectedItemCode
       if (item.active || isSelected) {
         return (
-          <TouchTarget key={item.code} onPress={item.onPress}>
-            <ActiveElement selected={isSelected}>
-              <Element>{item.name}</Element>
+          <TouchTarget key={item.code} onPress={item.onPress} theme={theme}>
+            <ActiveElement selected={isSelected} theme={theme}>
+              <Element theme={theme}>{item.name}</Element>
             </ActiveElement>
           </TouchTarget>
         )
       }
       return (
-        <InactiveElement key={item.code}>
-          <Element>{item.name}</Element>
+        <InactiveElement key={item.code} theme={theme}>
+          <Element theme={theme}>{item.name}</Element>
         </InactiveElement>
       )
     })
@@ -79,7 +79,7 @@ class Selector extends React.Component<PropsType> {
 
   render () {
     return (
-      <Wrapper vertical={this.props.verticalLayout}>
+      <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
         {this.getItems()}
       </Wrapper>
     )
