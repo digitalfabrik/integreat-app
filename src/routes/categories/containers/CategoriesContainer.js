@@ -5,7 +5,7 @@ import { withTheme } from 'styled-components/native'
 import compose from 'lodash/fp/compose'
 
 import { connect } from 'react-redux'
-import type { CategoriesRouteMappingType, StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
 import { ScrollView } from 'react-native'
 import React from 'react'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
@@ -25,7 +25,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute: CategoriesRouteMappingType = state.cityContent.categoriesRouteMapping[key]
+  const targetRoute: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
   const language = state.cityContent.language
 
   if (!targetRoute || !language) {
@@ -52,8 +52,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 // $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
-// $FlowFixMe connect()
-export default compose(
+export default compose( // $FlowFixMe connect()
   withRouteCleaner,
   connect((state: StateType, ownProps) => ({
     invalidLanguage: !state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]

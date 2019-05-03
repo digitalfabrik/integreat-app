@@ -10,10 +10,14 @@ import { withTheme } from 'styled-components/native'
 const mapStateToProps = (state: StateType, ownProps) => {
   const key: string = ownProps.navigation.getParam('key')
   const route: EventRouteStateType = state.cityContent.eventsRouteMapping[key]
+  const languages = state.cityContent.languages
+  if (!languages) {
+    throw new Error('languages have not been set.')
+  }
 
   return {
     city: state.cityContent.city,
-    languages: state.cityContent.languages.filter(language => route.allAvailableLanguages.has(language.code))
+    languages: languages.filter(language => route.allAvailableLanguages.has(language.code))
   }
 }
 

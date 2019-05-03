@@ -43,7 +43,7 @@ export default compose(
   translate('events'),
   connect((state: StateType, ownProps) => ({
     invalidLanguage: !state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-      .allAvailableLanguages.has(state.cityContent.language)
+      .allAvailableLanguages.has(state.cityContent.language || '')
   })),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
