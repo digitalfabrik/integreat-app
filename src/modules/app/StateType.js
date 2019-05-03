@@ -14,13 +14,13 @@ export type CategoryRouteStateType = {|
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> },
-  +invalidLanguage: boolean
+  +allAvailableLanguages: Map<string, string> // including the current content language
 |}
 
 export type EventRouteStateType = {|
   +path: string | null,
   +models: Array<EventModel>,
-  +languageInvalid: boolean
+  +allAvailableLanguages: Map<string, string> // including the current content language
 |}
 
 export type FileCacheStateType = {

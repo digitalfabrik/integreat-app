@@ -2,8 +2,17 @@
 
 import type { CityContentStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
+
+const getAllAvailableLanguages = (category: CategoryModel, language: string, city: string, languages: Array<LanguageModel>) => {
+  if (category.isRoot()) {
+    return new Map<string, string>(languages.map(language => [language.code, `/${city}/${language.code}`]))
+  }
+  const allAvailableLanguages = new Map(category.availableLanguages)
+  allAvailableLanguages.set(language, category.path)
+  return allAvailableLanguages
+}
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
   const {categoriesMap, path, depth, key, language, city, resourceCache, languages} = action.params
@@ -17,6 +26,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   }
 
   const root: CategoryModel = categoriesMap.findCategoryByPath(path)
+
   const resultModels = {}
   const resultChildren = {}
 
@@ -38,7 +48,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         root: root.path,
         models: resultModels,
         children: resultChildren,
-        depth: depth
+        depth: depth,
+        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages)
       }
     },
     resourceCache: {...state.resourceCache, ...resourceCache}
