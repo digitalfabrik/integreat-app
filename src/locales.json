@@ -77,6 +77,16 @@
       "lastUpdate": "آخرین به روزآوری: "
     }
   },
+  "common": {
+    "en": {
+      "notAvailable": "Not Available",
+      "availableInFollowingLanguages": "This page is available in the following languages:"
+    },
+    "de": {
+      "notAvailable": "Nicht Verfügbar",
+      "availableInFollowingLanguages": "Diese Seite ist in den folgenden Sprachen verfügbar:"
+    }
+  },
   "events": {
     "ar": {
       "location": "الموقع",

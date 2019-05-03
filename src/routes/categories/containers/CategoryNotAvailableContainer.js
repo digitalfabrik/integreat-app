@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import CategoryNotAvailable from '../components/CategoryNotAvailable'
+import PageNotAvailable from '../../../modules/common/components/PageNotAvailable'
 import { withTheme } from 'styled-components/native'
+import compose from 'lodash/fp/compose'
+import { translate } from 'react-i18next'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const key: string = ownProps.navigation.getParam('key')
@@ -25,13 +27,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   return {
     changeLanguage: (city: string, newLanguage: string) => dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        city,
-        newLanguage
-      }
+      params: { city, newLanguage }
     })
   }
 }
 
 // $FlowFixMe
-export default withTheme(connect(mapStateToProps, mapDispatchToProps)(CategoryNotAvailable))
+export default compose(
+  withTheme,
+  connect(mapStateToProps, mapDispatchToProps),
+  translate
+)(PageNotAvailable)
