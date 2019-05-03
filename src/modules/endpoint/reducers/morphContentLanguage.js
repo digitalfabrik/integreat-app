@@ -11,21 +11,19 @@ import { isEmpty } from 'lodash'
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType, navKey: string): CategoryRouteStateType => {
     try {
-      const {models, depth, root} = route
+      const {depth, root, allAvailableLanguages} = route
 
-      const translatedRoot = models[root].isRoot()
-        ? `/${city}/${newLanguage}`
-        : models[root].availableLanguages.get(newLanguage)
+      const translatedRoot = allAvailableLanguages.get(newLanguage)
 
       if (!translatedRoot) { // Route is not translatable
-        return {...route, invalidLanguage: true}
+        return {...route}
       }
 
       const rootModel = newCategoriesMap.findCategoryByPath(translatedRoot)
       if (!rootModel) {
         console.warn(`Inconsistent data detected: ${translatedRoot} does not exist,
                       but is referenced in ${root} as translation for ${newLanguage}.`)
-        return {...route, invalidLanguage: true}
+        return {...route}
       }
 
       const resultModels = {}
@@ -42,8 +40,8 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
         root: translatedRoot,
         models: resultModels,
         children: resultChildren,
-        depth: depth,
-        invalidLanguage: false
+        depth,
+        allAvailableLanguages
       }
     } catch (e) {
       console.error(e.message)
@@ -54,22 +52,20 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
 const eventRouteTranslator = (newLanguage: string, newEvents: Array<EventModel>) =>
   (route: EventRouteStateType, navKey: string): EventRouteStateType => {
-    const {path, models} = route
+    const {path, models, allAvailableLanguages} = route
     if (!path) { // Route is a list of all events
-      return {path: null, models: newEvents, languageInvalid: false}
+      return {path: null, models: newEvents, allAvailableLanguages}
     }
     // Route is a single event
 
     if (isEmpty(models)) {
       throw new Error(`No model for route ${navKey}!`)
     }
-    const event = models[0]
-
-    const translatedPath = event.availableLanguages.get(newLanguage)
+    const translatedPath = allAvailableLanguages.get(newLanguage)
 
     if (!translatedPath) {
       // There is no translation for this event
-      return {...route, languageInvalid: true}
+      return {...route}
     }
 
     const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
@@ -77,10 +73,10 @@ const eventRouteTranslator = (newLanguage: string, newEvents: Array<EventModel>)
     if (!translatedEvent) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
                     but is referenced in ${path} as translation for ${newLanguage}.`)
-      return {...route, languageInvalid: true}
+      return {...route}
     }
 
-    return {path: translatedPath, models: [translatedEvent], languageInvalid: false}
+    return {path: translatedPath, models: [translatedEvent], allAvailableLanguages}
   }
 
 const morphContentLanguage = (
