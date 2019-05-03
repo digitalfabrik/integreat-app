@@ -9,7 +9,7 @@ if (typeof global.self === 'undefined') {
   global.self = global
 }
 
-// see https://github.com/facebook/react-native/issues/16434
+// @see https://github.com/facebook/react-native/issues/16434
 global.Buffer = Buffer
 global.URL = URL
 
