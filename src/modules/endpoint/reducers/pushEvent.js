@@ -16,7 +16,7 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
       return {
         path: null,
         models: events,
-        allAvailableLanguages: new Map(languages.map(language => [language.code, language.key]))
+        allAvailableLanguages: new Map(languages.map(language => [language.code, language.code]))
       }
     }
     const event: EventModel = events.find(event => event.path === path)

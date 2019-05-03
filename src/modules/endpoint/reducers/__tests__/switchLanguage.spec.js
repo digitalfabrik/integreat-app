@@ -270,14 +270,7 @@ describe('switchLangauge', () => {
   ]
 
   const initialState: CityContentStateType = {
-    categoriesRouteMapping: {
-      'route-0': {
-        root: null,
-        models: {},
-        children: {},
-        depth: 0
-      }
-    },
+    categoriesRouteMapping: {},
     eventsRouteMapping: {},
     resourceCache: {},
 
@@ -358,37 +351,6 @@ describe('switchLangauge', () => {
     const newState = morphContentLanguage(previous, action)
 
     expect(newState).toEqual(previous)
-  })
-
-  it('should throw error with untranslatable categories route', () => {
-    const state: CityContentStateType = {
-      categoriesRouteMapping: {
-        'route-0': {
-          root: null,
-          models: {},
-          children: {},
-          depth: 0
-        }
-      },
-      eventsRouteMapping: {},
-      resourceCache: {},
-
-      languages,
-      language: 'de',
-      city: 'augsburg'
-    }
-
-    const action: MorphContentLanguageActionType = {
-      type: 'MORPH_CONTENT_LANGUAGE',
-      params: {
-        newCategoriesMap: enModel,
-        newResourceCache: {},
-        newEvents: [],
-        newLanguage: 'en'
-      }
-    }
-
-    expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
   it('should throw error if cityCode is not set in categories route', () => {
