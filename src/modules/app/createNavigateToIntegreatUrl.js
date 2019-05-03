@@ -7,7 +7,7 @@ import createNavigateToEvent from './createNavigateToEvent'
 
 export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
   (url: string, cityCode: string, language: string) => {
-    const pathname = new URL(decodeURIComponent(url)).pathname
+    const pathname = decodeURIComponent(new URL(decodeURIComponent(url)).pathname)
     const parts = pathname.split('/').filter(segment => segment)
 
     if (parts[0] === cityCode && parts[1] === language) {
@@ -17,7 +17,7 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
           // '/augsburg/de/events/some_event'
           createNavigateToEvent(dispatch, navigation)(cityCode, language, pathname)
         } else {
-          // '/augsburg/de/events
+          // '/augsburg/de/events'
           createNavigateToEvent(dispatch, navigation)(cityCode, language)
         }
       } else if (parts[2]) {
