@@ -15,6 +15,7 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
+import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   }),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
   fetchCities: () => dispatch({
     type: 'FETCH_CITIES',
     params: {}

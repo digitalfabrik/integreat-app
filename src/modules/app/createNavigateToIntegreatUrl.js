@@ -8,7 +8,7 @@ import createNavigateToEvent from './createNavigateToEvent'
 export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
   (url: string, cityCode: string, language: string) => {
     const pathname = new URL(decodeURIComponent(url)).pathname
-    const parts = pathname.split('/')
+    const parts = pathname.split('/').filter(segment => segment)
 
     if (parts[0] === cityCode && parts[1] === language) {
       // same city and language
