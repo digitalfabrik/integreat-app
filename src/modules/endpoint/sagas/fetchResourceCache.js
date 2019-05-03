@@ -8,7 +8,7 @@ import type { ResourcesFetchFailedActionType, ResourcesFetchSucceededActionType 
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 
 type PathType = string
 type UrlType = string
@@ -25,10 +25,9 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
   }, '')
 }
 
-export default function * fetchResourceCache (city: string, language: string, fetchMap: FetchMapType, database: MemoryDatabase): Saga<void> {
-  yield call(database.readResourceCache)
-
-  if (isEmpty(fetchMap)) {
+export default function * fetchResourceCache (
+  city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
+  if (isEmpty(fetchMap) && dataContainer.resourceCacheAvailable()) {
     const success: ResourcesFetchSucceededActionType = {
       type: 'RESOURCES_FETCH_SUCCEEDED', city, language
     }
@@ -51,7 +50,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
       const message = createErrorMessage(failureResults)
       const failed: ResourcesFetchFailedActionType = {type: `RESOURCES_FETCH_FAILED`, city, language, message}
       console.warn(message)
-      // todo: we might remember which files have failed to retry later (internet connection of client could have failed)
+      // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
       yield put(failed)
     }
 
@@ -76,8 +75,7 @@ export default function * fetchResourceCache (city: string, language: string, fe
       }, {})
     )
 
-    database.addCacheEntries(resourceCache)
-    yield call(database.writeResourceCache)
+    yield call(dataContainer.addResourceCacheEntries, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {

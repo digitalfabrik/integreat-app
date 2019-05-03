@@ -12,7 +12,7 @@ import { baseUrl } from '../constants'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import type { FetchMapType } from './fetchResourceCache'
-import MemoryDatabase from '../MemoryDatabase'
+import type { DataContainer } from '../DataContainer'
 
 function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>> {
   const params = {city, language}
@@ -21,10 +21,8 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
   return categoriesPayload.data
 }
 
-function * loadEvents (city: string, language: string, database: MemoryDatabase): Saga<FetchMapType> {
-  yield call(database.readEvents)
-
-  if (database.eventsLoaded()) {
+function * loadEvents (city: string, language: string, dataContainer: DataContainer): Saga<FetchMapType> {
+  if (dataContainer.eventsAvailable()) {
     return {}
   }
 
@@ -44,8 +42,7 @@ function * loadEvents (city: string, language: string, database: MemoryDatabase)
 
   resourceURLFinder.finalize()
 
-  database.events = events
-  yield call(database.writeEvents)
+  yield call(dataContainer.setEvents, events)
 
   return urls
 }
