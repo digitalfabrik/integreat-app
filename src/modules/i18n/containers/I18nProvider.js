@@ -84,25 +84,16 @@ export class I18nProvider extends React.Component<PropsType, {
     }
   }
 
-  setLanguage (language: string) {
+  initLanguage (language: string) {
     const targetLanguage = this.getPredeterminedLanguage(language)
 
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})
     this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
-
-    // Set i18next language to apps language
-    this.i18n.changeLanguage(targetLanguage)
   }
 
   componentDidMount () {
-    this.setLanguage(this.props.language)
-  }
-
-  componentDidUpdate (prevProps: PropsType) {
-    if (this.props.language !== prevProps.language) {
-      this.setLanguage(this.props.language)
-    }
+    this.initLanguage(this.props.language)
   }
 
   static getSelectedFonts (language: string): FontMapType {
