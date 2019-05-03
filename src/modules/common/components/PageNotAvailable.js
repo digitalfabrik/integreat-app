@@ -1,13 +1,14 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
+import styled from 'styled-components/native/dist/styled-components.native.esm'
+import type { ThemeType } from '../../theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
-import Selector from '../../../modules/common/components/Selector'
-import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
-import { Text } from 'react-native-elements'
-import Caption from '../../../modules/common/components/Caption'
+import Selector from './Selector'
+import SelectorItemModel from '../models/SelectorItemModel'
+import { Text } from 'react-native-elements/src/index'
+import Caption from './Caption'
+import { TFunction } from 'react-i18next'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -23,18 +24,20 @@ type PropsType = {
   theme: ThemeType,
   city: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (city: string, language: string) => void
+  changeLanguage: (city: string, language: string) => void,
+  t: TFunction
 }
 
-class CategoryNotAvailable extends React.Component<PropsType> {
+class PageNotAvailable extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
     this.props.changeLanguage(this.props.city, model.code)
   }
 
   render () {
+    const t = this.props.t
     return <Wrapper theme={this.props.theme}>
-      <Caption title={'Not Available'} />
-      <Text>{`This page is available in the following languages:`}</Text>
+      <Caption title={t('notAvailable')} />
+      <Text>{t('availableInFollowingLanguages')}</Text>
       <Selector verticalLayout items={this.props.languages.map(languageModel => new SelectorItemModel({
         code: languageModel.code,
         name: languageModel.name,
@@ -44,4 +47,4 @@ class CategoryNotAvailable extends React.Component<PropsType> {
   }
 }
 
-export default CategoryNotAvailable
+export default PageNotAvailable
