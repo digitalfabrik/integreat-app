@@ -79,27 +79,27 @@
   },
   "common": {
     "en": {
-      "notFoundLanguage": "Sorry, but your language is not available here.",
+      "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language."
     },
     "de": {
-      "notFoundLanguage": "Deine Sprache ist hier leider nicht verfügbar.",
+      "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache."
     },
     "fr": {
-      "notFoundLanguage": "Malheureusement, ta langue n'est pas disponible ici.",
+      "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisissez votre Langue."
     },
     "ar": {
-      "notFoundLanguage": "للأسف، لغتك ليست متاحة.",
+      "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختار اللغة."
     },
     "fa": {
-      "notFoundLanguage": "متاسفانه زبان شما در اینجا موجود نیست.",
+      "languageNotAvailable": "متاسفانه زبان شما در اینجا موجود نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید."
     },
     "ru": {
-      "notFoundLanguage": "К сожалению, ваш язык здесь не используется.",
+      "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка."
     }
   },
