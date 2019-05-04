@@ -36,7 +36,7 @@ class PageNotAvailable extends React.Component<PropsType> {
   render () {
     const {t, languages, theme} = this.props
     return <Wrapper theme={theme}>
-      <Caption title={t('notFoundLanguage')} />
+      <Caption title={t('languageNotAvailable')} />
       <Text>{t('chooseALanguage')}</Text>
       <Selector verticalLayout
                 items={languages.map(languageModel => new SelectorItemModel({
