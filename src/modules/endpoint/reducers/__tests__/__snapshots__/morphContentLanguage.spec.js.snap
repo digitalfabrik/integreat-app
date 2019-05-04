@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`switchLangauge should translate route 1`] = `
+exports[`morphContentLanguage should translate route 1`] = `
 Object {
   "categoriesRouteMapping": Object {
     "route-0": Object {
