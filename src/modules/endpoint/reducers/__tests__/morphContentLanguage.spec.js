@@ -18,7 +18,7 @@ import type {
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
 
-describe('switchLangauge', () => {
+describe('morphContentLanguage', () => {
   const enCategories = [
     new CategoryModel({
       root: true,
