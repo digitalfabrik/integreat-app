@@ -21,10 +21,24 @@ const IMPLICIT_WAIT_TIMEOUT = 2000
 const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 3000
 
-const timer = (ms: number) => new Promise<{}>(resolve => setTimeout(resolve, ms))
+export const timer = (ms: number) => new Promise<{}>(resolve => setTimeout(resolve, ms))
 
-const isAndroid = () => {
+export const isAndroid = () => {
   return platform.toLowerCase() === 'android'
+}
+
+export const isIOS = () => {
+  return platform.toLowerCase() === 'ios'
+}
+
+export const select = <T, K> (input: { android: T, ios: K }) => {
+  if (isAndroid()) {
+    return input.android
+  } else if (isIOS()) {
+    return input.ios
+  }
+
+  throw new Error('Unknown platform.')
 }
 
 const initDriver = async (serverConfig, desiredCaps) => {
@@ -43,7 +57,7 @@ const initDriver = async (serverConfig, desiredCaps) => {
   }
 }
 
-const setupDriver = async () => {
+export const setupDriver = async (additionalCaps: {} = {}) => {
   const serverConfig = serverConfigs[e2eServerConfigName.toLowerCase()]
 
   if (!serverConfig) {
@@ -51,7 +65,7 @@ const setupDriver = async () => {
     process.exit(1)
   }
 
-  const desiredCaps = clone(caps[capsName.toLowerCase()])
+  const desiredCaps = {...clone(caps[capsName.toLowerCase()]), ...additionalCaps}
 
   if (!desiredCaps) {
     console.error(`Caps ${e2eServerConfigName} not found!`)
@@ -87,16 +101,9 @@ const setupDriver = async () => {
   return driver
 }
 
-const stopDriver = async (driver: wd.PromiseChainWebdriver) => {
+export const stopDriver = async (driver: wd.PromiseChainWebdriver) => {
   if (driver === undefined) {
     return
   }
   await driver.quit()
-}
-
-module.exports = {
-  timer,
-  setupDriver,
-  isAndroid,
-  stopDriver
 }
