@@ -39,5 +39,5 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
 export default compose(
   withTheme,
   connect(mapStateToProps, mapDispatchToProps),
-  translate
+  translate('common')
 )(PageNotAvailable)
