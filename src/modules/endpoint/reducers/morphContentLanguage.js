@@ -8,7 +8,7 @@ import CategoriesMapModel from '@integreat-app/integreat-api-client/models/Categ
 import forEachTreeNode from '../../common/forEachTreeNode'
 import { isEmpty } from 'lodash'
 
-const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
+const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLanguage: string) =>
   (route: CategoryRouteStateType, navKey: string): CategoryRouteStateType => {
     try {
       const {depth, root, allAvailableLanguages} = route
@@ -95,7 +95,7 @@ const morphContentLanguage = (
 
   const translatedCategoriesRouteMapping = mapValues(
     categoriesRouteMapping,
-    categoryRouteTranslator(newCategoriesMap, city, newLanguage)
+    categoryRouteTranslator(newCategoriesMap, newLanguage)
   )
 
   const translatedEventsRouteMapping = mapValues(
