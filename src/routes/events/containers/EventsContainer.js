@@ -39,13 +39,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation)
 })
 
-export default compose(
+export default compose([
   translate('events'),
-  connect((state: StateType, ownProps) => ({
-    invalidLanguage: !state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-      .allAvailableLanguages.has(state.cityContent.language || '')
-  })),
+  connect((state: StateType, ownProps) => {
+    const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
+    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+  }),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner
-)(Events)
+])(Events)

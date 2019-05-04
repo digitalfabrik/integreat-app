@@ -50,14 +50,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-// $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
-export default compose( // $FlowFixMe connect()
+export default compose([
   withRouteCleaner,
-  connect((state: StateType, ownProps) => ({
-    invalidLanguage: !state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-      .allAvailableLanguages.has(state.cityContent.language)
-  })),
+  connect((state: StateType, ownProps): { invalidLanguage: boolean } => {
+    const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
+    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+  }),
   branch(props => props.invalidLanguage, renderComponent(CategoryNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps)
-)(themed)
+])(themed)
