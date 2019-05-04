@@ -2,31 +2,16 @@
 
 import type { CityContentStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
-import { CategoryModel } from '@integreat-app/integreat-api-client'
+import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import forEachTreeNode from '../../common/forEachTreeNode'
 
-/**
- * Iterates through a tree until depth is reached. A depth of 0 means only the root is visited.
- * A depth of 1 means the root and the children of it are visited. Please note that for each children of the root
- * nodeAction is called once with the category and null for the children as parameters.
- *
- * @param root The root to start iterating from
- * @param resolveChildren The function which is used to resolve children
- * @param depth The depth
- * @param nodeAction The action to trigger for each node and children
- */
-const forEachTreeNode = (
-  root: CategoryModel,
-  resolveChildren: CategoryModel => Array<CategoryModel>,
-  depth: number,
-  nodeAction: (CategoryModel, ?Array<CategoryModel>) => void
-) => {
-  if (depth === 0) {
-    nodeAction(root, null)
-  } else {
-    const children = resolveChildren(root)
-    nodeAction(root, children)
-    children.forEach(child => forEachTreeNode(child, resolveChildren, depth - 1, nodeAction))
+const getAllAvailableLanguages = (category: CategoryModel, language: string, city: string, languages: Array<LanguageModel>) => {
+  if (category.isRoot()) {
+    return new Map<string, string>(languages.map(language => [language.code, `/${city}/${language.code}`]))
   }
+  const allAvailableLanguages = new Map(category.availableLanguages)
+  allAvailableLanguages.set(language, category.path)
+  return allAvailableLanguages
 }
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
@@ -41,6 +26,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   }
 
   const root: CategoryModel = categoriesMap.findCategoryByPath(path)
+
   const resultModels = {}
   const resultChildren = {}
 
@@ -62,7 +48,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         root: root.path,
         models: resultModels,
         children: resultChildren,
-        depth: depth
+        depth: depth,
+        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages)
       }
     },
     resourceCache: {...state.resourceCache, ...resourceCache}
