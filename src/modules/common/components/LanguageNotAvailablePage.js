@@ -28,7 +28,7 @@ type PropsType = {
   t: TFunction
 }
 
-class PageNotAvailable extends React.Component<PropsType> {
+class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
     this.props.changeLanguage(this.props.city, model.code)
   }
@@ -48,4 +48,4 @@ class PageNotAvailable extends React.Component<PropsType> {
   }
 }
 
-export default PageNotAvailable
+export default LanguageNotAvailablePage

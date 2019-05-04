@@ -5,7 +5,7 @@ import type { Dispatch } from 'redux'
 import type { EventRouteStateType, StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { withTheme } from 'styled-components/native'
-import PageNotAvailable from '../../../modules/common/components/PageNotAvailable'
+import LanguageNotAvailablePage from '../../../modules/common/components/LanguageNotAvailablePage'
 import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
@@ -39,4 +39,4 @@ export default compose(
   withTheme,
   connect(mapStateToProps, mapDispatchToProps),
   translate('common')
-)(PageNotAvailable)
+)(LanguageNotAvailablePage)
