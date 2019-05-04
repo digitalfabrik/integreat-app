@@ -35,7 +35,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   }
 }
 
-// $FlowFixMe
 export default compose(
   withTheme,
   connect(mapStateToProps, mapDispatchToProps),
