@@ -36,9 +36,8 @@ const TileContainer = styled.View`
 class Tile extends React.Component<PropsType> {
   getTileContent (): React.Node {
     const {tile, theme} = this.props
-    const imageSource = getFastImageSource(tile.thumbnail)
     return <>
-      <Thumbnail source={imageSource} resizeMode={FastImage.resizeMode.contain} />
+      {tile.thumbnail && <Thumbnail source={getFastImageSource(tile.thumbnail)} resizeMode={FastImage.resizeMode.contain} /> }
       <TileTitle theme={theme}>{tile.title}</TileTitle>
     </>
   }

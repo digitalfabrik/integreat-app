@@ -1,7 +1,6 @@
 // @flow
 
-import { NativeAppEventEmitter } from 'react-native'
-import NativeFetcherModule from './NativeFetcherModule'
+import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 
 export type TargetFilePathsType = {[path: string]: string}
 
@@ -22,7 +21,7 @@ class FetcherModule {
     FetcherModule.currentlyFetching = true
 
     const subscriptions = []
-    subscriptions.push(NativeAppEventEmitter.addListener('progress', progress))
+    subscriptions.push(NativeFetcherModuleEmitter.addListener('progress', progress))
 
     try {
       return await NativeFetcherModule.fetchAsync(targetFilePaths)

@@ -10,11 +10,9 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.integreat.BuildConfig;
 
 import java.io.File;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.annotation.Nullable;
 
@@ -23,16 +21,21 @@ public class FetchResultCollector implements FetchedCallback {
     private final Promise promise;
     private final int expectedFetchCount;
     private final ReactContext reactContext;
+    private final DateFormat iso8601Format;
 
     public FetchResultCollector(ReactContext reactContext, int expectedFetchCount, Promise promise) {
         this.promise = promise;
         this.expectedFetchCount = expectedFetchCount;
         this.reactContext = reactContext;
+
+        TimeZone timezone = TimeZone.getTimeZone("UTC");
+        iso8601Format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'", Locale.ENGLISH);
+        iso8601Format.setTimeZone(timezone);
     }
 
     @Override
     public synchronized void failed(String url, File targetFile, String message) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), false, message));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, new Date(), false, message));
 
         if (BuildConfig.DEBUG) {
             Log.e("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Failed to fetch " + url + ": " + message);
@@ -52,7 +55,7 @@ public class FetchResultCollector implements FetchedCallback {
     }
 
     private synchronized void success(String url, File targetFile, boolean alreadyExisted) {
-        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, ZonedDateTime.now(ZoneOffset.UTC), alreadyExisted, null));
+        fetchResults.put(targetFile.getAbsolutePath(), new FetchResult(url, new Date(), alreadyExisted, null));
         if (BuildConfig.DEBUG) {
             Log.d("FetcherModule", "[" + currentFetchCount() + "/" + expectedFetchCount + "] Fetched " + url);
         }
@@ -74,13 +77,12 @@ public class FetchResultCollector implements FetchedCallback {
             WritableMap fetchResult = Arguments.createMap();
             String filePath = entry.getKey();
             FetchResult result = entry.getValue();
-            ZonedDateTime dateTime = result.getLastUpdate();
 
             fetchResult.putString("url", result.getUrl());
 
             if (result.alreadyExisted()) {
                 // If the file already existed then lastUpdate should be "undefined"
-                fetchResult.putString("lastUpdate", dateTime.format(DateTimeFormatter.ISO_INSTANT));
+                fetchResult.putString("lastUpdate", iso8601Format.format(result.getLastUpdate()));
             }
 
             if (result.getErrorMessage() != null) {
