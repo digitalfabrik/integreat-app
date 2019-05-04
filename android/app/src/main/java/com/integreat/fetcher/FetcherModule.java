@@ -37,6 +37,8 @@ public class FetcherModule extends ReactContextBaseJavaModule {
                 expectedFetchCount, promise
         );
 
+
+
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
             String targetFilePath = entry.getKey();
             String url = entry.getValue().toString();
