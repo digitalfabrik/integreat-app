@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native/dist/styled-components.native.esm'
+import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from './Selector'
