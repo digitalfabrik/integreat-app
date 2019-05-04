@@ -77,6 +77,32 @@
       "lastUpdate": "آخرین به روزآوری: "
     }
   },
+  "common": {
+    "en": {
+      "languageNotAvailable": "Sorry, but your language is not available here.",
+      "chooseALanguage": "Choose a language."
+    },
+    "de": {
+      "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
+      "chooseALanguage": "Wähle eine Sprache."
+    },
+    "fr": {
+      "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
+      "chooseALanguage": "Choisissez votre Langue."
+    },
+    "ar": {
+      "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
+      "chooseALanguage": "اختار اللغة."
+    },
+    "fa": {
+      "languageNotAvailable": "متاسفانه زبان شما در اینجا موجود نیست.",
+      "chooseALanguage": "یک زبان را انتخاب کنید."
+    },
+    "ru": {
+      "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
+      "chooseALanguage": "Выбор языка."
+    }
+  },
   "events": {
     "ar": {
       "location": "الموقع",
