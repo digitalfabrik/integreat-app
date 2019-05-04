@@ -10,7 +10,7 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
     const pathname = decodeURIComponent(new URL(decodeURIComponent(url)).pathname)
     const parts = pathname.split('/').filter(segment => segment)
 
-    if (parts[0] === cityCode && parts[1] === language) {
+    if (parts[0] === cityCode && (!parts[1] || parts[1] === language)) {
       // same city and language
       if (parts[2] === 'events') {
         if (parts[3]) {
@@ -25,7 +25,10 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
         createNavigateToCategory('Categories', dispatch, navigation)(cityCode, language, pathname)
       } else {
         // '/augsburg/de'
-        createNavigateToCategory('Dashboard', dispatch, navigation)(cityCode, language, pathname)
+        createNavigateToCategory('Dashboard', dispatch, navigation)(
+          cityCode, language, parts[1] ? pathname : `${pathname}/${language}`
+        )
       }
     }
+    // todo add support for linking to different cities/languages
   }
