@@ -8,9 +8,9 @@ import Caption from '../../common/components/Caption'
 import OfferListItem from './OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
-import { hashWohnenOffer } from '../../extras/hashWohnenOffer'
+import { hashWohnenOffer } from '../../../routes/extras/hashWohnenOffer'
 import Failure from '../../error/components/Failure'
-import { WOHNEN_EXTRA } from '../../extras/constants'
+import { WOHNEN_EXTRA } from '../../../routes/extras/constants'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,

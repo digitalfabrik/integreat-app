@@ -7,7 +7,7 @@ import { translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import moment from 'moment'
 import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
-import { WOHNEN_ROUTE } from '../../extras/constants/index'
+import { WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
