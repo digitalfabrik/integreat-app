@@ -8,12 +8,10 @@ import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
 import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
-import Failure from '../../../modules/error/components/Failure'
-import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
-  extras: Array<ExtraModel>,
+  sprungbrettExtra: ExtraModel,
   t: TFunction
 |}
 
@@ -27,16 +25,11 @@ class SprungbrettExtra extends React.Component<PropsType> {
   )
 
   render () {
-    const {sprungbrettJobs, extras, t} = this.props
-    const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-
-    if (!extra) {
-      return <Failure error={new Error('The Sprungbrett extra is not supported.')} />
-    }
+    const {sprungbrettExtra, sprungbrettJobs, t} = this.props
 
     return (
       <>
-        <Caption title={extra.title} />
+        <Caption title={sprungbrettExtra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
