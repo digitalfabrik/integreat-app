@@ -4,7 +4,7 @@ import { translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
-import type { StateType } from '../../app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 
 const mapStateToProps = (state: StateType, ownProps) => {

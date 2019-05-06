@@ -14,8 +14,8 @@ import ChangeLanguageModalContainer from '../../../routes/language/containers/Ch
 import MapViewModal from '../../../routes/map/components/MapViewModal'
 import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 import ExtrasContainer from '../../../routes/extras/containers/ExtrasContainer'
-import WohnenExtraContainer from '../../wohnen/containers/WohnenExtraContainer'
-import SprungbrettExtraContainer from '../../sprungbrett/containers/SprungbrettExtraContainer'
+import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraContainer'
+import SprungbrettExtraContainer from '../../../routes/sprungbrett/containers/SprungbrettExtraContainer'
 import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
 import EventsContainer from '../../../routes/events/containers/EventsContainer'
 

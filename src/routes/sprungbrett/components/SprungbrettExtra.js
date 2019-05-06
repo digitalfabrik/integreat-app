@@ -6,10 +6,10 @@ import { Linking } from 'react-native'
 import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
-import List from '../../common/components/List'
-import Caption from '../../common/components/Caption'
-import Failure from '../../error/components/Failure'
-import { SPRUNGBRETT_EXTRA } from '../../../routes/extras/constants'
+import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
+import Failure from '../../../modules/error/components/Failure'
+import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
