@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import connect from 'react-redux/es/connect/connect'
-import { Linking } from 'react-native'
+import { Linking, ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { TFunction, translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
@@ -37,13 +37,14 @@ type PropsType = {|
 |}
 
 type ExtrasStateType = {|
-  extras: Array<ExtraModel>
+  extras: ?Array<ExtraModel>,
+  error: ?Error
 |}
 
 class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {extras: []}
+    this.state = {extras: null, error: null}
   }
 
   componentWillMount () {
@@ -63,12 +64,26 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
     const {city, language} = this.props
     const payload: Payload<Array<ExtraModel>> = await request(createExtrasEndpoint(baseUrl), {city, language})
 
-    this.setState(() => ({extras: payload.data}))
+    if (payload.error) {
+      this.setState(() => ({error: payload.error, extras: null}))
+    } else {
+      this.setState(() => ({error: null, extras: payload.data}))
+    }
   }
 
   render () {
     const {theme, t} = this.props
-    return <Extras extras={this.state.extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} />
+    const {extras, error} = this.state
+
+    if (error) {
+      return error.message
+    }
+
+    if (!extras) {
+      return <ActivityIndicator size='large' color='#0000ff' />
+    }
+
+    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} />
   }
 }
 
