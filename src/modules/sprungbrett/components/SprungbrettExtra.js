@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next'
 import List from '../../common/components/List'
 import Caption from '../../common/components/Caption'
 import Failure from '../../error/components/Failure'
-import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
+import { SPRUNGBRETT_EXTRA } from '../../../routes/extras/constants'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,

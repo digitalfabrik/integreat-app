@@ -7,11 +7,11 @@ import Extras from '../components/Extras'
 import { TFunction, translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
-import type { ThemeType } from '../../theme/constants/theme'
-import request from '../../endpoint/request'
-import type { StateType } from '../../app/StateType'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
+import request from '../../../modules/endpoint/request'
+import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
-import { baseUrl } from '../../endpoint/constants'
+import { baseUrl } from '../../../modules/endpoint/constants'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.cityContent.language
