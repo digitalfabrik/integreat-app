@@ -1,13 +1,13 @@
 // @flow
 
-import type { StateType } from '../../app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import { translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import moment from 'moment'
 import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
-import { WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
+import { WOHNEN_ROUTE } from '../../extras/constants'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
