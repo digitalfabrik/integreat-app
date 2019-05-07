@@ -1,9 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`switchLangauge should translate route 1`] = `
+exports[`morphContentLanguage should translate route 1`] = `
 Object {
   "categoriesRouteMapping": Object {
     "route-0": Object {
+      "allAvailableLanguages": Map {
+        "de" => "/augsburg/de",
+        "en" => "/augsburg/en",
+      },
       "children": Object {
         "/augsburg/en": Array [
           "/augsburg/en/erste-schritte",
@@ -77,6 +81,10 @@ Object {
   "city": "augsburg",
   "eventsRouteMapping": Object {
     "event-route-1": Object {
+      "allAvailableLanguages": Map {
+        "de" => "de",
+        "en" => "en",
+      },
       "models": Array [
         EventModel {
           "_availableLanguages": Map {
@@ -151,9 +159,13 @@ Object {
           "_title": "third Event",
         },
       ],
-      "path": undefined,
+      "path": null,
     },
     "event-route-2": Object {
+      "allAvailableLanguages": Map {
+        "en" => "/augsburg/en/events/third_event",
+        "de" => "/augsburg/de/events/drittes_event",
+      },
       "models": Array [
         EventModel {
           "_availableLanguages": Map {
