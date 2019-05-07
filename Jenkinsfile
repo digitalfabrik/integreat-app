@@ -106,7 +106,7 @@ pipeline {
                                 sh 'yarn run flow:check-now'
                                 sh 'yarn run lint'
                                 sh 'yarn run test'
-                                sh 'yarn run android:release'
+                                sh 'cd android/ && ./gradlew build -x lint -x lintVitalRelease'
                                 archiveArtifacts artifacts: 'android/app/build/outputs/apk/**/*.*'
                             }
                         }
