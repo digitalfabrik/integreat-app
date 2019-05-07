@@ -44,7 +44,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
         return new SelectorItemModel({
           code: languageModel.code,
           name: languageModel.name,
-          active: isLanguageAvailable,
+          enabled: isLanguageAvailable,
           onPress: () => this.onPress(languageModel)
         })
       })}
