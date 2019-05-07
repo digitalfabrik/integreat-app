@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { ActivityIndicator, Text } from 'react-native'
 import { TFunction, translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
 import compose from 'lodash/fp/compose'
@@ -14,20 +15,20 @@ import {
 } from '@integreat-app/integreat-api-client'
 import request from '../../../modules/endpoint/request'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
-import { ActivityIndicator } from 'react-native'
+import Failure from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
 
-  const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
+  const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
 
   return {
-    sprungbrettExtra: sprungbrettExtra
+    extra: extra
   }
 }
 
 type PropsType = {|
-  sprungbrettExtra: ?ExtraModel,
+  extra: ?ExtraModel,
   t: TFunction
 |}
 
@@ -48,36 +49,39 @@ class SprungbrettExtraContainer extends React.Component<PropsType, SprungbrettSt
   }
 
   async loadSprungbrett () {
-    const {sprungbrettExtra} = this.props
+    const {extra} = this.props
 
-    if (!sprungbrettExtra) {
+    if (!extra) {
       this.setState(() => ({error: new Error('The Sprungbrett extra is not supported.'), jobs: null}))
       return
     }
+    try {
+      const payload: Payload<Array<ExtraModel>> = await request(createSprungbrettJobsEndpoint(extra.path))
 
-    const payload: Payload<Array<ExtraModel>> = await request(createSprungbrettJobsEndpoint(sprungbrettExtra.path))
+      if (payload.error) {
+        this.setState(() => ({error: payload.error, jobs: null}))
+        return
+      }
 
-    if (payload.error) {
-      this.setState(() => ({error: payload.error, jobs: null}))
-      return
+      this.setState(() => ({error: null, jobs: payload.data}))
+    } catch (e) {
+      this.setState(() => ({error: e, jobs: null}))
     }
-
-    this.setState(() => ({error: null, jobs: payload.data}))
   }
 
   render () {
-    const {sprungbrettExtra, t} = this.props
+    const {extra, t} = this.props
     const {jobs, error} = this.state
 
     if (error) {
-      return error.message
+      return <Failure error={error} />
     }
 
     if (!jobs) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return <SprungbrettExtra sprungbrettExtra={sprungbrettExtra} sprungbrettJobs={jobs} t={t} />
+    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} />
   }
 }
 
