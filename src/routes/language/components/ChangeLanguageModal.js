@@ -39,7 +39,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   render () {
     const { theme, languages, availableLanguages, currentLanguage } = this.props
     return <Wrapper theme={theme}>
-      <Selector verticalLayout items={languages.map(languageModel => {
+      <Selector theme={theme} verticalLayout items={languages.map(languageModel => {
         const isLanguageAvailable = availableLanguages.includes(languageModel.code)
         return new SelectorItemModel({
           code: languageModel.code,
