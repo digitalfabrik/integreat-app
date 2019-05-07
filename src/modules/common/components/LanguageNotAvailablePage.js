@@ -42,8 +42,11 @@ class LanguageNotAvailablePage extends React.Component<PropsType> {
                 items={languages.map(languageModel => new SelectorItemModel({
                   code: languageModel.code,
                   name: languageModel.name,
+                  enabled: true,
                   onPress: () => this.onPress(languageModel)
-                }))} />
+                }))}
+                selectedItemCode={null}
+                theme={theme} />
     </Wrapper>
   }
 }
