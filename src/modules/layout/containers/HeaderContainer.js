@@ -2,6 +2,15 @@
 
 import Header from '../components/Header'
 import { withTheme } from 'styled-components/native'
+import type { StateType } from '../../app/StateType'
+import { connect } from 'react-redux'
+import React from 'react'
+import { withNavigation } from 'react-navigation'
+import { availableLanguagesSelector } from '../../common/selectors/availableLanguagesSelector'
 
-// $FlowFixMe
-export default withTheme(Header)
+const mapStateToProps = (state: StateType, ownProps) => ({
+  availableLanguages: availableLanguagesSelector(state, ownProps)
+})
+
+const themed = withTheme(props => <Header {...props} />)
+export default withNavigation(connect(mapStateToProps)(themed))
