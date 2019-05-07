@@ -108,6 +108,5 @@ class WohnenExtraContainer extends React.Component<PropsType, SprungbrettStateTy
 
 export default compose(
   connect(mapStateToProps),
-  translate('wohnen'),
-  translate()
+  translate('wohnen')
 )(WohnenExtraContainer)
