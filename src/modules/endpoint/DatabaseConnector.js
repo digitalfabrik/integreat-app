@@ -117,7 +117,8 @@ class DatabaseConnector {
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
     const lastUpdatePath = `${context.cityCode}.languages.${context.languageCode}.lastUpdate`
-    return moment.tz(get(currentCityMetaData, lastUpdatePath), 'UTC')
+    const lastUpdate = get(currentCityMetaData, lastUpdatePath)
+    return lastUpdate ? moment.tz(lastUpdate, 'UTC') : null
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {

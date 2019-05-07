@@ -26,7 +26,7 @@ function * loadCategories (city: string, language: string, dataContainer: DataCo
 
   console.debug('Fetching categories')
 
-  // TODO: if data was loaded but should be updated incrementally update. This will be done in NATIVE-3
+  // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
 
   const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
 
