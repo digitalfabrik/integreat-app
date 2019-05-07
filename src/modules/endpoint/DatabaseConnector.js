@@ -10,8 +10,8 @@ import {
 import RNFetchblob from 'rn-fetch-blob'
 import set from 'lodash/set'
 import get from 'lodash/get'
-import moment from 'moment'
-import type Moment from 'moment'
+import moment from 'moment-timezone'
+import type Moment from 'moment-timezone'
 import type { ResourceCacheStateType } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CONTENT_DIR_PATH, CACHE_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
@@ -117,7 +117,7 @@ class DatabaseConnector {
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
     const lastUpdatePath = `${context.cityCode}.languages.${context.languageCode}.lastUpdate`
-    return get(currentCityMetaData, lastUpdatePath)
+    return moment.tz(get(currentCityMetaData, lastUpdatePath), 'UTC')
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {

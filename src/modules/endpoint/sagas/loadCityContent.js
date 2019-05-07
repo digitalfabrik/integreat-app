@@ -9,18 +9,23 @@ import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
 
-const TWENTY_FOUR_HOURS = 24
+const MAX_CONTENT_AGE = 24
 
 export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string, forceRefresh: boolean): Saga<void> {
   yield call(dataContainer.setContext, newCity, newLanguage)
 
+  let lastUpdate: moment | null = null
+  if (dataContainer.lastUpdateAvailable()) {
+    lastUpdate = yield call(dataContainer.getLastUpdate)
+  }
+
   console.debug('Last city content update on ',
-    dataContainer.lastUpdate ? dataContainer.lastUpdate.toISOString() : dataContainer.lastUpdate)
+    lastUpdate ? lastUpdate.toISOString() : 'never')
 
   // The last update was more than 24h ago or a refresh should be forced
-  const shouldUpdate = forceRefresh || !dataContainer.lastUpdate ||
-    dataContainer.lastUpdate.isBefore(moment.tz('UTC').subtract(TWENTY_FOUR_HOURS, 'hours'))
+  const shouldUpdate = forceRefresh || !lastUpdate ||
+    lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
 
   console.debug('City content should be refreshed: ', shouldUpdate)
 
@@ -34,8 +39,6 @@ export default function * loadCityContent (
   yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
 
   if (shouldUpdate) {
-    dataContainer.lastUpdate = moment.tz('UTC')
-    yield call(dataContainer.writeLastUpdate)
+    yield call(dataContainer.setLastUpdate, moment.tz('UTC'))
   }
-  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
 }

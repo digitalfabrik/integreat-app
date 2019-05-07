@@ -84,11 +84,13 @@ export interface DataContainer {
    * Returns the lastUpdate timestamp..
    */
   getLastUpdate: () => Promise<Moment>,
+
   /**
    * Sets the lastUpdate timestamp and persists it.
    * @param lastUpdate
    */
   setLastUpdate: (lastUpdate: Moment) => Promise<void>,
+
   /**
    * Returns whether the CategoriesMap has been loaded or not.
    */
@@ -107,5 +109,10 @@ export interface DataContainer {
   /**
    * Returns whether the events have been loaded or not.
    */
-  eventsAvailable (): boolean
+  eventsAvailable (): boolean,
+
+  /**
+   * Returns whether a lastUpdate timestamp has been loaded or not.
+   */
+  lastUpdateAvailable (): boolean
 }
