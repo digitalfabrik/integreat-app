@@ -19,14 +19,14 @@ export const TouchTarget = styled(TouchableHighlight)`
  width: 100%;
 `
 
-export const ActiveElement = styled(Element)`
+export const EnabledElement = styled(Element)`
   font-weight: 700;
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
   ${props => props.selected && `background-color: ${props.theme.colors.backgroundAccentColor}`};
 `
 
-export const InactiveElement = styled(Element)`
+export const DisabledElement = styled(Element)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
@@ -60,19 +60,19 @@ class Selector extends React.Component<PropsType> {
     const {items, selectedItemCode, theme} = this.props
     return items.map(item => {
       const isSelected = item.code === selectedItemCode
-      if (item.active || isSelected) {
+      if (item.enabled || isSelected) {
         return (
           <TouchTarget key={item.code} onPress={item.onPress} theme={theme}>
-            <ActiveElement selected={isSelected} theme={theme}>
+            <EnabledElement selected={isSelected} theme={theme}>
               <Element theme={theme}>{item.name}</Element>
-            </ActiveElement>
+            </EnabledElement>
           </TouchTarget>
         )
       }
       return (
-        <InactiveElement key={item.code} theme={theme}>
+        <DisabledElement key={item.code} theme={theme}>
           <Element theme={theme}>{item.name}</Element>
-        </InactiveElement>
+        </DisabledElement>
       )
     })
   }
