@@ -2,6 +2,7 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { ResourceCacheStateType } from '../app/StateType'
+import type Moment from 'moment'
 
 export interface DataContainer {
   /**
@@ -79,6 +80,15 @@ export interface DataContainer {
    */
   addResourceCacheEntries: (resourceCache: ResourceCacheStateType) => Promise<void>,
 
+  /**
+   * Returns the lastUpdate timestamp..
+   */
+  getLastUpdate: () => Promise<Moment>,
+  /**
+   * Sets the lastUpdate timestamp and persists it.
+   * @param lastUpdate
+   */
+  setLastUpdate: (lastUpdate: Moment) => Promise<void>,
   /**
    * Returns whether the CategoriesMap has been loaded or not.
    */

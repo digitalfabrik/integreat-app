@@ -8,10 +8,13 @@ import {
   LanguageModel, LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
+import set from 'lodash/set'
+import get from 'lodash/get'
 import moment from 'moment'
+import type Moment from 'moment'
 import type { ResourceCacheStateType } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
-import { CONTENT_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
+import { CONTENT_DIR_PATH, CACHE_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -50,6 +53,16 @@ type ContentEventJsonType = {|
   |}
 |}
 
+type MetaCitiesJsonType = {
+  [string]: {
+    languages: {
+      [string]: {
+        lastUpdate: Moment
+      }
+    }
+  }
+}
+
 type ResourceCacheJsonType = ResourceCacheStateType
 
 const mapToObject = (map: Map<string, string>) => {
@@ -73,6 +86,38 @@ class DatabaseConnector {
 
   getResourceCachePath (context: DatabaseContext): string {
     return getResourceCacheFilesPath(context.cityCode)
+  }
+
+  getLastUpdatePath (): string {
+    return `${CACHE_DIR_PATH}/cities.json`
+  }
+
+  async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
+    const path = this.getLastUpdatePath()
+
+    let currentCityMetaData: MetaCitiesJsonType = {}
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    if (fileExists) {
+      currentCityMetaData = JSON.parse(await this.readFile(path))
+    }
+
+    const lastUpdatePath = `${context.cityCode}.languages.${context.languageCode}.lastUpdate`
+    set(currentCityMetaData, lastUpdatePath, lastUpdate)
+
+    await this.writeFile(path, JSON.stringify(currentCityMetaData))
+  }
+
+  async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
+    const path = this.getLastUpdatePath()
+
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+    if (!fileExists) {
+      return null
+    }
+
+    const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
+    const lastUpdatePath = `${context.cityCode}.languages.${context.languageCode}.lastUpdate`
+    return get(currentCityMetaData, lastUpdatePath)
   }
 
   async storeCategories (categoriesMap: CategoriesMapModel, context: DatabaseContext) {
@@ -218,7 +263,6 @@ class DatabaseConnector {
     const path = this.getResourceCachePath(context)
     // todo: use ResourceCacheJsonType
 
-    // $FlowFixMe Resource cache will never be null here. Also this will probably soon be dealt with when mapping.
     const json: ResourceCacheJsonType = resourceCache
     await this.writeFile(path, JSON.stringify(json))
   }
