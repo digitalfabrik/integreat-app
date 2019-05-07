@@ -1,6 +1,5 @@
 // @flow
 
-import { Platform } from 'react-native'
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
@@ -16,12 +15,12 @@ type FilePathType = string
 export type FetchMapType = { [filePath: FilePathType]: [UrlType, PathType] }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(fetchResult, (message, result) => {
+  return reduce(fetchResult, (message, result, path) => {
     if (!result.errorMessage) {
       return message
     }
 
-    return `${message}'Failed to download ${result.url} to ${result.path}': ${result.errorMessage}\n`
+    return `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`
   }, '')
 }
 
@@ -38,11 +37,8 @@ export default function * fetchResourceCache (
 
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
-    if (Platform.OS !== 'android') {
-      return
-    }
 
-    const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => {})
+    const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
 
     const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
