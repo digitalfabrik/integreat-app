@@ -78,7 +78,7 @@ class DefaultDataContainer implements DataContainer {
       throw Error('Context has not been set yet.')
     }
     if (this._lastUpdate === null) {
-      throw Error('Languages are null.')
+      throw Error('LastUpdate is null.')
     }
     return this._lastUpdate
   }
@@ -174,6 +174,10 @@ class DefaultDataContainer implements DataContainer {
 
   resourceCacheAvailable (): boolean {
     return this._resourceCache !== null
+  }
+
+  lastUpdateAvailable (): boolean {
+    return this._lastUpdate !== null
   }
 }
 
