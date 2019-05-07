@@ -2,13 +2,13 @@
 export default class SelectorItemModel {
   _code: string
   _name: string
-  _active: boolean
+  _enabled: boolean
   _onPress: () => void
 
-  constructor (params: { code: string, name: string, active: boolean, onPress: () => void }) {
+  constructor (params: { code: string, name: string, enabled: boolean, onPress: () => void }) {
     this._code = params.code
     this._name = params.name
-    this._active = params.active
+    this._enabled = params.enabled
     this._onPress = params.onPress
   }
 
@@ -20,8 +20,8 @@ export default class SelectorItemModel {
     return this._name
   }
 
-  get active (): boolean {
-    return this._active
+  get enabled (): boolean {
+    return this._enabled
   }
 
   get onPress (): () => void {
