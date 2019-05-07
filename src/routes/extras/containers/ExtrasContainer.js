@@ -16,7 +16,7 @@ import { baseUrl } from '../../../modules/endpoint/constants'
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.cityContent.language
   if (!language) {
-    throw new Error('Language not set for categories!')
+    throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
   }
 
   const targetCity: string = ownProps.navigation.getParam('cityCode')
