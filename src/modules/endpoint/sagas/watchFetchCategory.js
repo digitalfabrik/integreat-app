@@ -11,9 +11,9 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, path, depth, key, forceRefresh} = action.params
+  const {city, language, path, depth, key, forceUpdate} = action.params
   try {
-    yield call(loadCityContent, dataContainer, city, language, forceRefresh)
+    yield call(loadCityContent, dataContainer, city, language, forceUpdate)
 
     const [categoriesMap, resourceCache, languages] = yield all([
       call(dataContainer.getCategoriesMap),

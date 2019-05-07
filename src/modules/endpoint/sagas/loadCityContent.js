@@ -12,7 +12,7 @@ import moment from 'moment-timezone'
 const MAX_CONTENT_AGE = 24
 
 export default function * loadCityContent (
-  dataContainer: DataContainer, newCity: string, newLanguage: string, forceRefresh: boolean): Saga<void> {
+  dataContainer: DataContainer, newCity: string, newLanguage: string, forceUpdate: boolean): Saga<void> {
   yield call(dataContainer.setContext, newCity, newLanguage)
 
   let lastUpdate: moment | null = null
@@ -24,7 +24,7 @@ export default function * loadCityContent (
     lastUpdate ? lastUpdate.toISOString() : 'never')
 
   // The last update was more than 24h ago or a refresh should be forced
-  const shouldUpdate = forceRefresh || !lastUpdate ||
+  const shouldUpdate = forceUpdate || !lastUpdate ||
     lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
 
   console.debug('City content should be refreshed: ', shouldUpdate)
