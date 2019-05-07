@@ -52,7 +52,7 @@ export const defaultCitiesState: CitiesStateType = {
 }
 
 export type CityContentStateType = {|
-  +lastRefresh: Moment | null,
+  +lastUpdate: Moment | null,
   +language: string | null,
   +city: string | null,
   +languages: Array<LanguageModel> | null,
@@ -62,7 +62,7 @@ export type CityContentStateType = {|
 |}
 
 export const defaultCityContentState: CityContentStateType = {
-  lastRefresh: null,
+  lastUpdate: null,
   language: null,
   city: null,
   languages: null,
