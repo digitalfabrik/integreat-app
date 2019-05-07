@@ -10,6 +10,8 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import { branch, renderComponent } from 'recompose'
+import EventNotAvailableContainer from './EventNotAvailableContainer'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const {language, city, resourceCache} = state.cityContent
@@ -39,8 +41,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
-export default compose(
+export default compose([
   translate('events'),
+  connect((state: StateType, ownProps) => {
+    const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
+    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+  }),
+  branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner
-)(Events)
+])(Events)
