@@ -6,6 +6,7 @@ import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import type { StateType } from '../../app/StateType'
 import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
+import { withTheme } from 'styled-components/native'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
@@ -134,5 +135,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  translate('sprungbrett')
+  translate('sprungbrett'),
+  withTheme
 )(SprungbrettExtra)
