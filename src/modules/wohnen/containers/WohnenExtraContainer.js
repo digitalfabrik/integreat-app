@@ -8,6 +8,7 @@ import WohnenExtra from '../components/WohnenExtra'
 import moment from 'moment'
 import { ExtraModel, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import { WOHNEN_ROUTE } from '../../extras/constants/index'
+import { withTheme } from 'styled-components/native'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
@@ -98,5 +99,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  translate('wohnen')
+  translate('wohnen'),
+  withTheme
 )(WohnenExtra)
