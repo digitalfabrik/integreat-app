@@ -11,7 +11,8 @@ import loadCityContent from './loadCityContent'
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
-    yield call(loadCityContent, dataContainer, city, newLanguage)
+    // We never want to force a refresh when switching languages
+    yield call(loadCityContent, dataContainer, city, newLanguage, false)
 
     const [categories, resourceCache, events] = yield all([
       call(dataContainer.getCategoriesMap),

@@ -276,7 +276,8 @@ describe('morphContentLanguage', () => {
 
     languages,
     language: null,
-    city: null
+    city: null,
+    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
   }
 
   const prepareState = ({path, model, eventPath, events}: {

@@ -23,6 +23,7 @@ type PropsType = {
   fetchCities: (language: string) => void,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
+  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
   theme: ThemeType,
 
   language: string,
@@ -78,7 +79,7 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const {cities, stateView, theme, resourceCache} = this.props
+    const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
 
     if (!stateView || !cities || !resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -92,7 +93,9 @@ class Dashboard extends React.Component<PropsType> {
                     resourceCache={resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
-                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
+                    theme={this.props.theme}
+                    navigateToCategory={this.props.navigateToCategory}
+                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
         <Button
           title='Extras'
           onPress={this.extras}
