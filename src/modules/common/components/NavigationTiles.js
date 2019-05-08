@@ -13,16 +13,12 @@ type PropsType = {|
 |}
 
 const TilesRow = styled.View`
-  margin-top: 20px;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-`
-const Separator = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
-  margin: 0 15px;
+  elevation: 1;
 `
 
 /**
@@ -36,7 +32,6 @@ class NavigationTiles extends React.Component<PropsType> {
         <TilesRow theme={theme}>
           {tiles.map(tile => <NavigationTile key={tile.path} tile={tile} theme={theme} />)}
         </TilesRow>
-        <Separator />
       </>
     )
   }

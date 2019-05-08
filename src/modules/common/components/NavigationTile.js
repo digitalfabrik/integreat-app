@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
@@ -17,36 +17,38 @@ type PropsType = {|
   theme: ThemeType
 |}
 
+const Circle = styled(View)`
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border-radius: ${ICON_SIZE}px;
+  height: ${ICON_SIZE};
+  width: ${ICON_SIZE};
+  background-color: ${props => props.theme.colors.themeColor};
+  align-items: center;
+  justify-content: center;
+`
+
 const Thumbnail = styled(FastImage)`
-  margin: 12px 0;
-  height: ${ICON_SIZE}px;
-  width: ${ICON_SIZE}px;
+  height: ${ICON_SIZE / Math.sqrt(2)};
+  width: ${ICON_SIZE / Math.sqrt(2)};
 `
 
 const TileTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   text-align: center;
+  font-size: 11;
 `
 
-// FIXME when testing on ios
 const TileTouchable = styled.TouchableOpacity`
-  height: ${TILE_SIZE}px;
-  width: ${TILE_SIZE}px;
+  padding: 10px 0;
+  flex: 1;
   align-items: center;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  background-color: ${props => props.theme.colors.backgroundColor};
-  /** shadow-offset: {width: 0, height: 2}; FIXME when testing on ios **/
-  shadow-opacity: 0.8;
-  shadow-radius: 2;
-  shadow-color: #000000;
-  elevation: 6;
 `
 
 const NewsDot = styled.Text`
   position: absolute;
-  top: ${-NEWS_DOT_RADIUS / 2 + 2};
-  right: ${-NEWS_DOT_RADIUS / 2 + 2};
+  top: ${-NEWS_DOT_RADIUS / 2};
+  end: ${-NEWS_DOT_RADIUS / 2};
   text-align: center;
   line-height: ${NEWS_DOT_RADIUS};
   height: ${NEWS_DOT_RADIUS};
@@ -74,8 +76,10 @@ class NavigationTile extends React.Component<PropsType> {
     const {tile, theme} = this.props
     const imageSource = getFastImageSource(tile.thumbnail)
     return <>
-      <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
-      {this.getNewsDot()}
+      <Circle>
+        <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
+        {this.getNewsDot()}
+      </Circle>
       <TileTitle theme={theme}>{tile.title}</TileTitle>
     </>
   }
