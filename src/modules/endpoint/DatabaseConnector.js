@@ -8,8 +8,6 @@ import {
   LanguageModel, LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
-import set from 'lodash/set'
-import get from 'lodash/get'
 import moment from 'moment-timezone'
 import type Moment from 'moment-timezone'
 import type { ResourceCacheStateType } from '../app/StateType'
@@ -104,8 +102,11 @@ class DatabaseConnector {
       currentCityMetaData = JSON.parse(await this.readFile(path))
     }
 
-    const lastUpdatePath = `${context.cityCode}.languages.${context.languageCode}.lastUpdate`
-    set(currentCityMetaData, lastUpdatePath, lastUpdate)
+    currentCityMetaData[context.cityCode] = currentCityMetaData[context.cityCode] || { languages: {} }
+    currentCityMetaData[context.cityCode].languages = {
+      ...currentCityMetaData[context.cityCode].languages,
+      [context.languageCode]: { lastUpdate: lastUpdate }
+    }
 
     await this.writeFile(path, JSON.stringify(currentCityMetaData))
   }
@@ -119,8 +120,7 @@ class DatabaseConnector {
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    const lastUpdatePath = `${context.cityCode}.languages.${context.languageCode}.lastUpdate`
-    const lastUpdate = get(currentCityMetaData, lastUpdatePath)
+    const lastUpdate = currentCityMetaData[context.cityCode]?.languages[context.languageCode]?.lastUpdate
     return lastUpdate ? moment.tz(lastUpdate, 'UTC') : null
   }
 
