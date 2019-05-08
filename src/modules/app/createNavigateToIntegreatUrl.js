@@ -7,20 +7,21 @@ import createNavigateToEvent from './createNavigateToEvent'
 
 export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
   (url: string, cityCode: string, language: string) => {
-    const pathname = decodeURIComponent(new URL(decodeURIComponent(url)).pathname)
-    const parts = pathname.split('/').filter(segment => segment)
+    const parts = url.split('/').filter(segment => segment)
+    const pathnameParts = parts.splice(2)
+    const pathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
-    if (parts[0] === cityCode && (!parts[1] || parts[1] === language)) {
+    if (pathnameParts[0] === cityCode && (!pathnameParts[1] || pathnameParts[1] === language)) {
       // same city and language
-      if (parts[2] === 'events') {
-        if (parts[3]) {
+      if (pathnameParts[2] === 'events') {
+        if (pathnameParts[3]) {
           // '/augsburg/de/events/some_event'
           createNavigateToEvent(dispatch, navigation)(cityCode, language, pathname)
         } else {
           // '/augsburg/de/events'
           createNavigateToEvent(dispatch, navigation)(cityCode, language)
         }
-      } else if (parts[2]) {
+      } else if (pathnameParts[2]) {
         // '/augsburg/de/willkommen'
         createNavigateToCategory('Categories', dispatch, navigation)(cityCode, language, pathname)
       } else {
