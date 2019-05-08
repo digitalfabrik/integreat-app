@@ -8,6 +8,7 @@ import LanguageNotAvailablePage from '../../../modules/common/components/Languag
 import { withTheme } from 'styled-components/native'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
+import createNavigateToCategory from '../../app/createNavigateToCategory'
 
 const mapStateToProps = (state: StateType) => {
   const languages = state.cityContent.languages
@@ -21,12 +22,10 @@ const mapStateToProps = (state: StateType) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
-    changeLanguage: (city: string, newLanguage: string) => dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: { city, newLanguage }
-    })
+    changeLanguage: (city: string, newLanguage: string) =>
+      createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)(city, newLanguage, `/${city}/${newLanguage}`)
   }
 }
 
