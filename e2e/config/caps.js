@@ -43,6 +43,7 @@ exports.browserstack_ios = {
 exports.ci_browserstack = {
   'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
   'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+  'project': 'integreat-react-native-app',
   'build': 'CI Android',
   'name': 'single_test',
   'device': 'Google Pixel',
@@ -53,6 +54,7 @@ exports.ci_browserstack = {
 exports.ci_browserstack_ios = {
   'browserstack.user': process.env.E2E_BROWSERSTACK_USER,
   'browserstack.key': process.env.E2E_BROWSERSTACK_KEY,
+  'project': 'integreat-react-native-app',
   'build': 'CI iOS',
   'name': 'single_test',
   'device': 'iPhone XS',
