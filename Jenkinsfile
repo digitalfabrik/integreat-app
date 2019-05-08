@@ -39,7 +39,9 @@ pipeline {
                                 BUNDLE_CONFIG = "./metro.config.release.js"
                             }
                             steps {
-                                sh 'cd ios && pod install'
+                                lock('pod-install') {
+                                    sh 'cd ios && pod install'
+                                }
                                 sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
                                 sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
                                 archiveArtifacts artifacts: 'output/export/**/*.*'
