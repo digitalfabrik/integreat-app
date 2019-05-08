@@ -9,7 +9,6 @@ import type { ThemeType } from '../../theme/constants/theme'
 import getFastImageSource from '../getFastImageSource'
 
 const NEWS_DOT_RADIUS = 20
-const TILE_SIZE = 100
 const ICON_SIZE = 50
 
 type PropsType = {|
