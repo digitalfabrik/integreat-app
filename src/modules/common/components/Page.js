@@ -38,12 +38,15 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
+  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
   files: FileCacheStateType,
   children?: React.Node,
   language: string,
   cityCode: string,
   lastUpdate: Moment
 }
+
+const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
 
 class Page extends React.Component<PropType, StateType> {
   constructor (props: PropType) {
@@ -75,10 +78,14 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   onLinkPress = (url: string) => {
+    const { navigation, cityCode, language, navigateToIntegreatUrl } = this.props
+
     if (url.includes('.pdf')) {
-      this.props.navigation.navigate('PDFViewModal', {url})
+      navigation.navigate('PDFViewModal', {url})
     } else if (url.includes('.png') || url.includes('.jpg')) {
-      this.props.navigation.navigate('ImageViewModal', {url})
+      navigation.navigate('ImageViewModal', {url})
+    } else if (HIJACK.test(url)) {
+      navigateToIntegreatUrl(url, cityCode, language)
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
     }
@@ -118,7 +125,6 @@ class Page extends React.Component<PropType, StateType> {
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
             useWebKit
-            scalesPageToFit={false}
             javaScriptEnabled
 
             dataDetectorTypes={'all'}
