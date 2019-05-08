@@ -20,6 +20,7 @@ type PropsType = {|
   stateView: CategoriesRouteStateView,
   cityCode: string,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
 
   resourceCache: ResourceCacheStateType,
   theme: ThemeType
@@ -86,7 +87,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities, theme} = this.props
+    const { stateView, cities, theme, navigateToIntegreatUrl } = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -105,7 +106,7 @@ class Categories extends React.Component<PropsType> {
                    files={files}
                    language={this.props.language}
                    cityCode={this.props.cityCode}
-      />
+                   navigateToIntegreatUrl={navigateToIntegreatUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
