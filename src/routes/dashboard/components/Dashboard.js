@@ -96,37 +96,6 @@ class Dashboard extends React.Component<PropsType> {
                     theme={this.props.theme}
                     navigateToCategory={this.props.navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
-        <Button
-          title='Extras'
-          onPress={this.extras}
-        />
-        <Button
-          title='Events'
-          onPress={this.events}
-        />
-        <Button
-          title='Go to Landing'
-          onPress={this.landing}
-        />
-        <Button
-          title='Toggle theme'
-          onPress={this.props.toggleTheme}
-        />
-        <Button
-          title='Go Offline'
-          onPress={this.props.goOffline}
-        />
-
-        <Button
-          title='Go Online'
-          onPress={this.props.goOnline}
-        />
-
-        <Button
-          title='Go to maps'
-          onPress={this.goMaps}
-        />
-
       </ScrollView>
     )
   }
