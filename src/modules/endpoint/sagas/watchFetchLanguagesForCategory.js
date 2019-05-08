@@ -14,6 +14,7 @@ import loadLanguages from './loadLanguages'
 function * fetchLanguages (dataContainer: DataContainer, action: FetchLanguagesForCategoryActionType): Saga<void> {
   const {city, language, depth, key, path} = action.params
   try {
+    yield call(dataContainer.setContext, city, language)
     yield call(loadLanguages, city, dataContainer)
 
     const languages = yield call(dataContainer.getLanguages)
