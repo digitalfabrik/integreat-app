@@ -36,7 +36,7 @@ pipeline {
                             environment {
                                 E2E_TEST_IDS = "1"
                                 RCT_NO_LAUNCH_PACKAGER = "true"
-                                BUNDLE_CONFIG = "./metro.config.release.js"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
                                 lock('pod-install') {
@@ -92,7 +92,7 @@ pipeline {
                         }
                         stage("Build Debug Bundle") {
                             environment {
-                                BUNDLE_CONFIG = "./metro.config.release.js"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
                                 sh 'yarn run bundle'
