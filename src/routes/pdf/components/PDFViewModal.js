@@ -5,10 +5,15 @@ import * as React from 'react'
 import { View, Platform } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import { URL_PREFIX } from '../../../modules/platform/constants/webview'
+import Failure from '../../../modules/error/components/Failure'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
   url: string
+}
+
+type StateType = {
+  error: ?Error
 }
 
 const getRelativeToDocumentsDir = (path: string) => {
@@ -26,16 +31,27 @@ const urlToPath = (url: string) => {
   return url.replace(URL_PREFIX, '')
 }
 
-export default class PDFViewModal extends React.Component<PropsType> {
-  onError = (error: Error) => console.log('Cannot render PDF', error)
+export default class PDFViewModal extends React.Component<PropsType, StateType> {
+  constructor (props: PropsType) {
+    super(props)
+    this.state = { error: null }
+  }
+
+  onError = (error: Error) => this.setState(() => ({ error }))
 
   render () {
     const path = urlToPath(this.props.navigation.getParam('url'))
+    const { error } = this.state
+
+    if (error) {
+      return <Failure error={error} />
+    }
+
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <PDFView
           fadeInDuration={250.0}
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           // This PDFView can only load from Documents dir on iOS:
           // https://github.com/rumax/react-native-PDFView/issues/90
           resource={Platform.OS === 'ios' ? getRelativeToDocumentsDir(path) : path}
