@@ -57,13 +57,13 @@ type CityCodeType = string
 type LanguageCodeType = string
 
 type MetaCitiesJsonType = {
-  [CityCodeType]: {
+  [CityCodeType]: {|
     languages: {
-      [LanguageCodeType]: {
+      [LanguageCodeType]: {|
         lastUpdate: Moment
-      }
+      |}
     }
-  }
+  |}
 }
 
 type ResourceCacheJsonType = ResourceCacheStateType
@@ -91,12 +91,12 @@ class DatabaseConnector {
     return getResourceCacheFilesPath(context.cityCode)
   }
 
-  getLastUpdatePath (): string {
+  getMetaCitiesPath (): string {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
   async storeLastUpdate (lastUpdate: Moment, context: DatabaseContext) {
-    const path = this.getLastUpdatePath()
+    const path = this.getMetaCitiesPath()
 
     let currentCityMetaData: MetaCitiesJsonType = {}
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
@@ -111,7 +111,7 @@ class DatabaseConnector {
   }
 
   async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
-    const path = this.getLastUpdatePath()
+    const path = this.getMetaCitiesPath()
 
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
     if (!fileExists) {
