@@ -14,11 +14,13 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { branch, renderComponent } from 'recompose'
 import CategoryNotAvailableContainer from './CategoryNotAvailableContainer'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
