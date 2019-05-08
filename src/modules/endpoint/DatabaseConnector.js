@@ -53,10 +53,13 @@ type ContentEventJsonType = {|
   |}
 |}
 
+type CityCodeType = string
+type LanguageCodeType = string
+
 type MetaCitiesJsonType = {
-  [string]: {
+  [CityCodeType]: {
     languages: {
-      [string]: {
+      [LanguageCodeType]: {
         lastUpdate: Moment
       }
     }
