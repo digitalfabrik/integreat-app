@@ -16,7 +16,7 @@ import createNavigateToCategory from '../../../modules/app/createNavigateToCateg
 import { CityModel } from '@integreat-app/integreat-api-client'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { branch, renderComponent } from 'recompose'
-import CategoryNotAvailableContainer from './CategoryNotAvailableContainer'
+import CategoryNotAvailableContainer from './CategoryLanguageNotAvailableContainer'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
@@ -57,7 +57,7 @@ export default compose([
   withRouteCleaner,
   connect((state: StateType, ownProps): { invalidLanguage: boolean } => {
     const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+    return {invalidLanguage: !!route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
   }),
   branch(props => props.invalidLanguage, renderComponent(CategoryNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps)
