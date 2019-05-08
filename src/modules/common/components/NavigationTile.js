@@ -37,6 +37,7 @@ const TileTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   text-align: center;
   font-size: 11;
+  margin-bottom: 5px;
 `
 
 const TileTouchable = styled.TouchableOpacity`
