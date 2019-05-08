@@ -11,8 +11,18 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
     const pathnameParts = parts.splice(2)
     const pathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
-    if (pathnameParts[0] === cityCode && (!pathnameParts[1] || pathnameParts[1] === language)) {
-      // same city and language
+    if (pathnameParts[1] !== language) {
+      dispatch({
+        type: 'SWITCH_CONTENT_LANGUAGE',
+        params: {
+          city: pathnameParts[0],
+          newLanguage: pathnameParts[1]
+        }
+      })
+    }
+
+    if (pathnameParts[0] === cityCode) {
+      // same city
       if (pathnameParts[2] === 'events') {
         if (pathnameParts[3]) {
           // '/augsburg/de/events/some_event'
@@ -31,5 +41,5 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
         )
       }
     }
-    // todo add support for linking to different cities/languages
+    // todo add support for linking to different cities
   }
