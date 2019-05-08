@@ -118,7 +118,6 @@ class Page extends React.Component<PropType, StateType> {
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
             useWebKit
-            scalesPageToFit={false}
             javaScriptEnabled
 
             dataDetectorTypes={'all'}
