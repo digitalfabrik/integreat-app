@@ -21,8 +21,8 @@ type PropsType = {|
   t: TFunction,
   path?: string,
   theme: ThemeType,
-  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToEvent: ({cityCode: string, language: string, path?: string}) => void,
+  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
   resourceCache: ResourceCacheStateType
 |}
 
@@ -31,7 +31,8 @@ type PropsType = {|
  */
 export default class Events extends React.Component<PropsType> {
   navigateToEvent = (path: string) => () => {
-    this.props.navigateToEvent(this.props.cityCode, this.props.language, path)
+    const {navigateToEvent, cityCode, language} = this.props
+    navigateToEvent({cityCode, language, path})
   }
 
   renderEventListItem = (language: string) => (event: EventModel) =>

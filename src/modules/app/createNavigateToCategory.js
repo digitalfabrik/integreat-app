@@ -9,7 +9,9 @@ export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => (cityCode: string, language: string, path: string, forceUpdate: boolean = false) => {
+) => ({
+  cityCode, language, path, previousLanguage = language, forceUpdate = false
+}: {|cityCode: string, language: string, path: string, previousLanguage?: string, forceUpdate?: boolean|}) => {
   const key = generateKey()
 
   navigation.navigate({

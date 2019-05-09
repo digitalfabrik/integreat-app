@@ -38,7 +38,7 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
   files: FileCacheStateType,
   children?: React.Node,
   language: string,
@@ -85,7 +85,7 @@ class Page extends React.Component<PropType, StateType> {
     } else if (url.includes('.png') || url.includes('.jpg')) {
       navigation.navigate('ImageViewModal', {url})
     } else if (HIJACK.test(url)) {
-      navigateToIntegreatUrl(url, cityCode, language)
+      navigateToIntegreatUrl({url, cityCode, language})
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
     }
