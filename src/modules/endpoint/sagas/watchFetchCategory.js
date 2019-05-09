@@ -12,7 +12,7 @@ import loadCityContent from './loadCityContent'
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const {city, language, path, depth, key, forceUpdate, previousLanguage} = action.params
-  console.log(action.params)
+
   try {
     yield call(loadCityContent, dataContainer, city, language, forceUpdate)
 
