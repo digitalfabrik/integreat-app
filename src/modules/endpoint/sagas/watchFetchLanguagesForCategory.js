@@ -12,10 +12,10 @@ import type { DataContainer } from '../DataContainer'
 import loadLanguages from './loadLanguages'
 
 function * fetchLanguages (dataContainer: DataContainer, action: FetchLanguagesForCategoryActionType): Saga<void> {
-  const {city, language, depth, key, path} = action.params
+  const {city, language, forceUpdate} = action.params
   try {
     yield call(dataContainer.setContext, city, language)
-    yield call(loadLanguages, city, dataContainer)
+    yield call(loadLanguages, city, dataContainer, forceUpdate)
 
     const languages = yield call(dataContainer.getLanguages)
 
@@ -32,7 +32,7 @@ function * fetchLanguages (dataContainer: DataContainer, action: FetchLanguagesF
     if (languages.map(language => language.code).includes(language)) {
       const fetchCategory: FetchCategoryActionType = {
         type: 'FETCH_CATEGORY',
-        params: {city, language, depth, key, path, languages}
+        params: {languages, ...action.params}
       }
       yield put(fetchCategory)
     }
