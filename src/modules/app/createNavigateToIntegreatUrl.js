@@ -20,14 +20,14 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
       // same city
 
       if (newLanguage !== language) {
-        const switchContentLanguage: PushContentLanguageActionType = {
+        const pushContentLanguage: PushContentLanguageActionType = {
           type: 'PUSH_CONTENT_LANGUAGE',
           params: {
             city: newCity,
             newLanguage
           }
         }
-        dispatch(switchContentLanguage)
+        dispatch(pushContentLanguage)
       }
 
       if (pathnameParts[2] === 'events') {
