@@ -6,6 +6,7 @@ import pushCategory from './pushCategory'
 import type { CityContentStateType } from '../../app/StateType'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
+import pushLanguage from './pushLanguage'
 
 export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
@@ -17,6 +18,8 @@ export default (
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
       return morphContentLanguage(state, action)
+    case 'PUSH_CONTENT_LANGUAGE':
+      return pushLanguage(state, action)
     case 'CLEAR_CATEGORY':
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
