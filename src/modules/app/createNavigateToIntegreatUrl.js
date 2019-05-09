@@ -23,7 +23,6 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
         const pushContentLanguage: PushContentLanguageActionType = {
           type: 'PUSH_CONTENT_LANGUAGE',
           params: {
-            city: newCity,
             newLanguage
           }
         }
