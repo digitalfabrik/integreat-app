@@ -68,9 +68,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-// $FlowFixMe
 const themed = withTheme(Dashboard)
-// $FlowFixMe connect()
 export default compose([
   withRouteCleaner,
   connect((state: StateType): { invalidLanguage: boolean } => {
