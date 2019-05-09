@@ -7,6 +7,8 @@ import type { CityContentStateType } from '../../app/StateType'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
 import pushLanguage from './pushLanguage'
+import clearEvent from './clearEvent'
+import clearCategory from './clearCategory'
 
 export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
@@ -21,9 +23,9 @@ export default (
     case 'PUSH_CONTENT_LANGUAGE':
       return pushLanguage(state, action)
     case 'CLEAR_CATEGORY':
-      const {key} = action.params
-      delete state.categoriesRouteMapping[key]
-      return state
+      return clearCategory(state, action)
+    case 'CLEAR_EVENT':
+      return clearEvent(state, action)
     default:
       return state
   }
