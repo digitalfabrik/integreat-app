@@ -22,7 +22,7 @@ const Wrapper = styled(ScrollView)`
 type PropType = {
   language: string,
   cities?: Array<CityModel>,
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateToCategory: ({cityCode: string, language: string, path: string}) => void,
   t: TFunction,
   theme: ThemeType,
   fetchCities: () => void
@@ -31,7 +31,7 @@ type PropType = {
 /**
  * This shows the landing screen. This is a container because it depends on endpoints.
  */
-class LandingContainer extends React.Component<PropType> {
+class Landing extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
       this.props.fetchCities()
@@ -39,8 +39,8 @@ class LandingContainer extends React.Component<PropType> {
   }
 
   navigateToDashboard = (cityModel: CityModel) => {
-    const language = this.props.language
-    this.props.navigateToCategory(cityModel.code, language, `/${cityModel.code}/${language}`)
+    const {language, navigateToCategory} = this.props
+    navigateToCategory({cityCode: cityModel.code, language, path: `/${cityModel.code}/${language}`})
   }
 
   render () {
@@ -58,4 +58,4 @@ class LandingContainer extends React.Component<PropType> {
   }
 }
 
-export default LandingContainer
+export default Landing

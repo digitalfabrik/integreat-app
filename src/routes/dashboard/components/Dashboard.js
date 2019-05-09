@@ -21,9 +21,9 @@ type PropsType = {
   goOffline: () => void,
   goOnline: () => void,
   fetchCities: (language: string) => void,
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
-  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToCategory: ({cityCode: string, language: string, path: string}) => void,
+  navigateToEvent: ({cityCode: string, language: string, path?: string}) => void,
+  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
   theme: ThemeType,
 
   language: string,
@@ -73,13 +73,16 @@ class Dashboard extends React.Component<PropsType> {
   }
 
   events = () => {
-    this.props.navigateToEvent(this.props.cityCode, this.props.language)
+    const {navigateToEvent, cityCode, language} = this.props
+    navigateToEvent({cityCode, language})
   }
 
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
+    const {
+      cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory
+    } = this.props
 
     if (!stateView || !cities || !resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -91,10 +94,10 @@ class Dashboard extends React.Component<PropsType> {
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
-                    language={this.props.language}
-                    cityCode={this.props.cityCode}
-                    theme={this.props.theme}
-                    navigateToCategory={this.props.navigateToCategory}
+                    language={language}
+                    cityCode={cityCode}
+                    theme={theme}
+                    navigateToCategory={navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
         <Button
           title='Extras'
