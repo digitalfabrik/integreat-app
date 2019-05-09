@@ -15,7 +15,7 @@ const getAllAvailableLanguages = (category: CategoryModel, language: string, cit
 }
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
-  const {categoriesMap, path, depth, key, language, city, resourceCache, languages} = action.params
+  const {categoriesMap, path, depth, key, language, city, resourceCache, languages, previousLanguage} = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -49,7 +49,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         models: resultModels,
         children: resultChildren,
         depth: depth,
-        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages)
+        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
+        previousLanguage
       }
     },
     resourceCache: {...state.resourceCache, ...resourceCache}

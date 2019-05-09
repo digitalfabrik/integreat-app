@@ -22,7 +22,8 @@ export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
     path: string, depth: number, key: string,
-    forceUpdate: boolean
+    forceUpdate: boolean,
+    previousLanguage: string
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -35,7 +36,8 @@ export type PushCategoryActionType = {|
     languages: Array<LanguageModel>,
     city: string,
     language: string,
-    path: string, depth: number, key: string
+    path: string, depth: number, key: string,
+    previousLanguage: string
   |}
 |}
 export type ClearCategoryActionType = {|
@@ -51,7 +53,8 @@ export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
     path?: string, key: string,
-    forceUpdate: boolean
+    forceUpdate: boolean,
+    previousLanguage: string
   |}
 |}
 export type ClearEventActionType = {|
@@ -64,7 +67,8 @@ export type PushEventActionType = {|
     resourceCache: ResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
-    language: string
+    language: string,
+    previousLanguage: string
   |}
 |}
 export type FetchEventFailedActionType = {|
