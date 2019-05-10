@@ -40,8 +40,8 @@ pipeline {
                             }
                             steps {
                                 lock('pod-compilation') {
-                                    // We are locking 2 steps here beacuse:
-                                    // 1)   "pod install" can not run paralell because pod does not support this
+                                    // We are locking 2 steps here because:
+                                    // 1)   "pod install" can not run parallel because pod does not support this
                                     // 2)   While the xcodebuild archive is running "pod install" must not be called by an
                                     //      an other build. Else the compilation fails to find e.g. included headers
                                     sh 'cd ios && pod install'
@@ -106,7 +106,7 @@ pipeline {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
                                 E2E_TEST_IDS = "1"
-                                BUNDLE_CONFIG = "./metro.config.release.js"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
                                 sh 'yarn run flow:check-now'
