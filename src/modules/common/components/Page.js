@@ -114,7 +114,7 @@ class Page extends React.Component<PropType, StateType> {
 
     return (
       <Container onLayout={this.onLayout}>
-        <Caption title={title} />
+        <Caption title={title} theme={theme} />
         {children}
         <StyledView>
           <WebView
