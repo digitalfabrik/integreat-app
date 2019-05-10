@@ -68,7 +68,7 @@ export default class Events extends React.Component<PropsType> {
     }
 
     return <>
-      <Caption title={t('news')} />
+      <Caption title={t('news')} theme={theme} />
       <List noItemsMessage={t('currentlyNoEvents')}
             items={events}
             renderItem={this.renderEventListItem(language)} />
