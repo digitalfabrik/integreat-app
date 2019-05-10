@@ -33,10 +33,9 @@ class Tiles extends React.Component<PropsType> {
     const {tiles, onTilePress, theme} = this.props
     return (
       <>
-        {this.props.title && <Caption title={this.props.title} />}
+        {this.props.title && <Caption title={this.props.title} theme={theme} />}
         <TilesRow>
-          {tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={onTilePress}
-                                              theme={theme} />)}
+          {tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />)}
         </TilesRow>
       </>
     )
