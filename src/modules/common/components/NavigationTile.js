@@ -57,6 +57,10 @@ const NewsDot = styled.Text`
   background-color: #EE5353;
   color: #FFFFFF;
   elevation: 5;
+  shadow-color: #000000;
+  shadow-opacity: 0.4;
+  shadow-radius: 3px;
+  shadow-offset: 3px 3px;
 `
 
 /**
