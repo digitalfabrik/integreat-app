@@ -19,6 +19,10 @@ const TilesRow = styled.View`
   align-items: center;
   justify-content: space-around;
   elevation: 1;
+  shadow-color: #000000;
+  shadow-opacity: 0.2;
+  shadow-radius: 1px;
+  shadow-offset: 1px;
 `
 
 /**
