@@ -7735,10 +7735,10 @@ react-native-safe-area-view@^0.13.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
 
-react-native-svg-asset-plugin@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.1.1.tgz#5a21f887f0981daaf2045c9c81d50bac39c4f957"
-  integrity sha512-YsHH7FYJUVjFW/rZOjynEjyzFVG/ewZUKmP+m6wuCz5vxnbWZrExD9ka9Mwrn9+a2ebm5EBb7mBU6UvzNDT8JA==
+react-native-svg-asset-plugin@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.1.2.tgz#6f707c02748f38adc81e38469baa7d81863b1392"
+  integrity sha512-kL7YIvyptDqpK+9kU/aSX+3LlxLxLAzziPRbytrSV8y5YBu9hEL6tHSMG3/7E60J7HGGoxRozcSTqRTKAbJcjQ==
   dependencies:
     fs-extra ">=3.0.0"
     sharp ">=0.14.0"
