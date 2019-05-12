@@ -79,7 +79,8 @@ type PropsType = {
     [key: string]: {
       root: string
     }
-  }
+  },
+  availableLanguages: ?Array<string>
 }
 
 type StateType = {
@@ -126,7 +127,12 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   goToLanguageChange = () => {
-    this.getNavigation().navigate('ChangeLanguageModal')
+    this.getNavigation().navigate({
+      routeName: 'ChangeLanguageModal',
+      params: {
+        availableLanguages: this.props.availableLanguages
+      }
+    })
   }
 
   onShare = async () => {
@@ -151,10 +157,11 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   render () {
+    const { theme } = this.props
     if (this.state.searchActive) {
-      return <BoxShadow theme={this.props.theme}><HorizontalLeft>
+      return <BoxShadow theme={theme}><HorizontalLeft>
         <HeaderBackButton onPress={this.closeSearchBar} />
-        <ThemedSearchBar theme={this.props.theme} />
+        <ThemedSearchBar theme={theme} />
       </HorizontalLeft>
       </BoxShadow>
     }
@@ -162,7 +169,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
     const headerTitle = this.getDescriptor().headerTitle || ''
 
     return (
-      <BoxShadow theme={this.props.theme}>
+      <BoxShadow theme={theme}>
         <Horizontal>
           <HorizontalLeft>
             {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}

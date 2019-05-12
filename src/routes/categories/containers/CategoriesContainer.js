@@ -2,9 +2,10 @@
 
 import Categories from '../../../modules/categories/components/Categories'
 import { withTheme } from 'styled-components/native'
+import compose from 'lodash/fp/compose'
 
 import { connect } from 'react-redux'
-import type { StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
 import { ScrollView } from 'react-native'
 import React from 'react'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
@@ -13,16 +14,20 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import { CityModel } from '@integreat-app/integreat-api-client'
+import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import { branch, renderComponent } from 'recompose'
+import CategoryNotAvailableContainer from './CategoryNotAvailableContainer'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute = state.cityContent.categoriesRouteMapping[key]
+  const targetRoute: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
   const language = state.cityContent.language
 
   if (!targetRoute || !language) {
@@ -47,7 +52,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-// $FlowFixMe
 const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
-// $FlowFixMe connect()
-export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(themed))
+export default compose([
+  withRouteCleaner,
+  connect((state: StateType, ownProps): { invalidLanguage: boolean } => {
+    const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
+    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+  }),
+  branch(props => props.invalidLanguage, renderComponent(CategoryNotAvailableContainer)),
+  connect(mapStateToProps, mapDispatchToProps)
+])(themed)
