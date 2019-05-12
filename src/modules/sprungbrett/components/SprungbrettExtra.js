@@ -10,11 +10,13 @@ import List from '../../common/components/List'
 import Caption from '../../common/components/Caption'
 import Failure from '../../error/components/Failure'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
   extras: Array<ExtraModel>,
-  t: TFunction
+  t: TFunction,
+  theme: ThemeType
 |}
 
 class SprungbrettExtra extends React.Component<PropsType> {
@@ -36,7 +38,7 @@ class SprungbrettExtra extends React.Component<PropsType> {
 
     return (
       <>
-        <Caption title={extra.title} />
+        <Caption title={extra.title} theme={this.props.theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />

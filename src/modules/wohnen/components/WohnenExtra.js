@@ -11,13 +11,15 @@ import type { TFunction } from 'react-i18next'
 import { hashWohnenOffer } from '../../extras/hashWohnenOffer'
 import Failure from '../../error/components/Failure'
 import { WOHNEN_EXTRA } from '../../extras/constants'
+import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
   offerHash?: WohnenOfferModel,
   extras: Array<ExtraModel>,
   navigateToOffer: (offerHash: string) => void,
-  t: TFunction
+  t: TFunction,
+  theme: ThemeType
 |}
 
 class WohnenExtra extends React.Component<PropsType> {
@@ -34,7 +36,7 @@ class WohnenExtra extends React.Component<PropsType> {
   }
 
   render () {
-    const {offers, extras, offerHash, t} = this.props
+    const {offers, extras, offerHash, t, theme} = this.props
     const extra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
 
     if (!extra) {
@@ -49,13 +51,13 @@ class WohnenExtra extends React.Component<PropsType> {
       }
 
       return (
-        <OfferDetail offer={offer} />
+        <OfferDetail offer={offer} theme={theme} />
       )
     }
 
     return (
       <>
-        <Caption title={extra.title} />
+        <Caption title={extra.title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
               renderItem={this.renderOfferListItem} />

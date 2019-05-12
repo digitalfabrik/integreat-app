@@ -5,35 +5,30 @@ import type { PersistState } from 'redux-persist/src/types'
 import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 
-type PathType = string
+export type PathType = string
 
 export type CategoryRouteStateType = {|
-  +root: ?string, // path of the root category
+  +root: string, // path of the root category
   +depth: number,
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
-  +children: { [path: PathType]: Array<PathType> }
+  +children: { [path: PathType]: Array<PathType> },
+  +allAvailableLanguages: Map<string, string> // including the current content language
 |}
 
 export type EventRouteStateType = {|
   +path: string | null,
-  +models: Array<EventModel>
+  +models: Array<EventModel>,
+  +allAvailableLanguages: Map<string, string> // including the current content language
 |}
 
-export const defaultRouteState: CategoryRouteStateType = {
-  root: null,
-  models: {},
-  children: {},
-  depth: 0
-}
-
 export type FileCacheStateType = {
-  [url: string]: {
+  [url: string]: {|
     filePath: string,
     lastUpdate: Moment,
     hash: string
-  }
+  |}
 }
 
 export type ResourceCacheStateType = {
@@ -57,6 +52,7 @@ export const defaultCitiesState: CitiesStateType = {
 }
 
 export type CityContentStateType = {|
+  +lastUpdate: Moment | null,
   +language: string | null,
   +city: string | null,
   +languages: Array<LanguageModel> | null,
@@ -66,6 +62,7 @@ export type CityContentStateType = {|
 |}
 
 export const defaultCityContentState: CityContentStateType = {
+  lastUpdate: null,
   language: null,
   city: null,
   languages: null,

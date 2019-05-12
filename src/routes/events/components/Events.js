@@ -22,6 +22,7 @@ type PropsType = {|
   path?: string,
   theme: ThemeType,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
+  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
   resourceCache: ResourceCacheStateType
 |}
 
@@ -40,7 +41,7 @@ export default class Events extends React.Component<PropsType> {
                    navigateToEvent={this.navigateToEvent(event.path)} />
 
   render () {
-    const {events, path, cityCode, language, resourceCache, theme, t} = this.props
+    const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t} = this.props
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
@@ -53,7 +54,8 @@ export default class Events extends React.Component<PropsType> {
                 language={language}
                 files={files}
                 theme={theme}
-                cityCode={cityCode}>
+                cityCode={cityCode}
+                navigateToIntegreatUrl={navigateToIntegreatUrl}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
               <PageDetail identifier={t('location')} information={event.location.location} />
@@ -66,7 +68,7 @@ export default class Events extends React.Component<PropsType> {
     }
 
     return <>
-      <Caption title={t('news')} />
+      <Caption title={t('news')} theme={theme} />
       <List noItemsMessage={t('currentlyNoEvents')}
             items={events}
             renderItem={this.renderEventListItem(language)} />
