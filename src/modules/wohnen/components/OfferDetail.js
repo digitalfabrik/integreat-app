@@ -7,6 +7,7 @@ import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
+import type { ThemeType } from '../../theme/constants/theme'
 
 export const formatPrice = (price: number): string => {
   return (price % 1 === 0) ? `${price}` : `${price.toFixed(2)}`
@@ -16,7 +17,8 @@ const formatMonthlyPrice = (price: number): string => (price === 0) ? 'Keine' : 
 
 type PropsType = {|
   offer: WohnenOfferModel,
-  t: TFunction
+  t: TFunction,
+  theme: ThemeType
 |}
 
 const Header = styled.Text`
@@ -72,10 +74,10 @@ class OfferDetail extends React.PureComponent<PropsType> {
       const translateRooms = keys => this.stringify(this.translate('rooms', keys))
 
       return <ScrollView>
-        <Caption title={accommodation.title} />
+        <Caption title={accommodation.title} theme={this.props.theme} />
 
         <MarginalizedView>
-          <ListElement>
+          <ListElement theme={this.props.theme}>
             <Header>Mietobjekt</Header>
           </ListElement>
           <Row>

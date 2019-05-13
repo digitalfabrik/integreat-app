@@ -44,14 +44,14 @@ class Landing extends React.Component<PropType> {
   }
 
   render () {
-    return <Wrapper theme={this.props.theme}>
-      {!this.props.cities
+    const {theme, cities, language, t} = this.props
+    return <Wrapper theme={theme}>
+      {!cities
         ? <ActivityIndicator size='large' color='#0000ff' />
         : <>
-          <Heading />
-          <FilterableCitySelector theme={this.props.theme} language={this.props.language} cities={this.props.cities}
-                                  t={this.props.t}
-                                  navigateToDashboard={this.navigateToDashboard} />
+          <Heading theme={theme} />
+          <FilterableCitySelector theme={theme} language={language} cities={cities}
+                                  t={t} navigateToDashboard={this.navigateToDashboard} />
         </>
       }
     </Wrapper>

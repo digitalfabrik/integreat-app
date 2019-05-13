@@ -2,7 +2,36 @@
 
 exports[`Caption should render and display a Caption 1`] = `
 Object {
-  "output": <ForwardRef>
+  "output": <ForwardRef
+    theme={
+      Object {
+        "colors": Object {
+          "backgroundAccentColor": "#111111",
+          "backgroundColor": "#222222",
+          "textColor": "#BBBBBB",
+          "textDecorationColor": "#555555",
+          "textSecondaryColor": "#888888",
+          "themeColor": "#fbda16",
+          "themeDarkColor": "#c4a900",
+        },
+        "dimensions": Object {
+          "headerHeight": 60,
+          "modalHeaderHeight": 40,
+        },
+        "fonts": Object {
+          "contentFontFamily": "'Open Sans', 'Lateef', sans-serif",
+          "contentFontSize": "0.95rem",
+          "contentLineHeight": 1.4,
+          "decorativeFontFamily": "'Raleway', 'Lateef', sans-serif",
+          "decorativeFontSize": "0.95rem",
+          "decorativeLineHeight": 1.3,
+          "fontSizeAdjust": 0.55,
+          "standardParagraphMargin": "0.75rem",
+          "subTitleFontSize": "1.8rem",
+        },
+      }
+    }
+  >
     This is a test title!
   </ForwardRef>,
 }

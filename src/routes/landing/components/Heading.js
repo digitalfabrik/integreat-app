@@ -1,10 +1,13 @@
+// @flow
+
 import React from 'react'
 
 import LocationBig from '../assets/LocationBig.png'
+import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import Caption from 'modules/common/components/Caption'
-import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const LocationImage = styled.Image`
   height: 70px;
@@ -17,17 +20,18 @@ const Wrapper = styled.View`
   align-items: center;
 `
 
-class Heading extends React.Component {
-  static propTypes = {
-    t: PropTypes.func.isRequired
-  }
+type PropsType = {|
+  t: TFunction,
+  theme: ThemeType
+|}
 
+class Heading extends React.Component<PropsType> {
   render () {
-    const {t} = this.props
+    const {t, theme} = this.props
     return (
       <Wrapper>
         <LocationImage source={LocationBig} />
-        <Caption title={t('where')} />
+        <Caption title={t('where')} theme={theme} />
       </Wrapper>
     )
   }
