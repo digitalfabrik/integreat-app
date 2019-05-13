@@ -6,7 +6,7 @@ import pushCategory from './pushCategory'
 import type { CityContentStateType } from '../../app/StateType'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
-import pushLanguage from './pushLanguage'
+import setLanguage from './setLanguage'
 import clearEvent from './clearEvent'
 import clearCategory from './clearCategory'
 
@@ -20,8 +20,8 @@ export default (
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
       return morphContentLanguage(state, action)
-    case 'PUSH_CONTENT_LANGUAGE':
-      return pushLanguage(state, action)
+    case 'SET_CONTENT_LANGUAGE':
+      return setLanguage(state, action)
     case 'CLEAR_CATEGORY':
       return clearCategory(state, action)
     case 'CLEAR_EVENT':
