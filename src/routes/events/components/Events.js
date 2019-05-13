@@ -21,8 +21,8 @@ type PropsType = {|
   t: TFunction,
   path?: string,
   theme: ThemeType,
-  navigateToEvent: ({cityCode: string, language: string, path?: string}) => void,
-  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
+  navigateToEvent: ({|cityCode: string, language: string, path?: string|}) => void,
+  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
   resourceCache: ResourceCacheStateType
 |}
 
