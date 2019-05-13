@@ -19,8 +19,8 @@ type PropsType = {|
 
   stateView: CategoriesRouteStateView,
   cityCode: string,
-  navigateToCategory: ({cityCode: string, language: string, path: string}) => void,
-  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
+  navigateToCategory: ({|cityCode: string, language: string, path: string|}) => void,
+  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
 
   resourceCache: ResourceCacheStateType,
   theme: ThemeType

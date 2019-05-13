@@ -38,7 +38,7 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
+  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
   files: FileCacheStateType,
   children?: React.Node,
   language: string,
