@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import Caption from '../../../modules/common/components/Caption'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 export const formatPrice = (price: number): string => {
   return (price % 1 === 0) ? `${price}` : `${price.toFixed(2)}`
