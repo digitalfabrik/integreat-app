@@ -21,13 +21,12 @@ The `cities.json` could contain information about all cities. Usually they are n
 {
   "regensburg": {
     "name": "Stadt Regensburg",
-    "languages": [
-      {
-        "code": "de",
+    "languages": {
+      "de": {
         "name": "Deutsch",
         "dir": "ltr"
       }
-    ],
+    },
     "offline_available": true,
     "live": true,
     "sorting_name": "Regensburg",

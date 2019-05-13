@@ -9,6 +9,7 @@ import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { branch, renderComponent } from 'recompose'
 import EventNotAvailableContainer from './EventNotAvailableContainer'
 
@@ -36,7 +37,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation)
+  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
 export default compose([

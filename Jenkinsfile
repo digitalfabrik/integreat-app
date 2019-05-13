@@ -36,11 +36,17 @@ pipeline {
                             environment {
                                 E2E_TEST_IDS = "1"
                                 RCT_NO_LAUNCH_PACKAGER = "true"
-                                BUNDLE_CONFIG = "./metro.config.release.js"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
-                                sh 'cd ios && pod install'
-                                sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
+                                lock('pod-compilation') {
+                                    // We are locking 2 steps here because:
+                                    // 1)   "pod install" can not run parallel because pod does not support this
+                                    // 2)   While the xcodebuild archive is running "pod install" must not be called by an
+                                    //      an other build. Else the compilation fails to find e.g. included headers
+                                    sh 'cd ios && pod install'
+                                    sh 'xcodebuild -workspace ios/Integreat.xcworkspace -scheme "Integreat" -configuration Release archive -archivePath output/Integreat.xcarchive ENABLE_BITCODE=NO'
+                                }
                                 sh 'xcodebuild -exportArchive -archivePath output/Integreat.xcarchive -exportOptionsPlist ios/export/development.plist -exportPath output/export'
                                 archiveArtifacts artifacts: 'output/export/**/*.*'
                             }
@@ -90,7 +96,7 @@ pipeline {
                         }
                         stage("Build Debug Bundle") {
                             environment {
-                                BUNDLE_CONFIG = "./metro.config.release.js"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
                                 sh 'yarn run bundle'
@@ -100,13 +106,13 @@ pipeline {
                             environment {
                                 ANDROID_HOME = '/opt/android-sdk/'
                                 E2E_TEST_IDS = "1"
-                                BUNDLE_CONFIG = "./metro.config.release.js"
+                                BUNDLE_CONFIG = "./metro.config.ci.js"
                             }
                             steps {
                                 sh 'yarn run flow:check-now'
                                 sh 'yarn run lint'
                                 sh 'yarn run test'
-                                sh 'yarn run android:release'
+                                sh 'cd android/ && ./gradlew build -x lint -x lintVitalRelease'
                                 archiveArtifacts artifacts: 'android/app/build/outputs/apk/**/*.*'
                             }
                         }
