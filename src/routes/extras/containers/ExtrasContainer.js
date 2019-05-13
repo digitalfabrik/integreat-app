@@ -12,6 +12,7 @@ import request from '../../../modules/endpoint/request'
 import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { baseUrl } from '../../../modules/endpoint/constants'
+import Failure from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.cityContent.language
@@ -76,7 +77,7 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
     const {extras, error} = this.state
 
     if (error) {
-      return error.message
+      return <Failure error={error} />
     }
 
     if (!extras) {
