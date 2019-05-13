@@ -19,6 +19,7 @@ import compose from 'lodash/fp/compose'
 import { branch, renderComponent } from 'recompose'
 import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import { translate } from 'react-i18next'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -78,5 +79,6 @@ export default compose([
   }),
   branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
-  withError
+  withError,
+  translate('dashboard')
 ])(themed)
