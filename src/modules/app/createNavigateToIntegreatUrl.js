@@ -4,7 +4,7 @@ import createNavigateToCategory from './createNavigateToCategory'
 import type { Dispatch } from 'redux'
 import type { NavigationScreenProp } from 'react-navigation'
 import createNavigateToEvent from './createNavigateToEvent'
-import type { PushContentLanguageActionType } from './StoreActionType'
+import type { SetContentLanguageActionType } from './StoreActionType'
 
 export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
   ({url, cityCode, language}: {|url: string, cityCode: string, language: string|}) => {
@@ -20,13 +20,13 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
       // same city
 
       if (newLanguage !== language) {
-        const pushContentLanguage: PushContentLanguageActionType = {
-          type: 'PUSH_CONTENT_LANGUAGE',
+        const setContentLanguage: SetContentLanguageActionType = {
+          type: 'SET_CONTENT_LANGUAGE',
           params: {
             newLanguage
           }
         }
-        dispatch(pushContentLanguage)
+        dispatch(setContentLanguage)
       }
 
       if (pathnameParts[2] === 'events') {

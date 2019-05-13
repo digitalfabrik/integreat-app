@@ -101,8 +101,8 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
-export type PushContentLanguageActionType = {|
-  type: 'PUSH_CONTENT_LANGUAGE', params: {|
+export type SetContentLanguageActionType = {|
+  type: 'SET_CONTENT_LANGUAGE', params: {|
     newLanguage: string
   |}
 |}
@@ -112,7 +112,7 @@ export type CityContentActionType =
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
-  | PushContentLanguageActionType
+  | SetContentLanguageActionType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
