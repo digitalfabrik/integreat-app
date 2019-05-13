@@ -75,6 +75,7 @@ Object {
           "_title": "Welcome to Augsburg",
         },
       },
+      "previousLanguage": "en",
       "root": "/augsburg/en",
     },
   },
@@ -160,6 +161,7 @@ Object {
         },
       ],
       "path": null,
+      "previousLanguage": "en",
     },
     "event-route-2": Object {
       "allAvailableLanguages": Map {
@@ -193,6 +195,7 @@ Object {
         },
       ],
       "path": "/augsburg/en/events/third_event",
+      "previousLanguage": "en",
     },
   },
   "language": "en",
