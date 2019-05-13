@@ -23,9 +23,9 @@ type PropsType = {
   goOffline: () => void,
   goOnline: () => void,
   fetchCities: (language: string) => void,
-  navigateToCategory: ({cityCode: string, language: string, path: string}) => void,
-  navigateToEvent: ({cityCode: string, language: string, path?: string}) => void,
-  navigateToIntegreatUrl: ({url: string, cityCode: string, language: string}) => void,
+  navigateToCategory: ({|cityCode: string, language: string, path: string|}) => void,
+  navigateToEvent: ({|cityCode: string, language: string, path?: string|}) => void,
+  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
   theme: ThemeType,
 
   language: string,
