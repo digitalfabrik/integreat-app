@@ -48,7 +48,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'categories',
         thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToCategory(cityCode, language, `/${cityCode}/${language}`),
+        onTilePress: () => navigateToCategory({cityCode, language, path: `/${cityCode}/${language}`}),
         notifications: 0
       }),
       new TileModel({
