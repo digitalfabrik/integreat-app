@@ -25,18 +25,18 @@ type PropsType = {
  */
 class CategoryList extends React.Component<PropsType> {
   render () {
-    const {categories, title, content, query} = this.props
+    const {categories, title, content, query, theme, onItemPress} = this.props
     return (
       <>
-        {title && <Caption title={title} />}
+        {title && <Caption title={title} theme={theme} />}
         {!!content && <HTML html={content} />}
         {categories.map(({model, subCategories}) =>
           <CategoryListItem key={model.path}
                             category={model}
                             subCategories={subCategories}
                             query={query}
-                            theme={this.props.theme}
-                            onItemPress={this.props.onItemPress} />
+                            theme={theme}
+                            onItemPress={onItemPress} />
         )}
       </>
     )
