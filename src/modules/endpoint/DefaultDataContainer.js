@@ -9,11 +9,13 @@ import DatabaseContext from './DatabaseContext'
 import type { ResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
+import type Moment from 'moment'
 
 class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
   _context: DatabaseContext | null = null
 
+  _lastUpdate: Moment | null
   _cities: Array<CityModel> | null
   _categoriesMap: CategoriesMapModel | null
   _languages: Array<LanguageModel> | null
@@ -71,6 +73,16 @@ class DefaultDataContainer implements DataContainer {
     return this._resourceCache
   }
 
+  getLastUpdate = async (): Promise<Moment> => {
+    if (this._context === null) {
+      throw Error('Context has not been set yet.')
+    }
+    if (this._lastUpdate === null) {
+      throw Error('LastUpdate is null.')
+    }
+    return this._lastUpdate
+  }
+
   setCategoriesMap = async (categories: CategoriesMapModel) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
@@ -92,16 +104,19 @@ class DefaultDataContainer implements DataContainer {
     this._context = new DatabaseContext(cityCode, languageCode)
     const context = this._context
 
-    const [events, categoriesMap, languages, resourceCache] = await Promise.all([
+    const [events, categoriesMap, languages, resourceCache, lastUpdate] = await Promise.all([
       this._databaseConnector.loadEvents(context),
       this._databaseConnector.loadCategories(context),
       this._databaseConnector.loadLanguages(context),
-      this._databaseConnector.loadResourceCache(context)])
+      this._databaseConnector.loadResourceCache(context),
+      this._databaseConnector.loadLastUpdate(context)
+    ])
 
     this._events = events
     this._categoriesMap = categoriesMap
     this._languages = languages
     this._resourceCache = resourceCache
+    this._lastUpdate = lastUpdate
   }
 
   setEvents = async (events: Array<EventModel>) => {
@@ -137,6 +152,14 @@ class DefaultDataContainer implements DataContainer {
     this._resourceCache = newResourceCache
   }
 
+  setLastUpdate = async (lastUpdate: Moment) => {
+    if (this._context === null) {
+      throw Error('Context has not been set yet.')
+    }
+    await this._databaseConnector.storeLastUpdate(lastUpdate, this._context)
+    this._lastUpdate = lastUpdate
+  }
+
   categoriesAvailable (): boolean {
     return this._categoriesMap !== null
   }
@@ -151,6 +174,10 @@ class DefaultDataContainer implements DataContainer {
 
   resourceCacheAvailable (): boolean {
     return this._resourceCache !== null
+  }
+
+  lastUpdateAvailable (): boolean {
+    return this._lastUpdate !== null
   }
 }
 

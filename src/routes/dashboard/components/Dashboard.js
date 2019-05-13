@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { ActivityIndicator, Button, ScrollView } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -10,8 +10,10 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { ResourceCacheStateType } from '../../../modules/app/StateType'
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
-import CalendarIcon from '../assets/calendar_500x500.png'
-import LocationIcon from '../assets/location_500x500.png'
+import eventsIcon from '../assets/events.svg'
+import offersIcon from '../assets/offers.svg'
+import localInformationIcon from '../assets/local_information.svg'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -23,12 +25,14 @@ type PropsType = {
   fetchCities: (language: string) => void,
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
+  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
   theme: ThemeType,
 
   language: string,
   cities?: Array<CityModel>,
   stateView: ?CategoriesRouteStateView,
-  resourceCache: ResourceCacheStateType
+  resourceCache: ResourceCacheStateType,
+  t: TFunction
 }
 
 class Dashboard extends React.Component<PropsType> {
@@ -37,30 +41,31 @@ class Dashboard extends React.Component<PropsType> {
   }
 
   getNavigationTileModels (): Array<TileModel> {
+    const {t, cityCode, language, navigateToCategory} = this.props
     return [
       new TileModel({
-        title: 'Veranstaltungen',
-        path: 'events',
-        thumbnail: CalendarIcon,
+        title: t('localInformation'),
+        path: 'categories',
+        thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: this.events,
-        notifications: 3
+        onTilePress: () => navigateToCategory(cityCode, language, `/${cityCode}/${language}`),
+        notifications: 0
       }),
       new TileModel({
-        title: 'Orte',
-        path: 'pois',
-        thumbnail: LocationIcon,
-        isExternalUrl: false,
-        onTilePress: () => console.log('Clicked pois'),
-        notifications: 10
-      }),
-      new TileModel({
-        title: 'Angebote',
+        title: t('offers'),
         path: 'extras',
-        thumbnail: 'https://cms.integreat-app.de/wp-content/uploads/extra-thumbnails/sprungbrett.jpg',
+        thumbnail: offersIcon,
         isExternalUrl: false,
         onTilePress: this.extras,
-        notifications: 2
+        notifications: 0
+      }),
+      new TileModel({
+        title: t('events'),
+        path: 'events',
+        thumbnail: eventsIcon,
+        isExternalUrl: false,
+        onTilePress: this.events,
+        notifications: 0
       })
     ]
   }
@@ -78,7 +83,7 @@ class Dashboard extends React.Component<PropsType> {
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
   render () {
-    const {cities, stateView, theme, resourceCache} = this.props
+    const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
 
     if (!stateView || !cities || !resourceCache) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -92,38 +97,9 @@ class Dashboard extends React.Component<PropsType> {
                     resourceCache={resourceCache}
                     language={this.props.language}
                     cityCode={this.props.cityCode}
-                    navigateToCategory={this.props.navigateToCategory} theme={this.props.theme} />
-        <Button
-          title='Extras'
-          onPress={this.extras}
-        />
-        <Button
-          title='Events'
-          onPress={this.events}
-        />
-        <Button
-          title='Go to Landing'
-          onPress={this.landing}
-        />
-        <Button
-          title='Toggle theme'
-          onPress={this.props.toggleTheme}
-        />
-        <Button
-          title='Go Offline'
-          onPress={this.props.goOffline}
-        />
-
-        <Button
-          title='Go Online'
-          onPress={this.props.goOnline}
-        />
-
-        <Button
-          title='Go to maps'
-          onPress={this.goMaps}
-        />
-
+                    theme={this.props.theme}
+                    navigateToCategory={this.props.navigateToCategory}
+                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
       </ScrollView>
     )
   }

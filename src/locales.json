@@ -188,6 +188,18 @@
       "pageTitle": "Tu es où?"
     }
   },
+  "dashboard": {
+    "de": {
+      "localInformation": "Lokale Informationen",
+      "offers": "Angebote",
+      "events": "Veranstaltungen"
+    },
+    "en": {
+      "localInformation": "Local Information",
+      "offers": "Offers",
+      "events": "Events"
+    }
+  },
   "error": {
     "ar": {
       "not-found": {
