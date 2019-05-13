@@ -17,6 +17,8 @@ import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
 import request from '../../../modules/endpoint/request'
 import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
 import Failure from '../../../modules/error/components/Failure'
+import { withTheme } from 'styled-components/native'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const city: string = ownProps.navigation.getParam('city')
@@ -45,6 +47,7 @@ type PropsType = {|
   extra: ?ExtraModel,
   offerHash?: WohnenOfferModel,
   navigateToOffer: (offerHash: string) => void,
+  theme: ThemeType,
   t: TFunction
 |}
 
@@ -90,7 +93,7 @@ class WohnenExtraContainer extends React.Component<PropsType, SprungbrettStateTy
   }
 
   render () {
-    const {extra, offerHash, navigateToOffer, t} = this.props
+    const {extra, offerHash, navigateToOffer, t, theme} = this.props
     const {offers, error} = this.state
 
     if (error) {
@@ -102,11 +105,12 @@ class WohnenExtraContainer extends React.Component<PropsType, SprungbrettStateTy
     }
 
     return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
-                        t={t} />
+                        t={t} theme={theme} />
   }
 }
 
 export default compose(
   connect(mapStateToProps),
-  translate('wohnen')
+  translate('wohnen'),
+  withTheme
 )(WohnenExtraContainer)

@@ -16,6 +16,8 @@ import {
 import request from '../../../modules/endpoint/request'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 import Failure from '../../../modules/error/components/Failure'
+import { withTheme } from 'styled-components/native'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
@@ -29,6 +31,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
 type PropsType = {|
   extra: ?ExtraModel,
+  theme: ThemeType,
   t: TFunction
 |}
 
@@ -70,7 +73,7 @@ class SprungbrettExtraContainer extends React.Component<PropsType, SprungbrettSt
   }
 
   render () {
-    const {extra, t} = this.props
+    const {extra, t, theme} = this.props
     const {jobs, error} = this.state
 
     if (error) {
@@ -81,11 +84,12 @@ class SprungbrettExtraContainer extends React.Component<PropsType, SprungbrettSt
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} />
+    return <SprungbrettExtra sprungbrettExtra={extra} sprungbrettJobs={jobs} t={t} theme={theme} />
   }
 }
 
 export default compose(
   connect(mapStateToProps),
-  translate('sprungbrett')
+  translate('sprungbrett'),
+  withTheme
 )(SprungbrettExtraContainer)
