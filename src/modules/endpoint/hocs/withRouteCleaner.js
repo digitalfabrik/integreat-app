@@ -15,10 +15,9 @@ function withRouteCleaner<Props: { navigation: NavigationScreenProp<*> }> (
   class RouteCleaner extends React.PureComponent<Props> {
     componentWillUnmount () {
       const onRouteClose = this.props.navigation.getParam('onRouteClose')
-      if (!onRouteClose) {
-        throw new Error('onRouteClose is not provided to route in the navigation props!')
+      if (onRouteClose) {
+        onRouteClose()
       }
-      onRouteClose()
     }
 
     render () {
