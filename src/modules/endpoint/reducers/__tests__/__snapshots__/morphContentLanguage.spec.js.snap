@@ -2,6 +2,64 @@
 
 exports[`morphContentLanguage should translate route 1`] = `
 Object {
+  "categoriesMap": CategoriesMapModel {
+    "_categories": Map {
+      "/augsburg/en" => CategoryModel {
+        "_availableLanguages": Object {},
+        "_content": "",
+        "_hash": "",
+        "_lastUpdate": undefined,
+        "_order": -1,
+        "_parentPath": "",
+        "_path": "/augsburg/en",
+        "_root": true,
+        "_thumbnail": "no_thumbnail",
+        "_title": "augsburg",
+      },
+      "/augsburg/en/anlaufstellen" => CategoryModel {
+        "_availableLanguages": Map {
+          "de" => "/augsburg/de/anlaufstellen",
+        },
+        "_content": "",
+        "_hash": "8cff3dcb420c0bbcbf612bf57f3c04ae",
+        "_lastUpdate": "2017-11-18T19:30:00.000Z",
+        "_order": 75,
+        "_parentPath": "/augsburg/en",
+        "_path": "/augsburg/en/anlaufstellen",
+        "_root": false,
+        "_thumbnail": "https://cms.integreat-app.de/thumbnail.png",
+        "_title": "Contact points for other topics",
+      },
+      "/augsburg/en/erste-schritte" => CategoryModel {
+        "_availableLanguages": Map {
+          "de" => "/augsburg/de/willkommen",
+        },
+        "_content": "",
+        "_hash": "8cff3dcb420c0bbcbf612bf57f3c04ae",
+        "_lastUpdate": "2017-11-18T19:30:00.000Z",
+        "_order": 11,
+        "_parentPath": "/augsburg/en",
+        "_path": "/augsburg/en/erste-schritte",
+        "_root": false,
+        "_thumbnail": "https://cms.integreat-app.de/thumbnail.png",
+        "_title": "Welcome",
+      },
+      "/augsburg/en/erste-schritte/welcome-to-augsburg" => CategoryModel {
+        "_availableLanguages": Map {
+          "de" => "/augsburg/de/willkommen/willkommen-in-augsburg",
+        },
+        "_content": "some content",
+        "_hash": "8cff3dcb420c0bbcbf612bf57f3c04ae",
+        "_lastUpdate": "2017-11-18T19:30:00.000Z",
+        "_order": 1,
+        "_parentPath": "/augsburg/en/erste-schritte",
+        "_path": "/augsburg/en/erste-schritte/welcome-to-augsburg",
+        "_root": false,
+        "_thumbnail": "https://cms.integreat-app.de/thumbnail.png",
+        "_title": "Welcome to Augsburg",
+      },
+    },
+  },
   "categoriesRouteMapping": Object {
     "route-0": Object {
       "allAvailableLanguages": Map {
