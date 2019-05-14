@@ -47,8 +47,8 @@ class SearchActiveHeader extends React.Component<PropsType> {
     return (
       <>
         <BoxShadow theme={theme}>
-          <HorizontalLeft>
-            <HeaderBackButton onPress={closeSearchBar} />
+          <HorizontalLeft theme={theme}>
+            <HeaderBackButton theme={theme} onPress={closeSearchBar} />
             <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} />
           </HorizontalLeft>
         </BoxShadow>
