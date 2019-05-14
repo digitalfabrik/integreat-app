@@ -34,8 +34,9 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   // TODO: We currently use this alternative for testing
   filter (): Array<CityModel> {
+    const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
-    return cities
+    return cities.filter(_city => _city.name.toLowerCase().includes(filterText))
   }
 
   // filter (): Array<CityModel> {
