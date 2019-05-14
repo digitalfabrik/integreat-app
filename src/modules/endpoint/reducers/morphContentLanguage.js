@@ -98,6 +98,7 @@ const morphContentLanguage = (
     ...state,
     language: newLanguage,
     resourceCache: newResourceCache,
+    categoriesMap: newCategoriesMap,
     categoriesRouteMapping: translatedCategoriesRouteMapping,
     eventsRouteMapping: translatedEventsRouteMapping
   }

@@ -2,7 +2,13 @@
 
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
-import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  CityModel,
+  EventModel,
+  LanguageModel
+} from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 
 export type PathType = string
@@ -58,7 +64,8 @@ export type CityContentStateType = {|
   +languages: Array<LanguageModel> | null,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: ResourceCacheStateType
+  +resourceCache: ResourceCacheStateType,
+  +categoriesMap: CategoriesMapModel | null
 |}
 
 export const defaultCityContentState: CityContentStateType = {
@@ -68,7 +75,8 @@ export const defaultCityContentState: CityContentStateType = {
   languages: null,
   categoriesRouteMapping: {},
   eventsRouteMapping: {},
-  resourceCache: {}
+  resourceCache: {},
+  categoriesMap: null
 }
 
 export type DirectionStateType = 'ltr' | 'rtl'

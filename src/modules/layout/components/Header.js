@@ -8,7 +8,6 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
-import SearchBar from './SearchBar'
 
 const Horizontal = styled.View`
   flex:1;
@@ -62,16 +61,7 @@ type PropsType = {|
   availableLanguages: ?Array<string>
 |}
 
-type StateType = {|
-  searchActive: boolean
-|}
-
-class Header extends React.PureComponent<PropsType, StateType> {
-  constructor () {
-    super()
-    this.state = {searchActive: false}
-  }
-
+class Header extends React.PureComponent<PropsType> {
   canGoBackInStack (): boolean {
     return !!this.getLastSceneInStack()
   }
@@ -93,14 +83,6 @@ class Header extends React.PureComponent<PropsType, StateType> {
     this.getNavigation().goBack(this.getDescriptor().key)
   }
 
-  showSearchBar = () => {
-    this.setState(state => ({...state, searchActive: true}))
-  }
-
-  closeSearchBar = () => {
-    this.setState(state => ({...state, searchActive: false}))
-  }
-
   goToLanding = () => {
     this.getNavigation().navigate('Landing')
   }
@@ -114,20 +96,14 @@ class Header extends React.PureComponent<PropsType, StateType> {
     })
   }
 
-  onSearchChanged = (query: string) => {
-    console.log(query)
+  goToSearch = () => {
+    this.getNavigation().navigate({
+      routeName: 'SearchModal'
+    })
   }
 
   render () {
     const { theme } = this.props
-    if (this.state.searchActive) {
-      return <BoxShadow theme={theme}><HorizontalLeft>
-        <HeaderBackButton onPress={this.closeSearchBar} />
-        <SearchBar theme={theme} onSearchChanged={this.onSearchChanged} />
-      </HorizontalLeft>
-      </BoxShadow>
-    }
-
     const headerTitle = this.getDescriptor().headerTitle || ''
 
     return (
@@ -139,7 +115,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
             <Title>{headerTitle}</Title>
           </HorizontalLeft>
           <MaterialHeaderButtons>
-            <Item title='Search' iconName='search' onPress={this.showSearchBar} />
+            <Item title='Search' iconName='search' onPress={this.goToSearch} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
