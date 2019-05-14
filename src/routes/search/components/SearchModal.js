@@ -56,7 +56,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
     // return all categories from above and remove the root category
     return categoriesWithTitle
-      .filter(category => category.id !== 0)
+      .filter(category => !category.isRoot())
       .concat(categoriesWithContent)
       .map(category => ({model: category, subCategories: []}))
   }
@@ -72,7 +72,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const {theme, query, categories} = this.props
+    const {theme, categories} = this.props
+    const {query} = this.state
 
     if (!categories) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -87,7 +88,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {theme, query, closeModal} = this.props
+    const {theme, closeModal} = this.props
+    const {query} = this.state
     return (
       <Wrapper theme={theme}>
         <SearchActiveHeader theme={theme}
