@@ -16,6 +16,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import { translate } from 'react-i18next'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   toggleTheme: () => dispatch(toggleDarkMode()),
@@ -68,4 +69,4 @@ const mapStateToProps = (state: StateType, ownProps) => {
 // $FlowFixMe
 const themed = withTheme(Dashboard)
 // $FlowFixMe connect()
-export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(withError(themed)))
+export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(withError(translate('dashboard')(themed))))

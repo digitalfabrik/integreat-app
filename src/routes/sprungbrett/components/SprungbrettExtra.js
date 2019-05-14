@@ -6,17 +6,16 @@ import { Linking } from 'react-native'
 import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
-import List from '../../common/components/List'
-import Caption from '../../common/components/Caption'
-import Failure from '../../error/components/Failure'
-import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
-import type { ThemeType } from '../../theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
+import List from '../../../modules/common/components/List'
+import Caption from '../../../modules/common/components/Caption'
 
 type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
-  extras: Array<ExtraModel>,
   t: TFunction,
-  theme: ThemeType
+  theme: ThemeType,
+  sprungbrettExtra: ExtraModel,
+  t: TFunction
 |}
 
 class SprungbrettExtra extends React.Component<PropsType> {
@@ -29,16 +28,11 @@ class SprungbrettExtra extends React.Component<PropsType> {
   )
 
   render () {
-    const {sprungbrettJobs, extras, t} = this.props
-    const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-
-    if (!extra) {
-      return <Failure error={new Error('The Sprungbrett extra is not supported.')} />
-    }
+    const {sprungbrettExtra, sprungbrettJobs, t} = this.props
 
     return (
       <>
-        <Caption title={extra.title} theme={this.props.theme} />
+        <Caption title={sprungbrettExtra.title} theme={this.props.theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
