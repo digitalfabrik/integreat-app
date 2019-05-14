@@ -17,7 +17,7 @@ import { availableLanguagesSelector } from '../../common/selectors/availableLang
 
 const mapStateToProps = (state: StateType, ownProps) => ({
   availableLanguages: availableLanguagesSelector(state, ownProps),
-  categories: state.categories
+  routeMapping: state.cityContent.categoriesRouteMapping
 })
 
 const themed = withTheme(props => <Header {...props} />)
