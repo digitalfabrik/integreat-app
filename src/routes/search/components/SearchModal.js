@@ -6,7 +6,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchActiveHeader from './SearchActiveHeader'
-import { InteractionManager } from 'react-native'
+import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -63,30 +63,38 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
   onItemPress = (category: {path: string}) => {
     const {cityCode, language, navigateToCategory, closeModal} = this.props
-    closeModal()
-    InteractionManager.runAfterInteractions(() => navigateToCategory(cityCode, language, category.path))
+    navigateToCategory(cityCode, language, category.path)
+    InteractionManager.runAfterInteractions(() => closeModal())
   }
 
   onSearchChanged = (query: string) => {
     this.setState({query})
   }
 
-  render () {
-    const {theme, query, closeModal, categories} = this.props
+  renderContent = () => {
+    const {theme, query, categories} = this.props
 
     if (!categories) {
-      return <></>
+      return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     const filteredCategories = this.findCategories(categories)
+    return (
+      <ScrollView>
+        <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
+      </ScrollView>
+    )
+  }
 
+  render () {
+    const {theme, query, closeModal} = this.props
     return (
       <Wrapper theme={theme}>
         <SearchActiveHeader theme={theme}
                             query={query}
                             closeSearchBar={closeModal}
                             onSearchChanged={this.onSearchChanged} />
-        <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
+        {this.renderContent()}
       </Wrapper>
     )
   }
