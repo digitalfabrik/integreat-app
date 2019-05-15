@@ -148,8 +148,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
     try {
       await Share.share({
         message: shareMessage,
-        title: 'Integreat App',
-        url
+        title: 'Integreat App'
       })
     } catch (e) {
       alert(e.message)
