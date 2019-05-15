@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { Share } from 'react-native'
+import { Platform, Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
@@ -143,12 +143,16 @@ class Header extends React.PureComponent<PropsType, StateType> {
     const key = this.getNavigation().getParam('key')
     const pathname = routeMapping[key].root
     const url = `https://integreat.app${pathname}`
-    const shareMessage: string = t('shareMessage', { url })
+    const message: string = Platform.select({
+      android: t('shareMessage', { url }),
+      ios: t('shareMessage')
+    })
 
     try {
       await Share.share({
-        message: shareMessage,
-        title: 'Integreat App'
+        message,
+        title: 'Integreat App',
+        url
       })
     } catch (e) {
       alert(e.message)
