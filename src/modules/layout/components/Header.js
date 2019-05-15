@@ -143,7 +143,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
     const key = this.getNavigation().getParam('key')
     const pathname = routeMapping[key].root
     const url = `https://integreat.app${pathname}`
-    const shareMessage = t('shareMessage', { url })
+    const shareMessage: string = t('shareMessage', { url })
 
     try {
       await Share.share({
