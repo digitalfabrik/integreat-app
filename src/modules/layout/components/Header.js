@@ -1,15 +1,17 @@
 // @flow
 
 import * as React from 'react'
-import { Platform, Share } from 'react-native'
+import { Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
-import type { ThemeType } from 'modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
 import { SearchBar } from 'react-native-elements'
+
+import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
+import type { ThemeType } from 'modules/theme/constants/theme'
+import type { TFunction } from 'react-i18next'
 
 const Horizontal = styled.View`
   flex:1;
@@ -72,15 +74,16 @@ const ThemedSearchBar = styled(SearchBar).attrs(props => ({
 }))``
 
 type PropsType = {
+  availableLanguages: ?Array<string>,
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
+  t: TFunction,
   theme: ThemeType,
   routeMapping: {
     [key: string]: {
       root: string
     }
-  },
-  availableLanguages: ?Array<string>
+  }
 }
 
 type StateType = {
@@ -136,18 +139,15 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   onShare = async () => {
-    const { routeMapping } = this.props
+    const { routeMapping, t } = this.props
     const key = this.getNavigation().getParam('key')
     const pathname = routeMapping[key].root
     const url = `https://integreat.app${pathname}`
-    const message: string = Platform.select({
-      android: `Hey, check this out ${url}`,
-      ios: `Hey, check this out.`
-    })
+    const shareMessage = t('shareMessage', { url })
 
     try {
       await Share.share({
-        message,
+        message: shareMessage,
         title: 'Integreat App',
         url
       })
@@ -157,7 +157,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
   }
 
   render () {
-    const { theme } = this.props
+    const { t, theme } = this.props
     if (this.state.searchActive) {
       return <BoxShadow theme={theme}><HorizontalLeft>
         <HeaderBackButton onPress={this.closeSearchBar} />
@@ -179,7 +179,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
           <MaterialHeaderButtons>
             <Item title='Search' iconName='search' onPress={this.showSearchBar} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
-            <Item title='Share' show='never' onPress={this.onShare} />
+            <Item title={t('share')} show='never' onPress={this.onShare} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
             <Item title='Settings' show='never' onPress={console.warn} />
           </MaterialHeaderButtons>

@@ -354,5 +354,11 @@
       "feedbackSent": "Feedback sent",
       "close": "Close"
     }
+  },
+  "heading": {
+    "en": {
+      "share": "Share",
+      "shareMessage": "Hey, check this out. {{- url}}"
+    }
   }
 }
