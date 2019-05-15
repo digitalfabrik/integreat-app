@@ -40,7 +40,7 @@ type PropsType = {|
   onSearchChanged: (query: string) => void
 |}
 
-class SearchActiveHeader extends React.Component<PropsType> {
+class SearchHeader extends React.Component<PropsType> {
   render () {
     const {theme, query, closeSearchBar, onSearchChanged} = this.props
 
@@ -57,4 +57,4 @@ class SearchActiveHeader extends React.Component<PropsType> {
   }
 }
 
-export default SearchActiveHeader
+export default SearchHeader

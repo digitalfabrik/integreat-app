@@ -5,7 +5,7 @@ import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
-import SearchActiveHeader from './SearchActiveHeader'
+import SearchHeader from './SearchHeader'
 import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
 
 const Wrapper = styled.View`
@@ -92,10 +92,10 @@ class SearchModal extends React.Component<PropsType, StateType> {
     const {query} = this.state
     return (
       <Wrapper theme={theme}>
-        <SearchActiveHeader theme={theme}
-                            query={query}
-                            closeSearchBar={closeModal}
-                            onSearchChanged={this.onSearchChanged} />
+        <SearchHeader theme={theme}
+                      query={query}
+                      closeSearchBar={closeModal}
+                      onSearchChanged={this.onSearchChanged} />
         {this.renderContent()}
       </Wrapper>
     )
