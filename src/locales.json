@@ -358,7 +358,7 @@
   "heading": {
     "en": {
       "share": "Share",
-      "shareMessage": "Hey, check this out. {{- url}}"
+      "shareMessage": "Hey, check this out."
     }
   }
 }

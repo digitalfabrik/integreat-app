@@ -143,9 +143,10 @@ class Header extends React.PureComponent<PropsType, StateType> {
     const key = this.getNavigation().getParam('key')
     const pathname = routeMapping[key].root
     const url = `https://integreat.app${pathname}`
+    const shareMessage = t('shareMessage')
     const message: string = Platform.select({
-      android: t('shareMessage', { url }),
-      ios: t('shareMessage')
+      android: `${shareMessage} ${url}`,
+      ios: shareMessage
     })
 
     try {
