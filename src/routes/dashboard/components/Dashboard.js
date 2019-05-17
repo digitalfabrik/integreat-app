@@ -26,7 +26,7 @@ type PropsType = {
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
-  refreshDashboard: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
+  navigateToDashboard: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
   theme: ThemeType,
 
   language: string,
@@ -82,8 +82,8 @@ class Dashboard extends React.Component<PropsType> {
   }
 
   onRefresh = () => {
-    const {refreshDashboard, cityCode, language, navigation} = this.props
-    refreshDashboard(cityCode, language, `/${cityCode}/${language}`, true, navigation.getParam('key'))
+    const {navigateToDashboard, cityCode, language, navigation} = this.props
+    navigateToDashboard(cityCode, language, `/${cityCode}/${language}`, true, navigation.getParam('key'))
   }
 
   render () {
