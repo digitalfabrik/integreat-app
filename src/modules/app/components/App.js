@@ -56,7 +56,9 @@ class App extends React.Component<PropsType, AppStateType> {
     }
 
     Sentry.captureBreadcrumb({
-      message: 'Rendering App'
+      message: 'App rendered',
+      category: 'action',
+      data: {}
     })
 
     return (
