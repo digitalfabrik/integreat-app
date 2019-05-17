@@ -4,11 +4,11 @@ import { CategoryModel } from '@integreat-app/integreat-api-client'
 import { has } from 'lodash'
 
 class CategoriesRouteStateView {
-  rawRoot: ?string
+  rawRoot: string
   rawModels: { [path: string]: CategoryModel }
   rawChildren: { [path: string]: Array<string> }
 
-  constructor (root: ?string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
+  constructor (root: string, models: { [path: string]: CategoryModel }, children: { [path: string]: Array<string> }) {
     this.rawModels = models
     this.rawChildren = children
     this.rawRoot = root

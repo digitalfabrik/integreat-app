@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -26,6 +26,7 @@ type PropsType = {
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToDashboard: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
   theme: ThemeType,
 
   language: string,
@@ -80,18 +81,22 @@ class Dashboard extends React.Component<PropsType> {
     this.props.navigateToEvent(this.props.cityCode, this.props.language)
   }
 
-  goMaps = () => this.props.navigation.navigate('MapViewModal')
+  onRefresh = () => {
+    const {navigateToDashboard, cityCode, language, navigation} = this.props
+    navigateToDashboard(cityCode, language, `/${cityCode}/${language}`, true, navigation.getParam('key'))
+  }
 
   render () {
     const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
 
-    if (!stateView || !cities || !resourceCache) {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
+    const loading = !stateView || !cities || !resourceCache
 
-    return (<ScrollView>
+    return <ScrollView
+      refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
+      {!loading && <>
         <NavigationTiles tiles={this.getNavigationTileModels()}
                          theme={theme} />
+        {/* $FlowFixMe Flow doesn't recognize stateView and cities to not be nullish */}
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
@@ -100,8 +105,8 @@ class Dashboard extends React.Component<PropsType> {
                     theme={this.props.theme}
                     navigateToCategory={this.props.navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
-      </ScrollView>
-    )
+      </>}
+    </ScrollView>
   }
 }
 
