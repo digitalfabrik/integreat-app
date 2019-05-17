@@ -16,9 +16,8 @@ type PropsType = {
   language: string,
   cities?: Array<CityModel>,
 
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateToCategory: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
-  refresh: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
   resourceCache: ResourceCacheStateType,
   theme: ThemeType,
   stateView: ?CategoriesRouteStateView
@@ -26,9 +25,9 @@ type PropsType = {
 
 class CategoriesScrollView extends React.Component<PropsType> {
   onRefresh = () => {
-    const {refresh, cityCode, language, stateView, navigation} = this.props
+    const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
     if (stateView) {
-      refresh(cityCode, language, stateView.rawRoot, true, navigation.getParam('key'))
+      navigateToCategory(cityCode, language, stateView.rawRoot, true, navigation.getParam('key'))
     }
   }
 

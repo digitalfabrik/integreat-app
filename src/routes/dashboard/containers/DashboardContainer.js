@@ -17,7 +17,7 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import { translate } from 'react-i18next'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  refreshDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
+  navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
