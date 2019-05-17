@@ -7,7 +7,7 @@ import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { ResourceCacheStateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
@@ -32,7 +32,7 @@ type PropsType = {
   language: string,
   cities?: Array<CityModel>,
   stateView: ?CategoriesRouteStateView,
-  resourceCache: ResourceCacheStateType,
+  resourceCache: LanguageResourceCacheStateType,
   t: TFunction
 }
 
