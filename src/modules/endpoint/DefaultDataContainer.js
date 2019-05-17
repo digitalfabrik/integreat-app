@@ -166,7 +166,7 @@ class DefaultDataContainer implements DataContainer {
       }
     }
 
-    await this._databaseConnector.storeResourceCache(resourceCache, this._context)
+    await this._databaseConnector.storeResourceCache(newResourceCache, this._context)
     this._resourceCache = newResourceCache
   }
 
