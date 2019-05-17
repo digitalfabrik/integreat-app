@@ -32,7 +32,9 @@ class CategoriesScrollView extends React.Component<PropsType> {
   }
 
   render () {
-    const {cities, stateView, resourceCache, navigateToIntegreatUrl} = this.props
+    const {
+      cities, stateView, resourceCache, navigateToIntegreatUrl, language, cityCode, theme, navigateToCategory
+    } = this.props
 
     const loading = !stateView || !cities || !resourceCache
 
@@ -42,10 +44,10 @@ class CategoriesScrollView extends React.Component<PropsType> {
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
-                    language={this.props.language}
-                    cityCode={this.props.cityCode}
-                    theme={this.props.theme}
-                    navigateToCategory={this.props.navigateToCategory}
+                    language={language}
+                    cityCode={cityCode}
+                    theme={theme}
+                    navigateToCategory={navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />}
       </ScrollView>
     )
