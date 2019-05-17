@@ -8,7 +8,8 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
+import { StackActions } from 'react-navigation'
+import { generateKey } from '../../../modules/app/generateRouteKey'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const cities = state.cities.models
@@ -24,7 +25,28 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
       type: 'FETCH_CITIES',
       params: {}
     }),
-    navigateToCategory: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)
+    navigateToDashboard: (cityCode: string, language: string) => {
+      const key: string = generateKey()
+      ownProps.navigation.navigate({
+        routeName: 'App',
+        action: StackActions.replace({
+          routeName: 'Dashboard',
+          params: {
+            cityCode,
+            key,
+            onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+          },
+          newKey: key
+        })
+      })
+
+      return dispatch({
+        type: 'FETCH_CATEGORY',
+        params: {
+          city: cityCode, language, path: `/${cityCode}/${language}`, depth: 2, forceUpdate: false, key
+        }
+      })
+    }
   }
 }
 
