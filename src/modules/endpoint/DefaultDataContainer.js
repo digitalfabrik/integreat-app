@@ -6,8 +6,8 @@ import type { CityResourceCacheStateType, FileCacheStateType, LanguageResourceCa
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
-import { difference, isEmpty, map, omitBy } from 'lodash'
-import { fs } from 'rn-fetch-blob'
+import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
+import RNFetchBlob from 'rn-fetch-blob'
 
 class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
@@ -137,7 +137,8 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
-    return Object.values(languageResourceCache).flatMap(
+    return flatMap(
+      Object.values(languageResourceCache),
       (file: FileCacheStateType): string => map(file, ({filePath}) => filePath)
     )
   }
@@ -155,14 +156,14 @@ class DefaultDataContainer implements DataContainer {
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
       if (!isEmpty(removedPaths)) {
-        const pathsOfOtherLanguages = map(
+        const pathsOfOtherLanguages = flatMap(
           omitBy(this._resourceCache, (val, key) => key === language),
           (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
-        ).flat()
+        )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         console.debug('Cleaning up the following resources:')
         console.debug(pathsToClean)
-        await Promise.all(pathsToClean.map(path => fs.unlink(path)))
+        await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
       }
     }
 
