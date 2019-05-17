@@ -71,7 +71,7 @@ export default function * fetchResourceCache (
       }, {})
     )
 
-    yield call(dataContainer.addResourceCacheEntries, resourceCache)
+    yield call(dataContainer.setResourceCache, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {

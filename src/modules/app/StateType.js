@@ -31,8 +31,12 @@ export type FileCacheStateType = {
   |}
 }
 
-export type ResourceCacheStateType = {
+export type LanguageResourceCacheStateType = {
   [path: string]: FileCacheStateType
+}
+
+export type CityResourceCacheStateType = {
+  [language: string]: LanguageResourceCacheStateType
 }
 
 export type CategoriesRouteMappingType = {
@@ -58,7 +62,7 @@ export type CityContentStateType = {|
   +languages: Array<LanguageModel> | null,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: ResourceCacheStateType
+  +resourceCache: LanguageResourceCacheStateType
 |}
 
 export const defaultCityContentState: CityContentStateType = {

@@ -10,7 +10,7 @@ import {
 import RNFetchblob from 'rn-fetch-blob'
 import moment from 'moment-timezone'
 import type Moment from 'moment-timezone'
-import type { ResourceCacheStateType } from '../app/StateType'
+import type { CityResourceCacheStateType } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
 import { CONTENT_DIR_PATH, CACHE_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
 
@@ -64,7 +64,7 @@ type MetaCitiesJsonType = {
   |}
 }
 
-type ResourceCacheJsonType = ResourceCacheStateType
+type ResourceCacheJsonType = CityResourceCacheStateType
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -252,7 +252,7 @@ class DatabaseConnector {
     })
   }
 
-  async loadResourceCache (context: DatabaseContext): Promise<ResourceCacheStateType | null> {
+  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType | null> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
@@ -263,7 +263,7 @@ class DatabaseConnector {
     return JSON.parse(await this.readFile(path))
   }
 
-  async storeResourceCache (resourceCache: ResourceCacheStateType, context: DatabaseContext) {
+  async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
     // todo: use ResourceCacheJsonType
 
