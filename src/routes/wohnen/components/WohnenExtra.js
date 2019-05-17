@@ -1,15 +1,13 @@
 // @flow
 
 import * as React from 'react'
-
-import {
-  WohnenOfferModel,
-  ExtraModel} from '@integreat-app/integreat-api-client'
+import { ScrollView } from 'react-native'
+import type { TFunction } from 'react-i18next'
+import { ExtraModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from './OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import OfferListItem from './OfferListItem'
 import List from '../../../modules/common/components/List'
-import type { TFunction } from 'react-i18next'
 import { hashWohnenOffer } from '../../extras/hashWohnenOffer'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -52,12 +50,12 @@ class WohnenExtra extends React.Component<PropsType> {
     }
 
     return (
-      <>
+      <ScrollView>
         <Caption title={wohnenExtra.title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
               renderItem={this.renderOfferListItem} />
-      </>
+      </ScrollView>
     )
   }
 }

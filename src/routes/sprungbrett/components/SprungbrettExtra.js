@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { Linking } from 'react-native'
+import { Linking, ScrollView } from 'react-native'
 import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import type { TFunction } from 'react-i18next'
@@ -31,12 +31,12 @@ class SprungbrettExtra extends React.Component<PropsType> {
     const {sprungbrettExtra, sprungbrettJobs, t} = this.props
 
     return (
-      <>
+      <ScrollView>
         <Caption title={sprungbrettExtra.title} theme={this.props.theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
               items={sprungbrettJobs} />
-      </>
+      </ScrollView>
     )
   }
 }

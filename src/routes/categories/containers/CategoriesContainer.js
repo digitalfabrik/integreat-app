@@ -1,13 +1,10 @@
 // @flow
 
-import Categories from '../../../modules/categories/components/Categories'
 import { withTheme } from 'styled-components/native'
+import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import { connect } from 'react-redux'
 import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
-import { ScrollView } from 'react-native'
-import React from 'react'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -17,6 +14,7 @@ import { CityModel } from '@integreat-app/integreat-api-client'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { branch, renderComponent } from 'recompose'
 import CategoryNotAvailableContainer from './CategoryNotAvailableContainer'
+import CategoriesScrollView from '../components/CategoriesScrollView'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
@@ -52,7 +50,6 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-const themed = withTheme(props => <ScrollView><Categories {...props} /></ScrollView>)
 export default compose([
   withRouteCleaner,
   connect((state: StateType, ownProps): { invalidLanguage: boolean } => {
@@ -60,5 +57,6 @@ export default compose([
     return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
   }),
   branch(props => props.invalidLanguage, renderComponent(CategoryNotAvailableContainer)),
-  connect(mapStateToProps, mapDispatchToProps)
-])(themed)
+  connect(mapStateToProps, mapDispatchToProps),
+  withTheme
+])(CategoriesScrollView)
