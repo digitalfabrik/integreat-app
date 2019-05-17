@@ -77,7 +77,12 @@ project.ext.react = [
     bundleConfig: System.getenv('BUNDLE_CONFIG')
 ]
 
+project.ext.sentryCli = [
+        logLevel: "debug"
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-sentry/sentry.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
@@ -155,6 +160,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
 
+    implementation project(':react-native-sentry')
     implementation project(':react-native-screens')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-view-pdf')
