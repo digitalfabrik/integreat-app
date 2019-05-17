@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ActivityIndicator, RefreshControl, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
@@ -26,6 +26,7 @@ type PropsType = {
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateToEvent: (cityCode: string, language: string, path?: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  refreshDashboard: (cityCode: string, language: string, path: string, forceRefresh: boolean) => void,
   theme: ThemeType,
 
   language: string,
@@ -82,6 +83,11 @@ class Dashboard extends React.Component<PropsType> {
 
   goMaps = () => this.props.navigation.navigate('MapViewModal')
 
+  onRefresh = () => {
+    const {refreshDashboard, cityCode, language} = this.props
+    refreshDashboard(cityCode, language, `/${cityCode}/${language}`, true)
+  }
+
   render () {
     const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
 
@@ -89,19 +95,19 @@ class Dashboard extends React.Component<PropsType> {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return (<ScrollView>
-        <NavigationTiles tiles={this.getNavigationTileModels()}
-                         theme={theme} />
-        <Categories stateView={stateView}
-                    cities={cities}
-                    resourceCache={resourceCache}
-                    language={this.props.language}
-                    cityCode={this.props.cityCode}
-                    theme={this.props.theme}
-                    navigateToCategory={this.props.navigateToCategory}
-                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
-      </ScrollView>
-    )
+    return <ScrollView
+      refreshControl={<RefreshControl onRefresh={this.onRefresh} />}>
+      <NavigationTiles tiles={this.getNavigationTileModels()}
+                       theme={theme} />
+      <Categories stateView={stateView}
+                  cities={cities}
+                  resourceCache={resourceCache}
+                  language={this.props.language}
+                  cityCode={this.props.cityCode}
+                  theme={this.props.theme}
+                  navigateToCategory={this.props.navigateToCategory}
+                  navigateToIntegreatUrl={navigateToIntegreatUrl} />
+    </ScrollView>
   }
 }
 
