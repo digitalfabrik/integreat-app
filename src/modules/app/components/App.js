@@ -14,37 +14,64 @@ import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
+import { Sentry } from 'react-native-sentry'
 
-class App extends React.Component<{}, { waitingForStore: boolean }> {
+type PropsType = {
+  sentryPromise: Promise<Sentry>
+}
+
+type AppStateType = {
+  waitingForStore: boolean,
+  waitingForSentry: boolean
+}
+
+class App extends React.Component<PropsType, AppStateType> {
   store: Store<StateType, StoreActionType>
   dataContainer: DataContainer
 
-  constructor () {
-    super()
-    this.state = {waitingForStore: true}
+  constructor (props: PropsType) {
+    super(props)
+    this.state = {
+      waitingForStore: true,
+      waitingForSentry: true
+    }
+
     this.dataContainer = new DefaultDataContainer()
-    const storeConfig = createReduxStore(this.dataContainer, () => { this.setState({waitingForStore: false}) })
+
+    const storeConfig = createReduxStore(
+      this.dataContainer,
+      () => { this.setState({waitingForStore: false}) }
+    )
+
     this.store = storeConfig.store
+
+    props.sentryPromise
+      .then(() => this.setState(state => ({...state, waitingForSentry: false})))
+      .catch(() => this.setState(state => ({...state, waitingForSentry: true})))
   }
 
   render () {
-    if (this.state.waitingForStore) {
+    if (this.state.waitingForStore || this.state.waitingForSentry) {
       return null
     }
 
+    Sentry.captureBreadcrumb({
+      message: 'Rendering App'
+    })
+
     return (
-        <Provider store={this.store}>
-          <I18nProvider>
-            <CustomThemeProvider>
-              <>
-                <AndroidStatusBarContainer />
-                <IOSSafeAreaView>
-                  <Navigator />
-                </IOSSafeAreaView>
-              </>
-            </CustomThemeProvider>
-          </I18nProvider>
-        </Provider>
+      <Provider store={this.store}>
+        <I18nProvider>
+          <CustomThemeProvider>
+            <>
+              <AndroidStatusBarContainer />
+              <IOSSafeAreaView>
+                <Navigator />
+              </IOSSafeAreaView>
+            </>
+          </CustomThemeProvider>
+        </I18nProvider>
+      </Provider>
     )
   }
 }
