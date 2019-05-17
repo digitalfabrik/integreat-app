@@ -17,7 +17,7 @@ import CategoryNotAvailableContainer from './CategoryNotAvailableContainer'
 import CategoriesScrollView from '../components/CategoriesScrollView'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToDashboard: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
   refresh: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
 })

@@ -96,6 +96,7 @@ class Dashboard extends React.Component<PropsType> {
       {!loading && <>
         <NavigationTiles tiles={this.getNavigationTileModels()}
                          theme={theme} />
+        {/* $FlowFixMe Flow doesn't recognize stateView and cities to not be nullish */}
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
