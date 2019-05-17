@@ -27,7 +27,9 @@ type PropsType = {
 class CategoriesScrollView extends React.Component<PropsType> {
   onRefresh = () => {
     const {refresh, cityCode, language, stateView, navigation} = this.props
-    refresh(cityCode, language, stateView.rawRoot, true, navigation.getParam('key'))
+    if (stateView) {
+      refresh(cityCode, language, stateView.rawRoot, true, navigation.getParam('key'))
+    }
   }
 
   render () {
@@ -35,16 +37,19 @@ class CategoriesScrollView extends React.Component<PropsType> {
 
     const loading = !stateView || !cities || !resourceCache
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-      {!loading && <Categories stateView={stateView}
-                               cities={cities}
-                               resourceCache={resourceCache}
-                               language={this.props.language}
-                               cityCode={this.props.cityCode}
-                               theme={this.props.theme}
-                               navigateToCategory={this.props.navigateToDashboard}
-                               navigateToIntegreatUrl={navigateToIntegreatUrl} />}
-    </ScrollView>
+    return (
+      <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
+        {!loading && // $FlowFixMe Flow doesn't recognize stateView and cities to not be nullish here -.-
+        <Categories stateView={stateView}
+                    cities={cities}
+                    resourceCache={resourceCache}
+                    language={this.props.language}
+                    cityCode={this.props.cityCode}
+                    theme={this.props.theme}
+                    navigateToCategory={this.props.navigateToCategory}
+                    navigateToIntegreatUrl={navigateToIntegreatUrl} />}
+      </ScrollView>
+    )
   }
 }
 
