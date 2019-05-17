@@ -1,15 +1,13 @@
 // @flow
 
-import {
-  CategoriesMapModel,
-  CityModel, EventModel,
-  LanguageModel
-} from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import DatabaseContext from './DatabaseContext'
-import type { ResourceCacheStateType } from '../app/StateType'
+import type { CityResourceCacheStateType, FileCacheStateType, LanguageResourceCacheStateType } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import type { DataContainer } from './DataContainer'
 import type Moment from 'moment'
+import { difference, isEmpty, map, omitBy } from 'lodash'
+import { fs } from 'rn-fetch-blob'
 
 class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
@@ -19,7 +17,7 @@ class DefaultDataContainer implements DataContainer {
   _cities: Array<CityModel> | null
   _categoriesMap: CategoriesMapModel | null
   _languages: Array<LanguageModel> | null
-  _resourceCache: ResourceCacheStateType | null
+  _resourceCache: CityResourceCacheStateType | null
   _events: Array<EventModel> | null
 
   constructor () {
@@ -63,14 +61,17 @@ class DefaultDataContainer implements DataContainer {
     return this._languages
   }
 
-  getResourceCache = async (): Promise<ResourceCacheStateType> => {
+  getResourceCache = async (): Promise<LanguageResourceCacheStateType> => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
     if (this._resourceCache === null) {
-      throw Error('ResourceCache is null.')
+      throw Error('CityResourceCache is null.')
     }
-    return this._resourceCache
+    if (!this._resourceCache[this._context.languageCode]) {
+      throw Error('LanguageResourceCache is null.')
+    }
+    return this._resourceCache[this._context.languageCode]
   }
 
   getLastUpdate = async (): Promise<Moment> => {
@@ -135,19 +136,36 @@ class DefaultDataContainer implements DataContainer {
     this._languages = languages
   }
 
-  setResourceCache = async (resourceCache: ResourceCacheStateType) => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
-    await this._databaseConnector.storeResourceCache(resourceCache, this._context)
-    this._resourceCache = resourceCache
+  getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
+    return Object.values(languageResourceCache).flatMap(
+      (file: FileCacheStateType): string => map(file, ({filePath}) => filePath)
+    )
   }
 
-  addResourceCacheEntries = async (resourceCache: ResourceCacheStateType) => {
+  setResourceCache = async (resourceCache: LanguageResourceCacheStateType) => {
     if (this._context === null) {
       throw Error('Context has not been set yet.')
     }
-    const newResourceCache = {...resourceCache, ...this._resourceCache}
+    const language = this._context.languageCode
+    const newResourceCache = {...this._resourceCache, [language]: resourceCache}
+
+    if (this._resourceCache && this._resourceCache[language]) {
+      // Cleanup old resources
+      const oldPaths = this.getFilePathsFromLanguageResourceCache(this._resourceCache[language])
+      const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
+      const removedPaths = difference(oldPaths, newPaths)
+      if (!isEmpty(removedPaths)) {
+        const pathsOfOtherLanguages = map(
+          omitBy(this._resourceCache, (val, key) => key === language),
+          (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
+        ).flat()
+        const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
+        console.debug('Cleaning up the following resources:')
+        console.debug(pathsToClean)
+        await Promise.all(pathsToClean.map(path => fs.unlink(path)))
+      }
+    }
+
     await this._databaseConnector.storeResourceCache(resourceCache, this._context)
     this._resourceCache = newResourceCache
   }
