@@ -49,12 +49,13 @@ export default class Events extends React.Component<PropsType> {
 
   render () {
     const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t} = this.props
+    const loading = !events
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
         const files = resourceCache[event.path]
-        return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} />}>
+        return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
           <Page content={event.content}
                 title={event.title}
                 lastUpdate={event.lastUpdate}
@@ -73,7 +74,6 @@ export default class Events extends React.Component<PropsType> {
       const error = new ContentNotFoundError({type: 'event', id: path, city: cityCode, language})
       return <Failure error={error} />
     }
-    const loading = !events
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
       {!loading && <>
