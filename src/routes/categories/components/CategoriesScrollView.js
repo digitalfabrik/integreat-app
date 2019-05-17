@@ -16,7 +16,7 @@ type PropsType = {
   language: string,
   cities?: Array<CityModel>,
 
-  navigateToCategory: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
+  navigateToCategory: (cityCode: string, language: string, path: string, forceRefresh?: boolean, key?: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
   resourceCache: ResourceCacheStateType,
   theme: ThemeType,
