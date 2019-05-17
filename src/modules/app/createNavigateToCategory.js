@@ -17,9 +17,7 @@ export default (
       key,
       onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
     },
-    // Use key when navigating to Categories. Else a new route is not pushed
-    key: routeName === 'Categories' ? key : undefined /* Explanation for "key":
-                                                         https://reactnavigation.org/docs/en/navigation-key.html */
+    key
   })
 
   return dispatch({

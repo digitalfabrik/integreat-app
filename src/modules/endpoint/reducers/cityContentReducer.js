@@ -17,6 +17,7 @@ export default (
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
       return morphContentLanguage(state, action)
+    case 'FETCH_CATEGORY':
     case 'CLEAR_CATEGORY':
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
