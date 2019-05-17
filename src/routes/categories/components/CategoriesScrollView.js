@@ -7,7 +7,7 @@ import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { ResourceCacheStateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -18,7 +18,7 @@ type PropsType = {
 
   navigateToCategory: (cityCode: string, language: string, path: string, forceRefresh?: boolean, key?: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
-  resourceCache: ResourceCacheStateType,
+  resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
   stateView: ?CategoriesRouteStateView
 }

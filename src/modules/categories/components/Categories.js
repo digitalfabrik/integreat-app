@@ -11,7 +11,7 @@ import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
-import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
+import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -22,7 +22,7 @@ type PropsType = {|
   navigateToCategory: (cityCode: string, language: string, path: string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
 
-  resourceCache: ResourceCacheStateType,
+  resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType
 |}
 

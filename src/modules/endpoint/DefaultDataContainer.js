@@ -139,7 +139,7 @@ class DefaultDataContainer implements DataContainer {
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     return flatMap(
       Object.values(languageResourceCache),
-      (file: FileCacheStateType): string => map(file, ({filePath}) => filePath)
+      (file: FileCacheStateType): Array<string> => map(file, ({filePath}) => filePath)
     )
   }
 
@@ -157,7 +157,7 @@ class DefaultDataContainer implements DataContainer {
       const removedPaths = difference(oldPaths, newPaths)
       if (!isEmpty(removedPaths)) {
         const pathsOfOtherLanguages = flatMap(
-          omitBy(this._resourceCache, (val, key) => key === language),
+          omitBy(this._resourceCache, (val, key: string) => key === language),
           (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)

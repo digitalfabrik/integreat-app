@@ -12,7 +12,7 @@ import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type { ResourceCacheStateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 
 type PropsType = {|
@@ -25,7 +25,7 @@ type PropsType = {|
   navigation: NavigationScreenProp<*>,
   navigateToEvent: (cityCode: string, language: string, path?: string, forceRefresh: ?boolean, key: ?string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
-  resourceCache: ResourceCacheStateType
+  resourceCache: LanguageResourceCacheStateType
 |}
 
 /**
