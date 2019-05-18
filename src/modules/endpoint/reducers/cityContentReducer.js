@@ -6,11 +6,14 @@ import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
+import pushLanguages from './pushLanguages'
 
 export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
 ): CityContentStateType => {
   switch (action.type) {
+    case 'PUSH_LANGUAGES':
+      return pushLanguages(state, action)
     case 'PUSH_CATEGORY':
       return pushCategory(state, action)
     case 'PUSH_EVENT':
