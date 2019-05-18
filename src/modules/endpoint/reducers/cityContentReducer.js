@@ -27,6 +27,7 @@ export default (
       return state
     }
     case 'FETCH_CATEGORY':
+    case 'FETCH_LANGUAGES_FOR_CATEGORY':
     case 'CLEAR_CATEGORY': {
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
