@@ -15,6 +15,9 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
+import compose from 'lodash/fp/compose'
+import { branch, renderComponent } from 'recompose'
+import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { translate } from 'react-i18next'
 
@@ -66,7 +69,16 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-// $FlowFixMe
 const themed = withTheme(Dashboard)
-// $FlowFixMe connect()
-export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(withError(translate('dashboard')(themed))))
+export default compose([
+  withRouteCleaner,
+  connect((state: StateType): { invalidLanguage: boolean } => {
+    const languages = state.cityContent.languages
+    const language = state.cityContent.language
+    return { invalidLanguage: !!languages && !languages.find(languageModel => languageModel.code === language) }
+  }),
+  branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
+  connect(mapStateToProps, mapDispatchToProps),
+  withError,
+  translate('dashboard')
+])(themed)
