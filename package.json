@@ -95,6 +95,7 @@
     "get-dev-paths": "^0.1.1",
     "http-proxy": "^1.17.0",
     "jest": "^23.6.0",
+    "jest-fetch-mock": "^2.1.0",
     "jest-react-native": "^18.0.0",
     "lolex": "^3.0.0",
     "metro-react-native-babel-preset": "^0.51.1",
