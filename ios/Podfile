@@ -52,6 +52,8 @@ target 'Integreat' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
+  
+  pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
 
   target 'IntegreatTests' do
     inherit! :search_paths
