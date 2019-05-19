@@ -53,7 +53,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
       }
     },
     resourceCache: {...state.resourceCache, ...resourceCache},
-    categoriesMap
+    searchRoute: {categoriesMap}
   }
 }
 

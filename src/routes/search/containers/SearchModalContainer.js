@@ -10,7 +10,7 @@ import SearchModal from '../components/SearchModal'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   return {
-    categories: state.cityContent.categoriesMap,
+    categories: state.cityContent.searchRoute.categoriesMap,
     language: state.cityContent.language,
     cityCode: state.cityContent.city,
     closeModal: () => ownProps.navigation.goBack()

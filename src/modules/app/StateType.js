@@ -57,6 +57,10 @@ export const defaultCitiesState: CitiesStateType = {
   models: []
 }
 
+export type SearchRouteType = {|
+  +categoriesMap: CategoriesMapModel | null
+|}
+
 export type CityContentStateType = {|
   +lastUpdate: Moment | null,
   +language: string | null,
@@ -65,7 +69,7 @@ export type CityContentStateType = {|
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: ResourceCacheStateType,
-  +categoriesMap: CategoriesMapModel | null
+  +searchRoute: SearchRouteType
 |}
 
 export const defaultCityContentState: CityContentStateType = {
@@ -76,7 +80,7 @@ export const defaultCityContentState: CityContentStateType = {
   categoriesRouteMapping: {},
   eventsRouteMapping: {},
   resourceCache: {},
-  categoriesMap: null
+  searchRoute: {categoriesMap: null}
 }
 
 export type DirectionStateType = 'ltr' | 'rtl'

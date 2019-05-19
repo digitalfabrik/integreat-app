@@ -273,7 +273,7 @@ describe('morphContentLanguage', () => {
     categoriesRouteMapping: {},
     eventsRouteMapping: {},
     resourceCache: {},
-    categoriesMap: null,
+    searchRoute: {categoriesMap: null},
     languages,
     language: null,
     city: null,
