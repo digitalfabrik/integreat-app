@@ -30,6 +30,7 @@ import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
+import watchFetchLanguagesForCategory from '../endpoint/sagas/watchFetchLanguagesForCategory'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
@@ -37,6 +38,7 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
     call(watchFetchEvent, dataContainer),
     call(watchFetchCities, dataContainer),
     call(watchContentLanguageSwitch, dataContainer),
+    call(watchFetchLanguagesForCategory, dataContainer),
     call(networkSaga, {})
   ])
 }

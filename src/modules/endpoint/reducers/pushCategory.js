@@ -52,7 +52,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages)
       }
     },
-    resourceCache: {...state.resourceCache, ...resourceCache}
+    resourceCache: {...state.resourceCache, ...resourceCache},
+    searchRoute: {categoriesMap}
   }
 }
 
