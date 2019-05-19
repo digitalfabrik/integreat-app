@@ -18,6 +18,7 @@ import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraC
 import SprungbrettExtraContainer from '../../../routes/sprungbrett/containers/SprungbrettExtraContainer'
 import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
 import EventsContainer from '../../../routes/events/containers/EventsContainer'
+import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -65,6 +66,7 @@ export const AppStack = createStackNavigator(
     'Events': createNavigationScreen(EventsContainer, defaultHeader),
     'MapViewModal': createNavigationScreen(MapViewModal),
     'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
+    'SearchModal': createNavigationScreen(SearchModalContainer),
     'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
     'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
   },
