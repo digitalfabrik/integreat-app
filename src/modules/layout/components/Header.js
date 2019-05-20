@@ -58,7 +58,8 @@ type PropsType = {|
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
   theme: ThemeType,
-  availableLanguages: ?Array<string>
+  availableLanguages: ?Array<string>,
+  navigateToLanding: () => void
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -84,7 +85,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToLanding = () => {
-    this.getNavigation().navigate('Landing')
+    this.props.navigateToLanding()
   }
 
   goToLanguageChange = () => {
@@ -97,9 +98,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSearch = () => {
-    this.getNavigation().navigate({
-      routeName: 'SearchModal'
-    })
+    this.getNavigation().navigate('SearchModal')
   }
 
   render () {
