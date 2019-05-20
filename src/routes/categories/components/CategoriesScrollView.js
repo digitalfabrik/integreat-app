@@ -38,9 +38,12 @@ class CategoriesScrollView extends React.Component<PropsType> {
 
     const loading = !stateView || !cities || !resourceCache
 
+    if (!stateView || !cities || !resourceCache) { // I cannot do 'if (loading)' here because of flow -.-
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
+    }
+
     return (
       <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-        {!loading && // $FlowFixMe Flow doesn't recognize stateView and cities to not be nullish here -.-
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
@@ -48,7 +51,7 @@ class CategoriesScrollView extends React.Component<PropsType> {
                     cityCode={cityCode}
                     theme={theme}
                     navigateToCategory={navigateToCategory}
-                    navigateToIntegreatUrl={navigateToIntegreatUrl} />}
+                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
       </ScrollView>
     )
   }

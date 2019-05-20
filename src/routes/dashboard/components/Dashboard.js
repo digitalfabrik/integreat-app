@@ -91,12 +91,13 @@ class Dashboard extends React.Component<PropsType> {
 
     const loading = !stateView || !cities || !resourceCache
 
-    return <ScrollView
-      refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-      {!loading && <>
+    if (!stateView || !cities || !resourceCache) { // I cannot do 'if (loading)' here because of flow -.-
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
+    }
+
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
         <NavigationTiles tiles={this.getNavigationTileModels()}
                          theme={theme} />
-        {/* $FlowFixMe Flow doesn't recognize stateView and cities to not be nullish */}
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
@@ -105,7 +106,6 @@ class Dashboard extends React.Component<PropsType> {
                     theme={this.props.theme}
                     navigateToCategory={this.props.navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
-      </>}
     </ScrollView>
   }
 }

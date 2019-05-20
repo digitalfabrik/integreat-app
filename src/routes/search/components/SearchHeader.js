@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
+import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 import { SearchBar } from 'react-native-elements'
 
 const ThemedSearchBar = styled(SearchBar).attrs(props => ({
