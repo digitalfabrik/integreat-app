@@ -122,12 +122,17 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
+export type ClearCityContentActionType = {|
+  type: 'CLEAR_CITY_CONTENT'
+|}
+
 export type CityContentActionType =
   CategoriesActionType
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
   | LanguagesForCategoryActionType
+  | ClearCityContentActionType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
