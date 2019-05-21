@@ -7,6 +7,7 @@ import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
+import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -19,17 +20,22 @@ const Wrapper = styled.View`
 
 type PropsType = {
   theme: ThemeType,
-  city: string,
-  currentLanguage: string,
-  languages: Array<LanguageModel>,
+  city: string | null,
+  currentLanguage: string | null,
+  languages: Array<LanguageModel> | null,
   availableLanguages: Array<string>,
-  changeLanguage: (city: string, language: string) => void,
+  changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    const { closeModal, changeLanguage, city } = this.props
+    const {closeModal, changeLanguage, city} = this.props
+
+    if (!city) {
+      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
+    }
+
     closeModal()
     InteractionManager.runAfterInteractions(() => {
       changeLanguage(city, model.code)
@@ -37,7 +43,12 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   }
 
   render () {
-    const { theme, languages, availableLanguages, currentLanguage } = this.props
+    const {theme, languages, availableLanguages, city, currentLanguage} = this.props
+
+    if (!languages || !currentLanguage || !city) {
+      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
+    }
+
     return <Wrapper theme={theme}>
       <Selector theme={theme} verticalLayout items={languages.map(languageModel => {
         const isLanguageAvailable = availableLanguages.includes(languageModel.code)
@@ -48,7 +59,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
           onPress: () => this.onPress(languageModel)
         })
       })}
-      selectedItemCode={currentLanguage} />
+                selectedItemCode={currentLanguage} />
     </Wrapper>
   }
 }
