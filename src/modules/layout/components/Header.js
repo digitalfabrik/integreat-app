@@ -87,6 +87,10 @@ class Header extends React.PureComponent<PropsType> {
     this.getNavigation().navigate('Landing')
   }
 
+  goToSettings = () => {
+    this.getNavigation().navigate('Settings')
+  }
+
   goToLanguageChange = () => {
     this.getNavigation().navigate({
       routeName: 'ChangeLanguageModal',
@@ -118,7 +122,7 @@ class Header extends React.PureComponent<PropsType> {
             <Item title='Search' iconName='search' onPress={this.goToSearch} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
-            <Item title='Settings' show='never' onPress={console.warn} />
+            <Item title='Settings' show='never' onPress={this.goToSettings} />
           </MaterialHeaderButtons>
         </Horizontal>
       </BoxShadow>
