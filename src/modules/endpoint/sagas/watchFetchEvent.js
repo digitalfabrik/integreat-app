@@ -34,7 +34,10 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
     console.error(e)
     const failed: FetchEventFailedActionType = {
       type: `FETCH_EVENT_FAILED`,
-      message: `Error in fetchEvent: ${e.message}`
+      params: {
+        message: `Error in fetchEvent: ${e.message}`,
+        key: key
+      }
     }
     yield put(failed)
   }

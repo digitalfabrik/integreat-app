@@ -39,7 +39,10 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     console.error(e)
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
-      message: `Error in fetchCategory: ${e.message}`
+      params: {
+        error: `Error in fetchCategory: ${e.message}`,
+        key: key
+      }
     }
     yield put(failed)
   }

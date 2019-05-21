@@ -7,6 +7,8 @@ import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
 import setCityContentInformation from './setCityContentInformation'
+import fetchCategoryFailed from './fetchCategoryFailed'
+import fetchEventFailed from './fetchEventFailed'
 
 export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
@@ -28,12 +30,16 @@ export default (
       delete state.eventsRouteMapping[key]
       return state
     }
+    case 'FETCH_EVENT_FAILED':
+      return fetchEventFailed(state, action)
     case 'FETCH_CATEGORY':
     case 'CLEAR_CATEGORY': {
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
       return state
     }
+    case 'FETCH_CATEGORY_FAILED':
+      return fetchCategoryFailed(state, action)
     case 'CLEAR_CITY_CONTENT':
       return defaultCityContentState
     default:
