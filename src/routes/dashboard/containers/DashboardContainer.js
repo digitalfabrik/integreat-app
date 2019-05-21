@@ -22,15 +22,15 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
-  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  fetchCities: () => dispatch({
-    type: 'FETCH_CITIES',
-    params: {}
-  })
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, route: ?CategoryRouteStateType) => {
   const language = state.cityContent.language
+
+  if (state.cities.error) {
+    throw new Error('Error not handled correctly')
+  }
 
   if (!route || !language) {
     return {
@@ -57,7 +57,7 @@ export default compose([
   withRouteCleaner,
   connect((state: StateType, ownProps) => {
     const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-    if (route && route.error) {
+    if (state.cities.error || (route && route.error)) {
       return {error: true}
     }
 

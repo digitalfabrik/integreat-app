@@ -14,7 +14,9 @@ export type PushCitiesActionType = {|
   type: 'PUSH_CITIES', params: {| cities: Array<CityModel> |}
 |}
 export type FetchCitiesFailedActionType = {|
-  type: 'FETCH_CITIES_FAILED', message: string
+  type: 'FETCH_CITIES_FAILED', params: {
+    message: string
+  }
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 

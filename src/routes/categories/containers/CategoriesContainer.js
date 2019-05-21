@@ -24,6 +24,10 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 const mapStateToProps = (state: StateType, route: ?CategoryRouteStateType) => {
   const language = state.cityContent.language
 
+  if (state.cities.error) {
+    throw new Error('Error not handled correctly')
+  }
+
   if (!route || !language) {
     return {
       cityCode: state.cityContent.city,

@@ -21,7 +21,7 @@ const Wrapper = styled(ScrollView)`
 
 type PropType = {
   language: string,
-  cities?: Array<CityModel>,
+  cities: Array<CityModel> | null,
   navigateToDashboard: (cityCode: string, language: string) => void,
   t: TFunction,
   theme: ThemeType,
