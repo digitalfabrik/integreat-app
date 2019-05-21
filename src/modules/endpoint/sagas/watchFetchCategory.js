@@ -40,7 +40,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
     const failed: FetchCategoryFailedActionType = {
       type: `FETCH_CATEGORY_FAILED`,
       params: {
-        error: `Error in fetchCategory: ${e.message}`,
+        message: `Error in fetchCategory: ${e.message}`,
         key: key
       }
     }

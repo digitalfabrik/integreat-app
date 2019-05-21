@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
-import type { EventRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { withTheme } from 'styled-components/native'
 import LanguageNotAvailablePage from '../../../modules/common/components/LanguageNotAvailablePage'
@@ -11,10 +11,13 @@ import compose from 'lodash/fp/compose'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const key: string = ownProps.navigation.getParam('key')
-  const route: EventRouteStateType = state.cityContent.eventsRouteMapping[key]
+  const route = state.cityContent.eventsRouteMapping[key]
   const languages = state.cityContent.languages
   if (!languages) {
     throw new Error('languages have not been set.')
+  }
+  if (route.error) {
+    throw new Error('Error was not handled correctly')
   }
 
   return {

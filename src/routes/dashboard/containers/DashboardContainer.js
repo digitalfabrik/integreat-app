@@ -5,9 +5,7 @@ import type { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
 import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
-import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components/native'
-import withError from '../../../modules/error/hocs/withError'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -18,6 +16,7 @@ import { branch, renderComponent } from 'recompose'
 import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { translate } from 'react-i18next'
+import { Failure } from '../../../modules/error/components/Failure'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
@@ -30,45 +29,47 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   })
 })
 
-const mapStateToProps = (state: StateType, ownProps) => {
-  const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
-  const key: string = ownProps.navigation.getParam('key')
-
-  const targetRoute: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
+const mapStateToProps = (state: StateType, route: ?CategoryRouteStateType) => {
   const language = state.cityContent.language
 
-  if (!targetRoute || !language) {
+  if (!route || !language) {
     return {
-      cityCode: targetCityCode,
+      cityCode: state.cityContent.city,
       language: language,
       cities: state.cities.models
     }
   }
 
-  const models = targetRoute.models
-  const children = targetRoute.children
-  const stateView = new CategoriesRouteStateView(targetRoute.root, models, children)
+  const models = route.models
+  const children = route.children
+  const stateView = new CategoriesRouteStateView(route.root, models, children)
 
   return {
-    cityCode: targetCityCode,
-    language: targetRoute.language,
+    cityCode: state.cityContent.city,
+    language: route.language,
     cities: state.cities.models,
     stateView: stateView,
-    resourceCache: state.cityContent.resourceCache,
-    error: null // fixme display errors
+    resourceCache: state.cityContent.resourceCache
   }
 }
 
-const themed = withTheme(Dashboard)
 export default compose([
   withRouteCleaner,
-  connect((state: StateType): { invalidLanguage: boolean } => {
-    const languages = state.cityContent.languages
-    const language = state.cityContent.language
-    return { invalidLanguage: !!languages && !languages.find(languageModel => languageModel.code === language) }
-  }),
+  connect((state: StateType, ownProps) => {
+    const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
+    if (route && route.error) {
+      return {error: true}
+    }
+
+    if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
+      return {invalidLanguage: true}
+    }
+
+    return mapStateToProps(state, route)
+  }, mapDispatchToProps),
+  // TODO NATIVE-112 Show errors, maybe use withError and pass more props
+  branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
-  connect(mapStateToProps, mapDispatchToProps),
-  withError,
-  translate('dashboard')
-])(themed)
+  translate('dashboard'),
+  withTheme
+])(Dashboard)
