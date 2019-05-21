@@ -4,9 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import toggleDarkMode from '../../../modules/theme/actions/toggleDarkMode'
-import { offlineActionTypes } from 'react-native-offline'
-import type { StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components/native'
 import withError from '../../../modules/error/hocs/withError'
@@ -22,15 +20,7 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import { translate } from 'react-i18next'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  toggleTheme: () => dispatch(toggleDarkMode()),
-  goOffline: () => dispatch({
-    type: offlineActionTypes.CONNECTION_CHANGE,
-    payload: false
-  }),
-  goOnline: () => dispatch({
-    type: offlineActionTypes.CONNECTION_CHANGE,
-    payload: true
-  }),
+  navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
@@ -44,7 +34,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute = state.cityContent.categoriesRouteMapping[key]
+  const targetRoute: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
   const language = state.cityContent.language
 
   if (!targetRoute || !language) {

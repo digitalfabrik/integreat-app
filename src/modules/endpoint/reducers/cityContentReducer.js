@@ -1,9 +1,9 @@
 // @flow
 
+import type { CityContentStateType } from '../../app/StateType'
 import { defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
-import type { CityContentStateType } from '../../app/StateType'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
 import pushLanguages from './pushLanguages'
@@ -20,10 +20,19 @@ export default (
       return pushEvent(state, action)
     case 'MORPH_CONTENT_LANGUAGE':
       return morphContentLanguage(state, action)
-    case 'CLEAR_CATEGORY':
+    case 'FETCH_EVENT':
+    case 'CLEAR_EVENT': {
+      const {key} = action.params
+      delete state.eventsRouteMapping[key]
+      return state
+    }
+    case 'FETCH_CATEGORY':
+    case 'FETCH_LANGUAGES_FOR_CATEGORY':
+    case 'CLEAR_CATEGORY': {
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
       return state
+    }
     case 'CLEAR_CITY_CONTENT':
       return defaultCityContentState
     default:
