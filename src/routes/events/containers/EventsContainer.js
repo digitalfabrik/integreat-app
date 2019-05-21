@@ -1,6 +1,6 @@
 // @flow
 
-import type { StateType } from '../../../modules/app/StateType'
+import type { EventRouteStateType, StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import Events from '../components/Events'
@@ -11,15 +11,12 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { branch, renderComponent } from 'recompose'
-import EventNotAvailableContainer from './EventNotAvailableContainer'
+import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
+import { Failure } from '../../../modules/error/components/Failure'
 
-const mapStateToProps = (state: StateType, ownProps) => {
+const mapStateToProps = (state: StateType, route: ?EventRouteStateType) => {
   const {language, city, resourceCache} = state.cityContent
-  const key: string = ownProps.navigation.getParam('key')
-
-  const targetRoute = state.cityContent.eventsRouteMapping[key]
-
-  if (!targetRoute || !language) {
+  if (!route || !language) {
     return {
       language,
       cityCode: city,
@@ -30,8 +27,8 @@ const mapStateToProps = (state: StateType, ownProps) => {
   return {
     language: targetRoute.language,
     cityCode: city,
-    events: targetRoute.models,
-    path: targetRoute.path,
+    events: route.models,
+    path: route.path,
     resourceCache: resourceCache
   }
 }
@@ -45,9 +42,18 @@ export default compose([
   translate('events'),
   connect((state: StateType, ownProps) => {
     const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
-  }),
+    if (route && route.error) {
+      return {error: true}
+    }
+
+    if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
+      return {invalidLanguage: true}
+    }
+
+    return mapStateToProps(state, route)
+  }, mapDispatchToProps),
+  // TODO NATIVE-112 Show errors
+  branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
-  connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner
 ])(Events)

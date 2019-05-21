@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
-import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import LanguageNotAvailablePage from '../../../modules/common/components/LanguageNotAvailablePage'
 import { withTheme } from 'styled-components/native'
@@ -11,10 +11,13 @@ import { translate } from 'react-i18next'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const key: string = ownProps.navigation.getParam('key')
-  const route: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
+  const route = state.cityContent.categoriesRouteMapping[key]
   const languages = state.cityContent.languages
   if (!languages) {
     throw new Error('languages have not been set.')
+  }
+  if (route.error) {
+    throw new Error('Error not handled correctly')
   }
 
   return {

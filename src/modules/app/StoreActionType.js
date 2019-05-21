@@ -47,9 +47,10 @@ export type FetchCategoryActionType = {|
   |}
 |}
 export type FetchCategoryFailedActionType = {|
-  type: 'FETCH_CATEGORY_FAILED', params: {|
+  type: 'FETCH_CATEGORY_FAILED',
+  params: {|
     key: string,
-    error: string
+    message: string
   |}
 |}
 export type PushCategoryActionType = {|
@@ -92,9 +93,10 @@ export type PushEventActionType = {|
   |}
 |}
 export type FetchEventFailedActionType = {|
-  type: 'FETCH_EVENT_FAILED', params: {|
+  type: 'FETCH_EVENT_FAILED',
+  params: {|
     key: string,
-    error: string
+    message: string
   |}
 |}
 
