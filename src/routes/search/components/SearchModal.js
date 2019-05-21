@@ -7,6 +7,7 @@ import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
 import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { NavigationScreenProp } from 'react-navigation'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -26,7 +27,7 @@ export type PropsType = {|
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,
-  navigation: any
+  navigation: NavigationScreenProp<*>
 |}
 
 type StateType = {|
