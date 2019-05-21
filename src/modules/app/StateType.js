@@ -22,14 +22,14 @@ export type CategoryRouteStateType = {|
   +children: { [path: PathType]: Array<PathType> },
   +allAvailableLanguages: Map<string, string>, // including the current content language
   +language: string
-|}
+|} | {| +error: string |}
 
 export type EventRouteStateType = {|
   +path: string | null,
   +models: Array<EventModel>,
   +allAvailableLanguages: Map<string, string>, // including the current content language
   +language: string
-|}
+|} | {| +error: string |}
 
 export type FileCacheStateType = {
   [url: string]: {|
