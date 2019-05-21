@@ -19,6 +19,7 @@ import SprungbrettExtraContainer from '../../../routes/sprungbrett/containers/Sp
 import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
 import EventsContainer from '../../../routes/events/containers/EventsContainer'
 import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
+import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -63,6 +64,7 @@ export const AppStack = createStackNavigator(
     'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
     'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
     'Events': createNavigationScreen(EventsContainer, defaultHeader),
+    'Settings': createNavigationScreen(SettingsContainer, defaultHeader),
     'MapViewModal': createNavigationScreen(MapViewModal),
     'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
     'SearchModal': createNavigationScreen(SearchModalContainer),
