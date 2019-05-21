@@ -2,6 +2,7 @@
 
 import { withTheme } from 'styled-components/native'
 import { translate, withI18n } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
@@ -10,12 +11,19 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import { StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
+import { branch, renderComponent } from 'recompose'
+import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
+  if (state.cities.error) {
+    return {
+      error: true
+    }
+  }
   const cities = state.cities.models
   return {
     language: ownProps.lng,
-    cities: cities.length === 0 ? undefined : cities
+    cities
   }
 }
 
@@ -52,6 +60,11 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   }
 }
 
-// $FlowFixMe
-const themed = withTheme(Landing)
-export default translate('landing')(withI18n()(connect(mapStateToProps, mapDispatchToProps)(themed)))
+export default compose([
+  connect(mapStateToProps, mapDispatchToProps),
+  // TODO NATIVE-112
+  branch(props => props.error, renderComponent(Failure)),
+  withTheme,
+  translate('landing'),
+  withI18n()
+])(Landing)
