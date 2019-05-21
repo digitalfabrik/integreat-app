@@ -8,9 +8,7 @@ import { generateKey } from './generateRouteKey'
 export default (
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => (cityCode: string, language: string, path?: string, forceUpdate: boolean = false) => {
-  const key = generateKey()
-
+) => (cityCode: string, language: string, path?: string, forceUpdate: boolean = false, key: string = generateKey()) => {
   navigation.navigate({
     routeName: 'Events',
     params: {

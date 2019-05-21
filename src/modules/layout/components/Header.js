@@ -7,7 +7,7 @@ import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-butto
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
-import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
+import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
 const Horizontal = styled.View`
   flex:1;

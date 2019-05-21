@@ -26,15 +26,6 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 
 export default function * fetchResourceCache (
   city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
-  if (isEmpty(fetchMap) && dataContainer.resourceCacheAvailable()) {
-    const success: ResourcesFetchSucceededActionType = {
-      type: 'RESOURCES_FETCH_SUCCEEDED', city, language
-    }
-    yield put(success)
-
-    return
-  }
-
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
 
@@ -71,7 +62,7 @@ export default function * fetchResourceCache (
       }, {})
     )
 
-    yield call(dataContainer.addResourceCacheEntries, resourceCache)
+    yield call(dataContainer.setResourceCache, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {

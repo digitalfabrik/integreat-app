@@ -9,9 +9,7 @@ export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => (cityCode: string, language: string, path: string, forceUpdate: boolean = false) => {
-  const key = generateKey()
-
+) => (cityCode: string, language: string, path: string, forceUpdate: boolean = false, key: string = generateKey()) => {
   navigation.navigate({
     routeName,
     params: {
@@ -19,9 +17,7 @@ export default (
       key,
       onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
     },
-    // Use key when navigating to Categories. Else a new route is not pushed
-    key: routeName === 'Categories' ? key : undefined /* Explanation for "key":
-                                                         https://reactnavigation.org/docs/en/navigation-key.html */
+    key
   })
 
   const fetchLanguagesForCategory: FetchLanguagesForCategoryActionType = {
