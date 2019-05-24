@@ -66,7 +66,8 @@ type PropsType = {|
     [key: string]: {
       root: string
     }
-  }
+  },
+  availableLanguages: ?Array<string>
 |}
 
 class Header extends React.PureComponent<PropsType> {
