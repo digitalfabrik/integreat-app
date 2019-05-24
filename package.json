@@ -38,6 +38,7 @@
     "moment": "2.24.0",
     "normalize-path": "^3.0.0",
     "prop-types": "^15.6.2",
+    "query-string": "^6.5.0",
     "react": "16.7.0",
     "react-i18next": "^9.0.5",
     "react-native": "0.57.8",
