@@ -53,9 +53,12 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
   }
 
   navigateToExtra = (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => {
+    if (!this.props.navigation.push) {
+      return console.error('push is not defined on navigation')
+    }
     if (isExternalUrl) {
       this.props.navigation.push('ExternalExtra', {url: path, postData})
-    } else if (this.props.navigation.push) {
+    } else {
       const params = {city: this.props.city, extras: this.state.extras, offerHash: null}
       this.props.navigation.push(path, params)
     }
