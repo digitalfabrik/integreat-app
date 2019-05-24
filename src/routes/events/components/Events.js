@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { ScrollView } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import type { TFunction } from 'react-i18next'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
@@ -12,7 +12,8 @@ import List from '../../../modules/common/components/List'
 import Caption from '../../../modules/common/components/Caption'
 import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type { ResourceCacheStateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
+import type { NavigationScreenProp } from 'react-navigation'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -21,9 +22,10 @@ type PropsType = {|
   t: TFunction,
   path?: string,
   theme: ThemeType,
-  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
+  navigation: NavigationScreenProp<*>,
+  navigateToEvent: (cityCode: string, language: string, path?: string, forceRefresh: ?boolean, key: ?string) => void,
   navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
-  resourceCache: ResourceCacheStateType
+  resourceCache: LanguageResourceCacheStateType
 |}
 
 /**
@@ -40,14 +42,20 @@ export default class Events extends React.Component<PropsType> {
                    language={language}
                    navigateToEvent={this.navigateToEvent(event.path)} />
 
+  onRefresh = () => {
+    const {navigation, navigateToEvent, cityCode, language, path} = this.props
+    navigateToEvent(cityCode, language, path, true, navigation.getParam('key'))
+  }
+
   render () {
     const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t} = this.props
+    const loading = !events
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
         const files = resourceCache[event.path]
-        return <ScrollView>
+        return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
           <Page content={event.content}
                 title={event.title}
                 lastUpdate={event.lastUpdate}
@@ -67,11 +75,13 @@ export default class Events extends React.Component<PropsType> {
       return <Failure error={error} />
     }
 
-    return <>
-      <Caption title={t('news')} theme={theme} />
-      <List noItemsMessage={t('currentlyNoEvents')}
-            items={events}
-            renderItem={this.renderEventListItem(language)} />
-    </>
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
+      {!loading && <>
+        <Caption title={t('news')} theme={theme} />
+        <List noItemsMessage={t('currentlyNoEvents')}
+              items={events}
+              renderItem={this.renderEventListItem(language)} />
+      </>}
+    </ScrollView>
   }
 }

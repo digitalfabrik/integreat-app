@@ -6,8 +6,7 @@ import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import HeaderBackButton from 'react-navigation-stack/dist/views/Header/HeaderBackButton'
-import { SearchBar } from 'react-native-elements'
+import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
@@ -58,23 +57,7 @@ const MaterialHeaderButtons = props => {
   )
 }
 
-const ThemedSearchBar = styled(SearchBar).attrs(props => ({
-  containerStyle: {
-    flexGrow: 1,
-    backgroundColor: props.theme.colors.backgroundAccentColor,
-    borderTopColor: props.theme.colors.backgroundAccentColor,
-    borderBottomColor: props.theme.colors.backgroundAccentColor
-  },
-  inputContainerStyle: {
-    backgroundColor: props.theme.colors.backgroundColor
-  },
-  inputStyle: {
-    backgroundColor: props.theme.colors.backgroundColor
-  }
-}))``
-
-type PropsType = {
-  availableLanguages: ?Array<string>,
+type PropsType = {|
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
   t: TFunction,
@@ -84,18 +67,9 @@ type PropsType = {
       root: string
     }
   }
-}
+|}
 
-type StateType = {
-  searchActive: boolean
-}
-
-class Header extends React.PureComponent<PropsType, StateType> {
-  constructor () {
-    super()
-    this.state = {searchActive: false}
-  }
-
+class Header extends React.PureComponent<PropsType> {
   canGoBackInStack (): boolean {
     return !!this.getLastSceneInStack()
   }
@@ -115,14 +89,6 @@ class Header extends React.PureComponent<PropsType, StateType> {
 
   goBackInStack = () => {
     this.getNavigation().goBack(this.getDescriptor().key)
-  }
-
-  showSearchBar = () => {
-    this.setState(state => ({...state, searchActive: true}))
-  }
-
-  closeSearchBar = () => {
-    this.setState(state => ({...state, searchActive: false}))
   }
 
   goToLanding = () => {
@@ -160,16 +126,14 @@ class Header extends React.PureComponent<PropsType, StateType> {
     }
   }
 
+  goToSearch = () => {
+    this.getNavigation().navigate({
+      routeName: 'SearchModal'
+    })
+  }
+
   render () {
     const { t, theme } = this.props
-    if (this.state.searchActive) {
-      return <BoxShadow theme={theme}><HorizontalLeft>
-        <HeaderBackButton onPress={this.closeSearchBar} />
-        <ThemedSearchBar theme={theme} />
-      </HorizontalLeft>
-      </BoxShadow>
-    }
-
     const headerTitle = this.getDescriptor().headerTitle || ''
 
     return (
@@ -181,7 +145,7 @@ class Header extends React.PureComponent<PropsType, StateType> {
             <Title>{headerTitle}</Title>
           </HorizontalLeft>
           <MaterialHeaderButtons>
-            <Item title='Search' iconName='search' onPress={this.showSearchBar} />
+            <Item title='Search' iconName='search' onPress={this.goToSearch} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
             <Item title={t('share')} show='never' onPress={this.onShare} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />

@@ -35,10 +35,9 @@ export default function * loadCityContent (
     call(loadLanguages, newCity, dataContainer, shouldUpdate)
   ])
 
-  const fetchMap = {...categoryUrls, ...eventUrls}
-  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
-
   if (shouldUpdate) {
+    const fetchMap = {...categoryUrls, ...eventUrls}
+    yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
     yield call(dataContainer.setLastUpdate, moment.tz('UTC'))
   }
 }
