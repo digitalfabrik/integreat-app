@@ -16,9 +16,10 @@ import ModalHeaderContainer from '../../layout/containers/TransparentHeaderConta
 import ExtrasContainer from '../../../routes/extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraContainer'
 import SprungbrettExtraContainer from '../../../routes/sprungbrett/containers/SprungbrettExtraContainer'
-import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
+import { EXTERNAL_EXTRA_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants'
 import EventsContainer from '../../../routes/events/containers/EventsContainer'
 import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
+import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -43,7 +44,8 @@ export const ExtrasStack = createStackNavigator(
   {
     'Extras': ExtrasContainer,
     [WOHNEN_ROUTE]: WohnenExtraContainer,
-    [SPRUNGBRETT_ROUTE]: SprungbrettExtraContainer
+    [SPRUNGBRETT_ROUTE]: SprungbrettExtraContainer,
+    [EXTERNAL_EXTRA_ROUTE]: ExternalExtraContainer
   },
   {
     initialRouteName: 'Extras',
