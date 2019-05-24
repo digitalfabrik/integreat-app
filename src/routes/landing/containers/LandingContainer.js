@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
       params: {}
     }),
     navigateToDashboard: (cityCode: string, language: string) => {
+      const path = `/${cityCode}/${language}`
       const key: string = generateKey()
       ownProps.navigation.navigate({
         routeName: 'App',
@@ -34,6 +35,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
           params: {
             cityCode,
             key,
+            sharePath: path,
             onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
           },
           newKey: key
@@ -43,7 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
       return dispatch({
         type: 'FETCH_LANGUAGES_FOR_CATEGORY',
         params: {
-          city: cityCode, language, path: `/${cityCode}/${language}`, depth: 2, forceUpdate: false, key
+          city: cityCode, language, path, depth: 2, forceUpdate: false, key
         }
       })
     }
