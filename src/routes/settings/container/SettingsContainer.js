@@ -8,6 +8,8 @@ import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+
 type PropsType = {
   navigation: NavigationScreenProp<*>,
   theme: ThemeType
@@ -20,6 +22,6 @@ const mapStateToProps = (state: StateType) => {
 }
 
 const ThemedSettings = withTheme<PropsType, _>(translate('settings')(Settings))
-export default connect<PropsType, _, _, _, _, _>(mapStateToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   ThemedSettings
 )
