@@ -1,17 +1,20 @@
 // @flow
 
 import * as React from 'react'
-import { SectionList, StyleSheet, Switch, AsyncStorage } from 'react-native'
+import { SectionList, StyleSheet, Switch, AsyncStorage, Linking } from 'react-native'
 import styled from 'styled-components/native'
 
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import { reduce } from 'lodash/collection'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
-  theme: ThemeType
+  theme: ThemeType,
+  language: string,
+  t: TFunction
 }
 
 type SettingsType = {|
@@ -46,46 +49,62 @@ const SectionHeader = styled.Text`
 `
 
 export default class Settings extends React.Component<PropsType, StateType> {
-  sections = [
-    {
-      title: 'Placeholder',
-      data: [
-        {
-          title: 'Placeholder',
-          description: 'Placeholder'
-        },
-        {
-          title: 'Placeholder',
-          description: 'Placeholder'
-        }
-      ]
-    },
-    {
-      data: [
-        {
-          title: 'Help to improve Integreat',
-          description: 'Automatically sends troubleshooting information',
-          hasSwitch: true,
-          onPress: () => { this.toggleErrorTracking() }
-        },
-        {
-          title: 'About Integreat'
-        },
-        {
-          title: 'Privacy Policy'
-        },
-        {
-          title: 'Report a bug'
-        },
-        {
-          title: 'Version: ??'
-        },
-        {
-          title: 'Open source licenses'
-        }
-      ]
-    }
-  ]
+  sections = () => {
+    const {t, language} = this.props
+
+    return ([
+      {
+        title: 'Placeholder',
+        data: [
+          {
+            title: 'Placeholder',
+            description: 'Placeholder'
+          },
+          {
+            title: 'Placeholder',
+            description: 'Placeholder'
+          }
+        ]
+      },
+      {
+        data: [
+          {
+            title: t('troubleshooting'),
+            description: t('troubleshootingDescription'),
+            hasSwitch: true,
+            onPress: () => { this.toggleErrorTracking() }
+          },
+          {
+            title: t('about'),
+            onPress: () => {
+              if (language === 'de') {
+                Linking.openURL('https://integreat-app.de/')
+              } else {
+                Linking.openURL('https://integreat-app.de/en/')
+              }
+            }
+          },
+          {
+            title: t('privacyPolicy'),
+            onPress: () => {
+              if (language === 'de') {
+                Linking.openURL('https://integreat-app.de/datenschutz-webseite/')
+              } else {
+                Linking.openURL('https://integreat-app.de/en/privacy-website/')
+              }
+            }
+          },
+          {
+            title: t('version', {version: '??'})
+          },
+          {
+            title: t('openSourceLicenses'),
+            onPress: () => { console.warn('Not yet implemented.') }
+          }
+        ]
+      }
+    ])
+  }
 
   constructor (props: PropsType) {
     super(props)
@@ -109,7 +128,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
       this.setState(state => ({...state, settingsLoaded: true, settings}))
     } catch (e) {
-      alert(e)
+      console.error('Failed to load settings.')
     }
   }
 
@@ -129,7 +148,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     try {
       await AsyncStorage.multiSet(settingsArray)
     } catch (e) {
-      alert(e)
+      console.error('Failed to persist settings.')
     }
   }
 
@@ -165,7 +184,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     return (
       <SectionList
         keyExtractor={this.keyExtractor}
-        sections={this.sections}
+        sections={this.sections()}
         extraData={this.state.settings}
         renderItem={this.renderItem}
         renderSectionHeader={this.renderSectionHeader}
