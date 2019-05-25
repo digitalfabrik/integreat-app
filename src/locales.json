@@ -357,22 +357,32 @@
   },
   "settings": {
     "en": {
-      "settings": "Settings",
       "troubleshooting": "Help to improve Integreat",
       "troubleshootingDescription": "Automatically sends crash reports",
       "about": "About Integreat",
-      "privacyPolicy": "Privacy policy",
+      "privacyPolicy": "Data protection declaration",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source licenses"
     },
     "de": {
-      "settings": "Einstellungen",
       "troubleshooting": "Hilf uns dabei Integreat zu verbessern",
       "troubleshootingDescription": "Sendet automatisch Absturzberichte",
       "about": "Über Integreat",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open-Source-Lizenzen"
+    },
+    "fr": {
+      "version": "Version: {{version}}"
+    },
+    "ar": {
+      "version": "الإصدار: {{version}}"
+    },
+    "fa": {
+      "version": "نسخه: {{version}}"
+    },
+    "ru": {
+      "version": "Версия: {{version}}"
     }
   },
   "header": {
@@ -381,6 +391,18 @@
     },
     "de": {
       "settings": "Einstellungen"
+    },
+    "fr": {
+      "settings": "Paramètres"
+    },
+    "ar": {
+      "settings": "إعدادات"
+    },
+    "fa": {
+      "settings": "تنظیمات"
+    },
+    "ru": {
+      "settings": "Настройки сброшены."
     }
   }
 }
