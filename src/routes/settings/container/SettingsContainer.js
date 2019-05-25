@@ -1,15 +1,25 @@
 // @flow
 
-import * as React from 'react'
 import Settings from '../components/Settings'
 import { withTheme } from 'styled-components/native'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import { translate } from 'react-i18next'
+import { connect } from 'react-redux'
+import type { StateType } from '../../../modules/app/StateType'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
   theme: ThemeType
 }
 
-const ThemedSettings = withTheme<PropsType, _>(Settings)
-export default (props: PropsType) => <ThemedSettings theme={props.theme} navigation={props.navigation} />
+const mapStateToProps = (state: StateType) => {
+  return {
+    language: state.cityContent.language
+  }
+}
+
+const ThemedSettings = withTheme<PropsType, _>(translate('settings')(Settings))
+export default connect<PropsType, _, _, _, _, _>(mapStateToProps)(
+  ThemedSettings
+)

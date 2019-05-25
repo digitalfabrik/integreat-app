@@ -354,5 +354,23 @@
       "feedbackSent": "Feedback sent",
       "close": "Close"
     }
+  },
+  "settings": {
+    "en": {
+      "troubleshooting": "Help to improve Integreat",
+      "troubleshootingDescription": "Automatically sends crash reports",
+      "about": "About Integreat",
+      "privacyPolicy": "Privacy policy",
+      "version": "Version: {{version}}",
+      "openSourceLicenses": "Open source licenses"
+    },
+    "de": {
+      "troubleshooting": "Helfe uns dabei Integreat zu verbessern",
+      "troubleshootingDescription": "Sendet Absturzberichte automatisch",
+      "about": "Über Integreat",
+      "privacyPolicy": "Datenschutzerklärung",
+      "version": "Version: {{version}}",
+      "openSourceLicenses": "Open-Source-Lizenzen"
+    }
   }
 }
