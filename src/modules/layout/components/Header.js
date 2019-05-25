@@ -107,7 +107,8 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { theme } = this.props
+    const { theme } = this.props // TODO: When mering the share button task make sure to remove the mock t function
+    const t = (key: string) => key
     const headerTitle = this.getDescriptor().headerTitle || ''
 
     return (
@@ -122,7 +123,7 @@ class Header extends React.PureComponent<PropsType> {
             <Item title='Search' iconName='search' onPress={this.goToSearch} />
             <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
             <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
-            <Item title='Settings' show='never' onPress={this.goToSettings} />
+            <Item title={t('settings')} show='never' onPress={this.goToSettings} />
           </MaterialHeaderButtons>
         </Horizontal>
       </BoxShadow>
