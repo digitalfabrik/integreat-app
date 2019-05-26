@@ -4,9 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import toggleDarkMode from '../../../modules/theme/actions/toggleDarkMode'
-import { offlineActionTypes } from 'react-native-offline'
-import type { StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import { withTheme } from 'styled-components/native'
 import withError from '../../../modules/error/hocs/withError'
@@ -15,19 +13,14 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
+import compose from 'lodash/fp/compose'
+import { branch, renderComponent } from 'recompose'
+import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { translate } from 'react-i18next'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  toggleTheme: () => dispatch(toggleDarkMode()),
-  goOffline: () => dispatch({
-    type: offlineActionTypes.CONNECTION_CHANGE,
-    payload: false
-  }),
-  goOnline: () => dispatch({
-    type: offlineActionTypes.CONNECTION_CHANGE,
-    payload: true
-  }),
+  navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
@@ -41,7 +34,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
   const key: string = ownProps.navigation.getParam('key')
 
-  const targetRoute = state.cityContent.categoriesRouteMapping[key]
+  const targetRoute: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
   const language = state.cityContent.language
 
   if (!targetRoute || !language) {
@@ -66,7 +59,16 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-// $FlowFixMe
 const themed = withTheme(Dashboard)
-// $FlowFixMe connect()
-export default withRouteCleaner(connect(mapStateToProps, mapDispatchToProps)(withError(translate('dashboard')(themed))))
+export default compose([
+  withRouteCleaner,
+  connect((state: StateType): { invalidLanguage: boolean } => {
+    const languages = state.cityContent.languages
+    const language = state.cityContent.language
+    return { invalidLanguage: !!languages && !languages.find(languageModel => languageModel.code === language) }
+  }),
+  branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
+  connect(mapStateToProps, mapDispatchToProps),
+  withError,
+  translate('dashboard')
+])(themed)

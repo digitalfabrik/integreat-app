@@ -6,10 +6,8 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => ({
-  cityCode, language, path, previousLanguage = language, forceUpdate = false
-}: {|cityCode: string, language: string, path?: string, previousLanguage?: string, forceUpdate?: boolean|}) => {
-  const key = generateKey()
-
+  cityCode, language, path, key = generateKey(), forceUpdate = false
+}: {|cityCode: string, language: string, path?: string, key?: string, forceUpdate?: boolean|}) => {
   navigation.navigate({
     routeName: 'Events',
     params: {
@@ -22,6 +20,6 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
 
   return dispatch({
     type: 'FETCH_EVENT',
-    params: {city: cityCode, language, path, key, forceUpdate, previousLanguage}
+    params: {city: cityCode, language, path, key, forceUpdate}
   })
 }

@@ -22,7 +22,7 @@ const Wrapper = styled(ScrollView)`
 type PropType = {
   language: string,
   cities?: Array<CityModel>,
-  navigateToCategory: ({cityCode: string, language: string, path: string}) => void,
+  navigateToDashboard: ({|cityCode: string, language: string|}) => void,
   t: TFunction,
   theme: ThemeType,
   fetchCities: () => void
@@ -39,8 +39,8 @@ class Landing extends React.Component<PropType> {
   }
 
   navigateToDashboard = (cityModel: CityModel) => {
-    const {language, navigateToCategory} = this.props
-    navigateToCategory({cityCode: cityModel.code, language, path: `/${cityModel.code}/${language}`})
+    const {language, navigateToDashboard} = this.props
+    navigateToDashboard({cityCode: cityModel.code, language})
   }
 
   render () {
