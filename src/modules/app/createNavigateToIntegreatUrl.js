@@ -4,10 +4,11 @@ import createNavigateToCategory from './createNavigateToCategory'
 import type { Dispatch } from 'redux'
 import type { NavigationScreenProp } from 'react-navigation'
 import createNavigateToEvent from './createNavigateToEvent'
-import type { SetContentLanguageActionType } from './StoreActionType'
+
+export type NavigateToIntegreatUrlParamsType = {|url: string, cityCode: string, language: string|}
 
 export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
-  ({url, cityCode, language}: {|url: string, cityCode: string, language: string|}) => {
+  ({url, cityCode, language}: NavigateToIntegreatUrlParamsType) => {
     const parts = url.split('/').filter(segment => segment)
     const pathnameParts = parts.splice(2)
     const newCity = pathnameParts[0]
@@ -20,34 +21,27 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
       // same city
 
       if (newLanguage !== language) {
-        const setContentLanguage: SetContentLanguageActionType = {
-          type: 'SET_CONTENT_LANGUAGE',
-          params: {
-            newLanguage
-          }
-        }
-        dispatch(setContentLanguage)
       }
 
       if (pathnameParts[2] === 'events') {
         if (pathnameParts[3]) {
           // '/augsburg/de/events/some_event'
           createNavigateToEvent(dispatch, navigation)(
-            {cityCode, language: newLanguage, path: pathname, previousLanguage: language})
+            {cityCode, language: newLanguage, path: pathname})
         } else {
           // '/augsburg/de/events'
           createNavigateToEvent(dispatch, navigation)(
-            {cityCode, language: newLanguage, previousLanguage: language})
+            {cityCode, language: newLanguage})
         }
       } else if (pathnameParts[2]) {
         // '/augsburg/de/willkommen'
         createNavigateToCategory('Categories', dispatch, navigation)(
-          {cityCode, language: newLanguage, previousLanguage: language, path: pathname})
+          {cityCode, language: newLanguage, path: pathname})
       } else {
         // '/augsburg/de' or '/augsburg'
         const path = newLanguage ? pathname : `${pathname}/${language}`
         createNavigateToCategory('Dashboard', dispatch, navigation)(
-          {cityCode, language: newLanguage || language, path, previousLanguage: language}
+          {cityCode, language: newLanguage || language, path}
         )
       }
     }

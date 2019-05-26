@@ -14,6 +14,9 @@ import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -23,10 +26,10 @@ type PropsType = {
   goOffline: () => void,
   goOnline: () => void,
   fetchCities: (language: string) => void,
-  navigateToCategory: ({|cityCode: string, language: string, path: string|}) => void,
-  navigateToEvent: ({|cityCode: string, language: string, path?: string|}) => void,
-  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
-  navigateToDashboard: ({|cityCode: string, language: string, path: string, forceRefresh: boolean, key: string|}) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateToEvent: NavigateToEventParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  navigateToDashboard: NavigateToCategoryParamsType => void,
   theme: ThemeType,
 
   language: string,
@@ -37,10 +40,6 @@ type PropsType = {
 }
 
 class Dashboard extends React.Component<PropsType> {
-  static navigationOptions = {
-    headerTitle: 'Dashboard'
-  }
-
   getNavigationTileModels (): Array<TileModel> {
     const {t, cityCode, language, navigateToCategory} = this.props
     return [
@@ -84,7 +83,8 @@ class Dashboard extends React.Component<PropsType> {
 
   onRefresh = () => {
     const {navigateToDashboard, cityCode, language, navigation} = this.props
-    navigateToDashboard({cityCode, language, path: `/${cityCode}/${language}`, forceRefresh: true, key: navigation.getParam('key')})
+    navigateToDashboard({
+      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')})
   }
 
   render () {

@@ -39,8 +39,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
       models: resultModels,
       children: resultChildren,
       depth,
-      allAvailableLanguages,
-      previousLanguage: newLanguage
+      allAvailableLanguages
     }
   }
 
@@ -49,7 +48,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
     const {path, allAvailableLanguages} = route
 
     if (!path) { // Route is a list of all events
-      return {path: null, models: newEvents, allAvailableLanguages, previousLanguage: newLanguage}
+      return {path: null, models: newEvents, allAvailableLanguages}
     }
 
     // Route is a single event
@@ -68,7 +67,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       return route
     }
 
-    return {path: translatedPath, models: [translatedEvent], allAvailableLanguages, previousLanguage: newLanguage}
+    return {path: translatedPath, models: [translatedEvent], allAvailableLanguages}
   }
 
 const morphContentLanguage = (

@@ -7,7 +7,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
-  const {city, language, path, key, forceUpdate, previousLanguage} = action.params
+  const {city, language, path, key, forceUpdate} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, language, forceUpdate)
 
@@ -26,8 +26,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
         path,
         key,
         city,
-        language,
-        previousLanguage
+        language
       }
     }
     yield put(insert)
