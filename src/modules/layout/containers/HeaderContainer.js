@@ -10,9 +10,13 @@ import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import compose from 'lodash/fp/compose'
 
-const mapStateToProps = (state: StateType, ownProps) => ({
-  availableLanguages: availableLanguagesSelector(state, ownProps)
-})
+const mapStateToProps = (state: StateType, ownProps) => {
+  const routeKey = ownProps.navigation.getParam('key')
+  return {
+    availableLanguages: availableLanguagesSelector(state, {routeKey}),
+    routeKey
+  }
+}
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToLanding: () => {
