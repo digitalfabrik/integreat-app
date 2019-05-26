@@ -19,7 +19,10 @@ class ExternalExtra extends React.Component<PropsType> {
       source={{
         uri: url,
         method: postData ? 'POST' : 'GET',
-        body
+        body,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       }}
       useWebKit
       javaScriptEnabled
