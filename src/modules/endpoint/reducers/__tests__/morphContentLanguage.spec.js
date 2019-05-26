@@ -14,9 +14,10 @@ import type { CityContentStateType } from '../../../app/StateType'
 import type {
   PushCategoryActionType,
   MorphContentLanguageActionType,
-  PushEventActionType
+  PushEventActionType, SetCityContentInformationType
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
+import setCityContentInformation from '../setCityContentInformation'
 
 describe('morphContentLanguage', () => {
   const enCategories = [
@@ -289,6 +290,16 @@ describe('morphContentLanguage', () => {
     events: deEvents
   }): CityContentStateType => {
     let state = initialState
+
+    const setCityContentInformationAction: SetCityContentInformationType = {
+      type: 'SET_CITY_CONTENT_INFORMATION',
+      params: {
+        city: 'augsburg',
+        language: 'de'
+      }
+    }
+
+    state = setCityContentInformation(state, setCityContentInformationAction)
 
     const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
