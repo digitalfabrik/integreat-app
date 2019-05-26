@@ -19,7 +19,8 @@ export default (
     params: {
       cityCode,
       key,
-      onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+      onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}}),
+      sharePath: path
     },
     key
   })

@@ -16,7 +16,8 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
     params: {
       cityCode,
       key,
-      onRouteClose: () => dispatch({type: 'CLEAR_EVENT', params: {key}})
+      onRouteClose: () => dispatch({type: 'CLEAR_EVENT', params: {key}}),
+      sharePath: path || `/${cityCode}/${language}/events`
     },
     key
   })
