@@ -18,34 +18,30 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type FetchLanguagesForCategoryActionType = {|
-  type: 'FETCH_LANGUAGES_FOR_CATEGORY',
-  params: {|
-    city: string, language: string,
-    path: string, depth: number, key: string,
-    forceUpdate: boolean
-  |}
+export type SetCityContentInformationType = {|
+  type: 'SET_CITY_CONTENT_INFORMATION',
+  params: {
+    city: string,
+    language: string
+  }
 |}
-export type FetchLanguagesForCategoryFailedActionType = {|
-  type: 'FETCH_LANGUAGES_FOR_CATEGORY_FAILED',
+
+export type FetchLanguagesFailedActionType = {|
+  type: 'FETCH_LANGUAGES_FAILED',
   message: string
 |}
 export type PushLanguagesActionType = {|
   type: 'PUSH_LANGUAGES',
   params: {|
-    languages: Array<LanguageModel>,
-    city: string,
-    language: string
+    languages: Array<LanguageModel>
   |}
 |}
-export type LanguagesForCategoryActionType = FetchLanguagesForCategoryActionType
-  | FetchLanguagesForCategoryFailedActionType
+export type LanguagesActionType = FetchLanguagesFailedActionType
   | PushLanguagesActionType
 
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
-    languages: Array<LanguageModel>,
     path: string, depth: number, key: string,
     forceUpdate: boolean
   |}
@@ -131,8 +127,9 @@ export type CityContentActionType =
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
-  | LanguagesForCategoryActionType
+  | LanguagesActionType
   | ClearCityContentActionType
+  | SetCityContentInformationType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
