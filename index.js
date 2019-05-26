@@ -1,4 +1,3 @@
-import 'core-js'
 import { AppRegistry, YellowBox } from 'react-native'
 import App from './src/modules/app/components/App'
 import 'moment/locale/de' // fixme
