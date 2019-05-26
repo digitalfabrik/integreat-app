@@ -2,10 +2,9 @@
 
 import type { CityContentStateType } from '../../app/StateType'
 import type { SetCityContentInformationType } from '../../app/StoreActionType'
-import { defaultCityContentState } from '../../app/StateType'
 
 const setCityContentInformation = (state: CityContentStateType, action: SetCityContentInformationType): CityContentStateType => {
-  if (state === defaultCityContentState) {
+  if (!state.language || !state.city) {
     const {language, city} = action.params
     return {...state, language, city}
   } else {
