@@ -1,5 +1,4 @@
 // @flow
-import React from 'react'
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 import { translate } from 'react-i18next'
@@ -8,11 +7,25 @@ import Header from '../components/Header'
 import { withTheme } from 'styled-components/native'
 import type { StateType } from '../../app/StateType'
 import { availableLanguagesSelector } from '../../common/selectors/availableLanguagesSelector'
+import { type Dispatch } from 'redux'
+import type { StoreActionType } from '../../app/StoreActionType'
+import compose from 'lodash/fp/compose'
 
 const mapStateToProps = (state: StateType, ownProps) => ({
   availableLanguages: availableLanguagesSelector(state, ownProps),
   routeMapping: state.cityContent.categoriesRouteMapping
 })
 
-const themed = withTheme(props => <Header {...props} />)
-export default translate('header')(withNavigation(connect(mapStateToProps)(themed)))
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
+  navigateToLanding: () => {
+    dispatch({type: 'CLEAR_CITY_CONTENT'})
+    ownProps.navigation.navigate('Landing')
+  }
+})
+
+export default compose([
+  withTheme,
+  withNavigation,
+  translate('header'),
+  connect(mapStateToProps, mapDispatchToProps)
+])(Header)
