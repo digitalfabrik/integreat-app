@@ -23,7 +23,7 @@ type PropsType = {|
   path?: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToEvent: ({|cityCode: string, language: string, path?: string, forceRefresh: ?boolean, key: ?string|}) => void,
+  navigateToEvent: ({|cityCode: string, language: string, path?: string, forceRefresh?: ?boolean, key?: string|}) => void,
   navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
   resourceCache: LanguageResourceCacheStateType
 |}
@@ -45,7 +45,7 @@ export default class Events extends React.Component<PropsType> {
 
   onRefresh = () => {
     const {navigation, navigateToEvent, cityCode, language, path} = this.props
-    navigateToEvent(cityCode, language, path, true, navigation.getParam('key'))
+    navigateToEvent({cityCode, language, path, forceRefresh: true, key: navigation.getParam('key')})
   }
 
   render () {

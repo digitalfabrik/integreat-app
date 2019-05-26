@@ -5,15 +5,15 @@ import type { FetchLanguagesForCategoryActionType, StoreActionType } from './Sto
 import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
+export type NavigateToCategoryParamsType = {|
+  cityCode: string, language: string, path: string, key?: string, forceUpdate?: boolean
+|}
+
 export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => ({
-  cityCode, language, path, key = generateKey(), forceUpdate = false
-}: {|cityCode: string, language: string, path: string, key?: string, forceUpdate?: boolean|}) => {
-  const key = generateKey()
-
+) => ({cityCode, language, path, key = generateKey(), forceUpdate = false}: NavigateToCategoryParamsType) => {
   navigation.navigate({
     routeName,
     params: {

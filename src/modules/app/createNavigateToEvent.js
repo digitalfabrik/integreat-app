@@ -5,9 +5,12 @@ import type { StoreActionType } from './StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
+export type NavigateToEventParamsType =
+  {|cityCode: string, language: string, path?: string, key?: string, forceUpdate?: boolean|}
+
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => ({
   cityCode, language, path, key = generateKey(), forceUpdate = false
-}: {|cityCode: string, language: string, path?: string, key?: string, forceUpdate?: boolean|}) => {
+}: NavigateToEventParamsType) => {
   navigation.navigate({
     routeName: 'Events',
     params: {

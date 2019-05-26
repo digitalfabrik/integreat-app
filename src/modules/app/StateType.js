@@ -20,15 +20,13 @@ export type CategoryRouteStateType = {|
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> },
-  +allAvailableLanguages: Map<string, string>, // including the current content language
-  +previousLanguage: string
+  +allAvailableLanguages: Map<string, string> // including the current content language
 |}
 
 export type EventRouteStateType = {|
   +path: string | null,
   +models: Array<EventModel>,
-  +allAvailableLanguages: Map<string, string>, // including the current content language
-  +previousLanguage: string
+  +allAvailableLanguages: Map<string, string> // including the current content language
 |}
 
 export type FileCacheStateType = {

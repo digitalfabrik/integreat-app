@@ -12,6 +12,7 @@ import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
 import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
+import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -19,7 +20,7 @@ type PropsType = {|
 
   stateView: CategoriesRouteStateView,
   cityCode: string,
-  navigateToCategory: ({|cityCode: string, language: string, path: string|}) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
 
   resourceCache: LanguageResourceCacheStateType,

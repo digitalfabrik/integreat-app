@@ -25,7 +25,13 @@ const mapStateToProps = (state: StateType) => {
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
     changeLanguage: (city: string, newLanguage: string) =>
-      createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)(city, newLanguage, `/${city}/${newLanguage}`, false, ownProps.navigation.getParam('key'))
+      createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)({
+        cityCode: city,
+        language: newLanguage,
+        path: `/${city}/${newLanguage}`,
+        forceUpdate: false,
+        key: ownProps.navigation.getParam('key')
+      })
   }
 }
 

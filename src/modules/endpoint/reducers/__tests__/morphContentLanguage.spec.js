@@ -300,8 +300,7 @@ describe('morphContentLanguage', () => {
         key: 'route-0',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de',
-        previousLanguage: 'de'
+        language: 'de'
       }
     }
 
@@ -315,8 +314,7 @@ describe('morphContentLanguage', () => {
         key: 'event-route-1',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de',
-        previousLanguage: 'de'
+        language: 'de'
       }
     }
 
@@ -331,8 +329,7 @@ describe('morphContentLanguage', () => {
         key: 'event-route-2',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de',
-        previousLanguage: 'de'
+        language: 'de'
       }
     }
 
