@@ -14,6 +14,8 @@ import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -23,8 +25,8 @@ type PropsType = {|
   path?: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToEvent: ({|cityCode: string, language: string, path?: string, forceRefresh?: ?boolean, key?: string|}) => void,
-  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
+  navigateToEvent: NavigateToEventParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   resourceCache: LanguageResourceCacheStateType
 |}
 
@@ -45,7 +47,7 @@ export default class Events extends React.Component<PropsType> {
 
   onRefresh = () => {
     const {navigation, navigateToEvent, cityCode, language, path} = this.props
-    navigateToEvent({cityCode, language, path, forceRefresh: true, key: navigation.getParam('key')})
+    navigateToEvent({cityCode, language, path, forceUpdate: true, key: navigation.getParam('key')})
   }
 
   render () {

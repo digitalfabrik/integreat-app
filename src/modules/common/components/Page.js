@@ -14,6 +14,7 @@ import compose from 'lodash/fp/compose'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
+import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -38,7 +39,7 @@ type PropType = {
   content: string,
   theme: ThemeType,
   navigation: NavigationScreenProp<*>,
-  navigateToIntegreatUrl: ({|url: string, cityCode: string, language: string|}) => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   files: FileCacheStateType,
   children?: React.Node,
   language: string,
