@@ -42,7 +42,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   return {
     cityCode: targetCityCode,
-    language: language,
+    language: targetRoute.language,
     cities: state.cities.models,
     stateView: stateView,
     resourceCache: state.cityContent.resourceCache,

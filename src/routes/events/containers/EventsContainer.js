@@ -28,7 +28,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 
   return {
-    language,
+    language: targetRoute.language,
     cityCode: city,
     events: targetRoute.models,
     path: targetRoute.path,
