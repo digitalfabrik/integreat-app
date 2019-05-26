@@ -4,13 +4,25 @@ import Header from '../components/Header'
 import { withTheme } from 'styled-components/native'
 import type { StateType } from '../../app/StateType'
 import { connect } from 'react-redux'
-import React from 'react'
 import { withNavigation } from 'react-navigation'
 import { availableLanguagesSelector } from '../../common/selectors/availableLanguagesSelector'
+import { type Dispatch } from 'redux'
+import type { StoreActionType } from '../../app/StoreActionType'
+import compose from 'lodash/fp/compose'
 
 const mapStateToProps = (state: StateType, ownProps) => ({
   availableLanguages: availableLanguagesSelector(state, ownProps)
 })
 
-const themed = withTheme(props => <Header {...props} />)
-export default withNavigation(connect(mapStateToProps)(themed))
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
+  navigateToLanding: () => {
+    dispatch({type: 'CLEAR_CITY_CONTENT'})
+    ownProps.navigation.navigate('Landing')
+  }
+})
+
+export default compose([
+  withTheme,
+  withNavigation,
+  connect(mapStateToProps, mapDispatchToProps)
+])(Header)
