@@ -20,9 +20,6 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
     if (newCity === cityCode) {
       // same city
 
-      if (newLanguage !== language) {
-      }
-
       if (pathnameParts[2] === 'events') {
         if (pathnameParts[3]) {
           // '/augsburg/de/events/some_event'
