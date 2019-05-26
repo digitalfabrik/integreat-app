@@ -2,7 +2,7 @@
 
 import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { ResourceCacheStateType } from './StateType'
+import type { LanguageResourceCacheStateType } from './StateType'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
@@ -18,12 +18,36 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
+export type FetchLanguagesForCategoryActionType = {|
+  type: 'FETCH_LANGUAGES_FOR_CATEGORY',
+  params: {|
+    city: string, language: string,
+    path: string, depth: number, key: string,
+    forceUpdate: boolean
+  |}
+|}
+export type FetchLanguagesForCategoryFailedActionType = {|
+  type: 'FETCH_LANGUAGES_FOR_CATEGORY_FAILED',
+  message: string
+|}
+export type PushLanguagesActionType = {|
+  type: 'PUSH_LANGUAGES',
+  params: {|
+    languages: Array<LanguageModel>,
+    city: string,
+    language: string
+  |}
+|}
+export type LanguagesForCategoryActionType = FetchLanguagesForCategoryActionType
+  | FetchLanguagesForCategoryFailedActionType
+  | PushLanguagesActionType
+
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
+    languages: Array<LanguageModel>,
     path: string, depth: number, key: string,
-    forceUpdate: boolean,
-    previousLanguage: string
+    forceUpdate: boolean
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -32,12 +56,11 @@ export type FetchCategoryFailedActionType = {|
 export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
-    resourceCache: ResourceCacheStateType,
+    resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
     language: string,
-    path: string, depth: number, key: string,
-    previousLanguage: string
+    path: string, depth: number, key: string
   |}
 |}
 export type ClearCategoryActionType = {|
@@ -53,8 +76,7 @@ export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
     path?: string, key: string,
-    forceUpdate: boolean,
-    previousLanguage: string
+    forceUpdate: boolean
   |}
 |}
 export type ClearEventActionType = {|
@@ -64,11 +86,10 @@ export type PushEventActionType = {|
   type: 'PUSH_EVENT', params: {|
     events: Array<EventModel>,
     path?: string, key: string,
-    resourceCache: ResourceCacheStateType,
+    resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
-    language: string,
-    previousLanguage: string
+    language: string
   |}
 |}
 export type FetchEventFailedActionType = {|
@@ -95,16 +116,14 @@ export type SwitchContentLanguageFailedActionType = {|
 export type MorphContentLanguageActionType = {|
   type: 'MORPH_CONTENT_LANGUAGE', params: {|
     newCategoriesMap: CategoriesMapModel,
-    newResourceCache: ResourceCacheStateType,
+    newResourceCache: LanguageResourceCacheStateType,
     newEvents: Array<EventModel>,
     newLanguage: string
   |}
 |}
 
-export type SetContentLanguageActionType = {|
-  type: 'SET_CONTENT_LANGUAGE', params: {|
-    newLanguage: string
-  |}
+export type ClearCityContentActionType = {|
+  type: 'CLEAR_CITY_CONTENT'
 |}
 
 export type CityContentActionType =
@@ -112,7 +131,8 @@ export type CityContentActionType =
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
-  | SetContentLanguageActionType
+  | LanguagesForCategoryActionType
+  | ClearCityContentActionType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string

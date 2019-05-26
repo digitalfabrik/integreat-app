@@ -17,7 +17,7 @@ type PropsType = {|
 |}
 
 const Circle = styled(View)`
-  margin-top: 10px;
+  margin-top: 9px;
   margin-bottom: 5px;
   border-radius: ${ICON_SIZE}px;
   height: ${ICON_SIZE};

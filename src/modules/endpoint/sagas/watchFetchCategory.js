@@ -11,29 +11,26 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, path, depth, key, forceUpdate, previousLanguage} = action.params
-
+  const {city, language, path, depth, key, languages, forceUpdate} = action.params
   try {
     yield call(loadCityContent, dataContainer, city, language, forceUpdate)
 
-    const [categoriesMap, resourceCache, languages] = yield all([
+    const [categoriesMap, resourceCache] = yield all([
       call(dataContainer.getCategoriesMap),
-      call(dataContainer.getResourceCache),
-      call(dataContainer.getLanguages)
+      call(dataContainer.getResourceCache)
     ])
 
     const insert: PushCategoryActionType = {
       type: `PUSH_CATEGORY`,
       params: {
         categoriesMap,
-        languages,
         resourceCache,
         path,
+        languages,
         depth,
         key,
         city,
-        language,
-        previousLanguage
+        language
       }
     }
     yield put(insert)
