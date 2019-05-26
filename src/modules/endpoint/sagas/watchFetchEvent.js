@@ -9,22 +9,21 @@ import loadCityContent from './loadCityContent'
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const {city, language, path, key, forceUpdate} = action.params
   try {
-    yield call(dataContainer.setContext, city, language)
     yield call(loadCityContent, dataContainer, city, language, forceUpdate)
 
-    const [events, languages, resourceCache] = yield all([
+    const [events, resourceCache, languages] = yield all([
       call(dataContainer.getEvents),
-      call(dataContainer.getLanguages),
-      call(dataContainer.getResourceCache)
+      call(dataContainer.getResourceCache),
+      call(dataContainer.getLanguages)
     ])
 
     const insert: PushEventActionType = {
       type: `PUSH_EVENT`,
       params: {
         events,
-        languages,
         resourceCache,
         path,
+        languages,
         key,
         city,
         language

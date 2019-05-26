@@ -1,7 +1,7 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-import type { FetchLanguagesForCategoryActionType, StoreActionType } from './StoreActionType'
+import type { FetchCategoryActionType, StoreActionType } from './StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
@@ -24,8 +24,8 @@ export default (
     key
   })
 
-  const fetchLanguagesForCategory: FetchLanguagesForCategoryActionType = {
-    type: 'FETCH_LANGUAGES_FOR_CATEGORY',
+  const fetchLanguagesForCategory: FetchCategoryActionType = {
+    type: 'FETCH_CATEGORY',
     params: {city: cityCode, language, path, depth: 2, forceUpdate, key}
   }
 
