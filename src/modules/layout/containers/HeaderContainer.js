@@ -1,10 +1,11 @@
 // @flow
+import { connect } from 'react-redux'
+import { withNavigation } from 'react-navigation'
+import { translate } from 'react-i18next'
 
 import Header from '../components/Header'
 import { withTheme } from 'styled-components/native'
 import type { StateType } from '../../app/StateType'
-import { connect } from 'react-redux'
-import { withNavigation } from 'react-navigation'
 import { availableLanguagesSelector } from '../../common/selectors/availableLanguagesSelector'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
@@ -14,6 +15,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const routeKey = ownProps.navigation.getParam('key')
   return {
     availableLanguages: availableLanguagesSelector(state, {routeKey}),
+    routeMapping: state.cityContent.categoriesRouteMapping,
     routeKey
   }
 }
@@ -28,5 +30,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 export default compose([
   withTheme,
   withNavigation,
+  translate('header'),
   connect(mapStateToProps, mapDispatchToProps)
 ])(Header)
