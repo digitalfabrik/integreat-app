@@ -1,3 +1,4 @@
+
 // @flow
 
 import * as React from 'react'
@@ -8,6 +9,7 @@ import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
 import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
+import type { NavigationScreenProp } from 'react-navigation'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -25,7 +27,8 @@ type PropsType = {
   languages: Array<LanguageModel> | null,
   availableLanguages: Array<string>,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
-  closeModal: () => void
+  closeModal: () => void,
+  navigation: NavigationScreenProp<*>
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {

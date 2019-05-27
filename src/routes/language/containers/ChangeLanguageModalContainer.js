@@ -17,10 +17,11 @@ type PropsType = {
   languages: Array<LanguageModel> | null,
   availableLanguages: Array<string>,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
-  closeModal: () => void
+  closeModal: () => void,
+  navigation: NavigationScreenProp<*>
 }
 
-const mapStateToProps = (state: StateType, ownProps) => {
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   return {
     city: state.cityContent.city,
     currentLanguage: state.cityContent.language,
@@ -31,7 +32,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 }
 
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
-const mapDispatchToProps = (dispatch: DispatchType) => {
+const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
   return {
     changeLanguage: (city: string, newLanguage: string) => dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
