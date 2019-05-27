@@ -1,19 +1,21 @@
 // @flow
 
 import * as React from 'react'
-import { SectionList, StyleSheet, Switch, AsyncStorage, Linking } from 'react-native'
+import { SectionList, StyleSheet, Switch, AsyncStorage, Linking, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { reduce } from 'lodash/collection'
 import type { TFunction } from 'react-i18next'
+import type { NavigationScreenProp } from 'react-navigation'
 
-type PropsType = {
+type PropsType = {|
   theme: ThemeType,
   language: string,
-  t: TFunction
-}
+  t: TFunction,
+  navigation: NavigationScreenProp<*>
+|}
 
 type SettingsType = {|
   errorTracking: boolean,
@@ -36,9 +38,6 @@ type SectionType = { title: ?string }
 const ItemSeparator = styled.View`
     background-color: ${props => props.theme.colors.textDecorationColor};;
     height: ${StyleSheet.hairlineWidth};
-`
-
-const SectionHeaderContainer = styled.View`
 `
 
 const SectionHeader = styled.Text`
@@ -168,7 +167,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   }
 
   renderSectionHeader = ({section: {title}}: { section: SectionType }) =>
-    <SectionHeaderContainer><SectionHeader>{title}</SectionHeader></SectionHeaderContainer>
+    <View><SectionHeader>{title}</SectionHeader></View>
 
   keyExtractor = (item: ItemType, index: number) => index
 
