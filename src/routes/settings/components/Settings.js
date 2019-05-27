@@ -6,12 +6,10 @@ import styled from 'styled-components/native'
 
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import type { NavigationScreenProp } from 'react-navigation'
 import { reduce } from 'lodash/collection'
 import type { TFunction } from 'react-i18next'
 
 type PropsType = {
-  navigation: NavigationScreenProp<*>,
   theme: ThemeType,
   language: string,
   t: TFunction

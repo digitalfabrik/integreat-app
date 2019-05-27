@@ -9,9 +9,11 @@ import type { StateType } from '../../../modules/app/StateType'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type PropsType = {
-  navigation: NavigationScreenProp<*>
-}
+type PropsType = {|
+  navigation: NavigationScreenProp<*>,
+  language: string | null,
+  dispatch: () => {}
+|}
 
 const mapStateToProps = (state: StateType) => {
   return {
