@@ -126,7 +126,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
         },
         {})
 
-      this.setState(state => ({...state, settingsLoaded: true, settings}))
+      this.setState({settingsLoaded: true, settings})
     } catch (e) {
       console.error('Failed to load settings.')
     }
