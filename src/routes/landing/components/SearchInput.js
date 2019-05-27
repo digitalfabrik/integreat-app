@@ -32,6 +32,7 @@ export const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
+// $FlowFixMe https://github.com/flow-typed/flow-typed/pull/3228
 export const SearchIcon = styled(Icon).attrs(props => ({
   name: 'search',
   size: 40

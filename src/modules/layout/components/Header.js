@@ -1,13 +1,16 @@
 // @flow
 
 import * as React from 'react'
+import { Platform, Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
 import styled from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
+
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from 'modules/theme/constants/theme'
-import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
+import type { TFunction } from 'react-i18next'
 
 const Horizontal = styled.View`
   flex:1;
@@ -57,8 +60,15 @@ const MaterialHeaderButtons = props => {
 type PropsType = {|
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
+  t: TFunction,
   theme: ThemeType,
-  availableLanguages: ?Array<string>
+  routeMapping: {
+    [key: string]: {
+      root: string
+    }
+  },
+  availableLanguages: ?Array<string>,
+  navigateToLanding: () => void
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -84,7 +94,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToLanding = () => {
-    this.getNavigation().navigate('Landing')
+    this.props.navigateToLanding()
   }
 
   goToSettings = () => {
@@ -100,34 +110,55 @@ class Header extends React.PureComponent<PropsType> {
     })
   }
 
-  goToSearch = () => {
-    this.getNavigation().navigate({
-      routeName: 'SearchModal'
+  onShare = async () => {
+    const {t} = this.props
+    const sharePath: ?string = this.getNavigation().getParam('sharePath')
+    if (!sharePath) {
+      return console.error('sharePath is undefined')
+    }
+    const url = `https://integreat.app${sharePath}`
+    const shareMessage = t('shareMessage')
+    const message: string = Platform.select({
+      android: `${shareMessage} ${url}`,
+      ios: shareMessage
     })
+
+    try {
+      await Share.share({
+        message,
+        title: 'Integreat App',
+        url
+      })
+    } catch (e) {
+      alert(e.message)
+    }
+  }
+
+  goToSearch = () => {
+    this.getNavigation().navigate('SearchModal')
   }
 
   render () {
-    const { theme } = this.props // TODO: When mering the share button task make sure to remove the mock t function
-    const t = (key: string) => key
+    const {t, theme} = this.props
     const headerTitle = this.getDescriptor().headerTitle || ''
+    const sharePath = this.getNavigation().getParam('sharePath')
 
-    return (
-      <BoxShadow theme={theme}>
-        <Horizontal>
-          <HorizontalLeft>
-            {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
-            <Logo source={logo} />
-            <Title>{headerTitle}</Title>
-          </HorizontalLeft>
-          <MaterialHeaderButtons>
-            <Item title='Search' iconName='search' onPress={this.goToSearch} />
-            <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
-            <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
-            <Item title={t('settings')} show='never' onPress={this.goToSettings} />
-          </MaterialHeaderButtons>
-        </Horizontal>
-      </BoxShadow>
-    )
+    return <BoxShadow theme={theme}>
+      <Horizontal>
+        <HorizontalLeft>
+          {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
+          <Logo source={logo} />
+          <Title>{headerTitle}</Title>
+        </HorizontalLeft>
+        <MaterialHeaderButtons>
+          <Item title='Search' iconName='search' onPress={this.goToSearch} />
+          <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
+          {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
+          <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
+          <Item title={t('settings')} show='never' onPress={this.goToSettings} />
+        </MaterialHeaderButtons>
+      </Horizontal>
+    </BoxShadow>
   }
 }
 

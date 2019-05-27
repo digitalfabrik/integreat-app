@@ -33,6 +33,8 @@ export default (
       delete state.categoriesRouteMapping[key]
       return state
     }
+    case 'CLEAR_CITY_CONTENT':
+      return defaultCityContentState
     default:
       return state
   }

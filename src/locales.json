@@ -387,7 +387,9 @@
   },
   "header": {
     "en": {
-      "settings": "Settings"
+      "settings": "Settings",
+      "share": "Share",
+      "shareMessage": "Hey, check this out."
     },
     "de": {
       "settings": "Einstellungen"
