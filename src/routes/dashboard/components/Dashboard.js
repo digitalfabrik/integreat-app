@@ -70,7 +70,11 @@ class Dashboard extends React.Component<PropsType> {
   landing = () => this.props.navigation.navigate('Landing')
 
   extras = () => {
-    this.props.navigation.navigate('Extras', {cityCode: this.props.navigation.getParam('cityCode')})
+    const {cityCode, language} = this.props
+    this.props.navigation.navigate('Extras', {
+      cityCode,
+      sharePath: `/${cityCode}/${language}/extras`
+    })
   }
 
   events = () => {
