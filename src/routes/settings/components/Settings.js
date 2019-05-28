@@ -45,7 +45,6 @@ const SectionHeader = styled.Text`
 `
 
 export default class Settings extends React.Component<PropsType, StateType> {
-
   constructor (props: PropsType) {
     super(props)
 
