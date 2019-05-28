@@ -6,8 +6,9 @@ import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
 import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { FetchLanguagesForCategoryActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -22,8 +23,8 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: (cityCode: string, language: string, path: string) => StoreActionType,
-  theme: any,
+  navigateToCategory: (cityCode: string, language: string, path: string) => FetchLanguagesForCategoryActionType,
+  theme: ThemeType,
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,
