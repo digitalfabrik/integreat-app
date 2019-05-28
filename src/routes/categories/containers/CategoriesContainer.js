@@ -54,7 +54,7 @@ export default compose([
   withRouteCleaner,
   connect((state: StateType, ownProps): { invalidLanguage: boolean } => {
     const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-    return {invalidLanguage: !!route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+    return {invalidLanguage: !!route && !route.allAvailableLanguages.has(route.language || '')}
   }),
   branch(props => props.invalidLanguage, renderComponent(CategoryLanguageNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
