@@ -23,19 +23,25 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
 
 function * loadEvents (
   city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean): Saga<FetchMapType> {
-  if (dataContainer.eventsAvailable() && !shouldUpdate) {
+  let events: ?Array<EventModel>
+
+  // If data was loaded and should not be updated, return
+  if (!dataContainer.eventsAvailable() || shouldUpdate) {
+    console.debug('Fetching events')
+
+    // TODO: if data was loaded but should be updated incrementally. This will be done in NATIVE-3
+
+    events = yield call(fetchEvents, city, language)
+
+    if (!events) {
+      throw new Error('Failed to load events!')
+    }
+
+    yield call(dataContainer.setEvents, events)
+  } else {
     console.debug('Using cached events')
-    return {}
-  }
 
-  console.debug('Fetching events')
-
-  // TODO: if data was loaded but should be updated incrementally. This will be done in NATIVE-3
-
-  const events: ?Array<EventModel> = yield call(fetchEvents, city, language)
-
-  if (!events) {
-    throw new Error('Failed to load events!')
+    events = yield call(dataContainer.getEvents)
   }
 
   const resourceURLFinder = new ResourceURLFinder()
@@ -47,8 +53,6 @@ function * loadEvents (
   )
 
   resourceURLFinder.finalize()
-
-  yield call(dataContainer.setEvents, events)
 
   return urls
 }

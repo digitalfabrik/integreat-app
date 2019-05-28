@@ -35,9 +35,13 @@ export default function * loadCityContent (
     call(loadLanguages, newCity, dataContainer, shouldUpdate)
   ])
 
+  // fetchResourceCache should always be called. Even if loadCategories, loadEvents, loadLanguages did not update the
+  // dataContainer this is needed. In case the previous call to fetchResourceCache failed to download some resources an
+  // other call could fix this and download missing files.
+  const fetchMap = {...categoryUrls, ...eventUrls}
+  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
+
   if (shouldUpdate) {
-    const fetchMap = {...categoryUrls, ...eventUrls}
-    yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
     yield call(dataContainer.setLastUpdate, moment.tz('UTC'))
   }
 }
