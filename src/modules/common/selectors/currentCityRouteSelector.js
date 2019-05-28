@@ -9,14 +9,14 @@ export type CityRouteSelectorPropsType = {|
 
 const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?CategoryRouteStateType => {
   const route = state.cityContent.categoriesRouteMapping[props.routeKey]
-  if (route.errorMessage === undefined) {
+  if (route && route.errorMessage === undefined) {
     return route
   }
 }
 
 const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
   const route = state.cityContent.eventsRouteMapping[props.routeKey]
-  if (route.errorMessage === undefined) {
+  if (route && route.errorMessage === undefined) {
     return route
   }
 }

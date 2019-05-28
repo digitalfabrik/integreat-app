@@ -15,9 +15,10 @@ import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
 import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const {city, resourceCache} = state.cityContent
-
   const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
+  if (!route) {
+    return {}
+  }
 
   if (route.errorMessage !== undefined) {
     return {error: true}
@@ -29,10 +30,10 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   return {
     language: route.language,
-    cityCode: city,
+    cityCode: state.cityContent.city,
     events: route.models,
     path: route.path,
-    resourceCache: resourceCache
+    resourceCache: state.cityContent.resourceCache
   }
 }
 
