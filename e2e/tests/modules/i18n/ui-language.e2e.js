@@ -9,11 +9,14 @@ describe('UI language', () => {
     }))
 
     const landingPage = new LandingPage(driver)
-    await landingPage.ready()
 
-    expect(await landingPage.getSearchInput().text()).toBe('Suche nach deinem Ort')
+    try {
+      await landingPage.ready()
 
-    await stopDriver(driver)
+      expect(await landingPage.getSearchInput().text()).toBe('Suche nach deinem Ort')
+    } finally {
+      await stopDriver(driver)
+    }
   })
 
   it('should match the system language en', async () => {
@@ -23,10 +26,13 @@ describe('UI language', () => {
     }))
 
     const landingPage = new LandingPage(driver)
-    await landingPage.ready()
 
-    expect(await landingPage.getSearchInput().text()).toBe('Search for your city')
+    try {
+      await landingPage.ready()
 
-    await stopDriver(driver)
+      expect(await landingPage.getSearchInput().text()).toBe('Search for your city')
+    } finally {
+      await stopDriver(driver)
+    }
   })
 })
