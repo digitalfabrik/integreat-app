@@ -13,7 +13,7 @@ void uploadToBrowserstack(String path) {
 }
 
 pipeline {
-    agent any
+    agent none
     options {
         timeout(time: 1, unit: 'HOURS')
         skipDefaultCheckout()
