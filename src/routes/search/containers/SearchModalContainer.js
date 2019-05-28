@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
-import type { FetchLanguagesForCategoryActionType, StoreActionType } from '../../../modules/app/StoreActionType'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { withTheme } from 'styled-components/native'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
@@ -14,7 +14,7 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: (cityCode: string, language: string, path: string) => FetchLanguagesForCategoryActionType,
+  navigateToCategory: (cityCode: string, language: string, path: string) => StoreActionType,
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,
