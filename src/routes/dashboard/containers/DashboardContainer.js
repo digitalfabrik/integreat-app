@@ -35,7 +35,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
     state.cityContent.resourceCache.errorMessage !== undefined) {
     return {error: true}
   }
-  const cities = state.cities
+  const cities = state.cities.models
 
   if (!route.allAvailableLanguages.has(state.cityContent.language || '')) {
     return {invalidLanguage: true}
