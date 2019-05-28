@@ -15,15 +15,14 @@ import { branch, renderComponent } from 'recompose'
 import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  if (state.cities.error) {
+  if (state.cities.errorMessage !== undefined) {
     return {
       error: true
     }
   }
-  const cities = state.cities.models
   return {
     language: ownProps.lng,
-    cities
+    cities: state.cities.models
   }
 }
 

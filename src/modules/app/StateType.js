@@ -14,7 +14,6 @@ import Moment from 'moment'
 export type PathType = string
 
 export type CategoryRouteStateType = {|
-  +success: true,
   +root: string, // path of the root category
   +depth: number,
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
@@ -26,7 +25,6 @@ export type CategoryRouteStateType = {|
 |}
 
 export type EventRouteStateType = {|
-  +success: true,
   +path: string | null,
   +models: Array<EventModel>,
   +allAvailableLanguages: Map<string, string>, // including the current content language
@@ -42,8 +40,7 @@ export type FileCacheStateType = {
 }
 
 export type ErrorStateType = {|
-  +error: true,
-  +message: string
+  +errorMessage: string
 |}
 
 export type LanguageResourceCacheStateType = {
@@ -63,12 +60,10 @@ export type EventsRouteMappingType = {
 }
 
 export type CitiesStateType = {|
-  +success: true,
   +models: Array<CityModel> | null
 |}
 
 export const defaultCitiesState: CitiesStateType = {
-  success: true,
   models: null
 }
 

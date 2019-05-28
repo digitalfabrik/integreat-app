@@ -4,7 +4,7 @@ import { withTheme } from 'styled-components/native'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -21,24 +21,18 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
-const mapStateToProps = (state: StateType, route: ?CategoryRouteStateType) => {
-  const language = state.cityContent.language
+const mapStateToProps = (state: StateType, ownProps) => {
+  const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (state.cities.error) {
-    throw new Error('Error not handled correctly')
+  if (state.cities.errorMessage !== undefined || route.errorMessage !== undefined) {
+    return {error: true}
   }
 
-  if (!route || !language) {
-    return {
-      cityCode: state.cityContent.city,
-      language: language,
-      cities: state.cities.models
-    }
+  if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
+    return {invalidLanguage: true}
   }
 
-  const models = route.models
-  const children = route.children
-  const stateView = new CategoriesRouteStateView(route.root, models, children)
+  const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   return {
     cityCode: state.cityContent.city,
@@ -51,18 +45,7 @@ const mapStateToProps = (state: StateType, route: ?CategoryRouteStateType) => {
 
 export default compose([
   withRouteCleaner,
-  connect((state: StateType, ownProps) => {
-    const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-    if (route && route.error) {
-      return {error: true}
-    }
-
-    if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
-      return {invalidLanguage: true}
-    }
-
-    return mapStateToProps(state, route)
-  }, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112 Show errors
   branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(CategoryLanguageNotAvailableContainer)),

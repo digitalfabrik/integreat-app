@@ -35,7 +35,6 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
     })
 
     return {
-      success: true,
       root: translatedRoot,
       models: resultModels,
       children: resultChildren,
@@ -51,7 +50,6 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
 
     if (!path) { // Route is a list of all events
       return {
-        success: true,
         path: null,
         models: newEvents,
         allAvailableLanguages,
@@ -76,7 +74,6 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
     }
 
     return {
-      success: true,
       path: translatedPath,
       models: [translatedEvent],
       allAvailableLanguages,

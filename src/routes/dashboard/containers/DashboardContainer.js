@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import { withTheme } from 'styled-components/native'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -25,48 +25,30 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
-const mapStateToProps = (state: StateType, route: ?CategoryRouteStateType) => {
-  const language = state.cityContent.language
+const mapStateToProps = (state: StateType, ownProps) => {
+  const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (state.cities.error) {
-    throw new Error('Error not handled correctly')
+  if (state.cities.errorMessage !== undefined || route.errorMessage !== undefined) {
+    return {error: true}
   }
+  const cities = state.cities
 
-  if (!route || !language) {
-    return {
-      cityCode: state.cityContent.city,
-      language: language,
-      cities: state.cities.models
-    }
+  if (!route.allAvailableLanguages.has(state.cityContent.language || '')) {
+    return {invalidLanguage: true}
   }
-
-  const models = route.models
-  const children = route.children
-  const stateView = new CategoriesRouteStateView(route.root, models, children)
 
   return {
     cityCode: state.cityContent.city,
     language: route.language,
-    cities: state.cities.models,
-    stateView: stateView,
+    cities,
+    stateView: new CategoriesRouteStateView(route.root, route.models, route.children),
     resourceCache: state.cityContent.resourceCache
   }
 }
 
 export default compose([
   withRouteCleaner,
-  connect((state: StateType, ownProps) => {
-    const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-    if (state.cities.error || (route && route.error)) {
-      return {error: true}
-    }
-
-    if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
-      return {invalidLanguage: true}
-    }
-
-    return mapStateToProps(state, route)
-  }, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112 Show errors, maybe use withError and pass more props
   branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),

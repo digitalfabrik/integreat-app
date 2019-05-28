@@ -14,7 +14,6 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
   const getEventRoute = (): EventRouteStateType => {
     if (!path) {
       return {
-        success: true,
         path: null,
         models: events,
         allAvailableLanguages: new Map(languages.map(language => [language.code, language.code])),
@@ -26,7 +25,6 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     allAvailableLanguages.set(language, path)
 
     return {
-      success: true,
       path,
       models: [event],
       allAvailableLanguages,

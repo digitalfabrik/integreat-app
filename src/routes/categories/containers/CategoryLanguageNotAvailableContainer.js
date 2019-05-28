@@ -16,7 +16,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   if (!languages) {
     throw new Error('languages have not been set.')
   }
-  if (route.error) {
+  if (route.errorMessage !== undefined) {
     throw new Error('Error not handled correctly')
   }
 
