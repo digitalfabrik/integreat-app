@@ -59,10 +59,11 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
 }
 
 export default compose([
+  // withI18n has to be before connect, because we need to pass the language as prop
+  withI18n(),
   connect(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112
   branch(props => props.error, renderComponent(Failure)),
   withTheme,
-  translate('landing'),
-  withI18n()
+  translate('landing')
 ])(Landing)

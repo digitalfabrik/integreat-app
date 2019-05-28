@@ -50,6 +50,8 @@ export default function * loadCityContent (
     }
   }
   yield put(pushLanguages)
+  console.log(languages)
+  console.log(newLanguage)
 
   if (languages.map(language => language.code).includes(newLanguage)) {
     const [categoryUrls, eventUrls] = yield all([
