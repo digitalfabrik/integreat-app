@@ -393,7 +393,9 @@ describe('morphContentLanguage', () => {
 
     const previous = prepareState()
 
-    // $FlowFixMe
+    if (previous.categoriesRouteMapping['route-0'].errorMessage !== undefined) {
+      throw Error('Preparation of state failed')
+    }
     previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
     expect(() => morphContentLanguage(previous, action)).toThrowError()
   })
