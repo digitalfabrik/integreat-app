@@ -18,8 +18,8 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type SetCityContentInformationType = {|
-  type: 'SET_CITY_CONTENT_INFORMATION',
+export type SetCityContentLocalizationType = {|
+  type: 'SET_CITY_CONTENT_LOCALIZATION',
   params: {
     city: string,
     language: string
@@ -129,7 +129,7 @@ export type CityContentActionType =
   | SwitchContentLanguageActionType
   | LanguagesActionType
   | ClearCityContentActionType
-  | SetCityContentInformationType
+  | SetCityContentLocalizationType
 
 export type ResourcesFetchSucceededActionType = {|
   type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
