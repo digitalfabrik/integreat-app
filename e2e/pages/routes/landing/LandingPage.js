@@ -1,5 +1,6 @@
 // @flow
 import wd from 'wd'
+import { stopDriver } from '../../../driver/driver'
 
 export default class LandingPage {
   driver: wd.PromiseChainWebdriver
@@ -8,8 +9,13 @@ export default class LandingPage {
     this.driver = driver
   }
 
-  ready (): Promise<void> {
-    return this.driver.waitForElementByAccessibilityId('Search-Input')
+  async ready () {
+    try {
+      await this.driver.waitForElementByAccessibilityId('Search-Input')
+    } catch (e) {
+      await stopDriver(this.driver)
+      throw e
+    }
   }
 
   getSearchInput (): Promise<wd.Element> {
