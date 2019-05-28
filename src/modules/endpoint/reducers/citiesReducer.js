@@ -10,13 +10,11 @@ export default (
   switch (action.type) {
     case 'PUSH_CITIES':
       return {
-        success: true,
         models: action.params.cities
       }
     case 'FETCH_CITIES_FAILED':
       return {
-        error: true,
-        message: action.params.message
+        errorMessage: action.params.message
       }
     default:
       return state

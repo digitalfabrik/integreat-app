@@ -7,11 +7,19 @@ export type CityRouteSelectorPropsType = {|
   routeKey: string
 |}
 
-const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?CategoryRouteStateType =>
-  state.cityContent.categoriesRouteMapping[props.routeKey]
+const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?CategoryRouteStateType => {
+  const route = state.cityContent.categoriesRouteMapping[props.routeKey]
+  if (route.errorMessage === undefined) {
+    return route
+  }
+}
 
-const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?EventRouteStateType =>
-  state.cityContent.eventsRouteMapping[props.routeKey]
+const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
+  const route = state.cityContent.eventsRouteMapping[props.routeKey]
+  if (route.errorMessage === undefined) {
+    return route
+  }
+}
 
 export const currentCityRouteSelector = createSelector<StateType, CityRouteSelectorPropsType,
   EventRouteStateType | CategoryRouteStateType | null, ?CategoryRouteStateType, ?EventRouteStateType>(

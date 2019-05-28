@@ -1,6 +1,6 @@
 // @flow
 
-import type { EventRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import Events from '../components/Events'
@@ -14,18 +14,21 @@ import { branch, renderComponent } from 'recompose'
 import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
 import { Failure } from '../../../modules/error/components/Failure'
 
-const mapStateToProps = (state: StateType, route: ?EventRouteStateType) => {
-  const {language, city, resourceCache} = state.cityContent
-  if (!route || !language) {
-    return {
-      language,
-      cityCode: city,
-      resourceCache: resourceCache
-    }
+const mapStateToProps = (state: StateType, ownProps) => {
+  const {city, resourceCache} = state.cityContent
+
+  const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
+
+  if (route.errorMessage !== undefined) {
+    return {error: true}
+  }
+
+  if (!route.allAvailableLanguages.has(state.cityContent.language || '')) {
+    return {invalidLanguage: true}
   }
 
   return {
-    language: targetRoute.language,
+    language: route.language,
     cityCode: city,
     events: route.models,
     path: route.path,
@@ -40,18 +43,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 
 export default compose([
   translate('events'),
-  connect((state: StateType, ownProps) => {
-    const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-    if (route && route.error) {
-      return {error: true}
-    }
-
-    if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
-      return {invalidLanguage: true}
-    }
-
-    return mapStateToProps(state, route)
-  }, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112 Show errors
   branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
