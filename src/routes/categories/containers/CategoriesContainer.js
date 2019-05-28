@@ -29,7 +29,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
   const cities = state.cities.models
 
-  if (!route.allAvailableLanguages.has(state.cityContent.language || '')) {
+  if (!route.allAvailableLanguages.has(route.language || '')) {
     return {invalidLanguage: true}
   }
 

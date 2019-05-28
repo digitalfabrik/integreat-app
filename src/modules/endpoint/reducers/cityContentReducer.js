@@ -6,7 +6,7 @@ import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
-import setCityContentInformation from './setCityContentInformation'
+import setCityContentLocalization from './setCityContentLocalization'
 import fetchCategoryFailed from './fetchCategoryFailed'
 import fetchEventFailed from './fetchEventFailed'
 
@@ -14,8 +14,8 @@ export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
 ): CityContentStateType => {
   switch (action.type) {
-    case 'SET_CITY_CONTENT_INFORMATION':
-      return setCityContentInformation(state, action)
+    case 'SET_CITY_CONTENT_LOCALIZATION':
+      return setCityContentLocalization(state, action)
     case 'PUSH_LANGUAGES':
       return {...state, languages: action.params.languages}
     case 'PUSH_CATEGORY':
