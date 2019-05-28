@@ -1,26 +1,24 @@
 // @flow
 
 import * as React from 'react'
-import { SectionList, StyleSheet, Switch, AsyncStorage, Linking, View } from 'react-native'
+import { SectionList, StyleSheet, Switch, AsyncStorage, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { reduce } from 'lodash/collection'
 import type { TFunction } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import { mapValues, toPairs } from 'lodash/object'
+import type { SettingsType } from '../SettingsType'
+import createSettingsSections from '../createSettingsSections'
+import { fromPairs } from 'lodash/array'
+import type { ChangeSettingFunctionType } from '../createSettingsSections'
 
 type PropsType = {|
   theme: ThemeType,
   language: string,
   t: TFunction,
   navigation: NavigationScreenProp<*>
-|}
-
-type SettingsType = {|
-  errorTracking: boolean,
-  test: boolean
 |}
 
 type StateType = {
@@ -47,62 +45,6 @@ const SectionHeader = styled.Text`
 `
 
 export default class Settings extends React.Component<PropsType, StateType> {
-  sections = () => {
-    const {t, language} = this.props
-
-    return ([
-      {
-        title: 'Placeholder',
-        data: [
-          {
-            title: 'Placeholder',
-            description: 'Placeholder'
-          },
-          {
-            title: 'Placeholder',
-            description: 'Placeholder'
-          }
-        ]
-      },
-      {
-        data: [
-          {
-            title: t('troubleshooting'),
-            description: t('troubleshootingDescription'),
-            hasSwitch: true,
-            onPress: () => { this.toggleErrorTracking() }
-          },
-          {
-            title: t('about'),
-            onPress: () => {
-              if (language === 'de') {
-                Linking.openURL('https://integreat-app.de/')
-              } else {
-                Linking.openURL('https://integreat-app.de/en/')
-              }
-            }
-          },
-          {
-            title: t('privacyPolicy'),
-            onPress: () => {
-              if (language === 'de') {
-                Linking.openURL('https://integreat-app.de/datenschutz-webseite/')
-              } else {
-                Linking.openURL('https://integreat-app.de/en/privacy-website/')
-              }
-            }
-          },
-          {
-            title: t('version', {version: '??'})
-          },
-          {
-            title: t('openSourceLicenses'),
-            onPress: () => { console.warn('Not yet implemented.') }
-          }
-        ]
-      }
-    ])
-  }
 
   constructor (props: PropsType) {
     super(props)
@@ -117,12 +59,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
       const settingsKeys = Object.keys(this.state.settings)
       const settingsArray = await AsyncStorage.multiGet(settingsKeys)
 
-      const settings = reduce(settingsArray,
-        (accumulator, [key, value]) => {
-          accumulator[key] = JSON.parse(value)
-          return accumulator
-        },
-        {})
+      const settings = mapValues(fromPairs(settingsArray), value => JSON.parse(value))
 
       this.setState({settingsLoaded: true, settings})
     } catch (e) {
@@ -130,14 +67,14 @@ export default class Settings extends React.Component<PropsType, StateType> {
     }
   }
 
-  async setSetting (changeSetting: SettingsType => $Shape<SettingsType>) {
+  setSetting = async (changeSetting: ChangeSettingFunctionType) => {
     this.setState(
       state => {
         const newSettings = changeSetting(state.settings)
         return {settings: {...state.settings, ...newSettings}}
       },
       async () => {
-        const settingsArray = toPairs(mapValues(changeSetting(this.state.settings), value => JSON.stringify(value)))
+        const settingsArray = toPairs(mapValues(this.state.settings, value => JSON.stringify(value)))
 
         try {
           await AsyncStorage.multiSet(settingsArray)
@@ -148,10 +85,6 @@ export default class Settings extends React.Component<PropsType, StateType> {
     )
   }
 
-  toggleErrorTracking = () => {
-    this.setSetting(settings => ({errorTracking: !settings.errorTracking}))
-  }
-
   renderItem = ({item}: { item: ItemType }) => {
     const {theme} = this.props
     const {errorTracking} = this.state.settings
@@ -160,7 +93,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     return (
       <SettingItem title={title} description={description}
                    onPress={onPress} theme={theme}>
-        {hasSwitch && <Switch value={errorTracking} onValueChange={this.toggleErrorTracking} />}
+        {hasSwitch && <Switch value={errorTracking} onValueChange={onPress} />}
       </SettingItem>
     )
   }
@@ -180,7 +113,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     return (
       <SectionList
         keyExtractor={this.keyExtractor}
-        sections={this.sections()}
+        sections={createSettingsSections({setSetting: this.setSetting, ...this.props})}
         extraData={this.state.settings}
         renderItem={this.renderItem}
         renderSectionHeader={this.renderSectionHeader}
