@@ -9,6 +9,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { reduce } from 'lodash/collection'
 import type { TFunction } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
+import { mapValues, toPairs } from 'lodash/object'
 
 type PropsType = {|
   theme: ThemeType,
@@ -130,23 +131,21 @@ export default class Settings extends React.Component<PropsType, StateType> {
   }
 
   async setSetting (changeSetting: SettingsType => $Shape<SettingsType>) {
-    this.setState(state => {
-      const newSettings = changeSetting(state.settings)
-      return ({...state, settings: {...state.settings, ...newSettings}})
-    })
-
-    const settingsArray = reduce(changeSetting(this.state.settings),
-      (accumulator, value, key) => {
-        accumulator.push([key, JSON.stringify(value)])
-        return accumulator
+    this.setState(
+      state => {
+        const newSettings = changeSetting(state.settings)
+        return {settings: {...state.settings, ...newSettings}}
       },
-      [])
+      async () => {
+        const settingsArray = toPairs(mapValues(changeSetting(this.state.settings), value => JSON.stringify(value)))
 
-    try {
-      await AsyncStorage.multiSet(settingsArray)
-    } catch (e) {
-      console.error('Failed to persist settings.')
-    }
+        try {
+          await AsyncStorage.multiSet(settingsArray)
+        } catch (e) {
+          console.error('Failed to persist settings.')
+        }
+      }
+    )
   }
 
   toggleErrorTracking = () => {
