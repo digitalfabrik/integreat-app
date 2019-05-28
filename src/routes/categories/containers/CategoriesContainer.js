@@ -27,8 +27,9 @@ const mapStateToProps = (state: StateType, ownProps) => {
   if (state.cities.errorMessage !== undefined || route.errorMessage !== undefined) {
     return {error: true}
   }
+  const cities = state.cities.models
 
-  if (route && !route.allAvailableLanguages.has(state.cityContent.language || '')) {
+  if (!route.allAvailableLanguages.has(state.cityContent.language || '')) {
     return {invalidLanguage: true}
   }
 
@@ -37,7 +38,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   return {
     cityCode: state.cityContent.city,
     language: route.language,
-    cities: state.cities.models,
+    cities,
     stateView: stateView,
     resourceCache: state.cityContent.resourceCache
   }

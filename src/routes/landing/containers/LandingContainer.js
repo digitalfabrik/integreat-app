@@ -29,8 +29,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
     fetchCities: () => dispatch({
-      type: 'FETCH_CITIES',
-      params: {}
+      type: 'FETCH_CITIES'
     }),
     navigateToDashboard: (cityCode: string, language: string) => {
       const path = `/${cityCode}/${language}`

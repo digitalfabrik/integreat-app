@@ -42,6 +42,9 @@ export default (
       return fetchCategoryFailed(state, action)
     case 'CLEAR_CITY_CONTENT':
       return defaultCityContentState
+    case 'RESOURCES_FETCH_FAILED':
+      const errorMessage: string = action.params.message
+      return {...state, resourceCache: {errorMessage}}
     default:
       return state
   }

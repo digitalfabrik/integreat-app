@@ -45,7 +45,7 @@ export type ErrorStateType = {|
 
 export type LanguageResourceCacheStateType = {
   [path: string]: FileCacheStateType
-}
+} | ErrorStateType
 
 export type CityResourceCacheStateType = {
   [language: string]: LanguageResourceCacheStateType
