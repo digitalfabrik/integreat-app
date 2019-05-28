@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 const mapStateToProps = (state: StateType, ownProps) => {
   const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (state.cities.errorMessage !== undefined || route.errorMessage !== undefined) {
+  if (state.cities.errorMessage !== undefined || route.errorMessage !== undefined || state.cityContent.resourceCache) {
     return {error: true}
   }
   const cities = state.cities.models
