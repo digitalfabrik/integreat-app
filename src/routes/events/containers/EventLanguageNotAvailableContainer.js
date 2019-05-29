@@ -10,18 +10,19 @@ import { translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-  const languages = state.cityContent.languages
+  const {languages, city, eventsRouteMapping} = state.cityContent
 
   if (!languages) {
     throw new Error('languages have not been set.')
   }
-  if (route.errorMessage !== undefined) {
+  if (eventsRouteMapping.errorMessage !== undefined) {
     throw new Error('Error was not handled correctly')
   }
 
+  const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
+
   return {
-    city: state.cityContent.city,
+    city: city,
     languages: languages.filter(language => route.allAvailableLanguages.has(language.code))
   }
 }
