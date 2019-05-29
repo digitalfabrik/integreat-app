@@ -2,11 +2,13 @@
 
 import * as React from 'react'
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
-import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
 import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { NavigationScreenProp } from 'react-navigation'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -19,13 +21,14 @@ const Wrapper = styled.View`
 
 type CategoryListItemType = {| model: CategoryModel, subCategories: Array<CategoryModel> |}
 
-type PropsType = {|
+export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
+  navigateToCategory: (cityCode: string, language: string, path: string) => StoreActionType,
   theme: ThemeType,
-  language: string,
-  cityCode: string,
-  closeModal: () => void
+  language: string | null,
+  cityCode: string | null,
+  closeModal: () => void,
+  navigation: NavigationScreenProp<*>
 |}
 
 type StateType = {|
@@ -33,6 +36,8 @@ type StateType = {|
 |}
 
 class SearchModal extends React.Component<PropsType, StateType> {
+  static navigationOptions = {}
+
   constructor () {
     super()
     this.state = {query: ''}
@@ -61,8 +66,13 @@ class SearchModal extends React.Component<PropsType, StateType> {
       .map(category => ({model: category, subCategories: []}))
   }
 
-  onItemPress = (category: {path: string}) => {
+  onItemPress = (category: { path: string }) => {
     const {cityCode, language, navigateToCategory, closeModal} = this.props
+
+    if (!language || !cityCode) {
+      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
+    }
+
     navigateToCategory(cityCode, language, category.path)
     InteractionManager.runAfterInteractions(() => closeModal())
   }
