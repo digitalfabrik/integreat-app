@@ -26,16 +26,16 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
-  if (!route) {
-    return {}
-  }
-
-  if (state.cities.errorMessage !== undefined || route.errorMessage !== undefined ||
+  if (state.cities.errorMessage !== undefined || state.cityContent.categoriesRouteMapping.errorMessage !== undefined ||
     state.cityContent.resourceCache.errorMessage !== undefined) {
     return {error: true}
   }
   const cities = state.cities.models
+
+  const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
+  if (!route) {
+    return {}
+  }
 
   if (!route.allAvailableLanguages.has(state.cityContent.language || '')) {
     return {invalidLanguage: true}
