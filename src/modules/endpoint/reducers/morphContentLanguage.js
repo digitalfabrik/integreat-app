@@ -95,15 +95,15 @@ const morphContentLanguage = (
     return state
   }
 
-  const translatedCategoriesRouteMapping = mapValues(
+  const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,
     categoryRouteTranslator(newCategoriesMap, newLanguage)
-  )
+  ) : {}
 
-  const translatedEventsRouteMapping = mapValues(
+  const translatedEventsRouteMapping = eventsRouteMapping.errorMessage === undefined ? mapValues(
     eventsRouteMapping,
     eventRouteTranslator(newEvents, newLanguage)
-  )
+  ) : {}
 
   return {
     ...state,

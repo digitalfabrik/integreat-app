@@ -63,6 +63,6 @@ export default function * loadCityContent (
       yield call(dataContainer.setLastUpdate, moment.tz('UTC'))
     }
   } else {
-    throw new Error('Language not available')
+    throw new Error('Language is not available')
   }
 }
