@@ -393,7 +393,7 @@ describe('morphContentLanguage', () => {
 
     const previous = prepareState()
 
-    if (previous.categoriesRouteMapping['route-0'].errorMessage !== undefined) {
+    if (previous.categoriesRouteMapping.errorMessage !== undefined) {
       throw Error('Preparation of state failed')
     }
     previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
