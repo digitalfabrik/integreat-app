@@ -61,7 +61,7 @@ export type EventsRouteMappingType = {
 
 export type CitiesStateType = {|
   +models: Array<CityModel> | null
-|}
+|} | ErrorStateType
 
 export const defaultCitiesState: CitiesStateType = {
   models: null
@@ -100,7 +100,7 @@ export type StateType = {|
   +darkMode: boolean,
 
   +cityContent: CityContentStateType,
-  +cities: CitiesStateType | ErrorStateType,
+  +cities: CitiesStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState

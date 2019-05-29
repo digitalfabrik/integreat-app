@@ -7,8 +7,6 @@ import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
 import setCityContentLocalization from './setCityContentLocalization'
-import fetchCategoryFailed from './fetchCategoryFailed'
-import fetchEventFailed from './fetchEventFailed'
 
 export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
@@ -30,21 +28,26 @@ export default (
       delete state.eventsRouteMapping[key]
       return state
     }
-    case 'FETCH_EVENT_FAILED':
-      return fetchEventFailed(state, action)
+    case 'FETCH_EVENT_FAILED': {
+      const errorMessage: string = action.params.message
+      return {...state, eventsRouteMapping: {errorMessage}}
+    }
     case 'FETCH_CATEGORY':
     case 'CLEAR_CATEGORY': {
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
       return state
     }
-    case 'FETCH_CATEGORY_FAILED':
-      return fetchCategoryFailed(state, action)
+    case 'FETCH_CATEGORY_FAILED': {
+      const errorMessage: string = action.params.message
+      return {...state, categoriesRouteMapping: {errorMessage}}
+    }
     case 'CLEAR_CITY_CONTENT':
       return defaultCityContentState
-    case 'RESOURCES_FETCH_FAILED':
+    case 'RESOURCES_FETCH_FAILED': {
       const errorMessage: string = action.params.message
       return {...state, resourceCache: {errorMessage}}
+    }
     default:
       return state
   }
