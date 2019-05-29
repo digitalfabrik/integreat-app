@@ -22,13 +22,21 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  if (state.cities.errorMessage !== undefined || state.cityContent.categoriesRouteMapping.errorMessage !== undefined ||
-    state.cityContent.resourceCache.errorMessage !== undefined) {
+  const {resourceCache, categoriesRouteMapping, languages, language, city} = state.cityContent
+
+  if (languages && !languages.map(languageModel => languageModel.code).includes(language)) {
+    return {invalidLanguage: true}
+  }
+
+  if (state.cities.errorMessage !== undefined ||
+    categoriesRouteMapping.errorMessage !== undefined ||
+    resourceCache.errorMessage !== undefined) {
     return {error: true}
   }
-  const cities = state.cities.models
 
-  const route = state.cityContent.categoriesRouteMapping[ownProps.navigation.getParam('key')]
+  const cities = state.cities.models
+  const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
+
   if (!route) {
     return {}
   }
@@ -40,11 +48,11 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   return {
-    cityCode: state.cityContent.city,
+    cityCode: city,
     language: route.language,
     cities,
-    stateView: stateView,
-    resourceCache: state.cityContent.resourceCache
+    stateView,
+    resourceCache: resourceCache
   }
 }
 

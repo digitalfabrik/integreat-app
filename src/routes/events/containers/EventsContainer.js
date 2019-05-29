@@ -15,11 +15,17 @@ import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
 import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  if (state.cityContent.eventsRouteMapping.errorMessage !== undefined) {
+  const {resourceCache, eventsRouteMapping, languages, language, city} = state.cityContent
+
+  if (languages && !languages.map(languageModel => languageModel.code).includes(language)) {
+    return {invalidLanguage: true}
+  }
+
+  if (eventsRouteMapping.errorMessage !== undefined) {
     return {error: true}
   }
 
-  const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
+  const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
   if (!route) {
     return {}
   }
@@ -30,10 +36,10 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   return {
     language: route.language,
-    cityCode: state.cityContent.city,
+    cityCode: city,
     events: route.models,
     path: route.path,
-    resourceCache: state.cityContent.resourceCache
+    resourceCache: resourceCache
   }
 }
 
