@@ -41,19 +41,22 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   const newResourceCache =
     state.resourceCache.errorMessage === undefined ? {...state.resourceCache, ...resourceCache} : resourceCache
 
+  const route = {
+    root: root.path,
+    models: resultModels,
+    children: resultChildren,
+    depth: depth,
+    allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
+    language
+  }
+
+  const newCategoriesRouteMapping = state.categoriesRouteMapping.errorMessage === undefined
+    ? {...state.categoriesRouteMapping, [key]: route}
+    : {[key]: route}
+
   return {
     ...state,
-    categoriesRouteMapping: {
-      ...state.categoriesRouteMapping,
-      [key]: {
-        root: root.path,
-        models: resultModels,
-        children: resultChildren,
-        depth: depth,
-        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
-        language
-      }
-    },
+    categoriesRouteMapping: newCategoriesRouteMapping,
     resourceCache: newResourceCache,
     searchRoute: {categoriesMap}
   }

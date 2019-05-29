@@ -52,12 +52,12 @@ export type CityResourceCacheStateType = {
 }
 
 export type CategoriesRouteMappingType = {
-  [key: string]: CategoryRouteStateType | ErrorStateType
-}
+  [key: string]: CategoryRouteStateType
+} | ErrorStateType
 
 export type EventsRouteMappingType = {
-  [key: string]: EventRouteStateType | ErrorStateType
-}
+  [key: string]: EventRouteStateType
+} | ErrorStateType
 
 export type CitiesStateType = {|
   +models: Array<CityModel> | null
