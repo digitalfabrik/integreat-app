@@ -8,16 +8,16 @@ export type CityRouteSelectorPropsType = {|
 |}
 
 const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?CategoryRouteStateType => {
-  const route = state.cityContent.categoriesRouteMapping[props.routeKey]
-  if (route && route.errorMessage === undefined) {
-    return route
+  const categoriesRouteMapping = state.cityContent.categoriesRouteMapping
+  if (categoriesRouteMapping.errorMessage !== undefined) {
+    return categoriesRouteMapping[props.routeKey]
   }
 }
 
 const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
-  const route = state.cityContent.eventsRouteMapping[props.routeKey]
-  if (route && route.errorMessage === undefined) {
-    return route
+  const eventsRouteMapping = state.cityContent.eventsRouteMapping
+  if (eventsRouteMapping.errorMessage !== undefined) {
+    return eventsRouteMapping[props.routeKey]
   }
 }
 

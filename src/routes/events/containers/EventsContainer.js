@@ -15,13 +15,13 @@ import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
 import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
+  if (state.cityContent.eventsRouteMapping.errorMessage !== undefined) {
+    return {error: true}
+  }
+
   const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
   if (!route) {
     return {}
-  }
-
-  if (route.errorMessage !== undefined) {
-    return {error: true}
   }
 
   if (!route.allAvailableLanguages.has(route.language || '')) {
