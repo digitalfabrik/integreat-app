@@ -37,10 +37,6 @@ type PropsType = {
 }
 
 class Dashboard extends React.Component<PropsType> {
-  static navigationOptions = {
-    headerTitle: 'Dashboard'
-  }
-
   getNavigationTileModels (): Array<TileModel> {
     const {t, cityCode, language, navigateToCategory} = this.props
     return [
