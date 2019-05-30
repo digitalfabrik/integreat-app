@@ -3,12 +3,14 @@
 import * as React from 'react'
 import Failure from '../components/Failure'
 
-type PropsType = {
-  error?: string
-}
+export type ErrorType = {|
+  error: string
+|}
 
-function withError<Props: PropsType> (
-  Component: React.ComponentType<Props>): React.ComponentType<$Diff<Props, { error?: string }>> {
+type PropsType<T> = ErrorType | T
+
+function withError<Props: PropsType<*>> (
+  Component: React.ComponentType<Props>): React.ComponentType<*> {
   class ErrorComponent extends React.PureComponent<Props> {
     render () {
       const {error, ...props} = this.props
