@@ -8,7 +8,7 @@ export type LanguageNotAvailableType = {|
   languageNotAvailable: boolean,
   city: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (city: string, newLanguage: string) => void
+  changeUnavailableLanguage: (city: string, newLanguage: string) => void
 |}
 
 type PropsType<T> = LanguageNotAvailableType | T
@@ -17,10 +17,12 @@ function withLanguageNotAvailable<Props: PropsType<*>> (
   Component: React.ComponentType<Props>): React.ComponentType<*> {
   class LanguageNotAvailableComponent extends React.PureComponent<Props> {
     render () {
-      const {languageNotAvailable, city, languages, changeLanguage, ...props} = this.props
+      const {languageNotAvailable, city, languages, changeUnavailableLanguage, ...props} = this.props
 
       if (languageNotAvailable) {
-        return <LanguageNotAvailableContainer city={city} languages={languages} changeLanguage={changeLanguage} />
+        return <LanguageNotAvailableContainer city={city}
+                                              languages={languages}
+                                              changeLanguage={changeUnavailableLanguage} />
       }
 
       return <Component {...props} />
