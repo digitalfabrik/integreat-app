@@ -45,8 +45,6 @@ export default compose([
   translate('events'),
   connect((state: StateType, ownProps) => {
     const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-    console.log(state)
-    console.log(route)
     return {invalidLanguage: route && !route.allAvailableLanguages.has(route.language || '')}
   }),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
