@@ -11,14 +11,11 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import { StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
-import { branch, renderComponent } from 'recompose'
-import { Failure } from '../../../modules/error/components/Failure'
+import withError from '../../../modules/error/hocs/withError'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   if (state.cities.errorMessage !== undefined) {
-    return {
-      error: true
-    }
+    return {error: true}
   }
   return {
     language: ownProps.lng,
@@ -62,8 +59,7 @@ export default compose([
   // withI18n has to be before connect, because we need to pass the language as prop
   withI18n(),
   connect(mapStateToProps, mapDispatchToProps),
-  // TODO NATIVE-112
-  branch(props => props.error, renderComponent(Failure)),
+  withError,
   withTheme,
   translate('landing')
 ])(Landing)

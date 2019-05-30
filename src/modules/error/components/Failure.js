@@ -4,6 +4,8 @@ import React from 'react'
 import styled from 'styled-components/native'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { Text } from 'react-native'
+import { translate } from 'react-i18next'
+import type { TFunction } from 'react-i18next'
 
 const ViewContainer = styled.View`
 flex: 1;
@@ -16,18 +18,19 @@ margin-bottom: 10px;
 `
 
 type PropsType = {|
-  error: Error
+  error?: Error,
+  t: TFunction
 |}
 
 export class Failure extends React.Component<PropsType> {
   render () {
-    const { error } = this.props
+    const { t, error } = this.props
 
     return <ViewContainer>
       <IconContainer name='sentiment-dissatisfied' size={55} color={'black'} />
-      <Text>{error.message}</Text>
+      <Text>{error ? error.message : t('generalError')}</Text>
     </ViewContainer>
   }
 }
 
-export default Failure
+export default translate('error')(Failure)
