@@ -9,6 +9,7 @@ import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -23,7 +24,7 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: (cityCode: string, language: string, path: string) => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
   theme: ThemeType,
   language: string | null,
   cityCode: string | null,
@@ -73,7 +74,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
       throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
     }
 
-    navigateToCategory(cityCode, language, category.path)
+    navigateToCategory({cityCode, language, path: category.path})
     InteractionManager.runAfterInteractions(() => closeModal())
   }
 
