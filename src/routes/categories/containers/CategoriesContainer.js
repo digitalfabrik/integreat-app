@@ -14,7 +14,7 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import CategoriesScrollView from '../components/CategoriesScrollView'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
-import withLanguageNotAvailable from '../../../modules/error/hocs/withLanguageNotAvailable'
+import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withLoading from '../../../modules/common/hocs/withLoading'
 
 type OwnPropsType = {|
