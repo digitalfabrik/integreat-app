@@ -42,6 +42,8 @@ The ''resource-cache'' contains all the resources. Resources are files which are
 
 The files are stored in ''resource-cache/${city}/files/'' and the corresponding metadata gets stored in ''files.json''.
 
+*Note: Temporary files, like files which are currently downloaded, are also stored in the cache directory. This is platform specific but exists on Android and iOS.*
+
 The format of the files is:
 
 **files.json:**
