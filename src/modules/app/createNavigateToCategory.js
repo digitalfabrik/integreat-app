@@ -1,15 +1,19 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-import type { FetchLanguagesForCategoryActionType, StoreActionType } from './StoreActionType'
+import type { FetchCategoryActionType, StoreActionType } from './StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
+
+export type NavigateToCategoryParamsType = {|
+  cityCode: string, language: string, path: string, key?: string, forceUpdate?: boolean
+|}
 
 export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => (cityCode: string, language: string, path: string, forceUpdate: boolean = false, key: string = generateKey()) => {
+) => ({cityCode, language, path, key = generateKey(), forceUpdate = false}: NavigateToCategoryParamsType) => {
   navigation.navigate({
     routeName,
     params: {
@@ -21,8 +25,8 @@ export default (
     key
   })
 
-  const fetchLanguagesForCategory: FetchLanguagesForCategoryActionType = {
-    type: 'FETCH_LANGUAGES_FOR_CATEGORY',
+  const fetchLanguagesForCategory: FetchCategoryActionType = {
+    type: 'FETCH_CATEGORY',
     params: {city: cityCode, language, path, depth: 2, forceUpdate, key}
   }
 

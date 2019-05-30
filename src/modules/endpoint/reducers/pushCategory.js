@@ -39,9 +39,6 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   return {
     ...state,
-    language,
-    city,
-    languages,
     categoriesRouteMapping: {
       ...state.categoriesRouteMapping,
       [key]: {
@@ -49,7 +46,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         models: resultModels,
         children: resultChildren,
         depth: depth,
-        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages)
+        allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
+        language
       }
     },
     resourceCache: {...state.resourceCache, ...resourceCache},

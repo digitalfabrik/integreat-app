@@ -6,14 +6,16 @@ import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
-import pushLanguages from './pushLanguages'
+import setCityContentLocalization from './setCityContentLocalization'
 
 export default (
   state: CityContentStateType = defaultCityContentState, action: CityContentActionType
 ): CityContentStateType => {
   switch (action.type) {
+    case 'SET_CITY_CONTENT_LOCALIZATION':
+      return setCityContentLocalization(state, action)
     case 'PUSH_LANGUAGES':
-      return pushLanguages(state, action)
+      return {...state, languages: action.params.languages}
     case 'PUSH_CATEGORY':
       return pushCategory(state, action)
     case 'PUSH_EVENT':
@@ -27,7 +29,6 @@ export default (
       return state
     }
     case 'FETCH_CATEGORY':
-    case 'FETCH_LANGUAGES_FOR_CATEGORY':
     case 'CLEAR_CATEGORY': {
       const {key} = action.params
       delete state.categoriesRouteMapping[key]

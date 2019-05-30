@@ -14,6 +14,9 @@ import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -23,10 +26,10 @@ type PropsType = {
   goOffline: () => void,
   goOnline: () => void,
   fetchCities: (language: string) => void,
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
-  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
-  navigateToDashboard: (cityCode: string, language: string, path: string, forceRefresh: boolean, key: string) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateToEvent: NavigateToEventParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  navigateToDashboard: NavigateToCategoryParamsType => void,
   theme: ThemeType,
 
   language: string,
@@ -45,7 +48,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'categories',
         thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToCategory(cityCode, language, `/${cityCode}/${language}`),
+        onTilePress: () => navigateToCategory({cityCode, language, path: `/${cityCode}/${language}`}),
         notifications: 0
       }),
       new TileModel({
@@ -78,16 +81,20 @@ class Dashboard extends React.Component<PropsType> {
   }
 
   events = () => {
-    this.props.navigateToEvent(this.props.cityCode, this.props.language)
+    const {navigateToEvent, cityCode, language} = this.props
+    navigateToEvent({cityCode, language})
   }
 
   onRefresh = () => {
     const {navigateToDashboard, cityCode, language, navigation} = this.props
-    navigateToDashboard(cityCode, language, `/${cityCode}/${language}`, true, navigation.getParam('key'))
+    navigateToDashboard({
+      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')})
   }
 
   render () {
-    const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
+    const {
+      cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory
+    } = this.props
 
     const loading = !stateView || !cities || !resourceCache
 
@@ -101,10 +108,10 @@ class Dashboard extends React.Component<PropsType> {
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
-                    language={this.props.language}
-                    cityCode={this.props.cityCode}
-                    theme={this.props.theme}
-                    navigateToCategory={this.props.navigateToCategory}
+                    language={language}
+                    cityCode={cityCode}
+                    theme={theme}
+                    navigateToCategory={navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
     </ScrollView>
   }

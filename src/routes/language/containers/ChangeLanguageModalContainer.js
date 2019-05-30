@@ -6,6 +6,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components/native'
+import { currentCityRouteSelector } from '../../../modules/common/selectors/currentCityRouteSelector'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
 
@@ -22,9 +23,11 @@ type PropsType = {
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+  const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
+  const currentLanguage = route ? route.language : state.cityContent.language
   return {
     city: state.cityContent.city,
-    currentLanguage: state.cityContent.language,
+    currentLanguage,
     languages: state.cityContent.languages,
     availableLanguages: ownProps.navigation.getParam('availableLanguages'),
     closeModal: () => { ownProps.navigation.goBack() }

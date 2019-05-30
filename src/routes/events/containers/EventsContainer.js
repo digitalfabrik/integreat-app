@@ -28,7 +28,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 
   return {
-    language,
+    language: targetRoute.language,
     cityCode: city,
     events: targetRoute.models,
     path: targetRoute.path,
@@ -45,7 +45,7 @@ export default compose([
   translate('events'),
   connect((state: StateType, ownProps) => {
     const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-    return {invalidLanguage: route && !route.allAvailableLanguages.has(state.cityContent.language || '')}
+    return {invalidLanguage: route && !route.allAvailableLanguages.has(route.language || '')}
   }),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),

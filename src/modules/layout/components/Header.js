@@ -68,7 +68,8 @@ type PropsType = {|
     }
   },
   availableLanguages: ?Array<string>,
-  navigateToLanding: () => void
+  navigateToLanding: () => void,
+  routeKey: string
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -105,7 +106,8 @@ class Header extends React.PureComponent<PropsType> {
     this.getNavigation().navigate({
       routeName: 'ChangeLanguageModal',
       params: {
-        availableLanguages: this.props.availableLanguages
+        availableLanguages: this.props.availableLanguages,
+        routeKey: this.props.routeKey
       }
     })
   }
