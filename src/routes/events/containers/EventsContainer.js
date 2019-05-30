@@ -12,7 +12,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
 import withLoading from '../../../modules/common/hocs/withLoading'
-import withLanguageNotAvailable from '../../../modules/error/hocs/withLanguageNotAvailable'
+import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withError from '../../../modules/error/hocs/withError'
 
 type OwnPropsType = {|

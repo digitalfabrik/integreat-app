@@ -4,10 +4,10 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
-import Selector from '../../common/components/Selector'
-import SelectorItemModel from '../../common/models/SelectorItemModel'
+import Selector from './Selector'
+import SelectorItemModel from '../models/SelectorItemModel'
 import { Text } from 'react-native-elements/src/index'
-import Caption from '../../common/components/Caption'
+import Caption from './Caption'
 import { TFunction } from 'react-i18next'
 
 const Wrapper = styled.View`
