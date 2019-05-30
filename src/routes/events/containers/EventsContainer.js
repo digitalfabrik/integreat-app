@@ -10,28 +10,29 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
-import { branch, renderComponent } from 'recompose'
-import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
-import { Failure } from '../../../modules/error/components/Failure'
+import type { NavigationScreenProp } from 'react-navigation'
+import withLoading from '../../../modules/common/hocs/withLoading'
+import withLanguageNotAvailable from '../../../modules/error/hocs/withLanguageNotAvailable'
+import withError from '../../../modules/error/hocs/withError'
 
-const mapStateToProps = (state: StateType, ownProps) => {
-  const {resourceCache, eventsRouteMapping, languages, language, city} = state.cityContent
+type OwnPropsType = {|
+  navigation: NavigationScreenProp<*>
+|}
 
-  if (languages && !languages.map(languageModel => languageModel.code).includes(language)) {
-    return {invalidLanguage: true}
-  }
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+  const {resourceCache, eventsRouteMapping, city} = state.cityContent
 
-  if (eventsRouteMapping.errorMessage !== undefined) {
-    return {error: true}
+  if (eventsRouteMapping.errorMessage !== undefined || resourceCache.errorMessage !== undefined) {
+    return {error: 'Something went wrong'}
   }
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
-  if (!route) {
-    return {}
+  if (!route || !city) {
+    return {loading: true}
   }
 
-  if (!route.allAvailableLanguages.has(route.language || '')) {
-    return {invalidLanguage: true}
+  if (!route.allAvailableLanguages.has(route.language)) {
+    return {languageNotAvailable: true, languages: route.allAvailableLanguages, city}
   }
 
   return {
@@ -43,16 +44,20 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType) => ({
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
-  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
+  changeUnavailableLanguage: (city: string, newLanguage: string) => dispatch({
+    type: 'SWITCH_CONTENT_LANGUAGE',
+    params: {city, newLanguage}
+  })
 })
 
 export default compose([
-  translate('events'),
   connect(mapStateToProps, mapDispatchToProps),
-  // TODO NATIVE-112 Show errors
-  branch(props => props.error, renderComponent(Failure)),
-  branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
-  withRouteCleaner
+  withRouteCleaner,
+  withError,
+  withLanguageNotAvailable,
+  withLoading,
+  translate('events')
 ])(Events)
