@@ -1,10 +1,7 @@
 // @flow
 
-import type { TFunction } from 'react-i18next'
-
 import React from 'react'
 import styled from 'styled-components/native'
-import { translate } from 'react-i18next'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { Text } from 'react-native'
 
@@ -19,21 +16,18 @@ margin-bottom: 10px;
 `
 
 type PropsType = {|
-  error: Error,
-  t: TFunction
+  error: Error
 |}
 
 export class Failure extends React.Component<PropsType> {
   render () {
-    const { t } = this.props
+    const { error } = this.props
 
     return <ViewContainer>
       <IconContainer name='sentiment-dissatisfied' size={55} color={'black'} />
-      <Text>
-        {t('loadingFailed')}
-      </Text>
+      <Text>{error.message}</Text>
     </ViewContainer>
   }
 }
 
-export default translate('error')(Failure)
+export default Failure
