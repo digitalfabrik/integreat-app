@@ -9,12 +9,13 @@ import createNavigateToCategory from '../../../modules/app/createNavigateToCateg
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: (cityCode: string, language: string, path: string) => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,

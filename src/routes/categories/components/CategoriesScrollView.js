@@ -8,6 +8,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -16,8 +18,8 @@ type PropsType = {
   language: string,
   cities?: Array<CityModel>,
 
-  navigateToCategory: (cityCode: string, language: string, path: string, forceRefresh?: boolean, key?: string) => void,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
   stateView: ?CategoriesRouteStateView
@@ -27,7 +29,8 @@ class CategoriesScrollView extends React.Component<PropsType> {
   onRefresh = () => {
     const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
     if (stateView) {
-      navigateToCategory(cityCode, language, stateView.rawRoot, true, navigation.getParam('key'))
+      navigateToCategory({
+        cityCode, language, path: stateView.rawRoot, forceUpdate: true, key: navigation.getParam('key')})
     }
   }
 

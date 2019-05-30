@@ -19,6 +19,7 @@ Object {
         ],
       },
       "depth": 2,
+      "language": "en",
       "models": Object {
         "/augsburg/en": CategoryModel {
           "_availableLanguages": Object {},
@@ -85,6 +86,7 @@ Object {
         "de" => "de",
         "en" => "en",
       },
+      "language": "en",
       "models": Array [
         EventModel {
           "_availableLanguages": Map {
@@ -166,6 +168,7 @@ Object {
         "en" => "/augsburg/en/events/third_event",
         "de" => "/augsburg/de/events/drittes_event",
       },
+      "language": "en",
       "models": Array [
         EventModel {
           "_availableLanguages": Map {
