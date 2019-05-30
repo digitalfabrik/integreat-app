@@ -3,25 +3,39 @@
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import { withTheme } from 'styled-components/native'
 import { currentCityRouteSelector } from '../../../modules/common/selectors/currentCityRouteSelector'
+import { LanguageModel } from '@integreat-app/integreat-api-client'
+import type { NavigationScreenProp } from 'react-navigation'
 
-const mapStateToProps = (state: StateType, ownProps) => {
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+
+type PropsType = {
+  city: string | null,
+  currentLanguage: string | null,
+  languages: Array<LanguageModel> | null,
+  availableLanguages: Array<string>,
+  changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
+  closeModal: () => void,
+  navigation: NavigationScreenProp<*>
+}
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
   const currentLanguage = route ? route.language : state.cityContent.language
-
   return {
     city: state.cityContent.city,
     currentLanguage,
     languages: state.cityContent.languages,
     availableLanguages: ownProps.navigation.getParam('availableLanguages'),
-    closeModal: () => ownProps.navigation.goBack()
+    closeModal: () => { ownProps.navigation.goBack() }
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
+type DispatchType = Dispatch<SwitchContentLanguageActionType>
+const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
   return {
     changeLanguage: (city: string, newLanguage: string) => dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
@@ -33,5 +47,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => {
   }
 }
 
-// $FlowFixMe
-export default withTheme(connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageModal))
+export default connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
+  withTheme(ChangeLanguageModal)
+)
