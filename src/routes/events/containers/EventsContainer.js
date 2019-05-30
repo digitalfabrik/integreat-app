@@ -23,7 +23,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const {resourceCache, eventsRouteMapping, city} = state.cityContent
 
   if (eventsRouteMapping.errorMessage !== undefined || resourceCache.errorMessage !== undefined) {
-    return {error: 'Something went wrong'}
+    return {error: true}
   }
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]

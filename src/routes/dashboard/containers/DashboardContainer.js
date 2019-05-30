@@ -37,7 +37,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   if (state.cities.errorMessage !== undefined ||
     categoriesRouteMapping.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {
-    return {error: 'Something went wrong'}
+    return {error: true}
   }
 
   const cities = state.cities.models

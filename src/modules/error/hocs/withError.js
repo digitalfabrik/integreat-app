@@ -4,7 +4,7 @@ import * as React from 'react'
 import Failure from '../components/Failure'
 
 export type ErrorType = {|
-  error: string
+  error: boolean
 |}
 
 type PropsType<T> = ErrorType | T
@@ -16,7 +16,7 @@ function withError<Props: PropsType<*>> (
       const {error, ...props} = this.props
 
       if (error) {
-        return <Failure error={new Error(error)} />
+        return <Failure />
       }
 
       return <Component {...props} />
