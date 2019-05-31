@@ -8,7 +8,8 @@ const H1 = styled.Text`
   padding: 20px 0;
   font-size: 20px;
   text-align: center;
-  color: ${props => props.theme.colors.textColor}
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontFamily};
 `
 type PropsType = {|
   title: string,
