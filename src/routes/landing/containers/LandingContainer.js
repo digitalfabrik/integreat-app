@@ -1,6 +1,6 @@
 // @flow
 
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import { translate, withI18n } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 
@@ -64,6 +64,6 @@ export default compose([
   connect(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112
   branch(props => props.error, renderComponent(Failure)),
-  withTheme,
+  withTheme(props => props.language),
   translate('landing')
 ])(Landing)

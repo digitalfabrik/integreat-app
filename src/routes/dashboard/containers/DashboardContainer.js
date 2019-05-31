@@ -5,7 +5,7 @@ import type { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
 import type { StateType } from '../../../modules/app/StateType'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -61,5 +61,5 @@ export default compose([
   branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
   translate('dashboard'),
-  withTheme
+  withTheme(props => props.language)
 ])(Dashboard)
