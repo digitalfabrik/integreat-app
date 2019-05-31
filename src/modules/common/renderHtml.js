@@ -3,6 +3,11 @@
 import { URL_PREFIX } from '../platform/constants/webview'
 import type { FileCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
+import lateefFont from '../../../assets/fonts/Lateef.ttf'
+import openSansFontReg from '../../../assets/fonts/OpenSans-Bold.ttf'
+import openSansFontBold from '../../../assets/fonts/OpenSans-Regular.ttf'
+import ralewayFontReg from '../../../assets/fonts/Raleway-Regular.ttf'
+import ralewayFontBold from '../../../assets/fonts/Raleway-Bold.ttf'
 
 // language=JavaScript
 const renderJS = (files: FileCacheStateType) => `
@@ -61,11 +66,42 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native-->
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
   <style>
+    @font-face {
+      font-family: 'Lateef';
+      font-style: normal;
+      font-weight: 400;
+      src: url('${lateefFont}') format('truetype');
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: url('${openSansFontReg}') format('truetype');
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 700;
+      src: url('${openSansFontBold}') format('truetype');
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 400;
+      src: url('${ralewayFontReg}') format('truetype');
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 700;
+      src: url('${ralewayFontBold}') format('truetype');
+    }
+  
     html, body {
         margin: 0;
         padding: 0;
         
-        /*font-family: \${theme.fonts.contentFontFamily};*/   
+        font-family: ${theme.fonts.contentFontFamily};
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
         /*\${props => props.centered && css\`
