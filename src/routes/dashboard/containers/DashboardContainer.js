@@ -4,10 +4,8 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { CategoryRouteStateType, StateType } from '../../../modules/app/StateType'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import type { StateType } from '../../../modules/app/StateType'
 import { withTheme } from 'styled-components/native'
-import withError from '../../../modules/error/hocs/withError'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -18,57 +16,50 @@ import { branch, renderComponent } from 'recompose'
 import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { translate } from 'react-i18next'
+import { Failure } from '../../../modules/error/components/Failure'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
-  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  fetchCities: () => dispatch({
-    type: 'FETCH_CITIES',
-    params: {}
-  })
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
 })
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const targetCityCode: CityModel = ownProps.navigation.getParam('cityCode')
-  const key: string = ownProps.navigation.getParam('key')
+  const {resourceCache, categoriesRouteMapping, languages, language, city} = state.cityContent
 
-  const targetRoute: CategoryRouteStateType = state.cityContent.categoriesRouteMapping[key]
-  const language = state.cityContent.language
-
-  if (!targetRoute || !language) {
-    return {
-      cityCode: targetCityCode,
-      language: language,
-      cities: state.cities.models
-    }
+  if (languages && !languages.map(languageModel => languageModel.code).includes(language)) {
+    return {invalidLanguage: true}
   }
 
-  const models = targetRoute.models
-  const children = targetRoute.children
-  const stateView = new CategoriesRouteStateView(targetRoute.root, models, children)
+  if (state.cities.errorMessage !== undefined ||
+    categoriesRouteMapping.errorMessage !== undefined ||
+    resourceCache.errorMessage !== undefined) {
+    return {error: true}
+  }
+
+  const cities = state.cities.models
+  const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
+
+  if (!route) {
+    return {}
+  }
 
   return {
-    cityCode: targetCityCode,
-    language: targetRoute.language,
-    cities: state.cities.models,
-    stateView: stateView,
-    resourceCache: state.cityContent.resourceCache,
-    error: null // fixme display errors
+    cityCode: city,
+    language: route.language,
+    cities,
+    stateView: new CategoriesRouteStateView(route.root, route.models, route.children),
+    resourceCache: resourceCache
   }
 }
 
-const themed = withTheme(Dashboard)
 export default compose([
   withRouteCleaner,
-  connect((state: StateType): { invalidLanguage: boolean } => {
-    const languages = state.cityContent.languages
-    const language = state.cityContent.language
-    return { invalidLanguage: !!languages && !languages.find(languageModel => languageModel.code === language) }
-  }),
-  branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
-  withError,
-  translate('dashboard')
-])(themed)
+  // TODO NATIVE-112 Show errors, maybe use withError and pass more props
+  branch(props => props.error, renderComponent(Failure)),
+  branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
+  translate('dashboard'),
+  withTheme
+])(Dashboard)

@@ -49,7 +49,12 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
     const {path, allAvailableLanguages} = route
 
     if (!path) { // Route is a list of all events
-      return {path: null, models: newEvents, allAvailableLanguages, language: newLanguage}
+      return {
+        path: null,
+        models: newEvents,
+        allAvailableLanguages,
+        language: newLanguage
+      }
     }
 
     // Route is a single event
@@ -68,7 +73,12 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       return route
     }
 
-    return {path: translatedPath, models: [translatedEvent], allAvailableLanguages, language: newLanguage}
+    return {
+      path: translatedPath,
+      models: [translatedEvent],
+      allAvailableLanguages,
+      language: newLanguage
+    }
   }
 
 const morphContentLanguage = (
@@ -85,15 +95,15 @@ const morphContentLanguage = (
     return state
   }
 
-  const translatedCategoriesRouteMapping = mapValues(
+  const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,
     categoryRouteTranslator(newCategoriesMap, newLanguage)
-  )
+  ) : {}
 
-  const translatedEventsRouteMapping = mapValues(
+  const translatedEventsRouteMapping = eventsRouteMapping.errorMessage === undefined ? mapValues(
     eventsRouteMapping,
     eventRouteTranslator(newEvents, newLanguage)
-  )
+  ) : {}
 
   return {
     ...state,

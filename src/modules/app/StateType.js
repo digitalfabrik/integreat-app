@@ -39,9 +39,13 @@ export type FileCacheStateType = {
   |}
 }
 
+export type ErrorStateType = {|
+  +errorMessage: string
+|}
+
 export type LanguageResourceCacheStateType = {
   [path: string]: FileCacheStateType
-}
+} | ErrorStateType
 
 export type CityResourceCacheStateType = {
   [language: string]: LanguageResourceCacheStateType
@@ -49,18 +53,18 @@ export type CityResourceCacheStateType = {
 
 export type CategoriesRouteMappingType = {
   [key: string]: CategoryRouteStateType
-}
+} | ErrorStateType
 
 export type EventsRouteMappingType = {
   [key: string]: EventRouteStateType
-}
+} | ErrorStateType
 
 export type CitiesStateType = {|
-  +models: Array<CityModel>
-|}
+  +models: Array<CityModel> | null
+|} | ErrorStateType
 
 export const defaultCitiesState: CitiesStateType = {
-  models: []
+  models: null
 }
 
 export type SearchRouteType = {|

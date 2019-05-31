@@ -32,13 +32,19 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     }
   }
 
+  // If there is an error in the old resourceCache, we want to override it
+  const newResourceCache =
+    state.resourceCache.errorMessage === undefined ? {...state.resourceCache, ...resourceCache} : resourceCache
+
+  // If there is an error in the old eventsRouteMapping, we want to override it
+  const newEventsRouteMapping = state.eventsRouteMapping.errorMessage === undefined
+    ? {...state.eventsRouteMapping, [key]: getEventRoute()}
+    : {[key]: getEventRoute()}
+
   return {
     ...state,
-    eventsRouteMapping: {
-      ...state.eventsRouteMapping,
-      [key]: getEventRoute()
-    },
-    resourceCache: {...state.resourceCache, ...resourceCache}
+    eventsRouteMapping: newEventsRouteMapping,
+    resourceCache: newResourceCache
   }
 }
 

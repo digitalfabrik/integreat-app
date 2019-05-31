@@ -25,7 +25,6 @@ type PropsType = {
   toggleTheme: () => void,
   goOffline: () => void,
   goOnline: () => void,
-  fetchCities: (language: string) => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
