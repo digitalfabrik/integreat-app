@@ -63,12 +63,6 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
   <style>
   ${Platform.OS === 'android' && `
-  @font-face {
-      font-family: 'Lateef';
-      font-style: normal;
-      font-weight: 400;
-      src: url('file:///android_asset/fonts/Lateef.ttf') format('truetype');
-    }
     @font-face {
       font-family: 'OpenSans-Regular';
       font-style: normal;
@@ -92,13 +86,19 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
       font-style: normal;
       font-weight: 700;
       src: url('file:///android_asset/fonts/Raleway-Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'RalewayLateef-Bold';
+      font-style: normal;
+      font-weight: 700;
+      src: url('file:///android_asset/fonts/RalewayLateef-Bold.ttf') format('truetype');
     }`}
    
     html, body {
         margin: 0;
         padding: 0;
         
-        font-family: ${theme.fonts.contentFontFamily}, sans-serif;
+        font-family: ${theme.fonts.contentFontFamilyRegular}, sans-serif;
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
