@@ -4,7 +4,6 @@ import * as React from 'react'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
-import { Text } from 'react-native'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
@@ -12,13 +11,21 @@ import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
 
 const Row = styled.View`
-  margin: 12px 0;
+  flex: 1;
+`
+
+const CategoryTitle = styled.Text`
+  font-family: ${props => props.theme.fonts.decorativeFontFamilyRegular};
+  color: ${props => props.theme.colors.textColor};
+  margin: 0 10px;
 `
 
 const CategoryThumbnail = styled(FastImage)`
+  align-self: center;
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
-  padding: 8px;
+  margin: 10px;
 `
 
 type PropsType = {
@@ -47,9 +54,9 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderTitle (): React.Node {
-    const {query} = this.props
+    const {query, theme} = this.props
     return <CategoryCaption search={query || ''}>
-      <Text>{this.props.category.title}</Text>
+      <CategoryTitle theme={theme}>{this.props.category.title}</CategoryTitle>
     </CategoryCaption>
   }
 
