@@ -2,15 +2,14 @@
 
 import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
-import styled, { withTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
-import { URL_PREFIX, getResourceCacheFilesDirPath } from '../../platform/constants/webview'
+import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
-import { type NavigationScreenProp, withNavigation } from 'react-navigation'
+import type { NavigationScreenProp } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
 import { WebView, type WebViewMessageEvent } from 'react-native-webview'
-import compose from 'lodash/fp/compose'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
@@ -79,7 +78,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   onLinkPress = (url: string) => {
-    const { navigation, cityCode, language, navigateToIntegreatUrl } = this.props
+    const {navigation, cityCode, language, navigateToIntegreatUrl} = this.props
 
     if (url.includes('.pdf')) {
       navigation.navigate('PDFViewModal', {url})
@@ -147,7 +146,4 @@ class Page extends React.Component<PropType, StateType> {
   }
 }
 
-export default compose(
-  withNavigation,
-  withTheme
-)(Page)
+export default Page
