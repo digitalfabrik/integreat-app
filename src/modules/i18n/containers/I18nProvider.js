@@ -17,18 +17,13 @@ const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
 const DEFAULT_LANGUAGE = 'en'
 
-type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
-
 type PropsType = {
   children?: React.Node,
   language: string,
   setUiDirection: Function
 }
 
-export class I18nProvider extends React.Component<PropsType, {
-  language: string,
-  fonts: FontMapType
-}> {
+export class I18nProvider extends React.Component<PropsType, {| language: string |}> {
   i18n: i18n
 
   constructor () {
@@ -46,7 +41,7 @@ export class I18nProvider extends React.Component<PropsType, {
         debug: __DEV__
       })
 
-    this.state = {language: DEFAULT_LANGUAGE, fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE)}
+    this.state = {language: DEFAULT_LANGUAGE}
   }
 
   /**
@@ -87,8 +82,7 @@ export class I18nProvider extends React.Component<PropsType, {
   initLanguage (language: string) {
     const targetLanguage = this.getPredeterminedLanguage(language)
 
-    const fonts = I18nProvider.getSelectedFonts(targetLanguage)
-    this.setState({language: targetLanguage, fonts})
+    this.setState({language: targetLanguage})
     this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
   }
 
@@ -96,21 +90,10 @@ export class I18nProvider extends React.Component<PropsType, {
     this.initLanguage(this.props.language)
   }
 
-  static getSelectedFonts (language: string): FontMapType {
-    // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
-    return {
-      lateef: ['ar', 'fa', 'ku'].includes(language),
-      openSans: true,
-      raleway: true
-    }
-  }
-
   render () {
     return (
       <I18nextProvider i18n={this.i18n}>
-        <>
-          {this.props.children}
-        </>
+        {this.props.children}
       </I18nextProvider>
     )
   }
