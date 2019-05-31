@@ -11,27 +11,34 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { branch, renderComponent } from 'recompose'
-import EventNotAvailableContainer from './EventNotAvailableContainer'
+import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
+import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const {language, city, resourceCache} = state.cityContent
-  const key: string = ownProps.navigation.getParam('key')
+  const {resourceCache, eventsRouteMapping, languages, language, city} = state.cityContent
 
-  const targetRoute = state.cityContent.eventsRouteMapping[key]
+  if (languages && !languages.map(languageModel => languageModel.code).includes(language)) {
+    return {invalidLanguage: true}
+  }
 
-  if (!targetRoute || !language) {
-    return {
-      language,
-      cityCode: city,
-      resourceCache: resourceCache
-    }
+  if (eventsRouteMapping.errorMessage !== undefined) {
+    return {error: true}
+  }
+
+  const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
+  if (!route) {
+    return {}
+  }
+
+  if (!route.allAvailableLanguages.has(route.language || '')) {
+    return {invalidLanguage: true}
   }
 
   return {
-    language: targetRoute.language,
+    language: route.language,
     cityCode: city,
-    events: targetRoute.models,
-    path: targetRoute.path,
+    events: route.models,
+    path: route.path,
     resourceCache: resourceCache
   }
 }
@@ -43,11 +50,9 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 
 export default compose([
   translate('events'),
-  connect((state: StateType, ownProps) => {
-    const route = state.cityContent.eventsRouteMapping[ownProps.navigation.getParam('key')]
-    return {invalidLanguage: route && !route.allAvailableLanguages.has(route.language || '')}
-  }),
-  branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   connect(mapStateToProps, mapDispatchToProps),
+  // TODO NATIVE-112 Show errors
+  branch(props => props.error, renderComponent(Failure)),
+  branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
   withRouteCleaner
 ])(Events)

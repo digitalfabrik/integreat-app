@@ -8,13 +8,15 @@ import type { LanguageResourceCacheStateType } from './StateType'
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
 export type FetchCitiesActionType = {|
-  type: 'FETCH_CITIES', params: {||}
+  type: 'FETCH_CITIES'
 |}
 export type PushCitiesActionType = {|
   type: 'PUSH_CITIES', params: {| cities: Array<CityModel> |}
 |}
 export type FetchCitiesFailedActionType = {|
-  type: 'FETCH_CITIES_FAILED', message: string
+  type: 'FETCH_CITIES_FAILED', params: {|
+    message: string
+  |}
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
@@ -26,18 +28,13 @@ export type SetCityContentLocalizationType = {|
   }
 |}
 
-export type FetchLanguagesFailedActionType = {|
-  type: 'FETCH_LANGUAGES_FAILED',
-  message: string
-|}
 export type PushLanguagesActionType = {|
   type: 'PUSH_LANGUAGES',
   params: {|
     languages: Array<LanguageModel>
   |}
 |}
-export type LanguagesActionType = FetchLanguagesFailedActionType
-  | PushLanguagesActionType
+export type LanguagesActionType = PushLanguagesActionType
 
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
@@ -47,7 +44,10 @@ export type FetchCategoryActionType = {|
   |}
 |}
 export type FetchCategoryFailedActionType = {|
-  type: 'FETCH_CATEGORY_FAILED', message: string
+  type: 'FETCH_CATEGORY_FAILED',
+  params: {|
+    message: string
+  |}
 |}
 export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
@@ -89,7 +89,10 @@ export type PushEventActionType = {|
   |}
 |}
 export type FetchEventFailedActionType = {|
-  type: 'FETCH_EVENT_FAILED', message: string
+  type: 'FETCH_EVENT_FAILED',
+  params: {|
+    message: string
+  |}
 |}
 
 export type EventsActionType =
@@ -122,6 +125,13 @@ export type ClearCityContentActionType = {|
   type: 'CLEAR_CITY_CONTENT'
 |}
 
+export type ResourcesFetchFailedActionType = {|
+  type: 'RESOURCES_FETCH_FAILED',
+  params: {|
+    message: string
+  |}
+|}
+
 export type CityContentActionType =
   CategoriesActionType
   | EventsActionType
@@ -130,15 +140,6 @@ export type CityContentActionType =
   | LanguagesActionType
   | ClearCityContentActionType
   | SetCityContentLocalizationType
-
-export type ResourcesFetchSucceededActionType = {|
-  type: 'RESOURCES_FETCH_SUCCEEDED', city: string, language: string
-|}
-export type ResourcesFetchFailedActionType = {|
-  type: 'RESOURCES_FETCH_FAILED', city: string, language: string, message: string
-|}
-export type ResourcesFetchActionType =
-  | ResourcesFetchSucceededActionType
   | ResourcesFetchFailedActionType
 
 export type SetUiDirectionActionType = {
@@ -155,7 +156,6 @@ export type ConnectionChangeActionType = {|
 
 export type StoreActionType =
   ConnectionChangeActionType
-  | ResourcesFetchActionType
   | SetUiDirectionActionType
   | ToggleDarkModeActionType
   | CitiesActionType

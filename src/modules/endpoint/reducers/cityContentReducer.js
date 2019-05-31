@@ -28,14 +28,26 @@ export default (
       delete state.eventsRouteMapping[key]
       return state
     }
+    case 'FETCH_EVENT_FAILED': {
+      const errorMessage: string = action.params.message
+      return {...state, eventsRouteMapping: {errorMessage}}
+    }
     case 'FETCH_CATEGORY':
     case 'CLEAR_CATEGORY': {
       const {key} = action.params
       delete state.categoriesRouteMapping[key]
       return state
     }
+    case 'FETCH_CATEGORY_FAILED': {
+      const errorMessage: string = action.params.message
+      return {...state, categoriesRouteMapping: {errorMessage}}
+    }
     case 'CLEAR_CITY_CONTENT':
       return defaultCityContentState
+    case 'RESOURCES_FETCH_FAILED': {
+      const errorMessage: string = action.params.message
+      return {...state, resourceCache: {errorMessage}}
+    }
     default:
       return state
   }
