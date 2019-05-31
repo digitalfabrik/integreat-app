@@ -12,7 +12,7 @@ import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
 import MapViewModal from '../../../routes/map/components/MapViewModal'
-import ModalHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
+import TransparentHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 import ExtrasContainer from '../../../routes/extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraContainer'
 import SprungbrettExtraContainer from '../../../routes/sprungbrett/containers/SprungbrettExtraContainer'
@@ -35,8 +35,8 @@ const createNavigationScreen = (component, header = null) => {
 }
 
 const transparentHeader = (headerProps: HeaderProps) =>
-  <ModalHeaderContainer scene={headerProps.scene}
-                        scenes={headerProps.scenes} />
+  <TransparentHeaderContainer scene={headerProps.scene}
+                              scenes={headerProps.scenes} />
 
 const defaultHeader = (headerProps: HeaderProps) =>
   <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
