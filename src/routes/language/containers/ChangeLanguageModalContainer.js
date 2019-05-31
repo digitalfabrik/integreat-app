@@ -5,7 +5,7 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import { currentCityRouteSelector } from '../../../modules/common/selectors/currentCityRouteSelector'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -48,5 +48,5 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
-  withTheme(ChangeLanguageModal)
+  withTheme(props => props.language)(ChangeLanguageModal)
 )
