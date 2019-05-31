@@ -12,12 +12,24 @@ export type FontsType = {
   subTitleFontSize: string
 }
 
-export default {
+export const arabicFonts: FontsType = { // used for 'ar', 'fa' and 'ku'
   fontSizeAdjust: 0.55,
-  decorativeFontFamily: `'Raleway-Bold', 'Lateef', sans-serif`,
+  decorativeFontFamily: 'Lateef',
   decorativeFontSize: '0.95rem',
   decorativeLineHeight: 1.3,
-  contentFontFamily: `'OpenSans-Regular', 'Lateef', sans-serif`,
+  contentFontFamily: 'Lateef',
+  contentFontSize: '0.95rem',
+  contentLineHeight: 1.4,
+  standardParagraphMargin: '0.75rem',
+  subTitleFontSize: '1.8rem'
+}
+
+export const defaultFonts: FontsType = { // used for all other languages
+  fontSizeAdjust: 0.55,
+  decorativeFontFamily: 'Raleway-Bold',
+  decorativeFontSize: '0.95rem',
+  decorativeLineHeight: 1.3,
+  contentFontFamily: 'OpenSans-Regular',
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
