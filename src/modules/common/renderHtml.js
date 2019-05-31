@@ -98,13 +98,19 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
         margin: 0;
         padding: 0;
         
-        font-family: ${theme.fonts.contentFontFamily};
+        font-family: ${theme.fonts.contentFontFamily}, sans-serif;
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
+        font-size-adjust: ${theme.fonts.fontSizeAdjust};
+        background-color: ${theme.colors.backgroundColor};
         /*\${props => props.centered && css\`
         text-align: center;
         list-style-position: inside;
         \`} */
+    }
+    
+    p {
+      margin: ${theme.fonts.standardParagraphMargin} 0;
     }
     
     img {
