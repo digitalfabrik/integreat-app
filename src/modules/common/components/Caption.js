@@ -12,13 +12,12 @@ const H1 = styled.Text`
 `
 type PropsType = {|
   title: string,
-  style?: string,
   theme: ThemeType
 |}
 
 class Caption extends React.Component<PropsType> {
   render () {
-    return <H1 style={this.props.style} theme={this.props.theme}>{this.props.title}</H1>
+    return <H1 theme={this.props.theme}>{this.props.title}</H1>
   }
 }
 
