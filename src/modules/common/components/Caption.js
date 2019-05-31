@@ -9,8 +9,9 @@ const H1 = styled.Text`
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontFamily};
+  font-family: ${props => props.theme.fonts.decorativeFontFamilyBold};
 `
+
 type PropsType = {|
   title: string,
   theme: ThemeType

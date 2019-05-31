@@ -2,7 +2,8 @@
 
 export type FontsType = {
   fontSizeAdjust: number,
-  decorativeFontFamily: string,
+  decorativeFontFamilyBold: string,
+  decorativeFontFamilyRegular: string,
   decorativeFontSize: string,
   decorativeLineHeight: number,
   contentFontFamily: string,
@@ -14,7 +15,8 @@ export type FontsType = {
 
 export const arabicFonts: FontsType = { // used for 'ar', 'fa' and 'ku'
   fontSizeAdjust: 0.55,
-  decorativeFontFamily: 'Lateef',
+  decorativeFontFamilyBold: 'RalewayLateef-Bold',
+  decorativeFontFamilyRegular: 'RalewayLateef-Regular',
   decorativeFontSize: '0.95rem',
   decorativeLineHeight: 1.3,
   contentFontFamily: 'Lateef',
@@ -26,10 +28,12 @@ export const arabicFonts: FontsType = { // used for 'ar', 'fa' and 'ku'
 
 export const defaultFonts: FontsType = { // used for all other languages
   fontSizeAdjust: 0.55,
-  decorativeFontFamily: 'Raleway-Bold',
+  decorativeFontFamilyBold: 'RalewayLateef-Bold',
+  decorativeFontFamilyRegular: 'RalewayLateef-Regular',
   decorativeFontSize: '0.95rem',
   decorativeLineHeight: 1.3,
-  contentFontFamily: 'OpenSans-Regular',
+  contentFontFamilyRegular: 'OpenSans-Regular',
+  contentFontFamilyBold: 'OpenSans-Bold',
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
