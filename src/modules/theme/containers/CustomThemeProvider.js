@@ -11,6 +11,8 @@ type PropsType = {
   darkMode: boolean
 }
 
+// todo: remove this provider once styled-components is upgraded to v4.2.2
+// or once https://github.com/styled-components/styled-components/issues/2578 is closed
 class CustomThemeProvider extends React.Component<PropsType> {
   render () {
     return <ThemeProvider theme={this.props.darkMode ? darkTheme : brightTheme}>
