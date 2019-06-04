@@ -128,7 +128,7 @@ class Page extends React.Component<PropType, StateType> {
             useWebKit
             javaScriptEnabled
 
-            dataDetectorTypes={'all'}
+            dataDetectorTypes={['all']}
             domStorageEnabled={false}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
