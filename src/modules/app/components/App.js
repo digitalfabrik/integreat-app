@@ -15,14 +15,13 @@ import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
 import { Sentry } from 'react-native-sentry'
+import Dialog from './Dialog'
 
 type PropsType = {
-  sentryPromise: Promise<Sentry>
 }
 
 type AppStateType = {
-  waitingForStore: boolean,
-  waitingForSentry: boolean
+  waitingForStore: boolean
 }
 
 class App extends React.Component<PropsType, AppStateType> {
@@ -44,14 +43,10 @@ class App extends React.Component<PropsType, AppStateType> {
     )
 
     this.store = storeConfig.store
-
-    props.sentryPromise
-      .then(() => this.setState(state => ({...state, waitingForSentry: false})))
-      .catch(() => this.setState(state => ({...state, waitingForSentry: true})))
   }
 
   render () {
-    if (this.state.waitingForStore || this.state.waitingForSentry) {
+    if (this.state.waitingForStore) {
       return null
     }
 
@@ -65,12 +60,14 @@ class App extends React.Component<PropsType, AppStateType> {
       <Provider store={this.store}>
         <I18nProvider>
           <CustomThemeProvider>
-            <>
-              <AndroidStatusBarContainer />
-              <IOSSafeAreaView>
-                <Navigator />
-              </IOSSafeAreaView>
-            </>
+            <Dialog>
+              <>
+                <AndroidStatusBarContainer />
+                <IOSSafeAreaView>
+                  <Navigator />
+                </IOSSafeAreaView>
+              </>
+            </Dialog>
           </CustomThemeProvider>
         </I18nProvider>
       </Provider>

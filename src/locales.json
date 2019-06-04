@@ -365,7 +365,7 @@
       "openSourceLicenses": "Open source licenses"
     },
     "de": {
-      "troubleshooting": "Hilf uns dabei Integreat zu verbessern",
+      "troubleshooting": "Hilf uns Integreat zu verbessern",
       "troubleshootingDescription": "Sendet automatisch Absturzberichte",
       "about": "Über Integreat",
       "privacyPolicy": "Datenschutzerklärung",
@@ -405,6 +405,30 @@
     },
     "ru": {
       "settings": "Настройки сброшены."
+    }
+  },
+  "dialog": {
+    "en": {
+      "troubleshooting": "Help to improve Integreat",
+      "troubleshootingDescription": "Automatically sends crash reports",
+      "yes": "Yes",
+      "No": "no",
+      "askLater": "Ask later"
+    },
+    "de": {
+      "troubleshooting": "Hilf uns Integreat zu verbessern",
+      "troubleshootingDescription": "Sendet automatisch Absturzberichte",
+      "yes": "Ja",
+      "No": "Nein",
+      "askLater": "Später fragen"
+    },
+    "fr": {
+    },
+    "ar": {
+    },
+    "fa": {
+    },
+    "ru": {
     }
   }
 }
