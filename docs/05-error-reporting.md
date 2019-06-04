@@ -29,7 +29,7 @@ Only proper releases should be handled correctly by sentry. This means we do no 
 
 ## Upload of source maps
 
-Sentry wants source maps in order to display stack traces properly. We are not uploading them automatically. Instead you can [use the cli](https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry) to upload source maps.
+Sentry wants source maps in order to display stack traces properly. We are not uploading them automatically. Instead you can [use the cli](https://docs.sentry.io/platforms/javascript/sourcemaps/#uploading-source-maps-to-sentry) to upload source maps. You need a `sentry.properties` with a valid authentication key for this to work! You can generate this with the cli.
 
 ## Upload of Android debugging symbols
 
