@@ -1,7 +1,6 @@
 // @flow
 
 import { withTheme } from 'styled-components/native'
-import { translate, withI18n } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { translate, type TFunction } from 'react-i18next'
 
@@ -17,27 +16,30 @@ import { Failure } from '../../../modules/error/components/Failure'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
 
-const mapStateToProps = (state: StateType) => {
-  if (state.cities.errorMessage !== undefined) {
-    return {
-      error: true
-    }
-  }
-  return {
-    cities: state.cities.models
-  }
-}
-
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, i18n: Object, t: TFunction |}
 
 export type PropsType = {|
-  cities?: Array<CityModel>,
+  error: boolean,
+  cities: ?Array<CityModel>,
   navigateToDashboard: (cityCode: string) => StoreActionType,
   fetchCities: () => StoreActionType,
   i18n: Object,
   t: TFunction,
   navigation: NavigationScreenProp<*>
 |}
+
+const mapStateToProps = (state: StateType) => {
+  if (state.cities.errorMessage !== undefined) {
+    return {
+      error: true,
+      cities: undefined
+    }
+  }
+  return {
+    error: false,
+    cities: state.cities.models
+  }
+}
 
 type DispatchType = Dispatch<StoreActionType>
 
@@ -84,5 +86,5 @@ export default compose([
   connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112
   branch(props => props.error, renderComponent(Failure)),
-  withTheme,
+  withTheme
 ])(Landing)
