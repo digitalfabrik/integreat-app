@@ -21,7 +21,7 @@ const Wrapper = styled(ScrollView)`
 `
 
 type PropType = {
-  cities?: Array<CityModel>,
+  cities: Array<CityModel> | null,
   navigateToDashboard: (cityCode: string) => StoreActionType,
   t: TFunction,
   theme: ThemeType,
@@ -31,7 +31,7 @@ type PropType = {
 /**
  * This shows the landing screen. This is a container because it depends on endpoints.
  */
-class LandingContainer extends React.Component<PropType> {
+class Landing extends React.Component<PropType> {
   componentDidMount () {
     if (!this.props.cities) {
       this.props.fetchCities()
@@ -39,7 +39,8 @@ class LandingContainer extends React.Component<PropType> {
   }
 
   navigateToDashboard = (cityModel: CityModel) => {
-    this.props.navigateToDashboard(cityModel.code)
+    const { navigateToDashboard} = this.props
+    navigateToDashboard(cityModel.code)
   }
 
   render () {
@@ -56,4 +57,4 @@ class LandingContainer extends React.Component<PropType> {
   }
 }
 
-export default LandingContainer
+export default Landing

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import connect from 'react-redux/es/connect/connect'
-import { Linking, ActivityIndicator } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
@@ -52,11 +52,14 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
     this.loadExtras()
   }
 
-  navigateToExtra = (path: string, isExternalUrl: boolean, offerHash: ?string = null) => {
+  navigateToExtra = (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => {
+    if (!this.props.navigation.push) {
+      throw new Error('push is not defined on navigation')
+    }
     if (isExternalUrl) {
-      Linking.openURL(path)
-    } else if (this.props.navigation.push) {
-      const params = {city: this.props.city, extras: this.state.extras, offerHash: offerHash}
+      this.props.navigation.push('ExternalExtra', {url: path, postData})
+    } else {
+      const params = {city: this.props.city, extras: this.state.extras, offerHash: null}
       this.props.navigation.push(path, params)
     }
   }
