@@ -21,7 +21,6 @@ export const CityListParent = styled.View`
 type PropsType = {
   cities: Array<CityModel>,
   filterText: string,
-  language: string,
   stickyTop: number,
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType
@@ -60,7 +59,6 @@ class CitySelector extends React.PureComponent<PropsType> {
         {cities.map(city => <CityEntry
           key={city.code}
           city={city}
-          language={this.props.language}
           filterText={this.props.filterText}
           navigateToDashboard={this.props.navigateToDashboard}
           theme={this.props.theme} />)}

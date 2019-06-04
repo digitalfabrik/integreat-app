@@ -8,6 +8,7 @@ import styled from 'styled-components/native'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
 import type { ThemeType } from 'modules/theme/constants/theme'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 const Wrapper = styled(ScrollView)`
   position: absolute;  
@@ -20,12 +21,11 @@ const Wrapper = styled(ScrollView)`
 `
 
 type PropType = {
-  language: string,
   cities?: Array<CityModel>,
-  navigateToDashboard: (cityCode: string, language: string) => void,
+  navigateToDashboard: (cityCode: string) => StoreActionType,
   t: TFunction,
   theme: ThemeType,
-  fetchCities: () => void
+  fetchCities: () => StoreActionType
 }
 
 /**
@@ -39,19 +39,17 @@ class LandingContainer extends React.Component<PropType> {
   }
 
   navigateToDashboard = (cityModel: CityModel) => {
-    const language = this.props.language
-    this.props.navigateToDashboard(cityModel.code, language)
+    this.props.navigateToDashboard(cityModel.code)
   }
 
   render () {
-    const {theme, cities, language, t} = this.props
+    const {theme, cities, t} = this.props
     return <Wrapper theme={theme}>
       {!cities
         ? <ActivityIndicator size='large' color='#0000ff' />
         : <>
           <Heading theme={theme} />
-          <FilterableCitySelector theme={theme} language={language} cities={cities}
-                                  t={t} navigateToDashboard={this.navigateToDashboard} />
+          <FilterableCitySelector theme={theme} cities={cities} t={t} navigateToDashboard={this.navigateToDashboard} />
         </>
       }
     </Wrapper>
