@@ -6,7 +6,15 @@ import type { NavigationScreenProp } from 'react-navigation'
 import type { PropsType } from '../components/ExternalExtra'
 
 export default mapProps<PropsType, {| navigation: NavigationScreenProp<*> |}>(
-  ({navigation}) => ({
-    url: navigation.getParam('url'),
-    postData: navigation.getParam('postData')
-  }))(ExternalExtra)
+  ({navigation}) => {
+    const url = navigation.getParam('url')
+
+    if (!url) {
+      throw Error('url is not defined in navigation params!')
+    }
+
+    return ({
+      url,
+      postData: navigation.getParam('postData')
+    })
+  })(ExternalExtra)
