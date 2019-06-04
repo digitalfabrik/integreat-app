@@ -13,6 +13,7 @@ import LanguageDetector from '../LanguageDetector'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { StateType } from '../../app/StateType'
 import moment from 'moment'
+import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -105,12 +106,16 @@ export class I18nProvider extends React.Component<PropsType, {
     }
   }
 
+  momentFormatter = createMomentFormatter(() => undefined, () => this.state.language)
+
   render () {
     return (
       <I18nextProvider i18n={this.i18n}>
-        <>
-          {this.props.children}
-        </>
+        <MomentContext.Provider value={this.momentFormatter}>
+          <>
+            {this.props.children}
+          </>
+        </MomentContext.Provider>
       </I18nextProvider>
     )
   }
