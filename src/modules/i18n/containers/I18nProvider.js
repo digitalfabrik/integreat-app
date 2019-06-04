@@ -127,5 +127,5 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
 
 const mapStateToProps = (state: StateType) => ({language: state.cityContent.language})
 
-// $FlowFixMe connect()
+// $FlowFixMe NATIVE-53
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)
