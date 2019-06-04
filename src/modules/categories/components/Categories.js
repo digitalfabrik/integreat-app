@@ -11,7 +11,9 @@ import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
 import { ActivityIndicator } from 'react-native'
-import type { FileCacheStateType, ResourceCacheStateType } from '../../app/StateType'
+import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
+import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
+import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -19,10 +21,10 @@ type PropsType = {|
 
   stateView: CategoriesRouteStateView,
   cityCode: string,
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
 
-  resourceCache: ResourceCacheStateType,
+  resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType
 |}
 
@@ -31,13 +33,13 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const {cityCode, language} = this.props
-    this.props.navigateToCategory(cityCode, language, tile.path)
+    const {cityCode, language, navigateToCategory} = this.props
+    navigateToCategory({cityCode, language, path: tile.path})
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
-    const {cityCode, language} = this.props
-    this.props.navigateToCategory(cityCode, language, category.path)
+    const {cityCode, language, navigateToCategory} = this.props
+    navigateToCategory({cityCode, language, path: category.path})
   }
 
   getCachedThumbnail (category: CategoryModel): ?string {

@@ -29,7 +29,9 @@ function * fetchCities (dataContainer: DataContainer): Saga<void> {
     console.error(e)
     const failed: FetchCitiesFailedActionType = {
       type: `FETCH_CITIES_FAILED`,
-      message: `Error in fetchCities: ${e.message}`
+      params: {
+        message: `Error in fetchCities: ${e.message}`
+      }
     }
     yield put(failed)
   }

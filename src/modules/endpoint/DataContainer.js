@@ -1,7 +1,7 @@
 // @flow
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { ResourceCacheStateType } from '../app/StateType'
+import type { LanguageResourceCacheStateType } from '../app/StateType'
 import type Moment from 'moment'
 
 export interface DataContainer {
@@ -66,19 +66,13 @@ export interface DataContainer {
    * Returns the ResourceCache.
    * @throws Will throw an error if the ResourceCache is null.
    */
-  getResourceCache: () => Promise<ResourceCacheStateType>,
+  getResourceCache: () => Promise<LanguageResourceCacheStateType>,
 
   /**
-   * Sets the ResourceCache and persists it.
+   * Sets the cache entries for the current city-language-pair and cleans up unnecessary files.
    * @param resourceCache
    */
-  setResourceCache: (resourceCache: ResourceCacheStateType) => Promise<void>,
-
-  /**
-   * Add cache entries to the existing ResourceCache and persists it.
-   * @param resourceCache
-   */
-  addResourceCacheEntries: (resourceCache: ResourceCacheStateType) => Promise<void>,
+  setResourceCache: (resourceCache: LanguageResourceCacheStateType) => Promise<void>,
 
   /**
    * Returns the lastUpdate timestamp..

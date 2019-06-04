@@ -15,14 +15,14 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
-  navigateToExtra: (path: string, isExternalUrl: boolean) => void,
+  navigateToExtra: (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => void,
   theme: ThemeType,
   t: TFunction
 |}
 
 export default class Extras extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    this.props.navigateToExtra(tile.path, tile.isExternalUrl)
+    this.props.navigateToExtra(tile.path, tile.isExternalUrl, tile.postData)
   }
 
   toTileModels (extras: Array<ExtraModel>): Array<TileModel> {

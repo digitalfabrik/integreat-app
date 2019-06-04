@@ -11,19 +11,19 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
   try {
     yield call(loadCityContent, dataContainer, city, language, forceUpdate)
 
-    const [events, languages, resourceCache] = yield all([
+    const [events, resourceCache, languages] = yield all([
       call(dataContainer.getEvents),
-      call(dataContainer.getLanguages),
-      call(dataContainer.getResourceCache)
+      call(dataContainer.getResourceCache),
+      call(dataContainer.getLanguages)
     ])
 
     const insert: PushEventActionType = {
       type: `PUSH_EVENT`,
       params: {
         events,
-        languages,
         resourceCache,
         path,
+        languages,
         key,
         city,
         language
@@ -34,7 +34,9 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
     console.error(e)
     const failed: FetchEventFailedActionType = {
       type: `FETCH_EVENT_FAILED`,
-      message: `Error in fetchEvent: ${e.message}`
+      params: {
+        message: `Error in fetchEvent: ${e.message}`
+      }
     }
     yield put(failed)
   }

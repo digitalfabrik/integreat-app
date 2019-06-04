@@ -1,5 +1,5 @@
-// flow-typed signature: a162cca82c36beb11175755d31cad408
-// flow-typed version: fd5f73ad43/redux-actions_v2.x.x/flow_>=v0.39.x
+// flow-typed signature: 2f0126bd97e7b091b620a07e3e35f44b
+// flow-typed version: 8cf04cf993/redux-actions_v2.x.x/flow_>=v0.39.x
 
 declare module "redux-actions" {
   /*
@@ -103,10 +103,10 @@ declare module "redux-actions" {
       | ReducerMap<State, Action>
   };
 
-  declare function handleAction<Type, State, Action: { type: Type }>(
-    type: Type,
+  declare function handleAction<State, Action: { type: * }>(
+    type: $ElementType<Action, 'type'>,
     reducer: ReducerDefinition<State, Action>,
-    defaultState: State
+    defaultState: State,
   ): ReduxReducer<State, Action>;
 
   declare function handleActions<State, Action>(
