@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import LanguageNotAvailablePage from '../../../modules/common/components/LanguageNotAvailablePage'
 import { withTheme } from 'styled-components/native'
 import compose from 'lodash/fp/compose'
@@ -24,8 +24,23 @@ const mapStateToProps = (state: StateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
-    changeLanguage: (city: string, newLanguage: string) =>
-      createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)(city, newLanguage, `/${city}/${newLanguage}`, false, ownProps.navigation.getParam('key'))
+    changeLanguage: (city: string, newLanguage: string) => {
+      const switchContentLanguage: SwitchContentLanguageActionType = {
+        type: 'SWITCH_CONTENT_LANGUAGE',
+        params: {
+          city,
+          newLanguage
+        }
+      }
+      dispatch(switchContentLanguage)
+      createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)({
+        cityCode: city,
+        language: newLanguage,
+        path: `/${city}/${newLanguage}`,
+        forceUpdate: false,
+        key: ownProps.navigation.getParam('key')
+      })
+    }
   }
 }
 

@@ -1,6 +1,8 @@
 // @flow
 
 import { withTheme } from 'styled-components/native'
+import { translate, withI18n } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 import { translate, type TFunction } from 'react-i18next'
 
 import { connect } from 'react-redux'
@@ -10,13 +12,19 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
+import { branch, renderComponent } from 'recompose'
+import { Failure } from '../../../modules/error/components/Failure'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
 
 const mapStateToProps = (state: StateType) => {
-  const cities = state.cities.models
+  if (state.cities.errorMessage !== undefined) {
+    return {
+      error: true
+    }
+  }
   return {
-    cities: cities.length === 0 ? undefined : cities
+    cities: state.cities.models
   }
 }
 
@@ -36,8 +44,7 @@ type DispatchType = Dispatch<StoreActionType>
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
   return {
     fetchCities: () => dispatch({
-      type: 'FETCH_CITIES',
-      params: {}
+      type: 'FETCH_CITIES'
     }),
     navigateToDashboard: (cityCode: string) => {
       const language = ownProps.i18n.lng
@@ -62,7 +69,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
       })
 
       return dispatch({
-        type: 'FETCH_LANGUAGES_FOR_CATEGORY',
+        type: 'FETCH_CATEGORY',
         params: {
           city: cityCode, language, path, depth: 2, forceUpdate: false, key
         }
@@ -71,8 +78,11 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
   }
 }
 
-export default translate('landing')(
-  connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
-    withTheme(Landing)
-  )
-)
+export default compose([
+  // translate has to be before connect, because we need to pass the language as prop
+  translate('landing'),
+  connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps),
+  // TODO NATIVE-112
+  branch(props => props.error, renderComponent(Failure)),
+  withTheme,
+])(Landing)
