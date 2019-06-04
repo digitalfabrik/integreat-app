@@ -22,10 +22,13 @@ import okio.BufferedSink;
 import okio.Okio;
 
 public class FetcherModule extends ReactContextBaseJavaModule {
-    private OkHttpClient client = new OkHttpClient.Builder().build();
+    private final OkHttpClient client = new OkHttpClient.Builder().build();
+    private final File cacheDir;
 
     public FetcherModule(ReactApplicationContext reactContext) {
         super(reactContext);
+
+        this.cacheDir = reactContext.getCacheDir();
     }
 
     @ReactMethod
@@ -38,7 +41,6 @@ public class FetcherModule extends ReactContextBaseJavaModule {
         );
 
 
-
         for (Map.Entry<String, Object> entry : urlMap.entrySet()) {
             String targetFilePath = entry.getKey();
             String url = entry.getValue().toString();
@@ -46,7 +48,7 @@ public class FetcherModule extends ReactContextBaseJavaModule {
         }
     }
 
-    private void fetchAsync(final String sourceUrl, String targetFilePath, final FetchedCallback callback) {
+    private void fetchAsync(final String sourceUrl, final String targetFilePath, final FetchedCallback callback) {
         final File targetFile = new File(targetFilePath);
 
         if (targetFile.exists()) {
@@ -71,12 +73,23 @@ public class FetcherModule extends ReactContextBaseJavaModule {
                     }
 
                     try {
-                        targetFile.getParentFile().mkdirs();
+                        File outputFile = File.createTempFile("resource", ".partial", cacheDir);
 
-                        BufferedSink sink = Okio.buffer(Okio.sink(targetFile));
+                        BufferedSink sink = Okio.buffer(Okio.sink(outputFile));
                         sink.writeAll(response.body().source());
                         sink.close();
 
+                        File parent = targetFile.getParentFile();
+
+                        if (!parent.exists() && !parent.mkdirs()) {
+                            callback.failed(sourceUrl, targetFile, "Failed to create parent directories.");
+                            return;
+                        }
+
+                        if (!outputFile.renameTo(targetFile)) {
+                            callback.failed(sourceUrl, targetFile, "Failed to move downloaded file to target location.");
+                            return;
+                        }
                         callback.fetched(sourceUrl, targetFile);
                     } catch (IOException e) {
                         callback.failed(sourceUrl, targetFile, e.getMessage());
