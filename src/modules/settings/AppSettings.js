@@ -6,11 +6,16 @@ import { fromPairs } from 'lodash/array'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
-  test: boolean
+  test: boolean | null
 |}
 
-export const defaultSettings: SettingsType = {
+const e2eSettings = {
   errorTracking: false,
+  test: false
+}
+
+export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
+  errorTracking: null,
   test: false
 }
 
@@ -24,7 +29,16 @@ class AppSettings {
   async loadSettings (): Promise<SettingsType> {
     const settingsKeys = Object.keys(defaultSettings)
     const settingsArray = await AsyncStorage.multiGet(settingsKeys)
-    return mapValues(fromPairs(settingsArray), value => JSON.parse(value))
+    return mapValues(fromPairs(settingsArray), (value, key) => {
+      const parsed = JSON.parse(value)
+
+      if (parsed === null) {
+        // null means this setting does not exist
+        return defaultSettings[key]
+      }
+
+      return value
+    })
   }
 
   async setSettings (settings: $Shape<SettingsType>) {
