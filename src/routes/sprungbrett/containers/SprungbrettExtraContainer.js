@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
-import { TFunction, translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'

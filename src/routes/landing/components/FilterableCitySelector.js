@@ -11,7 +11,6 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {
   cities: Array<CityModel>,
-  language: string,
   navigateToDashboard: (city: CityModel) => void,
   t: TFunction,
   theme: ThemeType
@@ -30,7 +29,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
   onFilterTextChange = (filterText: string) => this.setState({filterText})
 
   render () {
-    const {cities, language, t, theme} = this.props
+    const {cities, t, theme} = this.props
     const filterText = this.state.filterText
 
     return (
@@ -44,7 +43,6 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
         <CitySelector
           cities={cities}
           filterText={filterText}
-          language={language}
           navigateToDashboard={this.props.navigateToDashboard}
           theme={theme}
         />

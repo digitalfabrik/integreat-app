@@ -79,6 +79,8 @@ export const AppStack = createStackNavigator(
 
 export const LandingStack = createSwitchNavigator(
   {
+    //            The translate() HOC does not calculate props correctly right now.
+    // $FlowFixMe Because the connect in LandingContainer needs the translation HOC there is a flow error here
     'Landing': LandingContainer,
     'App': AppStack
   }

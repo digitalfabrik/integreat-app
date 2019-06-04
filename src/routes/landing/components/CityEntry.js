@@ -13,7 +13,6 @@ export const CityListItem = styled.TouchableHighlight`
 
 type PropType = {
   city: CityModel,
-  language: string,
   filterText: string,
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType
