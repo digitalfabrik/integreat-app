@@ -68,7 +68,8 @@ type PropsType = {|
     }
   },
   availableLanguages: ?Array<string>,
-  navigateToLanding: () => void
+  navigateToLanding: () => void,
+  routeKey: string
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -97,11 +98,16 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigateToLanding()
   }
 
+  goToSettings = () => {
+    this.getNavigation().navigate('Settings')
+  }
+
   goToLanguageChange = () => {
     this.getNavigation().navigate({
       routeName: 'ChangeLanguageModal',
       params: {
-        availableLanguages: this.props.availableLanguages
+        availableLanguages: this.props.availableLanguages,
+        routeKey: this.props.routeKey
       }
     })
   }
@@ -151,7 +157,7 @@ class Header extends React.PureComponent<PropsType> {
           <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
           {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
           <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
-          <Item title='Settings' show='never' onPress={console.warn} />
+          <Item title={t('settings')} show='never' onPress={this.goToSettings} />
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>

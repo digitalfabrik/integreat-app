@@ -3,7 +3,7 @@
 import type { Saga } from 'redux-saga'
 import { isEmpty, reduce } from 'lodash'
 import { call, put } from 'redux-saga/effects'
-import type { ResourcesFetchFailedActionType, ResourcesFetchSucceededActionType } from '../../app/StoreActionType'
+import type { ResourcesFetchFailedActionType } from '../../app/StoreActionType'
 import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
@@ -29,22 +29,15 @@ export default function * fetchResourceCache (
   try {
     const targetUrls = mapValues(fetchMap, ([url]) => url)
 
-    const results: FetchResultType = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
+    const results = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
 
     const successResults = pickBy(results, result => !result.errorMessage)
     const failureResults = pickBy(results, result => !!result.errorMessage)
     if (!isEmpty(failureResults)) {
-      const message = createErrorMessage(failureResults)
-      const failed: ResourcesFetchFailedActionType = {type: `RESOURCES_FETCH_FAILED`, city, language, message}
-      console.warn(message)
       // TODO: we might remember which files have failed to retry later (internet connection of client could have failed)
-      yield put(failed)
+      const message = createErrorMessage(failureResults)
+      console.warn(message)
     }
-
-    const success: ResourcesFetchSucceededActionType = {
-      type: 'RESOURCES_FETCH_SUCCEEDED', city, language
-    }
-    yield put(success)
 
     const targetCategories: { [categoryPath: PathType]: Array<FilePathType> } =
       invertBy(mapValues(fetchMap, ([url, path]) => path))
@@ -66,7 +59,10 @@ export default function * fetchResourceCache (
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
-      type: `RESOURCES_FETCH_FAILED`, city, language, message: `Error in fetchResourceCache: ${e.message}`
+      type: `RESOURCES_FETCH_FAILED`,
+      params: {
+        message: `Error in fetchResourceCache: ${e.message}`
+      }
     }
     yield put(failed)
     throw e
