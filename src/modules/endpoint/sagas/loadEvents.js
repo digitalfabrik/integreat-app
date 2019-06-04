@@ -14,7 +14,7 @@ import buildResourceFilePath from '../buildResourceFilePath'
 import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
 
-function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>> {
+function * fetchEvents (city: string, language: string): Saga<Array<EventModel>> {
   const params = {city, language}
 
   const categoriesPayload: Payload<Array<EventModel>> = yield call(() => request(createEventsEndpoint(baseUrl), params))
@@ -23,19 +23,16 @@ function * fetchEvents (city: string, language: string): Saga<?Array<EventModel>
 
 function * loadEvents (
   city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean): Saga<FetchMapType> {
-  let events: ?Array<EventModel>
+  let events: Array<EventModel>
 
-  // If data was loaded and should not be updated, return
   if (!dataContainer.eventsAvailable() || shouldUpdate) {
+    // data is already loaded and should not be updated
+
     console.debug('Fetching events')
 
     // TODO: if data was loaded but should be updated incrementally. This will be done in NATIVE-3
 
     events = yield call(fetchEvents, city, language)
-
-    if (!events) {
-      throw new Error('Failed to load events!')
-    }
 
     yield call(dataContainer.setEvents, events)
   } else {
