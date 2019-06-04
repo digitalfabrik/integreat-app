@@ -17,7 +17,7 @@ const capsName = process.env.E2E_CAPS || defaultCaps
 
 const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
-const IMPLICIT_WAIT_TIMEOUT = 10000
+const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 3000
 
