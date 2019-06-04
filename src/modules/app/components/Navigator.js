@@ -16,8 +16,11 @@ import ModalHeaderContainer from '../../layout/containers/TransparentHeaderConta
 import ExtrasContainer from '../../../routes/extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraContainer'
 import SprungbrettExtraContainer from '../../../routes/sprungbrett/containers/SprungbrettExtraContainer'
-import { SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants/index'
+import { EXTERNAL_EXTRA_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE } from '../../../routes/extras/constants'
 import EventsContainer from '../../../routes/events/containers/EventsContainer'
+import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
+import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
+import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -42,7 +45,8 @@ export const ExtrasStack = createStackNavigator(
   {
     'Extras': ExtrasContainer,
     [WOHNEN_ROUTE]: WohnenExtraContainer,
-    [SPRUNGBRETT_ROUTE]: SprungbrettExtraContainer
+    [SPRUNGBRETT_ROUTE]: SprungbrettExtraContainer,
+    [EXTERNAL_EXTRA_ROUTE]: ExternalExtraContainer
   },
   {
     initialRouteName: 'Extras',
@@ -59,12 +63,13 @@ export const ExtrasStack = createStackNavigator(
 export const AppStack = createStackNavigator(
   {
     'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
-    // $FlowFixMe No idea why this fails
     'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
     'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
     'Events': createNavigationScreen(EventsContainer, defaultHeader),
+    'Settings': createNavigationScreen(SettingsContainer, defaultHeader),
     'MapViewModal': createNavigationScreen(MapViewModal),
     'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
+    'SearchModal': createNavigationScreen(SearchModalContainer),
     'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
     'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
   },

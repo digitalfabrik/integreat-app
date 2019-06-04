@@ -2,32 +2,68 @@
 
 import { withTheme } from 'styled-components/native'
 import { translate, withI18n } from 'react-i18next'
+import compose from 'lodash/fp/compose'
 
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
+import { StackActions } from 'react-navigation'
+import { generateKey } from '../../../modules/app/generateRouteKey'
+import { branch, renderComponent } from 'recompose'
+import { Failure } from '../../../modules/error/components/Failure'
 
 const mapStateToProps = (state: StateType, ownProps) => {
-  const cities = state.cities.models
+  if (state.cities.errorMessage !== undefined) {
+    return {
+      error: true
+    }
+  }
   return {
     language: ownProps.lng,
-    cities: cities.length === 0 ? undefined : cities
+    cities: state.cities.models
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   return {
     fetchCities: () => dispatch({
-      type: 'FETCH_CITIES',
-      params: {}
+      type: 'FETCH_CITIES'
     }),
-    navigateToCategory: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)
+    navigateToDashboard: (cityCode: string, language: string) => {
+      const path = `/${cityCode}/${language}`
+      const key: string = generateKey()
+      ownProps.navigation.navigate({
+        routeName: 'App',
+        action: StackActions.replace({
+          routeName: 'Dashboard',
+          params: {
+            cityCode,
+            key,
+            sharePath: path,
+            onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+          },
+          newKey: key
+        })
+      })
+
+      return dispatch({
+        type: 'FETCH_CATEGORY',
+        params: {
+          city: cityCode, language, path, depth: 2, forceUpdate: false, key
+        }
+      })
+    }
   }
 }
 
-// $FlowFixMe
-const themed = withTheme(Landing)
-export default translate('landing')(withI18n()(connect(mapStateToProps, mapDispatchToProps)(themed)))
+export default compose([
+  // withI18n has to be before connect, because we need to pass the language as prop
+  withI18n(),
+  connect(mapStateToProps, mapDispatchToProps),
+  // TODO NATIVE-112
+  branch(props => props.error, renderComponent(Failure)),
+  withTheme,
+  translate('landing')
+])(Landing)

@@ -2,18 +2,21 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { ResourceCacheStateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import type { TFunction } from 'react-i18next'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -22,24 +25,20 @@ type PropsType = {
   toggleTheme: () => void,
   goOffline: () => void,
   goOnline: () => void,
-  fetchCities: (language: string) => void,
-  navigateToCategory: (cityCode: string, language: string, path: string) => void,
-  navigateToEvent: (cityCode: string, language: string, path?: string) => void,
-  navigateToIntegreatUrl: (url: string, cityCode: string, language: string) => void,
+  navigateToCategory: NavigateToCategoryParamsType => void,
+  navigateToEvent: NavigateToEventParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  navigateToDashboard: NavigateToCategoryParamsType => void,
   theme: ThemeType,
 
   language: string,
   cities?: Array<CityModel>,
   stateView: ?CategoriesRouteStateView,
-  resourceCache: ResourceCacheStateType,
+  resourceCache: LanguageResourceCacheStateType,
   t: TFunction
 }
 
 class Dashboard extends React.Component<PropsType> {
-  static navigationOptions = {
-    headerTitle: 'Dashboard'
-  }
-
   getNavigationTileModels (): Array<TileModel> {
     const {t, cityCode, language, navigateToCategory} = this.props
     return [
@@ -48,7 +47,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'categories',
         thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToCategory(cityCode, language, `/${cityCode}/${language}`),
+        onTilePress: () => navigateToCategory({cityCode, language, path: `/${cityCode}/${language}`}),
         notifications: 0
       }),
       new TileModel({
@@ -73,35 +72,47 @@ class Dashboard extends React.Component<PropsType> {
   landing = () => this.props.navigation.navigate('Landing')
 
   extras = () => {
-    this.props.navigation.navigate('Extras', {cityCode: this.props.navigation.getParam('cityCode')})
+    const {cityCode, language} = this.props
+    this.props.navigation.navigate('Extras', {
+      cityCode,
+      sharePath: `/${cityCode}/${language}/extras`
+    })
   }
 
   events = () => {
-    this.props.navigateToEvent(this.props.cityCode, this.props.language)
+    const {navigateToEvent, cityCode, language} = this.props
+    navigateToEvent({cityCode, language})
   }
 
-  goMaps = () => this.props.navigation.navigate('MapViewModal')
+  onRefresh = () => {
+    const {navigateToDashboard, cityCode, language, navigation} = this.props
+    navigateToDashboard({
+      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')})
+  }
 
   render () {
-    const {cities, stateView, theme, resourceCache, navigateToIntegreatUrl} = this.props
+    const {
+      cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory
+    } = this.props
 
-    if (!stateView || !cities || !resourceCache) {
-      return <ActivityIndicator size='large' color='#0000ff' />
+    const loading = !stateView || !cities || !resourceCache
+
+    if (!stateView || !cities || !resourceCache) { // I cannot do 'if (loading)' here because of flow -.-
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
     }
 
-    return (<ScrollView>
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
         <NavigationTiles tiles={this.getNavigationTileModels()}
                          theme={theme} />
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
-                    language={this.props.language}
-                    cityCode={this.props.cityCode}
-                    theme={this.props.theme}
-                    navigateToCategory={this.props.navigateToCategory}
+                    language={language}
+                    cityCode={cityCode}
+                    theme={theme}
+                    navigateToCategory={navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
-      </ScrollView>
-    )
+    </ScrollView>
   }
 }
 

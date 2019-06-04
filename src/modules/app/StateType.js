@@ -2,7 +2,13 @@
 
 import type { StoreActionType } from './StoreActionType'
 import type { PersistState } from 'redux-persist/src/types'
-import { CategoryModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  CityModel,
+  EventModel,
+  LanguageModel
+} from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
 
 export type PathType = string
@@ -14,13 +20,15 @@ export type CategoryRouteStateType = {|
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> },
-  +allAvailableLanguages: Map<string, string> // including the current content language
+  +allAvailableLanguages: Map<string, string>, // including the current content language
+  +language: string
 |}
 
 export type EventRouteStateType = {|
   +path: string | null,
   +models: Array<EventModel>,
-  +allAvailableLanguages: Map<string, string> // including the current content language
+  +allAvailableLanguages: Map<string, string>, // including the current content language
+  +language: string
 |}
 
 export type FileCacheStateType = {
@@ -31,25 +39,37 @@ export type FileCacheStateType = {
   |}
 }
 
-export type ResourceCacheStateType = {
+export type ErrorStateType = {|
+  +errorMessage: string
+|}
+
+export type LanguageResourceCacheStateType = {
   [path: string]: FileCacheStateType
+} | ErrorStateType
+
+export type CityResourceCacheStateType = {
+  [language: string]: LanguageResourceCacheStateType
 }
 
 export type CategoriesRouteMappingType = {
   [key: string]: CategoryRouteStateType
-}
+} | ErrorStateType
 
 export type EventsRouteMappingType = {
   [key: string]: EventRouteStateType
-}
+} | ErrorStateType
 
 export type CitiesStateType = {|
-  +models: Array<CityModel>
-|}
+  +models: Array<CityModel> | null
+|} | ErrorStateType
 
 export const defaultCitiesState: CitiesStateType = {
-  models: []
+  models: null
 }
+
+export type SearchRouteType = {|
+  +categoriesMap: CategoriesMapModel | null
+|}
 
 export type CityContentStateType = {|
   +lastUpdate: Moment | null,
@@ -58,7 +78,8 @@ export type CityContentStateType = {|
   +languages: Array<LanguageModel> | null,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
-  +resourceCache: ResourceCacheStateType
+  +resourceCache: LanguageResourceCacheStateType,
+  +searchRoute: SearchRouteType
 |}
 
 export const defaultCityContentState: CityContentStateType = {
@@ -68,7 +89,8 @@ export const defaultCityContentState: CityContentStateType = {
   languages: null,
   categoriesRouteMapping: {},
   eventsRouteMapping: {},
-  resourceCache: {}
+  resourceCache: {},
+  searchRoute: {categoriesMap: null}
 }
 
 export type DirectionStateType = 'ltr' | 'rtl'

@@ -14,9 +14,10 @@ import type { CityContentStateType } from '../../../app/StateType'
 import type {
   PushCategoryActionType,
   MorphContentLanguageActionType,
-  PushEventActionType
+  PushEventActionType, SetCityContentLocalizationType
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
+import setCityContentLocalization from '../setCityContentLocalization'
 
 describe('morphContentLanguage', () => {
   const enCategories = [
@@ -273,7 +274,7 @@ describe('morphContentLanguage', () => {
     categoriesRouteMapping: {},
     eventsRouteMapping: {},
     resourceCache: {},
-
+    searchRoute: {categoriesMap: null},
     languages,
     language: null,
     city: null,
@@ -289,6 +290,16 @@ describe('morphContentLanguage', () => {
     events: deEvents
   }): CityContentStateType => {
     let state = initialState
+
+    const setCityContentLocalizationAction: SetCityContentLocalizationType = {
+      type: 'SET_CITY_CONTENT_LOCALIZATION',
+      params: {
+        city: 'augsburg',
+        language: 'de'
+      }
+    }
+
+    state = setCityContentLocalization(state, setCityContentLocalizationAction)
 
     const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
@@ -382,6 +393,9 @@ describe('morphContentLanguage', () => {
 
     const previous = prepareState()
 
+    if (previous.categoriesRouteMapping.errorMessage !== undefined) {
+      throw Error('Preparation of state failed')
+    }
     previous.categoriesRouteMapping['route-0'].models['/augsburg/de/anlaufstellen'] = undefined
     expect(() => morphContentLanguage(previous, action)).toThrowError()
   })

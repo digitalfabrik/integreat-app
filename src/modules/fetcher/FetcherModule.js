@@ -1,6 +1,7 @@
 // @flow
 
 import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
+import { isEmpty } from 'lodash'
 
 export type TargetFilePathsType = {[path: string]: string}
 
@@ -17,6 +18,9 @@ class FetcherModule {
   ): Promise<FetchResultType> {
     if (FetcherModule.currentlyFetching) {
       return Promise.reject(new Error('Already fetching!'))
+    }
+    if (isEmpty(targetFilePaths)) {
+      return Promise.resolve({})
     }
     FetcherModule.currentlyFetching = true
 
