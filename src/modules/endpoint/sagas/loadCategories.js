@@ -25,17 +25,14 @@ function * loadCategories (
 ): Saga<FetchMapType> {
   let categories: CategoriesMapModel
 
-  // If data was loaded and should not be updated, return
   if (!dataContainer.categoriesAvailable() || shouldUpdate) {
+    // data is already loaded and should not be updated
+
     console.debug('Fetching categories')
 
     // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
 
-    const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
-
-    if (!categoriesMap) {
-      throw new Error('Failed to load categories!')
-    }
+    const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
 
     yield call(dataContainer.setCategoriesMap, categoriesMap)
 
