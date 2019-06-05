@@ -24,7 +24,7 @@ export class TimeStamp extends React.PureComponent<PropsType> {
   render () {
     const {lastUpdate, formatter, t, language} = this.props
     // only show day, month and year
-    const dateText = formatter(lastUpdate, {format: 'LL', language})
+    const dateText = formatter(lastUpdate, {format: 'LL', locale: language})
     return <TimeStampText>{t('lastUpdate')}{dateText}</TimeStampText>
   }
 }

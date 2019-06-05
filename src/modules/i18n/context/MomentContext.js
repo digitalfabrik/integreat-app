@@ -3,10 +3,10 @@
 import * as React from 'react'
 import type Moment from 'moment'
 
-export type MomentFormatterType = (date: Moment, options: { format?: string, locale?: string }) => string
+export type MomentFormatterType = (date: Moment, options: {| format?: string, locale?: string |}) => string
 
 export const createMomentFormatter = (fallbackFormat: () => string | void, fallbackLocale: () => string) => {
-  return (date: Moment, options: { format?: string, locale?: string }) => {
+  return (date: Moment, options: {| format?: string, locale?: string |}) => {
     const format = options.format || fallbackFormat()
     const locale = options.locale || fallbackLocale()
 
