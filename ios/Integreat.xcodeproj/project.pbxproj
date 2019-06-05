@@ -23,6 +23,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		2398F931561C266CF657C227 /* libPods-Integreat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F8C8518DA01959D11DB3A3 /* libPods-Integreat.a */; };
+		404669FB2CD34A8DAF2057D8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 11DA5627374A40B4A4F42A54 /* libz.tbd */; };
 		5E6F0269CB63A4F9BFF0E46C /* libPods-IntegreatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDBFEA5E5F6A5EA6B9CE661C /* libPods-IntegreatTests.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
@@ -312,6 +313,7 @@
 		00E356EE1AD99517003FC87E /* IntegreatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegreatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* IntegreatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegreatTests.m; sourceTree = "<group>"; };
+		11DA5627374A40B4A4F42A54 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Integreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integreat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -368,6 +370,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				2398F931561C266CF657C227 /* libPods-Integreat.a in Frameworks */,
+				404669FB2CD34A8DAF2057D8 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +501,7 @@
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				23F8C8518DA01959D11DB3A3 /* libPods-Integreat.a */,
 				BDBFEA5E5F6A5EA6B9CE661C /* libPods-IntegreatTests.a */,
+				11DA5627374A40B4A4F42A54 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
