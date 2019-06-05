@@ -19,7 +19,7 @@ export default class SentryIntegration {
   async install () {
     if (__DEV__) {
       // Native crashes do not get reported when the app is not a release build. Therefore we can disable sentry when
-      // we this is a dev build. This is also to make it consitent with the reporting of JS crashes.
+      // we recognize a dev build. This also adds consistency with the reporting of JS crashes.
       // This way we only report JS crashes exactly when native crashes get reported.
       return
     }
