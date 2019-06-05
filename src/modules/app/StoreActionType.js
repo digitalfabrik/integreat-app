@@ -40,7 +40,7 @@ export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
     path: string, depth: number, key: string,
-    forceUpdate: boolean
+    forceUpdate: boolean, shouldRefreshResources: boolean
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -72,7 +72,7 @@ export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
     path?: string, key: string,
-    forceUpdate: boolean
+    forceUpdate: boolean, shouldRefreshResources: boolean
   |}
 |}
 export type ClearEventActionType = {|

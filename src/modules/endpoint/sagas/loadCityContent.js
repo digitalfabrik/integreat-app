@@ -13,7 +13,9 @@ import loadLanguages from './loadLanguages'
 const MAX_CONTENT_AGE = 24
 
 export default function * loadCityContent (
-  dataContainer: DataContainer, newCity: string, newLanguage: string, forceUpdate: boolean): Saga<void> {
+  dataContainer: DataContainer, newCity: string, newLanguage: string,
+  forceUpdate: boolean, shouldRefreshResources: boolean
+): Saga<void> {
   yield call(dataContainer.setContext, newCity, newLanguage)
 
   const setCityContentLocalization: SetCityContentLocalizationType = {
@@ -57,9 +59,15 @@ export default function * loadCityContent (
       call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate)
     ])
 
-    if (shouldUpdate) {
+    // fetchResourceCache should callable independent of content updates. Even if loadCategories, loadEvents,
+    // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
+    // failed to download some resources an other call could fix this and download missing files.
+    if (shouldRefreshResources) {
       const fetchMap = {...categoryUrls, ...eventUrls}
       yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
+    }
+
+    if (shouldUpdate) {
       yield call(dataContainer.setLastUpdate, moment.tz('UTC'))
     }
   } else {
