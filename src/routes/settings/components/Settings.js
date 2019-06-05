@@ -18,7 +18,8 @@ type PropsType = {|
   theme: ThemeType,
   language: string,
   t: TFunction,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  dispatch: () => {}
 |}
 
 type StateType = {

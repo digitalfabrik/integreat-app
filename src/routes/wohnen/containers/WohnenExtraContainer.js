@@ -5,7 +5,7 @@ import { ActivityIndicator } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
-import { TFunction, translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import {
   createWohnenEndpoint,

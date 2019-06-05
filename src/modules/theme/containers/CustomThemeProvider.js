@@ -23,5 +23,5 @@ const mapStateToProps = state => ({
   darkMode: state.darkMode
 })
 
-// $FlowFixMe connect()
+// $FlowFixMe NATIVE-53
 export default connect(mapStateToProps)(CustomThemeProvider)

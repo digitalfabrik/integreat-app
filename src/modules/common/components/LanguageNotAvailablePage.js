@@ -8,7 +8,7 @@ import Selector from './Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
 import { Text } from 'react-native-elements/src/index'
 import Caption from './Caption'
-import { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 
 const Wrapper = styled.View`
   position: absolute;  

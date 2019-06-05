@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import { Provider } from 'react-redux'
-import I18nProvider from 'modules/i18n/containers/I18nProvider'
+import I18nProvider from '../../../modules/i18n/containers/I18nProvider'
 import createReduxStore from '../createReduxStore'
 import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import IOSSafeAreaView from 'modules/platform/components/IOSSafeAreaView'
