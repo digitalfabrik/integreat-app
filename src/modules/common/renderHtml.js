@@ -66,7 +66,6 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native-->
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
   <style>
-  ${Platform.OS === 'android' && `
     @font-face {
       font-family: 'OpenSans';
       font-style: normal;
@@ -84,7 +83,7 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
       font-style: normal;
       font-weight: 400;
       src: ${getSource('Lateef')};
-    }`}
+    }
    
     html, body {
         margin: 0;
