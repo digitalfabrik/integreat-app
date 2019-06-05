@@ -55,6 +55,10 @@ const renderJS = (files: FileCacheStateType) => `
 `
 
 export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
+  const getSource = (fontName: string) => Platform.select({
+    ios: `local(${fontName}) format('truetype')`,
+    android: `url('file:///android_asset/fonts/${fontName}.ttf') format('truetype')`
+  })
   // language=HTML
   return `
 <html>
@@ -64,34 +68,22 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   <style>
   ${Platform.OS === 'android' && `
     @font-face {
-      font-family: 'OpenSans-Regular';
+      font-family: 'OpenSans';
       font-style: normal;
       font-weight: 400;
-      src: url('file:///android_asset/fonts/OpenSans-Regular.ttf') format('truetype');
+      src: ${getSource('OpenSans-Regular')};
     }
     @font-face {
-      font-family: 'OpenSans-Bold';
+      font-family: 'OpenSans';
       font-style: normal;
       font-weight: 700;
-      src: url('file:///android_asset/fonts/OpenSans-Bold.ttf') format('truetype');
+      src: ${getSource('OpenSans-Bold')};
     }
     @font-face {
-      font-family: 'Raleway-Regular';
+      font-family: 'Lateef';
       font-style: normal;
       font-weight: 400;
-      src: url('file:///android_asset/fonts/Raleway-Regular.ttf') format('truetype');
-    }
-    @font-face {
-      font-family: 'Raleway-Bold';
-      font-style: normal;
-      font-weight: 700;
-      src: url('file:///android_asset/fonts/Raleway-Bold.ttf') format('truetype');
-    }
-    @font-face {
-      font-family: 'RalewayLateef-Bold';
-      font-style: normal;
-      font-weight: 700;
-      src: url('file:///android_asset/fonts/RalewayLateef-Bold.ttf') format('truetype');
+      src: ${getSource('Lateef')};
     }`}
    
     html, body {
