@@ -21,7 +21,7 @@ type AppStateType = {|
   waitingForSentry: boolean
 |}
 
-class Dialog extends React.Component<PropsType, AppStateType> {
+class LaunchInquiry extends React.Component<PropsType, AppStateType> {
   store: Store<StateType, StoreActionType>
   dataContainer: DataContainer
   appSettings: AppSettings
@@ -56,6 +56,8 @@ class Dialog extends React.Component<PropsType, AppStateType> {
         )
       } else if (settings.errorTracking === true) {
         await this.enableSentry()
+      } else {
+        this.setState({waitingForSentry: false})
       }
     } catch (e) {
       console.error('Failed to load settings.')
@@ -97,4 +99,4 @@ class Dialog extends React.Component<PropsType, AppStateType> {
   }
 }
 
-export default translate('dialog')(Dialog)
+export default translate('launchInquiry')(LaunchInquiry)
