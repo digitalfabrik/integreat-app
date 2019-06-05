@@ -358,7 +358,7 @@
   "settings": {
     "en": {
       "troubleshooting": "Help to improve Integreat",
-      "troubleshootingDescription": "Automatically sends crash reports",
+      "troubleshootingDescription": "Automatically send crash reports",
       "about": "About Integreat",
       "privacyPolicy": "Data protection declaration",
       "version": "Version: {{version}}",
@@ -366,7 +366,7 @@
     },
     "de": {
       "troubleshooting": "Hilf uns Integreat zu verbessern",
-      "troubleshootingDescription": "Sendet automatisch Absturzberichte",
+      "troubleshootingDescription": "Sende automatisch Absturzberichte",
       "about": "Über Integreat",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
@@ -410,16 +410,16 @@
   "dialog": {
     "en": {
       "troubleshooting": "Help to improve Integreat",
-      "troubleshootingDescription": "Automatically sends crash reports",
+      "troubleshootingDescription": "Automatically send crash reports",
       "yes": "Yes",
-      "No": "no",
+      "no": "No",
       "askLater": "Ask later"
     },
     "de": {
       "troubleshooting": "Hilf uns Integreat zu verbessern",
-      "troubleshootingDescription": "Sendet automatisch Absturzberichte",
+      "troubleshootingDescription": "Sende automatisch Absturzberichte",
       "yes": "Ja",
-      "No": "Nein",
+      "no": "Nein",
       "askLater": "Später fragen"
     },
     "fr": {
