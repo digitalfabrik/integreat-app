@@ -14,15 +14,14 @@ import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
-import { Sentry } from 'react-native-sentry'
 import Dialog from './Dialog'
 
-type PropsType = {
-}
+type PropsType = {|
+|}
 
-type AppStateType = {
+type AppStateType = {|
   waitingForStore: boolean
-}
+|}
 
 class App extends React.Component<PropsType, AppStateType> {
   store: Store<StateType, StoreActionType>
@@ -31,8 +30,7 @@ class App extends React.Component<PropsType, AppStateType> {
   constructor (props: PropsType) {
     super(props)
     this.state = {
-      waitingForStore: true,
-      waitingForSentry: true
+      waitingForStore: true
     }
 
     this.dataContainer = new DefaultDataContainer()
@@ -49,12 +47,6 @@ class App extends React.Component<PropsType, AppStateType> {
     if (this.state.waitingForStore) {
       return null
     }
-
-    Sentry.captureBreadcrumb({
-      message: 'App rendered',
-      category: 'component',
-      data: {}
-    })
 
     return (
       <Provider store={this.store}>
