@@ -140,7 +140,7 @@ class Page extends React.Component<PropType, StateType> {
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </StyledView>
-        {!this.state.loading && <TimeStamp lastUpdate={lastUpdate} language={language} />}
+        {!this.state.loading && <TimeStamp lastUpdate={lastUpdate} language={language} theme={theme} />}
       </Container>
     )
   }

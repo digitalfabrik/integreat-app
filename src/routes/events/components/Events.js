@@ -43,6 +43,7 @@ export default class Events extends React.Component<PropsType> {
     <EventListItem key={event.path}
                    event={event}
                    language={language}
+                   theme={this.props.theme}
                    navigateToEvent={this.navigateToEvent(event.path)} />
 
   onRefresh = () => {
@@ -83,7 +84,8 @@ export default class Events extends React.Component<PropsType> {
         <Caption title={t('news')} theme={theme} />
         <List noItemsMessage={t('currentlyNoEvents')}
               items={events}
-              renderItem={this.renderEventListItem(language)} />
+              renderItem={this.renderEventListItem(language)}
+              theme={theme} />
       </>}
     </ScrollView>
   }
