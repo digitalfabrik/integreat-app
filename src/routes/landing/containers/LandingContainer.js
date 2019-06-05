@@ -49,7 +49,12 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
       type: 'FETCH_CITIES'
     }),
     navigateToDashboard: (cityCode: string) => {
-      const language = ownProps.i18n.lng
+      const language = ownProps.i18n.language
+
+      if (!language) {
+        throw Error('Failed to get language from i18n prop.')
+      }
+
       const path = `/${cityCode}/${language}`
       const key: string = generateKey()
 
