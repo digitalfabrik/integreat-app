@@ -407,7 +407,7 @@
       "settings": "Настройки сброшены."
     }
   },
-  "dialog": {
+  "launchInquiry": {
     "en": {
       "troubleshooting": "Help to improve Integreat",
       "troubleshootingDescription": "Automatically send crash reports",
