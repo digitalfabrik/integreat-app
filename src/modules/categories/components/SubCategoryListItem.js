@@ -33,7 +33,7 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
     return (
       <StyledLink onPress={this.onSubCategoryPress}
                   underlayColor={theme.colors.backgroundAccentColor}>
-        <SubCategoryCaption search={''}>
+        <SubCategoryCaption search={''} theme={theme}>
           <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
         </SubCategoryCaption>
       </StyledLink>

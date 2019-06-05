@@ -8,11 +8,13 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import { Text } from 'react-native-elements'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {|
   event: EventModel,
   language: string,
-  navigateToEvent: () => void
+  navigateToEvent: () => void,
+  theme: ThemeType
 |}
 
 class EventListItem extends React.PureComponent<PropsType> {
@@ -26,12 +28,13 @@ class EventListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {event, language, navigateToEvent} = this.props
+    const {event, language, navigateToEvent, theme} = this.props
     const thumbnail = event.thumbnail ? {uri: event.thumbnail} : this.getEventPlaceholder(event.path.length)
     return (
       <ListItem thumbnail={thumbnail}
                 title={event.title}
-                navigateTo={navigateToEvent}>
+                navigateTo={navigateToEvent}
+                theme={theme}>
         <View>
           <Text>{event.date.toFormattedString(language)}</Text>
           <Text>{event.location.location}</Text>

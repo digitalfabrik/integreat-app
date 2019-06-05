@@ -15,7 +15,7 @@ type PropsType = {
 // or once https://github.com/styled-components/styled-components/issues/2578 is closed
 class CustomThemeProvider extends React.Component<PropsType> {
   render () {
-    return <ThemeProvider theme={this.props.darkMode ? darkTheme : brightTheme}>
+    return <ThemeProvider theme={{}}>
       {this.props.children}
     </ThemeProvider>
   }

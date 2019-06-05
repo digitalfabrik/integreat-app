@@ -5,6 +5,7 @@ import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components/native'
+import type { ThemeType } from '../../theme/constants/theme'
 
 const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -15,18 +16,19 @@ const TimeStampText = styled.Text`
 type PropsType = {
   lastUpdate: Moment,
   t: TFunction,
-  language: string
+  language: string,
+  theme: ThemeType
 }
 
 export class TimeStamp extends React.PureComponent<PropsType> {
   render () {
-    const {lastUpdate, t, language} = this.props
+    const {lastUpdate, t, language, theme} = this.props
     lastUpdate.locale(language)
 
     // only show day, month and year
     const timestamp = lastUpdate.format('LL')
 
-    return <TimeStampText>{t('lastUpdate')}{timestamp}</TimeStampText>
+    return <TimeStampText theme={theme}>{t('lastUpdate')}{timestamp}</TimeStampText>
   }
 }
 
