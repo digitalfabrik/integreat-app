@@ -89,8 +89,6 @@ export class I18nProvider extends React.Component<PropsType, {
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})
     this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
-
-    moment.locale(targetLanguage)
   }
 
   componentDidMount () {
