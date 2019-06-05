@@ -17,36 +17,40 @@ function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesM
   return categoriesPayload.data
 }
 
-function * loadCategories (city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean): Saga<FetchMapType> {
-  // If data was loaded and should not be updated, return
-  if (dataContainer.categoriesAvailable() && !shouldUpdate) {
+function * loadCategories (
+  city: string,
+  language: string,
+  dataContainer: DataContainer,
+  shouldUpdate: boolean
+): Saga<FetchMapType> {
+  let categories: CategoriesMapModel
+
+  if (!dataContainer.categoriesAvailable() || shouldUpdate) {
+    // data is already loaded and should not be updated
+
+    console.debug('Fetching categories')
+
+    // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
+
+    const categoriesMap: CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
+
+    yield call(dataContainer.setCategoriesMap, categoriesMap)
+
+    categories = categoriesMap
+  } else {
     console.debug('Using cached categories')
-    return {}
+    categories = yield call(dataContainer.getCategoriesMap)
   }
-
-  console.debug('Fetching categories')
-
-  // TODO: data was loaded but should be incrementally updated. This will be done in NATIVE-3
-
-  const categoriesMap: ?CategoriesMapModel = yield call(fetchCategoriesMap, city, language)
-
-  if (!categoriesMap) {
-    throw new Error('Failed to load categories!')
-  }
-
-  const categories = categoriesMap.toArray()
 
   const resourceURLFinder = new ResourceURLFinder()
   resourceURLFinder.init()
 
   const urls = resourceURLFinder.buildFetchMap(
-    categories,
+    categories.toArray(),
     (url, path) => buildResourceFilePath(url, path, city)
   )
 
   resourceURLFinder.finalize()
-
-  yield call(dataContainer.setCategoriesMap, categoriesMap)
 
   return urls
 }

@@ -12,7 +12,7 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
   const {city, newLanguage} = action.params
   try {
     // We never want to force a refresh when switching languages
-    yield call(loadCityContent, dataContainer, city, newLanguage, false)
+    yield call(loadCityContent, dataContainer, city, newLanguage, false, true)
 
     const [categories, resourceCache, events] = yield all([
       call(dataContainer.getCategoriesMap),

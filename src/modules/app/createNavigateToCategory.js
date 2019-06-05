@@ -27,7 +27,7 @@ export default (
 
   const fetchLanguagesForCategory: FetchCategoryActionType = {
     type: 'FETCH_CATEGORY',
-    params: {city: cityCode, language, path, depth: 2, forceUpdate, key}
+    params: {city: cityCode, language, path, depth: 2, forceUpdate, key, shouldRefreshResources: false}
   }
 
   return dispatch(fetchLanguagesForCategory)
