@@ -15,7 +15,8 @@ const Row = styled.View`
 `
 
 const CategoryTitle = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontFamilyRegular};
+  align-self: center;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
   margin: 0 10px;
 `
