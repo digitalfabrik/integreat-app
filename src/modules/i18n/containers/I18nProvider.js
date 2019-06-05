@@ -12,7 +12,6 @@ import type { Dispatch } from 'redux'
 import LanguageDetector from '../LanguageDetector'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { StateType } from '../../app/StateType'
-import moment from 'moment'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 
 const RTL_LANGUAGES = ['ar', 'fa']
