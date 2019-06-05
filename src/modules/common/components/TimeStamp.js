@@ -9,8 +9,7 @@ import type { ThemeType } from '../../theme/constants/theme'
 
 const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
-  /*font-family: ${props => props.theme.fonts.contentFontFamily};*/
-  /*font-size: ${props => props.theme.fonts.contentFontSize};*/
+  font-family: ${props => props.theme.fonts.contentFontRegular};
 `
 
 type PropsType = {

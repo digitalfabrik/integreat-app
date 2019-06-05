@@ -31,11 +31,13 @@ const Description = styled.View`
   height: 100%;
   flex-direction: column;
   flex-grow: 1;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
   padding: 0 10px;
 `
 
 const Title = styled.Text`
   font-weight: 700;
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
 `
 
 type PropsType = {|

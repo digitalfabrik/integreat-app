@@ -9,12 +9,14 @@ import StyledLink from './StyledLink'
 
 const SubCategoryCaption = styled(CategoryCaption)`
   padding: 8px 0;
+  margin-start: 75px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
 const SubCategoryTitle = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontFamilyRegular};
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
 type PropsType = {

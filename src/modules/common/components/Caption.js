@@ -9,7 +9,7 @@ const H1 = styled.Text`
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontFamilyBold};
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
 `
 
 type PropsType = {|

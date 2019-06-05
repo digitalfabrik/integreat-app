@@ -98,7 +98,7 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
         margin: 0;
         padding: 0;
         
-        font-family: ${theme.fonts.contentFontFamilyRegular}, sans-serif;
+        font-family: ${theme.fonts.webviewFontFamilies};
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
