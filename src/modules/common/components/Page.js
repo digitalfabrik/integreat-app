@@ -15,6 +15,7 @@ import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
+import MomentContext from '../../i18n/context/MomentContext'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -79,7 +80,7 @@ class Page extends React.Component<PropType, StateType> {
   }
 
   onLinkPress = (url: string) => {
-    const { navigation, cityCode, language, navigateToIntegreatUrl } = this.props
+    const {navigation, cityCode, language, navigateToIntegreatUrl} = this.props
 
     if (url.includes('.pdf')) {
       navigation.navigate('PDFViewModal', {url})
@@ -128,7 +129,7 @@ class Page extends React.Component<PropType, StateType> {
             useWebKit
             javaScriptEnabled
 
-            dataDetectorTypes={'all'}
+            dataDetectorTypes={['all']}
             domStorageEnabled={false}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
@@ -141,7 +142,10 @@ class Page extends React.Component<PropType, StateType> {
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </StyledView>
-        {!this.state.loading && <TimeStamp lastUpdate={lastUpdate} language={language} />}
+        {!this.state.loading &&
+        <MomentContext.Consumer>
+          {momentFormatter => <TimeStamp formatter={momentFormatter} lastUpdate={lastUpdate} language={language} />}
+        </MomentContext.Consumer>}
       </Container>
     )
   }

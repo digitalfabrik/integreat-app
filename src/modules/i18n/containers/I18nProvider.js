@@ -12,6 +12,7 @@ import type { Dispatch } from 'redux'
 import LanguageDetector from '../LanguageDetector'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { StateType } from '../../app/StateType'
+import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -21,7 +22,6 @@ type FontMapType = { [font: 'lateef' | 'openSans' | 'raleway']: boolean }
 
 type PropsType = {
   children?: React.Node,
-  language: string,
   setUiDirection: Function
 }
 
@@ -74,18 +74,16 @@ export class I18nProvider extends React.Component<PropsType, {
     )
   }
 
-  getPredeterminedLanguage (knownLanguage: string): string {
-    if (knownLanguage) {
-      return knownLanguage
-    } else if (this.i18n.languages && this.i18n.languages.length > 0) {
+  getI18nextLanguage (): string {
+    if (this.i18n.languages && this.i18n.languages.length > 0) {
       return this.i18n.languages[0]
     } else {
       throw new Error('Failed to set language because it is currently unknown and even i18next does not know it!')
     }
   }
 
-  initLanguage (language: string) {
-    const targetLanguage = this.getPredeterminedLanguage(language)
+  initLanguage () {
+    const targetLanguage = this.getI18nextLanguage()
 
     const fonts = I18nProvider.getSelectedFonts(targetLanguage)
     this.setState({language: targetLanguage, fonts})
@@ -93,7 +91,7 @@ export class I18nProvider extends React.Component<PropsType, {
   }
 
   componentDidMount () {
-    this.initLanguage(this.props.language)
+    this.initLanguage()
   }
 
   static getSelectedFonts (language: string): FontMapType {
@@ -105,12 +103,16 @@ export class I18nProvider extends React.Component<PropsType, {
     }
   }
 
+  momentFormatter = createMomentFormatter(() => undefined, () => this.state.language)
+
   render () {
     return (
       <I18nextProvider i18n={this.i18n}>
-        <>
-          {this.props.children}
-        </>
+        <MomentContext.Provider value={this.momentFormatter}>
+          <>
+            {this.props.children}
+          </>
+        </MomentContext.Provider>
       </I18nextProvider>
     )
   }
@@ -122,5 +124,5 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
 
 const mapStateToProps = (state: StateType) => ({language: state.cityContent.language})
 
-// $FlowFixMe connect()
+// $FlowFixMe NATIVE-53
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)

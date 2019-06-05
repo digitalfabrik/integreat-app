@@ -1,6 +1,6 @@
 // @flow
 
-import { TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 import { Linking } from 'react-native'
 import type { SettingsType } from './SettingsType'
 
