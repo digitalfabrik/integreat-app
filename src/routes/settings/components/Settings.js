@@ -1,24 +1,24 @@
 // @flow
 
 import * as React from 'react'
-import { SectionList, StyleSheet, Switch, AsyncStorage, View } from 'react-native'
+import { SectionList, StyleSheet, Switch, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import SettingItem from './SettingItem'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
-import { mapValues, toPairs } from 'lodash/object'
-import type { SettingsType } from '../SettingsType'
+import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
-import { fromPairs } from 'lodash/array'
 import type { ChangeSettingFunctionType } from '../createSettingsSections'
+import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
 
 type PropsType = {|
   theme: ThemeType,
   language: string,
   t: TFunction,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  dispatch: () => {}
 |}
 
 type StateType = {
@@ -45,20 +45,20 @@ const SectionHeader = styled.Text`
 `
 
 export default class Settings extends React.Component<PropsType, StateType> {
+  appSettings: AppSettings
+
   constructor (props: PropsType) {
     super(props)
 
-    this.state = {settingsLoaded: false, settings: {errorTracking: false, test: false}}
+    this.state = {settingsLoaded: false, settings: defaultSettings}
+    this.appSettings = new AppSettings()
 
     this.loadSettings()
   }
 
   async loadSettings () {
     try {
-      const settingsKeys = Object.keys(this.state.settings)
-      const settingsArray = await AsyncStorage.multiGet(settingsKeys)
-
-      const settings = mapValues(fromPairs(settingsArray), value => JSON.parse(value))
+      const settings = await this.appSettings.loadSettings()
 
       this.setState({settingsLoaded: true, settings})
     } catch (e) {
@@ -73,10 +73,8 @@ export default class Settings extends React.Component<PropsType, StateType> {
         return {settings: {...state.settings, ...newSettings}}
       },
       async () => {
-        const settingsArray = toPairs(mapValues(this.state.settings, value => JSON.stringify(value)))
-
         try {
-          await AsyncStorage.multiSet(settingsArray)
+          await this.appSettings.setSettings(this.state.settings)
         } catch (e) {
           console.error('Failed to persist settings.')
         }
