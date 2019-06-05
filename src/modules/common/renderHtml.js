@@ -79,6 +79,18 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
       src: ${getSource('OpenSans-Bold')};
     }
     @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getSource('Raleway-Regular')};
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 700;
+      src: ${getSource('Raleway-Bold')};
+    }
+    @font-face {
       font-family: 'Lateef';
       font-style: normal;
       font-weight: 400;
