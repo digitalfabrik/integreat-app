@@ -54,7 +54,7 @@ class Dialog extends React.Component<PropsType, AppStateType> {
           ],
           {cancelable: true}
         )
-      } else {
+      } else if (settings.errorTracking === true) {
         await this.enableSentry()
       }
     } catch (e) {
