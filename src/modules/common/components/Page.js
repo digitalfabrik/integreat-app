@@ -27,13 +27,13 @@ const Container = styled.View`
   margin-bottom: 8px;
 `
 
-type StateType = {
+type StateType = {|
   webViewHeight: number,
   webViewWidth: number,
   loading: boolean
-}
+|}
 
-type PropType = {
+type PropType = {|
   title: string,
   content: string,
   theme: ThemeType,
@@ -44,7 +44,7 @@ type PropType = {
   language: string,
   cityCode: string,
   lastUpdate: Moment
-}
+|}
 
 const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
 
