@@ -11,17 +11,23 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
-  language: string | null,
+  language: string,
   dispatch: () => {}
 |}
 
 const mapStateToProps = (state: StateType) => {
+  const language = state.cityContent.language
+
+  if (!language) {
+    throw Error('language in state is not defined')
+  }
+
   return {
-    language: state.cityContent.language
+    language: language
   }
 }
 
 const ThemedSettings = withTheme(props => props.language)(translate('settings')(Settings))
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  ThemedSettings
+  withTheme(translate('settings')(Settings))
 )
