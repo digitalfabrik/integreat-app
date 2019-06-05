@@ -28,7 +28,7 @@ class AppSettings {
 
   async loadSettings (): Promise<SettingsType> {
     const settingsKeys = Object.keys(defaultSettings)
-    const settingsArray = await AsyncStorage.multiGet(settingsKeys)
+    const settingsArray = await this.asyncStorage.multiGet(settingsKeys)
     return mapValues(fromPairs(settingsArray), (value, key) => {
       const parsed = JSON.parse(value)
 
@@ -43,7 +43,7 @@ class AppSettings {
 
   async setSettings (settings: $Shape<SettingsType>) {
     const settingsArray = toPairs(mapValues(settings, value => JSON.stringify(value)))
-    await AsyncStorage.multiSet(settingsArray)
+    await this.asyncStorage.multiSet(settingsArray)
   }
 }
 
