@@ -10,15 +10,16 @@ import AppSettings from '../../settings/AppSettings'
 import SentryIntegration from '../SentryIntegration'
 import { Alert } from 'react-native'
 import { translate, type TFunction } from 'react-i18next'
+import { Sentry } from 'react-native-sentry'
 
-type PropsType = {
+type PropsType = {|
   t: TFunction,
   children: React.Node
-}
+|}
 
-type AppStateType = {
+type AppStateType = {|
   waitingForSentry: boolean
-}
+|}
 
 class Dialog extends React.Component<PropsType, AppStateType> {
   store: Store<StateType, StoreActionType>
@@ -44,7 +45,7 @@ class Dialog extends React.Component<PropsType, AppStateType> {
 
       if (settings.errorTracking === null) {
         Alert.alert(
-          t('troubleshotting'),
+          t('troubleshooting'),
           t('troubleshootingDescription'),
           [
             {text: t('no'), style: 'destructive', onPress: () => this.disableSentry()},
@@ -85,6 +86,13 @@ class Dialog extends React.Component<PropsType, AppStateType> {
     if (this.state.waitingForSentry) {
       return null
     }
+
+    Sentry.captureBreadcrumb({
+      message: 'Fist render in Dialog',
+      category: 'component',
+      data: {}
+    })
+
     return this.props.children
   }
 }
