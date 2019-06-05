@@ -24,6 +24,6 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
 
   return dispatch({
     type: 'FETCH_EVENT',
-    params: {city: cityCode, language, path, key, forceUpdate}
+    params: {city: cityCode, language, path, key, forceUpdate, shouldRefreshResources: false}
   })
 }
