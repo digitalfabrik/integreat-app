@@ -33,7 +33,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
     const filterText = this.state.filterText
 
     return (
-      <React.Fragment>
+      <>
         <SearchInput
           filterText={filterText}
           onFilterTextChange={this.onFilterTextChange}
@@ -46,7 +46,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
           navigateToDashboard={this.props.navigateToDashboard}
           theme={theme}
         />
-      </React.Fragment>
+      </>
     )
   }
 }

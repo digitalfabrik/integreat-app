@@ -11,6 +11,7 @@ const CityListItem = styled.TouchableHighlight`
 `
 
 const Label = styled.Text`
+  color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 

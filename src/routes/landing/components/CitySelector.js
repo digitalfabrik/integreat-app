@@ -16,6 +16,7 @@ export const CityGroup = styled.Text`
   line-height: 30px;
   background-color: white;
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  color: ${props => props.theme.colors.textColor};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
@@ -29,9 +30,6 @@ type PropsType = {
 }
 
 class CitySelector extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    stickyTop: 0
-  }
 
   // TODO: We currently use this alternative for testing
   filter (): Array<CityModel> {
