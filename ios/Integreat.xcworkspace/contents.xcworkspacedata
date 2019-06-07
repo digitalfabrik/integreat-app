@@ -2,6 +2,21 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../android/app/src/main/assets/fonts/Lateef.ttf">
+   </FileRef>
+   <FileRef
+      location = "group:../android/app/src/main/assets/fonts/OpenSans-Bold.ttf">
+   </FileRef>
+   <FileRef
+      location = "group:../android/app/src/main/assets/fonts/OpenSans-Regular.ttf">
+   </FileRef>
+   <FileRef
+      location = "group:../android/app/src/main/assets/fonts/Raleway-Bold.ttf">
+   </FileRef>
+   <FileRef
+      location = "group:../android/app/src/main/assets/fonts/Raleway-Regular.ttf">
+   </FileRef>
+   <FileRef
       location = "group:Integreat.xcodeproj">
    </FileRef>
    <FileRef
