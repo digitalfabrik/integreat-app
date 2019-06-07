@@ -125,19 +125,18 @@ class Page extends React.Component<PropType, StateType> {
             }}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
-            useWebKit
+            useWebKit={false}
             javaScriptEnabled
 
-            dataDetectorTypes={['all']}
+            dataDetectorTypes={'all'}
             domStorageEnabled={false}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
 
             onMessage={this.onMessage}
             style={{height: height, width: width}}
-
             renderError={this.renderError}
-
+            bounces={false}
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           />
         </StyledView>
