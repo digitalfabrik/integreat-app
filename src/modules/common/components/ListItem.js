@@ -38,6 +38,7 @@ const Description = styled.View`
 const Title = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.decorativeFontBold};
+  color: ${props => props.theme.colors.textColor};
 `
 
 type PropsType = {|

@@ -70,8 +70,8 @@ export default class Events extends React.Component<PropsType> {
                 navigation={navigation}
                 navigateToIntegreatUrl={navigateToIntegreatUrl}>
             <>
-              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              <PageDetail identifier={t('location')} information={event.location.location} />
+              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} theme={theme} />
+              <PageDetail identifier={t('location')} information={event.location.location} theme={theme} />
             </>
           </Page>
         </ScrollView>
