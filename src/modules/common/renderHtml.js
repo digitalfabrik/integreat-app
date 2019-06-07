@@ -42,7 +42,7 @@ const renderJS = (files: FileCacheStateType) => `
     container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
     
     if (!window.ReactNativeWebView){
-      throw Error('You have to set onMessage on the WebView!')
+      window.setTimeout(adjustHeight, 100);
     }
 
     window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
@@ -56,7 +56,7 @@ const renderJS = (files: FileCacheStateType) => `
 
 export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   const getSource = (fontName: string) => Platform.select({
-    ios: `local(${fontName}) format('truetype')`,
+    ios: `local('${fontName}') url('${fontName}.ttf') format('truetype')`,
     android: `url('file:///android_asset/fonts/${fontName}.ttf') format('truetype')`
   })
   // language=HTML
