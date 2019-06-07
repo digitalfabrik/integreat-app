@@ -90,7 +90,7 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
     }
 
     Sentry.captureBreadcrumb({
-      message: 'Fist render in Dialog',
+      message: 'Fist render in LaunchInquiry',
       category: 'component',
       data: {}
     })
