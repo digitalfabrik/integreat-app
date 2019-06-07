@@ -5,16 +5,16 @@ import { Dimensions, Linking, Text } from 'react-native'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
-import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import type { NavigationScreenProp } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
-import { WebView, type WebViewMessageEvent } from 'react-native-webview'
+import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import MomentContext from '../../i18n/context/MomentContext'
+import { DataDetectorTypes } from 'react-native-webview/lib/WebViewTypes'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -112,7 +112,7 @@ class Page extends React.Component<PropType, StateType> {
     const {title, children, content, files, theme, language, cityCode, lastUpdate} = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
-
+    const dataDetectorTypes: DataDetectorTypes = 'all' // needed for flow
     return (
       <Container onLayout={this.onLayout}>
         <Caption title={title} theme={theme} />
@@ -128,7 +128,7 @@ class Page extends React.Component<PropType, StateType> {
             useWebKit={false}
             javaScriptEnabled
 
-            dataDetectorTypes={'all'}
+            dataDetectorTypes={dataDetectorTypes}
             domStorageEnabled={false}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
