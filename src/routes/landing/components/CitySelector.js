@@ -30,7 +30,6 @@ type PropsType = {
 }
 
 class CitySelector extends React.PureComponent<PropsType> {
-
   // TODO: We currently use this alternative for testing
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
