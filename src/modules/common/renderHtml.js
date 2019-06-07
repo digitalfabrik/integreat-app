@@ -1,9 +1,8 @@
 // @flow
 
-import { URL_PREFIX } from '../platform/constants/webview'
+import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
 import type { FileCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
-import { Platform } from 'react-native'
 
 // language=JavaScript
 const renderJS = (files: FileCacheStateType) => `
@@ -55,10 +54,6 @@ const renderJS = (files: FileCacheStateType) => `
 `
 
 export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
-  const getSource = (fontName: string) => Platform.select({
-    ios: `local('${fontName}') url('${fontName}.ttf') format('truetype')`,
-    android: `url('file:///android_asset/fonts/${fontName}.ttf') format('truetype')`
-  })
   // language=HTML
   return `
 <html>
@@ -70,31 +65,31 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
       font-family: 'OpenSans';
       font-style: normal;
       font-weight: 400;
-      src: ${getSource('OpenSans-Regular')};
+      src: ${getFontFaceSource('OpenSans-Regular')};
     }
     @font-face {
       font-family: 'OpenSans';
       font-style: normal;
       font-weight: 700;
-      src: ${getSource('OpenSans-Bold')};
+      src: ${getFontFaceSource('OpenSans-Bold')};
     }
     @font-face {
       font-family: 'Raleway';
       font-style: normal;
       font-weight: 400;
-      src: ${getSource('Raleway-Regular')};
+      src: ${getFontFaceSource('Raleway-Regular')};
     }
     @font-face {
       font-family: 'Raleway';
       font-style: normal;
       font-weight: 700;
-      src: ${getSource('Raleway-Bold')};
+      src: ${getFontFaceSource('Raleway-Bold')};
     }
     @font-face {
       font-family: 'Lateef';
       font-style: normal;
       font-weight: 400;
-      src: ${getSource('Lateef')};
+      src: ${getFontFaceSource('Lateef')};
     }
    
     html, body {
