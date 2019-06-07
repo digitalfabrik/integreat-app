@@ -24,20 +24,20 @@ class SprungbrettExtra extends React.Component<PropsType> {
   }
 
   renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => (
-    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={this.openJobInBrowser(job.url)} />
+    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={this.openJobInBrowser(job.url)}
+                         theme={this.props.theme} />
   )
 
   render () {
-    const {sprungbrettExtra, sprungbrettJobs, t} = this.props
+    const {sprungbrettExtra, sprungbrettJobs, t, theme} = this.props
 
-    return (
-      <ScrollView>
+    return <ScrollView>
         <Caption title={sprungbrettExtra.title} theme={this.props.theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               renderItem={this.renderSprungbrettListItem}
-              items={sprungbrettJobs} />
+              items={sprungbrettJobs}
+              theme={theme} />
       </ScrollView>
-    )
   }
 }
 

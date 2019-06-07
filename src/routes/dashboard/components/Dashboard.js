@@ -92,7 +92,8 @@ class Dashboard extends React.Component<PropsType> {
 
   render () {
     const {
-      cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory
+      cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory,
+      navigation
     } = this.props
 
     const loading = !stateView || !cities || !resourceCache
@@ -110,6 +111,7 @@ class Dashboard extends React.Component<PropsType> {
                     language={language}
                     cityCode={cityCode}
                     theme={theme}
+                    navigation={navigation}
                     navigateToCategory={navigateToCategory}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
     </ScrollView>
