@@ -6,6 +6,7 @@ import { WohnenOfferModel, WohnenFormData } from '@integreat-app/integreat-api-c
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
 import { formatPrice } from './OfferDetail'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const Description = styled.View`
   flex: 1;
@@ -18,19 +19,20 @@ const Price = styled.Text`
 
 type PropsType = {|
   offer: WohnenOfferModel,
-  navigateToOffer: () => void
+  navigateToOffer: () => void,
+  theme: ThemeType
 |}
 
 class OfferListItem extends React.PureComponent<PropsType> {
   render () {
-    const {offer, navigateToOffer} = this.props
+    const {offer, navigateToOffer, theme} = this.props
 
     if (offer.formData instanceof WohnenFormData) {
       const accommodation = offer.formData.accommodation
       const costs = offer.formData.costs
 
       return (
-        <ListItem title={accommodation.title} navigateTo={navigateToOffer}>
+        <ListItem title={accommodation.title} navigateTo={navigateToOffer} theme={theme}>
           <Description>
             <Text>{accommodation.totalArea} m²</Text>
             <Text>{accommodation.totalRooms} Zimmer</Text>

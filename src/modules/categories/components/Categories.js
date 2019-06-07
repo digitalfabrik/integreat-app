@@ -14,7 +14,7 @@ import { ActivityIndicator } from 'react-native'
 import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
-import { NavigationScreenProp } from 'react-navigation'
+import type { NavigationScreenProp } from 'react-navigation'
 
 type PropsType = {|
   cities: Array<CityModel>,

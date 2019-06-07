@@ -27,7 +27,6 @@ const mapStateToProps = (state: StateType) => {
   }
 }
 
-const ThemedSettings = withTheme(props => props.language)(translate('settings')(Settings))
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTheme(translate('settings')(Settings))
+  withTheme(props => props.language)(translate('settings')(Settings))
 )

@@ -52,7 +52,7 @@ export default class Events extends React.Component<PropsType> {
   }
 
   render () {
-    const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t} = this.props
+    const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation} = this.props
     const loading = !events
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
@@ -67,6 +67,7 @@ export default class Events extends React.Component<PropsType> {
                 files={files}
                 theme={theme}
                 cityCode={cityCode}
+                navigation={navigation}
                 navigateToIntegreatUrl={navigateToIntegreatUrl}>
             <>
               <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
