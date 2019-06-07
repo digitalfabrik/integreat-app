@@ -21,13 +21,12 @@ export const CityGroup = styled.Text`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
-  stickyTop: number,
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType
-}
+|}
 
 class CitySelector extends React.PureComponent<PropsType> {
   // TODO: We currently use this alternative for testing
