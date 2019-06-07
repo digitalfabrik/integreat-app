@@ -1,13 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import { View } from 'react-native'
 import { EventModel } from '@integreat-app/integreat-api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import { Text } from 'react-native-elements'
+import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {|
@@ -16,6 +15,11 @@ type PropsType = {|
   navigateToEvent: () => void,
   theme: ThemeType
 |}
+
+const Description = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.contentFontRegular};
+`
 
 class EventListItem extends React.PureComponent<PropsType> {
   /**
@@ -35,10 +39,8 @@ class EventListItem extends React.PureComponent<PropsType> {
                 title={event.title}
                 navigateTo={navigateToEvent}
                 theme={theme}>
-        <View>
-          <Text>{event.date.toFormattedString(language)}</Text>
-          <Text>{event.location.location}</Text>
-        </View>
+        <Description theme={theme}>{event.date.toFormattedString(language)}</Description>
+        <Description theme={theme}>{event.location.location}</Description>
       </ListItem>
     )
   }
