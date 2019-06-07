@@ -5,7 +5,6 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import I18nProvider from '../../../modules/i18n/containers/I18nProvider'
 import createReduxStore from '../createReduxStore'
-import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
 import IOSSafeAreaView from '../../../modules/platform/components/IOSSafeAreaView'
 import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
 import type { Store } from 'redux'
@@ -14,10 +13,9 @@ import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
-import Dialog from './LaunchInquiry'
+import LaunchInquiry from './LaunchInquiry'
 
-type PropsType = {|
-|}
+type PropsType = {||}
 
 type AppStateType = {|
   waitingForStore: boolean
@@ -51,16 +49,14 @@ class App extends React.Component<PropsType, AppStateType> {
     return (
       <Provider store={this.store}>
         <I18nProvider>
-          <CustomThemeProvider>
-            <Dialog>
-              <>
-                <AndroidStatusBarContainer />
-                <IOSSafeAreaView>
-                  <Navigator />
-                </IOSSafeAreaView>
-              </>
-            </Dialog>
-          </CustomThemeProvider>
+          <LaunchInquiry>
+            <>
+              <AndroidStatusBarContainer />
+              <IOSSafeAreaView>
+                <Navigator />
+              </IOSSafeAreaView>
+            </>
+          </LaunchInquiry>
         </I18nProvider>
       </Provider>
     )
