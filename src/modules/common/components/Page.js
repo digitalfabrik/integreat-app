@@ -14,7 +14,7 @@ import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import MomentContext from '../../i18n/context/MomentContext'
-import type { DataDetectorTypes, WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
+import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -112,7 +112,7 @@ class Page extends React.Component<PropType, StateType> {
     const {title, children, content, files, theme, language, cityCode, lastUpdate} = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
-    const dataDetectorTypes: DataDetectorTypes = 'all' // needed for flow
+    const dataDetectorTypes: any = 'all' // flow doesn't recognize this as type of DataDetectorTypes
     return (
       <Container onLayout={this.onLayout}>
         <Caption title={title} theme={theme} />
