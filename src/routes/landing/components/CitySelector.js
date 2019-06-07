@@ -6,14 +6,16 @@ import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-export const CityListParent = styled.View`
+export const CityGroup = styled.Text`
+  flex: 1;
   height: 30px;
   margin-top: 10px;
   line-height: 30px;
   background-color: white;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
@@ -55,7 +57,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
       result.push(<View key={key}>
-        <CityListParent theme={this.props.theme}><Text>{key}</Text></CityListParent>
+        <CityGroup theme={this.props.theme}>{key}</CityGroup>
         {cities.map(city => <CityEntry
           key={city.code}
           city={city}
@@ -67,11 +69,9 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   render () {
-    return <React.Fragment>
-      {
-        this.renderList(this.filter())
-      }
-    </React.Fragment>
+    return <>
+      { this.renderList(this.filter()) }
+    </>
   }
 }
 
