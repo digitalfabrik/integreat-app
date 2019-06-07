@@ -8,13 +8,13 @@ import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constan
 import type { NavigationScreenProp } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
-import { WebView, type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview'
+import { WebView, type WebViewMessageEvent } from 'react-native-webview'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import MomentContext from '../../i18n/context/MomentContext'
-import { DataDetectorTypes } from 'react-native-webview/lib/WebViewTypes'
+import type { DataDetectorTypes, WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 
 const HORIZONTAL_MARGIN = 8
 
