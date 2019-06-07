@@ -107,8 +107,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
       return null
     }
 
-    return (
-      <SectionList
+    return <SectionList
         keyExtractor={this.keyExtractor}
         sections={createSettingsSections({setSetting: this.setSetting, ...this.props})}
         extraData={this.state.settings}
@@ -118,6 +117,5 @@ export default class Settings extends React.Component<PropsType, StateType> {
         SectionSeparatorComponent={this.ThemedItemSeparator}
         stickySectionHeadersEnabled={false}
       />
-    )
   }
 }

@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
-const Identifier = styled.Text`
+export const Identifier = styled.Text`
   font-family: ${props => props.theme.fonts.contentFontBold};
   color: ${props => props.theme.colors.textColor};
 `
