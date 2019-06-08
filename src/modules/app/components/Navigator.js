@@ -41,20 +41,6 @@ const transparentHeader = (headerProps: HeaderProps) =>
 const defaultHeader = (headerProps: HeaderProps) =>
   <HeaderContainer scene={headerProps.scene} scenes={headerProps.scenes} />
 
-export const ExtrasStack = createStackNavigator(
-  {
-    'Extras': ExtrasContainer,
-    [WOHNEN_ROUTE]: WohnenExtraContainer,
-    [SPRUNGBRETT_ROUTE]: SprungbrettExtraContainer,
-    [EXTERNAL_EXTRA_ROUTE]: ExternalExtraContainer
-  },
-  {
-    initialRouteName: 'Extras',
-    defaultNavigationOptions: {
-      header: null
-    }
-  }
-)
 /*
  The app behaves pretty weird when you have a StackNavigator -> SwitchNavigator -> StackNavigator
  Therefore I removed the StackNavigator in the root and moved the routes to the other StackNavigator.
@@ -64,7 +50,10 @@ export const AppStack = createStackNavigator(
   {
     'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
     'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
-    'Extras': createNavigationScreen(ExtrasStack, defaultHeader),
+    'Extras': createNavigationScreen(ExtrasContainer, defaultHeader),
+    [WOHNEN_ROUTE]: createNavigationScreen(WohnenExtraContainer, defaultHeader),
+    [SPRUNGBRETT_ROUTE]: createNavigationScreen(SprungbrettExtraContainer, defaultHeader),
+    [EXTERNAL_EXTRA_ROUTE]: createNavigationScreen(ExternalExtraContainer, defaultHeader),
     'Events': createNavigationScreen(EventsContainer, defaultHeader),
     'Settings': createNavigationScreen(SettingsContainer, defaultHeader),
     'MapViewModal': createNavigationScreen(MapViewModal),
