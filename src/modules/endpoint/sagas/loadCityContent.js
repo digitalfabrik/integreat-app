@@ -57,8 +57,8 @@ export default function * loadCityContent (
 
   if (languages.map(language => language.code).includes(newLanguage)) {
     const [categoriesMap, events] = yield all([
-      call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate, shouldRefreshResources),
-      call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate, shouldRefreshResources)
+      call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
+      call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate)
     ])
 
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
