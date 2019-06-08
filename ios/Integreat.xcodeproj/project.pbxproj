@@ -1276,7 +1276,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Markl (MK44S6WNCP)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1292,7 +1292,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "Michael Markl Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Maximilian Ammann";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1307,7 +1307,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Markl (MK44S6WNCP)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
@@ -1322,7 +1322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "Michael Markl Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Maximilian Ammann";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
