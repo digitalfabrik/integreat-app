@@ -1,6 +1,5 @@
 // @flow
 
-import { withTheme } from 'styled-components/native'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
@@ -15,6 +14,7 @@ import { branch, renderComponent } from 'recompose'
 import CategoryLanguageNotAvailableContainer from './CategoryLanguageNotAvailableContainer'
 import CategoriesScrollView from '../components/CategoriesScrollView'
 import { Failure } from '../../../modules/error/components/Failure'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
@@ -62,5 +62,5 @@ export default compose([
   // TODO NATIVE-112 Show errors
   branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(CategoryLanguageNotAvailableContainer)),
-  withTheme
+  withTheme(props => props.language)
 ])(CategoriesScrollView)

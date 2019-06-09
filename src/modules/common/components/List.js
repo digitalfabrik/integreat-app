@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components/native'
+import type { ThemeType } from '../../theme/constants/theme'
 
 const StyledView = styled.View`
   margin: 0 10px 0;
@@ -18,17 +19,18 @@ const NoItemsMessage = styled.Text`
 type PropsType<T> = {|
   items: Array<T>,
   noItemsMessage: string,
-  renderItem: T => React.Node
+  renderItem: T => React.Node,
+  theme: ThemeType
 |}
 
 class List<T> extends React.PureComponent<PropsType<T>> {
   render () {
-    const {items, renderItem, noItemsMessage} = this.props
+    const {items, renderItem, noItemsMessage, theme} = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledView>
+    return <StyledView theme={theme}>
         {items.map(item => renderItem(item))}
       </StyledView>
   }

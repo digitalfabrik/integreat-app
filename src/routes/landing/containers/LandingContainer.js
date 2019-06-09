@@ -1,6 +1,6 @@
 // @flow
 
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import compose from 'lodash/fp/compose'
 import { translate, type TFunction } from 'react-i18next'
 
@@ -91,5 +91,5 @@ export default compose([
   connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps),
   // TODO NATIVE-112
   branch(props => props.error, renderComponent(Failure)),
-  withTheme
+  withTheme(props => props.language)
 ])(Landing)
