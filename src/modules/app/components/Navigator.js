@@ -2,7 +2,12 @@
 
 import * as React from 'react'
 import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
-import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
+import {
+  createAppContainer,
+  createStackNavigator,
+  createSwitchNavigator,
+  type NavigationRouteConfig
+} from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
 import DashboardContainer from '../../../routes/dashboard/containers/DashboardContainer'
@@ -25,9 +30,16 @@ import SettingsContainer from '../../../routes/settings/container/SettingsContai
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-const createNavigationScreen = (component, header = null) => {
+const createNavigationRouteConfig = <Props>(Component, header = null): NavigationRouteConfig => {
+  const ScreenComponent = class extends React.Component<Props> { // need to wrap this for flow
+    static navigationOptions = null
+
+    render () {
+      return <Component {...this.props} />
+    }
+  }
   return {
-    screen: component,
+    screen: ScreenComponent,
     navigationOptions: {
       header: header
     }
@@ -48,19 +60,19 @@ const defaultHeader = (headerProps: HeaderProps) =>
  */
 export const AppStack = createStackNavigator(
   {
-    'Dashboard': createNavigationScreen(LayoutedDashboardContainer, defaultHeader),
-    'Categories': createNavigationScreen(LayoutedCategoriesContainer, defaultHeader),
-    'Extras': createNavigationScreen(ExtrasContainer, defaultHeader),
-    [WOHNEN_ROUTE]: createNavigationScreen(WohnenExtraContainer, defaultHeader),
-    [SPRUNGBRETT_ROUTE]: createNavigationScreen(SprungbrettExtraContainer, defaultHeader),
-    [EXTERNAL_EXTRA_ROUTE]: createNavigationScreen(ExternalExtraContainer, defaultHeader),
-    'Events': createNavigationScreen(EventsContainer, defaultHeader),
-    'Settings': createNavigationScreen(SettingsContainer, defaultHeader),
-    'MapViewModal': createNavigationScreen(MapViewModal),
-    'ChangeLanguageModal': createNavigationScreen(ChangeLanguageModalContainer),
-    'SearchModal': createNavigationScreen(SearchModalContainer),
-    'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
-    'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader)
+    'Dashboard': createNavigationRouteConfig(LayoutedDashboardContainer, defaultHeader),
+    'Categories': createNavigationRouteConfig(LayoutedCategoriesContainer, defaultHeader),
+    'Extras': createNavigationRouteConfig(ExtrasContainer, defaultHeader),
+    [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenExtraContainer, defaultHeader),
+    [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettExtraContainer, defaultHeader),
+    [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
+    'Events': createNavigationRouteConfig(EventsContainer, defaultHeader),
+    'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
+    'MapViewModal': createNavigationRouteConfig(MapViewModal),
+    'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
+    'SearchModal': createNavigationRouteConfig(SearchModalContainer),
+    'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeader),
+    'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader)
   },
   {
     defaultNavigationOptions: {
