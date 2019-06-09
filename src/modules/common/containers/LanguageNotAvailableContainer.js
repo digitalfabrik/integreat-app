@@ -5,7 +5,7 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import LanguageNotAvailablePage from '../../../modules/common/components/LanguageNotAvailablePage'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../theme/hocs/withTheme'
 import compose from 'lodash/fp/compose'
 import { translate } from 'react-i18next'
 import createNavigateToCategory from '../../app/createNavigateToCategory'
@@ -44,8 +44,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => {
   }
 }
 
-export default compose(
-  withTheme,
+export default compose([
   connect(mapStateToProps, mapDispatchToProps),
+  withTheme(),
   translate('common')
-)(LanguageNotAvailablePage)
+])(LanguageNotAvailablePage)

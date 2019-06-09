@@ -1,29 +1,32 @@
 // @flow
 
 import * as React from 'react'
-import { Text } from 'react-native'
 import styled from 'styled-components/native'
-
-const DetailContainer = styled.View`
-  margin: 0 10px;
-`
+import type { ThemeType } from '../../theme/constants/theme'
 
 export const Identifier = styled.Text`
-  font-weight: 700;
+  font-family: ${props => props.theme.fonts.contentFontBold};
+  color: ${props => props.theme.colors.textColor};
+`
+
+const DetailContainer = styled.Text`
+  font-family: ${props => props.theme.fonts.contentFontRegular};
+  color: ${props => props.theme.colors.textColor};
 `
 
 type PropsType = {|
   identifier: string,
-  information: string
+  information: string,
+  theme: ThemeType
 |}
 
 class PageDetail extends React.PureComponent<PropsType> {
   render () {
-    const {identifier, information} = this.props
+    const {identifier, information, theme} = this.props
     return (
-      <DetailContainer>
-        <Identifier>{identifier}: </Identifier>
-        <Text>{information}</Text>
+      <DetailContainer theme={theme}>
+        <Identifier theme={theme}>{identifier}: </Identifier>
+        {information}
       </DetailContainer>
     )
   }

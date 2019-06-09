@@ -16,7 +16,7 @@ import {
 import request from '../../../modules/endpoint/request'
 import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 import Failure from '../../../modules/error/components/Failure'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -91,5 +91,5 @@ class SprungbrettExtraContainer extends React.Component<PropsType, SprungbrettSt
 export default compose(
   connect(mapStateToProps),
   translate('sprungbrett'),
-  withTheme
+  withTheme()
 )(SprungbrettExtraContainer)

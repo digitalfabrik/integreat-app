@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation'
 import { translate } from 'react-i18next'
 
 import Header from '../components/Header'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { availableLanguagesSelector } from '../../common/selectors/availableLanguagesSelector'
 import { type Dispatch } from 'redux'
@@ -28,8 +28,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
 })
 
 export default compose([
-  withTheme,
   withNavigation,
   translate('header'),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  withTheme(props => props.language)
 ])(Header)

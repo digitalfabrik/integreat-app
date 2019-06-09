@@ -27,7 +27,8 @@ class WohnenExtra extends React.Component<PropsType> {
     return (
       <OfferListItem key={hashedOffer}
                      offer={offer}
-                     navigateToOffer={this.navigateToOffer(hashedOffer)} />)
+                     navigateToOffer={this.navigateToOffer(hashedOffer)}
+                     theme={this.props.theme} />)
   }
 
   navigateToOffer = (offerHash: string) => () => {
@@ -54,7 +55,8 @@ class WohnenExtra extends React.Component<PropsType> {
         <Caption title={wohnenExtra.title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
-              renderItem={this.renderOfferListItem} />
+              renderItem={this.renderOfferListItem}
+              theme={theme} />
       </ScrollView>
     )
   }
