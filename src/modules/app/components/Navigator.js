@@ -30,21 +30,12 @@ import SettingsContainer from '../../../routes/settings/container/SettingsContai
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-const createNavigationRouteConfig = <Props>(Component, header = null): NavigationRouteConfig => {
-  const ScreenComponent = class extends React.Component<Props> { // need to wrap this for flow
-    static navigationOptions = null
-
-    render () {
-      return <Component {...this.props} />
-    }
+const createNavigationRouteConfig = (Component, header = null): NavigationRouteConfig => ({
+  screen: Component,
+  navigationOptions: {
+    header: header
   }
-  return {
-    screen: ScreenComponent,
-    navigationOptions: {
-      header: header
-    }
-  }
-}
+})
 
 const transparentHeader = (headerProps: HeaderProps) =>
   <TransparentHeaderContainer scene={headerProps.scene}
