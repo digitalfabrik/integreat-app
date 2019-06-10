@@ -2,22 +2,43 @@
 
 export type FontsType = {
   fontSizeAdjust: number,
-  decorativeFontFamily: string,
+  decorativeFontBold: string,
+  decorativeFontRegular: string,
   decorativeFontSize: string,
   decorativeLineHeight: number,
-  contentFontFamily: string,
+  contentFontRegular: string,
+  contentFontBold: string,
+  webviewFontFamilies: string,
   contentFontSize: string,
   contentLineHeight: number,
   standardParagraphMargin: string,
   subTitleFontSize: string
 }
 
-export default {
+export const arabicFonts: FontsType = { // used for 'ar', 'fa' and 'ku'
   fontSizeAdjust: 0.55,
-  decorativeFontFamily: `'Raleway', 'Lateef', sans-serif`,
+  decorativeFontBold: 'Raleway-Bold',
+  decorativeFontRegular: 'Raleway-Regular',
   decorativeFontSize: '0.95rem',
   decorativeLineHeight: 1.3,
-  contentFontFamily: `'Open Sans', 'Lateef', sans-serif`,
+  contentFontRegular: 'OpenSans-Regular',
+  contentFontBold: 'OpenSans-Bold',
+  webviewFontFamilies: `'Lateef', 'OpenSans', sans-serif`,
+  contentFontSize: '0.95rem',
+  contentLineHeight: 1.4,
+  standardParagraphMargin: '0.75rem',
+  subTitleFontSize: '1.8rem'
+}
+
+export const defaultFonts: FontsType = { // used for all other languages
+  fontSizeAdjust: 0.55,
+  decorativeFontBold: 'Raleway-Bold',
+  decorativeFontRegular: 'Raleway-Regular',
+  decorativeFontSize: '0.95rem',
+  decorativeLineHeight: 1.3,
+  contentFontRegular: 'OpenSans-Regular',
+  contentFontBold: 'OpenSans-Bold',
+  webviewFontFamilies: `'OpenSans', sans-serif`,
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
