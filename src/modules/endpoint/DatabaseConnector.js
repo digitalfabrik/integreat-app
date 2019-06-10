@@ -5,6 +5,7 @@ import {
   CategoryModel,
   DateModel,
   EventModel,
+  CityModel,
   LanguageModel, LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
@@ -49,6 +50,15 @@ type ContentEventJsonType = {|
     latitude: ?string,
     longitude: ?string
   |}
+|}
+
+type ContentCityJsonType = {|
+    name: string,
+    live: boolean,
+    code: string,
+    extrasEnabled: boolean,
+    eventsEnabled: boolean,
+    sortingName: string
 |}
 
 type CityCodeType = string
@@ -185,6 +195,40 @@ class DatabaseConnector {
   async storeLanguages (languages: Array<LanguageModel>, context: DatabaseContext) {
     const path = this.getLanguagesPath(context)
     await this.writeFile(path, JSON.stringify(languages))
+  }
+
+  async storeCities (cities: Array<CityModel>, context: DatabaseContext) {
+    const jsonModels = cities.map((city: CityModel): ContentCityJsonType => ({
+      name: city.name,
+      live: city.live,
+      code: city.code,
+      extrasEnabled: city.extrasEnabled,
+      eventsEnabled: city.eventsEnabled,
+      sortingName: city.sortingName
+    }))
+
+    await this.writeFile(this.getContentPath('cities', context), JSON.stringify((jsonModels)))
+  }
+
+  async loadCities (context: DatabaseContext): Promise<Array<CityModel> | null> {
+    const path = this.getContentPath('cities', context)
+    const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
+    if (!fileExists) {
+      return null
+    }
+
+    const cities = JSON.parse(await this.readFile(path))
+    return cities.map(city =>
+      new CityModel(
+        city.name,
+        city.code,
+        city.live,
+        city.eventsEnabled,
+        city.extrasEnabled,
+        city.sortingName
+      )
+    )
   }
 
   async storeEvents (events: Array<EventModel>, context: DatabaseContext) {
