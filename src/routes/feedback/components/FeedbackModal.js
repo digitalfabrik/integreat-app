@@ -6,6 +6,8 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import Caption from '../../../modules/common/components/Caption'
 import type { TFunction } from 'react-i18next'
+import { translate } from 'react-i18next'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -33,4 +35,4 @@ class FeedbackModal extends React.Component<PropsType> {
   }
 }
 
-export default FeedbackModal
+export default translate('feedback')(withTheme()(FeedbackModal))

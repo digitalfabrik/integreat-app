@@ -111,6 +111,7 @@ class Categories extends React.Component<PropsType> {
                    language={language}
                    cityCode={cityCode}
                    navigation={navigation}
+                   navigateToFeedback={() => navigation.navigate('FeedbackModal')}
                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
