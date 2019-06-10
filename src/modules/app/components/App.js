@@ -3,10 +3,9 @@
 import * as React from 'react'
 
 import { Provider } from 'react-redux'
-import I18nProvider from 'modules/i18n/containers/I18nProvider'
+import I18nProvider from '../../../modules/i18n/containers/I18nProvider'
 import createReduxStore from '../createReduxStore'
-import CustomThemeProvider from '../../theme/containers/CustomThemeProvider'
-import IOSSafeAreaView from 'modules/platform/components/IOSSafeAreaView'
+import IOSSafeAreaView from '../../../modules/platform/components/IOSSafeAreaView'
 import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
 import type { Store } from 'redux'
 import type { StateType } from '../StateType'
@@ -14,16 +13,31 @@ import type { StoreActionType } from '../StoreActionType'
 import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
+import LaunchInquiry from './LaunchInquiry'
 
-class App extends React.Component<{}, { waitingForStore: boolean }> {
+type PropsType = {||}
+
+type AppStateType = {|
+  waitingForStore: boolean
+|}
+
+class App extends React.Component<PropsType, AppStateType> {
   store: Store<StateType, StoreActionType>
   dataContainer: DataContainer
 
-  constructor () {
-    super()
-    this.state = {waitingForStore: true}
+  constructor (props: PropsType) {
+    super(props)
+    this.state = {
+      waitingForStore: true
+    }
+
     this.dataContainer = new DefaultDataContainer()
-    const storeConfig = createReduxStore(this.dataContainer, () => { this.setState({waitingForStore: false}) })
+
+    const storeConfig = createReduxStore(
+      this.dataContainer,
+      () => { this.setState({waitingForStore: false}) }
+    )
+
     this.store = storeConfig.store
   }
 
@@ -33,18 +47,18 @@ class App extends React.Component<{}, { waitingForStore: boolean }> {
     }
 
     return (
-        <Provider store={this.store}>
-          <I18nProvider>
-            <CustomThemeProvider>
-              <>
-                <AndroidStatusBarContainer />
-                <IOSSafeAreaView>
-                  <Navigator />
-                </IOSSafeAreaView>
-              </>
-            </CustomThemeProvider>
-          </I18nProvider>
-        </Provider>
+      <Provider store={this.store}>
+        <I18nProvider>
+          <LaunchInquiry>
+            <>
+              <AndroidStatusBarContainer />
+              <IOSSafeAreaView>
+                <Navigator />
+              </IOSSafeAreaView>
+            </>
+          </LaunchInquiry>
+        </I18nProvider>
+      </Provider>
     )
   }
 }

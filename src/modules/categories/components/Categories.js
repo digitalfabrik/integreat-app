@@ -14,6 +14,7 @@ import { ActivityIndicator } from 'react-native'
 import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
+import type { NavigationScreenProp } from 'react-navigation'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -24,6 +25,7 @@ type PropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
 
+  navigation: NavigationScreenProp<*>,
   resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType
 |}
@@ -89,7 +91,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, cities, theme, navigateToIntegreatUrl } = this.props
+    const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode } = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -104,10 +106,11 @@ class Categories extends React.Component<PropsType> {
       return <Page title={category.title}
                    content={category.content}
                    lastUpdate={category.lastUpdate}
-                   theme={this.props.theme}
+                   theme={theme}
                    files={files}
-                   language={this.props.language}
-                   cityCode={this.props.cityCode}
+                   language={language}
+                   cityCode={cityCode}
+                   navigation={navigation}
                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
@@ -131,7 +134,7 @@ class Categories extends React.Component<PropsType> {
       title={category.title}
       content={category.content}
       onItemPress={this.onItemPress}
-      theme={this.props.theme} />
+      theme={theme} />
   }
 }
 

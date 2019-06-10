@@ -37,8 +37,6 @@ type StateType = {|
 |}
 
 class SearchModal extends React.Component<PropsType, StateType> {
-  static navigationOptions = {}
-
   constructor () {
     super()
     this.state = {query: ''}

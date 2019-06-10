@@ -13,6 +13,7 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import { branch, renderComponent } from 'recompose'
 import EventNotAvailableContainer from './EventLanguageNotAvailableContainer'
 import { Failure } from '../../../modules/error/components/Failure'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const {resourceCache, eventsRouteMapping, languages, language, city} = state.cityContent
@@ -54,5 +55,6 @@ export default compose([
   // TODO NATIVE-112 Show errors
   branch(props => props.error, renderComponent(Failure)),
   branch(props => props.invalidLanguage, renderComponent(EventNotAvailableContainer)),
-  withRouteCleaner
+  withRouteCleaner,
+  withTheme(props => props.language)
 ])(Events)

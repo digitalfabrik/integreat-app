@@ -6,7 +6,6 @@
   "env": {
     "development": {
       "plugins": [
-        "transform-es2015-modules-commonjs"
       ]
     },
     "production": {

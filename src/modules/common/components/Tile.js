@@ -23,6 +23,7 @@ const TileTitle = styled.Text`
   margin: 5px 0;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
 const TileContainer = styled.View`

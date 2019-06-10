@@ -1,6 +1,6 @@
 // @flow
 
-import { URL_PREFIX } from '../platform/constants/webview'
+import { getFontFaceSource, URL_PREFIX } from '../platform/constants/webview'
 import type { FileCacheStateType } from '../app/StateType'
 import type { ThemeType } from '../theme/constants/theme'
 
@@ -41,7 +41,7 @@ const renderJS = (files: FileCacheStateType) => `
     container.setAttribute('style', 'padding: 1px 0;'); // Used for measuring collapsed vertical margins
     
     if (!window.ReactNativeWebView){
-      throw Error('You have to set onMessage on the WebView!')
+      return window.setTimeout(adjustHeight, 100);
     }
 
     window.ReactNativeWebView.postMessage(container.getBoundingClientRect().height - 2);
@@ -61,17 +61,54 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
   <!-- disables zooming https://stackoverflow.com/questions/44625680/disable-zoom-on-web-view-react-native-->
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
   <style>
+    @font-face {
+      font-family: 'OpenSans';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getFontFaceSource('OpenSans-Regular')};
+    }
+    @font-face {
+      font-family: 'OpenSans';
+      font-style: normal;
+      font-weight: 700;
+      src: ${getFontFaceSource('OpenSans-Bold')};
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getFontFaceSource('Raleway-Regular')};
+    }
+    @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 700;
+      src: ${getFontFaceSource('Raleway-Bold')};
+    }
+    @font-face {
+      font-family: 'Lateef';
+      font-style: normal;
+      font-weight: 400;
+      src: ${getFontFaceSource('Lateef')};
+    }
+   
     html, body {
         margin: 0;
         padding: 0;
         
-        /*font-family: \${theme.fonts.contentFontFamily};*/   
+        font-family: ${theme.fonts.webviewFontFamilies};
         font-size: ${theme.fonts.contentFontSize};
         line-height: ${theme.fonts.contentLineHeight};
+        font-size-adjust: ${theme.fonts.fontSizeAdjust};
+        background-color: ${theme.colors.backgroundColor};
         /*\${props => props.centered && css\`
         text-align: center;
         list-style-position: inside;
         \`} */
+    }
+    
+    p {
+      margin: ${theme.fonts.standardParagraphMargin} 0;
     }
     
     img {
