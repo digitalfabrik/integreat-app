@@ -2,37 +2,71 @@
 
 import * as React from 'react'
 import styled from 'styled-components/native'
+import { Picker, ScrollView, TextInput } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
 import Caption from '../../../modules/common/components/Caption'
 import type { TFunction } from 'react-i18next'
-import { translate } from 'react-i18next'
-import withTheme from '../../../modules/theme/hocs/withTheme'
+import { Button } from 'react-native-elements'
+import FeedbackDropDownItem from '../FeedbackDropDownItem'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const Wrapper = styled.View`
-  position: absolute;  
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  padding: 40px;
   background-color: ${props => props.theme.colors.backgroundColor};
+`
+
+const Description = styled.Text`
+    padding: 15px 0 5px;
+    color: ${props => props.theme.colors.textColor};
+    font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
 type PropsType = {
   theme: ThemeType,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
-  t: TFunction
+  t: TFunction,
+  feedbackItems: Array<FeedbackDropDownItem>
 }
 
-class FeedbackModal extends React.Component<PropsType> {
-  render () {
-    const {theme, t} = this.props
+type StateType = {
+  comment: string,
+  feedbackItem: FeedbackDropDownItem
+}
 
-    return <Wrapper theme={theme}>
-      <Caption theme={theme} title={t('feedback')} />
-    </Wrapper>
+class FeedbackModal extends React.Component<PropsType, StateType> {
+  state = {comment: '', feedbackType: null}
+
+  onFeedbackTypeChanged = (itemValue: FeedbackDropDownItem) => this.setState({feedbackType: itemValue})
+
+  onFeedbackCommentChanged = (comment: string) => this.setState({comment})
+
+  onSubmit = () => this.props.onSubmit(this.state.feedbackType, this.state.comment)
+
+  render () {
+    const {theme, t, isPositiveFeedback, feedbackItems} = this.props
+    const {feedbackType, comment} = this.state
+
+    return <ScrollView>
+      <Wrapper theme={theme}>
+        <Caption theme={theme} title={t('feedback')} />
+        <Description theme={theme}>{t('feedbackType')}</Description>
+        <Picker selectedValue={feedbackType}
+                onValueChange={this.onFeedbackTypeChanged}
+                mode={'dropdown'}>
+          {feedbackItems.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)}
+        </Picker>
+        <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
+        <TextInput underlineColorAndroid={theme.colors.textDecorationColor} onChangeText={this.onFeedbackCommentChanged}
+                   value={comment} multiline />
+        <Button icon={<Icon name='send' size={15} color='black' style='material' />}
+                titleStyle={{color: theme.colors.textColor}}
+                buttonStyle={{backgroundColor: theme.colors.themeColor}}
+                onClick={this.onSubmit} title={t('send')} />
+      </Wrapper>
+    </ScrollView>
   }
 }
 
-export default translate('feedback')(withTheme()(FeedbackModal))
+export default FeedbackModal
