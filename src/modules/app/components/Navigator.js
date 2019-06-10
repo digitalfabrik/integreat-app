@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
-import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
 import DashboardContainer from '../../../routes/dashboard/containers/DashboardContainer'
@@ -21,7 +21,7 @@ import EventsContainer from '../../../routes/events/containers/EventsContainer'
 import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
-import FeedbackModal from '../../../routes/feedback/components/FeedbackModal'
+import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -73,7 +73,7 @@ export const AppStack = createStackNavigator(
     'SearchModal': createNavigationScreen(SearchModalContainer),
     'ImageViewModal': createNavigationScreen(ImageViewModal, transparentHeader),
     'PDFViewModal': createNavigationScreen(PDFViewModal, transparentHeader),
-    'FeedbackModal': createNavigationScreen(FeedbackModal, transparentHeader)
+    'FeedbackModal': createNavigationScreen(FeedbackModalContainer, transparentHeader)
   },
   {
     defaultNavigationOptions: {
