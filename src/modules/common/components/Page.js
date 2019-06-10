@@ -8,7 +8,7 @@ import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constan
 import type { NavigationScreenProp } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
-import { WebView, type WebViewMessageEvent } from 'react-native-webview'
+import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
 import TimeStamp from './TimeStamp'
 import type Moment from 'moment'
 import type { FileCacheStateType } from '../../app/StateType'
@@ -24,8 +24,7 @@ const StyledView = styled.View`
 `
 
 const Container = styled.View`
-  margin: 0 ${HORIZONTAL_MARGIN}px;
-  margin-bottom: 8px;
+  margin: 0 ${HORIZONTAL_MARGIN}px 8px;
 `
 
 type StateType = {|
@@ -112,12 +111,12 @@ class Page extends React.Component<PropType, StateType> {
     const {title, children, content, files, theme, language, cityCode, lastUpdate} = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
-    const dataDetectorTypes: any = 'all' // flow doesn't recognize this as type of DataDetectorTypes
+    const dataDetectorTypes: DataDetectorTypes = 'all'
     return (
       <Container onLayout={this.onLayout}>
         <Caption title={title} theme={theme} />
         {children}
-        <StyledView>
+        <StyledView>{// $FlowFixMe dataDetectorTypes (correct types, but Flow doesn't try the right branch)
           <WebView
             source={{
               baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
@@ -138,11 +137,12 @@ class Page extends React.Component<PropType, StateType> {
             renderError={this.renderError}
             bounces={false}
             onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
-          />
+          />}
         </StyledView>
         {!this.state.loading &&
         <MomentContext.Consumer>
-          {momentFormatter => <TimeStamp formatter={momentFormatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
+          {momentFormatter => <TimeStamp formatter={momentFormatter} lastUpdate={lastUpdate} language={language}
+                                         theme={theme} />}
         </MomentContext.Consumer>}
       </Container>
     )
