@@ -23,7 +23,7 @@ export const arabicFonts: FontsType = { // used for 'ar', 'fa' and 'ku'
   decorativeLineHeight: 1.3,
   contentFontRegular: 'OpenSans-Regular',
   contentFontBold: 'OpenSans-Bold',
-  webviewFontFamilies: `'Lateef', 'OpenSans', sans-serif`,
+  webviewFontFamilies: `'OpenSans', 'Lateef', sans-serif`,
   contentFontSize: '0.95rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
