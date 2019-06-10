@@ -1,7 +1,8 @@
 // @flow
 
 import * as React from 'react'
-import { Button, Linking, Text } from 'react-native'
+import { Linking, Text, TouchableOpacity } from 'react-native'
+import { Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -19,10 +20,23 @@ const Container = styled.View`
   margin: 0 ${HORIZONTAL_MARGIN}px 8px;
 `
 
-const FeedbackRow = styled.View`
+const FeedbackBox = styled.View`
+  margin-top: 25px;
+  padding: 15px 5px;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+`
+
+const FeedbackButtons = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin-top: 10px;
+`
+
+const HelpfulText = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  align-self: center;
 `
 
 type StateType = {|
@@ -45,15 +59,41 @@ type PropType = {|
 
 const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
 
+const FeedbackTouchableOpacity = styled(TouchableOpacity)`
+  align-items: center;
+`
+
+const FeedbackText = styled(Text)`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-size: 12;
+  margin-top: -2px;
+`
+
+class FeedbackButton extends React.Component<{| theme: ThemeType, title: string, icon: string, onPress: void => void |}> {
+  render () {
+    const {title, icon, theme, onPress} = this.props
+    return <FeedbackTouchableOpacity onPress={onPress}>
+      <Icon name={icon} size={25} type='material' reverseColor={theme.colors.textColor} reverse
+            color={theme.colors.themeColor} />
+      <FeedbackText theme={theme}>{title.toLowerCase()}</FeedbackText>
+    </FeedbackTouchableOpacity>
+  }
+}
+
 class Page extends React.Component<PropType, StateType> {
   state = {loading: true}
 
   renderFeedbackButtons (): React.Node {
-    return <FeedbackRow>
-      <Text>Feedback geben:</Text>
-      <Button type='clear' title='positiv' />
-      <Button type='clear' title='negativ' />
-    </FeedbackRow>
+    const {theme, navigateToFeedback} = this.props
+    return <FeedbackBox theme={theme}>
+      <HelpfulText theme={theme}>War diese Seite hilfreich?</HelpfulText>
+      <FeedbackButtons>
+        <FeedbackButton title='hilfreich' theme={theme} icon='sentiment-satisfied' onPress={() => navigateToFeedback(true)} />
+        <FeedbackButton title='nicht hilfreich' theme={theme} icon='sentiment-dissatisfied'
+                        onPress={() => navigateToFeedback(false)} />
+      </FeedbackButtons>
+    </FeedbackBox>
   }
 
   onLinkPress = (url: string) => {
