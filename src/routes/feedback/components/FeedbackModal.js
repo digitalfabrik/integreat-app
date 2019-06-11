@@ -8,7 +8,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import Caption from '../../../modules/common/components/Caption'
 import type { TFunction } from 'react-i18next'
 import { Button } from 'react-native-elements'
-import FeedbackDropDownItem from '../FeedbackDropDownItem'
+import FeedbackDropdownItem from '../FeedbackDropdownItem'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const Wrapper = styled.View`
@@ -27,18 +27,18 @@ type PropsType = {
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  feedbackItems: Array<FeedbackDropDownItem>
+  feedbackItems: Array<FeedbackDropdownItem>
 }
 
 type StateType = {
   comment: string,
-  feedbackItem: FeedbackDropDownItem
+  feedbackItem: FeedbackDropdownItem
 }
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
   state = {comment: '', feedbackType: null}
 
-  onFeedbackTypeChanged = (itemValue: FeedbackDropDownItem) => this.setState({feedbackType: itemValue})
+  onFeedbackTypeChanged = (itemValue: FeedbackDropdownItem) => this.setState({feedbackType: itemValue})
 
   onFeedbackCommentChanged = (comment: string) => this.setState({comment})
 
