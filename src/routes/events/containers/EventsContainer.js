@@ -22,9 +22,11 @@ const mapStateToProps = (state: StateType, ownProps) => {
     return {invalidLanguage: true}
   }
 
-  if (eventsRouteMapping.errorMessage !== undefined) {
+  if (eventsRouteMapping.errorMessage !== undefined || state.cities.errorMessage !== undefined) {
     return {error: true}
   }
+
+  const cities = state.cities.models
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
   if (!route) {
@@ -38,7 +40,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   return {
     language: route.language,
     cityCode: city,
-    cities: state.cities.models,
+    cities,
     events: route.models,
     path: route.path,
     resourceCache: resourceCache
