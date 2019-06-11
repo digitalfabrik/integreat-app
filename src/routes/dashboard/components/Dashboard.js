@@ -17,6 +17,7 @@ import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
+import styled from 'styled-components/native'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -37,6 +38,10 @@ type PropsType = {
   resourceCache: LanguageResourceCacheStateType,
   t: TFunction
 }
+
+const SpaceBetween = styled.View`
+  justify-content: space-between;
+`
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (): Array<TileModel> {
@@ -87,13 +92,14 @@ class Dashboard extends React.Component<PropsType> {
   onRefresh = () => {
     const {navigateToDashboard, cityCode, language, navigation} = this.props
     navigateToDashboard({
-      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')})
+      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')
+    })
   }
 
   render () {
     const {
       cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory,
-      navigation
+      navigation, t
     } = this.props
 
     const loading = !stateView || !cities || !resourceCache
@@ -102,18 +108,21 @@ class Dashboard extends React.Component<PropsType> {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-        <NavigationTiles tiles={this.getNavigationTileModels()}
-                         theme={theme} />
-        <Categories stateView={stateView}
-                    cities={cities}
-                    resourceCache={resourceCache}
-                    language={language}
-                    cityCode={cityCode}
-                    theme={theme}
-                    navigation={navigation}
-                    navigateToCategory={navigateToCategory}
-                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
+             contentContainerStyle={{flexGrow: 1}}>
+      <SpaceBetween>
+      <NavigationTiles tiles={this.getNavigationTileModels()} theme={theme} />
+      <Categories stateView={stateView}
+                  cities={cities}
+                  resourceCache={resourceCache}
+                  language={language}
+                  cityCode={cityCode}
+                  theme={theme}
+                  navigation={navigation}
+                  navigateToCategory={navigateToCategory}
+                  t={t}
+                  navigateToIntegreatUrl={navigateToIntegreatUrl} />
+      </SpaceBetween>
     </ScrollView>
   }
 }

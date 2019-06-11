@@ -10,6 +10,7 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import { translate } from 'react-i18next'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -38,7 +39,7 @@ class CategoriesScrollView extends React.Component<PropsType> {
   render () {
     const {
       cities, stateView, resourceCache, navigateToIntegreatUrl, language, cityCode, theme, navigateToCategory,
-      navigation
+      navigation, t
     } = this.props
 
     const loading = !stateView || !cities || !resourceCache
@@ -47,20 +48,20 @@ class CategoriesScrollView extends React.Component<PropsType> {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
     }
 
-    return (
-      <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-        <Categories stateView={stateView}
-                    cities={cities}
-                    resourceCache={resourceCache}
-                    language={language}
-                    cityCode={cityCode}
-                    navigation={navigation}
-                    theme={theme}
-                    navigateToCategory={navigateToCategory}
-                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
-      </ScrollView>
-    )
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
+                       contentContainerStyle={{flexGrow: 1}}>
+      <Categories stateView={stateView}
+                  cities={cities}
+                  resourceCache={resourceCache}
+                  language={language}
+                  cityCode={cityCode}
+                  navigation={navigation}
+                  theme={theme}
+                  navigateToCategory={navigateToCategory}
+                  navigateToIntegreatUrl={navigateToIntegreatUrl}
+                  t={t} />
+    </ScrollView>
   }
 }
 
-export default CategoriesScrollView
+export default translate('categories')(CategoriesScrollView)

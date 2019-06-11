@@ -1,14 +1,12 @@
 // @flow
 
 class FeedbackDropdownItem {
-  value: string
-  feedbackType: ?string
+  feedbackType: string
   label: string
 
-  constructor (label: string, feedbackType: ?string, value?: string) {
-    this.value = value || label
-    this.feedbackType = feedbackType
+  constructor (label: string, feedbackType: string) {
     this.label = label
+    this.feedbackType = feedbackType
   }
 }
 

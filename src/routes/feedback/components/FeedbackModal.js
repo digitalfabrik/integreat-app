@@ -55,7 +55,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
         <Picker selectedValue={feedbackType}
                 onValueChange={this.onFeedbackTypeChanged}
                 mode={'dropdown'}>
-          {feedbackItems.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)}
+          {feedbackItems.map(item => <Picker.Item label={item.label} value={item} key={item} />)}
         </Picker>
         <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
         <TextInput underlineColorAndroid={theme.colors.textDecorationColor} onChangeText={this.onFeedbackCommentChanged}

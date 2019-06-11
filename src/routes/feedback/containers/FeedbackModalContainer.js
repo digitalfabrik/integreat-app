@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { NavigationScreenProp } from 'react-navigation'
-import { translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal from '../components/FeedbackModal'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
@@ -13,18 +13,12 @@ class FeedbackModalContainer extends React.Component<{| navigation: NavigationSc
   closeModal = () => this.props.navigation.goBack()
 
   render () {
-    const {t} = this.props
-    const feedbackItems = [
-      new FeedbackDropdownItem('Tmp1', 'ft:Tmp1'),
-      new FeedbackDropdownItem('Tmp2', 'ft:Tmp2'),
-      new FeedbackDropdownItem('Tmp3', 'ft:Tmp3'),
-      new FeedbackDropdownItem('Tmp4', 'ft:Tmp4')
-    ]
-    return <TranslatedFeedbackModal
-      closeModal={this.closeModal}
-      feedbackItems={feedbackItems}
-    />
+    const {t, navigation} = this.props
+    const feedbackItems: Array<FeedbackDropdownItem> = navigation.getParam('feedbackItems')
+    const isPositiveFeedback: boolean = navigation.getParam('isPositiveFeedback')
+    return <TranslatedFeedbackModal t={t} closeModal={this.closeModal} feedbackItems={feedbackItems}
+                                    isPositiveFeedback={isPositiveFeedback} />
   }
 }
 
-export default FeedbackModalContainer
+export default translate('feedback')(FeedbackModalContainer)

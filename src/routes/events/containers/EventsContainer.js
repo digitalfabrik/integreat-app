@@ -38,6 +38,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   return {
     language: route.language,
     cityCode: city,
+    cities: state.cities.models,
     events: route.models,
     path: route.path,
     resourceCache: resourceCache
