@@ -20,6 +20,9 @@ const mapStateToProps = (state: StateType, ownProps) => {
   if (!language) {
     throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
   }
+  if (state.cities.errorMessage !== undefined) {
+    throw new Error('The state does not contain cities. Therefore it is not possible to open the extras!')
+  }
   const cities = state.cities.models
   const city: string = ownProps.navigation.getParam('cityCode')
 
