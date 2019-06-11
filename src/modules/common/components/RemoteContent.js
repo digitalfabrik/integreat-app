@@ -9,6 +9,7 @@ import renderHtml from '../renderHtml'
 import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { FileCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
+import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 
 // see https://github.com/react-native-community/react-native-webview#common-issues
 const StyledView = styled.View`
@@ -33,7 +34,7 @@ type PropType = {|
 class RemoteContent extends React.Component<PropType, StateType> {
   state = {webViewHeight: 0, webViewWidth: 0}
 
-  onLayout = event => {
+  onLayout = (event: ViewLayoutEvent) => {
     const {width} = event.nativeEvent.layout
     this.setState({webViewWidth: width})
   }

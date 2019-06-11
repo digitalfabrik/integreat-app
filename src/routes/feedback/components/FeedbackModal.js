@@ -8,7 +8,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import Caption from '../../../modules/common/components/Caption'
 import type { TFunction } from 'react-i18next'
 import { Button } from 'react-native-elements'
-import FeedbackDropdownItem from '../FeedbackDropdownItem'
+import FeedbackVariant from '../FeedbackVariant'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const Wrapper = styled.View`
@@ -27,23 +27,23 @@ type PropsType = {
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  feedbackItems: Array<FeedbackDropdownItem>,
+  feedbackItems: Array<FeedbackVariant>,
   isPositiveFeedback: boolean
 }
 
 type StateType = {
   comment: string,
-  feedbackItem: FeedbackDropdownItem
+  feedbackItem: ?FeedbackVariant
 }
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
   state = {comment: '', feedbackItem: null}
 
-  onFeedbackTypeChanged = (itemValue: FeedbackDropdownItem) => this.setState({feedbackItem: itemValue})
+  onFeedbackVariantChanged = (itemValue: FeedbackVariant) => this.setState({feedbackItem: itemValue})
 
   onFeedbackCommentChanged = (comment: string) => this.setState({comment})
 
-  onSubmit = () => this.props.onSubmit(this.state.feedbackItem, this.state.comment)
+  onSubmit = () => {} // todo: NATIVE-208
 
   render () {
     const {theme, t, isPositiveFeedback, feedbackItems} = this.props
@@ -54,9 +54,9 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
         <Caption theme={theme} title={t('feedback')} />
         <Description theme={theme}>{t('feedbackType')}</Description>
         <Picker selectedValue={feedbackItem}
-                onValueChange={this.onFeedbackTypeChanged}
+                onValueChange={this.onFeedbackVariantChanged}
                 mode={'dropdown'}>
-          {feedbackItems.map(item => <Picker.Item label={item.label} value={item} key={item} />)}
+          {feedbackItems.map(item => <Picker.Item label={item.label} value={item} key={item.label} />)}
         </Picker>
         <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
         <TextInput underlineColorAndroid={theme.colors.textDecorationColor} onChangeText={this.onFeedbackCommentChanged}

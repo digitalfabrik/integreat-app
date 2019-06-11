@@ -21,9 +21,10 @@ import type { LanguageResourceCacheStateType } from '../../../modules/app/StateT
 import type { NavigationScreenProp } from 'react-navigation'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
-import FeedbackDropdownItem from '../../feedback/FeedbackDropdownItem'
+import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import styled from 'styled-components/native'
+import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 type PropsType = {|
   events: Array<EventModel>,
@@ -39,10 +40,6 @@ type PropsType = {|
   resourceCache: LanguageResourceCacheStateType
 |}
 
-const SpaceBetween = styled.View`
-  justify-content: space-between;
-  flex: 1;
-`
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
@@ -71,9 +68,9 @@ class Events extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackDropdownItem(t('feedback:contentOfPage', {page: event.title}), PAGE_FEEDBACK_TYPE),
-        new FeedbackDropdownItem(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackDropdownItem(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        new FeedbackVariant(t('feedback:contentOfPage', {page: event.title}), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
@@ -84,8 +81,8 @@ class Events extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackDropdownItem(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackDropdownItem(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }

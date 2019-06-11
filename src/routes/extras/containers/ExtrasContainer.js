@@ -20,14 +20,10 @@ const mapStateToProps = (state: StateType, ownProps) => {
   if (!language) {
     throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
   }
+  const cities = state.cities.models
+  const city: string = ownProps.navigation.getParam('cityCode')
 
-  const targetCity: string = ownProps.navigation.getParam('cityCode')
-
-  return {
-    city: targetCity,
-    language: language,
-    cities: state.cities.models
-  }
+  return {city, language, cities}
 }
 
 type PropsType = {|
@@ -79,7 +75,7 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
   }
 
   render () {
-    const {theme, t, cities, navigation} = this.props
+    const {theme, t, cities, navigation, city} = this.props
     const {extras, error} = this.state
 
     if (error) {
@@ -91,7 +87,7 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
     }
 
     return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
-                   navigation={navigation} />
+                   navigation={navigation} cityCode={city} />
   }
 }
 

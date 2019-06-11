@@ -20,7 +20,8 @@ import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../a
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
-import FeedbackDropdownItem from '../../../routes/feedback/FeedbackDropdownItem'
+import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
+import { type TFunction } from 'react-i18next'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -58,9 +59,9 @@ class Categories extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackDropdownItem(t('feedback:contentOfPage', {page: stateView.root().title}), PAGE_FEEDBACK_TYPE),
-        new FeedbackDropdownItem(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackDropdownItem(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        new FeedbackVariant(t('feedback:contentOfPage', {page: stateView.root().title}), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
@@ -72,8 +73,8 @@ class Categories extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackDropdownItem(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackDropdownItem(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
