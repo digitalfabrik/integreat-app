@@ -6,7 +6,12 @@ import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
-import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import {
+  CATEGORIES_FEEDBACK_TYPE,
+  CategoryModel,
+  CityModel,
+  PAGE_FEEDBACK_TYPE
+} from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
@@ -15,6 +20,7 @@ import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../a
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
+import FeedbackDropdownItem from '../../../routes/feedback/FeedbackDropdownItem'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -27,7 +33,8 @@ type PropsType = {|
 
   navigation: NavigationScreenProp<*>,
   resourceCache: LanguageResourceCacheStateType,
-  theme: ThemeType
+  theme: ThemeType,
+  t: TFunction
 |}
 
 /**
@@ -42,6 +49,33 @@ class Categories extends React.Component<PropsType> {
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
     const {cityCode, language, navigateToCategory} = this.props
     navigateToCategory({cityCode, language, path: category.path})
+  }
+
+  navigateToFeedbackOfPage = (isPositiveFeedback: boolean) => {
+    const {navigation, t, stateView, cities, cityCode} = this.props
+    const cityTitle = CityModel.findCityName(cities, cityCode)
+
+    navigation.navigate('FeedbackModal', {
+      isPositiveFeedback,
+      feedbackItems: [
+        new FeedbackDropdownItem(t('feedback:contentOfPage', {page: stateView.root().title}), PAGE_FEEDBACK_TYPE),
+        new FeedbackDropdownItem(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
+        new FeedbackDropdownItem(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      ]
+    })
+  }
+
+  navigateToFeedbackOfCategories = (isPositiveFeedback: boolean) => {
+    const {navigation, t, cities, cityCode} = this.props
+    const cityTitle = CityModel.findCityName(cities, cityCode)
+
+    navigation.navigate('FeedbackModal', {
+      isPositiveFeedback,
+      feedbackItems: [
+        new FeedbackDropdownItem(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
+        new FeedbackDropdownItem(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      ]
+    })
   }
 
   getCachedThumbnail (category: CategoryModel): ?string {
@@ -91,7 +125,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode } = this.props
+    const {stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode} = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -111,7 +145,7 @@ class Categories extends React.Component<PropsType> {
                    language={language}
                    cityCode={cityCode}
                    navigation={navigation}
-                   navigateToFeedback={() => navigation.navigate('FeedbackModal')}
+                   navigateToFeedback={this.navigateToFeedbackOfPage}
                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
@@ -119,6 +153,7 @@ class Categories extends React.Component<PropsType> {
       return <Tiles tiles={this.getTileModels(children)}
                     title={CityModel.findCityName(cities, category.title)}
                     onTilePress={this.onTilePress}
+                    navigateToFeedback={this.navigateToFeedbackOfCategories}
                     theme={theme} />
     }
     // some level between, we want to display a list
@@ -134,6 +169,7 @@ class Categories extends React.Component<PropsType> {
       })}
       title={category.title}
       content={category.content}
+      navigateToFeedback={this.navigateToFeedbackOfPage}
       onItemPress={this.onItemPress}
       theme={theme} />
   }

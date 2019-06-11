@@ -6,7 +6,7 @@ import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
-import { createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import request from '../../../modules/endpoint/request'
 import type { StateType } from '../../../modules/app/StateType'
@@ -25,13 +25,15 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   return {
     city: targetCity,
-    language: language
+    language: language,
+    cities: state.cities.models
   }
 }
 
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   city: string,
+  cities: Array<CityModel>,
   language: string,
   navigateToExtra: (path: string, isExternalUrl: boolean) => void,
   theme: ThemeType,
@@ -77,7 +79,7 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
   }
 
   render () {
-    const {theme, t} = this.props
+    const {theme, t, cities, navigation} = this.props
     const {extras, error} = this.state
 
     if (error) {
@@ -88,7 +90,8 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} />
+    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
+                   navigation={navigation} />
   }
 }
 
