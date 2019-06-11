@@ -18,6 +18,7 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import styled from 'styled-components/native'
+import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -38,10 +39,6 @@ type PropsType = {
   resourceCache: LanguageResourceCacheStateType,
   t: TFunction
 }
-
-const SpaceBetween = styled.View`
-  justify-content: space-between;
-`
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (): Array<TileModel> {

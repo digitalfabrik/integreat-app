@@ -13,16 +13,12 @@ import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateT
 import MomentContext from '../../i18n/context/MomentContext'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
+import SpaceBetween from './SpaceBetween'
 
 const HORIZONTAL_MARGIN = 8
 
 const Container = styled.View`
   margin: 0 ${HORIZONTAL_MARGIN}px 8px;
-`
-
-const SpaceBetween = styled.View`
-  justify-content: space-between;
-  flex: 1;
 `
 
 type StateType = {|
@@ -67,7 +63,7 @@ class Page extends React.Component<PropType, StateType> {
   render () {
     const {title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback} = this.props
     return <SpaceBetween>
-      <Container onLayout={this.onLayout}>
+      <Container>
         <Caption title={title} theme={theme} />
         {children}
         <RemoteContent theme={theme} cityCode={cityCode} content={content} files={files} onLinkPress={this.onLinkPress}

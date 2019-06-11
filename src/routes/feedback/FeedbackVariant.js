@@ -1,6 +1,6 @@
 // @flow
 
-class FeedbackDropdownItem {
+class FeedbackVariant {
   feedbackType: string
   label: string
 
@@ -10,4 +10,4 @@ class FeedbackDropdownItem {
   }
 }
 
-export default FeedbackDropdownItem
+export default FeedbackVariant

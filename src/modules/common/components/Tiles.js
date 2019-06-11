@@ -4,19 +4,20 @@ import React from 'react'
 
 import Caption from 'modules/common/components/Caption'
 import Tile from './Tile'
-
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
 import SiteHelpfulBox from './SiteHelpfulBox'
+import SpaceBetween from './SpaceBetween'
 
-type PropsType = {
+type PropsType = {|
   title: ?string,
   tiles: TileModel[],
   onTilePress: (tile: TileModel) => void,
   theme: ThemeType,
   navigateToFeedback: (positiveFeedback: boolean) => void
-}
+|}
 
 const TilesRow = styled.View`
   display: flex;
@@ -33,13 +34,15 @@ const TilesRow = styled.View`
 class Tiles extends React.Component<PropsType> {
   render () {
     const {tiles, onTilePress, theme, navigateToFeedback} = this.props
-    return <>
-      {this.props.title && <Caption title={this.props.title} theme={theme} />}
-      <TilesRow>
-        {tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />)}
-      </TilesRow>
+    return <SpaceBetween>
+      <View>
+        {this.props.title && <Caption title={this.props.title} theme={theme} />}
+        <TilesRow>
+          {tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />)}
+        </TilesRow>
+      </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
-    </>
+    </SpaceBetween>
   }
 }
 

@@ -9,6 +9,7 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import { View } from 'react-native'
 import styled from 'styled-components'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
+import SpaceBetween from '../../common/components/SpaceBetween'
 
 type PropsType = {
   categories: Array<{|
@@ -23,11 +24,6 @@ type PropsType = {
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
   navigateToFeedback: (positiveFeedback: boolean) => void
 }
-
-const SpaceBetween = styled.View`
-  justify-content: space-between;
-  flex: 1;
-`
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
