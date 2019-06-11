@@ -27,7 +27,8 @@ type PropsType = {
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
-  feedbackItems: Array<FeedbackDropdownItem>
+  feedbackItems: Array<FeedbackDropdownItem>,
+  isPositiveFeedback: boolean
 }
 
 type StateType = {
@@ -36,23 +37,23 @@ type StateType = {
 }
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = {comment: '', feedbackType: null}
+  state = {comment: '', feedbackItem: null}
 
-  onFeedbackTypeChanged = (itemValue: FeedbackDropdownItem) => this.setState({feedbackType: itemValue})
+  onFeedbackTypeChanged = (itemValue: FeedbackDropdownItem) => this.setState({feedbackItem: itemValue})
 
   onFeedbackCommentChanged = (comment: string) => this.setState({comment})
 
-  onSubmit = () => this.props.onSubmit(this.state.feedbackType, this.state.comment)
+  onSubmit = () => this.props.onSubmit(this.state.feedbackItem, this.state.comment)
 
   render () {
     const {theme, t, isPositiveFeedback, feedbackItems} = this.props
-    const {feedbackType, comment} = this.state
+    const {feedbackItem, comment} = this.state
 
     return <ScrollView>
       <Wrapper theme={theme}>
         <Caption theme={theme} title={t('feedback')} />
         <Description theme={theme}>{t('feedbackType')}</Description>
-        <Picker selectedValue={feedbackType}
+        <Picker selectedValue={feedbackItem}
                 onValueChange={this.onFeedbackTypeChanged}
                 mode={'dropdown'}>
           {feedbackItems.map(item => <Picker.Item label={item.label} value={item} key={item} />)}
