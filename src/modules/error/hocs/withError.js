@@ -6,18 +6,17 @@ import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAv
 import Failure from '../components/Failure'
 
 export type ErrorType = {|
-  error: true,
-  languageNotAvailable: false,
+  error: boolean,
+  languageNotAvailable: boolean,
   city: string,
   languages: Array<LanguageModel>,
   changeUnavailableLanguage: (city: string, newLanguage: string) => void
 |}
 
-type PropsType<T> = ErrorType | T
-
-function withLanguageNotAvailable<Props: PropsType<*>> (
-  Component: React.ComponentType<Props>): React.ComponentType<*> {
-  class LanguageNotAvailableComponent extends React.PureComponent<Props> {
+const withLanguageNotAvailable = <T: {}>(
+  Component: React.AbstractComponent<T>
+): React.AbstractComponent<T & ErrorType> => {
+  return class extends React.PureComponent<T & ErrorType> {
     render () {
       const {error, languageNotAvailable, city, languages, changeUnavailableLanguage, ...props} = this.props
 
@@ -34,8 +33,6 @@ function withLanguageNotAvailable<Props: PropsType<*>> (
       return <Component {...props} />
     }
   }
-
-  return LanguageNotAvailableComponent
 }
 
 export default withLanguageNotAvailable
