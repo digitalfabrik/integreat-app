@@ -43,6 +43,7 @@ export default class Events extends React.Component<PropsType> {
     <EventListItem key={event.path}
                    event={event}
                    language={language}
+                   theme={this.props.theme}
                    navigateToEvent={this.navigateToEvent(event.path)} />
 
   onRefresh = () => {
@@ -51,7 +52,7 @@ export default class Events extends React.Component<PropsType> {
   }
 
   render () {
-    const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t} = this.props
+    const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation} = this.props
     const loading = !events
     if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
@@ -66,10 +67,11 @@ export default class Events extends React.Component<PropsType> {
                 files={files}
                 theme={theme}
                 cityCode={cityCode}
+                navigation={navigation}
                 navigateToIntegreatUrl={navigateToIntegreatUrl}>
             <>
-              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} />
-              <PageDetail identifier={t('location')} information={event.location.location} />
+              <PageDetail identifier={t('date')} information={event.date.toFormattedString(language)} theme={theme} />
+              <PageDetail identifier={t('location')} information={event.location.location} theme={theme} />
             </>
           </Page>
         </ScrollView>
@@ -83,7 +85,8 @@ export default class Events extends React.Component<PropsType> {
         <Caption title={t('news')} theme={theme} />
         <List noItemsMessage={t('currentlyNoEvents')}
               items={events}
-              renderItem={this.renderEventListItem(language)} />
+              renderItem={this.renderEventListItem(language)}
+              theme={theme} />
       </>}
     </ScrollView>
   }

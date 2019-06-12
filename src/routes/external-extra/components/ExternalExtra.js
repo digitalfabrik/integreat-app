@@ -7,13 +7,14 @@ import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
 
 export type PropsType = {|
-  url: ?string,
+  url: string,
   postData: ?Map<string, string>
 |}
 
 class ExternalExtra extends React.Component<PropsType> {
   render () {
     const {url, postData} = this.props
+
     const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
     return <WebView
       source={{
@@ -27,7 +28,7 @@ class ExternalExtra extends React.Component<PropsType> {
       useWebKit
       javaScriptEnabled
 
-      dataDetectorTypes={'all'}
+      dataDetectorTypes={['all']}
       domStorageEnabled={false}
       renderError={this.renderError}
     />

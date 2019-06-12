@@ -1,12 +1,17 @@
 // @flow
 
-import { mapProps } from 'recompose'
 import ExternalExtra from '../components/ExternalExtra'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { PropsType } from '../components/ExternalExtra'
+import React from 'react'
 
-export default mapProps<PropsType, {| navigation: NavigationScreenProp<*> |}>(
-  ({navigation}) => ({
-    url: navigation.getParam('url'),
-    postData: navigation.getParam('postData')
-  }))(ExternalExtra)
+export default class ExternalExtraContainer extends React.Component<{| navigation: NavigationScreenProp<*> |}> {
+  render () {
+    const url = this.props.navigation.getParam('url')
+
+    if (!url) {
+      throw Error('url is not defined in navigation params!')
+    }
+
+    return <ExternalExtra url={url} postData={this.props.navigation.getParam('postData')} />
+  }
+}
