@@ -11,7 +11,6 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
-import withLoading from '../../../modules/common/hocs/withLoading'
 import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -29,7 +28,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
   if (!route || !city) {
-    return {loading: true}
+    return {}
   }
 
   if (!route.allAvailableLanguages.has(route.language)) {
@@ -59,7 +58,6 @@ export default compose([
   withRouteCleaner,
   withError,
   withLanguageNotAvailable,
-  withLoading,
   translate('events'),
   withTheme(props => props.language)
 ])(Events)

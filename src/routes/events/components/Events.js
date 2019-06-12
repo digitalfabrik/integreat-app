@@ -18,7 +18,7 @@ import type { NavigateToEventParamsType } from '../../../modules/app/createNavig
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
 type PropsType = {|
-  events: Array<EventModel>,
+  events: ?Array<EventModel>,
   cityCode: string,
   language: string,
   t: TFunction,
@@ -54,7 +54,7 @@ export default class Events extends React.Component<PropsType> {
   render () {
     const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation} = this.props
     const loading = !events
-    if (path) {
+    if (events && path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
@@ -81,7 +81,7 @@ export default class Events extends React.Component<PropsType> {
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-      {!loading && <>
+      {events && <>
         <Caption title={t('news')} theme={theme} />
         <List noItemsMessage={t('currentlyNoEvents')}
               items={events}
