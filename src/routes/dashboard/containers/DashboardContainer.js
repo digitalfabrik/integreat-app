@@ -17,7 +17,6 @@ import { translate } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
-import withLoading from '../../../modules/common/hocs/withLoading'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
@@ -27,7 +26,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const {resourceCache, categoriesRouteMapping, languages, language, city} = state.cityContent
 
   if (!languages || !city) {
-    return {loading: true}
+    return {}
   }
 
   if (!languages.map(languageModel => languageModel.code).includes(language)) {
@@ -44,7 +43,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
   if (!route || !cities) {
-    return {loading: true}
+    return {}
   }
 
   return {
@@ -85,7 +84,6 @@ export default compose([
   withRouteCleaner,
   withError,
   withLanguageNotAvailable,
-  withLoading,
   translate('dashboard'),
   withTheme(props => props.language)
 ])(Dashboard)

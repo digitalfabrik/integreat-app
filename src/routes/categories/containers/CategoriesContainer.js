@@ -14,7 +14,6 @@ import CategoriesScrollView from '../components/CategoriesScrollView'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
-import withLoading from '../../../modules/common/hocs/withLoading'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {|
@@ -34,7 +33,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
   if (!route || !cities || !city) {
-    return {loading: true}
+    return {}
   }
 
   if (!route.allAvailableLanguages.has(route.language || '')) {
@@ -66,6 +65,5 @@ export default compose([
   withRouteCleaner,
   withError,
   withLanguageNotAvailable,
-  withLoading,
   withTheme(props => props.language)
 ])(CategoriesScrollView)

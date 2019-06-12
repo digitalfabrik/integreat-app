@@ -29,7 +29,10 @@ export type PropsType = {|
 
 const mapStateToProps = (state: StateType) => {
   if (state.cities.errorMessage !== undefined) {
-    return {error: true}
+    return {
+      error: true,
+      cities: undefined
+    }
   }
   return {
     error: false,
