@@ -93,7 +93,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   setCities = async (cities: Array<CityModel>) => {
-    // TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
+    await this._databaseConnector.storeCities(cities)
     this._cities = cities
   }
 
@@ -105,10 +105,11 @@ class DefaultDataContainer implements DataContainer {
     this._context = new DatabaseContext(cityCode, languageCode)
     const context = this._context
 
-    const [events, categoriesMap, languages, resourceCache, lastUpdate] = await Promise.all([
+    const [events, categoriesMap, languages, cities, resourceCache, lastUpdate] = await Promise.all([
       this._databaseConnector.loadEvents(context),
       this._databaseConnector.loadCategories(context),
       this._databaseConnector.loadLanguages(context),
+      this._databaseConnector.loadCities(),
       this._databaseConnector.loadResourceCache(context),
       this._databaseConnector.loadLastUpdate(context)
     ])
@@ -116,6 +117,7 @@ class DefaultDataContainer implements DataContainer {
     this._events = events
     this._categoriesMap = categoriesMap
     this._languages = languages
+    this._cities = cities
     this._resourceCache = resourceCache
     this._lastUpdate = lastUpdate
   }
