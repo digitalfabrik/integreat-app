@@ -64,6 +64,9 @@ If you want to install an external library which brings native Android/iOS code 
 ### E2E Testing:
 [E2E Testing](docs/04-e2e.md)
 
+### Releasing:
+[Releasing](docs/06-releasing.md)
+
 ## Technology stack
 
 ### Bundler

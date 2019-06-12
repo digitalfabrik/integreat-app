@@ -1,5 +1,5 @@
 // @flow
 import TransparentHeader from '../components/TransparentHeader'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../theme/hocs/withTheme'
 
-export default withTheme(TransparentHeader)
+export default withTheme()(TransparentHeader)

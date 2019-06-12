@@ -363,15 +363,15 @@
   "settings": {
     "en": {
       "troubleshooting": "Help to improve Integreat",
-      "troubleshootingDescription": "Automatically sends crash reports",
+      "troubleshootingDescription": "Automatically send crash reports",
       "about": "About Integreat",
       "privacyPolicy": "Data protection declaration",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source licenses"
     },
     "de": {
-      "troubleshooting": "Hilf uns dabei Integreat zu verbessern",
-      "troubleshootingDescription": "Sendet automatisch Absturzberichte",
+      "troubleshooting": "Hilf uns Integreat zu verbessern",
+      "troubleshootingDescription": "Sende automatisch Absturzberichte",
       "about": "Über Integreat",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
@@ -410,6 +410,30 @@
     },
     "ru": {
       "settings": "Настройки сброшены."
+    }
+  },
+  "launchInquiry": {
+    "en": {
+      "troubleshooting": "Help to improve Integreat",
+      "troubleshootingDescription": "Automatically send crash reports",
+      "yes": "Yes",
+      "no": "No",
+      "askLater": "Ask later"
+    },
+    "de": {
+      "troubleshooting": "Hilf uns Integreat zu verbessern",
+      "troubleshootingDescription": "Sende automatisch Absturzberichte",
+      "yes": "Ja",
+      "no": "Nein",
+      "askLater": "Später fragen"
+    },
+    "fr": {
+    },
+    "ar": {
+    },
+    "fa": {
+    },
+    "ru": {
     }
   }
 }

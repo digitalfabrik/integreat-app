@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
@@ -39,5 +39,5 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
-  withTheme(SearchModal)
+  withTheme(props => props.language)(SearchModal)
 )

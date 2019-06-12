@@ -5,7 +5,7 @@ import { brightColors, darkColors } from './colors'
 import type { DimensionsType } from './dimensions'
 import dimensions from './dimensions'
 import type { FontsType } from './fonts'
-import fonts from './fonts'
+import {defaultFonts} from './fonts'
 
 export type ThemeType = {
   colors: ColorsType,
@@ -13,16 +13,16 @@ export type ThemeType = {
   fonts: FontsType
 }
 
-export const brightTheme = {
+export const brightTheme: ThemeType = {
   colors: brightColors,
   dimensions,
-  fonts
+  fonts: defaultFonts
 }
 
-export const darkTheme = {
+export const darkTheme: ThemeType = {
   colors: darkColors,
   dimensions,
-  fonts
+  fonts: defaultFonts
 }
 
 export default brightTheme

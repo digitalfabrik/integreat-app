@@ -4,7 +4,7 @@ import * as React from 'react'
 import connect from 'react-redux/es/connect/connect'
 import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
-import { TFunction, translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import compose from 'lodash/fp/compose'
 import { createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -13,6 +13,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { NavigationScreenProp } from 'react-navigation'
 import { baseUrl } from '../../../modules/endpoint/constants'
 import Failure from '../../../modules/error/components/Failure'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 const mapStateToProps = (state: StateType, ownProps) => {
   const language = state.cityContent.language
@@ -93,5 +94,6 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
 
 export default compose(
   connect(mapStateToProps),
-  translate('extras')
+  translate('extras'),
+  withTheme(props => props.language)
 )(ExtrasContainer)

@@ -14,6 +14,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import withLoading from '../../../modules/common/hocs/withLoading'
 import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withError from '../../../modules/error/hocs/withError'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
@@ -59,5 +60,6 @@ export default compose([
   withError,
   withLanguageNotAvailable,
   withLoading,
-  translate('events')
+  translate('events'),
+  withTheme(props => props.language)
 ])(Events)

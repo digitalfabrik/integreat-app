@@ -5,7 +5,7 @@ import { ActivityIndicator } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
 import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
-import { TFunction, translate } from 'react-i18next'
+import { type TFunction, translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
 import {
   createWohnenEndpoint,
@@ -17,7 +17,7 @@ import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../extras/constants'
 import request from '../../../modules/endpoint/request'
 import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
 import Failure from '../../../modules/error/components/Failure'
-import { withTheme } from 'styled-components/native'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 const mapStateToProps = (state: StateType, ownProps) => {
@@ -112,5 +112,5 @@ class WohnenExtraContainer extends React.Component<PropsType, SprungbrettStateTy
 export default compose(
   connect(mapStateToProps),
   translate('wohnen'),
-  withTheme
+  withTheme()
 )(WohnenExtraContainer)

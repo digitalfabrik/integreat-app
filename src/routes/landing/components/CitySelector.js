@@ -6,32 +6,29 @@ import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components/native'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-export const CityListParent = styled.View`
+export const CityGroup = styled.Text`
+  flex: 1;
   height: 30px;
   margin-top: 10px;
   line-height: 30px;
   background-color: white;
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  color: ${props => props.theme.colors.textColor};
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-type PropsType = {
+type PropsType = {|
   cities: Array<CityModel>,
   filterText: string,
-  language: string,
-  stickyTop: number,
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType
-}
+|}
 
 class CitySelector extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    stickyTop: 0
-  }
-
   // TODO: We currently use this alternative for testing
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
@@ -56,11 +53,10 @@ class CitySelector extends React.PureComponent<PropsType> {
     const groups = groupBy(cities, city => city.sortCategory)
     return transform(groups, (result, cities, key) => {
       result.push(<View key={key}>
-        <CityListParent theme={this.props.theme}><Text>{key}</Text></CityListParent>
+        <CityGroup theme={this.props.theme}>{key}</CityGroup>
         {cities.map(city => <CityEntry
           key={city.code}
           city={city}
-          language={this.props.language}
           filterText={this.props.filterText}
           navigateToDashboard={this.props.navigateToDashboard}
           theme={this.props.theme} />)}
@@ -69,11 +65,9 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   render () {
-    return <React.Fragment>
-      {
-        this.renderList(this.filter())
-      }
-    </React.Fragment>
+    return <>
+      { this.renderList(this.filter()) }
+    </>
   }
 }
 

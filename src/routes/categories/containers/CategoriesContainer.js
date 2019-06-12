@@ -1,6 +1,5 @@
 // @flow
 
-import { withTheme } from 'styled-components/native'
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
@@ -16,6 +15,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withLoading from '../../../modules/common/hocs/withLoading'
+import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
@@ -67,5 +67,5 @@ export default compose([
   withError,
   withLanguageNotAvailable,
   withLoading,
-  withTheme
+  withTheme(props => props.language)
 ])(CategoriesScrollView)

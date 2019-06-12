@@ -70,7 +70,7 @@ class NavigationTile extends React.Component<PropsType> {
   getNewsDot (): React.Node {
     const notifications = this.props.tile.notifications
     if (notifications && notifications > 0) {
-      return <NewsDot>{notifications}</NewsDot>
+      return <NewsDot theme={this.props.theme}>{notifications}</NewsDot>
     } else {
       return null
     }
@@ -80,7 +80,7 @@ class NavigationTile extends React.Component<PropsType> {
     const {tile, theme} = this.props
     const imageSource = getFastImageSource(tile.thumbnail)
     return <>
-      <Circle>
+      <Circle theme={theme}>
         <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
         {this.getNewsDot()}
       </Circle>
