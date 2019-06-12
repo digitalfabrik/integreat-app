@@ -13,7 +13,6 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import CategoriesScrollView from '../components/CategoriesScrollView'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
-import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {|
@@ -64,6 +63,5 @@ export default compose([
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner,
   withError,
-  withLanguageNotAvailable,
   withTheme(props => props.language)
 ])(CategoriesScrollView)
