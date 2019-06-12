@@ -1,19 +1,31 @@
 // @flow
 
 import * as React from 'react'
+import { LanguageModel } from '@integreat-app/integreat-api-client'
+import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import Failure from '../components/Failure'
 
 export type ErrorType = {|
-  error: boolean
+  error: true,
+  languageNotAvailable: false,
+  city: string,
+  languages: Array<LanguageModel>,
+  changeUnavailableLanguage: (city: string, newLanguage: string) => void
 |}
 
 type PropsType<T> = ErrorType | T
 
-function withError<Props: PropsType<*>> (
+function withLanguageNotAvailable<Props: PropsType<*>> (
   Component: React.ComponentType<Props>): React.ComponentType<*> {
-  class ErrorComponent extends React.PureComponent<Props> {
+  class LanguageNotAvailableComponent extends React.PureComponent<Props> {
     render () {
-      const {error, ...props} = this.props
+      const {error, languageNotAvailable, city, languages, changeUnavailableLanguage, ...props} = this.props
+
+      if (languageNotAvailable) {
+        return <LanguageNotAvailableContainer city={city}
+                                              languages={languages}
+                                              changeLanguage={changeUnavailableLanguage} />
+      }
 
       if (error) {
         return <Failure />
@@ -23,7 +35,7 @@ function withError<Props: PropsType<*>> (
     }
   }
 
-  return ErrorComponent
+  return LanguageNotAvailableComponent
 }
 
-export default withError
+export default withLanguageNotAvailable

@@ -11,7 +11,6 @@ import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
-import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 
@@ -57,7 +56,6 @@ export default compose([
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner,
   withError,
-  withLanguageNotAvailable,
   translate('events'),
   withTheme(props => props.language)
 ])(Events)

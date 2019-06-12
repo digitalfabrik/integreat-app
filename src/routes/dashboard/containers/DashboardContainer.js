@@ -16,7 +16,6 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import { translate } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
-import withLanguageNotAvailable from '../../../modules/common/hocs/withLanguageNotAvailable'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
@@ -83,7 +82,6 @@ export default compose([
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner,
   withError,
-  withLanguageNotAvailable,
   translate('dashboard'),
   withTheme(props => props.language)
 ])(Dashboard)
