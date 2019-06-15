@@ -10,7 +10,8 @@ const IntegreatAppConfig: AppConfigType = {
   theme: brightTheme,
   cmsUrl: 'https://cms.integreat-app.de',
   locationIcon: '/location-big.svg',
-  logoWide: '/integreat-app-logo.png'
+  logoWide: '/integreat-app-logo.png',
+  internalLinksHijackPattern: 'https?:\\/\\/(cms\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 
 module.exports = IntegreatAppConfig

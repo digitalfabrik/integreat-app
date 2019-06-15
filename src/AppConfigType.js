@@ -8,5 +8,6 @@ export type AppConfigType = {|
   theme: ThemeType,
   itunesAppId?: string,
   logoWide: string,
-  locationIcon: string
+  locationIcon: string,
+  internalLinksHijackPattern: string
 |}

@@ -63,7 +63,7 @@ type PropsType = {|
   centered: boolean
 |}
 
-const HIJACK = /https?:\/\/(cms\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
+const HIJACK = new RegExp(__CONFIG__.internalLinksHijackRegexp)
 
 class RemoteContent extends React.Component<PropsType> {
   static defaultProps = {

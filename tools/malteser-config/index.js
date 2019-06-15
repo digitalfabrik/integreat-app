@@ -27,7 +27,8 @@ const IntegreatAppConfig: AppConfigType = {
   theme: theme,
   cmsUrl: 'https://malteser.tuerantuer.org',
   locationIcon: '/location-big.svg',
-  logoWide: '/malteser-logo.png'
+  logoWide: '/malteser-logo.png',
+  internalLinksHijackPattern: 'https?:\\/\\/malteser\\.tuerantuer\\.org(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*'
 }
 
 module.exports = IntegreatAppConfig
