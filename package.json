@@ -7,7 +7,7 @@
     "npm": ">=3.8"
   },
   "scripts": {
-    "start": "node tools/run.js",
+    "start": "babel-node tools/run.js",
     "build": "babel-node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "build:lib": "node tools/lib.build.js && flow-copy-source -i '**/@(__mocks__|__tests__)/**' ./src ./dist && mv ./dist/lib.js.flow ./dist/index.js.flow",
