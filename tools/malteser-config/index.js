@@ -25,7 +25,9 @@ const theme: ThemeType = {
 const IntegreatAppConfig: AppConfigType = {
   appTitle: 'Malteser',
   theme: theme,
-  cmsUrl: 'https://malteser.tuerantuer.org'
+  cmsUrl: 'https://malteser.tuerantuer.org',
+  locationIcon: '/location-big.svg',
+  logoWide: '/malteser-logo.png'
 }
 
 module.exports = IntegreatAppConfig

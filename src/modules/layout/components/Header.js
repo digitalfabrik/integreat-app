@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import logoWide from '../assets/integreat-app-logo.png'
 import HeaderNavigationBar from './HeaderNavigationBar'
 import HeaderActionBar from './HeaderActionBar'
 import HeaderActionItem from '../HeaderActionItem'
@@ -119,7 +118,7 @@ export class Header extends React.PureComponent<PropsType> {
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <LogoWide><Link to={logoHref}><img src={logoWide} /></Link></LogoWide>
+          <LogoWide><Link to={logoHref}><img src={__CONFIG__.logoWide} /></Link></LogoWide>
           <NavigationBar>{navigationItems}</NavigationBar>
           <ActionBar items={actionItems} />
         </HeaderContainer>

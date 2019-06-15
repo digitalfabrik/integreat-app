@@ -6,5 +6,7 @@ export type AppConfigType = {|
   appTitle: string,
   cmsUrl: string,
   theme: ThemeType,
-  itunesAppId?: string
+  itunesAppId?: string,
+  logoWide: string,
+  locationIcon: string
 |}
