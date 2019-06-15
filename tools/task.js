@@ -11,7 +11,9 @@
 function run (task, action, ...args) {
   const command = process.argv[2]
   const taskName = command && !command.startsWith('-') ? `${task}:${command}` : task
-  const newArgs = args.length === 0 ? process.argv.slice(2) : args
+  const newArgs = args.length === 0
+    ? process.argv.slice(2).filter(arg => !arg.startsWith('-'))
+    : args
   const start = new Date()
   process.stdout.write(`Starting '${taskName}'...\n`)
   return Promise.resolve().then(() => action(...newArgs)).then(result => {
