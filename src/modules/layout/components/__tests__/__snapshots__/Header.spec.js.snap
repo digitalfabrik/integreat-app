@@ -14,7 +14,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
         to="/random_route"
       >
         <img
-          src="test-file-stub"
+          src="/integreat-app-logo.png"
         />
       </Connect(Link)>
     </Header__LogoWide>
