@@ -71,6 +71,7 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
+    "@babel/node": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-proposal-do-expressions": "^7.2.0",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
@@ -127,6 +128,7 @@
     "flow-copy-source": "^2.0.3",
     "flow-typed": "^2.5.1",
     "front-matter": "^3.0.1",
+    "fs-extra": "^8.0.1",
     "generate-package-json-webpack-plugin": "^1.0.0",
     "git-repo-version": "^1.0.2",
     "highlight.js": "^9.15.6",
