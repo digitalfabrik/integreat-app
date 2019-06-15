@@ -11,7 +11,7 @@ import {
   Payload
 } from '@integreat-app/integreat-api-client'
 import fetchData from '../fetchData'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 type EventsRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|events: Payload<Array<EventModel>>|}
@@ -29,9 +29,9 @@ const eventsRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language})
+      fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language})
     ])
   }
 }
