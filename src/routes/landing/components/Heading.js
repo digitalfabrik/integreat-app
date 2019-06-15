@@ -2,7 +2,6 @@
 
 import React from 'react'
 
-import LocationBig from '../assets/LocationBig.svg'
 import styled from 'styled-components'
 
 const Logo = styled.img`
@@ -10,6 +9,7 @@ const Logo = styled.img`
   height: 70px;
   margin: 0 auto;
 `
-const Heading = () => <Logo src={LocationBig} />
+
+const Heading = () => <Logo src={__CONFIG__.locationIcon} />
 
 export default Heading
