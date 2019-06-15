@@ -12,7 +12,7 @@ import {
   Payload,
   PoiModel
 } from '@integreat-app/integreat-api-client'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 type PoisRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
@@ -26,10 +26,10 @@ const poisRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createPOIsEndpoint(integreatApiBaseUrl), dispatch, state.pois, {city, language})
+      fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createPOIsEndpoint(cmsApiBaseUrl), dispatch, state.pois, {city, language})
     ])
   }
 }

@@ -28,7 +28,7 @@ import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
 import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
-import { integreatApiBaseUrl } from '../../app/constants/urls'
+import { cmsApiBaseUrl } from '../../app/constants/urls'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -67,7 +67,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      createFeedbackEndpoint(integreatApiBaseUrl).request(feedbackData)
+      createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
     }
   }
 
