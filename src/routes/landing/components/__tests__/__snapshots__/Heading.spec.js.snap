@@ -44,7 +44,7 @@ exports[`Heading should render 1`] = `
 >
   <Heading>
     <Heading__Logo
-      src="test-file-stub"
+      src="/location-big.svg"
     >
       <StyledComponent
         forwardedComponent={
@@ -70,11 +70,11 @@ exports[`Heading should render 1`] = `
           }
         }
         forwardedRef={null}
-        src="test-file-stub"
+        src="/location-big.svg"
       >
         <img
           className="Heading__Logo-nspadb-0 douIoU"
-          src="test-file-stub"
+          src="/location-big.svg"
         />
       </StyledComponent>
     </Heading__Logo>
