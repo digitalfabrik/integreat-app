@@ -13,8 +13,9 @@ function run (task, action, ...args) {
   const taskName = command && !command.startsWith('-') ? `${task}:${command}` : task
   const start = new Date()
   process.stdout.write(`Starting '${taskName}'...\n`)
-  return Promise.resolve().then(() => action(...args)).then(() => {
+  return Promise.resolve().then(() => action(...args)).then(result => {
     process.stdout.write(`Finished '${taskName}' after ${new Date().getTime() - start.getTime()}ms\n`)
+    return Promise.resolve(result)
   }, err => {
     process.stderr.write(`${err.stack}\n`)
     process.exit(1)
