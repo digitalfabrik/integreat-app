@@ -3,6 +3,7 @@
 import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
+import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
@@ -40,7 +41,7 @@ export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
     path: string, depth: number, key: string,
-    forceUpdate: boolean, shouldRefreshResources: boolean
+    criterion: ContentLoadCriterionType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -56,7 +57,7 @@ export type PushCategoryActionType = {|
     languages: Array<LanguageModel>,
     city: string,
     language: string,
-    path: string, depth: number, key: string
+    path: string, depth: number, key: string, peek: boolean
   |}
 |}
 export type ClearCategoryActionType = {|
@@ -72,7 +73,7 @@ export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
     path?: string, key: string,
-    forceUpdate: boolean, shouldRefreshResources: boolean
+    criterion: ContentLoadCriterionType
   |}
 |}
 export type ClearEventActionType = {|
@@ -85,7 +86,8 @@ export type PushEventActionType = {|
     resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
-    language: string
+    language: string,
+    peek: boolean
   |}
 |}
 export type FetchEventFailedActionType = {|
