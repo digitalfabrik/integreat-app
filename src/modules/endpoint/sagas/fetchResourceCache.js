@@ -8,6 +8,7 @@ import type { FetchResultType } from '../../fetcher/FetcherModule'
 import FetcherModule from '../../fetcher/FetcherModule'
 import { invertBy, mapValues, pickBy } from 'lodash/object'
 import type { DataContainer } from '../DataContainer'
+import DatabaseContext from '../DatabaseContext'
 
 type PathType = string
 type UrlType = string
@@ -27,6 +28,8 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
 export default function * fetchResourceCache (
   city: string, language: string, fetchMap: FetchMapType, dataContainer: DataContainer): Saga<void> {
   try {
+    const context = new DatabaseContext(city, language)
+
     const targetUrls = mapValues(fetchMap, ([url]) => url)
 
     const results = yield call(new FetcherModule().fetchAsync, targetUrls, progress => console.log(progress))
@@ -55,7 +58,7 @@ export default function * fetchResourceCache (
       }, {})
     )
 
-    yield call(dataContainer.setResourceCache, resourceCache)
+    yield call(dataContainer.setResourceCache, context, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
