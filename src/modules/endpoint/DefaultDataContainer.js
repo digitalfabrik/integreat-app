@@ -11,10 +11,11 @@ import RNFetchBlob from 'rn-fetch-blob'
 
 class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
-  _context: DatabaseContext | null = null
+
+  _currentContext: DatabaseContext | null
+  _cities: Array<CityModel> | null
 
   _lastUpdate: Moment | null
-  _cities: Array<CityModel> | null
   _categoriesMap: CategoriesMapModel | null
   _languages: Array<LanguageModel> | null
   _resourceCache: CityResourceCacheStateType | null
@@ -24,6 +25,17 @@ class DefaultDataContainer implements DataContainer {
     this._databaseConnector = new DatabaseConnector()
   }
 
+  removeOutdated (newContext: DatabaseContext) {
+    if (this._currentContext && !newContext.equals(this._currentContext)) {
+      this._lastUpdate = null
+      this._categoriesMap = null
+      this._resourceCache = null
+      this._events = null
+    }
+
+    this._currentContext = newContext
+  }
+
   getCities = async (): Promise<Array<CityModel>> => {
     if (this._cities === null) {
       throw Error('Cities are null.')
@@ -31,64 +43,56 @@ class DefaultDataContainer implements DataContainer {
     return this._cities
   }
 
-  getCategoriesMap = async (): Promise<CategoriesMapModel> => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
+  getCategoriesMap = async (context: DatabaseContext): Promise<CategoriesMapModel> => {
+    this.removeOutdated(context)
+
     if (this._categoriesMap === null) {
-      throw Error('CategoriesMap is null.')
+      this._cities = await this._databaseConnector.loadCategories(context)
     }
     return this._categoriesMap
   }
 
-  getEvents = async (): Promise<Array<EventModel>> => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
+  getEvents = async (context: DatabaseContext): Promise<Array<EventModel>> => {
+    this.removeOutdated(context)
+
     if (this._events === null) {
-      throw Error('Events are null.')
+      this._events = await this._databaseConnector.loadCategories(context)
     }
     return this._events
   }
 
-  getLanguages = async (): Promise<Array<LanguageModel>> => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
+  getLanguages = async (context: DatabaseContext): Promise<Array<LanguageModel>> => {
+    this.removeOutdated(context)
+
     if (this._languages === null) {
-      throw Error('Languages are null.')
+      this._languages = await this._databaseConnector.loadLanguages(context)
     }
     return this._languages
   }
 
-  getResourceCache = async (): Promise<LanguageResourceCacheStateType> => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
+  getResourceCache = async (context: DatabaseContext): Promise<LanguageResourceCacheStateType> => {
+    this.removeOutdated(context)
+
     if (this._resourceCache === null) {
-      throw Error('CityResourceCache is null.')
+      this._resourceCache = await this._databaseConnector.loadResourceCache(context)
     }
-    if (!this._resourceCache[this._context.languageCode]) {
+    if (!this._resourceCache[context.languageCode]) {
       throw Error('LanguageResourceCache is null.')
     }
-    return this._resourceCache[this._context.languageCode]
+    return this._resourceCache[context.languageCode]
   }
 
-  getLastUpdate = async (): Promise<Moment> => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
+  getLastUpdate = async (context: DatabaseContext): Promise<Moment> => {
     if (this._lastUpdate === null) {
-      throw Error('LastUpdate is null.')
+      this._lastUpdate = await this._databaseConnector.loadLastUpdate(context)
     }
     return this._lastUpdate
   }
 
-  setCategoriesMap = async (categories: CategoriesMapModel) => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
-    await this._databaseConnector.storeCategories(categories, this._context)
+  setCategoriesMap = async (context: DatabaseContext, categories: CategoriesMapModel) => {
+    this.removeOutdated(context)
+
+    await this._databaseConnector.storeCategories(categories, context)
     this._categoriesMap = categories
   }
 
@@ -97,42 +101,15 @@ class DefaultDataContainer implements DataContainer {
     this._cities = cities
   }
 
-  setContext = async (cityCode: string, languageCode: string) => {
-    if (this._context !== null && this._context._cityCode === cityCode && this._context.languageCode === languageCode) {
-      return
-    }
+  setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
+    this.removeOutdated(context)
 
-    this._context = new DatabaseContext(cityCode, languageCode)
-    const context = this._context
-
-    const [events, categoriesMap, languages, resourceCache, lastUpdate] = await Promise.all([
-      this._databaseConnector.loadEvents(context),
-      this._databaseConnector.loadCategories(context),
-      this._databaseConnector.loadLanguages(context),
-      this._databaseConnector.loadResourceCache(context),
-      this._databaseConnector.loadLastUpdate(context)
-    ])
-
-    this._events = events
-    this._categoriesMap = categoriesMap
-    this._languages = languages
-    this._resourceCache = resourceCache
-    this._lastUpdate = lastUpdate
-  }
-
-  setEvents = async (events: Array<EventModel>) => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
-    await this._databaseConnector.storeEvents(events, this._context)
+    await this._databaseConnector.storeEvents(events, context)
     this._events = events
   }
 
-  setLanguages = async (languages: Array<LanguageModel>) => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
-    await this._databaseConnector.storeLanguages(languages, this._context)
+  setLanguages = async (city: string, languages: Array<LanguageModel>) => {
+    await this._databaseConnector.storeLanguages(languages, city)
     this._languages = languages
   }
 
@@ -143,11 +120,10 @@ class DefaultDataContainer implements DataContainer {
     )
   }
 
-  setResourceCache = async (resourceCache: LanguageResourceCacheStateType) => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
-    const language = this._context.languageCode
+  setResourceCache = async (context: DatabaseContext, resourceCache: LanguageResourceCacheStateType) => {
+    this.removeOutdated(context)
+
+    const language = context.languageCode
     const newResourceCache = {...this._resourceCache, [language]: resourceCache}
 
     if (this._resourceCache && this._resourceCache[language]) {
@@ -167,35 +143,42 @@ class DefaultDataContainer implements DataContainer {
       }
     }
 
-    await this._databaseConnector.storeResourceCache(newResourceCache, this._context)
+    await this._databaseConnector.storeResourceCache(newResourceCache, context)
     this._resourceCache = newResourceCache
   }
 
-  setLastUpdate = async (lastUpdate: Moment) => {
-    if (this._context === null) {
-      throw Error('Context has not been set yet.')
-    }
-    await this._databaseConnector.storeLastUpdate(lastUpdate, this._context)
+  setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment) => {
+    this.removeOutdated(context)
+
+    await this._databaseConnector.storeLastUpdate(lastUpdate, context)
     this._lastUpdate = lastUpdate
   }
 
-  categoriesAvailable (): boolean {
+  categoriesAvailable (context: DatabaseContext): boolean {
+    this.removeOutdated(context)
+
     return this._categoriesMap !== null
   }
 
-  languagesAvailable (): boolean {
+  languagesAvailable (city: string): boolean {
     return this._languages !== null
   }
 
-  eventsAvailable (): boolean {
+  eventsAvailable (context: DatabaseContext): boolean {
+    this.removeOutdated(context)
+
     return this._events !== null
   }
 
-  resourceCacheAvailable (): boolean {
+  resourceCacheAvailable (context: DatabaseContext): boolean {
+    this.removeOutdated(context)
+
     return this._resourceCache !== null
   }
 
-  lastUpdateAvailable (): boolean {
+  lastUpdateAvailable (context: DatabaseContext): boolean {
+    this.removeOutdated(context)
+
     return this._lastUpdate !== null
   }
 }

@@ -81,8 +81,8 @@ class DatabaseConnector {
     return `${CONTENT_DIR_PATH}/${context.cityCode}/${context.languageCode}/${key}.json`
   }
 
-  getLanguagesPath (context: DatabaseContext): string {
-    return `${CONTENT_DIR_PATH}/${context.cityCode}/languages.json`
+  getLanguagesPath (city: string): string {
+    return `${CONTENT_DIR_PATH}/${city}/languages.json`
   }
 
   getResourceCachePath (context: DatabaseContext): string {
@@ -111,12 +111,13 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(currentCityMetaData))
   }
 
-  async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
+  async loadLastUpdate (context: DatabaseContext): Promise<Moment> {
     const path = this.getMetaCitiesPath()
 
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
+
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
@@ -144,12 +145,12 @@ class DatabaseConnector {
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
 
-  async loadCategories (context: DatabaseContext): Promise<CategoriesMapModel | null> {
+  async loadCategories (context: DatabaseContext): Promise<CategoriesMapModel> {
     const path = this.getContentPath('categories', context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const json = JSON.parse(await this.readFile(path))
@@ -170,20 +171,20 @@ class DatabaseConnector {
     }))
   }
 
-  async loadLanguages (context: DatabaseContext): Promise<Array<LanguageModel> | null> {
+  async loadLanguages (context: DatabaseContext): Promise<Array<LanguageModel>> {
     const path = this.getContentPath('languages', context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const languages = JSON.parse(await this.readFile(path))
     return languages.map(language => new LanguageModel(language._code, language._name))
   }
 
-  async storeLanguages (languages: Array<LanguageModel>, context: DatabaseContext) {
-    const path = this.getLanguagesPath(context)
+  async storeLanguages (languages: Array<LanguageModel>, city: string) {
+    const path = this.getLanguagesPath(city)
     await this.writeFile(path, JSON.stringify(languages))
   }
 
@@ -252,12 +253,12 @@ class DatabaseConnector {
     })
   }
 
-  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType | null> {
+  async loadResourceCache (context: DatabaseContext): Promise<CityResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     return JSON.parse(await this.readFile(path))
