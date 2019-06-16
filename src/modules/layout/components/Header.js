@@ -11,6 +11,7 @@ import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/Hea
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
+import type { CategoryRouteStateType } from '../../app/StateType'
 
 const Horizontal = styled.View`
   flex:1;
@@ -63,9 +64,7 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   routeMapping: {
-    [key: string]: {
-      root: string
-    }
+    [key: string]: CategoryRouteStateType
   },
   availableLanguages: ?Array<string>,
   navigateToLanding: () => void,
@@ -112,6 +111,21 @@ class Header extends React.PureComponent<PropsType> {
     })
   }
 
+  showLanguageChange (): boolean {
+    const {routeKey, routeMapping} = this.props
+    const route = routeMapping[routeKey]
+
+    if (!route) {
+      return false
+    }
+
+    return !route.peek
+  }
+
+  showSearch (): boolean {
+    return this.showLanguageChange()
+  }
+
   onShare = async () => {
     const {t} = this.props
     const sharePath: ?string = this.getNavigation().getParam('sharePath')
@@ -153,8 +167,10 @@ class Header extends React.PureComponent<PropsType> {
           <Title>{headerTitle}</Title>
         </HorizontalLeft>
         <MaterialHeaderButtons>
-          <Item title='Search' iconName='search' onPress={this.goToSearch} />
-          <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
+          {this.showSearch() &&
+          <Item title='Search' iconName='search' onPress={this.goToSearch} />}
+          {this.showLanguageChange() &&
+          <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />}
           {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
           <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
           <Item title={t('settings')} show='never' onPress={this.goToSettings} />
