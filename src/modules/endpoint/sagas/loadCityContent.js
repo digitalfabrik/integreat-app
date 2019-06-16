@@ -11,14 +11,14 @@ import type { PushLanguagesActionType, SetCityContentLocalizationType } from '..
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
-
-const MAX_CONTENT_AGE = 24
+import { ContentLoadCriterion } from '../ContentLoadCriterion'
+import DatabaseContext from '../DatabaseContext'
 
 export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
-  forceUpdate: boolean, shouldRefreshResources: boolean
+  criterion: ContentLoadCriterion
 ): Saga<void> {
-  yield call(dataContainer.setContext, newCity, newLanguage)
+  const context = new DatabaseContext(newCity, newLanguage)
 
   const setCityContentLocalization: SetCityContentLocalizationType = {
     type: 'SET_CITY_CONTENT_LOCALIZATION',
@@ -31,56 +31,56 @@ export default function * loadCityContent (
   yield put(setCityContentLocalization)
 
   let lastUpdate: moment | null = null
-  if (dataContainer.lastUpdateAvailable()) {
-    lastUpdate = yield call(dataContainer.getLastUpdate)
+  if (dataContainer.lastUpdateAvailable(context)) {
+    lastUpdate = yield call(dataContainer.getLastUpdate, context)
   }
 
   console.debug('Last city content update on ',
     lastUpdate ? lastUpdate.toISOString() : 'never')
 
-  // The last update was more than 24h ago or a refresh should be forced
-  const shouldUpdate = forceUpdate || !lastUpdate ||
-    lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
+  const shouldUpdate = criterion.shouldUpdate(lastUpdate)
 
   console.debug('City content should be refreshed: ', shouldUpdate)
 
-  yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
-  const languages = yield call(dataContainer.getLanguages)
+  if (criterion.shouldUpdateLanguages()) {
+    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    const languages = yield call(dataContainer.getLanguages, context)
 
-  const pushLanguages: PushLanguagesActionType = {
-    type: 'PUSH_LANGUAGES',
-    params: {
-      languages
+    const pushLanguages: PushLanguagesActionType = {
+      type: 'PUSH_LANGUAGES',
+      params: {
+        languages
+      }
+    }
+    yield put(pushLanguages)
+
+    if (!languages.map(language => language.code).includes(newLanguage)) {
+      throw new Error('Language is not available')
     }
   }
-  yield put(pushLanguages)
 
-  if (languages.map(language => language.code).includes(newLanguage)) {
-    const [categoriesMap, events] = yield all([
-      call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
-      call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate)
-    ])
+  const [categoriesMap, events] = yield all([
+    call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
+    call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate)
+  ])
 
-    // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
-    // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
-    // failed to download some resources an other call could fix this and download missing files.
-    if (shouldRefreshResources) {
-      const resourceURLFinder = new ResourceURLFinder()
-      resourceURLFinder.init()
+  // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
+  // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
+  // failed to download some resources an other call could fix this and download missing files.
+  if (criterion.shouldRefreshResources) {
+    const resourceURLFinder = new ResourceURLFinder()
+    resourceURLFinder.init()
 
-      const fetchMap = resourceURLFinder.buildFetchMap(
-        categoriesMap.toArray().concat(events),
-        (url, path) => buildResourceFilePath(url, path, newCity)
-      )
+    const fetchMap = resourceURLFinder.buildFetchMap(
+      categoriesMap.toArray().concat(events),
+      (url, path) => buildResourceFilePath(url, path, newCity)
+    )
 
-      resourceURLFinder.finalize()
-      yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
-    }
+    resourceURLFinder.finalize()
+    yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
+  }
 
-    if (shouldUpdate) {
-      yield call(dataContainer.setLastUpdate, moment.tz('UTC'))
-    }
-  } else {
-    throw new Error('Language is not available')
+  if (shouldUpdate) {
+    yield call(dataContainer.setLastUpdate, context, moment.tz('UTC'))
   }
 }

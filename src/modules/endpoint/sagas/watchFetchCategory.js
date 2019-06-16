@@ -9,19 +9,23 @@ import type {
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
+import { ContentLoadCriterion } from '../ContentLoadCriterion'
+import DatabaseContext from '../DatabaseContext'
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, path, depth, key, forceUpdate, shouldRefreshResources} = action.params
+  const {city, language, path, depth, key, criterion} = action.params
   try {
-    yield call(loadCityContent, dataContainer, city, language, forceUpdate, shouldRefreshResources)
+    const loadCriterion = new ContentLoadCriterion(criterion)
+    yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
+    const context = new DatabaseContext(city, language)
     const [categoriesMap, resourceCache, languages] = yield all([
-      call(dataContainer.getCategoriesMap),
-      call(dataContainer.getResourceCache),
-      call(dataContainer.getLanguages)
+      call(dataContainer.getCategoriesMap, context),
+      call(dataContainer.getResourceCache, context),
+      call(dataContainer.getLanguages, context)
     ])
 
-    const insert: PushCategoryActionType = {
+    const push: PushCategoryActionType = {
       type: `PUSH_CATEGORY`,
       params: {
         categoriesMap,
@@ -31,10 +35,11 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
         depth,
         key,
         city,
-        language
+        language,
+        peek: loadCriterion.peek()
       }
     }
-    yield put(insert)
+    yield put(push)
   } catch (e) {
     console.error(e)
     const failed: FetchCategoryFailedActionType = {

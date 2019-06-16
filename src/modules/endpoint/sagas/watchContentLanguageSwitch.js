@@ -7,17 +7,23 @@ import type {
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
+import { ContentLoadCriterion } from '../ContentLoadCriterion'
+import DatabaseContext from '../DatabaseContext'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
     // We never want to force a refresh when switching languages
-    yield call(loadCityContent, dataContainer, city, newLanguage, false, true)
+    yield call(
+      loadCityContent, dataContainer, city, newLanguage,
+      new ContentLoadCriterion({forceUpdate: false, shouldRefreshResources: true})
+    )
 
+    const context = new DatabaseContext(city, newLanguage)
     const [categories, resourceCache, events] = yield all([
-      call(dataContainer.getCategoriesMap),
-      call(dataContainer.getResourceCache),
-      call(dataContainer.getEvents)
+      call(dataContainer.getCategoriesMap, context),
+      call(dataContainer.getResourceCache, context),
+      call(dataContainer.getEvents, context)
     ])
 
     const insert: MorphContentLanguageActionType = {
