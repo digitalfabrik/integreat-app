@@ -3,6 +3,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
+import appConfig from '../../../modules/app/constants/appConfig'
 
 const Logo = styled.img`
   display: block;
@@ -10,6 +11,6 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-const Heading = () => <Logo src={__CONFIG__.locationIcon} />
+const Heading = () => <Logo src={appConfig.locationIcon} />
 
 export default Heading

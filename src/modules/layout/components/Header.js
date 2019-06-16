@@ -11,6 +11,7 @@ import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
+import appConfig from '../../app/constants/appConfig'
 
 type PropsType = {|
   navigationItems: React.Node,
@@ -118,7 +119,7 @@ export class Header extends React.PureComponent<PropsType> {
                 height={height}
                 positionStickyDisabled={platform.positionStickyDisabled}>
         <HeaderContainer>
-          <LogoWide><Link to={logoHref}><img src={__CONFIG__.logoWide} /></Link></LogoWide>
+          <LogoWide><Link to={logoHref}><img src={appConfig.logoWide} /></Link></LogoWide>
           <NavigationBar>{navigationItems}</NavigationBar>
           <ActionBar items={actionItems} />
         </HeaderContainer>
