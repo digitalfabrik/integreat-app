@@ -25,8 +25,9 @@ type PropsType = {
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
   const currentLanguage = route ? route.language : state.cityContent.language
+  const city = route ? route.city : state.cityContent.city
   return {
-    city: state.cityContent.city,
+    city: city,
     currentLanguage,
     languages: state.cityContent.languages,
     availableLanguages: ownProps.navigation.getParam('availableLanguages'),
@@ -35,7 +36,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 }
 
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
-const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
+const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
     changeLanguage: (city: string, newLanguage: string) => dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
