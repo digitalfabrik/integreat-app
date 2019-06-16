@@ -211,7 +211,7 @@ class DatabaseConnector {
       sortingName: city.sortingName
     }))
 
-    await this.writeFile(this.getContentPath('cities'), JSON.stringify((jsonModels)))
+    await this.writeFile(this.getContentPath('cities'), JSON.stringify(jsonModels))
   }
 
   async loadCities (): Promise<Array<CityModel> | null> {
