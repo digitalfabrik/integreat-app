@@ -7,9 +7,9 @@ import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLanguage: string) =>
+const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
-    const {depth, root, allAvailableLanguages} = route
+    const {depth, root, allAvailableLanguages, peek} = route
 
     const translatedRoot = allAvailableLanguages.get(newLanguage)
 
@@ -40,20 +40,24 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
       children: resultChildren,
       depth,
       allAvailableLanguages,
-      language: newLanguage
+      language: newLanguage,
+      city,
+      peek
     }
   }
 
-const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
+const eventRouteTranslator = (newEvents: Array<EventModel>, city: string, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
-    const {path, allAvailableLanguages} = route
+    const {path, allAvailableLanguages, peek} = route
 
     if (!path) { // Route is a list of all events
       return {
         path: null,
         models: newEvents,
         allAvailableLanguages,
-        language: newLanguage
+        language: newLanguage,
+        city,
+        peek
       }
     }
 
@@ -77,7 +81,9 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
       path: translatedPath,
       models: [translatedEvent],
       allAvailableLanguages,
-      language: newLanguage
+      language: newLanguage,
+      city,
+      peek
     }
   }
 
@@ -97,12 +103,12 @@ const morphContentLanguage = (
 
   const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,
-    categoryRouteTranslator(newCategoriesMap, newLanguage)
+    categoryRouteTranslator(newCategoriesMap, city, newLanguage)
   ) : {}
 
   const translatedEventsRouteMapping = eventsRouteMapping.errorMessage === undefined ? mapValues(
     eventsRouteMapping,
-    eventRouteTranslator(newEvents, newLanguage)
+    eventRouteTranslator(newEvents, city, newLanguage)
   ) : {}
 
   return {

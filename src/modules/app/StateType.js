@@ -16,19 +16,23 @@ export type PathType = string
 export type CategoryRouteStateType = {|
   +root: string, // path of the root category
   +depth: number,
+  +peek: boolean,
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> },
   +allAvailableLanguages: Map<string, string>, // including the current content language
-  +language: string
+  +language: string,
+  +city: string
 |}
 
 export type EventRouteStateType = {|
   +path: string | null,
+  +peek: boolean,
   +models: Array<EventModel>,
   +allAvailableLanguages: Map<string, string>, // including the current content language
-  +language: string
+  +language: string,
+  +city: string
 |}
 
 export type FileCacheStateType = {
