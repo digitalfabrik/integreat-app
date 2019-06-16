@@ -83,7 +83,7 @@ const mapToObject = (map: Map<string, string>) => {
 }
 
 class DatabaseConnector {
-  getContentPath (key: string, context: DatabaseContext = null): string {
+  getContentPath (key: string, context?: DatabaseContext): string {
     if (!key) {
       throw Error('Key mustn\'t be empty')
     }
