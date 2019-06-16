@@ -4,15 +4,13 @@ const ejs = require('ejs')
 const webpack = require('webpack')
 const fsExtra = require('fs-extra')
 const task = require('./task')
-const config = require('./integreat-config')
 
 // Render html into the /www folder
-const html = task('html', appConfigName => {
-  const webpackConfig = require('./webpack.config')
+const html = task('html', ({appConfigName, appConfig, webpackConfig}) => {
   const assets = JSON.parse(fs.readFileSync('./www/dist/assets.json', 'utf8'))
   const template = fs.readFileSync('./tools/index.ejs', 'utf8')
   const render = ejs.compile(template, {filename: './tools/index.ejs'})
-  const output = render({debug: webpackConfig.debug, bundle: assets.main.js, config})
+  const output = render({debug: webpackConfig.debug, bundle: assets.main.js, config: appConfig})
   fs.writeFileSync('./www/index.html', output, 'utf8')
   return Promise.resolve(appConfigName)
 })
@@ -28,7 +26,7 @@ const bundle = task('bundle', appConfigName => {
         reject(err)
       } else {
         console.log(stats.toString(webpackConfig.stats))
-        resolve(appConfigName)
+        resolve({appConfigName, appConfig, webpackConfig})
       }
     })
   })
