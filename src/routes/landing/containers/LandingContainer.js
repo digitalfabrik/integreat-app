@@ -78,7 +78,12 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
       return dispatch({
         type: 'FETCH_CATEGORY',
         params: {
-          city: cityCode, language, path, depth: 2, forceUpdate: false, shouldRefreshResources: true, key
+          city: cityCode,
+          language,
+          path,
+          depth: 2,
+          criterion: {forceUpdate: false, shouldRefreshResources: true, peek: false, contentType: 'all'},
+          key
         }
       })
     }
