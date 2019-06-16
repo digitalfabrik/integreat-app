@@ -52,7 +52,7 @@ export class I18nProvider extends React.Component<PropsType, {| language: string
    */
   static transformResources (resources: {
     namespace: string,
-    language: { langauge: string, languageCode: string }
+    language: { language: string, languageCode: string }
   }): { key: string, value: string } {
     return reduce(
       resources,
