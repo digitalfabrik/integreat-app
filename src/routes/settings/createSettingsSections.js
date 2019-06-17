@@ -18,11 +18,13 @@ export default ({setSetting, t, language}: {
       data: [
         {
           title: 'Placeholder',
-          description: 'Placeholder'
+          description: 'Placeholder',
+          hasSwitch: true
         },
         {
           title: 'Placeholder',
-          description: 'Placeholder'
+          description: 'Placeholder',
+          hasSwitch: true
         }
       ]
     },
@@ -32,6 +34,7 @@ export default ({setSetting, t, language}: {
           title: t('troubleshooting'),
           description: t('troubleshootingDescription'),
           hasSwitch: true,
+          getSettingValue: (settings: SettingsType) => settings.errorTracking,
           onPress: () => { setSetting(settings => ({errorTracking: !settings.errorTracking})) }
         },
         {
