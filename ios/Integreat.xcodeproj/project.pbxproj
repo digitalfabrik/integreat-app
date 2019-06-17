@@ -1665,7 +1665,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "Maximilian Ammann";
+				PROVISIONING_PROFILE_SPECIFIER = "Integreat Team Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1711,7 +1711,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.integreat-app";
 				PRODUCT_NAME = Integreat;
-				PROVISIONING_PROFILE_SPECIFIER = "Maximilian Ammann";
+				PROVISIONING_PROFILE_SPECIFIER = "Integreat Team Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Integreat/Integreat-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
