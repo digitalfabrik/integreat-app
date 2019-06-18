@@ -7,11 +7,10 @@ import CategoryListItem from './CategoryListItem'
 import HTML from 'react-native-render-html'
 import type { ThemeType } from 'modules/theme/constants/theme'
 import { View } from 'react-native'
-import styled from 'styled-components'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import SpaceBetween from '../../common/components/SpaceBetween'
 
-type PropsType = {
+type PropsType = {|
   categories: Array<{|
     model: { title: string, thumbnail: string, path: string },
     subCategories: Array<{ title: string, thumbnail: string, path: string }>
@@ -22,8 +21,8 @@ type PropsType = {
   query?: string,
   theme: ThemeType,
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
-  navigateToFeedback: (positiveFeedback: boolean) => void
-}
+  navigateToFeedback?: (positiveFeedback: boolean) => void
+|}
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
@@ -44,7 +43,7 @@ class CategoryList extends React.Component<PropsType> {
                             onItemPress={onItemPress} />
         )}
       </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+      {navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />}
     </SpaceBetween>
   }
 }
