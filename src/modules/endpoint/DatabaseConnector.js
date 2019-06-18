@@ -83,13 +83,9 @@ const mapToObject = (map: Map<string, string>) => {
 }
 
 class DatabaseConnector {
-  getContentPath (key: string, context?: DatabaseContext): string {
+  getContentPath (key: string, context: DatabaseContext): string {
     if (!key) {
       throw Error('Key mustn\'t be empty')
-    }
-
-    if (context == null) {
-      return `${CONTENT_DIR_PATH}/${key}.json`
     }
 
     return `${CONTENT_DIR_PATH}/${context.cityCode}/${context.languageCode}/${key}.json`
@@ -211,11 +207,11 @@ class DatabaseConnector {
       sortingName: city.sortingName
     }))
 
-    await this.writeFile(this.getContentPath('cities'), JSON.stringify(jsonModels))
+    await this.writeFile(this.getMetaCitiesPath(), JSON.stringify(jsonModels))
   }
 
   async loadCities (): Promise<Array<CityModel> | null> {
-    const path = this.getContentPath('cities')
+    const path = this.getMetaCitiesPath()
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
