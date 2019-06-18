@@ -5,7 +5,7 @@ import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
-import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
+import { ActivityIndicator, InteractionManager, ScrollView } from 'react-native'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -91,11 +91,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return (
-      <ScrollView theme={theme}>
-        <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
-      </ScrollView>
-    )
+    return <ScrollView theme={theme}>
+      <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
+    </ScrollView>
   }
 
   render () {
