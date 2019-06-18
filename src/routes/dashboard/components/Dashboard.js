@@ -17,7 +17,6 @@ import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import styled from 'styled-components/native'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 type PropsType = {
@@ -106,19 +105,19 @@ class Dashboard extends React.Component<PropsType> {
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
-             contentContainerStyle={{flexGrow: 1}}>
+                       contentContainerStyle={{flexGrow: 1}}>
       <SpaceBetween>
-      <NavigationTiles tiles={this.getNavigationTileModels()} theme={theme} />
-      <Categories stateView={stateView}
-                  cities={cities}
-                  resourceCache={resourceCache}
-                  language={language}
-                  cityCode={cityCode}
-                  theme={theme}
-                  navigation={navigation}
-                  navigateToCategory={navigateToCategory}
-                  t={t}
-                  navigateToIntegreatUrl={navigateToIntegreatUrl} />
+        <NavigationTiles tiles={this.getNavigationTileModels()} theme={theme} />
+        <Categories stateView={stateView}
+                    cities={cities}
+                    resourceCache={resourceCache}
+                    language={language}
+                    cityCode={cityCode}
+                    theme={theme}
+                    navigation={navigation}
+                    navigateToCategory={navigateToCategory}
+                    t={t}
+                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
       </SpaceBetween>
     </ScrollView>
   }

@@ -23,7 +23,6 @@ import type { NavigateToEventParamsType } from '../../../modules/app/createNavig
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
-import styled from 'styled-components/native'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 type PropsType = {|
@@ -39,7 +38,6 @@ type PropsType = {|
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   resourceCache: LanguageResourceCacheStateType
 |}
-
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
