@@ -11,8 +11,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
 import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
-import { branch, renderComponent } from 'recompose'
-import { Failure } from '../../../modules/error/components/Failure'
+import withError from '../../../modules/error/hocs/withError'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
 
@@ -94,7 +93,6 @@ export default compose([
   // translate has to be before connect, because we need to pass the language as prop
   translate('landing'),
   connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps),
-  // TODO NATIVE-112
-  branch(props => props.error, renderComponent(Failure)),
+  withError,
   withTheme(props => props.language)
 ])(Landing)

@@ -7,17 +7,12 @@ import Heading from '../components/Heading'
 import styled from 'styled-components/native'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
-import type { ThemeType } from 'modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 const Wrapper = styled(ScrollView)`
-  position: absolute;  
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
-  padding: 22px 10px 0;
+  padding: 11px 10px 0;
 `
 
 type PropType = {
