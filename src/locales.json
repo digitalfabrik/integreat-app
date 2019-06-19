@@ -207,7 +207,8 @@
         "disclaimer": "البيانات الإدارية ليست متوفرة للأسف لهذه المدينة."
       },
       "loadingFailed": "لقد حصل خطأ خلال تحميل الملفات",
-      "pageTitle": "خطأ"
+      "pageTitle": "خطأ",
+      "generalError": "لقد حصل خطأ"
     },
     "de": {
       "not-found": {
@@ -227,7 +228,8 @@
         "events": "Zu den News",
         "extras": "Zu den Extras"
       },
-      "pageTitle": "Fehler"
+      "pageTitle": "Fehler",
+      "generalError": "Ein Fehler ist aufgetreten"
     },
     "en": {
       "not-found": {
@@ -247,7 +249,8 @@
         "events": "Go to Events",
         "extras": "Go to Extras"
       },
-      "pageTitle": "Error"
+      "pageTitle": "Error",
+      "generalError": "An error occured"
     },
     "fa": {
       "not-found": {
@@ -255,10 +258,12 @@
         "disclaimer": "متاسفانه برای این شهر مجوزی وجود ندارد."
       },
       "loadingFailed": "خطایی هنگام بارگیری محتوا رخ داده است.",
-      "pageTitle": "خطا"
+      "pageTitle": "خطا",
+      "generalError": "خطایی رخ داده است"
     },
     "fr": {
-      "chooseYourLanguage": "Choisis ta Langue:"
+      "chooseYourLanguage": "Choisis ta Langue:",
+      "generalError": "Une erreur s'est produite"
     }
   },
   "disclaimer": {
