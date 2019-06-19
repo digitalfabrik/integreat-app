@@ -14,10 +14,19 @@ import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
 
+/**
+ *
+ * @param dataContainer
+ * @param newCity
+ * @param newLanguage
+ * @param criterion
+ * @returns Returns a saga which returns whether all data was loaded and
+ *          the inputs (like newCity, newLanguage) are valid
+ */
 export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
-): Saga<void> {
+): Saga<boolean> {
   const context = new DatabaseContext(newCity, newLanguage)
 
   const setCityContentLocalization: SetCityContentLocalizationType = {
@@ -55,7 +64,7 @@ export default function * loadCityContent (
     yield put(pushLanguages)
 
     if (!languages.map(language => language.code).includes(newLanguage)) {
-      throw new Error('Language is not available')
+      return false
     }
   }
 
@@ -83,4 +92,6 @@ export default function * loadCityContent (
   if (shouldUpdate) {
     yield call(dataContainer.setLastUpdate, context, moment.tz('UTC'))
   }
+
+  return true
 }

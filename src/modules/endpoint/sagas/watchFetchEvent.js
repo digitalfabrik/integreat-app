@@ -12,32 +12,33 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
   const {city, language, path, key, criterion} = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
-    yield call(loadCityContent,
+    const allContentLoaded = yield call(loadCityContent,
       dataContainer, city, language,
       loadCriterion
     )
+    if (allContentLoaded) {
+      const context = new DatabaseContext(city, language)
+      const [events, resourceCache, languages] = yield all([
+        call(dataContainer.getEvents, context),
+        call(dataContainer.getResourceCache, context),
+        call(dataContainer.getLanguages, context)
+      ])
 
-    const context = new DatabaseContext(city, language)
-    const [events, resourceCache, languages] = yield all([
-      call(dataContainer.getEvents, context),
-      call(dataContainer.getResourceCache, context),
-      call(dataContainer.getLanguages, context)
-    ])
-
-    const insert: PushEventActionType = {
-      type: `PUSH_EVENT`,
-      params: {
-        events,
-        resourceCache,
-        path,
-        languages,
-        key,
-        city,
-        language,
-        peek: loadCriterion.peek()
+      const insert: PushEventActionType = {
+        type: `PUSH_EVENT`,
+        params: {
+          events,
+          resourceCache,
+          path,
+          languages,
+          key,
+          city,
+          language,
+          peek: loadCriterion.peek()
+        }
       }
+      yield put(insert)
     }
-    yield put(insert)
   } catch (e) {
     console.error(e)
     const failed: FetchEventFailedActionType = {

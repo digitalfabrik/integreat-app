@@ -16,30 +16,32 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
   const {city, language, path, depth, key, criterion} = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
-    yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const allContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
-    const context = new DatabaseContext(city, language)
-    const [categoriesMap, resourceCache, languages] = yield all([
-      call(dataContainer.getCategoriesMap, context),
-      call(dataContainer.getResourceCache, context),
-      call(dataContainer.getLanguages, context)
-    ])
+    if (allContentLoaded) {
+      const context = new DatabaseContext(city, language)
+      const [categoriesMap, resourceCache, languages] = yield all([
+        call(dataContainer.getCategoriesMap, context),
+        call(dataContainer.getResourceCache, context),
+        call(dataContainer.getLanguages, context)
+      ])
 
-    const push: PushCategoryActionType = {
-      type: `PUSH_CATEGORY`,
-      params: {
-        categoriesMap,
-        resourceCache,
-        path,
-        languages,
-        depth,
-        key,
-        city,
-        language,
-        peek: loadCriterion.peek()
+      const push: PushCategoryActionType = {
+        type: `PUSH_CATEGORY`,
+        params: {
+          categoriesMap,
+          resourceCache,
+          path,
+          languages,
+          depth,
+          key,
+          city,
+          language,
+          peek: loadCriterion.peek()
+        }
       }
+      yield put(push)
     }
-    yield put(push)
   } catch (e) {
     console.error(e)
     const failed: FetchCategoryFailedActionType = {
