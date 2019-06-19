@@ -13,7 +13,7 @@ export type ErrorType = {|
   changeUnavailableLanguage: (city: string, newLanguage: string) => void
 |}
 
-const withLanguageNotAvailable = <T: {}>(
+const withError = <T: {}>(
   Component: React.AbstractComponent<T>
 ): React.AbstractComponent<T & ErrorType> => {
   return class extends React.PureComponent<T & ErrorType> {
@@ -35,4 +35,4 @@ const withLanguageNotAvailable = <T: {}>(
   }
 }
 
-export default withLanguageNotAvailable
+export default withError
