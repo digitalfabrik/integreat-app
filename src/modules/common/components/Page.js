@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Dimensions, Linking, Text } from 'react-native'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
-import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
+import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import type { NavigationScreenProp } from 'react-navigation'
 import renderHtml from '../renderHtml'
 import Caption from './Caption'
@@ -118,10 +118,8 @@ class Page extends React.Component<PropType, StateType> {
         {children}
         <StyledView>{// $FlowFixMe dataDetectorTypes (correct types, but Flow doesn't try the right branch)
           <WebView
-            source={{
-              baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
-              html: renderHtml(content, files, theme)
-            }}
+            source={createHtmlSource(renderHtml(content, files, theme),
+              URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
             allowFileAccess // Needed by android to access file:// urls
             originWhitelist={['*']} // Needed by iOS to load the initial html
             useWebKit={false}
