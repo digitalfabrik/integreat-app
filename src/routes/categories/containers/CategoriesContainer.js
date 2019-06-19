@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import compose from 'lodash/fp/compose'
 
-import type { StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
@@ -14,10 +14,32 @@ import CategoriesScrollView from '../components/CategoriesScrollView'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
 |}
+
+type StatePropsType = {|
+  success: true,
+  cities: Array<CityModel>,
+  cityCode: string,
+  language: string,
+  stateView: CategoriesRouteStateView,
+  resourceCache: LanguageResourceCacheStateType
+|}
+  | {| languageNotAvailable: true, languages: Array<LanguageModel>, city: string |}
+  | {| error: true |} | {| loading: true |}
+
+type DispatchPropsType = {|
+  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  changeUnavailableLanguage: (city: string, newLanguage: string) => StoreActionType
+|}
+
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const {resourceCache, categoriesRouteMapping, city} = state.cityContent
@@ -32,7 +54,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
   if (!route || !cities || !city) {
-    return {}
+    return {loading: true}
   }
 
   if (!route.allAvailableLanguages.has(route.language || '')) {
@@ -42,6 +64,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   return {
+    success: true,
     cityCode: city,
     language: route.language,
     cities,
@@ -60,7 +83,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
 })
 
 export default compose([
-  connect(mapStateToProps, mapDispatchToProps),
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps),
   withRouteCleaner,
   withError,
   withTheme(props => props.language)

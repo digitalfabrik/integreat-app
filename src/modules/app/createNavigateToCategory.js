@@ -13,7 +13,9 @@ export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => ({cityCode, language, path, key = generateKey(), forceUpdate = false}: NavigateToCategoryParamsType) => {
+) => (
+  {cityCode, language, path, key = generateKey(), forceUpdate = false}: NavigateToCategoryParamsType
+): StoreActionType => {
   navigation.navigate({
     routeName,
     params: {
@@ -25,10 +27,10 @@ export default (
     key
   })
 
-  const fetchLanguagesForCategory: FetchCategoryActionType = {
+  const fetchCategory: FetchCategoryActionType = {
     type: 'FETCH_CATEGORY',
     params: {city: cityCode, language, path, depth: 2, forceUpdate, key, shouldRefreshResources: false}
   }
 
-  return dispatch(fetchLanguagesForCategory)
+  return dispatch(fetchCategory)
 }
