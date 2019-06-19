@@ -1,9 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import { TouchableNativeFeedback, View } from 'react-native'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import Touchable from '../../../modules/platform/components/Touchable'
 
 type PropType = {
   title: string,
@@ -12,6 +13,7 @@ type PropType = {
   children: ?React.Node,
   theme: ThemeType
 }
+
 const PadView = styled.View`
   padding: 16px;
   flex-direction: row;
@@ -44,7 +46,7 @@ export default class SettingItem extends React.Component<PropType> {
   render () {
     const {title, description, onPress, children, theme} = this.props
 
-    return <TouchableNativeFeedback onPress={onPress}>
+    return <Touchable onPress={onPress}>
       <PadView>
         <ContentContainer>
           <View><Title theme={theme}>{title}</Title></View>
@@ -52,6 +54,6 @@ export default class SettingItem extends React.Component<PropType> {
         </ContentContainer>
         <RightContentContainer>{children}</RightContentContainer>
       </PadView>
-    </TouchableNativeFeedback>
+    </Touchable>
   }
 }
