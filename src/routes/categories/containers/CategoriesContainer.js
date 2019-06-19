@@ -34,7 +34,7 @@ type StatePropsType = {|
   | {| error: true |} | {| loading: true |}
 
 type DispatchPropsType = {|
-  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   changeUnavailableLanguage: (city: string, newLanguage: string) => StoreActionType
 |}
@@ -57,7 +57,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     return {loading: true}
   }
 
-  if (!route.allAvailableLanguages.has(route.language || '')) {
+  if (!route.allAvailableLanguages.has(route.language)) {
     return {languageNotAvailable: true, languages: route.allAvailableLanguages, city}
   }
 

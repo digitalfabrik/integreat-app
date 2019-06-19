@@ -10,7 +10,7 @@ export type NavigateToEventParamsType =
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => ({
   cityCode, language, path, key = generateKey(), forceUpdate = false
-}: NavigateToEventParamsType): StoreActionType => {
+}: NavigateToEventParamsType) => {
   navigation.navigate({
     routeName: 'Events',
     params: {
@@ -22,7 +22,7 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
     key
   })
 
-  return dispatch({
+  dispatch({
     type: 'FETCH_EVENT',
     params: {city: cityCode, language, path, key, forceUpdate, shouldRefreshResources: false}
   })
