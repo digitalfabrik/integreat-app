@@ -29,6 +29,7 @@ type StateType = {
 type ItemType = {
   title: string, description: string,
   hasSwitch?: true,
+  getSettingValue: (settings: SettingsType) => boolean,
   onPress?: () => void
 }
 
@@ -84,13 +85,13 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
   renderItem = ({item}: { item: ItemType }) => {
     const {theme} = this.props
-    const {errorTracking} = this.state.settings
-    const {title, description, hasSwitch, onPress} = item
+    const {title, description, hasSwitch, onPress, getSettingValue} = item
+    const value = getSettingValue ? getSettingValue(this.state.settings) : false
 
     return (
       <SettingItem title={title} description={description}
                    onPress={onPress} theme={theme}>
-        {hasSwitch && <Switch value={errorTracking} onValueChange={onPress} />}
+        {hasSwitch && <Switch value={value} onValueChange={onPress} />}
       </SettingItem>
     )
   }
