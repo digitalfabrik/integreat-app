@@ -37,7 +37,7 @@ class AppSettings {
         return defaultSettings[key]
       }
 
-      return value
+      return parsed
     })
   }
 
