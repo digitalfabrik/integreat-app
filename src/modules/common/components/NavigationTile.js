@@ -4,9 +4,8 @@ import * as React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
-import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
-import getFastImageSource from '../getFastImageSource'
+import Thumbnail from './Thumbnail'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
@@ -27,7 +26,7 @@ const Circle = styled(View)`
   justify-content: center;
 `
 
-const Thumbnail = styled(FastImage)`
+const ThumbnailContainer = styled(Thumbnail)`
   height: ${ICON_SIZE / Math.sqrt(2)};
   width: ${ICON_SIZE / Math.sqrt(2)};
 `
@@ -78,10 +77,9 @@ class NavigationTile extends React.Component<PropsType> {
 
   getTileContent (): React.Node {
     const {tile, theme} = this.props
-    const imageSource = getFastImageSource(tile.thumbnail)
     return <>
       <Circle theme={theme}>
-        <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
+        <ThumbnailContainer uri={tile.thumbnail} />
         {this.getNewsDot()}
       </Circle>
       <TileTitle theme={theme}>{tile.title}</TileTitle>
