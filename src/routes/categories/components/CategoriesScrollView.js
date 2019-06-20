@@ -10,7 +10,7 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
-import { translate, type TFunction } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 
 type PropsType = {
   navigation: NavigationScreenProp<*>,
@@ -65,4 +65,4 @@ class CategoriesScrollView extends React.Component<PropsType> {
   }
 }
 
-export default translate('categories')(CategoriesScrollView)
+export default CategoriesScrollView
