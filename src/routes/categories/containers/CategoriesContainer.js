@@ -14,6 +14,7 @@ import CategoriesScrollView from '../components/CategoriesScrollView'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import { translate } from 'react-i18next'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
@@ -63,5 +64,6 @@ export default compose([
   connect(mapStateToProps, mapDispatchToProps),
   withRouteCleaner,
   withError,
-  withTheme(props => props.language)
+  withTheme(props => props.language),
+  translate('categories')
 ])(CategoriesScrollView)
