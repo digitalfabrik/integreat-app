@@ -8,28 +8,28 @@ import type { StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import compose from 'lodash/fp/compose'
-import { branch, renderComponent } from 'recompose'
-import LanguageNotAvailableContainer from '../../../modules/common/containers/LanguageNotAvailableContainer'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import { translate } from 'react-i18next'
-import { Failure } from '../../../modules/error/components/Failure'
+import type { NavigationScreenProp } from 'react-navigation'
+import withError from '../../../modules/error/hocs/withError'
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps) => ({
-  navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
-  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
-  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
-  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation)
-})
+type OwnPropsType = {|
+  navigation: NavigationScreenProp<*>
+|}
 
-const mapStateToProps = (state: StateType, ownProps) => {
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const {resourceCache, categoriesRouteMapping, languages, language, city} = state.cityContent
 
-  if (languages && !languages.map(languageModel => languageModel.code).includes(language)) {
-    return {invalidLanguage: true}
+  if (!languages || !city) {
+    return {}
+  }
+
+  if (!languages.map(languageModel => languageModel.code).includes(language)) {
+    return {languageNotAvailable: true, languages, city}
   }
 
   if (state.cities.errorMessage !== undefined ||
@@ -41,7 +41,7 @@ const mapStateToProps = (state: StateType, ownProps) => {
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route) {
+  if (!route || !cities) {
     return {}
   }
 
@@ -54,12 +54,34 @@ const mapStateToProps = (state: StateType, ownProps) => {
   }
 }
 
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType) => ({
+  navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
+  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
+  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
+  changeUnavailableLanguage: (city: string, newLanguage: string) => {
+    const switchContentLanguage: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        city,
+        newLanguage
+      }
+    }
+    dispatch(switchContentLanguage)
+    createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)({
+      cityCode: city,
+      language: newLanguage,
+      path: `/${city}/${newLanguage}`,
+      forceUpdate: false,
+      key: ownProps.navigation.getParam('key')
+    })
+  }
+})
+
 export default compose([
-  withRouteCleaner,
   connect(mapStateToProps, mapDispatchToProps),
-  // TODO NATIVE-112 Show errors, maybe use withError and pass more props
-  branch(props => props.error, renderComponent(Failure)),
-  branch(props => props.invalidLanguage, renderComponent(LanguageNotAvailableContainer)),
+  withRouteCleaner,
+  withError,
   translate('dashboard'),
   withTheme(props => props.language)
 ])(Dashboard)

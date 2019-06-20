@@ -33,7 +33,7 @@ type PropsType = {
   theme: ThemeType,
 
   language: string,
-  cities?: Array<CityModel>,
+  cities: ?Array<CityModel>,
   stateView: ?CategoriesRouteStateView,
   resourceCache: LanguageResourceCacheStateType,
   t: TFunction

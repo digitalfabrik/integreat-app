@@ -10,7 +10,7 @@ import {
   PAGE_FEEDBACK_TYPE
 } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
-import ContentNotFoundError from '../../../modules/common/errors/ContentNotFoundError'
+import ContentNotFoundError from '../../../modules/error/ContentNotFoundError'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from './EventListItem'
 import List from '../../../modules/common/components/List'
@@ -26,7 +26,7 @@ import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 type PropsType = {|
-  events: Array<EventModel>,
+  events: ?Array<EventModel>,
   cities: Array<CityModel>,
   cityCode: string,
   language: string,
@@ -88,7 +88,7 @@ class Events extends React.Component<PropsType> {
   render () {
     const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation} = this.props
     const loading = !events
-    if (path) {
+    if (events && path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
@@ -118,7 +118,7 @@ class Events extends React.Component<PropsType> {
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
                        contentContainerStyle={{flex: 1}}>
-      {!loading && <SpaceBetween>
+      {events && <SpaceBetween>
         <View>
           <Caption title={t('news')} theme={theme} />
           <List noItemsMessage={t('currentlyNoEvents')}
