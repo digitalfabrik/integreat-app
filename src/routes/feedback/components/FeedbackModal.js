@@ -22,19 +22,19 @@ const Description = styled.Text`
     font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
-type PropsType = {
+type PropsType = {|
   theme: ThemeType,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   t: TFunction,
   feedbackItems: Array<FeedbackVariant>,
   isPositiveFeedback: boolean
-}
+|}
 
-type StateType = {
+type StateType = {|
   comment: string,
   feedbackItem: ?FeedbackVariant
-}
+|}
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
   state = {comment: '', feedbackItem: null}
