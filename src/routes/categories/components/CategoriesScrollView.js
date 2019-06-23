@@ -11,7 +11,7 @@ import type { LanguageResourceCacheStateType } from '../../../modules/app/StateT
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
-export type OwnPropsType = {|
+export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   cities?: Array<CityModel>,
   languages?: Array<LanguageModel>,
@@ -24,7 +24,7 @@ export type OwnPropsType = {|
   theme: ThemeType
 |}
 
-class CategoriesScrollView extends React.Component<OwnPropsType> {
+class CategoriesScrollView extends React.Component<PropsType> {
   onRefresh = () => {
     const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
     if (cityCode && language && stateView) {

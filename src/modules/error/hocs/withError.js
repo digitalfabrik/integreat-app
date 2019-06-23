@@ -4,12 +4,11 @@ import * as React from 'react'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import Failure from '../components/Failure'
-import type { StoreActionType } from '../../app/StoreActionType'
 
 export type PropsType = {|
   error: boolean,
   languageNotAvailable: boolean,
-  changeUnavailableLanguage: (city: string, newLanguage: string) => StoreActionType
+  changeUnavailableLanguage: (city: string, newLanguage: string) => void
 |}
 
 const withError = <T: {cityCode?: string, languages?: Array<LanguageModel>}>(
@@ -31,7 +30,7 @@ const withError = <T: {cityCode?: string, languages?: Array<LanguageModel>}>(
         return <Failure />
       }
 
-      return <Component {...props} />
+      return <Component cityCode={cityCode} languages={languages} {...props} />
     }
   }
 }
