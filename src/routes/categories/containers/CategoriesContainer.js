@@ -1,10 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux'
-import compose from 'lodash/fp/compose'
-
 import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
-import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import { type Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
@@ -13,25 +10,27 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import CategoriesScrollView from '../components/CategoriesScrollView'
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
-import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { OwnPropsType as CategoriesScrollViewPropsType } from '../components/CategoriesScrollView'
+import withTheme from '../../../modules/theme/hocs/withTheme'
+import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>
 |}
 
 type StatePropsType = {|
-  success: true,
-  cities: Array<CityModel>,
-  cityCode: string,
-  language: string,
-  stateView: CategoriesRouteStateView,
-  resourceCache: LanguageResourceCacheStateType
+  error: boolean,
+  languageNotAvailable: boolean,
+  languages?: Array<LanguageModel>,
+  cityCode?: string,
+  cities?: Array<CityModel>,
+  language?: string,
+  stateView?: CategoriesRouteStateView,
+  resourceCache?: LanguageResourceCacheStateType
 |}
-  | {| languageNotAvailable: true, languages: Array<LanguageModel>, city: string |}
-  | {| error: true |} | {| loading: true |}
 
 type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
@@ -41,31 +40,34 @@ type DispatchPropsType = {|
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {resourceCache, categoriesRouteMapping, city} = state.cityContent
 
   if (state.cities.errorMessage !== undefined ||
     categoriesRouteMapping.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {
-    return {error: true}
+    return { error: true, languageNotAvailable: false }
   }
 
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
+  const languages = Array.from(route.allAvailableLanguages.keys())
 
   if (!route || !cities || !city) {
-    return {loading: true}
+    return { languageNotAvailable: false, error: false }
   }
 
-  if (!route.allAvailableLanguages.has(route.language)) {
-    return {languageNotAvailable: true, languages: route.allAvailableLanguages, city}
+  if (!languages.includes(route.language)) {
+    return { languageNotAvailable: true, languages, cityCode: city, error: true }
   }
 
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   return {
-    success: true,
+    error: false,
+    languageNotAvailable: false,
     cityCode: city,
+    languages,
     language: route.language,
     cities,
     stateView,
@@ -82,9 +84,9 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
   })
 })
 
-export default compose([
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps),
-  withRouteCleaner,
-  withError,
-  withTheme(props => props.language)
-])(CategoriesScrollView)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+  withRouteCleaner<PropsType>(
+    withTheme(props => props.language)(
+      withError<CategoriesScrollViewPropsType>(
+        CategoriesScrollView
+      ))))
