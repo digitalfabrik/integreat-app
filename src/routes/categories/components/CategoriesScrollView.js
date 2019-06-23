@@ -11,23 +11,24 @@ import type { LanguageResourceCacheStateType } from '../../../modules/app/StateT
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
-type OwnPropsType = {|
+export type OwnPropsType = {|
+  error: false,
+  languageNotAvailable: false,
   navigation: NavigationScreenProp<*>,
-  success: true,
-  cities: Array<CityModel>,
-  cityCode: string,
-  language: string,
-  stateView: CategoriesRouteStateView,
-  resourceCache: LanguageResourceCacheStateType,
+  cities?: Array<CityModel>,
+  cityCode?: string,
+  language?: string,
+  stateView?: CategoriesRouteStateView,
+  resourceCache?: LanguageResourceCacheStateType,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   theme: ThemeType
-|} | {| loading: true |}
+|}
 
 class CategoriesScrollView extends React.Component<OwnPropsType> {
   onRefresh = () => {
-    if (!this.props.loading) {
-      const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
+    const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
+    if (cityCode && language && stateView) {
       navigateToCategory({
         cityCode, language, path: stateView.rawRoot, forceUpdate: true, key: navigation.getParam('key')
       })
@@ -35,28 +36,28 @@ class CategoriesScrollView extends React.Component<OwnPropsType> {
   }
 
   render () {
-    if (this.props.loading) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
-    }
-
     const {
       cities, stateView, resourceCache, navigateToIntegreatUrl, language, cityCode, theme, navigateToCategory,
       navigation
     } = this.props
 
-    return (
-      <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
-        <Categories stateView={stateView}
-                    cities={cities}
-                    resourceCache={resourceCache}
-                    language={language}
-                    cityCode={cityCode}
-                    navigation={navigation}
-                    theme={theme}
-                    navigateToCategory={navigateToCategory}
-                    navigateToIntegreatUrl={navigateToIntegreatUrl} />
-      </ScrollView>
-    )
+    if (!cities || !stateView || !resourceCache || !language || !cityCode) {
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
+    } else {
+      return (
+        <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
+          <Categories stateView={stateView}
+                      cities={cities}
+                      resourceCache={resourceCache}
+                      language={language}
+                      cityCode={cityCode}
+                      navigation={navigation}
+                      theme={theme}
+                      navigateToCategory={navigateToCategory}
+                      navigateToIntegreatUrl={navigateToIntegreatUrl} />
+        </ScrollView>
+      )
+    }
   }
 }
 

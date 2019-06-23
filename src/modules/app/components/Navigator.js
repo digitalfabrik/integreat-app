@@ -28,6 +28,7 @@ import ExternalExtraContainer from '../../../routes/external-extra/containers/Ex
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
+// $FlowFixMe Flow complains navigation prop is missing here
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
 const createNavigationRouteConfig = (Component, header = null): NavigationRouteConfig => ({

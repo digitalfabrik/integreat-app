@@ -4,24 +4,24 @@ import * as React from 'react'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import Failure from '../components/Failure'
+import type { StoreActionType } from '../../app/StoreActionType'
 
-export type ErrorType = {|
+export type PropsType = {|
   error: boolean,
   languageNotAvailable: boolean,
-  city: string,
-  languages: Array<LanguageModel>,
-  changeUnavailableLanguage: (city: string, newLanguage: string) => void
+  cityCode?: string,
+  languages?: Array<LanguageModel>,
+  changeUnavailableLanguage: (city: string, newLanguage: string) => StoreActionType
 |}
 
 const withError = <T: {}>(
   Component: React.AbstractComponent<T>
-): React.AbstractComponent<T & ErrorType> => {
-  return class extends React.PureComponent<T & ErrorType> {
+): React.AbstractComponent<{...T, ...PropsType}> => {
+  return class extends React.Component<{...T, ...PropsType}> {
     render () {
-      const {error, languageNotAvailable, city, languages, changeUnavailableLanguage, ...props} = this.props
-
+      const { error, languageNotAvailable, cityCode, languages, changeUnavailableLanguage, ...props } = this.props
       if (languageNotAvailable) {
-        return <LanguageNotAvailableContainer city={city}
+        return <LanguageNotAvailableContainer city={cityCode}
                                               languages={languages}
                                               changeLanguage={changeUnavailableLanguage} />
       }
