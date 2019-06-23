@@ -5,17 +5,16 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { RefreshControl, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 
 export type OwnPropsType = {|
-  error: false,
-  languageNotAvailable: false,
   navigation: NavigationScreenProp<*>,
   cities?: Array<CityModel>,
+  languages?: Array<LanguageModel>,
   cityCode?: string,
   language?: string,
   stateView?: CategoriesRouteStateView,
