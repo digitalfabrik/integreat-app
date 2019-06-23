@@ -9,6 +9,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import { Text } from 'react-native-elements/src/index'
 import Caption from './Caption'
 import { type TFunction } from 'react-i18next'
+import type { StoreActionType } from '../../app/StoreActionType'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -24,7 +25,7 @@ type PropsType = {
   theme: ThemeType,
   city: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (city: string, language: string) => void,
+  changeLanguage: (city: string, language: string) => StoreActionType,
   t: TFunction
 }
 
