@@ -13,7 +13,7 @@ import withError from '../../../modules/error/hocs/withError'
 import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
-import type { OwnPropsType as CategoriesScrollViewPropsType } from '../components/CategoriesScrollView'
+import type { PropsType as CategoriesScrollViewPropsType } from '../components/CategoriesScrollView'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 
@@ -35,7 +35,7 @@ type StatePropsType = {|
 type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage: (city: string, newLanguage: string) => StoreActionType
+  changeUnavailableLanguage: (city: string, newLanguage: string) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -78,10 +78,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType) => ({
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: (city: string, newLanguage: string) => dispatch({
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {city, newLanguage}
-  })
+  changeUnavailableLanguage: (city: string, newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {city, newLanguage}
+    })
+  }
 })
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
