@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
 import type { StateType } from '../../../modules/app/StateType'
-import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import { type TFunction, translate } from 'react-i18next'
 import WohnenExtra from '../components/WohnenExtra'
@@ -19,8 +18,20 @@ import { wohnenApiBaseUrl } from '../../../modules/endpoint/constants'
 import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { NavigationScreenProp } from 'react-navigation'
 
-const mapStateToProps = (state: StateType, ownProps) => {
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+
+type StatePropsType = {|
+  city: string,
+  extra: ?ExtraModel,
+  offerHash: string,
+  navigateToOffer: (offerHash: string) => void
+|}
+
+type PropsType = { ...OwnPropsType, ...StatePropsType }
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const city: string = ownProps.navigation.getParam('city')
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
   const offerHash: string = ownProps.navigation.getParam('offerHash')
@@ -36,13 +47,13 @@ const mapStateToProps = (state: StateType, ownProps) => {
 
   return {
     city,
-    offerHash: offerHash,
-    extra: extra,
-    navigateToOffer: navigateToOffer
+    offerHash,
+    extra,
+    navigateToOffer
   }
 }
 
-type PropsType = {|
+type WohnenPropsType = {|
   city: string,
   extra: ?ExtraModel,
   offerHash?: WohnenOfferModel,
@@ -57,8 +68,8 @@ type SprungbrettStateType = {|
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class WohnenExtraContainer extends React.Component<PropsType, SprungbrettStateType> {
-  constructor (props: PropsType) {
+class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettStateType> {
+  constructor (props: WohnenPropsType) {
     super(props)
     this.state = {offers: null, error: null}
   }
@@ -109,8 +120,8 @@ class WohnenExtraContainer extends React.Component<PropsType, SprungbrettStateTy
   }
 }
 
-export default compose(
-  connect(mapStateToProps),
-  translate('wohnen'),
-  withTheme()
-)(WohnenExtraContainer)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  translate('wohnen')(
+    withTheme()(
+      WohnenExtraContainer
+    )))
