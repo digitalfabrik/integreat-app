@@ -27,9 +27,7 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 
-// $FlowFixMe Flow complains navigation prddop is missing here
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
-// $FlowFixMe Flow complains navigation prop is missing here
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
 const createNavigationRouteConfig = (Component: NavigationComponent, header = null): NavigationRouteConfig => ({
@@ -76,8 +74,6 @@ export const AppStack = createStackNavigator(
 
 export const LandingStack = createSwitchNavigator(
   {
-    // The translate() HOC does not calculate props correctly right now. Because the connect
-    // $FlowFixMe in LandingContainer needs the translation HOC there is a flow error here. (NATIVE-53)
     'Landing': LandingContainer,
     'App': AppStack
   }
