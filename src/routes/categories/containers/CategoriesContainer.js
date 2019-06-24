@@ -17,9 +17,7 @@ import type { PropsType as CategoriesScrollViewPropsType } from '../components/C
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 
-type OwnPropsType = {|
-  navigation: NavigationScreenProp<*>
-|}
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type StatePropsType = {|
   error: boolean,
