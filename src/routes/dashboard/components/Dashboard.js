@@ -5,7 +5,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { RefreshControl, ScrollView } from 'react-native'
 import Categories from '../../../modules/categories/components/Categories'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
@@ -22,9 +22,6 @@ export type PropsType = {
   navigation: NavigationScreenProp<*>,
   cityCode?: string,
 
-  toggleTheme: () => void,
-  goOffline: () => void,
-  goOnline: () => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
@@ -32,7 +29,6 @@ export type PropsType = {
   theme: ThemeType,
 
   language?: string,
-  languages?: Array<LanguageModel>,
   cities?: Array<CityModel>,
   stateView?: CategoriesRouteStateView,
   resourceCache?: LanguageResourceCacheStateType,
