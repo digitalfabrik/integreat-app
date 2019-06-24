@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   }
 })
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(() => {}, mapDispatchToProps)(I18nProvider)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(() => ({}), mapDispatchToProps)(I18nProvider)
