@@ -27,6 +27,7 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 
+// $FlowFixMe Flow complains navigation prop is missing here
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 // $FlowFixMe Flow complains navigation prop is missing here
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
