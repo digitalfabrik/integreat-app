@@ -58,15 +58,11 @@ const MaterialHeaderButtons = props => {
 }
 
 type PropsType = {|
+  navigation: NavigationScreenProp<*>,
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  routeMapping: {
-    [key: string]: {
-      root: string
-    }
-  },
   availableLanguages: ?Array<string>,
   navigateToLanding: () => void,
   routeKey: string

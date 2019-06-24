@@ -21,9 +21,7 @@ import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/crea
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { PropsType as DashboardPropsType } from '../components/Dashboard'
 
-type OwnPropsType = {|
-  navigation: NavigationScreenProp<*>
-|}
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type StatePropsType = {|
   error: boolean,
