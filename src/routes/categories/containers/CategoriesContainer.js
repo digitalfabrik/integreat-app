@@ -51,17 +51,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
-  const languages = Array.from(route.allAvailableLanguages.keys())
 
   if (!route || !cities || !city) {
     return { languageNotAvailable: false, error: false }
   }
 
-  if (!languages.includes(route.language)) {
-    return { languageNotAvailable: true, languages, cityCode: city, error: true }
-  }
-
+  const languages = Array.from(route.allAvailableLanguages.keys())
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
+
+  if (!languages.includes(route.language)) {
+    return { languageNotAvailable: true, languages, cityCode: city, error: false }
+  }
 
   return {
     error: false,
@@ -71,7 +71,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     language: route.language,
     cities,
     stateView,
-    resourceCache: resourceCache
+    resourceCache
   }
 }
 
