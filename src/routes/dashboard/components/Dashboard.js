@@ -18,7 +18,7 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 
-export type PropsType = {
+export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   cityCode?: string,
 
@@ -33,7 +33,7 @@ export type PropsType = {
   stateView?: CategoriesRouteStateView,
   resourceCache?: LanguageResourceCacheStateType,
   t: TFunction
-}
+|}
 
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
