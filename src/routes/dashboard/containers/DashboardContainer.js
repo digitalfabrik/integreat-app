@@ -28,7 +28,8 @@ type OwnPropsType = {|
 type StatePropsType = {|
   error: boolean,
   languageNotAvailable: boolean,
-  languages?: Array<LanguageModel>,
+  availableLanguages?: Array<LanguageModel>,
+  currentCityCode?: string,
   cityCode?: string,
   cities?: Array<CityModel>,
   language?: string,
@@ -41,7 +42,7 @@ type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage: (city: string, newLanguage: string) => void
+  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -66,14 +67,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   if (!languages.includes(route.language)) {
-    return { languageNotAvailable: true, languages, cityCode: city, error: false }
+    return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
   }
 
   return {
     error: false,
     languageNotAvailable: false,
     cityCode: city,
-    languages,
     language: route.language,
     cities,
     stateView,
@@ -81,7 +81,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
   navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),

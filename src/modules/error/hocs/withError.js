@@ -8,21 +8,23 @@ import Failure from '../components/Failure'
 export type PropsType = {|
   error: boolean,
   languageNotAvailable: boolean,
-  changeUnavailableLanguage: (city: string, newLanguage: string) => void
+  availableLanguages?: Array<LanguageModel>,
+  currentCityCode?: string,
+  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
 |}
 
-const withError = <T: {cityCode?: string, languages?: Array<LanguageModel>}>(
+const withError = <T: {}>(
   Component: React.AbstractComponent<T>
 ): React.AbstractComponent<T & PropsType> => {
   return class extends React.Component<T & PropsType> {
     render () {
       const {
-        error, languageNotAvailable, cityCode, languages, changeUnavailableLanguage, ...props
+        error, languageNotAvailable, currentCityCode, availableLanguages, changeUnavailableLanguage, ...props
       } = this.props
 
-      if (languageNotAvailable && cityCode && languages) {
-        return <LanguageNotAvailableContainer city={cityCode}
-                                              languages={languages}
+      if (languageNotAvailable && currentCityCode && availableLanguages && changeUnavailableLanguage) {
+        return <LanguageNotAvailableContainer city={currentCityCode}
+                                              languages={availableLanguages}
                                               changeLanguage={changeUnavailableLanguage} />
       }
 
@@ -30,7 +32,7 @@ const withError = <T: {cityCode?: string, languages?: Array<LanguageModel>}>(
         return <Failure />
       }
 
-      return <Component cityCode={cityCode} languages={languages} {...props} />
+      return <Component {...props} />
     }
   }
 }
