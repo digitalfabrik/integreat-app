@@ -18,6 +18,7 @@ import type {
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
 import setCityContentLocalization from '../setCityContentLocalization'
+import { defaultCityContentState } from '../../../app/StateType'
 
 describe('morphContentLanguage', () => {
   const enCategories = [
@@ -270,16 +271,7 @@ describe('morphContentLanguage', () => {
     })
   ]
 
-  const initialState: CityContentStateType = {
-    categoriesRouteMapping: {},
-    eventsRouteMapping: {},
-    resourceCache: {},
-    searchRoute: {categoriesMap: null},
-    languages,
-    language: null,
-    city: null,
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
-  }
+  const initialState = defaultCityContentState
 
   const prepareState = ({path, model, eventPath, events}: {
     path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>
@@ -363,21 +355,6 @@ describe('morphContentLanguage', () => {
     const newState = morphContentLanguage(previous, action)
 
     expect(newState).toEqual(previous)
-  })
-
-  it('should throw error if cityCode is not set in categories route', () => {
-    const state = initialState
-    const action: MorphContentLanguageActionType = {
-      type: 'MORPH_CONTENT_LANGUAGE',
-      params: {
-        newCategoriesMap: enModel,
-        newResourceCache: {},
-        newEvents: [],
-        newLanguage: 'en'
-      }
-    }
-
-    expect(() => morphContentLanguage(state, action)).toThrowError()
   })
 
   it('should fail if category models are invalid', () => {

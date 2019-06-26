@@ -8,6 +8,9 @@ export type CityRouteSelectorPropsType = {|
 |}
 
 const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?CategoryRouteStateType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
   const categoriesRouteMapping = state.cityContent.categoriesRouteMapping
   if (categoriesRouteMapping.errorMessage !== undefined) {
     return categoriesRouteMapping[props.routeKey]
@@ -15,6 +18,9 @@ const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsTy
 }
 
 const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
   const eventsRouteMapping = state.cityContent.eventsRouteMapping
   if (eventsRouteMapping.errorMessage !== undefined) {
     return eventsRouteMapping[props.routeKey]
@@ -24,8 +30,9 @@ const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType)
 export const currentCityRouteSelector = createSelector<StateType, CityRouteSelectorPropsType,
   EventRouteStateType | CategoryRouteStateType | null, ?CategoryRouteStateType, ?EventRouteStateType>(
     categoryRouteSelector,
-    eventRouteSelector,
-    (categoryRoute: ?CategoryRouteStateType, eventRoute: ?EventRouteStateType): CategoryRouteStateType | EventRouteStateType | null => {
+    eventRouteSelector, (
+      categoryRoute: ?CategoryRouteStateType, eventRoute: ?EventRouteStateType
+    ): CategoryRouteStateType | EventRouteStateType | null => {
       return categoryRoute || eventRoute || null
     }
   )

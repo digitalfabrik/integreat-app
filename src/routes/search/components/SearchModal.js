@@ -25,8 +25,8 @@ export type PropsType = {|
   categories: CategoriesMapModel | null,
   navigateToCategory: NavigateToCategoryParamsType => void,
   theme: ThemeType,
-  language: string | null,
-  cityCode: string | null,
+  language: string,
+  cityCode: string,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
 |}
@@ -66,10 +66,6 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
   onItemPress = (category: { path: string }) => {
     const {cityCode, language, navigateToCategory, closeModal} = this.props
-
-    if (!language || !cityCode) {
-      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
-    }
 
     navigateToCategory({cityCode, language, path: category.path})
     InteractionManager.runAfterInteractions(() => closeModal())

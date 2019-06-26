@@ -13,9 +13,9 @@ import type { NavigationScreenProp } from 'react-navigation'
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type PropsType = {|
-  city: string | null,
-  currentLanguage: string | null,
-  languages: Array<LanguageModel> | null,
+  city: string,
+  currentLanguage: string,
+  languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void,
@@ -23,12 +23,19 @@ type PropsType = {|
 |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
+
+  const { city, language, languages } = state.cityContent
+
   const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
-  const currentLanguage = route ? route.language : state.cityContent.language
+  const currentLanguage = route ? route.language : language
+
   return {
-    city: state.cityContent.city,
+    city,
     currentLanguage,
-    languages: state.cityContent.languages,
+    languages,
     availableLanguages: ownProps.navigation.getParam('availableLanguages'),
     closeModal: () => { ownProps.navigation.goBack() }
   }

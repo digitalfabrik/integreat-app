@@ -46,10 +46,12 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
   const { resourceCache, categoriesRouteMapping, city, languages, language } = state.cityContent
 
   if (languages && !languages.map(language => language.code).includes(language)) {
-    // TODO $FlowFixMe city could be undefined here, will fix this in NATIVE-263
     return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
   }
 
@@ -62,7 +64,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route || !cities || !city) {
+  if (!route || !cities) {
     return { error: false, languageNotAvailable: false }
   }
 
