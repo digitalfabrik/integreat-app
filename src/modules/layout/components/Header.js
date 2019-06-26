@@ -8,7 +8,7 @@ import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-butto
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
-import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
+import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 
@@ -29,12 +29,6 @@ const Logo = styled.Image`
   width: 150px;
   height: 50px;
   resize-mode: contain;
-`
-
-const Title = styled.Text`
- font-size: 30px;
- color: black;
- margin-left: 10px;
 `
 
 const BoxShadow = styled.View`
@@ -77,9 +71,12 @@ class Header extends React.PureComponent<PropsType> {
     return this.props.scenes.find((s: NavigationScene) => s.index === this.props.scene.index - 1)
   }
 
-  getDescriptor (): { [key: string]: any } {
-    // $FlowFixMe
-    return this.props.scene.descriptor
+  getDescriptor (): NavigationDescriptor {
+    const descriptor = this.props.scene.descriptor
+    if (!descriptor) {
+      throw new Error('Descriptor is not defined')
+    }
+    return descriptor
   }
 
   goBackInStack = () => {
@@ -135,7 +132,6 @@ class Header extends React.PureComponent<PropsType> {
 
   render () {
     const { navigation, t, theme } = this.props
-    const headerTitle = this.getDescriptor().headerTitle || ''
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
@@ -143,7 +139,6 @@ class Header extends React.PureComponent<PropsType> {
         <HorizontalLeft>
           {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
           <Logo source={logo} />
-          <Title>{headerTitle}</Title>
         </HorizontalLeft>
         <MaterialHeaderButtons>
           <Item title='Search' iconName='search' onPress={this.goToSearch} />
