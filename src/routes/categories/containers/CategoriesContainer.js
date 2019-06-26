@@ -40,6 +40,9 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
   const {resourceCache, categoriesRouteMapping, city} = state.cityContent
 
   if (state.cities.errorMessage !== undefined ||
@@ -51,7 +54,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route || !cities || !city) {
+  if (!route || !cities) {
     return { languageNotAvailable: false, error: false }
   }
 

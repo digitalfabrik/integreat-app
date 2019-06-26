@@ -8,8 +8,12 @@ import type {
 import { currentCityRouteSelector } from './currentCityRouteSelector'
 import type { CityRouteSelectorPropsType } from './currentCityRouteSelector'
 
-const cityLanguagesSelector = (state: StateType): ?Array<string> => state.cityContent.languages &&
+const cityLanguagesSelector = (state: StateType): ?Array<string> => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
   state.cityContent.languages.map(languageModel => languageModel.code)
+}
 
 export const availableLanguagesSelector = createSelector<StateType, CityRouteSelectorPropsType, ?Array<string>,
   CategoryRouteStateType | EventRouteStateType | null, ?Array<string>>(

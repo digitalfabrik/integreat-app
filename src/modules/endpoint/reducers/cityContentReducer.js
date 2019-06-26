@@ -9,11 +9,17 @@ import type { CityContentActionType } from '../../app/StoreActionType'
 import setCityContentLocalization from './setCityContentLocalization'
 
 export default (
-  state: CityContentStateType = defaultCityContentState, action: CityContentActionType
-): CityContentStateType => {
+  state: CityContentStateType | null = defaultCityContentState, action: CityContentActionType
+): CityContentStateType | null => {
+  if (action.type === 'SET_CITY_CONTENT_LOCALIZATION') {
+    return setCityContentLocalization(state, action)
+  }
+
+  if (!state) {
+    throw new Error('CityContent must not be null!')
+  }
+
   switch (action.type) {
-    case 'SET_CITY_CONTENT_LOCALIZATION':
-      return setCityContentLocalization(state, action)
     case 'PUSH_LANGUAGES':
       return {...state, languages: action.params.languages}
     case 'PUSH_CATEGORY':

@@ -72,34 +72,24 @@ export type SearchRouteType = {|
 |}
 
 export type CityContentStateType = {|
-  +lastUpdate: Moment | null,
-  +language: string | null,
-  +city: string | null,
-  +languages: Array<LanguageModel> | null,
+  +lastUpdate: Moment,
+  +language: string,
+  +city: string,
+  +languages: Array<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: LanguageResourceCacheStateType,
   +searchRoute: SearchRouteType
 |}
 
-export const defaultCityContentState: CityContentStateType = {
-  lastUpdate: null,
-  language: null,
-  city: null,
-  languages: null,
-  categoriesRouteMapping: {},
-  eventsRouteMapping: {},
-  resourceCache: {},
-  searchRoute: {categoriesMap: null}
-}
-
+export const defaultCityContentState = null
 export type DirectionStateType = 'ltr' | 'rtl'
 
 export type StateType = {|
   +uiDirection: DirectionStateType,
   +darkMode: boolean,
 
-  +cityContent: CityContentStateType,
+  +cityContent: CityContentStateType | null,
   +cities: CitiesStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},

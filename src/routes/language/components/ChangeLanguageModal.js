@@ -22,9 +22,9 @@ const Wrapper = styled.View`
 
 type PropsType = {
   theme: ThemeType,
-  city: string | null,
-  currentLanguage: string | null,
-  languages: Array<LanguageModel> | null,
+  city: string,
+  currentLanguage: string,
+  languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void,
@@ -35,10 +35,6 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
     const {closeModal, changeLanguage, city} = this.props
 
-    if (!city) {
-      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
-    }
-
     closeModal()
     InteractionManager.runAfterInteractions(() => {
       changeLanguage(city, model.code)
@@ -46,14 +42,10 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   }
 
   render () {
-    const {theme, languages, availableLanguages, city, currentLanguage} = this.props
-
-    if (!languages || !currentLanguage || !city) {
-      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
-    }
+    const {theme, languages, availableLanguages, currentLanguage} = this.props
 
     return <Wrapper theme={theme}>
-      <Selector theme={theme} verticalLayout items={languages.map(languageModel => {
+      <Selector theme={theme} selectedItemCode={currentLanguage} verticalLayout items={languages.map(languageModel => {
         const isLanguageAvailable = availableLanguages.includes(languageModel.code)
         return new SelectorItemModel({
           code: languageModel.code,
@@ -61,8 +53,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
           enabled: isLanguageAvailable,
           onPress: () => this.onPress(languageModel)
         })
-      })}
-                selectedItemCode={currentLanguage} />
+      })} />
     </Wrapper>
   }
 }
