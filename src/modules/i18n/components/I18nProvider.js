@@ -5,7 +5,7 @@ import * as React from 'react'
 import { I18nextProvider, reactI18nextModule } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
 
-import localesResources from 'locales.json'
+import localesResources from '../../../locales.json'
 import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import type { UiDirectionType } from '../actions/setUIDirection'
@@ -21,7 +21,7 @@ type PropsType = {|
 
 type StateType = {| language: string |}
 
-export class I18nProvider extends React.Component<PropsType, StateType> {
+class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n
 
   constructor () {
