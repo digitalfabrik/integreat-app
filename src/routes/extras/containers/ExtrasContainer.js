@@ -22,7 +22,7 @@ type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType): StatePropsType => {
   if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
+    throw new Error('CityContent must not be null!3')
   }
 
   const { city, language } = state.cityContent

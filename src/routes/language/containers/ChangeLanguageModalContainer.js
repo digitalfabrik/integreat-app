@@ -15,8 +15,8 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 type PropsType = {|
   city: string,
   currentLanguage: string,
-  languages: Array<LanguageModel>,
-  availableLanguages: Array<string>,
+  languages: Array<LanguageModel> | null,
+  availableLanguages: Array<string> | null,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>

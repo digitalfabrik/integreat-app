@@ -30,7 +30,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const { searchRoute, language, city } = state.cityContent
 
   return {
-    categories: searchRoute.categoriesMap,
+    categories: (searchRoute && searchRoute.categoriesMap) || null,
     language: language,
     cityCode: city,
     closeModal: () => { ownProps.navigation.goBack() }
