@@ -5,7 +5,7 @@ import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { connect } from 'react-redux'
-import { I18nProvider } from '../components/I18nProvider'
+import I18nProvider from '../components/I18nProvider'
 import type { UiDirectionType } from '../actions/setUIDirection'
 
 type OwnPropsType = {| children?: React.Node |}
