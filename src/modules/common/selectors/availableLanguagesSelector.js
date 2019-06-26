@@ -9,7 +9,7 @@ import { currentCityRouteSelector } from './currentCityRouteSelector'
 import type { CityRouteSelectorPropsType } from './currentCityRouteSelector'
 
 const cityLanguagesSelector = (state: StateType): ?Array<string> => {
-  if (!state.cityContent) {
+  if (!state.cityContent || !state.cityContent.languages) {
     throw new Error('CityContent must not be null!')
   }
   state.cityContent.languages.map(languageModel => languageModel.code)
