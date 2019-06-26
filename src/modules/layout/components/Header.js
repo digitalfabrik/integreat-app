@@ -82,12 +82,8 @@ class Header extends React.PureComponent<PropsType> {
     return this.props.scene.descriptor
   }
 
-  getNavigation (): NavigationScreenProp<*> {
-    return this.getDescriptor().navigation
-  }
-
   goBackInStack = () => {
-    this.getNavigation().goBack(this.getDescriptor().key)
+    this.props.navigation.goBack(this.getDescriptor().key)
   }
 
   goToLanding = () => {
@@ -95,22 +91,23 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSettings = () => {
-    this.getNavigation().navigate('Settings')
+    this.props.navigation.navigate('Settings')
   }
 
   goToLanguageChange = () => {
-    this.getNavigation().navigate({
+    const { navigation, routeKey, availableLanguages } = this.props
+    navigation.navigate({
       routeName: 'ChangeLanguageModal',
       params: {
-        availableLanguages: this.props.availableLanguages,
-        routeKey: this.props.routeKey
+        availableLanguages: availableLanguages,
+        routeKey: routeKey
       }
     })
   }
 
   onShare = async () => {
-    const {t} = this.props
-    const sharePath: ?string = this.getNavigation().getParam('sharePath')
+    const { navigation, t } = this.props
+    const sharePath: ?string = navigation.getParam('sharePath')
     if (!sharePath) {
       return console.error('sharePath is undefined')
     }
@@ -133,13 +130,13 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSearch = () => {
-    this.getNavigation().navigate('SearchModal')
+    this.props.navigation.navigate('SearchModal')
   }
 
   render () {
-    const {t, theme} = this.props
+    const { navigation, t, theme } = this.props
     const headerTitle = this.getDescriptor().headerTitle || ''
-    const sharePath = this.getNavigation().getParam('sharePath')
+    const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
       <Horizontal>
