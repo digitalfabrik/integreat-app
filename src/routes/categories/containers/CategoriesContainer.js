@@ -41,7 +41,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
+    return { languageNotAvailable: false, error: false }
   }
   const {resourceCache, categoriesRouteMapping, city} = state.cityContent
 

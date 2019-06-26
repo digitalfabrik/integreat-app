@@ -24,8 +24,8 @@ type PropsType = {
   theme: ThemeType,
   city: string,
   currentLanguage: string,
-  languages: Array<LanguageModel>,
-  availableLanguages: Array<string>,
+  languages: Array<LanguageModel> | null,
+  availableLanguages: Array<string> | null,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
@@ -43,6 +43,11 @@ class ChangeLanguageModal extends React.Component<PropsType> {
 
   render () {
     const {theme, languages, availableLanguages, currentLanguage} = this.props
+    if (!languages || !availableLanguages) {
+      console.log(languages)
+      console.log(availableLanguages)
+      return null
+    }
 
     return <Wrapper theme={theme}>
       <Selector theme={theme} selectedItemCode={currentLanguage} verticalLayout items={languages.map(languageModel => {

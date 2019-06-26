@@ -9,10 +9,9 @@ import { currentCityRouteSelector } from './currentCityRouteSelector'
 import type { CityRouteSelectorPropsType } from './currentCityRouteSelector'
 
 const cityLanguagesSelector = (state: StateType): ?Array<string> => {
-  if (!state.cityContent || !state.cityContent.languages) {
-    throw new Error('CityContent must not be null!')
+  if (state.cityContent && state.cityContent.languages) {
+    state.cityContent.languages.map(languageModel => languageModel.code)
   }
-  state.cityContent.languages.map(languageModel => languageModel.code)
 }
 
 export const availableLanguagesSelector = createSelector<StateType, CityRouteSelectorPropsType, ?Array<string>,

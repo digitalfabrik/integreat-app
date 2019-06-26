@@ -8,22 +8,20 @@ export type CityRouteSelectorPropsType = {|
 |}
 
 const categoryRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?CategoryRouteStateType => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-  const categoriesRouteMapping = state.cityContent.categoriesRouteMapping
-  if (categoriesRouteMapping.errorMessage !== undefined) {
-    return categoriesRouteMapping[props.routeKey]
+  if (state.cityContent) {
+    const categoriesRouteMapping = state.cityContent.categoriesRouteMapping
+    if (categoriesRouteMapping.errorMessage !== undefined) {
+      return categoriesRouteMapping[props.routeKey]
+    }
   }
 }
 
 const eventRouteSelector = (state: StateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
-  if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-  const eventsRouteMapping = state.cityContent.eventsRouteMapping
-  if (eventsRouteMapping.errorMessage !== undefined) {
-    return eventsRouteMapping[props.routeKey]
+  if (state.cityContent) {
+    const eventsRouteMapping = state.cityContent.eventsRouteMapping
+    if (eventsRouteMapping.errorMessage !== undefined) {
+      return eventsRouteMapping[props.routeKey]
+    }
   }
 }
 
