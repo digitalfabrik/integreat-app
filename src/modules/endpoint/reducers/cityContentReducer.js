@@ -16,7 +16,7 @@ export default (
   }
 
   if (!state) {
-    throw new Error('CityContent must not be null!')
+    return defaultCityContentState
   }
 
   switch (action.type) {

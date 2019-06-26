@@ -68,18 +68,17 @@ export const defaultCitiesState: CitiesStateType = {
 }
 
 export type SearchRouteType = {|
-  +categoriesMap: CategoriesMapModel | null
+  +categoriesMap: CategoriesMapModel
 |}
 
 export type CityContentStateType = {|
-  +lastUpdate: Moment,
   +language: string,
   +city: string,
-  +languages: Array<LanguageModel>,
+  +languages: Array<LanguageModel> | null,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: LanguageResourceCacheStateType,
-  +searchRoute: SearchRouteType
+  +searchRoute: SearchRouteType | null
 |}
 
 export const defaultCityContentState = null

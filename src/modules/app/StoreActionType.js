@@ -3,6 +3,7 @@
 import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
+import type { UiDirectionType } from '../i18n/actions/setUIDirection'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
@@ -22,10 +23,10 @@ export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | Fe
 
 export type SetCityContentLocalizationType = {|
   type: 'SET_CITY_CONTENT_LOCALIZATION',
-  params: {
+  params: {|
     city: string,
     language: string
-  }
+  |}
 |}
 
 export type PushLanguagesActionType = {|
@@ -142,13 +143,15 @@ export type CityContentActionType =
   | SetCityContentLocalizationType
   | ResourcesFetchFailedActionType
 
-export type SetUiDirectionActionType = {
-  type: 'SET_UI_DIRECTION', payload: 'ltr' | 'rtl'
-}
+export type SetUiDirectionActionType = {|
+  type: 'SET_UI_DIRECTION', params: {|
+    direction: UiDirectionType
+  |}
+|}
 
-export type ToggleDarkModeActionType = {
+export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
-}
+|}
 
 export type ConnectionChangeActionType = {|
   type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean
