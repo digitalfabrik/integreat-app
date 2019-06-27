@@ -1,20 +1,21 @@
-package com.integreat;
+package tuerantuer.app.integreat;
 
 import android.app.Application;
 
-import com.facebook.react.ReactApplication;
-import com.rumax.reactnative.pdfviewer.PDFViewPackage;
-import com.swmansion.rnscreens.RNScreensPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
-import com.mapbox.rctmgl.RCTMGLPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
+import com.facebook.react.ReactApplication;
+
+import com.mapbox.rctmgl.RCTMGLPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.rumax.reactnative.pdfviewer.PDFViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
 import io.sentry.RNSentryPackage;
 
 import java.util.Arrays;

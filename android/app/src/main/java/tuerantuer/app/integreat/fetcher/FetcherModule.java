@@ -1,4 +1,4 @@
-package com.integreat.fetcher;
+package tuerantuer.app.integreat.fetcher;
 
 import android.support.annotation.NonNull;
 
