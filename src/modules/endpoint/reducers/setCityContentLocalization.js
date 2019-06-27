@@ -18,7 +18,7 @@ const setCityContentLocalization = (
       searchRoute: null
     }
   }
-  return { ...state, language, city }
+  return state
 }
 
 export default setCityContentLocalization
