@@ -10,7 +10,7 @@ import type { CityRouteSelectorPropsType } from './currentCityRouteSelector'
 
 const cityLanguagesSelector = (state: StateType): ?Array<string> => {
   if (state.cityContent && state.cityContent.languages) {
-    state.cityContent.languages.map(languageModel => languageModel.code)
+    return state.cityContent.languages.map(languageModel => languageModel.code)
   }
 }
 
