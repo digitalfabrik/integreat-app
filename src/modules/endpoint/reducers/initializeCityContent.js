@@ -1,17 +1,17 @@
 // @flow
 
 import type { CityContentStateType } from '../../app/StateType'
-import type { SetCityContentLocalizationType } from '../../app/StoreActionType'
+import type { InitializeCityContentActionType } from '../../app/StoreActionType'
 
-const setCityContentLocalization = (
-  state: CityContentStateType | null, action: SetCityContentLocalizationType
+const initializeCityContent = (
+  state: CityContentStateType | null, action: InitializeCityContentActionType
 ): CityContentStateType => {
-  const { language, city } = action.params
+  const { language, city, languages } = action.params
   if (state === null) {
     return {
       language,
       city,
-      languages: null,
+      languages,
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       resourceCache: {},
@@ -21,4 +21,4 @@ const setCityContentLocalization = (
   return state
 }
 
-export default setCityContentLocalization
+export default initializeCityContent

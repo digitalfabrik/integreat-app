@@ -57,7 +57,6 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  availableLanguages: ?Array<string>,
   navigateToLanding: () => void,
   routeKey: string
 |}
@@ -92,13 +91,9 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToLanguageChange = () => {
-    const { navigation, routeKey, availableLanguages } = this.props
+    const { navigation, routeKey } = this.props
     navigation.navigate({
-      routeName: 'ChangeLanguageModal',
-      params: {
-        availableLanguages: availableLanguages,
-        routeKey: routeKey
-      }
+      routeName: 'ChangeLanguageModal', params: { routeKey }
     })
   }
 
@@ -133,6 +128,10 @@ class Header extends React.PureComponent<PropsType> {
   render () {
     const { navigation, t, theme } = this.props
     const sharePath = navigation.getParam('sharePath')
+
+    if (!this.props.navigation) {
+      return null
+    }
 
     return <BoxShadow theme={theme}>
       <Horizontal>
