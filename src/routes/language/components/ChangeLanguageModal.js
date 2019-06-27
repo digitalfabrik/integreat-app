@@ -44,8 +44,6 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   render () {
     const {theme, languages, availableLanguages, currentLanguage} = this.props
     if (!languages || !availableLanguages) {
-      console.log(languages)
-      console.log(availableLanguages)
       return null
     }
 
