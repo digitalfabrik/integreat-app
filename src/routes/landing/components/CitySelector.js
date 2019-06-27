@@ -29,25 +29,19 @@ type PropsType = {|
 |}
 
 class CitySelector extends React.PureComponent<PropsType> {
-  // TODO: We currently use this alternative for testing
+
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
-    return cities.filter(_city => _city.name.toLowerCase().includes(filterText))
-  }
 
-  // filter (): Array<CityModel> {
-  //   const filterText = this.props.filterText.toLowerCase()
-  //   const cities = this.props.cities
-  //
-  //   if (filterText === 'wirschaffendas') {
-  //     return cities.filter(_city => !_city.live)
-  //   } else {
-  //     return cities
-  //       .filter(_city => _city.live)
-  //       .filter(_city => _city.name.toLowerCase().includes(filterText))
-  //   }
-  // }
+    if (filterText === 'wirschaffendas') {
+      return cities.filter(_city => !_city.live)
+    } else {
+      return cities
+        .filter(_city => _city.live)
+        .filter(_city => _city.name.toLowerCase().includes(filterText))
+    }
+  }
 
   renderList (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
