@@ -21,11 +21,12 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type SetCityContentLocalizationType = {|
-  type: 'SET_CITY_CONTENT_LOCALIZATION',
+export type InitializeCityContentActionType = {|
+  type: 'INITIALIZE_CITY_CONTENT',
   params: {|
     city: string,
-    language: string
+    language: string,
+    languages: Array<LanguageModel>
   |}
 |}
 
@@ -140,7 +141,7 @@ export type CityContentActionType =
   | SwitchContentLanguageActionType
   | LanguagesActionType
   | ClearCityContentActionType
-  | SetCityContentLocalizationType
+  | InitializeCityContentActionType
   | ResourcesFetchFailedActionType
 
 export type SetUiDirectionActionType = {|

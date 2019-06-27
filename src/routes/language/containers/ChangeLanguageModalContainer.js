@@ -9,14 +9,15 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { currentCityRouteSelector } from '../../../modules/common/selectors/currentCityRouteSelector'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
+import { availableLanguagesSelector } from '../../../modules/common/selectors/availableLanguagesSelector'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type PropsType = {|
   city: string,
   currentLanguage: string,
-  languages: Array<LanguageModel> | null,
-  availableLanguages: Array<string> | null,
+  languages: Array<LanguageModel>,
+  availableLanguages: Array<string>,
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
@@ -27,16 +28,19 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     throw new Error('CityContent must not be null!')
   }
 
-  const { city, language, languages } = state.cityContent
+  const cityContent = state.cityContent
+  const { city, language, languages } = cityContent
 
-  const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
+  const routeKey = ownProps.navigation.getParam('routeKey')
+  const route = currentCityRouteSelector(cityContent, { routeKey })
   const currentLanguage = route ? route.language : language
+  const availableLanguages = availableLanguagesSelector(cityContent, { routeKey })
 
   return {
     city,
     currentLanguage,
     languages,
-    availableLanguages: ownProps.navigation.getParam('availableLanguages'),
+    availableLanguages,
     closeModal: () => { ownProps.navigation.goBack() }
   }
 }

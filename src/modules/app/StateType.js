@@ -74,7 +74,7 @@ export type SearchRouteType = {|
 export type CityContentStateType = {|
   +language: string,
   +city: string,
-  +languages: Array<LanguageModel> | null,
+  +languages: Array<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: LanguageResourceCacheStateType,

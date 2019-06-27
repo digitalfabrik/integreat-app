@@ -6,13 +6,13 @@ import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
 import type { CityContentActionType } from '../../app/StoreActionType'
-import setCityContentLocalization from './setCityContentLocalization'
+import initializeCityContent from './initializeCityContent'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: CityContentActionType
 ): CityContentStateType | null => {
-  if (action.type === 'SET_CITY_CONTENT_LOCALIZATION') {
-    return setCityContentLocalization(state, action)
+  if (action.type === 'INITIALIZE_CITY_CONTENT') {
+    return initializeCityContent(state, action)
   }
 
   if (!state) {
