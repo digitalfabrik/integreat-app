@@ -48,7 +48,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { resourceCache, categoriesRouteMapping, city, languages, language } = state.cityContent
 
-  if (languages && !languages.includes(language)) {
+  if (languages && !languages.map(language => language.code).includes(language)) {
     // TODO $FlowFixMe city could be undefined here, will fix this in NATIVE-263
     return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
   }
