@@ -102,8 +102,7 @@ export type EventsActionType =
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', params: {|
     city: string,
-    newLanguage: string,
-    oldLanguage: string
+    newLanguage: string
   |}
 |}
 
@@ -116,8 +115,7 @@ export type MorphContentLanguageActionType = {|
     newCategoriesMap: CategoriesMapModel,
     newResourceCache: LanguageResourceCacheStateType,
     newEvents: Array<EventModel>,
-    newLanguage: string,
-    oldLanguage: string
+    newLanguage: string
   |}
 |}
 

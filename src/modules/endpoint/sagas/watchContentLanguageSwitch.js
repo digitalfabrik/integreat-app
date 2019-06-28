@@ -12,7 +12,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
-  const {city, newLanguage, oldLanguage} = action.params
+  const {city, newLanguage} = action.params
   try {
     const setContentLanguage: SetContentLanguageActionType = {
       type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
@@ -34,8 +34,7 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
         newCategoriesMap: categories,
         newResourceCache: resourceCache,
         newEvents: events,
-        newLanguage,
-        oldLanguage
+        newLanguage
       }
     }
     yield put(insert)

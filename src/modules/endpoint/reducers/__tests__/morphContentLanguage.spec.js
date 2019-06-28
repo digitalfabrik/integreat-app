@@ -347,8 +347,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: createGermanModel(),
         newResourceCache: {},
         newEvents: deEvents,
-        newLanguage: 'de',
-        oldLanguage: 'de'
+        newLanguage: 'de'
       }
     }
 
@@ -366,8 +365,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: enModel,
         newResourceCache: {},
         newEvents: [],
-        newLanguage: 'en',
-        oldLanguage: 'de'
+        newLanguage: 'en'
       }
     }
 
@@ -387,8 +385,7 @@ describe('morphContentLanguage', () => {
         newCategoriesMap: enModel,
         newResourceCache: {},
         newEvents: enEvents,
-        newLanguage: 'en',
-        oldLanguage: 'de'
+        newLanguage: 'en'
       }
     }
 
