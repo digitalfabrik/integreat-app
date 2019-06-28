@@ -38,7 +38,7 @@ export type PropsType = {|
 class Dashboard extends React.Component<PropsType> {
   getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
     const {navigation, navigateToCategory, navigateToEvent, t} = this.props
-    const extras = () => {
+    const navigateToExtras = () => {
       navigation.navigate('Extras', {
         cityCode,
         sharePath: `/${cityCode}/${language}/extras`
@@ -59,7 +59,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'extras',
         thumbnail: offersIcon,
         isExternalUrl: false,
-        onTilePress: extras,
+        onTilePress: navigateToExtras,
         notifications: 0
       }),
       new TileModel({
