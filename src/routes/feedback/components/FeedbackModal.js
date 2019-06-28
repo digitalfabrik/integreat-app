@@ -11,6 +11,12 @@ import { Button } from 'react-native-elements'
 import FeedbackVariant from '../FeedbackVariant'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
+const Input = styled(TextInput)`
+  margin-bottom: 15px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 const Wrapper = styled.View`
   padding: 40px;
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -59,8 +65,9 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
           {feedbackItems.map(item => <Picker.Item label={item.label} value={item} key={item.label} />)}
         </Picker>
         <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
-        <TextInput underlineColorAndroid={theme.colors.textDecorationColor} onChangeText={this.onFeedbackCommentChanged}
-                   value={comment} multiline />
+        <Input theme={theme} onChangeText={this.onFeedbackCommentChanged}
+               autoFocus value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
+               placeholder={t('yourFeedback')} />
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
                 titleStyle={{color: theme.colors.textColor}}
                 buttonStyle={{backgroundColor: theme.colors.themeColor}}
