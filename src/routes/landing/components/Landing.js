@@ -9,25 +9,27 @@ import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import type { NavigationScreenProp } from 'react-navigation'
 
 const Wrapper = styled(ScrollView)`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 11px 10px 0;
 `
 
-type PropType = {
-  cities: ?Array<CityModel>,
-  error: boolean,
-  navigateToDashboard: (cityCode: string) => StoreActionType,
+export type PropsType = {
+  navigation: NavigationScreenProp<*>,
+  i18n: Object,
+  cities?: Array<CityModel>,
   t: TFunction,
   theme: ThemeType,
+  navigateToDashboard: (cityCode: string) => StoreActionType,
   fetchCities: () => StoreActionType
 }
 
 /**
  * This shows the landing screen. This is a container because it depends on endpoints.
  */
-class Landing extends React.Component<PropType> {
+class Landing extends React.Component<PropsType> {
   componentDidMount () {
     if (!this.props.cities) {
       this.props.fetchCities()
