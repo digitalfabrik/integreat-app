@@ -25,11 +25,9 @@ const mapStateToProps = (state: StateType): StatePropsType => {
     throw new Error('CityContent must not be null!')
   }
 
-  const { city, language } = state.cityContent
-
   return {
-    city,
-    language: language
+    city: state.cityContent.city,
+    language: state.contentLanguage
   }
 }
 

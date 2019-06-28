@@ -84,10 +84,10 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
 const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
-  const {categoriesRouteMapping, eventsRouteMapping, language} = state
+  const {newCategoriesMap, newResourceCache, newEvents, oldLanguage, newLanguage} = action.params
+  const {categoriesRouteMapping, eventsRouteMapping} = state
 
-  if (language === newLanguage) {
+  if (oldLanguage === newLanguage) {
     return state
   }
 
@@ -103,7 +103,6 @@ const morphContentLanguage = (
 
   return {
     ...state,
-    language: newLanguage,
     resourceCache: newResourceCache,
     searchRoute: {categoriesMap: newCategoriesMap},
     categoriesRouteMapping: translatedCategoriesRouteMapping,

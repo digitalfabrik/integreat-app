@@ -18,7 +18,7 @@ type PropsType = {|
   currentLanguage: string,
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
-  changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
+  changeLanguage: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
 |}
@@ -29,11 +29,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   }
 
   const cityContent = state.cityContent
-  const { city, language, languages } = cityContent
+  const { city, languages } = cityContent
 
   const routeKey = ownProps.navigation.getParam('routeKey')
   const route = currentCityRouteSelector(cityContent, { routeKey })
-  const currentLanguage = route ? route.language : language
+  const currentLanguage = route ? route.language : state.contentLanguage
   const availableLanguages = availableLanguagesSelector(cityContent, { routeKey })
 
   return {
@@ -48,13 +48,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
-    changeLanguage: (city: string, newLanguage: string) => dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        city,
-        newLanguage
-      }
-    })
+    changeLanguage: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => {
+      dispatch({
+        type: 'SWITCH_CONTENT_LANGUAGE', params
+      })
+    }
   }
 }
 
