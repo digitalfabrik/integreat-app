@@ -20,8 +20,6 @@ export default (
   }
 
   switch (action.type) {
-    case 'PUSH_LANGUAGES':
-      return {...state, languages: action.params.languages}
     case 'PUSH_CATEGORY':
       return pushCategory(state, action)
     case 'PUSH_EVENT':

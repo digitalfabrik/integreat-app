@@ -28,6 +28,7 @@ type StatePropsType = {|
   languageNotAvailable: boolean,
   availableLanguages?: Array<LanguageModel>,
   currentCityCode?: string,
+  currentLanguage?: string,
   cityCode?: string,
   cities?: Array<CityModel>,
   language?: string,
@@ -40,19 +41,26 @@ type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
+  changeUnavailableLanguage?: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const contentLanguage = state.contentLanguage
   if (!state.cityContent) {
     return { error: false, languageNotAvailable: false }
   }
-  const { resourceCache, categoriesRouteMapping, city, languages, language } = state.cityContent
+  const { resourceCache, categoriesRouteMapping, city, languages } = state.cityContent
 
-  if (languages && !languages.map(language => language.code).includes(language)) {
-    return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
+  if (languages && !languages.map(language => language.code).includes(contentLanguage)) {
+    return {
+      languageNotAvailable: true,
+      availableLanguages: languages,
+      currentCityCode: city,
+      error: false,
+      currentLanguage: contentLanguage
+    }
   }
 
   if (state.cities.errorMessage !== undefined ||
@@ -86,13 +94,11 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: (city: string, newLanguage: string) => {
+  changeUnavailableLanguage: ({
+    city, newLanguage, oldLanguage
+  }: {| city: string, newLanguage: string, oldLanguage: string |}) => {
     const switchContentLanguage: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        city,
-        newLanguage
-      }
+      type: 'SWITCH_CONTENT_LANGUAGE', params: { city, newLanguage, oldLanguage }
     }
     dispatch(switchContentLanguage)
     createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)({

@@ -72,7 +72,6 @@ export type SearchRouteType = {|
 |}
 
 export type CityContentStateType = {|
-  +language: string,
   +city: string,
   +languages: Array<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
@@ -89,6 +88,7 @@ export type StateType = {|
   +darkMode: boolean,
 
   +cityContent: CityContentStateType | null,
+  +contentLanguage: string,
   +cities: CitiesStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},

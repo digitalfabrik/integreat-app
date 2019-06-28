@@ -8,7 +8,6 @@ import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
-import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 
 const Wrapper = styled.View`
@@ -26,18 +25,18 @@ type PropsType = {
   currentLanguage: string,
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
-  changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
+  changeLanguage: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    const {closeModal, changeLanguage, city} = this.props
+    const { currentLanguage, closeModal, changeLanguage, city } = this.props
 
     closeModal()
     InteractionManager.runAfterInteractions(() => {
-      changeLanguage(city, model.code)
+      changeLanguage({ city, newLanguage: model.code, oldLanguage: currentLanguage })
     })
   }
 

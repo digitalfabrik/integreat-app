@@ -21,6 +21,7 @@ export type StatePropsType = {|
   error: boolean,
   languageNotAvailable: boolean,
   availableLanguages?: Array<LanguageModel>,
+  currentLanguage?: string,
   currentCityCode?: string,
   cities?: Array<CityModel>
 |}
@@ -28,7 +29,7 @@ export type StatePropsType = {|
 type DispatchPropsType = {|
   fetchCities: () => StoreActionType,
   navigateToDashboard: (cityCode: string) => StoreActionType,
-  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
+  changeUnavailableLanguage?: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}

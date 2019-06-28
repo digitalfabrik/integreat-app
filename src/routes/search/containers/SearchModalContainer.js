@@ -27,11 +27,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     throw new Error('CityContent must not be null!')
   }
 
-  const { searchRoute, language, city } = state.cityContent
+  const { searchRoute, city } = state.cityContent
 
   return {
     categories: (searchRoute && searchRoute.categoriesMap) || null,
-    language: language,
+    language: state.contentLanguage,
     cityCode: city,
     closeModal: () => { ownProps.navigation.goBack() }
   }
