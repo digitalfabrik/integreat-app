@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
+import type { HeaderProps, NavigationContainer, NavigationState, NavigationComponent } from 'react-navigation'
 import {
   createAppContainer,
   createStackNavigator,
@@ -30,7 +30,7 @@ import SettingsContainer from '../../../routes/settings/container/SettingsContai
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-const createNavigationRouteConfig = (Component, header = null): NavigationRouteConfig => ({
+const createNavigationRouteConfig = (Component: NavigationComponent, header = null): NavigationRouteConfig => ({
   screen: Component,
   navigationOptions: {
     header: header
@@ -74,8 +74,6 @@ export const AppStack = createStackNavigator(
 
 export const LandingStack = createSwitchNavigator(
   {
-    //            The translate() HOC does not calculate props correctly right now. Because the connect
-    // $FlowFixMe in LandingContainer needs the translation HOC there is a flow error here. (NATIVE-53)
     'Landing': LandingContainer,
     'App': AppStack
   }

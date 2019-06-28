@@ -18,29 +18,33 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 
-type PropsType = {
+export type PropsType = {|
   navigation: NavigationScreenProp<*>,
-  cityCode: string,
+  cityCode?: string,
 
-  toggleTheme: () => void,
-  goOffline: () => void,
-  goOnline: () => void,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
   navigateToDashboard: NavigateToCategoryParamsType => void,
   theme: ThemeType,
 
-  language: string,
-  cities: ?Array<CityModel>,
-  stateView: ?CategoriesRouteStateView,
-  resourceCache: LanguageResourceCacheStateType,
+  language?: string,
+  cities?: Array<CityModel>,
+  stateView?: CategoriesRouteStateView,
+  resourceCache?: LanguageResourceCacheStateType,
   t: TFunction
-}
+|}
 
 class Dashboard extends React.Component<PropsType> {
-  getNavigationTileModels (): Array<TileModel> {
-    const {t, cityCode, language, navigateToCategory} = this.props
+  getNavigationTileModels (cityCode: string, language: string): Array<TileModel> {
+    const {navigation, navigateToCategory, navigateToEvent, t} = this.props
+    const navigateToExtras = () => {
+      navigation.navigate('Extras', {
+        cityCode,
+        sharePath: `/${cityCode}/${language}/extras`
+      })
+    }
+
     return [
       new TileModel({
         title: t('localInformation'),
@@ -55,7 +59,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'extras',
         thumbnail: offersIcon,
         isExternalUrl: false,
-        onTilePress: this.extras,
+        onTilePress: navigateToExtras,
         notifications: 0
       }),
       new TileModel({
@@ -63,7 +67,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'events',
         thumbnail: eventsIcon,
         isExternalUrl: false,
-        onTilePress: this.events,
+        onTilePress: () => navigateToEvent({cityCode, language}),
         notifications: 0
       })
     ]
@@ -71,23 +75,13 @@ class Dashboard extends React.Component<PropsType> {
 
   landing = () => this.props.navigation.navigate('Landing')
 
-  extras = () => {
-    const {cityCode, language} = this.props
-    this.props.navigation.navigate('Extras', {
-      cityCode,
-      sharePath: `/${cityCode}/${language}/extras`
-    })
-  }
-
-  events = () => {
-    const {navigateToEvent, cityCode, language} = this.props
-    navigateToEvent({cityCode, language})
-  }
-
   onRefresh = () => {
     const {navigateToDashboard, cityCode, language, navigation} = this.props
-    navigateToDashboard({
-      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')})
+    if (cityCode && language) {
+      navigateToDashboard({
+        cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')
+      })
+    }
   }
 
   render () {
@@ -96,14 +90,12 @@ class Dashboard extends React.Component<PropsType> {
       navigation
     } = this.props
 
-    const loading = !stateView || !cities || !resourceCache
-
-    if (!stateView || !cities || !resourceCache) { // I cannot do 'if (loading)' here because of flow -.-
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
+    if (!stateView || !cities || !resourceCache || !cityCode || !language) {
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}>
-        <NavigationTiles tiles={this.getNavigationTileModels()}
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
+        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)}
                          theme={theme} />
         <Categories stateView={stateView}
                     cities={cities}
