@@ -52,8 +52,8 @@ const createReduxStore = (
     uiDirection: 'ltr',
     darkMode: false,
 
-    contentLanguage: DEFAULT_LANGUAGE,
     cities: defaultCitiesState,
+    contentLanguage: DEFAULT_LANGUAGE,
     cityContent: defaultCityContentState,
 
     network: {isConnected: false, actionQueue: []}

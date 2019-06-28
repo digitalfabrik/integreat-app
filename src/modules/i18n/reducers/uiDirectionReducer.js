@@ -1,6 +1,6 @@
 // @flow
 
-import { type ActionType, handleAction, type ReduxReducer } from 'redux-actions'
+import { handleAction, type ReduxReducer } from 'redux-actions'
 import type { DirectionStateType } from '../../app/StateType'
 import type { SetUiDirectionActionType } from '../../app/StoreActionType'
 

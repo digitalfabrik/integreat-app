@@ -12,7 +12,7 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   language: string,
-  dispatch: () => {}
+  dispatch: () => void
 |}
 
 const mapStateToProps = (state: StateType) => {
