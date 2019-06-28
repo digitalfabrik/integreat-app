@@ -41,7 +41,7 @@ type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage?: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void
+  changeUnavailableLanguage?: (city: string, language: string) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
@@ -94,11 +94,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: ({
-    city, newLanguage, oldLanguage
-  }: {| city: string, newLanguage: string, oldLanguage: string |}) => {
+  changeUnavailableLanguage: (city: string, newLanguage: string) => {
     const switchContentLanguage: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE', params: { city, newLanguage, oldLanguage }
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        city,
+        newLanguage
+      }
     }
     dispatch(switchContentLanguage)
     createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)({

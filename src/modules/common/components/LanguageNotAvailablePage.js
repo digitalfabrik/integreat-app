@@ -25,14 +25,14 @@ type PropsType = {
   city: string,
   currentLanguage: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void,
+  changeLanguage: (city: string, newLanguage: string) => void,
   t: TFunction
 }
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    const { changeLanguage, city, currentLanguage } = this.props
-    changeLanguage({ city: city, newLanguage: model.code, oldLanguage: currentLanguage })
+    const { changeLanguage, city } = this.props
+    changeLanguage(city, model.code)
   }
 
   render () {

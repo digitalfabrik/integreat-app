@@ -23,7 +23,6 @@ type StatePropsType = {|
   error: boolean,
   languageNotAvailable: boolean,
   availableLanguages?: Array<LanguageModel>,
-  currentLanguage?: string,
   currentCityCode?: string,
   cityCode?: string,
   cities?: Array<CityModel>,
@@ -35,13 +34,12 @@ type StatePropsType = {|
 type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage?: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void
+  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const contentLanguage = state.contentLanguage
   if (!state.cityContent) {
     return { languageNotAvailable: false, error: false }
   }
@@ -64,13 +62,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   if (!languages.includes(route.language)) {
-    return {
-      languageNotAvailable: true,
-      availableLanguages: languages,
-      currentLanguage: contentLanguage,
-      currentCityCode: city,
-      error: false
-    }
+    return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
   }
 
   return {
@@ -87,9 +79,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => {
+  changeUnavailableLanguage: (city: string, newLanguage: string) => {
     dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE', params
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {city, newLanguage}
     })
   }
 })

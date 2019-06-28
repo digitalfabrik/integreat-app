@@ -84,12 +84,8 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
 const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const {newCategoriesMap, newResourceCache, newEvents, oldLanguage, newLanguage} = action.params
+  const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
   const {categoriesRouteMapping, eventsRouteMapping} = state
-
-  if (oldLanguage === newLanguage) {
-    return state
-  }
 
   const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,

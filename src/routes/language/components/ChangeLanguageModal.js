@@ -25,18 +25,18 @@ type PropsType = {
   currentLanguage: string,
   languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
-  changeLanguage: (params: {| city: string, newLanguage: string, oldLanguage: string |}) => void,
+  changeLanguage: (city: string, newLanguage: string) => void,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    const { currentLanguage, closeModal, changeLanguage, city } = this.props
+    const { closeModal, changeLanguage, city } = this.props
 
     closeModal()
     InteractionManager.runAfterInteractions(() => {
-      changeLanguage({ city, newLanguage: model.code, oldLanguage: currentLanguage })
+      changeLanguage(city, model.code)
     })
   }
 
