@@ -11,11 +11,11 @@ class LanguageAsyncStorage {
     this.asyncStorage = asyncStorage
   }
 
-  async loadLanguage (): Promise<?string> {
+  loadLanguage = (): Promise<?string> => {
     return this.asyncStorage.getItem(LANGUAGE_KEY)
   }
 
-  async setLanguage (language: string) {
+  setLanguage = async (language: string) => {
     await this.asyncStorage.setItem(LANGUAGE_KEY, language)
   }
 }

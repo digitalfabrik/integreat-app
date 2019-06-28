@@ -10,10 +10,14 @@ import type {
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
+import LanguageAsyncStorage from '../../i18n/LanguageAsyncStorage'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
+    const languageAsyncStorage = new LanguageAsyncStorage()
+    yield call(languageAsyncStorage.setLanguage, newLanguage)
+
     const setContentLanguage: SetContentLanguageActionType = {
       type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
     }
