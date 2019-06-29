@@ -1,5 +1,8 @@
 // @flow
 import TransparentHeader from '../components/TransparentHeader'
-import withTheme from '../../theme/hocs/withTheme'
+import { translate } from 'react-i18next'
 
-export default withTheme()(TransparentHeader)
+import withTheme from '../../theme/hocs/withTheme'
+import { withNavigation } from 'react-navigation'
+
+export default withTheme()(withNavigation(translate('header')(TransparentHeader)))
