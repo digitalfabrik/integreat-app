@@ -151,6 +151,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-share')
     compile group: 'com.squareup.okio', name: 'okio', version: '2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
