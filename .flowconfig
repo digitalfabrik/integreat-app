@@ -37,6 +37,7 @@
 .*/node_modules/react-native/Libraries/Components/Touchable/TouchableWithoutFeedback.js
 .*/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js
 .*/node_modules/react-native/Libraries/Image/Image.ios.js
+.*/node_modules/react-native-share/.*
 
 
 .*/node_modules/react-native-permissions/index.js
