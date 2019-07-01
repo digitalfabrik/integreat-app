@@ -12,7 +12,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type PropsType = {
+type PropsType = {|
   city: string | null,
   currentLanguage: string | null,
   languages: Array<LanguageModel> | null,
@@ -20,7 +20,7 @@ type PropsType = {
   changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
-}
+|}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
@@ -35,7 +35,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 }
 
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
-const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
+const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
     changeLanguage: (city: string, newLanguage: string) => dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
@@ -47,6 +47,6 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
   }
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
   withTheme(props => props.language)(ChangeLanguageModal)
 )
