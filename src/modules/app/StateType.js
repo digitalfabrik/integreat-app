@@ -10,6 +10,7 @@ import {
   LanguageModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
+import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 
 export type PathType = string
 
@@ -66,6 +67,8 @@ export type CitiesStateType = {|
 export const defaultCitiesState: CitiesStateType = {
   models: null
 }
+
+export const defaultContentLanguageState = DEFAULT_LANGUAGE
 
 export type SearchRouteType = {|
   +categoriesMap: CategoriesMapModel
