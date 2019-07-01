@@ -15,33 +15,33 @@ export type ContentLoadCriterionType = {|
 |}
 
 export class ContentLoadCriterion {
-  forceUpdate_: boolean
-  shouldRefreshResources_: boolean
-  contentType_: ContentType
-  peek_: boolean
+  _forceUpdate: boolean
+  _shouldRefreshResources: boolean
+  _contentType: ContentType
+  _peek: boolean
 
   constructor ({contentType = 'all', peek = false, forceUpdate, shouldRefreshResources}: ContentLoadCriterionType) {
-    this.contentType_ = contentType
-    this.peek_ = peek
-    this.forceUpdate_ = forceUpdate
-    this.shouldRefreshResources_ = shouldRefreshResources
+    this._contentType = contentType
+    this._peek = peek
+    this._forceUpdate = forceUpdate
+    this._shouldRefreshResources = shouldRefreshResources
   }
 
   shouldUpdate (lastUpdate: ?Moment): boolean {
     // The last update was more than 24h ago or a refresh should be forced
-    return this.forceUpdate_ || !lastUpdate ||
+    return this._forceUpdate || !lastUpdate ||
       lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
   }
 
   shouldUpdateLanguages (): boolean {
-    return !this.peek_
+    return !this._peek
   }
 
   peek (): boolean {
-    return !!this.peek_
+    return !!this._peek
   }
 
   shouldRefreshResources (): boolean {
-    return this.shouldRefreshResources_ || this.peek_
+    return this._shouldRefreshResources || this._peek
   }
 }
