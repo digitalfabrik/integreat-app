@@ -6,7 +6,6 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
 
-import com.mapbox.rctmgl.RCTMGLPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.rumax.reactnative.pdfviewer.PDFViewPackage;
@@ -41,7 +40,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNScreensPackage(),
                     new RNGestureHandlerPackage(),
                     new FastImageViewPackage(),
-                    new RCTMGLPackage(),
                     new IntegreatPackage()
             );
         }

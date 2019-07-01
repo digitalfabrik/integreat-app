@@ -151,30 +151,24 @@ android {
 }
 
 dependencies {
-    compile group: 'com.squareup.okio', name: 'okio', version: '2.1.0'
+    implementation 'com.squareup.okio:okio:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
-
     implementation project(':react-native-sentry')
     implementation project(':react-native-screens')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-view-pdf')
-    implementation (project(':react-native-fast-image')) {
+    implementation(project(':react-native-fast-image')) {
         exclude group: "com.android.support"
-    }
-    implementation project(':@mapbox_react-native-mapbox-gl') {
-        compile ('com.squareup.okhttp3:okhttp:3.6.0') {
-            force = true
-        }
     }
     implementation project(':react-native-view-pdf')
     implementation project(':react-native-webview')
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-vector-icons')
-
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'com.facebook.react:react-native:+'
+    // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
