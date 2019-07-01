@@ -39,7 +39,7 @@ type PropsType = {|
 
 type StateType = {|
   comment: string,
-  feedbackItem: ?FeedbackVariant
+  feedbackItem: ?string
 |}
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
@@ -62,7 +62,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
         <Picker selectedValue={feedbackItem}
                 onValueChange={this.onFeedbackVariantChanged}
                 mode={'dropdown'}>
-          {feedbackItems.map(item => <Picker.Item label={item.label} value={item} key={item.label} />)}
+          {feedbackItems.map(item => <Picker.Item label={item.label} value={item.label} key={item.label} />)}
         </Picker>
         <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
         <Input theme={theme} onChangeText={this.onFeedbackCommentChanged}
