@@ -10,6 +10,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { TFunction } from 'react-i18next'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -29,7 +30,8 @@ export type PropsType = {|
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  t: TFunction
 |}
 
 type StateType = {|
@@ -81,7 +83,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const {theme, categories} = this.props
+    const {theme, categories, t} = this.props
     const {query} = this.state
 
     if (!categories) {
@@ -90,7 +92,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
     const filteredCategories = this.findCategories(categories)
     return <ScrollView theme={theme}>
-      <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
+      <CategoryList categories={filteredCategories} t={t} query={query} onItemPress={this.onItemPress} theme={theme} />
     </ScrollView>
   }
 

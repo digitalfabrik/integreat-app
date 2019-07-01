@@ -5,6 +5,7 @@ import { Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
+import type { TFunction } from 'react-i18next'
 
 const FeedbackBox = styled.View`
   margin-top: 25px;
@@ -38,26 +39,27 @@ const FeedbackText = styled(Text)`
 
 type PropType = {|
   navigateToFeedback: (positive: boolean) => void,
-  theme: ThemeType
+  theme: ThemeType,
+  t: TFunction
 |}
 
 class SiteHelpfulBox extends React.Component<PropType> {
   navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
 
   render () {
-    const {theme} = this.props
+    const {theme, t} = this.props
     return <FeedbackBox theme={theme}>
-      <HelpfulText theme={theme}>Ist diese Seite hilfreich?</HelpfulText>
+      <HelpfulText theme={theme}>{t('feedback:isThisSiteUseful')}</HelpfulText>
       <FeedbackButtons>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
           <Icon name='sentiment-satisfied' size={25} type='material' reverseColor={theme.colors.textColor} reverse
                 color={theme.colors.themeColor} />
-          <FeedbackText theme={theme}>Hilfreich</FeedbackText>
+          <FeedbackText theme={theme}>{t('feedback:useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
           <Icon name='sentiment-dissatisfied' size={25} type='material' reverseColor={theme.colors.textColor} reverse
                 color={theme.colors.themeColor} />
-          <FeedbackText theme={theme}>Nicht hilfreich</FeedbackText>
+          <FeedbackText theme={theme}>{t('feedback:notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </FeedbackButtons>
     </FeedbackBox>

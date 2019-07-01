@@ -5,11 +5,12 @@ import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
 import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import { translate } from 'react-i18next'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -32,12 +33,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 }
 
 type DispatchType = Dispatch<StoreActionType>
-const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
-  return {
-    navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
-  }
-}
+const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => ({
+  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
+})
 
 export default connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
-  withTheme(props => props.language)(SearchModal)
-)
+  withTheme(props => props.language)(
+    translate('search')(SearchModal)
+  ))

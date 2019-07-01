@@ -9,6 +9,7 @@ import type { ThemeType } from 'modules/theme/constants/theme'
 import { View } from 'react-native'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import SpaceBetween from '../../common/components/SpaceBetween'
+import type { TFunction } from 'react-i18next'
 
 type PropsType = {|
   categories: Array<{|
@@ -21,7 +22,8 @@ type PropsType = {|
   query?: string,
   theme: ThemeType,
   onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
-  navigateToFeedback?: (positiveFeedback: boolean) => void
+  navigateToFeedback?: (positiveFeedback: boolean) => void,
+  t: TFunction
 |}
 
 /**
@@ -29,7 +31,7 @@ type PropsType = {|
  */
 class CategoryList extends React.Component<PropsType> {
   render () {
-    const {categories, title, content, query, theme, onItemPress, navigateToFeedback} = this.props
+    const {categories, title, content, query, theme, onItemPress, navigateToFeedback, t} = this.props
     return <SpaceBetween>
       <View>
         {title && <Caption title={title} theme={theme} />}
@@ -43,7 +45,7 @@ class CategoryList extends React.Component<PropsType> {
                             onItemPress={onItemPress} />
         )}
       </View>
-      {navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />}
+      {navigateToFeedback && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} t={t} />}
     </SpaceBetween>
   }
 }

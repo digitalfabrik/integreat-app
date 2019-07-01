@@ -126,7 +126,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode} = this.props
+    const {stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode, t} = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -147,7 +147,8 @@ class Categories extends React.Component<PropsType> {
                    cityCode={cityCode}
                    navigation={navigation}
                    navigateToFeedback={this.navigateToFeedbackOfPage}
-                   navigateToIntegreatUrl={navigateToIntegreatUrl} />
+                   navigateToIntegreatUrl={navigateToIntegreatUrl}
+                   t={t} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
@@ -155,7 +156,8 @@ class Categories extends React.Component<PropsType> {
                     title={CityModel.findCityName(cities, category.title)}
                     onTilePress={this.onTilePress}
                     navigateToFeedback={this.navigateToFeedbackOfCategories}
-                    theme={theme} />
+                    theme={theme}
+                    t={t} />
     }
     // some level between, we want to display a list
     return <CategoryList
@@ -172,7 +174,8 @@ class Categories extends React.Component<PropsType> {
       content={category.content}
       navigateToFeedback={this.navigateToFeedbackOfPage}
       onItemPress={this.onItemPress}
-      theme={theme} />
+      theme={theme}
+      t={t} />
   }
 }
 
