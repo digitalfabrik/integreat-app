@@ -25,39 +25,41 @@ import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
-type PropsType = {|
-  events: ?Array<EventModel>,
+export type PropsType = {|
+  events?: Array<EventModel>,
   cities: Array<CityModel>,
-  cityCode: string,
-  language: string,
-  t: TFunction,
+  cityCode?: string,
+  language?: string,
   path?: string,
+  resourceCache?: LanguageResourceCacheStateType,
   theme: ThemeType,
+  t: TFunction,
   navigation: NavigationScreenProp<*>,
   navigateToEvent: NavigateToEventParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  resourceCache: LanguageResourceCacheStateType
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void
 |}
 
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
 class Events extends React.Component<PropsType> {
-  navigateToEvent = (path: string) => () => {
-    const {navigateToEvent, cityCode, language} = this.props
-    navigateToEvent({cityCode, language, path})
+  navigateToEvent = (cityCode: string, language: string, path: string) => () => {
+    this.props.navigateToEvent({cityCode, language, path})
   }
-
-  renderEventListItem = (language: string) => (event: EventModel) =>
-    <EventListItem key={event.path}
-                   event={event}
-                   language={language}
-                   theme={this.props.theme}
-                   navigateToEvent={this.navigateToEvent(event.path)} />
+  renderEventListItem = (cityCode: string, language: string) => (event: EventModel) => {
+    const { theme } = this.props
+    return <EventListItem key={event.path}
+                          event={event}
+                          language={language}
+                          theme={theme}
+                          navigateToEvent={this.navigateToEvent(cityCode, language, event.path)} />
+  }
 
   onRefresh = () => {
     const {navigation, navigateToEvent, cityCode, language, path} = this.props
-    navigateToEvent({cityCode, language, path, forceUpdate: true, key: navigation.getParam('key')})
+    if (cityCode && language) {
+      navigateToEvent({cityCode, language, path, forceUpdate: true, key: navigation.getParam('key')})
+    }
   }
 
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
@@ -87,13 +89,17 @@ class Events extends React.Component<PropsType> {
 
   render () {
     const {events, path, cityCode, language, resourceCache, theme, navigateToIntegreatUrl, t, navigation} = this.props
-    const loading = !events
-    if (events && path) {
+
+    if (!events || !cityCode || !language || !resourceCache) {
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
+    }
+
+    if (path) {
       const event: EventModel = events.find(_event => _event.path === path)
 
       if (event) {
         const files = resourceCache[event.path]
-        return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
+        return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
                            contentContainerStyle={{flexGrow: 1}}>
           <Page content={event.content}
                 title={event.title}
@@ -113,13 +119,14 @@ class Events extends React.Component<PropsType> {
           </Page>
         </ScrollView>
       }
+
       const error = new ContentNotFoundError({type: 'event', id: path, city: cityCode, language})
       return <Failure error={error} />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
                        contentContainerStyle={{flex: 1}}>
-      {events && <SpaceBetween>
+      <SpaceBetween>
         <View>
           <Caption title={t('news')} theme={theme} />
           <List noItemsMessage={t('currentlyNoEvents')}
@@ -128,7 +135,7 @@ class Events extends React.Component<PropsType> {
                 theme={theme} />
         </View>
         <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForEvents} theme={theme} t={t} />
-      </SpaceBetween>}
+      </SpaceBetween>
     </ScrollView>
   }
 }

@@ -12,25 +12,23 @@ import type { NavigateToCategoryParamsType } from '../../../modules/app/createNa
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import { type TFunction } from 'react-i18next'
 
-type PropsType = {
+export type PropsType = {|
   navigation: NavigationScreenProp<*>,
-  cityCode: string,
-
-  language: string,
   cities?: Array<CityModel>,
-
+  cityCode?: string,
+  language?: string,
+  stateView?: CategoriesRouteStateView,
+  resourceCache?: LanguageResourceCacheStateType,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  resourceCache: LanguageResourceCacheStateType,
   theme: ThemeType,
-  stateView: ?CategoriesRouteStateView,
   t: TFunction
-}
+|}
 
 class CategoriesScrollView extends React.Component<PropsType> {
   onRefresh = () => {
     const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
-    if (stateView) {
+    if (cityCode && language && stateView) {
       navigateToCategory({
         cityCode, language, path: stateView.rawRoot, forceUpdate: true, key: navigation.getParam('key')
       })
@@ -43,25 +41,24 @@ class CategoriesScrollView extends React.Component<PropsType> {
       navigation, t
     } = this.props
 
-    const loading = !stateView || !cities || !resourceCache
-
-    if (!stateView || !cities || !resourceCache) { // I cannot do 'if (loading)' here because of flow -.-
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />} />
+    if (!cities || !stateView || !resourceCache || !language || !cityCode) {
+      return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
+    } else {
+      return (
+        <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
+          <Categories stateView={stateView}
+                      cities={cities}
+                      resourceCache={resourceCache}
+                      language={language}
+                      cityCode={cityCode}
+                      navigation={navigation}
+                      theme={theme}
+                      navigateToCategory={navigateToCategory}
+                      navigateToIntegreatUrl={navigateToIntegreatUrl}
+                      t={t} />
+        </ScrollView>
+      )
     }
-
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={loading} />}
-                       contentContainerStyle={{flexGrow: 1}}>
-      <Categories stateView={stateView}
-                  cities={cities}
-                  resourceCache={resourceCache}
-                  language={language}
-                  cityCode={cityCode}
-                  navigation={navigation}
-                  theme={theme}
-                  navigateToCategory={navigateToCategory}
-                  navigateToIntegreatUrl={navigateToIntegreatUrl}
-                  t={t} />
-    </ScrollView>
   }
 }
 

@@ -16,7 +16,7 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => void,
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,
@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => (
   navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation)
 })
 
-export default connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps)(
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
   withTheme(props => props.language)(
     translate('search')(SearchModal)
   ))
