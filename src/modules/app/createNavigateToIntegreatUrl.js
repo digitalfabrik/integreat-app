@@ -15,8 +15,6 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
     const newLanguage = pathnameParts[1]
     const pathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
-    // todo add support for linking to different cities
-
     const peek = newCity !== cityCode // TODO: Do not need to pass cityCode if cities are the same
 
     if (pathnameParts[2] === 'events') {
