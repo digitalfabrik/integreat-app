@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import { Provider } from 'react-redux'
-import I18nProvider from '../../../modules/i18n/containers/I18nProvider'
+import I18nProviderContainer from '../../i18n/containers/I18nProviderContainer'
 import createReduxStore from '../createReduxStore'
 import IOSSafeAreaView from '../../../modules/platform/components/IOSSafeAreaView'
 import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBarContainer'
@@ -48,7 +48,7 @@ class App extends React.Component<PropsType, AppStateType> {
 
     return (
       <Provider store={this.store}>
-        <I18nProvider>
+        <I18nProviderContainer>
           <LaunchInquiry>
             <>
               <AndroidStatusBarContainer />
@@ -57,7 +57,7 @@ class App extends React.Component<PropsType, AppStateType> {
               </IOSSafeAreaView>
             </>
           </LaunchInquiry>
-        </I18nProvider>
+        </I18nProviderContainer>
       </Provider>
     )
   }

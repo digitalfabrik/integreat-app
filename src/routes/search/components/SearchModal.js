@@ -6,7 +6,6 @@ import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, InteractionManager, ScrollView } from 'react-native'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
@@ -25,7 +24,7 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => void,
   theme: ThemeType,
   language: string | null,
   cityCode: string | null,

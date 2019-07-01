@@ -2,28 +2,26 @@
 
 import i18n from 'i18next'
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { I18nextProvider, reactI18nextModule } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
 
-import localesResources from 'locales.json'
-import setUiDirection from '../actions/setUIDirection'
-import type { Dispatch } from 'redux'
+import localesResources from '../../../locales.json'
 import LanguageDetector from '../LanguageDetector'
-import type { StoreActionType } from '../../app/StoreActionType'
-import type { StateType } from '../../app/StateType'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
+import type { UiDirectionType } from '../actions/setUIDirection'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
 const DEFAULT_LANGUAGE = 'en'
 
-type PropsType = {
+type PropsType = {|
   children?: React.Node,
-  setUiDirection: Function
-}
+  setUiDirection: (direction: UiDirectionType) => void
+|}
 
-export class I18nProvider extends React.Component<PropsType, {| language: string |}> {
+type StateType = {| language: string |}
+
+class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n
 
   constructor () {
@@ -101,11 +99,4 @@ export class I18nProvider extends React.Component<PropsType, {| language: string
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  setUiDirection: action => dispatch(setUiDirection(action))
-})
-
-const mapStateToProps = (state: StateType) => ({language: state.cityContent.language})
-
-// $FlowFixMe NATIVE-53
-export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)
+export default I18nProvider

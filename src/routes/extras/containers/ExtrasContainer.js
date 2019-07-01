@@ -5,7 +5,6 @@ import connect from 'react-redux/es/connect/connect'
 import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
-import compose from 'lodash/fp/compose'
 import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import request from '../../../modules/endpoint/request'
@@ -15,21 +14,25 @@ import { baseUrl } from '../../../modules/endpoint/constants'
 import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 
-const mapStateToProps = (state: StateType, ownProps) => {
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+
+type StatePropsType = {| city: string, language: string |}
+
+type PropsType = { ...OwnPropsType, ...StatePropsType }
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.cityContent.language
   if (!language) {
     throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
   }
-  if (state.cities.errorMessage !== undefined) {
-    throw new Error('The state does not contain cities. Therefore it is not possible to open the extras!')
-  }
-  const cities = state.cities.models
-  const city: string = ownProps.navigation.getParam('cityCode')
 
-  return {city, language, cities}
+  return {
+    city: ownProps.navigation.getParam('cityCode'),
+    language: language
+  }
 }
 
-type PropsType = {|
+type ExtrasPropsType = {|
   navigation: NavigationScreenProp<*>,
   city: string,
   cities: Array<CityModel>,
@@ -44,8 +47,8 @@ type ExtrasStateType = {|
   error: ?Error
 |}
 
-class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
-  constructor (props: PropsType) {
+class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> {
+  constructor (props: ExtrasPropsType) {
     super(props)
     this.state = {extras: null, error: null}
   }
@@ -94,8 +97,8 @@ class ExtrasContainer extends React.Component<PropsType, ExtrasStateType> {
   }
 }
 
-export default compose(
-  connect(mapStateToProps),
-  translate('extras'),
-  withTheme(props => props.language)
-)(ExtrasContainer)
+export default translate('extras')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+    withTheme(props => props.language)(
+      ExtrasContainer
+    )))
