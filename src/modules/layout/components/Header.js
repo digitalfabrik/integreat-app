@@ -129,10 +129,6 @@ class Header extends React.PureComponent<PropsType> {
     const { navigation, t, theme } = this.props
     const sharePath = navigation.getParam('sharePath')
 
-    if (!this.props.navigation) {
-      return null
-    }
-
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>

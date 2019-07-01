@@ -19,7 +19,7 @@ import { all, call } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
-import { defaultCitiesState, defaultCityContentState } from './StateType'
+import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -31,7 +31,6 @@ import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
-import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
@@ -53,7 +52,7 @@ const createReduxStore = (
     darkMode: false,
 
     cities: defaultCitiesState,
-    contentLanguage: DEFAULT_LANGUAGE,
+    contentLanguage: defaultContentLanguageState,
     cityContent: defaultCityContentState,
 
     network: {isConnected: false, actionQueue: []}
