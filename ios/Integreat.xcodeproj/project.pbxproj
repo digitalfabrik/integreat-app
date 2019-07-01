@@ -420,8 +420,8 @@
 		79EECCD2588A4935B2F5D6E3 /* RNScreens.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNScreens.xcodeproj; path = "../node_modules/react-native-screens/ios/RNScreens.xcodeproj"; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
-		7BB616B122B7AC3E0089C37E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		7BB616FF22B7AE1F0089C37E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		7BB616B122B7AC3E0089C37E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = SOURCE_ROOT; };
+		7BB616FF22B7AE1F0089C37E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = SOURCE_ROOT; };
 		7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Integreat-Bridging-Header.h"; path = "Integreat/Integreat-Bridging-Header.h"; sourceTree = "<group>"; };
 		7BF11469226F4D740031D233 /* FetcherModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherModule.swift; sourceTree = "<group>"; };
 		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
@@ -617,7 +617,6 @@
 				04522BED553DF8E29716E651 /* Pods-IntegreatTests.debug.xcconfig */,
 				E0625EE9C09A05E898FB71EB /* Pods-IntegreatTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -825,7 +824,8 @@
 				A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */,
 				A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */,
 			);
-			path = fonts;
+			name = fonts;
+			path = Integreat/fonts;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
