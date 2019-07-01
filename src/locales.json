@@ -319,11 +319,11 @@
     "de": {
       "technicalTopics": "Technische Funktionen",
       "contentOfCity": "Inhalte von {{city}}",
-      "extra": "Extra '{{extra}}'",
+      "extra": "Extra \"{{extra}}\"",
       "news": "News",
       "disclaimer": "Kontakt und Impressum",
       "searchFor": "Suche nach",
-      "contentOfPage": "Inhalt der Seite '{{page}}'",
+      "contentOfPage": "Inhalt der Seite \"{{page}}\"",
       "send": "Abschicken",
       "feedback": "Feedback",
       "positiveComment": "Was war hilfreich?",
