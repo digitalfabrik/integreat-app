@@ -25,14 +25,11 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1B1A66C3E9874C44B2528267 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2E9A82E75F84114B6839168 /* libRNFetchBlob.a */; };
 		2968B5E2689E4B579284F332 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3445E5170C44EF999D78AC /* libRNVectorIcons.a */; };
-		347EBF46A40B29A9D197F485 /* Pods_Integreat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1873C0937E84DE89BF2673 /* Pods_Integreat.framework */; };
 		404669FB2CD34A8DAF2057D8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 11DA5627374A40B4A4F42A54 /* libz.tbd */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		745857C215D9481BB88225C7 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F49739F58A437CB74EBF1B /* libFastImage.a */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
 		7B4C277C2274DE2B000FA969 /* FetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C277B2274DE2B000FA969 /* FetchResult.swift */; };
-		7BB615D822B794800089C37E /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB615D722B794800089C37E /* Mapbox.framework */; };
-		7BB615D922B794800089C37E /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB615D722B794800089C37E /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7BB616B222B7AC3E0089C37E /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BB616B122B7AC3E0089C37E /* MaterialCommunityIcons.ttf */; };
 		7BB6170022B7AE1F0089C37E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BB616FF22B7AE1F0089C37E /* MaterialIcons.ttf */; };
 		7BF11494226F61B60031D233 /* FetcherModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11469226F4D740031D233 /* FetcherModule.swift */; };
@@ -47,7 +44,6 @@
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
 		AD86616FDD2141B3B2FE8AA0 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 351B951297974A919DD832ED /* libRNGestureHandler.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		C1EC2FF3A9214AD19181F1FB /* libRCTMGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 343051B8F0034F04827C6346 /* libRCTMGL.a */; };
 		DC10ABEF1FE30A449A8FAE84 /* Pods_IntegreatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117791AB19ED50A3B723B864 /* Pods_IntegreatTests.framework */; };
 		FC368B63ACEE4920ACABD445 /* libReactNativeViewPDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FEA0A9E46A24D84ACA883F7 /* libReactNativeViewPDF.a */; };
 /* End PBXBuildFile section */
@@ -312,13 +308,6 @@
 			remoteGlobalIDString = A287971D1DE0C0A60081BDFA;
 			remoteInfo = FastImage;
 		};
-		7BB6156C22B78F300089C37E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FF05A52F0E0410A887B7089 /* RCTMGL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4D1443D1F4E16F600396F26;
-			remoteInfo = RCTMGL;
-		};
 		7BB6156F22B78F300089C37E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A4756D2778E94FC6AF0703CA /* RNGestureHandler.xcodeproj */;
@@ -398,20 +387,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7BB615D622B793710089C37E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7BB615D922B794800089C37E /* Mapbox.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -461,7 +436,6 @@
 		849AFFE560F04184AE83BFAA /* RNSentry.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		9EB7652CB80A4589973D1541 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		9F1873C0937E84DE89BF2673 /* Pods_Integreat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Integreat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FF05A52F0E0410A887B7089 /* RCTMGL.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMGL.xcodeproj; path = "../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL.xcodeproj"; sourceTree = "<group>"; };
 		A2E9A82E75F84114B6839168 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		A330D32F22AA9F54005736D0 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -505,10 +479,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				347EBF46A40B29A9D197F485 /* Pods_Integreat.framework in Frameworks */,
-				7BB615D822B794800089C37E /* Mapbox.framework in Frameworks */,
 				404669FB2CD34A8DAF2057D8 /* libz.tbd in Frameworks */,
-				C1EC2FF3A9214AD19181F1FB /* libRCTMGL.a in Frameworks */,
 				745857C215D9481BB88225C7 /* libFastImage.a in Frameworks */,
 				AD86616FDD2141B3B2FE8AA0 /* libRNGestureHandler.a in Frameworks */,
 				940BFEE7704D45A6A3097CE1 /* libRNScreens.a in Frameworks */,
@@ -703,14 +674,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7BB6156522B78F300089C37E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BB6156D22B78F300089C37E /* libRCTMGL.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7BB6156722B78F300089C37E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,7 +752,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				6EFDDF23E37E44DA970E1EA7 /* FastImage.xcodeproj */,
-				9FF05A52F0E0410A887B7089 /* RCTMGL.xcodeproj */,
 				A4756D2778E94FC6AF0703CA /* RNGestureHandler.xcodeproj */,
 				79EECCD2588A4935B2F5D6E3 /* RNScreens.xcodeproj */,
 				849AFFE560F04184AE83BFAA /* RNSentry.xcodeproj */,
@@ -910,8 +872,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7BB615D622B793710089C37E /* Embed Frameworks */,
-				7BB615D222B792BB0089C37E /* Strip Mapbox framworks */,
 			);
 			buildRules = (
 			);
@@ -982,10 +942,6 @@
 				{
 					ProductGroup = 78C398B11ACF4ADC00677621 /* Products */;
 					ProjectRef = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
-				},
-				{
-					ProductGroup = 7BB6156522B78F300089C37E /* Products */;
-					ProjectRef = 9FF05A52F0E0410A887B7089 /* RCTMGL.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
@@ -1301,13 +1257,6 @@
 			remoteRef = 7BB6152D22B78EB60089C37E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7BB6156D22B78F300089C37E /* libRCTMGL.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTMGL.a;
-			remoteRef = 7BB6156C22B78F300089C37E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7BB6157022B78F300089C37E /* libRNGestureHandler.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1427,24 +1376,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		7BB615D222B792BB0089C37E /* Strip Mapbox framworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Strip Mapbox framworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = " \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"\n";
 		};
 		843C81473998932E839B41B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1630,6 +1561,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F250AC11071DE5D378E070DC /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -1639,7 +1571,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/@mapbox/react-native-mapbox-gl/ios";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
@@ -1677,6 +1609,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E194E706CCA6274460F9B505 /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -1685,7 +1618,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7272KE28TJ;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/@mapbox/react-native-mapbox-gl/ios";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
