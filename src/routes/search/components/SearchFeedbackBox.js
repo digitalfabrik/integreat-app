@@ -13,17 +13,12 @@ const FeedbackBox = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
 `
 
-const NothingFoundText = styled.Text`
-  text-align: center;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
-`
-
 type PropsType = {|
   query: string,
   resultsFound: boolean,
   theme: ThemeType,
-  t: TFunction
+  t: TFunction,
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 type StateType = {|
@@ -34,16 +29,15 @@ export class SearchFeedbackBox extends React.Component<PropsType, StateType> {
   state = {boxOpenedForQuery: null}
 
   openFeedbackBox = () => {
-    // todo: NATIVE-208: Send first feedback
+    this.props.sendFeedback('', this.props.query)
     this.setState({boxOpenedForQuery: this.props.query})
   }
 
   render (): React.Node {
-    const {resultsFound, query, t, theme} = this.props
+    const {resultsFound, query, t, theme, sendFeedback} = this.props
     if (!resultsFound || query === this.state.boxOpenedForQuery) {
       return <FeedbackBox theme={theme}>
-        <NothingFoundText theme={theme}>{t('feedback:nothingFound')}</NothingFoundText>
-        <NothingFoundFeedbackBox query={query} t={t} theme={theme} />
+        <NothingFoundFeedbackBox query={query} t={t} theme={theme} sendFeedback={sendFeedback} />
       </FeedbackBox>
     } else {
       return <FeedbackBox theme={theme}>
