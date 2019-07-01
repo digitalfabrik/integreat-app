@@ -325,6 +325,7 @@
       "searchFor": "Suche nach",
       "contentOfPage": "Inhalt der Seite \"{{page}}\"",
       "send": "Abschicken",
+      "failedSendingFeedback": "Beim Senden des Feedbacks ist ein Fehler aufgetreten.",
       "feedback": "Feedback",
       "positiveComment": "Was war hilfreich?",
       "negativeComment": "Was können wir besser machen?",
@@ -349,6 +350,7 @@
       "searchFor": "Search for",
       "contentOfPage": "Content of the site '{{page}}'",
       "send": "Send",
+      "failedSendingFeedback": "An error occurred while sending feedback.",
       "feedback": "Feedback",
       "positiveComment": "What was helpful?",
       "negativeComment": "What can we improve?",
@@ -357,9 +359,10 @@
       "useful": "Useful",
       "notUseful": "Not useful",
       "yourFeedback": "Your feedback...",
-      "nothingFound": "Sorry, we could not find any results.",
+      "nothingFound": "Sorry, we could not find matching results.",
       "informationNotFound": "Not found what you were looking for?",
       "wantedInformation": "What information is missing?",
+      "thanksMessage": "Thanks for your feedback. You're helping us improving our contents and the integreat app. We would be very pleased about further feedback.",
       "feedbackSent": "Feedback sent",
       "close": "Close"
     }
