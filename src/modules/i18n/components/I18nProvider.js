@@ -81,15 +81,16 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
   async initLanguage () {
     const { setUiDirection, setContentLanguage } = this.props
-    let language: ?string = await this.languageAsyncStorage.loadLanguage()
-    if (!language) {
-      language = this.getI18nextLanguage()
-      await this.languageAsyncStorage.setLanguage(language)
+    const contentLanguage: ?string = await this.languageAsyncStorage.loadLanguage()
+    const uiLanguage = this.getI18nextLanguage()
+
+    if (!contentLanguage) {
+      await this.languageAsyncStorage.setLanguage(uiLanguage)
+      setContentLanguage(uiLanguage)
     }
 
-    this.setState({ language })
-    setUiDirection(RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr')
-    setContentLanguage(language)
+    this.setState({ language: uiLanguage })
+    setUiDirection(RTL_LANGUAGES.includes(uiLanguage) ? 'rtl' : 'ltr')
   }
 
   componentDidMount () {
