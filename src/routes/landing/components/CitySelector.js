@@ -29,7 +29,6 @@ type PropsType = {|
 |}
 
 class CitySelector extends React.PureComponent<PropsType> {
-
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
