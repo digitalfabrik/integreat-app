@@ -67,9 +67,11 @@ class Landing extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {theme, cities, t} = this.props
+    const { theme, cities, t } = this.props
+    const localizationLoaded = this.state.localizationLoaded
+
     return <Wrapper theme={theme}>
-      {!cities
+      {!cities || !localizationLoaded
         ? <ActivityIndicator size='large' color='#0000ff' />
         : <>
           <Heading theme={theme} />
