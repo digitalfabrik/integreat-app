@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { AppRegistry, YellowBox } from 'react-native'
+import { AppRegistry, YellowBox, Text } from 'react-native'
 import App from './src/modules/app/components/App'
 import 'moment/min/locales'
 
@@ -11,3 +11,7 @@ YellowBox.ignoreWarnings(['Require cycle:'])
 AppRegistry.registerComponent('Integreat', () =>
   () => <App />
 )
+
+//AppRegistry.registerComponent('Integreat', () =>
+//  () => <Text>Test</Text>
+//)
