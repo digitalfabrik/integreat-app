@@ -1,11 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { TFunction } from 'react-i18next'
+import happyIcon from './assets/smile-happy.svg'
+import sadIcon from './assets/smile-sad.svg'
+import FastImage from 'react-native-fast-image'
 
 const FeedbackBox = styled.View`
   margin-top: 25px;
@@ -37,6 +39,26 @@ const FeedbackText = styled(Text)`
   margin-top: -2px;
 `
 
+const ICON_SIZE = 50
+
+const Circle = styled(View)`
+  margin-top: 9px;
+  margin-bottom: 5px;
+  border-radius: ${ICON_SIZE}px;
+  height: ${ICON_SIZE};
+  width: ${ICON_SIZE};
+  background-color: ${props => props.theme.colors.themeColor};
+  align-items: center;
+  justify-content: center;
+`
+
+const MAXIMAL_ICON_SIZE = ICON_SIZE / Math.sqrt(2)
+const ICON_SCALE_FACTOR = 0.85
+const Thumbnail = styled(FastImage)`
+  height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR};
+  width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR};
+`
+
 type PropType = {|
   navigateToFeedback: (positive: boolean) => void,
   theme: ThemeType,
@@ -52,13 +74,11 @@ class SiteHelpfulBox extends React.Component<PropType> {
       <HelpfulText theme={theme}>{t('feedback:isThisSiteUseful')}</HelpfulText>
       <FeedbackButtons>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
-          <Icon name='sentiment-satisfied' size={25} type='material' reverseColor={theme.colors.textColor} reverse
-                color={theme.colors.themeColor} />
+          <Circle theme={theme}><Thumbnail source={happyIcon} resizeMode={FastImage.resizeMode.contain} /></Circle>
           <FeedbackText theme={theme}>{t('feedback:useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
-          <Icon name='sentiment-dissatisfied' size={25} type='material' reverseColor={theme.colors.textColor} reverse
-                color={theme.colors.themeColor} />
+          <Circle theme={theme}><Thumbnail source={sadIcon} resizeMode={FastImage.resizeMode.contain} /></Circle>
           <FeedbackText theme={theme}>{t('feedback:notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </FeedbackButtons>
