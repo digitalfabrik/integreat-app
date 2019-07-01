@@ -31,7 +31,6 @@ import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
 import contentLanguageReducer from '../localization/reducers/contentLanguageReducer'
-import { DEFAULT_LANGUAGE } from '../localization/components/I18nProvider'
 import watchClearCity from '../localization/watchClearCity'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
