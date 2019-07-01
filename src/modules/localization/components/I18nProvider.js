@@ -9,7 +9,7 @@ import localesResources from '../../../locales.json'
 import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import type { UiDirectionType } from '../actions/setUIDirection'
-import LanguageAsyncStorage from '../LanguageAsyncStorage'
+import LocalizationSettings from '../LocalizationSettings'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
@@ -25,7 +25,7 @@ type StateType = {| language: string |}
 
 class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n
-  languageAsyncStorage: LanguageAsyncStorage
+  localizationSettings: LocalizationSettings
 
   constructor () {
     super()
@@ -42,7 +42,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
         debug: __DEV__
       })
 
-    this.languageAsyncStorage = new LanguageAsyncStorage()
+    this.localizationSettings = new LocalizationSettings()
     this.state = {language: DEFAULT_LANGUAGE}
   }
 
@@ -81,11 +81,11 @@ class I18nProvider extends React.Component<PropsType, StateType> {
 
   async initLanguage () {
     const { setUiDirection, setContentLanguage } = this.props
-    const contentLanguage: ?string = await this.languageAsyncStorage.loadLanguage()
+    const contentLanguage: ?string = await this.localizationSettings.loadLanguage()
     const uiLanguage = this.getI18nextLanguage()
 
     if (!contentLanguage) {
-      await this.languageAsyncStorage.setLanguage(uiLanguage)
+      await this.localizationSettings.setLanguage(uiLanguage)
       setContentLanguage(uiLanguage)
     }
 
