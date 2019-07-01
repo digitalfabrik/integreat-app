@@ -62,7 +62,7 @@ class Selector extends React.Component<PropsType> {
       const isSelected = item.code === selectedItemCode
       if (item.enabled || isSelected) {
         return (
-          <TouchTarget key={item.code} onPress={item.onPress} theme={theme}>
+          <TouchTarget key={item.code} onPress={item.onPress}>
             <EnabledElement selected={isSelected} theme={theme}>
               <Element theme={theme}>{item.name}</Element>
             </EnabledElement>

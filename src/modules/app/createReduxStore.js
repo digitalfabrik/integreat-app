@@ -4,7 +4,7 @@ import type { Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
 import { AsyncStorage } from 'react-native'
 
-import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
+import uiDirectionReducer from '../../modules/i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import {
   checkInternetConnection,

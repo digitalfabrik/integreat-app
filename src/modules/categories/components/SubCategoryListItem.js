@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import styled from 'styled-components/native'
-import type { ThemeType } from 'modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 

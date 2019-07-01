@@ -12,6 +12,7 @@ import type { SettingsType } from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
 import type { ChangeSettingFunctionType } from '../createSettingsSections'
 import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
+import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 
 type PropsType = {|
   theme: ThemeType,
@@ -33,7 +34,7 @@ type ItemType = {
   onPress?: () => void
 }
 
-type SectionType = { title: ?string }
+type SectionType = SectionBase<ItemType> & {title: ?string}
 
 const ItemSeparator = styled.View`
     background-color: ${props => props.theme.colors.textDecorationColor};;
@@ -99,7 +100,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   renderSectionHeader = ({section: {title}}: { section: SectionType }) =>
     <View><SectionHeader theme={this.props.theme}>{title}</SectionHeader></View>
 
-  keyExtractor = (item: ItemType, index: number) => index
+  keyExtractor = (item: ItemType, index: number): string => index.toString()
 
   ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />
 

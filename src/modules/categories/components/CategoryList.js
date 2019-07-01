@@ -2,10 +2,10 @@
 
 import * as React from 'react'
 
-import Caption from 'modules/common/components/Caption'
+import Caption from '../../../modules/common/components/Caption'
 import CategoryListItem from './CategoryListItem'
 import HTML from 'react-native-render-html'
-import type { ThemeType } from 'modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 
 type PropsType = {
   categories: Array<{|
