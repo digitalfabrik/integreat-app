@@ -47,7 +47,6 @@
     "react-native-offline": "^4.3.1",
     "react-native-progress": "^3.5.0",
     "react-native-render-html": "^4.1.2",
-    "react-native-screens": "^1.0.0-alpha.22",
     "react-native-sentry": "^0.42.0",
     "react-native-vector-icons": "^6.2.0",
     "react-native-view-pdf": "^0.8.1",

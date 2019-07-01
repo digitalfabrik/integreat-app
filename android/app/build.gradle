@@ -133,6 +133,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -155,7 +156,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
     implementation project(':react-native-sentry')
-    implementation project(':react-native-screens')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-view-pdf')
     implementation(project(':react-native-fast-image')) {
