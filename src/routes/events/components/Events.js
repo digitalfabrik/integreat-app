@@ -100,6 +100,7 @@ class Events extends React.Component<PropsType> {
                 lastUpdate={event.lastUpdate}
                 language={language}
                 files={files}
+                t={t}
                 theme={theme}
                 cityCode={cityCode}
                 navigation={navigation}
@@ -126,7 +127,7 @@ class Events extends React.Component<PropsType> {
                 renderItem={this.renderEventListItem(language)}
                 theme={theme} />
         </View>
-        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForEvents} theme={theme} />
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForEvents} theme={theme} t={t} />
       </SpaceBetween>}
     </ScrollView>
   }

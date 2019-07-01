@@ -74,7 +74,7 @@ class Extras extends React.Component<PropsType> {
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <SpaceBetween>
         <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme}
-               navigateToFeedback={this.navigateToFeedback} />
+               navigateToFeedback={this.navigateToFeedback} t={t} />
         </SpaceBetween>
       </ScrollView>
     )
