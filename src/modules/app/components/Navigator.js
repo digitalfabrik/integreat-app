@@ -16,7 +16,6 @@ import HeaderContainer from '../../layout/containers/HeaderContainer'
 import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
-import MapViewModal from '../../../routes/map/components/MapViewModal'
 import TransparentHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 import ExtrasContainer from '../../../routes/extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraContainer'
@@ -59,7 +58,6 @@ export const AppStack = createStackNavigator(
     [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
     'Events': createNavigationRouteConfig(EventsContainer, defaultHeader),
     'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
-    'MapViewModal': createNavigationRouteConfig(MapViewModal),
     'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
     'SearchModal': createNavigationRouteConfig(SearchModalContainer),
     'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeader),
