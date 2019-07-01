@@ -16,19 +16,24 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| city: string, language: string |}
+type StatePropsType = {| city: string, language: string, cities: Array<CityModel> |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const language = state.cityContent.language
+  const cities = state.cities.models
+  if (!cities) {
+    throw new Error('The state does not contain cities. Therefore it is not possible to open the extras!')
+  }
   if (!language) {
     throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
   }
 
   return {
     city: ownProps.navigation.getParam('cityCode'),
-    language: language
+    language: language,
+    cities
   }
 }
 
