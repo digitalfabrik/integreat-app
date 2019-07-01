@@ -90,7 +90,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
     const filteredCategories = this.findCategories(categories)
     return (
-      <ScrollView theme={theme}>
+      <ScrollView>
         <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
       </ScrollView>
     )

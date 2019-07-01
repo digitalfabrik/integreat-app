@@ -19,6 +19,12 @@
 ; Ignore metro
 .*/node_modules/metro/.*
 
+[untyped]
+.*/node_modules/react-native/Libraries/Inspector/Inspector.js
+
+
+.*/node_modules/react-native-permissions/index.js
+
 [include]
 
 [libs]
@@ -66,4 +72,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-^0.92.0
+^0.91.0

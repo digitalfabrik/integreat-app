@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { I18nextProvider, reactI18nextModule } from 'react-i18next'
 import { forEach, reduce } from 'lodash/collection'
 
-import localesResources from 'locales.json'
+import localesResources from '../../../locales.json'
 import setUiDirection from '../actions/setUIDirection'
 import type { Dispatch } from 'redux'
 import LanguageDetector from '../LanguageDetector'
