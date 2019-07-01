@@ -34,7 +34,6 @@
 		7BF11495226F61BC0031D233 /* FetcherModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11490226F4E6D0031D233 /* FetcherModule.m */; };
 		7E1B5B430EC15574CB31587E /* Pods_Integreat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D3163FF2F1F436AD2F92B95 /* Pods_Integreat.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		940BFEE7704D45A6A3097CE1 /* libRNScreens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80E4DAB3936D4022BF3C350A /* libRNScreens.a */; };
 		9F74C844C23F485CA0438D49 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7043421DE8B40A7BDE2387D /* libRNCWebView.a */; };
 		A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */; };
 		A330D33422AA9F54005736D0 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D32F22AA9F54005736D0 /* OpenSans-Bold.ttf */; };
@@ -314,13 +313,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNGestureHandler;
 		};
-		7BB6157222B78F300089C37E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 79EECCD2588A4935B2F5D6E3 /* RNScreens.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNScreens;
-		};
 		7BB6157622B78F300089C37E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 849AFFE560F04184AE83BFAA /* RNSentry.xcodeproj */;
@@ -417,7 +409,6 @@
 		6EFDDF23E37E44DA970E1EA7 /* FastImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		725E2CFD73B94B7C945AE629 /* ReactNativeViewPDF.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeViewPDF.xcodeproj; path = "../node_modules/react-native-view-pdf/ReactNativeViewPDF.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		79EECCD2588A4935B2F5D6E3 /* RNScreens.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNScreens.xcodeproj; path = "../node_modules/react-native-screens/ios/RNScreens.xcodeproj"; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
 		7BB616B122B7AC3E0089C37E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = SOURCE_ROOT; };
@@ -425,7 +416,6 @@
 		7BF11468226F4D730031D233 /* Integreat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Integreat-Bridging-Header.h"; path = "Integreat/Integreat-Bridging-Header.h"; sourceTree = "<group>"; };
 		7BF11469226F4D740031D233 /* FetcherModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetcherModule.swift; sourceTree = "<group>"; };
 		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
-		80E4DAB3936D4022BF3C350A /* libRNScreens.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNScreens.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		849AFFE560F04184AE83BFAA /* RNSentry.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
 		8D3163FF2F1F436AD2F92B95 /* Pods_Integreat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Integreat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -478,7 +468,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				745857C215D9481BB88225C7 /* libFastImage.a in Frameworks */,
 				AD86616FDD2141B3B2FE8AA0 /* libRNGestureHandler.a in Frameworks */,
-				940BFEE7704D45A6A3097CE1 /* libRNScreens.a in Frameworks */,
 				0BCC52549356438D9650E6E0 /* libRNSentry.a in Frameworks */,
 				2968B5E2689E4B579284F332 /* libRNVectorIcons.a in Frameworks */,
 				FC368B63ACEE4920ACABD445 /* libReactNativeViewPDF.a in Frameworks */,
@@ -655,7 +644,6 @@
 			children = (
 				D9F49739F58A437CB74EBF1B /* libFastImage.a */,
 				351B951297974A919DD832ED /* libRNGestureHandler.a */,
-				80E4DAB3936D4022BF3C350A /* libRNScreens.a */,
 				EFD96EE3BC2F469AA168F37E /* libRNSentry.a */,
 				FC3445E5170C44EF999D78AC /* libRNVectorIcons.a */,
 				0FEA0A9E46A24D84ACA883F7 /* libReactNativeViewPDF.a */,
@@ -677,14 +665,6 @@
 			isa = PBXGroup;
 			children = (
 				7BB6157022B78F300089C37E /* libRNGestureHandler.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7BB6156722B78F300089C37E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7BB6157322B78F300089C37E /* libRNScreens.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -760,7 +740,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				6EFDDF23E37E44DA970E1EA7 /* FastImage.xcodeproj */,
 				A4756D2778E94FC6AF0703CA /* RNGestureHandler.xcodeproj */,
-				79EECCD2588A4935B2F5D6E3 /* RNScreens.xcodeproj */,
 				849AFFE560F04184AE83BFAA /* RNSentry.xcodeproj */,
 				9EB7652CB80A4589973D1541 /* RNVectorIcons.xcodeproj */,
 				725E2CFD73B94B7C945AE629 /* ReactNativeViewPDF.xcodeproj */,
@@ -977,10 +956,6 @@
 				{
 					ProductGroup = 7BB6156322B78F300089C37E /* Products */;
 					ProjectRef = A4756D2778E94FC6AF0703CA /* RNGestureHandler.xcodeproj */;
-				},
-				{
-					ProductGroup = 7BB6156722B78F300089C37E /* Products */;
-					ProjectRef = 79EECCD2588A4935B2F5D6E3 /* RNScreens.xcodeproj */;
 				},
 				{
 					ProductGroup = 7BB6156922B78F300089C37E /* Products */;
@@ -1259,13 +1234,6 @@
 			remoteRef = 7BB6156F22B78F300089C37E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7BB6157322B78F300089C37E /* libRNScreens.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNScreens.a;
-			remoteRef = 7BB6157222B78F300089C37E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7BB6157722B78F300089C37E /* libRNSentry.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1473,9 +1441,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
-					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
@@ -1516,9 +1482,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
-					"$(SRCROOT)/../node_modules/@mapbox/react-native-mapbox-gl/ios/RCTMGL/**",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
@@ -1568,7 +1532,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",
@@ -1614,7 +1577,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-view-pdf/ReactNativeViewPDF",

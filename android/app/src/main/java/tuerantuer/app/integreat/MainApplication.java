@@ -14,7 +14,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.swmansion.rnscreens.RNScreensPackage;
 import io.sentry.RNSentryPackage;
 
 import java.util.Arrays;
@@ -37,7 +36,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNCWebViewPackage(),
                     new PDFViewPackage(),
                     new VectorIconsPackage(),
-                    new RNScreensPackage(),
                     new RNGestureHandlerPackage(),
                     new FastImageViewPackage(),
                     new IntegreatPackage()
