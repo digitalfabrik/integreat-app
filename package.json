@@ -94,7 +94,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "flow-bin": "^0.91.0",
     "flow-typed": "^2.5.1",
-    "generator-rn-toolbox": "^3.6.1",
+    "generator-rn-toolbox": "^3.11.1",
     "get-dev-paths": "^0.1.1",
     "http-proxy": "^1.17.0",
     "jest": "^24.8.0",
