@@ -131,7 +131,7 @@ class Events extends React.Component<PropsType> {
           <Caption title={t('news')} theme={theme} />
           <List noItemsMessage={t('currentlyNoEvents')}
                 items={events}
-                renderItem={this.renderEventListItem(language)}
+                renderItem={this.renderEventListItem(cityCode, language)}
                 theme={theme} />
         </View>
         <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForEvents} theme={theme} t={t} />
