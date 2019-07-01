@@ -17,6 +17,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import type { NavigationScreenProp } from 'react-navigation'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
@@ -65,7 +66,7 @@ class Extras extends React.Component<PropsType> {
       new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
     ]
 
-    navigation.navigate('FeedbackModal', { isPositiveFeedback, feedbackItems })
+    navigation.navigate('FeedbackModal', {isPositiveFeedback, feedbackItems})
   }
 
   render () {
@@ -73,8 +74,8 @@ class Extras extends React.Component<PropsType> {
     return (
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <SpaceBetween>
-        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme}
-               navigateToFeedback={this.navigateToFeedback} t={t} />
+          <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+          <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
         </SpaceBetween>
       </ScrollView>
     )
