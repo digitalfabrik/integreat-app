@@ -41,6 +41,7 @@ class Landing extends React.Component<PropType> {
 
   render () {
     const {theme, cities, t} = this.props
+    // $FlowFixMe Going to fix this in this task: react-native uses now strict types
     return <Wrapper theme={theme}>
       {!cities
         ? <ActivityIndicator size='large' color='#0000ff' />
