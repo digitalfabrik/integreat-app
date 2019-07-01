@@ -78,9 +78,10 @@ class Dashboard extends React.Component<PropsType> {
 
   onRefresh = () => {
     const {navigateToDashboard, cityCode, language, navigation} = this.props
-    if (cityCode && language) {navigateToDashboard({
-      cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')
-    })
+    if (cityCode && language) {
+      navigateToDashboard({
+        cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')
+      })
     }
   }
 
