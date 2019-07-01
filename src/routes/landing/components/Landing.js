@@ -10,13 +10,14 @@ import type { TFunction } from 'react-i18next'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
+import LocalizationSettings from '../../../modules/localization/LocalizationSettings'
 
 const Wrapper = styled(ScrollView)`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 11px 10px 0;
 `
 
-export type PropsType = {
+export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   i18n: Object,
   cities?: Array<CityModel>,
@@ -25,12 +26,35 @@ export type PropsType = {
   theme: ThemeType,
   navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
   fetchCities: () => StoreActionType
-}
+|}
 
-/**
- * This shows the landing screen. This is a container because it depends on endpoints.
- */
-class Landing extends React.Component<PropsType> {
+type StateType = {|
+  localizationLoaded: boolean
+|}
+
+class Landing extends React.Component<PropsType, StateType> {
+  constructor (props: PropsType) {
+    super(props)
+    this.state = { localizationLoaded: false }
+  }
+
+  componentWillMount () {
+    this.loadSelectedCity()
+  }
+
+  async loadSelectedCity () {
+    const { language, navigateToDashboard } = this.props
+    const localizationSettings = new LocalizationSettings()
+
+    const selectedCity = await localizationSettings.loadSelectedCity()
+
+    if (selectedCity) {
+      navigateToDashboard(selectedCity, language)
+    } else {
+      this.setState({localizationLoaded: true})
+    }
+  }
+
   componentDidMount () {
     if (!this.props.cities) {
       this.props.fetchCities()

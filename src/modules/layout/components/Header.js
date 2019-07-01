@@ -82,7 +82,7 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigation.goBack(this.getDescriptor().key)
   }
 
-  goToLanding = () => {
+  goToLanding = async () => {
     this.props.navigateToLanding()
   }
 

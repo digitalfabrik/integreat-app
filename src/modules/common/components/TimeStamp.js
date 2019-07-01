@@ -6,7 +6,7 @@ import { translate } from 'react-i18next'
 import type Moment from 'moment'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
-import type { MomentFormatterType } from '../../i18n/context/MomentContext'
+import type { MomentFormatterType } from '../../localization/context/MomentContext'
 
 const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};

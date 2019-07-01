@@ -3,7 +3,7 @@
 import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
-import type { UiDirectionType } from '../i18n/actions/setUIDirection'
+import type { UiDirectionType } from '../localization/actions/setUIDirection'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}
@@ -123,6 +123,10 @@ export type ClearCityContentActionType = {|
   type: 'CLEAR_CITY_CONTENT'
 |}
 
+export type ClearCityActionType = {|
+  type: 'CLEAR_CITY'
+|}
+
 export type ResourcesFetchFailedActionType = {|
   type: 'RESOURCES_FETCH_FAILED',
   params: {|
@@ -160,3 +164,4 @@ export type StoreActionType =
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType
+  | ClearCityActionType
