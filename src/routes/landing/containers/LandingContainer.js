@@ -8,7 +8,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import { type NavigationReplaceAction, StackActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import withError from '../../../modules/error/hocs/withError'
 import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
@@ -27,7 +27,6 @@ export type StatePropsType = {|
 |}
 
 type DispatchPropsType = {|
-  fetchCities: () => StoreActionType,
   navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
   changeUnavailableLanguage?: (city: string, newLanguage: string) => void
 |}
@@ -48,28 +47,23 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => {
   return {
-    fetchCities: () => dispatch({
-      type: 'FETCH_CITIES'
-    }),
     navigateToDashboard: (cityCode: string, language: string) => {
       const path = `/${cityCode}/${language}`
       const key: string = generateKey()
 
-      const action: NavigationReplaceAction = StackActions.replace({
+      const action = NavigationActions.navigate({
         routeName: 'Dashboard',
         params: {
           cityCode,
           key,
           sharePath: path,
           onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
-        },
-        newKey: key
+        }
       })
 
       ownProps.navigation.navigate({
         routeName: 'App',
-        // $FlowFixMe For some reason action is not allowed to be a StackAction
-        action: action
+        action
       })
 
       return dispatch({
