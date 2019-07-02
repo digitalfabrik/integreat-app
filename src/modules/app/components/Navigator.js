@@ -79,11 +79,11 @@ export const AppStack = createStackNavigator(
 )
 
 export const LandingStack = createSwitchNavigator({
+  // TODO replace this ActivityIndicator, NATIVE-211
   'Loading': ActivityIndicator,
   'Landing': LandingContainer,
   'App': AppStack
-}
-)
+})
 
 const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
 
