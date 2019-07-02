@@ -6,6 +6,7 @@ import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
+  NavigationActions,
   type NavigationRouteConfig
 } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
@@ -27,6 +28,9 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
+import LocalizationSettings from '../../localization/LocalizationSettings'
+import { generateKey } from '../generateRouteKey'
+import { ActivityIndicator } from 'react-native'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -74,12 +78,85 @@ export const AppStack = createStackNavigator(
   }
 )
 
-export const LandingStack = createSwitchNavigator(
-  {
-    'Landing': LandingContainer,
-    'App': AppStack
-  }
+export const LandingStack = createSwitchNavigator({
+  'Loading': ActivityIndicator,
+  'Landing': LandingContainer,
+  'App': AppStack
+}
 )
 
 const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
-export default AppContainer
+
+type PropsType = {|
+  fetchCategory: (cityCode: string, language: string, key: string) => void,
+  clearCategory: (key: string) => void,
+  fetchCities: () => void
+|}
+
+class Navigator extends React.Component<PropsType> {
+  localizationSettings: LocalizationSettings
+  navigator: ?NavigationContainer<NavigationState, {}, {}>
+
+  constructor (props: PropsType) {
+    super(props)
+    this.localizationSettings = new LocalizationSettings()
+  }
+
+  componentWillMount () {
+    this.props.fetchCities()
+  }
+
+  componentDidMount () {
+    this.loadSelectedCity()
+  }
+
+  async loadSelectedCity () {
+    const selectedCity = await this.localizationSettings.loadSelectedCity()
+    const contentLanguage: ?string = await this.localizationSettings.loadLanguage()
+
+    if (!contentLanguage) {
+      throw new Error('ContentLanguage must be set!')
+    } else if (!this.navigator) {
+      throw new Error('Ref must not be null!')
+    }
+
+    if (selectedCity) {
+      this.navigateToDashboard(selectedCity, contentLanguage)
+    } else {
+      // $FlowFixMe dispatch is missing in type
+      this.navigator.dispatch(NavigationActions.navigate({
+        routeName: 'Landing'
+      }))
+    }
+  }
+
+  navigateToDashboard (cityCode: string, language: string) {
+    const path = `/${cityCode}/${language}`
+    const key = generateKey()
+
+    const navigateToDashboard = NavigationActions.navigate({
+      routeName: 'Dashboard',
+      params: {
+        cityCode,
+        key,
+        sharePath: path,
+        onRouteClose: () => this.props.clearCategory(key)
+      }
+    })
+
+    // $FlowFixMe dispatch is missing in type, https://github.com/react-navigation/react-navigation/issues/3842
+    this.navigator.dispatch(NavigationActions.navigate({
+      routeName: 'App',
+      action: navigateToDashboard
+    }))
+
+    this.props.fetchCategory(cityCode, language, key)
+  }
+
+  render () {
+    // eslint-disable-next-line react/jsx-no-bind
+    return <AppContainer ref={navigator => (this.navigator = navigator)} />
+  }
+}
+
+export default Navigator

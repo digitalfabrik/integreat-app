@@ -10,10 +10,10 @@ import AndroidStatusBarContainer from '../../platform/containers/AndroidStatusBa
 import type { Store } from 'redux'
 import type { StateType } from '../StateType'
 import type { StoreActionType } from '../StoreActionType'
-import Navigator from './Navigator'
 import DefaultDataContainer from '../../endpoint/DefaultDataContainer'
 import type { DataContainer } from '../../endpoint/DataContainer'
 import LaunchInquiry from './LaunchInquiry'
+import NavigatorContainer from '../containers/NavigatorContainer'
 
 type PropsType = {||}
 
@@ -53,7 +53,7 @@ class App extends React.Component<PropsType, AppStateType> {
             <>
               <AndroidStatusBarContainer />
               <IOSSafeAreaView>
-                <Navigator />
+                <NavigatorContainer />
               </IOSSafeAreaView>
             </>
           </LaunchInquiry>
