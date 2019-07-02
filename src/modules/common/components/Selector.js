@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import styled, { css } from 'styled-components/native'
+import styled, { css, type StyledComponent } from 'styled-components/native'
 import { TouchableHighlight } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
@@ -15,22 +15,22 @@ const Element = styled.Text`
   text-align: center;
 `
 
-export const TouchTarget = styled(TouchableHighlight)`
+export const TouchTarget: StyledComponent<{}, {}, *> = styled(TouchableHighlight)`
  width: 100%;
 `
 
-export const EnabledElement = styled(Element)`
+export const EnabledElement: StyledComponent<{ selected: boolean }, ThemeType, *> = styled(Element)`
   font-weight: 700;
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
   ${props => props.selected && `background-color: ${props.theme.colors.backgroundAccentColor}`};
 `
 
-export const DisabledElement = styled(Element)`
+export const DisabledElement: StyledComponent<{}, ThemeType, *> = styled(Element)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-export const Wrapper = styled.View`
+export const Wrapper: StyledComponent<{ vertical: boolean }, ThemeType, *> = styled.View`
   display: flex;
   width: 100%;
   flex-flow: row wrap;

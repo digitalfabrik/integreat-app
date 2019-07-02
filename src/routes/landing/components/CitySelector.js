@@ -5,11 +5,11 @@ import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-export const CityGroup = styled.Text`
+export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   flex: 1;
   height: 30px;
   margin-top: 10px;

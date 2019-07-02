@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from './Selector'
@@ -10,7 +10,7 @@ import { Text } from 'react-native'
 import Caption from './Caption'
 import { type TFunction } from 'react-i18next'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;

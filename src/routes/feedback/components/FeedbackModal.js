@@ -45,7 +45,7 @@ type StateType = {|
 class FeedbackModal extends React.Component<PropsType, StateType> {
   state = {comment: '', feedbackItem: null}
 
-  onFeedbackVariantChanged = (itemValue: string) => this.setState({feedbackItem: itemValue})
+  onFeedbackVariantChanged = (itemValue: string | number) => this.setState({feedbackItem: itemValue.toString()})
 
   onFeedbackCommentChanged = (comment: string) => this.setState({comment})
 
