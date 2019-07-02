@@ -1,7 +1,6 @@
 // @flow
 
-import type { StateType } from '../../../modules/app/StateType'
-import compose from 'lodash/fp/compose'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import connect from 'react-redux/es/connect/connect'
 import Events from '../components/Events'
 import { translate } from 'react-i18next'
@@ -13,49 +12,84 @@ import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToI
 import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
+import type { TFunction } from 'react-i18next'
+import { CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
+import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { PropsType as EventPropsType } from '../components/Events'
 
-type OwnPropsType = {|
-  navigation: NavigationScreenProp<*>
+type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
+
+type StatePropsType = {|
+  error: boolean,
+  languageNotAvailable: boolean,
+  availableLanguages?: Array<LanguageModel>,
+  currentCityCode?: string,
+  cityCode?: string,
+  cities?: ?Array<CityModel>,
+  events?: Array<EventModel>,
+  language?: string,
+  path?: string,
+  resourceCache?: LanguageResourceCacheStateType
 |}
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+type DispatchPropsType = {|
+  navigateToEvent: NavigateToEventParamsType => void,
+  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
+  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
+|}
+
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {resourceCache, eventsRouteMapping, city} = state.cityContent
 
-  if (eventsRouteMapping.errorMessage !== undefined || resourceCache.errorMessage !== undefined) {
-    return {error: true}
+  if (eventsRouteMapping.errorMessage !== undefined || state.cities.errorMessage !== undefined ||
+    resourceCache.errorMessage !== undefined) {
+    return { error: true, languageNotAvailable: false }
   }
+
+  const cities = state.cities.models
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
+
   if (!route || !city) {
-    return {}
+    return { error: false, languageNotAvailable: false }
   }
 
-  if (!route.allAvailableLanguages.has(route.language)) {
-    return {languageNotAvailable: true, languages: route.allAvailableLanguages, city}
+  const languages = Array.from(route.allAvailableLanguages.keys())
+
+  if (!languages.includes(route.language)) {
+    return { error: false, languageNotAvailable: true, availableLanguages: languages, currentCityCode: city }
   }
 
   return {
+    error: false,
+    languageNotAvailable: false,
     language: route.language,
     cityCode: city,
+    cities,
     events: route.models,
     path: route.path,
-    resourceCache: resourceCache
+    resourceCache
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType) => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
   navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
   navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: (city: string, newLanguage: string) => dispatch({
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {city, newLanguage}
-  })
+  changeUnavailableLanguage: (city: string, newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {city, newLanguage}
+    })
+  }
 })
 
-export default compose([
-  connect(mapStateToProps, mapDispatchToProps),
-  withRouteCleaner,
-  withError,
-  translate('events'),
-  withTheme(props => props.language)
-])(Events)
+export default translate('events')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withRouteCleaner(
+      withTheme(props => props.language)(
+        withError<EventPropsType>(
+          Events
+        )))))
