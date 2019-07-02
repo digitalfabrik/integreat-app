@@ -9,6 +9,6 @@
     "__VERSION__": false
   },
   "rules": {
-    "object-curly-spacing": ["off", "never"]
+    "object-curly-spacing": ["off", "always"]
   }
 }
