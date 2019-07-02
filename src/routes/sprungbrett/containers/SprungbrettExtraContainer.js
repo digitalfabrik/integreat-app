@@ -4,7 +4,6 @@ import * as React from 'react'
 import { ActivityIndicator } from 'react-native'
 import { type TFunction, translate } from 'react-i18next'
 import SprungbrettExtra from '../components/SprungbrettExtra'
-import compose from 'lodash/fp/compose'
 import connect from 'react-redux/es/connect/connect'
 import type { StateType } from '../../../modules/app/StateType'
 import {
@@ -18,18 +17,24 @@ import { SPRUNGBRETT_EXTRA } from '../../extras/constants'
 import Failure from '../../../modules/error/components/Failure'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import type { NavigationScreenProp } from 'react-navigation'
 
-const mapStateToProps = (state: StateType, ownProps) => {
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+
+type StatePropsType = {| extra: ?ExtraModel |}
+
+type PropsType = { ...OwnPropsType, ...StatePropsType }
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const extras: Array<ExtraModel> = ownProps.navigation.getParam('extras')
 
-  const extra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-
   return {
-    extra: extra
+    extra: extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
   }
 }
 
-type PropsType = {|
+type SprungbrettPropsType = {|
+  navigation: NavigationScreenProp<*>,
   extra: ?ExtraModel,
   theme: ThemeType,
   t: TFunction
@@ -41,8 +46,8 @@ type SprungbrettStateType = {|
 |}
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
-class SprungbrettExtraContainer extends React.Component<PropsType, SprungbrettStateType> {
-  constructor (props: PropsType) {
+class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
+  constructor (props: SprungbrettPropsType) {
     super(props)
     this.state = {jobs: null, error: null}
   }
@@ -88,8 +93,8 @@ class SprungbrettExtraContainer extends React.Component<PropsType, SprungbrettSt
   }
 }
 
-export default compose(
-  connect(mapStateToProps),
-  translate('sprungbrett'),
-  withTheme()
-)(SprungbrettExtraContainer)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  translate('sprungbrett')(
+    withTheme()(
+      SprungbrettExtraContainer
+    )))
