@@ -2,7 +2,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from '../../../modules/common/components/Selector'
@@ -11,7 +11,7 @@ import { InteractionManager } from 'react-native'
 import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;

@@ -3,10 +3,10 @@
 import React from 'react'
 
 import { CityModel } from '@integreat-app/integreat-api-client'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-const CityListItem = styled.TouchableHighlight`
+const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   padding: 7px;
 `
 

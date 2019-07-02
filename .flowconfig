@@ -73,4 +73,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 ; Version is < 0.92.0 because of: https://github.com/flow-typed/flow-typed/pull/3228/files
 [version]
-^0.91.0
+^0.92.0

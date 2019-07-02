@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../../modules/categories/components/CategoryList'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, InteractionManager, ScrollView } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -11,7 +11,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { TFunction } from 'react-i18next'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;

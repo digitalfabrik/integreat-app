@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { NavigationScene } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
@@ -19,7 +19,7 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const BoxShadow = styled.View`
+const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: transparent;
   position: absolute;
   z-index: 100;
