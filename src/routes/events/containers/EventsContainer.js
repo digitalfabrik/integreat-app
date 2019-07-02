@@ -13,7 +13,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { TFunction } from 'react-i18next'
-import { EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
+import { CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { PropsType as EventPropsType } from '../components/Events'
@@ -26,6 +26,7 @@ type StatePropsType = {|
   availableLanguages?: Array<LanguageModel>,
   currentCityCode?: string,
   cityCode?: string,
+  cities?: ?Array<CityModel>,
   events?: Array<EventModel>,
   language?: string,
   path?: string,
@@ -46,9 +47,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const {resourceCache, eventsRouteMapping, city} = state.cityContent
 
-  if (eventsRouteMapping.errorMessage !== undefined || resourceCache.errorMessage !== undefined) {
+  if (eventsRouteMapping.errorMessage !== undefined || state.cities.errorMessage !== undefined ||
+    resourceCache.errorMessage !== undefined) {
     return { error: true, languageNotAvailable: false }
   }
+
+  const cities = state.cities.models
 
   const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
 
@@ -67,6 +71,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     languageNotAvailable: false,
     language: route.language,
     cityCode: city,
+    cities,
     events: route.models,
     path: route.path,
     resourceCache

@@ -6,7 +6,7 @@ import type { ThemeType } from '../../theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from './Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
-import { Text } from 'react-native-elements/src/index'
+import { Text } from 'react-native'
 import Caption from './Caption'
 import { type TFunction } from 'react-i18next'
 

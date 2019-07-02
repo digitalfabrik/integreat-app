@@ -26,6 +26,7 @@ import EventsContainer from '../../../routes/events/containers/EventsContainer'
 import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
+import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -63,7 +64,8 @@ export const AppStack = createStackNavigator(
     'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
     'SearchModal': createNavigationRouteConfig(SearchModalContainer),
     'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeader),
-    'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader)
+    'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader),
+    'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentHeader)
   },
   {
     defaultNavigationOptions: {
