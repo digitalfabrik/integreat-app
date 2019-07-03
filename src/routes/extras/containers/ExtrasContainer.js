@@ -20,16 +20,16 @@ type StatePropsType = {| city: string, language: string, cities: ?Array<CityMode
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const language = state.cityContent.language
-  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
-  if (!language) {
-    throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
+const mapStateToProps = (state: StateType): StatePropsType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
   }
 
+  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
+
   return {
-    city: ownProps.navigation.getParam('cityCode'),
-    language: language,
+    city: state.cityContent.city,
+    language: state.contentLanguage,
     cities
   }
 }

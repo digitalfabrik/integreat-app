@@ -9,27 +9,38 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { currentCityRouteSelector } from '../../../modules/common/selectors/currentCityRouteSelector'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
+import { availableLanguagesSelector } from '../../../modules/common/selectors/availableLanguagesSelector'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type PropsType = {|
-  city: string | null,
-  currentLanguage: string | null,
-  languages: Array<LanguageModel> | null,
+  city: string,
+  currentLanguage: string,
+  languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
-  changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
+  changeLanguage: (city: string, newLanguage: string) => void,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
 |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
-  const route = currentCityRouteSelector(state, {routeKey: ownProps.navigation.getParam('routeKey')})
-  const currentLanguage = route ? route.language : state.cityContent.language
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
+
+  const cityContent = state.cityContent
+  const { city, languages } = cityContent
+
+  const routeKey = ownProps.navigation.getParam('routeKey')
+  const route = currentCityRouteSelector(cityContent, { routeKey })
+  const currentLanguage = route ? route.language : state.contentLanguage
+  const availableLanguages = availableLanguagesSelector(cityContent, { routeKey })
+
   return {
-    city: state.cityContent.city,
+    city,
     currentLanguage,
-    languages: state.cityContent.languages,
-    availableLanguages: ownProps.navigation.getParam('availableLanguages'),
+    languages,
+    availableLanguages,
     closeModal: () => { ownProps.navigation.goBack() }
   }
 }
@@ -37,13 +48,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
-    changeLanguage: (city: string, newLanguage: string) => dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        city,
-        newLanguage
-      }
-    })
+    changeLanguage: (city: string, newLanguage: string) => {
+      dispatch({
+        type: 'SWITCH_CONTENT_LANGUAGE',
+        params: {
+          city,
+          newLanguage
+        }
+      })
+    }
   }
 }
 

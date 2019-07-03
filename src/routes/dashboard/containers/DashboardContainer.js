@@ -28,6 +28,7 @@ type StatePropsType = {|
   languageNotAvailable: boolean,
   availableLanguages?: Array<LanguageModel>,
   currentCityCode?: string,
+  currentLanguage?: string,
   cityCode?: string,
   cities?: Array<CityModel>,
   language?: string,
@@ -40,17 +41,26 @@ type DispatchPropsType = {|
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToEvent: NavigateToEventParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
+  changeUnavailableLanguage?: (city: string, language: string) => void
 |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { resourceCache, categoriesRouteMapping, city, languages, language } = state.cityContent
+  const contentLanguage = state.contentLanguage
+  if (!state.cityContent) {
+    return { error: false, languageNotAvailable: false }
+  }
+  const { resourceCache, categoriesRouteMapping, city, languages } = state.cityContent
 
-  if (languages && !languages.map(language => language.code).includes(language)) {
-    // TODO $FlowFixMe city could be undefined here, will fix this in NATIVE-263
-    return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
+  if (languages && !languages.map(language => language.code).includes(contentLanguage)) {
+    return {
+      languageNotAvailable: true,
+      availableLanguages: languages,
+      currentCityCode: city,
+      error: false,
+      currentLanguage: contentLanguage
+    }
   }
 
   if (state.cities.errorMessage !== undefined ||
@@ -62,7 +72,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route || !cities || !city) {
+  if (!route || !cities) {
     return { error: false, languageNotAvailable: false }
   }
 
