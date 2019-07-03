@@ -11,7 +11,7 @@ import type { InitializeCityContentActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
-import LocalizationSettings from '../../i18n/LocalizationSettings'
+import AppSettings from '../../settings/AppSettings'
 
 const MAX_CONTENT_AGE = 24
 
@@ -19,8 +19,8 @@ export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   forceUpdate: boolean, shouldRefreshResources: boolean
 ): Saga<void> {
-  const localizationSettings = new LocalizationSettings()
-  yield call(localizationSettings.setSelectedCity, newCity)
+  const appSettings = new AppSettings()
+  yield call(appSettings.setSelectedCity, newCity)
 
   yield call(dataContainer.setContext, newCity, newLanguage)
 

@@ -29,8 +29,8 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
-import LocalizationSettings from '../../i18n/LocalizationSettings'
 import { generateKey } from '../generateRouteKey'
+import AppSettings from '../../settings/AppSettings'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -93,12 +93,12 @@ type PropsType = {|
 |}
 
 class Navigator extends React.Component<PropsType> {
-  localizationSettings: LocalizationSettings
+  appSettings: AppSettings
   navigator: {current: null | React$ElementRef<NavigationContainer<NavigationState, {}, {}>>}
 
   constructor (props: PropsType) {
     super(props)
-    this.localizationSettings = new LocalizationSettings()
+    this.appSettings = new AppSettings()
     this.navigator = React.createRef()
   }
 
@@ -111,8 +111,8 @@ class Navigator extends React.Component<PropsType> {
   }
 
   async loadSelectedCity () {
-    const selectedCity = await this.localizationSettings.loadSelectedCity()
-    const contentLanguage: ?string = await this.localizationSettings.loadLanguage()
+    const selectedCity = await this.appSettings.loadSelectedCity()
+    const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
 
     if (!contentLanguage) {
       throw new Error('ContentLanguage must be set!')
