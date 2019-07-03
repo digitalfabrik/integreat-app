@@ -10,7 +10,7 @@ import {
   LanguageModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
-import { DEFAULT_LANGUAGE } from '../localization/components/I18nProvider'
+import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 
 export type PathType = string
 

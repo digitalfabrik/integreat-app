@@ -4,7 +4,7 @@ import type { Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
 import { AsyncStorage } from 'react-native'
 
-import uiDirectionReducer from '../localization/reducers/uiDirectionReducer'
+import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import {
   checkInternetConnection,
@@ -30,8 +30,8 @@ import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
-import contentLanguageReducer from '../localization/reducers/contentLanguageReducer'
-import watchClearCity from '../localization/watchClearCity'
+import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
+import watchClearCity from '../i18n/watchClearCity'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
