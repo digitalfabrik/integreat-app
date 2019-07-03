@@ -3,7 +3,7 @@
 import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
-import type { UiDirectionType } from '../localization/actions/setUIDirection'
+import type { UiDirectionType } from '../i18n/actions/setUIDirection'
 
 // This may be used to react-offline
 // type MetaType = {| retry?: boolean, dismiss?: string[] |}

@@ -11,7 +11,7 @@ import type { InitializeCityContentActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
-import LocalizationSettings from '../../localization/LocalizationSettings'
+import LocalizationSettings from '../../i18n/LocalizationSettings'
 
 const MAX_CONTENT_AGE = 24
 

@@ -10,7 +10,7 @@ import type {
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
-import LocalizationSettings from '../../localization/LocalizationSettings'
+import LocalizationSettings from '../../i18n/LocalizationSettings'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params

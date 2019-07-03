@@ -29,9 +29,8 @@ import SearchModalContainer from '../../../routes/search/containers/SearchModalC
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
-import LocalizationSettings from '../../localization/LocalizationSettings'
+import LocalizationSettings from '../../i18n/LocalizationSettings'
 import { generateKey } from '../generateRouteKey'
-import { ActivityIndicator } from 'react-native'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -80,8 +79,7 @@ export const AppStack = createStackNavigator(
 )
 
 export const LandingStack = createSwitchNavigator({
-  // TODO replace this ActivityIndicator, NATIVE-211
-  'Loading': ActivityIndicator,
+  'Loading': () => null,
   'Landing': LandingContainer,
   'App': AppStack
 })
