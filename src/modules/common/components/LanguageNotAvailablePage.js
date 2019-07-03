@@ -23,14 +23,16 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
 type PropsType = {
   theme: ThemeType,
   city: string,
+  currentLanguage: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (city: string, language: string) => void,
+  changeLanguage: (city: string, newLanguage: string) => void,
   t: TFunction
 }
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    this.props.changeLanguage(this.props.city, model.code)
+    const { changeLanguage, city } = this.props
+    changeLanguage(city, model.code)
   }
 
   render () {

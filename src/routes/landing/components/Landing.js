@@ -20,9 +20,10 @@ export type PropsType = {
   navigation: NavigationScreenProp<*>,
   i18n: Object,
   cities?: Array<CityModel>,
+  language: string,
   t: TFunction,
   theme: ThemeType,
-  navigateToDashboard: (cityCode: string) => StoreActionType,
+  navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
   fetchCities: () => StoreActionType
 }
 
@@ -37,8 +38,8 @@ class Landing extends React.Component<PropsType> {
   }
 
   navigateToDashboard = (cityModel: CityModel) => {
-    const { navigateToDashboard } = this.props
-    navigateToDashboard(cityModel.code)
+    const { navigateToDashboard, language } = this.props
+    navigateToDashboard(cityModel.code, language)
   }
 
   render () {
