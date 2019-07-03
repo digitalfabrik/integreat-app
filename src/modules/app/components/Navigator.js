@@ -96,11 +96,12 @@ type PropsType = {|
 
 class Navigator extends React.Component<PropsType> {
   localizationSettings: LocalizationSettings
-  navigator: ?NavigationContainer<NavigationState, {}, {}>
+  navigator: {current: null | React$ElementRef<NavigationContainer<NavigationState, {}, {}>>}
 
   constructor (props: PropsType) {
     super(props)
     this.localizationSettings = new LocalizationSettings()
+    this.navigator = React.createRef()
   }
 
   componentWillMount () {
@@ -124,8 +125,8 @@ class Navigator extends React.Component<PropsType> {
     if (selectedCity) {
       this.navigateToDashboard(selectedCity, contentLanguage)
     } else {
-      // $FlowFixMe dispatch is missing in type
-      this.navigator.dispatch(NavigationActions.navigate({
+      // $FlowFixMe dispatch is missing in tpe
+      this.navigator.current.dispatch(NavigationActions.navigate({
         routeName: 'Landing'
       }))
     }
@@ -147,7 +148,7 @@ class Navigator extends React.Component<PropsType> {
     })
 
     // $FlowFixMe dispatch is missing in type, https://github.com/react-navigation/react-navigation/issues/3842
-    this.navigator.dispatch(NavigationActions.navigate({
+    this.navigator.current.dispatch(NavigationActions.navigate({
       routeName: 'App',
       action: navigateToDashboard
     }))
@@ -156,8 +157,7 @@ class Navigator extends React.Component<PropsType> {
   }
 
   render () {
-    // eslint-disable-next-line react/jsx-no-bind
-    return <AppContainer ref={navigator => (this.navigator = navigator)} />
+    return <AppContainer ref={this.navigator} />
   }
 }
 
