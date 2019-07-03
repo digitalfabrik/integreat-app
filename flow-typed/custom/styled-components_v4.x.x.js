@@ -1,3 +1,8 @@
+/*
+  This file is an adaption from the PR: https://github.com/flow-typed/flow-typed/pull/3228
+  "boolean" was added as an allowed type in Props
+ */
+
 // @flow
 
 declare module 'styled-components' {
