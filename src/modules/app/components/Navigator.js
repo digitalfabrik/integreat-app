@@ -6,6 +6,7 @@ import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
+  StackActions,
   NavigationActions,
   type NavigationRouteConfig
 } from 'react-navigation'
@@ -134,14 +135,15 @@ class Navigator extends React.Component<PropsType> {
     const path = `/${cityCode}/${language}`
     const key = generateKey()
 
-    const navigateToDashboard = NavigationActions.navigate({
+    const navigateToDashboard = StackActions.replace({
       routeName: 'Dashboard',
       params: {
         cityCode,
         key,
         sharePath: path,
         onRouteClose: () => this.props.clearCategory(key)
-      }
+      },
+      newKey: key
     })
 
     // $FlowFixMe dispatch is missing in type, https://github.com/react-navigation/react-navigation/issues/3842

@@ -8,7 +8,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import Landing from '../components/Landing'
-import { NavigationActions } from 'react-navigation'
+import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import withError from '../../../modules/error/hocs/withError'
 import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
@@ -51,19 +51,21 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
       const path = `/${cityCode}/${language}`
       const key: string = generateKey()
 
-      const action = NavigationActions.navigate({
+      const action: NavigationReplaceAction = StackActions.replace({
         routeName: 'Dashboard',
         params: {
           cityCode,
           key,
           sharePath: path,
           onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
-        }
+        },
+        newKey: key
       })
 
       ownProps.navigation.navigate({
         routeName: 'App',
-        action
+        // $FlowFixMe For some reason action is not allowed to be a StackAction
+        action: action
       })
 
       return dispatch({
