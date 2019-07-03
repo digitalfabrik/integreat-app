@@ -80,7 +80,6 @@ class NavigationTile extends React.Component<PropsType> {
     const {tile, theme} = this.props
     const imageSource = getFastImageSource(tile.thumbnail)
     return <>
-      { /* $FlowFixMe Going to fix this in this task: react-native uses now strict types */ }
       <Circle theme={theme}>
         <Thumbnail source={imageSource} resizeMode={FastImage.resizeMode.contain} />
         {this.getNewsDot()}

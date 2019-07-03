@@ -19,7 +19,11 @@ export const TouchTarget: StyledComponent<{}, {}, *> = styled(TouchableHighlight
  width: 100%;
 `
 
-export const EnabledElement: StyledComponent<{ selected: boolean }, ThemeType, *> = styled(Element)`
+type EnabledElementPropsType = {|
+  selected: boolean, children: React.Node, theme: ThemeType
+|}
+
+export const EnabledElement: StyledComponent<EnabledElementPropsType, ThemeType, *> = styled(Element)`
   font-weight: 700;
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -30,7 +34,11 @@ export const DisabledElement: StyledComponent<{}, ThemeType, *> = styled(Element
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-export const Wrapper: StyledComponent<{ vertical: boolean }, ThemeType, *> = styled.View`
+type WrapperPropsType = {|
+  vertical: boolean, children: React.Node, theme: ThemeType
+|}
+
+export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, *> = styled.View`
   display: flex;
   width: 100%;
   flex-flow: row wrap;
