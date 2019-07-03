@@ -45,7 +45,8 @@ class CategoriesScrollView extends React.Component<PropsType> {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
     } else {
       return (
-        <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
+        <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
+                    contentContainerStyle={{flexGrow: 1}}>
           <Categories stateView={stateView}
                       cities={cities}
                       resourceCache={resourceCache}
