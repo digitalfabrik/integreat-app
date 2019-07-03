@@ -17,6 +17,7 @@ import type { ThemeType } from '../../../modules/theme/constants/theme'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import type { NavigationScreenProp } from 'react-navigation'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
@@ -56,12 +57,12 @@ class Extras extends React.Component<PropsType> {
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const {navigation, extras, t, cities, cityCode} = this.props
+    const { navigation, extras, t, cities, cityCode } = this.props
     const cityTitle = CityModel.findCityName(cities, cityCode)
 
     const feedbackItems = [
-      new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), EXTRAS_FEEDBACK_TYPE),
-      ...extras.map(xtra => new FeedbackVariant(t('feedback:extra', {extra: xtra.title}), EXTRA_FEEDBACK_TYPE)),
+      new FeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE),
+      ...extras.map(extra => new FeedbackVariant(t('feedback:extra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE)),
       new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
     ]
 
@@ -69,12 +70,12 @@ class Extras extends React.Component<PropsType> {
   }
 
   render () {
-    const {extras, t, theme} = this.props
+    const { extras, t, theme } = this.props
     return (
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SpaceBetween>
-        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme}
-               navigateToFeedback={this.navigateToFeedback} t={t} />
+          <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+          <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
         </SpaceBetween>
       </ScrollView>
     )

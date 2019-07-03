@@ -5,11 +5,13 @@ import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, InteractionManager, ScrollView } from 'react-native'
+import { ActivityIndicator, InteractionManager, ScrollView, View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { TFunction } from 'react-i18next'
+import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import SearchFeedbackBox from './SearchFeedbackBox'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -38,10 +40,7 @@ type StateType = {|
 |}
 
 class SearchModal extends React.Component<PropsType, StateType> {
-  constructor () {
-    super()
-    this.state = {query: ''}
-  }
+  state = {query: ''}
 
   findCategories (categories: CategoriesMapModel): Array<CategoryListItemType> {
     const {query} = this.state
@@ -86,8 +85,12 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return <ScrollView theme={theme}>
-      <CategoryList categories={filteredCategories} t={t} query={query} onItemPress={this.onItemPress} theme={theme} />
+    return <ScrollView theme={theme} contentContainerStyle={{flexGrow: 1}}>
+      <SpaceBetween>
+        <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
+                            theme={theme} /></View>
+        <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0} />
+      </SpaceBetween>
     </ScrollView>
   }
 
