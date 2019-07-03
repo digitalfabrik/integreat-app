@@ -7,7 +7,7 @@ import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
-import type { InitializeCityContentActionType } from '../../app/StoreActionType'
+import type { FetchCitiesActionType, InitializeCityContentActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
@@ -23,6 +23,9 @@ export default function * loadCityContent (
   yield call(appSettings.setSelectedCity, newCity)
 
   yield call(dataContainer.setContext, newCity, newLanguage)
+
+  const fetchCities: FetchCitiesActionType = { type: 'FETCH_CITIES' }
+  yield put(fetchCities)
 
   let lastUpdate: moment | null = null
   if (dataContainer.lastUpdateAvailable()) {
