@@ -12,19 +12,11 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 type PropsType = {|
   navigation: NavigationScreenProp<*>,
   language: string,
-  dispatch: () => {}
+  dispatch: () => void
 |}
 
 const mapStateToProps = (state: StateType) => {
-  const language = state.cityContent.language
-
-  if (!language) {
-    throw Error('language in state is not defined')
-  }
-
-  return {
-    language: language
-  }
+  return { language: state.contentLanguage }
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(

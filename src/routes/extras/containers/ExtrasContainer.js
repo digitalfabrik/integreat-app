@@ -16,26 +16,28 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| city: string, language: string |}
+type StatePropsType = {| city: string, language: string, cities: ?Array<CityModel> |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const language = state.cityContent.language
-  if (!language) {
-    throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
+const mapStateToProps = (state: StateType): StatePropsType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
   }
 
+  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
+
   return {
-    city: ownProps.navigation.getParam('cityCode'),
-    language: language
+    city: state.cityContent.city,
+    language: state.contentLanguage,
+    cities
   }
 }
 
 type ExtrasPropsType = {|
   navigation: NavigationScreenProp<*>,
   city: string,
-  cities: Array<CityModel>,
+  cities: ?Array<CityModel>,
   language: string,
   navigateToExtra: (path: string, isExternalUrl: boolean) => void,
   theme: ThemeType,
@@ -84,7 +86,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     const {theme, t, cities, navigation, city} = this.props
     const {extras, error} = this.state
 
-    if (error) {
+    if (error || !cities) {
       return <Failure error={error} />
     }
 
