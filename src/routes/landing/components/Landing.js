@@ -23,10 +23,17 @@ export type PropsType = {|
   language: string,
   t: TFunction,
   theme: ThemeType,
-  navigateToDashboard: (cityCode: string, language: string) => StoreActionType
+  navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
+  fetchCities: () => StoreActionType
 |}
 
 class Landing extends React.Component<PropsType> {
+  componentDidMount () {
+    if (!this.props.cities) {
+      this.props.fetchCities()
+    }
+  }
+
   navigateToDashboard = (cityModel: CityModel) => {
     const { navigateToDashboard, language } = this.props
     navigateToDashboard(cityModel.code, language)

@@ -27,6 +27,7 @@ export type StatePropsType = {|
 |}
 
 type DispatchPropsType = {|
+  fetchCities: () => StoreActionType,
   navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
   changeUnavailableLanguage?: (city: string, newLanguage: string) => void
 |}
@@ -47,6 +48,9 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => {
   return {
+    fetchCities: () => dispatch({
+      type: 'FETCH_CITIES'
+    }),
     navigateToDashboard: (cityCode: string, language: string) => {
       const path = `/${cityCode}/${language}`
       const key: string = generateKey()
