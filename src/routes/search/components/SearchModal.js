@@ -5,11 +5,11 @@ import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import SearchHeader from './SearchHeader'
-import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import { ActivityIndicator, InteractionManager, ScrollView } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { TFunction } from 'react-i18next'
 
 const Wrapper = styled.View`
   position: absolute;  
@@ -24,12 +24,13 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => void,
   theme: ThemeType,
   language: string | null,
   cityCode: string | null,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  t: TFunction
 |}
 
 type StateType = {|
@@ -81,7 +82,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const {theme, categories} = this.props
+    const {theme, categories, t} = this.props
     const {query} = this.state
 
     if (!categories) {
@@ -89,11 +90,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return (
-      <ScrollView theme={theme}>
-        <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
-      </ScrollView>
-    )
+    return <ScrollView theme={theme}>
+      <CategoryList categories={filteredCategories} t={t} query={query} onItemPress={this.onItemPress} theme={theme} />
+    </ScrollView>
   }
 
   render () {
