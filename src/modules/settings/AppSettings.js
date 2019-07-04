@@ -6,16 +6,19 @@ import { fromPairs } from 'lodash/array'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
+  allowPushNotifications: boolean | null,
   test: boolean | null
 |}
 
 const e2eSettings = {
   errorTracking: false,
+  allowPushNotifications: null,
   test: false
 }
 
 export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
   errorTracking: null,
+  allowPushNotifications: null,
   test: false
 }
 
