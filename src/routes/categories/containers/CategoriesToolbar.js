@@ -27,7 +27,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     if (category.id === 0) {
       return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
     } else {
-      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${category.path}`
+      return `${apiUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
     }
   }
 
