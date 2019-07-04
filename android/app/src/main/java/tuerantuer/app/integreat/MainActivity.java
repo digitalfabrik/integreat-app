@@ -1,4 +1,4 @@
-package com.integreat;
+package tuerantuer.app.integreat;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

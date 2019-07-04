@@ -1,13 +1,14 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import { Text } from 'react-native'
 import { translate } from 'react-i18next'
 import type { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
+import type { ThemeType } from '../../theme/constants/theme'
 
-const ViewContainer = styled.View`
+const ViewContainer: StyledComponent<{}, ThemeType, *> = styled.View`
 flex: 1;
 align-items: center;
 margin-top: 15%;

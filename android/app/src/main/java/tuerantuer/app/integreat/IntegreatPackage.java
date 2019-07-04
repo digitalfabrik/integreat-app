@@ -1,10 +1,10 @@
-package com.integreat;
+package tuerantuer.app.integreat;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.integreat.fetcher.FetcherModule;
+import tuerantuer.app.integreat.fetcher.FetcherModule;
 
 import java.util.ArrayList;
 import java.util.Collections;

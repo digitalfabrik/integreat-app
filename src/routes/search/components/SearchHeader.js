@@ -4,22 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
-import { SearchBar } from 'react-native-elements'
-
-const ThemedSearchBar = styled(SearchBar).attrs(props => ({
-  containerStyle: {
-    flexGrow: 1,
-    backgroundColor: props.theme.colors.backgroundAccentColor,
-    borderTopColor: props.theme.colors.backgroundAccentColor,
-    borderBottomColor: props.theme.colors.backgroundAccentColor
-  },
-  inputContainerStyle: {
-    backgroundColor: props.theme.colors.backgroundColor
-  },
-  inputStyle: {
-    backgroundColor: props.theme.colors.backgroundColor
-  }
-}))``
+import ThemedSearchBar from './ThemedSearchBar'
 
 const HorizontalLeft = styled.View`
   flex:1;
