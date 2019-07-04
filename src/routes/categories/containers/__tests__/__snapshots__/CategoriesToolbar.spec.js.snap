@@ -5,7 +5,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
   openFeedbackModal={[Function]}
 >
   <ToolbarItem
-    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=/augsburg/de/willkommen"
+    href="https://cms.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fwillkommen"
     icon={
       Object {
         "icon": Array [
