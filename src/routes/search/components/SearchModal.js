@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../../modules/categories/components/CategoryList'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import SearchHeader from './SearchHeader'
 import { ActivityIndicator, InteractionManager, ScrollView, View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
@@ -13,7 +13,7 @@ import type { TFunction } from 'react-i18next'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SearchFeedbackBox from './SearchFeedbackBox'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -85,7 +85,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return <ScrollView theme={theme} contentContainerStyle={{flexGrow: 1}}>
+    return <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <SpaceBetween>
         <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
                             theme={theme} /></View>

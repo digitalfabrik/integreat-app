@@ -29,6 +29,7 @@ export default ({setSetting, t, language}: {
       ]
     },
     {
+      title: null,
       data: [
         {
           title: t('troubleshooting'),
