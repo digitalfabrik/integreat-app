@@ -6,14 +6,11 @@ import compose from 'lodash/fp/compose'
 
 import SearchInput from '../../../modules/common/components/SearchInput'
 
-import CategoriesMapModel from '../../../modules/endpoint/models/CategoriesMapModel'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../categories/components/CategoryList'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { withTranslation } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
-import Helmet from '../../../modules/common/containers/Helmet'
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
 import SearchFeedback from '../components/SearchFeedback'
 import type { LocationState } from 'redux-first-router'
 
@@ -21,7 +18,6 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 type PropsType = {|
   categories: CategoriesMapModel,
-  cities: Array<CityModel>,
   location: LocationState,
   t: TFunction
 |}
@@ -63,22 +59,17 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
 
   render () {
     const categories = this.findCategories()
-    const {t, cities, location} = this.props
+    const {t, location} = this.props
     const {filterText} = this.state
-    const {city} = location.payload
-
-    const cityName = CityModel.findCityName(cities, city)
 
     return (
       <div>
-        <Helmet title={`${t('pageTitle')} - ${cityName}`} />
         <SearchInput filterText={this.state.filterText}
                      placeholderText={t('searchCategory')}
                      onFilterTextChange={this.onFilterTextChange}
                      spaceSearch />
-        <CategoryList categories={categories} query={this.state.filterText} onInternLinkClick={noop} />
+        <CategoryList categories={categories} query={this.state.filterText} onInternalLinkClick={noop} />
         <SearchFeedback
-          cities={cities}
           location={location}
           resultsFound={categories.length !== 0}
           query={filterText} />
@@ -93,5 +84,5 @@ const mapStateToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withNamespaces('search')
+  withTranslation('search')
 )(SearchPage)

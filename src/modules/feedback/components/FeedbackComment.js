@@ -20,7 +20,7 @@ class FeedbackComment extends React.PureComponent<PropsType> {
     return (
       <>
         <Description>{commentMessage}</Description>
-        <CommentField rows={3} value={comment} onChange={onCommentChanged} />
+        <CommentField rows={7} value={comment} onChange={onCommentChanged} />
       </>
     )
   }

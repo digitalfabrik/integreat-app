@@ -1,59 +1,40 @@
 // @flow
 
 import * as React from 'react'
-import type { StateType } from '../../app/StateType'
-import { connect } from 'react-redux'
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import EventModel from '../../endpoint/models/EventModel'
-import LanguageModel from '../../endpoint/models/LanguageModel'
-import ReactHelmet from 'react-helmet'
-
-import type { Location } from 'redux-first-router'
-import getLanguageChangePath from '../../app/getLanguageChangePath'
-import PoiModel from '../../endpoint/models/PoiModel'
-import CityModel from '../../endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import { Helmet as ReactHelmet } from 'react-helmet'
+import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 type PropsType = {|
-  title: string,
-  categories: CategoriesMapModel,
-  events: Array<EventModel>,
-  pois: Array<PoiModel>,
-  cities: Array<CityModel>,
-  languages: Array<LanguageModel>,
-  location: Location,
-  metaDescription?: string
+  pageTitle: ?string,
+  metaDescription: ?string,
+  languageChangePaths: ?LanguageChangePathsType,
+  cityModel: ?CityModel
 |}
 
-export class Helmet extends React.Component<PropsType> {
+class Helmet extends React.PureComponent<PropsType> {
   getLanguageLinks (): React.Node {
-    const {languages, events, pois, categories, location} = this.props
-    return languages && languages
-      .map(language => {
-        const path = getLanguageChangePath({events, pois, categories, languageCode: language.code, location})
-        return <link key={language.code} rel='alternate' hrefLang={language.code} href={path} />
-      })
+    const {languageChangePaths} = this.props
+    if (!languageChangePaths) {
+      return null
+    }
+
+    return languageChangePaths.map(languageChangePath => {
+      const {code, path} = languageChangePath
+      return path && <link key={code} rel='alternate' hrefLang={code} href={path} />
+    })
   }
 
   render () {
-    const { title, metaDescription, cities, location } = this.props
-    const city = cities && cities.find(city => city.code === location.payload.city)
+    const {pageTitle, cityModel, metaDescription} = this.props
 
     return <ReactHelmet>
-      <title>{title}</title>
-      {city && !city.live && <meta name='robots' content='noindex' />}
+      {pageTitle && <title>{pageTitle}</title>}
+      {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
       {metaDescription && <meta name='description' content={metaDescription} />}
       {this.getLanguageLinks()}
     </ReactHelmet>
   }
 }
 
-const mapStateToProps = (state: StateType) => ({
-  location: state.location,
-  categories: state.categories.data,
-  events: state.events.data,
-  pois: state.pois.data,
-  cities: state.cities.data,
-  languages: state.languages.data
-})
-
-export default connect(mapStateToProps)(Helmet)
+export default Helmet

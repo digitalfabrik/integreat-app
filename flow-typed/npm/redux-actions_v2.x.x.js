@@ -1,4 +1,4 @@
-// flow-typed signature: a162cca82c36beb11175755d31cad408
+// flow-typed signature: 5574a44e49b0359ff80e26ac483dcade
 // flow-typed version: fd5f73ad43/redux-actions_v2.x.x/flow_>=v0.39.x
 
 declare module "redux-actions" {

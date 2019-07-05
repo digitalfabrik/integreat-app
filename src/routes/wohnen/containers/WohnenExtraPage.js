@@ -2,21 +2,18 @@
 
 import * as React from 'react'
 
-import Helmet from 'react-helmet'
 import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import WohnenOfferModel from '../../../modules/endpoint/models/WohnenOfferModel'
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
+import { ExtraModel, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import OfferDetail from '../components/OfferDetail'
-import Hashids from 'hashids'
 import Caption from '../../../modules/common/components/Caption'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import OfferListItem from '../components/OfferListItem'
 import List from '../../../modules/common/components/List'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'lodash/fp/compose'
+import { hash as hashFunction } from '../../../modules/app/route-configs/WohnenRouteConfig'
 
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
@@ -24,20 +21,14 @@ type PropsType = {|
   language: string,
   offerHash?: string,
   extras: Array<ExtraModel>,
-  cities: Array<CityModel>,
   t: TFunction
 |}
 
 export class WohnenExtraPage extends React.Component<PropsType> {
-  hashids = new Hashids()
-  hash = (offer: WohnenOfferModel) => this.hashids.encode(offer.email.length, offer.createdDate.seconds())
-
-  findOfferByHash (offers: Array<WohnenOfferModel>, hash: string): WohnenOfferModel | void {
-    return offers.find(offer => this.hash(offer) === hash)
-  }
-
-  renderOfferListItem = ({city, language, hashFunction}: {city: string, language: string,
-    hashFunction: WohnenOfferModel => string}) => (offer: WohnenOfferModel) =>
+  renderOfferListItem = ({city, language, hashFunction}: {
+    city: string, language: string,
+    hashFunction: WohnenOfferModel => string
+  }) => (offer: WohnenOfferModel) =>
     <OfferListItem key={hashFunction(offer)}
                    offer={offer}
                    language={language}
@@ -45,8 +36,7 @@ export class WohnenExtraPage extends React.Component<PropsType> {
                    hashFunction={hashFunction} />
 
   render () {
-    const {offers, extras, cities, city, language, offerHash, t} = this.props
-    const cityName = CityModel.findCityName(cities, city)
+    const {offers, extras, city, language, offerHash, t} = this.props
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'wohnen')
 
     if (!extra) {
@@ -54,27 +44,21 @@ export class WohnenExtraPage extends React.Component<PropsType> {
     }
 
     if (offerHash) {
-      const offer = this.findOfferByHash(offers, offerHash)
+      const offer = offers.find(_offer => hashFunction(_offer) === offerHash)
 
       if (!offer) {
         return <FailureSwitcher error={new Error('Angebot nicht gefunden.')} />
       }
 
-      return (
-        <>
-          <Helmet title={`${offer.formData.accommodation.title} - ${extra.title} - ${cityName}`} />
-          <OfferDetail offer={offer} />
-        </>
-      )
+      return <OfferDetail offer={offer} />
     }
 
     return (
       <>
-        <Helmet title={`${extra.title} - ${cityName}`} />
         <Caption title={extra.title} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
-              renderItem={this.renderOfferListItem({city, language, hashFunction: this.hash})} />
+              renderItem={this.renderOfferListItem({city, language, hashFunction})} />
       </>
     )
   }
@@ -88,5 +72,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 
 export default compose(
   connect(mapStateTypeToProps),
-  withNamespaces('wohnen')
+  withTranslation('wohnen')
 )(WohnenExtraPage)

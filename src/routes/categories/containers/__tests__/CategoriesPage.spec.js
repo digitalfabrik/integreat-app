@@ -4,9 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import ConnectedCategoriesPage, { CategoriesPage } from '../CategoriesPage'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
-import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { CategoryModel, CategoriesMapModel, CityModel } from '@integreat-app/integreat-api-client'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment-timezone'
 
@@ -66,14 +64,16 @@ describe('CategoriesPage', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      sortingName: 'Augsburg'}),
+      sortingName: 'Augsburg'
+    }),
     new CityModel({
       name: 'Stadt Regensburg',
       code: 'regensburg',
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      sortingName: 'Regensburg'}),
+      sortingName: 'Regensburg'
+    }),
     new CityModel({
       name: 'Werne',
       code: 'werne',
@@ -87,7 +87,6 @@ describe('CategoriesPage', () => {
   const city = 'augsburg'
 
   const language = 'en'
-  const t = (key: ?string): string => key || ''
 
   it('should match snapshot and render a Page if page has no children', () => {
     const wrapper = shallow(
@@ -96,10 +95,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       path={categoryModels[3].path}
-                      uiDirection={'ltr'}
-                      t={t}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      uiDirection={'ltr'} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -112,10 +108,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       uiDirection={'ltr'}
-                      path={categoryModels[2].path}
-                      t={t}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      path={categoryModels[2].path} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -128,10 +121,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       language={language}
                       uiDirection={'ltr'}
-                      path={'/augsburg/de'}
-                      t={t}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      path={'/augsburg/de'} />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -144,10 +134,7 @@ describe('CategoriesPage', () => {
                       city={city}
                       uiDirection={'ltr'}
                       language={language}
-                      path={'/augsburg/de/not/valid'}
-                      t={t}
-                      dispatch={action => {}}
-                      routesMap={{}} />
+                      path={'/augsburg/de/not/valid'} />
     )
 
     expect(wrapper).toMatchSnapshot()

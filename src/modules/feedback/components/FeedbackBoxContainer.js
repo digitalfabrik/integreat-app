@@ -1,33 +1,34 @@
 // @flow
 
 import * as React from 'react'
-import 'react-dropdown/style.css'
 
-import CityModel from '../../../modules/endpoint/models/CityModel'
-import type { ParamsType as FeedbackParamsType } from '../../../modules/endpoint/endpoints/feedback'
-import feedbackEndpoint, {
+import {
   CATEGORIES_FEEDBACK_TYPE,
+  CityModel,
+  createFeedbackEndpoint,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
   EXTRA_FEEDBACK_TYPE,
+  ExtraModel,
   EXTRAS_FEEDBACK_TYPE,
+  type FeedbackParamsType,
   INTEGREAT_INSTANCE,
   PAGE_FEEDBACK_TYPE,
   SEARCH_FEEDBACK_TYPE
-} from '../../../modules/endpoint/endpoints/feedback'
+} from '@integreat-app/integreat-api-client'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import { CATEGORIES_ROUTE } from '../../../modules/app/routes/categories'
-import { EVENTS_ROUTE } from '../../../modules/app/routes/events'
-import { SEARCH_ROUTE } from '../../../modules/app/routes/search'
-import { DISCLAIMER_ROUTE } from '../../../modules/app/routes/disclaimer'
+import { withTranslation } from 'react-i18next'
 import type { LocationState } from 'redux-first-router'
 import FeedbackDropdownItem from '../FeedbackDropdownItem'
-import { WOHNEN_ROUTE } from '../../../modules/app/routes/wohnen'
-import { SPRUNGBRETT_ROUTE } from '../../../modules/app/routes/sprungbrett'
-import { EXTRAS_ROUTE } from '../../../modules/app/routes/extras'
-import ExtraModel from '../../../modules/endpoint/models/ExtraModel'
 import FeedbackBox from './FeedbackBox'
+import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
+import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
+import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
+import { integreatApiBaseUrl } from '../../app/constants/urls'
 
 type PropsType = {|
   cities: ?Array<CityModel>,
@@ -66,7 +67,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     if (postFeedbackDataOverride) {
       postFeedbackDataOverride(feedbackData)
     } else {
-      feedbackEndpoint.request(feedbackData)
+      createFeedbackEndpoint(integreatApiBaseUrl).request(feedbackData)
     }
   }
 
@@ -204,4 +205,4 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default withNamespaces('feedback')(FeedbackBoxContainer)
+export default withTranslation('feedback')(FeedbackBoxContainer)

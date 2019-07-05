@@ -5,15 +5,7 @@ exports[`LocationFooter should match snapshot 1`] = `
   onClick={[Function]}
 >
   <CleanLink
-    to={
-      Object {
-        "payload": Object {
-          "city": "augsburg",
-          "language": "de",
-        },
-        "type": "DISCLAIMER",
-      }
-    }
+    to="/augsburg/de/disclaimer"
   >
     imprintAndContact
   </CleanLink>

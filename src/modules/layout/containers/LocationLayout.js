@@ -1,36 +1,25 @@
 // @flow
 
 import * as React from 'react'
-import { connect } from 'react-redux'
-
-import CityModel from '../../../modules/endpoint/models/CityModel'
-
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
-import { CATEGORIES_ROUTE } from '../../app/routes/categories'
-import { EVENTS_ROUTE } from '../../app/routes/events'
-import { EXTRAS_ROUTE } from '../../app/routes/extras'
-import { DISCLAIMER_ROUTE } from '../../app/routes/disclaimer'
-import { SEARCH_ROUTE } from '../../app/routes/search'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import CategoriesMapModel from '../../endpoint/models/CategoriesMapModel'
-import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE } from '../../app/routes/sprungbrett'
-import { WOHNEN_EXTRA, WOHNEN_ROUTE } from '../../app/routes/wohnen'
+import { CategoriesMapModel, CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
-import EventModel from '../../endpoint/models/EventModel'
-import ExtraModel from '../../endpoint/models/ExtraModel'
-import PageModel from '../../endpoint/models/PageModel'
-import type { Dispatch } from 'redux'
-import toggleDarkModeAction from '../../theme/actions/toggleDarkMode'
-import { POIS_ROUTE } from '../../app/routes/pois'
-
-export const LocationLayoutRoutes = [CATEGORIES_ROUTE, EVENTS_ROUTE, EXTRAS_ROUTE, SPRUNGBRETT_ROUTE, WOHNEN_ROUTE,
-  DISCLAIMER_ROUTE, SEARCH_ROUTE, POIS_ROUTE]
+import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
+import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
+import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
+import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
+import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
+import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
+import { EXTRAS_ROUTE } from '../../app/route-configs/ExtrasRouteConfig'
+import type { FeedbackTargetInformationType } from '../../app/route-configs/RouteConfig'
+import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 export type FeedbackRatingType = 'up' | 'down'
 
@@ -38,13 +27,13 @@ type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
   events: ?Array<EventModel>,
-  extras: ?Array<ExtraModel>,
-  disclaimer: ?PageModel,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
   toggleDarkMode: () => void,
-  darkMode: boolean
+  darkMode: boolean,
+  feedbackTargetInformation: FeedbackTargetInformationType,
+  languageChangePaths: ?LanguageChangePathsType
 |}
 
 type LocalStateType = {|
@@ -81,53 +70,14 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const {cities, location, categories, events, extras, disclaimer} = this.props
-    const payload = location.payload
-
-    let id
-    let title
-    let alias
-    if (location.type === CATEGORIES_ROUTE && categories) {
-      const category = categories.findCategoryByPath(location.pathname)
-      if (category) {
-        id = category.id
-        title = category.title
-      }
-    }
-
-    if (location.type === EVENTS_ROUTE && events) {
-      const event = events.find(event => event.id === payload.eventId)
-      if (event) {
-        id = event.id
-        title = event.title
-      }
-    }
-
-    if (location.type === SPRUNGBRETT_ROUTE) {
-      alias = SPRUNGBRETT_EXTRA
-    } else if (location.type === WOHNEN_ROUTE) {
-      alias = WOHNEN_EXTRA
-    }
-    if (alias && extras) {
-      const extra = extras.find(extra => extra.alias === alias)
-      if (extra) {
-        title = extra.title
-      }
-    }
-
-    if (location.type === DISCLAIMER_ROUTE && disclaimer) {
-      id = disclaimer.id
-    }
+    const {cities, location, feedbackTargetInformation} = this.props
 
     return <FeedbackModal
-      id={id}
-      title={title}
-      alias={alias}
       cities={cities}
       feedbackStatus={this.state.feedbackModalRating}
       closeFeedbackModal={this.closeFeedbackModal}
       location={location}
-      extras={extras} />
+      {...feedbackTargetInformation} />
   }
 
   openFeedbackModal = (rating: FeedbackRatingType) => this.setState({feedbackModalRating: rating})
@@ -149,7 +99,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const {viewportSmall, children, location, darkMode} = this.props
+    const {viewportSmall, children, location, darkMode, languageChangePaths, events} = this.props
     const type = location.type
     const {city, language} = location.payload
 
@@ -165,6 +115,10 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     return <Layout asideStickyTop={this.state.asideStickyTop}
                    header={<LocationHeader isEventsEnabled={cityModel.eventsEnabled}
                                            isExtrasEnabled={cityModel.extrasEnabled}
+                                           languageChangePaths={languageChangePaths}
+                                           location={location}
+                                           events={events}
+                                           viewportSmall={viewportSmall}
                                            onStickyTopChanged={this.onStickyTopChanged} />}
                    footer={<LocationFooter onClick={this.onFooterClicked} city={city} language={language} />}
                    toolbar={this.renderToolbar()}
@@ -175,20 +129,4 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 }
 
-const mapStateToProps = state => ({
-  location: state.location,
-  viewportSmall: state.viewport.is.small,
-  cities: state.cities.data,
-  categories: state.categories.data,
-  events: state.events.data,
-  extras: state.extras.data,
-  disclaimer: state.disclaimer.data,
-  darkMode: state.darkMode
-})
-
-// fixme: WEBAPP-400 Dispatch type is not correct
-const mapDispatchToProps = (dispatch: Dispatch<{ type: 'TOGGLE_DARK_MODE' }>) => ({
-  toggleDarkMode: () => dispatch(toggleDarkModeAction())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocationLayout)
+export default LocationLayout

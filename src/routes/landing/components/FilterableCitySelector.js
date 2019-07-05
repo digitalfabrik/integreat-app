@@ -5,11 +5,11 @@ import React from 'react'
 import Heading from './Heading'
 import ScrollingSearchBox from '../../../modules/common/components/ScrollingSearchBox'
 import CitySelector from './CitySelector'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import styled from 'styled-components'
 
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 const Container = styled.div`
   padding-top: 22px;
@@ -61,4 +61,4 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
   }
 }
 
-export default withNamespaces('landing')(FilterableCitySelector)
+export default withTranslation('landing')(FilterableCitySelector)

@@ -5,7 +5,6 @@ import { shallow } from 'enzyme'
 
 import { FailureSwitcher } from '../FailureSwitcher'
 import ContentNotFoundError from '../../errors/ContentNotFoundError'
-import LanguageNotFoundError from '../../../app/errors/LanguageNotFoundError'
 
 describe('FailureSwitcher', () => {
   const city = 'augsburg'
@@ -30,12 +29,6 @@ describe('FailureSwitcher', () => {
       const error = new ContentNotFoundError({type: 'event', id: '1234', language, city})
       expect(FailureSwitcher.renderContentNotFoundComponent(error)).toMatchSnapshot()
     })
-  })
-
-  it('should render a LanguageFailure if there is a LanguageNotFoundError', () => {
-    expect(shallow(
-      <FailureSwitcher error={new LanguageNotFoundError({city, language})} t={mockTranslate} />
-    )).toMatchSnapshot()
   })
 
   it('should render a content not found failure if there is a ContentNotFoundError', () => {
