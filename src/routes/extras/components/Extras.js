@@ -15,6 +15,7 @@ import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE, WOHNEN_EXTRA, WOHNEN_ROUTE } from
 import { ScrollView } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
+import { View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
@@ -74,7 +75,9 @@ class Extras extends React.Component<PropsType> {
     return (
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <SpaceBetween>
-          <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+          <View>
+            <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+          </View>
           <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
         </SpaceBetween>
       </ScrollView>
