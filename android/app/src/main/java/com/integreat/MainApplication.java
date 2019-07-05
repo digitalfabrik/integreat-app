@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
 import com.rumax.reactnative.pdfviewer.PDFViewPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -21,12 +22,16 @@ import io.sentry.RNSentryPackage;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
             return BuildConfig.DEBUG;
+        }
+
+        public String getFileProviderAuthority() {
+            return BuildConfig.APPLICATION_ID + ".provider";
         }
 
         @Override

@@ -61,21 +61,10 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   onShare = async () => {
     const { navigation } = this.props
     const { url } = navigation.state.params
-    // const configOptions = { fileCache: true, path: url }
-    // RNFetchBlob.config(configOptions)
-    //   .then(resp => {
-    //     return resp.readFile('base64')
-    //   })
-    //   .then(async base64Data => {
-    //     // base64Data = `data:${type};base64,` + base64Data;
-    //     // await Share.open({ url: base64Data });
-    //     console.log("TCL: TransparentHeader -> onShare -> base64Data", base64Data)
-    //     // remove the image or pdf from device's storage
-    //     // await RNFS.unlink(filePath);
-    //   })
+
     try {
       await Share.open({
-        type: 'image/jpg',
+        // url: 'file:///storage/emulated/0/Download/Object_prototypes.pdf'
         url
       })
     } catch (e) {
