@@ -125,7 +125,7 @@ class Events extends React.Component<PropsType> {
     }
 
     return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
-                       contentContainerStyle={{flex: 1}}>
+                       contentContainerStyle={{flexGrow: 1}}>
       <SpaceBetween>
         <View>
           <Caption title={t('news')} theme={theme} />
