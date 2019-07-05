@@ -2,17 +2,12 @@
 
 import React from 'react'
 import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
-import CategoriesMapModel from '../../../../modules/endpoint/models/CategoriesMapModel'
-import { mount, shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-import createReduxStore from '../../../../modules/app/createReduxStore'
-import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/theme/constants/theme'
+import { CategoriesMapModel, CategoryModel, CityModel } from '@integreat-app/integreat-api-client'
+import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
-import { SEARCH_ROUTE } from '../../../../modules/app/routes/search'
+import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
 import moment from 'moment-timezone'
+import createLocation from '../../../../createLocation'
 
 describe('SearchPage', () => {
   const t = (key: ?string): string => key || ''
@@ -77,28 +72,19 @@ describe('SearchPage', () => {
   const city = 'augsburg'
   const language = 'de'
   const categories = new CategoriesMapModel(categoryModels)
-  const location = {type: SEARCH_ROUTE, payload: {city, language}}
+  const location = createLocation({type: SEARCH_ROUTE, payload: {city, language}})
 
   it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage categories={categories} location={location} cities={cities} t={t} />)
+    const wrapper = shallow(<SearchPage categories={categories} location={location} t={t} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should filter correctly', () => {
-    const store = createReduxStore({
-      categories: {data: categories}
-    })
-
-    const tree = mount(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-        <SearchPage cities={cities}
-                    categories={categories}
-                    location={location}
-                    t={t} />
-        </Provider></ThemeProvider>
+    const tree = shallow(
+      <SearchPage location={location} categories={categories} t={t} />
     )
-    const searchPage = tree.find(SearchPage).instance()
+
+    const searchPage = tree.instance()
     const searchInputProps = tree.find('SearchInput').props()
 
     // the root category should not be returned
@@ -166,7 +152,7 @@ describe('SearchPage', () => {
     const categories = new CategoriesMapModel(categoryModels)
 
     const searchPage = shallow(
-      <SearchPage cities={cities} location={location} categories={categories} t={t} />
+      <SearchPage location={location} categories={categories} t={t} />
     ).instance()
 
     searchPage.onFilterTextChange('abc')
@@ -186,11 +172,10 @@ describe('SearchPage', () => {
     })
 
     const searchPage = shallow(
-      <ConnectedSearchPage store={store} cities={cities} categories={categories} />
+      <ConnectedSearchPage store={store} categories={categories} />
     )
 
     expect(searchPage.props()).toMatchObject({
-      cities,
       categories,
       location
     })

@@ -3,11 +3,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import type { TFunction } from 'react-i18next'
-import { withNamespaces } from 'react-i18next'
-import CityModel from '../../../modules/endpoint/models/CityModel'
+import { withTranslation } from 'react-i18next'
+import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
-import feedbackEndpoint, { SEARCH_FEEDBACK_TYPE } from '../../../modules/endpoint/endpoints/feedback'
+import { integreatApiBaseUrl } from '../../../modules/app/constants/urls'
 
 const FeedbackButton = styled.div`
   padding: 30px 0;
@@ -32,7 +32,6 @@ const NothingFound = styled.div`
 `
 
 type PropsType = {|
-  cities: Array<CityModel>,
   location: LocationState,
   query: string,
   resultsFound: boolean,
@@ -49,7 +48,7 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   openFeedbackBox = () => {
     const {location, query} = this.props
     const {city, language} = location.payload
-    feedbackEndpoint.request({
+    createFeedbackEndpoint(integreatApiBaseUrl).request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment: '',
@@ -75,4 +74,4 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
   }
 }
 
-export default withNamespaces('feedback')(SearchFeedback)
+export default withTranslation('feedback')(SearchFeedback)

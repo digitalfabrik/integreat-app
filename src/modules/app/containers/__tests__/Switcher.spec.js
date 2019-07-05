@@ -2,37 +2,37 @@
 
 import * as React from 'react'
 import ConnectedSwitcher, { Switcher } from '../Switcher'
-import Payload from '../../../endpoint/Payload'
-import { shallow, mount } from 'enzyme'
-import { CATEGORIES_ROUTE } from '../../routes/categories'
-import { LANDING_ROUTE } from '../../routes/landing'
-import { MAIN_DISCLAIMER_ROUTE } from '../../routes/mainDisclaimer'
-import { EXTRAS_ROUTE } from '../../routes/extras'
-import { EVENTS_ROUTE } from '../../routes/events'
-import { DISCLAIMER_ROUTE } from '../../routes/disclaimer'
-import { SEARCH_ROUTE } from '../../routes/search'
-import { I18N_REDIRECT_ROUTE } from '../../routes/i18nRedirect'
-import CityModel from '../../../endpoint/models/CityModel'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import EventModel from '../../../endpoint/models/EventModel'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import PageModel from '../../../endpoint/models/PageModel'
-import CategoryModel from '../../../endpoint/models/CategoryModel'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  CityModel,
+  DateModel,
+  EventModel,
+  ExtraModel,
+  LanguageModel,
+  LocationModel,
+  PageModel,
+  Payload,
+  PoiModel,
+  SprungbrettJobModel,
+  WohnenFormData,
+  WohnenOfferModel
+} from '@integreat-app/integreat-api-client'
+import { mount, shallow } from 'enzyme'
+import { CATEGORIES_ROUTE } from '../../route-configs/CategoriesRouteConfig'
+import { LANDING_ROUTE } from '../../route-configs/LandingRouteConfig'
+import { MAIN_DISCLAIMER_ROUTE } from '../../route-configs/MainDisclaimerRouteConfig'
 import moment from 'moment-timezone'
-import LanguageModel from '../../../endpoint/models/LanguageModel'
-import SprungbrettJobModel from '../../../endpoint/models/SprungbrettJobModel'
-import WohnenFormData from '../../../endpoint/models/WohnenFormData'
-import WohnenOfferModel from '../../../endpoint/models/WohnenOfferModel'
-import { SPRUNGBRETT_ROUTE } from '../../routes/sprungbrett'
-import { WOHNEN_ROUTE } from '../../routes/wohnen'
 import theme from '../../../theme/constants/theme'
-import createReduxStore from '../../createReduxStore'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
-import DateModel from '../../../endpoint/models/DateModel'
-import LocationModel from '../../../endpoint/models/LocationModel'
-import PoiModel from '../../../endpoint/models/PoiModel'
-import { POIS_ROUTE } from '../../routes/pois'
+import LocationLayout from '../../../layout/containers/LocationLayout'
+import Layout from '../../../layout/components/Layout'
+import Footer from '../../../layout/components/Footer'
+import { Header } from '../../../layout/components/Header'
+import createLocation from '../../../../createLocation'
+import configureMockStore from 'redux-mock-store'
+import { I18N_REDIRECT_ROUTE } from '../../route-configs/I18nRedirectRouteConfig'
 
 describe('Switcher', () => {
   const categories = new CategoriesMapModel([
@@ -182,31 +182,40 @@ describe('Switcher', () => {
   const wohnenPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
   const poisPayload = new Payload(false, 'https://random.api.json', pois, null)
 
-  const errorPayload = new Payload(false, 'https://random.api.json', null, new Error('fake news'))
-  const fetchingPayload = new Payload(true)
+  const t = (key: ?string): string => key || ''
 
-  const createSwitcher = (currentRoute: string): React.Node =>
-    <Switcher viewportSmall={false} currentRoute={currentRoute} citiesPayload={citiesPayload}
-              categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
-              poisPayload={poisPayload}
-              disclaimerPayload={disclaimerPayload} languages={languages} city={'city1'} language={'de'}
-              sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} param={'param'} darkMode />
+  const toggleDarkMode = () => {}
+
+  const createSwitcher = (currentRoute: string, pathname?: string): React.Node => {
+    const location = createLocation({
+      type: currentRoute,
+      pathname,
+      payload: {city: 'city1', language: 'de'},
+      prev: {payload: {param: 'param'}, type: 'RANDOM_TYPE', pathname: '/param'}})
+    return (
+      <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
+                categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} extrasPayload={extrasPayload}
+                poisPayload={poisPayload} disclaimerPayload={disclaimerPayload} languages={languages} t={t}
+                sprungbrettJobsPayload={sprungbrettPayload} wohnenPayload={wohnenPayload} darkMode
+                toggleDarkMode={toggleDarkMode} />
+    )
+  }
 
   describe('layout', () => {
     it('should render a location layout if the current route is a location layout route', () => {
       const switcher = shallow(
-        createSwitcher(CATEGORIES_ROUTE)
+        createSwitcher(CATEGORIES_ROUTE, 'path01')
       )
 
-      expect(switcher).toMatchSnapshot()
+      expect(switcher.find(LocationLayout)).not.toBeNull()
     })
 
     it('should render a layout with a footer if the current route is the landing route', () => {
       const switcher = shallow(
         createSwitcher(LANDING_ROUTE)
       )
-
-      expect(switcher).toMatchSnapshot()
+      expect(switcher.find(Layout)).not.toBeNull()
+      expect(switcher.find(Footer)).not.toBeNull()
     })
 
     it('should render a layout with a header and a footer as default', () => {
@@ -214,131 +223,34 @@ describe('Switcher', () => {
         createSwitcher(MAIN_DISCLAIMER_ROUTE)
       )
 
-      expect(switcher).toMatchSnapshot()
-    })
-  })
-
-  it('should return a spinner if the data has not been fetched yet', () => {
-    expect(Switcher.renderFailureLoadingComponents([fetchingPayload])).toMatchSnapshot()
-  })
-
-  it('should return a failure if there was an error during fetching', () => {
-    expect(Switcher.renderFailureLoadingComponents([errorPayload])).toMatchSnapshot()
-  })
-
-  describe('should get the right page if data has been fetched and', () => {
-    it('is the categories route', () => {
-      const switcher = shallow(
-        createSwitcher(CATEGORIES_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the extras route', () => {
-      const switcher = shallow(
-        createSwitcher(EXTRAS_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the events route', () => {
-      const switcher = shallow(
-        createSwitcher(EVENTS_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the disclaimer route', () => {
-      const switcher = shallow(
-        createSwitcher(DISCLAIMER_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the search route', () => {
-      const switcher = shallow(
-        createSwitcher(SEARCH_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the main disclaimer route', () => {
-      const switcher = shallow(
-        createSwitcher(MAIN_DISCLAIMER_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the landing route', () => {
-      const switcher = shallow(
-        createSwitcher(LANDING_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the i18nRedirect route', () => {
-      const switcher = shallow(
-        createSwitcher(I18N_REDIRECT_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the wohnen route', () => {
-      const switcher = shallow(
-        createSwitcher(WOHNEN_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the sprungbrett route', () => {
-      const switcher = shallow(
-        createSwitcher(SPRUNGBRETT_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
-    })
-
-    it('is the pois route', () => {
-      const switcher = shallow(
-        createSwitcher(POIS_ROUTE)
-      )
-
-      expect(switcher).toMatchSnapshot()
+      expect(switcher.find(Layout)).not.toBeNull()
+      expect(switcher.find(Footer)).not.toBeNull()
+      expect(switcher.find(Header)).not.toBeNull()
     })
   })
 
   it('should map state to props', () => {
-    const currentRoute = CATEGORIES_ROUTE
-    const location = {
-      type: currentRoute,
+    const location = createLocation({
+      type: CATEGORIES_ROUTE,
       payload: {city: 'augsburg', language: 'de'},
-      prev: {payload: {param: 'param'}}
-    }
-
-    const store = createReduxStore({
+      prev: {type: I18N_REDIRECT_ROUTE, pathname: '/param', payload: {param: 'param'}},
+      pathname: '/augsburg/de'
+    })
+    const mockStore = configureMockStore()
+    const store = mockStore({
       events: eventsPayload,
       cities: citiesPayload,
       categories: categoriesPayload,
       disclaimer: disclaimerPayload,
       extras: extrasPayload,
       languages: languagesPayload,
+      location,
       pois: poisPayload,
       wohnen: wohnenPayload,
       sprungbrettJobs: sprungbrettPayload,
       viewport: {is: {small: true}},
       darkMode: true
     })
-    store.getState().location = location
-    store.getState().cities = citiesPayload
 
     const tree = mount(
       <ThemeProvider theme={theme}>
@@ -349,22 +261,21 @@ describe('Switcher', () => {
     )
 
     expect(tree.find(Switcher).props()).toEqual({
-      currentRoute,
+      location,
       categoriesPayload,
+      citiesPayload,
+      darkMode: true,
+      disclaimerPayload,
       eventsPayload,
       extrasPayload,
-      citiesPayload,
-      disclaimerPayload,
-      sprungbrettJobsPayload: sprungbrettPayload,
-      poisPayload,
-      wohnenPayload,
+      i18n: expect.anything(),
       languages,
-      dispatch: expect.any(Function),
+      poisPayload,
+      sprungbrettJobsPayload: sprungbrettPayload,
+      t: expect.any(Function),
+      toggleDarkMode: expect.any(Function),
       viewportSmall: true,
-      city: 'augsburg',
-      param: 'param',
-      language: 'de',
-      darkMode: true
+      wohnenPayload
     })
   })
 })

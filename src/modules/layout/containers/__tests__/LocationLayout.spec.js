@@ -1,26 +1,24 @@
 // @flow
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { shallow } from 'enzyme'
 
-import ConnectedLocationLayout, { LocationLayout } from '../LocationLayout'
-import CategoriesMapModel from '../../../endpoint/models/CategoriesMapModel'
-import CategoryModel from '../../../endpoint/models/CategoryModel'
-import { CATEGORIES_ROUTE } from '../../../app/routes/categories'
-import ExtraModel from '../../../endpoint/models/ExtraModel'
-import EventModel from '../../../endpoint/models/EventModel'
+import {
+  CityModel,
+  CategoriesMapModel,
+  CategoryModel,
+  EventModel,
+  DateModel,
+  LocationModel
+} from '@integreat-app/integreat-api-client'
+
+import { LocationLayout } from '../LocationLayout'
+import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import moment from 'moment-timezone'
-import { SEARCH_ROUTE } from '../../../app/routes/search'
+import { SEARCH_ROUTE } from '../../../app/route-configs/SearchRouteConfig'
 import CategoriesToolbar from '../../../../routes/categories/containers/CategoriesToolbar'
 import LocationToolbar from '../../components/LocationToolbar'
-import PageModel from '../../../endpoint/models/PageModel'
-import theme from '../../../theme/constants/theme'
-import createReduxStore from '../../../app/createReduxStore'
-import { ThemeProvider } from 'styled-components'
-import { Provider } from 'react-redux'
-import DateModel from '../../../endpoint/models/DateModel'
-import LocationModel from '../../../endpoint/models/LocationModel'
+import createLocation from '../../../../createLocation'
 
 describe('LocationLayout', () => {
   const city = 'city1'
@@ -39,29 +37,7 @@ describe('LocationLayout', () => {
       lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
     })
   ])
-  const disclaimer = new PageModel({
-    id: 1689,
-    title: 'Feedback, Kontakt und mögliches Engagement',
-    content: 'this is a test content',
-    lastUpdate: moment.tz('2017-11-18 09:30:00', 'UTC')
-  })
 
-  const extras = [
-    new ExtraModel({
-      alias: 'ihk-lehrstellenboerse',
-      path: 'ihk-jobborese.com',
-      title: 'Jobboerse',
-      thumbnail: 'xy',
-      postData: null
-    }),
-    new ExtraModel({
-      alias: 'ihk-praktikumsboerse',
-      path: 'ihk-pratkitkumsboerse.com',
-      title: 'Praktikumsboerse',
-      thumbnail: 'xy',
-      postData: null
-    })
-  ]
   const events = [
     new EventModel({
       id: 1,
@@ -96,9 +72,18 @@ describe('LocationLayout', () => {
   })
   ]
 
+  const languageChangePaths = [
+    {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
+    {code: 'en', name: 'English', path: '/augsburg/en'}
+  ]
+
+  const feedbackTargetInformation = {id: 75, title: 'Category_Title'}
+
   const MockNode = () => <div />
-  const renderLocationLayout = location => <LocationLayout location={location} categories={categories} events={events}
-                                                           extras={extras} disclaimer={disclaimer} cities={cities}
+  const renderLocationLayout = location => <LocationLayout location={createLocation({...location})}
+                                                           categories={categories} cities={cities}
+                                                           events={events} languageChangePaths={languageChangePaths}
+                                                           feedbackTargetInformation={feedbackTargetInformation}
                                                            viewportSmall toggleDarkMode={() => {}} darkMode>
     <MockNode />
   </LocationLayout>
@@ -143,44 +128,5 @@ describe('LocationLayout', () => {
     }
     const component = shallow(renderLocationLayout(location))
     expect(component).toMatchSnapshot()
-  })
-
-  it('should map state to props', () => {
-    const location = {
-      payload: {city, language},
-      type: CATEGORIES_ROUTE,
-      pathname: '/augsburg/de/willkommen'
-    }
-
-    const store = createReduxStore({
-      categories: {data: categories},
-      events: {data: events},
-      extras: {data: extras},
-      disclaimer: {data: disclaimer},
-      viewport: {is: {small: false}},
-      cities: {data: null},
-      darkMode: true
-    })
-    store.getState().location = location
-
-    const tree = mount(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <ConnectedLocationLayout />
-        </Provider>
-      </ThemeProvider>
-    )
-
-    expect(tree.find(LocationLayout).props()).toEqual({
-      viewportSmall: false,
-      cities: null,
-      categories,
-      disclaimer,
-      events,
-      extras,
-      location,
-      darkMode: true,
-      toggleDarkMode: expect.any(Function)
-    })
   })
 })

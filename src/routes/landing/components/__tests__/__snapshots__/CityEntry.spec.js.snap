@@ -2,16 +2,7 @@
 
 exports[`CityEntry should match snapshot 1`] = `
 <CityEntry__CityListItem
-  to={
-    Object {
-      "payload": Object {
-        "categoryPath": undefined,
-        "city": "augsburg",
-        "language": "de",
-      },
-      "type": "CATEGORIES",
-    }
-  }
+  to="/augsburg/de"
 >
   <Highlighter
     caseSensitive={false}

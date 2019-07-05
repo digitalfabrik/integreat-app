@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import CategoryModel from '../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 import iconPlaceholder from '../assets/IconPlaceholder.svg'
 import styled from 'styled-components'
 import Highlighter from 'react-highlighter'
@@ -72,7 +72,7 @@ class CategoryListItem extends React.PureComponent<PropsType> {
         <StyledLink to={subCategory.path}>
           <SubCategoryCaption search={''}>
             {subCategory.title}
-            </SubCategoryCaption>
+          </SubCategoryCaption>
         </StyledLink>
       </SubCategory>
     )

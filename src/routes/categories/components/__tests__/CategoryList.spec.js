@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import CategoryList from '../CategoryList'
-import CategoryModel from '../../../../modules/endpoint/models/CategoryModel'
+import { CategoryModel } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 
 const title = 'Willkommen'
@@ -69,7 +69,7 @@ const categories = [
 describe('CategoryList', () => {
   it('should render and display a caption', () => {
     const wrapper = shallow(
-      <CategoryList categories={categories} onInternLinkClick={() => {}}
+      <CategoryList categories={categories} onInternalLinkClick={() => {}}
                     title={title}
                     content={content} />
     )
@@ -78,7 +78,7 @@ describe('CategoryList', () => {
 
   it('should render and not display a caption', () => {
     const wrapper = shallow(
-      <CategoryList categories={categories} onInternLinkClick={() => {}} />
+      <CategoryList categories={categories} onInternalLinkClick={() => {}} />
     )
     expect(wrapper).toMatchSnapshot()
   })

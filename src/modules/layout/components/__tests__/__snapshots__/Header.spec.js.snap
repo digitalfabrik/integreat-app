@@ -11,11 +11,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
   <Header__HeaderContainer>
     <Header__LogoWide>
       <Connect(Link)
-        to={
-          Object {
-            "type": "RANDOM_ROUTE",
-          }
-        }
+        to="/random_route"
       >
         <img
           src="test-file-stub"
@@ -25,11 +21,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
     <Header__NavigationBar>
       <HeaderNavigationItem
         active={true}
-        href={
-          Object {
-            "type": "ANOTHER_RANDOM_ROUTE",
-          }
-        }
+        href="/another_route"
         selected={true}
         text="text1"
         tooltip="tooltip1"
@@ -39,9 +31,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
       items={
         Array [
           HeaderActionItem {
-            "_href": Object {
-              "type": "RANDOM_ROUTE",
-            },
+            "_href": "/random_route",
             "_iconSrc": undefined,
             "_node": undefined,
             "_text": undefined,

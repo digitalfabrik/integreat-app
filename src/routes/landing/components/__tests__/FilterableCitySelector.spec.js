@@ -4,7 +4,7 @@ import React from 'react'
 
 import { FilterableCitySelector } from '../FilterableCitySelector'
 import { shallow } from 'enzyme'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { CityModel } from '@integreat-app/integreat-api-client'
 
 describe('FilterableCitySelector', () => {
   const t = (key: ?string): string => key || ''
@@ -57,10 +57,10 @@ describe('FilterableCitySelector', () => {
 
   it('should update filter text', () => {
     const wrapper = shallow(
-        <FilterableCitySelector
-          t={t}
-          language='de'
-          cities={cities} />
+      <FilterableCitySelector
+        t={t}
+        language='de'
+        cities={cities} />
     )
 
     wrapper.instance().onFilterTextChange('City')

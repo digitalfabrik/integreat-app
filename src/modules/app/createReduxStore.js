@@ -11,25 +11,15 @@ import uiDirectionReducer from '../i18n/reducers'
 import endpointReducers from './reducers'
 import toggleDarkModeReducer from '../theme/reducers'
 import { createResponsiveStateReducer, responsiveStoreEnhancer } from 'redux-responsive'
-import defaultRoutesMap from './routesMap'
-import onBeforeChange from './onBeforeChange'
-import queryString from 'query-string'
-import Payload from '../endpoint/Payload'
+import { routesMap as defaultRoutesMap } from './route-configs/index'
 import createHistory from './createHistory'
+import type { StateType } from './StateType'
+import type { StoreActionType } from './StoreActionType'
 
-export type ActionType<T> = { type: string, payload: Payload<T> }
-
-// todo: Change type to correct State type,
-// https://blog.callstack.io/type-checking-react-and-redux-thunk-with-flow-part-2-206ce5f6e705
-const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<any, any> => {
-  const history = createHistory()
-
-  const { reducer, middleware, enhancer } = connectRoutes(history, routesMap, {
-    onBeforeChange: onBeforeChange,
-    querySerializer: {
-      stringify: params => queryString.stringify(params),
-      parse: (str: string) => queryString.parse(str)
-    }
+const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
+  StoreActionType> => {
+  const {reducer, middleware, enhancer} = connectRoutes(routesMap, {
+    createHistory: () => createHistory()
   })
 
   /**
@@ -51,7 +41,7 @@ const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultR
     darkMode: toggleDarkModeReducer
   })
 
-  // $FlowFixMe WEBAPP-400 This can not be fixed until our store has a type
+  // $FlowFixMe Types of redux applyMiddleware and the redux-first-router middleware are not the same
   const enhancers = compose(responsiveStoreEnhancer, enhancer, applyMiddleware(...middlewares))
 
   return createStore(rootReducer, initialState, enhancers)

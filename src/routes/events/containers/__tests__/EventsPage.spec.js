@@ -1,16 +1,15 @@
 // @flow
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import moment from 'moment-timezone'
 
 import ConnectedEventsPage, { EventsPage } from '../EventsPage'
-import EventModel from '../../../../modules/endpoint/models/EventModel'
-import CityModel from '../../../../modules/endpoint/models/CityModel'
+import { DateModel, EventModel, LocationModel } from '@integreat-app/integreat-api-client'
 import createReduxStore from '../../../../modules/app/createReduxStore'
 import { Provider } from 'react-redux'
-import DateModel from '../../../../modules/endpoint/models/DateModel'
-import LocationModel from '../../../../modules/endpoint/models/LocationModel'
+import createLocation from '../../../../createLocation'
+import { EVENTS_ROUTE } from '../../../../modules/app/route-configs/EventsRouteConfig'
 
 describe('EventsPage', () => {
   const events = [
@@ -80,16 +79,7 @@ describe('EventsPage', () => {
   ]
 
   const city = 'augsburg'
-  const cities = [
-    new CityModel({
-      name: 'Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      extrasEnabled: false,
-      sortingName: 'Augsburg'
-    })
-  ]
+
   const language = 'en'
   const t = (key: ?string): string => key || ''
 
@@ -97,13 +87,10 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  cities={cities}
                   path={'/augsburg/en/events'}
                   eventId={undefined}
                   t={t}
-                  language={language}
-                  dispatch={() => {}}
-                  routesMap={{}} />
+                  language={language} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -112,13 +99,10 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  cities={cities}
                   t={t}
                   language={language}
                   path={'/augsburg/en/events/first_event'}
-                  eventId={'first_event'}
-                  dispatch={() => {}}
-                  routesMap={{}} />
+                  eventId={'first_event'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
@@ -127,25 +111,26 @@ describe('EventsPage', () => {
     const wrapper = shallow(
       <EventsPage events={events}
                   city={city}
-                  cities={cities}
                   t={t}
                   language={language}
                   path={'/augsburg/en/events/invalid_event'}
-                  eventId={'invalid_event'}
-                  dispatch={() => {}}
-                  routesMap={{}} />
+                  eventId={'invalid_event'} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should map state to props', () => {
-    const location = {payload: {city: city, language: language, eventId: 'id'}, pathname: '/augsburg/en/events/id'}
+    const location = createLocation({
+      payload: {city: city, language: language, eventId: 'id'},
+      pathname: '/augsburg/en/events/id',
+      type: EVENTS_ROUTE
+    })
     const store = createReduxStore()
     store.getState().location = location
 
     const tree = mount(
       <Provider store={store}>
-        <ConnectedEventsPage cities={cities} events={events} />
+        <ConnectedEventsPage events={events} />
       </Provider>
     )
 
@@ -155,9 +140,9 @@ describe('EventsPage', () => {
       eventId: 'id',
       path: '/augsburg/en/events/id',
       events,
-      cities,
-      dispatch: expect.any(Function),
-      t: expect.any(Function)
+      t: expect.any(Function),
+      i18n: expect.anything(),
+      dispatch: expect.any(Function)
     })
   })
 

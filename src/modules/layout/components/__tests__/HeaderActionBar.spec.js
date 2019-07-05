@@ -9,7 +9,7 @@ describe('HeaderActionBar', () => {
   it('should match snapshot', () => {
     const component = shallow(
       <HeaderActionBar className='testClass' items={[
-        new HeaderActionItem({iconSrc: 'icon1', href: {type: 'RANDOM_HREF'}}),
+        new HeaderActionItem({iconSrc: 'icon1', href: '/random_route'}),
         new HeaderActionItem({node: <div id='2' />}),
         new HeaderActionItem({node: <div id='3' />})
       ]} />

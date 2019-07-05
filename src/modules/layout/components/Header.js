@@ -10,14 +10,13 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import styled, { withTheme } from 'styled-components'
 import withPlatform from '../../platform/hocs/withPlatform'
 import Platform from '../../platform/Platform'
-import type { Action } from 'redux-first-router'
 import compose from 'lodash/fp/compose'
 import type { ThemeType } from '../../theme/constants/theme'
 
 type PropsType = {|
   navigationItems: React.Node,
   actionItems: Array<HeaderActionItem>,
-  logoHref: Action | string,
+  logoHref: string,
   viewportSmall: boolean,
   theme: ThemeType,
   onStickyTopChanged: number => void,

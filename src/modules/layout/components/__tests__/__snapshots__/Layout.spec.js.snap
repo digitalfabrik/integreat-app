@@ -26,6 +26,7 @@ exports[`Layout should render all components 1`] = `
   </div>
   <footer />
   <ReactTooltip
+    clickable={false}
     delayShow={0}
     effect="solid"
     insecure={true}
