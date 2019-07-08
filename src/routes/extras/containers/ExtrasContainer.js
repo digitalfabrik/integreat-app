@@ -83,7 +83,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 
   render () {
-    const {theme, t, cities, navigation, city} = this.props
+    const {theme, t, cities, navigation, city, language} = this.props
     const {extras, error} = this.state
 
     if (error || !cities) {
@@ -95,7 +95,7 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
     }
 
     return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
-                   navigation={navigation} cityCode={city} />
+                   navigation={navigation} cityCode={city} language={language} />
   }
 }
 

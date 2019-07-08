@@ -7,6 +7,7 @@ import {
   CATEGORIES_FEEDBACK_TYPE,
   CityModel,
   EventModel,
+  EVENTS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE
 } from '@integreat-app/integreat-api-client'
 import Page from '../../../modules/common/components/Page'
@@ -24,6 +25,7 @@ import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/crea
 import FeedbackVariant from '../../feedback/FeedbackVariant'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 export type PropsType = {|
   events?: Array<EventModel>,
@@ -47,7 +49,7 @@ class Events extends React.Component<PropsType> {
     this.props.navigateToEvent({cityCode, language, path})
   }
   renderEventListItem = (cityCode: string, language: string) => (event: EventModel) => {
-    const { theme } = this.props
+    const {theme} = this.props
     return <EventListItem key={event.path}
                           event={event}
                           language={language}
@@ -63,26 +65,37 @@ class Events extends React.Component<PropsType> {
   }
 
   createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
-    const {t, navigation, cities, cityCode} = this.props
+    const {t, navigation, cities, cityCode, language} = this.props
+    if (!cityCode || !language) {
+      throw Error('language or cityCode not available')
+    }
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, pagePath?: string): FeedbackVariant =>
+      new FeedbackVariant(label, language, cityCode, feedbackType, pagePath)
+
     const cityTitle = CityModel.findCityName(cities, cityCode)
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackVariant(t('feedback:contentOfPage', {page: event.title}), PAGE_FEEDBACK_TYPE),
-        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        createFeedbackVariant(t('feedback:contentOfPage', {page: event.title}), PAGE_FEEDBACK_TYPE, event.path),
+        createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), EVENTS_FEEDBACK_TYPE),
+        createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
 
   navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
-    const {t, navigation, cities, cityCode} = this.props
+    const {t, navigation, cities, cityCode, language} = this.props
+    if (!cityCode || !language) {
+      throw Error('language or cityCode not available')
+    }
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, pagePath?: string) =>
+      new FeedbackVariant(label, language, cityCode, feedbackType, pagePath)
     const cityTitle = CityModel.findCityName(cities, cityCode)
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), EVENTS_FEEDBACK_TYPE),
+        createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
