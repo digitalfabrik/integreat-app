@@ -12,7 +12,7 @@ import {
 } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 type ExtrasRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|extras: Payload<Array<ExtraModel>>|}
@@ -30,10 +30,10 @@ const extrasRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createExtrasEndpoint(integreatApiBaseUrl), dispatch, state.extras, {city, language})
+      fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {city, language})
     ])
   }
 }

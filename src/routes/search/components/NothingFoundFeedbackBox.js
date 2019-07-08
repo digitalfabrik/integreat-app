@@ -8,7 +8,7 @@ import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/int
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox, SubmitButton } from '../../../modules/feedback/components/FeedbackBox'
 import FeedbackComment from '../../../modules/feedback/components/FeedbackComment'
-import { integreatApiBaseUrl } from '../../../modules/app/constants/urls'
+import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
 
 export const StyledSubmitButton = SubmitButton.withComponent('div')
 
@@ -35,7 +35,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     const {query, location} = this.props
     const {city, language} = location.payload
     const {comment} = this.state
-    createFeedbackEndpoint(integreatApiBaseUrl).request({
+    createFeedbackEndpoint(cmsApiBaseUrl).request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment,

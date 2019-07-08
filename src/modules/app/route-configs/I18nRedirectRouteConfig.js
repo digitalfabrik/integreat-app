@@ -5,7 +5,7 @@ import { RouteConfig } from './RouteConfig'
 import { CityModel, createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 type I18nRedirectRouteParamsType = {|param?: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -22,7 +22,7 @@ const i18nRedirectRoute: Route = {
   thunk: async (dispatch, getState) => {
     const state = getState()
 
-    await fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities)
+    await fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities)
   }
 }
 
