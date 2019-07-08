@@ -94,7 +94,9 @@ type PropsType = {|
 
 class Navigator extends React.Component<PropsType> {
   appSettings: AppSettings
-  navigator: {current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<*> }}
+  navigator: {
+    current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<*> }
+  }
 
   constructor (props: PropsType) {
     super(props)
