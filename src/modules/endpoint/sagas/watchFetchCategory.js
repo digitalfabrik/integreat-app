@@ -54,10 +54,15 @@ function * cancelableFetchCategory (dataContainer: DataContainer, action: FetchC
   })
 
   if (cancel) {
-    const newFetchCategory = action
     const newLanguage = cancel.params.newLanguage
-    newFetchCategory.params.language = newLanguage
-    newFetchCategory.params.path = `/${action.params.city}/${newLanguage}`
+    const newFetchCategory: FetchCategoryActionType = {
+      type: 'FETCH_CATEGORY',
+      params: {
+        language: newLanguage,
+        path: `/${action.params.city}/${newLanguage}`,
+        ...action.params
+      }
+    }
     yield put(newFetchCategory)
   }
 }
