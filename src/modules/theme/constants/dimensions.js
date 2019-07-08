@@ -1,7 +1,8 @@
 // @flow
 
 export type DimensionsType = {
-  headerHeight: number
+  headerHeight: number,
+  modalHeaderHeight: number
 }
 
 export default {

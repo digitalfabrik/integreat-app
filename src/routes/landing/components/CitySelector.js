@@ -5,11 +5,11 @@ import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import { View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 
-export const CityGroup = styled.Text`
+export const CityGroup: StyledComponent<{}, ThemeType, *> = styled.Text`
   flex: 1;
   height: 30px;
   margin-top: 10px;
@@ -29,25 +29,18 @@ type PropsType = {|
 |}
 
 class CitySelector extends React.PureComponent<PropsType> {
-  // TODO: We currently use this alternative for testing
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
-    return cities.filter(_city => _city.name.toLowerCase().includes(filterText))
-  }
 
-  // filter (): Array<CityModel> {
-  //   const filterText = this.props.filterText.toLowerCase()
-  //   const cities = this.props.cities
-  //
-  //   if (filterText === 'wirschaffendas') {
-  //     return cities.filter(_city => !_city.live)
-  //   } else {
-  //     return cities
-  //       .filter(_city => _city.live)
-  //       .filter(_city => _city.name.toLowerCase().includes(filterText))
-  //   }
-  // }
+    if (filterText === 'wirschaffendas') {
+      return cities.filter(_city => !_city.live)
+    } else {
+      return cities
+        .filter(_city => _city.live)
+        .filter(_city => _city.name.toLowerCase().includes(filterText))
+    }
+  }
 
   renderList (cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)

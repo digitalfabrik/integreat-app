@@ -5,7 +5,7 @@ import connect from 'react-redux/es/connect/connect'
 import { ActivityIndicator } from 'react-native'
 import Extras from '../components/Extras'
 import { type TFunction, translate } from 'react-i18next'
-import { createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
+import { CityModel, createExtrasEndpoint, ExtraModel, Payload } from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import request from '../../../modules/endpoint/request'
 import type { StateType } from '../../../modules/app/StateType'
@@ -16,25 +16,28 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type StatePropsType = {| city: string, language: string |}
+type StatePropsType = {| city: string, language: string, cities: ?Array<CityModel> |}
 
 type PropsType = { ...OwnPropsType, ...StatePropsType }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const language = state.cityContent.language
-  if (!language) {
-    throw new Error('The state does not contain a language. Therefore it is not possible to open the extras!')
+const mapStateToProps = (state: StateType): StatePropsType => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
   }
 
+  const cities: ?Array<CityModel> = state.cities.errorMessage !== undefined ? null : state.cities.models
+
   return {
-    city: ownProps.navigation.getParam('cityCode'),
-    language: language
+    city: state.cityContent.city,
+    language: state.contentLanguage,
+    cities
   }
 }
 
 type ExtrasPropsType = {|
   navigation: NavigationScreenProp<*>,
   city: string,
+  cities: ?Array<CityModel>,
   language: string,
   navigateToExtra: (path: string, isExternalUrl: boolean) => void,
   theme: ThemeType,
@@ -80,10 +83,10 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
   }
 
   render () {
-    const {theme, t} = this.props
+    const {theme, t, cities, navigation, city} = this.props
     const {extras, error} = this.state
 
-    if (error) {
+    if (error || !cities) {
       return <Failure error={error} />
     }
 
@@ -91,7 +94,8 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
-    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} />
+    return <Extras extras={extras} navigateToExtra={this.navigateToExtra} theme={theme} t={t} cities={cities}
+                   navigation={navigation} cityCode={city} />
   }
 }
 

@@ -17,6 +17,7 @@ import type { TFunction } from 'react-i18next'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
+import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -87,16 +88,17 @@ class Dashboard extends React.Component<PropsType> {
   render () {
     const {
       cities, stateView, theme, resourceCache, navigateToIntegreatUrl, language, cityCode, navigateToCategory,
-      navigation
+      navigation, t
     } = this.props
 
     if (!stateView || !cities || !resourceCache || !cityCode || !language) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
-        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)}
-                         theme={theme} />
+    return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
+                       contentContainerStyle={{flexGrow: 1}}>
+      <SpaceBetween>
+        <NavigationTiles tiles={this.getNavigationTileModels(cityCode, language)} theme={theme} />
         <Categories stateView={stateView}
                     cities={cities}
                     resourceCache={resourceCache}
@@ -105,7 +107,9 @@ class Dashboard extends React.Component<PropsType> {
                     theme={theme}
                     navigation={navigation}
                     navigateToCategory={navigateToCategory}
+                    t={t}
                     navigateToIntegreatUrl={navigateToIntegreatUrl} />
+      </SpaceBetween>
     </ScrollView>
   }
 }

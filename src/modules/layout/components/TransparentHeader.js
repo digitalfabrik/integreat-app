@@ -2,9 +2,9 @@
 
 import * as React from 'react'
 import Share from 'react-native-share'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { ThemeType } from 'modules/theme/constants/theme'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
@@ -23,7 +23,7 @@ const HorizontalLeft = styled.View`
   align-items: center;
 `
 
-const BoxShadow = styled.View`
+const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   background-color: transparent;
   position: absolute;
   z-index: 100;

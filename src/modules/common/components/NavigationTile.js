@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
@@ -39,7 +39,7 @@ const TileTitle = styled.Text`
   margin-bottom: 5px;
 `
 
-const TileTouchable = styled.TouchableOpacity`
+const TileTouchable: StyledComponent<{}, {}, *> = styled.TouchableOpacity`
   padding: 10px 0;
   flex: 1;
   align-items: center;
@@ -81,7 +81,7 @@ class NavigationTile extends React.Component<PropsType> {
     const imageSource = getFastImageSource(tile.thumbnail)
     return <>
       <Circle theme={theme}>
-        <Thumbnail theme={theme} source={imageSource} resizeMode={FastImage.resizeMode.contain} />
+        <Thumbnail source={imageSource} resizeMode={FastImage.resizeMode.contain} />
         {this.getNewsDot()}
       </Circle>
       <TileTitle theme={theme}>{tile.title}</TileTitle>

@@ -1,14 +1,14 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
 type WrapperPropsType = {
   theme: ThemeType
 }
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   flex: 1;
   background-color: ${(props: WrapperPropsType) => props.theme.colors.backgroundColor};
 `
