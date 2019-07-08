@@ -91,7 +91,7 @@ const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
   const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
-  const {categoriesRouteMapping, eventsRouteMapping} = state
+  const {categoriesRouteMapping, eventsRouteMapping, city} = state
 
   const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,

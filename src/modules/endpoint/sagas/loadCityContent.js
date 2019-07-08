@@ -45,16 +45,16 @@ export default function * loadCityContent (
     yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, context)
 
-  const initializeCityContent: InitializeCityContentActionType = {
-    type: 'INITIALIZE_CITY_CONTENT',
-    params: {
-      city: newCity,
-      language: newLanguage,
-      languages
+    const initializeCityContent: InitializeCityContentActionType = {
+      type: 'INITIALIZE_CITY_CONTENT',
+      params: {
+        city: newCity,
+        language: newLanguage,
+        languages
+      }
     }
-  }
 
-  yield put(initializeCityContent)
+    yield put(initializeCityContent)
 
     if (!languages.map(language => language.code).includes(newLanguage)) {
       return false
