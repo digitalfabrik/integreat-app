@@ -27,7 +27,7 @@ import AppSettings from '../../settings/AppSettings'
 export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
-): Saga<void> {
+): Saga<boolean> {
   const appSettings = new AppSettings()
   yield call(appSettings.setSelectedCity, newCity)
 
@@ -48,7 +48,7 @@ export default function * loadCityContent (
 
   console.debug('City content should be refreshed: ', shouldUpdate)
 
-  if (criterion.shouldUpdateLanguages()) {
+  if (!criterion.peek()) {
     yield call(loadLanguages, context, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, context)
 
