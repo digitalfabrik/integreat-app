@@ -41,20 +41,20 @@ type StateType = {|
 |}
 
 class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
-  state = {comment: '', sendingStatus: 'idle'}
+  state = { comment: '', sendingStatus: 'idle' }
 
-  onCommentChanged = (value: string) => this.setState({comment: value})
+  onCommentChanged = (value: string) => this.setState({ comment: value })
 
   onSubmit = () => {
-    this.setState({sendingStatus: 'sending'})
+    this.setState({ sendingStatus: 'sending' })
     this.props.sendFeedback(this.state.comment, this.props.query)
-      .then(() => this.setState({sendingStatus: 'successful'}))
-      .catch(() => this.setState({sendingStatus: 'failed'}))
+      .then(() => this.setState({ sendingStatus: 'successful' }))
+      .catch(() => this.setState({ sendingStatus: 'failed' }))
   }
 
   render () {
-    const {sendingStatus, comment} = this.state
-    const {t, theme} = this.props
+    const { sendingStatus, comment } = this.state
+    const { t, theme } = this.props
 
     if (['idle', 'failed'].includes(sendingStatus)) {
       return <>
@@ -66,8 +66,8 @@ class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
                value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
                placeholder={t('feedback:yourFeedback')} />
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
-                titleStyle={{color: theme.colors.textColor}}
-                buttonStyle={{backgroundColor: theme.colors.themeColor}}
+                titleStyle={{ color: theme.colors.textColor }}
+                buttonStyle={{ backgroundColor: theme.colors.themeColor }}
                 onPress={this.onSubmit} title={t('feedback:send')} />
       </>
     } else if (sendingStatus === 'sending') {
