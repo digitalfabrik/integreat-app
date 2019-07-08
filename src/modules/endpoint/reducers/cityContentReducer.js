@@ -48,7 +48,7 @@ export default (
       const errorMessage: string = action.params.message
       return {...state, categoriesRouteMapping: {errorMessage}}
     }
-    case 'CLEAR_CITY_CONTENT':
+    case 'CLEAR_CITY':
       return defaultCityContentState
     case 'RESOURCES_FETCH_FAILED': {
       const errorMessage: string = action.params.message

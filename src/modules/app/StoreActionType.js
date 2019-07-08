@@ -119,15 +119,6 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
-// ClearCityActionType and ClearCityContentActionType are both required because we need to modify the state and call
-// the async method to clear the city selection
-
-// Clears the city content state
-export type ClearCityContentActionType = {|
-  type: 'CLEAR_CITY_CONTENT'
-|}
-
-// Calls 'clearSelectedCity' and dispatches a 'ClearCityContentAction'
 export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
@@ -144,7 +135,7 @@ export type CityContentActionType =
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
-  | ClearCityContentActionType
+  | ClearCityActionType
   | InitializeCityContentActionType
   | ResourcesFetchFailedActionType
 
@@ -169,4 +160,3 @@ export type StoreActionType =
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType
-  | ClearCityActionType
