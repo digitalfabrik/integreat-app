@@ -7,7 +7,7 @@ import Header from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import type { CategoriesRouteMappingType, StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
-import type { StoreActionType } from '../../app/StoreActionType'
+import type { ClearCityActionType, StoreActionType } from '../../app/StoreActionType'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { TFunction } from 'react-i18next'
 
@@ -38,7 +38,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
   navigateToLanding: () => {
-    dispatch({type: 'CLEAR_CITY_CONTENT'})
+    const clearCity: ClearCityActionType = { type: 'CLEAR_CITY' }
+    dispatch(clearCity)
     ownProps.navigation.navigate('Landing')
   }
 })

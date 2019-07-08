@@ -16,7 +16,7 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled(ScrollView)`
   padding: 11px 10px 0;
 `
 
-export type PropsType = {
+export type PropsType = {|
   navigation: NavigationScreenProp<*>,
   i18n: Object,
   cities?: Array<CityModel>,
@@ -25,11 +25,8 @@ export type PropsType = {
   theme: ThemeType,
   navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
   fetchCities: () => StoreActionType
-}
+|}
 
-/**
- * This shows the landing screen. This is a container because it depends on endpoints.
- */
 class Landing extends React.Component<PropsType> {
   componentDidMount () {
     if (!this.props.cities) {
@@ -43,7 +40,8 @@ class Landing extends React.Component<PropsType> {
   }
 
   render () {
-    const {theme, cities, t} = this.props
+    const { theme, cities, t } = this.props
+
     return <Wrapper theme={theme}>
       {!cities
         ? <ActivityIndicator size='large' color='#0000ff' />
