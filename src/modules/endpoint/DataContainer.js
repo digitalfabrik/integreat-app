@@ -28,7 +28,7 @@ export interface DataContainer {
   /**
    * Sets the languages and persists them.
    */
-  setLanguages: (city: string, languages: Array<LanguageModel>) => Promise<void>,
+  setLanguages: (context: DatabaseContext, languages: Array<LanguageModel>) => Promise<void>,
 
   /**
    * Returns the CategoriesMapModel.
@@ -81,7 +81,7 @@ export interface DataContainer {
   /**
    * Returns whether the languages have been loaded or not.
    */
-  languagesAvailable (city: string): boolean,
+  languagesAvailable (context: DatabaseContext): boolean,
 
   /**
    * Returns whether the ResourceCache have been loaded or not.

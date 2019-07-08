@@ -42,7 +42,7 @@ export default function * loadCityContent (
   console.debug('City content should be refreshed: ', shouldUpdate)
 
   if (criterion.shouldUpdateLanguages()) {
-    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    yield call(loadLanguages, context, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, context)
 
     const initializeCityContent: InitializeCityContentActionType = {

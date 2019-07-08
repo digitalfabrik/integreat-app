@@ -43,12 +43,8 @@ class DefaultDataContainer implements DataContainer {
     }
   }
 
-  isCached (key: CacheKeyType): boolean {
-    return this.caches[key].isCached()
-  }
-
-  evict (key: CacheKeyType) {
-    this.caches[key].evict()
+  isCached (key: CacheKeyType, context: DatabaseContext): boolean {
+    return this.caches[key].isCached(context)
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
@@ -91,7 +87,7 @@ class DefaultDataContainer implements DataContainer {
 
   setCategoriesMap = async (context: DatabaseContext, categories: CategoriesMapModel) => {
     const cache: Cache<CategoriesMapModel> = this.caches['categories']
-    return cache.cache(categories)
+    return cache.cache(categories, context)
   }
 
   setCities = async (cities: Array<CityModel>) => {
@@ -101,12 +97,12 @@ class DefaultDataContainer implements DataContainer {
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
     const cache: Cache<Array<EventModel>> = this.caches['events']
-    return cache.cache(events)
+    return cache.cache(events, context)
   }
 
-  setLanguages = async (city: string, languages: Array<LanguageModel>) => {
+  setLanguages = async (context: DatabaseContext, languages: Array<LanguageModel>) => {
     const cache: Cache<Array<LanguageModel>> = this.caches['languages']
-    return cache.cache(languages)
+    return cache.cache(languages, context)
   }
 
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
@@ -140,32 +136,32 @@ class DefaultDataContainer implements DataContainer {
       }
     }
 
-    cache.cache(newResourceCache)
+    cache.cache(newResourceCache, context)
   }
 
   setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment) => {
     const cache: Cache<Moment> = this.caches['lastUpdate']
-    cache.cache(lastUpdate)
+    cache.cache(lastUpdate, context)
   }
 
   categoriesAvailable (context: DatabaseContext): boolean {
-    return this.isCached('categories')
+    return this.isCached('categories', context)
   }
 
-  languagesAvailable (city: string): boolean {
-    return this.isCached('languages')
+  languagesAvailable (context: DatabaseContext): boolean {
+    return this.isCached('languages', context)
   }
 
   eventsAvailable (context: DatabaseContext): boolean {
-    return this.isCached('events')
+    return this.isCached('events', context)
   }
 
   resourceCacheAvailable (context: DatabaseContext): boolean {
-    return this.isCached('resourceCache')
+    return this.isCached('resourceCache', context)
   }
 
   lastUpdateAvailable (context: DatabaseContext): boolean {
-    return this.isCached('lastUpdate')
+    return this.isCached('lastUpdate', context)
   }
 }
 

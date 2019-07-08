@@ -6,14 +6,15 @@ import { createLanguagesEndpoint, LanguageModel, Payload } from '@integreat-app/
 import request from '../request'
 import { baseUrl } from '../constants'
 import type { DataContainer } from '../DataContainer'
+import DatabaseContext from '../DatabaseContext'
 
-export default function * loadLanguages (city: string, dataContainer: DataContainer, shouldUpdate: boolean): Saga<void> {
-  if (dataContainer.languagesAvailable(city) && !shouldUpdate) {
+export default function * loadLanguages (context: DatabaseContext, dataContainer: DataContainer, shouldUpdate: boolean): Saga<void> {
+  if (dataContainer.languagesAvailable(context) && !shouldUpdate) {
     console.debug('Using cached languages')
     return
   }
   console.debug('Fetching languages')
-  const params = {city}
+  const params = {city: context.cityCode}
   const payload: Payload<Array<LanguageModel>> = yield call(() => request(createLanguagesEndpoint(baseUrl), params))
-  yield call(dataContainer.setLanguages, city, payload.data)
+  yield call(dataContainer.setLanguages, context, payload.data)
 }
