@@ -11,20 +11,26 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
+import { LanguageModel } from '@integreat-app/integreat-api-client'
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
-  const {city, language, path, depth, key, criterion} = action.params
+  const { city, language, path, depth, key, criterion } = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
     const allContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
     if (allContentLoaded) {
       const context = new DatabaseContext(city, language)
-      const [categoriesMap, resourceCache, languages] = yield all([
+      const [categoriesMap, resourceCache] = yield all([
         call(dataContainer.getCategoriesMap, context),
-        call(dataContainer.getResourceCache, context),
-        call(dataContainer.getLanguages, context)
+        call(dataContainer.getResourceCache, context)
       ])
+
+      let languages = [new LanguageModel(language, language)]
+
+      if (!loadCriterion.peek()) {
+        languages = yield call(dataContainer.getLanguages, context)
+      }
 
       const push: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,

@@ -31,15 +31,20 @@ class DefaultDataContainer implements DataContainer {
 
     this.caches = {
       'events': new Cache<Array<EventModel>>(this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context)),
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
+        (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) => connector.storeEvents(value, context)),
       'categories': new Cache<CategoriesMapModel>(this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context)),
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context),
+        (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) => connector.storeCategories(value, context)),
       'languages': new Cache<Array<LanguageModel>>(this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context)),
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context),
+        (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) => connector.storeLanguages(value, context)),
       'resourceCache': new Cache<CityResourceCacheStateType>(this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context)),
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
+        (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) => connector.storeResourceCache(value, context)),
       'lastUpdate': new Cache<Moment>(this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context))
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
+        (value: Moment, connector: DatabaseConnector, context: DatabaseContext) => connector.storeLastUpdate(value, context))
     }
   }
 
@@ -87,7 +92,7 @@ class DefaultDataContainer implements DataContainer {
 
   setCategoriesMap = async (context: DatabaseContext, categories: CategoriesMapModel) => {
     const cache: Cache<CategoriesMapModel> = this.caches['categories']
-    return cache.cache(categories, context)
+    await cache.cache(categories, context)
   }
 
   setCities = async (cities: Array<CityModel>) => {
@@ -97,12 +102,12 @@ class DefaultDataContainer implements DataContainer {
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
     const cache: Cache<Array<EventModel>> = this.caches['events']
-    return cache.cache(events, context)
+    await cache.cache(events, context)
   }
 
   setLanguages = async (context: DatabaseContext, languages: Array<LanguageModel>) => {
     const cache: Cache<Array<LanguageModel>> = this.caches['languages']
-    return cache.cache(languages, context)
+    await cache.cache(languages, context)
   }
 
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
@@ -115,7 +120,12 @@ class DefaultDataContainer implements DataContainer {
   setResourceCache = async (context: DatabaseContext, resourceCache: LanguageResourceCacheStateType) => {
     const language = context.languageCode
     const cache: Cache<CityResourceCacheStateType> = this.caches['resourceCache']
-    const previousResourceCache = await cache.get(context)
+    const previousResourceCache = cache.getCached(context)
+
+    if (!previousResourceCache) {
+      await cache.cache({ [language]: resourceCache }, context)
+      return
+    }
 
     const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
 
@@ -136,12 +146,12 @@ class DefaultDataContainer implements DataContainer {
       }
     }
 
-    cache.cache(newResourceCache, context)
+    await cache.cache(newResourceCache, context)
   }
 
   setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment) => {
     const cache: Cache<Moment> = this.caches['lastUpdate']
-    cache.cache(lastUpdate, context)
+    await cache.cache(lastUpdate, context)
   }
 
   categoriesAvailable (context: DatabaseContext): boolean {

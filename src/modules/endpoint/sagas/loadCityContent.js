@@ -69,7 +69,7 @@ export default function * loadCityContent (
   // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
   // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
   // failed to download some resources an other call could fix this and download missing files.
-  if (criterion.shouldRefreshResources) {
+  if (criterion.shouldRefreshResources()) {
     const resourceURLFinder = new ResourceURLFinder()
     resourceURLFinder.init()
 
