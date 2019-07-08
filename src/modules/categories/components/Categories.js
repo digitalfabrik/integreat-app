@@ -24,6 +24,7 @@ import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
 import { type TFunction } from 'react-i18next'
 import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
+import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -55,28 +56,38 @@ class Categories extends React.Component<PropsType> {
   }
 
   navigateToFeedbackOfPage = (isPositiveFeedback: boolean) => {
-    const {navigation, t, stateView, cities, cityCode} = this.props
+    const {navigation, t, stateView, cities, cityCode, language} = this.props
+    if (!cityCode || !language) {
+      throw Error('language or cityCode not available')
+    }
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, pagePath?: string) =>
+      new FeedbackVariant(label, language, cityCode, feedbackType, pagePath)
     const cityTitle = CityModel.findCityName(cities, cityCode)
-
+    const category = stateView.root()
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackVariant(t('feedback:contentOfPage', {page: stateView.root().title}), PAGE_FEEDBACK_TYPE),
-        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        createFeedbackVariant(t('feedback:contentOfPage', {page: category.title}), PAGE_FEEDBACK_TYPE, category.path),
+        createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), CATEGORIES_FEEDBACK_TYPE),
+        createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
 
   navigateToFeedbackOfCategories = (isPositiveFeedback: boolean) => {
-    const {navigation, t, cities, cityCode} = this.props
+    const {navigation, t, cities, cityCode, language} = this.props
+    if (!cityCode || !language) {
+      throw Error('language or cityCode not available')
+    }
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, pagePath?: string) =>
+      new FeedbackVariant(label, language, cityCode, feedbackType, pagePath)
     const cityTitle = CityModel.findCityName(cities, cityCode)
 
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), PAGE_FEEDBACK_TYPE),
-        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+        createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), CATEGORIES_FEEDBACK_TYPE),
+        createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }

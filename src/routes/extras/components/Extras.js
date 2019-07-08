@@ -12,13 +12,13 @@ import {
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
 import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE, WOHNEN_EXTRA, WOHNEN_ROUTE } from '../constants'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import FeedbackVariant from '../../feedback/FeedbackVariant'
-import { View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import type { FeedbackType } from '@integreat-app/integreat-api-client/endpoints/createFeedbackEndpoint'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
@@ -27,7 +27,8 @@ type PropsType = {|
   theme: ThemeType,
   cities: Array<CityModel>,
   t: TFunction,
-  cityCode: string
+  cityCode: string,
+  language: string
 |}
 
 class Extras extends React.Component<PropsType> {
@@ -58,13 +59,18 @@ class Extras extends React.Component<PropsType> {
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const {navigation, extras, t, cities, cityCode} = this.props
+    const {navigation, extras, t, cities, cityCode, language} = this.props
+    if (!cityCode || !language) {
+      throw Error('language or cityCode not available')
+    }
+    const createFeedbackVariant = (label: string, feedbackType: FeedbackType, alias?: string) =>
+      new FeedbackVariant(label, language, cityCode, feedbackType, undefined, alias)
     const cityTitle = CityModel.findCityName(cities, cityCode)
 
     const feedbackItems = [
-      new FeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), EXTRAS_FEEDBACK_TYPE),
-      ...extras.map(extra => new FeedbackVariant(t('feedback:extra', {extra: extra.title}), EXTRA_FEEDBACK_TYPE)),
-      new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), EXTRAS_FEEDBACK_TYPE),
+      ...extras.map(extra => createFeedbackVariant(t('feedback:extra', {extra: extra.title}), EXTRA_FEEDBACK_TYPE, extra.alias)),
+      createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
     ]
 
     navigation.navigate('FeedbackModal', {isPositiveFeedback, feedbackItems})
