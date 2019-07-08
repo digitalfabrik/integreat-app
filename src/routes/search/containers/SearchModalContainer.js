@@ -44,8 +44,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
         feedbackType: SEARCH_FEEDBACK_TYPE,
         isPositiveRating: false,
         comment,
-        city: state.cityContent.city,
-        language: state.cityContent.language,
+        city,
+        language: state.contentLanguage,
         query
       })
     }
