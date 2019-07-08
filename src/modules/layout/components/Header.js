@@ -11,7 +11,7 @@ import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/Hea
 import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
-import type { CategoryRouteStateType } from '../../app/StateType'
+import type { CategoriesRouteMappingType } from '../../app/StateType'
 
 const Horizontal = styled.View`
   flex:1;
@@ -58,10 +58,7 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  routeMapping: {
-    [key: string]: CategoryRouteStateType
-  },
-  availableLanguages: ?Array<string>,
+  routeMapping: CategoriesRouteMappingType,
   navigateToLanding: () => void,
   routeKey: string
 |}

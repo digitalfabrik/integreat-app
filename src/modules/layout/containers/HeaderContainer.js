@@ -5,7 +5,7 @@ import { translate } from 'react-i18next'
 
 import Header from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
-import type { StateType } from '../../app/StateType'
+import type { CategoriesRouteMappingType, StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
@@ -19,7 +19,8 @@ type OwnPropsType = {|
 |}
 
 type StatePropsType = {|
-  routeKey: string
+  routeKey: string,
+  routeMapping: CategoriesRouteMappingType
 |}
 
 type DispatchPropsType = {|
@@ -29,8 +30,14 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  const cityContent = state.cityContent
+  if (!cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
+
   const routeKey = ownProps.navigation.getParam('key')
-  return { routeKey }
+  const routeMapping = cityContent.categoriesRouteMapping
+  return { routeKey, routeMapping }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
