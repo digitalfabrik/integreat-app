@@ -2,20 +2,19 @@
 
 import { createSelector } from 'reselect'
 import type {
-  CategoryRouteStateType, EventRouteStateType,
-  StateType
+  CategoryRouteStateType, CityContentStateType, EventRouteStateType
 } from '../../app/StateType'
 import { currentCityRouteSelector } from './currentCityRouteSelector'
 import type { CityRouteSelectorPropsType } from './currentCityRouteSelector'
 
-const cityLanguagesSelector = (state: StateType): ?Array<string> => state.cityContent.languages &&
-  state.cityContent.languages.map(languageModel => languageModel.code)
+const cityLanguagesSelector = (state: CityContentStateType): Array<string> =>
+  state.languages.map(languageModel => languageModel.code)
 
-export const availableLanguagesSelector = createSelector<StateType, CityRouteSelectorPropsType, ?Array<string>,
-  CategoryRouteStateType | EventRouteStateType | null, ?Array<string>>(
+export const availableLanguagesSelector = createSelector<CityContentStateType, CityRouteSelectorPropsType, Array<string>,
+  CategoryRouteStateType | EventRouteStateType | null, Array<string>>(
     currentCityRouteSelector,
     cityLanguagesSelector,
-    (route: CategoryRouteStateType | EventRouteStateType | null, cityLanguages: ?Array<string>): ?Array<string> => {
+    (route: CategoryRouteStateType | EventRouteStateType | null, cityLanguages: Array<string>): Array<string> => {
       if (route) {
         return Array.from(route.allAvailableLanguages.keys())
       } else {

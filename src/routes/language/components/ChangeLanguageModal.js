@@ -2,16 +2,15 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
-import type { SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -22,22 +21,18 @@ const Wrapper = styled.View`
 
 type PropsType = {
   theme: ThemeType,
-  city: string | null,
-  currentLanguage: string | null,
-  languages: Array<LanguageModel> | null,
+  city: string,
+  currentLanguage: string,
+  languages: Array<LanguageModel>,
   availableLanguages: Array<string>,
-  changeLanguage: (city: string, language: string) => SwitchContentLanguageActionType,
+  changeLanguage: (city: string, newLanguage: string) => void,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    const {closeModal, changeLanguage, city} = this.props
-
-    if (!city) {
-      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
-    }
+    const { closeModal, changeLanguage, city } = this.props
 
     closeModal()
     InteractionManager.runAfterInteractions(() => {
@@ -46,14 +41,10 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   }
 
   render () {
-    const {theme, languages, availableLanguages, city, currentLanguage} = this.props
-
-    if (!languages || !currentLanguage || !city) {
-      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
-    }
+    const {theme, languages, availableLanguages, currentLanguage} = this.props
 
     return <Wrapper theme={theme}>
-      <Selector theme={theme} verticalLayout items={languages.map(languageModel => {
+      <Selector theme={theme} selectedItemCode={currentLanguage} verticalLayout items={languages.map(languageModel => {
         const isLanguageAvailable = availableLanguages.includes(languageModel.code)
         return new SelectorItemModel({
           code: languageModel.code,
@@ -61,8 +52,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
           enabled: isLanguageAvailable,
           onPress: () => this.onPress(languageModel)
         })
-      })}
-                selectedItemCode={currentLanguage} />
+      })} />
     </Wrapper>
   }
 }

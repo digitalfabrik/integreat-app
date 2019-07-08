@@ -7,7 +7,7 @@ import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
-import type { PushLanguagesActionType, SetCityContentLocalizationType } from '../../app/StoreActionType'
+import type { InitializeCityContentActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
@@ -29,16 +29,6 @@ export default function * loadCityContent (
 ): Saga<boolean> {
   const context = new DatabaseContext(newCity, newLanguage)
 
-  const setCityContentLocalization: SetCityContentLocalizationType = {
-    type: 'SET_CITY_CONTENT_LOCALIZATION',
-    params: {
-      city: newCity,
-      language: newLanguage
-    }
-  }
-
-  yield put(setCityContentLocalization)
-
   let lastUpdate: moment | null = null
   if (dataContainer.lastUpdateAvailable(context)) {
     lastUpdate = yield call(dataContainer.getLastUpdate, context)
@@ -55,13 +45,16 @@ export default function * loadCityContent (
     yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, context)
 
-    const pushLanguages: PushLanguagesActionType = {
-      type: 'PUSH_LANGUAGES',
-      params: {
-        languages
-      }
+  const initializeCityContent: InitializeCityContentActionType = {
+    type: 'INITIALIZE_CITY_CONTENT',
+    params: {
+      city: newCity,
+      language: newLanguage,
+      languages
     }
-    yield put(pushLanguages)
+  }
+
+  yield put(initializeCityContent)
 
     if (!languages.map(language => language.code).includes(newLanguage)) {
       return false

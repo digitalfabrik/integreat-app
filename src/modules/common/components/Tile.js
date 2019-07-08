@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
@@ -25,7 +25,7 @@ const TileTitle = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
-const TileContainer = styled.View`
+const TileContainer: StyledComponent<{}, {}, *> = styled.View`
   margin-bottom: 20px;
   width: 50%;
 `

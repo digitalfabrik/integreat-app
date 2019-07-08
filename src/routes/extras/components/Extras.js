@@ -2,25 +2,34 @@
 
 import * as React from 'react'
 import TileModel from '../../../modules/common/models/TileModel'
-import { ExtraModel } from '@integreat-app/integreat-api-client'
+import {
+  CATEGORIES_FEEDBACK_TYPE,
+  CityModel,
+  EXTRA_FEEDBACK_TYPE,
+  ExtraModel,
+  EXTRAS_FEEDBACK_TYPE
+} from '@integreat-app/integreat-api-client'
 import Tiles from '../../../modules/common/components/Tiles'
 import type { TFunction } from 'react-i18next'
-import {
-  SPRUNGBRETT_EXTRA,
-  SPRUNGBRETT_ROUTE,
-  WOHNEN_EXTRA, WOHNEN_ROUTE
-} from '../constants'
+import { SPRUNGBRETT_EXTRA, SPRUNGBRETT_ROUTE, WOHNEN_EXTRA, WOHNEN_ROUTE } from '../constants'
 import { ScrollView } from 'react-native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import FeedbackVariant from '../../feedback/FeedbackVariant'
+import type { NavigationScreenProp } from 'react-navigation'
+import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 
 type PropsType = {|
   extras: Array<ExtraModel>,
   navigateToExtra: (path: string, isExternalUrl: boolean, postData: ?Map<string, string>) => void,
+  navigation: NavigationScreenProp<*>,
   theme: ThemeType,
-  t: TFunction
+  cities: Array<CityModel>,
+  t: TFunction,
+  cityCode: string
 |}
 
-export default class Extras extends React.Component<PropsType> {
+class Extras extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
     this.props.navigateToExtra(tile.path, tile.isExternalUrl, tile.postData)
   }
@@ -47,12 +56,30 @@ export default class Extras extends React.Component<PropsType> {
     )
   }
 
+  navigateToFeedback = (isPositiveFeedback: boolean) => {
+    const { navigation, extras, t, cities, cityCode } = this.props
+    const cityTitle = CityModel.findCityName(cities, cityCode)
+
+    const feedbackItems = [
+      new FeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE),
+      ...extras.map(extra => new FeedbackVariant(t('feedback:extra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE)),
+      new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+    ]
+
+    navigation.navigate('FeedbackModal', { isPositiveFeedback, feedbackItems })
+  }
+
   render () {
-    const {extras, t, theme} = this.props
+    const { extras, t, theme } = this.props
     return (
-      <ScrollView>
-        <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SpaceBetween>
+          <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+          <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
+        </SpaceBetween>
       </ScrollView>
     )
   }
 }
+
+export default Extras

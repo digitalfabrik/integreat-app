@@ -34,5 +34,5 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
     }
   }
 
-  return dispatch(fetchEvent)
+  dispatch(fetchEvent)
 }

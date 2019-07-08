@@ -1,20 +1,29 @@
 // @flow
 
 import * as React from 'react'
+import { ActivityIndicator, View } from 'react-native'
 
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
-import { CityModel, CategoryModel } from '@integreat-app/integreat-api-client'
+import {
+  CATEGORIES_FEEDBACK_TYPE,
+  CategoryModel,
+  CityModel,
+  PAGE_FEEDBACK_TYPE
+} from '@integreat-app/integreat-api-client'
 import type { ThemeType } from '../../theme/constants/theme'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
-import { ActivityIndicator } from 'react-native'
 import type { FileCacheStateType, LanguageResourceCacheStateType } from '../../app/StateType'
 import type { NavigateToCategoryParamsType } from '../../app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
+import FeedbackVariant from '../../../routes/feedback/FeedbackVariant'
+import { type TFunction } from 'react-i18next'
+import SpaceBetween from '../../common/components/SpaceBetween'
+import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 
 type PropsType = {|
   cities: Array<CityModel>,
@@ -27,7 +36,8 @@ type PropsType = {|
 
   navigation: NavigationScreenProp<*>,
   resourceCache: LanguageResourceCacheStateType,
-  theme: ThemeType
+  theme: ThemeType,
+  t: TFunction
 |}
 
 /**
@@ -35,13 +45,40 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const {cityCode, language, navigateToCategory} = this.props
-    navigateToCategory({cityCode, language, path: tile.path})
+    const { cityCode, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode, language, path: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
-    const {cityCode, language, navigateToCategory} = this.props
-    navigateToCategory({cityCode, language, path: category.path})
+    const { cityCode, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode, language, path: category.path })
+  }
+
+  navigateToFeedbackOfPage = (isPositiveFeedback: boolean) => {
+    const { navigation, t, stateView, cities, cityCode } = this.props
+    const cityTitle = CityModel.findCityName(cities, cityCode)
+
+    navigation.navigate('FeedbackModal', {
+      isPositiveFeedback,
+      feedbackItems: [
+        new FeedbackVariant(t('feedback:contentOfPage', { page: stateView.root().title }), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      ]
+    })
+  }
+
+  navigateToFeedbackOfCategories = (isPositiveFeedback: boolean) => {
+    const { navigation, t, cities, cityCode } = this.props
+    const cityTitle = CityModel.findCityName(cities, cityCode)
+
+    navigation.navigate('FeedbackModal', {
+      isPositiveFeedback,
+      feedbackItems: [
+        new FeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), PAGE_FEEDBACK_TYPE),
+        new FeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
+      ]
+    })
   }
 
   getCachedThumbnail (category: CategoryModel): ?string {
@@ -91,7 +128,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode } = this.props
+    const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -111,30 +148,41 @@ class Categories extends React.Component<PropsType> {
                    language={language}
                    cityCode={cityCode}
                    navigation={navigation}
-                   navigateToIntegreatUrl={navigateToIntegreatUrl} />
+                   navigateToFeedback={this.navigateToFeedbackOfPage}
+                   navigateToIntegreatUrl={navigateToIntegreatUrl}
+                   t={t} />
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
-      return <Tiles tiles={this.getTileModels(children)}
-                    title={CityModel.findCityName(cities, category.title)}
-                    onTilePress={this.onTilePress}
-                    theme={theme} />
+      return <SpaceBetween>
+        <View>
+          <Tiles tiles={this.getTileModels(children)}
+                 title={CityModel.findCityName(cities, category.title)}
+                 onTilePress={this.onTilePress}
+                 theme={theme} />
+        </View>
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackOfCategories} theme={theme} t={t} />
+      </SpaceBetween>
     }
     // some level between, we want to display a list
-    return <CategoryList
-      categories={children.map((model: CategoryModel) => {
-        const newStateView = stateView.stepInto(model.path)
-
-        const children = newStateView.children()
-        return ({
-          model: this.getListModel(model),
-          subCategories: this.getListModels(children)
-        })
-      })}
-      title={category.title}
-      content={category.content}
-      onItemPress={this.onItemPress}
-      theme={theme} />
+    return <SpaceBetween>
+      <View>
+        <CategoryList
+          categories={children.map((model: CategoryModel) => {
+            const newStateView = stateView.stepInto(model.path)
+            const children = newStateView.children()
+            return ({
+              model: this.getListModel(model),
+              subCategories: this.getListModels(children)
+            })
+          })}
+          title={category.title}
+          content={category.content}
+          onItemPress={this.onItemPress}
+          theme={theme} />
+      </View>
+      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackOfPage} theme={theme} t={t} />
+    </SpaceBetween>
   }
 }
 

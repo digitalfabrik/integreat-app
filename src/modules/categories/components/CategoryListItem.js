@@ -3,14 +3,14 @@
 import * as React from 'react'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
-import styled from 'styled-components/native'
-import type { ThemeType } from 'modules/theme/constants/theme'
+import styled, { type StyledComponent } from 'styled-components/native'
+import type { ThemeType } from '../../../modules/theme/constants/theme'
 import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
 
-const Row = styled.View`
+const Row: StyledComponent<{}, {}, *> = styled.View`
   flex: 1;
 `
 
