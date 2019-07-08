@@ -5,7 +5,7 @@ import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled, { type StyledComponent } from 'styled-components/native'
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, InteractionManager, ScrollView, View } from 'react-native'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
@@ -66,10 +66,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   onItemPress = (category: { path: string }) => {
-    const {cityCode, language, navigateToCategory, closeModal} = this.props
+    const {cityCode, language, navigateToCategory} = this.props
 
     navigateToCategory({cityCode, language, path: category.path})
-    InteractionManager.runAfterInteractions(() => closeModal())
   }
 
   onSearchChanged = (query: string) => {
