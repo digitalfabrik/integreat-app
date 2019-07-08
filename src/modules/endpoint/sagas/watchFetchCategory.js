@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest, fork, cancel } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -47,6 +47,12 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
   }
 }
 
+function * cancelSaga (saga: Saga): Saga<void> {
+  console.log('cancel')
+  yield cancel(saga)
+}
+
 export default function * (dataContainer: DataContainer): Saga<void> {
-  yield takeLatest(`FETCH_CATEGORY`, fetchCategory, dataContainer)
+  const fetchCategorySaga = yield takeLatest(`FETCH_CATEGORY`, fetchCategory, dataContainer)
+  yield fork(takeLatest, `SWITCH_CONTENT_LANGUAGE`, cancelSaga, fetchCategorySaga)
 }

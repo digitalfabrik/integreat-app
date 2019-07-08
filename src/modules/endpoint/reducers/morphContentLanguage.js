@@ -87,6 +87,10 @@ const morphContentLanguage = (
   const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
   const {categoriesRouteMapping, eventsRouteMapping} = state
 
+  if (!newCategoriesMap || !newEvents) {
+    return state
+  }
+
   const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,
     categoryRouteTranslator(newCategoriesMap, newLanguage)
