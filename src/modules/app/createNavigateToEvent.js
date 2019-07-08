@@ -30,7 +30,7 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
       language,
       path,
       key,
-      criterion: {forceUpdate, shouldRefreshResources: false, peek, contentType: 'all'}
+      criterion: {forceUpdate, shouldRefreshResources: false, peek}
     }
   }
 

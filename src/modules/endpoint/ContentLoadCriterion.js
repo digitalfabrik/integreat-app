@@ -5,10 +5,7 @@ import Moment from 'moment'
 
 const MAX_CONTENT_AGE = 24
 
-type ContentType = 'all' | 'events' | 'categories'
-
 export type ContentLoadCriterionType = {|
-  contentType?: ContentType,
   peek?: boolean,
   forceUpdate: boolean,
   shouldRefreshResources: boolean
@@ -17,11 +14,9 @@ export type ContentLoadCriterionType = {|
 export class ContentLoadCriterion {
   _forceUpdate: boolean
   _shouldRefreshResources: boolean
-  _contentType: ContentType
   _peek: boolean
 
-  constructor ({contentType = 'all', peek = false, forceUpdate, shouldRefreshResources}: ContentLoadCriterionType) {
-    this._contentType = contentType
+  constructor ({peek = false, forceUpdate, shouldRefreshResources}: ContentLoadCriterionType) {
     this._peek = peek
     this._forceUpdate = forceUpdate
     this._shouldRefreshResources = shouldRefreshResources
