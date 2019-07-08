@@ -45,7 +45,7 @@ type StateType = {|
 class FeedbackModal extends React.Component<PropsType, StateType> {
   state = {comment: '', feedbackItem: null}
 
-  onFeedbackVariantChanged = (itemValue: string) => this.setState({feedbackItem: itemValue})
+  onFeedbackVariantChanged = (itemValue: string | number) => this.setState({feedbackItem: itemValue.toString()})
 
   onFeedbackCommentChanged = (comment: string) => this.setState({comment})
 
@@ -71,7 +71,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
                 titleStyle={{color: theme.colors.textColor}}
                 buttonStyle={{backgroundColor: theme.colors.themeColor}}
-                onClick={this.onSubmit} title={t('send')} />
+                onPress={this.onSubmit} title={t('send')} />
       </Wrapper>
     </ScrollView>
   }

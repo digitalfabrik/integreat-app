@@ -12,7 +12,7 @@ The following steps are needed to release the app:
 
 ### Android
 
-* Build release APK
+* Build release APK using the commands used in the [Jenksinsfile](../Jenkinsfile)
 * Upload APK in Developer Console
 
 ### iOS
