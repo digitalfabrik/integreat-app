@@ -13,7 +13,7 @@ import {
   createLanguagesEndpoint,
   Payload
 } from '@integreat-app/integreat-api-client'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 export type CategoriesRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
@@ -31,10 +31,10 @@ const categoriesRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createCategoriesEndpoint(integreatApiBaseUrl), dispatch, state.categories, {city, language})
+      fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createCategoriesEndpoint(cmsApiBaseUrl), dispatch, state.categories, {city, language})
     ])
   }
 }

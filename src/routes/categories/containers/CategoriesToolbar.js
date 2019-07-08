@@ -10,7 +10,7 @@ import ToolbarItem from '../../../modules/layout/components/ToolbarItem'
 import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 import type { FeedbackRatingType } from '../../../modules/layout/containers/LocationLayout'
-import { integreatApiBaseUrl } from '../../../modules/app/constants/urls'
+import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
 
 type PropsType = {|
   categories: ?CategoriesMapModel,
@@ -24,9 +24,9 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     const {city, language} = this.props.location.payload
 
     if (category.id === 0) {
-      return `${integreatApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
+      return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
     } else {
-      return `${integreatApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
+      return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
     }
   }
 

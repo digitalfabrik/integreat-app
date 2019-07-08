@@ -12,7 +12,7 @@ import {
   PageModel,
   Payload
 } from '@integreat-app/integreat-api-client'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 type DisclaimerRouteParamsType = {|city: string, language: string|}
 type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
@@ -30,10 +30,10 @@ const disclaimerRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createDisclaimerEndpoint(integreatApiBaseUrl), dispatch, state.disclaimer, {city, language})
+      fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createDisclaimerEndpoint(cmsApiBaseUrl), dispatch, state.disclaimer, {city, language})
     ])
   }
 }

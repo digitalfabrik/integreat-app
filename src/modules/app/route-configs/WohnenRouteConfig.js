@@ -15,7 +15,7 @@ import {
   Payload,
   WohnenOfferModel
 } from '@integreat-app/integreat-api-client'
-import { integreatApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl, wohnenApiBaseUrl } from '../constants/urls'
 
 type RouteParamsType = {|city: string, language: string, offerHash?: string|}
 type RequiredPayloadsType = {|offers: Payload<Array<WohnenOfferModel>>, extras: Payload<Array<ExtraModel>>|}
@@ -29,7 +29,7 @@ export const hash = (offer: WohnenOfferModel) =>
 const fetchExtras = async (dispatch, getState) => {
   const state = getState()
   const {city, language} = state.location.payload
-  const extrasPayload = await fetchData(createExtrasEndpoint(integreatApiBaseUrl), dispatch, state.extras, {
+  const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
     city,
     language
   })
@@ -51,9 +51,9 @@ const wohnenRoute: Route = {
     const {city, language} = state.location.payload
 
     await Promise.all([
-      fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(integreatApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(integreatApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
       fetchExtras(dispatch, getState)
     ])
   }

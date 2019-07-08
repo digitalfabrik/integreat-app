@@ -5,7 +5,7 @@ import { RouteConfig } from './RouteConfig'
 import { CityModel, createCitiesEndpoint, Payload } from '@integreat-app/integreat-api-client'
 import type { Route } from 'redux-first-router'
 import fetchData from '../fetchData'
-import { integreatApiBaseUrl } from '../constants/urls'
+import { cmsApiBaseUrl } from '../constants/urls'
 
 type LandingRouteParamsType = {|language: string|}
 type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
@@ -19,7 +19,7 @@ export const LANDING_ROUTE = 'LANDING'
 const landingRoute: Route = {
   path: '/landing/:language',
   thunk: async (dispatch, getState) => {
-    await fetchData(createCitiesEndpoint(integreatApiBaseUrl), dispatch, getState().cities)
+    await fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, getState().cities)
   }
 }
 
