@@ -20,10 +20,7 @@
 .*/node_modules/metro/.*
 
 [untyped]
-.*/node_modules/react-native/Libraries/Inspector/Inspector.js
 .*/node_modules/react-native-share/.*
-
-.*/node_modules/react-native-permissions/index.js
 
 [include]
 
