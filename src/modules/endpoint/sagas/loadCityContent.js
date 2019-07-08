@@ -7,12 +7,13 @@ import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
-import type { InitializeCityContentActionType } from '../../app/StoreActionType'
+import type { FetchCitiesActionType, InitializeCityContentActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
+import AppSettings from '../../settings/AppSettings'
 
 /**
  *
@@ -26,8 +27,14 @@ import DatabaseContext from '../DatabaseContext'
 export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
-): Saga<boolean> {
+): Saga<void> {
+  const appSettings = new AppSettings()
+  yield call(appSettings.setSelectedCity, newCity)
+
   const context = new DatabaseContext(newCity, newLanguage)
+
+  const fetchCities: FetchCitiesActionType = { type: 'FETCH_CITIES' }
+  yield put(fetchCities)
 
   let lastUpdate: moment | null = null
   if (dataContainer.lastUpdateAvailable(context)) {
