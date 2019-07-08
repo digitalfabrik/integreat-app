@@ -16,12 +16,14 @@ export const CATEGORIES_FEEDBACK_TYPE = 'categories'
 export const EVENTS_FEEDBACK_TYPE = 'events'
 export const EXTRAS_FEEDBACK_TYPE = 'extras'
 
+export type FeedbackType = null | 'extra' | 'search' | 'categories' | 'events' | 'extras'
+
 export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
 export type ParamsType = {
-  feedbackType: ?string,
-  id?: number,
+  feedbackType: FeedbackType,
+  permalink?: string,
   city: string,
   language: string,
   comment: string | null,
@@ -38,8 +40,8 @@ export default (baseUrl: string): Endpoint<ParamsType, {}> => new EndpointBuilde
   .withParamsToBodyMapper((params: ParamsType): FormData => {
     const formData = new FormData()
     formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
-    if (params.id) {
-      formData.append('id', `${params.id}`)
+    if (params.permalink) {
+      formData.append('permalink', `${params.permalink}`)
     }
     if (params.comment) {
       formData.append('comment', params.comment)

@@ -21,7 +21,7 @@ describe('feedback', () => {
   it('should map the params to the body', () => {
     const formData = new FormData()
     formData.append('rating', 'up')
-    formData.append('id', '1234')
+    formData.append('permalink', 'test-page')
     formData.append('comment', 'comment')
     formData.append('query', 'query')
     formData.append('alias', 'alias')
@@ -36,7 +36,7 @@ describe('feedback', () => {
     expect(feedback.mapParamsToBody({
       city: 'augsburg',
       language: 'de',
-      id: 1234,
+      permalink: 'test-page',
       isPositiveRating: true,
       feedbackType: 'categories',
       comment: 'comment',
