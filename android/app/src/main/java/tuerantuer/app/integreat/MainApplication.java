@@ -29,10 +29,6 @@ public class MainApplication extends Application implements ShareApplication, Re
             return BuildConfig.DEBUG;
         }
 
-        public String getFileProviderAuthority() {
-            return BuildConfig.APPLICATION_ID + ".provider";
-        }
-
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
@@ -54,6 +50,10 @@ public class MainApplication extends Application implements ShareApplication, Re
             return "index";
         }
     };
+
+    public String getFileProviderAuthority() {
+        return BuildConfig.APPLICATION_ID + ".provider";
+    }
 
     @Override
     public ReactNativeHost getReactNativeHost() {
