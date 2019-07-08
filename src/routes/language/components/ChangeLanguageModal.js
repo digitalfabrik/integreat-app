@@ -21,24 +21,25 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
 
 type PropsType = {
   theme: ThemeType,
-  city?: string,
-  currentLanguage?: string,
-  languages?: Array<LanguageModel>,
-  availableLanguages?: Array<string>,
+  city: ?string,
+  currentLanguage: ?string,
+  languages: ?Array<LanguageModel>,
+  availableLanguages: ?Array<string>,
   changeLanguage: (city: string, newLanguage: string) => void,
-  closeModal: () => void,
   navigation: NavigationScreenProp<*>
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel, city: string) => {
-    const { closeModal, changeLanguage } = this.props
+    const { changeLanguage } = this.props
 
-    closeModal()
+    this.closeModal()
     InteractionManager.runAfterInteractions(() => {
       changeLanguage(city, model.code)
     })
   }
+
+  closeModal = () => { this.props.navigation.goBack() }
 
   render () {
     const {theme, languages, availableLanguages, currentLanguage, city} = this.props

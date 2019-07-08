@@ -13,19 +13,27 @@ import { availableLanguagesSelector } from '../../../modules/common/selectors/av
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
-type PropsType = {|
-  city?: string,
-  currentLanguage?: string,
-  languages?: Array<LanguageModel>,
-  availableLanguages?: Array<string>,
-  changeLanguage: (city: string, newLanguage: string) => void,
-  closeModal: () => void,
-  navigation: NavigationScreenProp<*>
+type StatePropsType = {|
+  city: ?string,
+  currentLanguage: ?string,
+  languages: ?Array<LanguageModel>,
+  availableLanguages: ?Array<string>
 |}
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+type DispatchPropsType = {|
+  changeLanguage: (city: string, newLanguage: string) => void
+|}
+
+type PropsType = {...OwnPropsType, ...StatePropsType, ...DispatchPropsType}
+
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   if (!state.cityContent) {
-    return {}
+    return {
+      city: null,
+      currentLanguage: null,
+      languages: null,
+      availableLanguages: null
+    }
   }
 
   const cityContent = state.cityContent
@@ -40,13 +48,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     city,
     currentLanguage,
     languages,
-    availableLanguages,
-    closeModal: () => { ownProps.navigation.goBack() }
+    availableLanguages
   }
 }
 
 type DispatchType = Dispatch<SwitchContentLanguageActionType>
-const mapDispatchToProps = (dispatch: DispatchType) => {
+const mapDispatchToProps = (dispatch: DispatchType): DispatchPropsType => {
   return {
     changeLanguage: (city: string, newLanguage: string) => {
       dispatch({
