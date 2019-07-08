@@ -33,7 +33,7 @@ export default (
       path,
       depth: 2,
       key,
-      criterion: {forceUpdate, shouldRefreshResources: false, peek, contentType: 'all'}
+      criterion: {forceUpdate, shouldRefreshResources: false, peek}
     }
   }
 
