@@ -7,13 +7,13 @@ import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import CategoriesMapModel from '@integreat-app/integreat-api-client/models/CategoriesMapModel'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLanguage: string) =>
+const categoryRouteTranslator = (newCategoriesMap: ?CategoriesMapModel, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
     const {depth, root, allAvailableLanguages} = route
 
     const translatedRoot = allAvailableLanguages.get(newLanguage)
 
-    if (!translatedRoot) { // Route is not translatable
+    if (!newCategoriesMap || !translatedRoot) { // Route is not translatable
       return route
     }
 
@@ -27,6 +27,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
     const resultModels = {}
     const resultChildren = {}
 
+    // $FlowFixMe flow is fucking stupid here and complains that getChildren is missing in null or undefined
     forEachTreeNode(rootModel, node => newCategoriesMap.getChildren(node), depth, (node, children) => {
       resultModels[node.path] = node
       if (children) {
@@ -44,9 +45,13 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
     }
   }
 
-const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
+const eventRouteTranslator = (newEvents: ?Array<EventModel>, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
     const {path, allAvailableLanguages} = route
+
+    if (!newEvents) {
+      return route
+    }
 
     if (!path) { // Route is a list of all events
       return {
@@ -86,10 +91,6 @@ const morphContentLanguage = (
 ): CityContentStateType => {
   const {newCategoriesMap, newResourceCache, newEvents, newLanguage} = action.params
   const {categoriesRouteMapping, eventsRouteMapping} = state
-
-  if (!newCategoriesMap || !newEvents) {
-    return state
-  }
 
   const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
     categoriesRouteMapping,
