@@ -15,7 +15,8 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
     const newLanguage = pathnameParts[1]
     const pathname = pathnameParts.reduce((acc, part) => `${acc}/${part}`, '')
 
-    const peek = newCity !== cityCode // TODO: Do not need to pass cityCode if cities are the same
+    const peek = newCity !== cityCode /* If switching the city we want to peek. If we are in the same city we should
+                                         not peek */
 
     if (pathnameParts[2] === 'events') {
       if (pathnameParts[3]) {
