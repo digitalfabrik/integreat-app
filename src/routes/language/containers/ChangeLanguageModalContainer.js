@@ -14,10 +14,10 @@ import { availableLanguagesSelector } from '../../../modules/common/selectors/av
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
 type PropsType = {|
-  city: string,
-  currentLanguage: string,
-  languages: Array<LanguageModel>,
-  availableLanguages: Array<string>,
+  city?: string,
+  currentLanguage?: string,
+  languages?: Array<LanguageModel>,
+  availableLanguages?: Array<string>,
   changeLanguage: (city: string, newLanguage: string) => void,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>
@@ -25,7 +25,7 @@ type PropsType = {|
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   if (!state.cityContent) {
-    throw new Error('CityContent must not be null!')
+    return {}
   }
 
   const cityContent = state.cityContent
