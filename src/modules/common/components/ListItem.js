@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { FastImageSource } from 'react-native-fast-image'
 import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
@@ -12,7 +12,7 @@ const ListItemView = styled.View`
   padding: 15px 5px 0;
 `
 
-const StyledTouchableOpacity = styled.TouchableOpacity`
+const StyledTouchableOpacity: StyledComponent<{}, ThemeType, *> = styled.TouchableOpacity`
   flex: 1;
   flex-direction: column;
   padding-bottom: 10px;

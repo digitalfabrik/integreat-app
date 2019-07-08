@@ -4,11 +4,11 @@ import React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type Moment from 'moment'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { MomentFormatterType } from '../../i18n/context/MomentContext'
 
-const TimeStampText = styled.Text`
+const TimeStampText: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.contentFontRegular};
 `

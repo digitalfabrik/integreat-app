@@ -2,37 +2,37 @@
 
 import * as React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import happyIcon from './assets/smile-happy.svg'
 import sadIcon from './assets/smile-sad.svg'
 import FastImage from 'react-native-fast-image'
 
-const FeedbackBox = styled.View`
+const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
   margin-top: 25px;
   padding: 15px 5px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
 `
 
-const FeedbackButtons = styled.View`
+const FeedbackButtons: StyledComponent<{}, {}, *> = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   margin-top: 10px;
 `
 
-const HelpfulText = styled.Text`
+const HelpfulText: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   align-self: center;
 `
 
-const FeedbackTouchableOpacity = styled(TouchableOpacity)`
+const FeedbackTouchableOpacity: StyledComponent<{}, {}, *> = styled(TouchableOpacity)`
   align-items: center;
 `
 
-const FeedbackText = styled(Text)`
+const FeedbackText: StyledComponent<{}, ThemeType, *> = styled(Text)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
   font-size: 12;
@@ -41,7 +41,7 @@ const FeedbackText = styled(Text)`
 
 const ICON_SIZE = 50
 
-const Circle = styled(View)`
+const Circle: StyledComponent<{}, ThemeType, *> = styled(View)`
   margin-top: 9px;
   margin-bottom: 5px;
   border-radius: ${ICON_SIZE}px;
