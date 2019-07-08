@@ -17,28 +17,11 @@
 .*/Libraries/polyfills/.*
 
 ; Ignore metro
-.*/node_modules/metro/.*;
+.*/node_modules/metro/.*
 
 [untyped]
-.*/node_modules/react-native/Libraries/StyleSheet/StyleSheetValidation.js
-.*/node_modules/react-native/Libraries/Text/TextAncestor.js
-.*/node_modules/react-native/Libraries/Text/Text.js
-.*/node_modules/react-native/Libraries/StyleSheet/processTransform.js
-.*/node_modules/react-native/Libraries/LayoutAnimation/LayoutAnimation.js
-.*/node_modules/react-native/Libraries/Components/View/ViewPropTypes.js
-.*/node_modules/react-native/Libraries/Components/TextInput/InputAccessoryView.js
-.*/node_modules/react-native/Libraries/Components/Navigation/NavigatorIOS.ios.js
-.*/node_modules/react-native/Libraries/YellowBox/UI/YellowBoxList.js
-.*/node_modules/react-native/Libraries/YellowBox/UI/YellowBoxInspectorFooter.js
-.*/node_modules/react-native/Libraries/Lists/VirtualizedSectionList.js
-.*/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
-.*/node_modules/react-native/Libraries/Components/Slider/Slider.js
-.*/node_modules/react-native/Libraries/Components/Touchable/TouchableHighlight.js
-.*/node_modules/react-native/Libraries/Components/Touchable/TouchableWithoutFeedback.js
-.*/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js
-.*/node_modules/react-native/Libraries/Image/Image.ios.js
+.*/node_modules/react-native/Libraries/Inspector/Inspector.js
 .*/node_modules/react-native-share/.*
-
 
 .*/node_modules/react-native-permissions/index.js
 
@@ -47,13 +30,12 @@
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
 node_modules/react-native/flow/
-node_modules/react-native/flow-github/
 
 [options]
-module.system.node.resolve_dirname=node_modules
-# See for information about the "./" https://github.com/facebook/flow/issues/5180
-module.system.node.resolve_dirname=./src
 emoji=true
+
+esproposal.optional_chaining=enable
+esproposal.nullish_coalescing=enable
 
 module.system=haste
 module.system.haste.use_name_reducers=true
@@ -89,7 +71,5 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
-esproposal.optional_chaining=enable
-
 [version]
-^0.91.0
+^0.92.0

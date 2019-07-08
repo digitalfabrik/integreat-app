@@ -10,6 +10,7 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
+import { type TFunction } from 'react-i18next'
 
 export type PropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -20,7 +21,8 @@ export type PropsType = {|
   resourceCache?: LanguageResourceCacheStateType,
   navigateToCategory: NavigateToCategoryParamsType => void,
   navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  theme: ThemeType
+  theme: ThemeType,
+  t: TFunction
 |}
 
 class CategoriesScrollView extends React.Component<PropsType> {
@@ -36,14 +38,15 @@ class CategoriesScrollView extends React.Component<PropsType> {
   render () {
     const {
       cities, stateView, resourceCache, navigateToIntegreatUrl, language, cityCode, theme, navigateToCategory,
-      navigation
+      navigation, t
     } = this.props
 
     if (!cities || !stateView || !resourceCache || !language || !cityCode) {
       return <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing />} />
     } else {
       return (
-        <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}>
+        <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
+                    contentContainerStyle={{flexGrow: 1}}>
           <Categories stateView={stateView}
                       cities={cities}
                       resourceCache={resourceCache}
@@ -52,7 +55,8 @@ class CategoriesScrollView extends React.Component<PropsType> {
                       navigation={navigation}
                       theme={theme}
                       navigateToCategory={navigateToCategory}
-                      navigateToIntegreatUrl={navigateToIntegreatUrl} />
+                      navigateToIntegreatUrl={navigateToIntegreatUrl}
+                      t={t} />
         </ScrollView>
       )
     }

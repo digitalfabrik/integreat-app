@@ -2,16 +2,16 @@
 
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
-const StyledView = styled.View`
+const StyledView: StyledComponent<{}, ThemeType, *> = styled.View`
   margin: 0 10px 0;
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
 `
 
-const NoItemsMessage = styled.Text`
+const NoItemsMessage: StyledComponent<{}, ThemeType, *> = styled.Text`
   padding-top: 25px;
   text-align: center;
 `
@@ -31,8 +31,8 @@ class List<T> extends React.PureComponent<PropsType<T>> {
     }
 
     return <StyledView theme={theme}>
-        {items.map(item => renderItem(item))}
-      </StyledView>
+      {items.map(item => renderItem(item))}
+    </StyledView>
   }
 }
 

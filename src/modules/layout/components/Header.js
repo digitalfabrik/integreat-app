@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Platform, Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
@@ -31,7 +31,7 @@ const Logo = styled.Image`
   resize-mode: contain;
 `
 
-const BoxShadow = styled.View`
+const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   elevation: 1;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
@@ -57,7 +57,6 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  availableLanguages: ?Array<string>,
   navigateToLanding: () => void,
   routeKey: string
 |}
@@ -92,13 +91,9 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToLanguageChange = () => {
-    const { navigation, routeKey, availableLanguages } = this.props
+    const { navigation, routeKey } = this.props
     navigation.navigate({
-      routeName: 'ChangeLanguageModal',
-      params: {
-        availableLanguages: availableLanguages,
-        routeKey: routeKey
-      }
+      routeName: 'ChangeLanguageModal', params: { routeKey }
     })
   }
 

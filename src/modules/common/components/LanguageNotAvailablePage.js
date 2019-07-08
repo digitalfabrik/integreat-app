@@ -1,16 +1,16 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { LanguageModel } from '@integreat-app/integreat-api-client'
 import Selector from './Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
-import { Text } from 'react-native-elements/src/index'
+import { Text } from 'react-native'
 import Caption from './Caption'
 import { type TFunction } from 'react-i18next'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -23,14 +23,16 @@ const Wrapper = styled.View`
 type PropsType = {
   theme: ThemeType,
   city: string,
+  currentLanguage: string,
   languages: Array<LanguageModel>,
-  changeLanguage: (city: string, language: string) => void,
+  changeLanguage: (city: string, newLanguage: string) => void,
   t: TFunction
 }
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    this.props.changeLanguage(this.props.city, model.code)
+    const { changeLanguage, city } = this.props
+    changeLanguage(city, model.code)
   }
 
   render () {

@@ -9,20 +9,23 @@ import localesResources from '../../../locales.json'
 import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import type { UiDirectionType } from '../actions/setUIDirection'
+import AppSettings from '../../settings/AppSettings'
 
 const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
-const DEFAULT_LANGUAGE = 'en'
+export const DEFAULT_LANGUAGE = 'en'
 
 type PropsType = {|
   children?: React.Node,
-  setUiDirection: (direction: UiDirectionType) => void
+  setUiDirection: (direction: UiDirectionType) => void,
+  setContentLanguage: (language: string) => void
 |}
 
 type StateType = {| language: string |}
 
 class I18nProvider extends React.Component<PropsType, StateType> {
   i18n: i18n
+  appSettings: AppSettings
 
   constructor () {
     super()
@@ -39,6 +42,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
         debug: __DEV__
       })
 
+    this.appSettings = new AppSettings()
     this.state = {language: DEFAULT_LANGUAGE}
   }
 
@@ -75,11 +79,18 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     }
   }
 
-  initLanguage () {
-    const targetLanguage = this.getI18nextLanguage()
+  async initLanguage () {
+    const { setUiDirection, setContentLanguage } = this.props
+    const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
+    const uiLanguage = this.getI18nextLanguage()
 
-    this.setState({language: targetLanguage})
-    this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
+    if (!contentLanguage) {
+      await this.appSettings.setContentLanguage(uiLanguage)
+      setContentLanguage(uiLanguage)
+    }
+
+    this.setState({ language: uiLanguage })
+    setUiDirection(RTL_LANGUAGES.includes(uiLanguage) ? 'rtl' : 'ltr')
   }
 
   componentDidMount () {
