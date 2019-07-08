@@ -7,10 +7,11 @@ import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment-timezone'
-import type { InitializeCityContentActionType } from '../../app/StoreActionType'
+import type { FetchCitiesActionType, InitializeCityContentActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
+import AppSettings from '../../settings/AppSettings'
 
 const MAX_CONTENT_AGE = 24
 
@@ -18,7 +19,13 @@ export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   forceUpdate: boolean, shouldRefreshResources: boolean
 ): Saga<void> {
+  const appSettings = new AppSettings()
+  yield call(appSettings.setSelectedCity, newCity)
+
   yield call(dataContainer.setContext, newCity, newLanguage)
+
+  const fetchCities: FetchCitiesActionType = { type: 'FETCH_CITIES' }
+  yield put(fetchCities)
 
   let lastUpdate: moment | null = null
   if (dataContainer.lastUpdateAvailable()) {
