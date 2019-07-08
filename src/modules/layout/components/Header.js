@@ -99,7 +99,7 @@ class Header extends React.PureComponent<PropsType> {
     })
   }
 
-  showLanguageChange (): boolean {
+  isPeeking (): boolean {
     const {routeKey, routeMapping} = this.props
     const route = routeMapping[routeKey]
 
@@ -108,10 +108,6 @@ class Header extends React.PureComponent<PropsType> {
     }
 
     return !route.peek
-  }
-
-  showSearch (): boolean {
-    return this.showLanguageChange()
   }
 
   onShare = async () => {
@@ -153,9 +149,9 @@ class Header extends React.PureComponent<PropsType> {
           <Logo source={logo} />
         </HorizontalLeft>
         <MaterialHeaderButtons>
-          {this.showSearch() &&
+          {this.isPeeking() &&
           <Item title='Search' iconName='search' onPress={this.goToSearch} />}
-          {this.showLanguageChange() &&
+          {this.isPeeking() &&
           <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />}
           {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
           <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
