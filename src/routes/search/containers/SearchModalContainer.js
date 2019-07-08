@@ -26,7 +26,6 @@ export type PropsType = {|
 |}
 
 const feedbackEndpoint = createFeedbackEndpoint(baseUrl)
-console.log(feedbackEndpoint.stateName)
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   if (!state.cityContent) {
