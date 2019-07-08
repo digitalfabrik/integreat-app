@@ -6,7 +6,7 @@ import styled, { type StyledComponent } from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
-import Thumbnail from './Thumbnail'
+import Image from './Image'
 
 type PropsType = {
   tile: TileModel,
@@ -14,7 +14,7 @@ type PropsType = {
   theme: ThemeType
 }
 
-const ThumbnailContainer = styled(Thumbnail)`
+const ThumbnailContainer = styled(Image)`
   height: 150px;
 `
 
@@ -44,7 +44,7 @@ class Tile extends React.Component<PropsType> {
     return (
       <TileContainer>
         <TouchableOpacity onPress={this.onTilePress}>
-          <ThumbnailContainer uri={tile.thumbnail} />
+          <ThumbnailContainer source={tile.thumbnail} />
           <TileTitle theme={theme}>{tile.title}</TileTitle>
         </TouchableOpacity>
       </TileContainer>

@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
-import Thumbnail from './Thumbnail'
+import Image from './Image'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
@@ -26,7 +26,7 @@ const Circle = styled(View)`
   justify-content: center;
 `
 
-const ThumbnailContainer = styled(Thumbnail)`
+const ThumbnailContainer = styled(Image)`
   height: ${ICON_SIZE / Math.sqrt(2)};
   width: ${ICON_SIZE / Math.sqrt(2)};
 `
@@ -79,7 +79,7 @@ class NavigationTile extends React.Component<PropsType> {
     const {tile, theme} = this.props
     return <>
       <Circle theme={theme}>
-        <ThumbnailContainer uri={tile.thumbnail} />
+        <ThumbnailContainer source={tile.thumbnail} />
         {this.getNewsDot()}
       </Circle>
       <TileTitle theme={theme}>{tile.title}</TileTitle>
