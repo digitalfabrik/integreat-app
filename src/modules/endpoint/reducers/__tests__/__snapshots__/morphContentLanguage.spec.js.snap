@@ -198,7 +198,6 @@ Object {
       "path": "/augsburg/en/events/third_event",
     },
   },
-  "language": "en",
   "languages": Array [
     LanguageModel {
       "_code": "de",
@@ -209,7 +208,6 @@ Object {
       "_name": "English",
     },
   ],
-  "lastUpdate": "2017-11-18T09:30:00.000Z",
   "resourceCache": Object {},
   "searchRoute": Object {
     "categoriesMap": CategoriesMapModel {

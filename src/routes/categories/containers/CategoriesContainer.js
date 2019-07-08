@@ -41,26 +41,29 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  if (!state.cityContent) {
+    return { languageNotAvailable: false, error: false }
+  }
   const {resourceCache, categoriesRouteMapping, city} = state.cityContent
 
   if (state.cities.errorMessage !== undefined ||
     categoriesRouteMapping.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {
-    return {error: true, languageNotAvailable: false}
+    return { error: true, languageNotAvailable: false }
   }
 
   const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route || !cities || !city) {
-    return {languageNotAvailable: false, error: false}
+  if (!route || !cities) {
+    return { languageNotAvailable: false, error: false }
   }
 
   const languages = Array.from(route.allAvailableLanguages.keys())
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   if (!languages.includes(route.language)) {
-    return {languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false}
+    return { languageNotAvailable: true, availableLanguages: languages, currentCityCode: city, error: false }
   }
 
   return {

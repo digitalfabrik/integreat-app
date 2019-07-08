@@ -59,7 +59,7 @@ class Extras extends React.Component<PropsType> {
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const {navigation, extras, t, cities, cityCode, language} = this.props
+    const { navigation, extras, t, cities, cityCode , language} = this.props
     if (!cityCode || !language) {
       throw Error('language or cityCode not available')
     }
@@ -68,18 +68,18 @@ class Extras extends React.Component<PropsType> {
     const cityTitle = CityModel.findCityName(cities, cityCode)
 
     const feedbackItems = [
-      createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), EXTRAS_FEEDBACK_TYPE),
-      ...extras.map(extra => createFeedbackVariant(t('feedback:extra', {extra: extra.title}), EXTRA_FEEDBACK_TYPE, extra.alias)),
+      createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), EXTRAS_FEEDBACK_TYPE),
+      ...extras.map(extra => createFeedbackVariant(t('feedback:extra', { extra: extra.title }), EXTRA_FEEDBACK_TYPE, extra.alias)),
       createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
     ]
 
-    navigation.navigate('FeedbackModal', {isPositiveFeedback, feedbackItems})
+    navigation.navigate('FeedbackModal', { isPositiveFeedback, feedbackItems })
   }
 
   render () {
-    const {extras, t, theme} = this.props
+    const { extras, t, theme } = this.props
     return (
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SpaceBetween>
           <View>
             <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />

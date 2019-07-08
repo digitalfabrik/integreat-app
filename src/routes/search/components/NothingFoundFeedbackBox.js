@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 
 const Input = styled(TextInput)`
   margin-bottom: 15px;
@@ -14,7 +14,7 @@ const Input = styled(TextInput)`
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const DescriptionText = styled(Text)`
+const DescriptionText: StyledComponent<{}, ThemeType, *> = styled(Text)`
   margin-top: 20px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};

@@ -3,14 +3,26 @@
 import type { Saga } from 'redux-saga'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type {
-  MorphContentLanguageActionType, SwitchContentLanguageActionType, SwitchContentLanguageFailedActionType
+  MorphContentLanguageActionType,
+  SetContentLanguageActionType,
+  SwitchContentLanguageActionType,
+  SwitchContentLanguageFailedActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
+import AppSettings from '../../settings/AppSettings'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
   const {city, newLanguage} = action.params
   try {
+    const appSettings = new AppSettings()
+    yield call(appSettings.setContentLanguage, newLanguage)
+
+    const setContentLanguage: SetContentLanguageActionType = {
+      type: 'SET_CONTENT_LANGUAGE', params: { contentLanguage: newLanguage }
+    }
+    yield put(setContentLanguage)
+
     // We never want to force a refresh when switching languages
     yield call(loadCityContent, dataContainer, city, newLanguage, false, true)
 
@@ -26,7 +38,7 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
         newCategoriesMap: categories,
         newResourceCache: resourceCache,
         newEvents: events,
-        newLanguage: newLanguage
+        newLanguage
       }
     }
     yield put(insert)

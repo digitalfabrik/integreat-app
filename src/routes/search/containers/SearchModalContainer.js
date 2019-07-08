@@ -18,8 +18,8 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 export type PropsType = {|
   categories: CategoriesMapModel | null,
   navigateToCategory: NavigateToCategoryParamsType => void,
-  language: string | null,
-  cityCode: string | null,
+  language: string,
+  cityCode: string,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
   sendFeedback: (comment: string, query: string) => Promise<void>
@@ -29,10 +29,16 @@ const feedbackEndpoint = createFeedbackEndpoint(baseUrl)
 console.log(feedbackEndpoint.stateName)
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
+  if (!state.cityContent) {
+    throw new Error('CityContent must not be null!')
+  }
+
+  const { searchRoute, city } = state.cityContent
+
   return {
-    categories: state.cityContent.searchRoute.categoriesMap,
-    language: state.cityContent.language,
-    cityCode: state.cityContent.city,
+    categories: (searchRoute && searchRoute.categoriesMap) || null,
+    language: state.contentLanguage,
+    cityCode: city,
     closeModal: () => { ownProps.navigation.goBack() },
     sendFeedback: async (comment: string, query: string) => {
       await feedbackEndpoint.request({

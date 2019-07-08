@@ -1,4 +1,4 @@
-package com.integreat.fetcher;
+package tuerantuer.app.integreat.fetcher;
 
 import android.util.Log;
 
@@ -7,7 +7,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.integreat.BuildConfig;
+import tuerantuer.app.integreat.BuildConfig;
 
 import java.io.File;
 import java.text.DateFormat;

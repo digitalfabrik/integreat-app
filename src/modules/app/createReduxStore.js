@@ -4,7 +4,7 @@ import type { Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
 import { AsyncStorage } from 'react-native'
 
-import uiDirectionReducer from 'modules/i18n/reducers/uiDirectionReducer'
+import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import {
   checkInternetConnection,
@@ -19,7 +19,7 @@ import { all, call } from 'redux-saga/effects'
 import { persistCombineReducers, persistStore } from 'redux-persist'
 import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
-import { defaultCitiesState, defaultCityContentState } from './StateType'
+import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -30,12 +30,15 @@ import watchFetchCities from '../endpoint/sagas/watchFetchCities'
 import cityContentReducer from '../endpoint/reducers/cityContentReducer'
 import watchFetchEvent from '../endpoint/sagas/watchFetchEvent'
 import watchContentLanguageSwitch from '../endpoint/sagas/watchContentLanguageSwitch'
+import contentLanguageReducer from '../i18n/reducers/contentLanguageReducer'
+import watchClearCity from '../i18n/watchClearCity'
 
 function * rootSaga (dataContainer: DataContainer): Saga<void> {
   yield all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
     call(watchFetchCities, dataContainer),
+    call(watchClearCity),
     call(watchContentLanguageSwitch, dataContainer),
     call(networkSaga, {})
   ])
@@ -51,6 +54,7 @@ const createReduxStore = (
     darkMode: false,
 
     cities: defaultCitiesState,
+    contentLanguage: defaultContentLanguageState,
     cityContent: defaultCityContentState,
 
     network: {isConnected: false, actionQueue: []}
@@ -71,6 +75,7 @@ const createReduxStore = (
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,
+    contentLanguage: contentLanguageReducer,
     cityContent: cityContentReducer,
 
     network: reactNativeOfflineReducer

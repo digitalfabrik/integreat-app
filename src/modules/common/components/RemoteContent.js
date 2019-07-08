@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Text } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
@@ -12,7 +12,7 @@ import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 
 // see https://github.com/react-native-community/react-native-webview#common-issues
-const StyledView = styled.View`
+const StyledView: StyledComponent<{}, {}, *> = styled.View`
   overflow: hidden;
   flex: 1;
 `
