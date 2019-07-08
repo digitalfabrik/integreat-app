@@ -31,6 +31,7 @@ import SettingsContainer from '../../../routes/settings/container/SettingsContai
 import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
 import { generateKey } from '../generateRouteKey'
 import AppSettings from '../../settings/AppSettings'
+import type { Dispatch } from 'redux'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
@@ -93,7 +94,7 @@ type PropsType = {|
 
 class Navigator extends React.Component<PropsType> {
   appSettings: AppSettings
-  navigator: {current: null | React$ElementRef<NavigationContainer<NavigationState, {}, {}>>}
+  navigator: {current: null | { ...React$ElementRef<NavigationContainer<NavigationState, {}, {}>>, dispatch: Dispatch<*> }}
 
   constructor (props: PropsType) {
     super(props)
@@ -111,14 +112,14 @@ class Navigator extends React.Component<PropsType> {
 
     if (!contentLanguage) {
       throw new Error('ContentLanguage must be set!')
-    } else if (!this.navigator) {
+    }
+    if (!this.navigator.current) {
       throw new Error('Ref must not be null!')
     }
 
     if (selectedCity) {
       this.navigateToDashboard(selectedCity, contentLanguage)
     } else {
-      // $FlowFixMe dispatch is missing in tpe
       this.navigator.current.dispatch(NavigationActions.navigate({
         routeName: 'Landing'
       }))
@@ -140,9 +141,12 @@ class Navigator extends React.Component<PropsType> {
       newKey: key
     })
 
-    // $FlowFixMe dispatch is missing in type, https://github.com/react-navigation/react-navigation/issues/3842
+    if (!this.navigator.current) {
+      throw new Error('Ref must not be null!')
+    }
     this.navigator.current.dispatch(NavigationActions.navigate({
       routeName: 'App',
+      // $FlowFixMe For some reason action is not allowed to be a StackAction
       action: navigateToDashboard
     }))
 
