@@ -183,8 +183,8 @@ class DatabaseConnector {
     return languages.map(language => new LanguageModel(language._code, language._name))
   }
 
-  async storeLanguages (languages: Array<LanguageModel>, city: string) {
-    const path = this.getLanguagesPath(city)
+  async storeLanguages (languages: Array<LanguageModel>, context: DatabaseContext) {
+    const path = this.getLanguagesPath(context.cityCode)
     await this.writeFile(path, JSON.stringify(languages))
   }
 
