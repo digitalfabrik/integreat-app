@@ -33,7 +33,7 @@ type PropsType = {|
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
-const SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
+type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type StateType = {|
   comment: string,
@@ -72,7 +72,7 @@ class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
       </>
     } else if (sendingStatus === 'sending') {
       return <ActivityIndicator size='large' color='#0000ff' />
-    } else if (sendingStatus === 'successful') {
+    } else { // sendingStatus === 'successful'
       return <>
         <TitleText theme={theme}>{t('feedback:feedbackSent')}</TitleText>
         <DescriptionText theme={theme}>{t('feedback:thanksMessage')}</DescriptionText>
