@@ -29,7 +29,7 @@ export default class Cache<T> {
       const newValue: T | null = await this.load(this.databaseConnector, context)
 
       if (!newValue) {
-        throw new Error()
+        throw new Error('Data is not available in cache and on disk! Therefore getting data from the cache failed.')
       }
 
       this.value = newValue
