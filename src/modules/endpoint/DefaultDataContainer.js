@@ -9,31 +9,86 @@ import type Moment from 'moment'
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import RNFetchBlob from 'rn-fetch-blob'
 
+type LoadFunctionType<T> = (databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<T | null>
+
+class Cache<T> {
+  databaseConnector: DatabaseConnector
+  value: T | null
+  load: LoadFunctionType<T>
+
+  constructor (databaseConnector: DatabaseConnector, load: LoadFunctionType<T>) {
+    this.databaseConnector = databaseConnector
+    this.load = load
+  }
+
+  async get (context: DatabaseContext): Promise<T> {
+    const value = this.value
+    if (!value) {
+      const newValue: T | null = await this.load(this.databaseConnector, context)
+
+      if (!newValue) {
+        throw new Error()
+      }
+
+      this.value = newValue
+      return newValue
+    }
+
+    return value
+  }
+
+  isCached = (): boolean => {
+    return !!this.value
+  }
+
+  cache = (value: T) => {
+    this.value = value
+  }
+
+  evict = () => {
+    this.value = null
+  }
+}
+
+type CacheType = {
+  events: Cache<Array<EventModel>>,
+  categories: Cache<CategoriesMapModel>,
+  languages: Cache<Array<LanguageModel>>,
+  resourceCache: Cache<CityResourceCacheStateType>,
+  lastUpdate: Cache<Moment>
+}
+
+type CacheKeyType = $Keys<CacheType>
+
 class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
+  caches: CacheType
 
-  _currentContext: DatabaseContext | null
   _cities: Array<CityModel> | null
-
-  _lastUpdate: Moment | null
-  _categoriesMap: CategoriesMapModel | null
-  _languages: Array<LanguageModel> | null
-  _resourceCache: CityResourceCacheStateType | null
-  _events: Array<EventModel> | null
 
   constructor () {
     this._databaseConnector = new DatabaseConnector()
+
+    this.caches = {
+      'events': new Cache<Array<EventModel>>(this._databaseConnector,
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context)),
+      'categories': new Cache<CategoriesMapModel>(this._databaseConnector,
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context)),
+      'languages': new Cache<Array<LanguageModel>>(this._databaseConnector,
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context)),
+      'resourceCache': new Cache<CityResourceCacheStateType>(this._databaseConnector,
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context)),
+      'lastUpdate': new Cache<Moment>(this._databaseConnector,
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context))
+    }
   }
 
-  removeOutdated (newContext: DatabaseContext) {
-    if (this._currentContext && !newContext.equals(this._currentContext)) {
-      this._lastUpdate = null
-      this._categoriesMap = null
-      this._resourceCache = null
-      this._events = null
-    }
+  isCached (key: CacheKeyType): boolean {
+    return this.caches[key].isCached()
+  }
 
-    this._currentContext = newContext
+  evict (key: CacheKeyType) {
+    this.caches[key].evict()
   }
 
   getCities = async (): Promise<Array<CityModel>> => {
@@ -43,57 +98,40 @@ class DefaultDataContainer implements DataContainer {
     return this._cities
   }
 
-  getCategoriesMap = async (context: DatabaseContext): Promise<CategoriesMapModel> => {
-    this.removeOutdated(context)
-
-    if (this._categoriesMap === null) {
-      this._cities = await this._databaseConnector.loadCategories(context)
-    }
-    return this._categoriesMap
+  getCategoriesMap = (context: DatabaseContext): Promise<CategoriesMapModel> => {
+    const cache: Cache<Array<EventModel>> = this.caches['categories']
+    return cache.get(context)
   }
 
-  getEvents = async (context: DatabaseContext): Promise<Array<EventModel>> => {
-    this.removeOutdated(context)
-
-    if (this._events === null) {
-      this._events = await this._databaseConnector.loadCategories(context)
-    }
-    return this._events
+  getEvents = (context: DatabaseContext): Promise<Array<EventModel>> => {
+    const cache: Cache<Array<EventModel>> = this.caches['events']
+    return cache.get(context)
   }
 
   getLanguages = async (context: DatabaseContext): Promise<Array<LanguageModel>> => {
-    this.removeOutdated(context)
-
-    if (this._languages === null) {
-      this._languages = await this._databaseConnector.loadLanguages(context)
-    }
-    return this._languages
+    const cache: Cache<Array<LanguageModel>> = this.caches['languages']
+    return cache.get(context)
   }
 
   getResourceCache = async (context: DatabaseContext): Promise<LanguageResourceCacheStateType> => {
-    this.removeOutdated(context)
+    const cache: Cache<CityResourceCacheStateType> = this.caches['resourceCache']
+    const resourceCache = await cache.get(context)
 
-    if (this._resourceCache === null) {
-      this._resourceCache = await this._databaseConnector.loadResourceCache(context)
-    }
-    if (!this._resourceCache[context.languageCode]) {
+    if (!resourceCache[context.languageCode]) {
       throw Error('LanguageResourceCache is null.')
     }
-    return this._resourceCache[context.languageCode]
+
+    return resourceCache[context.languageCode]
   }
 
   getLastUpdate = async (context: DatabaseContext): Promise<Moment> => {
-    if (this._lastUpdate === null) {
-      this._lastUpdate = await this._databaseConnector.loadLastUpdate(context)
-    }
-    return this._lastUpdate
+    const cache: Cache<Moment> = this.caches['lastUpdate']
+    return cache.get(context)
   }
 
   setCategoriesMap = async (context: DatabaseContext, categories: CategoriesMapModel) => {
-    this.removeOutdated(context)
-
-    await this._databaseConnector.storeCategories(categories, context)
-    this._categoriesMap = categories
+    const cache: Cache<CategoriesMapModel> = this.caches['categories']
+    return cache.cache(categories)
   }
 
   setCities = async (cities: Array<CityModel>) => {
@@ -102,38 +140,37 @@ class DefaultDataContainer implements DataContainer {
   }
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
-    this.removeOutdated(context)
-
-    await this._databaseConnector.storeEvents(events, context)
-    this._events = events
+    const cache: Cache<Array<EventModel>> = this.caches['events']
+    return cache.cache(events)
   }
 
   setLanguages = async (city: string, languages: Array<LanguageModel>) => {
-    await this._databaseConnector.storeLanguages(languages, city)
-    this._languages = languages
+    const cache: Cache<Array<LanguageModel>> = this.caches['languages']
+    return cache.cache(languages)
   }
 
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     return flatMap(
       Object.values(languageResourceCache),
-      (file: FileCacheStateType): Array<string> => map(file, ({filePath}) => filePath)
+      (file: FileCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
 
   setResourceCache = async (context: DatabaseContext, resourceCache: LanguageResourceCacheStateType) => {
-    this.removeOutdated(context)
-
     const language = context.languageCode
-    const newResourceCache = {...this._resourceCache, [language]: resourceCache}
+    const cache: Cache<CityResourceCacheStateType> = this.caches['resourceCache']
+    const previousResourceCache = await cache.get(context)
 
-    if (this._resourceCache && this._resourceCache[language]) {
+    const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
+
+    if (resourceCache[language]) {
       // Cleanup old resources
-      const oldPaths = this.getFilePathsFromLanguageResourceCache(this._resourceCache[language])
+      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
       if (!isEmpty(removedPaths)) {
         const pathsOfOtherLanguages = flatMap(
-          omitBy(this._resourceCache, (val, key: string) => key === language),
+          omitBy(previousResourceCache, (val, key: string) => key === language),
           (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
@@ -143,43 +180,32 @@ class DefaultDataContainer implements DataContainer {
       }
     }
 
-    await this._databaseConnector.storeResourceCache(newResourceCache, context)
-    this._resourceCache = newResourceCache
+    cache.cache(newResourceCache)
   }
 
   setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment) => {
-    this.removeOutdated(context)
-
-    await this._databaseConnector.storeLastUpdate(lastUpdate, context)
-    this._lastUpdate = lastUpdate
+    const cache: Cache<Moment> = this.caches['lastUpdate']
+    cache.cache(lastUpdate)
   }
 
   categoriesAvailable (context: DatabaseContext): boolean {
-    this.removeOutdated(context)
-
-    return this._categoriesMap !== null
+    return this.isCached('categories')
   }
 
   languagesAvailable (city: string): boolean {
-    return this._languages !== null
+    return this.isCached('languages')
   }
 
   eventsAvailable (context: DatabaseContext): boolean {
-    this.removeOutdated(context)
-
-    return this._events !== null
+    return this.isCached('events')
   }
 
   resourceCacheAvailable (context: DatabaseContext): boolean {
-    this.removeOutdated(context)
-
-    return this._resourceCache !== null
+    return this.isCached('resourceCache')
   }
 
   lastUpdateAvailable (context: DatabaseContext): boolean {
-    this.removeOutdated(context)
-
-    return this._lastUpdate !== null
+    return this.isCached('lastUpdate')
   }
 }
 
