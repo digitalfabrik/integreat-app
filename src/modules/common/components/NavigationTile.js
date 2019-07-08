@@ -25,6 +25,12 @@ const Circle = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
   align-items: center;
   justify-content: center;
+  elevation: 2;
+  shadow-color: #000000;
+  shadow-opacity: 0.2;
+  shadow-radius: 2px;
+  shadow-offset: 2px;
+  
 `
 
 const Thumbnail = styled(FastImage)`
