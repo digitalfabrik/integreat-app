@@ -88,7 +88,6 @@ Object {
         "de" => "de",
         "en" => "en",
       },
-      "city": "augsburg",
       "language": "en",
       "models": Array [
         EventModel {
@@ -165,14 +164,12 @@ Object {
         },
       ],
       "path": null,
-      "peek": false,
     },
     "event-route-2": Object {
       "allAvailableLanguages": Map {
         "en" => "/augsburg/en/events/third_event",
         "de" => "/augsburg/de/events/drittes_event",
       },
-      "city": "augsburg",
       "language": "en",
       "models": Array [
         EventModel {
@@ -201,7 +198,6 @@ Object {
         },
       ],
       "path": "/augsburg/en/events/third_event",
-      "peek": false,
     },
   },
   "languages": Array [

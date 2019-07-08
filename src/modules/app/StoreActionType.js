@@ -83,9 +83,7 @@ export type PushEventActionType = {|
     path?: string, key: string,
     resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
-    city: string,
-    language: string,
-    peek: boolean
+    language: string
   |}
 |}
 export type FetchEventFailedActionType = {|
