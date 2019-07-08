@@ -33,7 +33,7 @@ class EventListItem extends React.PureComponent<PropsType> {
 
   render () {
     const {event, language, navigateToEvent, theme} = this.props
-    const thumbnail = event.thumbnail ? {uri: event.thumbnail} : this.getEventPlaceholder(event.path.length)
+    const thumbnail = event.thumbnail ? event.thumbnail : this.getEventPlaceholder(event.path.length)
     return (
       <ListItem thumbnail={thumbnail}
                 title={event.title}

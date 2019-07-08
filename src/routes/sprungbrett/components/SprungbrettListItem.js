@@ -16,7 +16,7 @@ class SprungbrettListItem extends React.PureComponent<PropsType> {
   render () {
     const { job, openJobInBrowser, theme } = this.props
     return (
-      <ListItem title={job.title} navigateTo={openJobInBrowser} theme={theme}>
+      <ListItem thumbnail={null} title={job.title} navigateTo={openJobInBrowser} theme={theme}>
         <Text>{job.location}</Text>
       </ListItem>
     )

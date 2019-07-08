@@ -5,10 +5,10 @@ import * as React from 'react'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
+import Image from '../../common/components/Image'
 
 const Row: StyledComponent<{}, {}, *> = styled.View`
   flex: 1;
@@ -21,7 +21,7 @@ const CategoryTitle = styled.Text`
   margin: 0 10px;
 `
 
-const CategoryThumbnail = styled(FastImage)`
+const CategoryThumbnail = styled(Image)`
   align-self: center;
   flex-shrink: 0;
   width: 40px;
@@ -66,8 +66,7 @@ class CategoryListItem extends React.Component<PropsType> {
       <Row>
         <StyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <>
-            <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder}
-                               resizeMode={FastImage.resizeMode.contain} />
+            <CategoryThumbnail source={category.thumbnail ? category.thumbnail : iconPlaceholder} />
             {this.renderTitle()}
           </>
         </StyledLink>

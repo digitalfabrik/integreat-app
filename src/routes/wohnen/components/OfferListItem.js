@@ -32,7 +32,7 @@ class OfferListItem extends React.PureComponent<PropsType> {
       const costs = offer.formData.costs
 
       return (
-        <ListItem title={accommodation.title} navigateTo={navigateToOffer} theme={theme}>
+        <ListItem thumbnail={null} title={accommodation.title} navigateTo={navigateToOffer} theme={theme}>
           <Description>
             <Text>{accommodation.totalArea} m²</Text>
             <Text>{accommodation.totalRooms} Zimmer</Text>

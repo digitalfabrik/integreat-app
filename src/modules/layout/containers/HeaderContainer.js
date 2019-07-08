@@ -31,12 +31,8 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const cityContent = state.cityContent
-  if (!cityContent) {
-    throw new Error('CityContent must not be null!')
-  }
-
   const routeKey = ownProps.navigation.getParam('key')
-  const routeMapping = cityContent.categoriesRouteMapping
+  const routeMapping = cityContent ? cityContent.categoriesRouteMapping : {}
   return { routeKey, routeMapping }
 }
 

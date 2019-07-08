@@ -7,7 +7,7 @@ import type { ThemeType } from '../../theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import happyIcon from './assets/smile-happy.svg'
 import sadIcon from './assets/smile-sad.svg'
-import FastImage from 'react-native-fast-image'
+import Image from './Image'
 
 const FeedbackBox: StyledComponent<{}, ThemeType, *> = styled.View`
   margin-top: 25px;
@@ -54,7 +54,7 @@ const Circle: StyledComponent<{}, ThemeType, *> = styled(View)`
 
 const MAXIMAL_ICON_SIZE = ICON_SIZE / Math.sqrt(2)
 const ICON_SCALE_FACTOR = 0.85
-const Thumbnail = styled(FastImage)`
+const Thumbnail = styled(Image)`
   height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR};
   width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR};
 `
@@ -74,11 +74,11 @@ class SiteHelpfulBox extends React.Component<PropType> {
       <HelpfulText theme={theme}>{t('feedback:isThisSiteUseful')}</HelpfulText>
       <FeedbackButtons>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
-          <Circle theme={theme}><Thumbnail source={happyIcon} resizeMode={FastImage.resizeMode.contain} /></Circle>
+          <Circle theme={theme}><Thumbnail source={happyIcon} /></Circle>
           <FeedbackText theme={theme}>{t('feedback:useful')}</FeedbackText>
         </FeedbackTouchableOpacity>
         <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
-          <Circle theme={theme}><Thumbnail source={sadIcon} resizeMode={FastImage.resizeMode.contain} /></Circle>
+          <Circle theme={theme}><Thumbnail source={sadIcon} /></Circle>
           <FeedbackText theme={theme}>{t('feedback:notUseful')}</FeedbackText>
         </FeedbackTouchableOpacity>
       </FeedbackButtons>
