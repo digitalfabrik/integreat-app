@@ -28,12 +28,8 @@ export class ContentLoadCriterion {
       lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
   }
 
-  shouldUpdateLanguages (): boolean {
-    return !this._peek
-  }
-
   peek (): boolean {
-    return !!this._peek
+    return this._peek
   }
 
   shouldRefreshResources (): boolean {
