@@ -59,7 +59,7 @@ class Extras extends React.Component<PropsType> {
   }
 
   navigateToFeedback = (isPositiveFeedback: boolean) => {
-    const { navigation, extras, t, cities, cityCode , language} = this.props
+    const { navigation, extras, t, cities, cityCode, language } = this.props
     if (!cityCode || !language) {
       throw Error('language or cityCode not available')
     }
