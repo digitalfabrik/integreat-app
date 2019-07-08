@@ -46,17 +46,17 @@ type PropsType = {|
  */
 class Categories extends React.Component<PropsType> {
   onTilePress = (tile: TileModel) => {
-    const {cityCode, language, navigateToCategory} = this.props
-    navigateToCategory({cityCode, language, path: tile.path})
+    const { cityCode, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode, language, path: tile.path })
   }
 
   onItemPress = (category: { title: string, thumbnail: string, path: string }) => {
-    const {cityCode, language, navigateToCategory} = this.props
-    navigateToCategory({cityCode, language, path: category.path})
+    const { cityCode, language, navigateToCategory } = this.props
+    navigateToCategory({ cityCode, language, path: category.path })
   }
 
   navigateToFeedbackOfPage = (isPositiveFeedback: boolean) => {
-    const {navigation, t, stateView, cities, cityCode, language} = this.props
+    const { navigation, t, stateView, cities, cityCode , language} = this.props
     if (!cityCode || !language) {
       throw Error('language or cityCode not available')
     }
@@ -67,15 +67,15 @@ class Categories extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfPage', {page: category.title}), PAGE_FEEDBACK_TYPE, category.path),
-        createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), CATEGORIES_FEEDBACK_TYPE),
+        createFeedbackVariant(t('feedback:contentOfPage', { page: category.title }), PAGE_FEEDBACK_TYPE, category.path),
+        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), CATEGORIES_FEEDBACK_TYPE),
         createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
   }
 
   navigateToFeedbackOfCategories = (isPositiveFeedback: boolean) => {
-    const {navigation, t, cities, cityCode, language} = this.props
+    const { navigation, t, cities, cityCode , language} = this.props
     if (!cityCode || !language) {
       throw Error('language or cityCode not available')
     }
@@ -86,7 +86,7 @@ class Categories extends React.Component<PropsType> {
     navigation.navigate('FeedbackModal', {
       isPositiveFeedback,
       feedbackItems: [
-        createFeedbackVariant(t('feedback:contentOfCity', {city: cityTitle}), CATEGORIES_FEEDBACK_TYPE),
+        createFeedbackVariant(t('feedback:contentOfCity', { city: cityTitle }), CATEGORIES_FEEDBACK_TYPE),
         createFeedbackVariant(t('feedback:technicalTopics'), CATEGORIES_FEEDBACK_TYPE)
       ]
     })
@@ -139,7 +139,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const {stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode, t} = this.props
+    const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -166,10 +166,12 @@ class Categories extends React.Component<PropsType> {
       // first level, we want to display a table with all first order categories
 
       return <SpaceBetween>
-        <View><Tiles tiles={this.getTileModels(children)}
-                     title={CityModel.findCityName(cities, category.title)}
-                     onTilePress={this.onTilePress}
-                     theme={theme} /></View>
+        <View>
+          <Tiles tiles={this.getTileModels(children)}
+                 title={CityModel.findCityName(cities, category.title)}
+                 onTilePress={this.onTilePress}
+                 theme={theme} />
+        </View>
         <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackOfCategories} theme={theme} t={t} />
       </SpaceBetween>
     }
