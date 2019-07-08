@@ -3,15 +3,17 @@
 import * as React from 'react'
 import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import CategoryList from '../../../modules/categories/components/CategoryList'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import SearchHeader from './SearchHeader'
-import { InteractionManager, ScrollView, ActivityIndicator } from 'react-native'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
 import type { NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
+import type { TFunction } from 'react-i18next'
+import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import SearchFeedbackBox from './SearchFeedbackBox'
 
-const Wrapper = styled.View`
+const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
   position: absolute;  
   top: 0;
   bottom: 0;
@@ -24,12 +26,13 @@ type CategoryListItemType = {| model: CategoryModel, subCategories: Array<Catego
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateToCategory: NavigateToCategoryParamsType => StoreActionType,
+  navigateToCategory: NavigateToCategoryParamsType => void,
   theme: ThemeType,
-  language: string | null,
-  cityCode: string | null,
+  language: string,
+  cityCode: string,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  t: TFunction
 |}
 
 type StateType = {|
@@ -37,10 +40,7 @@ type StateType = {|
 |}
 
 class SearchModal extends React.Component<PropsType, StateType> {
-  constructor () {
-    super()
-    this.state = {query: ''}
-  }
+  state = {query: ''}
 
   findCategories (categories: CategoriesMapModel): Array<CategoryListItemType> {
     const {query} = this.state
@@ -66,14 +66,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   onItemPress = (category: { path: string }) => {
-    const {cityCode, language, navigateToCategory, closeModal} = this.props
-
-    if (!language || !cityCode) {
-      throw new Error('Value is unexpectedly null') // fixme: This should be handled properly if this is even possible
-    }
+    const {cityCode, language, navigateToCategory} = this.props
 
     navigateToCategory({cityCode, language, path: category.path})
-    InteractionManager.runAfterInteractions(() => closeModal())
   }
 
   onSearchChanged = (query: string) => {
@@ -81,7 +76,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const {theme, categories} = this.props
+    const {theme, categories, t} = this.props
     const {query} = this.state
 
     if (!categories) {
@@ -89,11 +84,13 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return (
-      <ScrollView theme={theme}>
-        <CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress} theme={theme} />
-      </ScrollView>
-    )
+    return <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <SpaceBetween>
+        <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
+                            theme={theme} /></View>
+        <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0} />
+      </SpaceBetween>
+    </ScrollView>
   }
 
   render () {

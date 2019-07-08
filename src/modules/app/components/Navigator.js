@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
+import type { HeaderProps, NavigationContainer, NavigationState, NavigationComponent } from 'react-navigation'
 import {
   createAppContainer,
   createStackNavigator,
@@ -16,7 +16,6 @@ import HeaderContainer from '../../layout/containers/HeaderContainer'
 import PDFViewModal from '../../../routes/pdf/components/PDFViewModal'
 import ImageViewModal from '../../../routes/image/components/ImageViewModal'
 import ChangeLanguageModalContainer from '../../../routes/language/containers/ChangeLanguageModalContainer'
-import MapViewModal from '../../../routes/map/components/MapViewModal'
 import TransparentHeaderContainer from '../../layout/containers/TransparentHeaderContainer'
 import ExtrasContainer from '../../../routes/extras/containers/ExtrasContainer'
 import WohnenExtraContainer from '../../../routes/wohnen/containers/WohnenExtraContainer'
@@ -26,11 +25,12 @@ import EventsContainer from '../../../routes/events/containers/EventsContainer'
 import SearchModalContainer from '../../../routes/search/containers/SearchModalContainer'
 import ExternalExtraContainer from '../../../routes/external-extra/containers/ExternalExtraContainer'
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
+import FeedbackModalContainer from '../../../routes/feedback/containers/FeedbackModalContainer'
 
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-const createNavigationRouteConfig = (Component, header = null): NavigationRouteConfig => ({
+const createNavigationRouteConfig = (Component: NavigationComponent, header = null): NavigationRouteConfig => ({
   screen: Component,
   navigationOptions: {
     header: header
@@ -59,11 +59,11 @@ export const AppStack = createStackNavigator(
     [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
     'Events': createNavigationRouteConfig(EventsContainer, defaultHeader),
     'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
-    'MapViewModal': createNavigationRouteConfig(MapViewModal),
     'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
     'SearchModal': createNavigationRouteConfig(SearchModalContainer),
     'ImageViewModal': createNavigationRouteConfig(ImageViewModal, transparentHeader),
-    'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader)
+    'PDFViewModal': createNavigationRouteConfig(PDFViewModal, transparentHeader),
+    'FeedbackModal': createNavigationRouteConfig(FeedbackModalContainer, transparentHeader)
   },
   {
     defaultNavigationOptions: {
@@ -74,8 +74,6 @@ export const AppStack = createStackNavigator(
 
 export const LandingStack = createSwitchNavigator(
   {
-    //            The translate() HOC does not calculate props correctly right now. Because the connect
-    // $FlowFixMe in LandingContainer needs the translation HOC there is a flow error here. (NATIVE-53)
     'Landing': LandingContainer,
     'App': AppStack
   }

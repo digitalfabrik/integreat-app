@@ -1,7 +1,6 @@
 // @flow
 
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import compose from 'lodash/fp/compose'
 import { translate, type TFunction } from 'react-i18next'
 
 import { connect } from 'react-redux'
@@ -12,48 +11,47 @@ import Landing from '../components/Landing'
 import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
 import withError from '../../../modules/error/hocs/withError'
-import { CityModel } from '@integreat-app/integreat-api-client'
+import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { PropsType as LandingPropsType } from '../components/Landing'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*>, i18n: Object, t: TFunction |}
 
-export type PropsType = {|
+export type StatePropsType = {|
   error: boolean,
-  cities: ?Array<CityModel>,
-  navigateToDashboard: (cityCode: string) => StoreActionType,
-  fetchCities: () => StoreActionType,
-  i18n: Object,
-  t: TFunction,
-  navigation: NavigationScreenProp<*>
+  languageNotAvailable: boolean,
+  availableLanguages?: Array<LanguageModel>,
+  currentCityCode?: string,
+  cities?: Array<CityModel>,
+  language: string
 |}
 
-const mapStateToProps = (state: StateType) => {
+type DispatchPropsType = {|
+  fetchCities: () => StoreActionType,
+  navigateToDashboard: (cityCode: string, language: string) => StoreActionType,
+  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
+|}
+
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+
+const mapStateToProps = (state: StateType): StatePropsType => {
+  const language = state.contentLanguage
   if (state.cities.errorMessage !== undefined) {
-    return {
-      error: true,
-      cities: undefined
-    }
+    return { error: true, languageNotAvailable: false, language }
   }
-  return {
-    error: false,
-    cities: state.cities.models
+
+  if (!state.cities.models) {
+    return { error: false, languageNotAvailable: false, language }
   }
+  return { error: false, languageNotAvailable: false, cities: state.cities.models, language }
 }
 
-type DispatchType = Dispatch<StoreActionType>
-
-const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => {
   return {
     fetchCities: () => dispatch({
       type: 'FETCH_CITIES'
     }),
-    navigateToDashboard: (cityCode: string) => {
-      const language = ownProps.i18n.language
-
-      if (!language) {
-        throw Error('Failed to get language from i18n prop.')
-      }
-
+    navigateToDashboard: (cityCode: string, language: string) => {
       const path = `/${cityCode}/${language}`
       const key: string = generateKey()
 
@@ -89,10 +87,9 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType) => {
   }
 }
 
-export default compose([
-  // translate has to be before connect, because we need to pass the language as prop
-  translate('landing'),
-  connect<PropsType, OwnPropsType, _, _, _, DispatchType>(mapStateToProps, mapDispatchToProps),
-  withError,
-  withTheme(props => props.language)
-])(Landing)
+export default translate('landing')(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withTheme(props => props.language)(
+      withError<LandingPropsType>(
+        Landing
+      ))))

@@ -3,12 +3,12 @@
 import * as React from 'react'
 import { Platform, Share } from 'react-native'
 import logo from '../assets/integreat-app-logo.png'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
-import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
+import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 import type { CategoryRouteStateType } from '../../app/StateType'
@@ -32,13 +32,7 @@ const Logo = styled.Image`
   resize-mode: contain;
 `
 
-const Title = styled.Text`
- font-size: 30px;
- color: black;
- margin-left: 10px;
-`
-
-const BoxShadow = styled.View`
+const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   elevation: 1;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
@@ -59,6 +53,7 @@ const MaterialHeaderButtons = props => {
 }
 
 type PropsType = {|
+  navigation: NavigationScreenProp<*>,
   scene: NavigationScene,
   scenes: Array<NavigationScene>,
   t: TFunction,
@@ -80,17 +75,16 @@ class Header extends React.PureComponent<PropsType> {
     return this.props.scenes.find((s: NavigationScene) => s.index === this.props.scene.index - 1)
   }
 
-  getDescriptor (): { [key: string]: any } {
-    // $FlowFixMe
-    return this.props.scene.descriptor
-  }
-
-  getNavigation (): NavigationScreenProp<*> {
-    return this.getDescriptor().navigation
+  getDescriptor (): NavigationDescriptor {
+    const descriptor = this.props.scene.descriptor
+    if (!descriptor) {
+      throw new Error('Descriptor is not defined')
+    }
+    return descriptor
   }
 
   goBackInStack = () => {
-    this.getNavigation().goBack(this.getDescriptor().key)
+    this.props.navigation.goBack(this.getDescriptor().key)
   }
 
   goToLanding = () => {
@@ -98,16 +92,13 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSettings = () => {
-    this.getNavigation().navigate('Settings')
+    this.props.navigation.navigate('Settings')
   }
 
   goToLanguageChange = () => {
-    this.getNavigation().navigate({
-      routeName: 'ChangeLanguageModal',
-      params: {
-        availableLanguages: this.props.availableLanguages,
-        routeKey: this.props.routeKey
-      }
+    const { navigation, routeKey } = this.props
+    navigation.navigate({
+      routeName: 'ChangeLanguageModal', params: { routeKey }
     })
   }
 
@@ -127,8 +118,8 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   onShare = async () => {
-    const {t} = this.props
-    const sharePath: ?string = this.getNavigation().getParam('sharePath')
+    const { navigation, t } = this.props
+    const sharePath: ?string = navigation.getParam('sharePath')
     if (!sharePath) {
       return console.error('sharePath is undefined')
     }
@@ -151,20 +142,18 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   goToSearch = () => {
-    this.getNavigation().navigate('SearchModal')
+    this.props.navigation.navigate('SearchModal')
   }
 
   render () {
-    const {t, theme} = this.props
-    const headerTitle = this.getDescriptor().headerTitle || ''
-    const sharePath = this.getNavigation().getParam('sharePath')
+    const { navigation, t, theme } = this.props
+    const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
           <Logo source={logo} />
-          <Title>{headerTitle}</Title>
         </HorizontalLeft>
         <MaterialHeaderButtons>
           {this.showSearch() &&

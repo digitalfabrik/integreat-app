@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 
-const H1 = styled.Text`
+const H1: StyledComponent<{}, ThemeType, *> = styled.Text`
   padding: 20px 0;
   font-size: 20px;
   text-align: center;

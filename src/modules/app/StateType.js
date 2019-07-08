@@ -10,6 +10,7 @@ import {
   LanguageModel
 } from '@integreat-app/integreat-api-client'
 import Moment from 'moment'
+import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 
 export type PathType = string
 
@@ -71,39 +72,30 @@ export const defaultCitiesState: CitiesStateType = {
   models: null
 }
 
+export const defaultContentLanguageState = DEFAULT_LANGUAGE
+
 export type SearchRouteType = {|
-  +categoriesMap: CategoriesMapModel | null
+  +categoriesMap: CategoriesMapModel
 |}
 
 export type CityContentStateType = {|
-  +lastUpdate: Moment | null,
-  +language: string | null,
-  +city: string | null,
-  +languages: Array<LanguageModel> | null,
+  +city: string,
+  +languages: Array<LanguageModel>,
   +categoriesRouteMapping: CategoriesRouteMappingType,
   +eventsRouteMapping: EventsRouteMappingType,
   +resourceCache: LanguageResourceCacheStateType,
-  +searchRoute: SearchRouteType
+  +searchRoute: SearchRouteType | null
 |}
 
-export const defaultCityContentState: CityContentStateType = {
-  lastUpdate: null,
-  language: null,
-  city: null,
-  languages: null,
-  categoriesRouteMapping: {},
-  eventsRouteMapping: {},
-  resourceCache: {},
-  searchRoute: {categoriesMap: null}
-}
-
+export const defaultCityContentState = null
 export type DirectionStateType = 'ltr' | 'rtl'
 
 export type StateType = {|
   +uiDirection: DirectionStateType,
   +darkMode: boolean,
 
-  +cityContent: CityContentStateType,
+  +cityContent: CityContentStateType | null,
+  +contentLanguage: string,
   +cities: CitiesStateType,
 
   +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
