@@ -16,7 +16,6 @@ export interface DataContainer {
   /**
    * Sets the cities but does not persist them.
    * TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
-   * @param cities
    */
   setCities: (cities: Array<CityModel>) => Promise<void>,
 
@@ -28,7 +27,6 @@ export interface DataContainer {
 
   /**
    * Sets the languages and persists them.
-   * @param languages
    */
   setLanguages: (city: string, languages: Array<LanguageModel>) => Promise<void>,
 
@@ -40,7 +38,6 @@ export interface DataContainer {
 
   /**
    * Sets the categories and persists them.
-   * @param categories
    */
   setCategoriesMap: (context: DatabaseContext, categories: CategoriesMapModel) => Promise<void>,
 
@@ -52,7 +49,6 @@ export interface DataContainer {
 
   /**
    * Sets the events and persists them.
-   * @param events
    */
   setEvents: (context: DatabaseContext, events: Array<EventModel>) => Promise<void>,
 
@@ -64,7 +60,6 @@ export interface DataContainer {
 
   /**
    * Sets the cache entries for the current city-language-pair and cleans up unnecessary files.
-   * @param resourceCache
    */
   setResourceCache: (context: DatabaseContext, resourceCache: LanguageResourceCacheStateType) => Promise<void>,
 
@@ -75,7 +70,6 @@ export interface DataContainer {
 
   /**
    * Sets the lastUpdate timestamp and persists it.
-   * @param lastUpdate
    */
   setLastUpdate: (context: DatabaseContext, lastUpdate: Moment) => Promise<void>,
 
