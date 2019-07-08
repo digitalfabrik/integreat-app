@@ -12,11 +12,11 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
   const {city, language, path, key, criterion} = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
-    const allContentLoaded = yield call(loadCityContent,
+    const languageLoaded = yield call(loadCityContent,
       dataContainer, city, language,
       loadCriterion
     )
-    if (allContentLoaded) {
+    if (languageLoaded) {
       const context = new DatabaseContext(city, language)
       const [events, resourceCache, languages] = yield all([
         call(dataContainer.getEvents, context),
@@ -32,9 +32,7 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
           path,
           languages,
           key,
-          city,
-          language,
-          peek: loadCriterion.peek()
+          language
         }
       }
       yield put(insert)

@@ -29,11 +29,9 @@ export type CategoryRouteStateType = {|
 
 export type EventRouteStateType = {|
   +path: string | null,
-  +peek: boolean,
   +models: Array<EventModel>,
   +allAvailableLanguages: Map<string, string>, // including the current content language
-  +language: string,
-  +city: string
+  +language: string
 |}
 
 export type FileCacheStateType = {

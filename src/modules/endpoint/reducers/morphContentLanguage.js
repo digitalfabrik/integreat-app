@@ -48,16 +48,14 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
 const eventRouteTranslator = (newEvents: Array<EventModel>, city: string, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
-    const {path, allAvailableLanguages, peek} = route
+    const {path, allAvailableLanguages} = route
 
     if (!path) { // Route is a list of all events
       return {
         path: null,
         models: newEvents,
         allAvailableLanguages,
-        language: newLanguage,
-        city,
-        peek
+        language: newLanguage
       }
     }
 
@@ -81,9 +79,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, city: string, newLan
       path: translatedPath,
       models: [translatedEvent],
       allAvailableLanguages,
-      language: newLanguage,
-      city,
-      peek
+      language: newLanguage
     }
   }
 

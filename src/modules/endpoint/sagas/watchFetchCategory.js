@@ -17,9 +17,9 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
   const { city, language, path, depth, key, criterion } = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
-    const allContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const languageLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
-    if (allContentLoaded) {
+    if (languageLoaded) {
       const context = new DatabaseContext(city, language)
       const [categoriesMap, resourceCache] = yield all([
         call(dataContainer.getCategoriesMap, context),
