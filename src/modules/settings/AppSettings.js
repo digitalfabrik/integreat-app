@@ -15,7 +15,7 @@ export type SettingsType = {|
 
 const e2eSettings = {
   errorTracking: false,
-  allowPushNotifications: null,
+  allowPushNotifications: false,
   test: false
 }
 
