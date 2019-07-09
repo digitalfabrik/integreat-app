@@ -21,27 +21,31 @@ const Wrapper: StyledComponent<{}, ThemeType, *> = styled.View`
 
 type PropsType = {
   theme: ThemeType,
-  city: string,
-  currentLanguage: string,
-  languages: Array<LanguageModel>,
-  availableLanguages: Array<string>,
+  city: ?string,
+  currentLanguage: ?string,
+  languages: ?Array<LanguageModel>,
+  availableLanguages: ?Array<string>,
   changeLanguage: (city: string, newLanguage: string) => void,
-  closeModal: () => void,
   navigation: NavigationScreenProp<*>
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
-  onPress = (model: LanguageModel) => {
-    const { closeModal, changeLanguage, city } = this.props
+  onPress = (model: LanguageModel, city: string) => {
+    const { changeLanguage } = this.props
 
-    closeModal()
+    this.closeModal()
     InteractionManager.runAfterInteractions(() => {
       changeLanguage(city, model.code)
     })
   }
 
+  closeModal = () => { this.props.navigation.goBack() }
+
   render () {
-    const {theme, languages, availableLanguages, currentLanguage} = this.props
+    const {theme, languages, availableLanguages, currentLanguage, city} = this.props
+    if (!languages || !availableLanguages || !currentLanguage || !city) {
+      return null
+    }
 
     return <Wrapper theme={theme}>
       <Selector theme={theme} selectedItemCode={currentLanguage} verticalLayout items={languages.map(languageModel => {
@@ -50,7 +54,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
           code: languageModel.code,
           name: languageModel.name,
           enabled: isLanguageAvailable,
-          onPress: () => this.onPress(languageModel)
+          onPress: () => this.onPress(languageModel, city)
         })
       })} />
     </Wrapper>
