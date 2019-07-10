@@ -39,6 +39,13 @@ export default ({setSetting, t, language}: {
           onPress: () => { setSetting(settings => ({errorTracking: !settings.errorTracking})) }
         },
         {
+          title: t('allowPushNotifications'),
+          description: t('allowPushNotificationsDescription'),
+          hasSwitch: true,
+          getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
+          onPress: () => { setSetting(settings => ({allowPushNotifications: !settings.allowPushNotifications})) }
+        },
+        {
           title: t('about'),
           onPress: () => {
             if (language === 'de') {

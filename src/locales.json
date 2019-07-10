@@ -371,6 +371,8 @@
     "en": {
       "troubleshooting": "Help to improve Integreat",
       "troubleshootingDescription": "Automatically send crash reports",
+      "allowPushNotifications": "Push News",
+      "allowPushNotificationsDescription": "Receive notifications for the latest local news",
       "about": "About Integreat",
       "privacyPolicy": "Data protection declaration",
       "version": "Version: {{version}}",
@@ -379,6 +381,8 @@
     "de": {
       "troubleshooting": "Hilf uns Integreat zu verbessern",
       "troubleshootingDescription": "Sende automatisch Absturzberichte",
+      "allowPushNotifications": "Push News",
+      "allowPushNotificationsDescription": "Erhalten Sie Benachrichtigungen für die neuesten lokalen News",
       "about": "Über Integreat",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
@@ -423,6 +427,8 @@
     "en": {
       "troubleshooting": "Help to improve Integreat",
       "troubleshootingDescription": "Automatically send crash reports",
+      "allowPushNotifications": "Push News",
+      "allowPushNotificationsDescription": "Receive notifications for the latest local news",
       "yes": "Yes",
       "no": "No",
       "askLater": "Ask later"
@@ -430,6 +436,8 @@
     "de": {
       "troubleshooting": "Hilf uns Integreat zu verbessern",
       "troubleshootingDescription": "Sende automatisch Absturzberichte",
+      "allowPushNotifications": "Push News",
+      "allowPushNotificationsDescription": "Erhalten Sie Benachrichtigungen für die neuesten lokalen News",
       "yes": "Ja",
       "no": "Nein",
       "askLater": "Später fragen"

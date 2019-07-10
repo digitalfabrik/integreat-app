@@ -34,10 +34,10 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
 
     this.appSettings = new AppSettings()
 
-    this.askForSentry()
+    this.askAlerts()
   }
 
-  async askForSentry () {
+  async askAlerts () {
     const {t} = this.props
 
     try {
@@ -58,6 +58,19 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
         await this.enableSentry()
       } else {
         this.setState({waitingForSentry: false})
+      }
+
+      if (settings.allowPushNotifications === null) {
+        Alert.alert(
+          t('allowPushNotifications'),
+          t('allowPushNotificationsDescription'),
+          [
+            {text: t('no'), style: 'destructive', onPress: () => this.disablePushNotification()},
+            {text: t('askLater'), style: 'cancel'},
+            {text: t('yes'), style: 'default', onPress: () => this.enablePushNotification()}
+          ],
+          {cancelable: true}
+        )
       }
     } catch (e) {
       console.error('Failed to load settings.')
@@ -82,6 +95,14 @@ class LaunchInquiry extends React.Component<PropsType, AppStateType> {
   async disableSentry () {
     this.setState({waitingForSentry: false})
     await this.appSettings.setSettings({errorTracking: false})
+  }
+
+  async enablePushNotification () {
+    await this.appSettings.setSettings({allowPushNotifications: true})
+  }
+
+  async disablePushNotification () {
+    await this.appSettings.setSettings({allowPushNotifications: false})
   }
 
   render () {
