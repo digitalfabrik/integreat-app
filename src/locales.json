@@ -373,6 +373,8 @@
       "troubleshootingDescription": "Automatically send crash reports",
       "allowPushNotifications": "Push News",
       "allowPushNotificationsDescription": "Receive notifications for the latest local news",
+      "downloadOnCellularConnection": "Mobile data usage",
+      "downloadOnCellularConnectionDescription": "Save images and files for offline if using mobile data",
       "about": "About Integreat",
       "privacyPolicy": "Data protection declaration",
       "version": "Version: {{version}}",
