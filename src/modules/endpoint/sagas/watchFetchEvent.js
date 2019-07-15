@@ -12,11 +12,13 @@ function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionTyp
   const {city, language, path, key, criterion} = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
-    const languageLoaded = yield call(loadCityContent,
+    const cityContentLoaded = yield call(loadCityContent,
       dataContainer, city, language,
       loadCriterion
     )
-    if (languageLoaded) {
+    if (cityContentLoaded) {
+      // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
+      // appropriate error
       const context = new DatabaseContext(city, language)
       const [events, resourceCache, languages] = yield all([
         call(dataContainer.getEvents, context),

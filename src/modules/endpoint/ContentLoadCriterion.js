@@ -22,14 +22,18 @@ export class ContentLoadCriterion {
     this._shouldRefreshResources = shouldRefreshResources
   }
 
+  peek (): boolean {
+    return this._peek
+  }
+
   shouldUpdate (lastUpdate: ?Moment): boolean {
     // The last update was more than 24h ago or a refresh should be forced
     return this._forceUpdate || !lastUpdate ||
       lastUpdate.isBefore(moment.tz('UTC').subtract(MAX_CONTENT_AGE, 'hours'))
   }
 
-  peek (): boolean {
-    return this._peek
+  shouldLoadLanguages (): boolean {
+    return !this.peek()
   }
 
   shouldRefreshResources (): boolean {
