@@ -1,3 +1,5 @@
+// @flow
+
 import { select, setupDriver, stopDriver } from '../../../driver/driver'
 import LandingPage from '../../../pages/routes/landing/LandingPage'
 
@@ -13,7 +15,7 @@ describe('UI language', () => {
     try {
       await landingPage.ready()
 
-      expect(await landingPage.getSearchInput().text()).toBe('Suche nach deinem Ort')
+      expect((await landingPage.getSearchInput()).text()).toBe('Suche nach deinem Ort')
     } finally {
       await stopDriver(driver)
     }
@@ -30,7 +32,7 @@ describe('UI language', () => {
     try {
       await landingPage.ready()
 
-      expect(await landingPage.getSearchInput().text()).toBe('Search for your city')
+      expect((await landingPage.getSearchInput()).text()).toBe('Search for your city')
     } finally {
       await stopDriver(driver)
     }
