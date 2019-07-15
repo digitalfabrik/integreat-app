@@ -44,7 +44,6 @@
     "react-native-fast-image": "^5.1.2",
     "react-native-gesture-handler": "^1.0.12",
     "react-native-image-zoom-viewer": "^2.2.24",
-    "react-native-offline": "^4.3.1",
     "react-native-progress": "^3.5.0",
     "react-native-render-html": "^4.1.2",
     "react-native-sentry": "^0.42.0",
