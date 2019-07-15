@@ -49,7 +49,7 @@ type SprungbrettStateType = {|
 class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, SprungbrettStateType> {
   constructor (props: SprungbrettPropsType) {
     super(props)
-    this.state = {jobs: null, error: null}
+    this.state = { jobs: null, error: null }
   }
 
   componentWillMount () {
@@ -57,29 +57,29 @@ class SprungbrettExtraContainer extends React.Component<SprungbrettPropsType, Sp
   }
 
   async loadSprungbrett () {
-    const {extra} = this.props
+    const { extra } = this.props
 
     if (!extra) {
-      this.setState(() => ({error: new Error('The Sprungbrett extra is not supported.'), jobs: null}))
+      this.setState(() => ({ error: new Error('The Sprungbrett extra is not supported.'), jobs: null }))
       return
     }
     try {
       const payload: Payload<Array<ExtraModel>> = await request(createSprungbrettJobsEndpoint(extra.path))
 
       if (payload.error) {
-        this.setState(() => ({error: payload.error, jobs: null}))
+        this.setState(() => ({ error: payload.error, jobs: null }))
         return
       }
 
-      this.setState(() => ({error: null, jobs: payload.data}))
+      this.setState(() => ({ error: null, jobs: payload.data }))
     } catch (e) {
-      this.setState(() => ({error: e, jobs: null}))
+      this.setState(() => ({ error: e, jobs: null }))
     }
   }
 
   render () {
-    const {extra, t, theme} = this.props
-    const {jobs, error} = this.state
+    const { extra, t, theme } = this.props
+    const { jobs, error } = this.state
 
     if (error) {
       return <Failure error={error} />

@@ -42,7 +42,7 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   closeModal = () => { this.props.navigation.goBack() }
 
   render () {
-    const {theme, languages, availableLanguages, currentLanguage, city} = this.props
+    const { theme, languages, availableLanguages, currentLanguage, city } = this.props
     if (!languages || !availableLanguages || !currentLanguage || !city) {
       return null
     }

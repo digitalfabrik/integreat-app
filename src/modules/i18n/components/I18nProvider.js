@@ -43,7 +43,7 @@ class I18nProvider extends React.Component<PropsType, StateType> {
       })
 
     this.appSettings = new AppSettings()
-    this.state = {language: DEFAULT_LANGUAGE}
+    this.state = { language: DEFAULT_LANGUAGE }
   }
 
   /**

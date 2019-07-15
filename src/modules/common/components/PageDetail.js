@@ -22,7 +22,7 @@ type PropsType = {|
 
 class PageDetail extends React.PureComponent<PropsType> {
   render () {
-    const {identifier, information, theme} = this.props
+    const { identifier, information, theme } = this.props
     return (
       <DetailContainer theme={theme}>
         <Identifier theme={theme}>{identifier}: </Identifier>

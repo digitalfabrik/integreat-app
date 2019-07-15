@@ -65,7 +65,7 @@ export const setupDriver = async (additionalCaps: {} = {}) => {
     process.exit(1)
   }
 
-  const desiredCaps = {...clone(caps[capsName.toLowerCase()]), ...additionalCaps}
+  const desiredCaps = { ...clone(caps[capsName.toLowerCase()]), ...additionalCaps }
 
   if (!desiredCaps) {
     console.error(`Caps ${e2eServerConfigName} not found!`)

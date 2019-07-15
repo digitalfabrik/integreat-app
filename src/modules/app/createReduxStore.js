@@ -57,7 +57,7 @@ const createReduxStore = (
     contentLanguage: defaultContentLanguageState,
     cityContent: defaultCityContentState,
 
-    network: {isConnected: false, actionQueue: []}
+    network: { isConnected: false, actionQueue: [] }
   }
 
   // Do never blacklist the "network" key.
@@ -115,7 +115,7 @@ const createReduxStore = (
     }
   )
 
-  return {store, persistor}
+  return { store, persistor }
 }
 
 export default createReduxStore

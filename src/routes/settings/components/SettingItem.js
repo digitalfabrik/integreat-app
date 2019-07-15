@@ -44,7 +44,7 @@ const Description = styled.Text`
 
 export default class SettingItem extends React.Component<PropType> {
   render () {
-    const {title, description, onPress, children, theme} = this.props
+    const { title, description, onPress, children, theme } = this.props
 
     return <Touchable onPress={onPress}>
       <PadView>

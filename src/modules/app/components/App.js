@@ -35,7 +35,7 @@ class App extends React.Component<PropsType, AppStateType> {
 
     const storeConfig = createReduxStore(
       this.dataContainer,
-      () => { this.setState({waitingForStore: false}) }
+      () => { this.setState({ waitingForStore: false }) }
     )
 
     this.store = storeConfig.store

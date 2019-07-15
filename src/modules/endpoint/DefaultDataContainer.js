@@ -139,7 +139,7 @@ class DefaultDataContainer implements DataContainer {
   getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     return flatMap(
       Object.values(languageResourceCache),
-      (file: FileCacheStateType): Array<string> => map(file, ({filePath}) => filePath)
+      (file: FileCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
 
@@ -148,7 +148,7 @@ class DefaultDataContainer implements DataContainer {
       throw Error('Context has not been set yet.')
     }
     const language = this._context.languageCode
-    const newResourceCache = {...this._resourceCache, [language]: resourceCache}
+    const newResourceCache = { ...this._resourceCache, [language]: resourceCache }
 
     if (this._resourceCache && this._resourceCache[language]) {
       // Cleanup old resources

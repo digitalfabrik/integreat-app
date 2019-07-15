@@ -13,7 +13,7 @@ import loadCityContent from './loadCityContent'
 import AppSettings from '../../settings/AppSettings'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
-  const {city, newLanguage} = action.params
+  const { city, newLanguage } = action.params
   try {
     const appSettings = new AppSettings()
     yield call(appSettings.setContentLanguage, newLanguage)
