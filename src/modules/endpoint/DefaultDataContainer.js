@@ -84,6 +84,7 @@ class DefaultDataContainer implements DataContainer {
     const resourceCache = await cache.get(context)
 
     if (!resourceCache[context.languageCode]) {
+      // TODO: Should be cought properly
       throw Error('LanguageResourceCache is null.')
     }
 
@@ -155,8 +156,8 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(newResourceCache, context)
   }
 
-  setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment) => {
-    const cache: Cache<Moment> = this.caches['lastUpdate']
+  setLastUpdate = async (context: DatabaseContext, lastUpdate: Moment | null) => {
+    const cache: Cache<Moment | null> = this.caches['lastUpdate']
     await cache.cache(lastUpdate, context)
   }
 
@@ -172,8 +173,9 @@ class DefaultDataContainer implements DataContainer {
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
 
-  async lastUpdateAvailable (context: DatabaseContext): Promise<boolean> {
-    return this.isCached('lastUpdate', context) || this._databaseConnector.isLastUpdatePersisted()
+  async resourceCacheAvailable (context: DatabaseContext): Promise<boolean> {
+    // FIXME: this function needs to check whether the language exists in the resource cache
+    return this.isCached('resourceCache', context) || this._databaseConnector.isResourceCachePersisted(context)
   }
 }
 

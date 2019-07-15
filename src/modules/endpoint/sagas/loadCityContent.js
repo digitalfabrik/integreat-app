@@ -28,8 +28,10 @@ export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
-  const appSettings = new AppSettings()
-  yield call(appSettings.setSelectedCity, newCity)
+  if (!criterion.peek()) {
+    const appSettings = new AppSettings()
+    yield call(appSettings.setSelectedCity, newCity)
+  }
 
   const context = new DatabaseContext(newCity, newLanguage)
 
