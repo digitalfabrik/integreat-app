@@ -18,9 +18,7 @@ type PropsType = {|
   setContentLanguage: (language: string) => void
 |}
 
-type StateType = {| uiLanguage: string |}
-
-class I18nProvider extends React.Component<PropsType, StateType> {
+class I18nProvider extends React.Component<PropsType> {
   i18n: i18n
   appSettings: AppSettings
 
@@ -40,7 +38,6 @@ class I18nProvider extends React.Component<PropsType, StateType> {
       })
 
     this.appSettings = new AppSettings()
-    this.state = { uiLanguage: DEFAULT_LANGUAGE }
   }
 
   /**
@@ -76,25 +73,22 @@ class I18nProvider extends React.Component<PropsType, StateType> {
     }
   }
 
-  async initLanguage () {
+  async initContentLanguage () {
     const { setContentLanguage } = this.props
     const contentLanguage: ?string = await this.appSettings.loadContentLanguage()
     const uiLanguage = this.getI18nextLanguage()
 
-    // Initialize the content language on the first app start
     if (!contentLanguage) {
       await this.appSettings.setContentLanguage(uiLanguage)
       setContentLanguage(uiLanguage)
     }
-
-    this.setState({ uiLanguage })
   }
 
   componentDidMount () {
-    this.initLanguage()
+    this.initContentLanguage()
   }
 
-  momentFormatter = createMomentFormatter(() => undefined, () => this.state.uiLanguage)
+  momentFormatter = createMomentFormatter(() => undefined, () => DEFAULT_LANGUAGE)
 
   render () {
     return (
