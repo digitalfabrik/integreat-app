@@ -146,8 +146,7 @@ export type ToggleDarkModeActionType = {|
 |}
 
 export type StoreActionType =
-  ConnectionChangeActionType
-  | SetUiDirectionActionType
+  SetUiDirectionActionType
   | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
