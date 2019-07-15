@@ -46,7 +46,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     }
   }
 
-const eventRouteTranslator = (newEvents: Array<EventModel>, city: string, newLanguage: string) =>
+const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
     const {path, allAvailableLanguages} = route
 
@@ -96,7 +96,7 @@ const morphContentLanguage = (
 
   const translatedEventsRouteMapping = eventsRouteMapping.errorMessage === undefined ? mapValues(
     eventsRouteMapping,
-    eventRouteTranslator(newEvents, city, newLanguage)
+    eventRouteTranslator(newEvents, newLanguage)
   ) : {}
 
   return {

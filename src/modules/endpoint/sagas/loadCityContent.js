@@ -48,7 +48,7 @@ export default function * loadCityContent (
 
   console.debug('City content should be refreshed: ', shouldUpdate)
 
-  if (!criterion.peek()) {
+  if (criterion.shouldLoadLanguages()) {
     yield call(loadLanguages, context, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, context)
 

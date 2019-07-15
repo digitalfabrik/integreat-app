@@ -17,9 +17,12 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
   const { city, language, path, depth, key, criterion } = action.params
   try {
     const loadCriterion = new ContentLoadCriterion(criterion)
-    const languageLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
-    if (languageLoaded) {
+    if (cityContentLoaded) {
+      // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
+      // appropriate error
+
       const context = new DatabaseContext(city, language)
       const [categoriesMap, resourceCache] = yield all([
         call(dataContainer.getCategoriesMap, context),
@@ -28,7 +31,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
 
       let languages = [new LanguageModel(language, language)]
 
-      if (!loadCriterion.peek()) {
+      if (loadCriterion.shouldLoadLanguages()) {
         languages = yield call(dataContainer.getLanguages, context)
       }
 
