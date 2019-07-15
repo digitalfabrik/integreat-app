@@ -19,7 +19,6 @@ function * getRootAvailableLanguages (
   if (loadCriterion.shouldLoadLanguages()) {
     const languages = yield call(dataContainer.getLanguages, context)
     return new Map<string, string>(languages
-      .filter(languageModel => languageModel.code === context.languageCode)
       .map(language => [language.code, `/${context.cityCode}/${language.code}`]))
   }
 
@@ -38,10 +37,18 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       // appropriate error
 
       const context = new DatabaseContext(city, language)
-      const [categoriesMap, resourceCache] = yield all([
-        call(dataContainer.getCategoriesMap, context),
-        call(dataContainer.getResourceCache, context)
+      const [categoriesMap] = yield all([
+        call(dataContainer.getCategoriesMap, context)
       ])
+
+      let resourceCache = {}
+
+      const resourceCacheAvailable = yield call({context: dataContainer, fn: dataContainer.resourceCacheAvailable}, context)
+
+      if (resourceCacheAvailable) {
+        // TODO: This call should happen paralel
+        resourceCache = yield call(dataContainer.getResourceCache, context)
+      }
 
       const rootAvailableLanguages = yield call(getRootAvailableLanguages, context, loadCriterion, dataContainer)
 

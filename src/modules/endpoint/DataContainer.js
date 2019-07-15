@@ -84,17 +84,9 @@ export interface DataContainer {
   languagesAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
-   * Returns whether the ResourceCache have been loaded or not.
-   */
-  resourceCacheAvailable (context: DatabaseContext): Promise<boolean>,
-
-  /**
    * Returns whether the events have been loaded or not.
    */
   eventsAvailable (context: DatabaseContext): Promise<boolean>,
 
-  /**
-   * Returns whether a lastUpdate timestamp has been loaded or not.
-   */
-  lastUpdateAvailable (context: DatabaseContext): Promise<boolean>
+  resourceCacheAvailable (context: DatabaseContext): Promise<boolean>
 }

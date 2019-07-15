@@ -271,7 +271,7 @@ describe('morphContentLanguage', () => {
     })
   ]
 
-  const deRootAvailableLanguages = new Map([['en', '/augsburg/en']])
+  const deRootAvailableLanguages = new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']])
 
   const initialState = defaultCityContentState
 

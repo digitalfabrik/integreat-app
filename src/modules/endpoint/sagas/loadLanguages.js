@@ -9,7 +9,7 @@ import type { DataContainer } from '../DataContainer'
 import DatabaseContext from '../DatabaseContext'
 
 export default function * loadLanguages (context: DatabaseContext, dataContainer: DataContainer, shouldUpdate: boolean): Saga<void> {
-  const languagesAvailable = yield call(dataContainer.languagesAvailable, context)
+  const languagesAvailable = yield call({context: dataContainer, fn: dataContainer.languagesAvailable}, context)
 
   if (languagesAvailable && !shouldUpdate) {
     console.debug('Using cached languages')

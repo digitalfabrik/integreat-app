@@ -82,10 +82,6 @@ class DatabaseConnector {
     return `${CONTENT_DIR_PATH}/${context.cityCode}/${context.languageCode}/${key}.json`
   }
 
-  getLanguagesPath (city: string): string {
-    return `${CONTENT_DIR_PATH}/${city}/languages.json`
-  }
-
   getResourceCachePath (context: DatabaseContext): string {
     return getResourceCacheFilesPath(context.cityCode)
   }
@@ -185,7 +181,7 @@ class DatabaseConnector {
   }
 
   async storeLanguages (languages: Array<LanguageModel>, context: DatabaseContext) {
-    const path = this.getLanguagesPath(context.cityCode)
+    const path = this.getContentPath('languages', context)
     await this.writeFile(path, JSON.stringify(languages))
   }
 
@@ -216,12 +212,12 @@ class DatabaseConnector {
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
 
-  async loadEvents (context: DatabaseContext): Promise<Array<EventModel> | null> {
+  async loadEvents (context: DatabaseContext): Promise<Array<EventModel>> {
     const path = this.getContentPath('events', context)
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      return null
+      throw Error(`File ${path} does not exist`)
     }
 
     const json = JSON.parse(await this.readFile(path))
@@ -278,14 +274,18 @@ class DatabaseConnector {
   }
 
   isLanguagesPersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getLanguagesPath(context.cityCode))
+    return this.isPersisted(this.getContentPath('languages', context))
   }
 
   isEventsPersisted (context: DatabaseContext): Promise<boolean> {
     return this.isPersisted(this.getContentPath('events', context))
   }
 
-  async isPersisted (path: string): Promise<boolean> {
+  isResourceCachePersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getResourceCachePath(context))
+  }
+
+  isPersisted (path: string): Promise<boolean> {
     return RNFetchblob.fs.exists(path)
   }
 

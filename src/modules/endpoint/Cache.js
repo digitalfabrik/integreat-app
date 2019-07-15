@@ -3,7 +3,7 @@
 import DatabaseConnector from './DatabaseConnector'
 import DatabaseContext from './DatabaseContext'
 
-type LoadFunctionType<T> = (databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<T | null>
+type LoadFunctionType<T> = (databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<T>
 type StoreFunctionType<T> = (value: T, databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<void>
 
 export default class Cache<T> {
@@ -26,11 +26,7 @@ export default class Cache<T> {
 
     const value = this.value
     if (!value) {
-      const newValue: T | null = await this.load(this.databaseConnector, context)
-
-      if (!newValue) {
-        throw new Error('Data is not available in cache and on disk! Therefore getting data from the cache failed.')
-      }
+      const newValue: T = await this.load(this.databaseConnector, context)
 
       this.value = newValue
       this.context = context
