@@ -33,11 +33,11 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   height: ${props => props.theme.dimensions.modalHeaderHeight};
 `
 
-type PropsType = {
+type PropsType = {|
   navigation: NavigationScreenProp<*>,
   theme: ThemeType,
   t: TFunction
-}
+|}
 
 const MaterialHeaderButton = props => (
   <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
@@ -53,6 +53,11 @@ const MaterialHeaderButtons = props => {
   )
 }
 
+export type ShareParamsType = {|
+  url: string,
+  pageTitle: string
+|}
+
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBack = () => {
     this.props.navigation.goBack(null)
@@ -60,15 +65,19 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async () => {
     const { navigation } = this.props
-    const { url } = navigation.state.params
+    const { url }: ShareParamsType = navigation.state.params
+    alert(JSON.stringify(navigation.state.params))
 
     try {
+      // TODO: Add 'subject' and 'title': On Android subject is added to the message
       await Share.open({
-        // url: 'file:///storage/emulated/0/Download/Object_prototypes.pdf'
-        url
+        url,
+        failOnCancel: false
       })
     } catch (e) {
-      alert(e.message)
+      if (e) {
+        alert(e.message)
+      }
     }
   }
 

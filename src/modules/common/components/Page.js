@@ -15,6 +15,7 @@ import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import type { TFunction } from 'react-i18next'
+import type { ShareParamsType } from '../../layout/components/TransparentHeader'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -47,12 +48,14 @@ class Page extends React.Component<PropType, StateType> {
   state = {loading: true}
 
   onLinkPress = (url: string) => {
-    const {navigation, cityCode, language, navigateToIntegreatUrl} = this.props
+    const {navigation, cityCode, language, navigateToIntegreatUrl, title} = this.props
 
     if (url.includes('.pdf')) {
-      navigation.navigate('PDFViewModal', {url})
+      const shareParams: ShareParamsType = {pageTitle: title, url}
+      navigation.navigate('PDFViewModal', shareParams)
     } else if (url.includes('.png') || url.includes('.jpg')) {
-      navigation.navigate('ImageViewModal', {url})
+      const shareParams: ShareParamsType = {pageTitle: title, url}
+      navigation.navigate('ImageViewModal', shareParams)
     } else if (HIJACK.test(url)) {
       navigateToIntegreatUrl({url, cityCode, language})
     } else {
