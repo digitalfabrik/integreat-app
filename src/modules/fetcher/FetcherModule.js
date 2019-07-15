@@ -11,19 +11,19 @@ type ProgressCallbackType = (progress: number) => void
 
 class FetcherModule {
   // TODO NATIVE-264: Correctly handle already fetching
-  // static currentlyFetching = false
+  static currentlyFetching = false
 
   async fetchAsync (
     targetFilePaths: TargetFilePathsType,
     progress: ProgressCallbackType
   ): Promise<FetchResultType> {
-    // if (FetcherModule.currentlyFetching) {
-    //   return Promise.reject(new Error('Already fetching!'))
-    // }
+    if (FetcherModule.currentlyFetching) {
+      return Promise.reject(new Error('Already fetching!'))
+    }
     if (isEmpty(targetFilePaths)) {
       return Promise.resolve({})
     }
-    // FetcherModule.currentlyFetching = true
+    FetcherModule.currentlyFetching = true
 
     const subscriptions = []
     subscriptions.push(NativeFetcherModuleEmitter.addListener('progress', progress))
@@ -32,7 +32,7 @@ class FetcherModule {
       return await NativeFetcherModule.fetchAsync(targetFilePaths)
     } finally {
       subscriptions.forEach(sub => sub.remove())
-      // FetcherModule.currentlyFetching = false
+      FetcherModule.currentlyFetching = false
     }
   }
 }
