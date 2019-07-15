@@ -57,7 +57,7 @@ const initDriver = async (serverConfig, desiredCaps) => {
   }
 }
 
-export const setupDriver = async (additionalCaps: $Shape<{ locale: string, language: string }> = {}) => {
+export const setupDriver = async (additionalCaps: {} = {}) => {
   const serverConfig = serverConfigs[e2eServerConfigName.toLowerCase()]
 
   if (!serverConfig) {
