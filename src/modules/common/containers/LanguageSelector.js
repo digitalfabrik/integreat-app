@@ -21,7 +21,7 @@ type PropsType = {|
  */
 export class LanguageSelector extends React.PureComponent<PropsType> {
   getSelectorItemModels (): Array<SelectorItemModel> {
-    const {languageChangePaths, location} = this.props
+    const { languageChangePaths, location } = this.props
     const activeItemCode = location.payload.language
 
     if (!languageChangePaths) {
@@ -30,7 +30,7 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
 
     return (
       languageChangePaths.map(languageChangePath => {
-        const {code, name, path} = languageChangePath
+        const { code, name, path } = languageChangePath
         return new SelectorItemModel({
           code,
           name,
@@ -41,7 +41,7 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {location, isHeaderActionItem, t} = this.props
+    const { location, isHeaderActionItem, t } = this.props
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = location.payload.language
 

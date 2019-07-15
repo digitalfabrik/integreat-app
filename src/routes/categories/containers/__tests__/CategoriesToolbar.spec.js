@@ -4,7 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { CategoriesToolbar } from '../CategoriesToolbar'
-import { CategoryModel, CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel } from '@integreat-app/integreat-api-client'
 import { CATEGORIES_ROUTE } from '../../../../modules/app/route-configs/CategoriesRouteConfig'
 import moment from 'moment-timezone'
 import createLocation from '../../../../createLocation'
@@ -66,7 +66,7 @@ describe('CategoriesToolbar', () => {
   it('should render nothing, if category cannot be found', () => {
     const component = shallow(
       <CategoriesToolbar categories={categories}
-                         location={createLocation({type: 'INVALID_ROUTE', payload: {}, pathname: 'invalid_path'})}
+                         location={createLocation({ type: 'INVALID_ROUTE', payload: {}, pathname: 'invalid_path' })}
                          t={t}
                          openFeedbackModal={() => {}} />
     )
@@ -78,7 +78,11 @@ describe('CategoriesToolbar', () => {
     const component = shallow(
       <CategoriesToolbar
         categories={categories}
-        location={createLocation({pathname: categoryModels[2].path, type: CATEGORIES_ROUTE, payload: {city, language}})}
+        location={createLocation({
+          pathname: categoryModels[2].path,
+          type: CATEGORIES_ROUTE,
+          payload: { city, language }
+        })}
         t={t}
         openFeedbackModal={() => {}} />
     )
@@ -90,7 +94,11 @@ describe('CategoriesToolbar', () => {
     const component = shallow(
       <CategoriesToolbar
         categories={categories}
-        location={createLocation({pathname: categoryModels[0].path, type: CATEGORIES_ROUTE, payload: {city, language}})}
+        location={createLocation({
+          pathname: categoryModels[0].path,
+          type: CATEGORIES_ROUTE,
+          payload: { city, language }
+        })}
         t={t}
         openFeedbackModal={() => {}} />
     )

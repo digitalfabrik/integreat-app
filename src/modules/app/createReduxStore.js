@@ -18,7 +18,7 @@ import type { StoreActionType } from './StoreActionType'
 
 const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
   StoreActionType> => {
-  const {reducer, middleware, enhancer} = connectRoutes(routesMap, {
+  const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
     createHistory: () => createHistory()
   })
 
@@ -35,7 +35,7 @@ const createReduxStore = (initialState: {} = {}, routesMap: RoutesMap = defaultR
   }
   const rootReducer = combineReducers({
     ...endpointReducers,
-    viewport: createResponsiveStateReducer({small: 750}, {infinity: 'large'}),
+    viewport: createResponsiveStateReducer({ small: 750 }, { infinity: 'large' }),
     location: reducer,
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer

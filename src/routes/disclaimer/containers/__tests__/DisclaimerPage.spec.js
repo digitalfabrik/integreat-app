@@ -28,7 +28,7 @@ describe('DisclaimerPage', () => {
   describe('connect', () => {
     const mockStore = configureMockStore()
     const store = mockStore({
-      location: {payload: {language}}
+      location: { payload: { language } }
     })
 
     it('should map state and fetched data to props', () => {

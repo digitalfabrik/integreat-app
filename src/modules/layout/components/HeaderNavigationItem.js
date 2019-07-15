@@ -50,7 +50,7 @@ class HeaderNavigationItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {active, text, tooltip, selected, href} = this.props
+    const { active, text, tooltip, selected, href } = this.props
     if (active) {
       return <ActiveNavigationItem key={text} to={href} selected={selected}>
         {text}

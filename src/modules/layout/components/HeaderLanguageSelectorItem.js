@@ -27,7 +27,7 @@ class HeaderLanguageSelectorItem extends React.Component<PropsType> {
   }
 
   render () {
-    const {selectorItems, activeItemCode, t} = this.props
+    const { selectorItems, activeItemCode, t } = this.props
     const noLanguagesHint = t('noLanguages')
 
     return selectorItems && selectorItems.length > 0

@@ -29,16 +29,16 @@ type StateType = {|
 export class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {filterText: '', stickyTop: 0}
+    this.state = { filterText: '', stickyTop: 0 }
   }
 
-  onFilterTextChange = (filterText: string) => this.setState({filterText})
+  onFilterTextChange = (filterText: string) => this.setState({ filterText })
 
-  onStickyTopChanged = (stickyTop: number) => this.setState({stickyTop})
+  onStickyTopChanged = (stickyTop: number) => this.setState({ stickyTop })
 
   render () {
-    const {cities, language, t} = this.props
-    const {filterText, stickyTop} = this.state
+    const { cities, language, t } = this.props
+    const { filterText, stickyTop } = this.state
 
     return (
       <Container>

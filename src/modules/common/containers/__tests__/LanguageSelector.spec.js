@@ -12,16 +12,16 @@ describe('LanguageSelector', () => {
   const language = 'en'
 
   const languageChangePaths = [
-    {code: 'de', name: 'Deutsch', path: '/augsburg/de/disclaimer'},
-    {code: 'en', name: 'English', path: '/augsburg/en/disclaimer'},
-    {code: 'ar', name: 'Arabic', path: '/augsburg/ar/disclaimer'}
+    { code: 'de', name: 'Deutsch', path: '/augsburg/de/disclaimer' },
+    { code: 'en', name: 'English', path: '/augsburg/en/disclaimer' },
+    { code: 'ar', name: 'Arabic', path: '/augsburg/ar/disclaimer' }
   ]
 
   it('should render a HeaderLanguageSelectorItem if it is a header action item', () => {
     const location = createLocation({
       pathname: '/augsburg/en/disclaimer',
       type: DISCLAIMER_ROUTE,
-      payload: {city, language}
+      payload: { city, language }
     })
 
     const languageSelector = shallow(
@@ -38,7 +38,7 @@ describe('LanguageSelector', () => {
     const location = createLocation({
       pathname: '/augsburg/en/disclaimer',
       type: DISCLAIMER_ROUTE,
-      payload: {city, language}
+      payload: { city, language }
     })
 
     const languageSelector = shallow(

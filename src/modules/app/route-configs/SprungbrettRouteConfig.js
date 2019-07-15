@@ -24,7 +24,7 @@ export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 
 const fetchExtras = async (dispatch, getState) => {
   const state = getState()
-  const {city, language} = state.location.payload
+  const { city, language } = state.location.payload
   const extrasPayload = await fetchData(createExtrasEndpoint(cmsApiBaseUrl), dispatch, state.extras, {
     city,
     language
@@ -34,7 +34,7 @@ const fetchExtras = async (dispatch, getState) => {
   if (extras) {
     const sprungbrettExtra: ExtraModel | void = extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
     if (sprungbrettExtra) {
-      const params = {city, language}
+      const params = { city, language }
 
       await fetchData(createSprungbrettJobsEndpoint(sprungbrettExtra.path), dispatch, state.sprungbrettJobs, params)
     }
@@ -45,12 +45,12 @@ const sprungbrettRoute: Route = {
   path: `/:city/:language/extras/${SPRUNGBRETT_EXTRA}`,
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
       fetchExtras(dispatch, getState)
     ])
   }
@@ -63,16 +63,16 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   requiresHeader = true
   requiresFooter = true
 
-  getRoutePath = ({city, language}: SprungbrettRouteParamsType): string =>
+  getRoutePath = ({ city, language }: SprungbrettRouteParamsType): string =>
     `/${city}/${language}/extras/${SPRUNGBRETT_EXTRA}`
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload})
+    ({ sprungbrettJobs: payloads.sprungbrettJobsPayload, extras: payloads.extrasPayload })
 
-  getLanguageChangePath = ({location, language}) =>
-    this.getRoutePath({city: location.payload.city, language})
+  getLanguageChangePath = ({ location, language }) =>
+    this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({cityName, payloads}) => {
+  getPageTitle = ({ cityName, payloads }) => {
     if (!cityName) {
       return null
     }
@@ -83,10 +83,10 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({payloads}) => {
+  getFeedbackTargetInformation = ({ payloads }) => {
     const extras = payloads.extras.data
     const extra = extras && extras.find(extra => extra.alias === SPRUNGBRETT_EXTRA)
-    return ({alias: SPRUNGBRETT_EXTRA, title: extra && extra.title})
+    return ({ alias: SPRUNGBRETT_EXTRA, title: extra && extra.title })
   }
 }
 

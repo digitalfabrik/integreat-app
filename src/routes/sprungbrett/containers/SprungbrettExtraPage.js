@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { SprungbrettJobModel, ExtraModel } from '@integreat-app/integreat-api-client'
+import { ExtraModel, SprungbrettJobModel } from '@integreat-app/integreat-api-client'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import type { TFunction } from 'react-i18next'
@@ -20,7 +20,7 @@ export class SprungbrettExtraPage extends React.Component<PropsType> {
   renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => <SprungbrettListItem key={job.id} job={job} />
 
   render () {
-    const {sprungbrettJobs, extras, t} = this.props
+    const { sprungbrettJobs, extras, t } = this.props
     const extra: ExtraModel | void = extras.find(extra => extra.alias === 'sprungbrett')
 
     if (!extra) {

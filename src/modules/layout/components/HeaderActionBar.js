@@ -46,7 +46,7 @@ class HeaderActionBar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {items, className} = this.props
+    const { items, className } = this.props
     return (
       <ActionItems className={className}>
         {items.map((item, index) => {

@@ -15,7 +15,7 @@ const cities = [
   })
 ]
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
-const payloads = {cities: citiesPayload}
+const payloads = { cities: citiesPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -23,7 +23,7 @@ describe('I18nRedirectRouteConfig', () => {
   const i18nRedirectRouteConfig = new I18nRedirectRouteConfig()
 
   it('should get the right path', () => {
-    expect(i18nRedirectRouteConfig.getRoutePath({param: 'param'})).toBe('/param')
+    expect(i18nRedirectRouteConfig.getRoutePath({ param: 'param' })).toBe('/param')
     expect(i18nRedirectRouteConfig.getRoutePath({})).toBe('/')
   })
 
@@ -44,13 +44,13 @@ describe('I18nRedirectRouteConfig', () => {
 
   it('all functions should return null', () => {
     const location = createLocation({
-      payload: {param: 'param'},
+      payload: { param: 'param' },
       pathname: '/param',
       type: i18nRedirectRouteConfig.name
     })
-    expect(i18nRedirectRouteConfig.getPageTitle({t, payloads, location, cityName: null})).toBeNull()
-    expect(i18nRedirectRouteConfig.getLanguageChangePath({payloads, location, language: 'de'})).toBeNull()
-    expect(i18nRedirectRouteConfig.getMetaDescription({t})).toBeNull()
-    expect(i18nRedirectRouteConfig.getFeedbackTargetInformation({payloads, location})).toBeNull()
+    expect(i18nRedirectRouteConfig.getPageTitle({ t, payloads, location, cityName: null })).toBeNull()
+    expect(i18nRedirectRouteConfig.getLanguageChangePath({ payloads, location, language: 'de' })).toBeNull()
+    expect(i18nRedirectRouteConfig.getMetaDescription({ t })).toBeNull()
+    expect(i18nRedirectRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
   })
 })

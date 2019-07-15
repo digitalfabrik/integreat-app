@@ -35,7 +35,7 @@ describe('NotFoundRouteConfig', () => {
       pathname: NOT_FOUND,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getPageTitle({t, payloads: undefined, location, cityName: null}))
+    expect(notFoundRouteConfig.getPageTitle({ t, payloads: undefined, location, cityName: null }))
       .toBe('pageTitles.notFound')
   })
 
@@ -45,19 +45,19 @@ describe('NotFoundRouteConfig', () => {
 
   it('should return the right language change path', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: NOT_FOUND,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getLanguageChangePath({payloads: undefined, location, language: 'de'})).toBeNull()
+    expect(notFoundRouteConfig.getLanguageChangePath({ payloads: undefined, location, language: 'de' })).toBeNull()
   })
 
   it('all functions should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: NOT_FOUND,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getFeedbackTargetInformation({payloads: undefined, location})).toBeNull()
+    expect(notFoundRouteConfig.getFeedbackTargetInformation({ payloads: undefined, location })).toBeNull()
   })
 })

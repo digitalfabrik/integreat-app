@@ -43,11 +43,11 @@ type StateType = {|
 |}
 
 export class SearchFeedback extends React.Component<PropsType, StateType> {
-  state = {boxOpenedForQuery: null}
+  state = { boxOpenedForQuery: null }
 
   openFeedbackBox = () => {
-    const {location, query} = this.props
-    const {city, language} = location.payload
+    const { location, query } = this.props
+    const { city, language } = location.payload
     createFeedbackEndpoint(cmsApiBaseUrl).request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
@@ -56,11 +56,11 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
       language,
       query
     })
-    this.setState({boxOpenedForQuery: this.props.query})
+    this.setState({ boxOpenedForQuery: this.props.query })
   }
 
   render (): React.Node {
-    const {resultsFound, query, location, t} = this.props
+    const { resultsFound, query, location, t } = this.props
     if (!resultsFound || query === this.state.boxOpenedForQuery) {
       return <FeedbackContainer>
         <NothingFound>{t('nothingFound')}</NothingFound>

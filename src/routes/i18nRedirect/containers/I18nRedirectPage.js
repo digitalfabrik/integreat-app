@@ -1,7 +1,8 @@
 // @flow
 
 import React from 'react'
-import { redirect, pathToAction, NOT_FOUND } from 'redux-first-router'
+import type { ReceivedAction } from 'redux-first-router'
+import { NOT_FOUND, pathToAction, redirect } from 'redux-first-router'
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
@@ -12,7 +13,6 @@ import { routesMap } from '../../../modules/app/route-configs/index'
 import LandingRouteConfig from '../../../modules/app/route-configs/LandingRouteConfig'
 import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import type { ReceivedAction } from 'redux-first-router'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 
 type PropsType = {|
@@ -27,15 +27,15 @@ type PropsType = {|
  */
 export class I18nRedirectPage extends React.Component<PropsType> {
   getRedirectPath (): string {
-    const {param, cities, i18n} = this.props
+    const { param, cities, i18n } = this.props
     // the param does not exist (or is 'landing'), so redirect to the landing page with the detected language
     if (!param || param === 'landing') {
-      return new LandingRouteConfig().getRoutePath({language: i18n.language})
+      return new LandingRouteConfig().getRoutePath({ language: i18n.language })
     }
 
     // the param is a valid city, so redirect to the categories route with the detected language
     if (cities.find(_city => _city.code === param)) {
-      return new CategoriesRouteConfig().getRoutePath({city: param, language: i18n.language})
+      return new CategoriesRouteConfig().getRoutePath({ city: param, language: i18n.language })
     }
 
     return NOT_FOUND

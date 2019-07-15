@@ -16,7 +16,7 @@ type PropsType = {|
 
 class FeedbackComment extends React.PureComponent<PropsType> {
   render () {
-    const {commentMessage, comment, onCommentChanged} = this.props
+    const { commentMessage, comment, onCommentChanged } = this.props
     return (
       <>
         <Description>{commentMessage}</Description>

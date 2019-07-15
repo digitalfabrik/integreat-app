@@ -1,12 +1,7 @@
 // @flow
 
 import WohnenRouteConfig, { hash } from '../WohnenRouteConfig'
-import {
-  ExtraModel,
-  Payload,
-  WohnenFormData,
-  WohnenOfferModel
-} from '@integreat-app/integreat-api-client'
+import { ExtraModel, Payload, WohnenFormData, WohnenOfferModel } from '@integreat-app/integreat-api-client'
 import createLocation from '../../../../createLocation'
 import moment from 'moment'
 
@@ -50,7 +45,7 @@ const offers = [
   })
 ]
 const wohnenPayload = new Payload(false, 'https://random.api.json', offers, null)
-const payloads = {extras: extrasPayload, offers: wohnenPayload}
+const payloads = { extras: extrasPayload, offers: wohnenPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -58,7 +53,7 @@ describe('WohnenRouteConfig', () => {
   const wohnenRouteConfig = new WohnenRouteConfig()
 
   it('should get the right path', () => {
-    expect(wohnenRouteConfig.getRoutePath({city: 'augsburg', language: 'de'}))
+    expect(wohnenRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' }))
       .toBe('/augsburg/de/extras/wohnen')
   })
 
@@ -79,37 +74,37 @@ describe('WohnenRouteConfig', () => {
 
   it('should get the right language change path', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras/wohnen',
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getLanguageChangePath({payloads, language: 'en', location}))
+    expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
       .toBe('/augsburg/en/extras/wohnen')
-    expect(wohnenRouteConfig.getLanguageChangePath({payloads, language: 'ar', location}))
+    expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
       .toBe('/augsburg/ar/extras/wohnen')
   })
 
   it('should get the right page title', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras/wohnen',
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getPageTitle({payloads, location, cityName: 'Augsburg', t}))
+    expect(wohnenRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
       .toBe('Raumfrei - Augsburg')
 
     const offerLocation = createLocation({
-      payload: {city: 'augsburg', language: 'de', offerHash: hash(offers[0])},
+      payload: { city: 'augsburg', language: 'de', offerHash: hash(offers[0]) },
       pathname: `/augsburg/de/extras/wohnen/${hash(offers[0])}`,
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getPageTitle({payloads, location: offerLocation, cityName: 'Augsburg', t}))
+    expect(wohnenRouteConfig.getPageTitle({ payloads, location: offerLocation, cityName: 'Augsburg', t }))
       .toBe('Test Angebot - Augsburg')
 
-    expect(wohnenRouteConfig.getPageTitle({payloads, location, cityName: null, t}))
+    expect(wohnenRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
       .toBeNull()
   })
 
@@ -119,12 +114,12 @@ describe('WohnenRouteConfig', () => {
 
   it('should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {city: 'augsburg', language: 'de'},
+      payload: { city: 'augsburg', language: 'de' },
       pathname: '/augsburg/de/extras/wohnen',
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getFeedbackTargetInformation({payloads, location}))
+    expect(wohnenRouteConfig.getFeedbackTargetInformation({ payloads, location }))
       .toEqual({
         alias: 'wohnen',
         title: 'Raumfrei'

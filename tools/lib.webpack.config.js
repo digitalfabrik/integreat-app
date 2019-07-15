@@ -69,12 +69,12 @@ const config = {
       },
       {
         test: /\.html$/,
-        use: [{loader: 'html-loader', options: {minimize: true}}]
+        use: [{ loader: 'html-loader', options: { minimize: true } }]
       },
       {
         test: /\.css$/,
         include: /node_modules/,
-        loaders: [{loader: 'style-loader'}, {loader: 'css-loader'}]
+        loaders: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -103,8 +103,8 @@ const config = {
               },
               svgo: {
                 plugins: [
-                  {removeTitle: true},
-                  {convertPathData: false}
+                  { removeTitle: true },
+                  { convertPathData: false }
                 ]
               }
             }

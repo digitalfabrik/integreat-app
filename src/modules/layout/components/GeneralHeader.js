@@ -15,7 +15,7 @@ class GeneralHeader extends React.PureComponent<PropsType> {
     const getPath = new I18nRedirectRouteConfig().getRoutePath
     return <Header viewportSmall={this.props.viewportSmall}
                    logoHref={getPath({})}
-                   actionItems={[new HeaderActionItem({href: getPath({}), iconSrc: landingIcon})]} />
+                   actionItems={[new HeaderActionItem({ href: getPath({}), iconSrc: landingIcon })]} />
   }
 }
 

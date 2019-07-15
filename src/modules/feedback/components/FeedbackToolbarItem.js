@@ -29,7 +29,7 @@ export class FeedbackToolbarItem extends React.PureComponent<PropsType> {
   onLinkClick = () => this.props.openFeedbackModal(this.props.isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING)
 
   render () {
-    const {t, isPositiveRatingLink, className} = this.props
+    const { t, isPositiveRatingLink, className } = this.props
     const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
     return (
       <StyledFeedbackToolbarItem className={className} onClick={this.onLinkClick}>

@@ -1,11 +1,7 @@
 // @flow
 
 import RouteContentSwitcher from '../RouteContentSwitcher'
-import {
-  CategoriesMapModel,
-  CategoryModel, CityModel,
-  Payload
-} from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, CategoryModel, CityModel, Payload } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import { mount, shallow } from 'enzyme'
 import React from 'react'
@@ -68,16 +64,16 @@ describe('RouteContentSwitcher', () => {
   }
 
   it('should render a FailureSwitcher if a payload contains an error', () => {
-    const location = createLocation({type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}})
+    const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
     const renderFailureLoadingComponents = shallow(
       <RouteContentSwitcher allPayloads={allPayloads} location={location} />
     ).instance().renderFailureLoadingComponents
 
-    expect(renderFailureLoadingComponents({'payload': errorPayload})).toMatchSnapshot()
+    expect(renderFailureLoadingComponents({ 'payload': errorPayload })).toMatchSnapshot()
   })
 
   it('should render a Spinner if data has not been fetched yet', () => {
-    const location = createLocation({type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}})
+    const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
     expect(mount(
         <ThemeProvider theme={theme}>
@@ -87,7 +83,7 @@ describe('RouteContentSwitcher', () => {
   })
 
   it('should render and match snapshot', () => {
-    const location = createLocation({type: CATEGORIES_ROUTE, payload: {city: 'augsburg', language: 'de'}})
+    const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
     expect(shallow(<RouteContentSwitcher location={location} allPayloads={allPayloads} />)).toMatchSnapshot()
   })

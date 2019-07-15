@@ -46,7 +46,11 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
       load: 'languageOnly',
       debug: __DEV__
     })
-    this.state = {language: DEFAULT_LANGUAGE, fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE), i18nLoaded: true}
+    this.state = {
+      language: DEFAULT_LANGUAGE,
+      fonts: I18nProvider.getSelectedFonts(DEFAULT_LANGUAGE),
+      i18nLoaded: true
+    }
   }
 
   componentDidMount () {
@@ -83,7 +87,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
     // Set i18next language to apps language
     this.i18n.changeLanguage(targetLanguage).then(() => {
       const fonts = I18nProvider.getSelectedFonts(targetLanguage)
-      this.setState(prevState => ({...prevState, language: targetLanguage, fonts}))
+      this.setState(prevState => ({ ...prevState, language: targetLanguage, fonts }))
 
       this.props.setUiDirection(RTL_LANGUAGES.includes(targetLanguage) ? 'rtl' : 'ltr')
       if (document.documentElement) {
@@ -108,7 +112,7 @@ export class I18nProvider extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {language, fonts: {lateef, openSans, raleway}} = this.state
+    const { language, fonts: { lateef, openSans, raleway } } = this.state
     return (
       <I18nextProvider i18n={this.i18n}>
         <div
@@ -131,6 +135,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
   setUiDirection: action => dispatch(setUiDirection(action))
 })
 
-const mapStateToProps = state => ({language: state.location.payload.language})
+const mapStateToProps = state => ({ language: state.location.payload.language })
 
 export default connect(mapStateToProps, mapDispatchToProps)(I18nProvider)

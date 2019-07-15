@@ -35,12 +35,12 @@ describe('LanguageFailure', () => {
     })
   ]
 
-  const location = createLocation({type: 'CATEGORIES', payload: {city: 'augsburg'}})
+  const location = createLocation({ type: 'CATEGORIES', payload: { city: 'augsburg' } })
 
   const languageChangePaths = [
-    {code: 'de', name: 'Deutsch', path: '/augsburg/de'},
-    {code: 'en', name: 'English', path: '/augsburg/en'},
-    {code: 'ar', name: 'Arabic', path: '/augsburg/ar'}
+    { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
+    { code: 'en', name: 'English', path: '/augsburg/en' },
+    { code: 'ar', name: 'Arabic', path: '/augsburg/ar' }
   ]
 
   it('should match snapshot', () => {
