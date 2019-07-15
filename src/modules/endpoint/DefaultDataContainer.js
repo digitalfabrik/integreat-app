@@ -74,7 +74,7 @@ class DefaultDataContainer implements DataContainer {
     return cache.get(context)
   }
 
-  getLanguages = async (context: DatabaseContext): Promise<Array<LanguageModel>> => {
+  getLanguages = (context: DatabaseContext): Promise<Array<LanguageModel>> => {
     const cache: Cache<Array<LanguageModel>> = this.caches['languages']
     return cache.get(context)
   }
@@ -90,7 +90,7 @@ class DefaultDataContainer implements DataContainer {
     return resourceCache[context.languageCode]
   }
 
-  getLastUpdate = async (context: DatabaseContext): Promise<Moment> => {
+  getLastUpdate = (context: DatabaseContext): Promise<Moment> => {
     const cache: Cache<Moment> = this.caches['lastUpdate']
     return cache.get(context)
   }
@@ -100,9 +100,10 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(categories, context)
   }
 
-  setCities = async (cities: Array<CityModel>) => {
+  setCities = (cities: Array<CityModel>) => {
     // TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
     this._cities = cities
+    return Promise.resolve()
   }
 
   setEvents = async (context: DatabaseContext, events: Array<EventModel>) => {
