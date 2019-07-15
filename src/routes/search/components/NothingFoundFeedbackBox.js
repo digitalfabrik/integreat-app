@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { TextInput, Text } from 'react-native'
+import { ActivityIndicator, Text, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -20,43 +20,64 @@ const DescriptionText: StyledComponent<{}, ThemeType, *> = styled(Text)`
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
+const TitleText = styled.Text`
+  text-align: center;
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
+`
+
 type PropsType = {|
-  query?: string,
+  query: string,
   t: TFunction,
-  theme: ThemeType
+  theme: ThemeType,
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
+
+type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type StateType = {|
   comment: string,
-  feedbackSent: boolean
+  sendingStatus: SendingStatusType
 |}
 
 class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
-  state = {comment: '', feedbackSent: false}
+  state = { comment: '', sendingStatus: 'idle' }
 
-  onCommentChanged = (value: string) => this.setState({comment: value})
+  onCommentChanged = (value: string) => this.setState({ comment: value })
 
   onSubmit = () => {
-    // todo: NATIVE-208 submit feedback
-    this.setState({feedbackSent: true})
+    this.setState({ sendingStatus: 'sending' })
+    this.props.sendFeedback(this.state.comment, this.props.query)
+      .then(() => this.setState({ sendingStatus: 'successful' }))
+      .catch(() => this.setState({ sendingStatus: 'failed' }))
   }
 
   render () {
-    const {feedbackSent, comment} = this.state
-    const {t, theme} = this.props
+    const { sendingStatus, comment } = this.state
+    const { t, theme } = this.props
 
-    return feedbackSent
-      ? <DescriptionText theme={theme}>{t('feedback:thanksMessage')}</DescriptionText>
-      : <>
+    if (['idle', 'failed'].includes(sendingStatus)) {
+      return <>
+        <TitleText theme={theme}>{t('feedback:nothingFound')}</TitleText>
+        {sendingStatus === 'failed' &&
+        <DescriptionText theme={theme}>{t('feedback:failedSendingFeedback')}</DescriptionText>}
         <DescriptionText theme={theme}>{t('feedback:wantedInformation')}</DescriptionText>
         <Input theme={theme} onChangeText={this.onCommentChanged}
                value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
                placeholder={t('feedback:yourFeedback')} />
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
-                titleStyle={{color: theme.colors.textColor}}
-                buttonStyle={{backgroundColor: theme.colors.themeColor}}
+                titleStyle={{ color: theme.colors.textColor }}
+                buttonStyle={{ backgroundColor: theme.colors.themeColor }}
                 onPress={this.onSubmit} title={t('feedback:send')} />
       </>
+    } else if (sendingStatus === 'sending') {
+      return <ActivityIndicator size='large' color='#0000ff' />
+    } else { // sendingStatus === 'successful'
+      return <>
+        <TitleText theme={theme}>{t('feedback:feedbackSent')}</TitleText>
+        <DescriptionText theme={theme}>{t('feedback:thanksMessage')}</DescriptionText>
+      </>
+    }
   }
 }
 

@@ -8,9 +8,10 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import SearchModal from '../components/SearchModal'
-import { CategoriesMapModel } from '@integreat-app/integreat-api-client'
+import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from '@integreat-app/integreat-api-client'
 import type { NavigationScreenProp } from 'react-navigation'
 import { translate } from 'react-i18next'
+import { baseUrl } from '../../../modules/endpoint/constants'
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 
@@ -20,8 +21,11 @@ export type PropsType = {|
   language: string,
   cityCode: string,
   closeModal: () => void,
-  navigation: NavigationScreenProp<*>
+  navigation: NavigationScreenProp<*>,
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
+
+const feedbackEndpoint = createFeedbackEndpoint(baseUrl)
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
   if (!state.cityContent) {
@@ -34,7 +38,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     categories: (searchRoute && searchRoute.categoriesMap) || null,
     language: state.contentLanguage,
     cityCode: city,
-    closeModal: () => { ownProps.navigation.goBack() }
+    closeModal: () => { ownProps.navigation.goBack() },
+    sendFeedback: async (comment: string, query: string) => {
+      await feedbackEndpoint.request({
+        feedbackType: SEARCH_FEEDBACK_TYPE,
+        isPositiveRating: false,
+        comment,
+        city,
+        language: state.contentLanguage,
+        query
+      })
+    }
   }
 }
 
