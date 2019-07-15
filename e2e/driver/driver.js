@@ -31,7 +31,7 @@ export const isIOS = () => {
   return platform.toLowerCase() === 'ios'
 }
 
-export const select = <T, K> (input: { android: T, ios: K }) => {
+export const select = <T, K> (input: { android: T, ios: K }): T | K => {
   if (isAndroid()) {
     return input.android
   } else if (isIOS()) {
@@ -57,7 +57,7 @@ const initDriver = async (serverConfig, desiredCaps) => {
   }
 }
 
-export const setupDriver = async (additionalCaps: {} = {}) => {
+export const setupDriver = async (additionalCaps: $Shape<{ locale: string, language: string }> = {}) => {
   const serverConfig = serverConfigs[e2eServerConfigName.toLowerCase()]
 
   if (!serverConfig) {
