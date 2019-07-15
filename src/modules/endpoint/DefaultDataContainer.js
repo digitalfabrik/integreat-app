@@ -15,7 +15,7 @@ type CacheType = {
   categories: Cache<CategoriesMapModel>,
   languages: Cache<Array<LanguageModel>>,
   resourceCache: Cache<CityResourceCacheStateType>,
-  lastUpdate: Cache<Moment>
+  lastUpdate: Cache<Moment | null>
 }
 
 type CacheKeyType = $Keys<CacheType>
@@ -46,9 +46,9 @@ class DefaultDataContainer implements DataContainer {
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
         (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeResourceCache(value, context)),
-      lastUpdate: new Cache<Moment>(this._databaseConnector,
+      lastUpdate: new Cache<Moment | null>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
-        (value: Moment, connector: DatabaseConnector, context: DatabaseContext) =>
+        (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeLastUpdate(value, context))
     }
   }
@@ -90,8 +90,8 @@ class DefaultDataContainer implements DataContainer {
     return resourceCache[context.languageCode]
   }
 
-  getLastUpdate = (context: DatabaseContext): Promise<Moment> => {
-    const cache: Cache<Moment> = this.caches['lastUpdate']
+  getLastUpdate = (context: DatabaseContext): Promise<Moment | null> => {
+    const cache: Cache<Moment | null> = this.caches['lastUpdate']
     return cache.get(context)
   }
 
@@ -160,24 +160,20 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(lastUpdate, context)
   }
 
-  categoriesAvailable (context: DatabaseContext): boolean {
-    return this.isCached('categories', context)
+  async categoriesAvailable (context: DatabaseContext): Promise<boolean> {
+    return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
 
-  languagesAvailable (context: DatabaseContext): boolean {
-    return this.isCached('languages', context)
+  async languagesAvailable (context: DatabaseContext): Promise<boolean> {
+    return this.isCached('languages', context) || this._databaseConnector.isLanguagesPersisted(context)
   }
 
-  eventsAvailable (context: DatabaseContext): boolean {
-    return this.isCached('events', context)
+  async eventsAvailable (context: DatabaseContext): Promise<boolean> {
+    return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
 
-  resourceCacheAvailable (context: DatabaseContext): boolean {
-    return this.isCached('resourceCache', context)
-  }
-
-  lastUpdateAvailable (context: DatabaseContext): boolean {
-    return this.isCached('lastUpdate', context)
+  async lastUpdateAvailable (context: DatabaseContext): Promise<boolean> {
+    return this.isCached('lastUpdate', context) || this._databaseConnector.isLastUpdatePersisted()
   }
 }
 

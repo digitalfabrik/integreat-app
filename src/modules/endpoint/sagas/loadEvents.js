@@ -20,8 +20,9 @@ function * loadEvents (
   city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean
 ): Saga<FetchMapType> {
   const context = new DatabaseContext(city, language)
+  const eventsAvailable = yield call(dataContainer.eventsAvailable, context)
 
-  if (!dataContainer.eventsAvailable(context) || shouldUpdate) {
+  if (!eventsAvailable || shouldUpdate) {
     // data is already loaded and should not be updated
 
     console.debug('Fetching events')

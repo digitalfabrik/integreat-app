@@ -66,7 +66,7 @@ export interface DataContainer {
   /**
    * Returns the lastUpdate timestamp..
    */
-  getLastUpdate: (context: DatabaseContext) => Promise<Moment>,
+  getLastUpdate: (context: DatabaseContext) => Promise<Moment | null>,
 
   /**
    * Sets the lastUpdate timestamp and persists it.
@@ -76,25 +76,25 @@ export interface DataContainer {
   /**
    * Returns whether the CategoriesMap has been loaded or not.
    */
-  categoriesAvailable (context: DatabaseContext): boolean,
+  categoriesAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
    * Returns whether the languages have been loaded or not.
    */
-  languagesAvailable (context: DatabaseContext): boolean,
+  languagesAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
    * Returns whether the ResourceCache have been loaded or not.
    */
-  resourceCacheAvailable (context: DatabaseContext): boolean,
+  resourceCacheAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
    * Returns whether the events have been loaded or not.
    */
-  eventsAvailable (context: DatabaseContext): boolean,
+  eventsAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
    * Returns whether a lastUpdate timestamp has been loaded or not.
    */
-  lastUpdateAvailable (context: DatabaseContext): boolean
+  lastUpdateAvailable (context: DatabaseContext): Promise<boolean>
 }

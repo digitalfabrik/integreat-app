@@ -5,14 +5,15 @@ import {
   CategoryModel,
   DateModel,
   EventModel,
-  LanguageModel, LocationModel
+  LanguageModel,
+  LocationModel
 } from '@integreat-app/integreat-api-client'
 import RNFetchblob from 'rn-fetch-blob'
-import moment from 'moment-timezone'
 import type Moment from 'moment-timezone'
+import moment from 'moment-timezone'
 import type { CityResourceCacheStateType } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
-import { CONTENT_DIR_PATH, CACHE_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
+import { CACHE_DIR_PATH, CONTENT_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -111,13 +112,13 @@ class DatabaseConnector {
     await this.writeFile(path, JSON.stringify(currentCityMetaData))
   }
 
-  async loadLastUpdate (context: DatabaseContext): Promise<Moment> {
+  async loadLastUpdate (context: DatabaseContext): Promise<Moment | null> {
     const path = this.getMetaCitiesPath()
 
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
+      return null
     }
 
     const currentCityMetaData: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
@@ -270,6 +271,22 @@ class DatabaseConnector {
 
     const json: ResourceCacheJsonType = resourceCache
     await this.writeFile(path, JSON.stringify(json))
+  }
+
+  isCategoriesPersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getContentPath('categories', context))
+  }
+
+  isLanguagesPersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getLanguagesPath(context.cityCode))
+  }
+
+  isEventsPersisted (context: DatabaseContext): Promise<boolean> {
+    return this.isPersisted(this.getContentPath('events', context))
+  }
+
+  async isPersisted (path: string): Promise<boolean> {
+    return RNFetchblob.fs.exists(path)
   }
 
   async readFile (path: string): Promise<string> {

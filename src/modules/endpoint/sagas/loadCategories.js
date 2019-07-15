@@ -23,8 +23,9 @@ function * loadCategories (
   shouldUpdate: boolean
 ): Saga<FetchMapType> {
   const context = new DatabaseContext(city, language)
+  const categoriesAvailable = yield call(dataContainer.categoriesAvailable, context)
 
-  if (!dataContainer.categoriesAvailable(context) || shouldUpdate) {
+  if (!categoriesAvailable || shouldUpdate) {
     // data is already loaded and should not be updated
 
     console.debug('Fetching categories')
