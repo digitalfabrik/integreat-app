@@ -121,7 +121,7 @@ describe('EventsPage', () => {
 
   it('should map state to props', () => {
     const location = createLocation({
-      payload: {city: city, language: language, eventId: 'id'},
+      payload: { city: city, language: language, eventId: 'id' },
       pathname: '/augsburg/en/events/id',
       type: EVENTS_ROUTE
     })

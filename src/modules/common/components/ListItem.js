@@ -56,7 +56,7 @@ class ListItem extends React.PureComponent<PropsType> {
   }
 
   renderContent (): React.Node {
-    const {title, thumbnail, children} = this.props
+    const { title, thumbnail, children } = this.props
 
     return (
       <>
@@ -70,7 +70,7 @@ class ListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {path, isExternalUrl} = this.props
+    const { path, isExternalUrl } = this.props
 
     if (isExternalUrl) {
       return (

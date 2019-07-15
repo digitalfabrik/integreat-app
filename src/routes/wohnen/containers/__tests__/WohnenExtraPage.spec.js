@@ -109,7 +109,7 @@ describe('WohnenExtraPage', () => {
   it('should map state to props', () => {
     const offerHash = 'hASH'
 
-    const location = createLocation({type: WOHNEN_ROUTE, payload: {city, language, offerHash}})
+    const location = createLocation({ type: WOHNEN_ROUTE, payload: { city, language, offerHash } })
     const mockStore = configureMockStore()
     const store = mockStore({
       location

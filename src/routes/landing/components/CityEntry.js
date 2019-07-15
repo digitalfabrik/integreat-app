@@ -30,9 +30,9 @@ type PropsType = {|
 
 class CityEntry extends React.PureComponent<PropsType> {
   render () {
-    const {city, language, filterText} = this.props
+    const { city, language, filterText } = this.props
     return (
-      <CityListItem to={new CategoriesRouteConfig().getRoutePath({city: city.code, language})}>
+      <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
         <Highlighter search={filterText}>
           {city.name}
         </Highlighter>

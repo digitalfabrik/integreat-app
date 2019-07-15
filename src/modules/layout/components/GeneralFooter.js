@@ -15,7 +15,7 @@ type PropsType = {|
 
 class GeneralFooter extends React.PureComponent<PropsType> {
   render () {
-    const {t} = this.props
+    const { t } = this.props
     return (
       <Footer>
         <CleanLink to={new MainDisclaimerRouteConfig().getRoutePath()}>{t('imprintAndContact')}</CleanLink>

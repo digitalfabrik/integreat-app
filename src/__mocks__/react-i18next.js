@@ -11,7 +11,7 @@ const withTranslation = <Props> (namespace: string) => (Component: React.Compone
   return Translated
 }
 
-const I18nextProvider = ({children}: { children: React.Node }) => children
+const I18nextProvider = ({ children }: { children: React.Node }) => children
 I18nextProvider.displayName = 'I18nextProvider'
 
 export { I18nextProvider, withTranslation }

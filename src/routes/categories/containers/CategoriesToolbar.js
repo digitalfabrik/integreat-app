@@ -21,7 +21,7 @@ type PropsType = {|
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
   getPdfUrl (category: CategoryModel): string {
-    const {city, language} = this.props.location.payload
+    const { city, language } = this.props.location.payload
 
     if (category.id === 0) {
       return `${cmsApiBaseUrl}/${city}/${language}/wp-json/ig-mpdf/v1/pdf`
@@ -31,7 +31,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {t, location, categories, openFeedbackModal} = this.props
+    const { t, location, categories, openFeedbackModal } = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null

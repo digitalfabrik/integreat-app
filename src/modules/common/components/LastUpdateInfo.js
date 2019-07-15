@@ -21,7 +21,7 @@ type PropsType = {|
 
 export class LastUpdateInfo extends React.PureComponent<PropsType> {
   render () {
-    const {lastUpdate, t, language} = this.props
+    const { lastUpdate, t, language } = this.props
     lastUpdate.locale(language)
 
     // only show day, month and year

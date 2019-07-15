@@ -14,7 +14,7 @@ type PropsType = {|
 
 class LocationToolbar extends React.PureComponent<PropsType> {
   render () {
-    const {children, openFeedbackModal} = this.props
+    const { children, openFeedbackModal } = this.props
 
     return (
       <Toolbar>

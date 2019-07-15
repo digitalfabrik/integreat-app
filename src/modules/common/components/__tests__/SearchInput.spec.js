@@ -41,7 +41,7 @@ describe('SearchInput', () => {
     )
     component.find('input').simulate('click')
     expect(onClickInput).toHaveBeenCalled()
-    component.find('input').simulate('change', {target: {value: 'test'}})
+    component.find('input').simulate('change', { target: { value: 'test' } })
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
   })
 })

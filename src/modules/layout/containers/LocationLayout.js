@@ -45,21 +45,21 @@ type LocalStateType = {|
 const DARK_THEME_CLICK_COUNT = 5
 
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
-  state = {asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0}
+  state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
 
-  onStickyTopChanged = (asideStickyTop: number) => this.setState({asideStickyTop})
+  onStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
 
   onFooterClicked = () => {
     if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
       this.props.toggleDarkMode()
     }
     this.setState(prevState => {
-      return ({...prevState, footerClicked: prevState.footerClicked + 1})
+      return ({ ...prevState, footerClicked: prevState.footerClicked + 1 })
     })
   }
 
   getCurrentCity (): ?CityModel {
-    const {location, cities} = this.props
+    const { location, cities } = this.props
     const city = location.payload.city
 
     return cities && cities.find(_city => _city.code === city)
@@ -70,7 +70,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const {cities, location, feedbackTargetInformation} = this.props
+    const { cities, location, feedbackTargetInformation } = this.props
 
     return <FeedbackModal
       cities={cities}
@@ -80,12 +80,12 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       {...feedbackTargetInformation} />
   }
 
-  openFeedbackModal = (rating: FeedbackRatingType) => this.setState({feedbackModalRating: rating})
+  openFeedbackModal = (rating: FeedbackRatingType) => this.setState({ feedbackModalRating: rating })
 
-  closeFeedbackModal = () => this.setState({feedbackModalRating: null})
+  closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): React.Node => {
-    const {location, categories} = this.props
+    const { location, categories } = this.props
     const type = location.type
 
     if (type === CATEGORIES_ROUTE) {
@@ -99,9 +99,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render () {
-    const {viewportSmall, children, location, darkMode, languageChangePaths, events} = this.props
+    const { viewportSmall, children, location, darkMode, languageChangePaths, events } = this.props
     const type = location.type
-    const {city, language} = location.payload
+    const { city, language } = location.payload
 
     const cityModel = this.getCurrentCity()
 

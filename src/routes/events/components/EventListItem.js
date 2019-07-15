@@ -29,7 +29,7 @@ class EventListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {event, language} = this.props
+    const { event, language } = this.props
     return (
       <ListItem thumbnail={event.thumbnail || this.getEventPlaceholder(event.id)}
                 title={event.title}

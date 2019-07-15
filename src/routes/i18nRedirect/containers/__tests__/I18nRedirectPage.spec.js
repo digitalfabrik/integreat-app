@@ -27,13 +27,13 @@ describe('I18nRedirectPage', () => {
   describe('get redirect action', () => {
     it('should return landing path if there is no param or the param is landing', () => {
       const instanceWithoutParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} i18n={{language}} />
+        <I18nRedirectPage cities={cities} redirect={() => {}} i18n={{ language }} />
       ).instance()
 
       expect(instanceWithoutParam.getRedirectPath()).toEqual('/landing/de')
 
       const instanceWithLandingParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='landing' i18n={{language}} />
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='landing' i18n={{ language }} />
       ).instance()
 
       expect(instanceWithLandingParam.getRedirectPath()).toEqual('/landing/de')
@@ -41,7 +41,7 @@ describe('I18nRedirectPage', () => {
 
     it('should return categories path if the param is a city', () => {
       const instance = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' i18n={{language}} />
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='random_city' i18n={{ language }} />
       ).instance()
 
       expect(instance.getRedirectPath()).toEqual('/random_city/de')
@@ -49,13 +49,13 @@ describe('I18nRedirectPage', () => {
 
     it('should return not found path as default', () => {
       const instance = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='not_found' i18n={{language}} />
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='not_found' i18n={{ language }} />
       ).instance()
 
       expect(instance.getRedirectPath()).toEqual(NOT_FOUND)
 
       const instanceWithInvalidParam = shallow(
-        <I18nRedirectPage cities={cities} redirect={() => {}} param='invalid_param' i18n={{language}} />
+        <I18nRedirectPage cities={cities} redirect={() => {}} param='invalid_param' i18n={{ language }} />
       ).instance()
 
       expect(instanceWithInvalidParam.getRedirectPath()).toEqual(NOT_FOUND)
@@ -66,8 +66,8 @@ describe('I18nRedirectPage', () => {
     it('should map state to props', () => {
       const param = 'param'
       const mockStore = configureStore()
-      const location = {type: I18N_REDIRECT_ROUTE, language: 'en', payload: {param}}
-      const store = mockStore({location})
+      const location = { type: I18N_REDIRECT_ROUTE, language: 'en', payload: { param } }
+      const store = mockStore({ location })
 
       const tree = mount(
         <Provider store={store}>

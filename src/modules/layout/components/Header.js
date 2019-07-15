@@ -109,8 +109,8 @@ export class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform} = this.props
-    const {headerHeightSmall, headerHeightLarge} = theme.dimensions
+    const { theme, viewportSmall, onStickyTopChanged, actionItems, logoHref, navigationItems, platform } = this.props
+    const { headerHeightSmall, headerHeightLarge } = theme.dimensions
     const height = viewportSmall ? headerHeightSmall : headerHeightLarge
     const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
     return (

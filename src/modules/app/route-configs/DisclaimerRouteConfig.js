@@ -27,13 +27,13 @@ const disclaimerRoute: Route = {
   path: '/:city/:language/disclaimer',
   thunk: async (dispatch, getState) => {
     const state = getState()
-    const {city, language} = state.location.payload
+    const { city, language } = state.location.payload
 
     await Promise.all([
       fetchData(createCitiesEndpoint(cmsApiBaseUrl), dispatch, state.cities),
-      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, {city, language}),
-      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, {city, language}),
-      fetchData(createDisclaimerEndpoint(cmsApiBaseUrl), dispatch, state.disclaimer, {city, language})
+      fetchData(createEventsEndpoint(cmsApiBaseUrl), dispatch, state.events, { city, language }),
+      fetchData(createLanguagesEndpoint(cmsApiBaseUrl), dispatch, state.languages, { city, language }),
+      fetchData(createDisclaimerEndpoint(cmsApiBaseUrl), dispatch, state.disclaimer, { city, language })
     ])
   }
 }
@@ -46,21 +46,21 @@ class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, Re
   requiresFooter = true
 
   getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({disclaimer: payloads.disclaimerPayload})
+    ({ disclaimer: payloads.disclaimerPayload })
 
-  getLanguageChangePath = ({location, language}) =>
-    this.getRoutePath({city: location.payload.city, language})
+  getLanguageChangePath = ({ location, language }) =>
+    this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({t, cityName}) => cityName ? `${t('pageTitles.disclaimer')} - ${cityName}` : null
+  getPageTitle = ({ t, cityName }) => cityName ? `${t('pageTitles.disclaimer')} - ${cityName}` : null
 
-  getRoutePath = ({city, language}: DisclaimerRouteParamsType): string =>
+  getRoutePath = ({ city, language }: DisclaimerRouteParamsType): string =>
     `/${city}/${language}/disclaimer`
 
   getMetaDescription = () => null
 
-  getFeedbackTargetInformation = ({payloads}) => {
+  getFeedbackTargetInformation = ({ payloads }) => {
     const disclaimer = payloads.disclaimer.data
-    return disclaimer ? {id: disclaimer.id} : null
+    return disclaimer ? { id: disclaimer.id } : null
   }
 }
 

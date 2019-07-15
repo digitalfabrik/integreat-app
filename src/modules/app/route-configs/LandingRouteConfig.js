@@ -30,11 +30,11 @@ class LandingRouteConfig implements RouteConfig<LandingRouteParamsType, Required
   requiresHeader = false
   requiresFooter = true
 
-  getPageTitle = ({t}) => t('pageTitles.landing')
+  getPageTitle = ({ t }) => t('pageTitles.landing')
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({cities: payloads.citiesPayload})
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({ cities: payloads.citiesPayload })
 
-  getRoutePath = ({language}: LandingRouteParamsType): string => `/landing/${language}`
+  getRoutePath = ({ language }: LandingRouteParamsType): string => `/landing/${language}`
 
   getLanguageChangePath = () => null
 

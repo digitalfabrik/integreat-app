@@ -15,7 +15,7 @@ const cities = [
   })
 ]
 const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
-const payloads = {cities: citiesPayload}
+const payloads = { cities: citiesPayload }
 
 const t = (key: ?string): string => key || ''
 
@@ -23,7 +23,7 @@ describe('LandingRouteConfig', () => {
   const landingRouteConfig = new LandingRouteConfig()
 
   it('should get the right path', () => {
-    expect(landingRouteConfig.getRoutePath({language: 'de'})).toBe('/landing/de')
+    expect(landingRouteConfig.getRoutePath({ language: 'de' })).toBe('/landing/de')
   })
 
   it('should get the required payloads', () => {
@@ -43,11 +43,11 @@ describe('LandingRouteConfig', () => {
 
   it('should return the right page title', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: '/landing/de',
       type: landingRouteConfig.name
     })
-    expect(landingRouteConfig.getPageTitle({t, payloads, location, cityName: null}))
+    expect(landingRouteConfig.getPageTitle({ t, payloads, location, cityName: null }))
       .toBe('pageTitles.landing')
   })
 
@@ -58,19 +58,19 @@ describe('LandingRouteConfig', () => {
 
   it('should return the right language change path', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: '/landing/de',
       type: landingRouteConfig.name
     })
-    expect(landingRouteConfig.getLanguageChangePath({payloads, location, language: 'de'})).toBeNull()
+    expect(landingRouteConfig.getLanguageChangePath({ payloads, location, language: 'de' })).toBeNull()
   })
 
   it('all functions should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {language: 'de'},
+      payload: { language: 'de' },
       pathname: '/landing/de',
       type: landingRouteConfig.name
     })
-    expect(landingRouteConfig.getFeedbackTargetInformation({payloads, location})).toBeNull()
+    expect(landingRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
   })
 })

@@ -52,15 +52,15 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     return categoriesWithTitle
       .filter(category => category.id !== 0)
       .concat(categoriesWithContent)
-      .map(category => ({model: category, subCategories: []}))
+      .map(category => ({ model: category, subCategories: [] }))
   }
 
-  onFilterTextChange = (filterText: string) => this.setState({filterText: filterText})
+  onFilterTextChange = (filterText: string) => this.setState({ filterText: filterText })
 
   render () {
     const categories = this.findCategories()
-    const {t, location} = this.props
-    const {filterText} = this.state
+    const { t, location } = this.props
+    const { filterText } = this.state
 
     return (
       <div>
