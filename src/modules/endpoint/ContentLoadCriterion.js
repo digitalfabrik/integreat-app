@@ -33,6 +33,8 @@ export class ContentLoadCriterion {
   }
 
   shouldRefreshResources (): boolean {
-    return this._shouldRefreshResources || this._peek
+    // When we are peeking we do not want to load resources.
+    // Resources are downloaded on-demand in this case.
+    return this.peek() ? false : this._shouldRefreshResources
   }
 }
