@@ -36,10 +36,7 @@ export default function * loadCityContent (
   const fetchCities: FetchCitiesActionType = { type: 'FETCH_CITIES' }
   yield put(fetchCities)
 
-  let lastUpdate: moment | null = null
-  if (dataContainer.lastUpdateAvailable(context)) {
-    lastUpdate = yield call(dataContainer.getLastUpdate, context)
-  }
+  const lastUpdate: moment | null = yield call(dataContainer.getLastUpdate, context)
 
   console.debug('Last city content update on ',
     lastUpdate ? lastUpdate.toISOString() : 'never')
