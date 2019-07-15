@@ -95,6 +95,5 @@ export type StateType = {|
   +contentLanguage: string,
   +cities: CitiesStateType,
 
-  +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
   +_persist?: PersistState
 |}
