@@ -46,7 +46,7 @@ class Landing extends React.Component<PropsType> {
       {!cities
         ? <ActivityIndicator size='large' color='#0000ff' />
         : <>
-          <Heading theme={theme} />
+          <Heading />
           <FilterableCitySelector theme={theme} cities={cities} t={t} navigateToDashboard={this.navigateToDashboard} />
         </>
       }

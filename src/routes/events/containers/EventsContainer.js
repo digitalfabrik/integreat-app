@@ -42,7 +42,7 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  if (!state.cityContent) {
+  if (!state.cityContent || state.cityContent.switchingLanguage) {
     return { error: false, languageNotAvailable: false }
   }
   const {resourceCache, eventsRouteMapping, city} = state.cityContent

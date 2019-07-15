@@ -48,7 +48,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const contentLanguage = state.contentLanguage
-  if (!state.cityContent) {
+  if (!state.cityContent || state.cityContent.switchingLanguage) {
     return { error: false, languageNotAvailable: false }
   }
   const { resourceCache, categoriesRouteMapping, city, languages } = state.cityContent
