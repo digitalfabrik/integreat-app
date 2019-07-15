@@ -15,7 +15,7 @@ describe('UI language', () => {
     try {
       await landingPage.ready()
 
-      expect((await landingPage.getSearchInput()).text()).toBe('Suche nach deinem Ort')
+      expect(await (await landingPage.getSearchInput()).text()).toBe('Suche nach deinem Ort')
     } finally {
       await stopDriver(driver)
     }
@@ -32,7 +32,7 @@ describe('UI language', () => {
     try {
       await landingPage.ready()
 
-      expect((await landingPage.getSearchInput()).text()).toBe('Search for your city')
+      expect(await (await landingPage.getSearchInput()).text()).toBe('Search for your city')
     } finally {
       await stopDriver(driver)
     }
