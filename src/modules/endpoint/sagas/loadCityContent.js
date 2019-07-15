@@ -65,13 +65,10 @@ export default function * loadCityContent (
     const netInfo = yield call(NetInfo.fetch)
     const isCellularConnection = netInfo.type === 'cellular'
 
-    const settings = yield call(appSettings.loadSettings)
-    const downloadOnCellularConnection = settings.downloadOnCellularConnection
-
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
     // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
     // failed to download some resources an other call could fix this and download missing files.
-    if (shouldRefreshResources && (!isCellularConnection || downloadOnCellularConnection)) {
+    if (shouldRefreshResources && !isCellularConnection) {
       const resourceURLFinder = new ResourceURLFinder()
       resourceURLFinder.init()
 

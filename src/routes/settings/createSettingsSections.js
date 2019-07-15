@@ -46,15 +46,6 @@ export default ({setSetting, t, language}: {
           onPress: () => { setSetting(settings => ({allowPushNotifications: !settings.allowPushNotifications})) }
         },
         {
-          title: t('downloadOnCellularConnection'),
-          description: t('downloadOnCellularConnectionDescription'),
-          hasSwitch: true,
-          getSettingValue: (settings: SettingsType) => settings.downloadOnCellularConnection,
-          onPress: () => {
-            setSetting(settings => ({downloadOnCellularConnection: !settings.downloadOnCellularConnection}))
-          }
-        },
-        {
           title: t('about'),
           onPress: () => {
             if (language === 'de') {
