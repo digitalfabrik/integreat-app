@@ -26,11 +26,10 @@ const Circle = styled(View)`
   align-items: center;
   justify-content: center;
   elevation: 2;
-  shadow-color: #000000;
+  shadow-color: #000;
+  shadow-offset: 0px 1px;
   shadow-opacity: 0.2;
-  shadow-radius: 2px;
-  shadow-offset: 2px;
-  
+  shadow-radius: 1.41px;
 `
 
 const Thumbnail = styled(FastImage)`
@@ -63,10 +62,10 @@ const NewsDot = styled.Text`
   background-color: #EE5353;
   color: #FFFFFF;
   elevation: 5;
-  shadow-color: #000000;
-  shadow-opacity: 0.4;
-  shadow-radius: 3px;
-  shadow-offset: 3px 3px;
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
 `
 
 /**
