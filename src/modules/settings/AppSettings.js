@@ -9,16 +9,19 @@ const SELECTED_CITY_KEY = 'SELECTED_CITY'
 
 export type SettingsType = {|
   errorTracking: boolean | null,
+  allowPushNotifications: boolean | null,
   test: boolean | null
 |}
 
 const e2eSettings = {
   errorTracking: false,
+  allowPushNotifications: false,
   test: false
 }
 
 export const defaultSettings: SettingsType = (__DEV__ || process.env.E2E_TEST_IDS) ? e2eSettings : {
   errorTracking: null,
+  allowPushNotifications: null,
   test: false
 }
 
