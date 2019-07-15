@@ -50,12 +50,13 @@ class Page extends React.Component<PropType, StateType> {
   onLinkPress = (url: string) => {
     const {navigation, cityCode, language, navigateToIntegreatUrl, title} = this.props
 
+    const shareParams: ShareParamsType = {pageTitle: title, url}
+    const navigationParams: {pageTitle: any, url: any} = shareParams
+
     if (url.includes('.pdf')) {
-      const shareParams: ShareParamsType = {pageTitle: title, url}
-      navigation.navigate('PDFViewModal', shareParams)
+      navigation.navigate('PDFViewModal', navigationParams)
     } else if (url.includes('.png') || url.includes('.jpg')) {
-      const shareParams: ShareParamsType = {pageTitle: title, url}
-      navigation.navigate('ImageViewModal', shareParams)
+      navigation.navigate('ImageViewModal', navigationParams)
     } else if (HIJACK.test(url)) {
       navigateToIntegreatUrl({url, cityCode, language})
     } else {
