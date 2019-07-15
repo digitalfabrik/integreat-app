@@ -2,7 +2,7 @@
 
 import type { Store } from 'redux'
 import { applyMiddleware, createStore } from 'redux'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
