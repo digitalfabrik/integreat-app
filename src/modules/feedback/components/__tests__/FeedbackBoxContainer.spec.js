@@ -248,24 +248,25 @@ describe('FeedbackBoxContainer', () => {
     ${DISCLAIMER_ROUTE}  | ${0}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
     ${EXTRAS_ROUTE}      | ${0}    | ${''}           | ${''}              | ${''}         | ${extrasOption}
     `('should return the right option', ({ type, id, alias, title, query, result }) => {
-      const location = createLocation({ type, payload: { city: 'augsburg', language: 'de' } })
+  const location = createLocation({ type, payload: { city: 'augsburg', language: 'de' } })
   const component = shallow(
-        <FeedbackBoxContainer
-          location={location}
-          query={query}
-          cities={cities}
-          id={id}
-          title={title}
-          alias={alias}
-          isPositiveRatingSelected
-          onSubmit={() => {}}
-          closeFeedbackModal={() => {}}
-          extras={null}
-          t={t} />
+          <FeedbackBoxContainer
+            location={location}
+            query={query}
+            cities={cities}
+            id={id}
+            title={title}
+            alias={alias}
+            isPositiveRatingSelected
+            onSubmit={() => {}}
+            closeFeedbackModal={() => {}}
+            extras={null}
+            t={t} />
   )
 
   expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
-})
+}
+)
   })
 
   it('should post data on submit', () => {
