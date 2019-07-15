@@ -11,7 +11,21 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
-import { LanguageModel } from '@integreat-app/integreat-api-client'
+
+function * getRootAvailableLanguages (
+  context: DatabaseContext,
+  loadCriterion: ContentLoadCriterion, dataContainer: DataContainer): Saga<Map<string, string>> {
+
+  if (loadCriterion.shouldLoadLanguages()) {
+    const languages = yield call(dataContainer.getLanguages, context)
+    return new Map<string, string>(languages
+      .filter(languageModel => languageModel.code === context.languageCode)
+      .map(language => [language.code, `/${context.cityCode}/${language.code}`]))
+  }
+
+  // If there are no loaded languages the result is an empty map because we do not have a root category
+  return new Map<string, string>()
+}
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
@@ -29,11 +43,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
         call(dataContainer.getResourceCache, context)
       ])
 
-      let languages = [new LanguageModel(language, language)]
-
-      if (loadCriterion.shouldLoadLanguages()) {
-        languages = yield call(dataContainer.getLanguages, context)
-      }
+      const rootAvailableLanguages = yield call(getRootAvailableLanguages, context, loadCriterion, dataContainer)
 
       const push: PushCategoryActionType = {
         type: `PUSH_CATEGORY`,
@@ -41,7 +51,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
           categoriesMap,
           resourceCache,
           path,
-          languages,
+          rootAvailableLanguages,
           depth,
           key,
           city,
@@ -49,6 +59,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
           peek: loadCriterion.peek()
         }
       }
+
       yield put(push)
     }
   } catch (e) {

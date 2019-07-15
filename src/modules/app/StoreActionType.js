@@ -52,7 +52,7 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
     resourceCache: LanguageResourceCacheStateType,
-    languages: Array<LanguageModel>,
+    rootAvailableLanguages: Map<string, string>,
     city: string,
     language: string,
     path: string, depth: number, key: string, peek: boolean

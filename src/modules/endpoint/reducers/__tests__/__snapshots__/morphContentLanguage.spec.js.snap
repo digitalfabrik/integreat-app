@@ -5,7 +5,6 @@ Object {
   "categoriesRouteMapping": Object {
     "route-0": Object {
       "allAvailableLanguages": Map {
-        "de" => "/augsburg/de",
         "en" => "/augsburg/en",
       },
       "children": Object {
