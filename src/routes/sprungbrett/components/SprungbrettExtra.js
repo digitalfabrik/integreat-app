@@ -28,7 +28,7 @@ class SprungbrettExtra extends React.Component<PropsType> {
   )
 
   render () {
-    const {sprungbrettExtra, sprungbrettJobs, t, theme} = this.props
+    const { sprungbrettExtra, sprungbrettJobs, t, theme } = this.props
 
     return <ScrollView>
         <Caption title={sprungbrettExtra.title} theme={theme} />

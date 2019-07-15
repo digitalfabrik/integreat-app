@@ -39,7 +39,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const extra: ExtraModel | void = extras.find(extra => extra.alias === WOHNEN_EXTRA)
 
   const navigateToOffer = (offerHash: string) => {
-    const params = {offerHash: offerHash, extras: extras}
+    const params = { offerHash: offerHash, extras: extras }
     if (ownProps.navigation.push) {
       ownProps.navigation.push(WOHNEN_ROUTE, params)
     }
@@ -71,7 +71,7 @@ type SprungbrettStateType = {|
 class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettStateType> {
   constructor (props: WohnenPropsType) {
     super(props)
-    this.state = {offers: null, error: null}
+    this.state = { offers: null, error: null }
   }
 
   componentWillMount () {
@@ -79,33 +79,33 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
   }
 
   async loadSprungbrett () {
-    const {extra} = this.props
+    const { extra } = this.props
 
     if (!extra) {
-      this.setState(() => ({error: new Error('The Wohnen extra is not supported.'), offers: null}))
+      this.setState(() => ({ error: new Error('The Wohnen extra is not supported.'), offers: null }))
       return
     }
 
     try {
       const payload: Payload<Array<ExtraModel>> = await request(
         createWohnenEndpoint(wohnenApiBaseUrl),
-        {city: extra.postData.get('api-name')}
+        { city: extra.postData.get('api-name') }
       )
 
       if (payload.error) {
-        this.setState(() => ({error: payload.error, offers: null}))
+        this.setState(() => ({ error: payload.error, offers: null }))
         return
       }
 
-      this.setState(() => ({error: null, offers: payload.data}))
+      this.setState(() => ({ error: null, offers: payload.data }))
     } catch (e) {
-      this.setState(() => ({error: e, offers: null}))
+      this.setState(() => ({ error: e, offers: null }))
     }
   }
 
   render () {
-    const {extra, offerHash, navigateToOffer, t, theme} = this.props
-    const {offers, error} = this.state
+    const { extra, offerHash, navigateToOffer, t, theme } = this.props
+    const { offers, error } = this.state
 
     if (error) {
       return <Failure error={error} />

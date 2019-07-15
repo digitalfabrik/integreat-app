@@ -52,7 +52,7 @@ type ExtrasStateType = {|
 class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> {
   constructor (props: ExtrasPropsType) {
     super(props)
-    this.state = {extras: null, error: null}
+    this.state = { extras: null, error: null }
   }
 
   componentWillMount () {
@@ -64,27 +64,27 @@ class ExtrasContainer extends React.Component<ExtrasPropsType, ExtrasStateType> 
       throw new Error('push is not defined on navigation')
     }
     if (isExternalUrl) {
-      this.props.navigation.push('ExternalExtra', {url: path, postData})
+      this.props.navigation.push('ExternalExtra', { url: path, postData })
     } else {
-      const params = {city: this.props.city, extras: this.state.extras, offerHash: null}
+      const params = { city: this.props.city, extras: this.state.extras, offerHash: null }
       this.props.navigation.push(path, params)
     }
   }
 
   async loadExtras () {
-    const {city, language} = this.props
-    const payload: Payload<Array<ExtraModel>> = await request(createExtrasEndpoint(baseUrl), {city, language})
+    const { city, language } = this.props
+    const payload: Payload<Array<ExtraModel>> = await request(createExtrasEndpoint(baseUrl), { city, language })
 
     if (payload.error) {
-      this.setState(() => ({error: payload.error, extras: null}))
+      this.setState(() => ({ error: payload.error, extras: null }))
     } else {
-      this.setState(() => ({error: null, extras: payload.data}))
+      this.setState(() => ({ error: null, extras: payload.data }))
     }
   }
 
   render () {
-    const {theme, t, cities, navigation, city, language} = this.props
-    const {extras, error} = this.state
+    const { theme, t, cities, navigation, city, language } = this.props
+    const { extras, error } = this.state
 
     if (error || !cities) {
       return <Failure error={error} />

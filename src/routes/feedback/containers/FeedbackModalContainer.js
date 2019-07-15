@@ -20,7 +20,7 @@ class FeedbackModalContainer extends React.Component<{| navigation: NavigationSc
   sendFeedback = (feedbackData: FeedbackParamsType) => feedbackEndpoint.request(feedbackData)
 
   render () {
-    const {navigation} = this.props
+    const { navigation } = this.props
     const feedbackItems: Array<FeedbackVariant> = navigation.getParam('feedbackItems')
     const isPositiveFeedback: boolean = navigation.getParam('isPositiveFeedback')
     return <TranslatedFeedbackModal closeModal={this.closeModal} feedbackItems={feedbackItems}

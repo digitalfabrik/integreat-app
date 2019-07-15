@@ -25,7 +25,7 @@ type PropsType = {|
 
 class OfferListItem extends React.PureComponent<PropsType> {
   render () {
-    const {offer, navigateToOffer, theme} = this.props
+    const { offer, navigateToOffer, theme } = this.props
 
     if (offer.formData instanceof WohnenFormData) {
       const accommodation = offer.formData.accommodation
