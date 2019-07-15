@@ -1,14 +1,5 @@
 {
   "extends": [
-    "@integreat-app/eslint-config",
-    "@integreat-app/eslint-config-react",
-    "@integreat-app/eslint-config-jest"
-  ],
-  "globals": {
-    "__DEV__": false,
-    "__VERSION__": false
-  },
-  "rules": {
-    "object-curly-spacing": ["off", "never"]
-  }
+    "@integreat-app/eslint-config-node"
+  ]
 }
