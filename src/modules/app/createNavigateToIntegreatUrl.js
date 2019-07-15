@@ -4,10 +4,11 @@ import createNavigateToCategory from './createNavigateToCategory'
 import type { Dispatch } from 'redux'
 import type { NavigationScreenProp } from 'react-navigation'
 import createNavigateToEvent from './createNavigateToEvent'
+import type { StoreActionType } from './StoreActionType'
 
 export type NavigateToIntegreatUrlParamsType = {| url: string, cityCode: string, language: string |}
 
-export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
+export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) =>
   ({url, cityCode, language}: NavigateToIntegreatUrlParamsType) => {
     const parts = url.split('/').filter(segment => segment)
     const pathnameParts = parts.splice(2)
