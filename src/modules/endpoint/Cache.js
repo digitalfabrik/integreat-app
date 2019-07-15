@@ -33,6 +33,7 @@ export default class Cache<T> {
       }
 
       this.value = newValue
+      this.context = context
       return newValue
     }
 
