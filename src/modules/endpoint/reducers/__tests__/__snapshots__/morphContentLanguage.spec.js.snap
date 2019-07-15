@@ -271,5 +271,6 @@ Object {
       },
     },
   },
+  "switchingLanguage": false,
 }
 `;

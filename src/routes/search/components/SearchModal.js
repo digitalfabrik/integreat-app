@@ -32,7 +32,8 @@ export type PropsType = {|
   cityCode: string,
   closeModal: () => void,
   navigation: NavigationScreenProp<*>,
-  t: TFunction
+  t: TFunction,
+  sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 type StateType = {|
@@ -76,7 +77,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const {theme, categories, t} = this.props
+    const {theme, categories, t, sendFeedback} = this.props
     const {query} = this.state
 
     if (!categories) {
@@ -88,7 +89,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
       <SpaceBetween>
         <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
                             theme={theme} /></View>
-        <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0} />
+        <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0}
+                           sendFeedback={sendFeedback} />
       </SpaceBetween>
     </ScrollView>
   }

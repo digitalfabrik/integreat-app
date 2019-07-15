@@ -26,13 +26,13 @@
     "proxy": "node tools/metro-proxy.js"
   },
   "dependencies": {
-    "@integreat-app/integreat-api-client": "^3.0.2",
+    "@integreat-app/integreat-api-client": "^4.0.0",
     "fnv-plus": "^1.2.12",
     "hashids": "^1.2.2",
     "htmlparser2": "^3.10.0",
     "i18next": "^12.1.0",
     "is-url": "^1.2.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "2.24.0",
     "normalize-path": "^3.0.0",
     "prop-types": "^15.6.2",
