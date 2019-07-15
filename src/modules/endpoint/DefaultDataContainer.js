@@ -30,21 +30,26 @@ class DefaultDataContainer implements DataContainer {
     this._databaseConnector = new DatabaseConnector()
 
     this.caches = {
-      'events': new Cache<Array<EventModel>>(this._databaseConnector,
+      events: new Cache<Array<EventModel>>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
-        (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) => connector.storeEvents(value, context)),
-      'categories': new Cache<CategoriesMapModel>(this._databaseConnector,
+        (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeEvents(value, context)),
+      categories: new Cache<CategoriesMapModel>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context),
-        (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) => connector.storeCategories(value, context)),
-      'languages': new Cache<Array<LanguageModel>>(this._databaseConnector,
+        (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeCategories(value, context)),
+      languages: new Cache<Array<LanguageModel>>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context),
-        (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) => connector.storeLanguages(value, context)),
-      'resourceCache': new Cache<CityResourceCacheStateType>(this._databaseConnector,
+        (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeLanguages(value, context)),
+      resourceCache: new Cache<CityResourceCacheStateType>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
-        (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) => connector.storeResourceCache(value, context)),
-      'lastUpdate': new Cache<Moment>(this._databaseConnector,
+        (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeResourceCache(value, context)),
+      lastUpdate: new Cache<Moment>(this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
-        (value: Moment, connector: DatabaseConnector, context: DatabaseContext) => connector.storeLastUpdate(value, context))
+        (value: Moment, connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeLastUpdate(value, context))
     }
   }
 
