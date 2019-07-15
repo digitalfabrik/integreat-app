@@ -56,13 +56,12 @@ const createReduxStore = (
     cityContent: cityContentReducer
   })
 
-  const middlewares = [sagaMiddleware]
-
-  const middleware = applyMiddleware(...middlewares)
-  sagaMiddleware.run(rootSaga, dataContainer)
-
+  const middleware = applyMiddleware(sagaMiddleware)
   const enhancer = __DEV__ ? composeWithDevTools(middleware) : middleware
-  return createStore(rootReducer, initialState, enhancer)
+  const store = createStore(rootReducer, initialState, enhancer)
+
+  sagaMiddleware.run(rootSaga, dataContainer)
+  return store
 }
 
 export default createReduxStore
