@@ -33,6 +33,10 @@ const Logo = styled.Image`
 
 const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   elevation: 1;
+  shadow-color: #000;
+  shadow-offset: 0px 1px;
+  shadow-opacity: 0.18;
+  shadow-radius: 1.00px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${props => props.theme.dimensions.headerHeight};
 `
