@@ -1,20 +1,16 @@
 // @flow
 
 import type { Store } from 'redux'
-import { applyMiddleware, createStore } from 'redux'
-import { AsyncStorage } from 'react-native'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 
 import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import { persistCombineReducers, persistStore } from 'redux-persist'
-import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import type { DataContainer } from '../endpoint/DataContainer'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
@@ -37,8 +33,8 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
 }
 
 const createReduxStore = (
-  dataContainer: DataContainer, callback: () => void
-): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+  dataContainer: DataContainer
+): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {
@@ -47,20 +43,11 @@ const createReduxStore = (
 
     cities: defaultCitiesState,
     contentLanguage: defaultContentLanguageState,
-    cityContent: defaultCityContentState,
-  }
-
-  // Do never blacklist the "network" key.
-  const persistConfig: PersistConfig = {
-    version: 1,
-    key: 'root',
-    storage: AsyncStorage,
-    stateReconciler: hardSet,
-    blacklist: ['cities', 'cityContent']
+    cityContent: defaultCityContentState
   }
 
   // Create this reducer only once. It is not pure!
-  const persistedReducer = persistCombineReducers(persistConfig, {
+  const rootReducer = combineReducers({
     uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
@@ -69,36 +56,13 @@ const createReduxStore = (
     cityContent: cityContentReducer
   })
 
-  const rootReducer = (state, action) => {
-    if (!state) {
-      return initialState
-    }
-    return persistedReducer(state, action)
-  }
   const middlewares = [sagaMiddleware]
 
-  // If you want to use redux-logger again use this code:
-  // import { createLogger } from 'redux-logger'
-  // if (__DEV__) {
-  //   middlewares.push(createLogger())
-  // }
-
   const middleware = applyMiddleware(...middlewares)
+  sagaMiddleware.run(rootSaga, dataContainer)
 
   const enhancer = __DEV__ ? composeWithDevTools(middleware) : middleware
-
-  const store = createStore(rootReducer, initialState, enhancer)
-
-  const persistor = persistStore(
-    store,
-    undefined,
-    async () => {
-      sagaMiddleware.run(rootSaga, dataContainer)
-      callback()
-    }
-  )
-
-  return {store, persistor}
+  return createStore(rootReducer, initialState, enhancer)
 }
 
 export default createReduxStore
