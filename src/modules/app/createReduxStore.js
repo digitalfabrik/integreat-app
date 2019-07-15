@@ -6,13 +6,6 @@ import { AsyncStorage } from 'react-native'
 
 import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
-import {
-  checkInternetConnection,
-  createNetworkMiddleware,
-  networkSaga,
-  offlineActionTypes,
-  reducer as reactNativeOfflineReducer
-} from 'react-native-offline'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
@@ -39,8 +32,7 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
     call(watchFetchEvent, dataContainer),
     call(watchFetchCities, dataContainer),
     call(watchClearCity),
-    call(watchContentLanguageSwitch, dataContainer),
-    call(networkSaga, {})
+    call(watchContentLanguageSwitch, dataContainer)
   ])
 }
 
@@ -76,9 +68,7 @@ const createReduxStore = (
 
     cities: citiesReducer,
     contentLanguage: contentLanguageReducer,
-    cityContent: cityContentReducer,
-
-    network: reactNativeOfflineReducer
+    cityContent: cityContentReducer
   })
 
   const rootReducer = (state, action) => {
@@ -87,7 +77,7 @@ const createReduxStore = (
     }
     return persistedReducer(state, action)
   }
-  const middlewares = [createNetworkMiddleware(), sagaMiddleware]
+  const middlewares = [sagaMiddleware]
 
   // If you want to use redux-logger again use this code:
   // import { createLogger } from 'redux-logger'
@@ -105,11 +95,6 @@ const createReduxStore = (
     store,
     undefined,
     async () => {
-      const isConnected: boolean = await checkInternetConnection()
-      store.dispatch({
-        type: offlineActionTypes.CONNECTION_CHANGE,
-        payload: isConnected
-      })
       sagaMiddleware.run(rootSaga, dataContainer)
       callback()
     }
