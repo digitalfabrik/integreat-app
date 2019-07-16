@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@integreat-app/integreat-api-client": "^4.0.0",
+    "@react-native-community/netinfo": "^3.0.0",
     "fnv-plus": "^1.2.12",
     "hashids": "^1.2.2",
     "htmlparser2": "^3.10.0",
