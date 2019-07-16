@@ -20,6 +20,8 @@ export default (
   }
 
   switch (action.type) {
+    case 'SWITCH_CONTENT_LANGUAGE':
+      return {...state, switchingLanguage: true}
     case 'PUSH_CATEGORY':
       return pushCategory(state, action)
     case 'PUSH_EVENT':
@@ -46,7 +48,7 @@ export default (
       const errorMessage: string = action.params.message
       return {...state, categoriesRouteMapping: {errorMessage}}
     }
-    case 'CLEAR_CITY_CONTENT':
+    case 'CLEAR_CITY':
       return defaultCityContentState
     case 'RESOURCES_FETCH_FAILED': {
       const errorMessage: string = action.params.message
