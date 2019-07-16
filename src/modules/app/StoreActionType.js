@@ -1,12 +1,8 @@
 // @flow
 
-import { offlineActionTypes } from 'react-native-offline'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
 import type { UiDirectionType } from '../i18n/actions/setUIDirection'
-
-// This may be used to react-offline
-// type MetaType = {| retry?: boolean, dismiss?: string[] |}
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES'
@@ -119,15 +115,6 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
-// ClearCityActionType and ClearCityContentActionType are both required because we need to modify the state and call
-// the async method to clear the city selection
-
-// Clears the city content state
-export type ClearCityContentActionType = {|
-  type: 'CLEAR_CITY_CONTENT'
-|}
-
-// Calls 'clearSelectedCity' and dispatches a 'ClearCityContentAction'
 export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
@@ -144,7 +131,7 @@ export type CityContentActionType =
   | EventsActionType
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
-  | ClearCityContentActionType
+  | ClearCityActionType
   | InitializeCityContentActionType
   | ResourcesFetchFailedActionType
 
@@ -158,15 +145,9 @@ export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
 |}
 
-export type ConnectionChangeActionType = {|
-  type: offlineActionTypes.CONNECTION_CHANGE, payload: boolean
-|}
-
 export type StoreActionType =
-  ConnectionChangeActionType
-  | SetUiDirectionActionType
+  SetUiDirectionActionType
   | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType
-  | ClearCityActionType
