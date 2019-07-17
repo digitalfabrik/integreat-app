@@ -13,7 +13,8 @@ describe('cities', () => {
     live: true,
     events: true,
     extras: true,
-    name_without_prefix: 'Augsburg'
+    name_without_prefix: 'Augsburg',
+    prefix: null
   }
   const city2 = {
     name: 'Stadt Regensburg',
@@ -21,7 +22,8 @@ describe('cities', () => {
     live: true,
     events: false,
     extras: false,
-    name_without_prefix: 'Regensburg'
+    name_without_prefix: 'Regensburg',
+    prefix: 'Stadt'
   }
   const cityJson = [city1, city2]
 
@@ -38,7 +40,8 @@ describe('cities', () => {
         live: city1.live,
         eventsEnabled: true,
         extrasEnabled: true,
-        sortingName: 'Augsburg'
+        sortingName: 'Augsburg',
+        prefix: null
       }),
       new CityModel({
         name: city2.name,
@@ -46,7 +49,8 @@ describe('cities', () => {
         live: city2.live,
         eventsEnabled: false,
         extrasEnabled: false,
-        sortingName: 'Regensburg'
+        sortingName: 'Regensburg',
+        prefix: 'Stadt'
       })
     ])
   })
