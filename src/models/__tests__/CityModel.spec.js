@@ -10,7 +10,8 @@ describe('CityModel', () => {
       live: true,
       eventsEnabled: false,
       extrasEnabled: false,
-      sortingName: 'City'
+      sortingName: 'City',
+      prefix: 'prefix'
     })
   ]
 
