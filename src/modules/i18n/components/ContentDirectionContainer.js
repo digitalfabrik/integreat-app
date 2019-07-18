@@ -10,7 +10,7 @@ export type ContentDirectionContainerPropsType = {|
   language: string, children: React.Node, theme: ThemeType
 |}
 
-const DirectionContainer: StyledComponent<ContentDirectionContainerPropsType, {||}, *> = styled.View`
+const DirectionContainer: StyledComponent<ContentDirectionContainerPropsType, ThemeType, *> = styled.View`
   flex-direction: ${props => RTL_LANGUAGES.includes(props.language) !== I18nManager.isRTL ? 'row-reverse' : 'row'};
 `
 

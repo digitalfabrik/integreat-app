@@ -7,6 +7,7 @@ import type Moment from 'moment'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { MomentFormatterType } from '../../i18n/context/MomentContext'
+import ContentDirectionContainer from '../../i18n/components/ContentDirectionContainer'
 
 const TimeStampText: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -17,7 +18,7 @@ type PropsType = {
   lastUpdate: Moment,
   formatter: MomentFormatterType,
   t: TFunction,
-  language?: string,
+  language: string,
   theme: ThemeType
 }
 
@@ -26,7 +27,10 @@ export class TimeStamp extends React.PureComponent<PropsType> {
     const { lastUpdate, formatter, t, language, theme } = this.props
     // only show day, month and year
     const dateText = formatter(lastUpdate, { format: 'LL', locale: language })
-    return <TimeStampText theme={theme}>{t('lastUpdate')}{dateText}</TimeStampText>
+    return <ContentDirectionContainer language={language} theme={theme}>
+        <TimeStampText theme={theme}>{t('lastUpdate')}</TimeStampText>
+        <TimeStampText theme={theme}>{dateText}</TimeStampText>
+    </ContentDirectionContainer>
   }
 }
 

@@ -15,7 +15,7 @@ const SubCategoryCaption = styled(CategoryCaption)`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const StyledContentDirectionContainer: StyledComponent<ContentDirectionContainerPropsType, {||}, *> =
+const StyledContentDirectionContainer: StyledComponent<ContentDirectionContainerPropsType, ThemeType, *> =
   styled(ContentDirectionContainer)`
   margin-start: 75px;
 `
