@@ -7,15 +7,19 @@ class CityModel {
   _eventsEnabled: boolean
   _extrasEnabled: boolean
   _sortingName: string
+  _prefix: ?string
 
-  constructor (params: {|name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean,
-    sortingName: string|}) {
+  constructor (params: {|
+    name: string, code: string, live: boolean, eventsEnabled: boolean, extrasEnabled: boolean,
+    sortingName: string, prefix: ?string
+  |}) {
     this._name = params.name
     this._code = params.code
     this._live = params.live
     this._eventsEnabled = params.eventsEnabled
     this._extrasEnabled = params.extrasEnabled
     this._sortingName = params.sortingName
+    this._prefix = params.prefix
   }
 
   get live (): boolean {
@@ -44,6 +48,10 @@ class CityModel {
 
   get sortCategory (): string {
     return this._sortingName.charAt(0)
+  }
+
+  get prefix (): ?string {
+    return this._prefix
   }
 
   static findCityName (cities: Array<CityModel>, code: string): string {
