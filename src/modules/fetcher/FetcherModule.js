@@ -10,6 +10,7 @@ export type FetchResultType = { [path: string]: {| lastUpdate: string, url: stri
 type ProgressCallbackType = (progress: number) => void
 
 class FetcherModule {
+  // TODO NATIVE-264: Correctly handle already fetching
   static currentlyFetching = false
 
   async fetchAsync (
