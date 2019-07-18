@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 
+import { I18nManager } from 'react-native'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -9,6 +10,20 @@ import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
+import { RTL_LANGUAGES } from '../../i18n/components/I18nProvider'
+
+type DirectionContainerPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const DirectionContainer: StyledComponent<DirectionContainerPropsType, {}, *> = styled.View`
+  flex-direction: ${props => RTL_LANGUAGES.includes(props.language) !== I18nManager.isRTL ? 'row-reverse' : 'row'};
+`
+
+const FlexStyledLink: StyledComponent<{}, {}, *> = styled(StyledLink)`
+  display: flex;
+  flex-direction: column;
+`
 
 const Row: StyledComponent<{}, {}, *> = styled.View`
   flex: 1;
@@ -35,7 +50,8 @@ type PropsType = {
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  language: string
 }
 
 /**
@@ -61,16 +77,16 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   render () {
-    const { category } = this.props
+    const { language, category, theme } = this.props
     return (
       <Row>
-        <StyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
-          <>
+        <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+          <DirectionContainer language={language} theme={theme}>
             <CategoryThumbnail source={category.thumbnail ? { uri: category.thumbnail } : iconPlaceholder}
                                resizeMode={FastImage.resizeMode.contain} />
             {this.renderTitle()}
-          </>
-        </StyledLink>
+          </DirectionContainer>
+        </FlexStyledLink>
         {this.renderSubCategories()}
       </Row>
     )

@@ -10,6 +10,7 @@ import LanguageDetector from '../LanguageDetector'
 import MomentContext, { createMomentFormatter } from '../context/MomentContext'
 import AppSettings from '../../settings/AppSettings'
 
+export const RTL_LANGUAGES = ['ar', 'fa']
 const FALLBACK_LANGUAGES = ['en', 'de']
 export const DEFAULT_LANGUAGE = 'en'
 
