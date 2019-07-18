@@ -66,10 +66,8 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   onShare = async () => {
     const { navigation } = this.props
     const { url }: ShareParamsType = navigation.state.params
-    alert(JSON.stringify(navigation.state.params))
 
     try {
-      // TODO: Add 'subject' and 'title': On Android subject is added to the message
       await Share.open({
         url,
         failOnCancel: false
