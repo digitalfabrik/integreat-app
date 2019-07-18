@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 
-import { I18nManager } from 'react-native'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
@@ -10,15 +9,7 @@ import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
-import { RTL_LANGUAGES } from '../../i18n/components/I18nProvider'
-
-type DirectionContainerPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
-|}
-
-const DirectionContainer: StyledComponent<DirectionContainerPropsType, {}, *> = styled.View`
-  flex-direction: ${props => RTL_LANGUAGES.includes(props.language) !== I18nManager.isRTL ? 'row-reverse' : 'row'};
-`
+import ContentDirectionContainer from '../../i18n/components/ContentDirectionContainer'
 
 const FlexStyledLink: StyledComponent<{}, {}, *> = styled(StyledLink)`
   display: flex;
@@ -81,11 +72,11 @@ class CategoryListItem extends React.Component<PropsType> {
     return (
       <Row>
         <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
-          <DirectionContainer language={language} theme={theme}>
+          <ContentDirectionContainer language={language} theme={theme}>
             <CategoryThumbnail source={category.thumbnail ? { uri: category.thumbnail } : iconPlaceholder}
                                resizeMode={FastImage.resizeMode.contain} />
             {this.renderTitle()}
-          </DirectionContainer>
+          </ContentDirectionContainer>
         </FlexStyledLink>
         {this.renderSubCategories()}
       </Row>
