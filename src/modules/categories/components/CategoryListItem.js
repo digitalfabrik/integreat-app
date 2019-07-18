@@ -54,9 +54,13 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderSubCategories (): Array<React.Node> {
-    const { subCategories, theme, onItemPress } = this.props
+    const { language, subCategories, theme, onItemPress } = this.props
     return subCategories.map(subCategory =>
-      <SubCategoryListItem key={subCategory.path} subCategory={subCategory} onItemPress={onItemPress} theme={theme} />
+      <SubCategoryListItem key={subCategory.path}
+                           subCategory={subCategory}
+                           onItemPress={onItemPress}
+                           language={language}
+                           theme={theme} />
     )
   }
 

@@ -2,16 +2,27 @@
 
 import * as React from 'react'
 
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
+import ContentDirectionContainer from '../../i18n/components/ContentDirectionContainer'
+import type { ContentDirectionContainerPropsType } from '../../i18n/components/ContentDirectionContainer'
 
 const SubCategoryCaption = styled(CategoryCaption)`
   padding: 8px 0;
-  margin-start: 75px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
+`
+
+const StyledContentDirectionContainer: StyledComponent<ContentDirectionContainerPropsType, {||}, *> =
+  styled(ContentDirectionContainer)`
+  margin-start: 75px;
+`
+
+const FlexStyledLink: StyledComponent<{}, {}, *> = styled(StyledLink)`
+  display: flex;
+  flex-direction: column;
 `
 
 const SubCategoryTitle = styled.Text`
@@ -22,7 +33,8 @@ const SubCategoryTitle = styled.Text`
 type PropsType = {
   subCategory: { title: string, thumbnail: string, path: string },
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  language: string
 }
 
 class SubCategoryListItem extends React.PureComponent<PropsType> {
@@ -31,14 +43,16 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { subCategory, theme } = this.props
+    const { language, subCategory, theme } = this.props
     return (
-      <StyledLink onPress={this.onSubCategoryPress}
-                  underlayColor={theme.colors.backgroundAccentColor}>
-        <SubCategoryCaption search={''} theme={theme}>
-          <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
-        </SubCategoryCaption>
-      </StyledLink>
+      <FlexStyledLink onPress={this.onSubCategoryPress}
+                      underlayColor={theme.colors.backgroundAccentColor}>
+        <StyledContentDirectionContainer theme={theme} language={language}>
+          <SubCategoryCaption search={''} theme={theme}>
+            <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
+          </SubCategoryCaption>
+        </StyledContentDirectionContainer>
+      </FlexStyledLink>
     )
   }
 }
