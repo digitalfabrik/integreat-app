@@ -17,7 +17,8 @@ type PropsType = {|
   /** A search query to highlight in the categories titles */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  language: string
 |}
 
 /**
@@ -25,13 +26,14 @@ type PropsType = {|
  */
 class CategoryList extends React.Component<PropsType> {
   render () {
-    const { categories, title, content, query, theme, onItemPress } = this.props
+    const { categories, title, content, query, theme, onItemPress, language } = this.props
     return <>
       {title && <Caption title={title} theme={theme} />}
       {!!content && <HTML html={content} />}
       {categories.map(({ model, subCategories }) =>
         <CategoryListItem key={model.path}
                           category={model}
+                          language={language}
                           subCategories={subCategories}
                           query={query}
                           theme={theme}

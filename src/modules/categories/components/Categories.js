@@ -180,6 +180,7 @@ class Categories extends React.Component<PropsType> {
           })}
           title={category.title}
           content={category.content}
+          language={language}
           onItemPress={this.onItemPress}
           theme={theme} />
       </View>
