@@ -5,6 +5,7 @@ import android.app.Application;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ShareApplication, Re
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new RNSharePackage(),
+                    new NetInfoPackage(),
                     new RNSentryPackage(),
                     new RNFetchBlobPackage(),
                     new RNCWebViewPackage(),

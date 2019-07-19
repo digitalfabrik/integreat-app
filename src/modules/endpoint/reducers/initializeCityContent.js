@@ -11,6 +11,7 @@ const initializeCityContent = (
     return {
       city,
       languages,
+      switchingLanguage: false,
       categoriesRouteMapping: {},
       eventsRouteMapping: {},
       resourceCache: {},
