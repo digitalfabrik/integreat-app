@@ -44,6 +44,7 @@
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
 		AD86616FDD2141B3B2FE8AA0 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 351B951297974A919DD832ED /* libRNGestureHandler.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		B053345015234FCAA84609F0 /* libRNCNetInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75AC4E413EA24341B5FBA333 /* libRNCNetInfo.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		FC368B63ACEE4920ACABD445 /* libReactNativeViewPDF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FEA0A9E46A24D84ACA883F7 /* libReactNativeViewPDF.a */; };
 /* End PBXBuildFile section */
@@ -279,6 +280,19 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNShare;
+		7B974A5F22DC99F30078B456 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30C69E1CF95B4D1DB3A83AF9 /* RNCNetInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCNetInfo;
+		};
+		7B974A6122DC99F30078B456 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30C69E1CF95B4D1DB3A83AF9 /* RNCNetInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5027B1B2237B30F00F1AABA;
+			remoteInfo = "RNCNetInfo-tvOS";
 		};
 		7B9DD32A22CA327C00EA5FEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -411,6 +425,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Integreat/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		30C69E1CF95B4D1DB3A83AF9 /* RNCNetInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCNetInfo.xcodeproj; path = "../node_modules/@react-native-community/netinfo/ios/RNCNetInfo.xcodeproj"; sourceTree = "<group>"; };
 		351B951297974A919DD832ED /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		41DDF9AA0243118286712E74 /* Pods-Integreat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.release.xcconfig"; sourceTree = "<group>"; };
 		50526FDF24E9474D85AF8FCA /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -418,6 +433,7 @@
 		64F1CED7ADEF444DB9B35DFC /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNShare.a; sourceTree = "<group>"; };
 		6EFDDF23E37E44DA970E1EA7 /* FastImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		725E2CFD73B94B7C945AE629 /* ReactNativeViewPDF.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeViewPDF.xcodeproj; path = "../node_modules/react-native-view-pdf/ReactNativeViewPDF.xcodeproj"; sourceTree = "<group>"; };
+		75AC4E413EA24341B5FBA333 /* libRNCNetInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCNetInfo.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
@@ -489,6 +505,7 @@
 				1B1A66C3E9874C44B2528267 /* libRNFetchBlob.a in Frameworks */,
 				7E1B5B430EC15574CB31587E /* Pods_Integreat.framework in Frameworks */,
 				099EE7219D6C406FADC86A3D /* libRNShare.a in Frameworks */,
+				B053345015234FCAA84609F0 /* libRNCNetInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,6 +676,11 @@
 			isa = PBXGroup;
 			children = (
 				7B97498B22DC6D940078B456 /* libRNShare.a */,
+		7B974A5B22DC99F20078B456 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B974A6022DC99F30078B456 /* libRNCNetInfo.a */,
+				7B974A6222DC99F30078B456 /* libRNCNetInfo-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -674,6 +696,7 @@
 				D7043421DE8B40A7BDE2387D /* libRNCWebView.a */,
 				A2E9A82E75F84114B6839168 /* libRNFetchBlob.a */,
 				64F1CED7ADEF444DB9B35DFC /* libRNShare.a */,
+				75AC4E413EA24341B5FBA333 /* libRNCNetInfo.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -771,6 +794,7 @@
 				043B70F50A13408B812E19DB /* RNCWebView.xcodeproj */,
 				50526FDF24E9474D85AF8FCA /* RNFetchBlob.xcodeproj */,
 				875643DF6F1A4A95AF206185 /* RNShare.xcodeproj */,
+				30C69E1CF95B4D1DB3A83AF9 /* RNCNetInfo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -889,7 +913,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -971,6 +995,10 @@
 				{
 					ProductGroup = 7BB615B922B78F460089C37E /* Products */;
 					ProjectRef = 725E2CFD73B94B7C945AE629 /* ReactNativeViewPDF.xcodeproj */;
+				},
+				{
+					ProductGroup = 7B974A5B22DC99F20078B456 /* Products */;
+					ProjectRef = 30C69E1CF95B4D1DB3A83AF9 /* RNCNetInfo.xcodeproj */;
 				},
 				{
 					ProductGroup = 7BB615BB22B78F460089C37E /* Products */;
@@ -1228,6 +1256,18 @@
 			fileType = archive.ar;
 			path = libRNShare.a;
 			remoteRef = 7B97498A22DC6D940078B456 /* PBXContainerItemProxy */;
+		7B974A6022DC99F30078B456 /* libRNCNetInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCNetInfo.a;
+			remoteRef = 7B974A5F22DC99F30078B456 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B974A6222DC99F30078B456 /* libRNCNetInfo-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNCNetInfo-tvOS.a";
+			remoteRef = 7B974A6122DC99F30078B456 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B9DD32B22CA327C00EA5FEC /* libjsi.a */ = {
@@ -1498,6 +1538,7 @@
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 				);
 				INFOPLIST_FILE = IntegreatTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1541,6 +1582,7 @@
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 				);
 				INFOPLIST_FILE = IntegreatTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1592,6 +1634,7 @@
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 				);
 				INFOPLIST_FILE = Integreat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1638,6 +1681,7 @@
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
 					"$(SRCROOT)/../node_modules/rn-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 				);
 				INFOPLIST_FILE = Integreat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
