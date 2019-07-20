@@ -18,6 +18,7 @@ import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
 
 type RefreshPropsType = {|
   cityCode: string,
@@ -127,23 +128,13 @@ const ThemedTranslatedDashboard = translate('dashboard')(
 class DashboardContainer extends React.Component<{| ...ContainerPropsType, dispatch: Dispatch<StoreActionType> |}> {
   render () {
     const { dispatch, ...rest } = this.props
-    const navigateToCategory = createNavigateToCategory('Categories', dispatch, rest.navigation)
-    const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, rest.navigation)
-    const navigateToEvent = createNavigateToEvent(dispatch, rest.navigation)
-    const navigateToIntegreatUrl = createNavigateToIntegreatUrl(dispatch, rest.navigation)
-    const navigateToExtras = ({ cityCode, language }: {| cityCode: string, language: string |}) => {
-      rest.navigation.navigate('Extras', {
-        cityCode,
-        sharePath: `/${cityCode}/${language}/extras`
-      })
-    }
-
-    return <ThemedTranslatedDashboard {...rest}
-                                      navigateToCategory={navigateToCategory}
-                                      navigateToEvent={navigateToEvent}
-                                      navigateToIntegreatUrl={navigateToIntegreatUrl}
-                                      navigateToDashboard={navigateToDashboard}
-                                      navigateToExtras={navigateToExtras} />
+    return <ThemedTranslatedDashboard
+      {...rest}
+      navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
+      navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
+      navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
+      navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
+      navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
   }
 }
 
