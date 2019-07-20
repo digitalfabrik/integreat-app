@@ -37,10 +37,10 @@ export type StatusPropsType<S, R> =
   | LanguageNotAvailableType<R>
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>
-|}
+}
 
 const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
