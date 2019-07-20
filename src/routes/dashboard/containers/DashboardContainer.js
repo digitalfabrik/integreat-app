@@ -125,23 +125,20 @@ const ThemedTranslatedDashboard = translate('dashboard')(
     Dashboard
   ))
 
-class DashboardContainer extends React.Component<{| ...ContainerPropsType, dispatch: Dispatch<StoreActionType> |}> {
-  render () {
-    const { dispatch, ...rest } = this.props
-    return <ThemedTranslatedDashboard
-      {...rest}
-      navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
-      navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
-      navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
-      navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
-      navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
-  }
+const DashboardContainer = (props: ContainerPropsType) => {
+  const { dispatch, ...rest } = props
+  return <ThemedTranslatedDashboard
+    {...rest}
+    navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
+    navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
+    navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
+    navigateToDashboard={createNavigateToCategory('Dashboard', dispatch, rest.navigation)}
+    navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
 }
 
 export default withRouteCleaner<*>(
   connect<_, _, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withError<ContainerPropsType, RefreshPropsType>(
-      DashboardContainer,
-      refresh
+    withError<ContainerPropsType, RefreshPropsType>(refresh)(
+      DashboardContainer
     )
   ))
