@@ -6,41 +6,74 @@ import { LanguageModel } from '@integreat-app/integreat-api-client'
 import { RefreshControl, ScrollView } from 'react-native'
 import Failure from '../components/Failure'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
+import type { StoreActionType } from '../../app/StoreActionType'
+import { type Dispatch } from 'redux'
+import type { NavigationScreenProp } from 'react-navigation'
 
-export type PropsType<T> = {| routeInitialized: false |} |
-  {| routeInitialized: true, error: true |} |
-  {|
-    routeInitialized: true, error: false, languageNotAvailable: true, availableLanguages: Array<LanguageModel>,
-    changeUnavailableLanguage: (city: string, newLanguage: string) => void, cityCode: string
-  |} |
-  {| routeInitialized: true, error: false, languageNotAvailable: false, loading: true |} |
-  {| routeInitialized: true, error: false, languageNotAvailable: false, loading: false, innerProps: T |}
+export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
+export type LoadingType = {| status: 'loading' |}
+export type ErrorType<R> = {|
+  status: 'error',
+  refreshProps: R
+|}
+export type LanguageNotAvailableType<R> = {|
+  status: 'languageNotAvailable',
+  availableLanguages: Array<LanguageModel>,
+  cityCode: string,
+  refreshProps: R,
+  changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>, city: string, newLanguage: string) => void
+|}
 
-const withError = <T: {}> (
-  Component: React.AbstractComponent<T>,
-  refresh: () => Promise<void>
-): React.AbstractComponent<PropsType<T>> => {
-  return class extends React.Component<PropsType<T>> {
+export type SuccessType<S, R> = {|
+  status: 'success',
+  innerProps: S,
+  refreshProps: R
+|}
+
+export type StatusPropsType<S, R> =
+  RouteNotInitializedType
+  | LoadingType
+  | ErrorType<R>
+  | LanguageNotAvailableType<R>
+  | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
+
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
+  ...StatusPropsType<S, R>,
+  dispatch: Dispatch<StoreActionType>
+|}
+
+const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
+  Component: React.AbstractComponent<S>,
+  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
+): React.AbstractComponent<PropsType<S, R>> => {
+  return class extends React.Component<PropsType<S, R>> {
+    refresh = () => {
+      const props = this.props
+      if (props.status === 'routeNotInitialized' || props.status === 'loading') {
+        throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
+      }
+      refresh(props.refreshProps, props.dispatch)
+    }
+
     render () {
       const props = this.props
-      if (!props.routeInitialized) {
+      console.warn(props)
+      if (props.status === 'routeNotInitialized') {
         return null
-      }
-      if (props.error) {
-        return <ScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}
+      } else if (props.status === 'error') {
+        return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                            contentContainerStyle={{ flexGrow: 1 }}>
           <Failure />
         </ScrollView>
-      } else if (props.languageNotAvailable) {
+      } else if (props.status === 'languageNotAvailable') {
         return <LanguageNotAvailableContainer city={props.cityCode} languages={props.availableLanguages}
                                               changeLanguage={props.changeUnavailableLanguage} />
-      } else if (props.loading) {
-        return <ScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing />}
-                           contentContainerStyle={{ flexGrow: 1 }} />
-      } else {
-        return <ScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}
+      } else if (props.status === 'loading') {
+        return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+      } else { // props.status === 'success'
+        return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                            contentContainerStyle={{ flexGrow: 1 }}>
-          <Component {...props.innerProps} />
+          <Component {...props.innerProps} dispatch={props.dispatch} />
         </ScrollView>
       }
     }

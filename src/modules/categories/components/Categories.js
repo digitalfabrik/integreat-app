@@ -132,10 +132,6 @@ class Categories extends React.Component<PropsType> {
   render () {
     const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
 
-    if (!stateView) {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    }
-
     const category = stateView.root()
     const children = stateView.children()
 
