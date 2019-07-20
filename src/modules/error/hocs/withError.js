@@ -57,7 +57,6 @@ const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
 
       render () {
         const props = this.props
-        console.warn(props)
         if (props.status === 'routeNotInitialized') {
           return null
         } else if (props.status === 'error') {
