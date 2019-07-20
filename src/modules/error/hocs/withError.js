@@ -9,6 +9,7 @@ import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAv
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import type { NavigationScreenProp } from 'react-navigation'
+import { wrapDisplayName } from 'recompose'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -47,6 +48,8 @@ const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
 ): ((Component: React.AbstractComponent<S>) => React.AbstractComponent<PropsType<S, R>>) => {
   return (Component: React.AbstractComponent<S>): React.AbstractComponent<PropsType<S, R>> => {
     return class extends React.Component<PropsType<S, R>> {
+      static displayName = wrapDisplayName(Component, 'withError')
+
       refresh = () => {
         const props = this.props
         if (props.status === 'routeNotInitialized' || props.status === 'loading') {
