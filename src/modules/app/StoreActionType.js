@@ -2,7 +2,6 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
-import type { UiDirectionType } from '../i18n/actions/setUIDirection'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES'
@@ -135,19 +134,12 @@ export type CityContentActionType =
   | InitializeCityContentActionType
   | ResourcesFetchFailedActionType
 
-export type SetUiDirectionActionType = {|
-  type: 'SET_UI_DIRECTION', params: {|
-    direction: UiDirectionType
-  |}
-|}
-
 export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
 |}
 
 export type StoreActionType =
-  SetUiDirectionActionType
-  | ToggleDarkModeActionType
+  ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType

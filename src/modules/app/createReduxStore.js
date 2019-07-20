@@ -3,7 +3,6 @@
 import type { Store } from 'redux'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 
-import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
@@ -38,7 +37,6 @@ const createReduxStore = (
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {
-    uiDirection: 'ltr',
     darkMode: false,
 
     cities: defaultCitiesState,
@@ -48,7 +46,6 @@ const createReduxStore = (
 
   // Create this reducer only once. It is not pure!
   const rootReducer = combineReducers({
-    uiDirection: uiDirectionReducer,
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,
