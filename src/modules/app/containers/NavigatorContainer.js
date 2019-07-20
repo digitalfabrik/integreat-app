@@ -6,7 +6,8 @@ import Navigator from '../components/Navigator'
 
 type DispatchPropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
-  clearCategory: (key: string) => void
+  clearCategory: (key: string) => void,
+  fetchCities: () => void
 |}
 
 type PropsType = DispatchPropsType
@@ -30,6 +31,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchPropsType => ({
   },
   clearCategory: (key: string) => {
     dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
+  },
+  fetchCities: () => {
+    dispatch({ type: 'FETCH_CITIES' })
   }
 })
 
