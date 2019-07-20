@@ -87,7 +87,8 @@ const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppCont
 
 type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string) => void,
-  clearCategory: (key: string) => void
+  clearCategory: (key: string) => void,
+  fetchCities: () => void
 |}
 
 class Navigator extends React.Component<PropsType> {
@@ -103,6 +104,7 @@ class Navigator extends React.Component<PropsType> {
   }
 
   componentDidMount () {
+    this.props.fetchCities()
     this.loadSelectedCity()
   }
 
