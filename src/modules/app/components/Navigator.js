@@ -133,7 +133,6 @@ class Navigator extends React.Component<PropsType> {
     const navigateToDashboard = StackActions.replace({
       routeName: 'Dashboard',
       params: {
-        cityCode,
         key,
         sharePath: path,
         onRouteClose: () => this.props.clearCategory(key)

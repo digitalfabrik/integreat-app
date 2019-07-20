@@ -4,119 +4,153 @@ import type { Dispatch } from 'redux'
 
 import { connect } from 'react-redux'
 import Dashboard from '../components/Dashboard'
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
+import { translate } from 'react-i18next'
+import type { NavigationScreenProp } from 'react-navigation'
+import type { StatusPropsType } from '../../../modules/error/hocs/withError'
+import withError from '../../../modules/error/hocs/withError'
+import { CityModel } from '@integreat-app/integreat-api-client'
+import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
-import { translate } from 'react-i18next'
-import type { NavigationScreenProp } from 'react-navigation'
-import withError from '../../../modules/error/hocs/withError'
-import { CityModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { NavigateToCategoryParamsType } from '../../../modules/app/createNavigateToCategory'
-import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
-import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { PropsType as DashboardPropsType } from '../components/Dashboard'
+
+type RefreshPropsType = {|
+  cityCode: string,
+  language: string,
+  navigation: NavigationScreenProp<*>
+|}
+
+type ContainerPropsType = {|
+  navigation: NavigationScreenProp<*>,
+  language: string,
+  cityCode: string,
+  cities: Array<CityModel>,
+  stateView: CategoriesRouteStateView,
+  resourceCache: LanguageResourceCacheStateType,
+  dispatch: Dispatch<StoreActionType>
+|}
 
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
-type StatePropsType = {|
-  error: boolean,
-  languageNotAvailable: boolean,
-  availableLanguages?: Array<LanguageModel>,
-  currentCityCode?: string,
-  currentLanguage?: string,
-  cityCode?: string,
-  cities?: Array<CityModel>,
-  language?: string,
-  stateView?: CategoriesRouteStateView,
-  resourceCache?: LanguageResourceCacheStateType
-|}
+const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+  const { cityCode, language, navigation } = refreshProps
+  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
+  navigateToDashboard({
+    cityCode, language, path: `/${cityCode}/${language}`, forceUpdate: true, key: navigation.getParam('key')
+  })
+}
 
-type DispatchPropsType = {|
-  navigateToDashboard: NavigateToCategoryParamsType => void,
-  navigateToCategory: NavigateToCategoryParamsType => void,
-  navigateToEvent: NavigateToEventParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage?: (city: string, language: string) => void
-|}
-
-type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+const changeUnavailableLanguage = (
+  dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>, city: string, newLanguage: string
+) => {
+  const switchContentLanguage: SwitchContentLanguageActionType = {
+    type: 'SWITCH_CONTENT_LANGUAGE',
+    params: {
+      city,
+      newLanguage
+    }
+  }
+  dispatch(switchContentLanguage)
+  const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)
+  navigateToDashboard({
+    cityCode: city,
+    language: newLanguage,
+    path: `/${city}/${newLanguage}`,
+    forceUpdate: false,
+    key: navigation.getParam('key')
+  })
+}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const contentLanguage = state.contentLanguage
-  if (!state.cityContent || state.cityContent.switchingLanguage) {
-    return { error: false, languageNotAvailable: false }
+  const language = state.contentLanguage
+  if (!state.cityContent) {
+    return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, city, languages } = state.cityContent
-
-  if (languages && !languages.map(language => language.code).includes(contentLanguage)) {
-    return {
-      languageNotAvailable: true,
-      availableLanguages: languages,
-      currentCityCode: city,
-      error: false,
-      currentLanguage: contentLanguage
-    }
+  const { resourceCache, categoriesRouteMapping, city, languages, switchingLanguage } = state.cityContent
+  const route: ?CategoryRouteStateType = categoriesRouteMapping[ownProps.navigation.getParam('key')]
+  if (!route) {
+    return { status: 'routeNotInitialized' }
   }
 
   if (state.cities.errorMessage !== undefined ||
     categoriesRouteMapping.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {
-    return { error: true, languageNotAvailable: false }
+    return { status: 'error', refreshProps: { cityCode: city, language, navigation: ownProps.navigation } }
   }
 
   const cities = state.cities.models
-  const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
-  if (!route || !cities) {
-    return { error: false, languageNotAvailable: false }
+  if (!cities || !languages || switchingLanguage) {
+    return { status: 'loading' }
+  }
+
+  if (!languages.find(language => language.code === language)) {
+    return {
+      status: 'languageNotAvailable',
+      availableLanguages: languages,
+      cityCode: city,
+      refreshProps: { cityCode: city, language, navigation: ownProps.navigation },
+      changeUnavailableLanguage
+    }
   }
 
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
 
   return {
-    error: false,
-    languageNotAvailable: false,
-    cityCode: city,
-    language: route.language,
-    cities,
-    stateView,
-    resourceCache
+    status: 'success',
+    refreshProps: { cityCode: city, language, navigation: ownProps.navigation },
+    innerProps: {
+      navigation: ownProps.navigation,
+      cityCode: city,
+      language: route.language,
+      cities,
+      stateView,
+      resourceCache
+    }
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
-  navigateToDashboard: createNavigateToCategory('Dashboard', dispatch, ownProps.navigation),
-  navigateToCategory: createNavigateToCategory('Categories', dispatch, ownProps.navigation),
-  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
-  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: (city: string, newLanguage: string) => {
-    const switchContentLanguage: SwitchContentLanguageActionType = {
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        city,
-        newLanguage
-      }
-    }
-    dispatch(switchContentLanguage)
-    createNavigateToCategory('Dashboard', dispatch, ownProps.navigation)({
-      cityCode: city,
-      language: newLanguage,
-      path: `/${city}/${newLanguage}`,
-      forceUpdate: false,
-      key: ownProps.navigation.getParam('key')
-    })
-  }
-})
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withRouteCleaner<PropsType>(
-    translate('dashboard')(
-      withTheme(props => props.language)(
-        withError<DashboardPropsType>(
-          Dashboard
-        )))))
+const ThemedTranslatedDashboard = translate('dashboard')(
+  withTheme(props => props.language)(
+    Dashboard
+  ))
+
+class DashboardContainer extends React.Component<{| ...ContainerPropsType, dispatch: Dispatch<StoreActionType> |}> {
+  render () {
+    const { dispatch, ...rest } = this.props
+    const navigateToCategory = createNavigateToCategory('Categories', dispatch, rest.navigation)
+    const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, rest.navigation)
+    const navigateToEvent = createNavigateToEvent(dispatch, rest.navigation)
+    const navigateToIntegreatUrl = createNavigateToIntegreatUrl(dispatch, rest.navigation)
+    const navigateToExtras = ({ cityCode, language }: {| cityCode: string, language: string |}) => {
+      rest.navigation.navigate('Extras', {
+        cityCode,
+        sharePath: `/${cityCode}/${language}/extras`
+      })
+    }
+
+    return <ThemedTranslatedDashboard {...rest}
+                                      navigateToCategory={navigateToCategory}
+                                      navigateToEvent={navigateToEvent}
+                                      navigateToIntegreatUrl={navigateToIntegreatUrl}
+                                      navigateToDashboard={navigateToDashboard}
+                                      navigateToExtras={navigateToExtras} />
+  }
+}
+
+export default withRouteCleaner<*>(
+  connect<_, _, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+    withError<ContainerPropsType, RefreshPropsType>(
+      DashboardContainer,
+      refresh
+    )
+  ))
