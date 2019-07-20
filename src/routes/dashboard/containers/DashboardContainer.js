@@ -92,7 +92,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'loading' }
   }
 
-  if (!languages.find(language => language.code === language)) {
+  if (!languages.find(lng => lng.code === language)) {
     return {
       status: 'languageNotAvailable',
       availableLanguages: languages,
