@@ -8,7 +8,6 @@ import Failure from '../components/Failure'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
-import type { NavigationScreenProp } from 'react-navigation'
 import { wrapDisplayName } from 'recompose'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
@@ -22,7 +21,7 @@ export type LanguageNotAvailableType<R> = {|
   availableLanguages: Array<LanguageModel>,
   cityCode: string,
   refreshProps: R,
-  changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>, city: string, newLanguage: string) => void
+  changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, newLanguage: string) => void
 |}
 
 export type SuccessType<S, R> = {|
@@ -58,6 +57,13 @@ const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
         refresh(props.refreshProps, props.dispatch)
       }
 
+      changeUnavailableLanguage = (newLanguage: string) => {
+        if (this.props.status !== 'languageNotAvailable') {
+          throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
+        }
+        this.props.changeUnavailableLanguage(this.props.dispatch, newLanguage)
+      }
+
       render () {
         const props = this.props
         if (props.status === 'routeNotInitialized') {
@@ -68,8 +74,8 @@ const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
             <Failure />
           </ScrollView>
         } else if (props.status === 'languageNotAvailable') {
-          return <LanguageNotAvailableContainer city={props.cityCode} languages={props.availableLanguages}
-                                                changeLanguage={props.changeUnavailableLanguage} />
+          return <LanguageNotAvailableContainer languages={props.availableLanguages}
+                                                changeLanguage={this.changeUnavailableLanguage} />
         } else if (props.status === 'loading') {
           return <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
         } else { // props.status === 'success'
