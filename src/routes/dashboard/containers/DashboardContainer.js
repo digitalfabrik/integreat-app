@@ -88,7 +88,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const cities = state.cities.models
 
-  if (!cities || !languages || switchingLanguage) {
+  if (!cities || !languages || switchingLanguage || route.loading) {
     return { status: 'loading' }
   }
 

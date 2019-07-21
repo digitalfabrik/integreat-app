@@ -38,7 +38,11 @@ export default (
       const errorMessage: string = action.params.message
       return { ...state, eventsRouteMapping: { errorMessage } }
     }
-    case 'FETCH_CATEGORY':
+    case 'FETCH_CATEGORY': {
+      const { key } = action.params
+      state.categoriesRouteMapping[key] = { ...state.categoriesRouteMapping[key], loading: true }
+      return state
+    }
     case 'CLEAR_CATEGORY': {
       const { key } = action.params
       delete state.categoriesRouteMapping[key]
