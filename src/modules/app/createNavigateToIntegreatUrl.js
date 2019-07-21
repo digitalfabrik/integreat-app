@@ -26,7 +26,7 @@ export default (dispatch: Dispatch<*>, navigation: NavigationScreenProp<*>) =>
           createNavigateToEvent(dispatch, navigation)({ cityCode, language: newLanguage, path: pathname })
         } else {
           // '/augsburg/de/events'
-          createNavigateToEvent(dispatch, navigation)({ cityCode, language: newLanguage })
+          createNavigateToEvent(dispatch, navigation)({ cityCode, language: newLanguage, path: null })
         }
       } else if (pathnameParts[2]) {
         // '/augsburg/de/willkommen'
