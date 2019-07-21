@@ -1,14 +1,18 @@
 // @flow
 
 import * as React from 'react'
-import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
+import type {
+  HeaderProps,
+  NavigationComponent,
+  NavigationContainer,
+  NavigationRouteConfig,
+  NavigationState
+} from 'react-navigation'
 import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
   NavigationActions,
-  type NavigationRouteConfig,
-  type NavigationScreenComponent,
   StackActions
 } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
@@ -36,7 +40,7 @@ import type { Dispatch } from 'redux'
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-const createNavigationRouteConfig = (Component: NavigationScreenComponent<*, *, *>, header = null): NavigationRouteConfig => ({
+const createNavigationRouteConfig = (Component: NavigationComponent, header = null): NavigationRouteConfig => ({
   screen: Component,
   navigationOptions: {
     header: header
