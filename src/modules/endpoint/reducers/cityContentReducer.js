@@ -40,7 +40,7 @@ export default (
     }
     case 'FETCH_CATEGORY': {
       const { language, path, depth, key } = action.params
-      state.categoriesRouteMapping[key] = { loading: true, language, depth, root: path }
+      state.categoriesRouteMapping[key] = { status: 'loading', language, depth, root: path }
       return state
     }
     case 'CLEAR_CATEGORY': {
@@ -49,8 +49,10 @@ export default (
       return state
     }
     case 'FETCH_CATEGORY_FAILED': {
-      const errorMessage: string = action.params.message
-      return { ...state, categoriesRouteMapping: { errorMessage } }
+      const { message, key } = action.params
+      const { language, depth, root } = state.categoriesRouteMapping[key]
+      state.categoriesRouteMapping[key] = { status: 'error', message, language, depth, root }
+      return state
     }
     case 'CLEAR_CITY':
       return defaultCityContentState

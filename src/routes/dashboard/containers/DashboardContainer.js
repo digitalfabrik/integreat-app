@@ -79,25 +79,25 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const language = state.contentLanguage
+  const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation }
   if (state.cities.errorMessage !== undefined ||
-    categoriesRouteMapping.errorMessage !== undefined ||
-    resourceCache.errorMessage !== undefined) {
-    return { status: 'error', refreshProps: { cityCode: city, language, navigation: ownProps.navigation } }
+    resourceCache.errorMessage !== undefined ||
+    route.status === 'error') {
+    return { status: 'error', refreshProps }
   }
 
   const cities = state.cities.models
 
-  if (!cities || !languages || switchingLanguage || route.loading) {
+  if (!cities || !languages || switchingLanguage || route.status === 'loading') {
     return { status: 'loading' }
   }
 
-  if (!languages.find(lng => lng.code === language)) {
+  if (!languages.find(language => language.code === route.language)) {
     return {
       status: 'languageNotAvailable',
       availableLanguages: languages,
       cityCode: city,
-      refreshProps: { cityCode: city, language, navigation: ownProps.navigation },
+      refreshProps,
       changeUnavailableLanguage
     }
   }
@@ -106,7 +106,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   return {
     status: 'success',
-    refreshProps: { cityCode: city, language, navigation: ownProps.navigation },
+    refreshProps,
     innerProps: {
       navigation: ownProps.navigation,
       cityCode: city,
