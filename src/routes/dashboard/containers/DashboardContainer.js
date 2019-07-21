@@ -39,6 +39,7 @@ type ContainerPropsType = {|
 type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
+type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation } = refreshProps
@@ -133,8 +134,8 @@ const DashboardContainer = (props: ContainerPropsType) => {
     navigateToExtras={createNavigateToExtras(dispatch, rest.navigation)} />
 }
 
-export default withRouteCleaner<*>(
-  connect<_, _, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
+export default withRouteCleaner<PropsType>(
+  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withError<ContainerPropsType, RefreshPropsType>(refresh)(
       DashboardContainer
     )
