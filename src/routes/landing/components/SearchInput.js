@@ -48,11 +48,11 @@ type PropsType = {
 }
 
 class SearchInput extends React.Component<PropsType> {
-  static defaultProps = {spaceSearch: false}
+  static defaultProps = { spaceSearch: false }
   onFilterTextChange = (text: string) => this.props.onFilterTextChange(text)
 
   render () {
-    const {onClickInput, filterText, placeholderText} = this.props
+    const { onClickInput, filterText, placeholderText } = this.props
     return (
       <Spacer space={this.props.spaceSearch}>
         <Wrapper theme={this.props.theme}>

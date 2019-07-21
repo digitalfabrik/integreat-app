@@ -41,10 +41,10 @@ type StateType = {|
 |}
 
 class SearchModal extends React.Component<PropsType, StateType> {
-  state = {query: ''}
+  state = { query: '' }
 
   findCategories (categories: CategoriesMapModel): Array<CategoryListItemType> {
-    const {query} = this.state
+    const { query } = this.state
     const filterText = query.toLowerCase()
     const categoriesArray = categories.toArray()
 
@@ -63,29 +63,29 @@ class SearchModal extends React.Component<PropsType, StateType> {
     return categoriesWithTitle
       .filter(category => !category.isRoot())
       .concat(categoriesWithContent)
-      .map(category => ({model: category, subCategories: []}))
+      .map(category => ({ model: category, subCategories: [] }))
   }
 
   onItemPress = (category: { path: string }) => {
-    const {cityCode, language, navigateToCategory} = this.props
+    const { cityCode, language, navigateToCategory } = this.props
 
-    navigateToCategory({cityCode, language, path: category.path})
+    navigateToCategory({ cityCode, language, path: category.path })
   }
 
   onSearchChanged = (query: string) => {
-    this.setState({query})
+    this.setState({ query })
   }
 
   renderContent = () => {
-    const {theme, categories, t, sendFeedback} = this.props
-    const {query} = this.state
+    const { theme, categories, t, sendFeedback } = this.props
+    const { query } = this.state
 
     if (!categories) {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
 
     const filteredCategories = this.findCategories(categories)
-    return <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SpaceBetween>
         <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
                             theme={theme} /></View>
@@ -96,8 +96,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {theme, closeModal} = this.props
-    const {query} = this.state
+    const { theme, closeModal } = this.props
+    const { query } = this.state
     return (
       <Wrapper theme={theme}>
         <SearchHeader theme={theme}

@@ -772,10 +772,25 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.3.tgz#6310a047f12d21a1036fb031317219892440416f"
   integrity sha512-4zAPlpDEh2VwXswwr/t8xGNDGg8RQiPxtxZ3qQEXyQsBV39ptTdESCjuBvGze1nLMVrxmTIKmnO/nAV8Tqjjzg==
 
+"@integreat-app/eslint-config-babel@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.4.tgz#9c259df4cc3969df53e79673579c6d04fca2dccb"
+  integrity sha512-eZTcLQTyI2K7rXaFkGRHI/jxcl8mqPGqqlxIgsS7Qk2mhB6FkPuKvYUHMWnggZ/FIthgBXV+nckGnjCzqEbQPw==
+
+"@integreat-app/eslint-config-flow@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-flow/-/eslint-config-flow-0.3.2.tgz#2aed687bf9e1583793cca59ff16da262fead0c23"
+  integrity sha512-6z+wCTYjkTtjCiYVlVjX+AzdTJrKgz3CP+2RlQ9luhD9pXTpDjNxfQfpzSxWvh0dbeN60wLVVoBuM5B+S7YvvA==
+
 "@integreat-app/eslint-config-jest@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-jest/-/eslint-config-jest-0.2.1.tgz#92cf9a9c221883b6194da2cde723f02945b625d1"
   integrity sha1-ks+anCIYg7YZTaLN5yPwKUW2JdE=
+
+"@integreat-app/eslint-config-node@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-node/-/eslint-config-node-0.3.4.tgz#6c5335c82ea834f14abde94e954858eae7544cc3"
+  integrity sha512-syM1RAuz0oftRzi1v2lrWa1dKZLz32Cj6hpuNLEz51bXsy/Zj7j1T8bduZt9AHa0WU7tIVI2Ci5wgSaVEl58Rw==
 
 "@integreat-app/eslint-config-react@^0.3.3":
   version "0.3.3"

@@ -45,29 +45,26 @@ type PropType = {|
 const HIJACK = /https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*/
 
 class Page extends React.Component<PropType, StateType> {
-  state = {loading: true}
+  state = { loading: true }
 
   onLinkPress = (url: string) => {
-    const {navigation, cityCode, language, navigateToIntegreatUrl, title} = this.props
-
-    const shareParams: ShareParamsType = {pageTitle: title, url}
-    const navigationParams: {pageTitle: any, url: any} = shareParams
+    const { navigation, cityCode, language, navigateToIntegreatUrl } = this.props
 
     if (url.includes('.pdf')) {
-      navigation.navigate('PDFViewModal', navigationParams)
+      navigation.navigate('PDFViewModal', { url })
     } else if (url.includes('.png') || url.includes('.jpg')) {
-      navigation.navigate('ImageViewModal', navigationParams)
+      navigation.navigate('ImageViewModal', { url })
     } else if (HIJACK.test(url)) {
-      navigateToIntegreatUrl({url, cityCode, language})
+      navigateToIntegreatUrl({ url, cityCode, language })
     } else {
       Linking.openURL(url).catch(err => console.error('An error occurred', err))
     }
   }
 
-  onLoad = () => this.setState({loading: false})
+  onLoad = () => this.setState({ loading: false })
 
   render () {
-    const {title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback, t} = this.props
+    const { title, children, content, files, theme, language, cityCode, lastUpdate, navigateToFeedback, t } = this.props
     return <SpaceBetween>
       <Container>
         <Caption title={title} theme={theme} />

@@ -30,7 +30,7 @@ const TilesRow = styled.View`
  */
 class NavigationTiles extends React.Component<PropsType> {
   render () {
-    const {tiles, theme} = this.props
+    const { tiles, theme } = this.props
     return (
       <>
         <TilesRow theme={theme}>

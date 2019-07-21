@@ -9,7 +9,7 @@ import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
 
 function * fetchEvents (city: string, language: string): Saga<Array<EventModel>> {
-  const params = {city, language}
+  const params = { city, language }
 
   const categoriesPayload: Payload<Array<EventModel>> = yield call(() => request(createEventsEndpoint(baseUrl), params))
   return categoriesPayload.data
