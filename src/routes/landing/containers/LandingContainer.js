@@ -12,8 +12,9 @@ import { generateKey } from '../../../modules/app/generateRouteKey'
 import type { StatusPropsType } from '../../../modules/error/hocs/withError'
 import withError from '../../../modules/error/hocs/withError'
 import { CityModel } from '@integreat-app/integreat-api-client'
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
+import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type ContainerPropsType = {|
   dispatch: Dispatch<StoreActionType>,
@@ -94,6 +95,8 @@ const refresh = (refreshProps: void, dispatch: Dispatch<StoreActionType>) => {
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withError<ContainerPropsType, void>(refresh)(
-    LandingContainer
-  ))
+  omitNavigation<PropsType>(
+    withError<ContainerPropsType, void>(refresh)(
+      LandingContainer
+    ))
+)

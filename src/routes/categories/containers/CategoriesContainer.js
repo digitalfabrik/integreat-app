@@ -16,6 +16,7 @@ import { translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import Categories from '../../../modules/categories/components/Categories'
 import React from 'react'
+import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type ContainerPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -135,6 +136,7 @@ const ThemedTranslatedCategories = withTheme(props => props.language)(
 
 export default withRouteCleaner<PropsType>(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withError<ContainerPropsType, RefreshPropsType>(refresh)(
-      CategoriesContainer
-    )))
+    omitNavigation<PropsType>(
+      withError<ContainerPropsType, RefreshPropsType>(refresh)(
+        CategoriesContainer
+      ))))
