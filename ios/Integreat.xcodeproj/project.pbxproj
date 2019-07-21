@@ -671,14 +671,11 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		7B97498722DC6D940078B456 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B97498B22DC6D940078B456 /* libRNShare.a */,
+		};	
 		7B974A5B22DC99F20078B456 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				7B97498B22DC6D940078B456 /* libRNShare.a */,
 				7B974A6022DC99F30078B456 /* libRNCNetInfo.a */,
 				7B974A6222DC99F30078B456 /* libRNCNetInfo-tvOS.a */,
 			);
