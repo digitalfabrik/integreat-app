@@ -11,8 +11,8 @@ import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateV
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import { translate } from 'react-i18next'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { StatusPropsType } from '../../../modules/error/hocs/withError'
-import withError from '../../../modules/error/hocs/withError'
+import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import React from 'react'
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
@@ -138,7 +138,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
 export default withRouteCleaner<PropsType>(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     omitNavigation<PropsType>(
-      withError<ContainerPropsType, RefreshPropsType>(refresh)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
         DashboardContainer
       )
     )

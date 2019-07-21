@@ -9,8 +9,8 @@ import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { StatusPropsType } from '../../../modules/error/hocs/withError'
-import withError from '../../../modules/error/hocs/withError'
+import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
@@ -132,6 +132,6 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 export default withRouteCleaner<PropsType>(
   connect<PropsType, OwnPropsType, StatePropsType, DispatchPropsType, StateType, Dispatch<StoreActionType>>(mapStateToProps, mapDispatchToProps)(
     omitNavigation<PropsType>(
-      withError<ContainerPropsType, RefreshPropsType>(refresh)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
         EventsContainer
       ))))

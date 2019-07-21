@@ -8,8 +8,8 @@ import type { StoreActionType, SwitchContentLanguageActionType } from '../../../
 import createNavigateToCategory from '../../../modules/app/createNavigateToCategory'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import type { NavigationScreenProp } from 'react-navigation'
-import type { StatusPropsType } from '../../../modules/error/hocs/withError'
-import withError from '../../../modules/error/hocs/withError'
+import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { translate } from 'react-i18next'
@@ -137,6 +137,6 @@ const ThemedTranslatedCategories = withTheme(props => props.language)(
 export default withRouteCleaner<PropsType>(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     omitNavigation<PropsType>(
-      withError<ContainerPropsType, RefreshPropsType>(refresh)(
+      withPayloadProvider<ContainerPropsType, RefreshPropsType>(refresh)(
         CategoriesContainer
       ))))
