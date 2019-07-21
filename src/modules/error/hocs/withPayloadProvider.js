@@ -9,6 +9,7 @@ import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAv
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
+import { Button } from 'react-native-elements'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
@@ -71,7 +72,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
         } else if (props.status === 'error') {
           return <ScrollView refreshControl={<RefreshControl onRefresh={this.refresh} refreshing={false} />}
                              contentContainerStyle={{ flexGrow: 1 }}>
-            <Failure />
+            <Failure tryAgain={this.refresh} />
           </ScrollView>
         } else if (props.status === 'languageNotAvailable') {
           return <LanguageNotAvailableContainer languages={props.availableLanguages}
