@@ -15,7 +15,6 @@ import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import type { TFunction } from 'react-i18next'
-import type { ShareParamsType } from '../../layout/components/TransparentHeader'
 
 const HORIZONTAL_MARGIN = 8
 
