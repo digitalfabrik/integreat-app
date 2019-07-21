@@ -1,14 +1,15 @@
 // @flow
 
 import * as React from 'react'
-import type { HeaderProps, NavigationContainer, NavigationState, NavigationComponent } from 'react-navigation'
+import type { HeaderProps, NavigationContainer, NavigationState } from 'react-navigation'
 import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
-  StackActions,
   NavigationActions,
-  type NavigationRouteConfig
+  type NavigationRouteConfig,
+  type NavigationScreenComponent,
+  StackActions
 } from 'react-navigation'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
@@ -35,7 +36,7 @@ import type { Dispatch } from 'redux'
 const LayoutedDashboardContainer = withLayout(DashboardContainer)
 const LayoutedCategoriesContainer = withLayout(CategoriesContainer)
 
-const createNavigationRouteConfig = (Component: NavigationComponent, header = null): NavigationRouteConfig => ({
+const createNavigationRouteConfig = (Component: NavigationScreenComponent<*, *, *>, header = null): NavigationRouteConfig => ({
   screen: Component,
   navigationOptions: {
     header: header
@@ -86,6 +87,7 @@ export const LandingStack = createSwitchNavigator({
 const AppContainer: NavigationContainer<NavigationState, {}, {}> = createAppContainer(LandingStack)
 
 type PropsType = {|
+  setContentLanguage: (language: string) => void,
   fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
   fetchCities: () => void
@@ -115,6 +117,8 @@ class Navigator extends React.Component<PropsType> {
     if (!contentLanguage) {
       throw new Error('ContentLanguage must be set!')
     }
+    this.props.setContentLanguage(contentLanguage)
+
     if (!this.navigator.current) {
       throw new Error('Ref must not be null!')
     }
