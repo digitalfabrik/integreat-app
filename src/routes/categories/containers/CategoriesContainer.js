@@ -39,8 +39,8 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const createChangeUnavailableLanguage = (path: string) => (
-  dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>, city: string, newLanguage: string
+const createChangeUnavailableLanguage = (path: string, navigation: NavigationScreenProp<*>, city: string) => (
+  dispatch: Dispatch<StoreActionType>, newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
@@ -92,7 +92,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       availableLanguages: languages,
       cityCode: city,
       refreshProps,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.root)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.root, ownProps.navigation, city)
     }
   }
 
