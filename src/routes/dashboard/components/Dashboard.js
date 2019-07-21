@@ -62,7 +62,7 @@ class Dashboard extends React.Component<PropsType> {
         path: 'events',
         thumbnail: eventsIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateToEvent({ cityCode, language }),
+        onTilePress: () => navigateToEvent({ cityCode, language, path: null }),
         notifications: 0
       })
     ]
