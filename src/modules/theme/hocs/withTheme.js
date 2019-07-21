@@ -8,7 +8,7 @@ import { brightColors } from '../constants/colors'
 import dimensions from '../constants/dimensions'
 import { arabicFonts, defaultFonts } from '../constants/fonts'
 
-type MapPropsToLanguageType<Props> = Props => string
+type MapPropsToLanguageType<Props> = Props => ?string
 
 const ARABIC_LANGUAGES = ['ar', 'fa', 'ku']
 

@@ -14,11 +14,11 @@ import type { CityContentStateType } from '../../../app/StateType'
 import type {
   PushCategoryActionType,
   MorphContentLanguageActionType,
-  PushEventActionType, InitializeCityContentActionType
+  PushEventActionType
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
-import initializeCityContent from '../initializeCityContent'
 import { defaultCityContentState } from '../../../app/StateType'
+import createCityContent from '../createCityContent'
 
 describe('morphContentLanguage', () => {
   const enCategories = [
@@ -281,18 +281,7 @@ describe('morphContentLanguage', () => {
     eventPath: '/augsburg/de/events/drittes_event',
     events: deEvents
   }): CityContentStateType => {
-    let state = initialState
-
-    const initializeCityContentAction: InitializeCityContentActionType = {
-      type: 'INITIALIZE_CITY_CONTENT',
-      params: {
-        city: 'augsburg',
-        language: 'de',
-        languages
-      }
-    }
-
-    state = initializeCityContent(state, initializeCityContentAction)
+    let state = createCityContent('augsburg', languages)
 
     const pushAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
