@@ -21,7 +21,7 @@ export default (
 
   switch (action.type) {
     case 'SWITCH_CONTENT_LANGUAGE':
-      return {...state, switchingLanguage: true}
+      return { ...state, switchingLanguage: true }
     case 'PUSH_CATEGORY':
       return pushCategory(state, action)
     case 'PUSH_EVENT':
@@ -30,29 +30,29 @@ export default (
       return morphContentLanguage(state, action)
     case 'FETCH_EVENT':
     case 'CLEAR_EVENT': {
-      const {key} = action.params
+      const { key } = action.params
       delete state.eventsRouteMapping[key]
       return state
     }
     case 'FETCH_EVENT_FAILED': {
       const errorMessage: string = action.params.message
-      return {...state, eventsRouteMapping: {errorMessage}}
+      return { ...state, eventsRouteMapping: { errorMessage } }
     }
     case 'FETCH_CATEGORY':
     case 'CLEAR_CATEGORY': {
-      const {key} = action.params
+      const { key } = action.params
       delete state.categoriesRouteMapping[key]
       return state
     }
     case 'FETCH_CATEGORY_FAILED': {
       const errorMessage: string = action.params.message
-      return {...state, categoriesRouteMapping: {errorMessage}}
+      return { ...state, categoriesRouteMapping: { errorMessage } }
     }
     case 'CLEAR_CITY':
       return defaultCityContentState
     case 'RESOURCES_FETCH_FAILED': {
       const errorMessage: string = action.params.message
-      return {...state, resourceCache: {errorMessage}}
+      return { ...state, resourceCache: { errorMessage } }
     }
     default:
       return state

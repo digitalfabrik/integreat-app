@@ -69,7 +69,7 @@ class SiteHelpfulBox extends React.Component<PropType> {
   navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
 
   render () {
-    const {theme, t} = this.props
+    const { theme, t } = this.props
     return <FeedbackBox theme={theme}>
       <HelpfulText theme={theme}>{t('feedback:isThisSiteUseful')}</HelpfulText>
       <FeedbackButtons>
