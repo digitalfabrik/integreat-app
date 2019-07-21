@@ -61,9 +61,9 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
+  language: string,
   navigateToLanding: () => void,
-  goToLanguageChange?: () => void,
-  routeKey: string
+  goToLanguageChange?: () => void
 |}
 
 class Header extends React.PureComponent<PropsType> {

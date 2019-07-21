@@ -21,7 +21,7 @@ type OwnPropsType = {|
 |}
 
 type StatePropsType = {|
-  routeKey: string,
+  language: string,
   goToLanguageChange?: () => void
 |}
 
@@ -35,7 +35,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeKey = ownProps.navigation.getParam('key')
   if (state.cityContent && state.cityContent.languages) {
     const languages = state.cityContent.languages
-    const route = currentCityRouteSelector(state.cityContent, routeKey)
+    const route = routeKey && currentCityRouteSelector(state.cityContent, routeKey)
     const currentLanguage = (route && route.language) || state.contentLanguage
     const availableLanguages = (route && route.status === 'ready' && Array.from(route.allAvailableLanguages.keys())) ||
       languages.map(lng => lng.code)
@@ -44,10 +44,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         routeName: 'ChangeLanguageModal', params: { currentLanguage, languages, availableLanguages }
       })
     }
-    return { routeKey, goToLanguageChange }
+    return { language: state.contentLanguage, goToLanguageChange }
   }
 
-  return { routeKey }
+  return { language: state.contentLanguage }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
