@@ -1,7 +1,5 @@
 // @flow
 
-import type { StoreActionType } from './StoreActionType'
-import type { PersistState } from 'redux-persist/src/types'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -85,16 +83,11 @@ export type CityContentStateType = {|
 |}
 
 export const defaultCityContentState = null
-export type DirectionStateType = 'ltr' | 'rtl'
 
 export type StateType = {|
-  +uiDirection: DirectionStateType,
   +darkMode: boolean,
 
   +cityContent: CityContentStateType | null,
   +contentLanguage: string,
-  +cities: CitiesStateType,
-
-  +network: {| +isConnected: boolean, +actionQueue: Array<StoreActionType> |},
-  +_persist?: PersistState
+  +cities: CitiesStateType
 |}
