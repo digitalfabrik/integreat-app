@@ -5,19 +5,19 @@ import {
   CategoryModel,
   DateModel,
   EventModel,
-  LanguageModel, LocationModel
+  LanguageModel,
+  LocationModel
 } from '@integreat-app/integreat-api-client'
 import moment from 'moment-timezone'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import type { CityContentStateType } from '../../../app/StateType'
 import type {
-  PushCategoryActionType,
   MorphContentLanguageActionType,
+  PushCategoryActionType,
   PushEventActionType
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
-import { defaultCityContentState } from '../../../app/StateType'
 import createCityContent from '../createCityContent'
 
 describe('morphContentLanguage', () => {
@@ -270,8 +270,6 @@ describe('morphContentLanguage', () => {
       thumbnail: 'thumbnail'
     })
   ]
-
-  const initialState = defaultCityContentState
 
   const prepareState = ({ path, model, eventPath, events }: {
     path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>

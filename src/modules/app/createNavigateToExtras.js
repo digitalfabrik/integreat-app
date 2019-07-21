@@ -11,4 +11,3 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
       sharePath: `/${cityCode}/${language}/extras`
     })
   }
-
