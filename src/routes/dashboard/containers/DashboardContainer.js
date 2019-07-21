@@ -70,7 +70,6 @@ const changeUnavailableLanguage = (
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const language = state.contentLanguage
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
@@ -80,6 +79,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
+  const language = state.contentLanguage
   if (state.cities.errorMessage !== undefined ||
     categoriesRouteMapping.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {
