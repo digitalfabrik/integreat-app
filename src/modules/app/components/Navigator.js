@@ -67,7 +67,9 @@ export const AppStack = createStackNavigator(
     [WOHNEN_ROUTE]: createNavigationRouteConfig(WohnenExtraContainer, defaultHeader),
     [SPRUNGBRETT_ROUTE]: createNavigationRouteConfig(SprungbrettExtraContainer, defaultHeader),
     [EXTERNAL_EXTRA_ROUTE]: createNavigationRouteConfig(ExternalExtraContainer, defaultHeader),
-    'Events': createNavigationRouteConfig(EventsContainer, defaultHeader),
+    'Events': createNavigationRouteConfig( // $FlowFixMe
+      EventsContainer, defaultHeader
+    ),
     'Settings': createNavigationRouteConfig(SettingsContainer, defaultHeader),
     'ChangeLanguageModal': createNavigationRouteConfig(ChangeLanguageModalContainer),
     'SearchModal': createNavigationRouteConfig(SearchModalContainer),
