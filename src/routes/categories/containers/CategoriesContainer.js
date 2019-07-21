@@ -120,12 +120,11 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 
 class CategoriesContainer extends React.Component<ContainerPropsType> {
   render () {
-    const { cities, language, stateView, cityCode, navigation, resourceCache, dispatch } = this.props
-    return <ThemedTranslatedCategories cities={cities} language={language} stateView={stateView} cityCode={cityCode}
-                                       navigateToCategory={createNavigateToCategory('Categories', dispatch, navigation)}
-                                       navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, navigation)}
-                                       navigation={navigation}
-                                       resourceCache={resourceCache} />
+    const { dispatch, ...rest } = this.props
+    return <ThemedTranslatedCategories
+      {...rest}
+      navigateToCategory={createNavigateToCategory('Categories', dispatch, rest.navigation)}
+      navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)} />
   }
 }
 
