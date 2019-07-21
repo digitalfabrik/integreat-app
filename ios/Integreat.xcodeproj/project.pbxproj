@@ -1253,6 +1253,8 @@
 			fileType = archive.ar;
 			path = libRNShare.a;
 			remoteRef = 7B97498A22DC6D940078B456 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7B974A6022DC99F30078B456 /* libRNCNetInfo.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
