@@ -1,27 +1,15 @@
 // @flow
 
 import type { Store } from 'redux'
-import { applyMiddleware, createStore } from 'redux'
-import { AsyncStorage } from 'react-native'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 
-import uiDirectionReducer from '../i18n/reducers/uiDirectionReducer'
 import toggleDarkModeReducer from '../theme/reducers'
-import {
-  checkInternetConnection,
-  createNetworkMiddleware,
-  networkSaga,
-  offlineActionTypes,
-  reducer as reactNativeOfflineReducer
-} from 'react-native-offline'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
 import { all, call } from 'redux-saga/effects'
-import { persistCombineReducers, persistStore } from 'redux-persist'
-import type { PersistConfig, Persistor } from 'redux-persist/src/types'
 import type { StateType } from './StateType'
 import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
 import type { StoreActionType } from './StoreActionType'
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import type { DataContainer } from '../endpoint/DataContainer'
 import citiesReducer from '../endpoint/reducers/citiesReducer'
@@ -39,83 +27,38 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
     call(watchFetchEvent, dataContainer),
     call(watchFetchCities, dataContainer),
     call(watchClearCity),
-    call(watchContentLanguageSwitch, dataContainer),
-    call(networkSaga, {})
+    call(watchContentLanguageSwitch, dataContainer)
   ])
 }
 
 const createReduxStore = (
-  dataContainer: DataContainer, callback: () => void
-): { store: Store<StateType, StoreActionType>, persistor: Persistor } => {
+  dataContainer: DataContainer
+): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {
-    uiDirection: 'ltr',
     darkMode: false,
 
     cities: defaultCitiesState,
     contentLanguage: defaultContentLanguageState,
-    cityContent: defaultCityContentState,
-
-    network: { isConnected: false, actionQueue: [] }
-  }
-
-  // Do never blacklist the "network" key.
-  const persistConfig: PersistConfig = {
-    version: 1,
-    key: 'root',
-    storage: AsyncStorage,
-    stateReconciler: hardSet,
-    blacklist: ['cities', 'cityContent']
+    cityContent: defaultCityContentState
   }
 
   // Create this reducer only once. It is not pure!
-  const persistedReducer = persistCombineReducers(persistConfig, {
-    uiDirection: uiDirectionReducer,
+  const rootReducer = combineReducers({
     darkMode: toggleDarkModeReducer,
 
     cities: citiesReducer,
     contentLanguage: contentLanguageReducer,
-    cityContent: cityContentReducer,
-
-    network: reactNativeOfflineReducer
+    cityContent: cityContentReducer
   })
 
-  const rootReducer = (state, action) => {
-    if (!state) {
-      return initialState
-    }
-    return persistedReducer(state, action)
-  }
-  const middlewares = [createNetworkMiddleware(), sagaMiddleware]
-
-  // If you want to use redux-logger again use this code:
-  // import { createLogger } from 'redux-logger'
-  // if (__DEV__) {
-  //   middlewares.push(createLogger())
-  // }
-
-  const middleware = applyMiddleware(...middlewares)
-
+  const middleware = applyMiddleware(sagaMiddleware)
   const enhancer = __DEV__ ? composeWithDevTools(middleware) : middleware
-
   const store = createStore(rootReducer, initialState, enhancer)
 
-  const persistor = persistStore(
-    store,
-    undefined,
-    async () => {
-      const isConnected: boolean = await checkInternetConnection()
-      store.dispatch({
-        type: offlineActionTypes.CONNECTION_CHANGE,
-        payload: isConnected
-      })
-      sagaMiddleware.run(rootSaga, dataContainer)
-      callback()
-    }
-  )
-
-  return { store, persistor }
+  sagaMiddleware.run(rootSaga, dataContainer)
+  return store
 }
 
 export default createReduxStore
