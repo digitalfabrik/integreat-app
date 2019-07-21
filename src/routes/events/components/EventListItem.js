@@ -8,6 +8,7 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
+import { contentDirection } from '../../../modules/i18n/contentDirection'
 
 type PropsType = {|
   event: EventModel,
@@ -37,6 +38,7 @@ class EventListItem extends React.PureComponent<PropsType> {
     return (
       <ListItem thumbnail={thumbnail}
                 title={event.title}
+                language={language}
                 navigateTo={navigateToEvent}
                 theme={theme}>
         <Description theme={theme}>{event.date.toFormattedString(language)}</Description>
