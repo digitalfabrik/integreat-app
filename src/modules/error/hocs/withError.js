@@ -37,15 +37,15 @@ export type StatusPropsType<S, R> =
   | LanguageNotAvailableType<R>
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
   ...StatusPropsType<S, R>,
   dispatch: Dispatch<StoreActionType>
-}
+|}
 
 const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
-): ((Component: React.AbstractComponent<S>) => React.AbstractComponent<PropsType<S, R>>) => {
-  return (Component: React.AbstractComponent<S>): React.AbstractComponent<PropsType<S, R>> => {
+): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
+  return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
     return class extends React.Component<PropsType<S, R>> {
       static displayName = wrapDisplayName(Component, 'withError')
 

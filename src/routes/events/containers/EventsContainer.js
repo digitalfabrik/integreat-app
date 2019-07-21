@@ -13,7 +13,9 @@ import type { StatusPropsType } from '../../../modules/error/hocs/withError'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
-import React from 'react'
+import * as React from 'react'
+import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type ContainerPropsType = {|
   path: ?string,
@@ -114,7 +116,10 @@ const ThemedTranslatedEvents = translate('events')(
 class EventsContainer extends React.Component<ContainerPropsType> {
   render () {
     const { dispatch, ...rest } = this.props
-    return <ThemedTranslatedEvents {...rest} />
+    return <ThemedTranslatedEvents {...rest}
+                                   navigateToEvent={createNavigateToEvent(dispatch, rest.navigation)}
+                                   navigateToIntegreatUrl={createNavigateToIntegreatUrl(dispatch, rest.navigation)}
+    />
   }
 }
 
@@ -125,7 +130,8 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 }
 
 export default withRouteCleaner<PropsType>(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withError<ContainerPropsType, RefreshPropsType>(refresh)(
-      EventsContainer
-    )))
+  connect<PropsType, OwnPropsType, StatePropsType, DispatchPropsType, StateType, Dispatch<StoreActionType>>(mapStateToProps, mapDispatchToProps)(
+    omitNavigation<PropsType>(
+      withError<ContainerPropsType, RefreshPropsType>(refresh)(
+        EventsContainer
+      ))))

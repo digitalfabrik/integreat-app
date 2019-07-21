@@ -19,6 +19,7 @@ import createNavigateToCategory from '../../../modules/app/createNavigateToCateg
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
 import createNavigateToExtras from '../../../modules/app/createNavigateToExtras'
+import omitNavigation from '../../../modules/common/hocs/omitNavigation'
 
 type RefreshPropsType = {|
   cityCode: string,
@@ -136,7 +137,9 @@ const DashboardContainer = (props: ContainerPropsType) => {
 
 export default withRouteCleaner<PropsType>(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withError<ContainerPropsType, RefreshPropsType>(refresh)(
-      DashboardContainer
+    omitNavigation<PropsType>(
+      withError<ContainerPropsType, RefreshPropsType>(refresh)(
+        DashboardContainer
+      )
     )
   ))
