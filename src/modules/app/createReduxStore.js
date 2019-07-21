@@ -58,7 +58,7 @@ const createReduxStore = (
   const store = createStore(rootReducer, initialState, enhancer)
 
   sagaMiddleware.run(rootSaga, dataContainer)
-  return  store
+  return store
 }
 
 export default createReduxStore
