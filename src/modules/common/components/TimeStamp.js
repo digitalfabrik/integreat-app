@@ -1,17 +1,26 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import type { TFunction } from 'react-i18next'
 import { translate } from 'react-i18next'
 import type Moment from 'moment'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import type { MomentFormatterType } from '../../i18n/context/MomentContext'
-import ContentDirectionContainer from '../../i18n/components/ContentDirectionContainer'
+import { contentDirection } from '../../i18n/contentDirection'
 
 const TimeStampText: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.contentFontRegular};
+`
+
+type DirectionContainerPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+  display: flex;
+  flex-direction: ${props => contentDirection(props.language)};
 `
 
 type PropsType = {
@@ -27,10 +36,10 @@ export class TimeStamp extends React.PureComponent<PropsType> {
     const { lastUpdate, formatter, t, language, theme } = this.props
     // only show day, month and year
     const dateText = formatter(lastUpdate, { format: 'LL', locale: language })
-    return <ContentDirectionContainer language={language} theme={theme}>
+    return <DirectionContainer language={language} theme={theme}>
         <TimeStampText theme={theme}>{t('lastUpdate')}</TimeStampText>
         <TimeStampText theme={theme}>{dateText}</TimeStampText>
-    </ContentDirectionContainer>
+    </DirectionContainer>
   }
 }
 

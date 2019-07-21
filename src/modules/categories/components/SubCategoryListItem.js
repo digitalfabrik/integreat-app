@@ -2,12 +2,11 @@
 
 import * as React from 'react'
 
-import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
-import ContentDirectionContainer from '../../i18n/components/ContentDirectionContainer'
-import type { ContentDirectionContainerPropsType } from '../../i18n/components/ContentDirectionContainer'
+import styled, { type StyledComponent } from 'styled-components/native'
+import { contentDirection } from '../../i18n/contentDirection'
 
 const SubCategoryCaption = styled(CategoryCaption)`
   padding: 8px 0;
@@ -15,14 +14,19 @@ const SubCategoryCaption = styled(CategoryCaption)`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const StyledContentDirectionContainer: StyledComponent<ContentDirectionContainerPropsType, ThemeType, *> =
-  styled(ContentDirectionContainer)`
-  margin-start: 75px;
-`
-
-const FlexStyledLink: StyledComponent<{}, {}, *> = styled(StyledLink)`
+const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
   display: flex;
   flex-direction: column;
+`
+
+type DirectionContainerPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+  display: flex;
+  flex-direction: ${props => contentDirection(props.language)};
+  margin-start: 75px;
 `
 
 const SubCategoryTitle = styled.Text`
@@ -45,13 +49,12 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
   render () {
     const { language, subCategory, theme } = this.props
     return (
-      <FlexStyledLink onPress={this.onSubCategoryPress}
-                      underlayColor={theme.colors.backgroundAccentColor}>
-        <StyledContentDirectionContainer theme={theme} language={language}>
+      <FlexStyledLink onPress={this.onSubCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
+        <DirectionContainer theme={theme} language={language}>
           <SubCategoryCaption search={''} theme={theme}>
             <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
           </SubCategoryCaption>
-        </StyledContentDirectionContainer>
+        </DirectionContainer>
       </FlexStyledLink>
     )
   }
