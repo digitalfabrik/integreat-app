@@ -302,6 +302,7 @@ describe('morphContentLanguage', () => {
     let pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
       params: {
+        path: null,
         events,
         languages,
         key: 'event-route-1',

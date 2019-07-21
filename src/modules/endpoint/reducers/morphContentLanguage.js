@@ -51,10 +51,15 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
 
 const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string) =>
   (route: EventRouteStateType): EventRouteStateType => {
+    if (route.status !== 'ready') {
+      console.warn('Route was not ready when translating. Will not translate this route.')
+      return route
+    }
     const { path, allAvailableLanguages } = route
 
     if (!path) { // Route is a list of all events
       return {
+        status: 'ready',
         path: null,
         models: newEvents,
         allAvailableLanguages,
@@ -79,6 +84,7 @@ const eventRouteTranslator = (newEvents: Array<EventModel>, newLanguage: string)
     }
 
     return {
+      status: 'ready',
       path: translatedPath,
       models: [translatedEvent],
       allAvailableLanguages,
@@ -92,15 +98,15 @@ const morphContentLanguage = (
   const { newCategoriesMap, newResourceCache, newEvents, newLanguage } = action.params
   const { categoriesRouteMapping, eventsRouteMapping } = state
 
-  const translatedCategoriesRouteMapping = categoriesRouteMapping.errorMessage === undefined ? mapValues(
+  const translatedCategoriesRouteMapping = mapValues(
     categoriesRouteMapping,
     categoryRouteTranslator(newCategoriesMap, newLanguage)
-  ) : {}
+  )
 
-  const translatedEventsRouteMapping = eventsRouteMapping.errorMessage === undefined ? mapValues(
+  const translatedEventsRouteMapping = mapValues(
     eventsRouteMapping,
     eventRouteTranslator(newEvents, newLanguage)
-  ) : {}
+  )
 
   return {
     ...state,

@@ -34,15 +34,28 @@ export default (
         throw Error('Cannot morph content language on not initialized cityContent')
       }
       return morphContentLanguage(state, action)
-    case 'FETCH_EVENT':
+    case 'FETCH_EVENT': {
+      const { language, path, key, city } = action.params
+      const newState = state === null ? createCityContent(city) : state
+      newState.eventsRouteMapping[key] = { status: 'loading', language, path }
+      return newState
+    }
     case 'CLEAR_EVENT': {
       const { key } = action.params
+      if (state === null) {
+        return state
+      }
       delete state.eventsRouteMapping[key]
       return state
     }
     case 'FETCH_EVENT_FAILED': {
-      const errorMessage: string = action.params.message
-      return { ...state, eventsRouteMapping: { errorMessage } }
+      if (state === null) {
+        throw Error('A fetch category fail cannot occur on not initialized cityContent')
+      }
+      const { message, key } = action.params
+      const { language, path } = state.eventsRouteMapping[key]
+      state.eventsRouteMapping[key] = { status: 'error', message, language, path }
+      return state
     }
     case 'FETCH_CATEGORY': {
       const { language, path, depth, key, city } = action.params

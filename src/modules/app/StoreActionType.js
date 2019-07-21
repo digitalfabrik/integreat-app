@@ -63,7 +63,7 @@ export type CategoriesActionType =
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
-    path?: string, key: string,
+    path: ?string, key: string,
     forceUpdate: boolean, shouldRefreshResources: boolean
   |}
 |}
@@ -73,7 +73,7 @@ export type ClearEventActionType = {|
 export type PushEventActionType = {|
   type: 'PUSH_EVENT', params: {|
     events: Array<EventModel>,
-    path?: string, key: string,
+    path: ?string, key: string,
     resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
     city: string,
@@ -83,7 +83,8 @@ export type PushEventActionType = {|
 export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   params: {|
-    message: string
+    message: string,
+    key: string
   |}
 |}
 

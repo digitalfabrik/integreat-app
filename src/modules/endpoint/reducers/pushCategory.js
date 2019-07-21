@@ -51,13 +51,9 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     status: 'ready'
   }
 
-  const newCategoriesRouteMapping = state.categoriesRouteMapping.errorMessage === undefined
-    ? { ...state.categoriesRouteMapping, [key]: route }
-    : { [key]: route }
-
   return {
     ...state,
-    categoriesRouteMapping: newCategoriesRouteMapping,
+    categoriesRouteMapping: { ...state.categoriesRouteMapping, [key]: route },
     resourceCache: newResourceCache,
     searchRoute: { categoriesMap }
   }
