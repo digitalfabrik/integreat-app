@@ -52,7 +52,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
 
-    this.state = {settingsLoaded: false, settings: defaultSettings}
+    this.state = { settingsLoaded: false, settings: defaultSettings }
     this.appSettings = new AppSettings()
 
     this.loadSettings()
@@ -62,7 +62,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     try {
       const settings = await this.appSettings.loadSettings()
 
-      this.setState({settingsLoaded: true, settings})
+      this.setState({ settingsLoaded: true, settings })
     } catch (e) {
       console.error('Failed to load settings.')
     }
@@ -72,7 +72,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     this.setState(
       state => {
         const newSettings = changeSetting(state.settings)
-        return {settings: {...state.settings, ...newSettings}}
+        return { settings: { ...state.settings, ...newSettings } }
       },
       async () => {
         try {
@@ -84,9 +84,9 @@ export default class Settings extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderItem = ({item}: { item: ItemType }) => {
-    const {theme} = this.props
-    const {title, description, hasSwitch, onPress, getSettingValue} = item
+  renderItem = ({ item }: { item: ItemType }) => {
+    const { theme } = this.props
+    const { title, description, hasSwitch, onPress, getSettingValue } = item
     const value = getSettingValue ? getSettingValue(this.state.settings) : false
 
     return (
@@ -97,7 +97,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
     )
   }
 
-  renderSectionHeader = ({section: {title}}: { section: SectionType }) =>
+  renderSectionHeader = ({ section: { title } }: { section: SectionType }) =>
     <View><SectionHeader theme={this.props.theme}>{title}</SectionHeader></View>
 
   keyExtractor = (item: ItemType, index: number): string => index.toString()
@@ -111,7 +111,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
     return <SectionList
         keyExtractor={this.keyExtractor}
-        sections={createSettingsSections({setSetting: this.setSetting, ...this.props})}
+        sections={createSettingsSections({ setSetting: this.setSetting, ...this.props })}
         extraData={this.state.settings}
         renderItem={this.renderItem}
         renderSectionHeader={this.renderSectionHeader}

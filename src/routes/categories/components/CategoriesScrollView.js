@@ -27,7 +27,7 @@ export type PropsType = {|
 
 class CategoriesScrollView extends React.Component<PropsType> {
   onRefresh = () => {
-    const {navigateToCategory, cityCode, language, stateView, navigation} = this.props
+    const { navigateToCategory, cityCode, language, stateView, navigation } = this.props
     if (cityCode && language && stateView) {
       navigateToCategory({
         cityCode, language, path: stateView.rawRoot, forceUpdate: true, key: navigation.getParam('key')
@@ -46,7 +46,7 @@ class CategoriesScrollView extends React.Component<PropsType> {
     } else {
       return (
         <ScrollView refreshControl={<RefreshControl onRefresh={this.onRefresh} refreshing={false} />}
-                    contentContainerStyle={{flexGrow: 1}}>
+                    contentContainerStyle={{ flexGrow: 1 }}>
           <Categories stateView={stateView}
                       cities={cities}
                       resourceCache={resourceCache}
