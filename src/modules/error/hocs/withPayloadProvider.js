@@ -42,12 +42,12 @@ export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R> = {|
   dispatch: Dispatch<StoreActionType>
 |}
 
-const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
+const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R>>) => {
   return (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R>> => {
     return class extends React.Component<PropsType<S, R>> {
-      static displayName = wrapDisplayName(Component, 'withError')
+      static displayName = wrapDisplayName(Component, 'withPayloadProvider')
 
       refresh = () => {
         const props = this.props
@@ -89,4 +89,4 @@ const withError = <S: { dispatch: Dispatch<StoreActionType> }, R> (
   }
 }
 
-export default withError
+export default withPayloadProvider

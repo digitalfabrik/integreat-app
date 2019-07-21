@@ -9,8 +9,8 @@ import Landing from '../components/Landing'
 import type { NavigationScreenProp } from 'react-navigation'
 import { type NavigationReplaceAction, StackActions } from 'react-navigation'
 import { generateKey } from '../../../modules/app/generateRouteKey'
-import type { StatusPropsType } from '../../../modules/error/hocs/withError'
-import withError from '../../../modules/error/hocs/withError'
+import type { StatusPropsType } from '../../../modules/error/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/error/hocs/withPayloadProvider'
 import { CityModel } from '@integreat-app/integreat-api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -96,7 +96,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
   omitNavigation<PropsType>(
-    withError<ContainerPropsType, void>(refresh)(
+    withPayloadProvider<ContainerPropsType, void>(refresh)(
       LandingContainer
     ))
 )
