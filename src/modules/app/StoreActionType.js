@@ -39,6 +39,7 @@ export type FetchCategoryActionType = {|
 export type FetchCategoryFailedActionType = {|
   type: 'FETCH_CATEGORY_FAILED',
   params: {|
+    key: string,
     message: string
   |}
 |}

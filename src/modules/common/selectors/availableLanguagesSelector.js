@@ -15,7 +15,7 @@ export const availableLanguagesSelector = createSelector<CityContentStateType, C
     currentCityRouteSelector,
     cityLanguagesSelector,
     (route: CategoryRouteStateType | EventRouteStateType | null, cityLanguages: Array<string>): Array<string> => {
-      if (route && !route.loading) {
+      if (route && route.status === 'ready') {
         return Array.from(route.allAvailableLanguages.keys())
       } else {
         return cityLanguages

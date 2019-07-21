@@ -19,7 +19,7 @@ export type CategoryRouteConfigType = {|
 |}
 
 export type CategoryRouteStateType = {|
-  +loading: false,
+  +status: 'ready',
   ...CategoryRouteConfigType,
   +allAvailableLanguages: Map<string, string>, // including the current content language
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
@@ -27,8 +27,12 @@ export type CategoryRouteStateType = {|
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> }
 |} | {|
-  +loading: true,
+  +status: 'loading',
   ...CategoryRouteConfigType
+|} | {|
+  +status: 'error',
+  ...CategoryRouteConfigType,
+  +message: string
 |}
 
 export type EventRouteStateType = {|
@@ -60,7 +64,7 @@ export type CityResourceCacheStateType = {
 
 export type CategoriesRouteMappingType = {
   [key: string]: CategoryRouteStateType
-} | ErrorStateType
+}
 
 export type EventsRouteMappingType = {
   [key: string]: EventRouteStateType

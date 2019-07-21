@@ -9,8 +9,8 @@ import forEachTreeNode from '../../common/forEachTreeNode'
 
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLanguage: string) =>
   (route: CategoryRouteStateType): CategoryRouteStateType => {
-    if (route.loading) {
-      console.warn('Route was loading while translating. Will not translate this route.')
+    if (route.status !== 'ready') {
+      console.warn('Route was not ready when translating. Will not translate this route.')
       return route
     }
     const { depth, root, allAvailableLanguages } = route
@@ -45,7 +45,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, newLangua
       depth,
       allAvailableLanguages,
       language: newLanguage,
-      loading: false
+      status: 'ready'
     }
   }
 

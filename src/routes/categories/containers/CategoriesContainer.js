@@ -64,34 +64,28 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-
   const { resourceCache, categoriesRouteMapping, city, switchingLanguage } = state.cityContent
-  const globalLanguage = state.contentLanguage
-  if (state.cities.errorMessage !== undefined ||
-    categoriesRouteMapping.errorMessage !== undefined ||
-    resourceCache.errorMessage !== undefined) {
-    return {
-      status: 'error',
-      refreshProps: { cityCode: city, language: globalLanguage, path: '/', navigation: ownProps.navigation }
-    } // todo: refProps
-  }
-
-  const cities = state.cities.models
   const route = categoriesRouteMapping[ownProps.navigation.getParam('key')]
 
   if (!route) {
     return { status: 'routeNotInitialized' }
   }
 
-  if (route.loading || switchingLanguage || !cities) {
+  const refreshProps = { cityCode: city, language: route.language, path: route.root, navigation: ownProps.navigation }
+
+  if (state.cities.errorMessage !== undefined ||
+    resourceCache.errorMessage !== undefined ||
+    route.status === 'error') {
+    return { status: 'error', refreshProps }
+  }
+
+  const cities = state.cities.models
+  if (route.status === 'loading' || switchingLanguage || !cities) {
     return { status: 'loading' }
   }
 
   const languages = Array.from(route.allAvailableLanguages.keys())
   const stateView = new CategoriesRouteStateView(route.root, route.models, route.children)
-  const refreshProps = {
-    cityCode: city, language: route.language, path: route.root, navigation: ownProps.navigation
-  }
   if (!languages.includes(route.language)) {
     return {
       status: 'languageNotAvailable',

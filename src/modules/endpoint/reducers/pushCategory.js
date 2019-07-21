@@ -48,7 +48,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     depth: depth,
     allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
     language,
-    loading: false
+    status: 'ready'
   }
 
   const newCategoriesRouteMapping = state.categoriesRouteMapping.errorMessage === undefined
