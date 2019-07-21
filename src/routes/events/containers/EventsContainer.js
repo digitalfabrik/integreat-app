@@ -1,101 +1,131 @@
 // @flow
 
-import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import connect from 'react-redux/es/connect/connect'
 import Events from '../components/Events'
 import { translate } from 'react-i18next'
 import withRouteCleaner from '../../../modules/endpoint/hocs/withRouteCleaner'
 import createNavigateToEvent from '../../../modules/app/createNavigateToEvent'
 import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import createNavigateToIntegreatUrl from '../../../modules/app/createNavigateToIntegreatUrl'
+import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationScreenProp } from 'react-navigation'
+import type { StatusPropsType } from '../../../modules/error/hocs/withError'
 import withError from '../../../modules/error/hocs/withError'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import type { TFunction } from 'react-i18next'
-import { CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
-import type { NavigateToEventParamsType } from '../../../modules/app/createNavigateToEvent'
-import type { NavigateToIntegreatUrlParamsType } from '../../../modules/app/createNavigateToIntegreatUrl'
-import type { PropsType as EventPropsType } from '../components/Events'
+import { CityModel, EventModel } from '@integreat-app/integreat-api-client'
+import React from 'react'
 
-type OwnPropsType = {| navigation: NavigationScreenProp<*>, t: TFunction |}
-
-type StatePropsType = {|
-  error: boolean,
-  languageNotAvailable: boolean,
-  availableLanguages?: Array<LanguageModel>,
-  currentCityCode?: string,
-  cityCode?: string,
-  cities?: ?Array<CityModel>,
-  events?: Array<EventModel>,
-  language?: string,
-  path?: string,
-  resourceCache?: LanguageResourceCacheStateType
+type ContainerPropsType = {|
+  path: ?string,
+  events: Array<EventModel>,
+  cities: Array<CityModel>,
+  cityCode: string,
+  language: string,
+  resourceCache: LanguageResourceCacheStateType,
+  navigation: NavigationScreenProp<*>,
+  dispatch: Dispatch<StoreActionType>
 |}
 
-type DispatchPropsType = {|
-  navigateToEvent: NavigateToEventParamsType => void,
-  navigateToIntegreatUrl: NavigateToIntegreatUrlParamsType => void,
-  changeUnavailableLanguage?: (city: string, newLanguage: string) => void
+type RefreshPropsType = {|
+  navigation: NavigationScreenProp<*>,
+  cityCode: string,
+  language: string,
+  path: ?string
 |}
 
+type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
+type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  if (!state.cityContent || state.cityContent.switchingLanguage) {
-    return { error: false, languageNotAvailable: false }
+const createChangeUnavailableLanguage = (path: ?string, navigation: NavigationScreenProp<*>, city: string) => (
+  dispatch: Dispatch<StoreActionType>, newLanguage: string
+) => {
+  const switchContentLanguage: SwitchContentLanguageActionType = {
+    type: 'SWITCH_CONTENT_LANGUAGE',
+    params: { newLanguage }
   }
-  const { resourceCache, eventsRouteMapping, city } = state.cityContent
+  dispatch(switchContentLanguage)
+  const navigateToEvent = createNavigateToEvent(dispatch, navigation)
+  navigateToEvent({
+    cityCode: city,
+    language: newLanguage,
+    path,
+    forceUpdate: false,
+    key: navigation.getParam('key')
+  })
+}
 
-  if (eventsRouteMapping.errorMessage !== undefined || state.cities.errorMessage !== undefined ||
-    resourceCache.errorMessage !== undefined) {
-    return { error: true, languageNotAvailable: false }
+const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
+  if (!state.cityContent) {
+    return { status: 'routeNotInitialized' }
+  }
+  const { resourceCache, eventsRouteMapping, city, switchingLanguage } = state.cityContent
+  const route: ?EventRouteStateType = eventsRouteMapping[ownProps.navigation.getParam('key')]
+  if (!route) {
+    return { status: 'routeNotInitialized' }
+  }
+
+  const refreshProps = { cityCode: city, language: route.language, navigation: ownProps.navigation, path: route.path }
+  if (state.cities.errorMessage !== undefined ||
+    resourceCache.errorMessage !== undefined ||
+    route.status === 'error') {
+    return { status: 'error', refreshProps }
   }
 
   const cities = state.cities.models
-
-  const route = eventsRouteMapping[ownProps.navigation.getParam('key')]
-
-  if (!route) {
-    return { error: false, languageNotAvailable: false }
+  if (!cities || switchingLanguage || route.status === 'loading') {
+    return { status: 'loading' }
   }
 
   const languages = Array.from(route.allAvailableLanguages.keys())
-
-  if (!languages.includes(route.language)) {
-    return { error: false, languageNotAvailable: true, availableLanguages: languages, currentCityCode: city }
+  if (!languages.find(language => language === route.language)) {
+    return {
+      status: 'languageNotAvailable',
+      availableLanguages: languages,
+      cityCode: city,
+      refreshProps,
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.path, ownProps.navigation, city)
+    }
   }
 
   return {
-    error: false,
-    languageNotAvailable: false,
-    language: route.language,
-    cityCode: city,
-    cities,
-    events: route.models,
-    path: route.path,
-    resourceCache
+    status: 'success',
+    refreshProps,
+    innerProps: {
+      path: route.path,
+      events: route.models,
+      cities: cities,
+      cityCode: city,
+      language: route.language,
+      resourceCache,
+      navigation: ownProps.navigation
+    }
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
-  navigateToEvent: createNavigateToEvent(dispatch, ownProps.navigation),
-  navigateToIntegreatUrl: createNavigateToIntegreatUrl(dispatch, ownProps.navigation),
-  changeUnavailableLanguage: (city: string, newLanguage: string) => {
-    dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: {
-        city,
-        newLanguage
-      }
-    })
-  }
-})
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-export default translate('events')(
+const ThemedTranslatedEvents = translate('events')(
+  withTheme(props => props.language)(
+    Events
+  ))
+
+class EventsContainer extends React.Component<ContainerPropsType> {
+  render () {
+    const { dispatch, ...rest } = this.props
+    return <ThemedTranslatedEvents {...rest} />
+  }
+}
+
+const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+  const { navigation, cityCode, language, path } = refreshProps
+  const navigateToEvent = createNavigateToEvent(dispatch, navigation)
+  navigateToEvent({ cityCode, language, path, forceUpdate: true, key: navigation.getParam('key') })
+}
+
+export default withRouteCleaner<PropsType>(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withRouteCleaner(
-      withTheme(props => props.language)(
-        withError<EventPropsType>(
-          Events
-        )))))
+    withError<ContainerPropsType, RefreshPropsType>(refresh)(
+      EventsContainer
+    )))

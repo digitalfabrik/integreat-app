@@ -35,11 +35,23 @@ export type CategoryRouteStateType = {|
   +message: string
 |}
 
-export type EventRouteStateType = {|
-  +path: string | null,
-  +models: Array<EventModel>,
-  +allAvailableLanguages: Map<string, string>, // including the current content language
+export type EventRouteConfigType = {|
+  +path: ?string,
   +language: string
+|}
+
+export type EventRouteStateType = {|
+  +status: 'ready',
+  ...EventRouteConfigType,
+  +models: Array<EventModel>,
+  +allAvailableLanguages: Map<string, string> // including the current content language
+|} | {|
+  +status: 'loading',
+  ...EventRouteConfigType
+|} | {|
+  +status: 'error',
+  ...EventRouteConfigType,
+  +message: string
 |}
 
 export type FileCacheStateType = {
@@ -68,7 +80,7 @@ export type CategoriesRouteMappingType = {
 
 export type EventsRouteMappingType = {
   [key: string]: EventRouteStateType
-} | ErrorStateType
+}
 
 export type CitiesStateType = {|
   +models: Array<CityModel> | null
