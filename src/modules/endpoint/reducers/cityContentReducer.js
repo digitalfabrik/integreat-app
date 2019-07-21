@@ -39,8 +39,8 @@ export default (
       return { ...state, eventsRouteMapping: { errorMessage } }
     }
     case 'FETCH_CATEGORY': {
-      const { key } = action.params
-      state.categoriesRouteMapping[key] = { ...state.categoriesRouteMapping[key], loading: true }
+      const { language, path, depth, key } = action.params
+      state.categoriesRouteMapping[key] = { loading: true, language, depth, root: path }
       return state
     }
     case 'CLEAR_CATEGORY': {

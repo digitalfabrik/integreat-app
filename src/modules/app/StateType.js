@@ -14,17 +14,24 @@ import { DEFAULT_LANGUAGE } from '../i18n/components/I18nProvider'
 
 export type PathType = string
 
-export type CategoryRouteStateType = {|
+export type CategoryRouteConfigType = {|
   +root: string, // path of the root category
   +depth: number,
+  +language: string
+|}
+
+export type CategoryRouteStateType = {|
+  +loading: false,
+  ...CategoryRouteConfigType,
+  +allAvailableLanguages: Map<string, string>, // including the current content language
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
-  +children: { [path: PathType]: Array<PathType> },
-  +allAvailableLanguages: Map<string, string>, // including the current content language
-  +language: string,
-  +loading: boolean
-|} | {| loading: true |}
+  +children: { [path: PathType]: Array<PathType> }
+|} | {|
+  +loading: true,
+  ...CategoryRouteConfigType
+|}
 
 export type EventRouteStateType = {|
   +path: string | null,
