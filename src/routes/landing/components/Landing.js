@@ -23,7 +23,6 @@ export type PropsType = {|
 |}
 
 class Landing extends React.Component<PropsType> {
-
   navigateToDashboard = (cityModel: CityModel) => {
     const { navigateToDashboard, language } = this.props
     navigateToDashboard(cityModel.code, language)

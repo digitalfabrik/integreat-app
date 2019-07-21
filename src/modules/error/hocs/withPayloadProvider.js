@@ -9,7 +9,6 @@ import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAv
 import type { StoreActionType } from '../../app/StoreActionType'
 import { type Dispatch } from 'redux'
 import { wrapDisplayName } from 'recompose'
-import { Button } from 'react-native-elements'
 
 export type RouteNotInitializedType = {| status: 'routeNotInitialized' |}
 export type LoadingType = {| status: 'loading' |}
