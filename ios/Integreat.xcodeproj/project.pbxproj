@@ -280,6 +280,7 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNShare;
+		};
 		7B974A5F22DC99F30078B456 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 30C69E1CF95B4D1DB3A83AF9 /* RNCNetInfo.xcodeproj */;
@@ -671,7 +672,7 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};	
+		};
 		7B974A5B22DC99F20078B456 /* Products */ = {
 			isa = PBXGroup;
 			children = (
