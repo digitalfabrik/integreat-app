@@ -9,11 +9,20 @@ import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
-import ContentDirectionContainer from '../../i18n/components/ContentDirectionContainer'
+import { contentDirection } from '../../i18n/contentDirection'
 
-const FlexStyledLink: StyledComponent<{}, {}, *> = styled(StyledLink)`
+const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
   display: flex;
   flex-direction: column;
+`
+
+type DirectionContainerPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+  display: flex;
+  flex-direction: ${props => contentDirection(props.language)};
 `
 
 const Row: StyledComponent<{}, {}, *> = styled.View`
@@ -76,11 +85,11 @@ class CategoryListItem extends React.Component<PropsType> {
     return (
       <Row>
         <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
-          <ContentDirectionContainer language={language} theme={theme}>
+          <DirectionContainer theme={theme} language={language}>
             <CategoryThumbnail source={category.thumbnail ? { uri: category.thumbnail } : iconPlaceholder}
                                resizeMode={FastImage.resizeMode.contain} />
             {this.renderTitle()}
-          </ContentDirectionContainer>
+          </DirectionContainer>
         </FlexStyledLink>
         {this.renderSubCategories()}
       </Row>
