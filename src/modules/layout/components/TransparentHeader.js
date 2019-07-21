@@ -64,7 +64,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   }
 
   onShare = async () => {
-    const { navigation } = this.props
+    const { navigation, t } = this.props
     const { url }: ShareParamsType = navigation.state.params
 
     try {
@@ -73,9 +73,8 @@ class TransparentHeader extends React.PureComponent<PropsType> {
         failOnCancel: false
       })
     } catch (e) {
-      if (e) {
-        alert(e.message)
-      }
+      const errorMessage = e.hasOwnProperty('message') ? e.message : t('shareFailDefaultMessage')
+      alert(errorMessage)
     }
   }
 
