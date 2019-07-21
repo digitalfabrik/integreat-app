@@ -3,8 +3,10 @@
 import { type Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
+import type { StoreActionType } from '../StoreActionType'
 
 type DispatchPropsType = {|
+  setContentLanguage: (language: string) => void,
   fetchCategory: (cityCode: string, language: string, key: string) => void,
   clearCategory: (key: string) => void,
   fetchCities: () => void
@@ -12,7 +14,13 @@ type DispatchPropsType = {|
 
 type PropsType = DispatchPropsType
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchPropsType => ({
+const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
+  setContentLanguage: (language: string) => {
+    dispatch({
+      type: 'SET_CONTENT_LANGUAGE',
+      params: { contentLanguage: language }
+    })
+  },
   fetchCategory: (cityCode: string, language: string, key: string) => {
     const path = `/${cityCode}/${language}`
 
