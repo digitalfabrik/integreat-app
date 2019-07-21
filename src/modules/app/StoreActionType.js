@@ -16,11 +16,9 @@ export type FetchCitiesFailedActionType = {|
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
-export type InitializeCityContentActionType = {|
-  type: 'INITIALIZE_CITY_CONTENT',
+export type PushLanguagesActionType = {|
+  type: 'PUSH_LANGUAGES',
   params: {|
-    city: string,
-    language: string,
     languages: Array<LanguageModel>
   |}
 |}
@@ -97,7 +95,6 @@ export type EventsActionType =
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE', params: {|
-    city: string,
     newLanguage: string
   |}
 |}
@@ -132,7 +129,7 @@ export type CityContentActionType =
   | MorphContentLanguageActionType
   | SwitchContentLanguageActionType
   | ClearCityActionType
-  | InitializeCityContentActionType
+  | PushLanguagesActionType
   | ResourcesFetchFailedActionType
 
 export type ToggleDarkModeActionType = {|

@@ -8,7 +8,7 @@ import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-butto
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/HeaderBackButton'
 
-import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
+import type { NavigationDescriptor, NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
 
@@ -62,6 +62,7 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   navigateToLanding: () => void,
+  goToLanguageChange?: () => void,
   routeKey: string
 |}
 
@@ -94,13 +95,6 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigation.navigate('Settings')
   }
 
-  goToLanguageChange = () => {
-    const { navigation, routeKey } = this.props
-    navigation.navigate({
-      routeName: 'ChangeLanguageModal', params: { routeKey }
-    })
-  }
-
   onShare = async () => {
     const { navigation, t } = this.props
     const sharePath: ?string = navigation.getParam('sharePath')
@@ -130,7 +124,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const { navigation, t, theme } = this.props
+    const { navigation, t, theme, goToLanguageChange } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
@@ -141,7 +135,7 @@ class Header extends React.PureComponent<PropsType> {
         </HorizontalLeft>
         <MaterialHeaderButtons>
           <Item title='Search' iconName='search' onPress={this.goToSearch} />
-          <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />
+          {goToLanguageChange && <Item title='Change Language' iconName='language' onPress={goToLanguageChange} />}
           {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
           <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
           <Item title={t('settings')} show='never' onPress={this.goToSettings} />

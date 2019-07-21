@@ -53,10 +53,7 @@ const createChangeUnavailableLanguage = (city: string, navigation: NavigationScr
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {
-      city,
-      newLanguage
-    }
+    params: { newLanguage }
   }
   dispatch(switchContentLanguage)
   const navigateToDashboard = createNavigateToCategory('Dashboard', dispatch, navigation)

@@ -44,10 +44,7 @@ const createChangeUnavailableLanguage = (path: string, navigation: NavigationScr
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {
-      city,
-      newLanguage
-    }
+    params: { newLanguage }
   }
   dispatch(switchContentLanguage)
   const navigateToCategory = createNavigateToCategory('Categories', dispatch, navigation)
