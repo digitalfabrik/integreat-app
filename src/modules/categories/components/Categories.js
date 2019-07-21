@@ -160,6 +160,7 @@ class Categories extends React.Component<PropsType> {
         <View>
           <Tiles tiles={this.getTileModels(children)}
                  title={CityModel.findCityName(cities, category.title)}
+                 language={language}
                  onTilePress={this.onTilePress}
                  theme={theme} />
         </View>
