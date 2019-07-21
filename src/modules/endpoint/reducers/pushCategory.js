@@ -1,6 +1,6 @@
 // @flow
 
-import type { CityContentStateType } from '../../app/StateType'
+import type { CategoryRouteStateType, CityContentStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CategoryModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
@@ -41,13 +41,14 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   const newResourceCache =
     state.resourceCache.errorMessage === undefined ? { ...state.resourceCache, ...resourceCache } : resourceCache
 
-  const route = {
+  const route: CategoryRouteStateType = {
     root: root.path,
     models: resultModels,
     children: resultChildren,
     depth: depth,
     allAvailableLanguages: getAllAvailableLanguages(root, language, city, languages),
-    language
+    language,
+    loading: false
   }
 
   const newCategoriesRouteMapping = state.categoriesRouteMapping.errorMessage === undefined

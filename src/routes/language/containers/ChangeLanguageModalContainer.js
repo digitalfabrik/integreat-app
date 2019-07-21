@@ -41,7 +41,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const routeKey = ownProps.navigation.getParam('routeKey')
   const route = currentCityRouteSelector(cityContent, { routeKey })
-  const currentLanguage = route ? route.language : state.contentLanguage
+  const currentLanguage = route && !route.loading ? route.language : state.contentLanguage
   const availableLanguages = availableLanguagesSelector(cityContent, { routeKey })
 
   return {

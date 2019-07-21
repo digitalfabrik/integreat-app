@@ -22,8 +22,9 @@ export type CategoryRouteStateType = {|
                                                    in the state. This would be an optimization! */
   +children: { [path: PathType]: Array<PathType> },
   +allAvailableLanguages: Map<string, string>, // including the current content language
-  +language: string
-|}
+  +language: string,
+  +loading: boolean
+|} | {| loading: true |}
 
 export type EventRouteStateType = {|
   +path: string | null,
