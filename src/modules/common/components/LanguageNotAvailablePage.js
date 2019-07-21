@@ -36,7 +36,7 @@ class LanguageNotAvailablePage extends React.Component<PropsType> {
   }
 
   render () {
-    const {t, languages, theme} = this.props
+    const { t, languages, theme } = this.props
     return <Wrapper theme={theme}>
       <Caption title={t('languageNotAvailable')} theme={theme} />
       <Text>{t('chooseALanguage')}</Text>

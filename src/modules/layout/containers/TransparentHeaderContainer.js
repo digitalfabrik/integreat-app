@@ -1,4 +1,5 @@
 // @flow
+
 import TransparentHeader from '../components/TransparentHeader'
 import { translate } from 'react-i18next'
 

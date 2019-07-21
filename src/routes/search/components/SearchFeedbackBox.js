@@ -26,23 +26,23 @@ type StateType = {|
 |}
 
 export class SearchFeedbackBox extends React.Component<PropsType, StateType> {
-  state = {boxOpenedForQuery: null}
+  state = { boxOpenedForQuery: null }
 
   openFeedbackBox = () => {
     this.props.sendFeedback('', this.props.query)
-    this.setState({boxOpenedForQuery: this.props.query})
+    this.setState({ boxOpenedForQuery: this.props.query })
   }
 
   render (): React.Node {
-    const {resultsFound, query, t, theme, sendFeedback} = this.props
+    const { resultsFound, query, t, theme, sendFeedback } = this.props
     if (!resultsFound || query === this.state.boxOpenedForQuery) {
       return <FeedbackBox theme={theme}>
         <NothingFoundFeedbackBox query={query} t={t} theme={theme} sendFeedback={sendFeedback} />
       </FeedbackBox>
     } else {
       return <FeedbackBox theme={theme}>
-        <Button titleStyle={{color: theme.colors.textColor}}
-                buttonStyle={{backgroundColor: theme.colors.themeColor}}
+        <Button titleStyle={{ color: theme.colors.textColor }}
+                buttonStyle={{ backgroundColor: theme.colors.themeColor }}
                 onPress={this.openFeedbackBox} title={t('feedback:informationNotFound')} />
       </FeedbackBox>
     }

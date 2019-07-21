@@ -5,7 +5,7 @@ import { brightColors, darkColors } from './colors'
 import type { DimensionsType } from './dimensions'
 import dimensions from './dimensions'
 import type { FontsType } from './fonts'
-import {defaultFonts} from './fonts'
+import { defaultFonts } from './fonts'
 
 export type ThemeType = {
   colors: ColorsType,

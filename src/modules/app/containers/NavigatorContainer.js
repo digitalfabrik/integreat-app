@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchPropsType => ({
     })
   },
   clearCategory: (key: string) => {
-    dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+    dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
   }
 })
 

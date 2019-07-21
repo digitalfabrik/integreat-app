@@ -1,3 +1,5 @@
+// @flow
+
 import { SafeAreaView } from 'react-native'
 import styled from 'styled-components/native'
 import withTheme from '../../theme/hocs/withTheme'

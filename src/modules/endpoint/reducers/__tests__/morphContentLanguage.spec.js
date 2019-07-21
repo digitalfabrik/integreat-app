@@ -78,7 +78,7 @@ describe('morphContentLanguage', () => {
 
   const enModel = new CategoriesMapModel(enCategories)
 
-  const createGermanModel = ({translatable}: { translatable: boolean } = {translatable: true}) => {
+  const createGermanModel = ({ translatable }: { translatable: boolean } = { translatable: true }) => {
     const deCategories = [
       new CategoryModel({
         root: true,
@@ -273,7 +273,7 @@ describe('morphContentLanguage', () => {
 
   const initialState = defaultCityContentState
 
-  const prepareState = ({path, model, eventPath, events}: {
+  const prepareState = ({ path, model, eventPath, events }: {
     path: string, model: CategoryModel, eventPath: string, events: Array<EventModel>
   } = {
     path: '/augsburg/de',
