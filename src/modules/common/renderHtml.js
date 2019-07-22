@@ -53,7 +53,7 @@ const renderJS = (files: FileCacheStateType) => `
 })();
 `
 
-export default (html: string, files: FileCacheStateType, theme: ThemeType, direction: string) => {
+export default (html: string, files: FileCacheStateType, theme: ThemeType, direction: 'rtl' | 'ltr') => {
   // language=HTML
   return `
 <html>
