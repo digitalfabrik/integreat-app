@@ -53,7 +53,7 @@ const renderJS = (files: FileCacheStateType) => `
 })();
 `
 
-export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
+export default (html: string, files: FileCacheStateType, theme: ThemeType, direction: string) => {
   // language=HTML
   return `
 <html>
@@ -152,7 +152,7 @@ export default (html: string, files: FileCacheStateType, theme: ThemeType) => {
     }
   </style>
 </head>
-<body>
+<body dir="${direction}">
   <div id="measure-container">${html}</div>
   <script>${renderJS(files)}</script>
 </body>
