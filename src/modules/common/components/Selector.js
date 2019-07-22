@@ -65,7 +65,7 @@ type PropsType = {
  */
 class Selector extends React.Component<PropsType> {
   getItems (): React.Node {
-    const {items, selectedItemCode, theme} = this.props
+    const { items, selectedItemCode, theme } = this.props
     return items.map(item => {
       const isSelected = item.code === selectedItemCode
       if (item.enabled || isSelected) {

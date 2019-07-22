@@ -23,13 +23,13 @@ type StateType = {
 class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor (props: PropsType) {
     super(props)
-    this.state = {filterText: ''}
+    this.state = { filterText: '' }
   }
 
-  onFilterTextChange = (filterText: string) => this.setState({filterText})
+  onFilterTextChange = (filterText: string) => this.setState({ filterText })
 
   render () {
-    const {cities, t, theme} = this.props
+    const { cities, t, theme } = this.props
     const filterText = this.state.filterText
 
     return (

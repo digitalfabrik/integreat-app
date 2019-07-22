@@ -9,7 +9,7 @@ import type { FetchMapType } from './fetchResourceCache'
 import type { DataContainer } from '../DataContainer'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
-  const params = {city, language}
+  const params = { city, language }
 
   const categoriesPayload: CategoriesMapModel = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
   return categoriesPayload.data

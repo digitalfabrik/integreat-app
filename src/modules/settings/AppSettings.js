@@ -32,7 +32,7 @@ class AppSettings {
     this.asyncStorage = asyncStorage
   }
 
-  async loadSettings (): Promise<SettingsType> {
+  loadSettings = async (): Promise<SettingsType> => {
     const settingsKeys = Object.keys(defaultSettings)
     const settingsArray = await this.asyncStorage.multiGet(settingsKeys)
     return mapValues(fromPairs(settingsArray), (value, key) => {
@@ -47,12 +47,12 @@ class AppSettings {
     })
   }
 
-  async setSettings (settings: $Shape<SettingsType>) {
+  setSettings = async (settings: $Shape<SettingsType>) => {
     const settingsArray = toPairs(mapValues(settings, value => JSON.stringify(value)))
     await this.asyncStorage.multiSet(settingsArray)
   }
 
-  loadContentLanguage = (): Promise<?string> => {
+  loadContentLanguage = async (): Promise<?string> => {
     return this.asyncStorage.getItem(CONTENT_LANGUAGE_KEY)
   }
 
@@ -60,7 +60,7 @@ class AppSettings {
     await this.asyncStorage.setItem(CONTENT_LANGUAGE_KEY, language)
   }
 
-  loadSelectedCity = (): Promise<?string> => {
+  loadSelectedCity = async (): Promise<?string> => {
     return this.asyncStorage.getItem(SELECTED_CITY_KEY)
   }
 

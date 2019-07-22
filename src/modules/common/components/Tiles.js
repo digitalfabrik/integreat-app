@@ -29,7 +29,7 @@ const TilesRow = styled.View`
  */
 class Tiles extends React.Component<PropsType> {
   render () {
-    const {tiles, onTilePress, theme} = this.props
+    const { tiles, onTilePress, theme } = this.props
     return <>
       {this.props.title && <Caption title={this.props.title} theme={theme} />}
       <TilesRow>

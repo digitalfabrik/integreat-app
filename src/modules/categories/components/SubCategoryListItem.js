@@ -31,7 +31,7 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
   }
 
   render () {
-    const {subCategory, theme} = this.props
+    const { subCategory, theme } = this.props
     return (
       <StyledLink onPress={this.onSubCategoryPress}
                   underlayColor={theme.colors.backgroundAccentColor}>

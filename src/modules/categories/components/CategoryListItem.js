@@ -47,26 +47,26 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderSubCategories (): Array<React.Node> {
-    const {subCategories, theme, onItemPress} = this.props
+    const { subCategories, theme, onItemPress } = this.props
     return subCategories.map(subCategory =>
       <SubCategoryListItem key={subCategory.path} subCategory={subCategory} onItemPress={onItemPress} theme={theme} />
     )
   }
 
   renderTitle (): React.Node {
-    const {query, theme} = this.props
+    const { query, theme } = this.props
     return <CategoryCaption search={query || ''} theme={theme}>
       <CategoryTitle theme={theme}>{this.props.category.title}</CategoryTitle>
     </CategoryCaption>
   }
 
   render () {
-    const {category} = this.props
+    const { category } = this.props
     return (
       <Row>
         <StyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <>
-            <CategoryThumbnail source={category.thumbnail ? {uri: category.thumbnail} : iconPlaceholder}
+            <CategoryThumbnail source={category.thumbnail ? { uri: category.thumbnail } : iconPlaceholder}
                                resizeMode={FastImage.resizeMode.contain} />
             {this.renderTitle()}
           </>

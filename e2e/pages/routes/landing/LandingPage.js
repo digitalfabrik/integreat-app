@@ -1,4 +1,5 @@
 // @flow
+
 import wd from 'wd'
 
 export default class LandingPage {

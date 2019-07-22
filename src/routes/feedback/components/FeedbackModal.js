@@ -48,14 +48,14 @@ type StateType = {|
 |}
 
 class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = {comment: '', feedbackIndex: 0, sendingStatus: 'idle'}
+  state = { comment: '', feedbackIndex: 0, sendingStatus: 'idle' }
 
-  onFeedbackVariantChanged = (value: string | number, index: number) => this.setState({feedbackIndex: index})
+  onFeedbackVariantChanged = (value: string | number, index: number) => this.setState({ feedbackIndex: index })
 
-  onFeedbackCommentChanged = (comment: string) => this.setState({comment})
+  onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
 
   onSubmit = () => {
-    const {feedbackIndex, comment} = this.state
+    const { feedbackIndex, comment } = this.state
     const feedbackItem = this.props.feedbackItems[feedbackIndex]
     const feedbackData: FeedbackParamsType = {
       feedbackType: feedbackItem.feedbackType,
@@ -66,15 +66,15 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
       city: feedbackItem.city,
       language: feedbackItem.language
     }
-    this.setState({sendingStatus: 'sending'})
+    this.setState({ sendingStatus: 'sending' })
     this.props.sendFeedback(feedbackData)
-      .then(() => this.setState({sendingStatus: 'successful'}))
-      .catch(() => this.setState({sendingStatus: 'failed'}))
+      .then(() => this.setState({ sendingStatus: 'successful' }))
+      .catch(() => this.setState({ sendingStatus: 'failed' }))
   }
 
   renderBox (): React.Node {
-    const {theme, t, isPositiveFeedback, feedbackItems} = this.props
-    const {feedbackIndex, comment, sendingStatus} = this.state
+    const { theme, t, isPositiveFeedback, feedbackItems } = this.props
+    const { feedbackIndex, comment, sendingStatus } = this.state
     const feedbackItem = feedbackItems[feedbackIndex]
 
     if (['idle', 'failed'].includes(sendingStatus)) {
@@ -92,8 +92,8 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
                placeholder={t('yourFeedback')} />
         {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
-                titleStyle={{color: theme.colors.textColor}}
-                buttonStyle={{backgroundColor: theme.colors.themeColor}}
+                titleStyle={{ color: theme.colors.textColor }}
+                buttonStyle={{ backgroundColor: theme.colors.themeColor }}
                 onPress={this.onSubmit} title={t('send')} />
       </>
     } else if (sendingStatus === 'sending') {
@@ -107,7 +107,7 @@ class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 
   render () {
-    const {theme} = this.props
+    const { theme } = this.props
     return <ScrollView>
       <Wrapper theme={theme}>
         {this.renderBox()}
