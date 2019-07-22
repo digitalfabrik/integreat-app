@@ -22,7 +22,7 @@ type OwnPropsType = {|
 
 type StatePropsType = {|
   routeKey: string,
-  peeking: boolean
+  peeking: boolean | 'unsure'
 |}
 
 type DispatchPropsType = {|
@@ -39,9 +39,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!route) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    // As peeking hides information is is better to suspect that we are peeking. If not the buttons in the header will
-    // appear.
-    return { routeKey, peeking: true }
+    return { routeKey, peeking: 'unsure' }
   }
 
   const peeking = isPeekingRoute(state, { routeCity: route.city })
