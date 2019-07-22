@@ -1,3 +1,5 @@
+// @flow
+
 exports.local_ios12 = {
   browserName: '',
   platformName: 'iOS',

@@ -15,7 +15,7 @@ const getAllAvailableLanguages = (category: CategoryModel, language: string, cit
 }
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
-  const {categoriesMap, path, depth, key, language, city, resourceCache, languages} = action.params
+  const { categoriesMap, path, depth, key, language, city, resourceCache, languages } = action.params
 
   if (!depth) {
     throw new Error('You need to specify a depth!')
@@ -39,7 +39,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache =
-    state.resourceCache.errorMessage === undefined ? {...state.resourceCache, ...resourceCache} : resourceCache
+    state.resourceCache.errorMessage === undefined ? { ...state.resourceCache, ...resourceCache } : resourceCache
 
   const route = {
     root: root.path,
@@ -51,14 +51,14 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   }
 
   const newCategoriesRouteMapping = state.categoriesRouteMapping.errorMessage === undefined
-    ? {...state.categoriesRouteMapping, [key]: route}
-    : {[key]: route}
+    ? { ...state.categoriesRouteMapping, [key]: route }
+    : { [key]: route }
 
   return {
     ...state,
     categoriesRouteMapping: newCategoriesRouteMapping,
     resourceCache: newResourceCache,
-    searchRoute: {categoriesMap}
+    searchRoute: { categoriesMap }
   }
 }
 

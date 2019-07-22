@@ -32,11 +32,11 @@ type PropType = {|
 |}
 
 class RemoteContent extends React.Component<PropType, StateType> {
-  state = {webViewHeight: 0, webViewWidth: 0}
+  state = { webViewHeight: 0, webViewWidth: 0 }
 
   onLayout = (event: ViewLayoutEvent) => {
-    const {width} = event.nativeEvent.layout
-    this.setState({webViewWidth: width})
+    const { width } = event.nativeEvent.layout
+    this.setState({ webViewWidth: width })
   }
 
   onMessage = (event: WebViewMessageEvent) => {
@@ -65,7 +65,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const {content, files, theme, cityCode} = this.props
+    const { content, files, theme, cityCode } = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
     const dataDetectorTypes: DataDetectorTypes = 'all'
@@ -87,7 +87,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
           showsHorizontalScrollIndicator={false}
 
           onMessage={this.onMessage}
-          style={{height: height, width: width}}
+          style={{ height: height, width: width }}
           renderError={this.renderError}
           bounces={false}
           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}

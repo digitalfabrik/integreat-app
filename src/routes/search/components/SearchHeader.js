@@ -31,7 +31,7 @@ type PropsType = {|
 
 class SearchHeader extends React.Component<PropsType> {
   render () {
-    const {theme, query, closeSearchBar, onSearchChanged} = this.props
+    const { theme, query, closeSearchBar, onSearchChanged } = this.props
 
     return (
       <>
