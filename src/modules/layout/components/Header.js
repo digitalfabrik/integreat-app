@@ -11,7 +11,6 @@ import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/Hea
 import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
-import type { CategoriesRouteMappingType } from '../../app/StateType'
 
 const Horizontal = styled.View`
   flex:1;
