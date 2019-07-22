@@ -1,3 +1,5 @@
+import AsyncStorageMock from '@react-native-community/async-storage/jest/async-storage-mock'
+
 // Setup fetch mock
 global.fetch = require('jest-fetch-mock')
 
@@ -14,3 +16,5 @@ if (typeof window !== 'object') {
   global.window = global
   global.window.navigator = {}
 }
+
+jest.mock('@react-native-community/async-storage', () => AsyncStorageMock)
