@@ -50,7 +50,7 @@ export type PushCategoryActionType = {|
     rootAvailableLanguages: Map<string, string>,
     city: string,
     language: string,
-    path: string, depth: number, key: string, peek: boolean
+    path: string, depth: number, key: string
   |}
 |}
 export type ClearCategoryActionType = {|

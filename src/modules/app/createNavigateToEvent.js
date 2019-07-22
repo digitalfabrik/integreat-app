@@ -6,7 +6,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToEventParamsType =
-  {| cityCode: string, language: string, path?: string, key?: string, forceUpdate?: boolean, peek?: boolean |}
+  {| cityCode: string, language: string, path?: string, key?: string, forceUpdate?: boolean |}
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => (
   {

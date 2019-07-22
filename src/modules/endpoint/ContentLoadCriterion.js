@@ -13,16 +13,16 @@ export type ContentLoadCriterionType = {|
 export class ContentLoadCriterion {
   _forceUpdate: boolean
   _shouldRefreshResources: boolean
-  _peek: boolean
+  _peeking: boolean
 
-  constructor ({ forceUpdate, shouldRefreshResources }: ContentLoadCriterionType, peek: boolean) {
-    this._peek = peek
+  constructor ({ forceUpdate, shouldRefreshResources }: ContentLoadCriterionType, peeking: boolean) {
+    this._peeking = peeking
     this._forceUpdate = forceUpdate
     this._shouldRefreshResources = shouldRefreshResources
   }
 
-  peek (): boolean {
-    return this._peek
+  peeking (): boolean {
+    return this._peeking
   }
 
   shouldUpdate (lastUpdate: ?Moment): boolean {
@@ -32,12 +32,12 @@ export class ContentLoadCriterion {
   }
 
   shouldLoadLanguages (): boolean {
-    return !this.peek()
+    return !this.peeking()
   }
 
   shouldRefreshResources (): boolean {
     // When we are peeking we do not want to load resources.
     // Resources are downloaded on-demand in this case.
-    return this.peek() ? false : this._shouldRefreshResources
+    return this.peeking() ? false : this._shouldRefreshResources
   }
 }

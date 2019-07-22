@@ -12,7 +12,7 @@ type SelectPropsType = { routeKey: string }
  * @param params The params which contain the routeKey
  * @returns true if the fetch corresponds to a peek
  */
-const isPeekRoute: InputSelector<StateType, SelectPropsType, boolean> = (
+const isPeekingRoute: InputSelector<StateType, SelectPropsType, boolean> = (
   state: StateType, { routeKey }: SelectPropsType
 ): boolean => {
   const cityContent = state.cityContent
@@ -26,7 +26,7 @@ const isPeekRoute: InputSelector<StateType, SelectPropsType, boolean> = (
   const route = routeMapping[routeKey]
 
   if (!route) {
-    // Route does not exist yet. In this case it is not really defined whether we are peeking or not because
+    // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return false
   }
@@ -35,4 +35,4 @@ const isPeekRoute: InputSelector<StateType, SelectPropsType, boolean> = (
                                             not peek */
 }
 
-export default isPeekRoute
+export default isPeekingRoute

@@ -76,7 +76,6 @@ Object {
           "_title": "Welcome to Augsburg",
         },
       },
-      "peek": false,
       "root": "/augsburg/en",
     },
   },
