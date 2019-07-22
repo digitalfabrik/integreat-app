@@ -6,6 +6,7 @@ Object {
     "route-0": Object {
       "allAvailableLanguages": Map {
         "en" => "/augsburg/en",
+        "de" => "/augsburg/de",
       },
       "children": Object {
         "/augsburg/en": Array [
