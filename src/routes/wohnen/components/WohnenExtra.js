@@ -36,7 +36,7 @@ class WohnenExtra extends React.Component<PropsType> {
   }
 
   render () {
-    const {offers, wohnenExtra, offerHash, t, theme} = this.props
+    const { offers, wohnenExtra, offerHash, t, theme } = this.props
 
     if (offerHash) {
       const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)

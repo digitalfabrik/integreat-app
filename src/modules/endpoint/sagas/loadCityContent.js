@@ -14,6 +14,7 @@ import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
+import NetInfo from '@react-native-community/netinfo'
 
 /**
  *
@@ -72,10 +73,13 @@ export default function * loadCityContent (
     call(loadEvents, newCity, newLanguage, dataContainer, shouldUpdate)
   ])
 
+  const netInfo = yield call(NetInfo.fetch)
+  const isCellularConnection = netInfo.type === 'cellular'
+
   // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
   // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
   // failed to download some resources an other call could fix this and download missing files.
-  if (criterion.shouldRefreshResources()) {
+  if (criterion.shouldRefreshResources() && !isCellularConnection) {
     const resourceURLFinder = new ResourceURLFinder()
     resourceURLFinder.init()
 

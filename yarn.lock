@@ -772,10 +772,25 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.3.tgz#6310a047f12d21a1036fb031317219892440416f"
   integrity sha512-4zAPlpDEh2VwXswwr/t8xGNDGg8RQiPxtxZ3qQEXyQsBV39ptTdESCjuBvGze1nLMVrxmTIKmnO/nAV8Tqjjzg==
 
+"@integreat-app/eslint-config-babel@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-babel/-/eslint-config-babel-0.3.4.tgz#9c259df4cc3969df53e79673579c6d04fca2dccb"
+  integrity sha512-eZTcLQTyI2K7rXaFkGRHI/jxcl8mqPGqqlxIgsS7Qk2mhB6FkPuKvYUHMWnggZ/FIthgBXV+nckGnjCzqEbQPw==
+
+"@integreat-app/eslint-config-flow@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-flow/-/eslint-config-flow-0.3.2.tgz#2aed687bf9e1583793cca59ff16da262fead0c23"
+  integrity sha512-6z+wCTYjkTtjCiYVlVjX+AzdTJrKgz3CP+2RlQ9luhD9pXTpDjNxfQfpzSxWvh0dbeN60wLVVoBuM5B+S7YvvA==
+
 "@integreat-app/eslint-config-jest@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-jest/-/eslint-config-jest-0.2.1.tgz#92cf9a9c221883b6194da2cde723f02945b625d1"
   integrity sha1-ks+anCIYg7YZTaLN5yPwKUW2JdE=
+
+"@integreat-app/eslint-config-node@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@integreat-app/eslint-config-node/-/eslint-config-node-0.3.4.tgz#6c5335c82ea834f14abde94e954858eae7544cc3"
+  integrity sha512-syM1RAuz0oftRzi1v2lrWa1dKZLz32Cj6hpuNLEz51bXsy/Zj7j1T8bduZt9AHa0WU7tIVI2Ci5wgSaVEl58Rw==
 
 "@integreat-app/eslint-config-react@^0.3.3":
   version "0.3.3"
@@ -1020,6 +1035,11 @@
     ws "^1.1.0"
     xcode "^2.0.0"
     xmldoc "^0.4.0"
+
+"@react-native-community/netinfo@^3.0.0":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-3.2.1.tgz#cd073b81a4b978f7f55f1a960a0b56c462813e02"
+  integrity sha512-A2qANOnlRDVe+8kMbKMwy3/0bOlOA2+y8DyWg2Rv2KHICIfin+oxixbG0ewAOLQdLkSEyyumZXRmIVl7VI/KJg==
 
 "@react-navigation/core@~3.4.1":
   version "3.4.1"
@@ -8347,7 +8367,7 @@ react-i18next@^9.0.5:
     hoist-non-react-statics "3.2.1"
     html-parse-stringify2 "2.0.1"
 
-react-is@^16.3.2, react-is@^16.8.1, react-is@^16.8.2, react-is@^16.8.3, react-is@^16.8.6:
+react-is@^16.3.2, react-is@^16.8.1, react-is@^16.8.3, react-is@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
@@ -8419,16 +8439,6 @@ react-native-image-zoom-viewer@^2.2.24:
   integrity sha512-kySTnc2AttTG6Ed0VRj1Fnrer5kwv28VOyyYkSxmZy0hTiLSZEHIDCkeowvTjDTkQZc0wKRMK7/Y5diEgpuDCg==
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
-
-react-native-offline@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-offline/-/react-native-offline-4.3.1.tgz#8f2c0e524c0c51df76590414ee51f14a4a2b9840"
-  integrity sha512-kcsbWhT2xVh4vJP5nB/vsqGyI5zOK1ZY7Lusag7rYhdY7ZMmJNObAJ9zciNLKTl1aYd5iXE/lYBHTzZog5ZNpA==
-  dependencies:
-    lodash "^4.17.11"
-    react-redux "^6.0.0"
-    redux "4.x"
-    redux-saga "^1.0.2"
 
 react-native-platform-touchable@^1.1.1:
   version "1.1.1"
@@ -8639,18 +8649,6 @@ react-redux@^5.1.1:
     prop-types "^15.6.1"
     react-is "^16.6.0"
     react-lifecycles-compat "^3.0.0"
-
-react-redux@^6.0.0:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-6.0.1.tgz#0d423e2c1cb10ada87293d47e7de7c329623ba4d"
-  integrity sha512-T52I52Kxhbqy/6TEfBv85rQSDz6+Y28V/pf52vDWs1YRXG19mcFOGfHnY2HsNFHyhP+ST34Aih98fvt6tqwVcQ==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    hoist-non-react-statics "^3.3.0"
-    invariant "^2.2.4"
-    loose-envify "^1.4.0"
-    prop-types "^15.7.2"
-    react-is "^16.8.2"
 
 react-test-renderer@16.8.3:
   version "16.8.3"
@@ -8867,11 +8865,6 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-persist@^5.10.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
-  integrity sha512-sSJAzNq7zka3qVHKce1hbvqf0Vf5DuTVm7dr4GtsqQVOexnrvbV47RWFiPxQ8fscnyiuWyD2O92DOxPl0tGCRg==
-
 redux-saga@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-1.0.2.tgz#0599703f975438f1b2f9d2b9a965ec58f0fdfcd7"
@@ -8879,7 +8872,7 @@ redux-saga@^1.0.2:
   dependencies:
     "@redux-saga/core" "^1.0.2"
 
-redux@4.x, "redux@>=0.10 <5", redux@^4.0.1:
+"redux@>=0.10 <5", redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   integrity sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==

@@ -9,7 +9,7 @@ import type { StoreActionType } from './StoreActionType'
 export type NavigateToIntegreatUrlParamsType = {| url: string, cityCode: string, language: string |}
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) =>
-  ({url, cityCode, language}: NavigateToIntegreatUrlParamsType) => {
+  ({ url, cityCode, language }: NavigateToIntegreatUrlParamsType) => {
     const parts = url.split('/').filter(segment => segment)
     const pathnameParts = parts.splice(2)
     const newCity = pathnameParts[0]
@@ -22,20 +22,20 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
     if (pathnameParts[2] === 'events') {
       if (pathnameParts[3]) {
         // '/augsburg/de/events/some_event'
-        createNavigateToEvent(dispatch, navigation)({cityCode, language: newLanguage, path: pathname, peek})
+        createNavigateToEvent(dispatch, navigation)({ cityCode, language: newLanguage, path: pathname, peek })
       } else {
         // '/augsburg/de/events'
-        createNavigateToEvent(dispatch, navigation)({cityCode, language: newLanguage, peek})
+        createNavigateToEvent(dispatch, navigation)({ cityCode, language: newLanguage, peek })
       }
     } else if (pathnameParts[2]) {
       // '/augsburg/de/willkommen'
       createNavigateToCategory('Categories', dispatch, navigation)(
-        {cityCode: newCity, language: newLanguage, path: pathname, peek})
+        { cityCode: newCity, language: newLanguage, path: pathname, peek })
     } else {
       // '/augsburg/de' or '/augsburg'
       const path = newLanguage ? pathname : `${pathname}/${language}`
       createNavigateToCategory('Dashboard', dispatch, navigation)(
-        {cityCode: newCity, language: newLanguage || language, path, peek}
+        { cityCode: newCity, language: newLanguage || language, path, peek }
       )
     }
   }

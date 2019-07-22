@@ -45,7 +45,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent || state.cityContent.switchingLanguage) {
     return { error: false, languageNotAvailable: false }
   }
-  const {resourceCache, eventsRouteMapping, city} = state.cityContent
+  const { resourceCache, eventsRouteMapping, city } = state.cityContent
 
   if (eventsRouteMapping.errorMessage !== undefined || state.cities.errorMessage !== undefined ||
     resourceCache.errorMessage !== undefined) {

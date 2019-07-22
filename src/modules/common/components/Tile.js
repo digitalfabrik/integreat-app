@@ -39,7 +39,7 @@ class Tile extends React.Component<PropsType> {
   }
 
   render () {
-    const {tile, theme} = this.props
+    const { tile, theme } = this.props
 
     return (
       <TileContainer>

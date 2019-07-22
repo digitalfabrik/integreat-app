@@ -10,7 +10,7 @@ import type { DataContainer } from '../DataContainer'
 import DatabaseContext from '../DatabaseContext'
 
 function * fetchCategoriesMap (city: string, language: string): Saga<CategoriesMapModel> {
-  const params = {city, language}
+  const params = { city, language }
 
   const categoriesPayload: CategoriesMapModel = yield call(() => request(createCategoriesEndpoint(baseUrl), params))
   return categoriesPayload.data
@@ -23,7 +23,7 @@ function * loadCategories (
   shouldUpdate: boolean
 ): Saga<FetchMapType> {
   const context = new DatabaseContext(city, language)
-  const categoriesAvailable = yield call({context: dataContainer, fn: dataContainer.categoriesAvailable}, context)
+  const categoriesAvailable = yield call({ context: dataContainer, fn: dataContainer.categoriesAvailable }, context)
 
   if (!categoriesAvailable || shouldUpdate) {
     // data is already loaded and should not be updated

@@ -13,13 +13,13 @@ export default (
   routeName: 'Categories' | 'Dashboard',
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationScreenProp<*>
-) => ({cityCode, language, path, key = generateKey(), forceUpdate = false, peek = false}: NavigateToCategoryParamsType) => {
+) => ({ cityCode, language, path, key = generateKey(), forceUpdate = false, peek = false }: NavigateToCategoryParamsType) => {
   navigation.navigate({
     routeName,
     params: {
       cityCode,
       key,
-      onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}}),
+      onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } }),
       sharePath: path
     },
     key
@@ -33,7 +33,7 @@ export default (
       path,
       depth: 2,
       key,
-      criterion: {forceUpdate, shouldRefreshResources: false, peek}
+      criterion: { forceUpdate, shouldRefreshResources: false, peek }
     }
   }
 

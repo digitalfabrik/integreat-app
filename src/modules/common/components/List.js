@@ -25,7 +25,7 @@ type PropsType<T> = {|
 
 class List<T> extends React.PureComponent<PropsType<T>> {
   render () {
-    const {items, renderItem, noItemsMessage, theme} = this.props
+    const { items, renderItem, noItemsMessage, theme } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }

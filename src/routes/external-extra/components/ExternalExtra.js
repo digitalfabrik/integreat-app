@@ -14,7 +14,7 @@ export type PropsType = {|
 
 class ExternalExtra extends React.Component<PropsType> {
   render () {
-    const {url, postData} = this.props
+    const { url, postData } = this.props
 
     const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
     return <WebView
