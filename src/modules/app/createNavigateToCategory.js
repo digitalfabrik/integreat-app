@@ -6,7 +6,7 @@ import type { NavigationScreenProp } from 'react-navigation'
 import { generateKey } from './generateRouteKey'
 
 export type NavigateToCategoryParamsType = {|
-  cityCode: string, language: string, path: string, key?: string, forceUpdate?: boolean, peek?: boolean
+  cityCode: string, language: string, path: string, key?: string, forceUpdate?: boolean
 |}
 
 export default (

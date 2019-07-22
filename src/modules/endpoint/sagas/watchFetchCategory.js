@@ -11,7 +11,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
-import isPeekRoute from '../selectors/isPeekRoute'
+import isPeekingRoute from '../selectors/isPeekingRoute'
 
 function * getRootAvailableLanguages (
   context: DatabaseContext,
@@ -33,16 +33,16 @@ function * getRootAvailableLanguages (
  * @param key The key of the current route
  * @returns true if the fetch corresponds to a peek
  */
-function * isPeek (key: string): Saga<boolean> {
-  return yield select(state => isPeekRoute(state, { routeKey: key }))
+function * isPeeking (key: string): Saga<boolean> {
+  return yield select(state => isPeekingRoute(state, { routeKey: key }))
 }
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
   try {
-    const peek = yield call(isPeek, key)
+    const peeking = yield call(isPeeking, key)
 
-    const loadCriterion = new ContentLoadCriterion(criterion, peek)
+    const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
     if (cityContentLoaded) {
@@ -75,8 +75,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
           depth,
           key,
           city,
-          language,
-          peek: loadCriterion.peek()
+          language
         }
       }
 

@@ -306,8 +306,7 @@ describe('morphContentLanguage', () => {
         key: 'route-0',
         resourceCache: {},
         city: 'augsburg',
-        language: 'de',
-        peek: false
+        language: 'de'
       }
     }
 

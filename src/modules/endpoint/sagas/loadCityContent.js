@@ -29,7 +29,7 @@ export default function * loadCityContent (
   dataContainer: DataContainer, newCity: string, newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
-  if (!criterion.peek()) {
+  if (!criterion.peeking()) {
     const appSettings = new AppSettings()
     yield call(appSettings.setSelectedCity, newCity)
   }
