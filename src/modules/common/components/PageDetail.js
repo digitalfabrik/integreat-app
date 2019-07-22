@@ -10,11 +10,11 @@ export const Identifier: StyledComponent<{}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-export type DirectionContainerPropsType = {|
+type DetailContainerPropsType = {|
   language: string, children: React.Node, theme: ThemeType
 |}
 
-const DetailContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.Text`
+const DetailContainer: StyledComponent<DetailContainerPropsType, ThemeType, *> = styled.Text`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.contentFontRegular};
