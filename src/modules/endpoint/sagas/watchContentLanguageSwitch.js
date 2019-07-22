@@ -28,7 +28,7 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
     // We never want to force a refresh when switching languages
     yield call(
       loadCityContent, dataContainer, city, newLanguage,
-      new ContentLoadCriterion({ forceUpdate: false, shouldRefreshResources: true })
+      new ContentLoadCriterion({ forceUpdate: false, shouldRefreshResources: true }, false)
     )
 
     const context = new DatabaseContext(city, newLanguage)

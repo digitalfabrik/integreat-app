@@ -62,7 +62,7 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  routeMapping: CategoriesRouteMappingType,
+  peek: boolean,
   navigateToLanding: () => void,
   routeKey: string
 |}
@@ -103,15 +103,8 @@ class Header extends React.PureComponent<PropsType> {
     })
   }
 
-  isPeeking (): boolean {
-    const { routeKey, routeMapping } = this.props
-    const route = routeMapping[routeKey]
-
-    if (!route) {
-      return false
-    }
-
-    return !route.peek
+  isPeek (): boolean {
+    return this.props.peek
   }
 
   onShare = async () => {
@@ -153,9 +146,9 @@ class Header extends React.PureComponent<PropsType> {
           <Logo source={logo} />
         </HorizontalLeft>
         <MaterialHeaderButtons>
-          {this.isPeeking() &&
+          {!this.isPeek() &&
           <Item title='Search' iconName='search' onPress={this.goToSearch} />}
-          {this.isPeeking() &&
+          {!this.isPeek() &&
           <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />}
           {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
           <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
