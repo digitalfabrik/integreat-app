@@ -263,7 +263,7 @@ class DatabaseConnector {
 
   async storeResourceCache (resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
     const path = this.getResourceCachePath(context)
-    // todo: use ResourceCacheJsonType
+    // todo: NATIVE-330 Use ResourceCacheJsonType
 
     const json: ResourceCacheJsonType = resourceCache
     await this.writeFile(path, JSON.stringify(json))
