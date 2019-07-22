@@ -7,11 +7,11 @@ import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
 import { contentDirection } from '../../i18n/contentDirection'
 
-export type DirectionContainerPropsType = {|
+type ListItemViewPropsType = {|
   language: string, children: React.Node, theme: ThemeType
 |}
 
-const ListItemView: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+const ListItemView: StyledComponent<ListItemViewPropsType, ThemeType, *> = styled.View`
   flex: 1;
   flex-direction: ${props => contentDirection(props.language)};
   padding: 15px 5px 0;
