@@ -1,6 +1,6 @@
 // @flow
 
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { mapValues, toPairs } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
 
