@@ -28,17 +28,36 @@ type PropsType = {|
   theme: ThemeType
 |}
 
+const byName = (name: string) => {
+  return (city: CityModel) => city.name.toLowerCase().includes(name)
+}
+
+const developmentCompare = (a: CityModel, b: CityModel) => {
+  console.log(a.sortingName)
+  const aIsTest = a.name.toLocaleLowerCase().includes('test')
+  const bIsTest = b.name.toLocaleLowerCase().includes('test')
+  if (aIsTest && !bIsTest) {
+    return -1
+  } else if (!aIsTest && bIsTest) {
+    return 1
+  }
+
+  return a.sortingName.localeCompare(b.sortingName, 'en-US')
+}
+
 class CitySelector extends React.PureComponent<PropsType> {
   filter (): Array<CityModel> {
     const filterText = this.props.filterText.toLowerCase()
     const cities = this.props.cities
 
-    if (filterText === 'wirschaffendas') {
+    if (__DEV__) {
+      return cities.filter(byName(filterText)).sort(developmentCompare)
+    } else if (filterText === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     } else {
       return cities
         .filter(_city => _city.live)
-        .filter(_city => _city.name.toLowerCase().includes(filterText))
+        .filter(byName(filterText))
     }
   }
 
