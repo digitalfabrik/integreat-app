@@ -13,7 +13,7 @@ import type Moment from 'moment-timezone'
 import moment from 'moment-timezone'
 import type { CityResourceCacheStateType } from '../app/StateType'
 import DatabaseContext from './DatabaseContext'
-import { CACHE_DIR_PATH, CONTENT_DIR_PATH, getResourceCacheFilesPath } from '../platform/constants/webview'
+import { CACHE_DIR_PATH, CONTENT_DIR_PATH, RESOURCE_CACHE_DIR_PATH } from '../platform/constants/webview'
 
 type ContentCategoryJsonType = {|
   root: string,
@@ -83,7 +83,7 @@ class DatabaseConnector {
   }
 
   getResourceCachePath (context: DatabaseContext): string {
-    return getResourceCacheFilesPath(context.cityCode)
+    return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
   }
 
   getMetaCitiesPath (): string {
@@ -281,8 +281,12 @@ class DatabaseConnector {
     return this.isPersisted(this.getContentPath('events', context))
   }
 
-  isResourceCachePersisted (context: DatabaseContext): Promise<boolean> {
-    return this.isPersisted(this.getResourceCachePath(context))
+  async isResourceCachePersisted (context: DatabaseContext): Promise<boolean> {
+    if (!this.isPersisted(this.getResourceCachePath(context))) {
+      return false
+    }
+    const resourceCache = await this.loadResourceCache(context)
+    return !!resourceCache[context.languageCode]
   }
 
   isPersisted (path: string): Promise<boolean> {
