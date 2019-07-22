@@ -8,7 +8,6 @@ import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
-import { contentDirection } from '../../../modules/i18n/contentDirection'
 
 type PropsType = {|
   event: EventModel,
