@@ -33,7 +33,18 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.navigation.getParam('key')
-  const peeking = isPeekingRoute(state, { routeKey })
+
+  const route = state.cityContent?.categoriesRouteMapping?.[routeKey]
+
+  if (!route) {
+    // Route does not exist yet. In this case it is not really defined whether we are peek or not because
+    // we do not yet know the city of the route.
+    // As peeking hides information is is better to suspect that we are peeking. If not the buttons in the header will
+    // appear.
+    return { routeKey, peeking: true }
+  }
+
+  const peeking = isPeekingRoute(state, { routeCity: route.city })
   return { routeKey, peeking }
 }
 
