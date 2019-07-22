@@ -45,7 +45,7 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       const resourceCacheAvailable = yield call({ context: dataContainer, fn: dataContainer.resourceCacheAvailable }, context)
 
       if (resourceCacheAvailable) {
-        // TODO: This call should happen paralel
+        // TODO: This call should happen parallel
         resourceCache = yield call(dataContainer.getResourceCache, context)
       }
 
