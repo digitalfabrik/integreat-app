@@ -144,12 +144,13 @@ class Header extends React.PureComponent<PropsType> {
   render () {
     const { cityModel, navigation, t, theme } = this.props
     const sharePath = navigation.getParam('sharePath')
+    const cityDisplayName = cityModel && `${cityModel.sortingName}${cityModel.prefix ? ` (${cityModel.prefix})` : ''}`
 
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} /> : <Logo source={logo} />}
-          {cityModel && <HeaderText theme={theme}>{`${cityModel.sortingName}`}</HeaderText>}
+          {cityModel && <HeaderText theme={theme}>{cityDisplayName}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
           <Item title='Search' iconName='search' onPress={this.goToSearch} />
