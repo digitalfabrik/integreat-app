@@ -3,7 +3,7 @@
 import type { StateType } from '../../app/StateType'
 import { type InputSelector } from 'reselect'
 
-type SelectPropsType = { routeCity: string }
+type SelectPropsType = {routeCity: string}
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.

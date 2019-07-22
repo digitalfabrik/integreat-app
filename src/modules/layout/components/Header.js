@@ -61,12 +61,35 @@ type PropsType = {|
   scenes: Array<NavigationScene>,
   t: TFunction,
   theme: ThemeType,
-  peeking: boolean,
+  peeking: boolean | 'unsure',
   navigateToLanding: () => void,
   routeKey: string
 |}
 
-class Header extends React.PureComponent<PropsType> {
+type StateType = {|
+  peeking: boolean
+|}
+
+class Header extends React.PureComponent<PropsType, StateType> {
+  constructor () {
+    super()
+
+    this.state = {
+      peeking: true
+    }
+  }
+
+  static getDerivedStateFromProps (props: PropsType, state: StateType): StateType {
+    if (props.peeking !== 'unsure') {
+      return {
+        ...state,
+        peeking: props.peeking
+      }
+    }
+
+    return state
+  }
+
   canGoBackInStack (): boolean {
     return !!this.getLastSceneInStack()
   }
@@ -103,7 +126,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   isPeeking (): boolean {
-    return this.props.peeking
+    return this.state.peeking
   }
 
   onShare = async () => {
@@ -134,6 +157,17 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigation.navigate('SearchModal')
   }
 
+  renderItem (
+    title: string, iconName?: string, show: 'never' | 'always',
+    onPress: ?() => void | Promise<void>
+  ): React.Node {
+    const { theme } = this.props
+    const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
+
+    return <Item title={title} iconName={iconName} show={show}
+                 onPress={onPress} buttonStyle={buttonStyle} />
+  }
+
   render () {
     const { navigation, t, theme } = this.props
     const sharePath = navigation.getParam('sharePath')
@@ -145,13 +179,11 @@ class Header extends React.PureComponent<PropsType> {
           <Logo source={logo} />
         </HorizontalLeft>
         <MaterialHeaderButtons>
-          {!this.isPeeking() &&
-          <Item title='Search' iconName='search' onPress={this.goToSearch} />}
-          {!this.isPeeking() &&
-          <Item title='Change Language' iconName='language' onPress={this.goToLanguageChange} />}
-          {sharePath && <Item title={t('share')} show='never' onPress={this.onShare} />}
-          <Item title='Change Location' show='never' iconName='edit-location' onPress={this.goToLanding} />
-          <Item title={t('settings')} show='never' onPress={this.goToSettings} />
+          {this.renderItem('Search', 'search', 'always', !this.isPeeking() ? this.goToSearch : undefined)}
+          {this.renderItem('Change Language', 'language', 'always', !this.isPeeking() ? this.goToLanguageChange : undefined)}
+          {this.renderItem(t('share'), undefined, 'never', sharePath ? this.onShare : undefined)}
+          {this.renderItem('Change Location', undefined, 'never', this.goToLanding)}
+          {this.renderItem(t('settings'), undefined, 'never', this.goToSettings)}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
