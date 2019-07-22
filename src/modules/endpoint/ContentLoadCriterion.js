@@ -6,7 +6,6 @@ import Moment from 'moment'
 const MAX_CONTENT_AGE = 24
 
 export type ContentLoadCriterionType = {|
-  peek?: boolean,
   forceUpdate: boolean,
   shouldRefreshResources: boolean
 |}
@@ -16,7 +15,7 @@ export class ContentLoadCriterion {
   _shouldRefreshResources: boolean
   _peek: boolean
 
-  constructor ({ peek = false, forceUpdate, shouldRefreshResources }: ContentLoadCriterionType) {
+  constructor ({ forceUpdate, shouldRefreshResources }: ContentLoadCriterionType, peek: boolean) {
     this._peek = peek
     this._forceUpdate = forceUpdate
     this._shouldRefreshResources = shouldRefreshResources

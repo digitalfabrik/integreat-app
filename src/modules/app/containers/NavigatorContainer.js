@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
         language,
         path,
         depth: 2,
-        criterion: { forceUpdate: false, shouldRefreshResources: true, peek: false },
+        criterion: { forceUpdate: false, shouldRefreshResources: true },
         key
       }
     })

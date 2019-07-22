@@ -10,7 +10,7 @@ export type NavigateToEventParamsType =
 
 export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScreenProp<*>) => (
   {
-    cityCode, language, path, key = generateKey(), forceUpdate = false, peek = false
+    cityCode, language, path, key = generateKey(), forceUpdate = false
   }: NavigateToEventParamsType) => {
   navigation.navigate({
     routeName: 'Events',
@@ -30,7 +30,7 @@ export default (dispatch: Dispatch<StoreActionType>, navigation: NavigationScree
       language,
       path,
       key,
-      criterion: { forceUpdate, shouldRefreshResources: false, peek }
+      criterion: { forceUpdate, shouldRefreshResources: false }
     }
   }
 

@@ -11,7 +11,7 @@ import DatabaseContext from '../DatabaseContext'
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
   try {
-    const loadCriterion = new ContentLoadCriterion(criterion)
+    const loadCriterion = new ContentLoadCriterion(criterion, false)
     const cityContentLoaded = yield call(loadCityContent,
       dataContainer, city, language,
       loadCriterion

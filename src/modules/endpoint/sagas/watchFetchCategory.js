@@ -1,7 +1,7 @@
 // @flow
 
 import type { Saga } from 'redux-saga'
-import { all, call, put, takeLatest, race, take } from 'redux-saga/effects'
+import { all, call, put, takeLatest, race, take, select } from 'redux-saga/effects'
 import type {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -11,6 +11,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import DatabaseContext from '../DatabaseContext'
+import isPeekRoute from '../selectors/isPeekRoute'
 
 function * getRootAvailableLanguages (
   context: DatabaseContext,
@@ -25,10 +26,23 @@ function * getRootAvailableLanguages (
   return new Map<string, string>()
 }
 
+/**
+ * This fetch corresponds to a peek if the major content language is not equal to the name of the current route.
+ * In this case the fetching behaves different. It doesn't fetch resources for example.
+ *
+ * @param key The key of the current route
+ * @returns true if the fetch corresponds to a peek
+ */
+function * isPeek (key: string): Saga<boolean> {
+  return yield select(state => isPeekRoute(state, { routeKey: key }))
+}
+
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
   try {
-    const loadCriterion = new ContentLoadCriterion(criterion)
+    const peek = yield call(isPeek, key)
+
+    const loadCriterion = new ContentLoadCriterion(criterion, peek)
     const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
 
     if (cityContentLoaded) {

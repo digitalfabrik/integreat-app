@@ -6,11 +6,12 @@ import { translate } from 'react-i18next'
 
 import Header from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
-import type { CategoriesRouteMappingType, StateType } from '../../app/StateType'
+import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { ClearCityActionType, StoreActionType } from '../../app/StoreActionType'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { TFunction } from 'react-i18next'
+import isPeekRoute from '../../endpoint/selectors/isPeekRoute'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -21,7 +22,7 @@ type OwnPropsType = {|
 
 type StatePropsType = {|
   routeKey: string,
-  routeMapping: CategoriesRouteMappingType
+  peek: boolean
 |}
 
 type DispatchPropsType = {|
@@ -31,10 +32,9 @@ type DispatchPropsType = {|
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const cityContent = state.cityContent
   const routeKey = ownProps.navigation.getParam('key')
-  const routeMapping = cityContent ? cityContent.categoriesRouteMapping : {}
-  return { routeKey, routeMapping }
+  const peek = isPeekRoute(state, { routeKey })
+  return { routeKey, peek }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({

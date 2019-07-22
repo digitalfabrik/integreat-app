@@ -15,8 +15,6 @@ export type PathType = string
 export type CategoryRouteStateType = {|
   +root: string, // path of the root category
   +depth: number,
-  +peek: boolean, /* Peek means that the route was loaded with limited dependencies.
-                     For example the available languages of the city haven't been loaded. */
   +models: { [path: PathType]: CategoryModel }, /* Models could be stored outside of CategoryRouteStateType
                                                    (e.g. CategoriesStateType) to save memory
                                                    in the state. This would be an optimization! */
