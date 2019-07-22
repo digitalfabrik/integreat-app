@@ -86,7 +86,5 @@ export interface DataContainer {
   /**
    * Returns whether the events have been loaded or not.
    */
-  eventsAvailable (context: DatabaseContext): Promise<boolean>,
-
-  resourceCacheAvailable (context: DatabaseContext): Promise<boolean>
+  eventsAvailable (context: DatabaseContext): Promise<boolean>
 }

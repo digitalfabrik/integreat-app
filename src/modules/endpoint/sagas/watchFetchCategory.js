@@ -27,20 +27,21 @@ function * getRootAvailableLanguages (
 }
 
 /**
- * This fetch corresponds to a peek if the major content language is not equal to the name of the current route.
+ * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
  * In this case the fetching behaves different. It doesn't fetch resources for example.
  *
- * @param key The key of the current route
+ * @see {isPeekingRoute}
+ * @param routeCity The key of the current route
  * @returns true if the fetch corresponds to a peek
  */
-function * isPeeking (key: string): Saga<boolean> {
-  return yield select(state => isPeekingRoute(state, { routeKey: key }))
+function * isPeeking (routeCity: string): Saga<boolean> {
+  return yield select(state => isPeekingRoute(state, { routeCity }))
 }
 
 function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
   try {
-    const peeking = yield call(isPeeking, key)
+    const peeking = yield call(isPeeking, city)
 
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const cityContentLoaded = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
@@ -50,18 +51,11 @@ function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryAct
       // appropriate error
 
       const context = new DatabaseContext(city, language)
-      const [categoriesMap] = yield all([
-        call(dataContainer.getCategoriesMap, context)
+
+      const [categoriesMap, resourceCache] = yield all([
+        call(dataContainer.getCategoriesMap, context),
+        call(dataContainer.getResourceCache, context)
       ])
-
-      let resourceCache = {}
-
-      const resourceCacheAvailable = yield call({ context: dataContainer, fn: dataContainer.resourceCacheAvailable }, context)
-
-      if (resourceCacheAvailable) {
-        // TODO: This call should happen parallel
-        resourceCache = yield call(dataContainer.getResourceCache, context)
-      }
 
       const rootAvailableLanguages = yield call(getRootAvailableLanguages, context, loadCriterion, dataContainer)
 

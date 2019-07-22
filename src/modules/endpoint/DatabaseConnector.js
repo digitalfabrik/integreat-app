@@ -255,7 +255,7 @@ class DatabaseConnector {
     const fileExists: boolean = await RNFetchblob.fs.exists(path)
 
     if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
+      return {}
     }
 
     return JSON.parse(await this.readFile(path))
@@ -279,14 +279,6 @@ class DatabaseConnector {
 
   isEventsPersisted (context: DatabaseContext): Promise<boolean> {
     return this.isPersisted(this.getContentPath('events', context))
-  }
-
-  async isResourceCachePersisted (context: DatabaseContext): Promise<boolean> {
-    if (!this.isPersisted(this.getResourceCachePath(context))) {
-      return false
-    }
-    const resourceCache = await this.loadResourceCache(context)
-    return !!resourceCache[context.languageCode]
   }
 
   isPersisted (path: string): Promise<boolean> {
