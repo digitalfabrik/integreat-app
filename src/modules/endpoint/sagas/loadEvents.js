@@ -10,7 +10,7 @@ import type { DataContainer } from '../DataContainer'
 import DatabaseContext from '../DatabaseContext'
 
 function * fetchEvents (city: string, language: string): Saga<Array<EventModel>> {
-  const params = {city, language}
+  const params = { city, language }
 
   const categoriesPayload: Payload<Array<EventModel>> = yield call(() => request(createEventsEndpoint(baseUrl), params))
   return categoriesPayload.data
@@ -20,7 +20,7 @@ function * loadEvents (
   city: string, language: string, dataContainer: DataContainer, shouldUpdate: boolean
 ): Saga<FetchMapType> {
   const context = new DatabaseContext(city, language)
-  const eventsAvailable = yield call({context: dataContainer, fn: dataContainer.eventsAvailable}, context)
+  const eventsAvailable = yield call({ context: dataContainer, fn: dataContainer.eventsAvailable }, context)
 
   if (!eventsAvailable || shouldUpdate) {
     // data is already loaded and should not be updated

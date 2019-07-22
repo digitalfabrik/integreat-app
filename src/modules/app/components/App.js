@@ -33,19 +33,12 @@ class App extends React.Component<PropsType, AppStateType> {
 
     this.dataContainer = new DefaultDataContainer()
 
-    const storeConfig = createReduxStore(
-      this.dataContainer,
-      () => { this.setState({waitingForStore: false}) }
+    this.store = createReduxStore(
+      this.dataContainer
     )
-
-    this.store = storeConfig.store
   }
 
   render () {
-    if (this.state.waitingForStore) {
-      return null
-    }
-
     return (
       <Provider store={this.store}>
         <I18nProviderContainer>

@@ -61,7 +61,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
           cityCode,
           key,
           sharePath: path,
-          onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+          onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
         },
         newKey: key
       })
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
           language,
           path,
           depth: 2,
-          criterion: {forceUpdate: false, shouldRefreshResources: true, peek: false},
+          criterion: { forceUpdate: false, shouldRefreshResources: true, peek: false },
           key
         }
       })

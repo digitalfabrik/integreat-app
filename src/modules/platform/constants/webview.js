@@ -28,7 +28,7 @@ export const createPostSource = (
   method: 'POST',
   body,
   headers: Platform.select({
-    ios: {'Content-Type': contentType},
+    ios: { 'Content-Type': contentType },
     android: undefined /* `headers` is not supported on Android.
                            In this case Android figures the out which content type to use */
   })

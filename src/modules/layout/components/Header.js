@@ -104,7 +104,7 @@ class Header extends React.PureComponent<PropsType> {
   }
 
   isPeeking (): boolean {
-    const {routeKey, routeMapping} = this.props
+    const { routeKey, routeMapping } = this.props
     const route = routeMapping[routeKey]
 
     if (!route) {

@@ -51,7 +51,7 @@ type PropsType = {|
 
 class ListItem extends React.PureComponent<PropsType> {
   render () {
-    const {title, thumbnail, children, theme} = this.props
+    const { title, thumbnail, children, theme } = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo} theme={theme}>
         <ListItemView>

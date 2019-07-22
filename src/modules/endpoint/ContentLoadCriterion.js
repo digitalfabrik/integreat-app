@@ -16,7 +16,7 @@ export class ContentLoadCriterion {
   _shouldRefreshResources: boolean
   _peek: boolean
 
-  constructor ({peek = false, forceUpdate, shouldRefreshResources}: ContentLoadCriterionType) {
+  constructor ({ peek = false, forceUpdate, shouldRefreshResources }: ContentLoadCriterionType) {
     this._peek = peek
     this._forceUpdate = forceUpdate
     this._shouldRefreshResources = shouldRefreshResources

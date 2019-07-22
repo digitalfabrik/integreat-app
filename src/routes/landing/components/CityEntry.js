@@ -28,7 +28,7 @@ class CityEntry extends React.PureComponent<PropType> {
   }
 
   render () {
-    const {city, theme} = this.props
+    const { city, theme } = this.props
     return (
         <CityListItem onPress={this.navigateToDashboard}
                       underlayColor={this.props.theme.colors.backgroundAccentColor}>

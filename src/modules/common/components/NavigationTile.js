@@ -81,7 +81,7 @@ class NavigationTile extends React.Component<PropsType> {
   }
 
   getTileContent (): React.Node {
-    const {tile, theme} = this.props
+    const { tile, theme } = this.props
     return <>
       <Circle theme={theme}>
         <ThumbnailContainer source={tile.thumbnail} />
@@ -92,7 +92,7 @@ class NavigationTile extends React.Component<PropsType> {
   }
 
   render () {
-    const {tile, theme} = this.props
+    const { tile, theme } = this.props
     return (
       <TileTouchable theme={theme} onPress={tile.onTilePress}>
         {this.getTileContent()}

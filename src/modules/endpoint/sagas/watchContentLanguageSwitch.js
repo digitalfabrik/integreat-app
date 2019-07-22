@@ -15,7 +15,7 @@ import DatabaseContext from '../DatabaseContext'
 import AppSettings from '../../settings/AppSettings'
 
 function * switchContentLanguage (dataContainer: DataContainer, action: SwitchContentLanguageActionType): Saga<void> {
-  const {city, newLanguage} = action.params
+  const { city, newLanguage } = action.params
   try {
     const appSettings = new AppSettings()
     yield call(appSettings.setContentLanguage, newLanguage)
@@ -28,7 +28,7 @@ function * switchContentLanguage (dataContainer: DataContainer, action: SwitchCo
     // We never want to force a refresh when switching languages
     yield call(
       loadCityContent, dataContainer, city, newLanguage,
-      new ContentLoadCriterion({forceUpdate: false, shouldRefreshResources: true})
+      new ContentLoadCriterion({ forceUpdate: false, shouldRefreshResources: true })
     )
 
     const context = new DatabaseContext(city, newLanguage)
