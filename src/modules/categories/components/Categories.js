@@ -159,7 +159,6 @@ class Categories extends React.Component<PropsType> {
       return <SpaceBetween>
         <View>
           <Tiles tiles={this.getTileModels(children)}
-                 title={null}
                  onTilePress={this.onTilePress}
                  theme={theme} />
         </View>
