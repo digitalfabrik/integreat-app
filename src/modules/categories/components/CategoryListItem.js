@@ -66,7 +66,7 @@ class CategoryListItem extends React.Component<PropsType> {
       <Row>
         <StyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <>
-            <CategoryThumbnail source={category.thumbnail ? category.thumbnail : iconPlaceholder} />
+            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
             {this.renderTitle()}
           </>
         </StyledLink>
