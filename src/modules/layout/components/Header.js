@@ -141,16 +141,20 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigation.navigate('SearchModal')
   }
 
+  cityDisplayName = (cityModel: CityModel) => {
+    const description = cityModel.prefix ? ` (${cityModel.prefix})` : ''
+    return `${cityModel.sortingName}${description}`
+  }
+
   render () {
     const { cityModel, navigation, t, theme } = this.props
     const sharePath = navigation.getParam('sharePath')
-    const cityDisplayName = cityModel && `${cityModel.sortingName}${cityModel.prefix ? ` (${cityModel.prefix})` : ''}`
 
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
           {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} /> : <Logo source={logo} />}
-          {cityModel && <HeaderText theme={theme}>{cityDisplayName}</HeaderText>}
+          {cityModel && <HeaderText theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
           <Item title='Search' iconName='search' onPress={this.goToSearch} />
