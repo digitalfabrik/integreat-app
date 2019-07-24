@@ -5,6 +5,7 @@ import android.app.Application;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new NetInfoPackage(),
+                    new AsyncStoragePackage(),
+                    new NetInfoPackage(),
                     new RNSentryPackage(),
                     new RNFetchBlobPackage(),
                     new RNCWebViewPackage(),

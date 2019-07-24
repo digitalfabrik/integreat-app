@@ -4,7 +4,6 @@ import * as React from 'react'
 
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import CategoryCaption from './CategoryCaption'
-import StyledLink from './StyledLink'
 import styled, { type StyledComponent } from 'styled-components/native'
 import { contentDirection } from '../../i18n/contentDirection'
 
@@ -14,19 +13,14 @@ const SubCategoryCaption = styled(CategoryCaption)`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
-  display: flex;
-  flex-direction: column;
-`
-
-type DirectionContainerPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
+type FlexStyledLinkPropsType = {|
+  language: string, children: React.Node, theme: ThemeType, onPress: () => void, underlayColor: string
 |}
 
-const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+const FlexStyledLink: StyledComponent<FlexStyledLinkPropsType, ThemeType, *> = styled.TouchableHighlight`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
-  margin-start: 75px;
+  margin: 0 20px 0 95px;
 `
 
 const SubCategoryTitle = styled.Text`
@@ -49,12 +43,11 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
   render () {
     const { language, subCategory, theme } = this.props
     return (
-      <FlexStyledLink onPress={this.onSubCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
-        <DirectionContainer theme={theme} language={language}>
-          <SubCategoryCaption search={''} theme={theme}>
-            <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
-          </SubCategoryCaption>
-        </DirectionContainer>
+      <FlexStyledLink onPress={this.onSubCategoryPress} underlayColor={theme.colors.backgroundAccentColor}
+                      language={language} theme={theme}>
+        <SubCategoryCaption search={''} theme={theme}>
+          <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
+        </SubCategoryCaption>
       </FlexStyledLink>
     )
   }
