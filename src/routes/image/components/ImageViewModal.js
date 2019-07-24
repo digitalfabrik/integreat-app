@@ -19,12 +19,12 @@ export default class ImageViewModal extends React.Component<PropsType> {
 
   render () {
     return (
-      <View style={{flex: 1}}>
-        <ImageViewer style={{flex: 1}}
+      <View style={{ flex: 1 }}>
+        <ImageViewer style={{ flex: 1 }}
                      renderIndicator={this.renderNothing}
                      backgroundColor={'white'}
                      saveToLocalByLongPress={false}
-                     imageUrls={[{url: this.props.navigation.getParam('url')}]} />
+                     imageUrls={[{ url: this.props.navigation.getParam('url') }]} />
       </View>
     )
   }

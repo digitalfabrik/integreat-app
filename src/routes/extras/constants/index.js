@@ -1,3 +1,5 @@
+// @flow
+
 export const SPRUNGBRETT_ROUTE = 'SprungbrettExtra'
 export const SPRUNGBRETT_EXTRA = 'sprungbrett'
 

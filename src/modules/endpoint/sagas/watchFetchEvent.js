@@ -7,7 +7,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
-  const {city, language, path, key, forceUpdate, shouldRefreshResources} = action.params
+  const { city, language, path, key, forceUpdate, shouldRefreshResources } = action.params
   try {
     yield call(loadCityContent, dataContainer, city, language, forceUpdate, shouldRefreshResources)
 

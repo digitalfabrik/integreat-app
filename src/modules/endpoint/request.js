@@ -7,7 +7,7 @@ const request = async function <T, P> (endpoint: Endpoint<P, T>, params: P, over
   const response = await (endpoint.mapParamsToBody ? endpoint.postFormData(url, params) : fetch(url))
 
   if (!response.ok) {
-    throw new LoadingError({endpointName: endpoint.stateName, message: `${response.status}`})
+    throw new LoadingError({ endpointName: endpoint.stateName, message: `${response.status}` })
   }
 
   try {
