@@ -69,7 +69,7 @@ class Page extends React.Component<PropType, StateType> {
         <Caption title={title} theme={theme} />
         {children}
         <RemoteContent theme={theme} cityCode={cityCode} content={content} files={files} onLinkPress={this.onLinkPress}
-                       onLoad={this.onLoad} />
+                       onLoad={this.onLoad} language={language} />
         {!this.state.loading && <MomentContext.Consumer>
           {formatter => <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
         </MomentContext.Consumer>}

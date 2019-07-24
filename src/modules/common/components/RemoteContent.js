@@ -10,6 +10,7 @@ import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react
 import type { FileCacheStateType } from '../../app/StateType'
 import type { WebViewNavigation } from 'react-native-webview/js/WebViewTypes'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
+import { RTL_LANGUAGES } from '../../i18n/components/I18nProvider'
 
 // see https://github.com/react-native-community/react-native-webview#common-issues
 const StyledView: StyledComponent<{}, {}, *> = styled.View`
@@ -26,6 +27,7 @@ type PropType = {|
   content: string,
   theme: ThemeType,
   files: FileCacheStateType,
+  language: string,
   cityCode: string,
   onLinkPress: string => void,
   onLoad: void => void
@@ -65,7 +67,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
   }
 
   render () {
-    const { content, files, theme, cityCode } = this.props
+    const { content, files, theme, cityCode, language } = this.props
     const height = this.state.webViewHeight
     const width = this.state.webViewWidth
     const dataDetectorTypes: DataDetectorTypes = 'all'
@@ -74,7 +76,7 @@ class RemoteContent extends React.Component<PropType, StateType> {
         <WebView
           source={{
             baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
-            html: renderHtml(content, files, theme)
+            html: renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr')
           }}
           allowFileAccess // Needed by android to access file:// urls
           originWhitelist={['*']} // Needed by iOS to load the initial html

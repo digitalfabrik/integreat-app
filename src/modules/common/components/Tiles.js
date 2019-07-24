@@ -16,11 +16,11 @@ type PropsType = {|
   language: string
 |}
 
-export type DirectionContainerPropsType = {|
+type TilesRowPropsType = {|
   language: string, children: React.Node, theme: ThemeType
 |}
 
-const TilesRow: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+const TilesRow: StyledComponent<TilesRowPropsType, ThemeType, *> = styled.View`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   flex-wrap: wrap;
