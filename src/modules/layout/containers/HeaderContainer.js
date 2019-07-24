@@ -23,7 +23,7 @@ type OwnPropsType = {|
 
 type StatePropsType = {|
   routeKey: string,
-  peeking: boolean | 'unsure'
+  peeking: boolean | 'unsure',
   cityModel?: CityModel
 |}
 
@@ -38,18 +38,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const route = state.cityContent?.categoriesRouteMapping?.[routeKey]
 
-  if (!route || state.cities.errorMessage !== undefined || !state.cityContent.city ||
-    !state.cities.models) {
+  if (!route || state.cities.errorMessage !== undefined || !state.cities.models || !state.cityContent) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return { routeKey, peeking: 'unsure' }
   }
 
-  const peeking = isPeekingRoute(state, { routeCity: route.city })
-
   const cities = state.cities.models
   const cityCode = state.cityContent.city
   const cityModel = cities.find(city => city.code === cityCode)
+
+  const peeking = isPeekingRoute(state, { routeCity: route.city })
 
   return { routeKey, peeking, cityModel }
 }
