@@ -11,6 +11,7 @@ import { type Dispatch } from 'redux'
 import type { ClearCityActionType, StoreActionType } from '../../app/StoreActionType'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { TFunction } from 'react-i18next'
+import { CityModel } from '@integreat-app/integreat-api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 
 type OwnPropsType = {|
@@ -23,6 +24,7 @@ type OwnPropsType = {|
 type StatePropsType = {|
   routeKey: string,
   peeking: boolean | 'unsure'
+  cityModel?: CityModel
 |}
 
 type DispatchPropsType = {|
@@ -36,14 +38,20 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const route = state.cityContent?.categoriesRouteMapping?.[routeKey]
 
-  if (!route) {
+  if (!route || state.cities.errorMessage !== undefined || !state.cityContent.city ||
+    !state.cities.models) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return { routeKey, peeking: 'unsure' }
   }
 
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  return { routeKey, peeking }
+
+  const cities = state.cities.models
+  const cityCode = state.cityContent.city
+  const cityModel = cities.find(city => city.code === cityCode)
+
+  return { routeKey, peeking, cityModel }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({
