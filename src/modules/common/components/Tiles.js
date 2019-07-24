@@ -1,23 +1,28 @@
 // @flow
 
-import React from 'react'
-
+import * as React from 'react'
 import Caption from '../../../modules/common/components/Caption'
 import Tile from './Tile'
-import styled from 'styled-components/native'
+import styled, { type StyledComponent } from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import type { ThemeType } from '../../theme/constants/theme'
+import { contentDirection } from '../../i18n/contentDirection'
 
 type PropsType = {|
-  title: ?string,
+  title?: string,
   tiles: TileModel[],
   onTilePress: (tile: TileModel) => void,
-  theme: ThemeType
+  theme: ThemeType,
+  language: string
 |}
 
-const TilesRow = styled.View`
+type TilesRowPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const TilesRow: StyledComponent<TilesRowPropsType, ThemeType, *> = styled.View`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${props => contentDirection(props.language)};
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
@@ -29,10 +34,10 @@ const TilesRow = styled.View`
  */
 class Tiles extends React.Component<PropsType> {
   render () {
-    const { tiles, onTilePress, theme } = this.props
+    const { title, language, tiles, onTilePress, theme } = this.props
     return <>
-      {this.props.title && <Caption title={this.props.title} theme={theme} />}
-      <TilesRow>
+      {title && <Caption title={title} theme={theme} />}
+      <TilesRow language={language} theme={theme}>
         {tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />)}
       </TilesRow>
     </>

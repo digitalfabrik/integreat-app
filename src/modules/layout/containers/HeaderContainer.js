@@ -11,6 +11,7 @@ import { type Dispatch } from 'redux'
 import type { ClearCityActionType, StoreActionType } from '../../app/StoreActionType'
 import type { NavigationScene, NavigationScreenProp } from 'react-navigation'
 import type { TFunction } from 'react-i18next'
+import { CityModel } from '@integreat-app/integreat-api-client'
 
 type OwnPropsType = {|
   navigation: NavigationScreenProp<*>,
@@ -20,7 +21,8 @@ type OwnPropsType = {|
 |}
 
 type StatePropsType = {|
-  routeKey: string
+  routeKey: string,
+  cityModel?: CityModel
 |}
 
 type DispatchPropsType = {|
@@ -31,7 +33,16 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.navigation.getParam('key')
-  return { routeKey }
+  if (!state.cityContent || state.cities.errorMessage !== undefined || !state.cityContent.city ||
+    !state.cities.models) {
+    return { routeKey }
+  }
+
+  const cities = state.cities.models
+  const cityCode = state.cityContent.city
+  const cityModel = cities.find(city => city.code === cityCode)
+
+  return { routeKey, cityModel }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPropsType): DispatchPropsType => ({

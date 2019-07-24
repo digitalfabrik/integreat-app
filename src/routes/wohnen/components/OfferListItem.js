@@ -20,19 +20,20 @@ const Price = styled.Text`
 type PropsType = {|
   offer: WohnenOfferModel,
   navigateToOffer: () => void,
-  theme: ThemeType
+  theme: ThemeType,
+  language: string
 |}
 
 class OfferListItem extends React.PureComponent<PropsType> {
   render () {
-    const { offer, navigateToOffer, theme } = this.props
+    const { language, offer, navigateToOffer, theme } = this.props
 
     if (offer.formData instanceof WohnenFormData) {
       const accommodation = offer.formData.accommodation
       const costs = offer.formData.costs
 
       return (
-        <ListItem title={accommodation.title} navigateTo={navigateToOffer} theme={theme}>
+        <ListItem title={accommodation.title} navigateTo={navigateToOffer} theme={theme} language={language}>
           <Description>
             <Text>{accommodation.totalArea} m²</Text>
             <Text>{accommodation.totalRooms} Zimmer</Text>
