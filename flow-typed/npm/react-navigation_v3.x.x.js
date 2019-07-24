@@ -1,5 +1,5 @@
-// flow-typed signature: 7fef4344e53c58f50c75bc3c53b31c85
-// flow-typed version: 8bb97d26b9/react-navigation_v3.x.x/flow_>=v0.60.x <=v0.91.x
+// flow-typed signature: e82a57ad89bebc4ed2e42fef7f133e70
+// flow-typed version: 4018635bcb/react-navigation_v3.x.x/flow_>=v0.92.x
 
 // @flow
 
@@ -356,11 +356,8 @@ declare module 'react-navigation' {
   declare export type NavigationScreenComponent<
     Route: NavigationRoute,
     Options: {},
-    Props: {}
-  > = React$ComponentType<{
-    ...Props,
-    ...NavigationNavigatorProps<Options, Route>,
-  }> &
+    Props: NavigationNavigatorProps<Options, Route>,
+  > = React$ComponentType<Props> &
     withOptionalNavigationOptions<Options>;
 
   declare interface withRouter<State, Options> {
@@ -370,11 +367,8 @@ declare module 'react-navigation' {
   declare export type NavigationNavigator<
     State: NavigationState,
     Options: {},
-    Props: {}
-  > = React$StatelessFunctionalComponent<{
-    ...Props,
-    ...NavigationNavigatorProps<Options, State>,
-  }> &
+    Props: NavigationNavigatorProps<Options, State>,
+  > = React$ComponentType<Props> &
     withRouter<State, Options> &
     withOptionalNavigationOptions<Options>;
 
@@ -600,7 +594,7 @@ declare module 'react-navigation' {
       fallback?: $ElementType<
         $PropertyType<
           {|
-            ...{| params: {| [ParamName]: void |} |},
+            ...{| params: { } |},
             ...$Exact<S>,
           |},
           'params'
@@ -610,7 +604,7 @@ declare module 'react-navigation' {
     ) => $ElementType<
       $PropertyType<
         {|
-          ...{| params: {| [ParamName]: void |} |},
+          ...{| params: { } |},
           ...$Exact<S>,
         |},
         'params'
@@ -683,11 +677,8 @@ declare module 'react-navigation' {
   declare export type NavigationContainer<
     State: NavigationState,
     Options: {},
-    Props: {}
-  > = React$ComponentType<{
-    ...Props,
-    ...NavigationContainerProps<State, Options>,
-  }> &
+    Props: NavigationContainerProps<Options, State>,
+  > = React$ComponentType<Props> &
     withRouter<State, Options> &
     withOptionalNavigationOptions<Options>;
 
@@ -1287,4 +1278,12 @@ declare module 'react-navigation' {
     getScreenProps: () => {},
     getCurrentNavigation: () => ?NavigationScreenProp<State>
   ): NavigationScreenProp<State>;
+
+  declare export function getActiveChildNavigationOptions<
+    State: NavigationState,
+    Options: {}
+  >(
+    navigation: NavigationScreenProp<State>,
+    screenProps?: {}
+  ): Options;
 }
