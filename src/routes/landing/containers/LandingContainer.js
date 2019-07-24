@@ -61,7 +61,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>, ownProps: OwnPr
           cityCode,
           key,
           sharePath: path,
-          onRouteClose: () => dispatch({type: 'CLEAR_CATEGORY', params: {key}})
+          onRouteClose: () => dispatch({ type: 'CLEAR_CATEGORY', params: { key } })
         },
         newKey: key
       })

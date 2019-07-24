@@ -83,10 +83,8 @@ export type CityContentStateType = {|
 |}
 
 export const defaultCityContentState = null
-export type DirectionStateType = 'ltr' | 'rtl'
 
 export type StateType = {|
-  +uiDirection: DirectionStateType,
   +darkMode: boolean,
 
   +cityContent: CityContentStateType | null,

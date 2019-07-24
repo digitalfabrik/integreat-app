@@ -14,6 +14,7 @@ type PropsType = {|
   sprungbrettJobs: Array<SprungbrettJobModel>,
   t: TFunction,
   theme: ThemeType,
+  language: string,
   sprungbrettExtra: ExtraModel
 |}
 
@@ -24,11 +25,11 @@ class SprungbrettExtra extends React.Component<PropsType> {
 
   renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => (
     <SprungbrettListItem key={job.id} job={job} openJobInBrowser={this.openJobInBrowser(job.url)}
-                         theme={this.props.theme} />
+                         theme={this.props.theme} language={this.props.language} />
   )
 
   render () {
-    const {sprungbrettExtra, sprungbrettJobs, t, theme} = this.props
+    const { sprungbrettExtra, sprungbrettJobs, t, theme } = this.props
 
     return <ScrollView>
         <Caption title={sprungbrettExtra.title} theme={theme} />

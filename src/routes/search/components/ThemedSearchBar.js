@@ -12,8 +12,8 @@ type PropsType = {|
 
 class ThemedSearchBar extends React.Component<PropsType> {
   render () {
-    const {theme, onChangeText, value} = this.props
-    const {colors} = theme
+    const { theme, onChangeText, value } = this.props
+    const { colors } = theme
 
     return <SearchBar
       containerStyle={{

@@ -1,4 +1,5 @@
 // @flow
+
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 import { translate } from 'react-i18next'
