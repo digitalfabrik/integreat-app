@@ -37,7 +37,7 @@ export class TimeStamp extends React.PureComponent<PropsType> {
     // only show day, month and year
     const dateText = formatter(lastUpdate, { format: 'LL', locale: language })
     return <DirectionContainer language={language} theme={theme}>
-        <TimeStampText theme={theme}>{t('lastUpdate')}</TimeStampText>
+        <TimeStampText theme={theme}>{t('lastUpdate', { lng: language })}</TimeStampText>
         <TimeStampText theme={theme}>{dateText}</TimeStampText>
     </DirectionContainer>
   }
