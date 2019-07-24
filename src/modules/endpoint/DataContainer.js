@@ -3,26 +3,19 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from '../app/StateType'
 import type Moment from 'moment'
+import DatabaseContext from './DatabaseContext'
 
 export interface DataContainer {
-  /**
-   * Changes the context to the supplied city-language combination and loads all corresponding persisted data if
-   * existent. Initializes non persisted fields with null.
-   * @param cityCode
-   * @param languageCode
-   */
-  setContext: (cityCode: string, languageCode: string) => Promise<void>,
 
   /**
    * Returns an Array of CityModels.
    * @throws Will throw an error if the array is null.
    */
-  getCities: () => Promise<Array<CityModel>>,
+  getCities: (context: DatabaseContext) => Promise<Array<CityModel>>,
 
   /**
    * Sets the cities but does not persist them.
    * TODO: Offline available cities will be persisted in NATIVE-175. For now switching cities when offline is not possible.
-   * @param cities
    */
   setCities: (cities: Array<CityModel>) => Promise<void>,
 
@@ -30,83 +23,68 @@ export interface DataContainer {
    * Returns an Array of LanguageModels.
    * @throws Will throw an error if the array is null.
    */
-  getLanguages: () => Promise<Array<LanguageModel>>,
+  getLanguages: (context: DatabaseContext) => Promise<Array<LanguageModel>>,
 
   /**
    * Sets the languages and persists them.
-   * @param languages
    */
-  setLanguages: (languages: Array<LanguageModel>) => Promise<void>,
+  setLanguages: (context: DatabaseContext, languages: Array<LanguageModel>) => Promise<void>,
 
   /**
    * Returns the CategoriesMapModel.
    * @throws Will throw an error if the CategoriesMapModel is null.
    */
-  getCategoriesMap: () => Promise<CategoriesMapModel>,
+  getCategoriesMap: (context: DatabaseContext) => Promise<CategoriesMapModel>,
 
   /**
    * Sets the categories and persists them.
-   * @param categories
    */
-  setCategoriesMap: (categories: CategoriesMapModel) => Promise<void>,
+  setCategoriesMap: (context: DatabaseContext, categories: CategoriesMapModel) => Promise<void>,
 
   /**
    * Returns an Array of events.
    * @throws Will throw an error if the array is null.
    */
-  getEvents: () => Promise<Array<EventModel>>,
+  getEvents: (context: DatabaseContext) => Promise<Array<EventModel>>,
 
   /**
    * Sets the events and persists them.
-   * @param events
    */
-  setEvents: (events: Array<EventModel>) => Promise<void>,
+  setEvents: (context: DatabaseContext, events: Array<EventModel>) => Promise<void>,
 
   /**
    * Returns the ResourceCache.
    * @throws Will throw an error if the ResourceCache is null.
    */
-  getResourceCache: () => Promise<LanguageResourceCacheStateType>,
+  getResourceCache: (context: DatabaseContext) => Promise<LanguageResourceCacheStateType>,
 
   /**
    * Sets the cache entries for the current city-language-pair and cleans up unnecessary files.
-   * @param resourceCache
    */
-  setResourceCache: (resourceCache: LanguageResourceCacheStateType) => Promise<void>,
+  setResourceCache: (context: DatabaseContext, resourceCache: LanguageResourceCacheStateType) => Promise<void>,
 
   /**
    * Returns the lastUpdate timestamp..
    */
-  getLastUpdate: () => Promise<Moment>,
+  getLastUpdate: (context: DatabaseContext) => Promise<Moment | null>,
 
   /**
    * Sets the lastUpdate timestamp and persists it.
-   * @param lastUpdate
    */
-  setLastUpdate: (lastUpdate: Moment) => Promise<void>,
+  setLastUpdate: (context: DatabaseContext, lastUpdate: Moment) => Promise<void>,
 
   /**
    * Returns whether the CategoriesMap has been loaded or not.
    */
-  categoriesAvailable (): boolean,
+  categoriesAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
    * Returns whether the languages have been loaded or not.
    */
-  languagesAvailable (): boolean,
-
-  /**
-   * Returns whether the ResourceCache have been loaded or not.
-   */
-  resourceCacheAvailable (): boolean,
+  languagesAvailable (context: DatabaseContext): Promise<boolean>,
 
   /**
    * Returns whether the events have been loaded or not.
    */
-  eventsAvailable (): boolean,
-
-  /**
-   * Returns whether a lastUpdate timestamp has been loaded or not.
-   */
-  lastUpdateAvailable (): boolean
+  eventsAvailable (context: DatabaseContext): Promise<boolean>
 }

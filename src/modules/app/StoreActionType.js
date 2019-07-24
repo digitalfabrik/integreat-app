@@ -2,6 +2,7 @@
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel } from '@integreat-app/integreat-api-client'
 import type { LanguageResourceCacheStateType } from './StateType'
+import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES'
@@ -33,7 +34,7 @@ export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY', params: {|
     city: string, language: string,
     path: string, depth: number, key: string,
-    forceUpdate: boolean, shouldRefreshResources: boolean
+    criterion: ContentLoadCriterionType
   |}
 |}
 export type FetchCategoryFailedActionType = {|
@@ -46,7 +47,7 @@ export type PushCategoryActionType = {|
   type: 'PUSH_CATEGORY', params: {|
     categoriesMap: CategoriesMapModel,
     resourceCache: LanguageResourceCacheStateType,
-    languages: Array<LanguageModel>,
+    rootAvailableLanguages: Map<string, string>,
     city: string,
     language: string,
     path: string, depth: number, key: string
@@ -65,7 +66,7 @@ export type FetchEventActionType = {|
   type: 'FETCH_EVENT', params: {|
     city: string, language: string,
     path?: string, key: string,
-    forceUpdate: boolean, shouldRefreshResources: boolean
+    criterion: ContentLoadCriterionType
   |}
 |}
 export type ClearEventActionType = {|
@@ -77,7 +78,6 @@ export type PushEventActionType = {|
     path?: string, key: string,
     resourceCache: LanguageResourceCacheStateType,
     languages: Array<LanguageModel>,
-    city: string,
     language: string
   |}
 |}
