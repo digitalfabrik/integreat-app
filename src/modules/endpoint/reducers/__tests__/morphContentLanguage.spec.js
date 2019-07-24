@@ -271,6 +271,8 @@ describe('morphContentLanguage', () => {
     })
   ]
 
+  const deRootAvailableLanguages = new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']])
+
   const initialState = defaultCityContentState
 
   const prepareState = ({ path, model, eventPath, events }: {
@@ -298,7 +300,7 @@ describe('morphContentLanguage', () => {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap: model,
-        languages,
+        rootAvailableLanguages: deRootAvailableLanguages,
         path,
         depth: 2,
         key: 'route-0',
@@ -317,7 +319,6 @@ describe('morphContentLanguage', () => {
         languages,
         key: 'event-route-1',
         resourceCache: {},
-        city: 'augsburg',
         language: 'de'
       }
     }
@@ -332,7 +333,6 @@ describe('morphContentLanguage', () => {
         path: eventPath,
         key: 'event-route-2',
         resourceCache: {},
-        city: 'augsburg',
         language: 'de'
       }
     }
