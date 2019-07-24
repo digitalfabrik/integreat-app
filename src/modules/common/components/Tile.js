@@ -5,9 +5,8 @@ import * as React from 'react'
 import styled, { type StyledComponent } from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
-import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
-import getFastImageSource from '../getFastImageSource'
+import Image from './Image'
 
 type PropsType = {
   tile: TileModel,
@@ -15,7 +14,7 @@ type PropsType = {
   theme: ThemeType
 }
 
-const Thumbnail = styled(FastImage)`
+const ThumbnailContainer = styled(Image)`
   height: 150px;
 `
 
@@ -35,22 +34,19 @@ const TileContainer: StyledComponent<{}, {}, *> = styled.View`
  * Displays a single Tile
  */
 class Tile extends React.Component<PropsType> {
-  getTileContent (): React.Node {
-    const { tile, theme } = this.props
-    return <>
-      {tile.thumbnail && <Thumbnail source={getFastImageSource(tile.thumbnail)} resizeMode={FastImage.resizeMode.contain} /> }
-      <TileTitle theme={theme}>{tile.title}</TileTitle>
-    </>
-  }
-
   onTilePress = () => {
     this.props.onTilePress(this.props.tile)
   }
 
   render () {
+    const { tile, theme } = this.props
+
     return (
       <TileContainer>
-        <TouchableOpacity onPress={this.onTilePress}>{this.getTileContent()}</TouchableOpacity>
+        <TouchableOpacity onPress={this.onTilePress}>
+          <ThumbnailContainer source={tile.thumbnail} />
+          <TileTitle theme={theme}>{tile.title}</TileTitle>
+        </TouchableOpacity>
       </TileContainer>
     )
   }

@@ -5,31 +5,40 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
+import { ContentLoadCriterion } from '../ContentLoadCriterion'
+import DatabaseContext from '../DatabaseContext'
 
 function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
-  const { city, language, path, key, forceUpdate, shouldRefreshResources } = action.params
+  const { city, language, path, key, criterion } = action.params
   try {
-    yield call(loadCityContent, dataContainer, city, language, forceUpdate, shouldRefreshResources)
+    const loadCriterion = new ContentLoadCriterion(criterion, false)
+    const cityContentLoaded = yield call(loadCityContent,
+      dataContainer, city, language,
+      loadCriterion
+    )
+    if (cityContentLoaded) {
+      // Only proceed if the content is ready to be pushed to the state. If not then the UI automatically displays an
+      // appropriate error
+      const context = new DatabaseContext(city, language)
+      const [events, resourceCache, languages] = yield all([
+        call(dataContainer.getEvents, context),
+        call(dataContainer.getResourceCache, context),
+        call(dataContainer.getLanguages, context)
+      ])
 
-    const [events, resourceCache, languages] = yield all([
-      call(dataContainer.getEvents),
-      call(dataContainer.getResourceCache),
-      call(dataContainer.getLanguages)
-    ])
-
-    const insert: PushEventActionType = {
-      type: `PUSH_EVENT`,
-      params: {
-        events,
-        resourceCache,
-        path,
-        languages,
-        key,
-        city,
-        language
+      const insert: PushEventActionType = {
+        type: `PUSH_EVENT`,
+        params: {
+          events,
+          resourceCache,
+          path,
+          languages,
+          key,
+          language
+        }
       }
+      yield put(insert)
     }
-    yield put(insert)
   } catch (e) {
     console.error(e)
     const failed: FetchEventFailedActionType = {
