@@ -11,24 +11,35 @@ import HeaderBackButton from 'react-navigation-stack/lib/module/views/Header/Hea
 import type { NavigationScene, NavigationScreenProp, NavigationDescriptor } from 'react-navigation'
 import type { ThemeType } from '../../../modules/theme/constants/theme'
 import type { TFunction } from 'react-i18next'
+import { CityModel } from '@integreat-app/integreat-api-client'
 
 const Horizontal = styled.View`
-  flex:1;
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
 
 const HorizontalLeft = styled.View`
-  flex:1;
+  flex: 1;
   flex-direction: row;
   align-items: center;
 `
 
 const Logo = styled.Image`
-  width: 150px;
+  width: 70px;
   height: 50px;
   resize-mode: contain;
+`
+
+const HeaderText: StyledComponent<{}, ThemeType, *> = styled.Text`
+  flex: 1;
+  flex-direction: column;
+  text-align-vertical: center;
+  height: 50px;
+  font-size: 20px;
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.decorativeFontBold};
 `
 
 const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
@@ -62,7 +73,8 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   navigateToLanding: () => void,
-  routeKey: string
+  routeKey: string,
+  cityModel?: CityModel
 |}
 
 class Header extends React.PureComponent<PropsType> {
@@ -129,15 +141,20 @@ class Header extends React.PureComponent<PropsType> {
     this.props.navigation.navigate('SearchModal')
   }
 
+  cityDisplayName = (cityModel: CityModel) => {
+    const description = cityModel.prefix ? ` (${cityModel.prefix})` : ''
+    return `${cityModel.sortingName}${description}`
+  }
+
   render () {
-    const { navigation, t, theme } = this.props
+    const { cityModel, navigation, t, theme } = this.props
     const sharePath = navigation.getParam('sharePath')
 
     return <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {this.canGoBackInStack() && <HeaderBackButton onPress={this.goBackInStack} />}
-          <Logo source={logo} />
+          {this.canGoBackInStack() ? <HeaderBackButton onPress={this.goBackInStack} /> : <Logo source={logo} />}
+          {cityModel && <HeaderText theme={theme}>{this.cityDisplayName(cityModel)}</HeaderText>}
         </HorizontalLeft>
         <MaterialHeaderButtons>
           <Item title='Search' iconName='search' onPress={this.goToSearch} />
