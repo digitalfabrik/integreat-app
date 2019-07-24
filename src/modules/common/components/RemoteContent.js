@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
-import { getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
+import { createHtmlSource, getResourceCacheFilesDirPath, URL_PREFIX } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
 import { type DataDetectorTypes, WebView, type WebViewMessageEvent } from 'react-native-webview'
 import type { FileCacheStateType } from '../../app/StateType'
@@ -74,10 +74,8 @@ class RemoteContent extends React.Component<PropType, StateType> {
     return <StyledView onLayout={this.onLayout}>
       {// $FlowFixMe dataDetectorTypes (correct types, but Flow doesn't try the right branch)
         <WebView
-          source={{
-            baseUrl: URL_PREFIX + getResourceCacheFilesDirPath(cityCode),
-            html: renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr')
-          }}
+          source={createHtmlSource(renderHtml(content, files, theme, RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr'),
+            URL_PREFIX + getResourceCacheFilesDirPath(cityCode))}
           allowFileAccess // Needed by android to access file:// urls
           originWhitelist={['*']} // Needed by iOS to load the initial html
           useWebKit={false}

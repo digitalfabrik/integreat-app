@@ -29,7 +29,7 @@ pipeline {
                         stage("Install dependencies") {
                             steps {
                                 checkout scm
-                                sh 'yarn'
+                                sh 'yarn install --frozen-lockfile'
                             }
                         }
                         stage('Build Release for iOS') {
@@ -91,7 +91,7 @@ pipeline {
                         stage("Install dependencies") {
                             steps {
                                 checkout scm
-                                sh 'yarn'
+                                sh 'yarn install --frozen-lockfile'
                             }
                         }
                         stage("Build Debug Bundle") {

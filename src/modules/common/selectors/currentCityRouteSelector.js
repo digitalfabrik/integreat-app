@@ -12,6 +12,8 @@ const categoryRouteSelector = (state: CityContentStateType, props: CityRouteSele
   if (categoriesRouteMapping.errorMessage === undefined) {
     return categoriesRouteMapping[props.routeKey]
   }
+
+  return null
 }
 
 const eventRouteSelector = (state: CityContentStateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
@@ -19,6 +21,8 @@ const eventRouteSelector = (state: CityContentStateType, props: CityRouteSelecto
   if (eventsRouteMapping.errorMessage === undefined) {
     return eventsRouteMapping[props.routeKey]
   }
+
+  return null
 }
 
 export const currentCityRouteSelector = createSelector<CityContentStateType, CityRouteSelectorPropsType,
@@ -26,7 +30,8 @@ export const currentCityRouteSelector = createSelector<CityContentStateType, Cit
     categoryRouteSelector,
     eventRouteSelector, (
       categoryRoute: ?CategoryRouteStateType, eventRoute: ?EventRouteStateType
-    ): CategoryRouteStateType | EventRouteStateType | null => {
+    ): CategoryRouteStateType |
+      EventRouteStateType | null => {
       return categoryRoute || eventRoute || null
     }
   )

@@ -2,9 +2,9 @@
 
 import * as React from 'react'
 import styled, { type StyledComponent } from 'styled-components/native'
-import type { FastImageSource } from 'react-native-fast-image'
-import FastImage from 'react-native-fast-image'
 import type { ThemeType } from '../../theme/constants/theme'
+import Image from './Image'
+import type { ImageSourceType } from './Image'
 import { contentDirection } from '../../i18n/contentDirection'
 
 type ListItemViewPropsType = {|
@@ -25,7 +25,7 @@ const StyledTouchableOpacity: StyledComponent<{}, ThemeType, *> = styled.Touchab
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const Thumbnail = styled(FastImage)`
+const Thumbnail = styled(Image)`
   width: 75px;
   height: 75px;
   flex-shrink: 0;
@@ -47,7 +47,7 @@ const Title = styled.Text`
 `
 
 type PropsType = {|
-  thumbnail?: FastImageSource | number,
+  thumbnail: ImageSourceType,
   title: string,
   language: string,
   children?: React.Node,
