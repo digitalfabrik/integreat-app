@@ -77,7 +77,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const { theme, categories, t, sendFeedback } = this.props
+    const { language, theme, categories, t, sendFeedback } = this.props
     const { query } = this.state
 
     if (!categories) {
@@ -88,7 +88,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SpaceBetween>
         <View><CategoryList categories={filteredCategories} query={query} onItemPress={this.onItemPress}
-                            theme={theme} /></View>
+                            theme={theme} language={language} /></View>
         <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0}
                            sendFeedback={sendFeedback} />
       </SpaceBetween>
