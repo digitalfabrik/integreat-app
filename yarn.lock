@@ -8487,6 +8487,11 @@ react-native-sentry@^0.42.0:
     "@sentry/wizard" "^0.12.1"
     raven-js "^3.24.2"
 
+react-native-share@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-1.2.1.tgz#3756a3cf383c1489a6a0edf2b529ec025ee8f8f7"
+  integrity sha512-V9q1FM+LuYJ65qN3k6BLWs17mIbJCzGyMOhF3rb4MIQXdJfCUbtkDX9aaV86PzcsL1EudCA53HVTJBmWPDed0Q==
+
 react-native-svg-asset-plugin@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.1.2.tgz#6f707c02748f38adc81e38469baa7d81863b1392"

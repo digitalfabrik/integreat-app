@@ -17,11 +17,13 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import io.sentry.RNSentryPackage;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
@@ -33,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new RNSharePackage(),
                     new AsyncStoragePackage(),
                     new NetInfoPackage(),
                     new RNSentryPackage(),
@@ -51,6 +54,10 @@ public class MainApplication extends Application implements ReactApplication {
             return "index";
         }
     };
+
+    public String getFileProviderAuthority() {
+        return BuildConfig.APPLICATION_ID + ".provider";
+    }
 
     @Override
     public ReactNativeHost getReactNativeHost() {
