@@ -77,12 +77,13 @@ class Extras extends React.Component<PropsType> {
   }
 
   render () {
-    const { extras, t, theme } = this.props
+    const { language, extras, t, theme } = this.props
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SpaceBetween>
           <View>
-            <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme} />
+            <Tiles title={t('extras')} tiles={this.toTileModels(extras)} onTilePress={this.onTilePress} theme={theme}
+                   language={language} />
           </View>
           <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} t={t} />
         </SpaceBetween>

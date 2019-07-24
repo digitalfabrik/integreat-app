@@ -5,10 +5,15 @@ import styled, { type StyledComponent } from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants/theme'
 import Image from './Image'
 import type { ImageSourceType } from './Image'
+import { contentDirection } from '../../i18n/contentDirection'
 
-const ListItemView = styled.View`
+type ListItemViewPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const ListItemView: StyledComponent<ListItemViewPropsType, ThemeType, *> = styled.View`
   flex: 1;
-  flex-direction: row;
+  flex-direction: ${props => contentDirection(props.language)};
   padding: 15px 5px 0;
 `
 
@@ -44,6 +49,7 @@ const Title = styled.Text`
 type PropsType = {|
   thumbnail: ImageSourceType,
   title: string,
+  language: string,
   children?: React.Node,
   navigateTo: () => void,
   theme: ThemeType
@@ -51,10 +57,10 @@ type PropsType = {|
 
 class ListItem extends React.PureComponent<PropsType> {
   render () {
-    const { title, thumbnail, children, theme } = this.props
+    const { language, title, thumbnail, children, theme } = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo} theme={theme}>
-        <ListItemView>
+        <ListItemView language={language} theme={theme}>
           {thumbnail && <Thumbnail source={thumbnail} />}
           <Description theme={theme}>
             <Title theme={theme}>{title}</Title>

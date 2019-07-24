@@ -130,7 +130,7 @@ class Categories extends React.Component<PropsType> {
    * @return {*} The content to be displayed
    */
   render () {
-    const { stateView, cities, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
+    const { stateView, navigateToIntegreatUrl, theme, navigation, language, cityCode, t } = this.props
 
     if (!stateView) {
       return <ActivityIndicator size='large' color='#0000ff' />
@@ -159,7 +159,7 @@ class Categories extends React.Component<PropsType> {
       return <SpaceBetween>
         <View>
           <Tiles tiles={this.getTileModels(children)}
-                 title={CityModel.findCityName(cities, category.title)}
+                 language={language}
                  onTilePress={this.onTilePress}
                  theme={theme} />
         </View>
@@ -180,6 +180,7 @@ class Categories extends React.Component<PropsType> {
           })}
           title={category.title}
           content={category.content}
+          language={language}
           onItemPress={this.onItemPress}
           theme={theme} />
       </View>
