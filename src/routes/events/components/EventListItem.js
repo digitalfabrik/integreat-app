@@ -37,6 +37,7 @@ class EventListItem extends React.PureComponent<PropsType> {
     return (
       <ListItem thumbnail={thumbnail}
                 title={event.title}
+                language={language}
                 navigateTo={navigateToEvent}
                 theme={theme}>
         <Description theme={theme}>{event.date.toFormattedString(language)}</Description>

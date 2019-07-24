@@ -25,6 +25,7 @@ type OwnPropsType = {| navigation: NavigationScreenProp<*> |}
 type StatePropsType = {|
   city: string,
   extra: ?ExtraModel,
+  language: string,
   offerHash: string,
   navigateToOffer: (offerHash: string) => void
 |}
@@ -47,6 +48,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   return {
     city,
+    language: state.contentLanguage,
     offerHash,
     extra,
     navigateToOffer
@@ -59,6 +61,7 @@ type WohnenPropsType = {|
   offerHash?: WohnenOfferModel,
   navigateToOffer: (offerHash: string) => void,
   theme: ThemeType,
+  language: string,
   t: TFunction
 |}
 
@@ -104,7 +107,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
   }
 
   render () {
-    const { extra, offerHash, navigateToOffer, t, theme } = this.props
+    const { language, extra, offerHash, navigateToOffer, t, theme } = this.props
     const { offers, error } = this.state
 
     if (error) {
@@ -116,7 +119,7 @@ class WohnenExtraContainer extends React.Component<WohnenPropsType, SprungbrettS
     }
 
     return <WohnenExtra wohnenExtra={extra} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
-                        t={t} theme={theme} />
+                        t={t} theme={theme} language={language} />
   }
 }
 

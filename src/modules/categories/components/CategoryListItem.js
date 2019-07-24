@@ -9,6 +9,21 @@ import FastImage from 'react-native-fast-image'
 import CategoryCaption from './CategoryCaption'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
+import { contentDirection } from '../../i18n/contentDirection'
+
+const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
+  display: flex;
+  flex-direction: column;
+`
+
+type DirectionContainerPropsType = {|
+  language: string, children: React.Node, theme: ThemeType
+|}
+
+const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
+  display: flex;
+  flex-direction: ${props => contentDirection(props.language)};
+`
 
 const Row: StyledComponent<{}, {}, *> = styled.View`
   flex: 1;
@@ -35,7 +50,8 @@ type PropsType = {
   /** A search query to highlight in the category title */
   query?: string,
   theme: ThemeType,
-  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void
+  onItemPress: (tile: { title: string, thumbnail: string, path: string }) => void,
+  language: string
 }
 
 /**
@@ -47,9 +63,13 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderSubCategories (): Array<React.Node> {
-    const { subCategories, theme, onItemPress } = this.props
+    const { language, subCategories, theme, onItemPress } = this.props
     return subCategories.map(subCategory =>
-      <SubCategoryListItem key={subCategory.path} subCategory={subCategory} onItemPress={onItemPress} theme={theme} />
+      <SubCategoryListItem key={subCategory.path}
+                           subCategory={subCategory}
+                           onItemPress={onItemPress}
+                           language={language}
+                           theme={theme} />
     )
   }
 
@@ -61,16 +81,16 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   render () {
-    const { category } = this.props
+    const { language, category, theme } = this.props
     return (
       <Row>
-        <StyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
-          <>
+        <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+          <DirectionContainer theme={theme} language={language}>
             <CategoryThumbnail source={category.thumbnail ? { uri: category.thumbnail } : iconPlaceholder}
                                resizeMode={FastImage.resizeMode.contain} />
             {this.renderTitle()}
-          </>
-        </StyledLink>
+          </DirectionContainer>
+        </FlexStyledLink>
         {this.renderSubCategories()}
       </Row>
     )
